@@ -1,0 +1,284 @@
+/* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
+import {
+  AlertTriangle,
+  ArrowRight,
+  CheckCircle2,
+  ExternalLink,
+  ListChecks,
+} from 'lucide-react';
+import { IssueFeedback } from '@/components/issue-feedback';
+import { WikiFooter, WikiHeader } from '@/components/wiki-header';
+import {
+  articleBySlug,
+  categoryLabels,
+  type GameArticle,
+} from '@/lib/game-articles';
+import type { GameGuide } from '@/lib/games';
+import { commonGuides } from '@/lib/common-guides';
+
+export function TroubleshootingArticle({
+  game,
+  article,
+}: {
+  game: GameGuide;
+  article: GameArticle;
+}) {
+  const canonical = `https://gemnao.pages.dev/games/${game.slug}/${article.slug}`;
+  const feedbackTopic =
+    article.category === 'settings'
+      ? 'display'
+      : article.category === 'server'
+        ? 'launch'
+        : article.category === 'specs'
+          ? 'specs'
+          : article.category;
+  const sources = [...(article.sources || []), ...game.sources].filter(
+    (source, index, all) =>
+      all.findIndex((item) => item.url === source.url) === index,
+  );
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'ホーム',
+        item: 'https://gemnao.pages.dev/',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: game.title,
+        item: `https://gemnao.pages.dev/games/${game.slug}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: article.shortTitle,
+        item: canonical,
+      },
+    ],
+  };
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    headline: article.title,
+    description: article.metaDescription,
+    dateModified: article.checkedAt,
+    author: { '@type': 'Organization', name: 'ゲムなお編集部' },
+    inLanguage: 'ja-JP',
+    about: game.title,
+    mainEntityOfPage: canonical,
+  };
+  const faqSchema = article.faqs?.length
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: article.faqs.map((faq) => ({
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+        })),
+      }
+    : null;
+  return (
+    <main>
+      <WikiHeader pagePath={`/games/${game.slug}`} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            [breadcrumbSchema, articleSchema, faqSchema].filter(Boolean),
+          ),
+        }}
+      />
+      <header
+        className="article-hero issue-hero"
+        style={{ '--game-accent': game.accent } as React.CSSProperties}
+      >
+        <div className="article-hero-inner">
+          <nav className="breadcrumbs" aria-label="パンくず">
+            <a href="/">ホーム</a>
+            <span>›</span>
+            <a href={`/games/${game.slug}`}>{game.shortTitle}</a>
+            <span>›</span>
+            <b>{article.shortTitle}</b>
+          </nav>
+          <p className="article-label">
+            {categoryLabels[article.category]}｜PC版トラブル解決
+          </p>
+          <h1>{article.title}</h1>
+          <p className="article-lead">{article.symptom}</p>
+          <div className="article-meta">
+            <span>最終確認：{article.checkedAt.replaceAll('-', '.')}</span>
+            <span>公開状態：{article.status || 'verified'}</span>
+          </div>
+          {article.targetVersion ? (
+            <p className="target-version">対象：{article.targetVersion}</p>
+          ) : null}
+        </div>
+      </header>
+      <div className="article-layout issue-layout">
+        <aside className="toc issue-toc">
+          <strong>症状から移動</strong>
+          {article.symptoms.map((symptom) => (
+            <a href={`#${symptom.target}`} key={symptom.label}>
+              {symptom.label}
+            </a>
+          ))}
+          {article.faqs?.length ? <a href="#faq">よくある質問</a> : null}
+          <a href="#references">参考情報</a>
+        </aside>
+        <article className="guide-article">
+          <section className="answer-summary" aria-labelledby="answer-title">
+            <p className="evidence-label">まずこれを試す</p>
+            <h2 id="answer-title">
+              <CheckCircle2 size={23} />
+              結論
+            </h2>
+            <p>{article.conclusion}</p>
+          </section>
+          <nav className="symptom-nav" aria-label="症状別ナビゲーション">
+            <strong>当てはまる症状</strong>
+            <div>
+              {article.symptoms.map((symptom) => (
+                <a href={`#${symptom.target}`} key={symptom.label}>
+                  {symptom.label}
+                  <ArrowRight size={14} />
+                </a>
+              ))}
+            </div>
+          </nav>
+          <p className="article-introduction">{article.description}</p>
+          {article.causes?.length ? (
+            <section className="cause-block" aria-labelledby="cause-title">
+              <h2 id="cause-title">原因候補</h2>
+              <ul>
+                {article.causes.map((cause) => (
+                  <li key={cause}>{cause}</li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+          <IssueFeedback
+            gameSlug={game.slug}
+            locale="ja"
+            topics={[feedbackTopic]}
+            compact
+            solutionOptions={article.steps.slice(0, 3).map((step, index) => ({
+              id: `step-${index + 1}`,
+              label: step.title,
+            }))}
+          />
+          <section
+            className="procedure-section"
+            aria-labelledby="procedure-title"
+          >
+            <h2 id="procedure-title">
+              <ListChecks size={26} />
+              解決手順
+            </h2>
+            <div className="procedure-list">
+              {article.steps.map((step, index) => (
+                <section className="procedure-card" id={step.id} key={step.id}>
+                  <header>
+                    <span>{index + 1}</span>
+                    <div>
+                      <h3>{step.title}</h3>
+                      <p>{step.summary}</p>
+                    </div>
+                  </header>
+                  <ol>
+                    {step.actions.map((action) => (
+                      <li key={action}>{action}</li>
+                    ))}
+                  </ol>
+                  {step.note && <p className="procedure-note">{step.note}</p>}
+                </section>
+              ))}
+            </div>
+          </section>
+          <section className="caution-block">
+            <h2>
+              <AlertTriangle size={22} />
+              注意
+            </h2>
+            <ul>
+              {article.cautions.map((caution) => (
+                <li key={caution}>{caution}</li>
+              ))}
+            </ul>
+          </section>
+          {article.faqs?.length ? (
+            <section className="faq-section" id="faq">
+              <h2>よくある質問</h2>
+              <div>
+                {article.faqs.map((faq) => (
+                  <details key={faq.question}>
+                    <summary>{faq.question}</summary>
+                    <p>{faq.answer}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
+          ) : null}
+          <section className="related-section">
+            <h2>このゲームの他のトラブル</h2>
+            <div>
+              {article.related.map((slug) => {
+                const related = articleBySlug(game.slug, slug);
+                return related ? (
+                  <a href={`/games/${game.slug}/${related.slug}`} key={slug}>
+                    <span>{categoryLabels[related.category]}</span>
+                    {related.shortTitle}
+                    <ArrowRight size={15} />
+                  </a>
+                ) : null;
+              })}
+            </div>
+          </section>
+          <section className="common-guides">
+            <h2>PCゲーム共通の解決方法</h2>
+            {commonGuides.slice(0, 3).map((guide) => (
+              <a href={`/guide/${guide.slug}`} key={guide.slug}>
+                {guide.shortTitle}
+                <ArrowRight size={15} />
+              </a>
+            ))}
+            <a href="/guide">
+              共通ガイドをすべて見る <ArrowRight size={15} />
+            </a>
+            <a href={`/games/${game.slug}`}>
+              {game.shortTitle}の総合トラブルまとめ <ArrowRight size={15} />
+            </a>
+          </section>
+          <p className="correction-link">
+            この記事の情報に問題がありますか？{' '}
+            <a href={`/contact?url=${encodeURIComponent(canonical)}`}>
+              誤りを報告する
+            </a>
+          </p>
+          <section className="sources" id="references">
+            <h2>参考情報・出典</h2>
+            <p className="source-policy">
+              外部資料を確認し、本文はゲムなお独自の表現で要約しています。ゲームやドライバーの更新後は、リンク先の最新情報も確認してください。
+            </p>
+            {sources.map((source) => (
+              <a
+                href={source.url}
+                target="_blank"
+                rel="noreferrer"
+                key={source.url}
+              >
+                {source.label}
+                <ExternalLink size={15} />
+              </a>
+            ))}
+          </section>
+        </article>
+      </div>
+      <WikiFooter />
+    </main>
+  );
+}
