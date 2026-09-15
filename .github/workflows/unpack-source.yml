@@ -1,0 +1,28 @@
+name: Expand Gemnao source archive
+
+on:
+  push:
+    branches: [gemunao]
+    paths:
+      - '.github/workflows/unpack-source.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  unpack:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Expand source tree
+        run: |
+          unzip -o gemnao-source-2026-09-15.zip
+          rm gemnao-source-2026-09-15.zip
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "Expand complete Gemnao source tree"
+          git push
