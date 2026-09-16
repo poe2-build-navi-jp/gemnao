@@ -7,8 +7,8 @@
   },
   "scripts": {
     "dev": "vinext dev",
-    "build": "vinext build",
-    "build:pages": "vinext build && node scripts/prepare-pages.mjs",
+    "build": "vinext build && node scripts/prepare-pages.mjs",
+    "build:pages": "pnpm build",
     "start": "wrangler dev --config dist/server/wrangler.json",
     "lint": "oxlint",
     "format": "oxfmt"
@@ -28,7 +28,6 @@
     "react-day-picker": "9.8.1",
     "react-dom": "19.2.6",
     "react-resizable-panels": "4.5.8",
-    "react-server-dom-webpack": "19.2.6",
     "recharts": "3.8.0",
     "shadcn": "4.18.0",
     "tailwind-merge": "3.6.0",
