@@ -1,17 +1,1 @@
-import application from '../dist/server/index.js';
-
-const staticFiles = new Set(['/ads.txt', '/favicon.svg']);
-
-const worker = {
-  fetch(request, env, context) {
-    const { pathname } = new URL(request.url);
-
-    if (pathname.startsWith('/_next/static/') || staticFiles.has(pathname)) {
-      return env.ASSETS.fetch(request);
-    }
-
-    return application.fetch(request, env, context);
-  },
-};
-
-export default worker;
+export { default } from './_worker.bundle.js';
