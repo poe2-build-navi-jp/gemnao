@@ -1,4 +1,5 @@
 'use client';
+/* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 
 import { useMemo, useState } from 'react';
 import { ChevronRight, Search, Wrench } from 'lucide-react';
@@ -217,6 +218,30 @@ export function WikiHome() {
           </div>
         </section>
       )}
+      <section className="content" aria-labelledby="beyond-games-title">
+        <div className="section-heading">
+          <div>
+            <p>PC GAME +</p>
+            <h2 id="beyond-games-title">PCゲーム以外のトラブルもチェック</h2>
+          </div>
+        </div>
+        <div className="guide-index-grid">
+          <a href="/guide">
+            <strong>PCゲーム共通トラブル解決ガイド</strong>
+            <span>起動しない、FPS低下、コントローラー、MODなど、ゲーム名を問わない共通の切り分け手順。</span>
+            <small>
+              ガイドを見る <ChevronRight size={14} />
+            </small>
+          </a>
+          <a href="/discord">
+            <strong>アプリ・ボイスチャットのトラブル（Discord）</strong>
+            <span>Discordが起動しない、声が聞こえない、画面共有できないなど、症状別に確認できます。</span>
+            <small>
+              Discordを見る <ChevronRight size={14} />
+            </small>
+          </a>
+        </div>
+      </section>
       <WikiFooter />
     </main>
   );

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { games } from '@/lib/games';
 import { commonGuides } from '@/lib/common-guides';
+import { discordArticles } from '@/lib/discord-articles';
 import {
   incrementFeedback,
   incrementSolutionMethod,
@@ -14,11 +15,16 @@ const topics = new Set([
   'launch',
   'mods',
   'specs',
+  'discord-launch',
+  'discord-audio',
+  'discord-connection',
+  'discord-screen',
 ]);
 const kinds = new Set(['struggling', 'resolved']);
 const validGame = (slug: string) =>
   games.some((game) => game.slug === slug) ||
-  commonGuides.some((guide) => `guide-${guide.slug}` === slug);
+  commonGuides.some((guide) => `guide-${guide.slug}` === slug) ||
+  discordArticles.some((article) => `discord-${article.slug}` === slug);
 
 export async function GET(request: NextRequest) {
   const game = request.nextUrl.searchParams.get('game') || '';
