@@ -21,3 +21,9 @@ await copyFile('cloudflare/worker-wrapper.mjs', 'dist/client/_worker.js');
 await unlink('dist/server/wrangler.json').catch((error) => {
   if (error?.code !== 'ENOENT') throw error;
 });
+
+// Vinext also leaves a Wrangler redirect that points back to the removed
+// Workers config. Pages follows this redirect unless it is removed as well.
+await unlink('.wrangler/deploy/config.json').catch((error) => {
+  if (error?.code !== 'ENOENT') throw error;
+});
