@@ -30,6 +30,11 @@ export default function Guide() {
             </a>
           ))}
         </div>
+        <p className="correction-link">
+          Discordの起動・音声・画面共有のトラブルは{' '}
+          <a href="/discord">Discordの不具合・トラブル解決</a>{' '}
+          で確認できます。
+        </p>
       </article>
       <WikiFooter />
     </main>

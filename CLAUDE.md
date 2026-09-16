@@ -13,11 +13,16 @@
 
 - `lib/games.ts`: ゲーム総合ガイドのデータ
 - `lib/game-articles.ts`: トラブル個別記事のデータ
-- `components/troubleshooting-article.tsx`: 個別記事の共通テンプレート
+- `lib/common-guides.ts`: PCゲーム共通トラブル（`/guide`）のデータ
+- `lib/discord-articles.ts`: Discordトラブル（`/discord`）のデータ
+- `components/troubleshooting-article.tsx`: ゲーム別個別記事の共通テンプレート
 - `components/wiki-home.tsx`: 日本語トップと検索・テーマ絞り込み
 - `components/issue-feedback.tsx`: 「解決した／解決しなかった」の匿名回答UI
 - `app/games/[slug]/page.tsx`: ゲーム別ハブ
 - `app/games/[slug]/[article]/page.tsx`: トラブル個別記事
+- `app/guide/[slug]/page.tsx`: PCゲーム共通トラブル個別記事
+- `app/discord/page.tsx`: Discordトラブルハブ（症状から探す）
+- `app/discord/[slug]/page.tsx`: Discordトラブル個別記事
 - `app/sitemap.ts` / `app/robots.ts`: 検索エンジン向け設定
 - `wrangler.json`: Cloudflare PagesとD1の設定
 
