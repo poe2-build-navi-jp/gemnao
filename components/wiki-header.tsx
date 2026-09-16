@@ -33,6 +33,7 @@ export function WikiHeader({
         <a href={`${root === '/' ? '' : root}/#games`}>{labels.games}</a>
         <a href="/guide">{labels.basics}</a>
         <a href="/discord">Discord</a>
+        {locale === 'ja' ? <a href="/discord-servers">サーバー募集</a> : null}
         <a href="/about">{labels.about}</a>
       </nav>
       <details className="language-menu">
@@ -82,6 +83,7 @@ export function WikiFooter({ locale = 'ja' }: { locale?: 'ja' | Locale }) {
         <a href="/about">運営情報</a>
         <a href="/privacy">プライバシー</a>
         <a href="/terms">利用規約・免責</a>
+        <a href="/discord-servers">Discordサーバー募集</a>
         <a href="/contact">お問い合わせ</a>
       </nav>
       <small>© 2026 ゲムなお。{text.footer}</small>

@@ -240,6 +240,13 @@ export function WikiHome() {
               Discordを見る <ChevronRight size={14} />
             </small>
           </a>
+          <a href="/discord-servers">
+            <strong>PCゲームのDiscordサーバー募集・検索</strong>
+            <span>ゲーム、募集目的、活動時間、VC条件から、日本語で遊べるコミュニティを探せます。</span>
+            <small>
+              サーバー募集を見る <ChevronRight size={14} />
+            </small>
+          </a>
         </div>
       </section>
       <WikiFooter />

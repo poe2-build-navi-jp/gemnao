@@ -10,6 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '',
     '/guide',
     '/discord',
+    '/discord-servers',
+    '/discord-servers/guidelines',
     '/about',
     '/contact',
     '/privacy',

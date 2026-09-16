@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { saveContactSubmission } from '@/lib/contact-db';
 
-const categories = new Set(['correction', 'rights', 'privacy', 'other']);
+const categories = new Set([
+  'correction',
+  'rights',
+  'privacy',
+  'other',
+  'server_submission',
+  'server_report',
+]);
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(request: NextRequest) {
@@ -22,7 +29,7 @@ export async function POST(request: NextRequest) {
   if (
     !categories.has(category) ||
     message.length < 20 ||
-    message.length > 2000 ||
+    message.length > 4000 ||
     pageUrl.length > 500 ||
     replyEmail.length > 254 ||
     (replyEmail && !emailPattern.test(replyEmail))
