@@ -32,7 +32,6 @@ export function WikiHeader({
       <nav aria-label="メインナビゲーション">
         <a href={`${root === '/' ? '' : root}/#games`}>{labels.games}</a>
         <a href="/guide">{labels.basics}</a>
-        <a href="/discord">Discord</a>
         <a href="/about">{labels.about}</a>
       </nav>
       <details className="language-menu">

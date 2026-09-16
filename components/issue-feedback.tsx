@@ -14,10 +14,6 @@ const labels = {
       '起動・クラッシュ',
       'MOD・日本語',
       'スペック',
-      'Discordの起動・アプリ',
-      'Discordの音声',
-      'Discordの接続',
-      'Discordの画面共有・配信',
     ],
     title: 'みんなの困りごと・解決状況',
     intro:
@@ -36,10 +32,6 @@ const labels = {
       'Launch & crashes',
       'Mods & language',
       'Requirements',
-      'Discord launch & app',
-      'Discord audio',
-      'Discord connection',
-      'Discord screen share',
     ],
     title: 'Problems reported and resolved',
     intro:
@@ -58,10 +50,6 @@ const labels = {
       '启动与崩溃',
       'MOD 与语言',
       '配置需求',
-      'Discord 启动与应用',
-      'Discord 语音',
-      'Discord 连接',
-      'Discord 屏幕共享',
     ],
     title: '遇到问题与已经解决',
     intro:
@@ -80,10 +68,6 @@ const labels = {
       'Inicio y cierres',
       'Mods e idioma',
       'Requisitos',
-      'Discord: inicio y app',
-      'Discord: audio',
-      'Discord: conexión',
-      'Discord: compartir pantalla',
     ],
     title: 'Problemas y soluciones de la comunidad',
     intro:
@@ -102,10 +86,6 @@ const topicIds = [
   'launch',
   'mods',
   'specs',
-  'discord-launch',
-  'discord-audio',
-  'discord-connection',
-  'discord-screen',
 ] as const;
 type TopicId = (typeof topicIds)[number];
 const publicCountThreshold = 10;
