@@ -30,7 +30,9 @@ export function WikiHeader({
         </span>
       </a>
       <nav aria-label="メインナビゲーション">
-        <a href={`${root === '/' ? '' : root}/#games`}>{labels.games}</a>
+        <a href={locale === 'ja' ? '/?view=games#games' : `${root}/#games`}>
+          {labels.games}
+        </a>
         <a href="/guide">{labels.basics}</a>
         <a href="/discord">Discord</a>
         {locale === 'ja' ? <a href="/discord-servers">サーバー募集</a> : null}

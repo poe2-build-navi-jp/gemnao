@@ -14,6 +14,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
-  return <WikiHome />;
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ view?: string }>;
+}) {
+  const { view } = await searchParams;
+  return (
+    <WikiHome
+      view={view === 'games' || view === 'articles' ? view : undefined}
+    />
+  );
 }

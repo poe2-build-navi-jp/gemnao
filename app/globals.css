@@ -181,6 +181,50 @@ input {
   font-weight: 800;
   cursor: pointer;
 }
+.search-examples {
+  position: relative;
+  z-index: 1;
+  margin: 10px 0 0;
+  color: #8da2ad;
+  font-size: 12px;
+}
+.symptom-section {
+  padding-bottom: 38px;
+}
+.compact-heading {
+  margin-bottom: 16px;
+}
+.symptom-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+.symptom-grid button,
+.symptom-grid a {
+  min-width: 0;
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+}
+.symptom-grid button:hover,
+.symptom-grid a:hover,
+.symptom-grid button.active {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: #edf5f7;
+}
 .quick-links {
   display: flex;
   flex-wrap: wrap;
@@ -270,6 +314,37 @@ input {
   margin: 8px 30px 15px 0;
   font-size: 19px;
   line-height: 1.45;
+}
+.home-compact {
+  padding-top: 38px;
+  padding-bottom: 54px;
+}
+.home-compact .game-card {
+  min-height: 150px;
+  padding: 18px;
+}
+.home-compact .game-card h3 {
+  margin-top: 0;
+  margin-bottom: 13px;
+}
+.card-cta {
+  margin-top: auto;
+  color: var(--blue);
+  font-size: 13px;
+}
+.section-more {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 20px 0 0 auto;
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+}
+.section-more:hover {
+  text-decoration: underline;
 }
 .demand {
   min-height: 34px;
@@ -868,6 +943,7 @@ kbd {
 
 .article-index {
   padding-top: 0;
+  padding-bottom: 54px;
 }
 .home-article-grid {
   display: grid;
@@ -882,6 +958,27 @@ kbd {
   border-left: 4px solid var(--blue);
   border-radius: 7px;
   text-decoration: none;
+}
+.home-guide-section {
+  padding-top: 0;
+  padding-bottom: 54px;
+}
+.compact-guide-grid {
+  margin-top: 0;
+}
+.compact-guide-grid a {
+  padding: 17px;
+  border-radius: 8px;
+}
+.compact-guide-grid span {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  font-size: 14px;
+}
+.discord-entrances {
+  padding-top: 0;
 }
 .home-article-grid > a:hover {
   box-shadow: 0 10px 24px #17334612;
@@ -1395,10 +1492,10 @@ kbd {
     display: block;
   }
   .hero {
-    padding: 44px 18px 38px;
+    padding: 34px 18px 28px;
   }
   .hero h1 {
-    font-size: 36px;
+    font-size: 34px;
   }
   .hero-copy > p:last-child br {
     display: none;
@@ -1412,6 +1509,23 @@ kbd {
   .quick-links span {
     width: 100%;
   }
+  .search-examples {
+    line-height: 1.6;
+  }
+  .symptom-section {
+    padding-top: 30px;
+    padding-bottom: 28px;
+  }
+  .symptom-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .symptom-grid button,
+  .symptom-grid a {
+    min-height: 50px;
+    padding: 8px;
+    font-size: 13px;
+  }
   .content {
     padding: 38px 16px 60px;
   }
@@ -1424,6 +1538,9 @@ kbd {
   }
   .game-card {
     min-height: 148px;
+  }
+  .home-compact .game-card {
+    min-height: 132px;
   }
   .demand {
     min-height: 0;
@@ -1668,7 +1785,11 @@ kbd {
 .server-hero {
   color: #fff;
   background:
-    radial-gradient(circle at 88% 18%, rgba(95, 213, 220, 0.18), transparent 28%),
+    radial-gradient(
+      circle at 88% 18%,
+      rgba(95, 213, 220, 0.18),
+      transparent 28%
+    ),
     var(--navy);
 }
 .server-hero > div {

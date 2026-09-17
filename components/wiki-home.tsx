@@ -2,38 +2,58 @@
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 
 import { useMemo, useState } from 'react';
-import { ChevronRight, Search, Wrench } from 'lucide-react';
+import {
+  Bug,
+  ChevronRight,
+  Gamepad2,
+  Gauge,
+  MessageCircle,
+  Power,
+  Puzzle,
+  Save,
+  Search,
+  Server,
+  Wrench,
+} from 'lucide-react';
 import { games } from '@/lib/games';
 import { categoryLabels, gameArticles } from '@/lib/game-articles';
+import { commonGuides } from '@/lib/common-guides';
 import { WikiFooter, WikiHeader } from './wiki-header';
 
 const topics = [
-  { id: 'all', label: 'すべて' },
-  { id: 'launch', label: '起動しない' },
-  { id: 'save', label: 'セーブ場所' },
-  { id: 'mods', label: 'MODの入れ方' },
-  { id: 'display', label: 'FPS上限' },
-  { id: 'controller', label: 'コントローラー' },
-  { id: 'specs', label: '推奨スペック' },
-  { id: 'server', label: '専用サーバー' },
+  { id: 'launch', label: '起動しない', icon: Power },
+  { id: 'crash', label: 'クラッシュ', icon: Bug },
+  { id: 'display', label: '重い・カクつく', icon: Gauge },
+  { id: 'save', label: 'セーブ', icon: Save },
+  { id: 'mods', label: 'MOD', icon: Puzzle },
+  { id: 'controller', label: 'コントローラー', icon: Gamepad2 },
+  { id: 'server', label: 'サーバー', icon: Server },
 ];
 const topicKeywords: Record<string, string[]> = {
-  launch: ['起動', 'クラッシュ', '白画面', 'GameGuard'],
+  launch: ['起動', '白画面', '黒画面', 'GameGuard'],
+  crash: ['クラッシュ', '落ちる', 'フリーズ'],
   save: ['セーブ', '保存'],
   mods: ['MOD', 'SKSE', 'SMAPI', 'REDmod'],
   display: ['FPS', 'カクつき', 'HDR', 'ウルトラワイド', '21:9'],
   controller: ['コントローラー', 'DualSense'],
-  specs: ['推奨スペック', '最低スペック', 'VRAM', 'メモリ', 'SSD'],
   server: ['専用サーバー', 'PalWorldSettings.ini', 'ポート', 'バックアップ'],
 };
 
 function articleMatchesTopic(category: string, topic: string) {
   if (topic === 'display')
     return category === 'display' || category === 'settings';
+  if (topic === 'crash') return category === 'launch';
   return category === topic;
 }
 
-export function WikiHome() {
+const featuredGuideSlugs = [
+  'steam-game-not-launching',
+  'pc-game-crash',
+  'stutter-fix',
+  'save-data-backup',
+];
+
+export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
   const [query, setQuery] = useState('');
   const [topic, setTopic] = useState('all');
   const visible = useMemo(
@@ -59,27 +79,43 @@ export function WikiHome() {
   );
   const visibleArticles = useMemo(
     () =>
-      gameArticles.filter((article) => {
-        const game = games.find((item) => item.slug === article.gameSlug);
-        const haystack = [
-          game?.title,
-          game?.shortTitle,
-          article.title,
-          article.shortTitle,
-          article.symptom,
-          article.description,
-          article.metaDescription,
-          categoryLabels[article.category],
-        ]
-          .join(' ')
-          .toLowerCase();
-        return (
-          haystack.includes(query.trim().toLowerCase()) &&
-          (topic === 'all' || articleMatchesTopic(article.category, topic))
-        );
-      }),
+      [...gameArticles]
+        .filter((article) => {
+          const game = games.find((item) => item.slug === article.gameSlug);
+          const haystack = [
+            game?.title,
+            game?.shortTitle,
+            article.title,
+            article.shortTitle,
+            article.symptom,
+            article.description,
+            article.metaDescription,
+            categoryLabels[article.category],
+          ]
+            .join(' ')
+            .toLowerCase();
+          const matchesTopic =
+            topic === 'all' ||
+            (topic === 'crash'
+              ? topicKeywords.crash.some((keyword) =>
+                  haystack.includes(keyword.toLowerCase()),
+                )
+              : articleMatchesTopic(article.category, topic));
+          return haystack.includes(query.trim().toLowerCase()) && matchesTopic;
+        })
+        .sort((a, b) => b.checkedAt.localeCompare(a.checkedAt)),
     [query, topic],
   );
+  const isFiltering = Boolean(query.trim()) || topic !== 'all';
+  const displayedGames =
+    isFiltering || view === 'games' ? visible : visible.slice(0, 6);
+  const displayedArticles =
+    isFiltering || view === 'articles'
+      ? visibleArticles
+      : visibleArticles.slice(0, 6);
+  const featuredGuides = featuredGuideSlugs
+    .map((slug) => commonGuides.find((guide) => guide.slug === slug))
+    .filter((guide): guide is NonNullable<typeof guide> => Boolean(guide));
 
   return (
     <main>
@@ -95,9 +131,9 @@ export function WikiHome() {
             <span>「困った」を、すぐ解決。</span>
           </h1>
           <p>
-            セーブデータの場所、起動トラブル、FPS設定、MOD導入。
+            起動しない・クラッシュ・重い・セーブ・MOD・Discordなど、
             <br />
-            人気PCゲームの実用情報を、日本語で短く整理します。
+            PCゲームのトラブルを症状から探せます。
           </p>
         </div>
         <label className="search-box">
@@ -106,7 +142,7 @@ export function WikiHome() {
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             aria-label="ゲーム名や症状を検索"
-            placeholder="例：エルデンリング FPS上限"
+            placeholder="ゲーム名・症状を入力"
           />
           {query && (
             <button
@@ -118,48 +154,68 @@ export function WikiHome() {
             </button>
           )}
         </label>
-        <div className="quick-links" aria-label="絞り込み">
-          <span>テーマで絞る</span>
-          {topics.slice(1).map((item) => (
-            <button
-              className={topic === item.id ? 'active' : ''}
-              type="button"
-              key={item.id}
-              onClick={() => setTopic(topic === item.id ? 'all' : item.id)}
-              aria-pressed={topic === item.id}
-            >
-              {item.label}
-            </button>
-          ))}
+        <p className="search-examples">
+          例：Aniimo 黒画面 / WARDOGS 起動しない / パルワールド セーブ
+        </p>
+      </section>
+
+      <section
+        className="content symptom-section"
+        aria-labelledby="symptom-title"
+      >
+        <div className="section-heading compact-heading">
+          <div>
+            <p>TROUBLE TYPE</p>
+            <h2 id="symptom-title">何に困っていますか？</h2>
+          </div>
+        </div>
+        <div className="symptom-grid" aria-label="症状で絞り込み">
+          {topics.map((item) => {
+            const Icon = item.icon;
+            return (
+              <button
+                className={topic === item.id ? 'active' : ''}
+                type="button"
+                key={item.id}
+                onClick={() => setTopic(topic === item.id ? 'all' : item.id)}
+                aria-pressed={topic === item.id}
+              >
+                <Icon size={19} />
+                {item.label}
+              </button>
+            );
+          })}
+          <a href="/discord">
+            <MessageCircle size={19} />
+            Discord
+          </a>
         </div>
       </section>
 
-      <section className="content" id="games">
+      <section className="content home-compact" id="games">
         <div className="section-heading">
           <div>
             <p>2026 SELECTION</p>
             <h2>
               {query || topic !== 'all'
                 ? '検索結果'
-                : '今、困っている人が多いゲーム'}
+                : view === 'games'
+                  ? 'PCゲーム一覧'
+                  : '注目のPCゲーム'}
             </h2>
           </div>
-          <span>{visible.length}タイトル</span>
+          <span>{displayedGames.length}タイトル</span>
         </div>
         {visible.length ? (
           <div className="game-grid">
-            {visible.map((game, index) => (
+            {displayedGames.map((game) => (
               <a
                 className="game-card"
                 href={`/games/${game.slug}`}
                 key={game.slug}
                 style={{ '--game-accent': game.accent } as React.CSSProperties}
               >
-                <span className="rank">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
                 <div>
-                  <p className="demand">{game.demand}</p>
                   <h3>{game.title}</h3>
                   <div className="tags">
                     {game.tags.slice(0, 3).map((tag) => (
@@ -167,6 +223,7 @@ export function WikiHome() {
                     ))}
                   </div>
                 </div>
+                <b className="card-cta">トラブルを見る</b>
                 <ChevronRight className="arrow" size={20} />
               </a>
             ))}
@@ -178,11 +235,44 @@ export function WikiHome() {
             <p>ゲーム名を短くするか、テーマの絞り込みを外してください。</p>
           </div>
         )}
+        {!isFiltering && view !== 'games' ? (
+          <a className="section-more" href="/?view=games#games">
+            ゲームをすべて見る <ChevronRight size={16} />
+          </a>
+        ) : null}
       </section>
 
-      {visibleArticles.length > 0 && (
+      <section
+        className="content home-guide-section"
+        aria-labelledby="guide-title"
+      >
+        <div className="section-heading">
+          <div>
+            <p>PC TROUBLE GUIDE</p>
+            <h2 id="guide-title">よく使うPCトラブルガイド</h2>
+          </div>
+          <span>{featuredGuides.length}件</span>
+        </div>
+        <div className="guide-index-grid compact-guide-grid">
+          {featuredGuides.map((guide) => (
+            <a href={`/guide/${guide.slug}`} key={guide.slug}>
+              <strong>{guide.shortTitle}</strong>
+              <span>{guide.description}</span>
+              <small>
+                手順を見る <ChevronRight size={14} />
+              </small>
+            </a>
+          ))}
+        </div>
+        <a className="section-more" href="/guide">
+          PCトラブルガイドをすべて見る <ChevronRight size={16} />
+        </a>
+      </section>
+
+      {displayedArticles.length > 0 && (
         <section
           className="content article-index"
+          id="articles"
           aria-labelledby="article-index-title"
         >
           <div className="section-heading">
@@ -191,13 +281,15 @@ export function WikiHome() {
               <h2 id="article-index-title">
                 {query || topic !== 'all'
                   ? '該当するトラブル記事'
-                  : '新着の個別トラブル記事'}
+                  : view === 'articles'
+                    ? '解決記事一覧'
+                    : '新着の解決記事'}
               </h2>
             </div>
-            <span>{visibleArticles.length}記事</span>
+            <span>{displayedArticles.length}記事</span>
           </div>
           <div className="home-article-grid">
-            {visibleArticles.map((article) => {
+            {displayedArticles.map((article) => {
               const game = games.find((item) => item.slug === article.gameSlug);
               return (
                 <a
@@ -208,7 +300,7 @@ export function WikiHome() {
                     {game?.shortTitle}・{categoryLabels[article.category]}
                   </span>
                   <h3>{article.shortTitle}</h3>
-                  <p>{article.symptom}</p>
+                  <p>更新日：{article.checkedAt.replaceAll('-', '.')}</p>
                   <b>
                     解決手順を見る <ChevronRight size={16} />
                   </b>
@@ -216,35 +308,36 @@ export function WikiHome() {
               );
             })}
           </div>
+          {!isFiltering && view !== 'articles' ? (
+            <a className="section-more" href="/?view=articles#articles">
+              新着記事をすべて見る <ChevronRight size={16} />
+            </a>
+          ) : null}
         </section>
       )}
-      <section className="content" aria-labelledby="beyond-games-title">
+      <section
+        className="content discord-entrances"
+        aria-labelledby="discord-title"
+      >
         <div className="section-heading">
           <div>
-            <p>PC GAME +</p>
-            <h2 id="beyond-games-title">PCゲーム以外のトラブルもチェック</h2>
+            <p>DISCORD</p>
+            <h2 id="discord-title">Discord</h2>
           </div>
         </div>
         <div className="guide-index-grid">
-          <a href="/guide">
-            <strong>PCゲーム共通トラブル解決ガイド</strong>
-            <span>起動しない、FPS低下、コントローラー、MODなど、ゲーム名を問わない共通の切り分け手順。</span>
-            <small>
-              ガイドを見る <ChevronRight size={14} />
-            </small>
-          </a>
           <a href="/discord">
-            <strong>アプリ・ボイスチャットのトラブル（Discord）</strong>
-            <span>Discordが起動しない、声が聞こえない、画面共有できないなど、症状別に確認できます。</span>
+            <strong>Discordの不具合を直す</strong>
+            <span>マイク・RTC・画面共有・起動など</span>
             <small>
-              Discordを見る <ChevronRight size={14} />
+              Discordトラブルを見る <ChevronRight size={14} />
             </small>
           </a>
           <a href="/discord-servers">
-            <strong>PCゲームのDiscordサーバー募集・検索</strong>
-            <span>ゲーム、募集目的、活動時間、VC条件から、日本語で遊べるコミュニティを探せます。</span>
+            <strong>一緒に遊ぶDiscordを探す</strong>
+            <span>日本語PCゲーム向けDiscordサーバー</span>
             <small>
-              サーバー募集を見る <ChevronRight size={14} />
+              Discordサーバーを探す <ChevronRight size={14} />
             </small>
           </a>
         </div>
