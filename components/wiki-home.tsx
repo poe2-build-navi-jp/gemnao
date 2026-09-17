@@ -54,12 +54,39 @@ const searchAliases: [RegExp, string][] = [
   [/相手の声|音が聞こえない/g, '声 聞こえない'],
   [/ガクガク/g, 'カクつく'],
 ];
+const knownSearchTerms = [
+  'installation has failed',
+  'update failed',
+  'コントローラー',
+  '聞こえない',
+  '起動しない',
+  'クラッシュ',
+  'カクつく',
+  '黒画面',
+  'discord',
+  'aniimo',
+  'アニモ',
+  'wardogs',
+  'steam',
+  'マイク',
+  'セーブ',
+  'サーバー',
+  'fps',
+  'mod',
+  '起動',
+  '声',
+  '重い',
+];
 
 function normalizedWords(value: string) {
   const normalized = searchAliases.reduce(
     (text, [pattern, replacement]) => text.replace(pattern, replacement),
     value.toLowerCase(),
   );
+  const intentWords = knownSearchTerms.filter((term) =>
+    normalized.includes(term),
+  );
+  if (intentWords.length) return [...new Set(intentWords)];
   return normalized.split(/[\s　、。・/]+/).filter(Boolean);
 }
 
