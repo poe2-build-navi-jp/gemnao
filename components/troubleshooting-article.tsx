@@ -43,7 +43,7 @@ export function TroubleshootingArticle({
       {
         '@type': 'ListItem',
         position: 1,
-        name: 'ホーム',
+        name: 'ゲムなお',
         item: 'https://gemnao.pages.dev/',
       },
       {
@@ -99,7 +99,7 @@ export function TroubleshootingArticle({
       >
         <div className="article-hero-inner">
           <nav className="breadcrumbs" aria-label="パンくず">
-            <a href="/">ホーム</a>
+            <a href="/">ゲムなお</a>
             <span>›</span>
             <a href={`/games/${game.slug}`}>{game.shortTitle}</a>
             <span>›</span>

@@ -2,6 +2,7 @@ export type GameGuide = {
   slug: string;
   title: string;
   shortTitle: string;
+  hubTitle?: string;
   lead: string;
   accent: string;
   demand: string;
@@ -26,6 +27,55 @@ const pcgw = (path: string) => `https://www.pcgamingwiki.com/wiki/${path}`;
 const steam = (id: string) => `https://store.steampowered.com/app/${id}`;
 
 export const games: GameGuide[] = [
+  {
+    slug: 'aniimo',
+    title: 'Aniimo / アニモ',
+    shortTitle: 'アニモ（Aniimo）',
+    hubTitle: 'アニモ（Aniimo）PC版の不具合・エラー対処法',
+    lead: 'アニモPC版で起動しない、黒画面、ログインできない、ビデオメモリ不足、ランチャー表示の問題が起きたときの確認手順をまとめています。',
+    accent: '#6f5bd3',
+    demand: '2026年9月16日グローバル正式リリース直後',
+    issueScale: '高い',
+    updated: '2026-09-17',
+    tags: [
+      '起動しない',
+      'クラッシュ',
+      '黒画面',
+      'ログインできない',
+      'ビデオメモリ不足',
+      'ランチャー',
+    ],
+    focused: true,
+    savePath: '公式サポートで確認できる情報のみ案内',
+    configPath: '公式サポートで確認できる情報のみ案内',
+    fps: '',
+    ultrawide: '',
+    hdr: '',
+    controller: '',
+    launchFixes: [
+      '公式のお知らせでメンテナンス・更新情報を確認',
+      'ランチャーまたはSteamを終了し、PC再起動後にファイルを修復',
+      'GPUドライバーとWindows Updateを確認',
+    ],
+    mod: '',
+    japanese: '日本語に公式対応。',
+    specs: {
+      minimum: '公式ストアの最新要件を確認',
+      recommended: '公式ストアの最新要件を確認',
+      storage: '公式ストアの最新表示を確認',
+    },
+    sources: [
+      { label: 'Aniimo公式サイト', url: 'https://www.aniimo.com/ja' },
+      {
+        label: 'Aniimo公式ニュース',
+        url: 'https://www.aniimo.com/newslist',
+      },
+      {
+        label: 'Steamストア',
+        url: 'https://store.steampowered.com/app/4126040/Aniimo/',
+      },
+    ],
+  },
   {
     slug: 'onimusha-way-of-the-sword',
     title: '鬼武者 Way of the Sword',

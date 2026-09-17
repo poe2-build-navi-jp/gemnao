@@ -32,10 +32,17 @@ export async function generateMetadata({
   const { slug } = await params;
   const game = gameBySlug(slug);
   if (!game) return {};
-  const title = `${game.shortTitle} PC版｜起動しない・セーブ場所・推奨スペック`;
+  const title =
+    game.slug === 'aniimo'
+      ? 'アニモ（Aniimo）PC版の不具合・エラー対処法'
+      : `${game.shortTitle} PC版｜起動しない・セーブ場所・推奨スペック`;
+  const description =
+    game.slug === 'aniimo'
+      ? 'アニモ（Aniimo）PC版が起動しない、クラッシュ、黒画面、ログインできない、ビデオメモリ不足、ランチャー表示の問題を症状別に解決します。'
+      : `${game.shortTitle}のセーブデータと設定ファイルの場所、FPS上限、ウルトラワイド、HDR、コントローラー、起動・クラッシュ対策、MOD、日本語対応を解説。`;
   return {
     title,
-    description: `${game.shortTitle}のセーブデータと設定ファイルの場所、FPS上限、ウルトラワイド、HDR、コントローラー、起動・クラッシュ対策、MOD、日本語対応を解説。`,
+    description,
     alternates: {
       canonical: `/games/${game.slug}`,
       languages: {
@@ -128,14 +135,14 @@ export default async function GamePage({
       >
         <div className="article-hero-inner">
           <nav className="breadcrumbs" aria-label="パンくず">
-            <a href="/">ホーム</a>
+            <a href="/">ゲムなお</a>
             <span>/</span>
             <a href="/#games">ゲーム一覧</a>
             <span>/</span>
             <b>{game.shortTitle}</b>
           </nav>
           <p className="article-label">PC版 トラブル解決・設定ガイド</p>
-          <h1>{game.title}</h1>
+          <h1>{game.hubTitle || game.title}</h1>
           <p className="article-lead">{game.lead}</p>
           <div className="article-meta">
             <span>最終確認 {game.updated.replaceAll('-', '.')}</span>

@@ -46,7 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...fixed.map((path) => ({
       url: `${base}${path}`,
-      lastModified: new Date('2026-09-16'),
+      lastModified: new Date('2026-09-17'),
     })),
     ...games.map((game) => ({
       url: `${base}/games/${game.slug}`,

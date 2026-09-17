@@ -2,6 +2,7 @@ import { gameBySlug } from '@/lib/games';
 import { eldenArticles } from '@/lib/elden-articles';
 import { currentGameArticles } from '@/lib/current-game-articles';
 import { newReleaseArticles } from '@/lib/new-release-articles';
+import { aniimoArticles } from '@/lib/aniimo-articles';
 
 export type ArticleCategory =
   | 'save'
@@ -1530,6 +1531,7 @@ const originalGameArticles: GameArticle[] = [
 ];
 
 export const gameArticles: GameArticle[] = [
+  ...aniimoArticles,
   ...originalGameArticles,
   ...eldenArticles,
   ...currentGameArticles,

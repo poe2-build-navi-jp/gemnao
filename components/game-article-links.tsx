@@ -20,6 +20,8 @@ export function GameArticleLinks({
 }) {
   const articles = articlesForGame(game.slug);
   if (!articles.length) return null;
+  const displayHeading =
+    game.slug === 'aniimo' ? 'アニモで何に困っていますか？' : heading;
   const orderedClusters =
     game.slug === 'palworld'
       ? [clusters[1], clusters[2], clusters[0], clusters[3], clusters[4]]
@@ -32,7 +34,7 @@ export function GameArticleLinks({
       <div className="article-link-heading">
         <div>
           <p className="evidence-label">TROUBLESHOOTING</p>
-          <h2 id="article-links-title">{heading}</h2>
+          <h2 id="article-links-title">{displayHeading}</h2>
         </div>
         <span>{articles.length}記事</span>
       </div>
