@@ -1162,6 +1162,203 @@ kbd {
   font-size: 13px;
   line-height: 1.75;
 }
+.interactive-troubleshooter {
+  margin-top: 28px;
+}
+.solution-data-panel {
+  padding: 20px;
+  background: #eef6f5;
+  border: 1px solid #bdd8d2;
+  border-radius: 9px;
+}
+.solution-data-panel h2 {
+  margin: 4px 0 10px;
+  font-size: 22px;
+}
+.solution-data-panel > p,
+.solution-data-panel > small {
+  color: var(--muted);
+  line-height: 1.7;
+}
+.solution-data-summary {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.solution-data-summary strong {
+  color: #17664f;
+  font-size: 25px;
+}
+.method-ranking {
+  margin: 16px 0 12px;
+  padding-top: 14px;
+  border-top: 1px solid #bdd8d2;
+}
+.method-ranking ol {
+  margin: 9px 0 0;
+  padding-left: 25px;
+}
+.method-ranking li {
+  padding: 4px 0;
+}
+.method-ranking li b {
+  float: right;
+  color: #17664f;
+}
+.resume-panel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 14px 16px;
+  background: #fff7df;
+  border: 1px solid #edcf87;
+  border-radius: 8px;
+}
+.resume-panel > div {
+  display: grid;
+  gap: 2px;
+  margin-right: auto;
+}
+.resume-panel span {
+  color: var(--muted);
+  font-size: 13px;
+}
+.resume-panel button,
+.step-actions button,
+.share-actions button,
+.share-actions a {
+  min-height: 42px;
+  border-radius: 7px;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+.resume-panel button {
+  padding: 9px 12px;
+  color: #fff;
+  background: var(--navy);
+  border: 0;
+}
+.step-progress {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 7px 12px;
+  margin-top: 16px;
+  font-size: 13px;
+}
+.step-progress > div {
+  grid-column: 1 / -1;
+  height: 6px;
+  overflow: hidden;
+  background: #dfe7e9;
+  border-radius: 10px;
+}
+.step-progress i {
+  display: block;
+  height: 100%;
+  background: var(--blue);
+  transition: width 180ms ease;
+}
+.interactive-step.current {
+  border-color: #568e9c;
+  box-shadow: 0 0 0 2px rgba(47, 112, 128, 0.1);
+}
+.interactive-step.completed > header > span {
+  background: #247553;
+}
+.step-actions {
+  display: flex;
+  gap: 8px;
+  padding: 0 20px 20px;
+}
+.step-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 14px;
+}
+.step-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+.step-solved {
+  color: #fff;
+  background: #247553;
+  border: 1px solid #247553;
+}
+.step-next {
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line);
+}
+.success-share {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  margin-top: 18px;
+  padding: 20px;
+  color: #174e3b;
+  background: #e9f7ef;
+  border: 1px solid #8cc5aa;
+  border-radius: 9px;
+}
+.success-share p {
+  margin: 4px 0 0;
+}
+.share-actions {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 10px;
+}
+.share-actions a,
+.share-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 12px;
+  color: #fff;
+  background: var(--navy);
+  border: 0;
+  text-decoration: none;
+}
+.step-message {
+  display: block;
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: #f3f6f7;
+  border-radius: 6px;
+}
+.recent-trouble-list,
+.search-result-list {
+  display: grid;
+  gap: 8px;
+}
+.recent-trouble-list a,
+.search-result-list a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 15px;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  text-decoration: none;
+}
+.recent-trouble-list a span,
+.search-result-list a strong {
+  min-width: 0;
+  flex: 1;
+}
+.search-result-list a small {
+  color: var(--blue);
+  font-weight: 800;
+}
 .caution-block {
   margin-top: 32px;
   padding: 21px;
@@ -1658,6 +1855,43 @@ kbd {
   }
   .procedure-card ol {
     padding: 15px 17px 15px 44px;
+  }
+  .solution-data-panel {
+    padding: 17px;
+  }
+  .solution-data-summary,
+  .resume-panel,
+  .step-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .resume-panel button,
+  .step-actions button {
+    width: 100%;
+  }
+  .step-actions {
+    padding: 0 16px 16px;
+  }
+  .success-share {
+    grid-template-columns: 1fr;
+  }
+  .success-share > svg {
+    margin-bottom: 5px;
+  }
+  .share-actions {
+    grid-column: 1;
+  }
+  .share-actions a,
+  .share-actions button {
+    flex: 1 1 140px;
+    justify-content: center;
+  }
+  .search-result-list a {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .search-result-list a strong {
+    flex-basis: calc(100% - 90px);
   }
 }
 .language-menu {

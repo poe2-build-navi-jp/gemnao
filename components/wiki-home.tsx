@@ -18,6 +18,8 @@ import {
 import { games } from '@/lib/games';
 import { categoryLabels, gameArticles } from '@/lib/game-articles';
 import { commonGuides } from '@/lib/common-guides';
+import { discordArticles } from '@/lib/discord-articles';
+import { RecentTroubles } from './recent-troubles';
 import { WikiFooter, WikiHeader } from './wiki-header';
 
 const topics = [
@@ -44,6 +46,32 @@ function articleMatchesTopic(category: string, topic: string) {
     return category === 'display' || category === 'settings';
   if (topic === 'crash') return category === 'launch';
   return category === topic;
+}
+
+const searchAliases: [RegExp, string][] = [
+  [/立ち上がらない|開かない/g, '起動しない'],
+  [/真っ黒|黒い画面/g, '黒画面'],
+  [/相手の声|音が聞こえない/g, '声 聞こえない'],
+  [/ガクガク/g, 'カクつく'],
+];
+
+function normalizedWords(value: string) {
+  const normalized = searchAliases.reduce(
+    (text, [pattern, replacement]) => text.replace(pattern, replacement),
+    value.toLowerCase(),
+  );
+  return normalized.split(/[\s　、。・/]+/).filter(Boolean);
+}
+
+function matchesNaturalQuery(haystack: string, query: string) {
+  return normalizedWords(query).every((word) =>
+    searchAliases
+      .reduce(
+        (text, [pattern, replacement]) => text.replace(pattern, replacement),
+        haystack.toLowerCase(),
+      )
+      .includes(word),
+  );
 }
 
 const featuredGuideSlugs = [
@@ -73,7 +101,7 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
               article.gameSlug === game.slug &&
               articleMatchesTopic(article.category, topic),
           );
-        return haystack.includes(query.trim().toLowerCase()) && matchesTopic;
+        return matchesNaturalQuery(haystack, query) && matchesTopic;
       }),
     [query, topic],
   );
@@ -101,7 +129,7 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
                   haystack.includes(keyword.toLowerCase()),
                 )
               : articleMatchesTopic(article.category, topic));
-          return haystack.includes(query.trim().toLowerCase()) && matchesTopic;
+          return matchesNaturalQuery(haystack, query) && matchesTopic;
         })
         .sort((a, b) => b.checkedAt.localeCompare(a.checkedAt)),
     [query, topic],
@@ -116,6 +144,42 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
   const featuredGuides = featuredGuideSlugs
     .map((slug) => commonGuides.find((guide) => guide.slug === slug))
     .filter((guide): guide is NonNullable<typeof guide> => Boolean(guide));
+  const additionalSearchResults = useMemo(() => {
+    if (!query.trim()) return [];
+    const guides = commonGuides
+      .filter((guide) =>
+        matchesNaturalQuery(
+          [guide.title, guide.shortTitle, guide.description, ...guide.causes].join(' '),
+          query,
+        ),
+      )
+      .map((guide) => ({
+        key: `guide-${guide.slug}`,
+        href: `/guide/${guide.slug}`,
+        label: 'PC共通ガイド',
+        title: guide.shortTitle,
+      }));
+    const discord = discordArticles
+      .filter((article) =>
+        matchesNaturalQuery(
+          [
+            article.title,
+            article.shortTitle,
+            article.symptom,
+            article.metaDescription,
+            ...article.quickFixes,
+          ].join(' '),
+          query,
+        ),
+      )
+      .map((article) => ({
+        key: `discord-${article.slug}`,
+        href: `/discord/${article.slug}`,
+        label: 'Discord',
+        title: article.shortTitle,
+      }));
+    return [...guides, ...discord].slice(0, 12);
+  }, [query]);
 
   return (
     <main>
@@ -158,6 +222,8 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
           例：Aniimo 黒画面 / WARDOGS 起動しない / パルワールド セーブ
         </p>
       </section>
+
+      <RecentTroubles />
 
       <section
         className="content symptom-section"
@@ -315,6 +381,26 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
           ) : null}
         </section>
       )}
+      {additionalSearchResults.length ? (
+        <section className="content article-index" aria-labelledby="more-search-title">
+          <div className="section-heading compact-heading">
+            <div>
+              <p>MORE RESULTS</p>
+              <h2 id="more-search-title">PC共通・Discordの検索結果</h2>
+            </div>
+            <span>{additionalSearchResults.length}件</span>
+          </div>
+          <div className="search-result-list">
+            {additionalSearchResults.map((result) => (
+              <a href={result.href} key={result.key}>
+                <small>{result.label}</small>
+                <strong>{result.title}</strong>
+                <ChevronRight size={16} />
+              </a>
+            ))}
+          </div>
+        </section>
+      ) : null}
       <section
         className="content discord-entrances"
         aria-labelledby="discord-title"
@@ -333,11 +419,11 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
               Discordトラブルを見る <ChevronRight size={14} />
             </small>
           </a>
-          <a href="/discord-servers">
-            <strong>一緒に遊ぶDiscordを探す</strong>
-            <span>日本語PCゲーム向けDiscordサーバー</span>
+          <a href="/discord-servers/submit">
+            <strong>Discordサーバーを無料掲載する</strong>
+            <span>PCゲームコミュニティの掲載者を募集中</span>
             <small>
-              Discordサーバーを探す <ChevronRight size={14} />
+              掲載を申し込む <ChevronRight size={14} />
             </small>
           </a>
         </div>

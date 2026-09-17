@@ -4,9 +4,8 @@ import {
   ArrowRight,
   CheckCircle2,
   ExternalLink,
-  ListChecks,
 } from 'lucide-react';
-import { IssueFeedback } from '@/components/issue-feedback';
+import { InteractiveSteps } from '@/components/interactive-steps';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import {
   articleBySlug,
@@ -161,44 +160,13 @@ export function TroubleshootingArticle({
               </ul>
             </section>
           ) : null}
-          <IssueFeedback
-            gameSlug={game.slug}
-            locale="ja"
-            topics={[feedbackTopic]}
-            compact
-            solutionOptions={article.steps.slice(0, 3).map((step, index) => ({
-              id: `step-${index + 1}`,
-              label: step.title,
-            }))}
+          <InteractiveSteps
+            contextSlug={`game-${game.slug}-${article.slug}`}
+            topic={feedbackTopic}
+            articleTitle={article.title}
+            articlePath={`/games/${game.slug}/${article.slug}`}
+            steps={article.steps}
           />
-          <section
-            className="procedure-section"
-            aria-labelledby="procedure-title"
-          >
-            <h2 id="procedure-title">
-              <ListChecks size={26} />
-              解決手順
-            </h2>
-            <div className="procedure-list">
-              {article.steps.map((step, index) => (
-                <section className="procedure-card" id={step.id} key={step.id}>
-                  <header>
-                    <span>{index + 1}</span>
-                    <div>
-                      <h3>{step.title}</h3>
-                      <p>{step.summary}</p>
-                    </div>
-                  </header>
-                  <ol>
-                    {step.actions.map((action) => (
-                      <li key={action}>{action}</li>
-                    ))}
-                  </ol>
-                  {step.note && <p className="procedure-note">{step.note}</p>}
-                </section>
-              ))}
-            </div>
-          </section>
           <section className="caution-block">
             <h2>
               <AlertTriangle size={22} />
@@ -224,7 +192,7 @@ export function TroubleshootingArticle({
             </section>
           ) : null}
           <section className="related-section">
-            <h2>このゲームの他のトラブル</h2>
+            <h2>まだ直りませんか？ 次に試す記事</h2>
             <div>
               {article.related.map((slug) => {
                 const related = articleBySlug(game.slug, slug);

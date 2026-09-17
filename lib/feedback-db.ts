@@ -6,6 +6,12 @@ export type FeedbackRow = {
   resolved: number;
 };
 
+export type SolutionMethodRow = {
+  methodId: string;
+  methodLabel: string;
+  responses: number;
+};
+
 function database() {
   return (env as unknown as { DB: D1Database }).DB;
 }
@@ -17,6 +23,18 @@ export async function readFeedback(gameSlug: string): Promise<FeedbackRow[]> {
     )
     .bind(gameSlug)
     .all<FeedbackRow>();
+  return result.results;
+}
+
+export async function readSolutionMethods(
+  contextSlug: string,
+): Promise<SolutionMethodRow[]> {
+  const result = await database()
+    .prepare(
+      'SELECT method_id AS methodId, method_label AS methodLabel, response_count AS responses FROM solution_method_feedback WHERE context_slug = ? ORDER BY response_count DESC, method_label ASC',
+    )
+    .bind(contextSlug)
+    .all<SolutionMethodRow>();
   return result.results;
 }
 
@@ -57,4 +75,34 @@ export async function incrementSolutionMethod(
   `)
     .bind(contextSlug, topic, methodId, methodLabel, new Date().toISOString())
     .run();
+}
+
+export async function recordStepSolved(
+  contextSlug: string,
+  topic: string,
+  methodId: string,
+  methodLabel: string,
+) {
+  const now = new Date().toISOString();
+  await database().batch([
+    database()
+      .prepare(`
+        INSERT INTO issue_feedback (game_slug, topic, struggling_count, resolved_count, updated_at)
+        VALUES (?, ?, 0, 1, ?)
+        ON CONFLICT(game_slug, topic) DO UPDATE SET
+          resolved_count = resolved_count + 1,
+          updated_at = excluded.updated_at
+      `)
+      .bind(contextSlug, topic, now),
+    database()
+      .prepare(`
+        INSERT INTO solution_method_feedback (context_slug, topic, method_id, method_label, response_count, updated_at)
+        VALUES (?, ?, ?, ?, 1, ?)
+        ON CONFLICT(context_slug, topic, method_id) DO UPDATE SET
+          method_label = excluded.method_label,
+          response_count = response_count + 1,
+          updated_at = excluded.updated_at
+      `)
+      .bind(contextSlug, topic, methodId, methodLabel, now),
+  ]);
 }

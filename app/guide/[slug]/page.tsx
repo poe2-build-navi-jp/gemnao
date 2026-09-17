@@ -6,10 +6,9 @@ import {
   ArrowRight,
   CheckCircle2,
   ExternalLink,
-  ListChecks,
 } from 'lucide-react';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
-import { IssueFeedback } from '@/components/issue-feedback';
+import { InteractiveSteps } from '@/components/interactive-steps';
 import { gameArticles } from '@/lib/game-articles';
 import { gameBySlug } from '@/lib/games';
 import { commonGuideBySlug, commonGuides } from '@/lib/common-guides';
@@ -145,16 +144,6 @@ export default async function Page({
               ))}
             </ol>
           </section>
-          <IssueFeedback
-            gameSlug={`guide-${item.slug}`}
-            locale="ja"
-            topics={[topic]}
-            compact
-            solutionOptions={item.steps.map((step, index) => ({
-              id: `step-${index + 1}`,
-              label: step.title,
-            }))}
-          />
           <section className="cause-block" aria-labelledby="cause-title">
             <h2 id="cause-title">原因候補</h2>
             <ul>
@@ -163,33 +152,17 @@ export default async function Page({
               ))}
             </ul>
           </section>
-          <section className="procedure-section">
-            <h2>
-              <ListChecks size={26} />
-              解決手順
-            </h2>
-            <div className="procedure-list">
-              {item.steps.map((s, i) => (
-                <section
-                  className="procedure-card"
-                  id={`step-${i + 1}`}
-                  key={s.title}
-                >
-                  <header>
-                    <span>{i + 1}</span>
-                    <div>
-                      <h3>{s.title}</h3>
-                    </div>
-                  </header>
-                  <ol>
-                    {s.actions.map((a) => (
-                      <li key={a}>{a}</li>
-                    ))}
-                  </ol>
-                </section>
-              ))}
-            </div>
-          </section>
+          <InteractiveSteps
+            contextSlug={`guide-${item.slug}`}
+            topic={topic}
+            articleTitle={item.title}
+            articlePath={`/guide/${item.slug}`}
+            steps={item.steps.map((step, index) => ({
+              id: `step-${index + 1}`,
+              title: step.title,
+              actions: step.actions,
+            }))}
+          />
           <section className="caution-block">
             <h2>
               <AlertTriangle size={22} />
@@ -211,7 +184,7 @@ export default async function Page({
             </div>
           </section>
           <section className="related-section">
-            <h2>関連する共通ガイド</h2>
+            <h2>まだ直りませんか？ 次に試す記事</h2>
             <div>
               {item.related.map((s) => {
                 const r = commonGuideBySlug(s);

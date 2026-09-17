@@ -6,11 +6,10 @@ import {
   ArrowRight,
   CheckCircle2,
   ExternalLink,
-  ListChecks,
   ShieldAlert,
 } from 'lucide-react';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
-import { IssueFeedback } from '@/components/issue-feedback';
+import { InteractiveSteps } from '@/components/interactive-steps';
 import {
   discordArticleBySlug,
   discordArticles,
@@ -204,48 +203,20 @@ export default async function DiscordArticlePage({
               で大規模な障害が発生していないか確認してください。障害が発表されている場合は、設定変更を進めず復旧を待つことをおすすめします。ゲムなおはリアルタイムの障害状況を自動取得していないため、必ず公式ページで確認してください。
             </p>
           </section>
-          <IssueFeedback
-            gameSlug={`discord-${item.slug}`}
-            locale="ja"
-            topics={[feedbackTopic[item.category]]}
-            compact
-            solutionOptions={item.causes.map((cause, index) => ({
+          <InteractiveSteps
+            contextSlug={`discord-${item.slug}`}
+            topic={feedbackTopic[item.category]}
+            articleTitle={item.title}
+            articlePath={`/discord/${item.slug}`}
+            heading="原因と対処法"
+            steps={item.causes.map((cause, index) => ({
               id: `cause-${index + 1}`,
-              label: cause.title,
+              title: cause.title,
+              summary: cause.description,
+              actions: cause.actions,
+              note: cause.note,
             }))}
           />
-          <section
-            className="procedure-section"
-            aria-labelledby="procedure-title"
-          >
-            <h2 id="procedure-title">
-              <ListChecks size={26} />
-              原因と対処法
-            </h2>
-            <div className="procedure-list">
-              {item.causes.map((cause, index) => (
-                <section
-                  className="procedure-card"
-                  id={`cause-${index + 1}`}
-                  key={cause.title}
-                >
-                  <header>
-                    <span>{index + 1}</span>
-                    <div>
-                      <h3>{cause.title}</h3>
-                      <p>{cause.description}</p>
-                    </div>
-                  </header>
-                  <ol>
-                    {cause.actions.map((action) => (
-                      <li key={action}>{action}</li>
-                    ))}
-                  </ol>
-                  {cause.note && <p className="procedure-note">{cause.note}</p>}
-                </section>
-              ))}
-            </div>
-          </section>
           <section className="caution-block">
             <h2>
               <AlertTriangle size={22} />
@@ -265,7 +236,7 @@ export default async function DiscordArticlePage({
             </div>
           </section>
           <section className="related-section">
-            <h2>関連するDiscordトラブル</h2>
+            <h2>まだ直りませんか？ 次に試す記事</h2>
             <div>
               {relatedItems.map((r) => (
                 <a href={`/discord/${r.slug}`} key={r.slug}>
