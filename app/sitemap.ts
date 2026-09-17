@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next';
 import { games } from '@/lib/games';
 import { gameArticles } from '@/lib/game-articles';
 import { commonGuides } from '@/lib/common-guides';
-import { discordArticles } from '@/lib/discord-articles';
+import { discordArticles } from '@/lib/discord-articles-all';
 export default function sitemap(): MetadataRoute.Sitemap {
   if (process.env.NEXT_PUBLIC_SITE_PUBLIC === 'false') return [];
   const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://gemnao.pages.dev';
@@ -18,9 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/terms',
   ];
   const articles = gameArticles
-    .filter(
-      (article) => !['draft', 'thin'].includes(article.status || 'verified'),
-    )
+    .filter((article) => !['draft', 'thin'].includes(article.status || 'verified'))
     .map((article) => ({
       url: `${base}/games/${article.gameSlug}/${article.slug}`,
       lastModified: new Date(article.checkedAt),
@@ -44,10 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.82,
     }));
   return [
-    ...fixed.map((path) => ({
-      url: `${base}${path}`,
-      lastModified: new Date('2026-09-17'),
-    })),
+    ...fixed.map((path) => ({ url: `${base}${path}`, lastModified: new Date('2026-09-17') })),
     ...games.map((game) => ({
       url: `${base}/games/${game.slug}`,
       lastModified: new Date(game.updated),
