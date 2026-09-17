@@ -6,16 +6,22 @@ import {
   discordArticles,
   discordCategoryLabels,
   type DiscordCategory,
-} from '@/lib/discord-articles-all';
+} from '@/lib/discord-articles';
 
 export const metadata: Metadata = {
   title: 'Discordの不具合・エラー解決｜起動・音声・画面共有・RTC',
   description:
-    'Discordが起動しない、Update Failed、マイク、通知、オーバーレイ、画面共有、RTCなどPC版Discordトラブルを症状別に確認できます。',
+    'Discordが起動しない、声が聞こえない、マイクが反応しない、画面共有できない、RTC接続中から進まないなどのPC版Discordトラブルを症状別に確認できます。',
   alternates: { canonical: '/discord' },
 };
 
-const categoryOrder: DiscordCategory[] = ['launch', 'audio', 'connection', 'screen'];
+const categoryOrder: DiscordCategory[] = [
+  'connection',
+  'audio',
+  'screen',
+  'launch',
+  'game',
+];
 
 export default function DiscordHub() {
   const grouped = categoryOrder.map((category) => ({
@@ -30,24 +36,32 @@ export default function DiscordHub() {
         <p className="page-kicker">DISCORD TROUBLESHOOTING</p>
         <h1>Discordの不具合・トラブル解決</h1>
         <p className="page-lead">
-          Discordが起動しない、Update Failed、マイクが認識されない、通知が来ない、ゲームオーバーレイや画面共有が表示されない、RTC接続中から進まないなど、PC版Discordのトラブルを症状別に確認できます。
+          Discordが起動しない、声が聞こえない、マイクが反応しない、画面共有できない、RTC接続中から進まないなどのPC版Discordトラブルを症状別に確認できます。
         </p>
         <p>
           <a href="https://discordstatus.com/" target="_blank" rel="noreferrer">
-            Discord Status（公式障害情報）を確認する <ExternalLink size={14} />
+            Discord Status（公式障害情報）を確認する
+            <ExternalLink size={14} />
           </a>
-          ｜ 大規模障害が発生している場合は、PC側の設定を変更せず復旧を待ってください。
+          ｜
+          大規模障害が発生している場合は、PC側の設定を変更せず復旧を待ってください。
         </p>
         <h2>Discordで何に困っていますか？</h2>
         {grouped.map((group) => (
-          <section key={group.category} style={{ marginTop: 28 }}>
+          <section
+            id={group.category}
+            key={group.category}
+            style={{ marginTop: 28 }}
+          >
             <h3>{group.label}</h3>
             <div className="guide-index-grid">
               {group.items.map((item) => (
                 <a href={`/discord/${item.slug}`} key={item.slug}>
                   <strong>{item.shortTitle}</strong>
                   <span>{item.symptom}</span>
-                  <small>手順を見る <ArrowRight size={14} /></small>
+                  <small>
+                    手順を見る <ArrowRight size={14} />
+                  </small>
                 </a>
               ))}
             </div>
@@ -55,11 +69,13 @@ export default function DiscordHub() {
         ))}
         <p className="correction-link">
           ここに載っていない症状もありますか？{' '}
-          <a href="/contact">お問い合わせから教えてください</a>。検索需要を確認したうえで記事化を検討します。
+          <a href="/contact">お問い合わせから教えてください</a>
+          。検索需要を確認したうえで記事化を検討します。
         </p>
         <p className="correction-link">
           PCゲーム中の起動・FPS・MODなどのトラブルは{' '}
-          <a href="/guide">PCゲーム共通トラブル解決ガイド</a> もあわせてご覧ください。
+          <a href="/guide">PCゲーム共通トラブル解決ガイド</a>{' '}
+          もあわせてご覧ください。
         </p>
       </article>
       <WikiFooter />

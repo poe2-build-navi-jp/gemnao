@@ -1,6 +1,12 @@
 import type { ContentStatus } from '@/lib/game-articles';
+import { discordP0Articles } from '@/lib/discord-p0-articles';
 
-export type DiscordCategory = 'launch' | 'audio' | 'connection' | 'screen';
+export type DiscordCategory =
+  | 'launch'
+  | 'audio'
+  | 'connection'
+  | 'screen'
+  | 'game';
 
 export type DiscordCause = {
   title: string;
@@ -30,10 +36,11 @@ export type DiscordArticle = {
 };
 
 export const discordCategoryLabels: Record<DiscordCategory, string> = {
-  launch: '起動・アプリ',
+  launch: '起動・アップデート',
   audio: '音声',
   connection: '接続',
   screen: '画面共有・配信',
+  game: 'ゲーム連携',
 };
 
 const support = (path: string, label: string) => ({
@@ -70,7 +77,7 @@ const streamingGuide = support(
   '音声・ビデオ・配信ガイド（英語）',
 );
 
-export const discordArticles: DiscordArticle[] = [
+const existingDiscordArticles: DiscordArticle[] = [
   {
     slug: 'not-opening',
     category: 'launch',
@@ -140,7 +147,7 @@ export const discordArticles: DiscordArticle[] = [
       },
     ],
     sources: [generalTroubleshooting, discordStatus],
-    related: ['loading-stuck', 'mic-not-working', 'rtc-connecting'],
+    related: ['update-failed', 'installation-failed', 'loading-stuck'],
     checkedAt: '2026-09-16',
     status: 'verified',
   },
@@ -164,7 +171,8 @@ export const discordArticles: DiscordArticle[] = [
     ],
     causes: [
       {
-        title: '入力デバイスの選択が違っている、またはOS側で規定デバイスが変わった',
+        title:
+          '入力デバイスの選択が違っている、またはOS側で規定デバイスが変わった',
         description:
           '別のマイクを接続したりWindows更新後に、Discordが選んでいる入力デバイスが実際に使いたい機器と違っていることがあります。',
         actions: [
@@ -213,7 +221,7 @@ export const discordArticles: DiscordArticle[] = [
       },
     ],
     sources: [voiceVideoGuide, micTesting, audioInputGone],
-    related: ['cant-hear-voice', 'rtc-connecting', 'no-route'],
+    related: ['audio-input-not-found', 'error-1002', 'error-1003'],
     checkedAt: '2026-09-16',
     status: 'verified',
   },
@@ -283,7 +291,7 @@ export const discordArticles: DiscordArticle[] = [
       },
     ],
     sources: [voiceVideoGuide, audioInputGone],
-    related: ['mic-not-working', 'rtc-connecting', 'no-route'],
+    related: ['mic-not-working', 'audio-input-not-found', 'error-1003'],
     checkedAt: '2026-09-16',
     status: 'verified',
   },
@@ -494,7 +502,7 @@ export const discordArticles: DiscordArticle[] = [
       },
     ],
     sources: [streamingGuide, discordStatus],
-    related: ['stream-no-audio', 'rtc-connecting', 'mic-not-working'],
+    related: ['error-1001', 'stream-no-audio', 'overlay-not-showing'],
     checkedAt: '2026-09-16',
     status: 'verified',
   },
@@ -528,7 +536,8 @@ export const discordArticles: DiscordArticle[] = [
         ],
       },
       {
-        title: '共有範囲が「画面全体」になっていて、アプリの音声を取得できていない',
+        title:
+          '共有範囲が「画面全体」になっていて、アプリの音声を取得できていない',
         description:
           'アプリ単体ではなく画面全体を共有している場合、環境によってはアプリの音声だけが取得できないことがあります。',
         actions: [
@@ -552,7 +561,8 @@ export const discordArticles: DiscordArticle[] = [
       'ここまでの手順で直らない場合は、対象のゲームをDiscordの「アクティビティ」またはゲーム検出の一覧に手動で追加し、ゲームとして認識させたうえで共有を試してください。それでも改善しない場合は、視聴側の環境（相手の出力デバイス）が原因の可能性もあるため、別の参加者でも同じ症状が出るか確認してください。',
     faqs: [
       {
-        question: 'マイクの声は聞こえるのに、ゲーム音だけ聞こえません。原因は同じですか？',
+        question:
+          'マイクの声は聞こえるのに、ゲーム音だけ聞こえません。原因は同じですか？',
         answer:
           'いいえ、別の問題です。マイク音声はマイク入力の設定、ゲーム音は画面共有時の「音声を共有」設定が原因のことが多く、それぞれ別に確認する必要があります。',
       },
@@ -563,7 +573,7 @@ export const discordArticles: DiscordArticle[] = [
       },
     ],
     sources: [streamingGuide],
-    related: ['screen-share-not-working', 'mic-not-working', 'cant-hear-voice'],
+    related: ['error-1001', 'screen-share-not-working', 'error-1002'],
     checkedAt: '2026-09-16',
     status: 'verified',
   },
@@ -634,10 +644,15 @@ export const discordArticles: DiscordArticle[] = [
       },
     ],
     sources: [generalTroubleshooting, discordStatus],
-    related: ['not-opening', 'no-route', 'mic-not-working'],
+    related: ['update-failed', 'not-opening', 'installation-failed'],
     checkedAt: '2026-09-16',
     status: 'verified',
   },
+];
+
+export const discordArticles: DiscordArticle[] = [
+  ...existingDiscordArticles,
+  ...discordP0Articles,
 ];
 
 export const discordArticleBySlug = (slug: string) =>
