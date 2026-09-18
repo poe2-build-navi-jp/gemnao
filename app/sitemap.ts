@@ -19,9 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/terms',
   ];
   const articles = gameArticles
-    .filter(
-      (article) => !['draft', 'thin'].includes(article.status || 'verified'),
-    )
+    .filter((article) => !['draft', 'thin'].includes(article.status || 'verified'))
     .map((article) => ({
       url: `${base}/games/${article.gameSlug}/${article.slug}`,
       lastModified: new Date(article.checkedAt),
@@ -45,10 +43,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.82,
     }));
   return [
-    ...fixed.map((path) => ({
-      url: `${base}${path}`,
-      lastModified: new Date('2026-09-17'),
-    })),
+    ...fixed.map((path) => ({ url: `${base}${path}`, lastModified: new Date('2026-09-17') })),
     ...games.map((game) => ({
       url: `${base}/games/${game.slug}`,
       lastModified: new Date(game.updated),
