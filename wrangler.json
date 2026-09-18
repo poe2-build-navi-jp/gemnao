@@ -4,6 +4,9 @@
   "pages_build_output_dir": "./dist/client",
   "compatibility_date": "2026-05-22",
   "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "DISCORD_ADMIN_TOKEN_HASH": "0c4479af1efa03b26dde9060d78581cd856a7683807ca61475cf59dedbc6d4c5"
+  },
   "d1_databases": [
     {
       "binding": "DB",

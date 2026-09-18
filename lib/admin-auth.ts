@@ -2,12 +2,18 @@ import { env } from 'cloudflare:workers';
 
 export const adminCookieName = 'gemnao_discord_admin';
 
-function configuredToken() {
-  return (
-    (env as unknown as { DISCORD_ADMIN_TOKEN?: string }).DISCORD_ADMIN_TOKEN ||
-    process.env.DISCORD_ADMIN_TOKEN ||
-    ''
-  );
+function configuredSecrets() {
+  const workerEnv = env as unknown as {
+    DISCORD_ADMIN_TOKEN?: string;
+    DISCORD_ADMIN_TOKEN_HASH?: string;
+  };
+  return {
+    token: workerEnv.DISCORD_ADMIN_TOKEN || process.env.DISCORD_ADMIN_TOKEN || '',
+    hash:
+      workerEnv.DISCORD_ADMIN_TOKEN_HASH ||
+      process.env.DISCORD_ADMIN_TOKEN_HASH ||
+      '',
+  };
 }
 
 async function digest(value: string) {
@@ -30,14 +36,16 @@ function safeEqual(left: string, right: string) {
 }
 
 export async function validateAdminToken(candidate: string) {
-  const token = configuredToken();
-  if (!token || !candidate) return false;
-  return safeEqual(await digest(candidate), await digest(token));
-}
-
-export async function adminSessionValue() {
-  const token = configuredToken();
-  return token ? digest(token) : '';
+  const configured = configuredSecrets();
+  if (!candidate) return false;
+  const candidateHash = await digest(candidate);
+  if (configured.hash) {
+    return safeEqual(candidateHash, configured.hash.toLowerCase());
+  }
+  return Boolean(
+    configured.token &&
+      safeEqual(candidateHash, await digest(configured.token)),
+  );
 }
 
 export async function isDiscordAdmin(request: Request) {
@@ -47,8 +55,7 @@ export async function isDiscordAdmin(request: Request) {
     .map((part) => part.trim())
     .find((part) => part.startsWith(`${adminCookieName}=`))
     ?.slice(adminCookieName.length + 1);
-  const expected = await adminSessionValue();
-  return Boolean(session && expected && safeEqual(session, expected));
+  return Boolean(session && (await validateAdminToken(session)));
 }
 
 export function isSameOrigin(request: Request) {
