@@ -3,6 +3,7 @@ import type { GameArticle } from '@/lib/game-articles';
 
 export type TroubleHub = {
   slug: string;
+  updated: string;
   label: string;
   title: string;
   description: string;
@@ -14,6 +15,7 @@ export type TroubleHub = {
 export const troubleHubs: TroubleHub[] = [
   {
     slug: 'not-launching',
+    updated: '2026-09-18',
     label: '起動しない',
     title: 'PCゲームが起動しない時の対処法',
     description:
@@ -33,6 +35,7 @@ export const troubleHubs: TroubleHub[] = [
   },
   {
     slug: 'crash',
+    updated: '2026-09-18',
     label: 'クラッシュ',
     title: 'PCゲームがクラッシュ・強制終了する時の対処法',
     description:
@@ -52,6 +55,7 @@ export const troubleHubs: TroubleHub[] = [
   },
   {
     slug: 'fps',
+    updated: '2026-09-18',
     label: 'FPS・カクつき',
     title: 'PCゲームのFPS低下・カクつき・表示問題を直す',
     description:
@@ -66,6 +70,7 @@ export const troubleHubs: TroubleHub[] = [
   },
   {
     slug: 'save',
+    updated: '2026-09-18',
     label: 'セーブ',
     title: 'PCゲームのセーブ場所・バックアップを探す',
     description:
@@ -80,6 +85,7 @@ export const troubleHubs: TroubleHub[] = [
   },
   {
     slug: 'mod',
+    updated: '2026-09-18',
     label: 'MOD',
     title: 'PCゲームのMOD不具合を安全に切り分ける',
     description:
@@ -94,6 +100,7 @@ export const troubleHubs: TroubleHub[] = [
   },
   {
     slug: 'controller',
+    updated: '2026-09-18',
     label: 'コントローラー',
     title: 'PCゲームのコントローラー不具合を直す',
     description:
@@ -108,6 +115,7 @@ export const troubleHubs: TroubleHub[] = [
   },
   {
     slug: 'server',
+    updated: '2026-09-18',
     label: 'サーバー・接続',
     title: 'PCゲームのサーバー接続・ログイン問題を確認する',
     description:

@@ -219,9 +219,9 @@ export default async function GamePage({
             </div>
             <div className="evidence-stats">
               <div>
-                <span>困りごとの需要</span>
-                <b>{game.issueScale || '高い'}</b>
-                <small>プレイ動向と公開情報からの相対評価</small>
+                <span>情報の確認状況</span>
+                <b>継続確認中</b>
+                <small>公式情報と匿名回答を確認</small>
               </div>
               <div>
                 <span>確認した出典</span>
@@ -235,8 +235,7 @@ export default async function GamePage({
               </div>
             </div>
             <p className="evidence-caveat">
-              ※
-              需要は正確な利用者数や成功率ではありません。外部サービスは「困った人数」と「解決した人数」を公式集計していないため、数値を推計していません。
+              ※ 検索需要や解決率を推測で表示せず、確認できる出典と実際の匿名回答だけを利用します。
             </p>
           </section>
 

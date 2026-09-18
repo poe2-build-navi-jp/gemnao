@@ -188,7 +188,7 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
   return (
     <main>
       <WikiHeader />
-      <section className="hero">
+      <section className="hero" id="site-search">
         <div className="hero-copy">
           <p className="kicker">
             <Wrench size={15} /> WINDOWS PC TROUBLESHOOTING

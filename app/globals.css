@@ -82,13 +82,22 @@ input {
 .site-header > nav {
   margin-left: auto;
   display: flex;
-  gap: 28px;
+  align-items: center;
+  gap: clamp(14px, 1.8vw, 28px);
 }
 .site-header > nav a {
   color: #53616c;
   text-decoration: none;
   font-size: 14px;
   font-weight: 700;
+}
+.site-header > nav .header-search-link {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
 }
 .mobile-menu {
   display: none;

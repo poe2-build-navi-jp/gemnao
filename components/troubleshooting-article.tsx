@@ -10,11 +10,19 @@ import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import {
   articleBySlug,
   categoryLabels,
+  type ContentStatus,
   type GameArticle,
 } from '@/lib/game-articles';
 import type { GameGuide } from '@/lib/games';
 import { commonGuides } from '@/lib/common-guides';
 import { troubleHubForArticle } from '@/lib/trouble-hubs';
+
+const contentStatusLabels: Record<ContentStatus, string> = {
+  verified: '確認済み',
+  'needs-review': '再確認が必要',
+  draft: '下書き',
+  thin: '内容確認中',
+};
 
 export function TroubleshootingArticle({
   game,
@@ -113,7 +121,9 @@ export function TroubleshootingArticle({
           <p className="article-lead">{article.symptom}</p>
           <div className="article-meta">
             <span>最終確認：{article.checkedAt.replaceAll('-', '.')}</span>
-            <span>公開状態：{article.status || 'verified'}</span>
+            <span>
+              情報の状態：{contentStatusLabels[article.status || 'verified']}
+            </span>
           </div>
           {article.targetVersion ? (
             <p className="target-version">対象：{article.targetVersion}</p>

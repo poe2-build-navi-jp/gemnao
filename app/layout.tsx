@@ -48,6 +48,20 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: 'ゲムなお',
+              alternateName: 'PCゲームのお直しWiki',
+              url: siteUrl,
+              description:
+                'PCゲームとDiscordのトラブルを、症状とゲーム名から探せる日本語の解決サイト。',
+            }),
+          }}
+        />
         {isPublic ? (
           <script
             async

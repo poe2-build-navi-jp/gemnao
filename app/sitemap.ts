@@ -8,15 +8,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   if (process.env.NEXT_PUBLIC_SITE_PUBLIC === 'false') return [];
   const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://gemnao.pages.dev';
   const fixed = [
-    '',
-    '/guide',
-    '/discord',
-    '/discord-servers',
-    '/discord-servers/guidelines',
-    '/about',
-    '/contact',
-    '/privacy',
-    '/terms',
+    { path: '', updated: '2026-09-18' },
+    { path: '/guide', updated: '2026-09-12' },
+    { path: '/discord', updated: '2026-09-17' },
+    { path: '/discord-servers', updated: '2026-09-18' },
+    { path: '/discord-servers/guidelines', updated: '2026-09-17' },
+    { path: '/about', updated: '2026-09-17' },
+    { path: '/contact', updated: '2026-09-17' },
+    { path: '/privacy', updated: '2026-09-17' },
+    { path: '/terms', updated: '2026-09-17' },
   ];
   const articles = gameArticles
     .filter((article) => !['draft', 'thin'].includes(article.status || 'verified'))
@@ -43,7 +43,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.82,
     }));
   return [
-    ...fixed.map((path) => ({ url: `${base}${path}`, lastModified: new Date('2026-09-17') })),
+    ...fixed.map(({ path, updated }) => ({
+      url: `${base}${path}`,
+      lastModified: new Date(updated),
+    })),
     ...games.map((game) => ({
       url: `${base}/games/${game.slug}`,
       lastModified: new Date(game.updated),
@@ -52,7 +55,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     ...troubleHubs.map((hub) => ({
       url: `${base}/trouble/${hub.slug}`,
-      lastModified: new Date('2026-09-18'),
+      lastModified: new Date(hub.updated),
       changeFrequency: 'weekly' as const,
       priority: 0.86,
     })),

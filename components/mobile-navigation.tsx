@@ -59,6 +59,9 @@ export function MobileNavigation({
             <p>主要ページ</p>
             <nav>
               <a href={root}>ホーム</a>
+              {locale === 'ja' ? (
+                <a href="/#site-search">ゲーム名・症状を検索</a>
+              ) : null}
               <a
                 href={locale === 'ja' ? '/?view=games#games' : `${root}/#games`}
               >

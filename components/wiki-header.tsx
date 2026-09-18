@@ -1,4 +1,4 @@
-import { Languages, MonitorCog } from 'lucide-react';
+import { Languages, MonitorCog, Search } from 'lucide-react';
 import type { Locale } from '@/lib/i18n';
 import { copy, localeNames, localizedRoot } from '@/lib/i18n';
 import { MobileNavigation } from '@/components/mobile-navigation';
@@ -34,10 +34,22 @@ export function WikiHeader({
         <a href={locale === 'ja' ? '/?view=games#games' : `${root}/#games`}>
           {labels.games}
         </a>
+        {locale === 'ja' ? <a href="/#symptoms">症状から探す</a> : null}
         <a href="/guide">{labels.basics}</a>
         <a href="/discord">Discord</a>
         {locale === 'ja' ? <a href="/discord-servers">サーバー募集</a> : null}
-        <a href="/about">{labels.about}</a>
+        {locale === 'ja' ? (
+          <a
+            className="header-search-link"
+            href="/#site-search"
+            aria-label="ゲーム名・症状を検索"
+            title="ゲーム名・症状を検索"
+          >
+            <Search size={18} aria-hidden="true" />
+          </a>
+        ) : (
+          <a href="/about">{labels.about}</a>
+        )}
       </nav>
       <details className="language-menu">
         <summary aria-label="Language">
