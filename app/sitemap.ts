@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next';
 import { games } from '@/lib/games';
 import { gameArticles } from '@/lib/game-articles';
 import { commonGuides } from '@/lib/common-guides';
-import { discordArticles } from '@/lib/discord-articles';
+import { discordArticles } from '@/lib/discord-articles-all';
 import { troubleHubs } from '@/lib/trouble-hubs';
 export default function sitemap(): MetadataRoute.Sitemap {
   if (process.env.NEXT_PUBLIC_SITE_PUBLIC === 'false') return [];
