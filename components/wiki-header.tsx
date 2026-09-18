@@ -1,6 +1,7 @@
-import { Languages, Menu, MonitorCog } from 'lucide-react';
+import { Languages, MonitorCog } from 'lucide-react';
 import type { Locale } from '@/lib/i18n';
 import { copy, localeNames, localizedRoot } from '@/lib/i18n';
+import { MobileNavigation } from '@/components/mobile-navigation';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 
 export function WikiHeader({
@@ -60,9 +61,13 @@ export function WikiHeader({
           })}
         </div>
       </details>
-      <a className="mobile-menu" href="#footer-nav" aria-label="メニューへ">
-        <Menu size={22} />
-      </a>
+      <MobileNavigation
+        locale={locale}
+        root={root}
+        gamesLabel={labels.games}
+        basicsLabel={labels.basics}
+        aboutLabel={labels.about}
+      />
     </header>
   );
 }

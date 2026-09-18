@@ -148,7 +148,12 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
     const guides = commonGuides
       .filter((guide) =>
         matchesNaturalQuery(
-          [guide.title, guide.shortTitle, guide.description, ...guide.causes].join(' '),
+          [
+            guide.title,
+            guide.shortTitle,
+            guide.description,
+            ...guide.causes,
+          ].join(' '),
           query,
         ),
       )
@@ -226,6 +231,7 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
 
       <section
         className="content symptom-section"
+        id="symptoms"
         aria-labelledby="symptom-title"
       >
         <div className="section-heading compact-heading">
@@ -348,7 +354,10 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
             <span>{displayedArticles.length}記事</span>
           </div>
           {view === 'articles' ? (
-            <div className="article-cluster-filter" aria-label="症状で記事を絞り込む">
+            <div
+              className="article-cluster-filter"
+              aria-label="症状で記事を絞り込む"
+            >
               <button
                 type="button"
                 className={articleCluster === 'all' ? 'active' : ''}
@@ -406,7 +415,10 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
         </section>
       )}
       {additionalSearchResults.length ? (
-        <section className="content article-index" aria-labelledby="more-search-title">
+        <section
+          className="content article-index"
+          aria-labelledby="more-search-title"
+        >
           <div className="section-heading compact-heading">
             <div>
               <p>MORE RESULTS</p>

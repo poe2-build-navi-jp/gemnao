@@ -7,12 +7,20 @@ import {
 
 export async function POST(request: NextRequest) {
   if (!isSameOrigin(request)) {
-    return NextResponse.json({ error: '不正なリクエストです。' }, { status: 403 });
+    return NextResponse.json(
+      { error: '不正なリクエストです。' },
+      { status: 403 },
+    );
   }
-  const body = (await request.json().catch(() => null)) as { token?: string } | null;
-  const token = body?.token || '';
+  const body = (await request.json().catch(() => null)) as {
+    token?: string;
+  } | null;
+  const token = body?.token?.trim() || '';
   if (!(await validateAdminToken(token))) {
-    return NextResponse.json({ error: '管理キーが正しくありません。' }, { status: 401 });
+    return NextResponse.json(
+      { error: '管理キーが正しくありません。' },
+      { status: 401 },
+    );
   }
 
   const response = NextResponse.json({ ok: true });
