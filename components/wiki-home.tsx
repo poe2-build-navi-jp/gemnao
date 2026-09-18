@@ -23,30 +23,14 @@ import { RecentTroubles } from './recent-troubles';
 import { WikiFooter, WikiHeader } from './wiki-header';
 
 const topics = [
-  { id: 'launch', label: '起動しない', icon: Power },
-  { id: 'crash', label: 'クラッシュ', icon: Bug },
-  { id: 'display', label: '重い・カクつく', icon: Gauge },
-  { id: 'save', label: 'セーブ', icon: Save },
-  { id: 'mods', label: 'MOD', icon: Puzzle },
-  { id: 'controller', label: 'コントローラー', icon: Gamepad2 },
-  { id: 'server', label: 'サーバー', icon: Server },
+  { slug: 'not-launching', label: '起動しない', icon: Power },
+  { slug: 'crash', label: 'クラッシュ', icon: Bug },
+  { slug: 'fps', label: '重い・カクつく', icon: Gauge },
+  { slug: 'save', label: 'セーブ', icon: Save },
+  { slug: 'mod', label: 'MOD', icon: Puzzle },
+  { slug: 'controller', label: 'コントローラー', icon: Gamepad2 },
+  { slug: 'server', label: 'サーバー', icon: Server },
 ];
-const topicKeywords: Record<string, string[]> = {
-  launch: ['起動', '白画面', '黒画面', 'GameGuard'],
-  crash: ['クラッシュ', '落ちる', 'フリーズ'],
-  save: ['セーブ', '保存'],
-  mods: ['MOD', 'SKSE', 'SMAPI', 'REDmod'],
-  display: ['FPS', 'カクつき', 'HDR', 'ウルトラワイド', '21:9'],
-  controller: ['コントローラー', 'DualSense'],
-  server: ['専用サーバー', 'PalWorldSettings.ini', 'ポート', 'バックアップ'],
-};
-
-function articleMatchesTopic(category: string, topic: string) {
-  if (topic === 'display')
-    return category === 'display' || category === 'settings';
-  if (topic === 'crash') return category === 'launch';
-  return category === topic;
-}
 
 const searchAliases: [RegExp, string][] = [
   [/立ち上がらない|開かない/g, '起動しない'],
@@ -110,27 +94,15 @@ const featuredGuideSlugs = [
 
 export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
   const [query, setQuery] = useState('');
-  const [topic, setTopic] = useState('all');
   const visible = useMemo(
     () =>
       games.filter((game) => {
         const haystack = [game.title, game.shortTitle, game.lead, ...game.tags]
           .join(' ')
           .toLowerCase();
-        const keywords = topicKeywords[topic] || [];
-        const matchesTopic =
-          topic === 'all' ||
-          keywords.some((keyword) =>
-            haystack.includes(keyword.toLowerCase()),
-          ) ||
-          gameArticles.some(
-            (article) =>
-              article.gameSlug === game.slug &&
-              articleMatchesTopic(article.category, topic),
-          );
-        return matchesNaturalQuery(haystack, query) && matchesTopic;
+        return matchesNaturalQuery(haystack, query);
       }),
-    [query, topic],
+    [query],
   );
   const visibleArticles = useMemo(
     () =>
@@ -149,19 +121,12 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
           ]
             .join(' ')
             .toLowerCase();
-          const matchesTopic =
-            topic === 'all' ||
-            (topic === 'crash'
-              ? topicKeywords.crash.some((keyword) =>
-                  haystack.includes(keyword.toLowerCase()),
-                )
-              : articleMatchesTopic(article.category, topic));
-          return matchesNaturalQuery(haystack, query) && matchesTopic;
+          return matchesNaturalQuery(haystack, query);
         })
         .sort((a, b) => b.checkedAt.localeCompare(a.checkedAt)),
-    [query, topic],
+    [query],
   );
-  const isFiltering = Boolean(query.trim()) || topic !== 'all';
+  const isFiltering = Boolean(query.trim());
   const displayedGames =
     isFiltering || view === 'games' ? visible : visible.slice(0, 6);
   const displayedArticles =
@@ -262,20 +227,14 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
             <h2 id="symptom-title">何に困っていますか？</h2>
           </div>
         </div>
-        <div className="symptom-grid" aria-label="症状で絞り込み">
+        <div className="symptom-grid" aria-label="症状から探す">
           {topics.map((item) => {
             const Icon = item.icon;
             return (
-              <button
-                className={topic === item.id ? 'active' : ''}
-                type="button"
-                key={item.id}
-                onClick={() => setTopic(topic === item.id ? 'all' : item.id)}
-                aria-pressed={topic === item.id}
-              >
+              <a href={`/trouble/${item.slug}`} key={item.slug}>
                 <Icon size={19} />
                 {item.label}
-              </button>
+              </a>
             );
           })}
           <a href="/discord">
@@ -290,7 +249,7 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
           <div>
             <p>2026 SELECTION</p>
             <h2>
-              {query || topic !== 'all'
+              {query
                 ? '検索結果'
                 : view === 'games'
                   ? 'PCゲーム一覧'
@@ -372,7 +331,7 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
             <div>
               <p>ISSUE GUIDES</p>
               <h2 id="article-index-title">
-                {query || topic !== 'all'
+                {query
                   ? '該当するトラブル記事'
                   : view === 'articles'
                     ? '解決記事一覧'

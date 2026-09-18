@@ -31,6 +31,13 @@ export async function generateMetadata({
       url: canonical,
       locale: 'ja_JP',
       modifiedTime: article.checkedAt,
+      images: ['/og-default.png'],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: article.seoTitle,
+      description: article.metaDescription,
+      images: ['/og-default.png'],
     },
   };
 }

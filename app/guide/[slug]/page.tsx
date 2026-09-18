@@ -12,6 +12,7 @@ import { InteractiveSteps } from '@/components/interactive-steps';
 import { gameArticles } from '@/lib/game-articles';
 import { gameBySlug } from '@/lib/games';
 import { commonGuideBySlug, commonGuides } from '@/lib/common-guides';
+import { troubleHubForGuide } from '@/lib/trouble-hubs';
 export function generateStaticParams() {
   return commonGuides
     .filter(({ status }) => status === 'verified')
@@ -29,6 +30,21 @@ export async function generateMetadata({
         title: item.title,
         description: item.description,
         alternates: { canonical: `/guide/${slug}` },
+        openGraph: {
+          type: 'article',
+          title: item.title,
+          description: item.description,
+          url: `/guide/${slug}`,
+          locale: 'ja_JP',
+          modifiedTime: item.checkedAt,
+          images: ['/og-default.png'],
+        },
+        twitter: {
+          card: 'summary_large_image',
+          title: item.title,
+          description: item.description,
+          images: ['/og-default.png'],
+        },
       }
     : {};
 }
@@ -73,6 +89,7 @@ export default async function Page({
         (topic === 'display' && article.category === 'settings'),
     )
     .slice(0, 5);
+  const troubleHub = troubleHubForGuide(item);
   const schema = [
     {
       '@context': 'https://schema.org',
@@ -152,11 +169,20 @@ export default async function Page({
               ))}
             </ul>
           </section>
+          {troubleHub ? (
+            <nav className="article-parent-links" aria-label="この記事の分類">
+              <a href="/guide">PC共通ガイド一覧</a>
+              <a href={`/trouble/${troubleHub.slug}`}>
+                {troubleHub.label}の症状別ガイド
+              </a>
+            </nav>
+          ) : null}
           <InteractiveSteps
             contextSlug={`guide-${item.slug}`}
             topic={topic}
             articleTitle={item.title}
             articlePath={`/guide/${item.slug}`}
+            shareHashtag="PCゲーム"
             steps={item.steps.map((step, index) => ({
               id: `step-${index + 1}`,
               title: step.title,

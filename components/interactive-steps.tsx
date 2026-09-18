@@ -35,6 +35,7 @@ export function InteractiveSteps({
   topic,
   articleTitle,
   articlePath,
+  shareHashtag,
   heading = '解決手順',
   steps,
 }: {
@@ -42,6 +43,7 @@ export function InteractiveSteps({
   topic: string;
   articleTitle: string;
   articlePath: string;
+  shareHashtag?: string;
   heading?: string;
   steps: Step[];
 }) {
@@ -136,8 +138,12 @@ export function InteractiveSteps({
     [methods],
   );
   const solvedStep = steps.find((step) => step.id === solvedStepId);
+  const shareUrl = solvedStep
+    ? `https://gemnao.pages.dev${articlePath}#${solvedStep.id}`
+    : `https://gemnao.pages.dev${articlePath}`;
+  const normalizedHashtag = shareHashtag?.replace(/[^\p{L}\p{N}_]/gu, '');
   const shareText = solvedStep
-    ? `${articleTitle}、「${solvedStep.title}」で直った！\n同じ症状の人向け👇`
+    ? `${articleTitle}\n「${solvedStep.title}」で直りました。\n同じ症状の人向け👇${normalizedHashtag ? `\n#${normalizedHashtag}` : ''}`
     : articleTitle;
 
   async function solved(step: Step) {
@@ -231,13 +237,13 @@ export function InteractiveSteps({
   }
 
   async function copyLink() {
-    await navigator.clipboard.writeText(window.location.href);
+    await navigator.clipboard.writeText(shareUrl);
     setMessage('リンクをコピーしました。');
   }
 
   async function nativeShare() {
     if (!navigator.share) return;
-    await navigator.share({ title: articleTitle, text: shareText, url: window.location.href });
+    await navigator.share({ title: articleTitle, text: shareText, url: shareUrl });
   }
 
   return (
@@ -323,7 +329,7 @@ export function InteractiveSteps({
           <CheckCircle2 size={28} />
           <div><strong>解決できました！</strong><p>同じ症状で困っている人に、この方法を共有できます。</p></div>
           <div className="share-actions">
-            <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(`https://gemnao.pages.dev${articlePath}`)}`} target="_blank" rel="noreferrer">Xで共有</a>
+            <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noreferrer">Xで共有</a>
             <button type="button" onClick={() => void copyLink()}><Clipboard size={17} />リンクをコピー</button>
             {typeof navigator !== 'undefined' && 'share' in navigator ? <button type="button" onClick={() => void nativeShare()}><Share2 size={17} />共有</button> : null}
           </div>

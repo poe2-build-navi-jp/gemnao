@@ -53,6 +53,20 @@ export async function generateMetadata({
         'x-default': `/games/${game.slug}`,
       },
     },
+    openGraph: {
+      type: 'website',
+      title,
+      description,
+      url: `/games/${game.slug}`,
+      locale: 'ja_JP',
+      images: ['/og-default.png'],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/og-default.png'],
+    },
   };
 }
 

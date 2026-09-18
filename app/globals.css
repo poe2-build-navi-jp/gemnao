@@ -1490,6 +1490,97 @@ kbd {
 .contact-guidance li + li {
   margin-top: 7px;
 }
+.article-parent-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0 24px;
+}
+.article-parent-links a {
+  padding: 9px 12px;
+  color: var(--blue);
+  background: #eef4f6;
+  border: 1px solid #cbdde2;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 800;
+}
+.trouble-hub-page {
+  max-width: 1040px;
+  padding-top: 48px;
+  padding-bottom: 74px;
+}
+.trouble-hub-page .answer-summary {
+  max-width: 780px;
+}
+.trouble-hub-page .answer-summary ol {
+  margin-bottom: 14px;
+  padding-left: 23px;
+  line-height: 1.8;
+}
+.trouble-hub-section {
+  margin-top: 46px;
+}
+.trouble-hub-section > h2 {
+  margin: 0 0 18px;
+  font-size: clamp(22px, 3vw, 29px);
+}
+.trouble-article-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 11px;
+}
+.trouble-article-grid > a {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: 18px;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  text-decoration: none;
+}
+.trouble-article-grid span {
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 800;
+}
+.trouble-article-grid strong {
+  margin-top: 7px;
+  line-height: 1.55;
+}
+.trouble-article-grid p {
+  flex: 1;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.trouble-article-grid b {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--blue);
+  font-size: 13px;
+}
+.trouble-related-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.trouble-related-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 11px 14px;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  text-decoration: none;
+  font-weight: 800;
+}
 
 .contact-form {
   display: grid;
@@ -1855,6 +1946,20 @@ kbd {
   }
   .procedure-card ol {
     padding: 15px 17px 15px 44px;
+  }
+  .article-parent-links a {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+  .trouble-hub-page {
+    padding-top: 32px;
+  }
+  .trouble-article-grid {
+    grid-template-columns: 1fr;
+  }
+  .trouble-related-links a {
+    width: 100%;
+    justify-content: space-between;
   }
   .solution-data-panel {
     padding: 17px;

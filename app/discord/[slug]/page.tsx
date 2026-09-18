@@ -54,6 +54,13 @@ export async function generateMetadata({
       url: canonical,
       locale: 'ja_JP',
       modifiedTime: item.checkedAt,
+      images: ['/og-default.png'],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: item.seoTitle,
+      description: item.metaDescription,
+      images: ['/og-default.png'],
     },
   };
 }
@@ -208,6 +215,7 @@ export default async function DiscordArticlePage({
             topic={feedbackTopic[item.category]}
             articleTitle={item.title}
             articlePath={`/discord/${item.slug}`}
+            shareHashtag="Discord"
             heading="原因と対処法"
             steps={item.causes.map((cause, index) => ({
               id: `cause-${index + 1}`,

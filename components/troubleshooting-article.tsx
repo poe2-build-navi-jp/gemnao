@@ -14,6 +14,7 @@ import {
 } from '@/lib/game-articles';
 import type { GameGuide } from '@/lib/games';
 import { commonGuides } from '@/lib/common-guides';
+import { troubleHubForArticle } from '@/lib/trouble-hubs';
 
 export function TroubleshootingArticle({
   game,
@@ -35,6 +36,7 @@ export function TroubleshootingArticle({
     (source, index, all) =>
       all.findIndex((item) => item.url === source.url) === index,
   );
+  const troubleHub = troubleHubForArticle(article);
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -150,6 +152,14 @@ export function TroubleshootingArticle({
             </div>
           </nav>
           <p className="article-introduction">{article.description}</p>
+          <nav className="article-parent-links" aria-label="この記事の分類">
+            <a href={`/games/${game.slug}`}>{game.shortTitle}のトラブル一覧</a>
+            {troubleHub ? (
+              <a href={`/trouble/${troubleHub.slug}`}>
+                {troubleHub.label}の症状別ガイド
+              </a>
+            ) : null}
+          </nav>
           {article.causes?.length ? (
             <section className="cause-block" aria-labelledby="cause-title">
               <h2 id="cause-title">原因候補</h2>
@@ -165,6 +175,7 @@ export function TroubleshootingArticle({
             topic={feedbackTopic}
             articleTitle={article.title}
             articlePath={`/games/${game.slug}/${article.slug}`}
+            shareHashtag={game.title.split('/')[0].trim()}
             steps={article.steps}
           />
           <section className="caution-block">

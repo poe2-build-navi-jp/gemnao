@@ -27,6 +27,14 @@ export const metadata: Metadata = {
     title: 'ゲムなお｜PCゲームのお直しWiki',
     description:
       'PCゲームの起動トラブル、セーブ場所、FPS設定、MOD導入を日本語で解説。',
+    images: ['/og-default.png'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ゲムなお｜PCゲームのお直しWiki',
+    description:
+      'PCゲームの起動トラブル、セーブ場所、FPS設定、MOD導入を日本語で解説。',
+    images: ['/og-default.png'],
   },
 };
 
