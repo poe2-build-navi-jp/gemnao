@@ -19,6 +19,7 @@ import { games } from '@/lib/games';
 import { categoryLabels, gameArticles } from '@/lib/game-articles';
 import { commonGuides } from '@/lib/common-guides';
 import { discordArticles } from '@/lib/discord-articles';
+import { articleMatchesTrouble } from '@/lib/trouble-hubs';
 import { RecentTroubles } from './recent-troubles';
 import { WikiFooter, WikiHeader } from './wiki-header';
 
@@ -94,6 +95,7 @@ const featuredGuideSlugs = [
 
 export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
   const [query, setQuery] = useState('');
+  const [articleCluster, setArticleCluster] = useState('all');
   const visible = useMemo(
     () =>
       games.filter((game) => {
@@ -121,16 +123,21 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
           ]
             .join(' ')
             .toLowerCase();
-          return matchesNaturalQuery(haystack, query);
+          return (
+            matchesNaturalQuery(haystack, query) &&
+            (articleCluster === 'all' ||
+              articleMatchesTrouble(article, articleCluster))
+          );
         })
         .sort((a, b) => b.checkedAt.localeCompare(a.checkedAt)),
-    [query],
+    [articleCluster, query],
   );
-  const isFiltering = Boolean(query.trim());
+  const isSearching = Boolean(query.trim());
+  const isArticleFiltering = articleCluster !== 'all';
   const displayedGames =
-    isFiltering || view === 'games' ? visible : visible.slice(0, 6);
+    isSearching || view === 'games' ? visible : visible.slice(0, 6);
   const displayedArticles =
-    isFiltering || view === 'articles'
+    isSearching || isArticleFiltering || view === 'articles'
       ? visibleArticles
       : visibleArticles.slice(0, 6);
   const featuredGuides = featuredGuideSlugs
@@ -287,7 +294,7 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
             <p>ゲーム名を短くするか、テーマの絞り込みを外してください。</p>
           </div>
         )}
-        {!isFiltering && view !== 'games' ? (
+        {!isSearching && view !== 'games' ? (
           <a className="section-more" href="/?view=games#games">
             ゲームをすべて見る <ChevronRight size={16} />
           </a>
@@ -321,7 +328,7 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
         </a>
       </section>
 
-      {displayedArticles.length > 0 && (
+      {(displayedArticles.length > 0 || view === 'articles') && (
         <section
           className="content article-index"
           id="articles"
@@ -340,27 +347,58 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
             </div>
             <span>{displayedArticles.length}記事</span>
           </div>
-          <div className="home-article-grid">
-            {displayedArticles.map((article) => {
-              const game = games.find((item) => item.slug === article.gameSlug);
-              return (
-                <a
-                  href={`/games/${article.gameSlug}/${article.slug}`}
-                  key={`${article.gameSlug}-${article.slug}`}
+          {view === 'articles' ? (
+            <div className="article-cluster-filter" aria-label="症状で記事を絞り込む">
+              <button
+                type="button"
+                className={articleCluster === 'all' ? 'active' : ''}
+                onClick={() => setArticleCluster('all')}
+              >
+                すべて
+              </button>
+              {topics.map((topic) => (
+                <button
+                  type="button"
+                  className={articleCluster === topic.slug ? 'active' : ''}
+                  onClick={() => setArticleCluster(topic.slug)}
+                  key={topic.slug}
                 >
-                  <span>
-                    {game?.shortTitle}・{categoryLabels[article.category]}
-                  </span>
-                  <h3>{article.shortTitle}</h3>
-                  <p>更新日：{article.checkedAt.replaceAll('-', '.')}</p>
-                  <b>
-                    解決手順を見る <ChevronRight size={16} />
-                  </b>
-                </a>
-              );
-            })}
-          </div>
-          {!isFiltering && view !== 'articles' ? (
+                  {topic.label}
+                </button>
+              ))}
+            </div>
+          ) : null}
+          {displayedArticles.length ? (
+            <div className="home-article-grid">
+              {displayedArticles.map((article) => {
+                const game = games.find(
+                  (item) => item.slug === article.gameSlug,
+                );
+                return (
+                  <a
+                    href={`/games/${article.gameSlug}/${article.slug}`}
+                    key={`${article.gameSlug}-${article.slug}`}
+                  >
+                    <span>
+                      {game?.shortTitle}・{categoryLabels[article.category]}
+                    </span>
+                    <h3>{article.shortTitle}</h3>
+                    <p>更新日：{article.checkedAt.replaceAll('-', '.')}</p>
+                    <b>
+                      解決手順を見る <ChevronRight size={16} />
+                    </b>
+                  </a>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="empty-state">
+              <Search size={28} />
+              <h3>該当する記事はありません</h3>
+              <p>別の症状を選ぶか、検索語を短くしてください。</p>
+            </div>
+          )}
+          {!isSearching && view !== 'articles' ? (
             <a className="section-more" href="/?view=articles#articles">
               新着記事をすべて見る <ChevronRight size={16} />
             </a>

@@ -2627,3 +2627,27 @@ kbd {
     grid-template-columns: 1fr 1fr;
   }
 }
+
+.article-cluster-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 20px;
+}
+.article-cluster-filter button {
+  padding: 8px 12px;
+  color: var(--muted);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.article-cluster-filter button:hover,
+.article-cluster-filter button.active {
+  color: #fff;
+  background: var(--blue);
+  border-color: var(--blue);
+}

@@ -18,6 +18,7 @@ import { IssueFeedback } from '@/components/issue-feedback';
 import { GameArticleLinks } from '@/components/game-article-links';
 import { PathCopy } from '@/components/path-copy';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
+import { articlesForGame } from '@/lib/game-articles';
 import { gameBySlug, games } from '@/lib/games';
 
 export function generateStaticParams() {
@@ -100,6 +101,13 @@ export default async function GamePage({
   const { slug } = await params;
   const game = gameBySlug(slug);
   if (!game) notFound();
+  const gameArticles = articlesForGame(game.slug).filter(
+    (article) => !['draft', 'thin'].includes(article.status || 'verified'),
+  );
+  const feedbackTopics = gameArticles.map((article) => ({
+    id: article.slug,
+    label: article.shortTitle,
+  }));
   const faq = game.focused
     ? [
         {
@@ -232,7 +240,13 @@ export default async function GamePage({
             </p>
           </section>
 
-          <IssueFeedback gameSlug={game.slug} />
+          {feedbackTopics.length ? (
+            <IssueFeedback
+              gameSlug={game.slug}
+              topicOptions={feedbackTopics}
+              heading={`${game.shortTitle}で困っていること`}
+            />
+          ) : null}
 
           {!game.focused && (
             <>

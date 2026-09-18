@@ -18,6 +18,7 @@ const topics = new Set([
   'launch',
   'mods',
   'specs',
+  'server',
   'discord-launch',
   'discord-audio',
   'discord-connection',
@@ -31,6 +32,11 @@ const validGame = (slug: string) =>
   ) ||
   commonGuides.some((guide) => `guide-${guide.slug}` === slug) ||
   discordArticles.some((article) => `discord-${article.slug}` === slug);
+const validTopic = (game: string, topic: string) =>
+  topics.has(topic) ||
+  gameArticles.some(
+    (article) => article.gameSlug === game && article.slug === topic,
+  );
 
 export async function GET(request: NextRequest) {
   const game = request.nextUrl.searchParams.get('game') || '';
@@ -63,7 +69,7 @@ export async function POST(request: NextRequest) {
     !body.topic ||
     !body.kind ||
     !validGame(body.game) ||
-    !topics.has(body.topic)
+    !validTopic(body.game, body.topic)
   ) {
     return NextResponse.json(
       { error: '入力が正しくありません' },

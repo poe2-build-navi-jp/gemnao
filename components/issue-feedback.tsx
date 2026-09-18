@@ -14,6 +14,7 @@ const labels = {
       '起動・クラッシュ',
       'MOD・日本語',
       'スペック',
+      'サーバー・接続',
       'Discordの起動・アプリ',
       'Discordの音声',
       'Discordの接続',
@@ -36,6 +37,7 @@ const labels = {
       'Launch & crashes',
       'Mods & language',
       'Requirements',
+      'Server & connection',
       'Discord launch & app',
       'Discord audio',
       'Discord connection',
@@ -58,6 +60,7 @@ const labels = {
       '启动与崩溃',
       'MOD 与语言',
       '配置需求',
+      '服务器与连接',
       'Discord 启动与应用',
       'Discord 语音',
       'Discord 连接',
@@ -80,6 +83,7 @@ const labels = {
       'Inicio y cierres',
       'Mods e idioma',
       'Requisitos',
+      'Servidor y conexión',
       'Discord: inicio y app',
       'Discord: audio',
       'Discord: conexión',
@@ -95,35 +99,49 @@ const labels = {
     loading: 'Cargando',
   },
 } as const;
-const topicIds = [
+export const feedbackTopicIds = [
   'save',
   'display',
   'controller',
   'launch',
   'mods',
   'specs',
+  'server',
   'discord-launch',
   'discord-audio',
   'discord-connection',
   'discord-screen',
 ] as const;
-type TopicId = (typeof topicIds)[number];
+export type FeedbackTopicId = (typeof feedbackTopicIds)[number];
 const publicCountThreshold = 10;
 
 export function IssueFeedback({
   gameSlug,
   locale = 'ja',
-  topics = topicIds,
+  topics = feedbackTopicIds,
+  topicOptions,
   compact = false,
   solutionOptions = [],
+  heading,
 }: {
   gameSlug: string;
   locale?: 'ja' | Locale;
-  topics?: readonly TopicId[];
+  topics?: readonly FeedbackTopicId[];
+  topicOptions?: readonly { id: string; label: string }[];
   compact?: boolean;
   solutionOptions?: { id: string; label: string }[];
+  heading?: string;
 }) {
   const ui = labels[locale];
+  const displayedTopics = useMemo(
+    () =>
+      topicOptions ||
+      topics.map((topic) => ({
+        id: topic,
+        label: ui.topics[feedbackTopicIds.indexOf(topic)],
+      })),
+    [topicOptions, topics, ui.topics],
+  );
   const [rows, setRows] = useState<Row[]>([]);
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState('');
@@ -135,12 +153,12 @@ export function IssueFeedback({
     const controller = new AbortController();
     async function load() {
       const saved = new Set<string>();
-      for (const topic of topics)
+      for (const topic of displayedTopics)
         for (const kind of ['struggling', 'resolved']) {
           if (
-            localStorage.getItem(`gemnao-feedback:${gameSlug}:${topic}:${kind}`)
+            localStorage.getItem(`gemnao-feedback:${gameSlug}:${topic.id}:${kind}`)
           )
-            saved.add(`${topic}:${kind}`);
+            saved.add(`${topic.id}:${kind}`);
         }
       try {
         const response = await fetch(
@@ -159,7 +177,7 @@ export function IssueFeedback({
     }
     void load();
     return () => controller.abort();
-  }, [gameSlug, topics]);
+  }, [displayedTopics, gameSlug]);
 
   const counts = useMemo(
     () => new Map(rows.map((row) => [row.topic, row])),
@@ -223,7 +241,7 @@ export function IssueFeedback({
           <h2 id="feedback-title">
             {compact && locale === 'ja'
               ? 'この情報は役に立ちましたか？'
-              : ui.title}
+              : heading || ui.title}
           </h2>
         </div>
         {loading && (
@@ -232,19 +250,18 @@ export function IssueFeedback({
       </div>
       {!compact && <p className="feedback-intro">{ui.intro}</p>}
       <div className="feedback-table">
-        {topics.map((topic) => {
-          const index = topicIds.indexOf(topic);
-          const row = counts.get(topic) || { struggling: 0, resolved: 0 };
+        {displayedTopics.map((topic) => {
+          const row = counts.get(topic.id) || { struggling: 0, resolved: 0 };
           const showCounts =
             row.struggling + row.resolved >= publicCountThreshold;
           return (
-            <div className="feedback-row" key={topic}>
-              <strong>{ui.topics[index]}</strong>
+            <div className="feedback-row" key={topic.id}>
+              <strong>{topic.label}</strong>
               <div className="feedback-actions">
                 <button
                   type="button"
-                  disabled={voted.has(`${topic}:struggling`) || !!sending}
-                  onClick={() => vote(topic, 'struggling')}
+                  disabled={voted.has(`${topic.id}:struggling`) || !!sending}
+                  onClick={() => vote(topic.id, 'struggling')}
                 >
                   <CircleHelp size={16} />
                   <span>
@@ -261,8 +278,8 @@ export function IssueFeedback({
                 </button>
                 <button
                   type="button"
-                  disabled={voted.has(`${topic}:resolved`) || !!sending}
-                  onClick={() => vote(topic, 'resolved')}
+                  disabled={voted.has(`${topic.id}:resolved`) || !!sending}
+                  onClick={() => vote(topic.id, 'resolved')}
                 >
                   <CheckCircle2 size={16} />
                   <span>{ui.resolved}</span>
