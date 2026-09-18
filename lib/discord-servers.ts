@@ -1,4 +1,5 @@
 export type DiscordServer = {
+  id: number;
   slug: string;
   name: string;
   game: string;
@@ -8,10 +9,17 @@ export type DiscordServer = {
   voiceChat: 'required' | 'optional' | 'listen-only-ok' | 'none';
   activeTimes: string[];
   description: string;
+  inviteUrl: string;
   lastVerifiedAt: string;
-  inviteStatus: 'valid' | 'invalid';
-  status: 'active' | 'expired';
+  status: 'approved';
 };
+
+export type DiscordServerStatus =
+  | 'pending'
+  | 'approved'
+  | 'rejected'
+  | 'expired'
+  | 'closed';
 
 export const discordServerGames = [
   'VALORANT',
@@ -47,6 +55,9 @@ export const playStyles = [
 
 export const activeTimes = ['朝', '昼', '夜', '深夜', '平日', '土日'] as const;
 
-// 審査・活動確認・招待URL確認を通過した掲載だけを追加する。
-// 確認できないサーバーを、SEO目的で架空掲載してはならない。
-export const discordServers: DiscordServer[] = [];
+export const voiceChatOptions = [
+  { label: 'VC必須', value: 'required' },
+  { label: 'VC任意', value: 'optional' },
+  { label: '聞き専OK', value: 'listen-only-ok' },
+  { label: 'VCなし', value: 'none' },
+] as const;

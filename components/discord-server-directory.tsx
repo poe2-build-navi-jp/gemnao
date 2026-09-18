@@ -1,28 +1,47 @@
 'use client';
 
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ArrowRight, Clock3, Search, ShieldCheck, Users } from 'lucide-react';
 import {
   activeTimes,
   discordServerGames,
-  discordServers,
   recruitmentPurposes,
+  type DiscordServer,
 } from '@/lib/discord-servers';
 
 export function DiscordServerDirectory() {
+  const [servers, setServers] = useState<DiscordServer[]>([]);
+  const [loadState, setLoadState] = useState<'loading' | 'ready' | 'error'>('loading');
   const [query, setQuery] = useState('');
   const [game, setGame] = useState('');
   const [purpose, setPurpose] = useState('');
   const [activeTime, setActiveTime] = useState('');
   const [voiceChat, setVoiceChat] = useState('');
 
+  useEffect(() => {
+    let active = true;
+    fetch('/api/discord-servers')
+      .then(async (response) => {
+        if (!response.ok) throw new Error('request failed');
+        return (await response.json()) as { servers?: DiscordServer[] };
+      })
+      .then((data) => {
+        if (!active) return;
+        setServers(Array.isArray(data.servers) ? data.servers : []);
+        setLoadState('ready');
+      })
+      .catch(() => {
+        if (active) setLoadState('error');
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
+
   const filtered = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
-    return discordServers.filter((server) => {
-      if (server.status !== 'active' || server.inviteStatus !== 'valid') {
-        return false;
-      }
+    return servers.filter((server) => {
       const text = [
         server.name,
         server.game,
@@ -40,7 +59,7 @@ export function DiscordServerDirectory() {
         (!voiceChat || server.voiceChat === voiceChat)
       );
     });
-  }, [activeTime, game, purpose, query, voiceChat]);
+  }, [activeTime, game, purpose, query, servers, voiceChat]);
 
   const hasFilters = Boolean(query || game || purpose || activeTime || voiceChat);
 
@@ -117,7 +136,7 @@ export function DiscordServerDirectory() {
       </div>
 
       <div className="server-result-summary" aria-live="polite">
-        <span>{filtered.length}件の募集中サーバー</span>
+        <span>{loadState === 'loading' ? '募集情報を確認中…' : `${filtered.length}件の募集中サーバー`}</span>
         {hasFilters ? (
           <button
             type="button"
@@ -134,7 +153,12 @@ export function DiscordServerDirectory() {
         ) : null}
       </div>
 
-      {filtered.length ? (
+      {loadState === 'error' ? (
+        <div className="server-empty" role="alert">
+          <h3>募集情報を読み込めませんでした</h3>
+          <p>時間を置いてページを再読み込みしてください。</p>
+        </div>
+      ) : filtered.length ? (
         <div className="server-card-grid">
           {filtered.map((server) => (
             <article className="server-card" key={server.slug}>
@@ -149,13 +173,13 @@ export function DiscordServerDirectory() {
                 {server.styles.slice(0, 2).map((item) => <span key={item}>{item}</span>)}
               </div>
               <p className="server-card-description">{server.description}</p>
-              <a href={`/discord-servers/server/${server.slug}`}>
-                詳細を見る <ArrowRight size={15} />
+              <a href={server.inviteUrl} target="_blank" rel="noopener noreferrer nofollow">
+                Discordに参加する <ArrowRight size={15} />
               </a>
             </article>
           ))}
         </div>
-      ) : (
+      ) : loadState === 'ready' ? (
         <div className="server-empty">
           <Users size={32} aria-hidden="true" />
           <h3>{hasFilters ? '条件に合う募集はありません' : '掲載サーバーを審査中です'}</h3>
@@ -166,7 +190,7 @@ export function DiscordServerDirectory() {
             無料で掲載を申請する <ArrowRight size={15} />
           </a>
         </div>
-      )}
+      ) : null}
 
       <aside className="verification-note">
         <Clock3 size={20} aria-hidden="true" />

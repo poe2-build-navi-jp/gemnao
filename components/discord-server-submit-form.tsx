@@ -7,6 +7,7 @@ import {
   discordServerGames,
   playStyles,
   recruitmentPurposes,
+  voiceChatOptions,
 } from '@/lib/discord-servers';
 
 export function DiscordServerSubmitForm() {
@@ -24,31 +25,21 @@ export function DiscordServerSubmitForm() {
       const entry = form.get(name);
       return typeof entry === 'string' ? entry : '';
     };
-    const values = (name: string) =>
-      form
-        .getAll(name)
-        .filter((entry): entry is string => typeof entry === 'string')
-        .join('、');
-    const message = [
-      `サーバー名: ${value('serverName')}`,
-      `招待URL: ${value('inviteUrl')}`,
-      `ゲーム: ${value('game')}`,
-      `募集目的: ${values('purpose')}`,
-      `プレイスタイル: ${values('playStyle')}`,
-      `活動時間: ${values('activeTime')}`,
-      `VC: ${value('voiceChat')}`,
-      `参加条件: ${value('requirements')}`,
-      `禁止事項: ${value('rules')}`,
-      `紹介: ${value('description')}`,
-      `運営者Discordユーザー名: ${value('ownerDiscord')}`,
-    ].join('\n');
-    const response = await fetch('/api/contact', {
+    const response = await fetch('/api/discord-servers', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        category: 'server_submission',
-        pageUrl: window.location.href,
-        message,
+        serverName: value('serverName'),
+        inviteUrl: value('inviteUrl'),
+        game: value('game'),
+        description: value('description'),
+        purposes: form.getAll('purpose'),
+        styles: form.getAll('playStyle'),
+        activeTimes: form.getAll('activeTime'),
+        voiceChat: value('voiceChat'),
+        requirements: value('requirements'),
+        rules: value('rules'),
+        ownerDiscord: value('ownerDiscord'),
         replyEmail: value('replyEmail'),
         website: value('website'),
       }),
@@ -108,7 +99,7 @@ export function DiscordServerSubmitForm() {
           VC条件
           <select name="voiceChat" required defaultValue="">
             <option value="" disabled>選択してください</option>
-            <option>VC必須</option><option>VC任意</option><option>聞き専OK</option><option>VCなし</option>
+            {voiceChatOptions.map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}
           </select>
         </label>
         <label>参加条件<textarea name="requirements" required minLength={10} maxLength={300} rows={4} placeholder="年齢、ランク、対応機種など" /></label>

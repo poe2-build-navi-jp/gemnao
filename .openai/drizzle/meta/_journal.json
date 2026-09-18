@@ -22,6 +22,13 @@
       "when": 1789378886624,
       "tag": "0002_lying_sheva_callister",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1789722892893,
+      "tag": "0003_empty_jackpot",
+      "breakpoints": true
     }
   ]
 }
