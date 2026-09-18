@@ -34,6 +34,51 @@ function database() {
   return (env as unknown as { DB: D1Database }).DB;
 }
 
+let schemaReady: Promise<void> | undefined;
+
+function ensureSchema() {
+  if (!schemaReady) {
+    const db = database();
+    schemaReady = db
+      .batch([
+        db.prepare(
+          `CREATE TABLE IF NOT EXISTS discord_server_submissions (
+            id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+            slug text NOT NULL,
+            server_name text NOT NULL,
+            description text NOT NULL,
+            invite_url text NOT NULL,
+            game text NOT NULL,
+            purpose text NOT NULL,
+            play_style text DEFAULT '[]' NOT NULL,
+            activity_time text NOT NULL,
+            voice_chat text NOT NULL,
+            requirements text NOT NULL,
+            rules text NOT NULL,
+            owner_discord text NOT NULL,
+            reply_email text NOT NULL,
+            status text DEFAULT 'pending' NOT NULL,
+            invite_status text DEFAULT 'unchecked' NOT NULL,
+            created_at text NOT NULL,
+            updated_at text NOT NULL,
+            reviewed_at text,
+            last_verified_at text
+          )`,
+        ),
+        db.prepare(
+          `CREATE UNIQUE INDEX IF NOT EXISTS discord_server_submissions_slug_unique
+           ON discord_server_submissions (slug)`,
+        ),
+      ])
+      .then(() => undefined)
+      .catch((error: unknown) => {
+        schemaReady = undefined;
+        throw error;
+      });
+  }
+  return schemaReady;
+}
+
 function readList(value: string): string[] {
   try {
     const parsed = JSON.parse(value);
@@ -69,6 +114,7 @@ export async function createDiscordServerSubmission(input: {
   ownerDiscord: string;
   replyEmail: string;
 }) {
+  await ensureSchema();
   const db = database();
   const duplicate = await db
     .prepare(
@@ -120,6 +166,7 @@ export async function createDiscordServerSubmission(input: {
 }
 
 export async function listApprovedDiscordServers(): Promise<DiscordServer[]> {
+  await ensureSchema();
   const result = await database()
     .prepare(
       `SELECT id, slug, server_name, description, invite_url, game, purpose,
@@ -148,6 +195,7 @@ export async function listApprovedDiscordServers(): Promise<DiscordServer[]> {
 }
 
 export async function listDiscordServerSubmissions() {
+  await ensureSchema();
   const result = await database()
     .prepare(
       `SELECT * FROM discord_server_submissions
@@ -166,6 +214,7 @@ export async function updateDiscordServerStatus(
   id: number,
   status: Exclude<DiscordServerStatus, 'pending'>,
 ) {
+  await ensureSchema();
   const now = new Date().toISOString();
   const result = await database()
     .prepare(

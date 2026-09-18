@@ -1,4 +1,4 @@
-CREATE TABLE `discord_server_submissions` (
+CREATE TABLE IF NOT EXISTS `discord_server_submissions` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`slug` text NOT NULL,
 	`server_name` text NOT NULL,
@@ -21,4 +21,4 @@ CREATE TABLE `discord_server_submissions` (
 	`last_verified_at` text
 );
 --> statement-breakpoint
-CREATE UNIQUE INDEX `discord_server_submissions_slug_unique` ON `discord_server_submissions` (`slug`);
+CREATE UNIQUE INDEX IF NOT EXISTS `discord_server_submissions_slug_unique` ON `discord_server_submissions` (`slug`);
