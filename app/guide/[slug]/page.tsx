@@ -110,6 +110,30 @@ export default async function Page({
         acceptedAnswer: { '@type': 'Answer', text: f.answer },
       })),
     },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'ゲムなお',
+          item: 'https://gemnao.pages.dev/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'PC共通ガイド',
+          item: 'https://gemnao.pages.dev/guide',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: item.shortTitle,
+          item: canonical,
+        },
+      ],
+    },
   ];
   return (
     <main>
