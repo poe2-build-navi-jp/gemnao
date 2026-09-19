@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     'PCゲームの起動トラブル、セーブデータ場所、FPS設定、MOD導入を日本語で解説。',
   icons: { icon: '/favicon.svg' },
   robots: isPublic
-    ? { index: true, follow: true }
+    ? undefined
     : { index: false, follow: false, noarchive: true },
   verification: {
     google:
