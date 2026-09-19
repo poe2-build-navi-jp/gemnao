@@ -177,7 +177,7 @@ export function IssueFeedback({
     }
     void load();
     return () => controller.abort();
-  }, [displayedTopics, gameSlug]);
+  }, [gameSlug, displayedTopics]);
 
   const counts = useMemo(
     () => new Map(rows.map((row) => [row.topic, row])),
