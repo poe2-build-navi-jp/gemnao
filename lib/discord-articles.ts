@@ -1,6 +1,7 @@
 import type { ContentStatus } from '@/lib/game-articles';
 import { discordGrowthArticles } from '@/lib/discord-growth-articles';
 import { discordP0Articles } from '@/lib/discord-p0-articles';
+import { discordStreamingGrowthArticles } from '@/lib/discord-streaming-growth-articles';
 
 export type DiscordCategory =
   | 'launch'
@@ -655,6 +656,7 @@ export const discordArticles: DiscordArticle[] = [
   ...existingDiscordArticles,
   ...discordP0Articles,
   ...discordGrowthArticles,
+  ...discordStreamingGrowthArticles,
 ];
 
 export const discordArticleBySlug = (slug: string) =>
