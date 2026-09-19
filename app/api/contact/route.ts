@@ -10,6 +10,7 @@ const categories = new Set([
   'server_report',
 ]);
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const pageUrlPattern = /^https:\/\/gemnao\.pages\.dev(?:\/|$)/;
 
 export async function POST(request: NextRequest) {
   const body = (await request.json().catch(() => null)) as {
@@ -31,6 +32,7 @@ export async function POST(request: NextRequest) {
     message.length < 20 ||
     message.length > 4000 ||
     pageUrl.length > 500 ||
+    (pageUrl && !pageUrlPattern.test(pageUrl)) ||
     replyEmail.length > 254 ||
     (replyEmail && !emailPattern.test(replyEmail))
   ) {

@@ -1,28 +1,28 @@
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
-import { DiscordServerAdmin } from '@/components/discord-server-admin';
+import { ContactAdmin } from '@/components/contact-admin';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 
 export const metadata: Metadata = {
-  title: 'Discordサーバー掲載審査',
+  title: 'お問い合わせ管理',
   robots: { index: false, follow: false, noarchive: true },
 };
 
-export default function DiscordServerAdminPage() {
+export default function ContactAdminPage() {
   return (
     <main>
       <WikiHeader />
       <article className="static-page admin-server-page">
         <p className="page-kicker">PRIVATE ADMIN</p>
-        <h1>Discordサーバー掲載審査</h1>
+        <h1>お問い合わせ管理</h1>
         <p className="page-lead">
-          申請内容と招待リンクを確認し、問題がない募集だけを承認してください。
+          記事の訂正依頼、権利関係、プライバシー、その他の連絡を確認できます。
         </p>
         <p className="admin-back-link">
-          <a href="/admin/contacts">お問い合わせ一覧</a>
-          <a href="/discord-servers">公開中の募集一覧を確認</a>
+          <a href="/admin/discord-servers">Discordサーバー掲載審査</a>
+          <a href="/contact">お問い合わせフォームを確認</a>
         </p>
-        <DiscordServerAdmin />
+        <ContactAdmin />
       </article>
       <WikiFooter />
     </main>
