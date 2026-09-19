@@ -1,4 +1,5 @@
 import type { ContentStatus } from '@/lib/game-articles';
+import { discordGrowthArticles } from '@/lib/discord-growth-articles';
 import { discordP0Articles } from '@/lib/discord-p0-articles';
 
 export type DiscordCategory =
@@ -147,7 +148,7 @@ const existingDiscordArticles: DiscordArticle[] = [
       },
     ],
     sources: [generalTroubleshooting, discordStatus],
-    related: ['update-failed', 'installation-failed', 'loading-stuck'],
+    related: ['update-failed', 'installation-failed', 'crashing'],
     checkedAt: '2026-09-16',
     status: 'verified',
   },
@@ -644,7 +645,7 @@ const existingDiscordArticles: DiscordArticle[] = [
       },
     ],
     sources: [generalTroubleshooting, discordStatus],
-    related: ['update-failed', 'not-opening', 'installation-failed'],
+    related: ['login-error', 'slow-performance', 'not-opening'],
     checkedAt: '2026-09-16',
     status: 'verified',
   },
@@ -653,6 +654,7 @@ const existingDiscordArticles: DiscordArticle[] = [
 export const discordArticles: DiscordArticle[] = [
   ...existingDiscordArticles,
   ...discordP0Articles,
+  ...discordGrowthArticles,
 ];
 
 export const discordArticleBySlug = (slug: string) =>
