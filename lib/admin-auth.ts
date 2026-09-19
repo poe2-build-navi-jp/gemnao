@@ -26,6 +26,12 @@ async function digest(value: string) {
   ).join('');
 }
 
+async function configuredTokenHash() {
+  const configured = configuredSecrets();
+  if (configured.hash) return configured.hash.toLowerCase();
+  return configured.token ? digest(configured.token) : '';
+}
+
 function safeEqual(left: string, right: string) {
   if (left.length !== right.length) return false;
   let difference = 0;
@@ -36,16 +42,14 @@ function safeEqual(left: string, right: string) {
 }
 
 export async function validateAdminToken(candidate: string) {
-  const configured = configuredSecrets();
   if (!candidate) return false;
   const candidateHash = await digest(candidate);
-  if (configured.hash) {
-    return safeEqual(candidateHash, configured.hash.toLowerCase());
-  }
-  return Boolean(
-    configured.token &&
-      safeEqual(candidateHash, await digest(configured.token)),
-  );
+  const expectedHash = await configuredTokenHash();
+  return Boolean(expectedHash && safeEqual(candidateHash, expectedHash));
+}
+
+export async function createAdminSession(candidate: string) {
+  return digest(candidate);
 }
 
 export async function isDiscordAdmin(request: Request) {
@@ -55,7 +59,26 @@ export async function isDiscordAdmin(request: Request) {
     .map((part) => part.trim())
     .find((part) => part.startsWith(`${adminCookieName}=`))
     ?.slice(adminCookieName.length + 1);
-  return Boolean(session && (await validateAdminToken(session)));
+  if (!session) return false;
+
+  const expectedHash = await configuredTokenHash();
+  if (!expectedHash) return false;
+
+  // New sessions contain only a fixed-length hash, so special characters in the
+  // management key cannot be changed by cookie URL encoding.
+  if (/^[a-f0-9]{64}$/i.test(session)) {
+    return safeEqual(session.toLowerCase(), expectedHash);
+  }
+
+  // Keep already-issued sessions working until their existing eight-hour
+  // lifetime ends. Cookie serializers percent-encode symbols in the key.
+  let legacyToken = session;
+  try {
+    legacyToken = decodeURIComponent(session);
+  } catch {
+    return false;
+  }
+  return validateAdminToken(legacyToken);
 }
 
 export function isSameOrigin(request: Request) {
