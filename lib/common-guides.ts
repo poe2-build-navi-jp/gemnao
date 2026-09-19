@@ -1,4 +1,5 @@
 import type { ContentStatus } from '@/lib/game-articles';
+import { commonGrowthGuides } from '@/lib/common-growth-guides';
 
 export type CommonGuide = {
   slug: string;
@@ -433,6 +434,7 @@ export const commonGuides: CommonGuide[] = [
     ],
     ['save-data-backup', 'reset-config-file', 'remove-mods-safely'],
   ),
+  ...commonGrowthGuides,
 ];
 export const commonGuideBySlug = (slug: string) =>
   commonGuides.find((g) => g.slug === slug);
