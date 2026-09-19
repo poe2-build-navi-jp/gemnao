@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import {
   adminCookieName,
-  createAdminSession,
   isSameOrigin,
   validateAdminToken,
 } from '@/lib/admin-auth';
@@ -25,7 +24,7 @@ export async function POST(request: NextRequest) {
   }
 
   const response = NextResponse.json({ ok: true });
-  response.cookies.set(adminCookieName, await createAdminSession(token), {
+  response.cookies.set(adminCookieName, token, {
     httpOnly: true,
     secure: new URL(request.url).protocol === 'https:',
     sameSite: 'strict',

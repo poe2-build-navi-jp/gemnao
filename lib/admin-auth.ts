@@ -48,10 +48,6 @@ export async function validateAdminToken(candidate: string) {
   return Boolean(expectedHash && safeEqual(candidateHash, expectedHash));
 }
 
-export async function createAdminSession(candidate: string) {
-  return digest(candidate);
-}
-
 export async function isDiscordAdmin(request: Request) {
   const cookie = request.headers.get('cookie') || '';
   const session = cookie
@@ -61,24 +57,16 @@ export async function isDiscordAdmin(request: Request) {
     ?.slice(adminCookieName.length + 1);
   if (!session) return false;
 
-  const expectedHash = await configuredTokenHash();
-  if (!expectedHash) return false;
-
-  // New sessions contain only a fixed-length hash, so special characters in the
-  // management key cannot be changed by cookie URL encoding.
-  if (/^[a-f0-9]{64}$/i.test(session)) {
-    return safeEqual(session.toLowerCase(), expectedHash);
-  }
-
-  // Keep already-issued sessions working until their existing eight-hour
-  // lifetime ends. Cookie serializers percent-encode symbols in the key.
-  let legacyToken = session;
+  // Cookie serializers percent-encode symbols in the management key. Decode
+  // the value before checking it so keys containing %, +, spaces, or Japanese
+  // characters do not authenticate successfully and then immediately fail.
+  let token = session;
   try {
-    legacyToken = decodeURIComponent(session);
+    token = decodeURIComponent(session);
   } catch {
     return false;
   }
-  return validateAdminToken(legacyToken);
+  return validateAdminToken(token);
 }
 
 export function isSameOrigin(request: Request) {
