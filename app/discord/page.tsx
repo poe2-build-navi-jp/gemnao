@@ -9,9 +9,9 @@ import {
 } from '@/lib/discord-articles';
 
 export const metadata: Metadata = {
-  title: 'Discordの不具合・エラー解決｜起動・音声・画面共有・RTC',
+  title: 'Discordの不具合・Bot・エラー解決｜起動・音声・RTC',
   description:
-    'Discordが起動しない、声が聞こえない、マイクが反応しない、画面共有できない、RTC接続中から進まないなどのPC版Discordトラブルを症状別に確認できます。',
+    'Discordが起動しない、声が聞こえない、RTC接続中、Botが反応しない・追加できないなどのPC版Discordトラブルを症状別に確認できます。',
   alternates: { canonical: '/discord' },
 };
 
@@ -21,6 +21,7 @@ const categoryOrder: DiscordCategory[] = [
   'screen',
   'launch',
   'game',
+  'bot',
 ];
 
 export default function DiscordHub() {
@@ -76,6 +77,13 @@ export default function DiscordHub() {
           PCゲーム中の起動・FPS・MODなどのトラブルは{' '}
           <a href="/guide">PCゲーム共通トラブル解決ガイド</a>{' '}
           もあわせてご覧ください。
+        </p>
+        <p className="correction-link">
+          Botを使うPCゲームコミュニティを探す場合は{' '}
+          <a href="/discord-servers">Discordサーバー募集・検索</a>
+          、自分のサーバーを紹介する場合は{' '}
+          <a href="/discord-servers/submit">無料掲載申請</a>
+          を利用できます。
         </p>
       </article>
       <WikiFooter />

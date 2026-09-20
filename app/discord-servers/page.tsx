@@ -173,8 +173,10 @@ export default function DiscordServersPage() {
         </section>
 
         <section className="server-related">
-          <h2>Discordで困ったとき</h2>
-          <p>参加後にマイクや音声、画面共有で困った場合は症状別の解決手順を確認できます。</p>
+          <h2>Discord・Botで困ったとき</h2>
+          <p>参加後の音声・画面共有トラブルや、サーバー管理者向けのBot追加・権限確認を手順で確認できます。</p>
+          <a href="/discord/bot-add">Discord Botの入れ方・追加方法 <ArrowRight size={16} /></a>
+          <a href="/discord/bot-not-responding">Botが反応しない・コマンドが使えない <ArrowRight size={16} /></a>
           <a href="/discord">Discordの不具合・トラブル解決を見る <ArrowRight size={16} /></a>
         </section>
       </div>

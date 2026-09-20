@@ -26,6 +26,7 @@ const feedbackTopic: Record<
   connection: 'discord-connection',
   screen: 'discord-screen',
   game: 'discord-launch',
+  bot: 'discord-launch',
 };
 
 export function generateStaticParams() {
@@ -271,6 +272,20 @@ export default async function DiscordArticlePage({
               PCゲーム共通トラブル解決ガイド <ArrowRight size={15} />
             </a>
           </section>
+          {item.category === 'bot' ? (
+            <section className="server-related">
+              <h2>Botを使うDiscordサーバーを探す・掲載する</h2>
+              <p>
+                PCゲーム向けコミュニティを条件から探せます。サーバー運営者は無料掲載を申請できます。
+              </p>
+              <a href="/discord-servers">
+                Discordサーバー募集・検索を見る <ArrowRight size={16} />
+              </a>
+              <a href="/discord-servers/submit">
+                自分のサーバーを無料掲載する <ArrowRight size={16} />
+              </a>
+            </section>
+          ) : null}
           <p className="correction-link">
             この記事の情報に問題がありますか？{' '}
             <a href={`/contact?url=${encodeURIComponent(canonical)}`}>

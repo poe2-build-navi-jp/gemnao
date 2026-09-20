@@ -3,13 +3,15 @@ import { discordGrowthArticles } from '@/lib/discord-growth-articles';
 import { discordP0Articles } from '@/lib/discord-p0-articles';
 import { discordStreamingGrowthArticles } from '@/lib/discord-streaming-growth-articles';
 import { discordAudioGrowthArticles } from '@/lib/discord-audio-growth-articles';
+import { discordBotArticles } from '@/lib/discord-bot-articles';
 
 export type DiscordCategory =
   | 'launch'
   | 'audio'
   | 'connection'
   | 'screen'
-  | 'game';
+  | 'game'
+  | 'bot';
 
 export type DiscordCause = {
   title: string;
@@ -44,6 +46,7 @@ export const discordCategoryLabels: Record<DiscordCategory, string> = {
   connection: '接続',
   screen: '画面共有・配信',
   game: 'ゲーム連携',
+  bot: 'Bot・アプリ',
 };
 
 const support = (path: string, label: string) => ({
@@ -659,6 +662,7 @@ export const discordArticles: DiscordArticle[] = [
   ...discordGrowthArticles,
   ...discordStreamingGrowthArticles,
   ...discordAudioGrowthArticles,
+  ...discordBotArticles,
 ];
 
 export const discordArticleBySlug = (slug: string) =>

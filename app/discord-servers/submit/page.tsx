@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+/* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { DiscordServerSubmitForm } from '@/components/discord-server-submit-form';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 
@@ -26,6 +27,13 @@ export default function DiscordServerSubmitPage() {
             <li>定期的な募集継続確認に対応できること</li>
           </ul>
         </div>
+        <p className="correction-link">
+          掲載するサーバーへBotを導入する場合は{' '}
+          <a href="/discord/bot-add">Discord Botの入れ方</a>
+          、導入済みのBotが動かない場合は{' '}
+          <a href="/discord/bot-not-responding">Bot・コマンドの権限確認</a>
+          を先に確認できます。
+        </p>
         <DiscordServerSubmitForm />
       </article>
       <WikiFooter />
