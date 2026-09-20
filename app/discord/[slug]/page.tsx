@@ -224,6 +224,13 @@ export default async function DiscordArticlePage({
               actions: cause.actions,
               note: cause.note,
             }))}
+            nextLinks={[
+              ...relatedItems.map((related) => ({
+                href: `/discord/${related.slug}`,
+                label: related.shortTitle,
+              })),
+              { href: '/discord', label: 'Discordトラブル一覧へ戻る' },
+            ]}
           />
           <section className="caution-block">
             <h2>

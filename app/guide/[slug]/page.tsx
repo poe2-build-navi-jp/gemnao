@@ -212,6 +212,26 @@ export default async function Page({
               title: step.title,
               actions: step.actions,
             }))}
+            nextLinks={[
+              ...item.related
+                .map((slug) => commonGuideBySlug(slug))
+                .filter((guide): guide is NonNullable<typeof guide> =>
+                  Boolean(guide),
+                )
+                .map((guide) => ({
+                  href: `/guide/${guide.slug}`,
+                  label: guide.shortTitle,
+                })),
+              ...(troubleHub
+                ? [
+                    {
+                      href: `/trouble/${troubleHub.slug}`,
+                      label: `${troubleHub.label}の症状別ガイド`,
+                    },
+                  ]
+                : []),
+              { href: '/guide', label: 'PC共通ガイド一覧へ戻る' },
+            ]}
           />
           <section className="caution-block">
             <h2>

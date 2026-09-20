@@ -20,6 +20,7 @@ type Step = {
 };
 type Row = { topic: string; struggling: number; resolved: number };
 type Method = { methodId: string; methodLabel: string; responses: number };
+type NextLink = { href: string; label: string };
 type Progress = {
   currentStep: number;
   completedIds: string[];
@@ -38,6 +39,7 @@ export function InteractiveSteps({
   shareHashtag,
   heading = '解決手順',
   steps,
+  nextLinks = [],
 }: {
   contextSlug: string;
   topic: string;
@@ -46,6 +48,7 @@ export function InteractiveSteps({
   shareHashtag?: string;
   heading?: string;
   steps: Step[];
+  nextLinks?: NextLink[];
 }) {
   const storageKey = `gemnao-progress:${contextSlug}`;
   const voteKey = `gemnao-feedback:${contextSlug}:${topic}`;
@@ -86,13 +89,17 @@ export function InteractiveSteps({
       viewedAt: new Date().toISOString(),
     };
     try {
-      const previous = JSON.parse(localStorage.getItem(recentKey) || '[]') as (typeof current)[];
+      const previous = JSON.parse(
+        localStorage.getItem(recentKey) || '[]',
+      ) as (typeof current)[];
       localStorage.setItem(
         recentKey,
-        JSON.stringify([
-          current,
-          ...previous.filter((item) => item.contextSlug !== contextSlug),
-        ].slice(0, 5)),
+        JSON.stringify(
+          [
+            current,
+            ...previous.filter((item) => item.contextSlug !== contextSlug),
+          ].slice(0, 5),
+        ),
       );
     } catch {
       localStorage.setItem(recentKey, JSON.stringify([current]));
@@ -120,7 +127,14 @@ export function InteractiveSteps({
     }
     void loadFeedback();
     return () => controller.abort();
-  }, [articlePath, articleTitle, contextSlug, steps.length, storageKey, voteKey]);
+  }, [
+    articlePath,
+    articleTitle,
+    contextSlug,
+    steps.length,
+    storageKey,
+    voteKey,
+  ]);
 
   function saveProgress(next: Progress) {
     localStorage.setItem(storageKey, JSON.stringify(next));
@@ -163,7 +177,10 @@ export function InteractiveSteps({
         }),
       });
       if (!response.ok) throw new Error('save failed');
-      const data = (await response.json()) as { rows?: Row[]; methods?: Method[] };
+      const data = (await response.json()) as {
+        rows?: Row[];
+        methods?: Method[];
+      };
       setRows(data.rows || []);
       setMethods(data.methods || []);
       setSolvedStepId(step.id);
@@ -178,7 +195,9 @@ export function InteractiveSteps({
         lastViewedAt: new Date().toISOString(),
       });
     } catch {
-      setMessage('回答を保存できませんでした。通信状態を確認して、もう一度お試しください。');
+      setMessage(
+        '回答を保存できませんでした。通信状態を確認して、もう一度お試しください。',
+      );
     } finally {
       setSending('');
     }
@@ -221,6 +240,7 @@ export function InteractiveSteps({
       if (!response.ok) throw new Error('save failed');
       const data = (await response.json()) as { rows?: Row[] };
       setRows(data.rows || []);
+      setCompletedIds(nextCompleted);
       localStorage.setItem(`${voteKey}:struggling`, '1');
       saveProgress({
         currentStep: index,
@@ -228,9 +248,13 @@ export function InteractiveSteps({
         solved: false,
         lastViewedAt: new Date().toISOString(),
       });
-      setMessage('回答を記録しました。下の「まだ直りませんか？」から次の対処法も確認できます。');
+      setMessage(
+        '回答を記録しました。下の「まだ直りませんか？」から次の対処法も確認できます。',
+      );
     } catch {
-      setMessage('回答を保存できませんでした。通信状態を確認して、もう一度お試しください。');
+      setMessage(
+        '回答を保存できませんでした。通信状態を確認して、もう一度お試しください。',
+      );
     } finally {
       setSending('');
     }
@@ -243,11 +267,18 @@ export function InteractiveSteps({
 
   async function nativeShare() {
     if (!navigator.share) return;
-    await navigator.share({ title: articleTitle, text: shareText, url: shareUrl });
+    await navigator.share({
+      title: articleTitle,
+      text: shareText,
+      url: shareUrl,
+    });
   }
 
   return (
-    <section className="interactive-troubleshooter" aria-labelledby="interactive-steps-title">
+    <section
+      className="interactive-troubleshooter"
+      aria-labelledby="interactive-steps-title"
+    >
       <div className="solution-data-panel">
         <p className="evidence-label">GEMNAO FIRST-PARTY DATA</p>
         <h2>このトラブルの解決状況</h2>
@@ -257,7 +288,9 @@ export function InteractiveSteps({
             <span>匿名回答 {total}件</span>
           </div>
         ) : (
-          <p>信頼できる表示に必要な回答データを集計中です（10件以上で解決率を表示）。</p>
+          <p>
+            信頼できる表示に必要な回答データを集計中です（10件以上で解決率を表示）。
+          </p>
         )}
         {row.resolved >= threshold && rankedMethods.length ? (
           <div className="method-ranking">
@@ -282,39 +315,85 @@ export function InteractiveSteps({
             <strong>前回の続きがあります</strong>
             <span>STEP {currentStep + 1}から再開できます。</span>
           </div>
-          <button type="button" onClick={() => document.getElementById(steps[currentStep]?.id)?.scrollIntoView({ behavior: 'smooth' })}>
+          <button
+            type="button"
+            onClick={() =>
+              document
+                .getElementById(steps[currentStep]?.id)
+                ?.scrollIntoView({ behavior: 'smooth' })
+            }
+          >
             続きから再開
           </button>
         </div>
       ) : null}
 
-      <div className="step-progress" aria-label={`進行状況 ${Math.min(currentStep + 1, steps.length)} / ${steps.length}`}>
+      <div
+        className="step-progress"
+        aria-label={`進行状況 ${Math.min(currentStep + 1, steps.length)} / ${steps.length}`}
+      >
         <span>進行状況</span>
-        <strong>{Math.min(currentStep + 1, steps.length)} / {steps.length}</strong>
-        <div><i style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }} /></div>
+        <strong>
+          {Math.min(currentStep + 1, steps.length)} / {steps.length}
+        </strong>
+        <div>
+          <i
+            style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
+          />
+        </div>
       </div>
 
       <div className="procedure-section">
-        <h2 id="interactive-steps-title"><ListChecks size={26} />{heading}</h2>
+        <h2 id="interactive-steps-title">
+          <ListChecks size={26} />
+          {heading}
+        </h2>
         <div className="procedure-list">
           {steps.map((step, index) => {
             const completed = completedIds.includes(step.id);
             const solvedHere = solvedStepId === step.id;
             return (
-              <section className={`procedure-card interactive-step${index === currentStep ? ' current' : ''}${completed ? ' completed' : ''}`} id={step.id} key={step.id}>
+              <section
+                className={`procedure-card interactive-step${index === currentStep ? ' current' : ''}${completed ? ' completed' : ''}`}
+                id={step.id}
+                key={step.id}
+              >
                 <header>
                   <span>{completed ? <Check size={19} /> : index + 1}</span>
-                  <div><h3>{step.title}</h3>{step.summary ? <p>{step.summary}</p> : null}</div>
+                  <div>
+                    <h3>{step.title}</h3>
+                    {step.summary ? <p>{step.summary}</p> : null}
+                  </div>
                 </header>
-                <ol>{step.actions.map((action) => <li key={action}>{action}</li>)}</ol>
-                {step.note ? <p className="procedure-note">{step.note}</p> : null}
+                <ol>
+                  {step.actions.map((action) => (
+                    <li key={action}>{action}</li>
+                  ))}
+                </ol>
+                {step.note ? (
+                  <p className="procedure-note">{step.note}</p>
+                ) : null}
                 <div className="step-actions">
-                  <button className="step-solved" type="button" onClick={() => void solved(step)} disabled={Boolean(sending || solvedStepId || alreadyVoted)}>
-                    <CheckCircle2 size={18} />{solvedHere ? 'この方法で解決済み' : 'これで直った'}
+                  <button
+                    className="step-solved"
+                    type="button"
+                    onClick={() => void solved(step)}
+                    disabled={Boolean(sending || solvedStepId || alreadyVoted)}
+                  >
+                    <CheckCircle2 size={18} />
+                    {solvedHere ? 'この方法で解決済み' : 'これで直った'}
                   </button>
                   {!solvedStepId ? (
-                    <button className="step-next" type="button" onClick={() => void notSolved(step, index)} disabled={Boolean(sending)}>
-                      {index < steps.length - 1 ? '直らない → 次へ' : '全部試したが直らない'}<ChevronRight size={17} />
+                    <button
+                      className="step-next"
+                      type="button"
+                      onClick={() => void notSolved(step, index)}
+                      disabled={Boolean(sending)}
+                    >
+                      {index < steps.length - 1
+                        ? '直らない → 次へ'
+                        : '全部試したが直らない'}
+                      <ChevronRight size={17} />
                     </button>
                   ) : null}
                 </div>
@@ -324,14 +403,51 @@ export function InteractiveSteps({
         </div>
       </div>
 
+      {!solvedStep &&
+      completedIds.length >= steps.length &&
+      nextLinks.length ? (
+        <section
+          className="related-section step-next-actions"
+          aria-labelledby="step-next-actions-title"
+        >
+          <h2 id="step-next-actions-title">まだ直りませんか？</h2>
+          <p>現在の症状に近いものから、次の対処法を確認してください。</p>
+          <div>
+            {nextLinks.slice(0, 5).map((link) => (
+              <a href={link.href} key={link.href}>
+                {link.label}
+                <ChevronRight size={16} />
+              </a>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
       {solvedStep ? (
         <output className="success-share">
           <CheckCircle2 size={28} />
-          <div><strong>解決できました！</strong><p>同じ症状で困っている人に、この方法を共有できます。</p></div>
+          <div>
+            <strong>解決できました！</strong>
+            <p>同じ症状で困っている人に、この方法を共有できます。</p>
+          </div>
           <div className="share-actions">
-            <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noreferrer">Xで共有</a>
-            <button type="button" onClick={() => void copyLink()}><Clipboard size={17} />リンクをコピー</button>
-            {typeof navigator !== 'undefined' && 'share' in navigator ? <button type="button" onClick={() => void nativeShare()}><Share2 size={17} />共有</button> : null}
+            <a
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Xで共有
+            </a>
+            <button type="button" onClick={() => void copyLink()}>
+              <Clipboard size={17} />
+              リンクをコピー
+            </button>
+            {typeof navigator !== 'undefined' && 'share' in navigator ? (
+              <button type="button" onClick={() => void nativeShare()}>
+                <Share2 size={17} />
+                共有
+              </button>
+            ) : null}
           </div>
         </output>
       ) : null}

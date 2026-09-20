@@ -28,6 +28,7 @@ export const troubleHubs: TroubleHub[] = [
     guideSlugs: [
       'steam-game-not-launching',
       'verify-steam-files',
+      'steam-disk-write-error',
       'directx-error',
       'visual-c-runtime-error',
     ],
@@ -48,6 +49,8 @@ export const troubleHubs: TroubleHub[] = [
     guideSlugs: [
       'pc-game-crash',
       'pc-game-freezes',
+      'pc-shuts-down-while-gaming',
+      'bsod-while-gaming',
       'gpu-driver-update',
       'vram-shortage',
     ],
@@ -80,7 +83,11 @@ export const troubleHubs: TroubleHub[] = [
       'フォルダを削除せず、別ドライブへ丸ごとコピーする',
       'クラウド同期が完了しているか確認する',
     ],
-    guideSlugs: ['save-data-backup', 'uninstall-save-data'],
+    guideSlugs: [
+      'save-data-backup',
+      'steam-cloud-sync-error',
+      'uninstall-save-data',
+    ],
     relatedSlugs: ['mod', 'not-launching'],
   },
   {
@@ -170,8 +177,8 @@ export function troubleHubForArticle(article: GameArticle) {
       ? /not-launching/i.test(article.slug)
         ? 'not-launching'
         : /クラッシュ|強制終了|落ちる|フリーズ|CrashReport/i.test(
-          searchableArticle(article),
-        )
+              searchableArticle(article),
+            )
           ? 'crash'
           : 'not-launching'
       : article.category === 'display' || article.category === 'settings'
@@ -185,10 +192,12 @@ export function troubleHubForArticle(article: GameArticle) {
 export function troubleHubForGuide(guide: CommonGuide) {
   const text = [guide.slug, guide.title, guide.description].join(' ');
   if (/controller|input/i.test(text)) return troubleHubBySlug('controller');
-  if (/save|uninstall/i.test(text)) return troubleHubBySlug('save');
+  if (/save|uninstall|steam-cloud-sync/i.test(text))
+    return troubleHubBySlug('save');
   if (/mod|reshade/i.test(text)) return troubleHubBySlug('mod');
   if (/fps|stutter|vram|gpu-usage|shader/i.test(text))
     return troubleHubBySlug('fps');
-  if (/crash|freez/i.test(text)) return troubleHubBySlug('crash');
+  if (/crash|freez|shuts-down|bsod|ブルースクリーン|電源が落ちる/i.test(text))
+    return troubleHubBySlug('crash');
   return troubleHubBySlug('not-launching');
 }

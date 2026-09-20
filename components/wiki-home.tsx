@@ -19,7 +19,7 @@ import { games } from '@/lib/games';
 import { categoryLabels, gameArticles } from '@/lib/game-articles';
 import { commonGuides } from '@/lib/common-guides';
 import { discordArticles } from '@/lib/discord-articles';
-import { articleMatchesTrouble } from '@/lib/trouble-hubs';
+import { articleMatchesTrouble, troubleHubForGuide } from '@/lib/trouble-hubs';
 import { RecentTroubles } from './recent-troubles';
 import { WikiFooter, WikiHeader } from './wiki-header';
 
@@ -31,6 +31,11 @@ const topics = [
   { slug: 'mod', label: 'MOD', icon: Puzzle },
   { slug: 'controller', label: 'コントローラー', icon: Gamepad2 },
   { slug: 'server', label: 'サーバー', icon: Server },
+];
+
+const articleFilters = [
+  ...topics.map(({ slug, label }) => ({ slug, label })),
+  { slug: 'discord', label: 'Discord' },
 ];
 
 const searchAliases: [RegExp, string][] = [
@@ -140,11 +145,66 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
     isSearching || isArticleFiltering || view === 'articles'
       ? visibleArticles
       : visibleArticles.slice(0, 6);
+  const supplementalArticles = useMemo(() => {
+    if (view !== 'articles') return [];
+    const guides = commonGuides
+      .filter((guide) => guide.status === 'verified')
+      .filter(
+        (guide) =>
+          articleCluster === 'all' ||
+          troubleHubForGuide(guide)?.slug === articleCluster,
+      )
+      .filter((guide) =>
+        matchesNaturalQuery(
+          [
+            guide.title,
+            guide.shortTitle,
+            guide.description,
+            ...guide.causes,
+          ].join(' '),
+          query,
+        ),
+      )
+      .map((guide) => ({
+        key: `guide-${guide.slug}`,
+        href: `/guide/${guide.slug}`,
+        label: 'PC共通ガイド',
+        title: guide.shortTitle,
+        checkedAt: guide.checkedAt,
+      }));
+    const discord = discordArticles
+      .filter((article) => article.status === 'verified')
+      .filter(() => articleCluster === 'all' || articleCluster === 'discord')
+      .filter((article) =>
+        matchesNaturalQuery(
+          [
+            article.title,
+            article.shortTitle,
+            article.symptom,
+            article.metaDescription,
+            ...article.quickFixes,
+          ].join(' '),
+          query,
+        ),
+      )
+      .map((article) => ({
+        key: `discord-${article.slug}`,
+        href: `/discord/${article.slug}`,
+        label: 'Discord',
+        title: article.shortTitle,
+        checkedAt: article.checkedAt,
+      }));
+    return [...guides, ...discord].sort((a, b) =>
+      b.checkedAt.localeCompare(a.checkedAt),
+    );
+  }, [articleCluster, query, view]);
+  const displayedArticleCount =
+    displayedArticles.length + supplementalArticles.length;
   const featuredGuides = featuredGuideSlugs
     .map((slug) => commonGuides.find((guide) => guide.slug === slug))
     .filter((guide): guide is NonNullable<typeof guide> => Boolean(guide));
   const additionalSearchResults = useMemo(() => {
-    if (!query.trim()) return [];
+    if (!query.trim() || view === 'articles') return [];
     const guides = commonGuides
       .filter((guide) =>
         matchesNaturalQuery(
@@ -183,7 +243,7 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
         title: article.shortTitle,
       }));
     return [...guides, ...discord].slice(0, 12);
-  }, [query]);
+  }, [query, view]);
 
   return (
     <main>
@@ -334,7 +394,7 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
         </a>
       </section>
 
-      {(displayedArticles.length > 0 || view === 'articles') && (
+      {(displayedArticleCount > 0 || view === 'articles') && (
         <section
           className="content article-index"
           id="articles"
@@ -351,7 +411,7 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
                     : '新着の解決記事'}
               </h2>
             </div>
-            <span>{displayedArticles.length}記事</span>
+            <span>{displayedArticleCount}記事</span>
           </div>
           {view === 'articles' ? (
             <div
@@ -365,7 +425,7 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
               >
                 すべて
               </button>
-              {topics.map((topic) => (
+              {articleFilters.map((topic) => (
                 <button
                   type="button"
                   className={articleCluster === topic.slug ? 'active' : ''}
@@ -377,7 +437,7 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
               ))}
             </div>
           ) : null}
-          {displayedArticles.length ? (
+          {displayedArticleCount ? (
             <div className="home-article-grid">
               {displayedArticles.map((article) => {
                 const game = games.find(
@@ -399,6 +459,16 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
                   </a>
                 );
               })}
+              {supplementalArticles.map((article) => (
+                <a href={article.href} key={article.key}>
+                  <span>{article.label}</span>
+                  <h3>{article.title}</h3>
+                  <p>更新日：{article.checkedAt.replaceAll('-', '.')}</p>
+                  <b>
+                    解決手順を見る <ChevronRight size={16} />
+                  </b>
+                </a>
+              ))}
             </div>
           ) : (
             <div className="empty-state">

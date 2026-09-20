@@ -187,6 +187,29 @@ export function TroubleshootingArticle({
             articlePath={`/games/${game.slug}/${article.slug}`}
             shareHashtag={game.title.split('/')[0].trim()}
             steps={article.steps}
+            nextLinks={[
+              ...article.related
+                .map((slug) => articleBySlug(game.slug, slug))
+                .filter((item): item is NonNullable<typeof item> =>
+                  Boolean(item),
+                )
+                .map((item) => ({
+                  href: `/games/${game.slug}/${item.slug}`,
+                  label: item.shortTitle,
+                })),
+              ...(troubleHub
+                ? [
+                    {
+                      href: `/trouble/${troubleHub.slug}`,
+                      label: `${troubleHub.label}の共通対処を見る`,
+                    },
+                  ]
+                : []),
+              {
+                href: `/games/${game.slug}`,
+                label: `${game.shortTitle}のトラブル一覧へ戻る`,
+              },
+            ]}
           />
           <section className="caution-block">
             <h2>
