@@ -21,8 +21,9 @@ export default function Privacy() {
         </p>
         <h2>アクセス解析</h2>
         <p>
-          公開後、サイト改善のためにGoogle
-          Analytics等を使用する場合があります。これらはCookieを使用し、個人を特定しない形で利用状況を収集します。
+          本サイトでは、利用状況の把握と改善のためにGoogle
+          Analyticsを使用します。Google
+          AnalyticsはCookie等を使用し、個人を直接特定しない形で閲覧情報を収集します。
         </p>
         <h2>広告配信</h2>
         <p>
@@ -70,7 +71,7 @@ export default function Privacy() {
         </p>
         <h2>改定</h2>
         <p>
-          法令や運営方針の変更に応じ、本ポリシーを改定する場合があります。制定日：2026年9月6日　改定日：2026年9月16日
+          法令や運営方針の変更に応じ、本ポリシーを改定する場合があります。制定日：2026年9月6日　改定日：2026年9月20日
         </p>
       </article>
       <WikiFooter />

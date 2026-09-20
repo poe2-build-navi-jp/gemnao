@@ -3,6 +3,11 @@ import './globals.css';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://gemnao.pages.dev';
 const isPublic = process.env.NEXT_PUBLIC_SITE_PUBLIC !== 'false';
+const configuredGoogleAnalyticsId =
+  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-V2QT94S68G';
+const googleAnalyticsId = /^G-[A-Z0-9]+$/.test(configuredGoogleAnalyticsId)
+  ? configuredGoogleAnalyticsId
+  : '';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -68,6 +73,22 @@ export default function RootLayout({
             crossOrigin="anonymous"
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
           />
+        ) : null}
+        {isPublic && googleAnalyticsId ? (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${googleAnalyticsId}');`,
+              }}
+            />
+          </>
         ) : null}
       </head>
       <body>{children}</body>
