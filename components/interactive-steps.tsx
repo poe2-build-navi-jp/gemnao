@@ -148,7 +148,16 @@ export function InteractiveSteps({
   const total = row.struggling + row.resolved;
   const solvedRate = total ? Math.round((row.resolved / total) * 100) : 0;
   const rankedMethods = useMemo(
-    () => [...methods].sort((a, b) => b.responses - a.responses).slice(0, 3),
+    () => {
+      const sorted = [...methods].sort(
+        (a, b) => b.responses - a.responses || a.methodLabel.localeCompare(b.methodLabel),
+      );
+      return sorted.slice(0, 3).map((method) => ({
+        ...method,
+        rank:
+          sorted.findIndex((item) => item.responses === method.responses) + 1,
+      }));
+    },
     [methods],
   );
   const solvedStep = steps.find((step) => step.id === solvedStepId);
@@ -261,17 +270,26 @@ export function InteractiveSteps({
   }
 
   async function copyLink() {
-    await navigator.clipboard.writeText(shareUrl);
-    setMessage('リンクをコピーしました。');
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setMessage('リンクをコピーしました。');
+    } catch {
+      setMessage('リンクをコピーできませんでした。ブラウザの設定を確認してください。');
+    }
   }
 
   async function nativeShare() {
     if (!navigator.share) return;
-    await navigator.share({
-      title: articleTitle,
-      text: shareText,
-      url: shareUrl,
-    });
+    try {
+      await navigator.share({
+        title: articleTitle,
+        text: shareText,
+        url: shareUrl,
+      });
+    } catch (error) {
+      if (error instanceof DOMException && error.name === 'AbortError') return;
+      setMessage('共有を開始できませんでした。X共有またはリンクコピーをお試しください。');
+    }
   }
 
   return (
@@ -297,7 +315,7 @@ export function InteractiveSteps({
             <strong>よく直っている方法</strong>
             <ol>
               {rankedMethods.map((method) => (
-                <li key={method.methodId}>
+                <li key={method.methodId} value={method.rank}>
                   <span>{method.methodLabel}</span>
                   <b>{method.responses}件</b>
                 </li>
@@ -428,7 +446,9 @@ export function InteractiveSteps({
           <CheckCircle2 size={28} />
           <div>
             <strong>解決できました！</strong>
-            <p>同じ症状で困っている人に、この方法を共有できます。</p>
+            <p>
+              「{solvedStep.title}」で直りました。同じ症状で困っている人に共有できます。
+            </p>
           </div>
           <div className="share-actions">
             <a

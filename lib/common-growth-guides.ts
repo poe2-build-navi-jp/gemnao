@@ -28,13 +28,13 @@ const windowsAudio = {
 export const commonGrowthGuides: CommonGuide[] = [
   {
     slug: 'steam-cloud-sync-error',
-    title: 'Steamクラウドに同期できない・同期エラーが出るときの対処法',
+    title: 'Steamクラウドが同期できない時の直し方｜同期エラー・競合の対処',
     shortTitle: 'Steamクラウド同期エラー',
     description:
       'Steamクラウドに同期できない、同期競合や「同期できません」と表示される場合に、セーブを失わない順番で切り分けます。',
     conclusion:
       'ゲームを起動せず、先にローカルのセーブデータを別の場所へコピーしてください。その後、Steam Cloudの有効状態、通信、同期競合に表示された更新日時を順に確認します。',
-    checkedAt: '2026-09-19',
+    checkedAt: '2026-09-20',
     steps: [
       {
         title: 'ゲームを起動せずセーブをバックアップする',
@@ -82,13 +82,14 @@ export const commonGrowthGuides: CommonGuide[] = [
   },
   {
     slug: 'steam-disk-write-error',
-    title: 'Steamの「ディスク書き込みエラー」を直す方法',
+    title:
+      'Steam「ディスク書き込みエラー」の直し方｜更新・インストールできない時の対処',
     shortTitle: 'Steamディスク書き込みエラー',
     description:
       'Steamのダウンロードや更新で「ディスク書き込みエラー」が出る場合に、空き容量、保存先、セキュリティソフト、ドライブを安全に確認する手順です。',
     conclusion:
       'SteamとPCを再起動し、ゲームを入れているドライブの空き容量を確認します。直らなければSteamライブラリの修復、隔離履歴、Windowsのドライブエラーを順に切り分けます。',
-    checkedAt: '2026-09-19',
+    checkedAt: '2026-09-20',
     steps: [
       {
         title: 'Steamを再起動して空き容量を確認する',
@@ -142,7 +143,7 @@ export const commonGrowthGuides: CommonGuide[] = [
       'PCゲーム中だけ突然電源が落ちる、再起動する場合に、Windows更新、温度、負荷、電源系統を安全に切り分ける方法です。',
     conclusion:
       '焦げた臭い、異音、異常な発熱がある場合は直ちに電源を切って使用を中止してください。異常がなければWindowsの更新とイベント記録、温度、オーバークロック、電源接続を順に確認します。',
-    checkedAt: '2026-09-19',
+    checkedAt: '2026-09-20',
     steps: [
       {
         title: '危険な兆候があれば使用を中止する',
