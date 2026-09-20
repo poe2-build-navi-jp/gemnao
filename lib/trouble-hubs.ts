@@ -190,6 +190,11 @@ export function troubleHubForArticle(article: GameArticle) {
 }
 
 export function troubleHubForGuide(guide: CommonGuide) {
+  const assignedHub = troubleHubs.find((hub) =>
+    hub.guideSlugs.includes(guide.slug),
+  );
+  if (assignedHub) return assignedHub;
+
   const text = [guide.slug, guide.title, guide.description].join(' ');
   if (/controller|input/i.test(text)) return troubleHubBySlug('controller');
   if (/mod|reshade/i.test(text)) return troubleHubBySlug('mod');
