@@ -192,9 +192,9 @@ export function troubleHubForArticle(article: GameArticle) {
 export function troubleHubForGuide(guide: CommonGuide) {
   const text = [guide.slug, guide.title, guide.description].join(' ');
   if (/controller|input/i.test(text)) return troubleHubBySlug('controller');
+  if (/mod|reshade/i.test(text)) return troubleHubBySlug('mod');
   if (/save|uninstall|steam-cloud-sync/i.test(text))
     return troubleHubBySlug('save');
-  if (/mod|reshade/i.test(text)) return troubleHubBySlug('mod');
   if (/fps|stutter|vram|gpu-usage|shader/i.test(text))
     return troubleHubBySlug('fps');
   if (/crash|freez|shuts-down|bsod|ブルースクリーン|電源が落ちる/i.test(text))
