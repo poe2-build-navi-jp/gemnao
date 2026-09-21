@@ -8,14 +8,25 @@ const staticFiles = new Set([
 ]);
 
 const worker = {
-  fetch(request, env, context) {
+  async fetch(request, env, context) {
     const { pathname } = new URL(request.url);
 
     if (pathname.startsWith('/_next/static/') || staticFiles.has(pathname)) {
       return env.ASSETS.fetch(request);
     }
 
-    return application.fetch(request, env, context);
+    const response = await application.fetch(request, env, context);
+    const locale = pathname.match(/^\/(en|zh|es)(?:\/|$)/)?.[1];
+    if (locale && response.headers.get('content-type')?.includes('text/html')) {
+      return new HTMLRewriter()
+        .on('html', {
+          element(element) {
+            element.setAttribute('lang', locale === 'zh' ? 'zh-CN' : locale);
+          },
+        })
+        .transform(response);
+    }
+    return response;
   },
 };
 

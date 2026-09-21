@@ -22,21 +22,37 @@ export function WikiHeader({
       : copy[locale];
   return (
     <header className="site-header">
-      <a className="logo" href={root} aria-label="ゲムなお ホーム">
+      <a
+        className="logo"
+        href={root}
+        aria-label={locale === 'en' ? 'Gemnao home' : 'ゲムなお ホーム'}
+      >
         <span className="logo-mark">
           <MonitorCog size={21} />
         </span>
         <span className="brand-name">
-          ゲムなお<em>PCゲームのお直しWiki</em>
+          {locale === 'en' ? 'Gemnao' : 'ゲムなお'}
+          <em>
+            {locale === 'en'
+              ? 'PC game troubleshooting'
+              : 'PCゲームのお直しWiki'}
+          </em>
         </span>
       </a>
-      <nav aria-label="メインナビゲーション">
+      <nav
+        aria-label={
+          locale === 'en' ? 'Main navigation' : 'メインナビゲーション'
+        }
+      >
         <a href={locale === 'ja' ? '/?view=games#games' : `${root}/#games`}>
           {labels.games}
         </a>
         {locale === 'ja' ? <a href="/#symptoms">症状から探す</a> : null}
-        <a href="/guide">{labels.basics}</a>
-        <a href="/discord">Discord</a>
+        <a href="/guide">
+          {labels.basics}
+          {locale === 'en' ? ' (Japanese)' : ''}
+        </a>
+        <a href="/discord">Discord{locale === 'en' ? ' (Japanese)' : ''}</a>
         {locale === 'ja' ? <a href="/discord-servers">サーバー募集</a> : null}
         {locale === 'ja' ? (
           <a
@@ -48,7 +64,10 @@ export function WikiHeader({
             <Search size={18} aria-hidden="true" />
           </a>
         ) : (
-          <a href="/about">{labels.about}</a>
+          <a href="/about">
+            {labels.about}
+            {locale === 'en' ? ' (Japanese)' : ''}
+          </a>
         )}
       </nav>
       <details className="language-menu">
@@ -95,17 +114,34 @@ export function WikiFooter({ locale = 'ja' }: { locale?: 'ja' | Locale }) {
   return (
     <footer className="site-footer" id="footer-nav">
       <div>
-        <strong>ゲムなお</strong>
+        <strong>{locale === 'en' ? 'Gemnao' : 'ゲムなお'}</strong>
         <p>{text.tagline}</p>
       </div>
-      <nav aria-label="フッターナビゲーション">
-        <a href="/about">運営情報</a>
-        <a href="/privacy">プライバシー</a>
-        <a href="/terms">利用規約・免責</a>
-        <a href="/discord-servers">Discordサーバー募集</a>
-        <a href="/contact">お問い合わせ</a>
+      <nav
+        aria-label={
+          locale === 'en' ? 'Footer navigation' : 'フッターナビゲーション'
+        }
+      >
+        <a href="/about">{locale === 'en' ? 'About (Japanese)' : '運営情報'}</a>
+        <a href="/privacy">
+          {locale === 'en' ? 'Privacy (Japanese)' : 'プライバシー'}
+        </a>
+        <a href="/terms">
+          {locale === 'en' ? 'Terms (Japanese)' : '利用規約・免責'}
+        </a>
+        <a href="/discord-servers">
+          {locale === 'en'
+            ? 'Discord servers (Japanese)'
+            : 'Discordサーバー募集'}
+        </a>
+        <a href="/contact">
+          {locale === 'en' ? 'Contact (Japanese)' : 'お問い合わせ'}
+        </a>
       </nav>
-      <small>© 2026 ゲムなお。{text.footer}</small>
+      <small>
+        © 2026 {locale === 'en' ? 'Gemnao. ' : 'ゲムなお。'}
+        {text.footer}
+      </small>
     </footer>
   );
 }

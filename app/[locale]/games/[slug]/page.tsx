@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { LocalizedGamePage } from '@/components/localized-game-page';
 import { gameBySlug, games } from '@/lib/games';
 import { copy, isLocale, locales, localizedGames } from '@/lib/i18n';
+import { englishTitle } from '@/lib/english-quality';
 
 export function generateStaticParams() {
   return locales.flatMap((locale) =>
@@ -21,9 +22,19 @@ export async function generateMetadata({
   const game = gameBySlug(slug);
   if (!isLocale(locale) || !game || !localizedGames[locale][slug]) return {};
   const ui = copy[locale];
+  const title = `${locale === 'en' ? englishTitle(game) : game.shortTitle} – ${ui.launch} | Gemnao`;
+  const description = localizedGames[locale][slug].lead;
   return {
-    title: `${game.shortTitle} – ${ui.launch}`,
-    description: `${game.title}: ${ui.heroBody}`,
+    title: { absolute: title },
+    description,
+    openGraph: {
+      title,
+      description,
+      locale: locale === 'en' ? 'en_US' : locale === 'zh' ? 'zh_CN' : 'es_ES',
+      url: `/${locale}/games/${slug}`,
+      images: [],
+    },
+    twitter: { card: 'summary', title, description, images: [] },
     robots: {
       index: false,
       follow: true,

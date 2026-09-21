@@ -3,22 +3,45 @@
 import { Check, Copy } from 'lucide-react';
 import { useState } from 'react';
 
-export function PathCopy({ value }: { value: string }) {
+export function PathCopy({
+  value,
+  english = false,
+}: {
+  value: string;
+  english?: boolean;
+}) {
   const [copied, setCopied] = useState(false);
+  const [failed, setFailed] = useState(false);
   async function copy() {
-    await navigator.clipboard.writeText(value);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1800);
+    setFailed(false);
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1800);
+    } catch {
+      setFailed(true);
+    }
   }
   return (
     <button
       className="copy-button"
       type="button"
       onClick={copy}
-      aria-label="パスをコピー"
+      aria-label={english ? 'Copy path' : 'パスをコピー'}
+      aria-live="polite"
     >
       {copied ? <Check size={16} /> : <Copy size={16} />}
-      {copied ? 'コピーしました' : 'コピー'}
+      {failed
+        ? english
+          ? 'Select the path and copy manually'
+          : 'パスを選択して手動コピーしてください'
+        : copied
+          ? english
+            ? 'Copied'
+            : 'コピーしました'
+          : english
+            ? 'Copy'
+            : 'コピー'}
     </button>
   );
 }

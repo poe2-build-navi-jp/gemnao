@@ -22,8 +22,8 @@ export const copy = {
     hero: 'Fix your PC game problems, fast.',
     heroBody:
       'Save locations, launch errors, FPS settings, controllers and mods—concise, practical guides for popular PC games.',
-    selection: 'POPULAR GUIDES FOR 2026',
-    listTitle: 'Games players need help with now',
+    selection: 'WINDOWS GAME CHECKLISTS',
+    listTitle: 'Choose your game',
     titles: 'guides',
     open: 'Open guide',
     articleLabel: 'PC TROUBLESHOOTING & SETTINGS GUIDE',

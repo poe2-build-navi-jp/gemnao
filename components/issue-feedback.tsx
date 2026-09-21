@@ -156,7 +156,9 @@ export function IssueFeedback({
       for (const topic of displayedTopics)
         for (const kind of ['struggling', 'resolved']) {
           if (
-            localStorage.getItem(`gemnao-feedback:${gameSlug}:${topic.id}:${kind}`)
+            localStorage.getItem(
+              `gemnao-feedback:${gameSlug}:${topic.id}:${kind}`,
+            )
           )
             saved.add(`${topic.id}:${kind}`);
         }
@@ -324,7 +326,10 @@ export function IssueFeedback({
         </div>
       )}
       <p className="count-note">
-        ※ 回答が一定数集まるまでは件数を表示しません。{ui.note}
+        {locale === 'en'
+          ? 'Counts remain hidden until enough responses are collected. '
+          : '※ 回答が一定数集まるまでは件数を表示しません。'}
+        {ui.note}
       </p>
     </section>
   );

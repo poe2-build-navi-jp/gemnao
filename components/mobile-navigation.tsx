@@ -36,7 +36,15 @@ export function MobileNavigation({
       <button
         className="mobile-menu"
         type="button"
-        aria-label={open ? 'メニューを閉じる' : 'メニューを開く'}
+        aria-label={
+          locale === 'en'
+            ? open
+              ? 'Close menu'
+              : 'Open menu'
+            : open
+              ? 'メニューを閉じる'
+              : 'メニューを開く'
+        }
         aria-expanded={open}
         aria-controls="mobile-navigation-panel"
         onClick={() => setOpen((current) => !current)}
@@ -48,17 +56,19 @@ export function MobileNavigation({
           <button
             className="mobile-navigation-backdrop"
             type="button"
-            aria-label="メニューを閉じる"
+            aria-label={locale === 'en' ? 'Close menu' : 'メニューを閉じる'}
             onClick={() => setOpen(false)}
           />
           <aside
             className="mobile-navigation-panel"
             id="mobile-navigation-panel"
-            aria-label="スマートフォンメニュー"
+            aria-label={
+              locale === 'en' ? 'Mobile navigation' : 'スマートフォンメニュー'
+            }
           >
-            <p>主要ページ</p>
+            <p>{locale === 'en' ? 'Explore Gemnao' : '主要ページ'}</p>
             <nav>
-              <a href={root}>ホーム</a>
+              <a href={root}>{locale === 'en' ? 'Home' : 'ホーム'}</a>
               {locale === 'ja' ? (
                 <a href="/#site-search">ゲーム名・症状を検索</a>
               ) : null}
@@ -71,15 +81,23 @@ export function MobileNavigation({
               {locale === 'ja' ? (
                 <a href="/?view=articles#articles">解決記事一覧</a>
               ) : null}
-              <a href="/guide">{basicsLabel}</a>
-              <a href="/discord">Discordトラブル</a>
+              <a href="/guide">
+                {basicsLabel}
+                {locale === 'en' ? ' (Japanese)' : ''}
+              </a>
+              <a href="/discord">
+                {locale === 'en' ? 'Discord (Japanese)' : 'Discordトラブル'}
+              </a>
               {locale === 'ja' ? (
                 <a href="/discord-servers">Discordサーバー募集</a>
               ) : null}
               {locale === 'ja' ? (
                 <a href="/discord-servers/submit">サーバーを掲載する</a>
               ) : null}
-              <a href="/about">{aboutLabel}</a>
+              <a href="/about">
+                {aboutLabel}
+                {locale === 'en' ? ' (Japanese)' : ''}
+              </a>
             </nav>
             {locale === 'ja' ? (
               <a className="mobile-admin-link" href="/admin/discord-servers">

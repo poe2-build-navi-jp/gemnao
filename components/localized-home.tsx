@@ -2,6 +2,7 @@ import { ChevronRight, Wrench } from 'lucide-react';
 import type { Locale } from '@/lib/i18n';
 import { copy, localizedGames } from '@/lib/i18n';
 import { games } from '@/lib/games';
+import { englishTitle } from '@/lib/english-quality';
 import { WikiFooter, WikiHeader } from './wiki-header';
 
 export function LocalizedHome({ locale }: { locale: Locale }) {
@@ -19,6 +20,13 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
           </p>
           <h1>{ui.hero}</h1>
           <p>{ui.heroBody}</p>
+          {locale === 'en' ? (
+            <p>
+              Start with your game below. These are troubleshooting checklists,
+              not tested fixes for every PC or a live outage tracker. Change one
+              setting at a time and keep your saves safe.
+            </p>
+          ) : null}
         </div>
       </section>
       <section className="content" id="games">
@@ -42,7 +50,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
               <span className="rank">{String(index + 1).padStart(2, '0')}</span>
               <div>
                 <p className="demand">{ui.open}</p>
-                <h3>{game.title}</h3>
+                <h3>{locale === 'en' ? englishTitle(game) : game.title}</h3>
                 <p className="localized-card-lead">
                   {localizedGames[locale][game.slug].lead}
                 </p>

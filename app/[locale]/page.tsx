@@ -16,8 +16,21 @@ export async function generateMetadata({
   if (!isLocale(locale)) return {};
   const ui = copy[locale];
   return {
-    title: ui.hero,
+    title: { absolute: `${ui.hero} | Gemnao` },
     description: ui.heroBody,
+    openGraph: {
+      title: `${ui.hero} | Gemnao`,
+      description: ui.heroBody,
+      locale: locale === 'en' ? 'en_US' : locale === 'zh' ? 'zh_CN' : 'es_ES',
+      url: `/${locale}`,
+      images: [],
+    },
+    twitter: {
+      card: 'summary',
+      title: `${ui.hero} | Gemnao`,
+      description: ui.heroBody,
+      images: [],
+    },
     robots: {
       index: false,
       follow: true,
