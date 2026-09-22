@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { articleSteps } from '@/lib/article-step-data';
 import { games } from '@/lib/games';
 import { commonGuides } from '@/lib/common-guides';
 import { discordArticles } from '@/lib/discord-articles';
@@ -77,6 +78,11 @@ export async function POST(request: NextRequest) {
     );
   }
   if (body.kind === 'method') {
+    if (articleSteps(body.game))
+      return NextResponse.json(
+        { error: '記事のSTEPから回答してください' },
+        { status: 400 },
+      );
     if (
       !body.method?.match(/^[a-z0-9-]{1,48}$/) ||
       !body.label ||
@@ -98,21 +104,15 @@ export async function POST(request: NextRequest) {
     );
   }
   if (body.kind === 'step-solved') {
-    if (
-      !body.method?.match(/^[a-z0-9-]{1,48}$/) ||
-      !body.label ||
-      body.label.length > 80
-    )
+    const step = articleSteps(body.game)?.find(
+      (item) => item.id === body.method,
+    );
+    if (!step)
       return NextResponse.json(
-        { error: '入力が正しくありません' },
+        { error: '記事のSTEPが見つかりません' },
         { status: 400 },
       );
-    await recordStepSolved(
-      body.game,
-      body.topic,
-      body.method,
-      body.label,
-    );
+    await recordStepSolved(body.game, body.topic, step.id, step.title);
     const [rows, methods] = await Promise.all([
       readFeedback(body.game),
       readSolutionMethods(body.game),

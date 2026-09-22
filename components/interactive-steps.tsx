@@ -10,6 +10,7 @@ import {
   Share2,
 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
+import { solutionRanking } from '@/lib/solution-ranking';
 
 type Step = {
   id: string;
@@ -148,17 +149,8 @@ export function InteractiveSteps({
   const total = row.struggling + row.resolved;
   const solvedRate = total ? Math.round((row.resolved / total) * 100) : 0;
   const rankedMethods = useMemo(
-    () => {
-      const sorted = [...methods].sort(
-        (a, b) => b.responses - a.responses || a.methodLabel.localeCompare(b.methodLabel),
-      );
-      return sorted.slice(0, 3).map((method) => ({
-        ...method,
-        rank:
-          sorted.findIndex((item) => item.responses === method.responses) + 1,
-      }));
-    },
-    [methods],
+    () => solutionRanking(methods, steps, row.resolved),
+    [methods, steps, row.resolved],
   );
   const solvedStep = steps.find((step) => step.id === solvedStepId);
   const shareUrl = solvedStep
@@ -274,7 +266,9 @@ export function InteractiveSteps({
       await navigator.clipboard.writeText(shareUrl);
       setMessage('リンクをコピーしました。');
     } catch {
-      setMessage('リンクをコピーできませんでした。ブラウザの設定を確認してください。');
+      setMessage(
+        'リンクをコピーできませんでした。ブラウザの設定を確認してください。',
+      );
     }
   }
 
@@ -288,7 +282,9 @@ export function InteractiveSteps({
       });
     } catch (error) {
       if (error instanceof DOMException && error.name === 'AbortError') return;
-      setMessage('共有を開始できませんでした。X共有またはリンクコピーをお試しください。');
+      setMessage(
+        '共有を開始できませんでした。X共有またはリンクコピーをお試しください。',
+      );
     }
   }
 
@@ -302,8 +298,11 @@ export function InteractiveSteps({
         <h2>このトラブルの解決状況</h2>
         {total >= threshold ? (
           <div className="solution-data-summary">
-            <strong>{solvedRate}%が解決</strong>
-            <span>匿名回答 {total}件</span>
+            <strong>解決報告の割合 {solvedRate}%</strong>
+            <span>
+              匿名回答 {total}件（解決 {row.resolved}件・未解決 {row.struggling}
+              件）
+            </span>
           </div>
         ) : (
           <p>
@@ -314,16 +313,23 @@ export function InteractiveSteps({
           <div className="method-ranking">
             <strong>よく直っている方法</strong>
             <ol>
-              {rankedMethods.map((method) => (
+              {rankedMethods.slice(0, 3).map((method) => (
                 <li key={method.methodId} value={method.rank}>
-                  <span>{method.methodLabel}</span>
+                  <span>
+                    {method.tied
+                      ? `同率${method.rank}位：`
+                      : `${method.rank}位：`}
+                    <a href={`#${method.methodId}`}>{method.methodLabel}</a>
+                  </span>
                   <b>{method.responses}件</b>
                 </li>
               ))}
             </ol>
           </div>
         ) : null}
-        <small>匿名の回答件数です。個人情報やIPアドレスは保存しません。</small>
+        <small>
+          利用者の自己申告で、全閲覧者の成功率や効果の比較試験ではありません。同じ人が未解決と解決の両方を報告する場合があります。件数は人数ではなく回答数です。
+        </small>
       </div>
 
       {showResume ? (
@@ -381,6 +387,19 @@ export function InteractiveSteps({
                   <div>
                     <h3>{step.title}</h3>
                     {step.summary ? <p>{step.summary}</p> : null}
+                    {rankedMethods.find(
+                      (method) => method.methodId === step.id,
+                    ) ? (
+                      <p>
+                        このSTEPの解決報告：
+                        {
+                          rankedMethods.find(
+                            (method) => method.methodId === step.id,
+                          )?.responses
+                        }
+                        件
+                      </p>
+                    ) : null}
                   </div>
                 </header>
                 <ol>
@@ -447,7 +466,8 @@ export function InteractiveSteps({
           <div>
             <strong>解決できました！</strong>
             <p>
-              「{solvedStep.title}」で直りました。同じ症状で困っている人に共有できます。
+              「{solvedStep.title}
+              」で直りました。同じ症状で困っている人に共有できます。
             </p>
           </div>
           <div className="share-actions">

@@ -12,6 +12,8 @@ type Draft = {
   sources: { label: string; url: string }[];
   related: string[];
   causes: string[];
+  checkedAt?: string;
+  actions?: [string[], string[], string[]];
 };
 const targetVersions: Record<string, string> = {
   'onimusha-way-of-the-sword': 'Steam版・2026年9月13日時点のカプコン公式案内',
@@ -29,7 +31,7 @@ const make = (d: Draft): GameArticle => ({
   conclusion: d.conclusion,
   description:
     '原因を特定できるよう、上から1項目ずつ試し、毎回同じ条件で結果を確認します。',
-  checkedAt: '2026-09-13',
+  checkedAt: d.checkedAt || '2026-09-13',
   status: 'verified',
   targetVersion: targetVersions[d.gameSlug],
   causes: d.causes,
@@ -38,7 +40,7 @@ const make = (d: Draft): GameArticle => ({
     id: `step-${i + 1}`,
     title,
     summary: `${d.shortTitle}の原因を分けるため、「${title}」だけを実施します。`,
-    actions: [
+    actions: d.actions?.[i] || [
       `${d.gameSlug === 'star-wars-zero-company' ? 'EA app・Steam・Epic' : d.gameSlug === 'wardogs' ? 'Steam' : 'ゲームとランチャー'}を終了し、変更前の状態を記録する`,
       `「${title}」を実施し、ほかの設定は変更しない`,
       `同じ起動方法・場面で症状を比較し、改善しなければ元へ戻す`,
@@ -252,16 +254,33 @@ export const newReleaseArticles: GameArticle[] = [
     symptom:
       '方向転換時に走行が止まる、PS5コントローラーのボタン割り当てがない既知問題です。',
     conclusion:
-      '一時回避としてコントローラー感度を1.0から0.8へ下げ、本体更新も確認します。',
+      '公式Hotfix 1.0.2でPC版の走行入力・デッドゾーンが調整されています。まず1.0.2以降へ更新して再確認してください。PS5ボタン割り当て未対応は、この告知では別の既知問題です。',
     steps: [
       'コントローラーを1台だけ接続する',
-      '感度を0.8へ下げて比較する',
+      'Hotfix 1.0.2以降へ更新して走行を比較する',
       '最新Hotfixとボタン割り当て対応を確認する',
+    ],
+    checkedAt: '2026-09-22',
+    actions: [
+      [
+        '余分なコントローラーを外し、いつもの1台で方向転換時に走行が止まるか記録する',
+        'ゲームのバージョンとSteam Inputの現在設定を控える',
+      ],
+      [
+        'ランチャーでゲーム更新を確認し、Hotfix 1.0.2以降を適用する',
+        '公式1.0.2告知の走行入力・デッドゾーン調整を確認する',
+        '同じコントローラー・同じ場所で方向転換し、症状を比較する',
+      ],
+      [
+        'PS5コントローラーのボタン割り当ては1.0.2告知では未解決の別項目です',
+        '公式ニュースで後続の修正告知を確認する',
+        '走行だけ改善した場合は、ボタン割り当ても修正済みとは判断しない',
+      ],
     ],
     sources: [dawnKnown, dawnHotfix],
     related: ['stutter-windowed', 'shader-compilation-crash'],
     causes: [
-      'コントローラー感度1.0で方向転換時に走行が止まる既知問題',
+      'Hotfix 1.0.2の走行入力調整が未適用の状態',
       '複数入力機器または入力変換の競合',
       'PS5コントローラーの割り当て機能が未対応の版',
     ],
@@ -282,8 +301,28 @@ export const newReleaseArticles: GameArticle[] = [
       'ゲームファイルを修復する',
       'GPUドライバーとWindowsを更新する',
     ],
+    checkedAt: '2026-09-22',
+    actions: [
+      [
+        'ゲームを終了し、PCを再起動する',
+        '購入元のランチャーを起動し、保留中のゲーム更新を完了させる',
+        '同じ起動方法で再現するか確認する',
+      ],
+      [
+        'EA appではライブラリのゲームタイルの3点メニューから「修復」を選ぶ',
+        'Steamではプロパティ→インストール済みファイル→整合性を確認を選ぶ',
+        'Epicではライブラリのゲームのメニューから管理→確認を選ぶ',
+        '処理完了後に同じ場面で比較する。セーブ復元の操作ではありません',
+      ],
+      [
+        'GPU名と現在のドライバー版を控える',
+        'DLSS使用中に落ち、NVIDIAドライバーが610.88以前なら、EA公式は最新Game Readyドライバーの確認を案内しています',
+        'GPUメーカー公式から対応する更新を確認し、更新後に同じ場面で再比較する',
+        '改善しなければ版番号・エラー全文・再現場面を添えてEA公式サポートへ相談する',
+      ],
+    ],
     sources: [ea],
-    related: ['black-screen', 'save-progress'],
+    related: ['gtx10-rtx20-low-fps', 'black-screen', 'save-progress'],
     causes: [
       'EA app・Steam・Epicの更新または認証状態',
       '破損・不足したゲームファイル',

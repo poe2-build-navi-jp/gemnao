@@ -1,3 +1,4 @@
+import { discordCompatibilityArticles } from './discord-compatibility-articles';
 import type { ContentStatus } from '@/lib/game-articles';
 import { discordGrowthArticles } from '@/lib/discord-growth-articles';
 import { discordP0Articles } from '@/lib/discord-p0-articles';
@@ -663,7 +664,14 @@ export const discordArticles: DiscordArticle[] = [
   ...discordStreamingGrowthArticles,
   ...discordAudioGrowthArticles,
   ...discordBotArticles,
+  ...discordCompatibilityArticles,
 ];
+
+for (const article of discordArticles) {
+  if (['rtc-connecting', 'no-route'].includes(article.slug)) {
+    article.related = ['voice-client-outdated', ...article.related];
+  }
+}
 
 export const discordArticleBySlug = (slug: string) =>
   discordArticles.find((item) => item.slug === slug);

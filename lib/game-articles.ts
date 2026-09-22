@@ -1,3 +1,4 @@
+import { verifiedReleaseArticles } from './verified-release-articles';
 import { gameBySlug } from '@/lib/games';
 import { eldenArticles } from '@/lib/elden-articles';
 import { currentGameArticles } from '@/lib/current-game-articles';
@@ -1536,6 +1537,7 @@ export const gameArticles: GameArticle[] = [
   ...eldenArticles,
   ...currentGameArticles,
   ...newReleaseArticles,
+  ...verifiedReleaseArticles,
 ];
 
 export function articlesForGame(gameSlug: string) {
