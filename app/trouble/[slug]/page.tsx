@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
+import { commonGuideCategoryFor } from '@/lib/common-guide-categories';
 import { commonGuideBySlug } from '@/lib/common-guides';
 import { gameArticles } from '@/lib/game-articles';
 import { gameBySlug } from '@/lib/games';
@@ -62,6 +63,9 @@ export default async function TroubleHubPage({
   const guides = hub.guideSlugs
     .map((guideSlug) => commonGuideBySlug(guideSlug))
     .filter((guide): guide is NonNullable<typeof guide> => Boolean(guide));
+  const primaryGuideCategory = guides[0]
+    ? commonGuideCategoryFor(guides[0])
+    : undefined;
   const related = hub.relatedSlugs
     .map((relatedSlug) => troubleHubBySlug(relatedSlug))
     .filter((item): item is NonNullable<typeof item> => Boolean(item));
@@ -132,6 +136,14 @@ export default async function TroubleHubPage({
 
         <section className="trouble-hub-section">
           <h2>PC共通の解決ガイド</h2>
+          {primaryGuideCategory ? (
+            <p>
+              <a href={`/guide#${primaryGuideCategory.id}`}>
+                {primaryGuideCategory.label}カテゴリから探す
+                <ArrowRight size={14} />
+              </a>
+            </p>
+          ) : null}
           <div className="guide-index-grid">
             {guides.map((guide) => (
               <a href={`/guide/${guide.slug}`} key={guide.slug}>
@@ -167,7 +179,9 @@ export default async function TroubleHubPage({
               })}
             </div>
           ) : (
-            <p>現在、確認済みのゲーム固有記事はありません。上の共通ガイドをご利用ください。</p>
+            <p>
+              現在、確認済みのゲーム固有記事はありません。上の共通ガイドをご利用ください。
+            </p>
           )}
         </section>
 

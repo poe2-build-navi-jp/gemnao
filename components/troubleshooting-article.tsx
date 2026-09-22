@@ -14,6 +14,7 @@ import {
   type GameArticle,
 } from '@/lib/game-articles';
 import type { GameGuide } from '@/lib/games';
+import { commonGuideCategoryFor } from '@/lib/common-guide-categories';
 import { commonGuides } from '@/lib/common-guides';
 import { troubleHubForArticle } from '@/lib/trouble-hubs';
 
@@ -45,6 +46,13 @@ export function TroubleshootingArticle({
       all.findIndex((item) => item.url === source.url) === index,
   );
   const troubleHub = troubleHubForArticle(article);
+  const matchedGuides = commonGuides.filter((guide) =>
+    troubleHub?.guideSlugs.includes(guide.slug),
+  );
+  const fallbackGuides = matchedGuides.length
+    ? matchedGuides
+    : commonGuides.slice(0, 3);
+  const guideCategory = commonGuideCategoryFor(fallbackGuides[0]);
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -197,6 +205,10 @@ export function TroubleshootingArticle({
                   href: `/games/${game.slug}/${item.slug}`,
                   label: item.shortTitle,
                 })),
+              ...matchedGuides.map((guide) => ({
+                href: `/guide/${guide.slug}`,
+                label: `${guide.shortTitle}（PC共通）`,
+              })),
               ...(troubleHub
                 ? [
                     {
@@ -252,14 +264,17 @@ export function TroubleshootingArticle({
           </section>
           <section className="common-guides">
             <h2>PCゲーム共通の解決方法</h2>
-            {commonGuides.slice(0, 3).map((guide) => (
+            {fallbackGuides.slice(0, 3).map((guide) => (
               <a href={`/guide/${guide.slug}`} key={guide.slug}>
                 {guide.shortTitle}
                 <ArrowRight size={15} />
               </a>
             ))}
-            <a href="/guide">
-              共通ガイドをすべて見る <ArrowRight size={15} />
+            <a href={guideCategory ? `/guide#${guideCategory.id}` : '/guide'}>
+              {guideCategory
+                ? `${guideCategory.label}の共通ガイドを見る`
+                : '共通ガイドをすべて見る'}{' '}
+              <ArrowRight size={15} />
             </a>
             <a href={`/games/${game.slug}`}>
               {game.shortTitle}の総合トラブルまとめ <ArrowRight size={15} />
