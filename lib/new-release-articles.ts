@@ -13,7 +13,7 @@ type Draft = {
   related: string[];
   causes: string[];
   checkedAt?: string;
-  actions?: [string[], string[], string[]];
+  actions: [string[], string[], string[]];
 };
 const targetVersions: Record<string, string> = {
   'onimusha-way-of-the-sword': 'Steam版・2026年9月13日時点のカプコン公式案内',
@@ -40,11 +40,7 @@ const make = (d: Draft): GameArticle => ({
     id: `step-${i + 1}`,
     title,
     summary: `${d.shortTitle}の原因を分けるため、「${title}」だけを実施します。`,
-    actions: d.actions?.[i] || [
-      `${d.gameSlug === 'star-wars-zero-company' ? 'EA app・Steam・Epic' : d.gameSlug === 'wardogs' ? 'Steam' : 'ゲームとランチャー'}を終了し、変更前の状態を記録する`,
-      `「${title}」を実施し、ほかの設定は変更しない`,
-      `同じ起動方法・場面で症状を比較し、改善しなければ元へ戻す`,
-    ],
+    actions: d.actions[i],
     note:
       i === 2
         ? '公式案内やHotfixが更新されている場合は、新しい内容を優先してください。'
@@ -98,6 +94,24 @@ export const newReleaseArticles: GameArticle[] = [
       'グラフィックプリセットを最低へ下げる',
       '排熱と電源設定を確認する',
     ],
+    checkedAt: '2026-09-23',
+    actions: [
+      [
+        'Windows＋Rでdxdiagを実行し、ディスプレイ欄のGPU名・ドライバー版を控える',
+        'ノートPCは製品メーカー、それ以外はGPUメーカーの公式配布で型番とWindows版に合うドライバーを選ぶ',
+        'インストール後にWindowsを再起動し、同じ場面を比較する',
+      ],
+      [
+        'ゲームのグラフィック設定を開き、現在のプリセットを写真に残す',
+        'プリセットを「最低」にして適用し、同じセーブ・同じ場所でFPSを比較する',
+        '改善したら解像度や画質を1項目ずつ戻し、重くなる設定を特定する',
+      ],
+      [
+        'ノートPCは電源アダプターを接続し、通気口をふさがない平らな場所へ移す',
+        'Windowsの設定→システム→電源とバッテリーで省電力状態を確認する',
+        '冷却後も同じ場所で低FPSか確認する。異常な熱や電源断がある場合はゲームを中断する',
+      ],
+    ],
     sources: [capcom],
     related: ['not-launching', 'shader-cache', 'black-screen', 'crash-report'],
     causes: [
@@ -120,6 +134,21 @@ export const newReleaseArticles: GameArticle[] = [
       'ゲームとSteamを終了する',
       'shader.cacheとshader.cache2を退避する',
       'ゲームを起動して再構築を待つ',
+    ],
+    checkedAt: '2026-09-23',
+    actions: [
+      [
+        'Steamライブラリでゲームを右クリック→管理→ローカルファイルを閲覧し、保存先を開いておく',
+        'ゲームを終了し、Steamメニュー→終了でSteamも閉じる',
+      ],
+      [
+        '開いたゲームフォルダーでshader.cacheとshader.cache2を探す',
+        '存在する対象ファイルだけを別フォルダーへ移動して保管する。見つからない場合は他のファイルを削除しない',
+      ],
+      [
+        'Steamからゲームを起動し、シェーダー構築の表示が終わるまで待つ',
+        '構築完了後に同じ場面で比較する。悪化したらゲームを終了して退避したファイルを戻す',
+      ],
     ],
     sources: [capcom],
     related: ['not-launching', 'low-fps', 'black-screen', 'crash-report'],
@@ -144,6 +173,22 @@ export const newReleaseArticles: GameArticle[] = [
       '解像度とVSyncを安全な値へ戻す',
       '外部ディスプレイとオーバーレイを外す',
     ],
+    checkedAt: '2026-09-23',
+    actions: [
+      [
+        'ゲームのウィンドウを選び、Alt＋Enterを一度押す',
+        '表示が戻れば設定画面を開く。戻らなければ無理に見えないメニューを操作せず次へ進む',
+      ],
+      [
+        '画面が表示できた場合にゲームの画面設定を開き、現在値を控える',
+        '解像度をモニターの対応値に合わせて適用する。次にVSyncだけを切り替えて比較する',
+      ],
+      [
+        'Windows＋Pで使用する画面を1台に限定して再起動する',
+        'Steamのゲームのプロパティ→一般でSteamオーバーレイをオフにして比較する',
+        '変化がなければ表示先とオーバーレイを元へ戻す',
+      ],
+    ],
     sources: [capcom],
     related: ['not-launching', 'low-fps', 'hdr', 'shader-cache'],
     causes: [
@@ -167,6 +212,21 @@ export const newReleaseArticles: GameArticle[] = [
       'ゲーム内HDR出力を切り替える',
       '明るさを調整して同じ場面で比較する',
     ],
+    checkedAt: '2026-09-23',
+    actions: [
+      [
+        'Windows設定→システム→ディスプレイで使用画面を選び、HDRの対応状況と有効状態を確認する',
+        'モニター本体の設定でもHDR入力が使える状態か確認する。非対応画面ではHDRを有効にしない',
+      ],
+      [
+        'ゲームの画面設定を開き、HDRの現在値を控える',
+        'HDR出力を切り替えて適用する。Windows側とゲーム側を同時に変更しない',
+      ],
+      [
+        'ゲーム内の明るさ調整画面の目印に合わせて調整する',
+        '同じ明暗のある場面で白飛び・黒つぶれを比較する。改善しない場合は元の明るさへ戻す',
+      ],
+    ],
     sources: [capcom],
     related: ['black-screen', 'low-fps', 'not-launching'],
     causes: [
@@ -189,6 +249,21 @@ export const newReleaseArticles: GameArticle[] = [
       'GPU名と現在のドライバー版を確認する',
       'メーカー公式から対応版へ更新する',
       'Windows再起動後にゲームだけを起動する',
+    ],
+    checkedAt: '2026-09-23',
+    actions: [
+      [
+        'Windows＋Rでdxdiagを実行し、ディスプレイ欄のGPU名・ドライバー版を控える',
+      ],
+      [
+        'ノートPCは製品メーカー、それ以外はGPUメーカーの公式配布で型番とWindows版に合うドライバーを選ぶ',
+        'インストール後にWindowsを再起動し、同じ場面を比較する',
+      ],
+      [
+        '更新完了後にWindowsを再起動する',
+        '録画・配信アプリを閉じ、Steamとゲームだけで同じ場面を確認する',
+        '更新前後のドライバー版と症状を記録する',
+      ],
     ],
     sources: [capcom],
     related: ['not-launching', 'low-fps', 'black-screen'],
@@ -214,6 +289,22 @@ export const newReleaseArticles: GameArticle[] = [
       'BIOSの現在版と公式最新版を比較する',
       '更新後にシェーダー構築を完了させる',
     ],
+    checkedAt: '2026-09-23',
+    actions: [
+      [
+        '起動時の表示を確認し、シェーダー構築中に停止するか記録する',
+        'エラー全文、CPU名、ゲームのバージョンを控える。プレイ中だけ落ちる場合は通常のクラッシュ対策へ進む',
+      ],
+      [
+        'Windows＋Rでmsinfo32を開き、システムモデル・ベースボード製品・BIOSバージョンを控える',
+        'PCまたはマザーボードメーカーの該当型番のサポートページでBIOS更新内容を比較する',
+        '別型番のBIOSは使わない。更新操作は機種ごとに異なるため、電源・回復キーの準備を含むメーカー手順を確認できない場合はサポートに相談する',
+      ],
+      [
+        '必要な更新をメーカー手順で完了した後、ゲームを起動する',
+        'シェーダー構築完了まで待つ。再び落ちる場合は連続で再試行せず、エラーと構成を公式サポートへ伝える',
+      ],
+    ],
     sources: [dawnKnown, dawnHotfix],
     related: ['stutter-windowed', 'controller-sprint'],
     causes: [
@@ -236,6 +327,21 @@ export const newReleaseArticles: GameArticle[] = [
       '現在の表示モードを記録する',
       'フルスクリーンへ変更する',
       '同じ場面でフレーム時間を比較する',
+    ],
+    checkedAt: '2026-09-23',
+    actions: [
+      [
+        'ゲームの画面設定を開き、表示モード・解像度・FPS上限を控える',
+        '同じ場所を移動し、カクつくタイミングを確認する',
+      ],
+      [
+        '表示モードだけをフルスクリーンへ変更して適用する',
+        '解像度や画質は変えず、同じ場所で再確認する',
+      ],
+      [
+        '変更前と同じ経路を同じ時間だけ移動し、引っかかりの回数を比較する',
+        '既にフレーム時間表示を使っている場合は突出の頻度も比較する。改善しなければ元の表示モードへ戻す',
+      ],
     ],
     sources: [dawnKnown, dawnHotfix],
     related: ['shader-compilation-crash', 'controller-sprint'],
@@ -344,6 +450,24 @@ export const newReleaseArticles: GameArticle[] = [
       'ゲームファイルを修復する',
       'PCが最小要件を満たすか確認する',
     ],
+    checkedAt: '2026-09-23',
+    actions: [
+      [
+        'Windows＋Rでdxdiagを実行し、ディスプレイ欄のGPU名・ドライバー版を控える',
+        'ノートPCは製品メーカー、それ以外はGPUメーカーの公式配布で型番とWindows版に合うドライバーを選ぶ',
+        'インストール後にWindowsを再起動し、同じ場面を比較する',
+      ],
+      [
+        'Steamはライブラリのゲームを右クリック→プロパティ→インストール済みファイル→ゲームファイルの整合性を確認を選ぶ',
+        'EA appはライブラリのゲームの三点メニュー→修復、Epicはライブラリの三点メニュー→管理→確認を選ぶ',
+        '処理完了まで起動せず、完了後にゲームを起動する',
+      ],
+      [
+        'Windows＋Rでdxdiagを開き、CPU・メモリ・GPUを記録する',
+        '利用ストアの製品ページの最小動作環境と照合する',
+        '不足する項目があれば画質変更だけで起動できるとは限らない。構成とエラーを控えてサポートへ相談する',
+      ],
+    ],
     sources: [ea],
     related: ['not-launching', 'save-progress'],
     causes: [
@@ -367,6 +491,21 @@ export const newReleaseArticles: GameArticle[] = [
       'ミッション開始後に数秒待つ',
       '終了後に再起動して進行を確認する',
     ],
+    checkedAt: '2026-09-23',
+    actions: [
+      [
+        'ゲームを終了する前に、ホークスを操作できる状態へ戻る',
+        '終了前のミッション名と進行地点を控える。保存前に強制終了しない',
+      ],
+      [
+        'ミッション開始直後はすぐに終了せず、数秒待つ',
+        '保存中の表示がある場合は表示が終わってからゲーム内メニューで終了する',
+      ],
+      [
+        '同じアカウントでゲームを起動し、続きから再開する',
+        '控えたミッションと進行地点を比較する。失われた進行をこの手順で復元できるわけではない',
+      ],
+    ],
     sources: [ea],
     related: ['not-launching', 'black-screen'],
     causes: [
@@ -389,6 +528,21 @@ export const newReleaseArticles: GameArticle[] = [
       '公式のサーバー告知を確認する',
       'ログイン待ちなら列を維持する',
       '復旧後にSteamとPCを再起動する',
+    ],
+    checkedAt: '2026-09-23',
+    actions: [
+      [
+        'ゲーム内のエラー全文と発生時刻を控える',
+        'SteamライブラリのWARDOGSのニュースで運営の障害・メンテナンス告知を確認する',
+      ],
+      [
+        '待機列が表示されている場合は連続でキャンセル・再接続せず、そのまま待つ',
+        '障害告知中は再インストールやルーター設定変更を進めない',
+      ],
+      [
+        '運営の復旧案内後も接続できない場合はゲームとSteamを終了する',
+        'Windowsを再起動してSteamから接続する。改善しなければエラー全文と時刻を運営へ伝える',
+      ],
     ],
     sources: [
       {

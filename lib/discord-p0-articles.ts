@@ -54,7 +54,7 @@ export const discordP0Articles: DiscordArticle[] = [
         actions: [
           '通知領域のDiscordアイコンを右クリックし「Discordを終了」を選ぶ',
           'Ctrl＋Shift＋Escでタスクマネージャーを開く',
-          'DiscordやUpdateに関する実行中の項目を終了する',
+          'Discordを終了する。Update.exeは右クリック→ファイルの場所を開くでDiscordフォルダー内と確認できたものだけを終了する',
           'Discordをもう一度起動し、更新が進むか確認する',
         ],
       },
@@ -74,7 +74,7 @@ export const discordP0Articles: DiscordArticle[] = [
         description:
           '完全終了しても更新できない場合は、公式のWindowsインストーラーエラー手順で残存データを整理します。',
         actions: [
-          '必要な会話内容はサーバー側に保存されますが、ローカル設定を戻せるよう現在の設定を確認する',
+          'ログイン用メール・パスワード・二要素認証を利用できることを確認し、ローカル設定を控える',
           'Windows＋Rで%appdata%を開き、Discordフォルダーを削除する',
           'Windows＋Rで%localappdata%を開き、Discordフォルダーを削除する',
           'PCを再起動し、discord.com/downloadから最新版を再インストールする',
@@ -104,7 +104,7 @@ export const discordP0Articles: DiscordArticle[] = [
     ],
     sources: [installerGuide, damagedInstallGuide, status],
     related: ['installation-failed', 'not-opening', 'loading-stuck'],
-    checkedAt: '2026-09-17',
+    checkedAt: '2026-09-23',
     status: 'verified',
   },
   {
@@ -144,6 +144,7 @@ export const discordP0Articles: DiscordArticle[] = [
         description:
           'アンインストール後も残るデータが、新しいインストールと競合する場合があります。',
         actions: [
+          'ログイン情報と二要素認証を利用できることを確認し、ローカル設定を控えてDiscordを完全終了する',
           'Windows＋Rを押して%appdata%を開く',
           'Discordフォルダーを削除する',
           'Windows＋Rを押して%localappdata%を開く',
@@ -183,7 +184,7 @@ export const discordP0Articles: DiscordArticle[] = [
     ],
     sources: [installerGuide, damagedInstallGuide],
     related: ['update-failed', 'not-opening', 'loading-stuck'],
-    checkedAt: '2026-09-17',
+    checkedAt: '2026-09-23',
     status: 'verified',
   },
   {

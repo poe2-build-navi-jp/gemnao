@@ -66,9 +66,9 @@ export async function POST(request: NextRequest) {
   } | null;
   if (
     !body ||
-    !body.game ||
-    !body.topic ||
-    !body.kind ||
+    typeof body.game !== 'string' ||
+    typeof body.topic !== 'string' ||
+    typeof body.kind !== 'string' ||
     !validGame(body.game) ||
     !validTopic(body.game, body.topic)
   ) {
@@ -84,7 +84,9 @@ export async function POST(request: NextRequest) {
         { status: 400 },
       );
     if (
-      !body.method?.match(/^[a-z0-9-]{1,48}$/) ||
+      typeof body.method !== 'string' ||
+      !body.method.match(/^[a-z0-9-]{1,48}$/) ||
+      typeof body.label !== 'string' ||
       !body.label ||
       body.label.length > 80
     )

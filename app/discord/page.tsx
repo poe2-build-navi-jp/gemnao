@@ -28,7 +28,9 @@ export default function DiscordHub() {
   const grouped = categoryOrder.map((category) => ({
     category,
     label: discordCategoryLabels[category],
-    items: discordArticles.filter((item) => item.category === category),
+    items: discordArticles.filter(
+      (item) => item.category === category && item.status === 'verified',
+    ),
   }));
   return (
     <main>
@@ -48,6 +50,13 @@ export default function DiscordHub() {
           大規模障害が発生している場合は、PC側の設定を変更せず復旧を待ってください。
         </p>
         <h2>Discordで何に困っていますか？</h2>
+        <nav className="symptom-nav" aria-label="Discordの症状を選ぶ">
+          {grouped.map((group) => (
+            <a key={group.category} href={`#${group.category}`}>
+              {group.label}（{group.items.length}）
+            </a>
+          ))}
+        </nav>
         {grouped.map((group) => (
           <section
             id={group.category}

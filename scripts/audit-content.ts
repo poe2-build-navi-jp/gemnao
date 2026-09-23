@@ -14,6 +14,7 @@ type InventoryRow = {
   symptom: string;
   tags: string[];
   searchIntent: string;
+  lastReviewed: string;
 };
 
 const visible = <T extends { status?: string }>(item: T) =>
@@ -22,6 +23,7 @@ const visible = <T extends { status?: string }>(item: T) =>
 const gameRows: InventoryRow[] = gameArticles
   .filter(visible)
   .map((article) => ({
+    lastReviewed: article.checkedAt,
     url: `/games/${article.gameSlug}/${article.slug}`,
     title: article.seoTitle,
     h1: article.title,
@@ -36,6 +38,7 @@ const gameRows: InventoryRow[] = gameArticles
 const discordRows: InventoryRow[] = discordArticles
   .filter(visible)
   .map((article) => ({
+    lastReviewed: article.checkedAt,
     url: `/discord/${article.slug}`,
     title: article.seoTitle,
     h1: article.title,
@@ -48,6 +51,7 @@ const discordRows: InventoryRow[] = discordArticles
   }));
 
 const guideRows: InventoryRow[] = commonGuides.filter(visible).map((guide) => ({
+  lastReviewed: guide.checkedAt,
   url: `/guide/${guide.slug}`,
   title: guide.title,
   h1: guide.title,
@@ -90,6 +94,25 @@ const duplicateCategorySlugs = Object.entries(
     categories: rows?.map((row) => row.category),
   }));
 
+const genericSteps = [
+  ...gameArticles.flatMap((a) =>
+    a.steps.map((step) => ({
+      url: `/games/${a.gameSlug}/${a.slug}`,
+      step: step.title,
+      actions: step.actions,
+    })),
+  ),
+  ...commonGuides.flatMap((a) =>
+    a.steps.map((step) => ({
+      url: `/guide/${a.slug}`,
+      step: step.title,
+      actions: step.actions,
+    })),
+  ),
+].filter((step) =>
+  step.actions.some((action) => /」(?:だけ)?を実施し/.test(action)),
+);
+
 console.log(
   JSON.stringify(
     {
@@ -99,6 +122,7 @@ console.log(
         discordArticles: discordRows.length,
         commonGuides: guideRows.length,
       },
+      genericSteps,
       duplicateTitles,
       duplicateH1s,
       commonGuideCategoryCoverage: {

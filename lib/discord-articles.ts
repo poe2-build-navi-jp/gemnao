@@ -197,7 +197,7 @@ const existingDiscordArticles: DiscordArticle[] = [
           'Windowsの「設定」を開く',
           '「プライバシーとセキュリティ」→「マイク」を開く',
           '「マイクへのアクセス」がオンになっているか確認する',
-          '「アプリがマイクにアクセスできるようにする」と、一覧のDiscordの項目がオンになっているか確認する',
+          '「デスクトップ アプリがマイクにアクセスできるようにする」をオンにする。デスクトップ版Discordは個別の許可一覧に出ない場合がある',
           'Discordを再起動して反映させる',
         ],
       },
@@ -229,7 +229,7 @@ const existingDiscordArticles: DiscordArticle[] = [
     ],
     sources: [voiceVideoGuide, micTesting, audioInputGone],
     related: ['audio-input-not-found', 'error-1002', 'error-1003'],
-    checkedAt: '2026-09-16',
+    checkedAt: '2026-09-23',
     status: 'verified',
   },
   {
@@ -328,7 +328,7 @@ const existingDiscordArticles: DiscordArticle[] = [
         actions: [
           'ユーザー設定の「音声・ビデオ」を開く',
           '「詳細設定」の一覧から「OpenH264 Video Codec provided by Cisco Systems, Inc.」を探し、オフにする',
-          'AMDの公式サイトからGPUドライバーを最新版に更新する',
+          '切り替え後に通話を比較する。改善しなければWindows＋Rでdxdiagを開きGPU名を確認して、AMD公式の対応ドライバーを更新する',
           'PCを再起動してからボイスチャンネルに再度参加する',
         ],
       },
@@ -370,7 +370,7 @@ const existingDiscordArticles: DiscordArticle[] = [
     ],
     sources: [amdRtcGuide, errorCodesGuide, discordStatus],
     related: ['no-route', 'mic-not-working', 'loading-stuck'],
-    checkedAt: '2026-09-16',
+    checkedAt: '2026-09-23',
     status: 'verified',
   },
   {
@@ -420,7 +420,7 @@ const existingDiscordArticles: DiscordArticle[] = [
         actions: [
           'コマンドプロンプトを管理者として開く',
           'ipconfig /flushdns と入力してDNSキャッシュを消去する',
-          'ボイスチャンネルのリージョン設定を、近い地域の別リージョンに変更してみる',
+          'チャンネル管理権限がある場合だけ、チャンネルの編集→概要→リージョンオーバーライドで別地域を試す。権限がなければ管理者に依頼し、比較後に元へ戻す',
         ],
       },
     ],
@@ -440,7 +440,7 @@ const existingDiscordArticles: DiscordArticle[] = [
     ],
     sources: [errorCodesGuide, discordStatus],
     related: ['rtc-connecting', 'loading-stuck', 'mic-not-working'],
-    checkedAt: '2026-09-16',
+    checkedAt: '2026-09-23',
     status: 'verified',
   },
   {
