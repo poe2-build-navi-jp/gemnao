@@ -403,9 +403,9 @@ input {
   background: linear-gradient(
     115deg,
     var(--navy) 0 77%,
-    color-mix(in srgb, var(--game-accent) 72%, var(--navy)) 77%
+    color-mix(in srgb, var(--game-accent, var(--blue)) 72%, var(--navy)) 77%
   );
-  border-bottom: 5px solid var(--game-accent);
+  border-bottom: 5px solid var(--game-accent, var(--blue));
 }
 .article-hero-inner {
   max-width: 1120px;
