@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { articleSteps } from '@/lib/article-step-data';
+import { articleSteps, articleFeedbackTopic } from '@/lib/article-step-data';
 import { games } from '@/lib/games';
 import { commonGuides } from '@/lib/common-guides';
 import { discordArticles } from '@/lib/discord-articles';
@@ -33,11 +33,15 @@ const validGame = (slug: string) =>
   ) ||
   commonGuides.some((guide) => `guide-${guide.slug}` === slug) ||
   discordArticles.some((article) => `discord-${article.slug}` === slug);
-const validTopic = (game: string, topic: string) =>
-  topics.has(topic) ||
-  gameArticles.some(
-    (article) => article.gameSlug === game && article.slug === topic,
-  );
+const validTopic = (game: string, topic: string) => {
+  const articleTopic = articleFeedbackTopic(game);
+  return articleTopic
+    ? topic === articleTopic
+    : topics.has(topic) ||
+        gameArticles.some(
+          (article) => article.gameSlug === game && article.slug === topic,
+        );
+};
 
 export async function GET(request: NextRequest) {
   const game = request.nextUrl.searchParams.get('game') || '';
@@ -48,7 +52,7 @@ export async function GET(request: NextRequest) {
     );
   const [rows, methods] = await Promise.all([
     readFeedback(game),
-    readSolutionMethods(game),
+    readSolutionMethods(game, articleFeedbackTopic(game)),
   ]);
   return NextResponse.json(
     { rows, methods },
@@ -117,7 +121,7 @@ export async function POST(request: NextRequest) {
     await recordStepSolved(body.game, body.topic, step.id, step.title);
     const [rows, methods] = await Promise.all([
       readFeedback(body.game),
-      readSolutionMethods(body.game),
+      readSolutionMethods(body.game, articleFeedbackTopic(body.game)),
     ]);
     return NextResponse.json(
       { ok: true, rows, methods },

@@ -10,7 +10,11 @@ import {
   Share2,
 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
-import { solutionRanking } from '@/lib/solution-ranking';
+import {
+  solutionRanking,
+  stepSolutionReports,
+  feedbackSummary,
+} from '@/lib/solution-ranking';
 
 type Step = {
   id: string;
@@ -146,8 +150,11 @@ export function InteractiveSteps({
     struggling: 0,
     resolved: 0,
   };
-  const total = row.struggling + row.resolved;
-  const solvedRate = total ? Math.round((row.resolved / total) * 100) : 0;
+  const { total, percentage: solvedRate } = feedbackSummary(row);
+  const stepReports = useMemo(
+    () => stepSolutionReports(methods, steps, row.resolved),
+    [methods, steps, row.resolved],
+  );
   const rankedMethods = useMemo(
     () => solutionRanking(methods, steps, row.resolved),
     [methods, steps, row.resolved],
@@ -296,7 +303,7 @@ export function InteractiveSteps({
       <div className="solution-data-panel">
         <p className="evidence-label">GEMNAO FIRST-PARTY DATA</p>
         <h2>このトラブルの解決状況</h2>
-        {total >= threshold ? (
+        {solvedRate !== null ? (
           <div className="solution-data-summary">
             <strong>解決報告の割合 {solvedRate}%</strong>
             <span>
@@ -306,12 +313,16 @@ export function InteractiveSteps({
           </div>
         ) : (
           <p>
-            信頼できる表示に必要な回答データを集計中です（10件以上で解決率を表示）。
+            {total
+              ? `現在${total}件の回答を集計中です。`
+              : '解決データを集計中です。'}
+            10件以上で解決報告の割合を表示します。
           </p>
         )}
         {row.resolved >= threshold && rankedMethods.length ? (
           <div className="method-ranking">
-            <strong>よく直っている方法</strong>
+            <strong>実際に直った方法</strong>
+            <p>現在、解決報告が多い順に表示しています。</p>
             <ol>
               {rankedMethods.slice(0, 3).map((method) => (
                 <li key={method.methodId} value={method.rank}>
@@ -387,13 +398,13 @@ export function InteractiveSteps({
                   <div>
                     <h3>{step.title}</h3>
                     {step.summary ? <p>{step.summary}</p> : null}
-                    {rankedMethods.find(
+                    {stepReports.find(
                       (method) => method.methodId === step.id,
                     ) ? (
                       <p>
                         このSTEPの解決報告：
                         {
-                          rankedMethods.find(
+                          stepReports.find(
                             (method) => method.methodId === step.id,
                           )?.responses
                         }

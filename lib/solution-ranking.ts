@@ -3,7 +3,7 @@ export type MethodReport = {
   methodLabel: string;
   responses: number;
 };
-export function solutionRanking(
+export function stepSolutionReports(
   methods: MethodReport[],
   steps: { id: string; title: string }[],
   resolved: number,
@@ -17,8 +17,17 @@ export function solutionRanking(
       : [];
   });
   const reports = valid.reduce((sum, method) => sum + method.responses, 0);
-  // Require ten attributable reports, not ten unrelated historical votes.
-  if (reports < 10 || resolved < reports) return [];
+  if (!Number.isSafeInteger(resolved) || resolved < reports) return [];
+  return valid;
+}
+
+export function solutionRanking(
+  methods: MethodReport[],
+  steps: { id: string; title: string }[],
+  resolved: number,
+) {
+  const valid = stepSolutionReports(methods, steps, resolved);
+  if (valid.reduce((sum, method) => sum + method.responses, 0) < 10) return [];
   return valid
     .sort(
       (a, b) =>
@@ -30,4 +39,12 @@ export function solutionRanking(
       tied:
         all.filter((other) => other.responses === method.responses).length > 1,
     }));
+}
+
+export function feedbackSummary(row: { resolved: number; struggling: number }) {
+  const total = row.resolved + row.struggling;
+  return {
+    total,
+    percentage: total >= 10 ? Math.round((row.resolved / total) * 100) : null,
+  };
 }

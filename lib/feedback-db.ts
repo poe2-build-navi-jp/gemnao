@@ -28,13 +28,16 @@ export async function readFeedback(gameSlug: string): Promise<FeedbackRow[]> {
 
 export async function readSolutionMethods(
   contextSlug: string,
+  topic?: string,
 ): Promise<SolutionMethodRow[]> {
-  const result = await database()
-    .prepare(
-      'SELECT method_id AS methodId, method_label AS methodLabel, response_count AS responses FROM solution_method_feedback WHERE context_slug = ? ORDER BY response_count DESC, method_label ASC',
-    )
-    .bind(contextSlug)
-    .all<SolutionMethodRow>();
+  const sql =
+    'SELECT method_id AS methodId, method_label AS methodLabel, response_count AS responses FROM solution_method_feedback WHERE context_slug = ?' +
+    (topic ? ' AND topic = ?' : '') +
+    ' ORDER BY response_count DESC, method_label ASC';
+  const query = database().prepare(sql);
+  const result = await (
+    topic ? query.bind(contextSlug, topic) : query.bind(contextSlug)
+  ).all<SolutionMethodRow>();
   return result.results;
 }
 

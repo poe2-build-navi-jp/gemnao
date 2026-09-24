@@ -13,6 +13,7 @@ type Draft = {
   related: string[];
   causes: string[];
   checkedAt?: string;
+  targetVersion?: string;
   actions: [string[], string[], string[]];
 };
 const targetVersions: Record<string, string> = {
@@ -33,7 +34,7 @@ const make = (d: Draft): GameArticle => ({
     '原因を特定できるよう、上から1項目ずつ試し、毎回同じ条件で結果を確認します。',
   checkedAt: d.checkedAt || '2026-09-13',
   status: 'verified',
-  targetVersion: targetVersions[d.gameSlug],
+  targetVersion: d.targetVersion || targetVersions[d.gameSlug],
   causes: d.causes,
   symptoms: d.steps.map((label, i) => ({ label, target: `step-${i + 1}` })),
   steps: d.steps.map((title, i) => ({
@@ -401,13 +402,14 @@ export const newReleaseArticles: GameArticle[] = [
     symptom:
       'EA app・Steam・Epicで起動しない、フリーズ、エラーが出る時の公式手順です。',
     conclusion:
-      'PC再起動、ランチャー更新、ゲームファイル修復、GPUドライバー更新の順で試します。',
+      'PC再起動とゲームファイル修復から確認します。DLSS使用中のクラッシュは、EAが案内するNVIDIAドライバーの条件をSTEP3で確認してください。',
     steps: [
       'PCとランチャーを再起動する',
       'ゲームファイルを修復する',
       'GPUドライバーとWindowsを更新する',
     ],
-    checkedAt: '2026-09-22',
+    checkedAt: '2026-09-24',
+    targetVersion: 'PC版・2026年9月24日確認のEA公式トラブルシューティング',
     actions: [
       [
         'ゲームを終了し、PCを再起動する',
@@ -421,9 +423,10 @@ export const newReleaseArticles: GameArticle[] = [
         '処理完了後に同じ場面で比較する。セーブ復元の操作ではありません',
       ],
       [
-        'GPU名と現在のドライバー版を控える',
-        'DLSS使用中に落ち、NVIDIAドライバーが610.88以前なら、EA公式は最新Game Readyドライバーの確認を案内しています',
-        'GPUメーカー公式から対応する更新を確認し、更新後に同じ場面で再比較する',
+        'Windows＋R→dxdiag→ディスプレイでGPU名を確認する。NVIDIAアプリ→ドライバーで現在のGame Readyドライバー版を確認する',
+        '公式確認状況（2026年9月24日）：EAはDLSS使用中のクラッシュについて、Game Readyドライバー610.88以前なら対応する新しい版への更新を案内しています。全クラッシュの原因をこの条件に限定するものではありません',
+        '該当する場合はNVIDIAアプリ→ドライバーで対応する更新を確認し、インストール後にWindowsを再起動する。AMD・Intelなど別のGPUにはこの版番号の条件を適用しない',
+        'Windows更新は設定→Windows Update→更新プログラムのチェックから確認し、完了後に同じ場面で比較する',
         '改善しなければ版番号・エラー全文・再現場面を添えてEA公式サポートへ相談する',
       ],
     ],
