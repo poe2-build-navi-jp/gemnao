@@ -317,7 +317,7 @@ const existingDiscordArticles: DiscordArticle[] = [
       'AMD製GPU・CPU環境では既知の互換性問題があるため、公式手順に沿って設定を1つ変更します。該当しない場合はVPN・ファイアウォールなどネットワーク側を順に確認します。',
     quickFixes: [
       'Discordを完全に終了し、ボイスチャンネルに入り直す',
-      'GPUドライバーを最新版に更新する（特にAMD環境）',
+      'AMD製GPU・CPUの場合はDiscordのユーザー設定→音声・ビデオでOpenH264をオフにして接続を試す',
       'VPNを使用している場合は無効にしてから再接続する',
     ],
     causes: [
@@ -369,8 +369,8 @@ const existingDiscordArticles: DiscordArticle[] = [
       },
     ],
     sources: [amdRtcGuide, errorCodesGuide, discordStatus],
-    related: ['no-route', 'mic-not-working', 'loading-stuck'],
-    checkedAt: '2026-09-23',
+    related: ['no-route', 'call-disconnects', 'cant-hear-voice'],
+    checkedAt: '2026-09-25',
     status: 'verified',
   },
   {

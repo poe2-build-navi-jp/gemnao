@@ -125,6 +125,37 @@ const amd = {
   url: 'https://www.amd.com/ja/support/download/drivers.html',
 };
 const reviewedActions: Record<string, string[][]> = {
+  'steam-input-controller': [
+    [
+      'ゲームを終了し、USBでコントローラーを1台だけPCへ直接接続する。別のゲームパッドや仮想コントローラーは一時的に外す',
+      'Steamを開き、「設定」→「コントローラー」で接続した機器が認識されるか確認する。認識されなければUSBポートやケーブルを替えて試す',
+    ],
+    [
+      'Steamの「ライブラリ」で対象ゲームを右クリック→「プロパティ」→「コントローラー」を開く',
+      'ゲームごとのSteam Input設定を「有効」にしてゲームを起動し、入力を確認する。既に有効なら「無効」に切り替えて再起動し、どちらで認識するか比較する',
+      'ゲームがゲームパッド入力に対応しているかストアページや公式ヘルプで確認する。非対応ゲームは設定だけで入力できるとは限らない',
+    ],
+    [
+      'ゲームとDS4Windowsなどの外部入力変換ツールを終了し、Steam Inputだけを有効にした状態でゲームを起動する',
+      '認識しない場合はゲームを終了し、Steam Inputを無効にして外部ツールだけを起動して比較する。同時に両方を有効にしない',
+      'どちらでも無反応ならSteamを終了→再起動し、別のゲームでも同じ機器を認識するか切り分ける',
+    ],
+  ],
+  'controller-double-input': [
+    [
+      'ゲームを終了し、USBまたはBluetoothで接続中のゲームパッドを1台だけ残す。キーボード操作とゲームパッド操作を交互に試し、どの入力が2回反応するか確かめる',
+      'Steamの「設定」→「コントローラー」で認識している機器を確認する。仮想コントローラーと実機が並ぶ場合は利用中の外部変換ツールを控える',
+    ],
+    [
+      'Steamの「ライブラリ」で対象ゲームを右クリック→「プロパティ」→「コントローラー」を開く',
+      'DS4Windowsなどの入力変換ツールを使用中なら、そのツールを終了してSteam Inputのみでゲームを起動し、1回の入力で1回動くか確認する',
+      '改善しない場合はゲームを終了してSteam Inputを無効にし、必要な外部ツールだけで再確認する。両方を同時に切り替えない',
+    ],
+    [
+      '入力変換の設定を決めたらゲームとSteamを終了し、Steamを起動し直して対象ゲームを起動する',
+      '同じボタンを1回押して結果を確認する。ゲーム内にコントローラー割り当てがある場合は重複登録がないか確認する',
+    ],
+  ],
   'low-fps': [
     [
       'ゲームの「設定」→「映像」「ディスプレイ」または「グラフィック」を開く。項目名はゲームによって異なります',
@@ -336,8 +367,10 @@ const mk = (
     'directx-error',
     'visual-c-runtime-error',
     'remove-mods-safely',
+    'steam-input-controller',
+    'controller-double-input',
   ].includes(slug)
-    ? '2026-09-24'
+    ? ['steam-input-controller', 'controller-double-input'].includes(slug) ? '2026-09-25' : '2026-09-24'
     : reviewedActions[slug]
       ? '2026-09-23'
       : '2026-09-12',
@@ -509,7 +542,7 @@ export const commonGuides: CommonGuide[] = [
     'steam-input-controller',
     'Steam Inputでコントローラーが反応しない時の設定',
     'Steam Input設定',
-    'コントローラーが無反応、表示が違う時の確認です。',
+    'PCゲームでコントローラーが反応しない場合は、まず有線で1台だけ接続し、Steamが機器を認識するか確認します。この記事ではゲームごとのSteam Input切り替えと外部変換ツールの競合を順に試せます。',
     '有線1台で認識を確認し、Steam InputをON・OFFで比較します。',
     [
       'USB有線で1台だけ接続する',
@@ -526,7 +559,7 @@ export const commonGuides: CommonGuide[] = [
     'controller-double-input',
     'PCゲームでコントローラーが二重入力になる時の直し方',
     'コントローラー二重入力',
-    '1回押して2回動く時の対処です。',
+    'PCゲームでボタンを1回押したのに2回反応する場合は、実機と仮想コントローラーの重複を確認します。Steam InputとDS4Windowsなどを同時に使わず、片方ずつ試して原因を切り分けます。',
     'Steam InputとDS4Windowsなどの入力変換を1つだけにします。',
     ['入力機器を1台だけにする', '入力変換を1つにする', 'Steamを再起動する'],
     ['steam-input-controller', 'steam-game-not-launching', 'reset-config-file'],
