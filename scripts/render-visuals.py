@@ -85,7 +85,8 @@ def portrait(item):
     label(page, item['title'], 80, 190, 53, 925, WHITE, 1.16)
     steps = item['steps']
     rect(page, 80, 307, 920, 4, BLUE)
-    label(page, '症状から順番に確認', 80, 357, 28, 920, GREY)
+    section_label = '近い症状を選ぶ' if item['key'] == 'discord' else '上から順番に確認'
+    label(page, section_label, 80, 357, 28, 920, GREY)
     if len(steps) <= 4:
         top = 394
         height = 160 if len(steps) == 4 else 202
@@ -95,16 +96,17 @@ def portrait(item):
             rect(page, 80, y, 920, height, WHITE)
             rect(page, 80, y, 14, height, BLUE)
             label(page, f'{index + 1:02d}', 118, y + 80, 42, 80, BLUE)
-            label(page, step, 220, y + 79, 42, 730)
+            label(page, step, 220, y + 79, 48, 730, leading=1.22)
     else:
-        top = 394
+        # Keep the six Discord symptoms in one column. Two columns shrink
+        # Japanese labels to ~10 px when the diagram is shown on a phone.
+        top = 375
         for index, step in enumerate(steps):
-            x = 80 + (index % 2) * 470
-            y = top + (index // 2) * 235
-            rect(page, x, y, 450, 210, WHITE)
-            rect(page, x, y, 450, 10, BLUE)
-            label(page, f'{index + 1:02d}', x + 26, y + 65, 34, 90, BLUE)
-            label(page, step, x + 26, y + 120, 34, 394, leading=1.28)
+            y = top + index * 130
+            rect(page, 80, y, 920, 118, WHITE)
+            rect(page, 80, y, 14, 118, BLUE)
+            label(page, f'{index + 1:02d}', 118, y + 75, 44, 80, BLUE)
+            label(page, step, 220, y + 75, 48, 730)
     if item['key'] == 'low-fps':
         label(page, '一瞬止まる症状は「カクつき」記事へ', 80, 1190, 29, 920, BLUE)
     else:
