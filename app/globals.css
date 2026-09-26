@@ -2355,6 +2355,12 @@ kbd {
   color: var(--muted);
   line-height: 1.9;
 }
+.server-source {
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 700;
+  text-underline-offset: 3px;
+}
 .server-intro ul {
   display: grid;
   gap: 11px;
@@ -2541,6 +2547,10 @@ kbd {
   margin: 0 auto 18px;
   line-height: 1.7;
 }
+.server-empty a {
+  margin: 0 8px 8px;
+  text-align: left;
+}
 .server-empty a,
 .server-safety a,
 .server-related a {
@@ -2563,10 +2573,46 @@ kbd {
   font-size: 13px;
   line-height: 1.6;
 }
+.server-howto,
 .server-guide,
 .server-faq,
 .server-related {
   margin-top: 62px;
+}
+.server-howto > h2 {
+  margin: 0;
+  font-size: clamp(25px, 3vw, 34px);
+  letter-spacing: -0.025em;
+}
+.server-howto-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 22px;
+}
+.server-howto-grid article {
+  padding: 22px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.server-howto-grid h3 {
+  margin: 0;
+  font-size: 19px;
+}
+.server-howto-grid p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+.server-howto-grid a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
 }
 .server-guide-grid {
   display: grid;
@@ -2841,6 +2887,9 @@ kbd {
   }
   .server-guide-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .server-howto-grid {
+    grid-template-columns: 1fr;
   }
 }
 

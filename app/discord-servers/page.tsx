@@ -6,14 +6,14 @@ import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { listApprovedDiscordServers } from '@/lib/discord-server-db';
 
 export const metadata: Metadata = {
-  title: 'ディスコード（Discord）サーバー募集・検索｜PCゲーム',
+  title: 'ディスコードサーバーとは？探し方・参加方法・PCゲーム募集',
   description:
-    '日本語のPCゲーム向けディスコード（Discord）サーバー募集を、ゲーム・募集目的・活動時間・VC条件から検索。活動確認日と招待リンクの状態を確認して参加できます。',
+    'ディスコード（Discord）サーバーとは何か、探し方・招待リンクでの参加方法・無料での作り方を解説。日本語のPCゲーム向けサーバー募集も条件から探せます。',
   alternates: { canonical: '/discord-servers' },
   openGraph: {
-    title: 'Discordサーバー募集・検索｜ゲムなお',
+    title: 'ディスコードサーバーの探し方・参加方法｜ゲムなお',
     description:
-      'PCゲーム向けのDiscordサーバーを、ゲーム・目的・活動時間・VC条件から探せます。',
+      'Discordサーバーの基本、探し方、参加方法と作り方。PCゲーム向けの募集も探せます。',
     type: 'website',
     url: '/discord-servers',
   },
@@ -23,7 +23,22 @@ const faq = [
   {
     question: 'ディスコードサーバーとは何ですか？',
     answer:
-      'Discord上でテキストチャットやボイスチャットを使って交流するコミュニティです。PCゲームではフレンド募集、固定パーティ、攻略情報の共有などに利用されています。',
+      'Discord上でテキスト・ボイスチャンネルを使って交流するコミュニティの場です。PCゲームではフレンド募集、固定パーティ、攻略情報の共有などに利用されています。',
+  },
+  {
+    question: 'ディスコードサーバーはどうやって探しますか？',
+    answer:
+      'PCゲームの日本語コミュニティはこのページの募集欄でゲーム・目的・活動時間・VC条件から探せます。公開サーバーはDiscord公式のサーバーディレクトリでも探せます。掲載がないときは公式ディレクトリを確認してください。',
+  },
+  {
+    question: 'ディスコードサーバーに参加するには？',
+    answer:
+      '有効な招待リンクを開くか、Discordのサーバー一覧で「+」から「サーバーに参加」を選んで招待リンクを貼り付けます。参加前にルールとプライバシー設定を確認してください。',
+  },
+  {
+    question: 'ディスコードサーバーは自分で作れますか？',
+    answer:
+      'はい、無料で作れます。Discordのサーバー一覧で「+」を選び、「自分で作成」またはテンプレートを選択し、名前を付けて作成します。',
   },
   {
     question: 'Discordサーバーは無料で探せますか？',
@@ -60,10 +75,10 @@ export default async function DiscordServersPage() {
     {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
-      name: 'PCゲームのDiscordサーバー募集・検索',
+      name: 'ディスコードサーバーの探し方・参加方法・PCゲーム募集',
       url: 'https://gemnao.pages.dev/discord-servers',
       description:
-        '日本語のPCゲーム向けDiscordサーバー募集を条件から検索できるページです。',
+        'Discordサーバーの基本、探し方、参加方法と作り方を解説し、PCゲーム向けの募集を条件から探せるページです。',
       isPartOf: {
         '@type': 'WebSite',
         name: 'ゲムなお',
@@ -83,7 +98,7 @@ export default async function DiscordServersPage() {
         {
           '@type': 'ListItem',
           position: 2,
-          name: 'Discordサーバー募集',
+          name: 'Discordサーバーの探し方',
           item: 'https://gemnao.pages.dev/discord-servers',
         },
       ],
@@ -114,17 +129,17 @@ export default async function DiscordServersPage() {
           <nav className="breadcrumbs" aria-label="パンくずリスト">
             <a href="/">ゲムなお</a>
             <span>›</span>
-            <b>Discordサーバー募集</b>
+            <b>Discordサーバーの探し方</b>
           </nav>
           <p className="kicker">PC GAME COMMUNITY</p>
           <h1>
-            PCゲームの
+            ディスコード（Discord）サーバーの
             <br />
-            <span>ディスコード（Discord）サーバー募集・検索</span>
+            <span>探し方・参加方法</span>
           </h1>
           <p>
-            日本語で遊べるPCゲームのDiscordサーバーを、ゲーム・募集目的・活動時間・VC条件から探せます。
-            活動確認日と招待リンクの状態が分かる募集だけを掲載します。
+            サーバーの基本から、探し方・招待リンクでの参加・作り方まで案内します。
+            日本語のPCゲーム向け募集は、ゲーム・目的・活動時間・VC条件から絞り込めます。
           </p>
           <div className="server-hero-actions">
             <a href="#server-search-title">
@@ -138,12 +153,20 @@ export default async function DiscordServersPage() {
       <div className="server-page">
         <section className="server-intro" aria-labelledby="server-intro-title">
           <div>
-            <p className="page-kicker">FIND YOUR TEAM</p>
-            <h2 id="server-intro-title">目的に合うDiscordサーバーを見つける</h2>
+            <p className="page-kicker">DISCORD SERVER BASICS</p>
+            <h2 id="server-intro-title">ディスコードサーバーとは？</h2>
             <p>
-              Discordサーバーは、ゲーム仲間とのボイスチャット、固定パーティ募集、初心者同士の情報交換などに使われるコミュニティです。
-              ゲムなおではPCゲームと日本語コミュニティに絞り、参加前に必要な条件を比較しやすくします。
+              Discordサーバーは、テキスト・ボイスチャンネルで会話や情報共有ができるコミュニティの場です。
+              PCゲームならフレンド募集や攻略相談に使えます。自分で無料作成するほか、招待リンクや公開サーバーの一覧から参加先を探せます。
             </p>
+            <a
+              className="server-source"
+              href="https://support.discord.com/hc/ja/articles/33023827550359"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              出典：Discord公式「サーバーセットアップガイド」
+            </a>
           </div>
           <ul>
             <li>
@@ -169,6 +192,54 @@ export default async function DiscordServersPage() {
           initialServers={initialServers}
           initialLoadFailed={initialLoadFailed}
         />
+
+        <section className="server-howto" aria-labelledby="server-howto-title">
+          <p className="page-kicker">START HERE</p>
+          <h2 id="server-howto-title">
+            ディスコードサーバーの探し方・参加・作り方
+          </h2>
+          <div className="server-howto-grid">
+            <article>
+              <h3>サーバーを探す</h3>
+              <p>
+                上の募集欄でゲームや活動時間を選びます。ゲムなおに掲載がない場合は、Discord公式の公開サーバー一覧からゲーム名を検索できます。
+              </p>
+              <a
+                href="https://discord.com/servers/gaming"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Discord公式のゲームサーバー一覧 <ArrowRight size={15} />
+              </a>
+            </article>
+            <article>
+              <h3>サーバーに参加する</h3>
+              <p>
+                招待リンクを開くか、Discordのサーバー一覧の「+」から「サーバーに参加」を選び、招待リンクを入力します。参加前にルールとプライバシー設定を確認しましょう。
+              </p>
+              <a
+                href="https://support.discord.com/hc/ja/articles/360034842871"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Discord公式の参加手順 <ArrowRight size={15} />
+              </a>
+            </article>
+            <article>
+              <h3>サーバーを作る</h3>
+              <p>
+                Discordのサーバー一覧で「+」を押し、「自分で作成」またはテンプレートを選んで名前を付けます。作成は無料です。公開募集する場合は招待の設定も確認しましょう。
+              </p>
+              <a
+                href="https://support.discord.com/hc/ja/articles/33023827550359"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Discord公式の作成手順 <ArrowRight size={15} />
+              </a>
+            </article>
+          </div>
+        </section>
 
         <section className="server-guide" aria-labelledby="server-guide-title">
           <p className="page-kicker">HOW TO CHOOSE</p>

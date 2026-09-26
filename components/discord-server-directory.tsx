@@ -222,6 +222,13 @@ export function DiscordServerDirectory({
           <a href="/discord-servers/submit">
             無料で掲載を申請する <ArrowRight size={15} />
           </a>
+          <a
+            href="https://discord.com/servers/gaming"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Discord公式でゲームサーバーを探す <ArrowRight size={15} />
+          </a>
         </div>
       ) : null}
 

@@ -115,7 +115,7 @@ export default function DiscordHub() {
         </p>
         <p className="correction-link">
           Botを使うPCゲームコミュニティを探す場合は{' '}
-          <a href="/discord-servers">Discordサーバー募集・検索</a>
+          <a href="/discord-servers">ディスコードサーバーの探し方・参加方法</a>
           、自分のサーバーを紹介する場合は{' '}
           <a href="/discord-servers/submit">無料掲載申請</a>
           を利用できます。

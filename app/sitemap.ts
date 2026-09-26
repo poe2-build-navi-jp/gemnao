@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '', updated: '2026-09-18' },
     { path: '/guide', updated: '2026-09-12' },
     { path: '/discord', updated: '2026-09-17' },
-    { path: '/discord-servers', updated: '2026-09-18' },
+    { path: '/discord-servers', updated: '2026-09-26' },
     { path: '/discord-servers/guidelines', updated: '2026-09-17' },
     { path: '/about', updated: '2026-09-17' },
     { path: '/contact', updated: '2026-09-17' },
@@ -19,7 +19,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/terms', updated: '2026-09-17' },
   ];
   const articles = gameArticles
-    .filter((article) => !['draft', 'thin'].includes(article.status || 'verified'))
+    .filter(
+      (article) => !['draft', 'thin'].includes(article.status || 'verified'),
+    )
     .map((article) => ({
       url: `${base}/games/${article.gameSlug}/${article.slug}`,
       lastModified: new Date(article.checkedAt),

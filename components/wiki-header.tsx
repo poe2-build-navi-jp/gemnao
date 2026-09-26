@@ -29,7 +29,13 @@ export function WikiHeader({
         aria-label={locale === 'en' ? 'Gemnao home' : 'ゲムなお ホーム'}
       >
         <span className="logo-mark">
-          <img src="/favicon.svg" alt="" width={38} height={38} aria-hidden="true" />
+          <img
+            src="/favicon.svg"
+            alt=""
+            width={38}
+            height={38}
+            aria-hidden="true"
+          />
         </span>
         <span className="brand-name">
           {locale === 'en' ? 'Gemnao' : 'ゲムなお'}
@@ -54,7 +60,9 @@ export function WikiHeader({
           {locale === 'en' ? ' (Japanese)' : ''}
         </a>
         <a href="/discord">Discord{locale === 'en' ? ' (Japanese)' : ''}</a>
-        {locale === 'ja' ? <a href="/discord-servers">サーバー募集</a> : null}
+        {locale === 'ja' ? (
+          <a href="/discord-servers">Discordサーバー</a>
+        ) : null}
         {locale === 'ja' ? (
           <a
             className="header-search-link"
