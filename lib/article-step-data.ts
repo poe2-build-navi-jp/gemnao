@@ -55,3 +55,13 @@ export function articleFeedbackTopic(context: string): string | undefined {
           ? 'display'
           : 'launch';
 }
+
+export function articleImageTitle(context: string): string | undefined {
+  if (!articleSteps(context)) return undefined;
+  return (
+    gameArticles.find((a) => `game-${a.gameSlug}-${a.slug}` === context)
+      ?.shortTitle ||
+    discordArticles.find((a) => `discord-${a.slug}` === context)?.shortTitle ||
+    commonGuides.find((a) => `guide-${a.slug}` === context)?.shortTitle
+  );
+}

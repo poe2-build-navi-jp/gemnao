@@ -338,6 +338,28 @@ export function InteractiveSteps({
             </ol>
           </div>
         ) : null}
+        {total >= threshold && rankedMethods.length ? (
+          <figure className="solution-illustration">
+            <a
+              href={`/api/solution-image?game=${encodeURIComponent(contextSlug)}`}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="STEP別の解決回答画像を拡大して見る"
+            >
+              {/* oxlint-disable-next-line next/no-img-element -- Dynamic D1-backed SVG cannot be preoptimized. */}
+              <img
+                src={`/api/solution-image?game=${encodeURIComponent(contextSlug)}`}
+                alt={`${articleTitle}のSTEP別解決回答数。詳細は直前の解決状況を確認してください。`}
+                width={1080}
+                height={1080}
+                loading="lazy"
+              />
+            </a>
+            <figcaption>
+              実際の解決回答を集計した画像です。集計時点を画像内に表示しています。
+            </figcaption>
+          </figure>
+        ) : null}
         <small>
           利用者の自己申告で、全閲覧者の成功率や効果の比較試験ではありません。同じ人が未解決と解決の両方を報告する場合があります。件数は人数ではなく回答数です。
         </small>
