@@ -10,6 +10,8 @@ import {
 } from 'lucide-react';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { InteractiveSteps } from '@/components/interactive-steps';
+import { SolutionIllustration } from '@/components/solution-illustration';
+import { discordArticleVisualBySlug } from '@/lib/visual-guides';
 import {
   discordArticleBySlug,
   discordArticles,
@@ -42,6 +44,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const item = discordArticleBySlug(slug);
+  const visual = discordArticleVisualBySlug(slug);
   if (!item) return {};
   const canonical = `/discord/${slug}`;
   return {
@@ -55,13 +58,13 @@ export async function generateMetadata({
       url: canonical,
       locale: 'ja_JP',
       modifiedTime: item.checkedAt,
-      images: ['/og-default.png'],
+      images: [visual?.ogImage || '/og-default.png'],
     },
     twitter: {
       card: 'summary_large_image',
       title: item.seoTitle,
       description: item.metaDescription,
-      images: ['/og-default.png'],
+      images: [visual?.ogImage || '/og-default.png'],
     },
   };
 }
@@ -75,6 +78,7 @@ export default async function DiscordArticlePage({
   const item = discordArticleBySlug(slug);
   if (!item) notFound();
   if (item.status === 'draft' || item.status === 'thin') notFound();
+  const visual = discordArticleVisualBySlug(slug);
   const canonical = `https://gemnao.pages.dev/discord/${item.slug}`;
   const relatedItems = item.related
     .map((s) => discordArticleBySlug(s))
@@ -119,6 +123,7 @@ export default async function DiscordArticlePage({
     inLanguage: 'ja-JP',
     about: 'Discord',
     mainEntityOfPage: canonical,
+    ...(visual ? { image: `https://gemnao.pages.dev${visual.image}` } : {}),
   };
   const faqSchema = item.faqs.length
     ? {
@@ -193,6 +198,7 @@ export default async function DiscordArticlePage({
               ))}
             </ol>
           </section>
+          {visual ? <SolutionIllustration visual={visual} /> : null}
           <section className="caution-block" id="status-check">
             <h2>
               <ShieldAlert size={22} />

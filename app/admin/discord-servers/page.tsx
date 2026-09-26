@@ -20,6 +20,7 @@ export default function DiscordServerAdminPage() {
         </p>
         <p className="admin-back-link">
           <a href="/admin/contacts">お問い合わせ一覧</a>
+          <a href="/admin/search-demand">記事がない検索の集計</a>
           <a href="/discord-servers">公開中の募集一覧を確認</a>
         </p>
         <DiscordServerAdmin />

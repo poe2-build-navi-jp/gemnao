@@ -10,9 +10,17 @@ import {
   type DiscordServer,
 } from '@/lib/discord-servers';
 
-export function DiscordServerDirectory() {
-  const [servers, setServers] = useState<DiscordServer[]>([]);
-  const [loadState, setLoadState] = useState<'loading' | 'ready' | 'error'>('loading');
+export function DiscordServerDirectory({
+  initialServers,
+  initialLoadFailed,
+}: {
+  initialServers: DiscordServer[];
+  initialLoadFailed: boolean;
+}) {
+  const [servers, setServers] = useState<DiscordServer[]>(initialServers);
+  const [loadState, setLoadState] = useState<'ready' | 'error'>(
+    initialLoadFailed ? 'error' : 'ready',
+  );
   const [query, setQuery] = useState('');
   const [game, setGame] = useState('');
   const [purpose, setPurpose] = useState('');
@@ -61,7 +69,9 @@ export function DiscordServerDirectory() {
     });
   }, [activeTime, game, purpose, query, servers, voiceChat]);
 
-  const hasFilters = Boolean(query || game || purpose || activeTime || voiceChat);
+  const hasFilters = Boolean(
+    query || game || purpose || activeTime || voiceChat,
+  );
 
   return (
     <section className="server-search" aria-labelledby="server-search-title">
@@ -89,7 +99,10 @@ export function DiscordServerDirectory() {
         </label>
         <label>
           <span>ゲーム</span>
-          <select value={game} onChange={(event) => setGame(event.target.value)}>
+          <select
+            value={game}
+            onChange={(event) => setGame(event.target.value)}
+          >
             <option value="">すべてのゲーム</option>
             {discordServerGames.map((item) => (
               <option key={item}>{item}</option>
@@ -136,7 +149,11 @@ export function DiscordServerDirectory() {
       </div>
 
       <div className="server-result-summary" aria-live="polite">
-        <span>{loadState === 'loading' ? '募集情報を確認中…' : `${filtered.length}件の募集中サーバー`}</span>
+        <span>
+          {loadState === 'error'
+            ? '募集情報を読み込めませんでした'
+            : `${filtered.length}件の募集中サーバー`}
+        </span>
         {hasFilters ? (
           <button
             type="button"
@@ -163,17 +180,29 @@ export function DiscordServerDirectory() {
           {filtered.map((server) => (
             <article className="server-card" key={server.slug}>
               <div className="server-card-status">
-                <span><ShieldCheck size={15} /> 活動確認済み</span>
-                <time dateTime={server.lastVerifiedAt}>{server.lastVerifiedAt}</time>
+                <span>
+                  <ShieldCheck size={15} /> 活動確認済み
+                </span>
+                <time dateTime={server.lastVerifiedAt}>
+                  {server.lastVerifiedAt}
+                </time>
               </div>
               <p>{server.game}</p>
               <h3>{server.name}</h3>
               <div className="server-card-tags">
-                {server.purposes.slice(0, 2).map((item) => <span key={item}>{item}</span>)}
-                {server.styles.slice(0, 2).map((item) => <span key={item}>{item}</span>)}
+                {server.purposes.slice(0, 2).map((item) => (
+                  <span key={item}>{item}</span>
+                ))}
+                {server.styles.slice(0, 2).map((item) => (
+                  <span key={item}>{item}</span>
+                ))}
               </div>
               <p className="server-card-description">{server.description}</p>
-              <a href={server.inviteUrl} target="_blank" rel="noopener noreferrer nofollow">
+              <a
+                href={server.inviteUrl}
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+              >
                 Discordに参加する <ArrowRight size={15} />
               </a>
             </article>
@@ -182,7 +211,11 @@ export function DiscordServerDirectory() {
       ) : loadState === 'ready' ? (
         <div className="server-empty">
           <Users size={32} aria-hidden="true" />
-          <h3>{hasFilters ? '条件に合う募集はありません' : '掲載サーバーを審査中です'}</h3>
+          <h3>
+            {hasFilters
+              ? '条件に合う募集はありません'
+              : '掲載サーバーを審査中です'}
+          </h3>
           <p>
             未確認のサーバーを水増し掲載せず、運営者確認と招待リンク確認が済んだ募集だけを公開します。
           </p>
@@ -195,8 +228,12 @@ export function DiscordServerDirectory() {
       <aside className="verification-note">
         <Clock3 size={20} aria-hidden="true" />
         <div>
-          <strong>「活動中」は、運営者が募集継続を確認した日で判断します</strong>
-          <p>Discord内の会話やメンバー情報を無断取得して判定することはありません。</p>
+          <strong>
+            「活動中」は、運営者が募集継続を確認した日で判断します
+          </strong>
+          <p>
+            Discord内の会話やメンバー情報を無断取得して判定することはありません。
+          </p>
         </div>
       </aside>
     </section>

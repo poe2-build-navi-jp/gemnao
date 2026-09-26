@@ -62,7 +62,10 @@ input {
   background: var(--navy);
   border-radius: 9px;
 }
-.logo-mark img { display: block; border-radius: 9px; }
+.logo-mark img {
+  display: block;
+  border-radius: 9px;
+}
 
 .solution-illustration {
   width: min(100%, 400px);
@@ -217,6 +220,25 @@ input {
   margin: 10px 0 0;
   color: #8da2ad;
   font-size: 12px;
+}
+.search-no-results {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+  max-width: 760px;
+  margin-top: 15px;
+  color: #fff;
+  font-size: 14px;
+}
+.search-no-results strong {
+  width: 100%;
+}
+.search-no-results a {
+  padding: 7px 10px;
+  border: 1px solid #90b8cf;
+  border-radius: 6px;
+  color: #fff;
 }
 .symptom-section {
   padding-bottom: 38px;
@@ -2690,6 +2712,20 @@ kbd {
 
 .admin-server-page {
   max-width: 980px;
+}
+.search-demand-table {
+  overflow-x: auto;
+  margin-top: 24px;
+}
+.search-demand-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.search-demand-table th,
+.search-demand-table td {
+  padding: 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
 }
 .admin-back-link {
   display: flex;

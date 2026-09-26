@@ -10,6 +10,7 @@
     "build": "vinext build && node scripts/prepare-pages.mjs",
     "build:pages": "pnpm build",
     "start": "wrangler dev --config dist/server/wrangler.json",
+    "content:freshness": "node scripts/run-freshness-report.mjs",
     "lint": "oxlint",
     "format": "oxfmt"
   },

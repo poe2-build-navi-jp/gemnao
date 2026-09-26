@@ -85,7 +85,8 @@ def portrait(item):
     label(page, item['title'], 80, 190, 53, 925, WHITE, 1.16)
     steps = item['steps']
     rect(page, 80, 307, 920, 4, BLUE)
-    section_label = '近い症状を選ぶ' if item['key'] == 'discord' else '上から順番に確認'
+    section_label = ('近い症状を選ぶ' if item['key'] == 'discord' else
+                     '原因別に確認' if item['key'].startswith('discord-') else '上から順番に確認')
     label(page, section_label, 80, 357, 28, 920, GREY)
     if len(steps) <= 4:
         top = 394

@@ -1,7 +1,7 @@
 'use client';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   Bug,
   ChevronRight,
@@ -20,6 +20,7 @@ import { categoryLabels, gameArticles } from '@/lib/game-articles';
 import { commonGuides } from '@/lib/common-guides';
 import { discordArticles } from '@/lib/discord-articles';
 import { articleMatchesTrouble, troubleHubForGuide } from '@/lib/trouble-hubs';
+import { matchesNaturalQuery, normalizeSearchQuery } from '@/lib/site-search';
 import { RecentTroubles } from './recent-troubles';
 import { WikiFooter, WikiHeader } from './wiki-header';
 
@@ -37,59 +38,6 @@ const articleFilters = [
   ...topics.map(({ slug, label }) => ({ slug, label })),
   { slug: 'discord', label: 'Discord' },
 ];
-
-const searchAliases: [RegExp, string][] = [
-  [/立ち上がらない|開かない/g, '起動しない'],
-  [/真っ黒|黒い画面/g, '黒画面'],
-  [/相手の声|音が聞こえない/g, '声 聞こえない'],
-  [/ガクガク/g, 'カクつく'],
-];
-const knownSearchTerms = [
-  'installation has failed',
-  'update failed',
-  'コントローラー',
-  '聞こえない',
-  '起動しない',
-  'クラッシュ',
-  'カクつく',
-  '黒画面',
-  'discord',
-  'aniimo',
-  'アニモ',
-  'wardogs',
-  'steam',
-  'マイク',
-  'セーブ',
-  'サーバー',
-  'fps',
-  'mod',
-  '起動',
-  '声',
-  '重い',
-];
-
-function normalizedWords(value: string) {
-  const normalized = searchAliases.reduce(
-    (text, [pattern, replacement]) => text.replace(pattern, replacement),
-    value.toLowerCase(),
-  );
-  const intentWords = knownSearchTerms.filter((term) =>
-    normalized.includes(term),
-  );
-  if (intentWords.length) return [...new Set(intentWords)];
-  return normalized.split(/[\s　、。・/]+/).filter(Boolean);
-}
-
-function matchesNaturalQuery(haystack: string, query: string) {
-  return normalizedWords(query).every((word) =>
-    searchAliases
-      .reduce(
-        (text, [pattern, replacement]) => text.replace(pattern, replacement),
-        haystack.toLowerCase(),
-      )
-      .includes(word),
-  );
-}
 
 const featuredGuideSlugs = [
   'steam-game-not-launching',
@@ -244,6 +192,33 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
       }));
     return [...guides, ...discord].slice(0, 12);
   }, [query, view]);
+  const noSearchResults =
+    isSearching &&
+    !visible.length &&
+    !visibleArticles.length &&
+    !supplementalArticles.length &&
+    !additionalSearchResults.length;
+
+  useEffect(() => {
+    const normalized = normalizeSearchQuery(query);
+    if (!noSearchResults || normalized.length < 2 || normalized.length > 80)
+      return;
+    const timer = window.setTimeout(() => {
+      try {
+        const key = `gemnao-zero-search:${normalized}`;
+        if (sessionStorage.getItem(key)) return;
+        sessionStorage.setItem(key, '1');
+        void fetch('/api/search-demand', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query, locale: 'ja' }),
+        });
+      } catch {
+        // Search remains usable when storage or telemetry is unavailable.
+      }
+    }, 1000);
+    return () => window.clearTimeout(timer);
+  }, [noSearchResults, query]);
 
   return (
     <main>
@@ -285,6 +260,16 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
         <p className="search-examples">
           例：Aniimo 黒画面 / WARDOGS 起動しない / パルワールド セーブ
         </p>
+        {noSearchResults ? (
+          <output className="search-no-results">
+            <strong>該当する記事はまだありません。</strong>
+            <span>近い症状から探す：</span>
+            <a href="/trouble/not-launching">起動しない</a>
+            <a href="/trouble/crash">クラッシュ</a>
+            <a href="/trouble/fps">FPS・カクつき</a>
+            <a href="/guide">PC共通ガイド</a>
+          </output>
+        ) : null}
       </section>
 
       <RecentTroubles />

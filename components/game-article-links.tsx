@@ -18,10 +18,16 @@ export function GameArticleLinks({
   game: GameGuide;
   heading?: string;
 }) {
-  const articles = articlesForGame(game.slug);
+  const articles = articlesForGame(game.slug).filter(
+    (article) =>
+      !game.focused || !article.status || article.status === 'verified',
+  );
   if (!articles.length) return null;
-  const displayHeading =
-    game.slug === 'aniimo' ? 'アニモで何に困っていますか？' : heading;
+  const displayHeading = game.focused
+    ? '現在確認されている問題'
+    : game.slug === 'aniimo'
+      ? 'アニモで何に困っていますか？'
+      : heading;
   const orderedClusters =
     game.slug === 'palworld'
       ? [clusters[1], clusters[2], clusters[0], clusters[3], clusters[4]]
@@ -39,7 +45,9 @@ export function GameArticleLinks({
         <span>{articles.length}記事</span>
       </div>
       <p className="article-link-intro">
-        困っている内容に近い項目を1つ選んでください。各記事は検索意図が重ならないよう、1つの問題と解決手順に絞っています。
+        {game.focused
+          ? '確認済みの問題から、当てはまる症状を選んでください。各記事に確認日と参照元を掲載しています。'
+          : '困っている内容に近い項目を1つ選んでください。各記事は検索意図が重ならないよう、1つの問題と解決手順に絞っています。'}
       </p>
       <div className="article-clusters">
         {orderedClusters.map((cluster) => {
