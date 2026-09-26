@@ -1,4 +1,5 @@
-import { Languages, MonitorCog, Search } from 'lucide-react';
+/* oxlint-disable next/no-img-element -- Tiny static logo uses the same asset as the favicon. */
+import { Languages, Search } from 'lucide-react';
 import type { Locale } from '@/lib/i18n';
 import { copy, localeNames, localizedRoot } from '@/lib/i18n';
 import { MobileNavigation } from '@/components/mobile-navigation';
@@ -28,7 +29,7 @@ export function WikiHeader({
         aria-label={locale === 'en' ? 'Gemnao home' : 'ゲムなお ホーム'}
       >
         <span className="logo-mark">
-          <MonitorCog size={21} />
+          <img src="/favicon.svg" alt="" width={38} height={38} aria-hidden="true" />
         </span>
         <span className="brand-name">
           {locale === 'en' ? 'Gemnao' : 'ゲムなお'}

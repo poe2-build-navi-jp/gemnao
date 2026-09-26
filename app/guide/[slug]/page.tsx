@@ -9,10 +9,12 @@ import {
 } from 'lucide-react';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { InteractiveSteps } from '@/components/interactive-steps';
+import { SolutionIllustration } from '@/components/solution-illustration';
 import { gameArticles } from '@/lib/game-articles';
 import { gameBySlug } from '@/lib/games';
 import { commonGuideBySlug, commonGuides } from '@/lib/common-guides';
 import { troubleHubForGuide } from '@/lib/trouble-hubs';
+import { guideVisualBySlug } from '@/lib/visual-guides';
 export function generateStaticParams() {
   return commonGuides
     .filter(({ status }) => status === 'verified')
@@ -25,6 +27,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const item = commonGuideBySlug(slug);
+  const visual = guideVisualBySlug(slug);
   return item
     ? {
         title: item.title,
@@ -37,13 +40,13 @@ export async function generateMetadata({
           url: `/guide/${slug}`,
           locale: 'ja_JP',
           modifiedTime: item.checkedAt,
-          images: ['/og-default.png'],
+          images: [visual?.ogImage || '/og-default.png'],
         },
         twitter: {
           card: 'summary_large_image',
           title: item.title,
           description: item.description,
-          images: ['/og-default.png'],
+          images: [visual?.ogImage || '/og-default.png'],
         },
       }
     : {};
@@ -57,6 +60,7 @@ export default async function Page({
   const item = commonGuideBySlug(slug);
   if (!item) notFound();
   if (item.status === 'draft' || item.status === 'thin') notFound();
+  const visual = guideVisualBySlug(slug);
   const canonical = `https://gemnao.pages.dev/guide/${item.slug}`;
   const faq = [
     {
@@ -100,6 +104,7 @@ export default async function Page({
       author: { '@type': 'Organization', name: 'ゲムなお編集部' },
       inLanguage: 'ja-JP',
       mainEntityOfPage: canonical,
+      ...(visual ? { image: `https://gemnao.pages.dev${visual.image}` } : {}),
     },
     {
       '@context': 'https://schema.org',
@@ -185,6 +190,7 @@ export default async function Page({
               ))}
             </ol>
           </section>
+          {visual ? <SolutionIllustration visual={visual} /> : null}
           <section className="cause-block" aria-labelledby="cause-title">
             <h2 id="cause-title">原因候補</h2>
             <ul>

@@ -62,6 +62,25 @@ input {
   background: var(--navy);
   border-radius: 9px;
 }
+.logo-mark img { display: block; border-radius: 9px; }
+
+.solution-illustration {
+  width: min(100%, 400px);
+  margin: 24px auto;
+}
+.solution-illustration img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.solution-illustration figcaption {
+  margin-top: 9px;
+  color: #526274;
+  font-size: 13px;
+  line-height: 1.6;
+}
 .logo em {
   display: block;
   color: var(--blue);

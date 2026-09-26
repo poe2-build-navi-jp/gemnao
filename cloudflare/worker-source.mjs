@@ -3,15 +3,17 @@ import application from '../dist/server/index.js';
 const staticFiles = new Set([
   '/ads.txt',
   '/favicon.svg',
+  '/gemnao-logo.png',
   '/robots.txt',
   '/sitemap.xml',
+  '/image-sitemap.xml',
 ]);
 
 const worker = {
   async fetch(request, env, context) {
     const { pathname } = new URL(request.url);
 
-    if (pathname.startsWith('/_next/static/') || staticFiles.has(pathname)) {
+    if (pathname.startsWith('/_next/static/') || pathname.startsWith('/images/') || staticFiles.has(pathname)) {
       return env.ASSETS.fetch(request);
     }
 

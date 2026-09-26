@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
     rules: isPublic
       ? { userAgent: '*', allow: '/' }
       : { userAgent: '*', disallow: '/' },
-    sitemap: isPublic ? `${base}/sitemap.xml` : undefined,
+    sitemap: isPublic ? [`${base}/sitemap.xml`, `${base}/image-sitemap.xml`] : undefined,
   };
 }

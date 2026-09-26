@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
+import { SolutionIllustration } from '@/components/solution-illustration';
+import { discordHubVisual } from '@/lib/visual-guides';
 import {
   discordArticles,
   discordCategoryLabels,
@@ -13,6 +15,8 @@ export const metadata: Metadata = {
   description:
     'Discordが起動しない、声が聞こえない、RTC接続中、Botが反応しない・追加できないなどのPC版Discordトラブルを症状別に確認できます。',
   alternates: { canonical: '/discord' },
+  openGraph: { images: [discordHubVisual.ogImage] },
+  twitter: { card: 'summary_large_image', images: [discordHubVisual.ogImage] },
 };
 
 const categoryOrder: DiscordCategory[] = [
@@ -35,11 +39,33 @@ export default function DiscordHub() {
   return (
     <main>
       <WikiHeader />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'CollectionPage',
+            name: 'Discordの不具合・トラブル解決',
+            url: 'https://gemnao.pages.dev/discord',
+            image: `https://gemnao.pages.dev${discordHubVisual.image}`,
+            inLanguage: 'ja-JP',
+          }),
+        }}
+      />
       <article className="static-page">
         <p className="page-kicker">DISCORD TROUBLESHOOTING</p>
         <h1>Discordの不具合・トラブル解決</h1>
         <p className="page-lead">
           Discordが起動しない、声が聞こえない、マイクが反応しない、画面共有できない、RTC接続中から進まないなどのPC版Discordトラブルを症状別に確認できます。
+        </p>
+        <SolutionIllustration visual={discordHubVisual} />
+        <p>
+          <a href="/discord/cant-hear-voice">相手の声が聞こえない</a> ／{' '}
+          <a href="/discord/mic-not-working">自分の声が届かない</a> ／{' '}
+          <a href="/discord/rtc-connecting">RTC接続中で止まる</a> ／{' '}
+          <a href="/discord/screen-share-not-working">画面共有が黒い</a> ／{' '}
+          <a href="/discord/stream-no-audio">配信の音が出ない</a> ／{' '}
+          <a href="/discord/not-opening">Discordが起動しない</a>
         </p>
         <p>
           <a href="https://discordstatus.com/" target="_blank" rel="noreferrer">

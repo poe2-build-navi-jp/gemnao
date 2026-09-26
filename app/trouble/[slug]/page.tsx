@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
+import { SolutionIllustration } from '@/components/solution-illustration';
 import { commonGuideCategoryFor } from '@/lib/common-guide-categories';
 import { commonGuideBySlug } from '@/lib/common-guides';
 import { gameArticles } from '@/lib/game-articles';
@@ -12,6 +13,7 @@ import {
   troubleHubBySlug,
   troubleHubs,
 } from '@/lib/trouble-hubs';
+import { troubleVisualBySlug } from '@/lib/visual-guides';
 
 export function generateStaticParams() {
   return troubleHubs.map(({ slug }) => ({ slug }));
@@ -25,6 +27,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const hub = troubleHubBySlug(slug);
   if (!hub) return {};
+  const visual = troubleVisualBySlug(slug);
   const canonical = `/trouble/${hub.slug}`;
   return {
     title: hub.title,
@@ -36,13 +39,13 @@ export async function generateMetadata({
       description: hub.description,
       url: canonical,
       locale: 'ja_JP',
-      images: ['/og-default.png'],
+      images: [visual?.ogImage || '/og-default.png'],
     },
     twitter: {
       card: 'summary_large_image',
       title: `${hub.title}｜ゲムなお`,
       description: hub.description,
-      images: ['/og-default.png'],
+      images: [visual?.ogImage || '/og-default.png'],
     },
   };
 }
@@ -55,6 +58,7 @@ export default async function TroubleHubPage({
   const { slug } = await params;
   const hub = troubleHubBySlug(slug);
   if (!hub) notFound();
+  const visual = troubleVisualBySlug(slug);
   const articles = gameArticles.filter(
     (article) =>
       !['draft', 'thin'].includes(article.status || 'verified') &&
@@ -96,6 +100,7 @@ export default async function TroubleHubPage({
       description: hub.description,
       url: canonical,
       inLanguage: 'ja-JP',
+      ...(visual ? { image: `https://gemnao.pages.dev${visual.image}` } : {}),
     },
   ];
   return (
@@ -133,6 +138,8 @@ export default async function TroubleHubPage({
             1項目ずつ試し、改善しなければ元へ戻してください。ゲーム固有の公式案内がある場合は、下の記事を優先します。
           </p>
         </section>
+
+        {visual ? <SolutionIllustration visual={visual} /> : null}
 
         <section className="trouble-hub-section">
           <h2>PC共通の解決ガイド</h2>

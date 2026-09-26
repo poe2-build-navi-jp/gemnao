@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://gemnao.pages.dev/sitemap.xml
+Sitemap: https://gemnao.pages.dev/image-sitemap.xml
