@@ -191,6 +191,13 @@ export default async function Page({
             </ol>
           </section>
           {visual ? <SolutionIllustration visual={visual} /> : null}
+          {slug === 'low-fps' ? (
+            <p>
+              平均FPSは出ているのに一瞬止まる場合は、{' '}
+              <a href="/guide/stutter-fix">カクつき・スタッターの確認手順</a>
+              をご覧ください。
+            </p>
+          ) : null}
           <section className="cause-block" aria-labelledby="cause-title">
             <h2 id="cause-title">原因候補</h2>
             <ul>
