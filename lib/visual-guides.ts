@@ -34,7 +34,7 @@ const guideVisuals = specs.map(([key, filename, title]) => {
     caption: `「${guide.shortTitle}」の記事のSTEP順です。詳しい操作と注意事項は本文を確認してください。`,
     steps: guide.steps.map((step) => step.title),
     image: `/images/${filename}.webp`,
-    ogImage: `/images/${filename}-og.webp`,
+    ogImage: `/images/${filename}-og.png`,
   } satisfies GuideVisual;
 });
 
@@ -53,7 +53,7 @@ const discordVisual: GuideVisual = {
     'Discordが起動しない',
   ],
   image: '/images/discord-troubleshooting-chart.webp',
-  ogImage: '/images/discord-troubleshooting-chart-og.webp',
+  ogImage: '/images/discord-troubleshooting-chart-og.png',
 };
 
 export const visualGuides: GuideVisual[] = [...guideVisuals, discordVisual];

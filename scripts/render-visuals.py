@@ -133,7 +133,9 @@ def social(item):
         label(page, f'{i + 1:02d}', x + 22, y + 52, 30, 70, BLUE)
         label(page, step, x + 85, y + (51 if rows <= 2 else 40), 26, 415)
     label(page, '詳しい手順 → gemnao.pages.dev', 62, 606, 24, 1040, GREY)
-    save(doc, BASE / item['ogImage'].rsplit('/', 1)[-1])
+    pix = page.get_pixmap(alpha=False)
+    with Image.open(io.BytesIO(pix.tobytes('png'))) as img:
+        img.save(BASE / item['ogImage'].rsplit('/', 1)[-1], 'PNG', optimize=True)
 
 
 def logo_png():
