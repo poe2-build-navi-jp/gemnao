@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { InteractiveSteps } from '@/components/interactive-steps';
+import { ShareButtons } from '@/components/share-buttons';
 import { SolutionIllustration } from '@/components/solution-illustration';
 import { discordArticleVisualBySlug } from '@/lib/visual-guides';
 import {
@@ -18,6 +19,7 @@ import {
   discordCategoryLabels,
   type DiscordCategory,
 } from '@/lib/discord-articles';
+import { ogImageFor } from '@/lib/og-images';
 
 const feedbackTopic: Record<
   DiscordCategory,
@@ -58,13 +60,13 @@ export async function generateMetadata({
       url: canonical,
       locale: 'ja_JP',
       modifiedTime: item.checkedAt,
-      images: [visual?.ogImage || '/og-default.png'],
+      images: [visual?.ogImage || ogImageFor(`/discord/${slug}`)],
     },
     twitter: {
       card: 'summary_large_image',
       title: item.seoTitle,
       description: item.metaDescription,
-      images: [visual?.ogImage || '/og-default.png'],
+      images: [visual?.ogImage || ogImageFor(`/discord/${slug}`)],
     },
   };
 }
@@ -292,6 +294,11 @@ export default async function DiscordArticlePage({
               </a>
             </section>
           ) : null}
+          <ShareButtons
+            title={item.title}
+            path={`/discord/${item.slug}`}
+            hashtag="Discord"
+          />
           <p className="correction-link">
             この記事の情報に問題がありますか？{' '}
             <a href={`/contact?url=${encodeURIComponent(canonical)}`}>

@@ -37,13 +37,6 @@ export async function generateMetadata({
     },
     alternates: {
       canonical: `/${locale}`,
-      languages: {
-        'ja-JP': '/',
-        en: '/en',
-        'zh-CN': '/zh',
-        es: '/es',
-        'x-default': '/',
-      },
     },
   };
 }

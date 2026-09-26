@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { siteConfig } from '@/lib/site-config';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://gemnao.pages.dev';
 const isPublic = process.env.NEXT_PUBLIC_SITE_PUBLIC !== 'false';
@@ -53,6 +54,9 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <head>
+        {siteConfig.xAccount ? (
+          <meta name="twitter:site" content={`@${siteConfig.xAccount}`} />
+        ) : null}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

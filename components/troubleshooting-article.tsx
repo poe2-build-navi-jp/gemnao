@@ -6,6 +6,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { InteractiveSteps } from '@/components/interactive-steps';
+import { ShareButtons } from '@/components/share-buttons';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import {
   articleBySlug,
@@ -280,6 +281,11 @@ export function TroubleshootingArticle({
               {game.shortTitle}の総合トラブルまとめ <ArrowRight size={15} />
             </a>
           </section>
+          <ShareButtons
+            title={article.title}
+            path={`/games/${game.slug}/${article.slug}`}
+            hashtag={game.title.split('/')[0].trim()}
+          />
           <p className="correction-link">
             この記事の情報に問題がありますか？{' '}
             <a href={`/contact?url=${encodeURIComponent(canonical)}`}>

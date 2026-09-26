@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { TroubleshootingArticle } from '@/components/troubleshooting-article';
 import { articleBySlug, gameArticles } from '@/lib/game-articles';
 import { gameBySlug } from '@/lib/games';
+import { ogImageFor } from '@/lib/og-images';
 
 export function generateStaticParams() {
   return gameArticles.map((article) => ({
@@ -31,13 +32,13 @@ export async function generateMetadata({
       url: canonical,
       locale: 'ja_JP',
       modifiedTime: article.checkedAt,
-      images: ['/og-default.png'],
+      images: [ogImageFor(canonical)],
     },
     twitter: {
       card: 'summary_large_image',
       title: article.seoTitle,
       description: article.metaDescription,
-      images: ['/og-default.png'],
+      images: [ogImageFor(canonical)],
     },
   };
 }

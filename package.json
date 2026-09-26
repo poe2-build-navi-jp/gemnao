@@ -7,10 +7,11 @@
   },
   "scripts": {
     "dev": "vinext dev",
-    "build": "vinext build && node scripts/prepare-pages.mjs",
+    "build": "vinext build && node scripts/prepare-pages.mjs && node scripts/generate-og-cards.mjs --check",
     "build:pages": "pnpm build",
     "start": "wrangler dev --config dist/server/wrangler.json",
     "content:freshness": "node scripts/run-freshness-report.mjs",
+    "og:cards": "node scripts/generate-og-cards.mjs",
     "lint": "oxlint",
     "format": "oxfmt"
   },

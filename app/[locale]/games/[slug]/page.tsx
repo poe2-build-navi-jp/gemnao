@@ -41,13 +41,6 @@ export async function generateMetadata({
     },
     alternates: {
       canonical: `/${locale}/games/${slug}`,
-      languages: {
-        'ja-JP': `/games/${slug}`,
-        en: `/en/games/${slug}`,
-        'zh-CN': `/zh/games/${slug}`,
-        es: `/es/games/${slug}`,
-        'x-default': `/games/${slug}`,
-      },
     },
   };
 }

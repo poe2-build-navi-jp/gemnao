@@ -300,10 +300,12 @@ export function InteractiveSteps({
       className="interactive-troubleshooter"
       aria-labelledby="interactive-steps-title"
     >
-      <div className="solution-data-panel">
-        <p className="evidence-label">GEMNAO FIRST-PARTY DATA</p>
-        <h2>このトラブルの解決状況</h2>
-        {solvedRate !== null ? (
+      {/* Show first-party data only after the threshold. An empty
+          "collecting data" panel on every article reads as unfinished. */}
+      {solvedRate !== null ? (
+        <div className="solution-data-panel">
+          <p className="evidence-label">GEMNAO FIRST-PARTY DATA</p>
+          <h2>このトラブルの解決状況</h2>
           <div className="solution-data-summary">
             <strong>解決報告の割合 {solvedRate}%</strong>
             <span>
@@ -311,59 +313,52 @@ export function InteractiveSteps({
               件）
             </span>
           </div>
-        ) : (
-          <p>
-            {total
-              ? `現在${total}件の回答を集計中です。`
-              : '解決データを集計中です。'}
-            10件以上で解決報告の割合を表示します。
-          </p>
-        )}
-        {row.resolved >= threshold && rankedMethods.length ? (
-          <div className="method-ranking">
-            <strong>実際に直った方法</strong>
-            <p>現在、解決報告が多い順に表示しています。</p>
-            <ol>
-              {rankedMethods.slice(0, 3).map((method) => (
-                <li key={method.methodId} value={method.rank}>
-                  <span>
-                    {method.tied
-                      ? `同率${method.rank}位：`
-                      : `${method.rank}位：`}
-                    <a href={`#${method.methodId}`}>{method.methodLabel}</a>
-                  </span>
-                  <b>{method.responses}件</b>
-                </li>
-              ))}
-            </ol>
-          </div>
-        ) : null}
-        {total >= threshold && rankedMethods.length ? (
-          <figure className="solution-illustration">
-            <a
-              href={`/api/solution-image?game=${encodeURIComponent(contextSlug)}`}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="STEP別の解決回答画像を拡大して見る"
-            >
-              {/* oxlint-disable-next-line next/no-img-element -- Dynamic D1-backed SVG cannot be preoptimized. */}
-              <img
-                src={`/api/solution-image?game=${encodeURIComponent(contextSlug)}`}
-                alt={`${articleTitle}のSTEP別解決回答数。詳細は直前の解決状況を確認してください。`}
-                width={1080}
-                height={1080}
-                loading="lazy"
-              />
-            </a>
-            <figcaption>
-              実際の解決回答を集計した画像です。集計時点を画像内に表示しています。
-            </figcaption>
-          </figure>
-        ) : null}
-        <small>
-          利用者の自己申告で、全閲覧者の成功率や効果の比較試験ではありません。同じ人が未解決と解決の両方を報告する場合があります。件数は人数ではなく回答数です。
-        </small>
-      </div>
+          {row.resolved >= threshold && rankedMethods.length ? (
+            <div className="method-ranking">
+              <strong>実際に直った方法</strong>
+              <p>現在、解決報告が多い順に表示しています。</p>
+              <ol>
+                {rankedMethods.slice(0, 3).map((method) => (
+                  <li key={method.methodId} value={method.rank}>
+                    <span>
+                      {method.tied
+                        ? `同率${method.rank}位：`
+                        : `${method.rank}位：`}
+                      <a href={`#${method.methodId}`}>{method.methodLabel}</a>
+                    </span>
+                    <b>{method.responses}件</b>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ) : null}
+          {total >= threshold && rankedMethods.length ? (
+            <figure className="solution-illustration">
+              <a
+                href={`/api/solution-image?game=${encodeURIComponent(contextSlug)}`}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="STEP別の解決回答画像を拡大して見る"
+              >
+                {/* oxlint-disable-next-line next/no-img-element -- Dynamic D1-backed SVG cannot be preoptimized. */}
+                <img
+                  src={`/api/solution-image?game=${encodeURIComponent(contextSlug)}`}
+                  alt={`${articleTitle}のSTEP別解決回答数。詳細は直前の解決状況を確認してください。`}
+                  width={1080}
+                  height={1080}
+                  loading="lazy"
+                />
+              </a>
+              <figcaption>
+                実際の解決回答を集計した画像です。集計時点を画像内に表示しています。
+              </figcaption>
+            </figure>
+          ) : null}
+          <small>
+            利用者の自己申告で、全閲覧者の成功率や効果の比較試験ではありません。同じ人が未解決と解決の両方を報告する場合があります。件数は人数ではなく回答数です。
+          </small>
+        </div>
+      ) : null}
 
       {showResume ? (
         <div className="resume-panel">

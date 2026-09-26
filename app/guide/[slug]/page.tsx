@@ -9,12 +9,14 @@ import {
 } from 'lucide-react';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { InteractiveSteps } from '@/components/interactive-steps';
+import { ShareButtons } from '@/components/share-buttons';
 import { SolutionIllustration } from '@/components/solution-illustration';
 import { gameArticles } from '@/lib/game-articles';
 import { gameBySlug } from '@/lib/games';
 import { commonGuideBySlug, commonGuides } from '@/lib/common-guides';
 import { troubleHubForGuide } from '@/lib/trouble-hubs';
 import { guideVisualBySlug } from '@/lib/visual-guides';
+import { ogImageFor } from '@/lib/og-images';
 export function generateStaticParams() {
   return commonGuides
     .filter(({ status }) => status === 'verified')
@@ -40,13 +42,13 @@ export async function generateMetadata({
           url: `/guide/${slug}`,
           locale: 'ja_JP',
           modifiedTime: item.checkedAt,
-          images: [visual?.ogImage || '/og-default.png'],
+          images: [visual?.ogImage || ogImageFor(`/guide/${slug}`)],
         },
         twitter: {
           card: 'summary_large_image',
           title: item.title,
           description: item.description,
-          images: [visual?.ogImage || '/og-default.png'],
+          images: [visual?.ogImage || ogImageFor(`/guide/${slug}`)],
         },
       }
     : {};
@@ -295,6 +297,11 @@ export default async function Page({
               ))}
             </div>
           </section>
+          <ShareButtons
+            title={item.title}
+            path={`/guide/${item.slug}`}
+            hashtag="PCゲーム"
+          />
           <p className="correction-link">
             この記事の情報に問題がありますか？{' '}
             <a href={`/contact?url=${encodeURIComponent(canonical)}`}>
