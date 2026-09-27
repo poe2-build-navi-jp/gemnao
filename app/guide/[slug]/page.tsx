@@ -26,6 +26,7 @@ import { SteamInputBeforeSteps, SteamInputAfterSteps } from '@/components/steam-
 import { ControllerDoubleBeforeSteps, ControllerDoubleAfterSteps } from '@/components/controller-double-input-details';
 import { RemoveModsBeforeSteps, RemoveModsAfterSteps } from '@/components/remove-mods-details';
 import { VisualCBeforeSteps, VisualCAfterSteps } from '@/components/visual-c-details';
+import { VerifySteamBeforeSteps, VerifySteamAfterSteps } from '@/components/verify-steam-details';
 import {
   BlackScreenBeforeSteps,
   BlackScreenAfterSteps,
@@ -231,6 +232,13 @@ export default async function Page({
         <aside className="toc issue-toc">
           <strong>このページの内容</strong>
           <a href="#answer">まず試すこと</a>
+          {slug === 'verify-steam-files' ? (
+            <>
+              <a href="#verify-what">整合性確認で分かること</a>
+              <a href="#verify-outcomes">結果別の早見表</a>
+              <a href="#verify-mods">MOD・セーブへの影響</a>
+            </>
+          ) : null}
           {slug === 'visual-c-runtime-error' ? (
             <>
               <a href="#vc-error-table">DLL名・エラー別の判断表</a>
@@ -436,6 +444,12 @@ export default async function Page({
               {i + 1}. {s.title}
             </a>
           ))}
+          {slug === 'verify-steam-files' ? (
+            <>
+              <a href="#verify-repeat">再発した時の確認先</a>
+              <a href="#verify-record">相談用の確認メモ</a>
+            </>
+          ) : null}
           {slug === 'visual-c-runtime-error' ? (
             <>
               <a href="#vc-failed">修復失敗時の判断表</a>
@@ -529,6 +543,7 @@ export default async function Page({
           {slug === 'reshade-uninstall' ? <ReShadeBeforeSteps /> : null}
           {slug === 'remove-mods-safely' ? <RemoveModsBeforeSteps /> : null}
           {slug === 'visual-c-runtime-error' ? <VisualCBeforeSteps /> : null}
+          {slug === 'verify-steam-files' ? <VerifySteamBeforeSteps /> : null}
           {slug === 'shader-cache-delete' ? <ShaderCacheBeforeSteps /> : null}
           {slug === 'save-data-backup' ? <SaveBackupBeforeSteps /> : null}
           {slug === 'uninstall-save-data' ? <UninstallSaveBeforeSteps /> : null}
@@ -589,6 +604,7 @@ export default async function Page({
           {slug === 'reshade-uninstall' ? <ReShadeAfterSteps /> : null}
           {slug === 'remove-mods-safely' ? <RemoveModsAfterSteps /> : null}
           {slug === 'visual-c-runtime-error' ? <VisualCAfterSteps /> : null}
+          {slug === 'verify-steam-files' ? <VerifySteamAfterSteps /> : null}
           {slug === 'shader-cache-delete' ? <ShaderCacheAfterSteps /> : null}
           {slug === 'save-data-backup' ? <SaveBackupAfterSteps /> : null}
           {slug === 'uninstall-save-data' ? <UninstallSaveAfterSteps /> : null}
@@ -635,6 +651,8 @@ export default async function Page({
                 ? '出力先や音量は1項目ずつ変更して同じ場面で比較してください。別アプリまで無音なら、そのゲームのファイルを削除・再インストールする前にWindowsと出力機器を確認します。音声ドライバーやオーディオ拡張は変更前の状態を控え、結果が変わらなければ戻してください。'
                 : slug === 'steam-game-not-launching'
                 ? 'セーブ中・更新中・クラウド同期中にSteamを強制終了しないでください。MODを使うゲームでは変更前にセーブをコピーし、MODが必要な既存データを上書きしないでください。隔離された実行ファイルを確認せずに許可したり、セキュリティ機能を無効にしたりしないでください。'
+                : slug === 'verify-steam-files'
+                ? '更新・検証・クラウド同期中にSteamを強制終了しないでください。MODの上書き分やセーブは事前に記録・保全し、検証後の再取得数だけで故障と決めないでください。隔離ファイルを確認せず許可したり、ゲームフォルダーを一括削除したりしないでください。'
                 : slug === 'directx-error'
                 ? '不明な配布サイトのDLLをSystem32やゲームフォルダーにコピーしないでください。WindowsのDirectXバージョンとGPUの機能レベルは別の情報です。機能レベルが不足するGPUを旧ランタイムやWindows Updateだけで対応させることはできません。'
                 : slug === 'pc-game-crash'

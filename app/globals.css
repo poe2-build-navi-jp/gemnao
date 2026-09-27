@@ -3238,13 +3238,15 @@ kbd {
 }
 
 .remove-mods-details ol,
-.visual-c-details ol {
+.visual-c-details ol,
+.verify-steam-details ol {
   margin: 14px 0;
   padding-left: 24px;
   list-style: decimal;
 }
 .remove-mods-details li + li,
-.visual-c-details li + li { margin-top: 10px; }
+.visual-c-details li + li,
+.verify-steam-details li + li { margin-top: 10px; }
 .remove-mods-details code,
 .visual-c-details code { overflow-wrap: anywhere; }
 

@@ -17,6 +17,7 @@ import { reshadeGuide } from './reshade-guide';
 import { resetConfigGuide } from './reset-config-guide';
 import { removeModsGuide } from './remove-mods-guide';
 import { visualCGuide } from './visual-c-guide';
+import { verifySteamGuide } from './verify-steam-guide';
 import type { ContentStatus } from '@/lib/game-articles';
 import { commonGrowthGuides } from '@/lib/common-growth-guides';
 
@@ -34,160 +35,11 @@ export type CommonGuide = {
   causes: string[];
   faqs?: { question: string; answer: string }[];
 };
-const causeMap: Record<string, string[]> = {
-  'pc-game-freezes': [
-    'MOD・オーバーレイの競合',
-    'メモリ・VRAM不足',
-    '温度上昇や破損ファイル',
-  ],
-  'verify-steam-files': [
-    '不足ファイル',
-    '更新失敗',
-    'セキュリティソフトによる隔離',
-  ],
-  'pc-game-crash': [
-    'MOD・オーバーレイ',
-    'GPUドライバー',
-    'VRAM・温度・破損ファイル',
-  ],
-  'black-screen': [
-    '画面モードの不一致',
-    '壊れた表示設定',
-    '外部表示・オーバーレイ',
-  ],
-  'gpu-driver-update': [
-    '古いドライバー',
-    'ゲーム対応版との不一致',
-    '更新後の再起動不足',
-  ],
-  'stutter-fix': [
-    'フレーム時間の乱れ',
-    'シェーダー構築',
-    'VRAM・ストレージ待ち',
-  ],
-  'save-data-backup': [
-    'ローカル保存とクラウド保存の混同',
-    '同期競合',
-    'コピー漏れ',
-  ],
-  'reshade-uninstall': [
-    'API DLLの残存',
-    'ReShade設定の競合',
-    '別API向けファイル',
-  ],
-  'reset-config-file': ['壊れた設定', '画面外の解像度', '旧版設定の不整合'],
-  'shader-cache-delete': [
-    '旧シェーダーの不整合',
-    'ドライバー更新',
-    '再構築未完了',
-  ],
-  'uninstall-save-data': [
-    '保存先がゲーム外',
-    'Steam Cloud同期',
-    'アンインストール対象の違い',
-  ],
-};
-const steam = {
-  label: 'Steamサポート',
-  url: 'https://help.steampowered.com/ja/faqs/view/5814-D9A3-BE42-62DF',
-};
-const repair = {
-  label: 'Steam：ゲームファイルの整合性確認',
-  url: 'https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB',
-};
-const reviewedActions: Record<string, string[][]> = {
-
-  'verify-steam-files': [
-    [
-      'ゲームを終了してSteamライブラリを開く',
-      '対象ゲームを右クリックし、プロパティを選ぶ',
-    ],
-    [
-      'インストール済みファイル→ゲームファイルの整合性を確認を選ぶ',
-      '完了まで待つ。変更済みゲームファイルは元に戻る場合があるためMODは事前に退避する',
-    ],
-    [
-      '検証完了後にSteamを終了して起動し直す',
-      '対象ゲームを起動して同じ症状を確認する。再取得されるファイルがあっても、それだけで故障とは判断しない',
-    ],
-  ],
-  'black-screen': [
-    [
-      'ゲームのウィンドウを選び、Alt＋Enterを一度押す',
-      '映ればゲームの画面設定でモニター対応の解像度を選んで適用する',
-    ],
-    [
-      'ゲームを終了し、そのゲームの公式サポートで設定ファイルの保存先を確認する',
-      '設定ファイルだけを別フォルダーにコピーし、元ファイルを別名にして起動する。場所やセーブとの区別が不明なら実施しない',
-      '再生成後に表示を確認し、悪化したら終了して退避した設定を戻す',
-    ],
-    [
-      'Windows＋Pで使用画面を1台にして再確認する',
-      'Steamのプロパティ→一般でオーバーレイをオフにして比較する。効果がなければ元に戻す',
-    ],
-  ],
-};
-const mk = (
-  slug: string,
-  title: string,
-  shortTitle: string,
-  description: string,
-  conclusion: string,
-  names: string[],
-  related: string[],
-  sources = [steam],
-): CommonGuide => ({
-  slug,
-  title,
-  shortTitle,
-  description,
-  conclusion,
-  related,
-  sources: [
-    ...sources,
-    ...(slug === 'directx-error'
-      ? [
-          {
-            label: 'Microsoft：DirectXのバージョンを確認する',
-            url: 'https://support.microsoft.com/en-us/windows/hardware/display-graphics/which-version-of-directx-is-on-your-pc',
-          },
-        ]
-      : []),
-  ],
-  checkedAt: ['directx-error'].includes(slug)
-    ? '2026-09-24'
-    : reviewedActions[slug]
-      ? '2026-09-23'
-      : '2026-09-12',
-  status: 'verified',
-  causes: causeMap[slug] || [],
-  steps: names.map((title, i) => ({
-    title,
-    actions: reviewedActions[slug]?.[i] || [
-      `ゲームとランチャーを終了し、「${title}」の変更前の状態を記録する`,
-      `「${title}」だけを実施し、ほかの設定は同時に変えない`,
-      `${i === names.length - 1 ? 'PCを再起動して' : '同じ起動方法・場面で'}症状を比較し、改善しなければ元へ戻す`,
-    ],
-  })),
-});
 export const commonGuides: CommonGuide[] = [
   lowGpuUsageGuide,
   freezeGuide,
   steamLaunchGuide,
-  mk(
-    'verify-steam-files',
-    'Steamでゲームファイルの整合性を確認する方法',
-    'Steam整合性確認',
-    '破損・不足したゲームファイルをSteamに確認させる手順です。',
-    'ライブラリのプロパティから「ゲームファイルの整合性を確認」を実行します。',
-    [
-      '対象ゲームのプロパティを開く',
-      '整合性確認を実行する',
-      '再起動して確認する',
-    ],
-    ['steam-game-not-launching', 'remove-mods-safely', 'reset-config-file'],
-    [repair],
-  ),
+  verifySteamGuide,
   crashGuide,
   blackScreenGuide,
   gpuDriverGuide,
