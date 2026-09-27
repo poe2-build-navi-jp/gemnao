@@ -88,7 +88,7 @@ export const ogImageManifest: Record<string, string> = {
   "/guide/directx-error": "a1e2835c",
   "/guide/gpu-driver-update": "462b3914",
   "/guide/low-gpu-usage": "58237696",
-  "/guide/pc-game-freezes": "6cc26ded",
+  "/guide/pc-game-freezes": "c524d6be",
   "/guide/remove-mods-safely": "9460a42f",
   "/guide/reset-config-file": "605e6e8e",
   "/guide/reshade-uninstall": "ebb8c94f",

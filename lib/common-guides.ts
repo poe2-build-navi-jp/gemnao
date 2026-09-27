@@ -1,3 +1,4 @@
+import { freezeGuide } from './freeze-guide';
 import { stutterGuide } from './stutter-guide';
 import { uninstallSaveGuide } from './uninstall-save-guide';
 import { saveBackupGuide } from './save-backup-guide';
@@ -409,20 +410,7 @@ export const commonGuides: CommonGuide[] = [
     ['low-fps', 'gpu-driver-update', 'vram-shortage'],
     [nv, amd],
   ),
-  mk(
-    'pc-game-freezes',
-    'PCゲームがフリーズ・応答なしになる時の対処法',
-    'フリーズ・応答なし',
-    '画面が固まる、音だけ続く、「応答なし」になる時の共通切り分けです。',
-    '再現条件を記録し、MODとオーバーレイを外して、修復と負荷確認を行います。',
-    [
-      '発生場面と待機後の状態を記録する',
-      'MOD・オーバーレイ・録画を外す',
-      '整合性確認と温度・メモリを確認する',
-    ],
-    ['pc-game-crash', 'verify-steam-files', 'vram-shortage'],
-    [repair, nv, amd],
-  ),
+  freezeGuide,
   mk(
     'steam-game-not-launching',
     'Steamゲームが起動しない時の対処法｜まず試す3つ',

@@ -1,4 +1,8 @@
 import {
+  FreezeBeforeSteps,
+  FreezeAfterSteps,
+} from '@/components/freeze-details';
+import {
   StutterBeforeSteps,
   StutterAfterSteps,
 } from '@/components/stutter-details';
@@ -195,6 +199,15 @@ export default async function Page({
         <aside className="toc issue-toc">
           <strong>このページの内容</strong>
           <a href="#answer">まず試すこと</a>
+          {slug === 'pc-game-freezes' ? (
+            <>
+              <a href="#freeze-scope">ゲームだけ？ PC全体？</a>
+              <a href="#freeze-memory">メモリの確認と読み方</a>
+              <a href="#freeze-temperature">温度を確認する方法</a>
+              <a href="#freeze-history">停止後の履歴を調べる</a>
+              <a href="#freeze-compare">比較手順と相談用メモ</a>
+            </>
+          ) : null}
           {slug === 'stutter-fix' ? (
             <>
               <a href="#stutter-symptoms">症状別の切り分け</a>
@@ -295,7 +308,9 @@ export default async function Page({
           {slug === 'low-fps' ? (
             <p>
               平均FPSは出ているのに一瞬止まる場合は、{' '}
-              <a href="/guide/stutter-fix">ゲームがカクつく・一瞬止まる時の確認手順</a>
+              <a href="/guide/stutter-fix">
+                ゲームがカクつく・一瞬止まる時の確認手順
+              </a>
               をご覧ください。
             </p>
           ) : null}
@@ -320,6 +335,7 @@ export default async function Page({
           {slug === 'shader-cache-delete' ? <ShaderCacheBeforeSteps /> : null}
           {slug === 'save-data-backup' ? <SaveBackupBeforeSteps /> : null}
           {slug === 'uninstall-save-data' ? <UninstallSaveBeforeSteps /> : null}
+          {slug === 'pc-game-freezes' ? <FreezeBeforeSteps /> : null}
           {slug === 'stutter-fix' ? <StutterBeforeSteps /> : null}
           <InteractiveSteps
             contextSlug={`guide-${item.slug}`}
@@ -358,6 +374,7 @@ export default async function Page({
           {slug === 'shader-cache-delete' ? <ShaderCacheAfterSteps /> : null}
           {slug === 'save-data-backup' ? <SaveBackupAfterSteps /> : null}
           {slug === 'uninstall-save-data' ? <UninstallSaveAfterSteps /> : null}
+          {slug === 'pc-game-freezes' ? <FreezeAfterSteps /> : null}
           {slug === 'stutter-fix' ? <StutterAfterSteps /> : null}
           <section className="caution-block">
             <h2>
@@ -365,19 +382,21 @@ export default async function Page({
               注意
             </h2>
             <p>
-              {slug === 'stutter-fix'
-                ? '比較中にキャッシュ削除・画質変更・ドライバー更新をまとめて行わないでください。変更前の値を残し、悪化した設定は戻します。PC全体の再起動やブルースクリーンは、ゲームが一瞬カクつく症状とは分けて調べてください。'
-                : slug === 'uninstall-save-data'
-                  ? 'AppData・Documents・Saved Games・Steamのuserdataを、残存ファイルという理由で丸ごと消さないでください。追加のクリーナーによる削除は通常アンインストールとは別操作です。バックアップは再インストール後の読み込み確認まで残します。'
-                  : slug === 'save-data-backup'
-                    ? 'ゲームや同期が動いている最中にセーブを入れ替えないでください。バックアップ原本と復元前のデータは残し、別アカウントや別ストアのデータを推測で上書きしないでください。'
-                    : slug === 'shader-cache-delete'
-                      ? 'キャッシュ以外の項目をまとめて削除しないでください。AppDataやゲームフォルダー全体、セーブ、設定、配布されたシェーダーファイルは削除対象ではありません。対象を特定できない時は操作を止めます。'
-                      : slug === 'reshade-uninstall'
-                        ? '同名のDLLを一括削除したり、セキュリティ機能やアンチチートを無効にしたりしないでください。オンラインゲームでは運営の利用規約・MOD方針を確認し、起動制限の回避に使わないでください。'
-                        : slug === 'reset-config-file'
-                          ? 'AppData・Documents・Saved・Steamのuserdataを丸ごと削除しないでください。レジストリ編集やWindowsの初期化は、この手順には必要ありません。公式の対象ファイルを特定できない時は操作を止めてください。'
-                          : '変更前にセーブと設定をバックアップし、対策は1項目ずつ試してください。'}
+              {slug === 'pc-game-freezes'
+                ? '強制終了は未保存データを失う可能性があるため最後の手段です。原因不明のままWindowsのプロセスを終了したり、メモリ解放ソフト・ページファイル無効化・電圧変更をまとめて試したりしないでください。MODや設定を変更する前はセーブをバックアップします。'
+                : slug === 'stutter-fix'
+                  ? '比較中にキャッシュ削除・画質変更・ドライバー更新をまとめて行わないでください。変更前の値を残し、悪化した設定は戻します。PC全体の再起動やブルースクリーンは、ゲームが一瞬カクつく症状とは分けて調べてください。'
+                  : slug === 'uninstall-save-data'
+                    ? 'AppData・Documents・Saved Games・Steamのuserdataを、残存ファイルという理由で丸ごと消さないでください。追加のクリーナーによる削除は通常アンインストールとは別操作です。バックアップは再インストール後の読み込み確認まで残します。'
+                    : slug === 'save-data-backup'
+                      ? 'ゲームや同期が動いている最中にセーブを入れ替えないでください。バックアップ原本と復元前のデータは残し、別アカウントや別ストアのデータを推測で上書きしないでください。'
+                      : slug === 'shader-cache-delete'
+                        ? 'キャッシュ以外の項目をまとめて削除しないでください。AppDataやゲームフォルダー全体、セーブ、設定、配布されたシェーダーファイルは削除対象ではありません。対象を特定できない時は操作を止めます。'
+                        : slug === 'reshade-uninstall'
+                          ? '同名のDLLを一括削除したり、セキュリティ機能やアンチチートを無効にしたりしないでください。オンラインゲームでは運営の利用規約・MOD方針を確認し、起動制限の回避に使わないでください。'
+                          : slug === 'reset-config-file'
+                            ? 'AppData・Documents・Saved・Steamのuserdataを丸ごと削除しないでください。レジストリ編集やWindowsの初期化は、この手順には必要ありません。公式の対象ファイルを特定できない時は操作を止めてください。'
+                            : '変更前にセーブと設定をバックアップし、対策は1項目ずつ試してください。'}
             </p>
           </section>
           <section className="faq-section" id="faq">
