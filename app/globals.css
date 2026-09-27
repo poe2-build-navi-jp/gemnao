@@ -3263,3 +3263,11 @@ kbd {
 .freeze-details ol { list-style: decimal; }
 .freeze-details ul { list-style: disc; }
 .freeze-details li + li { margin-top: 8px; }
+
+/* Black-screen guide instructions and diagnostic tables. */
+.black-screen-details h3 { margin: 24px 0 10px; font-size: 18px; font-weight: 700; }
+.black-screen-details p { margin: 12px 0; }
+.black-screen-details ol, .black-screen-details ul { margin: 16px 0; padding-left: 24px; }
+.black-screen-details ol { list-style: decimal; }
+.black-screen-details ul { list-style: disc; }
+.black-screen-details li + li { margin-top: 8px; }

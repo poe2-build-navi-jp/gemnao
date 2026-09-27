@@ -1,3 +1,4 @@
+import { blackScreenGuide } from './black-screen-guide';
 import { freezeGuide } from './freeze-guide';
 import { stutterGuide } from './stutter-guide';
 import { uninstallSaveGuide } from './uninstall-save-guide';
@@ -453,19 +454,7 @@ export const commonGuides: CommonGuide[] = [
     ['gpu-driver-update', 'shader-cache-delete', 'vram-shortage'],
     [repair, nv, amd],
   ),
-  mk(
-    'black-screen',
-    'PCゲームが黒い画面で進まない時の対処法',
-    '黒い画面',
-    '音だけ出る、ロゴ後に黒画面、画面外表示になる時の対処です。',
-    'Alt＋Enter、設定再生成、オーバーレイ停止を順に試します。',
-    [
-      'Alt＋Enterで表示方式を切り替える',
-      '画面設定を再生成する',
-      '外部表示とオーバーレイを外す',
-    ],
-    ['reset-config-file', 'gpu-driver-update', 'pc-game-crash'],
-  ),
+  blackScreenGuide,
   mk(
     'gpu-driver-update',
     'GPUドライバーを安全に更新する方法【NVIDIA・AMD】',
