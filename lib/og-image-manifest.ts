@@ -25,7 +25,7 @@ export const ogImageManifest: Record<string, string> = {
   "/discord/notifications-not-working": "1ed1422d",
   "/discord/overlay-not-showing": "7aff7383",
   "/discord/phone-verification-error": "2e66c5cd",
-  "/discord/screen-share-black-screen": "038074d8",
+  "/discord/screen-share-black-screen": "27a28c0d",
   "/discord/screen-share-not-working": "950ea3dc",
   "/discord/slow-performance": "b69eb26c",
   "/discord/stream-no-audio": "bfb2ee4d",
