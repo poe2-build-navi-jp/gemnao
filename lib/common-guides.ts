@@ -1,3 +1,4 @@
+import { saveBackupGuide } from './save-backup-guide';
 import { shaderCacheGuide } from './shader-cache-guide';
 import { reshadeGuide } from './reshade-guide';
 import { resetConfigGuide } from './reset-config-guide';
@@ -531,19 +532,7 @@ export const commonGuides: CommonGuide[] = [
     ['low-fps', 'stutter-fix', 'pc-game-crash'],
     [nv, amd],
   ),
-  mk(
-    'save-data-backup',
-    'PCゲームのセーブデータを安全にバックアップする方法',
-    'セーブデータのバックアップ',
-    '更新、MOD、再インストール前にデータを守る共通手順です。',
-    'ゲームを終了し、セーブフォルダを日付付きで別ドライブへコピーします。',
-    [
-      'ゲーム別の保存場所を確認する',
-      'フォルダごとコピーする',
-      'バックアップを検証する',
-    ],
-    ['uninstall-save-data', 'remove-mods-safely', 'reset-config-file'],
-  ),
+  saveBackupGuide,
   mk(
     'steam-input-controller',
     'Steam Inputでコントローラーが反応しない時の設定',

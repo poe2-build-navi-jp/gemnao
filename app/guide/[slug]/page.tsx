@@ -1,4 +1,8 @@
 import {
+  SaveBackupBeforeSteps,
+  SaveBackupAfterSteps,
+} from '@/components/save-backup-details';
+import {
   ShaderCacheBeforeSteps,
   ShaderCacheAfterSteps,
 } from '@/components/shader-cache-details';
@@ -183,6 +187,9 @@ export default async function Page({
         <aside className="toc issue-toc">
           <strong>このページの内容</strong>
           <a href="#answer">まず試すこと</a>
+          {slug === 'save-data-backup' ? (
+            <a href="#save-locations">ゲーム別の保存先3例</a>
+          ) : null}
           {slug === 'shader-cache-delete' ? (
             <>
               <a href="#shader-route">操作する対象を選ぶ</a>
@@ -223,6 +230,14 @@ export default async function Page({
               <a href="#reshade-still-loaded">まだ表示される場合</a>
               <a href="#reshade-restore">元に戻す方法</a>
               <a href="#reshade-record">確認メモ</a>
+            </>
+          ) : null}
+          {slug === 'save-data-backup' ? (
+            <>
+              <a href="#save-verify">コピー成功の確認方法</a>
+              <a href="#save-restore">バックアップの復元</a>
+              <a href="#save-trouble">失敗した時の確認表</a>
+              <a href="#save-record">バックアップ記録</a>
             </>
           ) : null}
           <a href="#faq">よくある質問</a>
@@ -268,6 +283,7 @@ export default async function Page({
           {slug === 'reset-config-file' ? <ResetConfigBeforeSteps /> : null}
           {slug === 'reshade-uninstall' ? <ReShadeBeforeSteps /> : null}
           {slug === 'shader-cache-delete' ? <ShaderCacheBeforeSteps /> : null}
+          {slug === 'save-data-backup' ? <SaveBackupBeforeSteps /> : null}
           <InteractiveSteps
             contextSlug={`guide-${item.slug}`}
             topic={topic}
@@ -303,19 +319,22 @@ export default async function Page({
           {slug === 'reset-config-file' ? <ResetConfigAfterSteps /> : null}
           {slug === 'reshade-uninstall' ? <ReShadeAfterSteps /> : null}
           {slug === 'shader-cache-delete' ? <ShaderCacheAfterSteps /> : null}
+          {slug === 'save-data-backup' ? <SaveBackupAfterSteps /> : null}
           <section className="caution-block">
             <h2>
               <AlertTriangle size={22} />
               注意
             </h2>
             <p>
-              {slug === 'shader-cache-delete'
-                ? 'キャッシュ以外の項目をまとめて削除しないでください。AppDataやゲームフォルダー全体、セーブ、設定、配布されたシェーダーファイルは削除対象ではありません。対象を特定できない時は操作を止めます。'
-                : slug === 'reshade-uninstall'
-                  ? '同名のDLLを一括削除したり、セキュリティ機能やアンチチートを無効にしたりしないでください。オンラインゲームでは運営の利用規約・MOD方針を確認し、起動制限の回避に使わないでください。'
-                  : slug === 'reset-config-file'
-                    ? 'AppData・Documents・Saved・Steamのuserdataを丸ごと削除しないでください。レジストリ編集やWindowsの初期化は、この手順には必要ありません。公式の対象ファイルを特定できない時は操作を止めてください。'
-                    : '変更前にセーブと設定をバックアップし、対策は1項目ずつ試してください。'}
+              {slug === 'save-data-backup'
+                ? 'ゲームや同期が動いている最中にセーブを入れ替えないでください。バックアップ原本と復元前のデータは残し、別アカウントや別ストアのデータを推測で上書きしないでください。'
+                : slug === 'shader-cache-delete'
+                  ? 'キャッシュ以外の項目をまとめて削除しないでください。AppDataやゲームフォルダー全体、セーブ、設定、配布されたシェーダーファイルは削除対象ではありません。対象を特定できない時は操作を止めます。'
+                  : slug === 'reshade-uninstall'
+                    ? '同名のDLLを一括削除したり、セキュリティ機能やアンチチートを無効にしたりしないでください。オンラインゲームでは運営の利用規約・MOD方針を確認し、起動制限の回避に使わないでください。'
+                    : slug === 'reset-config-file'
+                      ? 'AppData・Documents・Saved・Steamのuserdataを丸ごと削除しないでください。レジストリ編集やWindowsの初期化は、この手順には必要ありません。公式の対象ファイルを特定できない時は操作を止めてください。'
+                      : '変更前にセーブと設定をバックアップし、対策は1項目ずつ試してください。'}
             </p>
           </section>
           <section className="faq-section" id="faq">
