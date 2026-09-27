@@ -1,5 +1,6 @@
 import { blackScreenGuide } from './black-screen-guide';
 import { crashGuide } from './crash-guide';
+import { directxGuide } from './directx-guide';
 import { gpuDriverGuide } from './gpu-driver-guide';
 import { freezeGuide } from './freeze-guide';
 import { stutterGuide } from './stutter-guide';
@@ -86,11 +87,6 @@ const causeMap: Record<string, string[]> = {
     'Steam InputとDS4Windowsの二重変換',
     '複数入力機器',
     'ゲーム側割り当て',
-  ],
-  'directx-error': [
-    'GPUドライバー',
-    '破損ファイル',
-    'Windows・DirectX関連更新',
   ],
   'visual-c-runtime-error': [
     '再頒布可能パッケージの破損',
@@ -215,22 +211,6 @@ const reviewedActions: Record<string, string[][]> = {
       'ノートPCはACアダプターを接続する。Windows 11の設定→システム→電源とバッテリー→電源モードを開き、省電力の場合はバランスに戻して比較する',
       'ドライバーを調べるにはWindows＋R→dxdiag→ディスプレイでGPU名とドライバー情報を確認する',
       'NVIDIAはNVIDIAアプリ→ドライバー、AMDはAMD Software→設定→システム、IntelはIntel Driver & Support Assistantで対応更新を確認する。ノートPCは製品メーカーの対応版を優先し、更新後に再起動する',
-    ],
-  ],
-  'directx-error': [
-    [
-      'エラー画面の全文を控え、Windows＋R→dxdiagを実行する。「システム」のDirectXバージョンと「ディスプレイ」のGPU名・機能レベルを確認する',
-      'Windows 11のスタート→設定→Windows Update→更新プログラムのチェックを選び、通常の更新を完了して再起動する',
-      'DirectXの表示バージョンだけでゲームの必要機能への対応は判断できません。ゲームの最低動作環境とGPUの機能レベルも照合する',
-    ],
-    [
-      'Steamを開き、ライブラリ→対象ゲームを右クリック→プロパティ→インストール済みファイル→ゲームファイルの整合性を確認を選ぶ',
-      '完了後に再起動して確認する。古いDirectX DLLの不足が続く場合はゲーム公式の必要ランタイム案内を確認し、非公式サイトから単体DLLを入れない',
-    ],
-    [
-      'dxdiagで確認したGPUメーカーに合わせて、NVIDIAアプリ→ドライバー、AMD Software→設定→システム、またはIntel Driver & Support Assistantで更新を確認する',
-      'ノートPCでは製品メーカーの対応ドライバーを優先する。インストーラーの案内に従って更新し、Windowsを再起動して同じ起動方法で確認する',
-      '同じエラーが続く場合はGPU名・ドライバー版・エラー全文をゲーム公式サポートへ伝える。DX12非対応GPUを更新だけで対応させることはできません',
     ],
   ],
   'visual-c-runtime-error': [
@@ -476,20 +456,7 @@ export const commonGuides: CommonGuide[] = [
     ['入力機器を1台だけにする', '入力変換を1つにする', 'Steamを再起動する'],
     ['steam-input-controller', 'steam-game-not-launching', 'reset-config-file'],
   ),
-  mk(
-    'directx-error',
-    'DirectXエラーでPCゲームが起動しない時の対処法',
-    'DirectXエラー',
-    'DirectX・DX12・デバイス削除エラーで起動できない場合は、まずエラー全文を控えてWindows Updateを確認します。dxdiagでの対応機能の確認、Steamのファイル修復、GPUメーカー別の更新手順を説明します。非公式の単体DLLは使用しません。',
-    'Windows Update、ファイル修復、GPUドライバー更新を順に行います。',
-    [
-      'Windows Updateを完了する',
-      'ゲームファイルを修復する',
-      'GPUドライバーを更新する',
-    ],
-    ['gpu-driver-update', 'visual-c-runtime-error', 'pc-game-crash'],
-    [repair, nv, amd],
-  ),
+  directxGuide,
   mk(
     'visual-c-runtime-error',
     'Visual C++ Runtimeエラーでゲームが起動しない時の対処',

@@ -53,7 +53,8 @@ export function ogCardSpecs(): OgCardSpec[] {
       path: `/guide/${guide.slug}`,
       eyebrow: 'PCゲーム共通トラブル',
       title: guide.title,
-      itemsLabel: '上から順番に試す',
+      itemsLabel:
+        guide.slug === 'directx-error' ? 'エラー名から対処を選ぶ' : '上から順番に試す',
       items: guide.steps.slice(0, 4).map((step) => step.title),
     }));
   const discordCards = discordArticles

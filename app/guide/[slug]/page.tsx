@@ -12,6 +12,7 @@ import {
   SteamCloudAfterSteps,
 } from '@/components/steam-cloud-details';
 import { CrashBeforeSteps, CrashAfterSteps } from '@/components/crash-details';
+import { DirectxBeforeSteps, DirectxAfterSteps } from '@/components/directx-details';
 import {
   BlackScreenBeforeSteps,
   BlackScreenAfterSteps,
@@ -217,6 +218,15 @@ export default async function Page({
         <aside className="toc issue-toc">
           <strong>このページの内容</strong>
           <a href="#answer">まず試すこと</a>
+          {slug === 'directx-error' ? (
+            <>
+              <a href="#directx-error-types">エラー名別の分岐</a>
+              <a href="#directx-feature">機能レベルの見方</a>
+              <a href="#directx-dll">追加DLLが不足する時</a>
+              <a href="#directx-gpu">GPU関連エラー</a>
+              <a href="#directx-system">Windows標準DLL</a>
+            </>
+          ) : null}
           {slug === 'pc-game-crash' ? (
             <>
               <a href="#crash-scope">ゲームだけ落ちる？</a>
@@ -416,6 +426,7 @@ export default async function Page({
           {slug === 'bsod-while-gaming' ? <BsodBeforeSteps /> : null}
           {slug === 'steam-cloud-sync-error' ? <SteamCloudBeforeSteps /> : null}
           {slug === 'pc-game-crash' ? <CrashBeforeSteps /> : null}
+          {slug === 'directx-error' ? <DirectxBeforeSteps /> : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <PowerShutdownBeforeSteps />
           ) : null}
@@ -463,6 +474,7 @@ export default async function Page({
           {slug === 'bsod-while-gaming' ? <BsodAfterSteps /> : null}
           {slug === 'steam-cloud-sync-error' ? <SteamCloudAfterSteps /> : null}
           {slug === 'pc-game-crash' ? <CrashAfterSteps /> : null}
+          {slug === 'directx-error' ? <DirectxAfterSteps /> : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <PowerShutdownAfterSteps />
           ) : null}
@@ -474,7 +486,9 @@ export default async function Page({
               注意
             </h2>
             <p>
-              {slug === 'pc-game-crash'
+              {slug === 'directx-error'
+                ? '不明な配布サイトのDLLをSystem32やゲームフォルダーにコピーしないでください。WindowsのDirectXバージョンとGPUの機能レベルは別の情報です。機能レベルが不足するGPUを旧ランタイムやWindows Updateだけで対応させることはできません。'
+                : slug === 'pc-game-crash'
                 ? 'MODのあるセーブは退避せずに上書きしないでください。障害モジュール名だけを根拠にDLLを入れ替えたり、不明なダウンロード先からファイルを入手したりしないでください。変更は1項目ずつ、セーブと設定を保全してから試します。'
                 : slug === 'steam-cloud-sync-error'
                 ? '競合画面で選択すると、別の端末やクラウド側の進行が上書きされる可能性があります。複数PCの場合は各PCでゲームを起動しないままコピーを残し、セーブの保存先を推測して削除しないでください。通信エラー中の強行起動や、新しいセーブでの上書きも避けてください。'

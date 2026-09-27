@@ -3305,3 +3305,9 @@ kbd {
 .crash-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
 .crash-details li + li { margin-top: 8px; }
 .crash-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; overflow-wrap: anywhere; }
+
+/* DirectX guide: make the error-name branches and commands readable. */
+.directx-details p { margin: 12px 0; }
+.directx-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
+.directx-details li + li { margin-top: 8px; }
+.directx-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; overflow-wrap: anywhere; }
