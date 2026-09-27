@@ -2,7 +2,7 @@
 // Page path -> hash of the card text (used as a cache-busting query).
 export const ogImageManifest: Record<string, string> = {
   "/discord/audio-input-not-found": "3a73fd7c",
-  "/discord/bluetooth-audio-problem": "02597c06",
+  "/discord/bluetooth-audio-problem": "204d6798",
   "/discord/bot-add": "77bf7c24",
   "/discord/bot-not-responding": "ee315b02",
   "/discord/bot-remove": "b35c5c5b",

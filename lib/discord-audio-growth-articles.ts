@@ -31,6 +31,22 @@ const windowsBluetooth = {
   label: 'Microsoft公式：WindowsのBluetooth問題を解決する',
   url: 'https://support.microsoft.com/windows/fix-bluetooth-problems-in-windows-723e092f-03fa-858b-5c80-131ec3fba75c',
 };
+const discordBluetoothQuality = {
+  label: 'Discord公式：通話に参加するとBluetooth音質が低下する理由（日本語）',
+  url: 'https://support.discord.com/hc/ja/articles/19850083499159--既知の問題-通話に参加すると音質が低下する',
+};
+const windowsAppAudio = {
+  label: 'Microsoft公式：アプリごとの音量と出力デバイスを確認する',
+  url: 'https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows',
+};
+const windowsBluetoothNoSound = {
+  label: 'Microsoft公式：Bluetooth接続中に音が出ないときの確認',
+  url: 'https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/fix-bluetooth-connected-but-no-sound-issue-on-windows',
+};
+const windowsLeAudio = {
+  label: 'Microsoft公式：Windows 11でのLE Audioと対応機器の条件（英語）',
+  url: 'https://support.microsoft.com/en-us/windows/hardware/bluetooth/configuring-bluetooth-le-audio-quality-settings-on-windows-11',
+};
 
 export const discordAudioGrowthArticles: DiscordArticle[] = [
   {
@@ -144,26 +160,146 @@ export const discordAudioGrowthArticles: DiscordArticle[] = [
     sources: [voiceGuide, micTest], related: ['mic-not-working', 'mic-volume-low', 'system-helper'], checkedAt: '2026-09-19', status: 'verified',
   },
   {
-    slug: 'bluetooth-audio-problem', category: 'audio',
-    title: 'DiscordでBluetooth接続中にゲーム音が聞こえない・音質が悪いときの対処法',
+    slug: 'bluetooth-audio-problem',
+    category: 'audio',
+    title:
+      'Discord通話でBluetoothのゲーム音が消える・音質が悪くなる原因と直し方',
     shortTitle: 'Bluetoothでゲーム音が消える・音質が悪い',
-    seoTitle: 'DiscordでBluetoothのゲーム音が聞こえない・音質が悪い時の直し方',
-    metaDescription: 'Discord通話を始めるとBluetoothイヤホンのゲーム音が消える、音質が悪くなる場合の対処法。入出力機器と通話用音声モードを確認します。',
-    symptom: 'BluetoothイヤホンでDiscord通話へ入るとゲーム音が聞こえない、音がモノラルのように悪化する、別のスピーカーへ切り替わる場合の手順です。',
-    target: 'Windows 11 / Windows 10版 Discordデスクトップアプリ',
-    conclusion: 'WindowsとDiscordの入出力先を確認し、Bluetooth機器を再接続します。改善しなければ別マイクまたは有線機器で切り分けます。',
-    quickFixes: ['WindowsとDiscordの出力先を同じBluetooth機器へそろえる', 'Bluetooth機器を削除して再ペアリングする', '別マイクか有線ヘッドセットで症状が消えるか確認する'],
+    seoTitle:
+      'Discord通話でBluetoothのゲーム音が消える・音質が悪い時の対処法',
+    metaDescription:
+      'Discord通話中、Bluetoothイヤホンのゲーム音が消える場合と音質だけ下がる場合を判定表で切り分け。Windowsの音量ミキサー、通話用音声モード、別マイクでの比較、再ペアリングが必要な条件を解説。',
+    symptom:
+      'Discordの通話に入った直後、ゲーム音がまったく聞こえなくなるのか、聞こえるけれどこもって低音質になるのか。似た症状でも確認先が違います。通話前・通話中・退出後で変化を比べてください。',
+    target: 'Windows 11／Windows 10のDiscordデスクトップアプリとBluetoothヘッドセット',
+    conclusion:
+      'ゲーム音が消えたなら、まずWindowsの出力先と音量ミキサーでゲーム・Discordがどこへ音を出しているか確認します。音は出るが通話開始と同時に音質だけ落ちるなら、Discord公式が説明するBluetoothの通話用音声モードへの切り替えを疑い、Bluetoothのマイクを別のマイクに変更して比較してください。',
+    quickFixes: [
+      '通話前／通話中／退出後で「無音」「音質低下」「音量だけ低下」を区別する',
+      '無音ならWindows「設定」→「システム」→「サウンド」→「音量ミキサー」でゲームの出力先を確認する',
+      '音質だけ低下するなら、Discordの入力をPC内蔵・USBマイクに変えて同じ通話で比べる',
+    ],
+    diagnosisTitle: 'ゲーム音は消えた？ それとも音質だけ下がった？',
+    diagnosisIntro:
+      '同じゲームの音を鳴らしたまま通話に入り、出てからも比べます。原因が分かるまではBluetooth機器の登録を削除しません。',
+    showStatusCheck: false,
+    diagnosis: [
+      {
+        symptom: '通話中、Discordの声は聞こえるがゲーム音だけ無音',
+        check: 'Windowsの音量ミキサーにゲームが表示されるか。ミュートと出力先はどこか',
+        causeIndex: 1,
+      },
+      {
+        symptom: 'ゲーム音は聞こえるが、通話開始でこもる・音質が下がる',
+        check: '通話を抜けると戻るか。Bluetoothマイクを別マイクに変えると改善するか',
+        causeIndex: 2,
+      },
+      {
+        symptom: '相手が話す時だけゲーム音が小さくなる',
+        check: 'こもった音に変化したのか、音量だけ下がったのかを確認',
+        causeIndex: 3,
+      },
+      {
+        symptom: '通話の外でも音が途切れる／機器が一覧から消える',
+        check: 'Windowsの出力デバイス一覧に機器が残るか、ほかのアプリでも同じか',
+        causeIndex: 4,
+      },
+    ],
     causes: [
-      { title: '通話開始時に出力先が切り替わっている', description: '通話用デバイスと音楽用デバイスが別に表示される環境があります。', actions: ['Windowsの音量ミキサーを開く', 'ゲームとDiscordの出力先を確認する', '意図したBluetooth機器へそろえる'] },
-      { title: 'Bluetooth接続またはドライバーが不安定', description: '再接続やWindows更新後にデバイス構成が崩れる場合があります。', actions: ['Bluetooth機器の電源を入れ直す', 'Windowsから機器を削除して再ペアリングする', 'PCメーカー公式のBluetoothドライバーを確認する'] },
-      { title: 'マイク使用時の音声モードに制約がある', description: '機器とWindowsの組み合わせによっては、マイク使用中に再生音質が変化します。', actions: ['ノートPC内蔵マイクを入力に選びBluetooth機器を出力専用で試す', '有線ヘッドセットまたはUSBマイクで比較する', 'Windows 11とデバイスドライバーを更新する'] },
+      {
+        title: 'ゲーム音が消えたら、ゲームとDiscordの出力先を確認',
+        description:
+          'Windowsの既定出力と、ゲームごとに指定された出力先は違う場合があります。ゲーム音だけの問題か、PC全体の無音かも分けます。',
+        actions: [
+          'Bluetoothイヤホンを接続し、ゲームのBGMや効果音を鳴らしたままDiscord通話に入る。Discordの声とゲーム音のどちらが聞こえないかを控える',
+          'Windows 11なら「設定」→「システム」→「サウンド」で「出力」に使うBluetooth機器が選ばれているか確認する。通話中に機器名が変わるかも見る',
+          '同じ画面の「音量ミキサー」→「アプリ」でゲームを探し、ミュート・音量・出力デバイスを確認する。ゲームがなければ音を鳴らして一覧を再確認する',
+          'ゲームの出力先が別のスピーカーや使っていない機器なら、実際に聞いているBluetooth側へ変更して同じ場面を再生する。ゲーム内の出力先を固定している場合はゲーム側も確認する',
+          'Discordの歯車→「音声・ビデオ」で通話の出力先も確認する。両方が聞こえるかと、今度は音質だけ変化するかを記録する',
+        ],
+        note: 'Windows 10ではタスクバーの音量アイコンを右クリックして音量ミキサーを開く手順もあります。ゲーム以外も無音ならWindowsの出力先・機器接続を先に確認します。',
+      },
+      {
+        title: '音質だけ落ちるなら、Bluetoothマイクを別の入力に替える',
+        description:
+          'Discord公式は、通話開始時にヘッドセット用の音声モードへ切り替わり、マイクを使う代わりに再生音質が下がる場合があると説明しています。正常な機器でも起こり得ます。',
+        actions: [
+          '同じゲーム音を再生し、通話前・通話中・退出後で音のこもり方を比べる。退出で戻るなら通話時の音声モード切り替えを疑う',
+          'Discordの左下の歯車→「音声・ビデオ」→「入力デバイス」で、BluetoothヘッドセットのマイクではなくPC内蔵マイクまたはUSBマイクを選ぶ。出力デバイスはBluetoothイヤホンのままにする',
+          '同じ通話に入り直してゲーム音を比較し、相手にもこちらの声が届くか確認する。音質が戻り声も届くなら、その入出力の組み合わせで使う',
+          'Windowsで同じ機器に「ヘッドホン／Stereo」と「ヘッドセット／Hands-Free」が別表示される場合、前者は再生向け、後者は通話向けのことがある。Bluetoothマイクも使う状態で前者だけを強制して、必ず高音質と通話を両立できるわけではない',
+          '別マイクがなく音質を保てない場合は、有線・USBヘッドセットでも比較する。機器の削除と再ペアリングだけでBluetoothの通話用モードの制約はなくならない',
+        ],
+        note: 'LE Audio対応でも、Windows・PCの無線機能とドライバー・イヤホン側の対応が必要です。「Bluetooth 5.x」だけで高音質の双方向通話を保証しません。',
+      },
+      {
+        title: '音量だけ下がるなら、通話中の音量調整を確認',
+        description:
+          '音がこもるのではなく、誰かが話す間だけゲームが小さくなるなら、音声モードとは別の減衰設定を確認します。',
+        actions: [
+          'ゲーム音を一定に保ち、通話相手が話している時だけ小さくなるのか、通話に入った時からずっと小さいのかを比べる',
+          '「相手が話す時だけ」ならDiscordの歯車→「音声・ビデオ」の「減衰」を確認し、現在の値を控えてから0％で比較する',
+          '通話参加中ずっと音量が下がるならWindowsの「その他のサウンド設定」→「通信」タブの設定を確認する。詳しい手順は下の「通話中にゲーム音が小さくなる」の記事を参照する',
+        ],
+        note: '音量の上下だけならBluetoothの接続を削除する前に減衰・通信設定を比べてください。',
+      },
+      {
+        title: '通話の外でも接続が不安定な場合だけ、再接続を試す',
+        description:
+          'Windowsの出力一覧から機器が消える、音が途切れるなど接続自体の問題は、通話時だけの音質低下とは別に扱います。',
+        actions: [
+          '通話を抜け、ゲーム以外の音も同じイヤホンで再生する。通話の外でも途切れるか、Windowsの出力デバイス一覧から消えるかを確認する',
+          '接続自体が不安定な場合、イヤホンの電源とWindowsのBluetoothをいったん切り、入れ直してから再接続する',
+          'まだ検出されない・接続できない場合に限り、Windowsの「設定」→「Bluetoothとデバイス」から対象機器を削除して、製品の案内に沿って再ペアリングする',
+          '再接続後もほかのアプリで途切れるならPC・イヤホンメーカーのドライバーやサポートを確認する。通話時だけ低音質なら原因2へ戻る',
+        ],
+        note: '再ペアリングすると接続設定のやり直しが必要です。音が安定しており通話時だけ音質が変わる場合には先に行いません。',
+      },
     ],
-    ifNotFixed: '機種固有の対応プロファイルやドライバーが関係するため、イヤホン・PCメーカーの公式サポートも確認してください。Bluetooth以外でも音が出ない場合はPCゲーム音声の共通ガイドで切り分けます。',
+    ifNotFixed:
+      'Windowsで別アプリも無音ならBluetooth機器・Windowsの音声設定を確認します。Bluetoothだけで再現するなら機器の型番とWindowsの版、Discordの入力・出力設定、通話前後の比較結果を控え、PC／イヤホンメーカーまたはDiscordの公式サポートへ相談してください。',
+    followUp: {
+      title: '相手が話すたびにゲーム音量だけ下がる場合',
+      description:
+        '音質は変わらず音量だけが動く場合は、Discordの減衰とWindowsの通信設定を分けて確認できます。',
+      href: '/discord/game-volume-lowers',
+      label: '通話中にゲーム音が小さくなる記事へ進む',
+    },
     faqs: [
-      { question: '通話を始めた瞬間だけ音質が悪くなります', answer: 'マイクを使用する通話用の音声モードへ切り替わっている可能性があります。別マイクを入力に設定して変化を確認してください。' },
-      { question: 'Bluetooth 5以降なら必ず高音質になりますか？', answer: 'バージョン番号だけでは判断できません。PC、イヤホン、Windows、ドライバーが対応する機能をメーカー仕様で確認してください。' },
+      {
+        question: 'Windowsで「ヘッドホン」と「ヘッドセット」の両方が見えます。どちらを選ぶ？',
+        answer:
+          '前者は再生向け、後者はマイクを使う通話向けの表示である場合があります。まずDiscordの入力を別マイクに替え、Bluetoothを出力に残して通話中のゲーム音と声を比較してください。Bluetoothマイクも使うなら高音質の再生を必ず維持できるとは限りません。',
+      },
+      {
+        question: '再ペアリングしたのに通話で音がこもります。故障ですか？',
+        answer:
+          '通話から抜けると元の音質へ戻るなら、Discord公式が説明するBluetoothの通話用音声モードの可能性があります。別マイクに切り替えて比較してください。通話以外でも音が途切れるなら、接続や機器の問題を確認します。',
+      },
+      {
+        question: 'Bluetooth 5.3対応なら高音質で通話できますか？',
+        answer:
+          '番号だけでは判定できません。LE Audioなどの機能にはWindows、PCの無線機能とドライバー、イヤホンの対応が必要です。使用中の組み合わせを各メーカーの仕様で確認してください。',
+      },
     ],
-    sources: [voiceGuide, windowsBluetooth], related: ['game-volume-lowers', 'cant-hear-voice', 'stream-no-audio'], checkedAt: '2026-09-19', status: 'verified',
+    sources: [
+      discordBluetoothQuality,
+      windowsAppAudio,
+      windowsBluetoothNoSound,
+      windowsLeAudio,
+      voiceGuide,
+      windowsBluetooth,
+    ],
+    related: ['game-volume-lowers', 'cant-hear-voice', 'mic-not-working'],
+    checkedAt: '2026-09-28',
+    status: 'verified',
+    ogTitle: 'Bluetoothでゲーム音が消える？',
+    ogSteps: [
+      'ゲーム音が無音→出力先を確認',
+      '音質が下がる→通話用モード',
+      '相手の声で小さくなる→減衰',
+      '通話外も途切れる→再接続',
+    ],
   },
   {
     slug: 'game-not-detected', category: 'game',
