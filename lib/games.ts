@@ -130,26 +130,31 @@ export const games: GameGuide[] = [
     accent: '#7b2731',
     demand: '2026年9月発売・発売直後の既知問題あり',
     issueScale: '高い',
-    updated: '2026-09-13',
+    updated: '2026-09-27',
     tags: ['シェーダー', 'クラッシュ', 'カクつき', 'コントローラー'],
     focused: true,
-    savePath: '個別記事で確認済み情報のみ案内',
-    configPath: '個別記事で確認済み情報のみ案内',
-    fps: '',
-    ultrawide: '',
-    hdr: '',
-    controller: '',
+    savePath: String.raw`%LOCALAPPDATA%\Dawnwalker\Saved\SaveGames`,
+    configPath: String.raw`%LOCALAPPDATA%\Dawnwalker\Saved\Config\Windows`,
+    fps: 'フレームレート上限は30〜モニターの最大リフレッシュレートまで設定可能。ゲーム内のムービーは30fps固定です（PCGamingWiki）。',
+    ultrawide:
+      'ウルトラワイドはゲームプレイが横に広がる表示に対応。ムービーは上下に黒帯が入ります（PCGamingWiki）。',
+    hdr: 'ネイティブのHDR出力には対応していません（PCGamingWiki）。',
+    controller:
+      'フルコントローラー対応。DualSenseはHotfix 1.0.3でSteam版に対応。ボタン割り当ては「標準」「代替」のプリセットのみです。',
     launchFixes: [
-      'フルスクリーンでカクつきを比較',
-      'BIOS更新状況を確認',
-      'コントローラー感度を0.8へ調整',
+      'ゲームを最新版（1.0.5以降）に更新',
+      'シェーダーのコンパイル中に落ちる場合はBIOSを最新に（Intel第13・14世代CPUは特に）',
+      'カクつく場合はフルスクリーンで起動',
+      'コントローラーで走りが止まる場合は感度を1から0.8へ',
     ],
     mod: '',
-    japanese: '',
+    japanese:
+      '日本語のインターフェース・字幕に対応（音声は非対応。Steamストアの表記）。',
     specs: {
-      minimum: '公式ストア参照',
-      recommended: '公式ストア参照',
-      storage: '公式ストア参照',
+      minimum: 'Windows 10／GTX 1060・RX 580（VRAM 6GB）／メモリ16GB',
+      recommended:
+        'RTX 4060・RX 7600 XT・Intel Arc B580（VRAM 8GB）／メモリ16GB',
+      storage: '60GB（SSD）',
     },
     sources: [
       {
@@ -160,6 +165,8 @@ export const games: GameGuide[] = [
         label: '公式既知問題・回避策',
         url: 'https://www.reddit.com/r/DawnwalkerOfficial/comments/1w615p8/known_issues_fixes_workarounds_03092026/',
       },
+      { label: 'Steamストア', url: steam('3751260') },
+      { label: 'PCGamingWiki', url: pcgw('The_Blood_of_Dawnwalker') },
     ],
   },
   {
