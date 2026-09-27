@@ -3172,3 +3172,8 @@ kbd {
   background: #eef3f5;
   border-color: var(--line);
 }
+/* Long Windows paths have no break opportunities; wrap them inside the column. */
+.guide-article,
+.article-hero {
+  overflow-wrap: anywhere;
+}
