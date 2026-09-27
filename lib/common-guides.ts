@@ -1,3 +1,4 @@
+import { resetConfigGuide } from './reset-config-guide';
 import type { ContentStatus } from '@/lib/game-articles';
 import { commonGrowthGuides } from '@/lib/common-growth-guides';
 
@@ -13,6 +14,7 @@ export type CommonGuide = {
   related: string[];
   status: ContentStatus;
   causes: string[];
+  faqs?: { question: string; answer: string }[];
 };
 const causeMap: Record<string, string[]> = {
   'low-gpu-usage': [
@@ -370,7 +372,9 @@ const mk = (
     'steam-input-controller',
     'controller-double-input',
   ].includes(slug)
-    ? ['steam-input-controller', 'controller-double-input'].includes(slug) ? '2026-09-25' : '2026-09-24'
+    ? ['steam-input-controller', 'controller-double-input'].includes(slug)
+      ? '2026-09-25'
+      : '2026-09-24'
     : reviewedActions[slug]
       ? '2026-09-23'
       : '2026-09-12',
@@ -626,19 +630,7 @@ export const commonGuides: CommonGuide[] = [
     ['remove-mods-safely', 'steam-game-not-launching', 'reset-config-file'],
     [{ label: 'ReShade公式', url: 'https://reshade.me/' }, repair],
   ),
-  mk(
-    'reset-config-file',
-    'PCゲームの設定ファイルを初期化・再生成する方法',
-    '設定ファイル初期化',
-    '黒画面や壊れた画質設定を安全に初期化する方法です。',
-    '設定を削除せず日付付きで退避し、ゲーム起動で再生成させます。',
-    [
-      '設定ファイルの場所を確認する',
-      '日付付きでバックアップする',
-      '再生成して設定を戻す',
-    ],
-    ['black-screen', 'steam-game-not-launching', 'save-data-backup'],
-  ),
+  resetConfigGuide,
   mk(
     'shader-cache-delete',
     'シェーダーキャッシュを削除・再構築する時の注意点',

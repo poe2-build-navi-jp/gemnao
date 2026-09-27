@@ -9,6 +9,10 @@ import {
 } from 'lucide-react';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { InteractiveSteps } from '@/components/interactive-steps';
+import {
+  ResetConfigBeforeSteps,
+  ResetConfigAfterSteps,
+} from '@/components/reset-config-details';
 import { ShareButtons } from '@/components/share-buttons';
 import { SolutionIllustration } from '@/components/solution-illustration';
 import { gameArticles } from '@/lib/game-articles';
@@ -64,7 +68,7 @@ export default async function Page({
   if (item.status === 'draft' || item.status === 'thin') notFound();
   const visual = guideVisualBySlug(slug);
   const canonical = `https://gemnao.pages.dev/guide/${item.slug}`;
-  const faq = [
+  const faq = item.faqs ?? [
     {
       question: `${item.shortTitle}は何から試しますか？`,
       answer: item.conclusion,
@@ -106,7 +110,7 @@ export default async function Page({
       author: { '@type': 'Organization', name: 'ゲムなお編集部' },
       inLanguage: 'ja-JP',
       mainEntityOfPage: canonical,
-      ...(visual ? { image: `https://gemnao.pages.dev${visual.image}` } : {}),
+      image: `https://gemnao.pages.dev${visual?.image || ogImageFor(`/guide/${slug}`)}`,
     },
     {
       '@context': 'https://schema.org',
@@ -171,11 +175,24 @@ export default async function Page({
         <aside className="toc issue-toc">
           <strong>このページの内容</strong>
           <a href="#answer">まず試すこと</a>
+          {slug === 'reset-config-file' ? (
+            <>
+              <a href="#reset-decision">初期化すべき症状</a>
+              <a href="#config-location">保存先の探し方</a>
+              <a href="#reset-checklist">作業前チェック</a>
+            </>
+          ) : null}
           {item.steps.map((s, i) => (
             <a href={`#step-${i + 1}`} key={s.title}>
               {i + 1}. {s.title}
             </a>
           ))}
+          {slug === 'reset-config-file' ? (
+            <>
+              <a href="#reset-troubleshooting">再生成できない時</a>
+              <a href="#reset-record">保存・共有用メモ</a>
+            </>
+          ) : null}
           <a href="#faq">よくある質問</a>
         </aside>
         <article className="guide-article">
@@ -216,6 +233,7 @@ export default async function Page({
               </a>
             </nav>
           ) : null}
+          {slug === 'reset-config-file' ? <ResetConfigBeforeSteps /> : null}
           <InteractiveSteps
             contextSlug={`guide-${item.slug}`}
             topic={topic}
@@ -248,13 +266,16 @@ export default async function Page({
               { href: '/guide', label: 'PC共通ガイド一覧へ戻る' },
             ]}
           />
+          {slug === 'reset-config-file' ? <ResetConfigAfterSteps /> : null}
           <section className="caution-block">
             <h2>
               <AlertTriangle size={22} />
               注意
             </h2>
             <p>
-              変更前にセーブと設定をバックアップし、対策は1項目ずつ試してください。
+              {slug === 'reset-config-file'
+                ? 'AppData・Documents・Saved・Steamのuserdataを丸ごと削除しないでください。レジストリ編集やWindowsの初期化は、この手順には必要ありません。公式の対象ファイルを特定できない時は操作を止めてください。'
+                : '変更前にセーブと設定をバックアップし、対策は1項目ずつ試してください。'}
             </p>
           </section>
           <section className="faq-section" id="faq">

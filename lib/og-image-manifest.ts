@@ -90,7 +90,7 @@ export const ogImageManifest: Record<string, string> = {
   "/guide/low-gpu-usage": "58237696",
   "/guide/pc-game-freezes": "6cc26ded",
   "/guide/remove-mods-safely": "9460a42f",
-  "/guide/reset-config-file": "921ff19f",
+  "/guide/reset-config-file": "605e6e8e",
   "/guide/reshade-uninstall": "13e34f87",
   "/guide/shader-cache-delete": "54f235fc",
   "/guide/uninstall-save-data": "9a7eec60",
