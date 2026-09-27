@@ -90,7 +90,8 @@ export const games: GameGuide[] = [
     savePath: String.raw`<Steam>\userdata\<Steam ID>\2638890\remote\win64_save`,
     configPath: String.raw`<Steam>\steamapps\common\OnimushaWotS\config.ini`,
     fps: 'フレームレート上限は30〜360fpsまたは上限なしで設定可能。安定しない時は公式案内どおりグラフィックプリセット「最低」から段階的に上げます。',
-    ultrawide: '21:9に対応。32:9では21:9の比率で表示され、左右に黒帯が入ります（PCGamingWiki）。',
+    ultrawide:
+      '21:9に対応。32:9では21:9の比率で表示され、左右に黒帯が入ります（PCGamingWiki）。',
     hdr: 'HDR対応。最大輝度・全体の明るさ・彩度・UIの明るさを調整できます。表示が不安定な場合は公式案内どおりスクリーンモード・解像度・垂直同期と分けて比較します。',
     controller:
       'コントローラー対応。入力不良時はSteam Inputと外部変換ツールを1つずつ比較します。',
@@ -169,22 +170,29 @@ export const games: GameGuide[] = [
     accent: '#395b76',
     demand: '2026年8月27日発売・EA公式に既知の対処あり',
     issueScale: '高い',
-    updated: '2026-09-13',
+    updated: '2026-09-27',
     tags: ['起動しない', '黒画面', 'セーブ消えた', '低FPS'],
     focused: true,
-    savePath: '個別記事で確認済み情報のみ案内',
-    configPath: '個別記事で確認済み情報のみ案内',
-    fps: '',
+    savePath: String.raw`%LOCALAPPDATA%\SWZeroCompany\Saved\SaveGames`,
+    configPath: String.raw`%LOCALAPPDATA%\SWZeroCompany\Saved`,
+    fps: 'フレームレート上限は無制限・30〜240fpsから選択。GTX 10・RTX 20は「環境ジオメトリ詳細」をオフ、Intel ArcはResizable BARをオン（EA公式）。',
     ultrawide: '',
-    hdr: '',
-    controller: '',
-    launchFixes: ['PCを再起動', 'ゲームファイルを修復', 'GPUドライバーを更新'],
+    hdr: 'HDR対応（Steamストア）。ピーク輝度・明るさ・シャドウ・UIの明るさを調整できます（PCGamingWiki）。',
+    controller:
+      'DualShock・DualSense対応（Steamストアの表記は部分的コントローラーサポート）。',
+    launchFixes: [
+      'PCとランチャーを再起動し、更新を適用',
+      'ゲームファイルを修復・検証',
+      'GPUドライバーを更新（DLSSで落ちる場合はGame Ready 610.88より新しい版）',
+      'Intel第13・14世代のデスクトップ向けCPUはBIOSを更新',
+    ],
     mod: '',
     japanese: '',
     specs: {
-      minimum: 'EA公式PC要件を確認',
-      recommended: 'EA公式PC要件を確認',
-      storage: 'EA公式PC要件を確認',
+      minimum:
+        'Windows 10/11（64bit）／GTX 1080・RX 5600 XT・Intel Arc B580／メモリ16GB（1080p・「低」・30fps）',
+      recommended: 'RTX 3080・RX 7800 XT／メモリ32GB（1440p・「高」・60fps）',
+      storage: '50GB',
     },
     sources: [
       {
@@ -195,6 +203,8 @@ export const games: GameGuide[] = [
         label: 'EA公式PC要件',
         url: 'https://help.ea.com/en/articles/star-wars/zero-company/platforms-pc-requirements-guide/',
       },
+      { label: 'Steamストア', url: steam('2075800') },
+      { label: 'PCGamingWiki', url: pcgw('Star_Wars_Zero_Company') },
     ],
   },
   {
