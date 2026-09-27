@@ -1,4 +1,5 @@
 import { blackScreenGuide } from './black-screen-guide';
+import { gpuDriverGuide } from './gpu-driver-guide';
 import { freezeGuide } from './freeze-guide';
 import { stutterGuide } from './stutter-guide';
 import { uninstallSaveGuide } from './uninstall-save-guide';
@@ -322,17 +323,6 @@ const reviewedActions: Record<string, string[][]> = {
       'Steamのプロパティ→一般でオーバーレイをオフにして比較する。効果がなければ元に戻す',
     ],
   ],
-  'gpu-driver-update': [
-    ['Windows＋Rでdxdiagを実行し、ディスプレイ欄のGPU名・ドライバー版を控える'],
-    [
-      'ノートPCは製品メーカー、それ以外はGPUメーカーの公式配布で型番とWindows版に合うドライバーを選ぶ',
-      'インストール後にWindowsを再起動し、同じ場面を比較する',
-    ],
-    [
-      'インストール完了後にWindowsを再起動する',
-      '同じゲーム・同じ画質・同じ場所で更新前の症状と比較する。悪化した場合はメーカーが配布する対応版へ戻すことを検討する',
-    ],
-  ],
 };
 const mk = (
   slug: string,
@@ -455,20 +445,7 @@ export const commonGuides: CommonGuide[] = [
     [repair, nv, amd],
   ),
   blackScreenGuide,
-  mk(
-    'gpu-driver-update',
-    'GPUドライバーを安全に更新する方法【NVIDIA・AMD】',
-    'GPUドライバー更新',
-    '起動不良や描画乱れを直すための安全な更新手順です。',
-    'GPUメーカーを確認し、公式サイトの対応ドライバーだけを使用します。',
-    [
-      'GPUのメーカーと型番を確認する',
-      '公式ドライバーを入れる',
-      'PCを再起動して比較する',
-    ],
-    ['pc-game-crash', 'shader-cache-delete', 'low-fps'],
-    [nv, amd],
-  ),
+  gpuDriverGuide,
   stutterGuide,
   mk(
     'low-fps',

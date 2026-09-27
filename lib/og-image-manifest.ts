@@ -86,7 +86,7 @@ export const ogImageManifest: Record<string, string> = {
   "/guide/black-screen": "01afcd40",
   "/guide/controller-double-input": "0d9e44f1",
   "/guide/directx-error": "a1e2835c",
-  "/guide/gpu-driver-update": "462b3914",
+  "/guide/gpu-driver-update": "1f9872fa",
   "/guide/low-gpu-usage": "58237696",
   "/guide/pc-game-freezes": "c524d6be",
   "/guide/remove-mods-safely": "9460a42f",
