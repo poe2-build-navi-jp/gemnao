@@ -36,6 +36,8 @@ export type DiscordArticle = {
   diagnosis?: { symptom: string; check: string; causeIndex: number }[];
   diagnosisTitle?: string;
   diagnosisIntro?: string;
+  /** Omit the generic outage notice when a specific account or device error needs priority. */
+  showStatusCheck?: boolean;
   causes: DiscordCause[];
   ifNotFixed: string;
   followUp?: {

@@ -180,7 +180,9 @@ export default async function DiscordArticlePage({
           {item.diagnosis?.length ? (
             <a href="#diagnosis">症状別の判定表</a>
           ) : null}
-          <a href="#status-check">Discord全体の障害確認</a>
+          {item.showStatusCheck !== false ? (
+            <a href="#status-check">Discord全体の障害確認</a>
+          ) : null}
           {item.causes.map((cause, i) => (
             <a href={`#cause-${i + 1}`} key={cause.title}>
               {i + 1}. {cause.title}
@@ -243,24 +245,26 @@ export default async function DiscordArticlePage({
             </section>
           ) : null}
           {visual ? <SolutionIllustration visual={visual} /> : null}
-          <section className="caution-block" id="status-check">
-            <h2>
-              <ShieldAlert size={22} />
-              まずDiscord全体の障害か確認する
-            </h2>
-            <p>
-              PC側の設定を変更する前に、
-              <a
-                href="https://discordstatus.com/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Discord Status（公式）
-                <ExternalLink size={14} />
-              </a>
-              で大規模な障害が発生していないか確認してください。障害が発表されている場合は、設定変更を進めず復旧を待つことをおすすめします。ゲムなおはリアルタイムの障害状況を自動取得していないため、必ず公式ページで確認してください。
-            </p>
-          </section>
+          {item.showStatusCheck !== false ? (
+            <section className="caution-block" id="status-check">
+              <h2>
+                <ShieldAlert size={22} />
+                まずDiscord全体の障害か確認する
+              </h2>
+              <p>
+                PC側の設定を変更する前に、
+                <a
+                  href="https://discordstatus.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Discord Status（公式）
+                  <ExternalLink size={14} />
+                </a>
+                で大規模な障害が発生していないか確認してください。障害が発表されている場合は、設定変更を進めず復旧を待つことをおすすめします。ゲムなおはリアルタイムの障害状況を自動取得していないため、必ず公式ページで確認してください。
+              </p>
+            </section>
+          ) : null}
           <InteractiveSteps
             contextSlug={`discord-${item.slug}`}
             topic={feedbackTopic[item.category]}
