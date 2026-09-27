@@ -3196,7 +3196,7 @@ kbd {
 .reset-path-list dd {
   line-height: 1.9;
 }
-.reset-config-details a {
+:where(.reset-config-details) a {
   color: #006c87;
   text-decoration: underline;
   text-underline-offset: 3px;
