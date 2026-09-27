@@ -4,6 +4,7 @@ import { eldenArticles } from '@/lib/elden-articles';
 import { currentGameArticles } from '@/lib/current-game-articles';
 import { newReleaseArticles } from '@/lib/new-release-articles';
 import { aniimoArticles } from '@/lib/aniimo-articles';
+import { dawnwalkerArticles } from '@/lib/dawnwalker-articles';
 
 export type ArticleCategory =
   | 'save'
@@ -1549,6 +1550,7 @@ export const gameArticles: GameArticle[] = [
   ...eldenArticles,
   ...currentGameArticles,
   ...newReleaseArticles,
+  ...dawnwalkerArticles,
   ...verifiedReleaseArticles,
 ];
 
