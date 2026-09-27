@@ -8,7 +8,7 @@ export const ogImageManifest: Record<string, string> = {
   "/discord/bot-remove": "b35c5c5b",
   "/discord/call-disconnects": "bb6b1e0b",
   "/discord/camera-not-working": "1a81ecf4",
-  "/discord/crashing": "835e2bab",
+  "/discord/crashing": "10557b11",
   "/discord/echo-double-voice": "bf3f502a",
   "/discord/error-1001": "7cb71244",
   "/discord/error-1002": "ead6d712",
