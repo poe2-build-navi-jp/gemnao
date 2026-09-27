@@ -39,7 +39,7 @@ export function SaveBackupBeforeSteps() {
         <p>
           「コピー」を押し、エクスプローラー上部のアドレスバーへ貼り付けてEnter。開いたら1つ上へ移動し、対象フォルダーを丸ごとコピーします。AppDataが隠れていても、この入力方法で開けます。
         </p>
-        <table>
+        <table className="reset-examples">
           <thead>
             <tr>
               <th scope="col">ゲーム</th>
@@ -92,7 +92,7 @@ export function SaveBackupAfterSteps() {
     <div className="reset-config-details">
       <section className="diagnosis-table" id="save-verify">
         <h2>「バックアップを検証する」とは？ 3段階で確認</h2>
-        <table>
+        <table className="reset-examples">
           <thead>
             <tr>
               <th scope="col">確認</th>
@@ -169,7 +169,7 @@ Get-FileHash -LiteralPath "E:\バックアップ\セーブファイル" -Algorit
           を下表の場所へコピーします。古いファイルと混ぜず、階層を1段増やさないよう確認してください。
         </p>
         <div className="diagnosis-table">
-          <table>
+          <table className="reset-examples">
             <thead>
               <tr>
                 <th scope="col">戻す対象（全体を保存した場合）</th>
@@ -214,7 +214,7 @@ Get-FileHash -LiteralPath "E:\バックアップ\セーブファイル" -Algorit
       </section>
       <section className="diagnosis-table" id="save-trouble">
         <h2>コピー・復元でつまずいた時の確認表</h2>
-        <table>
+        <table className="reset-examples">
           <thead>
             <tr>
               <th scope="col">症状</th>
