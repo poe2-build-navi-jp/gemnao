@@ -3279,3 +3279,11 @@ kbd {
 .gpu-driver-details ol { list-style: decimal; }
 .gpu-driver-details ul { list-style: disc; }
 .gpu-driver-details li + li { margin-top: 8px; }
+
+/* BSOD guide: keep diagnostic lists and Windows paths readable. */
+.bsod-details p { margin: 12px 0; }
+.bsod-details ol, .bsod-details ul { margin: 16px 0; padding-left: 24px; }
+.bsod-details ol { list-style: decimal; }
+.bsod-details ul { list-style: disc; }
+.bsod-details li + li { margin-top: 8px; }
+.bsod-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; }

@@ -1,3 +1,4 @@
+import { bsodGuide } from './bsod-guide';
 import type { CommonGuide } from '@/lib/common-guides';
 
 const steamCloud = {
@@ -71,7 +72,11 @@ export const commonGrowthGuides: CommonGuide[] = [
       },
     ],
     sources: [steamCloud],
-    related: ['save-data-backup', 'uninstall-save-data', 'steam-disk-write-error'],
+    related: [
+      'save-data-backup',
+      'uninstall-save-data',
+      'steam-disk-write-error',
+    ],
     status: 'verified',
     causes: [
       'Steam Cloudが全体またはゲーム単位で無効',
@@ -126,7 +131,11 @@ export const commonGrowthGuides: CommonGuide[] = [
       },
     ],
     sources: [steamDiskCheck, steamInterference],
-    related: ['verify-steam-files', 'steam-game-not-launching', 'steam-cloud-sync-error'],
+    related: [
+      'verify-steam-files',
+      'steam-game-not-launching',
+      'steam-cloud-sync-error',
+    ],
     status: 'verified',
     causes: [
       'ドライブの空き容量不足',
@@ -191,59 +200,7 @@ export const commonGrowthGuides: CommonGuide[] = [
       'メモリ、ストレージ、電源などハードウェアの異常',
     ],
   },
-  {
-    slug: 'bsod-while-gaming',
-    title: 'ゲーム中にブルースクリーンが出るときの確認方法',
-    shortTitle: 'ゲーム中のブルースクリーン',
-    description:
-      'PCゲーム中にブルースクリーンや停止コードが出る場合に、コードの記録、Windows更新、ドライバー、メモリとストレージを順に確認します。',
-    conclusion:
-      '最初に停止コードと「What failed」の表示を撮影してください。次にWindows Update、GPUなど直前に変更したドライバー、周辺機器、メモリ・ストレージ診断の順で切り分けます。',
-    checkedAt: '2026-09-19',
-    steps: [
-      {
-        title: '停止コードと発生条件を記録する',
-        actions: [
-          'ブルースクリーンに表示された停止コードと「What failed」があればスマホで撮影する',
-          'ゲーム名、場面、発生時刻、直前に追加したドライバーや機器を記録する',
-          'Windows再起動後に同じ操作を繰り返さず、重要データを先にバックアップする',
-        ],
-      },
-      {
-        title: 'Windowsと公式ドライバーを更新する',
-        actions: [
-          'Windows Updateを実行し、オプション更新を含めてメーカーが案内する更新を確認する',
-          'GPUドライバーはNVIDIA、AMD、IntelまたはPCメーカーの公式手順で更新する',
-          'ドライバー更新直後から発生した場合は、デバイス マネージャーの「ドライバーを元に戻す」が利用できるか確認する',
-        ],
-      },
-      {
-        title: '追加機器とオーバークロックを外す',
-        actions: [
-          '新しく接続したUSB機器や不要な周辺機器を外して確認する',
-          'CPU・GPU・メモリのオーバークロックやアンダーボルトを標準設定へ戻す',
-          'MOD、オーバーレイ、録画ツールを一時的に外し、ゲームファイルを確認する',
-        ],
-      },
-      {
-        title: 'Windowsのメモリとストレージを診断する',
-        actions: [
-          'Windows メモリ診断を実行し、再起動後の結果を確認する',
-          'ゲームを入れているドライブのプロパティからエラーチェックを実行する',
-          '同じ停止コードが続く場合は、コード、ミニダンプ、発生条件を添えてPCメーカーまたはMicrosoftサポートへ相談する',
-        ],
-      },
-    ],
-    sources: [windowsStopErrors],
-    related: ['pc-shuts-down-while-gaming', 'gpu-driver-update', 'pc-game-crash'],
-    status: 'verified',
-    causes: [
-      'デバイスドライバーやWindows更新の不整合',
-      'メモリ・ストレージ・周辺機器の問題',
-      'オーバークロックや高負荷時の不安定化',
-      'ゲーム、MOD、オーバーレイとの競合',
-    ],
-  },
+  bsodGuide,
   {
     slug: 'no-game-audio',
     title: 'PCゲームで音が出ないときの対処法【Windows】',
@@ -289,7 +246,11 @@ export const commonGrowthGuides: CommonGuide[] = [
       },
     ],
     sources: [windowsAudio],
-    related: ['directx-error', 'verify-steam-files', 'steam-game-not-launching'],
+    related: [
+      'directx-error',
+      'verify-steam-files',
+      'steam-game-not-launching',
+    ],
     status: 'verified',
     causes: [
       'Windowsまたはゲームの出力先が別デバイス',
