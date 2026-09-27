@@ -1,8 +1,8 @@
 import type { CommonGuide } from './common-guides';
 export const stutterGuide: CommonGuide = {
   slug: 'stutter-fix',
-  title: 'PCゲームのカクつき・スタッター対策｜FPS上限の設定と比較手順',
-  shortTitle: 'カクつき・スタッター',
+  title: 'PCゲームがカクつく・一瞬止まる時の対処法｜FPS上限の設定と比較手順',
+  shortTitle: 'カクつく・一瞬止まる',
   description:
     '平均FPSは高いのに一瞬止まる時の切り分け。ゲーム内・NVIDIA・AMDのFPS上限設定、60・90・120fpsを試す数値例、シェーダー・VRAM・通信ラグの見分け方、同じ場面での比較方法を解説します。',
   conclusion:

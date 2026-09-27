@@ -29,7 +29,7 @@ export const commonGuideCategories: CommonGuideCategory[] = [
     id: 'fps-display',
     label: 'FPS・描画',
     heading: 'FPS・カクつき・描画トラブル',
-    description: 'FPS低下、スタッター、VRAM、GPUやシェーダーを確認します。',
+    description: 'FPS低下や一瞬止まる症状について、VRAM・GPU・シェーダーを確認します。',
     slugs: [
       'low-gpu-usage',
       'gpu-driver-update',

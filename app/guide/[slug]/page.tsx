@@ -295,7 +295,7 @@ export default async function Page({
           {slug === 'low-fps' ? (
             <p>
               平均FPSは出ているのに一瞬止まる場合は、{' '}
-              <a href="/guide/stutter-fix">カクつき・スタッターの確認手順</a>
+              <a href="/guide/stutter-fix">ゲームがカクつく・一瞬止まる時の確認手順</a>
               をご覧ください。
             </p>
           ) : null}
@@ -366,7 +366,7 @@ export default async function Page({
             </h2>
             <p>
               {slug === 'stutter-fix'
-                ? '比較中にキャッシュ削除・画質変更・ドライバー更新をまとめて行わないでください。変更前の値を残し、悪化した設定は戻します。PC全体の再起動やブルースクリーンは、通常のスタッターとは分けて調べてください。'
+                ? '比較中にキャッシュ削除・画質変更・ドライバー更新をまとめて行わないでください。変更前の値を残し、悪化した設定は戻します。PC全体の再起動やブルースクリーンは、ゲームが一瞬カクつく症状とは分けて調べてください。'
                 : slug === 'uninstall-save-data'
                   ? 'AppData・Documents・Saved Games・Steamのuserdataを、残存ファイルという理由で丸ごと消さないでください。追加のクリーナーによる削除は通常アンインストールとは別操作です。バックアップは再インストール後の読み込み確認まで残します。'
                   : slug === 'save-data-backup'
