@@ -221,6 +221,15 @@ input {
   color: #8da2ad;
   font-size: 12px;
 }
+.search-result-summary {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-top: 15px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+}
 .search-no-results {
   display: flex;
   flex-wrap: wrap;
