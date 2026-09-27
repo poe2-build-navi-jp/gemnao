@@ -16,7 +16,7 @@ const specs = [
   [
     'steam-game-not-launching',
     'pc-game-not-launching-fix-flow',
-    'PCゲームが起動しない時の確認順',
+    'Steamゲームが起動しない時の確認順',
   ],
   [
     'pc-game-crash',

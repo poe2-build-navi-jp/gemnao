@@ -14,6 +14,10 @@ import {
 import { CrashBeforeSteps, CrashAfterSteps } from '@/components/crash-details';
 import { DirectxBeforeSteps, DirectxAfterSteps } from '@/components/directx-details';
 import {
+  SteamLaunchBeforeSteps,
+  SteamLaunchAfterSteps,
+} from '@/components/steam-launch-details';
+import {
   BlackScreenBeforeSteps,
   BlackScreenAfterSteps,
 } from '@/components/black-screen-details';
@@ -218,6 +222,14 @@ export default async function Page({
         <aside className="toc issue-toc">
           <strong>このページの内容</strong>
           <a href="#answer">まず試すこと</a>
+          {slug === 'steam-game-not-launching' ? (
+            <>
+              <a href="#steam-launch-symptoms">症状別の対処表</a>
+              <a href="#steam-launch-process">プロセスを確認</a>
+              <a href="#steam-launch-history">起動履歴の見方</a>
+              <a href="#steam-launch-results">結果から次を選ぶ</a>
+            </>
+          ) : null}
           {slug === 'directx-error' ? (
             <>
               <a href="#directx-error-types">エラー名別の分岐</a>
@@ -427,6 +439,9 @@ export default async function Page({
           {slug === 'steam-cloud-sync-error' ? <SteamCloudBeforeSteps /> : null}
           {slug === 'pc-game-crash' ? <CrashBeforeSteps /> : null}
           {slug === 'directx-error' ? <DirectxBeforeSteps /> : null}
+          {slug === 'steam-game-not-launching' ? (
+            <SteamLaunchBeforeSteps />
+          ) : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <PowerShutdownBeforeSteps />
           ) : null}
@@ -475,6 +490,9 @@ export default async function Page({
           {slug === 'steam-cloud-sync-error' ? <SteamCloudAfterSteps /> : null}
           {slug === 'pc-game-crash' ? <CrashAfterSteps /> : null}
           {slug === 'directx-error' ? <DirectxAfterSteps /> : null}
+          {slug === 'steam-game-not-launching' ? (
+            <SteamLaunchAfterSteps />
+          ) : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <PowerShutdownAfterSteps />
           ) : null}
@@ -486,7 +504,9 @@ export default async function Page({
               注意
             </h2>
             <p>
-              {slug === 'directx-error'
+              {slug === 'steam-game-not-launching'
+                ? 'セーブ中・更新中・クラウド同期中にSteamを強制終了しないでください。MODを使うゲームでは変更前にセーブをコピーし、MODが必要な既存データを上書きしないでください。隔離された実行ファイルを確認せずに許可したり、セキュリティ機能を無効にしたりしないでください。'
+                : slug === 'directx-error'
                 ? '不明な配布サイトのDLLをSystem32やゲームフォルダーにコピーしないでください。WindowsのDirectXバージョンとGPUの機能レベルは別の情報です。機能レベルが不足するGPUを旧ランタイムやWindows Updateだけで対応させることはできません。'
                 : slug === 'pc-game-crash'
                 ? 'MODのあるセーブは退避せずに上書きしないでください。障害モジュール名だけを根拠にDLLを入れ替えたり、不明なダウンロード先からファイルを入手したりしないでください。変更は1項目ずつ、セーブと設定を保全してから試します。'

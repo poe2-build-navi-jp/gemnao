@@ -3311,3 +3311,9 @@ kbd {
 .directx-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
 .directx-details li + li { margin-top: 8px; }
 .directx-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; overflow-wrap: anywhere; }
+
+/* Steam launch guide: make symptom and history branches readable. */
+.steam-launch-details p { margin: 12px 0; }
+.steam-launch-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
+.steam-launch-details li + li { margin-top: 8px; }
+.steam-launch-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; overflow-wrap: anywhere; }

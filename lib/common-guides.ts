@@ -1,6 +1,7 @@
 import { blackScreenGuide } from './black-screen-guide';
 import { crashGuide } from './crash-guide';
 import { directxGuide } from './directx-guide';
+import { steamLaunchGuide } from './steam-launch-guide';
 import { gpuDriverGuide } from './gpu-driver-guide';
 import { freezeGuide } from './freeze-guide';
 import { stutterGuide } from './stutter-guide';
@@ -36,11 +37,6 @@ const causeMap: Record<string, string[]> = {
     'MOD・オーバーレイの競合',
     'メモリ・VRAM不足',
     '温度上昇や破損ファイル',
-  ],
-  'steam-game-not-launching': [
-    'Steamプロセスの停止',
-    '破損ファイル',
-    'MOD・外部DLLの競合',
   ],
   'verify-steam-files': [
     '不足ファイル',
@@ -246,21 +242,6 @@ const reviewedActions: Record<string, string[][]> = {
     ],
   ],
 
-  'steam-game-not-launching': [
-    [
-      '保存中でないことを確認してSteamメニュー→終了を選ぶ',
-      'Windowsのスタート→電源→再起動後、Steamから対象ゲームだけを起動する',
-    ],
-    [
-      'Steamはライブラリのゲームを右クリック→プロパティ→インストール済みファイル→ゲームファイルの整合性を確認を選ぶ',
-      '検証が完了してから同じ起動方法で確認する',
-    ],
-    [
-      'MOD管理ツールで導入したMODを無効にする。手動導入分は導入記録にあるファイルだけを退避する',
-      'Steamの対象ゲームのプロパティ→一般でオーバーレイをオフにする',
-      '1項目ずつ起動を比較し、効果がなければ設定を戻す。名称だけでDLLを削除しない',
-    ],
-  ],
   'verify-steam-files': [
     [
       'ゲームを終了してSteamライブラリを開く',
@@ -369,20 +350,7 @@ export const commonGuides: CommonGuide[] = [
     [nv, amd],
   ),
   freezeGuide,
-  mk(
-    'steam-game-not-launching',
-    'Steamゲームが起動しない時の対処法｜まず試す3つ',
-    'Steamゲームが起動しない',
-    '「プレイ」を押しても戻る、無反応、起動直後に終了する時の共通切り分けです。',
-    'PC再起動、整合性確認、MOD・オーバーレイ退避の順で試します。',
-    [
-      'PCとSteamを完全に再起動する',
-      'ゲームファイルの整合性を確認する',
-      'MOD・外部DLL・オーバーレイを外す',
-    ],
-    ['verify-steam-files', 'remove-mods-safely', 'reset-config-file'],
-    [steam, repair],
-  ),
+  steamLaunchGuide,
   mk(
     'verify-steam-files',
     'Steamでゲームファイルの整合性を確認する方法',
