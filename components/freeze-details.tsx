@@ -1,7 +1,7 @@
 /* oxlint-disable next/no-html-link-for-pages -- Native links match the guide template. */
 export function FreezeBeforeSteps() {
   return (
-    <div className="reset-config-details">
+    <div className="reset-config-details freeze-details">
       <section className="diagnosis-table" id="freeze-scope">
         <h2>最初に分ける：ゲームだけ停止？ PC全体が停止？</h2>
         <p>
@@ -65,7 +65,7 @@ export function FreezeBeforeSteps() {
           「音が鳴る」「マウスだけ動く」は補助情報です。それだけで停止範囲や故障箇所は確定しません。オンラインで相手だけ止まりメニューは動く場合は、通信・サーバー側の問題も分けて考えます。
         </p>
       </section>
-      <section id="freeze-memory">
+      <section className="diagnosis-table" id="freeze-memory">
         <h2>メモリを確認する画面と、数値の読み方</h2>
         <ol>
           <li>
@@ -200,8 +200,8 @@ export function FreezeBeforeSteps() {
 
 export function FreezeAfterSteps() {
   return (
-    <div className="reset-config-details">
-      <section id="freeze-history">
+    <div className="reset-config-details freeze-details">
+      <section className="diagnosis-table" id="freeze-history">
         <h2>復旧後は「信頼性履歴」で停止時刻を確認</h2>
         <ol>
           <li>

@@ -3255,3 +3255,11 @@ kbd {
 .reset-checklist-interactive input { appearance: auto; opacity: 1; position: static; }
 .reset-checklist-interactive output { display: block; margin-top: 12px; font-weight: 800; color: #075d49; }
 .reset-checklist-interactive label:focus-within { outline: 3px solid #e99b29; outline-offset: 2px; }
+
+/* Freeze guide: keep instructions and diagnostic readings easy to scan. */
+.freeze-details h3 { margin: 24px 0 10px; font-size: 18px; font-weight: 700; }
+.freeze-details p { margin: 12px 0; }
+.freeze-details ol, .freeze-details ul { margin: 16px 0; padding-left: 24px; }
+.freeze-details ol { list-style: decimal; }
+.freeze-details ul { list-style: disc; }
+.freeze-details li + li { margin-top: 8px; }
