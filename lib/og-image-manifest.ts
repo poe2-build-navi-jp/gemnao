@@ -92,7 +92,7 @@ export const ogImageManifest: Record<string, string> = {
   "/guide/remove-mods-safely": "9460a42f",
   "/guide/reset-config-file": "605e6e8e",
   "/guide/reshade-uninstall": "ebb8c94f",
-  "/guide/shader-cache-delete": "54f235fc",
+  "/guide/shader-cache-delete": "dc5b0b95",
   "/guide/uninstall-save-data": "9a7eec60",
   "/guide/verify-steam-files": "09ded23d",
   "/guide/visual-c-runtime-error": "454e393a",

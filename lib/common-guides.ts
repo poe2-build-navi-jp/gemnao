@@ -1,3 +1,4 @@
+import { shaderCacheGuide } from './shader-cache-guide';
 import { reshadeGuide } from './reshade-guide';
 import { resetConfigGuide } from './reset-config-guide';
 import type { ContentStatus } from '@/lib/game-articles';
@@ -619,20 +620,7 @@ export const commonGuides: CommonGuide[] = [
   ),
   reshadeGuide,
   resetConfigGuide,
-  mk(
-    'shader-cache-delete',
-    'シェーダーキャッシュを削除・再構築する時の注意点',
-    'シェーダーキャッシュ',
-    '更新後の描画乱れやクラッシュで再構築を試す前の確認です。',
-    '公式機能から削除し、再構築完了まで待ちます。',
-    [
-      'ゲームとランチャーを終了する',
-      '公式機能からキャッシュを削除する',
-      '再構築完了まで待つ',
-    ],
-    ['stutter-fix', 'gpu-driver-update', 'pc-game-crash'],
-    [nv, amd],
-  ),
+  shaderCacheGuide,
   mk(
     'uninstall-save-data',
     'PCゲームをアンインストールするとセーブデータは消える？確認方法',
