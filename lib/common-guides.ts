@@ -5,6 +5,7 @@ import { steamLaunchGuide } from './steam-launch-guide';
 import { gpuDriverGuide } from './gpu-driver-guide';
 import { freezeGuide } from './freeze-guide';
 import { stutterGuide } from './stutter-guide';
+import { vramGuide } from './vram-guide';
 import { uninstallSaveGuide } from './uninstall-save-guide';
 import { saveBackupGuide } from './save-backup-guide';
 import { shaderCacheGuide } from './shader-cache-guide';
@@ -64,11 +65,6 @@ const causeMap: Record<string, string[]> = {
     'VRAM・ストレージ待ち',
   ],
   'low-fps': ['解像度・レイトレーシング負荷', 'GPUドライバー', 'VRAM不足'],
-  'vram-shortage': [
-    '高解像度テクスチャ',
-    '解像度・影・RT負荷',
-    'バックグラウンドGPU利用',
-  ],
   'save-data-backup': [
     'ローカル保存とクラウド保存の混同',
     '同期競合',
@@ -173,23 +169,6 @@ const reviewedActions: Record<string, string[][]> = {
       'グラフィック設定の「テクスチャ品質」を1段階下げ、再起動を求められたらゲームを終了して起動し直す',
       'ブラウザーの動画・録画アプリを終了して比較する。使用量を確認するにはCtrl＋Shift＋Esc→パフォーマンス→GPU→専用GPUメモリを開く',
       '画質を下げてもFPSが変わらない場合は、FPS上限や使用GPUを切り分けるため関連記事「GPU使用率が低い」を確認する',
-    ],
-  ],
-  'vram-shortage': [
-    [
-      'Ctrl＋Shift＋Escでタスクマネージャーを開き、「パフォーマンス」→使用中の「GPU」を選ぶ',
-      '「専用GPUメモリ」の使用量と容量を確認する。「共有GPUメモリ」と混同しない。内蔵GPUではこの表示が異なる場合があります',
-      'ゲーム内にVRAM使用量の見積もりがあれば併せて確認する。上限近くという表示だけでクラッシュ原因とは断定しない',
-    ],
-    [
-      'Steamで別配布の高解像度テクスチャDLCを入れている場合、ゲームを終了→ライブラリの対象ゲームを右クリック→プロパティ→DLCを開く',
-      '高解像度テクスチャパックに該当する項目だけのチェックを外し、更新完了を待つ。DLC欄や対象パックがなければこの操作は不要です',
-      'テクスチャMODは導入時の管理ツールで無効化する。ゲーム本体のファイルを名前だけで削除しない',
-    ],
-    [
-      'ゲームの設定→グラフィックでテクスチャ品質を1段階下げ、適用してゲームを再起動する',
-      'まだ不足する場合はレイトレーシングをオフにして比較し、次にレンダリング解像度を下げる',
-      '変更した設定ごとに同じ場面と専用GPUメモリ使用量を確認し、効果がなければ設定を戻す',
     ],
   ],
   'low-gpu-usage': [
@@ -309,7 +288,6 @@ const mk = (
   ],
   checkedAt: [
     'low-fps',
-    'vram-shortage',
     'low-gpu-usage',
     'directx-error',
     'visual-c-runtime-error',
@@ -383,20 +361,7 @@ export const commonGuides: CommonGuide[] = [
     ['stutter-fix', 'vram-shortage', 'gpu-driver-update', 'low-gpu-usage'],
     [nv, amd],
   ),
-  mk(
-    'vram-shortage',
-    'VRAM不足の症状とテクスチャ設定の下げ方',
-    'VRAM不足',
-    'VRAM不足の警告、テクスチャ欠け、急なFPS低下が出る場合は、まず専用GPUメモリの容量と使用量を確認します。この記事では高解像度テクスチャの外し方と画質を下げる順番を説明します。使用量の高さだけで原因を断定せず、変更前後を比較します。',
-    '高解像度テクスチャを外し、品質と解像度を下げて再起動します。',
-    [
-      'VRAM容量と使用量を確認する',
-      '高解像度テクスチャを外す',
-      '設定を段階的に下げる',
-    ],
-    ['low-fps', 'stutter-fix', 'pc-game-crash'],
-    [nv, amd],
-  ),
+  vramGuide,
   saveBackupGuide,
   mk(
     'steam-input-controller',

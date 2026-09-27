@@ -96,7 +96,7 @@ export const ogImageManifest: Record<string, string> = {
   "/guide/uninstall-save-data": "b1ea066d",
   "/guide/verify-steam-files": "09ded23d",
   "/guide/visual-c-runtime-error": "454e393a",
-  "/guide/vram-shortage": "48f0ea7b",
+  "/guide/vram-shortage": "733be1c8",
   "/trouble/mod": "aac0f787",
   "/trouble/server": "c6d1a835"
 };

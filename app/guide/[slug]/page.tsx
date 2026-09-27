@@ -18,6 +18,7 @@ import {
   SteamLaunchAfterSteps,
 } from '@/components/steam-launch-details';
 import { AudioBeforeSteps, AudioAfterSteps } from '@/components/audio-details';
+import { VramBeforeSteps, VramAfterSteps } from '@/components/vram-details';
 import {
   BlackScreenBeforeSteps,
   BlackScreenAfterSteps,
@@ -223,6 +224,14 @@ export default async function Page({
         <aside className="toc issue-toc">
           <strong>このページの内容</strong>
           <a href="#answer">まず試すこと</a>
+          {slug === 'vram-shortage' ? (
+            <>
+              <a href="#vram-readings">専用・共有メモリの読み方</a>
+              <a href="#vram-observe">症状と数値の照合</a>
+              <a href="#vram-compare">設定変更前後の比較例</a>
+              <a href="#vram-next">結果別の次の行動</a>
+            </>
+          ) : null}
           {slug === 'no-game-audio' ? (
             <>
               <a href="#audio-scope">PC全体？ ゲームだけ？</a>
@@ -453,6 +462,7 @@ export default async function Page({
             <SteamLaunchBeforeSteps />
           ) : null}
           {slug === 'no-game-audio' ? <AudioBeforeSteps /> : null}
+          {slug === 'vram-shortage' ? <VramBeforeSteps /> : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <PowerShutdownBeforeSteps />
           ) : null}
@@ -505,6 +515,7 @@ export default async function Page({
             <SteamLaunchAfterSteps />
           ) : null}
           {slug === 'no-game-audio' ? <AudioAfterSteps /> : null}
+          {slug === 'vram-shortage' ? <VramAfterSteps /> : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <PowerShutdownAfterSteps />
           ) : null}
@@ -516,7 +527,9 @@ export default async function Page({
               注意
             </h2>
             <p>
-              {slug === 'no-game-audio'
+              {slug === 'vram-shortage'
+                ? '「共有GPUメモリ」の容量をグラフィックボードの専用VRAM容量に加算しないでください。ゲーム内の推定値とWindowsの実使用量を同じ数字として比較せず、GPU名・場面・設定をそろえて記録します。高解像度DLC・MOD以外のゲームファイルは削除しないでください。'
+                : slug === 'no-game-audio'
                 ? '出力先や音量は1項目ずつ変更して同じ場面で比較してください。別アプリまで無音なら、そのゲームのファイルを削除・再インストールする前にWindowsと出力機器を確認します。音声ドライバーやオーディオ拡張は変更前の状態を控え、結果が変わらなければ戻してください。'
                 : slug === 'steam-game-not-launching'
                 ? 'セーブ中・更新中・クラウド同期中にSteamを強制終了しないでください。MODを使うゲームでは変更前にセーブをコピーし、MODが必要な既存データを上書きしないでください。隔離された実行ファイルを確認せずに許可したり、セキュリティ機能を無効にしたりしないでください。'

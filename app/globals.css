@@ -3323,3 +3323,9 @@ kbd {
 .audio-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
 .audio-details li + li { margin-top: 8px; }
 .audio-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; overflow-wrap: anywhere; }
+
+/* VRAM diagnosis: readable steps beside the existing responsive tables. */
+.vram-details p { margin: 12px 0; }
+.vram-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
+.vram-details li + li { margin-top: 8px; }
+.vram-details h3 { margin: 18px 0 10px; font-weight: 700; }
