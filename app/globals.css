@@ -3346,3 +3346,8 @@ kbd {
 .low-gpu-usage-details p { margin: 12px 0; }
 .low-gpu-usage-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
 .low-gpu-usage-details li + li { margin-top: 8px; }
+
+/* Steam Input guide: make device, game, and result branches easy to scan. */
+.steam-input-details p { margin: 12px 0; }
+.steam-input-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
+.steam-input-details li + li { margin-top: 8px; }

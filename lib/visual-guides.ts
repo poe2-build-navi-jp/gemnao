@@ -52,7 +52,7 @@ const specs = [
   [
     'steam-input-controller',
     'steam-input-controller-fix-flow',
-    'コントローラーが反応しない時の確認順',
+    '認識地点別｜コントローラーの確認順',
   ],
   ['stutter-fix', 'pc-game-stutter-fix-flow', 'PCゲームがカクつく時の確認順'],
   [

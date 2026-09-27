@@ -8,6 +8,7 @@ import { stutterGuide } from './stutter-guide';
 import { vramGuide } from './vram-guide';
 import { lowFpsGuide } from './low-fps-guide';
 import { lowGpuUsageGuide } from './low-gpu-usage-guide';
+import { steamInputGuide } from './steam-input-guide';
 import { uninstallSaveGuide } from './uninstall-save-guide';
 import { saveBackupGuide } from './save-backup-guide';
 import { shaderCacheGuide } from './shader-cache-guide';
@@ -66,11 +67,6 @@ const causeMap: Record<string, string[]> = {
     '同期競合',
     'コピー漏れ',
   ],
-  'steam-input-controller': [
-    'Steam Input設定',
-    '複数コントローラー',
-    '外部変換ツール',
-  ],
   'controller-double-input': [
     'Steam InputとDS4Windowsの二重変換',
     '複数入力機器',
@@ -112,22 +108,6 @@ const repair = {
   url: 'https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB',
 };
 const reviewedActions: Record<string, string[][]> = {
-  'steam-input-controller': [
-    [
-      'ゲームを終了し、USBでコントローラーを1台だけPCへ直接接続する。別のゲームパッドや仮想コントローラーは一時的に外す',
-      'Steamを開き、「設定」→「コントローラー」で接続した機器が認識されるか確認する。認識されなければUSBポートやケーブルを替えて試す',
-    ],
-    [
-      'Steamの「ライブラリ」で対象ゲームを右クリック→「プロパティ」→「コントローラー」を開く',
-      'ゲームごとのSteam Input設定を「有効」にしてゲームを起動し、入力を確認する。既に有効なら「無効」に切り替えて再起動し、どちらで認識するか比較する',
-      'ゲームがゲームパッド入力に対応しているかストアページや公式ヘルプで確認する。非対応ゲームは設定だけで入力できるとは限らない',
-    ],
-    [
-      'ゲームとDS4Windowsなどの外部入力変換ツールを終了し、Steam Inputだけを有効にした状態でゲームを起動する',
-      '認識しない場合はゲームを終了し、Steam Inputを無効にして外部ツールだけを起動して比較する。同時に両方を有効にしない',
-      'どちらでも無反応ならSteamを終了→再起動し、別のゲームでも同じ機器を認識するか切り分ける',
-    ],
-  ],
   'controller-double-input': [
     [
       'ゲームを終了し、USBまたはBluetoothで接続中のゲームパッドを1台だけ残す。キーボード操作とゲームパッド操作を交互に試し、どの入力が2回反応するか確かめる',
@@ -237,10 +217,9 @@ const mk = (
     'directx-error',
     'visual-c-runtime-error',
     'remove-mods-safely',
-    'steam-input-controller',
     'controller-double-input',
   ].includes(slug)
-    ? ['steam-input-controller', 'controller-double-input'].includes(slug)
+    ? ['controller-double-input'].includes(slug)
       ? '2026-09-25'
       : '2026-09-24'
     : reviewedActions[slug]
@@ -282,23 +261,7 @@ export const commonGuides: CommonGuide[] = [
   lowFpsGuide,
   vramGuide,
   saveBackupGuide,
-  mk(
-    'steam-input-controller',
-    'Steam Inputでコントローラーが反応しない時の設定',
-    'Steam Input設定',
-    'PCゲームでコントローラーが反応しない場合は、まず有線で1台だけ接続し、Steamが機器を認識するか確認します。この記事ではゲームごとのSteam Input切り替えと外部変換ツールの競合を順に試せます。',
-    '有線1台で認識を確認し、Steam InputをON・OFFで比較します。',
-    [
-      'USB有線で1台だけ接続する',
-      'Steam Inputを切り替える',
-      '外部変換ツールを終了する',
-    ],
-    [
-      'controller-double-input',
-      'steam-game-not-launching',
-      'reset-config-file',
-    ],
-  ),
+  steamInputGuide,
   mk(
     'controller-double-input',
     'PCゲームでコントローラーが二重入力になる時の直し方',

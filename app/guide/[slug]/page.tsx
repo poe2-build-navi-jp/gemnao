@@ -22,6 +22,7 @@ import { VramBeforeSteps, VramAfterSteps } from '@/components/vram-details';
 import { LowFpsBeforeSteps, LowFpsAfterSteps } from '@/components/low-fps-details';
 import { LowGpuUsageBeforeSteps, LowGpuUsageAfterSteps } from '@/components/low-gpu-usage-details';
 import { SteamDiskWriteBeforeSteps, SteamDiskWriteAfterSteps } from '@/components/steam-disk-write-details';
+import { SteamInputBeforeSteps, SteamInputAfterSteps } from '@/components/steam-input-details';
 import {
   BlackScreenBeforeSteps,
   BlackScreenAfterSteps,
@@ -227,6 +228,15 @@ export default async function Page({
         <aside className="toc issue-toc">
           <strong>このページの内容</strong>
           <a href="#answer">まず試すこと</a>
+          {slug === 'steam-input-controller' ? (
+            <>
+              <a href="#input-branches">認識地点別の確認表</a>
+              <a href="#input-device">Steamが認識しない場合</a>
+              <a href="#input-game">Steamでは認識する場合</a>
+              <a href="#input-results">設定変更後の期待結果</a>
+              <a href="#input-conflicts">部分的・二重入力</a>
+            </>
+          ) : null}
           {slug === 'low-gpu-usage' ? (
             <>
               <a href="#gpu-normal">正常な低使用率</a>
@@ -496,6 +506,7 @@ export default async function Page({
           {slug === 'vram-shortage' ? <VramBeforeSteps /> : null}
           {slug === 'low-fps' ? <LowFpsBeforeSteps /> : null}
           {slug === 'low-gpu-usage' ? <LowGpuUsageBeforeSteps /> : null}
+          {slug === 'steam-input-controller' ? <SteamInputBeforeSteps /> : null}
           {slug === 'steam-disk-write-error' ? <SteamDiskWriteBeforeSteps /> : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <PowerShutdownBeforeSteps />
@@ -552,6 +563,7 @@ export default async function Page({
           {slug === 'vram-shortage' ? <VramAfterSteps /> : null}
           {slug === 'low-fps' ? <LowFpsAfterSteps /> : null}
           {slug === 'low-gpu-usage' ? <LowGpuUsageAfterSteps /> : null}
+          {slug === 'steam-input-controller' ? <SteamInputAfterSteps /> : null}
           {slug === 'steam-disk-write-error' ? <SteamDiskWriteAfterSteps /> : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <PowerShutdownAfterSteps />
@@ -564,7 +576,9 @@ export default async function Page({
               注意
             </h2>
             <p>
-              {slug === 'low-gpu-usage'
+              {slug === 'steam-input-controller'
+                ? 'Steamが機器を認識しない時点でゲーム別Steam Inputを切り替えても、接続の不具合は解決しません。ゲーム側を比較する場合は、変更前の設定を控え、ゲームを終了してから一項目ずつ変えてください。変換ツールを複数同時に動かすと入力が重複する場合があります。'
+                : slug === 'low-gpu-usage'
                 ? '使用率の数字だけでGPUやCPUの故障を判断しないでください。FPS上限と実際の使用GPU名を先に確認し、比較中は一項目だけ変更します。画面切り替えで負荷が下がる場合があるため、プレイ中の同じ場面で記録したFPSも合わせて判断してください。'
                 : slug === 'steam-disk-write-error'
                 ? 'Steamやゲームのフォルダーを容量確保のために手動削除しないでください。隔離されたファイルを出所の確認前に復元したり、セキュリティ機能を無効にしたりしないでください。ドライブの異音や認識切れがある場合は修復の反復を止め、重要データの保全とメーカーへの相談を優先します。'
