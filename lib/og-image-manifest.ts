@@ -22,7 +22,7 @@ export const ogImageManifest: Record<string, string> = {
   "/discord/mic-volume-low": "9eec1c00",
   "/discord/no-route": "7419f17d",
   "/discord/not-opening": "6ef5ed70",
-  "/discord/notifications-not-working": "1ed1422d",
+  "/discord/notifications-not-working": "4ab41adc",
   "/discord/overlay-not-showing": "7aff7383",
   "/discord/phone-verification-error": "7266d12e",
   "/discord/screen-share-black-screen": "27a28c0d",
