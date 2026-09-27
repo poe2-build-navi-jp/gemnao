@@ -22,6 +22,14 @@ type Step = {
   summary?: string;
   actions: string[];
   note?: string;
+  time?: string;
+  risk?: 'low' | 'medium' | 'high';
+};
+
+const riskLabels = {
+  low: '影響：小（元に戻せる）',
+  medium: '影響：中（設定が変わる）',
+  high: '影響：大（ファイルを入れ替える）',
 };
 type Row = { topic: string; struggling: number; resolved: number };
 type Method = { methodId: string; methodLabel: string; responses: number };
@@ -414,6 +422,16 @@ export function InteractiveSteps({
                   <span>{completed ? <Check size={19} /> : index + 1}</span>
                   <div>
                     <h3>{step.title}</h3>
+                    {step.time || step.risk ? (
+                      <p className="step-badges">
+                        {step.time ? <span>目安 {step.time}</span> : null}
+                        {step.risk ? (
+                          <span className={`risk-${step.risk}`}>
+                            {riskLabels[step.risk]}
+                          </span>
+                        ) : null}
+                      </p>
+                    ) : null}
                     {step.summary ? <p>{step.summary}</p> : null}
                     {stepReports.find(
                       (method) => method.methodId === step.id,
