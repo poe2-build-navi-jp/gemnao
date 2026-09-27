@@ -31,7 +31,7 @@ export const ogImageManifest: Record<string, string> = {
   "/discord/stream-no-audio": "bfb2ee4d",
   "/discord/system-helper": "7455f630",
   "/discord/update-failed": "45c152bc",
-  "/discord/user-volume-low": "47ca5d40",
+  "/discord/user-volume-low": "31161b2c",
   "/discord/voice-client-outdated": "9940ed57",
   "/discord/voice-cutting-out": "e483fd4c",
   "/games/aniimo": "30fe6a2d",
