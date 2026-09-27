@@ -6,7 +6,7 @@ export const ogImageManifest: Record<string, string> = {
   "/discord/bot-add": "77bf7c24",
   "/discord/bot-not-responding": "ee315b02",
   "/discord/bot-remove": "b35c5c5b",
-  "/discord/call-disconnects": "c75567e6",
+  "/discord/call-disconnects": "bb6b1e0b",
   "/discord/camera-not-working": "1a81ecf4",
   "/discord/crashing": "835e2bab",
   "/discord/echo-double-voice": "bf3f502a",
