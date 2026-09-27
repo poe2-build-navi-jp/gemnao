@@ -1,3 +1,4 @@
+import { uninstallSaveGuide } from './uninstall-save-guide';
 import { saveBackupGuide } from './save-backup-guide';
 import { shaderCacheGuide } from './shader-cache-guide';
 import { reshadeGuide } from './reshade-guide';
@@ -610,19 +611,7 @@ export const commonGuides: CommonGuide[] = [
   reshadeGuide,
   resetConfigGuide,
   shaderCacheGuide,
-  mk(
-    'uninstall-save-data',
-    'PCゲームをアンインストールするとセーブデータは消える？確認方法',
-    'アンインストールとセーブ',
-    '再インストール前にセーブとクラウド同期を確認します。',
-    'ゲームごとに違うため、保存場所を確認して別ドライブへコピーします。',
-    [
-      'ローカル保存場所を確認する',
-      'クラウド同期状態を確認する',
-      '別ドライブへバックアップする',
-    ],
-    ['save-data-backup', 'reset-config-file', 'remove-mods-safely'],
-  ),
+  uninstallSaveGuide,
   ...commonGrowthGuides,
 ];
 export const commonGuideBySlug = (slug: string) =>
