@@ -24,6 +24,7 @@ import { LowGpuUsageBeforeSteps, LowGpuUsageAfterSteps } from '@/components/low-
 import { SteamDiskWriteBeforeSteps, SteamDiskWriteAfterSteps } from '@/components/steam-disk-write-details';
 import { SteamInputBeforeSteps, SteamInputAfterSteps } from '@/components/steam-input-details';
 import { ControllerDoubleBeforeSteps, ControllerDoubleAfterSteps } from '@/components/controller-double-input-details';
+import { RemoveModsBeforeSteps, RemoveModsAfterSteps } from '@/components/remove-mods-details';
 import {
   BlackScreenBeforeSteps,
   BlackScreenAfterSteps,
@@ -409,6 +410,12 @@ export default async function Page({
               <a href="#reshade-files">ファイルの見分け方</a>
             </>
           ) : null}
+          {slug === 'remove-mods-safely' ? (
+            <>
+              <a href="#mods-methods">導入方法別の判断表</a>
+              <a href="#mods-backup">セーブと記録の退避</a>
+            </>
+          ) : null}
           {slug === 'reset-config-file' ? (
             <>
               <a href="#config-location">ゲーム別の保存先3例</a>
@@ -432,6 +439,12 @@ export default async function Page({
               <a href="#reshade-still-loaded">まだ表示される場合</a>
               <a href="#reshade-restore">元に戻す方法</a>
               <a href="#reshade-record">確認メモ</a>
+            </>
+          ) : null}
+          {slug === 'remove-mods-safely' ? (
+            <>
+              <a href="#mods-residue">残存確認の判断表</a>
+              <a href="#mods-restore">元に戻す手順</a>
             </>
           ) : null}
           {slug === 'save-data-backup' ? (
@@ -500,6 +513,7 @@ export default async function Page({
           ) : null}
           {slug === 'reset-config-file' ? <ResetConfigBeforeSteps /> : null}
           {slug === 'reshade-uninstall' ? <ReShadeBeforeSteps /> : null}
+          {slug === 'remove-mods-safely' ? <RemoveModsBeforeSteps /> : null}
           {slug === 'shader-cache-delete' ? <ShaderCacheBeforeSteps /> : null}
           {slug === 'save-data-backup' ? <SaveBackupBeforeSteps /> : null}
           {slug === 'uninstall-save-data' ? <UninstallSaveBeforeSteps /> : null}
@@ -558,6 +572,7 @@ export default async function Page({
           />
           {slug === 'reset-config-file' ? <ResetConfigAfterSteps /> : null}
           {slug === 'reshade-uninstall' ? <ReShadeAfterSteps /> : null}
+          {slug === 'remove-mods-safely' ? <RemoveModsAfterSteps /> : null}
           {slug === 'shader-cache-delete' ? <ShaderCacheAfterSteps /> : null}
           {slug === 'save-data-backup' ? <SaveBackupAfterSteps /> : null}
           {slug === 'uninstall-save-data' ? <UninstallSaveAfterSteps /> : null}
@@ -630,6 +645,8 @@ export default async function Page({
                                   ? 'キャッシュ以外の項目をまとめて削除しないでください。AppDataやゲームフォルダー全体、セーブ、設定、配布されたシェーダーファイルは削除対象ではありません。対象を特定できない時は操作を止めます。'
                                   : slug === 'reshade-uninstall'
                                     ? '同名のDLLを一括削除したり、セキュリティ機能やアンチチートを無効にしたりしないでください。オンラインゲームでは運営の利用規約・MOD方針を確認し、起動制限の回避に使わないでください。'
+                                    : slug === 'remove-mods-safely'
+                                      ? 'ゲーム・セーブ・MODの共有フォルダーを丸ごと削除しないでください。オンラインゲームでは運営のMOD利用方針を確認し、起動制限の回避に使わないでください。'
                                     : slug === 'reset-config-file'
                                       ? 'AppData・Documents・Saved・Steamのuserdataを丸ごと削除しないでください。レジストリ編集やWindowsの初期化は、この手順には必要ありません。公式の対象ファイルを特定できない時は操作を止めてください。'
                                       : '変更前にセーブと設定をバックアップし、対策は1項目ずつ試してください。'}

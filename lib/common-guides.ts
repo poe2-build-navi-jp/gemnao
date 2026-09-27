@@ -15,6 +15,7 @@ import { saveBackupGuide } from './save-backup-guide';
 import { shaderCacheGuide } from './shader-cache-guide';
 import { reshadeGuide } from './reshade-guide';
 import { resetConfigGuide } from './reset-config-guide';
+import { removeModsGuide } from './remove-mods-guide';
 import type { ContentStatus } from '@/lib/game-articles';
 import { commonGrowthGuides } from '@/lib/common-growth-guides';
 
@@ -73,11 +74,6 @@ const causeMap: Record<string, string[]> = {
     '必要版の不足',
     'ゲームファイル破損',
   ],
-  'remove-mods-safely': [
-    '本体更新とMOD版の不一致',
-    '外部DLLの残存',
-    '読み込み順の競合',
-  ],
   'reshade-uninstall': [
     'API DLLの残存',
     'ReShade設定の競合',
@@ -118,22 +114,6 @@ const reviewedActions: Record<string, string[][]> = {
       '作業中のファイルを保存し、Windowsのスタート→電源→再起動を選ぶ',
       'Steamのライブラリ→ゲームを右クリック→プロパティ→インストール済みファイル→ゲームファイルの整合性を確認を選ぶ',
       '完了後にゲームを起動する。同じエラーなら全文と導入したパッケージの版を公式サポートへ伝え、単体DLL配布サイトは使わない',
-    ],
-  ],
-  'remove-mods-safely': [
-    [
-      'ゲームを終了し、公式サポートで対象ゲームのセーブ保存先を確認する。エクスプローラーでセーブフォルダーをコピーし、別の場所に日付付きフォルダーを作って貼り付ける',
-      'MOD管理ツールの有効一覧と読み込み順を画面保存する。手動導入した場合は配布元の導入手順と追加ファイル一覧を残す',
-    ],
-    [
-      '管理ツールで入れたMODは同じツールで無効化し、反映・配置の操作が必要な場合はそのツールの案内に従う',
-      '手動導入分は追加したと確認できるファイルだけを、ゲームの外に作った退避フォルダーへ移す。不明なDLLや本体ファイルは削除しない',
-      'Steamワークショップ利用時はSteamライブラリ→対象ゲーム→ワークショップ→自分のファイル→サブスクライブ中のアイテムで対象を確認し、一覧を控えてから解除する',
-    ],
-    [
-      'Steamライブラリ→対象ゲームを右クリック→プロパティ→インストール済みファイル→ゲームファイルの整合性を確認を選ぶ',
-      '検証完了後にMODなしでタイトル画面まで起動する。MOD必須の既存セーブはロード・上書きせず、新規データで症状を確認する',
-      '整合性確認は手動で追加したMODファイルをすべて削除する機能ではありません。症状が残る場合は導入記録と退避漏れを照合する',
     ],
   ],
 
@@ -197,7 +177,6 @@ const mk = (
   checkedAt: [
     'directx-error',
     'visual-c-runtime-error',
-    'remove-mods-safely',
   ].includes(slug)
     ? '2026-09-24'
     : reviewedActions[slug]
@@ -262,20 +241,7 @@ export const commonGuides: CommonGuide[] = [
       repair,
     ],
   ),
-  mk(
-    'remove-mods-safely',
-    'PCゲームのMODを安全に外す方法｜起動しない時の戻し方',
-    'MODを安全に外す',
-    'MOD導入後や本体更新後にゲームが起動しない場合は、セーブを保全してMODなしの状態を試します。管理ツール・手動導入・Steamワークショップ別の外し方と、整合性確認の操作を説明します。MOD必須のセーブを上書きせずに切り分けてください。',
-    'セーブを保全し、追加ファイルを全退避して、本体だけで起動します。',
-    [
-      'セーブと導入記録を残す',
-      '全MODをゲーム外へ退避する',
-      '本体を修復して起動する',
-    ],
-    ['save-data-backup', 'steam-game-not-launching', 'reshade-uninstall'],
-    [repair],
-  ),
+  removeModsGuide,
   reshadeGuide,
   resetConfigGuide,
   shaderCacheGuide,

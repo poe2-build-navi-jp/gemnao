@@ -3237,6 +3237,14 @@ kbd {
   font-size: 13px;
 }
 
+.remove-mods-details ol {
+  margin: 14px 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+.remove-mods-details li + li { margin-top: 10px; }
+.remove-mods-details code { overflow-wrap: anywhere; }
+
 .reset-examples { table-layout: fixed; }
 .reset-examples td { overflow-wrap: anywhere; }
 .reset-examples td p { margin: 0 0 8px; }

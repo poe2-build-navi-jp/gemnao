@@ -89,7 +89,7 @@ export const ogImageManifest: Record<string, string> = {
   "/guide/gpu-driver-update": "1f9872fa",
   "/guide/low-gpu-usage": "01de759c",
   "/guide/pc-game-freezes": "c524d6be",
-  "/guide/remove-mods-safely": "9460a42f",
+  "/guide/remove-mods-safely": "fcfd7ec7",
   "/guide/reset-config-file": "605e6e8e",
   "/guide/reshade-uninstall": "ebb8c94f",
   "/guide/shader-cache-delete": "dc5b0b95",
