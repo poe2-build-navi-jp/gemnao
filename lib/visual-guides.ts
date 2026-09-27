@@ -111,7 +111,7 @@ const discordSpecs = [
   [
     'stream-stuttering',
     'discord-stream-stuttering-fix',
-    'Discord配信がカクカクする時の確認順',
+    'Discord配信がカクカクする時の比較',
   ],
 ] as const;
 const discordArticleVisuals = discordSpecs.map(([key, filename, title]) => {
@@ -124,7 +124,15 @@ const discordArticleVisuals = discordSpecs.map(([key, filename, title]) => {
     title,
     alt: `${title}を示すゲムなおの図解`,
     caption: `「${article.shortTitle}」の記事の原因と対処法を示します。操作の詳細は本文を確認してください。`,
-    steps: article.causes.map((cause) => cause.title),
+    steps:
+      key === 'stream-stuttering'
+        ? [
+            '配信者のゲーム画面を確認',
+            '視聴者2人の受信画面を比べる',
+            '配信中に720p・30fpsへ変更',
+            '同じ場面で変更前後を比べる',
+          ]
+        : article.causes.map((cause) => cause.title),
     image: `/images/${filename}.webp`,
     ogImage: `/images/${filename}-og.png`,
   } satisfies GuideVisual;
