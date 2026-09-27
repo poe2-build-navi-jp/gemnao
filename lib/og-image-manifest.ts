@@ -28,7 +28,7 @@ export const ogImageManifest: Record<string, string> = {
   "/discord/screen-share-black-screen": "038074d8",
   "/discord/screen-share-not-working": "950ea3dc",
   "/discord/slow-performance": "b69eb26c",
-  "/discord/stream-no-audio": "b7ccb434",
+  "/discord/stream-no-audio": "bfb2ee4d",
   "/discord/system-helper": "7455f630",
   "/discord/update-failed": "45c152bc",
   "/discord/user-volume-low": "47ca5d40",

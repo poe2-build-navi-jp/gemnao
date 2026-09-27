@@ -210,10 +210,11 @@ export default async function DiscordArticlePage({
               aria-labelledby="discord-diagnosis-title"
             >
               <h2 id="discord-diagnosis-title">
-                どこで止まる？ 症状別の判定表
+                {item.diagnosisTitle ?? 'どこで止まる？ 症状別の判定表'}
               </h2>
               <p>
-                配信の開始前・視聴者側・共有対象のどこで失敗するかを確認してください。
+                {item.diagnosisIntro ??
+                  '配信の開始前・視聴者側・共有対象のどこで失敗するかを確認してください。'}
               </p>
               <table>
                 <thead>
