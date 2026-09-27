@@ -3287,3 +3287,9 @@ kbd {
 .bsod-details ul { list-style: disc; }
 .bsod-details li + li { margin-top: 8px; }
 .bsod-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; }
+
+/* Sudden power loss guide: readable comparison and diagnostic steps. */
+.power-shutdown-details p { margin: 12px 0; }
+.power-shutdown-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
+.power-shutdown-details li + li { margin-top: 8px; }
+.power-shutdown-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; }

@@ -37,7 +37,7 @@ const specs = [
   [
     'pc-shuts-down-while-gaming',
     'gaming-pc-restart-shutdown-checklist',
-    'ゲーム中にPCの電源が落ちる時の確認順',
+    'ゲーム中の電源断・再起動を調べる',
   ],
   [
     'bsod-while-gaming',

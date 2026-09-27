@@ -1,3 +1,4 @@
+import { powerShutdownGuide } from './power-shutdown-guide';
 import { bsodGuide } from './bsod-guide';
 import type { CommonGuide } from '@/lib/common-guides';
 
@@ -14,11 +15,6 @@ const steamDiskCheck = {
 const steamInterference = {
   label: 'Steamサポート：Steamと競合する可能性があるプログラム',
   url: 'https://help.steampowered.com/ja/faqs/view/1F39-DCB4-FF28-5748',
-};
-
-const windowsStopErrors = {
-  label: 'Microsoft：予期しない再起動と停止コードのトラブルシューティング',
-  url: 'https://support.microsoft.com/ja-jp/windows/experience/performance-optimization/troubleshooting-windows-unexpected-restarts-and-stop-code-errors',
 };
 
 const windowsAudio = {
@@ -144,62 +140,7 @@ export const commonGrowthGuides: CommonGuide[] = [
       'ストレージ接続・ファイルシステムの問題',
     ],
   },
-  {
-    slug: 'pc-shuts-down-while-gaming',
-    title: 'ゲーム中にPCの電源が落ちる・再起動するときの原因と対処法',
-    shortTitle: 'ゲーム中に電源が落ちる',
-    description:
-      'PCゲーム中だけ突然電源が落ちる、再起動する場合に、Windows更新、温度、負荷、電源系統を安全に切り分ける方法です。',
-    conclusion:
-      '焦げた臭い、異音、異常な発熱がある場合は直ちに電源を切って使用を中止してください。異常がなければWindowsの更新とイベント記録、温度、オーバークロック、電源接続を順に確認します。',
-    checkedAt: '2026-09-20',
-    steps: [
-      {
-        title: '危険な兆候があれば使用を中止する',
-        actions: [
-          '焦げた臭い、火花、異音、触れないほどの発熱がある場合はPCを終了し、電源ケーブルを抜く',
-          '電源ユニットやPC本体を分解せず、メーカーまたは修理窓口へ相談する',
-          '異常がない場合も、繰り返し電源断が起きる間は重要データをバックアップする',
-        ],
-      },
-      {
-        title: 'Windows更新と発生記録を確認する',
-        actions: [
-          'Windows Updateを実行し、保留中の更新を完了して再起動する',
-          '再起動後にWindows セキュリティとデバイスドライバーの警告を確認する',
-          'イベント ビューアーまたは信頼性モニターで、停止直前の時刻とエラー名を記録する',
-          '停止コードが表示される場合はブルースクリーンの記事へ進む',
-        ],
-      },
-      {
-        title: '温度と負荷を下げて再現するか確認する',
-        actions: [
-          'PCの吸排気口をふさがず、ほこりが目立つ場合は電源を切って外側から清掃する',
-          'ゲームのFPS上限と画質を下げ、録画や配信など負荷の高いアプリを終了する',
-          'PCメーカーまたは部品メーカーの監視ツールでCPU・GPU温度を確認する',
-          '温度がメーカー上限付近まで上がる場合は使用を止めて点検を依頼する',
-        ],
-      },
-      {
-        title: '標準設定と電源接続で切り分ける',
-        actions: [
-          'CPU・GPU・メモリのオーバークロックやアンダーボルトを標準設定へ戻す',
-          '電源タップを避け、PCの電源ケーブルを壁コンセントへ確実に接続して比較する',
-          '特定ゲームだけならゲームファイルと公式既知問題、全ゲームならPCメーカーのハードウェア診断を確認する',
-          '電源ユニット交換や内部配線作業は自分で断定せず、PCメーカーまたは専門店へ相談する',
-        ],
-      },
-    ],
-    sources: [windowsStopErrors],
-    related: ['bsod-while-gaming', 'pc-game-crash', 'gpu-driver-update'],
-    status: 'verified',
-    causes: [
-      'CPU・GPUの温度上昇',
-      '高負荷時の電源供給や接続の問題',
-      'オーバークロック・ドライバー・Windowsの不安定化',
-      'メモリ、ストレージ、電源などハードウェアの異常',
-    ],
-  },
+  powerShutdownGuide,
   bsodGuide,
   {
     slug: 'no-game-audio',
