@@ -91,7 +91,7 @@ export const ogImageManifest: Record<string, string> = {
   "/guide/pc-game-freezes": "6cc26ded",
   "/guide/remove-mods-safely": "9460a42f",
   "/guide/reset-config-file": "605e6e8e",
-  "/guide/reshade-uninstall": "13e34f87",
+  "/guide/reshade-uninstall": "ebb8c94f",
   "/guide/shader-cache-delete": "54f235fc",
   "/guide/uninstall-save-data": "9a7eec60",
   "/guide/verify-steam-files": "09ded23d",

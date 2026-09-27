@@ -1,3 +1,4 @@
+import { reshadeGuide } from './reshade-guide';
 import { resetConfigGuide } from './reset-config-guide';
 import type { ContentStatus } from '@/lib/game-articles';
 import { commonGrowthGuides } from '@/lib/common-growth-guides';
@@ -616,20 +617,7 @@ export const commonGuides: CommonGuide[] = [
     ['save-data-backup', 'steam-game-not-launching', 'reshade-uninstall'],
     [repair],
   ),
-  mk(
-    'reshade-uninstall',
-    'ReShadeを完全に外す方法｜ゲームが起動しない時の確認',
-    'ReShadeを外す',
-    'ReShade導入後のクラッシュを切り分けます。',
-    'API DLL、ReShade.ini、reshade-shadersをゲーム外へ退避します。',
-    [
-      '導入先とAPI DLLを確認する',
-      '関連ファイルをまとめて退避する',
-      '整合性確認後に起動する',
-    ],
-    ['remove-mods-safely', 'steam-game-not-launching', 'reset-config-file'],
-    [{ label: 'ReShade公式', url: 'https://reshade.me/' }, repair],
-  ),
+  reshadeGuide,
   resetConfigGuide,
   mk(
     'shader-cache-delete',

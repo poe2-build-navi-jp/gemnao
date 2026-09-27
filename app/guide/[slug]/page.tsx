@@ -1,3 +1,7 @@
+import {
+  ReShadeBeforeSteps,
+  ReShadeAfterSteps,
+} from '@/components/reshade-details';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { notFound } from 'next/navigation';
@@ -95,7 +99,7 @@ export default async function Page({
   const gameLinks = gameArticles
     .filter(
       (article) =>
-        article.category === topic ||
+        article.category === (slug === 'reshade-uninstall' ? 'mods' : topic) ||
         (topic === 'display' && article.category === 'settings'),
     )
     .slice(0, 5);
@@ -175,6 +179,12 @@ export default async function Page({
         <aside className="toc issue-toc">
           <strong>このページの内容</strong>
           <a href="#answer">まず試すこと</a>
+          {slug === 'reshade-uninstall' ? (
+            <>
+              <a href="#reshade-route">導入方法で選ぶ</a>
+              <a href="#reshade-files">ファイルの見分け方</a>
+            </>
+          ) : null}
           {slug === 'reset-config-file' ? (
             <>
               <a href="#config-location">ゲーム別の保存先3例</a>
@@ -191,6 +201,13 @@ export default async function Page({
             <>
               <a href="#reset-troubleshooting">再生成できない時</a>
               <a href="#reset-record">保存・共有用メモ</a>
+            </>
+          ) : null}
+          {slug === 'reshade-uninstall' ? (
+            <>
+              <a href="#reshade-still-loaded">まだ表示される場合</a>
+              <a href="#reshade-restore">元に戻す方法</a>
+              <a href="#reshade-record">確認メモ</a>
             </>
           ) : null}
           <a href="#faq">よくある質問</a>
@@ -234,6 +251,7 @@ export default async function Page({
             </nav>
           ) : null}
           {slug === 'reset-config-file' ? <ResetConfigBeforeSteps /> : null}
+          {slug === 'reshade-uninstall' ? <ReShadeBeforeSteps /> : null}
           <InteractiveSteps
             contextSlug={`guide-${item.slug}`}
             topic={topic}
@@ -267,15 +285,18 @@ export default async function Page({
             ]}
           />
           {slug === 'reset-config-file' ? <ResetConfigAfterSteps /> : null}
+          {slug === 'reshade-uninstall' ? <ReShadeAfterSteps /> : null}
           <section className="caution-block">
             <h2>
               <AlertTriangle size={22} />
               注意
             </h2>
             <p>
-              {slug === 'reset-config-file'
-                ? 'AppData・Documents・Saved・Steamのuserdataを丸ごと削除しないでください。レジストリ編集やWindowsの初期化は、この手順には必要ありません。公式の対象ファイルを特定できない時は操作を止めてください。'
-                : '変更前にセーブと設定をバックアップし、対策は1項目ずつ試してください。'}
+              {slug === 'reshade-uninstall'
+                ? '同名のDLLを一括削除したり、セキュリティ機能やアンチチートを無効にしたりしないでください。オンラインゲームでは運営の利用規約・MOD方針を確認し、起動制限の回避に使わないでください。'
+                : slug === 'reset-config-file'
+                  ? 'AppData・Documents・Saved・Steamのuserdataを丸ごと削除しないでください。レジストリ編集やWindowsの初期化は、この手順には必要ありません。公式の対象ファイルを特定できない時は操作を止めてください。'
+                  : '変更前にセーブと設定をバックアップし、対策は1項目ずつ試してください。'}
             </p>
           </section>
           <section className="faq-section" id="faq">
