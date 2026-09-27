@@ -19,6 +19,7 @@ import {
 } from '@/components/steam-launch-details';
 import { AudioBeforeSteps, AudioAfterSteps } from '@/components/audio-details';
 import { VramBeforeSteps, VramAfterSteps } from '@/components/vram-details';
+import { LowFpsBeforeSteps, LowFpsAfterSteps } from '@/components/low-fps-details';
 import {
   BlackScreenBeforeSteps,
   BlackScreenAfterSteps,
@@ -224,6 +225,15 @@ export default async function Page({
         <aside className="toc issue-toc">
           <strong>このページの内容</strong>
           <a href="#answer">まず試すこと</a>
+          {slug === 'low-fps' ? (
+            <>
+              <a href="#fps-measure">同じ場面での計測</a>
+              <a href="#fps-branches">上限・CPU・GPUの分岐</a>
+              <a href="#fps-limit">FPS上限の確認</a>
+              <a href="#fps-compare">解像度を変えた数値例</a>
+              <a href="#fps-next">結果別の次の行動</a>
+            </>
+          ) : null}
           {slug === 'vram-shortage' ? (
             <>
               <a href="#vram-readings">専用・共有メモリの読み方</a>
@@ -463,6 +473,7 @@ export default async function Page({
           ) : null}
           {slug === 'no-game-audio' ? <AudioBeforeSteps /> : null}
           {slug === 'vram-shortage' ? <VramBeforeSteps /> : null}
+          {slug === 'low-fps' ? <LowFpsBeforeSteps /> : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <PowerShutdownBeforeSteps />
           ) : null}
@@ -516,6 +527,7 @@ export default async function Page({
           ) : null}
           {slug === 'no-game-audio' ? <AudioAfterSteps /> : null}
           {slug === 'vram-shortage' ? <VramAfterSteps /> : null}
+          {slug === 'low-fps' ? <LowFpsAfterSteps /> : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <PowerShutdownAfterSteps />
           ) : null}
@@ -527,7 +539,9 @@ export default async function Page({
               注意
             </h2>
             <p>
-              {slug === 'vram-shortage'
+              {slug === 'low-fps'
+                ? '計測中はFPS上限、V-Sync、フレーム生成、解像度を同時に変えず、ゲーム中の同じ場面で比較してください。タスクマネージャーへ画面を切り替えると負荷が変わるため、GPU・CPU使用率は傾向として読みます。平均CPU使用率やGPU使用率だけで故障を断定しないでください。'
+                : slug === 'vram-shortage'
                 ? '「共有GPUメモリ」の容量をグラフィックボードの専用VRAM容量に加算しないでください。ゲーム内の推定値とWindowsの実使用量を同じ数字として比較せず、GPU名・場面・設定をそろえて記録します。高解像度DLC・MOD以外のゲームファイルは削除しないでください。'
                 : slug === 'no-game-audio'
                 ? '出力先や音量は1項目ずつ変更して同じ場面で比較してください。別アプリまで無音なら、そのゲームのファイルを削除・再インストールする前にWindowsと出力機器を確認します。音声ドライバーやオーディオ拡張は変更前の状態を控え、結果が変わらなければ戻してください。'

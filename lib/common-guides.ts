@@ -6,6 +6,7 @@ import { gpuDriverGuide } from './gpu-driver-guide';
 import { freezeGuide } from './freeze-guide';
 import { stutterGuide } from './stutter-guide';
 import { vramGuide } from './vram-guide';
+import { lowFpsGuide } from './low-fps-guide';
 import { uninstallSaveGuide } from './uninstall-save-guide';
 import { saveBackupGuide } from './save-backup-guide';
 import { shaderCacheGuide } from './shader-cache-guide';
@@ -64,7 +65,6 @@ const causeMap: Record<string, string[]> = {
     'シェーダー構築',
     'VRAM・ストレージ待ち',
   ],
-  'low-fps': ['解像度・レイトレーシング負荷', 'GPUドライバー', 'VRAM不足'],
   'save-data-backup': [
     'ローカル保存とクラウド保存の混同',
     '同期競合',
@@ -153,22 +153,6 @@ const reviewedActions: Record<string, string[][]> = {
     [
       '入力変換の設定を決めたらゲームとSteamを終了し、Steamを起動し直して対象ゲームを起動する',
       '同じボタンを1回押して結果を確認する。ゲーム内にコントローラー割り当てがある場合は重複登録がないか確認する',
-    ],
-  ],
-  'low-fps': [
-    [
-      'ゲームの「設定」→「映像」「ディスプレイ」または「グラフィック」を開く。項目名はゲームによって異なります',
-      '解像度・レンダリング解像度を確認し、まずレンダリング倍率が100%を超えていれば100%に戻して適用する',
-      '対応するアップスケーラー（DLSS・FSR・XeSS）が選べる場合は「品質」で比較する。設定がなければ解像度を1段階下げる',
-    ],
-    [
-      '同じグラフィック設定で「レイトレーシング」をオフにして適用する。項目がないゲームは次の操作へ進む',
-      '改善が足りなければ「影の品質」を1段階下げて適用し、同じセーブ・同じ場所で確認する',
-    ],
-    [
-      'グラフィック設定の「テクスチャ品質」を1段階下げ、再起動を求められたらゲームを終了して起動し直す',
-      'ブラウザーの動画・録画アプリを終了して比較する。使用量を確認するにはCtrl＋Shift＋Esc→パフォーマンス→GPU→専用GPUメモリを開く',
-      '画質を下げてもFPSが変わらない場合は、FPS上限や使用GPUを切り分けるため関連記事「GPU使用率が低い」を確認する',
     ],
   ],
   'low-gpu-usage': [
@@ -287,7 +271,6 @@ const mk = (
       : []),
   ],
   checkedAt: [
-    'low-fps',
     'low-gpu-usage',
     'directx-error',
     'visual-c-runtime-error',
@@ -347,20 +330,7 @@ export const commonGuides: CommonGuide[] = [
   blackScreenGuide,
   gpuDriverGuide,
   stutterGuide,
-  mk(
-    'low-fps',
-    'PCゲームのFPSが低い時に見直す設定順',
-    'FPSが低い',
-    '推奨スペックを満たしているのにFPSが低い、画質を上げると重くなる場合の手順です。まず解像度とレンダリング倍率を確認し、レイトレーシング、影、テクスチャの順で比較します。設定を開く場所とVRAMの確認方法を、3つのSTEPで説明します。',
-    '解像度、レイトレーシング、影、テクスチャの順に比較します。',
-    [
-      '解像度とアップスケーラーを確認する',
-      'レイトレーシングと影を下げる',
-      'VRAM使用量を減らす',
-    ],
-    ['stutter-fix', 'vram-shortage', 'gpu-driver-update', 'low-gpu-usage'],
-    [nv, amd],
-  ),
+  lowFpsGuide,
   vramGuide,
   saveBackupGuide,
   mk(
