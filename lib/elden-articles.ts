@@ -36,7 +36,7 @@ const sources = {
 type Draft = Omit<
   GameArticle,
   'gameSlug' | 'checkedAt' | 'symptoms' | 'seoTitle' | 'status'
->;
+> & { seoTitle?: string };
 
 const make = (draft: Draft): GameArticle => ({
   gameSlug: game.slug,
@@ -65,6 +65,8 @@ const verifyFilesStep = {
 export const eldenArticles: GameArticle[] = [
   make({
     slug: 'save-data',
+    // Shorter <title> for search results; the page heading keeps the full title.
+    seoTitle: 'エルデンリングのセーブデータの場所とバックアップ方法【Steam版】',
     category: 'save',
     title:
       'エルデンリング（ELDEN RING）のセーブデータの場所｜バックアップと復元手順【PC・Steam版】',
@@ -506,6 +508,8 @@ export const eldenArticles: GameArticle[] = [
   }),
   make({
     slug: 'ultrawide',
+    // Shorter <title> for search results; the page heading keeps the full title.
+    seoTitle: 'エルデンリングはウルトラワイド非対応｜21:9の黒帯は仕様【PC版】',
     category: 'settings',
     title:
       'エルデンリングはウルトラワイド非対応｜21:9・32:9の黒帯は公式仕様【PC版】',

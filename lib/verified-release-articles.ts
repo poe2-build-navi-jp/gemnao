@@ -32,7 +32,7 @@ type Draft = Omit<
   | 'seoTitle'
   | 'status'
   | 'targetVersion'
->;
+> & { seoTitle?: string };
 
 const make = (draft: Draft): GameArticle => ({
   gameSlug: 'star-wars-zero-company',
@@ -63,6 +63,8 @@ const repairActions = [
 export const verifiedReleaseArticles: GameArticle[] = [
   make({
     slug: 'not-launching',
+    // Shorter <title> for search results; the page heading keeps the full title.
+    seoTitle: 'ゼロ・カンパニーが起動しない・クラッシュする時の対処法【PC版】',
     category: 'launch',
     title:
       'STAR WARS ゼロ・カンパニーが起動しない・クラッシュする時の対処法【PC版】',
@@ -240,6 +242,8 @@ export const verifiedReleaseArticles: GameArticle[] = [
   }),
   make({
     slug: 'black-screen',
+    // Shorter <title> for search results; the page heading keeps the full title.
+    seoTitle: 'ゼロ・カンパニーが黒い画面になる時の対処法【PC版】',
     category: 'settings',
     title:
       'STAR WARS ゼロ・カンパニーが黒い画面・真っ暗になる時の対処法【PC版】',
@@ -370,6 +374,8 @@ export const verifiedReleaseArticles: GameArticle[] = [
   }),
   make({
     slug: 'save-progress',
+    // Shorter <title> for search results; the page heading keeps the full title.
+    seoTitle: 'ゼロ・カンパニーのセーブが消えた・保存されない原因【PC版】',
     category: 'save',
     title:
       'STAR WARS ゼロ・カンパニーのセーブが消えた・進行が保存されない原因とセーブデータの場所【PC版】',
@@ -500,6 +506,8 @@ export const verifiedReleaseArticles: GameArticle[] = [
   }),
   make({
     slug: 'gtx10-rtx20-low-fps',
+    // Shorter <title> for search results; the page heading keeps the full title.
+    seoTitle: 'ゼロ・カンパニーが重い・FPSが低い時の設定【PC版】',
     category: 'display',
     title:
       'STAR WARS ゼロ・カンパニーが重い・FPSが低い時の設定｜GTX 10・RTX 20・Intel Arc【PC版】',

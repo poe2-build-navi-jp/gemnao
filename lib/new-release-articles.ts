@@ -227,8 +227,7 @@ export const newReleaseArticles: GameArticle[] = [
       sources.steam,
     ],
     related: [],
-    seoTitle:
-      'WARDOGSがサーバーに接続できない・ログイン待ちが終わらない時の対処法【PC版】',
+    seoTitle: 'WARDOGSでサーバーに接続できない・ログイン待ちの対処法',
     metaDescription:
       'WARDOGSでサーバーに接続できない・ログイン待ちが進まない時の対処法。公式のお知らせの確認、列を抜けずに待つ理由、更新の適用、公式・コミュニティに分かれたサーバーブラウザ、9月18日に無効化されたファミリーシェアリングまで解説。',
   },

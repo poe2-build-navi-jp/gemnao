@@ -41,7 +41,7 @@ type Draft = Omit<
   | 'seoTitle'
   | 'status'
   | 'targetVersion'
->;
+> & { seoTitle?: string };
 
 const make = (draft: Draft): GameArticle => ({
   gameSlug: game.slug,
@@ -66,6 +66,8 @@ const minimumSpecFact = {
 export const currentGameArticles: GameArticle[] = [
   make({
     slug: 'not-launching',
+    // Shorter <title> for search results; the page heading keeps the full title.
+    seoTitle: '鬼武者 Way of the Swordが起動しない・落ちる時の対処法【PC版】',
     category: 'launch',
     title:
       '鬼武者 Way of the Swordが起動しない・クラッシュする時の対処法【PC・Steam版】',
@@ -246,6 +248,8 @@ export const currentGameArticles: GameArticle[] = [
   }),
   make({
     slug: 'crash-report',
+    // Shorter <title> for search results; the page heading keeps the full title.
+    seoTitle: '鬼武者 Way of the SwordのCrashReportの場所【PC版】',
     category: 'launch',
     title:
       '鬼武者 Way of the SwordのCrashReportの場所とカプコンへの問い合わせ準備【PC版】',
@@ -361,6 +365,8 @@ export const currentGameArticles: GameArticle[] = [
   }),
   make({
     slug: 'low-fps',
+    // Shorter <title> for search results; the page heading keeps the full title.
+    seoTitle: '鬼武者 Way of the SwordのFPSが低い時の設定【PC版】',
     category: 'display',
     title:
       '鬼武者 Way of the SwordのFPSが低い・安定しない時の設定と対処法【PC版】',
@@ -525,6 +531,8 @@ export const currentGameArticles: GameArticle[] = [
   }),
   make({
     slug: 'shader-cache',
+    // Shorter <title> for search results; the page heading keeps the full title.
+    seoTitle: '鬼武者 Way of the Swordのshader.cache削除・再構築【PC版】',
     category: 'settings',
     title:
       '鬼武者 Way of the Swordのshader.cacheの場所と削除・再構築方法【PC版】',
@@ -647,6 +655,8 @@ export const currentGameArticles: GameArticle[] = [
   }),
   make({
     slug: 'black-screen',
+    // Shorter <title> for search results; the page heading keeps the full title.
+    seoTitle: '鬼武者 Way of the Swordが黒画面・映らない時の対処法【PC版】',
     category: 'settings',
     title:
       '鬼武者 Way of the Swordが黒画面・映らない・ちらつく時の対処法【PC版】',
@@ -781,6 +791,8 @@ export const currentGameArticles: GameArticle[] = [
   }),
   make({
     slug: 'hdr',
+    // Shorter <title> for search results; the page heading keeps the full title.
+    seoTitle: '鬼武者 Way of the SwordのHDRが白っぽい時の直し方【PC版】',
     category: 'settings',
     title:
       '鬼武者 Way of the SwordのHDR設定｜白っぽい・有効にならない時の直し方【PC版】',
@@ -933,6 +945,8 @@ export const currentGameArticles: GameArticle[] = [
   }),
   make({
     slug: 'gpu-driver-version',
+    // Shorter <title> for search results; the page heading keeps the full title.
+    seoTitle: '鬼武者 Way of the SwordのGPUドライバー条件【NVIDIA・AMD】',
     category: 'launch',
     title:
       '鬼武者 Way of the SwordのGPUドライバー条件｜NVIDIA 596.49・AMD 26.5.1以上【PC版】',

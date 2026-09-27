@@ -125,7 +125,7 @@ export default async function DiscordArticlePage({
     inLanguage: 'ja-JP',
     about: 'Discord',
     mainEntityOfPage: canonical,
-    ...(visual ? { image: `https://gemnao.pages.dev${visual.image}` } : {}),
+    image: `https://gemnao.pages.dev${visual?.image || ogImageFor(`/discord/${item.slug}`)}`,
   };
   const faqSchema = item.faqs.length
     ? {
