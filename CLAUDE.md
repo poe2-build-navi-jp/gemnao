@@ -37,6 +37,12 @@
 7. `.env*`、認証情報、CloudflareトークンをGitへ追加しない。
 8. D1の既存テーブルと回答データを壊さない。
 
+## 記事の品質基準
+
+- 記事を充実させる時は`lib/game-articles.ts`の任意項目を使う：`quickFacts`（30秒でわかる要点。パスは`copy: true`でコピーボタン付き）、`diagnosis`（症状→原因→STEPの早見表）、各STEPの`time`・`risk`、`avoid`（やってはいけないこと）、記事固有の`faqs`。
+- 追加する事実は、公式FAQ・公式サポート・Steamストア・PCGamingWikiなどで確認し、`sources`に出典を載せる。確認できない画面の項目名は断定せず、言い換える。
+- 見本は`lib/elden-articles.ts`（2026-09-27に出典確認済み）。
+
 ## SEO・SNS共有の仕組み（壊さないこと）
 
 - `next.config.ts`の`htmlLimitedBots: /.*/`を削除しない。削除するとtitle・description・canonical・OGPが`<body>`側に出力され、LINE・はてブ・Bluesky・Googlebotで正しく読まれなくなる。

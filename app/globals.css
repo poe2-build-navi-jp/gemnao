@@ -3006,3 +3006,169 @@ kbd {
   outline: 3px solid var(--orange);
   outline-offset: 2px;
 }
+
+/* Article upgrades: quick facts, symptom table, step badges, avoid list */
+.quick-facts {
+  margin-top: 22px;
+  padding: 20px 22px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--navy);
+  border-radius: 7px;
+}
+.quick-facts h2,
+.avoid-block h2 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 12px;
+  font-size: 21px;
+}
+.quick-facts dl {
+  display: grid;
+  gap: 0;
+  margin: 0;
+}
+.quick-facts dl > div {
+  display: grid;
+  grid-template-columns: minmax(7.5em, 11em) 1fr;
+  gap: 12px;
+  padding: 11px 0;
+  border-top: 1px solid var(--line);
+}
+.quick-facts dt {
+  color: var(--muted);
+  font-weight: 700;
+}
+.quick-facts dd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.quick-facts code {
+  padding: 2px 6px;
+  background: #eef3f5;
+  border-radius: 4px;
+  font-size: 0.92em;
+  word-break: break-all;
+}
+.diagnosis-table {
+  margin-top: 30px;
+}
+.diagnosis-table h2 {
+  margin: 0;
+  font-size: 21px;
+}
+.diagnosis-table > p {
+  margin: 6px 0 12px;
+  color: var(--muted);
+}
+.diagnosis-table table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  overflow: hidden;
+}
+.diagnosis-table th,
+.diagnosis-table td {
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.65;
+}
+.diagnosis-table th {
+  background: #eef3f5;
+  font-size: 14px;
+}
+.diagnosis-table td a {
+  color: var(--blue);
+  font-weight: 700;
+  text-decoration: underline;
+}
+.step-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0 0;
+}
+.step-badges span {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #eef3f5;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+}
+.step-badges .risk-low {
+  background: #e3f4ec;
+  color: #1d5e46;
+}
+.step-badges .risk-medium {
+  background: #fff3d6;
+  color: #6b4d0f;
+}
+.step-badges .risk-high {
+  background: #fde6df;
+  color: #8a2c14;
+}
+.avoid-block {
+  margin-top: 32px;
+  padding: 21px;
+  background: #fff1ee;
+  border: 1px solid #efb9aa;
+  border-radius: 7px;
+}
+.avoid-block h2 {
+  color: #8a2c14;
+}
+.avoid-block ul {
+  margin: 0;
+  padding-left: 22px;
+}
+.avoid-block li {
+  padding: 4px 0;
+  color: #6e2615;
+  line-height: 1.75;
+}
+@media (max-width: 640px) {
+  .quick-facts dl > div {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .diagnosis-table table,
+  .diagnosis-table tbody,
+  .diagnosis-table tr,
+  .diagnosis-table td {
+    display: block;
+    width: 100%;
+  }
+  .diagnosis-table thead {
+    display: none;
+  }
+  .diagnosis-table tr {
+    border-bottom: 1px solid var(--line);
+    padding: 6px 0;
+  }
+  .diagnosis-table td {
+    border: 0;
+    padding: 4px 12px;
+  }
+  .diagnosis-table td::before {
+    content: attr(data-label) '：';
+    color: var(--muted);
+    font-weight: 700;
+  }
+}
+.quick-facts .copy-button {
+  min-height: 34px;
+  color: var(--navy);
+  background: #eef3f5;
+  border-color: var(--line);
+}

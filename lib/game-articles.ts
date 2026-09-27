@@ -17,12 +17,18 @@ export type ArticleCategory =
 
 export type ContentStatus = 'verified' | 'needs-review' | 'draft' | 'thin';
 
+export type StepRisk = 'low' | 'medium' | 'high';
+
 export type ArticleStep = {
   id: string;
   title: string;
   summary: string;
   actions: string[];
   note?: string;
+  /** Rough time for the whole step, e.g. "約1分". */
+  time?: string;
+  /** How hard the step is to undo: low = no change, high = files replaced. */
+  risk?: StepRisk;
 };
 
 export type GameArticle = {
@@ -42,6 +48,12 @@ export type GameArticle = {
   steps: ArticleStep[];
   cautions: string[];
   faqs?: { question: string; answer: string }[];
+  /** "30秒でわかる" facts shown under the conclusion; `copy` adds a copy button. */
+  quickFacts?: { label: string; value: string; copy?: boolean }[];
+  /** Symptom → likely cause → which step to jump to. */
+  diagnosis?: { symptom: string; cause: string; stepId: string }[];
+  /** Things that make the problem worse or risk the save / account. */
+  avoid?: string[];
   sources?: { label: string; url: string }[];
   related: string[];
   seoTitle: string;
