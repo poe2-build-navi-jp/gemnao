@@ -82,7 +82,7 @@ export const ogImageManifest: Record<string, string> = {
   "/games/the-blood-of-dawnwalker/shader-compilation-crash": "0686acbf",
   "/games/the-blood-of-dawnwalker/stutter-windowed": "d63c65d6",
   "/games/wardogs": "b4e73c57",
-  "/games/wardogs/server-connection": "1594de9f",
+  "/games/wardogs/server-connection": "281cf030",
   "/guide/black-screen": "e12f00e5",
   "/guide/controller-double-input": "0d9e44f1",
   "/guide/directx-error": "a1e2835c",
