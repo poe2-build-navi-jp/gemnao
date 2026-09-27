@@ -1,6 +1,7 @@
 import { steamCloudGuide } from './steam-cloud-guide';
 import { powerShutdownGuide } from './power-shutdown-guide';
 import { bsodGuide } from './bsod-guide';
+import { audioGuide } from './audio-guide';
 import type { CommonGuide } from '@/lib/common-guides';
 
 const steamDiskCheck = {
@@ -13,10 +14,6 @@ const steamInterference = {
   url: 'https://help.steampowered.com/ja/faqs/view/1F39-DCB4-FF28-5748',
 };
 
-const windowsAudio = {
-  label: 'Microsoft：Windowsのサウンドまたはオーディオの問題を修正する',
-  url: 'https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-sound-or-audio-problems-in-windows',
-};
 
 export const commonGrowthGuides: CommonGuide[] = [
   steamCloudGuide,
@@ -81,62 +78,5 @@ export const commonGrowthGuides: CommonGuide[] = [
   },
   powerShutdownGuide,
   bsodGuide,
-  {
-    slug: 'no-game-audio',
-    title: 'PCゲームで音が出ないときの対処法【Windows】',
-    shortTitle: 'PCゲームで音が出ない',
-    description:
-      'PCゲームだけ音が出ない、Windows更新やモニター接続後に無音になった場合に、出力先、音量ミキサー、ゲーム設定、ドライバーを確認します。',
-    conclusion:
-      'Windowsの出力先と音量ミキサーでゲームがミュートされていないか確認し、ゲーム内の出力デバイスを「既定」へ戻します。次に排他モード、音声拡張、ドライバーを切り分けます。',
-    checkedAt: '2026-09-19',
-    steps: [
-      {
-        title: 'Windowsの出力先と音量ミキサーを確認する',
-        actions: [
-          'ゲームを起動した状態でタスクバーのスピーカーを開き、使うヘッドホンやスピーカーを選ぶ',
-          '「設定」→「システム」→「サウンド」→「音量ミキサー」でゲームがミュートまたは音量0でないか確認する',
-          'HDMIやDisplayPort接続後は、モニター側の音声出力へ切り替わっていないか確認する',
-        ],
-      },
-      {
-        title: 'ゲーム内の音声デバイスを既定へ戻す',
-        actions: [
-          'ゲームのオーディオ設定を開き、マスター音量と各チャンネルが0でないか確認する',
-          '出力デバイスを「既定」または現在使う機器へ設定する',
-          '出力先を変更した後はゲームを完全終了して起動し直す',
-        ],
-      },
-      {
-        title: 'ほかのアプリと音声拡張を切り分ける',
-        actions: [
-          'Discord、録画ソフト、音声ミキサー、仮想オーディオ機器を終了して比較する',
-          'Windowsの出力デバイスのプロパティでオーディオ拡張機能を一時的にオフにする',
-          '排他モードを使うアプリを終了し、サンプルレートを既定値へ戻す',
-        ],
-      },
-      {
-        title: 'Windows診断と公式ドライバーを確認する',
-        actions: [
-          'Windowsのサウンド設定から出力デバイスのトラブルシューティングを実行する',
-          'Windows Updateを完了してPCを再起動する',
-          'PC、マザーボード、ヘッドセットメーカーの公式手順で音声ドライバーを更新する',
-          'ゲームだけ無音ならゲームファイルの整合性確認とゲーム公式の既知問題を確認する',
-        ],
-      },
-    ],
-    sources: [windowsAudio],
-    related: [
-      'directx-error',
-      'verify-steam-files',
-      'steam-game-not-launching',
-    ],
-    status: 'verified',
-    causes: [
-      'Windowsまたはゲームの出力先が別デバイス',
-      '音量ミキサーやゲーム内設定のミュート',
-      '仮想オーディオ・排他モード・音声拡張の競合',
-      '音声ドライバーやゲームファイルの問題',
-    ],
-  },
+  audioGuide,
 ];

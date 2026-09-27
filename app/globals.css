@@ -3317,3 +3317,9 @@ kbd {
 .steam-launch-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
 .steam-launch-details li + li { margin-top: 8px; }
 .steam-launch-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; overflow-wrap: anywhere; }
+
+/* Game audio guide: keep output-device and per-app paths easy to scan. */
+.audio-details p { margin: 12px 0; }
+.audio-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
+.audio-details li + li { margin-top: 8px; }
+.audio-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; overflow-wrap: anywhere; }

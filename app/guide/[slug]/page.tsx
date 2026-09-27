@@ -17,6 +17,7 @@ import {
   SteamLaunchBeforeSteps,
   SteamLaunchAfterSteps,
 } from '@/components/steam-launch-details';
+import { AudioBeforeSteps, AudioAfterSteps } from '@/components/audio-details';
 import {
   BlackScreenBeforeSteps,
   BlackScreenAfterSteps,
@@ -222,6 +223,15 @@ export default async function Page({
         <aside className="toc issue-toc">
           <strong>このページの内容</strong>
           <a href="#answer">まず試すこと</a>
+          {slug === 'no-game-audio' ? (
+            <>
+              <a href="#audio-scope">PC全体？ ゲームだけ？</a>
+              <a href="#audio-output">① Windowsの出力先</a>
+              <a href="#audio-mixer">② 音量ミキサー</a>
+              <a href="#audio-game">③ ゲーム内設定</a>
+              <a href="#audio-next">結果別の次の行動</a>
+            </>
+          ) : null}
           {slug === 'steam-game-not-launching' ? (
             <>
               <a href="#steam-launch-symptoms">症状別の対処表</a>
@@ -442,6 +452,7 @@ export default async function Page({
           {slug === 'steam-game-not-launching' ? (
             <SteamLaunchBeforeSteps />
           ) : null}
+          {slug === 'no-game-audio' ? <AudioBeforeSteps /> : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <PowerShutdownBeforeSteps />
           ) : null}
@@ -493,6 +504,7 @@ export default async function Page({
           {slug === 'steam-game-not-launching' ? (
             <SteamLaunchAfterSteps />
           ) : null}
+          {slug === 'no-game-audio' ? <AudioAfterSteps /> : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <PowerShutdownAfterSteps />
           ) : null}
@@ -504,7 +516,9 @@ export default async function Page({
               注意
             </h2>
             <p>
-              {slug === 'steam-game-not-launching'
+              {slug === 'no-game-audio'
+                ? '出力先や音量は1項目ずつ変更して同じ場面で比較してください。別アプリまで無音なら、そのゲームのファイルを削除・再インストールする前にWindowsと出力機器を確認します。音声ドライバーやオーディオ拡張は変更前の状態を控え、結果が変わらなければ戻してください。'
+                : slug === 'steam-game-not-launching'
                 ? 'セーブ中・更新中・クラウド同期中にSteamを強制終了しないでください。MODを使うゲームでは変更前にセーブをコピーし、MODが必要な既存データを上書きしないでください。隔離された実行ファイルを確認せずに許可したり、セキュリティ機能を無効にしたりしないでください。'
                 : slug === 'directx-error'
                 ? '不明な配布サイトのDLLをSystem32やゲームフォルダーにコピーしないでください。WindowsのDirectXバージョンとGPUの機能レベルは別の情報です。機能レベルが不足するGPUを旧ランタイムやWindows Updateだけで対応させることはできません。'
