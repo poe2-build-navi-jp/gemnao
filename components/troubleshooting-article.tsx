@@ -6,6 +6,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { InteractiveSteps } from '@/components/interactive-steps';
+import { ShareButtons } from '@/components/share-buttons';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import {
   articleBySlug,
@@ -88,11 +89,15 @@ export function TroubleshootingArticle({
     about: game.title,
     mainEntityOfPage: canonical,
   };
-  const faqSchema = article.faqs?.length
+  // Skip FAQ entries that only repeat the 結論 box above them.
+  const faqs = (article.faqs || []).filter(
+    (faq) => faq.answer.trim() !== article.conclusion.trim(),
+  );
+  const faqSchema = faqs.length
     ? {
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
-        mainEntity: article.faqs.map((faq) => ({
+        mainEntity: faqs.map((faq) => ({
           '@type': 'Question',
           name: faq.question,
           acceptedAnswer: { '@type': 'Answer', text: faq.answer },
@@ -146,7 +151,7 @@ export function TroubleshootingArticle({
               {symptom.label}
             </a>
           ))}
-          {article.faqs?.length ? <a href="#faq">よくある質問</a> : null}
+          {faqs.length ? <a href="#faq">よくある質問</a> : null}
           <a href="#references">参考情報</a>
         </aside>
         <article className="guide-article">
@@ -169,7 +174,9 @@ export function TroubleshootingArticle({
               ))}
             </div>
           </nav>
-          <p className="article-introduction">{article.description}</p>
+          {article.description ? (
+            <p className="article-introduction">{article.description}</p>
+          ) : null}
           <nav className="article-parent-links" aria-label="この記事の分類">
             <a href={`/games/${game.slug}`}>{game.shortTitle}のトラブル一覧</a>
             {troubleHub ? (
@@ -234,11 +241,11 @@ export function TroubleshootingArticle({
               ))}
             </ul>
           </section>
-          {article.faqs?.length ? (
+          {faqs.length ? (
             <section className="faq-section" id="faq">
               <h2>よくある質問</h2>
               <div>
-                {article.faqs.map((faq) => (
+                {faqs.map((faq) => (
                   <details key={faq.question}>
                     <summary>{faq.question}</summary>
                     <p>{faq.answer}</p>
@@ -280,6 +287,11 @@ export function TroubleshootingArticle({
               {game.shortTitle}の総合トラブルまとめ <ArrowRight size={15} />
             </a>
           </section>
+          <ShareButtons
+            title={article.title}
+            path={`/games/${game.slug}/${article.slug}`}
+            hashtag={game.title.split('/')[0].trim()}
+          />
           <p className="correction-link">
             この記事の情報に問題がありますか？{' '}
             <a href={`/contact?url=${encodeURIComponent(canonical)}`}>

@@ -20,6 +20,7 @@ import { PathCopy } from '@/components/path-copy';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { articlesForGame } from '@/lib/game-articles';
 import { gameBySlug, games } from '@/lib/games';
+import { ogImageFor } from '@/lib/og-images';
 
 export function generateStaticParams() {
   return games.map((game) => ({ slug: game.slug }));
@@ -46,13 +47,6 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: `/games/${game.slug}`,
-      languages: {
-        'ja-JP': `/games/${game.slug}`,
-        en: `/en/games/${game.slug}`,
-        'zh-CN': `/zh/games/${game.slug}`,
-        es: `/es/games/${game.slug}`,
-        'x-default': `/games/${game.slug}`,
-      },
     },
     openGraph: {
       type: 'website',
@@ -60,13 +54,13 @@ export async function generateMetadata({
       description,
       url: `/games/${game.slug}`,
       locale: 'ja_JP',
-      images: ['/og-default.png'],
+      images: [ogImageFor(`/games/${game.slug}`)],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images: ['/og-default.png'],
+      images: [ogImageFor(`/games/${game.slug}`)],
     },
   };
 }

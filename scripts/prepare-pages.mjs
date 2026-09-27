@@ -9,6 +9,12 @@ await build({
   format: 'esm',
   platform: 'node',
   external: ['cloudflare:workers'],
+  // Scopes the edge HTML cache to this deployment (see worker-source.mjs).
+  define: {
+    __BUILD_ID__: JSON.stringify(
+      `${process.env.CF_PAGES_COMMIT_SHA || 'local'}-${Date.now().toString(36)}`,
+    ),
+  },
 });
 
 // Keep `_worker.js` as a tiny stable entry point. The Cloudflare project still

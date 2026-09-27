@@ -14,6 +14,7 @@ import {
   troubleHubs,
 } from '@/lib/trouble-hubs';
 import { troubleVisualBySlug } from '@/lib/visual-guides';
+import { ogImageFor } from '@/lib/og-images';
 
 export function generateStaticParams() {
   return troubleHubs.map(({ slug }) => ({ slug }));
@@ -39,13 +40,13 @@ export async function generateMetadata({
       description: hub.description,
       url: canonical,
       locale: 'ja_JP',
-      images: [visual?.ogImage || '/og-default.png'],
+      images: [visual?.ogImage || ogImageFor(canonical)],
     },
     twitter: {
       card: 'summary_large_image',
       title: `${hub.title}｜ゲムなお`,
       description: hub.description,
-      images: [visual?.ogImage || '/og-default.png'],
+      images: [visual?.ogImage || ogImageFor(canonical)],
     },
   };
 }

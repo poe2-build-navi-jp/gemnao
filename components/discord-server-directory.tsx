@@ -69,6 +69,8 @@ export function DiscordServerDirectory({
     });
   }, [activeTime, game, purpose, query, servers, voiceChat]);
 
+  // An empty directory with a full search form reads as an unfinished page.
+  const isEmpty = loadState === 'ready' && servers.length === 0;
   const hasFilters = Boolean(
     query || game || purpose || activeTime || voiceChat,
   );
@@ -78,97 +80,105 @@ export function DiscordServerDirectory({
       <div className="server-search-heading">
         <div>
           <p>SERVER DIRECTORY</p>
-          <h2 id="server-search-title">Discordサーバーを条件から探す</h2>
+          <h2 id="server-search-title">
+            {isEmpty
+              ? '掲載中のDiscordサーバー'
+              : 'Discordサーバーを条件から探す'}
+          </h2>
         </div>
         <a className="server-submit-link" href="/discord-servers/submit">
           サーバーを掲載する <ArrowRight size={16} />
         </a>
       </div>
 
-      <div className="server-filters">
-        <label className="server-keyword">
-          <span>キーワード</span>
-          <div>
-            <Search size={18} aria-hidden="true" />
-            <input
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="ゲーム名・サーバー名"
-            />
+      {isEmpty ? null : (
+        <>
+          <div className="server-filters">
+            <label className="server-keyword">
+              <span>キーワード</span>
+              <div>
+                <Search size={18} aria-hidden="true" />
+                <input
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder="ゲーム名・サーバー名"
+                />
+              </div>
+            </label>
+            <label>
+              <span>ゲーム</span>
+              <select
+                value={game}
+                onChange={(event) => setGame(event.target.value)}
+              >
+                <option value="">すべてのゲーム</option>
+                {discordServerGames.map((item) => (
+                  <option key={item}>{item}</option>
+                ))}
+              </select>
+            </label>
+            <label>
+              <span>募集目的</span>
+              <select
+                value={purpose}
+                onChange={(event) => setPurpose(event.target.value)}
+              >
+                <option value="">すべての目的</option>
+                {recruitmentPurposes.map((item) => (
+                  <option key={item}>{item}</option>
+                ))}
+              </select>
+            </label>
+            <label>
+              <span>活動時間</span>
+              <select
+                value={activeTime}
+                onChange={(event) => setActiveTime(event.target.value)}
+              >
+                <option value="">すべての時間</option>
+                {activeTimes.map((item) => (
+                  <option key={item}>{item}</option>
+                ))}
+              </select>
+            </label>
+            <label>
+              <span>ボイスチャット</span>
+              <select
+                value={voiceChat}
+                onChange={(event) => setVoiceChat(event.target.value)}
+              >
+                <option value="">指定なし</option>
+                <option value="required">VC必須</option>
+                <option value="optional">VC任意</option>
+                <option value="listen-only-ok">聞き専OK</option>
+                <option value="none">VCなし</option>
+              </select>
+            </label>
           </div>
-        </label>
-        <label>
-          <span>ゲーム</span>
-          <select
-            value={game}
-            onChange={(event) => setGame(event.target.value)}
-          >
-            <option value="">すべてのゲーム</option>
-            {discordServerGames.map((item) => (
-              <option key={item}>{item}</option>
-            ))}
-          </select>
-        </label>
-        <label>
-          <span>募集目的</span>
-          <select
-            value={purpose}
-            onChange={(event) => setPurpose(event.target.value)}
-          >
-            <option value="">すべての目的</option>
-            {recruitmentPurposes.map((item) => (
-              <option key={item}>{item}</option>
-            ))}
-          </select>
-        </label>
-        <label>
-          <span>活動時間</span>
-          <select
-            value={activeTime}
-            onChange={(event) => setActiveTime(event.target.value)}
-          >
-            <option value="">すべての時間</option>
-            {activeTimes.map((item) => (
-              <option key={item}>{item}</option>
-            ))}
-          </select>
-        </label>
-        <label>
-          <span>ボイスチャット</span>
-          <select
-            value={voiceChat}
-            onChange={(event) => setVoiceChat(event.target.value)}
-          >
-            <option value="">指定なし</option>
-            <option value="required">VC必須</option>
-            <option value="optional">VC任意</option>
-            <option value="listen-only-ok">聞き専OK</option>
-            <option value="none">VCなし</option>
-          </select>
-        </label>
-      </div>
 
-      <div className="server-result-summary" aria-live="polite">
-        <span>
-          {loadState === 'error'
-            ? '募集情報を読み込めませんでした'
-            : `${filtered.length}件の募集中サーバー`}
-        </span>
-        {hasFilters ? (
-          <button
-            type="button"
-            onClick={() => {
-              setQuery('');
-              setGame('');
-              setPurpose('');
-              setActiveTime('');
-              setVoiceChat('');
-            }}
-          >
-            条件をクリア
-          </button>
-        ) : null}
-      </div>
+          <div className="server-result-summary" aria-live="polite">
+            <span>
+              {loadState === 'error'
+                ? '募集情報を読み込めませんでした'
+                : `${filtered.length}件の募集中サーバー`}
+            </span>
+            {hasFilters ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setQuery('');
+                  setGame('');
+                  setPurpose('');
+                  setActiveTime('');
+                  setVoiceChat('');
+                }}
+              >
+                条件をクリア
+              </button>
+            ) : null}
+          </div>
+        </>
+      )}
 
       {loadState === 'error' ? (
         <div className="server-empty" role="alert">
@@ -214,7 +224,7 @@ export function DiscordServerDirectory({
           <h3>
             {hasFilters
               ? '条件に合う募集はありません'
-              : '掲載サーバーを審査中です'}
+              : '現在、掲載中のサーバーはありません'}
           </h3>
           <p>
             未確認のサーバーを水増し掲載せず、運営者確認と招待リンク確認が済んだ募集だけを公開します。

@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { siteConfig } from '@/lib/site-config';
+import { AdsenseLoader } from '@/components/adsense-loader';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://gemnao.pages.dev';
 const isPublic = process.env.NEXT_PUBLIC_SITE_PUBLIC !== 'false';
@@ -53,6 +55,9 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <head>
+        {siteConfig.xAccount ? (
+          <meta name="twitter:site" content={`@${siteConfig.xAccount}`} />
+        ) : null}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -68,11 +73,7 @@ export default function RootLayout({
           }}
         />
         {isPublic ? (
-          <script
-            async
-            crossOrigin="anonymous"
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
-          />
+          <meta name="google-adsense-account" content={adsenseClient} />
         ) : null}
         {isPublic && googleAnalyticsId ? (
           <>
@@ -91,7 +92,10 @@ gtag('config', '${googleAnalyticsId}');`,
           </>
         ) : null}
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        {isPublic ? <AdsenseLoader client={adsenseClient} /> : null}
+      </body>
     </html>
   );
 }
