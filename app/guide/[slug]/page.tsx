@@ -177,8 +177,8 @@ export default async function Page({
           <a href="#answer">まず試すこと</a>
           {slug === 'reset-config-file' ? (
             <>
+              <a href="#config-location">ゲーム別の保存先3例</a>
               <a href="#reset-decision">初期化すべき症状</a>
-              <a href="#config-location">保存先の探し方</a>
               <a href="#reset-checklist">作業前チェック</a>
             </>
           ) : null}

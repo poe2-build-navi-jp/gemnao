@@ -3236,3 +3236,22 @@ kbd {
   color: #53656e;
   font-size: 13px;
 }
+
+.reset-examples { table-layout: fixed; }
+.reset-examples td { overflow-wrap: anywhere; }
+.reset-examples td p { margin: 0 0 8px; }
+.reset-examples .copy-button {
+  display: flex; align-items: center; gap: 6px; margin-top: 12px;
+  min-height: 40px; padding: 8px 12px; border: 1px solid #006c87;
+  border-radius: 6px; background: #fff; color: #00566c; cursor: pointer;
+}
+.reset-checklist-interactive fieldset { border: 0; padding: 0; margin: 0; }
+.reset-checklist-interactive legend { font-weight: 700; }
+.reset-checklist-interactive label {
+  margin: 8px 0; padding: 14px; background: white; border: 2px solid #91aab3;
+  border-radius: 8px;
+}
+.reset-checklist-interactive label.is-checked { border-color: #08795f; background: #e4f5ee; }
+.reset-checklist-interactive input { appearance: auto; opacity: 1; position: static; }
+.reset-checklist-interactive output { display: block; margin-top: 12px; font-weight: 800; color: #075d49; }
+.reset-checklist-interactive label:focus-within { outline: 3px solid #e99b29; outline-offset: 2px; }
