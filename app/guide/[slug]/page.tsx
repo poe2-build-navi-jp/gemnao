@@ -20,6 +20,7 @@ import {
 import { AudioBeforeSteps, AudioAfterSteps } from '@/components/audio-details';
 import { VramBeforeSteps, VramAfterSteps } from '@/components/vram-details';
 import { LowFpsBeforeSteps, LowFpsAfterSteps } from '@/components/low-fps-details';
+import { LowGpuUsageBeforeSteps, LowGpuUsageAfterSteps } from '@/components/low-gpu-usage-details';
 import { SteamDiskWriteBeforeSteps, SteamDiskWriteAfterSteps } from '@/components/steam-disk-write-details';
 import {
   BlackScreenBeforeSteps,
@@ -226,6 +227,16 @@ export default async function Page({
         <aside className="toc issue-toc">
           <strong>このページの内容</strong>
           <a href="#answer">まず試すこと</a>
+          {slug === 'low-gpu-usage' ? (
+            <>
+              <a href="#gpu-normal">正常な低使用率</a>
+              <a href="#gpu-readings">FPS・CPU・使用GPUの確認</a>
+              <a href="#gpu-table">組み合わせ判断表</a>
+              <a href="#gpu-cpu">CPU側の比較</a>
+              <a href="#gpu-select">ゲームのGPU選択</a>
+              <a href="#gpu-next">改善しない場合</a>
+            </>
+          ) : null}
           {slug === 'steam-disk-write-error' ? (
             <>
               <a href="#disk-target">保存先ドライブの特定</a>
@@ -484,6 +495,7 @@ export default async function Page({
           {slug === 'no-game-audio' ? <AudioBeforeSteps /> : null}
           {slug === 'vram-shortage' ? <VramBeforeSteps /> : null}
           {slug === 'low-fps' ? <LowFpsBeforeSteps /> : null}
+          {slug === 'low-gpu-usage' ? <LowGpuUsageBeforeSteps /> : null}
           {slug === 'steam-disk-write-error' ? <SteamDiskWriteBeforeSteps /> : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <PowerShutdownBeforeSteps />
@@ -539,6 +551,7 @@ export default async function Page({
           {slug === 'no-game-audio' ? <AudioAfterSteps /> : null}
           {slug === 'vram-shortage' ? <VramAfterSteps /> : null}
           {slug === 'low-fps' ? <LowFpsAfterSteps /> : null}
+          {slug === 'low-gpu-usage' ? <LowGpuUsageAfterSteps /> : null}
           {slug === 'steam-disk-write-error' ? <SteamDiskWriteAfterSteps /> : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <PowerShutdownAfterSteps />
@@ -551,7 +564,9 @@ export default async function Page({
               注意
             </h2>
             <p>
-              {slug === 'steam-disk-write-error'
+              {slug === 'low-gpu-usage'
+                ? '使用率の数字だけでGPUやCPUの故障を判断しないでください。FPS上限と実際の使用GPU名を先に確認し、比較中は一項目だけ変更します。画面切り替えで負荷が下がる場合があるため、プレイ中の同じ場面で記録したFPSも合わせて判断してください。'
+                : slug === 'steam-disk-write-error'
                 ? 'Steamやゲームのフォルダーを容量確保のために手動削除しないでください。隔離されたファイルを出所の確認前に復元したり、セキュリティ機能を無効にしたりしないでください。ドライブの異音や認識切れがある場合は修復の反復を止め、重要データの保全とメーカーへの相談を優先します。'
                 : slug === 'low-fps'
                 ? '計測中はFPS上限、V-Sync、フレーム生成、解像度を同時に変えず、ゲーム中の同じ場面で比較してください。タスクマネージャーへ画面を切り替えると負荷が変わるため、GPU・CPU使用率は傾向として読みます。平均CPU使用率やGPU使用率だけで故障を断定しないでください。'

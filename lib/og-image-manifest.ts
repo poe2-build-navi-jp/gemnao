@@ -87,7 +87,7 @@ export const ogImageManifest: Record<string, string> = {
   "/guide/controller-double-input": "0d9e44f1",
   "/guide/directx-error": "a389c7b7",
   "/guide/gpu-driver-update": "1f9872fa",
-  "/guide/low-gpu-usage": "58237696",
+  "/guide/low-gpu-usage": "01de759c",
   "/guide/pc-game-freezes": "c524d6be",
   "/guide/remove-mods-safely": "9460a42f",
   "/guide/reset-config-file": "605e6e8e",

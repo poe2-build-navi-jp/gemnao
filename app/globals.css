@@ -3341,3 +3341,8 @@ kbd {
 .steam-disk-write-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
 .steam-disk-write-details li + li { margin-top: 8px; }
 .steam-disk-write-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; overflow-wrap: anywhere; }
+
+/* Low GPU usage guide: readable measurement steps and comparisons. */
+.low-gpu-usage-details p { margin: 12px 0; }
+.low-gpu-usage-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
+.low-gpu-usage-details li + li { margin-top: 8px; }

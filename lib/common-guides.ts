@@ -7,6 +7,7 @@ import { freezeGuide } from './freeze-guide';
 import { stutterGuide } from './stutter-guide';
 import { vramGuide } from './vram-guide';
 import { lowFpsGuide } from './low-fps-guide';
+import { lowGpuUsageGuide } from './low-gpu-usage-guide';
 import { uninstallSaveGuide } from './uninstall-save-guide';
 import { saveBackupGuide } from './save-backup-guide';
 import { shaderCacheGuide } from './shader-cache-guide';
@@ -30,11 +31,6 @@ export type CommonGuide = {
   faqs?: { question: string; answer: string }[];
 };
 const causeMap: Record<string, string[]> = {
-  'low-gpu-usage': [
-    'FPS上限やCPUボトルネック',
-    '内蔵GPUでの起動',
-    '省電力設定',
-  ],
   'pc-game-freezes': [
     'MOD・オーバーレイの競合',
     'メモリ・VRAM不足',
@@ -115,14 +111,6 @@ const repair = {
   label: 'Steam：ゲームファイルの整合性確認',
   url: 'https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB',
 };
-const nv = {
-  label: 'NVIDIA公式ドライバー',
-  url: 'https://www.nvidia.com/ja-jp/drivers/',
-};
-const amd = {
-  label: 'AMD公式ドライバー',
-  url: 'https://www.amd.com/ja/support/download/drivers.html',
-};
 const reviewedActions: Record<string, string[][]> = {
   'steam-input-controller': [
     [
@@ -153,23 +141,6 @@ const reviewedActions: Record<string, string[][]> = {
     [
       '入力変換の設定を決めたらゲームとSteamを終了し、Steamを起動し直して対象ゲームを起動する',
       '同じボタンを1回押して結果を確認する。ゲーム内にコントローラー割り当てがある場合は重複登録がないか確認する',
-    ],
-  ],
-  'low-gpu-usage': [
-    [
-      'ゲームの設定→映像またはグラフィックでFPS上限と垂直同期を確認する。設定した上限のFPSが出ているなら、GPU使用率を上げる必要はありません',
-      '低FPSの場合はCtrl＋Shift＋Esc→パフォーマンス→CPUを開く。CPUグラフを右クリック→グラフの変更→論理プロセッサで、一部のCPUだけ高負荷になっていないか確認する',
-    ],
-    [
-      'ゲームを終了し、Windows 11の設定→システム→ディスプレイ→グラフィックを開く',
-      '対象ゲームを選択し、GPUの設定で「高パフォーマンス」を選んで保存する。旧表示では「オプション」内にあります',
-      '一覧にない場合はデスクトップアプリの追加からゲームの実行ファイルを指定する。Steamのライブラリ→対象ゲームを右クリック→管理→ローカルファイルを閲覧でインストール先を確認できます',
-      'ゲームを起動し直して比較する。GPUが1台だけのPCでは選択肢が変わらない場合があります',
-    ],
-    [
-      'ノートPCはACアダプターを接続する。Windows 11の設定→システム→電源とバッテリー→電源モードを開き、省電力の場合はバランスに戻して比較する',
-      'ドライバーを調べるにはWindows＋R→dxdiag→ディスプレイでGPU名とドライバー情報を確認する',
-      'NVIDIAはNVIDIAアプリ→ドライバー、AMDはAMD Software→設定→システム、IntelはIntel Driver & Support Assistantで対応更新を確認する。ノートPCは製品メーカーの対応版を優先し、更新後に再起動する',
     ],
   ],
   'visual-c-runtime-error': [
@@ -253,14 +224,6 @@ const mk = (
   related,
   sources: [
     ...sources,
-    ...(slug === 'low-gpu-usage'
-      ? [
-          {
-            label: 'Microsoft：Windows 11のGPU設定',
-            url: 'https://support.microsoft.com/en-us/windows/optimizations-for-windowed-games-in-windows-11-3f006843-2c7e-4ed0-9a5e-f9389e535952',
-          },
-        ]
-      : []),
     ...(slug === 'directx-error'
       ? [
           {
@@ -271,7 +234,6 @@ const mk = (
       : []),
   ],
   checkedAt: [
-    'low-gpu-usage',
     'directx-error',
     'visual-c-runtime-error',
     'remove-mods-safely',
@@ -296,20 +258,7 @@ const mk = (
   })),
 });
 export const commonGuides: CommonGuide[] = [
-  mk(
-    'low-gpu-usage',
-    'PCゲームでGPU使用率が低い時の確認方法',
-    'GPU使用率が低い',
-    'FPSが低いのにGPU使用率が上がらない、内蔵GPUで動いている疑いがある場合の手順です。まずFPS上限に達していないかを確認します。Windows 11で高性能GPUを選ぶ操作、CPU負荷の見方、電源とドライバーの確認を順番に説明します。',
-    'FPS上限、CPU負荷、使用GPU、電源設定を1項目ずつ確認します。',
-    [
-      'FPS上限とCPU負荷を確認する',
-      '高性能GPUで起動しているか確認する',
-      '電源設定とGPUドライバーを確認する',
-    ],
-    ['low-fps', 'gpu-driver-update', 'vram-shortage'],
-    [nv, amd],
-  ),
+  lowGpuUsageGuide,
   freezeGuide,
   steamLaunchGuide,
   mk(
