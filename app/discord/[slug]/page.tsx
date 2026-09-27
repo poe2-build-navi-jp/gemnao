@@ -186,6 +186,7 @@ export default async function DiscordArticlePage({
               {i + 1}. {cause.title}
             </a>
           ))}
+          {item.followUp ? <a href="#next-guide">次に確認する記事</a> : null}
           <a href="#faq">よくある質問</a>
           <a href="#references">参考情報</a>
         </aside>
@@ -282,6 +283,15 @@ export default async function DiscordArticlePage({
               { href: '/discord', label: 'Discordトラブル一覧へ戻る' },
             ]}
           />
+          {item.followUp ? (
+            <section className="answer-summary" id="next-guide">
+              <h2>{item.followUp.title}</h2>
+              <p>{item.followUp.description}</p>
+              <p>
+                <a href={item.followUp.href}>{item.followUp.label} →</a>
+              </p>
+            </section>
+          ) : null}
           <section className="caution-block">
             <h2>
               <AlertTriangle size={22} />

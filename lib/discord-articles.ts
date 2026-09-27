@@ -38,6 +38,12 @@ export type DiscordArticle = {
   diagnosisIntro?: string;
   causes: DiscordCause[];
   ifNotFixed: string;
+  followUp?: {
+    title: string;
+    description: string;
+    href: string;
+    label: string;
+  };
   faqs: { question: string; answer: string }[];
   sources: { label: string; url: string }[];
   related: string[];
