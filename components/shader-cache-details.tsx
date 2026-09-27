@@ -10,7 +10,9 @@ export function ShaderCacheBeforeSteps() {
         <table>
           <thead>
             <tr>
-              <th scope="col">対象</th>
+              <th scope="col" style={{ minWidth: '6em' }}>
+                対象
+              </th>
               <th scope="col">開く場所</th>
               <th scope="col">操作</th>
             </tr>
