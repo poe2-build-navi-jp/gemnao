@@ -39,9 +39,11 @@ export function ogCardSpecs(): OgCardSpec[] {
       ...articles.map((article) => ({
         path: `/games/${game.slug}/${article.slug}`,
         eyebrow: `${game.shortTitle}｜PC版トラブル解決`,
-        title: article.title,
+        title: article.ogTitle || article.title,
         itemsLabel: '上から順番に試す',
-        items: article.steps.slice(0, 4).map((step) => step.title),
+        items:
+          article.ogSteps ||
+          article.steps.slice(0, 4).map((step) => step.title),
       })),
     ];
   });
@@ -54,7 +56,9 @@ export function ogCardSpecs(): OgCardSpec[] {
       eyebrow: 'PCゲーム共通トラブル',
       title: guide.title,
       itemsLabel:
-        guide.slug === 'directx-error' ? 'エラー名から対処を選ぶ' : '上から順番に試す',
+        guide.slug === 'directx-error'
+          ? 'エラー名から対処を選ぶ'
+          : '上から順番に試す',
       items: guide.steps.slice(0, 4).map((step) => step.title),
     }));
   const discordCards = discordArticles

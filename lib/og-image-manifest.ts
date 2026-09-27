@@ -69,7 +69,7 @@ export const ogImageManifest: Record<string, string> = {
   "/games/palworld/dedicated-server-backup": "e52228b8",
   "/games/palworld/dedicated-server-port": "47029ddc",
   "/games/palworld/dedicated-server-settings": "574fb782",
-  "/games/palworld/not-launching": "e14c4303",
+  "/games/palworld/not-launching": "266d1cc9",
   "/games/palworld/save-data": "ad53b5a4",
   "/games/palworld/system-requirements": "61cda543",
   "/games/star-wars-zero-company": "86c17651",

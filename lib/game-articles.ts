@@ -60,6 +60,9 @@ export type GameArticle = {
   related: string[];
   seoTitle: string;
   metaDescription: string;
+  /** Compact wording for the social preview image; page title stays unchanged. */
+  ogTitle?: string;
+  ogSteps?: string[];
 };
 
 export const categoryLabels: Record<ArticleCategory, string> = {
@@ -505,118 +508,225 @@ const originalGameArticles: GameArticle[] = [
     title: 'パルワールド1.0が起動しない・クラッシュする時の対処法【Steam版】',
     shortTitle: '1.0で起動しない・クラッシュ',
     symptom:
-      '1.0更新後に起動直後で落ちる、ワールド読み込み中にクラッシュする、古いMODを無効化しても直らない場合の確認手順です。',
+      'Steam版パルワールドが1.0更新後に起動しない、タイトル画面で落ちる、既存ワールドだけ読み込めない場合の切り分けです。Workshop・手動導入・UE4SSを別々に確認します。',
     conclusion:
-      '最初にセーブを保全し、Steam Workshopと手動導入を含む古いMODを完全に退避してから、ゲームファイルの整合性を確認します。',
+      'セーブをコピーした後、Workshopの購読を解除し、ゲームフォルダに残った手動MOD・ローダーをゲーム外へ退避します。Steamで整合性を確認し、MODなしで起動できるか試してください。整合性確認だけでは、手動で追加したファイルが残る場合があります。',
     description:
-      '公式告知では、1.0で基盤システムが大きく変わり、古いMODがクラッシュやセーブ破損の原因になり得ると案内されています。MOD管理画面でOFFにするだけでなく、導入元ごとに残存ファイルを確認します。',
-    checkedAt: '2026-09-09',
+      'Pocketpairは、古いMODをオフにしただけでは残存ファイルやローダーが読み込まれ得ると案内しています。以下はSteam版クライアント用です。専用サーバーのPalServerフォルダには適用しません。ファイルの配置は導入方法によって異なるため、まず導入元とファイル名を照合します。',
+    checkedAt: '2026-09-27',
+    targetVersion:
+      'Steam版・Windows・パルワールド1.0系（専用サーバーは対象外）',
+    causes: [
+      'Workshopの購読が残り、次の起動でMODが再配置されている',
+      'Paks内の手動MODやWin64内の旧UE4SS・DLLローダーが残っている',
+      '本体ファイルの不足・破損、またはMODに依存した既存セーブ',
+    ],
+    quickFacts: [
+      {
+        label: 'Steam版セーブの場所',
+        value: String.raw`%LOCALAPPDATA%\Pal\Saved\SaveGames`,
+        copy: true,
+      },
+      {
+        label: 'ゲームのインストール先',
+        value:
+          'Steamライブラリ→パルワールドを右クリック→管理→ローカルファイルを閲覧',
+      },
+      {
+        label: '手動導入を確認する場所',
+        value: String.raw`Pal\Content\Paks / Pal\Binaries\Win64（ゲームのインストール先から）`,
+      },
+      {
+        label: '公式Workshopの展開先',
+        value: String.raw`Mods\NativeMods\UE4SS / Pal\Content\Paks\LogicMods・~WorkshopMods`,
+      },
+    ],
+    diagnosis: [
+      {
+        symptom: 'WorkshopのMODを使っている／使っていた',
+        cause: 'ゲーム内で無効化しても、Steamの購読や配置済みファイルが残る',
+        stepId: 'remove-mods',
+      },
+      {
+        symptom: 'Nexusなどから手動でMODやUE4SSを入れた',
+        cause: 'Steamの整合性確認では追加ファイルを特定できない',
+        stepId: 'remove-remnants',
+      },
+      {
+        symptom: '整合性確認が「問題なし」でも起動しない',
+        cause: '追加ファイルが残っているか、MOD以外の問題',
+        stepId: 'check-verification-result',
+      },
+      {
+        symptom: 'タイトルは開くが、既存ワールドだけ落ちる',
+        cause: 'MOD依存データ、または既存セーブ固有の問題',
+        stepId: 'test-new-world',
+      },
+    ],
     symptoms: [
-      { label: '1.0更新後に落ちる', target: 'remove-mods' },
-      { label: 'MODを無効化しても直らない', target: 'remove-remnants' },
-      { label: '起動直後にクラッシュする', target: 'verify-files' },
+      { label: 'Workshop MODを使っている', target: 'remove-mods' },
+      { label: '手動MOD・UE4SSを入れた', target: 'remove-remnants' },
+      { label: '整合性確認後も落ちる', target: 'check-verification-result' },
       { label: 'ワールド読み込みで落ちる', target: 'test-new-world' },
     ],
     steps: [
       {
         id: 'backup-save',
-        title: '作業前にセーブデータをバックアップする',
-        summary: 'MOD削除や整合性確認の前に、現在のワールドを保全します。',
+        title: '作業前にSteam版のセーブを別の場所へコピーする',
+        summary:
+          'MODを外すと、MOD由来のアイテムを含む既存ワールドが読み込めなくなることがあります。',
+        time: '約3分',
+        risk: 'low',
         actions: [
-          'パルワールドとSteamを終了する',
-          String.raw`%LOCALAPPDATA%\Pal\Saved\SaveGamesを開く`,
-          'SaveGamesフォルダを別の場所へ丸ごとコピーする',
-          'バックアップに日付と「1.0起動確認前」と付ける',
+          'パルワールドを終了し、Steamもタスクトレイから終了する。Steam Cloudの同期が終わっていることを確認する',
+          String.raw`Windows＋Rを押し、%LOCALAPPDATA%\Pal\Saved\SaveGames を入力して開く`,
+          'SaveGamesフォルダ全体をゲーム・Steamのインストール先とは別の場所へコピーする。コピー先にワールドのフォルダとファイルがあることを確認する',
+          'コピー先に「Palworld_1.0_MOD退避前_日付」などの名前を付け、以降は元のセーブへ直接ファイルを上書きしない',
         ],
       },
       {
         id: 'remove-mods',
-        title: 'Steam WorkshopのMODをすべて無効化する',
-        summary: '公式のMod Management画面で有効なWorkshop MODを外します。',
+        title: 'ゲーム内のMOD管理とSteam Workshopの購読を確認する',
+        summary:
+          '「Mod Management」はSteamの設定画面ではなく、ゲームのタイトル画面にある項目です。起動できなければ購読確認から始めます。',
+        time: '約3〜10分',
+        risk: 'medium',
         actions: [
-          'SteamでパルワールドのMOD管理画面を開く',
-          '有効なWorkshop MODをすべて無効化する',
-          'Workshopの購読状況も確認する',
-          'ゲームを起動せず次の残存ファイル確認へ進む',
+          'タイトル画面を開ける場合は「オプション」→「Mod Management」で有効なMODをオフにする。開けない場合はこの操作を飛ばす',
+          'Steamのパルワールドのコミュニティハブから「ワークショップ」を開き、「あなたのファイル」→「サブスクライブしたアイテム」で購読中のMODを確認する（Steamの表示言語で名称が異なる）',
+          '購読中のパルワールド用MODは個別ページの「サブスクライブ中」を押して購読を解除する。再ダウンロードや再配置を防ぐため、次の手順までMODは再購読しない',
+          'Steamを終了し、次の手順でゲームフォルダに残ったファイルも確認する。購読解除だけで手動MODや配置済みのローダーは消えない',
         ],
       },
       {
         id: 'remove-remnants',
-        title: '手動導入MODとローダーをゲーム外へ退避する',
-        summary: '管理ツールでOFFにしても残るファイルを切り分けます。',
+        title: '手動MOD・UE4SS・Workshopの配置済みファイルを退避する',
+        summary:
+          'Steamが開いた「Palworld」フォルダを基準に、導入方法ごとに場所を見ます。見覚えのない本体ファイルを名前だけで削除しません。',
+        time: '約5〜15分',
+        risk: 'medium',
         actions: [
-          'Steamからパルワールドのローカルファイルを開く',
-          '手動で追加したMOD、UE4SS、外部ローダーの場所を確認する',
-          '削除せずゲームフォルダ外の退避用フォルダへ移す',
-          '導入元とファイル名を記録する',
+          'Steamライブラリでパルワールドを右クリック→「管理」→「ローカルファイルを閲覧」。開いたPalworldフォルダを基準にする。PalServerでは作業しない',
+          String.raw`手動の.pak／LogicModsは Pal\Content\Paks を開く。LogicModsや自分で作成したMOD用フォルダ、導入時に追加した.pakだけを、ゲームフォルダ外の「Palworld_MOD退避」へ移す`,
+          String.raw`手動導入のUE4SS／DLLローダーは Pal\Binaries\Win64 を開く。導入時の説明・ダウンロード記録と照合し、自分で追加したue4ssフォルダやローダーのDLLだけを退避する`,
+          String.raw`公式Workshopで展開された分は Mods\NativeMods\UE4SS・Mods\ManagedMods と Pal\Content\Paks\~WorkshopMods・LogicMods を確認する。購読解除後も残るMODファイルを、元の相対パスが分かる形でゲームフォルダ外へ退避する`,
+          '退避フォルダ内を「手動PAK」「UE4SS」「Workshop残存」などに分け、元のパスとMOD名をメモする。どれが追加ファイルか判別できなければ無理に選別せず、STEP 5のフォルダ単位の方法を使う',
         ],
-        note: '公式告知では、MODを管理画面で無効にするだけでは不十分な場合があると案内されています。',
+        note: 'Pal\\Content\\Paksにあるゲーム本体の.pakや、Win64にある本体のDLLを名前だけで選別しないでください。外部のMOD管理ツールを使った場合は、そのツールの導入履歴も確認します。',
       },
       {
         id: 'verify-files',
-        title: 'Steamでゲームファイルの整合性を確認する',
-        summary: '不足・破損・改変された本体ファイルをSteamに確認させます。',
+        title: 'Steamで整合性を確認して、MODなしで起動する',
+        summary:
+          '退避で不足した正規ファイルがあれば、Steamが再取得します。作業中はMODを戻しません。',
+        time: '約5分〜（再取得があると長くなる）',
+        risk: 'low',
         actions: [
-          'Steamライブラリでパルワールドを右クリックする',
-          '「プロパティ」→「インストール済みファイル」を開く',
-          '「ゲームファイルの整合性を確認」を実行する',
-          '完了後にPCを再起動する',
-          'MODを戻さずゲーム本体だけで起動する',
+          'Steamライブラリでパルワールドを右クリック→「プロパティ」→「インストール済みファイル」→「ゲームファイルの整合性を確認」を押す',
+          '確認と必要な再ダウンロードが完全に終わるまで待つ。再取得があったか、エラー表示が残るかを控える',
+          'Steamを再起動し、Workshopを再購読せず、退避したMODも戻さない状態でパルワールドを起動する',
+          'タイトルまで開くか、既存ワールドの読み込み時にだけ落ちるかを分けて記録する',
         ],
+      },
+      {
+        id: 'check-verification-result',
+        title: '整合性確認と起動結果から次の操作を選ぶ',
+        summary:
+          '「再取得された＝MODが原因」とは限りません。整合性確認の結果と、実際の起動結果を組み合わせます。',
+        time: '約2分（フォルダ単位の退避は別途）',
+        risk: 'medium',
+        actions: [
+          '再取得後にMODなしで起動できた：本体の不足か、退避したMODのどちらかが原因候補。直後に全MODを戻さず、STEP 7で1個ずつ確かめる',
+          '「問題なし」なのに起動しない：整合性確認は手動で追加したファイルがない証明にはならない。STEP 3のPaks・Win64・Modsを再点検する',
+          String.raw`どれが追加ファイルか見分けられない場合は、ゲームとSteamを閉じ、Pal\Binaries\Win64・Pal\Content\Paks・Mods の各フォルダを、容量に余裕があるゲーム外の場所へ「元のパスが分かる名前」で丸ごと移す。その後、STEP 4の整合性確認を再実行して正規ファイルを再取得する`,
+          'フォルダ単位の退避後もタイトルに到達しない：MODだけを原因と決めず、エラー表示、Windowsの信頼性モニターの記録、GPUドライバーの状態を控え、記事末尾にあるPC共通の起動トラブルガイドへ進む',
+        ],
+        note: 'Paksには大容量のゲーム本体も含まれます。フォルダごと退避すると大きな空き容量と再ダウンロードが必要です。まずは特定できる追加ファイルだけを退避してください。',
       },
       {
         id: 'test-new-world',
-        title: '新規ワールドで本体と既存セーブを切り分ける',
+        title: 'タイトルまで開くなら、一時的な新規ワールドで比較する',
         summary:
-          'タイトル画面まで起動できる場合に、既存ワールド固有の問題か確認します。',
+          '既存ワールド固有の問題とゲーム本体の問題を分けます。バックアップが取れている場合だけ実施します。',
+        time: '約5分',
+        risk: 'medium',
         actions: [
-          'バックアップがあることを再確認する',
-          'MODなしで一時的な新規ワールドを作成する',
-          '新規ワールドが読み込めるか確認する',
-          '新規だけ動く場合は既存セーブへ無理な上書きをせず公式サポート情報を確認する',
+          '別の場所へコピーしたSaveGamesバックアップが存在することを確認する',
+          'MODを入れ直さないまま、一時的な新規ワールドを作り、読み込みまで進むか確認する',
+          '新規ワールドだけ正常なら既存ワールド／MOD依存データが原因候補。既存セーブを上書き・削除せず、使用していたMODの対応状況とセーブの記事を確認する',
+          '新規ワールドも落ちるならセーブ固有と決めつけず、エラー文・発生時点を記録してPC共通のクラッシュ・強制終了ガイドを確認する',
+        ],
+      },
+      {
+        id: 'restore-mods',
+        title: '直った後、必要なMODだけを1個ずつ戻す',
+        summary:
+          '最新版への対応が配布者から確認できたMODだけを個別に試します。',
+        time: 'MODごとに約5分〜',
+        risk: 'medium',
+        actions: [
+          'MODなしでタイトルと対象ワールドが正常に開く状態を確認し、セーブのバックアップをもう一度残す',
+          '配布者が現在のパルワールド1.0系に対応すると案内しているMODを1個だけ購読または再導入する',
+          '起動・ワールド読み込みを試し、問題がなければ次のMODを1個追加する。再発したら直前に加えたMODを外して再確認する',
+          '旧版のUE4SSや退避したフォルダ全体をまとめて元へ戻さない',
         ],
       },
     ],
+    avoid: [
+      'MODが入ったままの既存セーブを、バックアップなしで開いて保存しない',
+      'SaveGames内のセーブデータを「MODファイル」として削除しない',
+      '整合性確認で「問題なし」と出ただけで、追加MODファイルも消えたと判断しない',
+    ],
     cautions: [
-      'MODに依存する内容を含むセーブは、MODを外すと正常に読み込めない場合があります。バックアップを残してください。',
-      '配布元不明の修復ツールや実行ファイルを使用しないでください。',
+      'ゲーム本体のフォルダとセーブのSaveGamesは別です。MOD退避・整合性確認中もセーブのバックアップを残してください。',
+      'フォルダ単位の退避後はSteamが本体を再取得するまで起動しません。作業前に空き容量と通信量を確認してください。',
     ],
     faqs: [
       {
-        question: 'パルワールド1.0で起動直後にクラッシュする時は？',
+        question: 'MOD管理画面はSteamのどこにありますか？',
         answer:
-          'セーブをバックアップし、Workshopと手動導入のMODをすべて退避してからSteamの整合性確認とPC再起動を行います。',
+          '「Mod Management」はパルワールドを起動した後のタイトル画面にある「オプション」内です。ゲームが起動しないなら開けないので、Steamのワークショップで購読を解除してからゲームフォルダの残存ファイルを確認してください。',
       },
       {
-        question: 'MODをOFFにしたのに起動しないのはなぜですか？',
+        question: 'Steamの整合性確認で「問題なし」ならMODは残っていませんか？',
         answer:
-          'MODローダーや手動導入ファイルがゲームフォルダに残っている可能性があります。管理画面だけでなく導入元ごとの残存ファイルを確認してください。',
+          'いいえ。整合性確認は主にSteam管理下の本体ファイルを確認します。手動で置いた.pak、UE4SS、外部DLLローダーなどは残り得ます。Paks・Win64・Modsの各場所を導入履歴と照合してください。',
       },
       {
         question: '新規ワールドは起動するのに既存ワールドだけ落ちます',
         answer:
-          '既存セーブ固有またはMOD依存の可能性があります。バックアップへ上書きせず、使用していたMODの1.0対応と公式の最新告知を確認してください。',
+          '旧MODに依存したアイテムやデータ、既存セーブ固有の問題が疑われます。新規ワールドのセーブで既存データを上書きせず、退避前のバックアップと使用MODの1.0系への対応状況を確認してください。',
       },
     ],
     sources: [
       {
-        label: 'Pocketpair公式告知（1.0とMODの注意）',
-        url: 'https://steamcommunity.com/games/1623730/announcements/',
+        label: 'Pocketpair公式：1.0と古いMODに関する注意',
+        url: 'https://steamcommunity.com/games/1623730/announcements/detail/686383649529010210',
       },
       {
-        label: 'Steamサポート（ゲームが起動しない場合）',
-        url: 'https://help.steampowered.com/ja/faqs/view/5814-D9A3-BE42-62DF',
+        label: 'Pocketpair公式：MOD利用ガイドライン・削除対象',
+        url: 'https://guideline.palworldgame.com/palworld-mod-guideline',
+      },
+      {
+        label: 'Pocketpair公式：MOD管理と導入先（開発者向け資料）',
+        url: 'https://github.com/pocketpairjp/PalworldModUploader/blob/main/PalworldModUploader/docs/en/04-Tech.md',
+      },
+      {
+        label: 'Steamサポート：ゲームファイルの整合性確認',
+        url: 'https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB',
       },
     ],
-    related: [
-      'save-data',
-      'system-requirements',
-      'dedicated-server-settings',
-      'dedicated-server-backup',
-    ],
+    related: ['save-data', 'system-requirements'],
     seoTitle: 'パルワールド1.0が起動しない・クラッシュする時の対処法【Steam】',
     metaDescription:
-      'パルワールド1.0が起動しない、更新後にクラッシュする時の対処法。古いMODの完全退避、Steam整合性確認、セーブ保全、新規ワールドでの切り分けを解説します。',
+      'パルワールド1.0が起動しない・クラッシュする時の対処法。Steam Workshopの購読解除、手動.pak・UE4SSの場所と退避、整合性確認後の結果別判断まで解説。',
+    ogTitle: 'パルワールド起動しない？ MODを退避',
+    ogSteps: [
+      'セーブを先に保全',
+      'Workshopの購読を確認',
+      '手動MOD・UE4SSを退避',
+      '整合性確認後に起動を比較',
+    ],
   },
   {
     gameSlug: palworld.slug,
