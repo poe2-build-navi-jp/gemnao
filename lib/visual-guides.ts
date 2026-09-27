@@ -21,7 +21,7 @@ const specs = [
   [
     'pc-game-crash',
     'pc-game-crash-fix-flow',
-    'PCゲームがクラッシュする時の確認順',
+    'PCゲームが落ちる時の症状別確認順',
   ],
   ['low-fps', 'pc-game-low-fps-checklist', 'FPSが低い時の確認順'],
   [

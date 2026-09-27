@@ -11,6 +11,7 @@ import {
   SteamCloudBeforeSteps,
   SteamCloudAfterSteps,
 } from '@/components/steam-cloud-details';
+import { CrashBeforeSteps, CrashAfterSteps } from '@/components/crash-details';
 import {
   BlackScreenBeforeSteps,
   BlackScreenAfterSteps,
@@ -216,6 +217,14 @@ export default async function Page({
         <aside className="toc issue-toc">
           <strong>このページの内容</strong>
           <a href="#answer">まず試すこと</a>
+          {slug === 'pc-game-crash' ? (
+            <>
+              <a href="#crash-scope">ゲームだけ落ちる？</a>
+              <a href="#crash-timing">タイミング別の対処表</a>
+              <a href="#crash-history">エラーなし時の履歴</a>
+              <a href="#crash-compare">結果から次を選ぶ</a>
+            </>
+          ) : null}
           {slug === 'steam-cloud-sync-error' ? (
             <>
               <a href="#cloud-first">選択前に保全する</a>
@@ -406,6 +415,7 @@ export default async function Page({
           {slug === 'gpu-driver-update' ? <GpuDriverBeforeSteps /> : null}
           {slug === 'bsod-while-gaming' ? <BsodBeforeSteps /> : null}
           {slug === 'steam-cloud-sync-error' ? <SteamCloudBeforeSteps /> : null}
+          {slug === 'pc-game-crash' ? <CrashBeforeSteps /> : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <PowerShutdownBeforeSteps />
           ) : null}
@@ -452,6 +462,7 @@ export default async function Page({
           {slug === 'gpu-driver-update' ? <GpuDriverAfterSteps /> : null}
           {slug === 'bsod-while-gaming' ? <BsodAfterSteps /> : null}
           {slug === 'steam-cloud-sync-error' ? <SteamCloudAfterSteps /> : null}
+          {slug === 'pc-game-crash' ? <CrashAfterSteps /> : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <PowerShutdownAfterSteps />
           ) : null}
@@ -463,7 +474,9 @@ export default async function Page({
               注意
             </h2>
             <p>
-              {slug === 'steam-cloud-sync-error'
+              {slug === 'pc-game-crash'
+                ? 'MODのあるセーブは退避せずに上書きしないでください。障害モジュール名だけを根拠にDLLを入れ替えたり、不明なダウンロード先からファイルを入手したりしないでください。変更は1項目ずつ、セーブと設定を保全してから試します。'
+                : slug === 'steam-cloud-sync-error'
                 ? '競合画面で選択すると、別の端末やクラウド側の進行が上書きされる可能性があります。複数PCの場合は各PCでゲームを起動しないままコピーを残し、セーブの保存先を推測して削除しないでください。通信エラー中の強行起動や、新しいセーブでの上書きも避けてください。'
                 : slug === 'pc-shuts-down-while-gaming'
                   ? '焦げた臭い・煙・火花・変形・損傷を見つけたら使用を止めてください。電源ユニットやバッテリーを分解せず、損傷した電源コードを差し直して試さないでください。症状を繰り返し再現させず、PCメーカーまたは修理窓口に相談してください。'

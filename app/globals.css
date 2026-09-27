@@ -3299,3 +3299,9 @@ kbd {
 .steam-cloud-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
 .steam-cloud-details li + li { margin-top: 8px; }
 .steam-cloud-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; }
+
+/* Game crash guide: readable symptom table and Windows history instructions. */
+.crash-details p { margin: 12px 0; }
+.crash-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
+.crash-details li + li { margin-top: 8px; }
+.crash-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; overflow-wrap: anywhere; }

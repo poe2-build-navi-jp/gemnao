@@ -1,4 +1,5 @@
 import { blackScreenGuide } from './black-screen-guide';
+import { crashGuide } from './crash-guide';
 import { gpuDriverGuide } from './gpu-driver-guide';
 import { freezeGuide } from './freeze-guide';
 import { stutterGuide } from './stutter-guide';
@@ -294,20 +295,6 @@ const reviewedActions: Record<string, string[][]> = {
       '対象ゲームを起動して同じ症状を確認する。再取得されるファイルがあっても、それだけで故障とは判断しない',
     ],
   ],
-  'pc-game-crash': [
-    [
-      'エラー画面を撮影し、起動直後・ロード中・プレイ中のどこで落ちるか記録する',
-      'ゲーム版、GPU名、ドライバー版、再現するセーブや場面を控える',
-    ],
-    [
-      'MOD管理ツールでMODを無効にして起動する。MOD必須のセーブを上書きしない',
-      '改善しなければSteamのプロパティ→一般でオーバーレイをオフにして再確認する',
-    ],
-    [
-      'Steamはライブラリのゲームを右クリック→プロパティ→インストール済みファイル→ゲームファイルの整合性を確認を選ぶ',
-      '改善しなければGPUメーカーの公式ドライバーを確認して更新し、Windows再起動後に比較する',
-    ],
-  ],
   'black-screen': [
     [
       'ゲームのウィンドウを選び、Alt＋Enterを一度押す',
@@ -430,20 +417,7 @@ export const commonGuides: CommonGuide[] = [
     ['steam-game-not-launching', 'remove-mods-safely', 'reset-config-file'],
     [repair],
   ),
-  mk(
-    'pc-game-crash',
-    'PCゲームがクラッシュ・強制終了する時の切り分け方',
-    'クラッシュ・強制終了',
-    'プレイ中にデスクトップへ戻る場合の共通手順です。',
-    '発生条件を記録し、改変を外し、修復とGPUドライバー確認を行います。',
-    [
-      '発生条件とエラーを記録する',
-      'MODとオーバーレイを外す',
-      '整合性とドライバーを確認する',
-    ],
-    ['gpu-driver-update', 'shader-cache-delete', 'vram-shortage'],
-    [repair, nv, amd],
-  ),
+  crashGuide,
   blackScreenGuide,
   gpuDriverGuide,
   stutterGuide,
