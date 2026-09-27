@@ -39,7 +39,7 @@ export const ogImageManifest: Record<string, string> = {
   "/games/aniimo/launcher-display": "950a3a59",
   "/games/aniimo/login-error": "6262e42b",
   "/games/aniimo/not-launching": "0cedb67a",
-  "/games/aniimo/video-memory-error": "eedbb3ce",
+  "/games/aniimo/video-memory-error": "dadcd94a",
   "/games/elden-ring": "7b6f68c6",
   "/games/elden-ring/fps": "de4d8353",
   "/games/elden-ring/hdr": "3917e885",

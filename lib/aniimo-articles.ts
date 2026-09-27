@@ -666,98 +666,196 @@ export const aniimoArticles: GameArticle[] = [
     gameSlug: 'aniimo',
     slug: 'video-memory-error',
     category: 'display',
-    title: 'アニモ（Aniimo）で「ビデオメモリ不足」が出る原因と対処法',
+    title:
+      'アニモ（Aniimo）の「ビデオメモリ不足」の直し方｜GPUメモリの見方とIntel CPUの確認',
     shortTitle: 'ビデオメモリ不足',
     symptom:
-      '起動時やプレイ中にビデオメモリ不足を示す表示が出る、または描画開始時に終了する場合の確認手順です。',
+      '「ビデオメモリ不足」と表示されて終了する、画質を下げても同じエラーが出る。表示とGPUメモリ使用量が一致するか確かめ、Intel第13・14世代デスクトップCPUの場合は別の原因も調べます。',
     conclusion:
-      '高負荷な設定と同時起動アプリを減らし、GPUドライバーを更新します。Intel第13・14世代CPUを使う場合も、Aniimo公式が原因と確認したとは断定せず、PCメーカーの案内で更新状況を確認します。',
+      'タスクマネージャーで、Aniimoが使うGPUの「専用 GPU メモリ」と「共有 GPU メモリ」を記録。テクスチャを1段階下げ、同じ場面で使用量とエラーの有無を比較します。画質を下げても繰り返す場合、対象のIntel第13・14世代デスクトップCPUでは公式が案内するシステムの安定性問題も確認します。',
     description:
-      'この表示はGPUのVRAM使用量だけでなく、ドライバーやシステム安定性の影響でも発生する場合があります。危険を伴うBIOS操作を自己流で行わず、PC・マザーボードメーカーの正式な手順を使ってください。',
-    checkedAt,
+      '「ビデオメモリ不足」と出ても、GPUメモリが満杯だったと即断はできません。専用・共有メモリの数値の読み方、同じ条件で画質を比較する方法、Intel対象CPUで繰り返す場合の相談先を説明します。',
+    checkedAt: '2026-09-27',
     status: 'verified',
-    targetVersion,
+    targetVersion: 'Windows PC版（公式ランチャー・Steam）／2026年9月27日確認',
+    quickFacts: [
+      {
+        label: '使用量の確認場所',
+        value:
+          'Ctrl＋Shift＋Esc →「パフォーマンス」→ ゲームが使うGPU → 専用／共有 GPU メモリ',
+      },
+      {
+        label: '専用と共有の違い',
+        value:
+          '独立型GPUの「専用」は主にVRAM。「共有」は必要に応じて使うシステムメモリで、VRAMの増設分ではない',
+      },
+      {
+        label: '比較の例（実測値ではありません）',
+        value:
+          '同じ場面で専用7.6／8GB → テクスチャを下げて5.2／8GB。エラーも消えたか併せて確認',
+      },
+      {
+        label: 'Intel対象CPUで繰り返す',
+        value:
+          'Aniimo公式が別原因の可能性を案内。PC・マザーボードメーカーのBIOS情報を確認',
+      },
+    ],
     causes: [
-      'テクスチャ品質・解像度に対してGPUのVRAMが不足している',
-      'ブラウザー、録画、生成AIなどがGPUメモリを使用している',
-      'GPUドライバーが古い、または更新後に再起動していない',
-      '一部のIntel第13・14世代デスクトップCPU環境で報告されたシステム不安定性（Aniimo固有と確認された原因ではありません）',
+      '選んだGPUの専用メモリに対してテクスチャなどの描画負荷が高い',
+      '録画・ブラウザーなど別のアプリも同じGPUのメモリを使っている',
+      'GPUドライバーまたはゲームファイルの不具合',
+      'Aniimo公式が報告した、一部Intel第13・14世代CPU搭載環境でのシステム不安定性',
     ],
     symptoms: [
-      { label: '起動時に不足と表示', target: 'reduce-vram' },
-      { label: '高画質にすると落ちる', target: 'reduce-vram' },
-      { label: 'ほかのゲームでも同じエラー', target: 'check-system' },
+      { label: 'GPUメモリをどこで見る？', target: 'read-gpu-memory' },
+      { label: '画質を上げると落ちる', target: 'compare-settings' },
+      { label: '数値は低いのにエラーが出る', target: 'check-other-causes' },
+      { label: 'Intel第13・14世代で繰り返す', target: 'check-intel-cpu' },
+    ],
+    diagnosis: [
+      {
+        symptom:
+          '実行中、専用GPUメモリの使用量が上限に近く、画質を下げるとエラーも減る',
+        cause: '描画負荷と空き容量の関係を同じ場面で再確認',
+        stepId: 'compare-settings',
+      },
+      {
+        symptom: '共有GPUメモリの最大値が大きいので、VRAMも多いと思った',
+        cause: '共有はシステムメモリ。使用量と上限、GPUの種類を分けて読む',
+        stepId: 'read-gpu-memory',
+      },
+      {
+        symptom:
+          '使用量が上限から離れている／画質を下げても同じエラーを繰り返す',
+        cause:
+          '瞬間的な増加の見逃しに注意しつつ、ドライバー・ファイル・CPU側も確認',
+        stepId: 'check-other-causes',
+      },
+      {
+        symptom:
+          '第13・14世代IntelデスクトップCPUで、Aniimoが繰り返しクラッシュする',
+        cause: 'Aniimo公式とIntelが案内する対象CPUの安定性問題を照合',
+        stepId: 'check-intel-cpu',
+      },
     ],
     steps: [
       {
-        id: 'reduce-vram',
-        title: 'VRAM使用量を減らす',
-        summary: '最初に、安全に戻せるゲーム設定と同時起動アプリを見直します。',
-        actions: [
-          'ブラウザー、録画、画像生成などGPUを使うアプリを終了する',
-          'テクスチャ品質を1段階下げる',
-          '解像度またはレンダリング解像度を下げる',
-          'ゲームを再起動し、同じ場面で比較する',
-        ],
-      },
-      {
-        id: 'update-vram-driver',
-        title: 'GPUドライバーを公式版へ更新する',
-        summary: 'GPUメーカーが提供する正式なドライバーで再確認します。',
-        actions: [
-          'タスクマネージャーの「パフォーマンス」でGPU名を確認する',
-          'NVIDIA・AMD・Intelの公式サイトから対応ドライバーを入手する',
-          'インストール後にWindowsを再起動する',
-          '低い画質設定のままAniimoを起動する',
-        ],
-      },
-      {
-        id: 'check-system',
-        title: 'Intel第13・14世代環境はメーカー情報を確認する',
+        id: 'read-gpu-memory',
+        title: 'ゲームが使うGPUの専用・共有メモリを読む',
         summary:
-          '同じエラーが複数のゲームで出る場合に限り、システム側の安定性も確認します。',
+          'エラーが出た後だけでなく、Aniimoを動かしている間の数値を控えます。',
         actions: [
-          'CPU型番とPCまたはマザーボードの製品名を確認する',
-          'メーカー公式サポートでBIOS・マイクロコード更新情報を確認する',
-          '更新する場合は、その製品専用の公式手順だけに従う',
-          '不明な場合はメーカーサポートへ相談する',
+          'Ctrl＋Shift＋Escでタスクマネージャーを開き、「パフォーマンス」→「GPU 0／GPU 1」を表示する。複数ある場合は「詳細」の列見出しを右クリック→「列の選択」→「GPUエンジン」を追加し、Aniimoのプロセスに表示されるGPU番号と「パフォーマンス」のGPU名を照合する。',
+          'ゲームが動いている間に、そのGPUの「専用 GPU メモリ」と「共有 GPU メモリ」の使用量／上限（例：5.2／8GB）を記録する。起動前と、エラーが起きやすい場面の両方を見て、可能ならスクリーンショットを残す。',
+          '独立型GPUでは「専用」は主にGPU上のVRAM、「共有」はPC本体のメモリを必要に応じて使う枠。共有の上限を専用VRAMの容量に足して、同等の高速なVRAMがあると解釈しない。内蔵GPUの「専用」は予約されたシステムメモリの場合がある。',
         ],
-        note: 'Aniimo公式がIntel CPUを原因として確認したという意味ではありません。BIOS更新は失敗時の影響が大きいため、汎用手順では案内しません。',
+        note: 'ゲーム終了後は使用量が下がるため、クラッシュ後の数値だけでは直前のピークは分かりません。複数GPUがある場合、GPU 0が必ずゲーム用とは限りません。',
+      },
+      {
+        id: 'compare-settings',
+        title: 'テクスチャを1段階下げ、同じ場面で数値とエラーを比較する',
+        summary: '変更するのは最初に一つだけ。条件をそろえて効果を確かめます。',
+        actions: [
+          '変更前の解像度・テクスチャ品質・起動しているほかのアプリ、比較する場所と視点を控える。ゲームに入れるなら、毎回同じ場所・同じ視点で数値とエラーの有無を記録する。',
+          'Aniimoの画質設定でテクスチャ品質を1段階下げ、表示上必要ならゲームを再起動する。画面に入れず設定を変えられない場合は無理にゲームファイルを編集せず、次の手順へ進む。',
+          '同じ場面・同じ解像度で専用／共有GPUメモリを再確認する。たとえば「専用7.6／8GBで落ちた→5.2／8GBで落ちない」なら描画負荷が関係する手がかりになる。これは説明用の数値でAniimoの実測結果ではない。',
+          '変化が小さければ、別アプリの録画・ブラウザーを終了して再比較する。数値が下がってもエラーが続く場合はメモリ不足と決めつけず、ドライバー・ゲームファイル・対象CPUを調べる。',
+        ],
+        note: 'クラッシュ直前の瞬間的なメモリ増加はタスクマネージャーで見逃す場合があります。低い数値だけでVRAMを原因から除外しないでください。',
+      },
+      {
+        id: 'check-other-causes',
+        title:
+          '画質を下げても繰り返す場合、ドライバーとゲームファイルを確認する',
+        summary:
+          'GPU名と更新状況を記録し、起動元に合った公式の修復機能を使います。',
+        actions: [
+          '「パフォーマンス」→実際にAniimoが使うGPUでGPU名を控え、NVIDIA・AMD・IntelまたはPCメーカーの公式サイトで、その製品向けドライバーの更新案内を確認する。更新したらWindowsを再起動する。',
+          '公式ランチャー版はゲームを終了してランチャー右上「設定」→「ワンクリック修復」。Steam版はライブラリのAniimoを右クリック→「プロパティ」→「インストール済みファイル」→ゲームファイルの整合性を確認する。',
+          '変更前と同じ場面を再度確認する。同じエラーが続く場合は表示文、発生時刻、使用GPU・CPU名、専用／共有メモリの記録を残し、Intel対象CPUなら次の分岐へ進む。',
+        ],
+      },
+      {
+        id: 'check-intel-cpu',
+        title:
+          'Intel第13・14世代デスクトップCPUなら、公式の安定性情報を確認する',
+        summary:
+          'Aniimo公式は、対象環境で「ビデオメモリ不足」と表示されるクラッシュも案内しています。',
+        actions: [
+          'Windowsの「設定」→「システム」→「バージョン情報」でプロセッサ名を確認し、Intel第13・14世代のデスクトップCPUに該当するかAniimo公式の対象一覧と照合する。ほかのゲームでも落ちるか、ブルースクリーンが起きるかも記録する。',
+          'PCまたはマザーボードの正確な型番を控え、そのメーカーのサポートページで、対象機種向けの最新BIOSとIntelマイクロコードの対応状況を確認する。Intelの現行案内は0x12F以降を含む最新BIOSと「Intel Default Settings」を推奨している。',
+          '更新方法に迷う、更新後も落ちる、別のゲームでも不安定な場合は、PC・マザーボードメーカーまたはAniimo公式サポートに、CPU／製品型番・エラー文・再現した場面を伝える。対象外CPUなら、この分岐だけで原因を断定せず別の要因を調べる。',
+        ],
+        note: 'Intelが説明するVmin Shiftの対象は一部デスクトップCPUで、同世代のモバイルCPUはこの問題の対象外です。Aniimo公式にはXTUでの倍率変更も載っていますが、ここでは設定値の一律変更は勧めません。BIOSは型番に合うメーカー公式手順に従い、不明ならサポートへ相談してください。',
       },
     ],
     cautions: [
-      'BIOS更新中の電源断や別製品向けファイルの使用は起動不能につながります。メーカー公式手順を確認できない場合は実行しないでください。',
-      'レジストリ変更や非公式の電圧設定を、最初の対処として行わないでください。',
+      '「共有GPUメモリ」の上限値を、実際に使用中の量や搭載VRAMの増加分と混同しないでください。',
+      'BIOS更新は製品型番に合うメーカー公式の案内を確認してから行ってください。',
+    ],
+    avoid: [
+      'クラッシュ後にメモリ使用量が低いだけで原因を断定する',
+      '実際にゲームが使うGPUを調べず、GPU 0の数字だけを見る',
+      '製品型番を確かめず別のマザーボード用BIOSを適用する',
     ],
     faqs: [
       {
-        question: 'ビデオメモリ不足はVRAMを増設すれば直りますか？',
+        question: '「専用8GB＋共有8GB」なら16GBのVRAMとして使えますか？',
         answer:
-          '多くのGPUはVRAMだけを増設できません。まずテクスチャ・解像度を下げ、同時起動アプリとドライバーを確認してください。',
+          '同じVRAMとしては扱えません。独立型GPUの専用メモリはGPU上のVRAMですが、共有メモリはPC本体のメモリをGPUも使えるようにしたものです。タスクマネージャーでは、上限の合計より専用／共有それぞれの「現在の使用量」を見てください。',
       },
       {
-        question: 'Intel第13・14世代CPUなら必ずBIOS更新が必要ですか？',
+        question:
+          '専用GPUメモリに余裕があるのに「ビデオメモリ不足」と出るのはなぜ？',
         answer:
-          '必ずではありません。Aniimo固有の原因と公式確認された情報ではないため、ほかのゲームでも同じ症状が出るかを確認し、PC・マザーボードメーカーの対象製品向け案内を優先してください。',
+          '終了後には使用量が下がり、瞬間的な増加を記録できていない場合があります。一方、Aniimo公式はIntel第13・14世代の対象CPU環境で同じ文言のクラッシュが起こり得ると案内しています。画質変更前後の結果とCPU型番を合わせて判断してください。',
+      },
+      {
+        question: '第13・14世代Intel搭載ノートPCも同じCPU問題の対象ですか？',
+        answer:
+          'Intelが説明するVmin Shiftの対象はデスクトップ向けCPUで、モバイルCPUは対象外としています。ノートPCでも別の原因で同じエラーが起きる可能性はあるため、GPUメモリとドライバーの確認を進め、機種ごとのメーカー案内を参照してください。',
       },
     ],
     sources: [
-      officialNews,
-      steamStore,
+      aniimoIntelIssue,
+      pcLaunchFaq,
       {
-        label: 'Intel公式：第13・14世代デスクトップCPUの保証延長',
-        url: 'https://community.intel.com/t5/Processors/Intel-Core-13th-14th-Gen-Desktop-Processors-VLSI-Instability/m-p/1620853',
+        label:
+          'Microsoft DirectX公式：タスクマネージャーの専用・共有GPUメモリの読み方',
+        url: 'https://devblogs.microsoft.com/directx/gpus-in-the-task-manager/',
       },
+      {
+        label: 'Intel公式：第13・14世代デスクトップCPUの最新の安定性対策',
+        url: 'https://www.intel.com/content/www/us/en/support/articles/000102331/processors.html',
+      },
+      {
+        label: 'Intel公式：デスクトップCPUの対象範囲とモバイルCPUの扱い',
+        url: 'https://community.intel.com/t5/Mobile-and-Desktop-Processors/Intel-Core-13th-and-14th-Gen-Desktop-Instability-Root-Cause/td-p/1633442',
+      },
+      steamVerifyGuide,
+      steamStore,
       {
         label: 'NVIDIA公式ドライバー',
         url: 'https://www.nvidia.com/Download/index.aspx',
       },
       { label: 'AMD公式サポート', url: 'https://www.amd.com/en/support' },
+      {
+        label: 'Intel公式：グラフィックスドライバーの検出と更新',
+        url: 'https://www.intel.com/content/www/us/en/support/detect.html',
+      },
     ],
     related: related.filter((slug) => slug !== 'video-memory-error'),
-    seoTitle: 'アニモ（Aniimo）のビデオメモリ不足エラー原因と対処法【PC版】',
+    seoTitle:
+      'アニモのビデオメモリ不足｜GPUメモリの見方・画質比較・Intel CPUの確認',
     metaDescription:
-      'アニモ（Aniimo）でビデオメモリ不足が出るときの対処法。VRAM使用量、GPUドライバー、Intel第13・14世代環境を安全な順番で確認します。',
+      'アニモ（Aniimo）のビデオメモリ不足エラーを切り分け。Windowsで専用・共有GPUメモリを調べ、同じ場面で画質変更前後を比較。Intel第13・14世代CPUの公式案内も確認。',
+    ogTitle: 'アニモ「ビデオメモリ不足」？',
+    ogSteps: [
+      'ゲームが使うGPUを確認',
+      '専用・共有メモリを記録',
+      '同じ場面で画質を比較',
+      '対象Intel CPUなら別途確認',
+    ],
   },
   {
     gameSlug: 'aniimo',
