@@ -34,6 +34,14 @@ const aniimoRelease = {
   label: 'Aniimo公式：正式リリースと日本語サポート窓口',
   url: 'https://aniimo.com/newslist/detail/100117',
 };
+const windowsBlankScreen = {
+  label: 'Microsoft公式：Windowsの空白・黒い画面のトラブルシューティング',
+  url: 'https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/troubleshooting-blank-screens-in-windows',
+};
+const windowsDisplaySettings = {
+  label: 'Microsoft公式：Windowsの解像度と画面のレイアウト',
+  url: 'https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/change-your-screen-resolution-and-layout-in-windows',
+};
 const related = [
   'not-launching',
   'black-screen',
@@ -259,78 +267,198 @@ export const aniimoArticles: GameArticle[] = [
     gameSlug: 'aniimo',
     slug: 'black-screen',
     category: 'settings',
-    title: 'アニモ（Aniimo）が黒画面になるときの直し方【PC版】',
-    shortTitle: '黒画面',
+    title:
+      'アニモ（Aniimo）が黒画面になるときの直し方｜PC全体が映らない場合も解説',
+    shortTitle: '黒画面・画面が映らない',
     symptom:
-      '起動後に映像が出ない、ロゴの後で黒い画面のまま進まない場合の確認手順です。',
+      'ゲームのウィンドウだけ真っ暗なのか、Windowsのデスクトップも映らないのかで初動が変わります。まずAlt＋TabやCtrl＋Alt＋DeleteでWindowsの画面が見えるか確認してください。',
     conclusion:
-      '音が出ているかを確認し、ウィンドウ表示へ切り替え、ファイル修復とGPUドライバー更新を順番に試します。',
+      'Windowsが見えるならゲーム側の表示切り替えを試し、映像が戻れば画面設定を保存。戻らなければAniimoの修復へ。PC画面全体が黒いなら、モニターの電源・入力先・接続を確かめてからWindowsの表示を復旧します。',
     description:
-      '黒画面は、サービス側の問題、表示モード、描画ドライバー、破損ファイルで対処が異なります。Aniimo公式が黒画面を既知問題として掲載しているとは限らないため、症状を分けて確認します。',
-    checkedAt,
+      '音が聞こえていても、ゲーム映像だけの問題かWindows全体の表示問題かは判定できません。デスクトップやセキュリティ画面が見えるかを先に確かめ、見えない場合はゲームのファイル操作へ進まないでください。',
+    checkedAt: '2026-09-27',
     status: 'verified',
-    targetVersion,
+    targetVersion: 'Windows PC版（公式ランチャー・Steam）／2026年9月27日確認',
+    quickFacts: [
+      {
+        label: '最初に試すキー',
+        value: 'Alt＋Tab、次にCtrl＋Alt＋Delete。Windowsの画面が見えるかを判定',
+      },
+      {
+        label: 'ゲーム画面だけ黒い',
+        value:
+          'ゲームが選択された状態でAlt＋Enterを1回試し、結果に合わせて分岐',
+      },
+      {
+        label: 'PCの画面全体が黒い',
+        value: 'モニター電源・入力・ケーブル→Windows＋Ctrl＋Shift＋Bの順',
+      },
+      {
+        label: 'Aniimo公式の修復',
+        value: '公式ランチャー右上の「設定」→「ワンクリック修復」',
+      },
+    ],
     causes: [
-      'メンテナンスやランチャー更新が完了していない',
-      'フルスクリーンの解像度・表示モードが合っていない',
-      'ゲームファイルの不足または破損',
-      'GPUドライバーや描画オーバーレイとの競合',
+      'Aniimoの画面モード・解像度とディスプレイ設定の組み合わせ',
+      '更新後のゲームファイルの不整合（Aniimo公式FAQが修復を案内）',
+      'モニターの入力先・接続、Windowsの表示先やグラフィックスの問題',
     ],
     symptoms: [
-      { label: 'ロゴの後で黒画面', target: 'window-mode' },
-      { label: '音は出るが映像がない', target: 'window-mode' },
-      { label: '黒画面のまま応答しない', target: 'repair-black-screen' },
+      { label: 'まずWindowsを操作できるか確認', target: 'split-black-screen' },
+      { label: 'ゲームだけ黒い・音は出る', target: 'window-mode' },
+      { label: 'PCの画面全体が映らない', target: 'desktop-blank' },
+      { label: 'Alt＋Enterで映像が戻った', target: 'after-display-toggle' },
+      { label: '切り替えてもゲームが真っ黒', target: 'repair-black-screen' },
+      { label: '修復後も同じ黒画面', target: 'after-repair-black-screen' },
+    ],
+    diagnosis: [
+      {
+        symptom: 'Aniimoだけ黒く、Alt＋Tabでデスクトップが見える',
+        cause: 'ゲームの表示モード・描画かファイルを確認',
+        stepId: 'window-mode',
+      },
+      {
+        symptom: '音は出るがAniimoの映像だけ見えない',
+        cause: '音の有無では断定せず、Windowsが見えれば画面切り替えを試す',
+        stepId: 'window-mode',
+      },
+      {
+        symptom: 'Alt＋Enter後に映像が戻った',
+        cause: '切り替えた表示モード・解像度で再起動しても戻るか確認',
+        stepId: 'after-display-toggle',
+      },
+      {
+        symptom: 'Alt＋Enterで変化なし／一瞬映ってまた黒い',
+        cause: 'ゲームを終了し、配布元に合う修復を実行',
+        stepId: 'repair-black-screen',
+      },
+      {
+        symptom: 'デスクトップも見えず、Ctrl＋Alt＋Deleteも表示されない',
+        cause: 'ゲーム設定よりモニター・Windowsの画面出力を先に確認',
+        stepId: 'desktop-blank',
+      },
+      {
+        symptom: '更新後から黒く、修復しても同じ状態',
+        cause: '修復結果と起動時点を比較し、表示環境と公式窓口へ',
+        stepId: 'after-repair-black-screen',
+      },
     ],
     steps: [
       {
-        id: 'check-black-screen-status',
-        title: '公式のお知らせと待機時間を確認する',
-        summary: '配信直後の更新中と端末固有の黒画面を分けます。',
+        id: 'split-black-screen',
+        title: 'Windowsが見えるか確認して、調べる対象を決める',
+        summary: 'ゲームだけ黒いのか、PCの表示全体が消えたのかを切り分けます。',
         actions: [
-          'Aniimo公式ニュースでメンテナンスや更新情報を確認する',
-          'ディスク使用率が動いている場合は数分待つ',
-          '変化がなければゲームを終了し、Windowsを再起動する',
+          'Alt＋Tabで別のアプリかWindowsのデスクトップに切り替える。ゲーム以外が見えるなら次の「ゲームだけ黒い」へ進む',
+          '何も見えなければCtrl＋Alt＋Deleteを1回押す。セキュリティ画面が出るならWindowsは表示できているため、タスク マネージャーでAniimoが応答しているか確認する',
+          'デスクトップもセキュリティ画面も出ず、モニター全体が黒いなら「PCの画面全体が映らない」へ進む',
         ],
+        note: 'ロゴの後で黒い場合も、画面全体が真っ黒になった場合も、音だけを手がかりにゲームの修復へ進まないことが重要です。',
       },
       {
         id: 'window-mode',
-        title: 'ウィンドウ表示へ切り替える',
-        summary: 'フルスクリーンだけで映像が出ない状態かを確認します。',
+        title: 'ゲームだけ黒い場合、表示モードを1回切り替える',
+        summary:
+          'Windowsが見える場合に限り、全画面とウィンドウの表示差を調べます。',
         actions: [
-          'ゲーム画面を選択する',
-          'AltキーとEnterキーを同時に押す',
-          '映像が表示されたら、ゲーム内でモニター対応の解像度を選ぶ',
-          '一度終了し、同じ設定で再起動する',
+          'ゲーム以外のWindows画面が見えることを確認し、Alt＋TabでAniimoに戻る',
+          'Aniimoが選択された状態でAlt＋Enterを1回押し、10秒ほど待って映像が戻るか見る。ゲームがこのキーに対応しない場合もあります',
+          '映像が戻ったなら次の「映像が戻った後」へ。映像が戻らない、または一瞬だけ戻るならCtrl＋Alt＋Deleteからタスク マネージャーを開き、応答しないAniimoを終了して「ゲームを修復」へ進む',
+        ],
+        note: 'Alt＋Enterに反応しないことだけではゲームファイルの破損と判断できません。画面全体が黒い場合はこの操作を繰り返さず、Windows側の手順を先に確認します。',
+      },
+      {
+        id: 'desktop-blank',
+        title: 'PCの画面全体が映らない場合は表示を復旧する',
+        summary:
+          'デスクトップも見えない間は、ゲームファイルの修復を始められません。',
+        actions: [
+          'モニターの電源ランプと入力先（HDMI／DisplayPort）を確認し、PCとモニターのケーブルが抜けていないか確認する。ノートPCなら外部モニターをいったん外して内蔵画面を見る',
+          'Windows＋Ctrl＋Shift＋Bを1回押し、音や画面のちらつき、デスクトップが戻るか確認する',
+          'まだ真っ黒ならWindows＋Pを押し、もう一度P、Enterの順で表示先を1段階切り替えて数秒待つ。外部画面を使う場合は投影先を間違えていないか見る',
+          'Ctrl＋Alt＋Deleteで画面が戻ればタスク マネージャーでAniimoを終了し、デスクトップが見える状態にしてからゲーム側を確認する。何を押しても表示が戻らなければMicrosoftの「Windowsの空白画面」案内に進む',
+        ],
+        note: 'ディスクへの更新・保存中と分かる場合は電源の長押しを避けてください。PCが応答せず表示も戻らない場合は、Microsoftの復旧手順を確認してから再起動を判断します。',
+      },
+      {
+        id: 'after-display-toggle',
+        title: '映像が戻ったら、表示設定を保存して再発を確かめる',
+        summary:
+          'その場で一度映っただけでは解決とせず、再起動後も映るか調べます。',
+        actions: [
+          'Aniimoの画面が戻ったら、ゲームの表示設定で現在表示できている画面モードと解像度を控え、その設定で保存する',
+          'いったん通常終了し、同じモニターで再起動する。ログイン画面からゲーム内まで映れば改善と判断する',
+          '再起動時にだけ黒くなるなら、Windows「設定」→「システム」→「ディスプレイ」で利用中のモニターを選び、解像度と画面の配置を確認する',
+          '同じ設定でも再発するなら、次の修復手順で更新後のゲームファイルを確認する',
         ],
       },
       {
         id: 'repair-black-screen',
-        title: 'ファイル修復後にGPU環境を確認する',
-        summary: '破損ファイルと描画環境を順番に切り分けます。',
+        title: '切り替えてもゲームだけ黒いなら配布元の修復を実行する',
+        summary:
+          'Aniimo公式は更新後の黒画面にワンクリック修復を案内しています。',
         actions: [
-          '公式ランチャーの修復機能が表示される場合は実行する',
-          'Steam版は「ゲームファイルの整合性を確認」を実行する',
-          'GPUメーカー公式のドライバーへ更新してPCを再起動する',
-          'Discordや録画ソフトのオーバーレイを止めて再確認する',
+          'Windowsのデスクトップが表示できていることを確認し、Aniimoを終了する。公式ニュースに更新・メンテナンスがあれば状況を確かめる',
+          '公式ランチャー版はランチャー右上「設定」→「ワンクリック修復」を実行し、完了後にランチャーを再起動する',
+          'Steam版はライブラリでAniimoを右クリック→「プロパティ」→「インストール済みファイル」→「ゲームファイルの整合性を確認」を実行する',
+          '再取得されたかどうかを控え、ゲームを再び起動して、ロゴ直後からゲーム内まで映るか確認する。改善しなければ次の結果別手順へ',
+        ],
+      },
+      {
+        id: 'after-repair-black-screen',
+        title: '修復後も黒い場合は結果に合わせて次の行動を選ぶ',
+        summary: '修復結果、映る範囲、別のアプリの表示から調べる先を絞ります。',
+        actions: [
+          '再取得後にゲームが映り、再起動しても再発しなければ修復完了。再取得されても同じ時点で黒くなるなら、公式更新情報を確認し、再発時刻と修復結果を控える',
+          '修復で変化がなくAniimoだけ黒い場合は、GPUメーカー公式のドライバーを確認し、更新した場合はWindowsを再起動して比較する。Discordや録画ソフトのオーバーレイは一つずつ止めて試す',
+          'Windowsのデスクトップも再び消える場合はゲーム設定の問題と決めつけず、MicrosoftのWindows空白画面の手順で表示先・接続・ドライバーを確認する',
+          'ゲームだけ黒い症状が続くなら、公式ランチャー版かSteam版か、更新前後の変化、Alt＋Enterの結果、音の有無とエラー表示を添えて support_jp@aniimo.com へ相談する',
         ],
       },
     ],
     cautions: [
-      '黒画面中にインストール処理が続いている場合があります。ディスクアクセス中の強制終了を繰り返さないでください。',
-      '非公式の設定ファイルやDLLは導入しないでください。',
+      'ランチャーの更新中やディスクへの書き込み中と分かるときは、強制終了や電源の長押しを繰り返さないでください。',
+    ],
+    avoid: [
+      'PC画面全体が映らない状態で、当てずっぽうにゲームファイルや設定を削除しない。',
+      '非公式のDLLや修復ツール、原因の分からない設定ファイルは追加しない。',
     ],
     faqs: [
       {
-        question: 'Aniimoで音は出るのに黒画面のときは？',
+        question: 'ゲーム音が聞こえればAniimo側だけの問題ですか？',
         answer:
-          'Alt＋Enterでウィンドウ表示へ切り替え、映像が戻るか確認します。戻った場合はモニターに合う解像度へ設定してください。',
+          '音だけでは判断できません。Alt＋TabでWindowsのデスクトップが見えればゲーム側の表示を確認します。Windowsの画面も見えなければ、モニターの入力先とWindowsの表示復旧を先に試してください。',
+      },
+      {
+        question: 'Alt＋Enterで一度直ったのに、次の起動でまた黒くなります',
+        answer:
+          '映った時の画面モードと解像度をゲーム内で保存し、Windows側でも使っているモニターと解像度を確認します。ゲームだけ再発するなら更新後のファイルを修復し、その結果を控えてください。',
+      },
+      {
+        question: 'ロゴが出ず白い画面のままの場合も同じ手順ですか？',
+        answer:
+          'Aniimo公式FAQは、ロゴが出ず白い画面が続く症状について別にDirectX 11の案内を掲載しています。デスクトップが見えることを確認したうえで、公式FAQの該当項目を先に確認してください。',
       },
     ],
-    sources: [officialNews, steamStore],
+    sources: [
+      pcLaunchFaq,
+      windowsBlankScreen,
+      windowsDisplaySettings,
+      steamVerifyGuide,
+      aniimoRelease,
+    ],
     related: related.filter((slug) => slug !== 'black-screen'),
-    seoTitle: 'アニモ（Aniimo）が黒画面になるときの直し方【PC版】',
+    seoTitle:
+      'アニモ（Aniimo）が黒画面になる時の直し方｜Windows全体が映らない場合も',
     metaDescription:
-      'アニモ（Aniimo）PC版が黒画面で進まない、音だけ出る場合の対処法。ウィンドウ表示、ファイル修復、GPUドライバーを安全な順に確認します。',
+      'アニモ（Aniimo）PC版が黒画面になる時は、ゲームだけ黒いかWindows全体が映らないかを判定。Alt＋Enterで映像が戻った場合・戻らない場合の次の行動、公式ランチャーとSteamの修復方法を解説。',
+    ogTitle: 'アニモが黒画面。PC全体も？',
+    ogSteps: [
+      'Windowsの画面が見えるか確認',
+      'ゲームだけなら表示を切り替え',
+      '映像が戻ったら設定を保存',
+      '戻らなければ公式の修復へ',
+    ],
   },
   {
     gameSlug: 'aniimo',
