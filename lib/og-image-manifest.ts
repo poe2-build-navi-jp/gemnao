@@ -38,7 +38,7 @@ export const ogImageManifest: Record<string, string> = {
   "/games/aniimo/black-screen": "a14b8ac4",
   "/games/aniimo/launcher-display": "950a3a59",
   "/games/aniimo/login-error": "c5c34110",
-  "/games/aniimo/not-launching": "981b09f3",
+  "/games/aniimo/not-launching": "0cedb67a",
   "/games/aniimo/video-memory-error": "eedbb3ce",
   "/games/elden-ring": "7b6f68c6",
   "/games/elden-ring/fps": "de4d8353",
