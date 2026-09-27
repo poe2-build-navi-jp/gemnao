@@ -264,7 +264,7 @@ export const games: GameGuide[] = [
     accent: '#d2673d',
     demand: '2025年発売・Steam最大約138万人',
     issueScale: '非常に高い',
-    updated: '2026-09-09',
+    updated: '2026-09-27',
     tags: [
       '起動しない',
       'FPS低下',
@@ -276,17 +276,17 @@ export const games: GameGuide[] = [
     ],
     savePath: String.raw`<Steam>\userdata\<Steam ID>\2246340\remote\win64_save`,
     configPath: String.raw`<インストール先>\config.ini`,
-    fps: 'ゲーム内のフレームレート上限を確認。まず60/120/144などモニターに合わせ、フレーム生成の有無で実FPSと表示FPSを分けて判断します。',
+    fps: 'ゲーム中のFPS上限は30〜360fps、ムービーは30〜60fpsで設定。推奨環境の60fpsはフレーム生成を使った目安です。フレーム生成を選べない時はWindowsの「ハードウェアアクセラレータによるGPUスケジューリング」をオンにします。',
     ultrawide:
-      '21:9まで対応。3440×1440などでは端に小さな黒帯が残る場合があります。',
+      '21:9まで対応（ゲームプレイ・ムービーとも横に広がる表示）。3440×1440では正確な21:9に合わせるため端に小さな黒帯が出ます。32:9は非対応。',
     hdr: 'HDR対応。Windows側のHDRを先に有効化し、ゲーム内輝度を再調整します。',
     controller:
-      'Xbox系およびPlayStation系コントローラー対応。二重入力時はSteam Inputを一度OFFにして比較。',
+      'コントローラー操作はSteam入力が前提。ボタン表示は自動で切り替わらないため手動で選択。DualSenseの振動はUSB接続で使います。',
     launchFixes: [
       'Steamの「インストール済みファイルの整合性を確認」を実行',
-      'GPUドライバーを更新し、PCを再起動',
+      'GPUドライバーを公式推奨（NVIDIA 581.57・AMD 25.9.1以降）に更新し、PCを再起動',
       'config.iniをバックアップ後に退避し、設定を再生成',
-      '高解像度テクスチャ使用時はVRAM不足と空き容量を確認',
+      'VRAM 16GB未満なら高解像度テクスチャパックを無効化（公式）',
     ],
     mod: 'セーブとゲームフォルダを先にバックアップ。アップデート直後はMODを外し、本体のみで起動確認します。',
     japanese: '日本語は公式対応。非公式の日本語化MODは不要です。',
@@ -300,6 +300,10 @@ export const games: GameGuide[] = [
       {
         label: '公式トラブルシューティング（Steam）',
         url: 'https://steamcommunity.com/app/2246340/discussions/0/596267902352499417/',
+      },
+      {
+        label: '公式お知らせ（推奨ドライバー）',
+        url: 'https://store.steampowered.com/news/app/2246340/view/1811772772359267',
       },
       {
         label: 'PCGamingWiki（設定場所・表示対応）',
