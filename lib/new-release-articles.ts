@@ -18,7 +18,6 @@ type Draft = {
 };
 const targetVersions: Record<string, string> = {
   'the-blood-of-dawnwalker': 'PC版 1.0.2・2026年9月13日時点',
-  'star-wars-zero-company': 'PC版・2026年9月9日時点のEA公式案内',
   wardogs: 'Steam版・2026年9月10日の発売直後情報',
 };
 const make = (d: Draft): GameArticle => ({
@@ -54,7 +53,6 @@ const make = (d: Draft): GameArticle => ({
   metaDescription: d.symptom,
 });
 const dawn = gameBySlug('the-blood-of-dawnwalker')!;
-const zero = gameBySlug('star-wars-zero-company')!;
 const wardogs = gameBySlug('wardogs')!;
 const dawnKnown = {
   label: 'Dawnwalker公式コミュニティ：既知問題',
@@ -63,10 +61,6 @@ const dawnKnown = {
 const dawnHotfix = {
   label: '公式Hotfix 1.0.2',
   url: 'https://dawnwalkergame.com/us/en/news/hotfix-102',
-};
-const ea = {
-  label: 'EA公式トラブルシューティング',
-  url: 'https://help.ea.com/ja/articles/star-wars/zero-company/troubleshoot-common-issues/',
 };
 export const newReleaseArticles: GameArticle[] = [
   make({
@@ -185,131 +179,6 @@ export const newReleaseArticles: GameArticle[] = [
       'Hotfix 1.0.2の走行入力調整が未適用の状態',
       '複数入力機器または入力変換の競合',
       'PS5コントローラーの割り当て機能が未対応の版',
-    ],
-  }),
-  make({
-    gameSlug: zero.slug,
-    slug: 'not-launching',
-    category: 'launch',
-    title:
-      'STAR WARS Zero Companyが起動しない・クラッシュする時の対処法【PC版】',
-    shortTitle: '起動しない・クラッシュ',
-    symptom:
-      'EA app・Steam・Epicで起動しない、フリーズ、エラーが出る時の公式手順です。',
-    conclusion:
-      'PC再起動とゲームファイル修復から確認します。DLSS使用中のクラッシュは、EAが案内するNVIDIAドライバーの条件をSTEP3で確認してください。',
-    steps: [
-      'PCとランチャーを再起動する',
-      'ゲームファイルを修復する',
-      'GPUドライバーとWindowsを更新する',
-    ],
-    checkedAt: '2026-09-24',
-    targetVersion: 'PC版・2026年9月24日確認のEA公式トラブルシューティング',
-    actions: [
-      [
-        'ゲームを終了し、PCを再起動する',
-        '購入元のランチャーを起動し、保留中のゲーム更新を完了させる',
-        '同じ起動方法で再現するか確認する',
-      ],
-      [
-        'EA appではライブラリのゲームタイルの3点メニューから「修復」を選ぶ',
-        'Steamではプロパティ→インストール済みファイル→整合性を確認を選ぶ',
-        'Epicではライブラリのゲームのメニューから管理→確認を選ぶ',
-        '処理完了後に同じ場面で比較する。セーブ復元の操作ではありません',
-      ],
-      [
-        'Windows＋R→dxdiag→ディスプレイでGPU名を確認する。NVIDIAアプリ→ドライバーで現在のGame Readyドライバー版を確認する',
-        '公式確認状況（2026年9月24日）：EAはDLSS使用中のクラッシュについて、Game Readyドライバー610.88以前なら対応する新しい版への更新を案内しています。全クラッシュの原因をこの条件に限定するものではありません',
-        '該当する場合はNVIDIAアプリ→ドライバーで対応する更新を確認し、インストール後にWindowsを再起動する。AMD・Intelなど別のGPUにはこの版番号の条件を適用しない',
-        'Windows更新は設定→Windows Update→更新プログラムのチェックから確認し、完了後に同じ場面で比較する',
-        '改善しなければ版番号・エラー全文・再現場面を添えてEA公式サポートへ相談する',
-      ],
-    ],
-    sources: [ea],
-    related: ['gtx10-rtx20-low-fps', 'black-screen', 'save-progress'],
-    causes: [
-      'EA app・Steam・Epicの更新または認証状態',
-      '破損・不足したゲームファイル',
-      '古いGPUドライバーまたはWindows更新',
-    ],
-  }),
-  make({
-    gameSlug: zero.slug,
-    slug: 'black-screen',
-    category: 'settings',
-    title: 'STAR WARS Zero Companyが黒い画面になる時の対処法【PC版】',
-    shortTitle: '黒い画面',
-    symptom:
-      '起動後またはプレイ中に画面が黒くなる時にEA公式が案内する確認項目です。',
-    conclusion:
-      'GPUドライバー、破損ファイル、PC最小要件の3点を順番に確認します。',
-    steps: [
-      'GPUドライバーを更新する',
-      'ゲームファイルを修復する',
-      'PCが最小要件を満たすか確認する',
-    ],
-    checkedAt: '2026-09-23',
-    actions: [
-      [
-        'Windows＋Rでdxdiagを実行し、ディスプレイ欄のGPU名・ドライバー版を控える',
-        'ノートPCは製品メーカー、それ以外はGPUメーカーの公式配布で型番とWindows版に合うドライバーを選ぶ',
-        'インストール後にWindowsを再起動し、同じ場面を比較する',
-      ],
-      [
-        'Steamはライブラリのゲームを右クリック→プロパティ→インストール済みファイル→ゲームファイルの整合性を確認を選ぶ',
-        'EA appはライブラリのゲームの三点メニュー→修復、Epicはライブラリの三点メニュー→管理→確認を選ぶ',
-        '処理完了まで起動せず、完了後にゲームを起動する',
-      ],
-      [
-        'Windows＋Rでdxdiagを開き、CPU・メモリ・GPUを記録する',
-        '利用ストアの製品ページの最小動作環境と照合する',
-        '不足する項目があれば画質変更だけで起動できるとは限らない。構成とエラーを控えてサポートへ相談する',
-      ],
-    ],
-    sources: [ea],
-    related: ['not-launching', 'save-progress'],
-    causes: [
-      'GPUドライバーと描画処理の不整合',
-      '破損・不足したゲームファイル',
-      'PCが公式の最小要件を満たしていない状態',
-    ],
-  }),
-  make({
-    gameSlug: zero.slug,
-    slug: 'save-progress',
-    category: 'save',
-    title: 'STAR WARS Zero Companyのセーブが消えた・進行が保存されない時の注意',
-    shortTitle: '進行が保存されない',
-    symptom:
-      '終了後に最新の進行が反映されない場合の、EA公式が案内する終了タイミングです。',
-    conclusion:
-      'Hawksを操作できる状態へ戻るかミッション開始後、数秒待ってからゲームを終了します。',
-    steps: [
-      'Hawksを操作中か確認する',
-      'ミッション開始後に数秒待つ',
-      '終了後に再起動して進行を確認する',
-    ],
-    checkedAt: '2026-09-23',
-    actions: [
-      [
-        'ゲームを終了する前に、ホークスを操作できる状態へ戻る',
-        '終了前のミッション名と進行地点を控える。保存前に強制終了しない',
-      ],
-      [
-        'ミッション開始直後はすぐに終了せず、数秒待つ',
-        '保存中の表示がある場合は表示が終わってからゲーム内メニューで終了する',
-      ],
-      [
-        '同じアカウントでゲームを起動し、続きから再開する',
-        '控えたミッションと進行地点を比較する。失われた進行をこの手順で復元できるわけではない',
-      ],
-    ],
-    sources: [ea],
-    related: ['not-launching', 'black-screen'],
-    causes: [
-      'オートセーブ完了前にゲームを終了した',
-      'Hawksを再操作できる前に強制終了した',
-      'ミッション開始直後の保存処理が完了していない状態',
     ],
   }),
   make({
