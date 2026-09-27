@@ -3351,3 +3351,9 @@ kbd {
 .steam-input-details p { margin: 12px 0; }
 .steam-input-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
 .steam-input-details li + li { margin-top: 8px; }
+
+/* Double input guide: readable Windows checks and result branches. */
+.controller-double-details p { margin: 12px 0; }
+.controller-double-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
+.controller-double-details li + li { margin-top: 8px; }
+.controller-double-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; }

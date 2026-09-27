@@ -9,6 +9,7 @@ import { vramGuide } from './vram-guide';
 import { lowFpsGuide } from './low-fps-guide';
 import { lowGpuUsageGuide } from './low-gpu-usage-guide';
 import { steamInputGuide } from './steam-input-guide';
+import { controllerDoubleInputGuide } from './controller-double-input-guide';
 import { uninstallSaveGuide } from './uninstall-save-guide';
 import { saveBackupGuide } from './save-backup-guide';
 import { shaderCacheGuide } from './shader-cache-guide';
@@ -67,11 +68,6 @@ const causeMap: Record<string, string[]> = {
     '同期競合',
     'コピー漏れ',
   ],
-  'controller-double-input': [
-    'Steam InputとDS4Windowsの二重変換',
-    '複数入力機器',
-    'ゲーム側割り当て',
-  ],
   'visual-c-runtime-error': [
     '再頒布可能パッケージの破損',
     '必要版の不足',
@@ -108,21 +104,6 @@ const repair = {
   url: 'https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB',
 };
 const reviewedActions: Record<string, string[][]> = {
-  'controller-double-input': [
-    [
-      'ゲームを終了し、USBまたはBluetoothで接続中のゲームパッドを1台だけ残す。キーボード操作とゲームパッド操作を交互に試し、どの入力が2回反応するか確かめる',
-      'Steamの「設定」→「コントローラー」で認識している機器を確認する。仮想コントローラーと実機が並ぶ場合は利用中の外部変換ツールを控える',
-    ],
-    [
-      'Steamの「ライブラリ」で対象ゲームを右クリック→「プロパティ」→「コントローラー」を開く',
-      'DS4Windowsなどの入力変換ツールを使用中なら、そのツールを終了してSteam Inputのみでゲームを起動し、1回の入力で1回動くか確認する',
-      '改善しない場合はゲームを終了してSteam Inputを無効にし、必要な外部ツールだけで再確認する。両方を同時に切り替えない',
-    ],
-    [
-      '入力変換の設定を決めたらゲームとSteamを終了し、Steamを起動し直して対象ゲームを起動する',
-      '同じボタンを1回押して結果を確認する。ゲーム内にコントローラー割り当てがある場合は重複登録がないか確認する',
-    ],
-  ],
   'visual-c-runtime-error': [
     [
       'エラーダイアログを撮影し、MSVCP140.dll・VCRUNTIME140.dllなどのファイル名やエラーコードを末尾まで控える',
@@ -217,11 +198,8 @@ const mk = (
     'directx-error',
     'visual-c-runtime-error',
     'remove-mods-safely',
-    'controller-double-input',
   ].includes(slug)
-    ? ['controller-double-input'].includes(slug)
-      ? '2026-09-25'
-      : '2026-09-24'
+    ? '2026-09-24'
     : reviewedActions[slug]
       ? '2026-09-23'
       : '2026-09-12',
@@ -262,15 +240,7 @@ export const commonGuides: CommonGuide[] = [
   vramGuide,
   saveBackupGuide,
   steamInputGuide,
-  mk(
-    'controller-double-input',
-    'PCゲームでコントローラーが二重入力になる時の直し方',
-    'コントローラー二重入力',
-    'PCゲームでボタンを1回押したのに2回反応する場合は、実機と仮想コントローラーの重複を確認します。Steam InputとDS4Windowsなどを同時に使わず、片方ずつ試して原因を切り分けます。',
-    'Steam InputとDS4Windowsなどの入力変換を1つだけにします。',
-    ['入力機器を1台だけにする', '入力変換を1つにする', 'Steamを再起動する'],
-    ['steam-input-controller', 'steam-game-not-launching', 'reset-config-file'],
-  ),
+  controllerDoubleInputGuide,
   directxGuide,
   mk(
     'visual-c-runtime-error',

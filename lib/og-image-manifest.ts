@@ -84,7 +84,7 @@ export const ogImageManifest: Record<string, string> = {
   "/games/wardogs": "b4e73c57",
   "/games/wardogs/server-connection": "281cf030",
   "/guide/black-screen": "01afcd40",
-  "/guide/controller-double-input": "0d9e44f1",
+  "/guide/controller-double-input": "5d3dc6a7",
   "/guide/directx-error": "a389c7b7",
   "/guide/gpu-driver-update": "1f9872fa",
   "/guide/low-gpu-usage": "01de759c",

@@ -23,6 +23,7 @@ import { LowFpsBeforeSteps, LowFpsAfterSteps } from '@/components/low-fps-detail
 import { LowGpuUsageBeforeSteps, LowGpuUsageAfterSteps } from '@/components/low-gpu-usage-details';
 import { SteamDiskWriteBeforeSteps, SteamDiskWriteAfterSteps } from '@/components/steam-disk-write-details';
 import { SteamInputBeforeSteps, SteamInputAfterSteps } from '@/components/steam-input-details';
+import { ControllerDoubleBeforeSteps, ControllerDoubleAfterSteps } from '@/components/controller-double-input-details';
 import {
   BlackScreenBeforeSteps,
   BlackScreenAfterSteps,
@@ -228,6 +229,15 @@ export default async function Page({
         <aside className="toc issue-toc">
           <strong>このページの内容</strong>
           <a href="#answer">まず試すこと</a>
+          {slug === 'controller-double-input' ? (
+            <>
+              <a href="#double-quick">1回押しで症状を確認</a>
+              <a href="#double-devices">実機と仮想パッドの見分け方</a>
+              <a href="#double-results">結果別の判断表</a>
+              <a href="#double-options">外部ツールが必要な場合</a>
+              <a href="#double-steam">Steam・ゲーム側の確認</a>
+            </>
+          ) : null}
           {slug === 'steam-input-controller' ? (
             <>
               <a href="#input-branches">認識地点別の確認表</a>
@@ -507,6 +517,7 @@ export default async function Page({
           {slug === 'low-fps' ? <LowFpsBeforeSteps /> : null}
           {slug === 'low-gpu-usage' ? <LowGpuUsageBeforeSteps /> : null}
           {slug === 'steam-input-controller' ? <SteamInputBeforeSteps /> : null}
+          {slug === 'controller-double-input' ? <ControllerDoubleBeforeSteps /> : null}
           {slug === 'steam-disk-write-error' ? <SteamDiskWriteBeforeSteps /> : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <PowerShutdownBeforeSteps />
@@ -564,6 +575,7 @@ export default async function Page({
           {slug === 'low-fps' ? <LowFpsAfterSteps /> : null}
           {slug === 'low-gpu-usage' ? <LowGpuUsageAfterSteps /> : null}
           {slug === 'steam-input-controller' ? <SteamInputAfterSteps /> : null}
+          {slug === 'controller-double-input' ? <ControllerDoubleAfterSteps /> : null}
           {slug === 'steam-disk-write-error' ? <SteamDiskWriteAfterSteps /> : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <PowerShutdownAfterSteps />
@@ -576,7 +588,9 @@ export default async function Page({
               注意
             </h2>
             <p>
-              {slug === 'steam-input-controller'
+              {slug === 'controller-double-input'
+                ? '実機やドライバーを名前だけで推測して削除・無効化しないでください。HidHideなどの表示制御があるとWindowsの一覧に実機が出ない場合もあります。Steam Inputと外部ツールは一条件ずつ変え、無反応になったら変更前の状態へ戻してください。'
+                : slug === 'steam-input-controller'
                 ? 'Steamが機器を認識しない時点でゲーム別Steam Inputを切り替えても、接続の不具合は解決しません。ゲーム側を比較する場合は、変更前の設定を控え、ゲームを終了してから一項目ずつ変えてください。変換ツールを複数同時に動かすと入力が重複する場合があります。'
                 : slug === 'low-gpu-usage'
                 ? '使用率の数字だけでGPUやCPUの故障を判断しないでください。FPS上限と実際の使用GPU名を先に確認し、比較中は一項目だけ変更します。画面切り替えで負荷が下がる場合があるため、プレイ中の同じ場面で記録したFPSも合わせて判断してください。'
