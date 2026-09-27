@@ -30,8 +30,9 @@ const make = (d: Draft): GameArticle => ({
   shortTitle: d.shortTitle,
   symptom: d.symptom,
   conclusion: d.conclusion,
-  description:
-    '原因を特定できるよう、上から1項目ずつ試し、毎回同じ条件で結果を確認します。',
+  // No generic filler: the same sentence on every article is what ad
+  // reviewers flag as low-value, templated content.
+  description: '',
   checkedAt: d.checkedAt || '2026-09-13',
   status: 'verified',
   targetVersion: d.targetVersion || targetVersions[d.gameSlug],
@@ -40,20 +41,14 @@ const make = (d: Draft): GameArticle => ({
   steps: d.steps.map((title, i) => ({
     id: `step-${i + 1}`,
     title,
-    summary: `${d.shortTitle}の原因を分けるため、「${title}」だけを実施します。`,
+    summary: '',
     actions: d.actions[i],
-    note:
-      i === 2
-        ? '公式案内やHotfixが更新されている場合は、新しい内容を優先してください。'
-        : undefined,
   })),
   cautions: [
     'セーブ・設定・キャッシュを変更する前にバックアップしてください。',
     '公式の更新で手順が変わる場合があるため、出典の最新情報も確認してください。',
   ],
-  faqs: [
-    { question: `${d.shortTitle}は何から試しますか？`, answer: d.conclusion },
-  ],
+  faqs: [],
   sources: d.sources,
   related: d.related,
   seoTitle: d.title,

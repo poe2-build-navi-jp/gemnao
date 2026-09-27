@@ -26,10 +26,15 @@ const imageFile = (path) => `public/images/og${path}.png`;
 const hash = (spec) =>
   createHash('sha256').update(JSON.stringify(spec)).digest('hex').slice(0, 8);
 
+// Read path/hash pairs with a regex so the result does not depend on how a
+// formatter quoted or wrapped the generated file.
 const previous = existsSync(manifestPath)
-  ? JSON.parse(
-      (await readFile(manifestPath, 'utf8')).match(/= (\{[\s\S]*\});/)?.[1] ||
-        '{}',
+  ? Object.fromEntries(
+      [
+        ...(await readFile(manifestPath, 'utf8')).matchAll(
+          /['"]([^'"]+)['"]\s*:\s*['"]([0-9a-f]+)['"]/g,
+        ),
+      ].map((match) => [match[1], match[2]]),
     )
   : {};
 const next = Object.fromEntries(specs.map((spec) => [spec.path, hash(spec)]));

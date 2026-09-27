@@ -45,6 +45,8 @@
 - `lib/og-image-manifest.ts`は自動生成ファイル。手で編集しない。
 - 共有ボタンは`components/share-buttons.tsx`。Xアカウントを作ったら環境変数`NEXT_PUBLIC_X_ACCOUNT`（@なし）を設定すると`twitter:site`と共有時の`via`が有効になる。
 - `cloudflare/worker-source.mjs`はHTMLをCloudflareのエッジに最大1時間キャッシュする（デプロイごとにキーが変わるので、公開直後に古いCSS・JSを参照することはない）。表示のたびにD1やCookieを読むページを追加する場合は、`cacheablePath`の対象から外す。現在は`/discord-servers`・`/contact`・`/admin`・`/api`が対象外。
+- AdSenseのスクリプトは`components/adsense-loader.tsx`が本文のあるページだけで読み込む（お問い合わせ・規約・運営情報・翻訳ページ・エラーページには広告を出さない）。所有権確認は`<meta name="google-adsense-account">`で全ページに出力している。
+- AdSense審査で「有用性の低いコンテンツ」と判定されたため、全記事に同じ定型文を入れない。FAQは結論と同じ文を繰り返さず、その記事に固有の質問だけを書く。
 - 「このトラブルの解決状況」パネルは匿名回答が10件以上になった記事にだけ表示する。
 
 ## 検証コマンド
