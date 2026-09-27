@@ -67,9 +67,11 @@ export function ogCardSpecs(): OgCardSpec[] {
     .map((article) => ({
       path: `/discord/${article.slug}`,
       eyebrow: 'Discordトラブル解決',
-      title: article.title,
+      title: article.ogTitle || article.title,
       itemsLabel: '原因と対処法',
-      items: article.causes.slice(0, 4).map((cause) => cause.title),
+      items:
+        article.ogSteps ||
+        article.causes.slice(0, 4).map((cause) => cause.title),
     }));
   const troubleCards = troubleHubs
     .filter((hub) => !troubleVisualBySlug(hub.slug))

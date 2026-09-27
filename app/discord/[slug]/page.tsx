@@ -177,6 +177,9 @@ export default async function DiscordArticlePage({
         <aside className="toc issue-toc">
           <strong>このページの内容</strong>
           <a href="#answer">まず試すこと</a>
+          {item.diagnosis?.length ? (
+            <a href="#diagnosis">症状別の判定表</a>
+          ) : null}
           <a href="#status-check">Discord全体の障害確認</a>
           {item.causes.map((cause, i) => (
             <a href={`#cause-${i + 1}`} key={cause.title}>
@@ -200,6 +203,43 @@ export default async function DiscordArticlePage({
               ))}
             </ol>
           </section>
+          {item.diagnosis?.length ? (
+            <section
+              className="diagnosis-table"
+              id="diagnosis"
+              aria-labelledby="discord-diagnosis-title"
+            >
+              <h2 id="discord-diagnosis-title">
+                どこで止まる？ 症状別の判定表
+              </h2>
+              <p>
+                配信の開始前・視聴者側・共有対象のどこで失敗するかを確認してください。
+              </p>
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">見えている症状</th>
+                    <th scope="col">まず比べること</th>
+                    <th scope="col">次の手順</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {item.diagnosis.map((row) => (
+                    <tr key={row.symptom}>
+                      <td data-label="症状">{row.symptom}</td>
+                      <td data-label="比較">{row.check}</td>
+                      <td data-label="手順">
+                        <a href={`#cause-${row.causeIndex}`}>
+                          {row.causeIndex}.{' '}
+                          {item.causes[row.causeIndex - 1]?.title}
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </section>
+          ) : null}
           {visual ? <SolutionIllustration visual={visual} /> : null}
           <section className="caution-block" id="status-check">
             <h2>
