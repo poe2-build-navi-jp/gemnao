@@ -9,7 +9,7 @@ export const ogImageManifest: Record<string, string> = {
   "/discord/call-disconnects": "c75567e6",
   "/discord/camera-not-working": "7ef95e75",
   "/discord/crashing": "835e2bab",
-  "/discord/echo-double-voice": "3f0e58c6",
+  "/discord/echo-double-voice": "bf3f502a",
   "/discord/error-1001": "7cb71244",
   "/discord/error-1002": "ead6d712",
   "/discord/error-1003": "aa3963fa",
