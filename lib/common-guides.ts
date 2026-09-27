@@ -16,6 +16,7 @@ import { shaderCacheGuide } from './shader-cache-guide';
 import { reshadeGuide } from './reshade-guide';
 import { resetConfigGuide } from './reset-config-guide';
 import { removeModsGuide } from './remove-mods-guide';
+import { visualCGuide } from './visual-c-guide';
 import type { ContentStatus } from '@/lib/game-articles';
 import { commonGrowthGuides } from '@/lib/common-growth-guides';
 
@@ -69,11 +70,6 @@ const causeMap: Record<string, string[]> = {
     '同期競合',
     'コピー漏れ',
   ],
-  'visual-c-runtime-error': [
-    '再頒布可能パッケージの破損',
-    '必要版の不足',
-    'ゲームファイル破損',
-  ],
   'reshade-uninstall': [
     'API DLLの残存',
     'ReShade設定の競合',
@@ -100,22 +96,6 @@ const repair = {
   url: 'https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB',
 };
 const reviewedActions: Record<string, string[][]> = {
-  'visual-c-runtime-error': [
-    [
-      'エラーダイアログを撮影し、MSVCP140.dll・VCRUNTIME140.dllなどのファイル名やエラーコードを末尾まで控える',
-      'ゲームの公式動作環境・サポートで必要なVisual C++の版と32bit（x86）／64bit（x64）を確認する。Windowsが64bitでも32bitゲームにはx86版が必要です',
-    ],
-    [
-      '出典の「Microsoft：Visual C++再頒布可能パッケージ」を開き、ゲームが必要とする版とアーキテクチャのインストーラーをダウンロードする',
-      'ダウンロードしたMicrosoftのインストーラーを開き、「修復」が表示される場合は修復する。未導入なら利用条件を確認してインストールする',
-      '必要な版が2013以前ならその版を使用する。最新v14だけで全世代を置き換えられるわけではないため、既存の旧版をまとめて削除しない',
-    ],
-    [
-      '作業中のファイルを保存し、Windowsのスタート→電源→再起動を選ぶ',
-      'Steamのライブラリ→ゲームを右クリック→プロパティ→インストール済みファイル→ゲームファイルの整合性を確認を選ぶ',
-      '完了後にゲームを起動する。同じエラーなら全文と導入したパッケージの版を公式サポートへ伝え、単体DLL配布サイトは使わない',
-    ],
-  ],
 
   'verify-steam-files': [
     [
@@ -174,10 +154,7 @@ const mk = (
         ]
       : []),
   ],
-  checkedAt: [
-    'directx-error',
-    'visual-c-runtime-error',
-  ].includes(slug)
+  checkedAt: ['directx-error'].includes(slug)
     ? '2026-09-24'
     : reviewedActions[slug]
       ? '2026-09-23'
@@ -221,26 +198,7 @@ export const commonGuides: CommonGuide[] = [
   steamInputGuide,
   controllerDoubleInputGuide,
   directxGuide,
-  mk(
-    'visual-c-runtime-error',
-    'Visual C++ Runtimeエラーでゲームが起動しない時の対処',
-    'Visual C++ Runtimeエラー',
-    'MSVCP・VCRUNTIMEなどのDLL不足やRuntime Errorでゲームが起動しない場合は、まずエラーのファイル名を確認します。必要なVisual C++の版とx86・x64を選び、Microsoft公式インストーラーで修復する操作を説明します。',
-    'Microsoft公式のVisual C++再頒布可能パッケージを確認します。',
-    [
-      'エラー名を記録する',
-      'Microsoft公式パッケージを修復する',
-      '再起動して整合性を確認する',
-    ],
-    ['directx-error', 'steam-game-not-launching', 'pc-game-crash'],
-    [
-      {
-        label: 'Microsoft：Visual C++再頒布可能パッケージ',
-        url: 'https://learn.microsoft.com/ja-jp/cpp/windows/latest-supported-vc-redist',
-      },
-      repair,
-    ],
-  ),
+  visualCGuide,
   removeModsGuide,
   reshadeGuide,
   resetConfigGuide,

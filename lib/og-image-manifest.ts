@@ -95,7 +95,7 @@ export const ogImageManifest: Record<string, string> = {
   "/guide/shader-cache-delete": "dc5b0b95",
   "/guide/uninstall-save-data": "b1ea066d",
   "/guide/verify-steam-files": "09ded23d",
-  "/guide/visual-c-runtime-error": "454e393a",
+  "/guide/visual-c-runtime-error": "a59e0158",
   "/guide/vram-shortage": "733be1c8",
   "/trouble/mod": "aac0f787",
   "/trouble/server": "c6d1a835"

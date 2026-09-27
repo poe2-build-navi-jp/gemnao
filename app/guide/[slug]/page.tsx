@@ -25,6 +25,7 @@ import { SteamDiskWriteBeforeSteps, SteamDiskWriteAfterSteps } from '@/component
 import { SteamInputBeforeSteps, SteamInputAfterSteps } from '@/components/steam-input-details';
 import { ControllerDoubleBeforeSteps, ControllerDoubleAfterSteps } from '@/components/controller-double-input-details';
 import { RemoveModsBeforeSteps, RemoveModsAfterSteps } from '@/components/remove-mods-details';
+import { VisualCBeforeSteps, VisualCAfterSteps } from '@/components/visual-c-details';
 import {
   BlackScreenBeforeSteps,
   BlackScreenAfterSteps,
@@ -230,6 +231,13 @@ export default async function Page({
         <aside className="toc issue-toc">
           <strong>このページの内容</strong>
           <a href="#answer">まず試すこと</a>
+          {slug === 'visual-c-runtime-error' ? (
+            <>
+              <a href="#vc-error-table">DLL名・エラー別の判断表</a>
+              <a href="#vc-architecture">x86／x64の選び方</a>
+              <a href="#vc-installed">Windowsの導入済み一覧</a>
+            </>
+          ) : null}
           {slug === 'controller-double-input' ? (
             <>
               <a href="#double-quick">1回押しで症状を確認</a>
@@ -428,6 +436,12 @@ export default async function Page({
               {i + 1}. {s.title}
             </a>
           ))}
+          {slug === 'visual-c-runtime-error' ? (
+            <>
+              <a href="#vc-failed">修復失敗時の判断表</a>
+              <a href="#vc-record">問い合わせ用の記録</a>
+            </>
+          ) : null}
           {slug === 'reset-config-file' ? (
             <>
               <a href="#reset-troubleshooting">再生成できない時</a>
@@ -514,6 +528,7 @@ export default async function Page({
           {slug === 'reset-config-file' ? <ResetConfigBeforeSteps /> : null}
           {slug === 'reshade-uninstall' ? <ReShadeBeforeSteps /> : null}
           {slug === 'remove-mods-safely' ? <RemoveModsBeforeSteps /> : null}
+          {slug === 'visual-c-runtime-error' ? <VisualCBeforeSteps /> : null}
           {slug === 'shader-cache-delete' ? <ShaderCacheBeforeSteps /> : null}
           {slug === 'save-data-backup' ? <SaveBackupBeforeSteps /> : null}
           {slug === 'uninstall-save-data' ? <UninstallSaveBeforeSteps /> : null}
@@ -573,6 +588,7 @@ export default async function Page({
           {slug === 'reset-config-file' ? <ResetConfigAfterSteps /> : null}
           {slug === 'reshade-uninstall' ? <ReShadeAfterSteps /> : null}
           {slug === 'remove-mods-safely' ? <RemoveModsAfterSteps /> : null}
+          {slug === 'visual-c-runtime-error' ? <VisualCAfterSteps /> : null}
           {slug === 'shader-cache-delete' ? <ShaderCacheAfterSteps /> : null}
           {slug === 'save-data-backup' ? <SaveBackupAfterSteps /> : null}
           {slug === 'uninstall-save-data' ? <UninstallSaveAfterSteps /> : null}
@@ -647,6 +663,8 @@ export default async function Page({
                                     ? '同名のDLLを一括削除したり、セキュリティ機能やアンチチートを無効にしたりしないでください。オンラインゲームでは運営の利用規約・MOD方針を確認し、起動制限の回避に使わないでください。'
                                     : slug === 'remove-mods-safely'
                                       ? 'ゲーム・セーブ・MODの共有フォルダーを丸ごと削除しないでください。オンラインゲームでは運営のMOD利用方針を確認し、起動制限の回避に使わないでください。'
+                                    : slug === 'visual-c-runtime-error'
+                                      ? 'DLL単体の配布サイトからファイルを入手したり、System32・SysWOW64・ゲームフォルダーへ推測でコピーしたりしないでください。別のゲームが使うVisual C++の旧版やx86版を一括削除しないでください。'
                                     : slug === 'reset-config-file'
                                       ? 'AppData・Documents・Saved・Steamのuserdataを丸ごと削除しないでください。レジストリ編集やWindowsの初期化は、この手順には必要ありません。公式の対象ファイルを特定できない時は操作を止めてください。'
                                       : '変更前にセーブと設定をバックアップし、対策は1項目ずつ試してください。'}
