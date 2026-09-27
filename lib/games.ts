@@ -84,15 +84,14 @@ export const games: GameGuide[] = [
     accent: '#8b2f28',
     demand: '2026年9月3日発売の新作',
     issueScale: '高い',
-    updated: '2026-09-13',
+    updated: '2026-09-27',
     tags: ['起動しない', 'クラッシュ', '低FPS', 'CrashReport', 'config.ini'],
     focused: true,
-    savePath:
-      'Steam Cloud対応。ローカル保存先は公式サポートで未公表のため、同期完了を確認してから操作',
+    savePath: String.raw`<Steam>\userdata\<Steam ID>\2638890\remote\win64_save`,
     configPath: String.raw`<Steam>\steamapps\common\OnimushaWotS\config.ini`,
-    fps: '最低要件未満や高設定で低下する場合があります。公式案内どおりプリセット「最低」から段階的に上げます。',
-    ultrawide: '利用可能な解像度はゲーム内表示設定とモニター側で確認します。',
-    hdr: 'HDR出力で不安定な場合は、公式案内どおりスクリーンモード・解像度・垂直同期と分けて比較します。',
+    fps: 'フレームレート上限は30〜360fpsまたは上限なしで設定可能。安定しない時は公式案内どおりグラフィックプリセット「最低」から段階的に上げます。',
+    ultrawide: '21:9に対応。32:9では21:9の比率で表示され、左右に黒帯が入ります（PCGamingWiki）。',
+    hdr: 'HDR対応。最大輝度・全体の明るさ・彩度・UIの明るさを調整できます。表示が不安定な場合は公式案内どおりスクリーンモード・解像度・垂直同期と分けて比較します。',
     controller:
       'コントローラー対応。入力不良時はSteam Inputと外部変換ツールを1つずつ比較します。',
     launchFixes: [
@@ -104,9 +103,11 @@ export const games: GameGuide[] = [
     mod: '本体の安定性確認中はMODやReShadeを外し、オンライン機能の規約を優先します。',
     japanese: '日本語インターフェース・音声・字幕に公式対応。',
     specs: {
-      minimum: 'Steamストアの最新「最低」要件を確認',
-      recommended: 'Steamストアの最新「推奨」要件を確認',
-      storage: '公式ストアの最新表示を確認',
+      minimum:
+        'Windows 11／GTX 1660（6GB）・RX 5500 XT（8GB）／メモリ16GB（「低」1080p・アップスケール30fps）',
+      recommended:
+        'Windows 11／RTX 2060 Super（8GB）・RX 6600（8GB）／メモリ16GB（「中」1080p・アップスケール60fps）',
+      storage: '50GB（SSD必須）',
     },
     sources: [
       {
@@ -114,6 +115,10 @@ export const games: GameGuide[] = [
         url: 'https://steamcommunity.com/app/2638890/discussions/0/589562598193771782/',
       },
       { label: 'Steamストア', url: steam('2638890') },
+      {
+        label: 'PCGamingWiki',
+        url: pcgw('Onimusha:_Way_of_the_Sword'),
+      },
     ],
   },
   {

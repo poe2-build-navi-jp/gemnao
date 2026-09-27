@@ -17,7 +17,6 @@ type Draft = {
   actions: [string[], string[], string[]];
 };
 const targetVersions: Record<string, string> = {
-  'onimusha-way-of-the-sword': 'Steam版・2026年9月13日時点のカプコン公式案内',
   'the-blood-of-dawnwalker': 'PC版 1.0.2・2026年9月13日時点',
   'star-wars-zero-company': 'PC版・2026年9月9日時点のEA公式案内',
   wardogs: 'Steam版・2026年9月10日の発売直後情報',
@@ -54,14 +53,9 @@ const make = (d: Draft): GameArticle => ({
   seoTitle: d.title,
   metaDescription: d.symptom,
 });
-const onimusha = gameBySlug('onimusha-way-of-the-sword')!;
 const dawn = gameBySlug('the-blood-of-dawnwalker')!;
 const zero = gameBySlug('star-wars-zero-company')!;
 const wardogs = gameBySlug('wardogs')!;
-const capcom = {
-  label: 'カプコン公式トラブルシューティング',
-  url: 'https://steamcommunity.com/app/2638890/discussions/0/589562598193771782/',
-};
 const dawnKnown = {
   label: 'Dawnwalker公式コミュニティ：既知問題',
   url: 'https://www.reddit.com/r/DawnwalkerOfficial/comments/1w615p8/known_issues_fixes_workarounds_03092026/',
@@ -75,200 +69,6 @@ const ea = {
   url: 'https://help.ea.com/ja/articles/star-wars/zero-company/troubleshoot-common-issues/',
 };
 export const newReleaseArticles: GameArticle[] = [
-  make({
-    gameSlug: onimusha.slug,
-    slug: 'low-fps',
-    category: 'display',
-    title: '鬼武者 Way of the SwordのFPSが低い・安定しない時の設定【PC版】',
-    shortTitle: 'FPS低下・不安定',
-    symptom:
-      'フレームレートが低い、場面によって急に重くなる時の公式確認手順です。',
-    conclusion:
-      'GPUドライバーを公式指定以上へ更新し、グラフィックプリセット「最低」で安定性を確認します。',
-    steps: [
-      'GPUドライバー版を確認する',
-      'グラフィックプリセットを最低へ下げる',
-      '排熱と電源設定を確認する',
-    ],
-    checkedAt: '2026-09-23',
-    actions: [
-      [
-        'Windows＋Rでdxdiagを実行し、ディスプレイ欄のGPU名・ドライバー版を控える',
-        'ノートPCは製品メーカー、それ以外はGPUメーカーの公式配布で型番とWindows版に合うドライバーを選ぶ',
-        'インストール後にWindowsを再起動し、同じ場面を比較する',
-      ],
-      [
-        'ゲームのグラフィック設定を開き、現在のプリセットを写真に残す',
-        'プリセットを「最低」にして適用し、同じセーブ・同じ場所でFPSを比較する',
-        '改善したら解像度や画質を1項目ずつ戻し、重くなる設定を特定する',
-      ],
-      [
-        'ノートPCは電源アダプターを接続し、通気口をふさがない平らな場所へ移す',
-        'Windowsの設定→システム→電源とバッテリーで省電力状態を確認する',
-        '冷却後も同じ場所で低FPSか確認する。異常な熱や電源断がある場合はゲームを中断する',
-      ],
-    ],
-    sources: [capcom],
-    related: ['not-launching', 'shader-cache', 'black-screen', 'crash-report'],
-    causes: [
-      'カプコン指定より古いGPUドライバー',
-      '高い描画設定によるGPU・VRAM負荷',
-      '電源制限や排熱不足によるクロック低下',
-    ],
-  }),
-  make({
-    gameSlug: onimusha.slug,
-    slug: 'shader-cache',
-    category: 'settings',
-    title: '鬼武者 Way of the Swordのshader.cache削除・再構築方法',
-    shortTitle: 'shader.cache再構築',
-    symptom:
-      '更新後の描画不良やクラッシュで、ゲーム固有シェーダーキャッシュを再構築したい人向けです。',
-    conclusion:
-      'インストール先のshader.cacheとshader.cache2をバックアップ後に退避し、ゲーム起動で再生成します。',
-    steps: [
-      'ゲームとSteamを終了する',
-      'shader.cacheとshader.cache2を退避する',
-      'ゲームを起動して再構築を待つ',
-    ],
-    checkedAt: '2026-09-23',
-    actions: [
-      [
-        'Steamライブラリでゲームを右クリック→管理→ローカルファイルを閲覧し、保存先を開いておく',
-        'ゲームを終了し、Steamメニュー→終了でSteamも閉じる',
-      ],
-      [
-        '開いたゲームフォルダーでshader.cacheとshader.cache2を探す',
-        '存在する対象ファイルだけを別フォルダーへ移動して保管する。見つからない場合は他のファイルを削除しない',
-      ],
-      [
-        'Steamからゲームを起動し、シェーダー構築の表示が終わるまで待つ',
-        '構築完了後に同じ場面で比較する。悪化したらゲームを終了して退避したファイルを戻す',
-      ],
-    ],
-    sources: [capcom],
-    related: ['not-launching', 'low-fps', 'black-screen', 'crash-report'],
-    causes: [
-      'アップデート前に生成されたshader.cacheの不整合',
-      'シェーダー再構築が完了していない状態',
-      '描画へ介入するオーバーレイや外部ツール',
-    ],
-  }),
-  make({
-    gameSlug: onimusha.slug,
-    slug: 'black-screen',
-    category: 'settings',
-    title: '鬼武者 Way of the Swordが黒画面・映らない時の対処法',
-    shortTitle: '黒画面・映らない',
-    symptom:
-      'ゲームは起動するのに画面が真っ黒、ちらつく、一部しか映らない時の対処です。',
-    conclusion:
-      'スクリーンモード、解像度、垂直同期を1項目ずつ変更して比較します。HDRだけに問題がある場合は専用記事で切り分けます。',
-    steps: [
-      'Alt＋Enterで表示方式を切り替える',
-      '解像度とVSyncを安全な値へ戻す',
-      '外部ディスプレイとオーバーレイを外す',
-    ],
-    checkedAt: '2026-09-23',
-    actions: [
-      [
-        'ゲームのウィンドウを選び、Alt＋Enterを一度押す',
-        '表示が戻れば設定画面を開く。戻らなければ無理に見えないメニューを操作せず次へ進む',
-      ],
-      [
-        '画面が表示できた場合にゲームの画面設定を開き、現在値を控える',
-        '解像度をモニターの対応値に合わせて適用する。次にVSyncだけを切り替えて比較する',
-      ],
-      [
-        'Windows＋Pで使用する画面を1台に限定して再起動する',
-        'Steamのゲームのプロパティ→一般でSteamオーバーレイをオフにして比較する',
-        '変化がなければ表示先とオーバーレイを元へ戻す',
-      ],
-    ],
-    sources: [capcom],
-    related: ['not-launching', 'low-fps', 'hdr', 'shader-cache'],
-    causes: [
-      '保存された解像度・画面モードと現在のモニターの不一致',
-      'VSyncや外部ディスプレイ構成の競合',
-      '録画・FPS表示など描画へ介入するアプリ',
-    ],
-  }),
-  make({
-    gameSlug: onimusha.slug,
-    slug: 'hdr',
-    category: 'settings',
-    title: '鬼武者 Way of the SwordのHDRが白っぽい・有効にならない時の対処',
-    shortTitle: 'HDRが白っぽい・有効にならない',
-    symptom:
-      'HDRを有効にできない、画面が白っぽい・暗い、HDR切替後に表示が不安定な場合の記事です。',
-    conclusion:
-      'Windowsとモニター側のHDRを確認し、ゲーム内のHDR出力を切り替えてから明るさを調整します。',
-    steps: [
-      'WindowsとモニターのHDRを確認する',
-      'ゲーム内HDR出力を切り替える',
-      '明るさを調整して同じ場面で比較する',
-    ],
-    checkedAt: '2026-09-23',
-    actions: [
-      [
-        'Windows設定→システム→ディスプレイで使用画面を選び、HDRの対応状況と有効状態を確認する',
-        'モニター本体の設定でもHDR入力が使える状態か確認する。非対応画面ではHDRを有効にしない',
-      ],
-      [
-        'ゲームの画面設定を開き、HDRの現在値を控える',
-        'HDR出力を切り替えて適用する。Windows側とゲーム側を同時に変更しない',
-      ],
-      [
-        'ゲーム内の明るさ調整画面の目印に合わせて調整する',
-        '同じ明暗のある場面で白飛び・黒つぶれを比較する。改善しない場合は元の明るさへ戻す',
-      ],
-    ],
-    sources: [capcom],
-    related: ['black-screen', 'low-fps', 'not-launching'],
-    causes: [
-      'Windowsまたはモニター側でHDRが無効',
-      'ゲーム内HDR出力とWindows設定の組み合わせ',
-      'モニターの最大輝度に合わない明るさ設定',
-    ],
-  }),
-  make({
-    gameSlug: onimusha.slug,
-    slug: 'gpu-driver-version',
-    category: 'launch',
-    title: '鬼武者 Way of the SwordのGPUドライバー条件｜NVIDIA・AMD対応版',
-    shortTitle: 'GPUドライバー対応版',
-    symptom:
-      '起動前に必要なNVIDIA・AMDドライバー版を確認したい、更新後も不具合が続く場合の記事です。',
-    conclusion:
-      'カプコン案内の下限はNVIDIA 596.49以上、AMD 26.5.1以上です。メーカー公式版へ更新後、Windowsを再起動します。',
-    steps: [
-      'GPU名と現在のドライバー版を確認する',
-      'メーカー公式から対応版へ更新する',
-      'Windows再起動後にゲームだけを起動する',
-    ],
-    checkedAt: '2026-09-23',
-    actions: [
-      [
-        'Windows＋Rでdxdiagを実行し、ディスプレイ欄のGPU名・ドライバー版を控える',
-      ],
-      [
-        'ノートPCは製品メーカー、それ以外はGPUメーカーの公式配布で型番とWindows版に合うドライバーを選ぶ',
-        'インストール後にWindowsを再起動し、同じ場面を比較する',
-      ],
-      [
-        '更新完了後にWindowsを再起動する',
-        '録画・配信アプリを閉じ、Steamとゲームだけで同じ場面を確認する',
-        '更新前後のドライバー版と症状を記録する',
-      ],
-    ],
-    sources: [capcom],
-    related: ['not-launching', 'low-fps', 'black-screen'],
-    causes: [
-      'NVIDIA 596.49またはAMD 26.5.1より古いドライバー',
-      '更新後にWindowsを再起動していない状態',
-      'GPU自動判定やドライバー導入の不整合',
-    ],
-  }),
   make({
     gameSlug: dawn.slug,
     slug: 'shader-compilation-crash',
