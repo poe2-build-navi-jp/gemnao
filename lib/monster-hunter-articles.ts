@@ -47,7 +47,7 @@ type Draft = Omit<
   | 'seoTitle'
   | 'status'
   | 'targetVersion'
->;
+> & { seoTitle?: string };
 
 const make = (draft: Draft): GameArticle => ({
   gameSlug: 'monster-hunter-wilds',
@@ -413,6 +413,8 @@ export const monsterHunterArticles: GameArticle[] = [
   }),
   make({
     slug: 'fps',
+    // Shorter <title> for search results; the page heading keeps the full title.
+    seoTitle: 'モンハンワイルズのFPSが低い・カクつく時の設定【PC版】',
     category: 'display',
     title:
       'モンハンワイルズのFPSが低い・カクつく時の設定｜FPS上限とフレーム生成【PC版】',
@@ -582,6 +584,8 @@ export const monsterHunterArticles: GameArticle[] = [
   }),
   make({
     slug: 'controller',
+    // Shorter <title> for search results; the page heading keeps the full title.
+    seoTitle: 'モンハンワイルズでコントローラーが反応しない時の設定【PC版】',
     category: 'controller',
     title:
       'モンハンワイルズでコントローラーが反応しない・ボタン表示が違う時の設定【PC版】',
@@ -856,6 +860,8 @@ export const monsterHunterArticles: GameArticle[] = [
   }),
   make({
     slug: 'config-file',
+    // Shorter <title> for search results; the page heading keeps the full title.
+    seoTitle: 'モンハンワイルズのconfig.iniの場所と初期化方法【Steam版】',
     category: 'settings',
     title:
       'モンハンワイルズのconfig.iniはどこ？設定ファイルの場所と初期化方法【Steam版】',
@@ -991,6 +997,8 @@ export const monsterHunterArticles: GameArticle[] = [
   }),
   make({
     slug: 'system-requirements',
+    // Shorter <title> for search results; the page heading keeps the full title.
+    seoTitle: 'モンハンワイルズの推奨スペック｜VRAM・メモリ・SSD要件【PC版】',
     category: 'specs',
     title:
       'モンハンワイルズの推奨スペックは？VRAM・メモリ・SSD・CPU要件【PC版】',
@@ -1279,6 +1287,8 @@ export const monsterHunterArticles: GameArticle[] = [
   }),
   make({
     slug: 'ultrawide',
+    // Shorter <title> for search results; the page heading keeps the full title.
+    seoTitle: 'モンハンワイルズのウルトラワイド設定｜3440×1440の黒帯【PC版】',
     category: 'display',
     title:
       'モンハンワイルズのウルトラワイド設定｜3440×1440の黒帯・21:9・32:9対応【PC版】',

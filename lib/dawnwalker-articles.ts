@@ -47,7 +47,7 @@ type Draft = Omit<
   | 'seoTitle'
   | 'status'
   | 'targetVersion'
->;
+> & { seoTitle?: string };
 
 const make = (draft: Draft): GameArticle => ({
   gameSlug: 'the-blood-of-dawnwalker',
@@ -73,6 +73,8 @@ const updateGameStep = {
 export const dawnwalkerArticles: GameArticle[] = [
   make({
     slug: 'shader-compilation-crash',
+    // Shorter <title> for search results; the page heading keeps the full title.
+    seoTitle: 'Dawnwalkerがシェーダーのコンパイル中に落ちる時の対処【PC版】',
     category: 'launch',
     title:
       'The Blood of Dawnwalkerがシェーダーのコンパイル中にクラッシュする原因と対処法【PC版】',
@@ -232,6 +234,8 @@ export const dawnwalkerArticles: GameArticle[] = [
   }),
   make({
     slug: 'stutter-windowed',
+    // Shorter <title> for search results; the page heading keeps the full title.
+    seoTitle: 'Dawnwalkerがカクつく時の対処法｜フルスクリーン設定【PC版】',
     category: 'display',
     title:
       'The Blood of Dawnwalkerがカクつく・スタッターする時の対処法｜フルスクリーン設定【PC版】',
@@ -383,6 +387,8 @@ export const dawnwalkerArticles: GameArticle[] = [
   }),
   make({
     slug: 'controller-sprint',
+    // Shorter <title> for search results; the page heading keeps the full title.
+    seoTitle: 'Dawnwalkerでコントローラーの走りが止まる時の対処【PC版】',
     category: 'controller',
     title:
       'The Blood of Dawnwalkerでコントローラーの走りが止まる・PS5コントローラーの対処【PC版】',

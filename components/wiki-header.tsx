@@ -26,7 +26,8 @@ export function WikiHeader({
       <a
         className="logo"
         href={root}
-        aria-label={locale === 'en' ? 'Gemnao home' : 'ゲムなお ホーム'}
+        // The visible brand text is the accessible name (a different
+        // aria-label fails WCAG "label in name").
       >
         <span className="logo-mark">
           <img

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { siteConfig } from '@/lib/site-config';
 import { AdsenseLoader } from '@/components/adsense-loader';
+import { AnalyticsLoader } from '@/components/analytics-loader';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://gemnao.pages.dev';
 const isPublic = process.env.NEXT_PUBLIC_SITE_PUBLIC !== 'false';
@@ -78,10 +79,6 @@ export default function RootLayout({
         {isPublic && googleAnalyticsId ? (
           <>
             <script
-              async
-              src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
-            />
-            <script
               dangerouslySetInnerHTML={{
                 __html: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
@@ -95,6 +92,9 @@ gtag('config', '${googleAnalyticsId}');`,
       <body>
         {children}
         {isPublic ? <AdsenseLoader client={adsenseClient} /> : null}
+        {isPublic && googleAnalyticsId ? (
+          <AnalyticsLoader id={googleAnalyticsId} />
+        ) : null}
       </body>
     </html>
   );

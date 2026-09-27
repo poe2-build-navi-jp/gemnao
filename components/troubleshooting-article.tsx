@@ -8,6 +8,7 @@ import {
   Timer,
 } from 'lucide-react';
 import { PathCopy } from '@/components/path-copy';
+import { ogImageFor } from '@/lib/og-images';
 import { InteractiveSteps } from '@/components/interactive-steps';
 import { ShareButtons } from '@/components/share-buttons';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
@@ -91,6 +92,7 @@ export function TroubleshootingArticle({
     inLanguage: 'ja-JP',
     about: game.title,
     mainEntityOfPage: canonical,
+    image: `https://gemnao.pages.dev${ogImageFor(`/games/${game.slug}/${article.slug}`)}`,
   };
   // Skip FAQ entries that only repeat the 結論 box above them.
   const faqs = (article.faqs || []).filter(
