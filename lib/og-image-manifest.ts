@@ -18,7 +18,7 @@ export const ogImageManifest: Record<string, string> = {
   "/discord/installation-failed": "f0058f33",
   "/discord/loading-stuck": "c18e0bfc",
   "/discord/login-error": "9a75aebd",
-  "/discord/mic-not-working": "230d5d46",
+  "/discord/mic-not-working": "56b12974",
   "/discord/mic-volume-low": "148725ee",
   "/discord/no-route": "7419f17d",
   "/discord/not-opening": "27fdd405",
