@@ -1,3 +1,4 @@
+import { stutterGuide } from './stutter-guide';
 import { uninstallSaveGuide } from './uninstall-save-guide';
 import { saveBackupGuide } from './save-backup-guide';
 import { shaderCacheGuide } from './shader-cache-guide';
@@ -491,20 +492,7 @@ export const commonGuides: CommonGuide[] = [
     ['pc-game-crash', 'shader-cache-delete', 'low-fps'],
     [nv, amd],
   ),
-  mk(
-    'stutter-fix',
-    'PCゲームのカクつき・スタッターを減らす確認手順',
-    'カクつき・スタッター',
-    '平均FPSは高いのに一瞬止まる時の確認です。',
-    'FPS固定、シェーダー構築、VRAM、ストレージを分けて確認します。',
-    [
-      'FPS上限を安定値へ固定する',
-      'シェーダー構築を完了させる',
-      'VRAMとSSDを確認する',
-    ],
-    ['low-fps', 'vram-shortage', 'shader-cache-delete'],
-    [nv, amd],
-  ),
+  stutterGuide,
   mk(
     'low-fps',
     'PCゲームのFPSが低い時に見直す設定順',
