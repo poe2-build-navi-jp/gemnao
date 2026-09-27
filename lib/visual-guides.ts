@@ -27,7 +27,7 @@ const specs = [
   [
     'steam-cloud-sync-error',
     'steam-cloud-sync-error-fix',
-    'Steam Cloudが同期できない時の確認順',
+    'Steam Cloud競合｜セーブを守る手順',
   ],
   [
     'steam-disk-write-error',

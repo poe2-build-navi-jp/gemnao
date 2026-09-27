@@ -3293,3 +3293,9 @@ kbd {
 .power-shutdown-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
 .power-shutdown-details li + li { margin-top: 8px; }
 .power-shutdown-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; }
+
+/* Steam Cloud conflicts: keep copy paths and choice examples readable. */
+.steam-cloud-details p { margin: 12px 0; }
+.steam-cloud-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
+.steam-cloud-details li + li { margin-top: 8px; }
+.steam-cloud-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; }

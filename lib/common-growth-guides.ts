@@ -1,11 +1,7 @@
+import { steamCloudGuide } from './steam-cloud-guide';
 import { powerShutdownGuide } from './power-shutdown-guide';
 import { bsodGuide } from './bsod-guide';
 import type { CommonGuide } from '@/lib/common-guides';
-
-const steamCloud = {
-  label: 'Steamworks公式：Steam Cloud',
-  url: 'https://partner.steamgames.com/doc/features/cloud',
-};
 
 const steamDiskCheck = {
   label: 'Steamサポート：PCのクラッシュ・ドライブ確認',
@@ -23,64 +19,7 @@ const windowsAudio = {
 };
 
 export const commonGrowthGuides: CommonGuide[] = [
-  {
-    slug: 'steam-cloud-sync-error',
-    title: 'Steamクラウドが同期できない時の直し方｜同期エラー・競合の対処',
-    shortTitle: 'Steamクラウド同期エラー',
-    description:
-      'Steamクラウドに同期できない、同期競合や「同期できません」と表示される場合に、セーブを失わない順番で切り分けます。',
-    conclusion:
-      'ゲームを起動せず、先にローカルのセーブデータを別の場所へコピーしてください。その後、Steam Cloudの有効状態、通信、同期競合に表示された更新日時を順に確認します。',
-    checkedAt: '2026-09-20',
-    steps: [
-      {
-        title: 'ゲームを起動せずセーブをバックアップする',
-        actions: [
-          '同期エラーが出ている間はゲームを起動せず、競合画面もすぐに確定しない',
-          'ゲーム公式の保存先を確認し、セーブフォルダーをデスクトップ以外の別フォルダーへコピーする',
-          '複数PCを使っている場合は、各PCのセーブ更新日時を記録する',
-        ],
-      },
-      {
-        title: 'Steam Cloudと通信状態を確認する',
-        actions: [
-          'Steamの「設定」→「クラウド」でSteam Cloudが有効か確認する',
-          '対象ゲームの「プロパティ」→「一般」で、そのゲームのSteam Cloudが有効か確認する',
-          'Steamを完全終了し、通信が安定した状態で再起動して同期表示を確認する',
-          'ゲーム終了直後はアップロードが終わるまで待ち、Steamを強制終了しない',
-        ],
-      },
-      {
-        title: '同期競合では正しいセーブを更新日時で選ぶ',
-        actions: [
-          '競合画面にローカルとクラウドの候補が出たら、更新日時とプレイしたPCを確認する',
-          '新しい方が常に正しいとは限らないため、バックアップしたファイルとゲーム内の進行状況を照合する',
-          '選択後にゲームを起動し、正しいセーブを読み込めたことを確認してから再度終了する',
-        ],
-      },
-      {
-        title: 'ゲーム固有の保存先と対応状況を確認する',
-        actions: [
-          'Steamストアやゲーム公式サポートでSteam Cloud対応の有無を確認する',
-          '別OS間やゲームの大型更新後だけ同期できない場合は、ゲーム公式の既知問題を確認する',
-          'バックアップを残したまま、ゲーム公式サポートまたはSteamサポートへ状況を送る',
-        ],
-      },
-    ],
-    sources: [steamCloud],
-    related: [
-      'save-data-backup',
-      'uninstall-save-data',
-      'steam-disk-write-error',
-    ],
-    status: 'verified',
-    causes: [
-      'Steam Cloudが全体またはゲーム単位で無効',
-      'ゲーム終了後のアップロード未完了や通信エラー',
-      '複数PC・複数OS間のセーブ競合',
-      'ゲーム固有の保存先・Cloud設定の問題',
-    ],
-  },
+  steamCloudGuide,
   {
     slug: 'steam-disk-write-error',
     title:

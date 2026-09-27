@@ -8,6 +8,10 @@ import {
   PowerShutdownAfterSteps,
 } from '@/components/power-shutdown-details';
 import {
+  SteamCloudBeforeSteps,
+  SteamCloudAfterSteps,
+} from '@/components/steam-cloud-details';
+import {
   BlackScreenBeforeSteps,
   BlackScreenAfterSteps,
 } from '@/components/black-screen-details';
@@ -212,6 +216,16 @@ export default async function Page({
         <aside className="toc issue-toc">
           <strong>このページの内容</strong>
           <a href="#answer">まず試すこと</a>
+          {slug === 'steam-cloud-sync-error' ? (
+            <>
+              <a href="#cloud-first">選択前に保全する</a>
+              <a href="#cloud-devices">1台／複数PCの分岐</a>
+              <a href="#cloud-progress">進行状況を照合する</a>
+              <a href="#cloud-examples">ローカル／クラウドの例</a>
+              <a href="#cloud-verify">選択後の確認</a>
+              <a href="#cloud-error">同期できない場合</a>
+            </>
+          ) : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <>
               <a href="#power-symptoms">症状別の確認表</a>
@@ -391,6 +405,7 @@ export default async function Page({
           {slug === 'black-screen' ? <BlackScreenBeforeSteps /> : null}
           {slug === 'gpu-driver-update' ? <GpuDriverBeforeSteps /> : null}
           {slug === 'bsod-while-gaming' ? <BsodBeforeSteps /> : null}
+          {slug === 'steam-cloud-sync-error' ? <SteamCloudBeforeSteps /> : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <PowerShutdownBeforeSteps />
           ) : null}
@@ -436,6 +451,7 @@ export default async function Page({
           {slug === 'black-screen' ? <BlackScreenAfterSteps /> : null}
           {slug === 'gpu-driver-update' ? <GpuDriverAfterSteps /> : null}
           {slug === 'bsod-while-gaming' ? <BsodAfterSteps /> : null}
+          {slug === 'steam-cloud-sync-error' ? <SteamCloudAfterSteps /> : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <PowerShutdownAfterSteps />
           ) : null}
@@ -447,29 +463,31 @@ export default async function Page({
               注意
             </h2>
             <p>
-              {slug === 'pc-shuts-down-while-gaming'
-                ? '焦げた臭い・煙・火花・変形・損傷を見つけたら使用を止めてください。電源ユニットやバッテリーを分解せず、損傷した電源コードを差し直して試さないでください。症状を繰り返し再現させず、PCメーカーまたは修理窓口に相談してください。'
-                : slug === 'bsod-while-gaming'
-                  ? '停止を繰り返すPCで無理にゲームを再起動しないでください。ダンプには作業中の情報が含まれる可能性があるため、公開せずサポートの案内に沿って提出します。停止コードやファイル名だけで部品の故障と判断せず、診断結果と時刻を合わせて確認してください。'
-                  : slug === 'gpu-driver-update'
-                    ? '対象GPUとPC型番に合う公式配布を使い、今の版を控えてから更新してください。AMDのFactory Resetは以前の版へ戻せなくなるため通常の比較では選びません。画面が映らない場合は別のPCやメーカーサポートで復旧方法を確認し、無関係なドライバーを削除しないでください。'
-                    : slug === 'black-screen'
-                      ? '設定ファイルの退避前にバックアップを作り、セーブのフォルダーや不明なDLLを丸ごと削除しないでください。強制終了は未保存の進行を失う可能性があります。モニター・PC内部の分解や、原因不明のままWindowsを初期化する操作は、この手順には含みません。'
-                      : slug === 'pc-game-freezes'
-                        ? '強制終了は未保存データを失う可能性があるため最後の手段です。原因不明のままWindowsのプロセスを終了したり、メモリ解放ソフト・ページファイル無効化・電圧変更をまとめて試したりしないでください。MODや設定を変更する前はセーブをバックアップします。'
-                        : slug === 'stutter-fix'
-                          ? '比較中にキャッシュ削除・画質変更・ドライバー更新をまとめて行わないでください。変更前の値を残し、悪化した設定は戻します。PC全体の再起動やブルースクリーンは、ゲームが一瞬カクつく症状とは分けて調べてください。'
-                          : slug === 'uninstall-save-data'
-                            ? 'AppData・Documents・Saved Games・Steamのuserdataを、残存ファイルという理由で丸ごと消さないでください。追加のクリーナーによる削除は通常アンインストールとは別操作です。バックアップは再インストール後の読み込み確認まで残します。'
-                            : slug === 'save-data-backup'
-                              ? 'ゲームや同期が動いている最中にセーブを入れ替えないでください。バックアップ原本と復元前のデータは残し、別アカウントや別ストアのデータを推測で上書きしないでください。'
-                              : slug === 'shader-cache-delete'
-                                ? 'キャッシュ以外の項目をまとめて削除しないでください。AppDataやゲームフォルダー全体、セーブ、設定、配布されたシェーダーファイルは削除対象ではありません。対象を特定できない時は操作を止めます。'
-                                : slug === 'reshade-uninstall'
-                                  ? '同名のDLLを一括削除したり、セキュリティ機能やアンチチートを無効にしたりしないでください。オンラインゲームでは運営の利用規約・MOD方針を確認し、起動制限の回避に使わないでください。'
-                                  : slug === 'reset-config-file'
-                                    ? 'AppData・Documents・Saved・Steamのuserdataを丸ごと削除しないでください。レジストリ編集やWindowsの初期化は、この手順には必要ありません。公式の対象ファイルを特定できない時は操作を止めてください。'
-                                    : '変更前にセーブと設定をバックアップし、対策は1項目ずつ試してください。'}
+              {slug === 'steam-cloud-sync-error'
+                ? '競合画面で選択すると、別の端末やクラウド側の進行が上書きされる可能性があります。複数PCの場合は各PCでゲームを起動しないままコピーを残し、セーブの保存先を推測して削除しないでください。通信エラー中の強行起動や、新しいセーブでの上書きも避けてください。'
+                : slug === 'pc-shuts-down-while-gaming'
+                  ? '焦げた臭い・煙・火花・変形・損傷を見つけたら使用を止めてください。電源ユニットやバッテリーを分解せず、損傷した電源コードを差し直して試さないでください。症状を繰り返し再現させず、PCメーカーまたは修理窓口に相談してください。'
+                  : slug === 'bsod-while-gaming'
+                    ? '停止を繰り返すPCで無理にゲームを再起動しないでください。ダンプには作業中の情報が含まれる可能性があるため、公開せずサポートの案内に沿って提出します。停止コードやファイル名だけで部品の故障と判断せず、診断結果と時刻を合わせて確認してください。'
+                    : slug === 'gpu-driver-update'
+                      ? '対象GPUとPC型番に合う公式配布を使い、今の版を控えてから更新してください。AMDのFactory Resetは以前の版へ戻せなくなるため通常の比較では選びません。画面が映らない場合は別のPCやメーカーサポートで復旧方法を確認し、無関係なドライバーを削除しないでください。'
+                      : slug === 'black-screen'
+                        ? '設定ファイルの退避前にバックアップを作り、セーブのフォルダーや不明なDLLを丸ごと削除しないでください。強制終了は未保存の進行を失う可能性があります。モニター・PC内部の分解や、原因不明のままWindowsを初期化する操作は、この手順には含みません。'
+                        : slug === 'pc-game-freezes'
+                          ? '強制終了は未保存データを失う可能性があるため最後の手段です。原因不明のままWindowsのプロセスを終了したり、メモリ解放ソフト・ページファイル無効化・電圧変更をまとめて試したりしないでください。MODや設定を変更する前はセーブをバックアップします。'
+                          : slug === 'stutter-fix'
+                            ? '比較中にキャッシュ削除・画質変更・ドライバー更新をまとめて行わないでください。変更前の値を残し、悪化した設定は戻します。PC全体の再起動やブルースクリーンは、ゲームが一瞬カクつく症状とは分けて調べてください。'
+                            : slug === 'uninstall-save-data'
+                              ? 'AppData・Documents・Saved Games・Steamのuserdataを、残存ファイルという理由で丸ごと消さないでください。追加のクリーナーによる削除は通常アンインストールとは別操作です。バックアップは再インストール後の読み込み確認まで残します。'
+                              : slug === 'save-data-backup'
+                                ? 'ゲームや同期が動いている最中にセーブを入れ替えないでください。バックアップ原本と復元前のデータは残し、別アカウントや別ストアのデータを推測で上書きしないでください。'
+                                : slug === 'shader-cache-delete'
+                                  ? 'キャッシュ以外の項目をまとめて削除しないでください。AppDataやゲームフォルダー全体、セーブ、設定、配布されたシェーダーファイルは削除対象ではありません。対象を特定できない時は操作を止めます。'
+                                  : slug === 'reshade-uninstall'
+                                    ? '同名のDLLを一括削除したり、セキュリティ機能やアンチチートを無効にしたりしないでください。オンラインゲームでは運営の利用規約・MOD方針を確認し、起動制限の回避に使わないでください。'
+                                    : slug === 'reset-config-file'
+                                      ? 'AppData・Documents・Saved・Steamのuserdataを丸ごと削除しないでください。レジストリ編集やWindowsの初期化は、この手順には必要ありません。公式の対象ファイルを特定できない時は操作を止めてください。'
+                                      : '変更前にセーブと設定をバックアップし、対策は1項目ずつ試してください。'}
             </p>
           </section>
           <section className="faq-section" id="faq">
