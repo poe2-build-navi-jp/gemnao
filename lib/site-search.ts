@@ -8,6 +8,9 @@ const aliases: [RegExp, string][] = [
   [/真っ黒|黒い画面/g, '黒画面'],
   [/相手の声|音が聞こえない/g, '声 聞こえない'],
   [/ガクガク/g, 'カクつく'],
+  [/マイクラ/g, 'マインクラフト'],
+  [/セキュア ?ブート|secure ?boot/g, 'セキュアブート'],
+  [/モダンウォーフェア|モダン・ウォーフェア/g, 'modern warfare'],
 ];
 const knownTerms = [
   'installation has failed',
@@ -25,6 +28,10 @@ const knownTerms = [
   'aion2',
   'エースコンバット',
   '無双',
+  'サイレントヒル',
+  'マインクラフト',
+  'tpm',
+  'セキュアブート',
   'steam',
   'マイク',
   'セーブ',

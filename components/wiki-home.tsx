@@ -311,9 +311,14 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
             </div>
           )}
           {!isSearching && view !== 'games' ? (
-            <a className="section-more" href="/?view=games#games">
-              ゲームをすべて見る <ChevronRight size={16} />
-            </a>
+            <>
+              <a className="section-more" href="/?view=games#games">
+                ゲームをすべて見る <ChevronRight size={16} />
+              </a>
+              <a className="section-more" href="/new-releases/2026-10">
+                10月の新作PCゲーム 動作環境まとめ <ChevronRight size={16} />
+              </a>
+            </>
           ) : null}
         </section>
       )}

@@ -18,7 +18,7 @@ const edgeCacheSeconds = 3600;
 // `/contact`, `/admin` and `/api` read D1 or the request and are excluded.
 const cacheablePath = (pathname) =>
   pathname === '/' ||
-  /^\/(?:games|guide|trouble|discord)(?:\/|$)/.test(pathname) ||
+  /^\/(?:games|guide|trouble|discord|new-releases)(?:\/|$)/.test(pathname) ||
   /^\/(?:en|zh|es)(?:\/|$)/.test(pathname) ||
   ['/about', '/privacy', '/terms'].includes(pathname);
 

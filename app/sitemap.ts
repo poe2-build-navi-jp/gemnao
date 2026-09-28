@@ -4,6 +4,7 @@ import { gameArticles } from '@/lib/game-articles';
 import { commonGuides } from '@/lib/common-guides';
 import { discordArticles } from '@/lib/discord-articles-all';
 import { troubleHubs } from '@/lib/trouble-hubs';
+import { releaseRoundups } from '@/lib/release-roundups';
 export default function sitemap(): MetadataRoute.Sitemap {
   if (process.env.NEXT_PUBLIC_SITE_PUBLIC === 'false') return [];
   const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://gemnao.pages.dev';
@@ -64,5 +65,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...articles,
     ...common,
     ...discord,
+    ...releaseRoundups.map((roundup) => ({
+      url: `${base}/new-releases/${roundup.slug}`,
+      lastModified: new Date(roundup.checkedAt),
+      changeFrequency: 'weekly' as const,
+      priority: 0.84,
+    })),
   ];
 }
