@@ -97,7 +97,7 @@ export default async function PcArticlePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <header className="article-hero issue-hero">
+      <header className="article-hero issue-hero pc-hero">
         <div className="article-hero-inner">
           <nav className="breadcrumbs" aria-label="パンくず">
             <a href="/">ゲムなお</a>

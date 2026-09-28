@@ -3188,6 +3188,18 @@ kbd {
 .pc-steps {
   margin: 38px 0;
 }
+.pc-hero h1 {
+  max-width: 1020px;
+  font-size: clamp(29px, 4vw, 46px);
+}
+.pc-guide .answer-summary ol {
+  margin: 16px 0 0;
+  padding-left: 25px;
+  line-height: 1.8;
+}
+.pc-guide .answer-summary li {
+  padding: 3px 0;
+}
 .pc-steps > h2 {
   font-size: 22px;
 }
