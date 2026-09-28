@@ -118,84 +118,94 @@ export const discordP0Articles: DiscordArticle[] = [
     ogSteps: ['削除前→ブラウザ版と比較', '同じPC→別回線で比較', 'アプリだけ→完全終了', '条件を確認→再インストール'],
   },
   {
-    slug: 'installation-failed',
-    category: 'launch',
-    title:
-      'Discordで「Installation has failed」が出てインストールできないときの対処法',
+    slug: 'installation-failed', category: 'launch',
+    title: 'DiscordのInstallation has failedを直す｜初回・再インストールとログで切り分け',
     shortTitle: 'Installation has failed',
-    seoTitle:
-      'Discord「Installation has failed」の直し方｜インストールできない場合',
-    metaDescription:
-      'DiscordでInstallation has failedが出てインストールできない場合のWindows向け手順。残存プロセス、AppData、再起動、公式インストーラーの順に確認します。',
-    symptom:
-      'DiscordSetup.exeを実行すると「Installation has failed」などのエラーが出て、インストールまたは再インストールを完了できない場合の手順です。',
-    target: 'Windows 11 / Windows 10版 Discordインストーラー',
-    conclusion:
-      'Discordのプロセスをすべて終了し、%AppData%と%LocalAppData%に残ったDiscordフォルダーを削除してから、PCを再起動して公式インストーラーを実行します。',
-    quickFixes: [
-      'タスクマネージャーでDiscord関連プロセスをすべて終了する',
-      '%AppData%と%LocalAppData%のDiscordフォルダーを削除する',
-      'PCを再起動し、公式サイトから入手したインストーラーを実行する',
+    seoTitle: 'Discord「Installation has failed」の直し方｜初回・再インストール別',
+    metaDescription: 'Discordをインストールできない時の対処を初回・再導入で整理。Discordフォルダーがない・削除できない場合、Open Setup Logで見る日時とエラー、相談時に伏せる情報、修復後の確認まで解説します。',
+    symptom: 'DiscordSetup.exeの実行後に「Installation has failed」が出る、または再インストールを完了できない場合の手順です。起動時のUpdate Failedは別記事で通信と更新処理を確認してください。',
+    target: 'Windows 11／Windows 10のDiscord通常版インストーラー',
+    conclusion: '初回は公式インストーラーの取得と再起動後の再試行から、再導入はDiscordの完全終了から確認します。失敗が続く場合は先にSetup Logを保存し、残っているDiscordフォルダーだけを整理します。フォルダーがなければ削除を省略。「使用中」と「アクセス拒否」は分けて対処し、同じ失敗を繰り返す場合はログの該当箇所を添えて相談してください。',
+    quickFixes: ['初回か再導入かを確認し、エラー画面と発生時刻を控える', 'ログを保存してから、存在するDiscordフォルダーだけを整理する', '公式インストーラーで再試行し、同じエラーなら削除を繰り返さずログで確認する'],
+    showStatusCheck: false,
+    diagnosisTitle: '初回・再導入・削除時の表示で選ぶ確認表',
+    diagnosisIntro: '初回でも、失敗したインストールが途中まで作ったデータは残る場合があります。初回だから削除必須、再導入だから破損確定、と決めつけず実際の状態で進めます。',
+    diagnosis: [
+      { symptom: '初めて入れる／まだ正常に起動したことがない', check: '公式ファイルの取得と再起動後の再試行。失敗時はログを保存', causeIndex: 1 },
+      { symptom: '以前使っていた／アンインストール後の再導入', check: 'ログイン手段を確保し、Discordを完全終了', causeIndex: 2 },
+      { symptom: 'Discordフォルダーが見つからない', check: '2か所を確認し、存在しない場所の削除は省略', causeIndex: 4 },
+      { symptom: '削除時に「使用中」と出る', check: '残存プロセスと自動起動を確認してから再試行', causeIndex: 4 },
+      { symptom: '削除時に「アクセス拒否」などが出る', check: '表示を保存。強制削除せず権限・ブロック記録を確認', causeIndex: 4 },
+      { symptom: '再起動・再導入後も同じエラー', check: '今回の時刻に対応するログのエラーと前後の処理を確認', causeIndex: 3 },
     ],
     causes: [
       {
-        title: '古いDiscordプロセスがファイルを使用している',
-        description:
-          '以前のDiscordがバックグラウンドに残ると、インストーラーがファイルを更新できません。',
+        title: '初回インストールは、取得元と失敗した段階を確認する',
+        description: 'ダウンロード自体の失敗、実行のブロック、実行後のInstallation has failedを分けて記録します。',
         actions: [
-          '通知領域にDiscordがあれば右クリックして終了する',
-          'Ctrl＋Shift＋Escでタスクマネージャーを開く',
-          'Discordに関するプロセスをすべて終了する',
-          'DiscordSetup.exeをもう一度実行する',
+          'https://discord.com/download でWindows版を取得する。保存が完了しない場合は通信・ブラウザのエラーを先に確認し、AppDataの削除へ進まない。',
+          '画面のエラー文と発生時刻を控える。Windowsやセキュリティ製品が実行を止めた場合は、その通知内容を確認する。保護機能をまとめてオフにしない。',
+          '開いている作業を保存してWindowsを再起動し、取得した公式インストーラーを1回実行する。正常に起動したらSTEP 5で確認する。',
+          '再びInstallation has failedなら、STEP 3でログを保存してからSTEP 4へ。初回でも途中の残存データがあるかを確認する。',
         ],
       },
       {
-        title: '以前のインストールデータが残っている',
-        description:
-          'アンインストール後も残るデータが、新しいインストールと競合する場合があります。',
+        title: '再インストールは、ログイン手段を確保して完全終了する',
+        description: '以前のDiscordが動いていると、ファイルの整理や置き換えが進まない場合があります。ウィンドウを閉じるだけでなく通知領域も確認します。',
         actions: [
-          'ログイン情報と二要素認証を利用できることを確認し、ローカル設定を控えてDiscordを完全終了する',
-          'Windows＋Rを押して%appdata%を開く',
-          'Discordフォルダーを削除する',
-          'Windows＋Rを押して%localappdata%を開く',
-          'Discordフォルダーを削除する',
+          '登録メール、パスワード、二要素認証やバックアップコードを使えることを確認する。開ける場合は音声設定・キー割り当ても控える。別端末でログイン中ならログアウトしなくてよい。',
+          'タスクバー右下のDiscordアイコンを右クリックして終了する。Ctrl＋Shift＋Escでタスクマネージャーを開き、残っているDiscordも終了する。',
+          'Update.exeがある場合は右クリック→「ファイルの場所を開く」でDiscordフォルダー内と確認できたものだけを終了する。同名という理由で他アプリの更新処理を止めない。',
+          'インストーラーを再試行し、失敗するならSTEP 3で今回のログを保存する。整理時はブラウザ版のDiscordタブも閉じ、STEP 4へ進む。',
         ],
       },
       {
-        title: '再起動前の状態または古いインストーラーを使っている',
-        description:
-          'プロセスや一時ファイルを確実に解放し、公式配布の新しいファイルで試します。',
+        title: 'Open Setup Logでは、今回の日時・失敗行・前後の処理を見る',
+        description: 'ログは原因を絞る手がかりです。最後の1行や特定の単語だけで原因を断定せず、今回失敗した時刻のまとまりを確認します。以下の英語は探す語の例で、必ず記録されるとは限りません。',
         actions: [
-          'Windowsを再起動する',
-          'discord.com/downloadからWindows版をダウンロードする',
-          'ダウンロードしたDiscordSetup.exeを実行する',
+          'エラー画面に「Open Setup Log」があれば開き、表示されたテキストを別名で保存する。ボタンがない・開けない場合はエラー画面を保存し、その事実も記録する。推測した場所のファイルを削除しない。',
+          '末尾付近から今回の実行日時を探す。複数回の試行が含まれる場合は、以前のエラーと今回のエラーを混ぜない。日時が読み取れない場合は、画面を撮った時刻と取得直後のログを残す。',
+          'メモ帳のCtrl＋Fなどで Error、Exception、failed を探し、該当行と前後の処理を読む。切り出す場合は前後10〜20行程度を出発点にし、関連する例外の続きがあれば含める。',
+          '「Access is denied」「UnauthorizedAccessException」などなら権限・ブロック記録、「being used by another process」などなら使用中の対象、「download」「timeout」などなら通信に関する行を確認する。単語は分類の手がかりであり、原因確定ではない。',
+          '対象のファイル・パス、エラーの全文、直前に何をしていたかを控える。意味が分からなければ書き換えず保存し、STEP 5の相談資料にする。',
         ],
-        note: '非公式のダウンロードサイトから入手したインストーラーは使用しないでください。',
+        note: '元ログは手元に残し、共有用コピーでWindowsユーザー名、メールアドレス、端末名、個人フォルダー名を伏せます。URLにトークンなどの値があれば隠し、パスワード・認証コードは送らないでください。例：C:/Users/＜ユーザー名＞/AppData/Local/Discord/...。エラー名やDiscord以下の構造は可能な範囲で残します。',
+      },
+      {
+        title: '残存フォルダーを確認し、ない・使用中・拒否を分けて進む',
+        description: '公式の整理対象はAppDataとLocalAppData内のDiscordフォルダーです。ログを先に保存し、再ログイン手段と公式インストーラーを確保してから実施します。',
+        actions: [
+          'Windows＋Rに %appdata% を入力して開き、その中のDiscordフォルダーを確認する。次にWindows＋Rで %localappdata% を開き、同じ名前のフォルダーを確認する。',
+          'Discordを完全終了したうえで、存在するDiscordフォルダーだけを削除する。一方または両方がなければその削除を省略する。空のフォルダーを作る必要はない。AppDataやLocal全体、別アプリのフォルダーは消さない。',
+          '「使用中」ならSTEP 2のプロセス確認へ戻る。再起動直後にDiscordが自動で開く場合は、タスクマネージャーのスタートアップアプリでDiscordだけを一時的に無効にし、再起動後に確認する。',
+          '「アクセス拒否」なら文言と対象パスを控え、セキュリティ製品の通知・保護履歴を確認する。管理されたPCなら管理者へ相談する。所有権の変更や強制削除コマンドで押し切らない。',
+          '整理できたらWindowsを再起動し、公式インストーラーを実行する。削除できない場合はその状態を記録してSTEP 5へ進み、同じ操作を繰り返さない。',
+        ],
+      },
+      {
+        title: '起動・再起動で完了を確認し、再失敗なら比較結果を添えて相談する',
+        description: 'インストーラーの画面が消えただけでは成功と判断しません。アプリが開くか、次の起動でも使えるかを確認します。',
+        actions: [
+          'Discordを開いてログインし、チャンネルと既存メッセージを読み込めるか確認する。アプリを終了して起動し直し、同じエラーが出なければ導入完了と判断する。',
+          '自動起動を一時的に無効にした場合は、必要に応じて元へ戻す。音声機器やキー割り当ても確認し直す。',
+          'ログイン画面まで進んで認証だけ失敗するなら「ログインできない」、起動時にUpdate Failedへ変わったなら「Update Failed・更新ループ」の記事へ進む。インストールエラーとして削除を続けない。',
+          '同じエラーが残る場合は、初回／再導入、Windowsのバージョン、入手元、発生時刻、削除対象の有無、完全終了・再起動後の結果、共有用ログをまとめてDiscord公式サポートへ送る。',
+        ],
       },
     ],
-    ifNotFixed:
-      '公式手順を完了しても失敗する場合は、エラー画面の「Open Setup Log」などから内容を確認し、スクリーンショットとログ、Windowsのバージョン、試した手順を添えてDiscordサポートへ連絡してください。',
+    ifNotFixed: '相談用の記録例：「初回導入／公式サイトから取得／再起動後も同じ／AppDataのDiscordはなし、LocalAppDataにはあり／エラー発生は9:30／ログの該当行と前後を添付」。これは記入例です。実際の結果に置き換え、未確認の項目は未確認と書いてください。',
     faqs: [
-      {
-        question: 'Discordをアンインストールしただけでは不十分ですか？',
-        answer:
-          '以前のデータがAppDataやLocalAppDataに残ることがあります。公式サポートも両方のDiscordフォルダーを削除してから再起動・再インストールする手順を案内しています。',
-      },
-      {
-        question: 'Microsoft Store版へ切り替えてもよいですか？',
-        answer:
-          '切り分けには使えますが、まずは公式サポートが案内するWindows版のクリーン再インストールを行い、同じエラーが再現するか確認してください。',
-      },
-      {
-        question: 'Discordフォルダーを削除できません',
-        answer:
-          'Discordのプロセスが残っている可能性があります。タスクマネージャーとスタートアップ項目を確認し、難しければPC再起動直後に削除してください。',
-      },
+      { question: '初回なのにDiscordフォルダーがあるのはなぜ？', answer: '失敗した導入が途中までデータを作った可能性があります。存在だけで破損とは断定せず、今回のログを保存してから対象を確認します。' },
+      { question: 'Discordフォルダーが両方ともありません', answer: '残存フォルダーの削除は省略できます。別のフォルダーを探して消したり、空のDiscordフォルダーを作ったりせず、公式インストーラーでの再試行とログ確認へ進んでください。' },
+      { question: 'Open Setup Logがない・開けない場合は？', answer: 'エラー画面、発生時刻、初回か再導入か、試した手順を残して相談できます。ログを取得できなかったことも伝え、不明なログ収集ツールを入れる必要はありません。' },
+      { question: 'ログにErrorがあれば、その行が原因ですか？', answer: '必ずしもそうではありません。失敗の後に出るエラーや過去の試行の行もあり得ます。今回の日時と前後の処理を合わせて確認し、単語だけで設定変更を決めないでください。' },
+      { question: 'AppDataの削除でアカウントも消えますか？', answer: 'PC内のDiscordフォルダー削除はアカウントやサーバーの削除ではありません。ただし端末の設定やログイン状態が作り直される場合があるため、認証手段を確保してから操作します。' },
     ],
-    sources: [installerGuide, damagedInstallGuide],
-    related: ['update-failed', 'not-opening', 'loading-stuck'],
-    checkedAt: '2026-09-23',
-    status: 'verified',
+    sources: [installerGuide, damagedInstallGuide, { label: 'Discord公式：Windows版のダウンロード', url: 'https://discord.com/download' }, { label: 'Discord公式：サポートへの問い合わせ', url: 'https://support.discord.com/hc/en-us/requests/new' }],
+    related: ['update-failed', 'not-opening', 'login-error'],
+    checkedAt: '2026-09-28', status: 'verified',
+    ogTitle: 'Discordをインストールできない？',
+    ogSteps: ['初回・再導入で手順を選ぶ', '削除前にSetup Logを保存', 'なし・使用中・拒否を区別', '再起動後も開くか確認'],
   },
   {
     slug: 'audio-input-not-found',
