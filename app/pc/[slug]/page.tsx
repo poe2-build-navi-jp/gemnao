@@ -185,6 +185,29 @@ export default async function PcArticlePage({
                     <li key={action}>{action}</li>
                   ))}
                 </ol>
+                {step.resultRows && (
+                  <div className="diagnosis-table pc-result-guide">
+                    <h4>表示された結果と次の行動</h4>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th scope="col">表示された状態</th>
+                          <th scope="col">分かること</th>
+                          <th scope="col">次の行動</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {step.resultRows.map((row) => (
+                          <tr key={row.state}>
+                            <td data-label="状態">{row.state}</td>
+                            <td data-label="判断">{row.meaning}</td>
+                            <td data-label="次の行動">{row.next}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
                 <dl className="pc-step-results">
                   <div>
                     <dt>正常な結果・分かったこと</dt>

@@ -118,7 +118,7 @@ export const ogImageManifest: Record<string, string> = {
   "/pc/call-starts-audio-disappears": "045c5c84",
   "/pc/microphone-after-update": "1d673823",
   "/pc/second-monitor-not-detected": "95cad41e",
-  "/pc/usb-c-device-not-recognized": "7217ab11",
+  "/pc/usb-c-device-not-recognized": "c3fbb206",
   "/trouble/mod": "aac0f787",
   "/trouble/server": "c6d1a835"
 };
