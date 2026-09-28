@@ -118,6 +118,7 @@ export const ogImageManifest: Record<string, string> = {
   "/pc/call-starts-audio-disappears": "045c5c84",
   "/pc/microphone-after-update": "1d673823",
   "/pc/second-monitor-not-detected": "95cad41e",
+  "/pc/sleep-wakes-up-by-itself": "a56ed766",
   "/pc/usb-c-device-not-recognized": "c3fbb206",
   "/pc/wifi-option-missing": "d226f737",
   "/pc/windows-update-0x800f081f": "f48af620",
