@@ -23,13 +23,17 @@ export const commonGuideCategories: CommonGuideCategory[] = [
       'visual-c-runtime-error',
       'pc-shuts-down-while-gaming',
       'bsod-while-gaming',
+      'windows-11-required',
+      'tpm-secure-boot',
+      'ray-tracing-gpu',
     ],
   },
   {
     id: 'fps-display',
     label: 'FPS・描画',
     heading: 'FPS・カクつき・描画トラブル',
-    description: 'FPS低下や一瞬止まる症状について、VRAM・GPU・シェーダーを確認します。',
+    description:
+      'FPS低下や一瞬止まる症状について、VRAM・GPU・シェーダーを確認します。',
     slugs: [
       'low-gpu-usage',
       'gpu-driver-update',

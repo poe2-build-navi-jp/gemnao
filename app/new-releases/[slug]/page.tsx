@@ -294,14 +294,17 @@ export default async function Page({
           </section>
           <section className="common-guides">
             <h2>起動しない時の共通の対処法</h2>
+            <a href="/guide/ray-tracing-gpu">
+              レイトレーシング対応GPUか確認する方法 <ArrowRight size={15} />
+            </a>
+            <a href="/guide/windows-11-required">
+              Windows 11が必要なゲームの確認方法 <ArrowRight size={15} />
+            </a>
+            <a href="/guide/tpm-secure-boot">
+              TPM 2.0・セキュアブートの有効化 <ArrowRight size={15} />
+            </a>
             <a href="/guide/steam-game-not-launching">
               Steamゲームが起動しない時の対処法 <ArrowRight size={15} />
-            </a>
-            <a href="/guide/vram-shortage">
-              VRAM不足の見分け方と対処法 <ArrowRight size={15} />
-            </a>
-            <a href="/guide/gpu-driver-update">
-              GPUドライバーの更新方法 <ArrowRight size={15} />
             </a>
           </section>
           <ShareButtons
