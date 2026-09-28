@@ -3195,6 +3195,7 @@ kbd {
 .pc-guide .answer-summary ol {
   margin: 16px 0 0;
   padding-left: 25px;
+  list-style: decimal outside;
   line-height: 1.8;
 }
 .pc-guide .answer-summary li {
@@ -3220,6 +3221,7 @@ kbd {
 .pc-step ol {
   margin: 0 0 20px;
   padding-left: 24px;
+  list-style: decimal outside;
 }
 .pc-step li {
   padding: 5px 0;
