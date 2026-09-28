@@ -7,6 +7,7 @@ import { gameArticles } from '@/lib/game-articles';
 import { games } from '@/lib/games';
 import { releaseRoundups } from '@/lib/release-roundups';
 import { troubleHubs } from '@/lib/trouble-hubs';
+import { pcArticles } from '@/lib/pc-articles';
 import {
   discordArticleVisualBySlug,
   guideVisualBySlug,
@@ -93,11 +94,28 @@ export function ogCardSpecs(): OgCardSpec[] {
       .slice(0, 4)
       .map((game) => game.name),
   }));
+  const pcCards = [
+    {
+      path: '/pc',
+      eyebrow: 'PC・Windowsの不具合',
+      title: 'PC・Windowsの不具合を症状から探す',
+      itemsLabel: '発生条件から探す',
+      items: pcArticles.slice(0, 4).map((a) => a.shortTitle),
+    },
+    ...pcArticles.map((article) => ({
+      path: `/pc/${article.slug}`,
+      eyebrow: 'PC・Windowsの不具合',
+      title: article.title,
+      itemsLabel: '順番に確認',
+      items: article.steps.map((step) => step.title),
+    })),
+  ];
   return [
     ...gameCards,
     ...guideCards,
     ...discordCards,
     ...troubleCards,
     ...roundupCards,
+    ...pcCards,
   ].filter((card) => card.items.length);
 }

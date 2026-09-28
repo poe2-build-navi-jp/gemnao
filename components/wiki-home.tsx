@@ -19,6 +19,7 @@ import { games } from '@/lib/games';
 import { categoryLabels, gameArticles } from '@/lib/game-articles';
 import { commonGuides } from '@/lib/common-guides';
 import { discordArticles } from '@/lib/discord-articles';
+import { pcArticles } from '@/lib/pc-articles';
 import { articleMatchesTrouble, troubleHubForGuide } from '@/lib/trouble-hubs';
 import { matchesNaturalQuery, normalizeSearchQuery } from '@/lib/site-search';
 import { RecentTroubles } from './recent-troubles';
@@ -37,6 +38,7 @@ const topics = [
 const articleFilters = [
   ...topics.map(({ slug, label }) => ({ slug, label })),
   { slug: 'discord', label: 'Discord' },
+  { slug: 'pc', label: 'PC・Windows' },
 ];
 
 const featuredGuideSlugs = [
@@ -142,7 +144,28 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
         title: article.shortTitle,
         checkedAt: article.checkedAt,
       }));
-    return [...guides, ...discord].sort((a, b) =>
+    const pc = pcArticles
+      .filter(() => articleCluster === 'all' || articleCluster === 'pc')
+      .filter((article) =>
+        matchesNaturalQuery(
+          [
+            article.title,
+            article.shortTitle,
+            article.lead,
+            article.description,
+            ...article.quickChecks,
+          ].join(' '),
+          query,
+        ),
+      )
+      .map((article) => ({
+        key: `pc-${article.slug}`,
+        href: `/pc/${article.slug}`,
+        label: 'PC・Windows',
+        title: article.shortTitle,
+        checkedAt: article.checkedAt,
+      }));
+    return [...guides, ...discord, ...pc].sort((a, b) =>
       b.checkedAt.localeCompare(a.checkedAt),
     );
   }, [articleCluster, isSearching, query, view]);
@@ -189,7 +212,7 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
             <span>「困った」を、すぐ解決。</span>
           </h1>
           <p>
-            起動しない・クラッシュ・重い・セーブ・MOD・Discordなど、
+            起動しない・クラッシュ・重い・セーブ・MOD・Discord・Windowsなど、
             <br />
             PCゲームのトラブルを症状から探せます。
           </p>
@@ -200,7 +223,7 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             aria-label="ゲーム名や症状を検索"
-            placeholder="ゲーム名・症状を入力"
+            placeholder="ゲーム名・Windows・症状を入力"
           />
           {query && (
             <button
@@ -265,6 +288,10 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
             <a href="/discord">
               <MessageCircle size={19} />
               Discord
+            </a>
+            <a href="/pc">
+              <Wrench size={19} />
+              PC・Windows
             </a>
           </div>
         </section>
@@ -445,6 +472,32 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
           ) : null}
         </section>
       )}
+      <section className="content discord-entrances" aria-labelledby="pc-title">
+        <div className="section-heading">
+          <div>
+            <p>PC &amp; WINDOWS</p>
+            <h2 id="pc-title">PC・Windowsの不具合</h2>
+          </div>
+        </div>
+        <div className="guide-index-grid">
+          {pcArticles.slice(0, 3).map((article) => (
+            <a href={`/pc/${article.slug}`} key={article.slug}>
+              <strong>{article.shortTitle}</strong>
+              <span>{article.lead}</span>
+              <small>
+                確認手順を見る <ChevronRight size={14} />
+              </small>
+            </a>
+          ))}
+          <a href="/pc">
+            <strong>6記事から症状を選ぶ</strong>
+            <span>結果別の対処と元に戻す方法まで掲載</span>
+            <small>
+              PC・Windowsの不具合一覧 <ChevronRight size={14} />
+            </small>
+          </a>
+        </div>
+      </section>
       <section
         className="content discord-entrances"
         aria-labelledby="discord-title"

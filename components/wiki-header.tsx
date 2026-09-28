@@ -61,6 +61,7 @@ export function WikiHeader({
           {locale === 'en' ? ' (Japanese)' : ''}
         </a>
         <a href="/discord">Discord{locale === 'en' ? ' (Japanese)' : ''}</a>
+        <a href="/pc">PC・Windows{locale === 'en' ? ' (Japanese)' : ''}</a>
         {locale === 'ja' ? (
           <a href="/discord-servers">Discordサーバー</a>
         ) : null}
@@ -143,6 +144,9 @@ export function WikiFooter({ locale = 'ja' }: { locale?: 'ja' | Locale }) {
           {locale === 'en'
             ? 'Discord servers (Japanese)'
             : 'Discordサーバー募集'}
+        </a>
+        <a href="/pc">
+          {locale === 'en' ? 'PC & Windows (Japanese)' : 'PC・Windowsの不具合'}
         </a>
         <a href="/contact">
           {locale === 'en' ? 'Contact (Japanese)' : 'お問い合わせ'}

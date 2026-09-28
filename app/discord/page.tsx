@@ -114,6 +114,10 @@ export default function DiscordHub() {
           もあわせてご覧ください。
         </p>
         <p className="correction-link">
+          Windowsの更新後にマイクや音声が使えない場合は{' '}
+          <a href="/pc">PC・Windowsの不具合</a>からOS側の結果を確認できます。
+        </p>
+        <p className="correction-link">
           Botを使うPCゲームコミュニティを探す場合は{' '}
           <a href="/discord-servers">ディスコードサーバーの探し方・参加方法</a>
           、自分のサーバーを紹介する場合は{' '}

@@ -88,6 +88,11 @@ export function MobileNavigation({
               <a href="/discord">
                 {locale === 'en' ? 'Discord (Japanese)' : 'Discordトラブル'}
               </a>
+              <a href="/pc">
+                {locale === 'en'
+                  ? 'PC & Windows (Japanese)'
+                  : 'PC・Windowsの不具合'}
+              </a>
               {locale === 'ja' ? (
                 <a href="/discord-servers">Discordサーバー募集</a>
               ) : null}

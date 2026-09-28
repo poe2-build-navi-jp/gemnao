@@ -3179,6 +3179,92 @@ kbd {
   overflow-wrap: anywhere;
 }
 
+.static-page .breadcrumbs {
+  margin-bottom: 24px;
+}
+.static-page .breadcrumbs b {
+  color: var(--ink);
+}
+.pc-steps {
+  margin: 38px 0;
+}
+.pc-hero h1 {
+  max-width: 1020px;
+  font-size: clamp(29px, 4vw, 46px);
+}
+.pc-guide .answer-summary ol {
+  margin: 16px 0 0;
+  padding-left: 25px;
+  list-style: decimal outside;
+  line-height: 1.8;
+}
+.pc-guide .answer-summary li {
+  padding: 3px 0;
+}
+.pc-steps > h2 {
+  font-size: 22px;
+}
+.pc-step {
+  margin: 24px 0;
+  padding: 24px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--blue);
+  border-radius: 8px;
+  scroll-margin-top: 24px;
+}
+.pc-step h3 {
+  margin: 0 0 14px;
+  font-size: 19px;
+  line-height: 1.5;
+}
+.pc-step ol {
+  margin: 0 0 20px;
+  padding-left: 24px;
+  list-style: decimal outside;
+}
+.pc-step li {
+  padding: 5px 0;
+  line-height: 1.85;
+}
+.pc-result-guide {
+  margin: 0 0 20px;
+}
+.pc-result-guide h4 {
+  margin: 0 0 12px;
+  font-size: 18px;
+  line-height: 1.5;
+}
+.pc-step-results {
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+.pc-step-results > div {
+  padding: 13px 16px;
+  background: #f2f6f8;
+  border-radius: 6px;
+}
+.pc-step-results dt {
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+.pc-step-results dd {
+  margin: 0;
+  line-height: 1.7;
+}
+@media (min-width: 761px) and (max-width: 940px) {
+  .site-header > nav a[href='/#symptoms'],
+  .site-header > nav a[href='/discord-servers'] {
+    display: none;
+  }
+}
+@media (max-width: 640px) {
+  .pc-step { padding: 18px 15px; }
+  .pc-step-results > div { padding: 11px 12px; }
+}
+
 .reset-config-details {
   min-width: 0;
   overflow-wrap: anywhere;
