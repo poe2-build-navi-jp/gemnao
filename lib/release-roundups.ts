@@ -115,6 +115,10 @@ export const releaseRoundups: ReleaseRoundup[] = [
         gtx1660Note: 'レイトレーシング対応GPUが必須',
         win10: 'yes',
         win10Note: 'Windows 10 22H2以降（推奨はWindows 11）',
+        article: {
+          href: '/games/gears-of-war-e-day/not-launching',
+          label: '起動しない・落ちる時の対処法',
+        },
         source: steam('3010850'),
       },
       {
@@ -129,6 +133,10 @@ export const releaseRoundups: ReleaseRoundup[] = [
         gtx1660Note: '最低環境がGTX 1660（本編の動作環境）',
         win10: 'no',
         win10Note: '本編の動作環境はWindows 11（64bit必須）',
+        article: {
+          href: '/games/dragons-dogma-2/performance',
+          label: '重い・カクつく時の設定と対処法',
+        },
         source: steam('2054970'),
       },
       {
@@ -205,6 +213,10 @@ export const releaseRoundups: ReleaseRoundup[] = [
         gtx1660Note: '最低環境のGTX 1650より上',
         win10: 'no',
         win10Note: '動作環境の表記はWindows 11',
+        article: {
+          href: '/games/final-fantasy-resonance/not-launching',
+          label: '起動しない・特典・体験版の引き継ぎ',
+        },
         source: steam('3259780'),
       },
     ],
