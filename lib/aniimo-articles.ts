@@ -44,6 +44,18 @@ const windowsDisplaySettings = {
   label: 'Microsoft公式：Windowsの解像度と画面のレイアウト',
   url: 'https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/change-your-screen-resolution-and-layout-in-windows',
 };
+const update1_1 = {
+  label: 'Aniimo公式：9月23日アップデート（v1.1）のお知らせ',
+  url: 'https://aniimo.com/ja/newslist/detail/100139',
+};
+const mobileLaunch = {
+  label: 'Aniimo公式：スマホ版の正式サービス開始（クロスセーブ）',
+  url: 'https://aniimo.com/ja/newslist/detail/100149',
+};
+const cbtRewards = {
+  label: 'Aniimo公式：クローズドβテスト参加特典の受け取りとアカウント連携',
+  url: 'https://aniimo.com/ja/newslist/detail/100113',
+};
 const related = [
   'not-launching',
   'black-screen',
@@ -65,10 +77,15 @@ export const aniimoArticles: GameArticle[] = [
       'ランチャーすら開かない場合は公式FAQの権限確認、ゲームがすぐ閉じる場合は表示されたエラーとファイル修復、プレイ中だけ落ちる場合はWindowsのアプリ履歴と描画環境を確認します。修復後は同じ場面を再現して結果を比べます。',
     description:
       '公式ランチャー版とSteam版では修復する画面が違います。エラー文や履歴は原因を断定する証拠ではなく、次に何を調べるかを絞る手がかりです。',
-    checkedAt: '2026-09-27',
+    checkedAt: '2026-09-28',
     status: 'verified',
     targetVersion: 'Windows PC版（公式ランチャー・Steam）／2026年9月27日確認',
     quickFacts: [
+      {
+        label: '9月23日の更新（v1.1）',
+        value:
+          'メンテナンス後はクライアントを再起動し、最新版に更新するよう公式が案内。ダンジョンの暗転中に再起動すると操作不能になる不具合も修正済み',
+      },
       {
         label: '最初に記録',
         value:
@@ -146,6 +163,8 @@ export const aniimoArticles: GameArticle[] = [
         title: '最後に動いていた地点とWindowsのエラー履歴を記録する',
         summary:
           '無反応、起動直後、プレイ中のどこで止まるかと、エラーがWindowsに残ったかを先に見ます。',
+        time: '約3分',
+        risk: 'low',
         actions: [
           '表示されたエラー文やコードをそのまま控える。表示がなければ、落ちた時刻と直前の操作（起動、ロード、戦闘など）を控える',
           'Windowsのスタートを右クリック→「イベント ビューアー」を開き、「Windowsログ」→「Application（アプリケーション）」を選ぶ',
@@ -159,6 +178,8 @@ export const aniimoArticles: GameArticle[] = [
         title: 'ランチャー自体が開かない場合の確認',
         summary:
           '公式ランチャーとSteamで起動する入口を確認し、権限不足を切り分けます。',
+        time: '約5分',
+        risk: 'low',
         actions: [
           '公式のお知らせでメンテナンスや更新案内を確認。ダウンロード・更新が続いていれば終了を待つ',
           'Steam版はSteamのライブラリからAniimoを起動し、Steam自体が開くか確認する。公式ランチャー版は公式配布のランチャーを使う',
@@ -171,6 +192,8 @@ export const aniimoArticles: GameArticle[] = [
         title: 'エラー表示を読み、内容に合った場所だけ確認する',
         summary:
           'ゲーム固有の表示を、一般的なクラッシュと同じ手順で片付けないための確認です。',
+        time: '約5分',
+        risk: 'low',
         actions: [
           '「Falied to load il2cpp」（公式FAQの表記）の場合はWindowsの「Windows セキュリティ」→「ウイルスと脅威の防止」→「保護の履歴」を開き、Aniimoのファイルが隔離された記録を確認する',
           '隔離されたファイルが公式配布のAniimoのものと確かめられる場合のみ、セキュリティ製品の案内に従って個別に復元・許可する。不明な検出を無条件に許可しない',
@@ -184,6 +207,8 @@ export const aniimoArticles: GameArticle[] = [
         title: '起動直後に落ちる・開始が無反応なら配布元で修復する',
         summary:
           'ランチャーの修復とSteamの整合性確認は入口が異なります。結果を見て次に進みます。',
+        time: '約15分',
+        risk: 'low',
         actions: [
           'ゲームを終了する。公式ランチャー版はランチャー右上の「設定」→「ワンクリック修復」を実行し、終了後にランチャーを再起動する',
           'Steam版はライブラリでAniimoを右クリック→「プロパティ」→「インストール済みファイル」→「ゲームファイルの整合性を確認」を押す',
@@ -197,6 +222,8 @@ export const aniimoArticles: GameArticle[] = [
         title: '修復した後、結果に応じて次の確認先を決める',
         summary:
           '修復の成功表示とゲームが安定して動くことは別なので、同じ操作で再現を確認します。',
+        time: '約10分',
+        risk: 'low',
         actions: [
           'ゲームに入れるようになったら、以前落ちた地点（起動直後／同じロード／同じプレイ場面）まで進め、1回だけ再現するか確かめる',
           '修復で再取得され、同じエラーが再発する場合は「保護の履歴」に再度隔離された記録がないか確認する。別のファイル名ならサポートにそのまま伝える',
@@ -209,6 +236,8 @@ export const aniimoArticles: GameArticle[] = [
         title: 'プレイ中だけ落ちるなら再現場面と描画環境を分ける',
         summary:
           'ゲームが起動できる状態では、毎回落ちる場面とPC側の変化を比較します。',
+        time: '約15分',
+        risk: 'low',
         actions: [
           '戦闘・移動・ロードなど落ちた場面とプレイ開始からの時間を記録し、イベント ビューアーの同時刻に新しいエラーがあるか確認する',
           'ゲーム内で画質を一段階下げ、Discord・録画ソフトなどのオーバーレイを一つだけ停止して、同じ場所・操作で再現するか比べる',
@@ -245,6 +274,7 @@ export const aniimoArticles: GameArticle[] = [
       },
     ],
     sources: [
+      update1_1,
       pcLaunchFaq,
       steamVerifyGuide,
       steamStore,
@@ -278,10 +308,15 @@ export const aniimoArticles: GameArticle[] = [
       'Windowsが見えるならゲーム側の表示切り替えを試し、映像が戻れば画面設定を保存。戻らなければAniimoの修復へ。PC画面全体が黒いなら、モニターの電源・入力先・接続を確かめてからWindowsの表示を復旧します。',
     description:
       '音が聞こえていても、ゲーム映像だけの問題かWindows全体の表示問題かは判定できません。デスクトップやセキュリティ画面が見えるかを先に確かめ、見えない場合はゲームのファイル操作へ進まないでください。',
-    checkedAt: '2026-09-27',
+    checkedAt: '2026-09-28',
     status: 'verified',
     targetVersion: 'Windows PC版（公式ランチャー・Steam）／2026年9月27日確認',
     quickFacts: [
+      {
+        label: '9月23日の更新（v1.1）',
+        value:
+          '一部のグラフィックボードで画面の一部が黒くなる不具合と、画面が赤く表示される不具合を修正（公式）。まず最新版に更新して確認',
+      },
       {
         label: '最初に試すキー',
         value: 'Alt＋Tab、次にCtrl＋Alt＋Delete。Windowsの画面が見えるかを判定',
@@ -350,6 +385,8 @@ export const aniimoArticles: GameArticle[] = [
         id: 'split-black-screen',
         title: 'Windowsが見えるか確認して、調べる対象を決める',
         summary: 'ゲームだけ黒いのか、PCの表示全体が消えたのかを切り分けます。',
+        time: '約3分',
+        risk: 'low',
         actions: [
           'Alt＋Tabで別のアプリかWindowsのデスクトップに切り替える。ゲーム以外が見えるなら次の「ゲームだけ黒い」へ進む',
           '何も見えなければCtrl＋Alt＋Deleteを1回押す。セキュリティ画面が出るならWindowsは表示できているため、タスク マネージャーでAniimoが応答しているか確認する',
@@ -362,6 +399,8 @@ export const aniimoArticles: GameArticle[] = [
         title: 'ゲームだけ黒い場合、表示モードを1回切り替える',
         summary:
           'Windowsが見える場合に限り、全画面とウィンドウの表示差を調べます。',
+        time: '約3分',
+        risk: 'low',
         actions: [
           'ゲーム以外のWindows画面が見えることを確認し、Alt＋TabでAniimoに戻る',
           'Aniimoが選択された状態でAlt＋Enterを1回押し、10秒ほど待って映像が戻るか見る。ゲームがこのキーに対応しない場合もあります',
@@ -374,6 +413,8 @@ export const aniimoArticles: GameArticle[] = [
         title: 'PCの画面全体が映らない場合は表示を復旧する',
         summary:
           'デスクトップも見えない間は、ゲームファイルの修復を始められません。',
+        time: '約5分',
+        risk: 'low',
         actions: [
           'モニターの電源ランプと入力先（HDMI／DisplayPort）を確認し、PCとモニターのケーブルが抜けていないか確認する。ノートPCなら外部モニターをいったん外して内蔵画面を見る',
           'Windows＋Ctrl＋Shift＋Bを1回押し、音や画面のちらつき、デスクトップが戻るか確認する',
@@ -387,6 +428,8 @@ export const aniimoArticles: GameArticle[] = [
         title: '映像が戻ったら、表示設定を保存して再発を確かめる',
         summary:
           'その場で一度映っただけでは解決とせず、再起動後も映るか調べます。',
+        time: '約5分',
+        risk: 'low',
         actions: [
           'Aniimoの画面が戻ったら、ゲームの表示設定で現在表示できている画面モードと解像度を控え、その設定で保存する',
           'いったん通常終了し、同じモニターで再起動する。ログイン画面からゲーム内まで映れば改善と判断する',
@@ -399,6 +442,8 @@ export const aniimoArticles: GameArticle[] = [
         title: '切り替えてもゲームだけ黒いなら配布元の修復を実行する',
         summary:
           'Aniimo公式は更新後の黒画面にワンクリック修復を案内しています。',
+        time: '約15分',
+        risk: 'low',
         actions: [
           'Windowsのデスクトップが表示できていることを確認し、Aniimoを終了する。公式ニュースに更新・メンテナンスがあれば状況を確かめる',
           '公式ランチャー版はランチャー右上「設定」→「ワンクリック修復」を実行し、完了後にランチャーを再起動する',
@@ -410,6 +455,8 @@ export const aniimoArticles: GameArticle[] = [
         id: 'after-repair-black-screen',
         title: '修復後も黒い場合は結果に合わせて次の行動を選ぶ',
         summary: '修復結果、映る範囲、別のアプリの表示から調べる先を絞ります。',
+        time: '約10分',
+        risk: 'low',
         actions: [
           '再取得後にゲームが映り、再起動しても再発しなければ修復完了。再取得されても同じ時点で黒くなるなら、公式更新情報を確認し、再発時刻と修復結果を控える',
           '修復で変化がなくAniimoだけ黒い場合は、GPUメーカー公式のドライバーを確認し、更新した場合はWindowsを再起動して比較する。Discordや録画ソフトのオーバーレイは一つずつ止めて試す',
@@ -443,6 +490,7 @@ export const aniimoArticles: GameArticle[] = [
       },
     ],
     sources: [
+      update1_1,
       pcLaunchFaq,
       windowsBlankScreen,
       windowsDisplaySettings,
@@ -475,10 +523,15 @@ export const aniimoArticles: GameArticle[] = [
       '待機人数・時間が出るなら公式のお知らせと待機画面を確認します。ランチャーのネットワークエラーなら通信経路、アカウントの問題ならSteam版・公式ランチャー版のログイン方法とサーバーを確認。ログイン失敗が続く場合は、公式FAQが挙げるインストール先の文字種も調べます。',
     description:
       '同じ「ログインできない」でも、待機列・回線・アカウント・ゲームの設置場所では確認する画面が異なります。表示されたエラー文を先に控え、当てはまる手順だけ進めてください。',
-    checkedAt: '2026-09-27',
+    checkedAt: '2026-09-28',
     status: 'verified',
     targetVersion: 'Windows PC版（公式ランチャー・Steam）／2026年9月27日確認',
     quickFacts: [
+      {
+        label: '9月23日の更新（v1.1）',
+        value:
+          '特定の状況で切断と再接続を繰り返す不具合を修正（公式）。クライアントを再起動して最新版に更新してから試す',
+      },
       {
         label: '待機人数・時間が出る',
         value: '待機画面と公式のお知らせを確認。ログインの連打を控える',
@@ -515,6 +568,11 @@ export const aniimoArticles: GameArticle[] = [
       },
     ],
     diagnosis: [
+      {
+        symptom: 'ゲーム中に切断と再接続を繰り返す',
+        cause: '9月23日の更新で修正された不具合の可能性。最新版かを先に確認',
+        stepId: 'check-login-status',
+      },
       {
         symptom: '待機人数・待機時間が画面に出ている',
         cause: 'ログイン待ち。先に運営のお知らせと画面の案内を確認',
@@ -554,6 +612,8 @@ export const aniimoArticles: GameArticle[] = [
         title: '待機表示か、具体的なエラー表示かを見分ける',
         summary:
           '待機列が見えるなら画面の案内を優先。エラーが出るなら表示文を控えます。',
+        time: '約3分',
+        risk: 'low',
         actions: [
           'ログイン画面の「待機人数・時間」「ネットワークエラー」「アカウント関連の案内」のどれが出ているか、表示文と時刻を控える。',
           'Aniimo公式ニュースで、現在のメンテナンス・障害・混雑の案内を確認する。公式ランチャー版かSteam版かも控える。',
@@ -566,6 +626,8 @@ export const aniimoArticles: GameArticle[] = [
         title: '「ネットワークエラー／タイムアウト」なら回線を比較する',
         summary:
           '公式FAQのDNS・プロキシ確認に沿い、接続先を一つずつ比較します。',
+        time: '約10分',
+        risk: 'low',
         actions: [
           'ブラウザーでほかのサイトを開き、PC自体がインターネットに接続できるか確認する。VPN・プロキシや独自DNSを使っているなら設定を記録し、元に戻せる範囲で一つずつ切り替えて比較する。',
           '公式ランチャーに「ネットワークエラー」や「ネットワークタイムアウト」が出る場合は、エラーコードを控える。公式FAQはDNS・プロキシの確認と、必要に応じたONUの再起動を案内している。',
@@ -578,6 +640,8 @@ export const aniimoArticles: GameArticle[] = [
         title: 'Steam版と公式ランチャー版で、使ったアカウントを確かめる',
         summary:
           '認証画面で止まる場合と、ログイン後にキャラが見えない場合を分けます。',
+        time: '約10分',
+        risk: 'low',
         actions: [
           'Steam版はSteamのライブラリからAniimoを起動し、Steamでのサインイン状態と、表示されたAniimo Pass連携案内を確認する。公式ランチャー版はランチャーで選んだログイン方法と入力したアカウントを確認する。',
           'Steamで過去に使ったメールアドレスのAniimo Passを利用したい場合は、公式FAQの連携案内を確認する。初回の連携確認を飛ばした場合、ゲーム内に入れるなら「メールアドレス連携」の案内を確認する。入れないならサポートに相談する。',
@@ -591,6 +655,8 @@ export const aniimoArticles: GameArticle[] = [
         title: 'ログインできない場合は、ゲームの設置先に日本語がないか確認する',
         summary:
           '公式FAQは半角英数字以外を含むインストール先がログインに影響する可能性を案内しています。',
+        time: '約20分',
+        risk: 'medium',
         actions: [
           '公式ランチャー版はランチャー右上「設定」で指定中のゲームフォルダを確認する。Steam版はライブラリでAniimoの「プロパティ」→「インストール済みファイル」→「参照」から実際のフォルダを開く。',
           'アドレスバーでドライブからゲームフォルダまでの全階層を見る。例の「D:\\Games\\Aniimo」は半角英数字のみ。「D:\\ゲーム\\Aniimo」のように途中のフォルダに日本語があれば公式FAQの注意に該当する。',
@@ -604,6 +670,8 @@ export const aniimoArticles: GameArticle[] = [
         title: '解決しなければ、比較結果を添えて公式サポートへ送る',
         summary:
           '再現できる情報を渡すと、待機・回線・アカウントのどこで止まるか伝わります。',
+        time: '約10分',
+        risk: 'low',
         actions: [
           '公式ランチャー版／Steam版の別、止まる画面、エラー全文・コード、発生時刻、選択したサーバーを整理する。',
           '別回線での成否、ゲームのインストール先に日本語を含むか、ログイン後だけキャラが見えないかを追記する。',
@@ -623,6 +691,16 @@ export const aniimoArticles: GameArticle[] = [
     ],
     faqs: [
       {
+        question: 'PC版で作ったキャラクターをスマホ版でも使えますか？',
+        answer:
+          '使えます。公式によると、スマホ版・PC版・コンソール版はデータを共有でき、同じアカウントで同じサーバーにログインすると進行状況やアニモの編成が同期されます。キャラクターが見当たらない場合は、アカウントとサーバーが同じか確認してください。',
+      },
+      {
+        question: 'クローズドβテストの特典を受け取るには？',
+        answer:
+          '公式は、CBTで使ったメールアドレスを直接入力し、認証コードでログインするよう案内しています（Googleアカウントなどの連携ログインではなく）。すでに別の方法でキャラクターを作った場合や、Steam版CBTの特典対象の場合は、自分でアカウントを変更せずゲーム内のカスタマーサポートに問い合わせてください。',
+      },
+      {
         question:
           'ログイン待ちと「ネットワークタイムアウト」は同じ問題ですか？',
         answer:
@@ -641,6 +719,9 @@ export const aniimoArticles: GameArticle[] = [
       },
     ],
     sources: [
+      update1_1,
+      mobileLaunch,
+      cbtRewards,
       pcLaunchFaq,
       aniimoRelease,
       steamMoveGuide,
@@ -673,10 +754,15 @@ export const aniimoArticles: GameArticle[] = [
       'タスクマネージャーで、Aniimoが使うGPUの「専用 GPU メモリ」と「共有 GPU メモリ」を記録。テクスチャを1段階下げ、同じ場面で使用量とエラーの有無を比較します。画質を下げても繰り返す場合、対象のIntel第13・14世代デスクトップCPUでは公式が案内するシステムの安定性問題も確認します。',
     description:
       '「ビデオメモリ不足」と出ても、GPUメモリが満杯だったと即断はできません。専用・共有メモリの数値の読み方、同じ条件で画質を比較する方法、Intel対象CPUで繰り返す場合の相談先を説明します。',
-    checkedAt: '2026-09-27',
+    checkedAt: '2026-09-28',
     status: 'verified',
     targetVersion: 'Windows PC版（公式ランチャー・Steam）／2026年9月27日確認',
     quickFacts: [
+      {
+        label: '9月23日の更新（v1.1）',
+        value:
+          '一部の場面の負荷とメモリ管理を改善（公式）。更新後に同じ場面で比べる',
+      },
       {
         label: '使用量の確認場所',
         value:
@@ -742,6 +828,8 @@ export const aniimoArticles: GameArticle[] = [
         title: 'ゲームが使うGPUの専用・共有メモリを読む',
         summary:
           'エラーが出た後だけでなく、Aniimoを動かしている間の数値を控えます。',
+        time: '約5分',
+        risk: 'low',
         actions: [
           'Ctrl＋Shift＋Escでタスクマネージャーを開き、「パフォーマンス」→「GPU 0／GPU 1」を表示する。複数ある場合は「詳細」の列見出しを右クリック→「列の選択」→「GPUエンジン」を追加し、Aniimoのプロセスに表示されるGPU番号と「パフォーマンス」のGPU名を照合する。',
           'ゲームが動いている間に、そのGPUの「専用 GPU メモリ」と「共有 GPU メモリ」の使用量／上限（例：5.2／8GB）を記録する。起動前と、エラーが起きやすい場面の両方を見て、可能ならスクリーンショットを残す。',
@@ -753,6 +841,8 @@ export const aniimoArticles: GameArticle[] = [
         id: 'compare-settings',
         title: 'テクスチャを1段階下げ、同じ場面で数値とエラーを比較する',
         summary: '変更するのは最初に一つだけ。条件をそろえて効果を確かめます。',
+        time: '約10分',
+        risk: 'low',
         actions: [
           '変更前の解像度・テクスチャ品質・起動しているほかのアプリ、比較する場所と視点を控える。ゲームに入れるなら、毎回同じ場所・同じ視点で数値とエラーの有無を記録する。',
           'Aniimoの画質設定でテクスチャ品質を1段階下げ、表示上必要ならゲームを再起動する。画面に入れず設定を変えられない場合は無理にゲームファイルを編集せず、次の手順へ進む。',
@@ -767,6 +857,8 @@ export const aniimoArticles: GameArticle[] = [
           '画質を下げても繰り返す場合、ドライバーとゲームファイルを確認する',
         summary:
           'GPU名と更新状況を記録し、起動元に合った公式の修復機能を使います。',
+        time: '約10分',
+        risk: 'low',
         actions: [
           '「パフォーマンス」→実際にAniimoが使うGPUでGPU名を控え、NVIDIA・AMD・IntelまたはPCメーカーの公式サイトで、その製品向けドライバーの更新案内を確認する。更新したらWindowsを再起動する。',
           '公式ランチャー版はゲームを終了してランチャー右上「設定」→「ワンクリック修復」。Steam版はライブラリのAniimoを右クリック→「プロパティ」→「インストール済みファイル」→ゲームファイルの整合性を確認する。',
@@ -779,6 +871,8 @@ export const aniimoArticles: GameArticle[] = [
           'Intel第13・14世代デスクトップCPUなら、公式の安定性情報を確認する',
         summary:
           'Aniimo公式は、対象環境で「ビデオメモリ不足」と表示されるクラッシュも案内しています。',
+        time: '約30分',
+        risk: 'high',
         actions: [
           'Windowsの「設定」→「システム」→「バージョン情報」でプロセッサ名を確認し、Intel第13・14世代のデスクトップCPUに該当するかAniimo公式の対象一覧と照合する。ほかのゲームでも落ちるか、ブルースクリーンが起きるかも記録する。',
           'PCまたはマザーボードの正確な型番を控え、そのメーカーのサポートページで、対象機種向けの最新BIOSとIntelマイクロコードの対応状況を確認する。Intelの現行案内は0x12F以降を含む最新BIOSと「Intel Default Settings」を推奨している。',
@@ -815,6 +909,7 @@ export const aniimoArticles: GameArticle[] = [
       },
     ],
     sources: [
+      update1_1,
       aniimoIntelIssue,
       pcLaunchFaq,
       {

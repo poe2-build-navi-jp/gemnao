@@ -30,6 +30,11 @@ const aionSources = {
     label: 'NC公式：9月30日から5日間のアーリーアクセス（ファウンダーズパック）',
     url: 'https://about.ncsoft.com/jp/news/article/Aion2_update_2607232',
   },
+  predownload: {
+    label:
+      'Steamニュース（公式）：Pre-download Available Now（事前ダウンロードと復号）',
+    url: 'https://store.steampowered.com/news/app/3393110',
+  },
   steam: {
     label: 'Steamストア：AION 2（動作環境・対応言語）',
     url: 'https://store.steampowered.com/app/3393110/',
@@ -99,6 +104,11 @@ export const launchWeekArticles: GameArticle[] = [
     ],
     quickFacts: [
       {
+        label: '事前ダウンロード（9月28日から）',
+        value:
+          'ファイルは暗号化されており、9月30日に復号（decrypt）してから遊ぶ。再インストールではない（公式）',
+      },
+      {
         label: 'アーリーアクセス',
         value: '2026年9月30日〜10月4日（ファウンダーズパック購入者）',
       },
@@ -115,6 +125,11 @@ export const launchWeekArticles: GameArticle[] = [
       { label: '必要な空き容量', value: '100GB（Steamストアの動作環境）' },
     ],
     diagnosis: [
+      {
+        symptom: '事前ダウンロードしたのに9月30日に長い処理が始まった',
+        cause: '暗号化ファイルの復号（正常な動作）',
+        stepId: 'step-3',
+      },
       {
         symptom: 'ログイン画面から進まない',
         cause: '混雑・障害・メンテナンス',
@@ -221,6 +236,11 @@ export const launchWeekArticles: GameArticle[] = [
     ],
     faqs: [
       {
+        question: '事前ダウンロードしたのに、9月30日にまた処理が始まりました。',
+        answer:
+          '公式によると、事前ダウンロードしたファイルは暗号化されており、アーリーアクセス開始時に復号（decrypt）が必要です。再インストールではなく、かかる時間はPCの性能によって異なります。途中で止めずに待ってください。',
+      },
+      {
         question: 'スペックが足りないとログインできませんか？',
         answer:
           'スペック不足は主に起動や動作の重さに影響し、ログインできない直接の原因にはなりにくいです。最低動作環境のGPUはGTX 1050 Ti（4GB）で、その場合はFHDでグラフィックプリセットを「非常に低い」にするよう案内されています。',
@@ -236,7 +256,12 @@ export const launchWeekArticles: GameArticle[] = [
           'グローバル版はPC専用で開発されています（公式FAQ）。SteamまたはNCのランチャー「PURPLE」から遊べます。',
       },
     ],
-    sources: [aionSources.steamNews, aionSources.founders, aionSources.steam],
+    sources: [
+      aionSources.predownload,
+      aionSources.steamNews,
+      aionSources.founders,
+      aionSources.steam,
+    ],
     related: [],
     metaDescription:
       'AION2にログインできない・接続できない時の対処法。アーリーアクセス（9/30〜）でSteamのPlaytestアプリを削除する手順、待機列の仕組み、VPN・回線の見直しまで公式情報をもとに解説。',

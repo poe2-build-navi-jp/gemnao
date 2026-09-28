@@ -16,6 +16,9 @@ import {
   releaseRoundups,
 } from '@/lib/release-roundups';
 
+// Requirements that most often stop a PC from launching the game.
+const SPECIAL = /レイトレーシング|TPM|VRAM 8GB|RTX 2060|SSD/;
+
 const fitLabel: Record<Fit, string> = {
   yes: '○',
   no: '×',
@@ -71,7 +74,7 @@ export default async function Page({
   const blocked1660 = roundup.games.filter((game) => game.gtx1660 === 'no');
   const win10 = roundup.games.filter((game) => game.win10 !== 'no');
   const special = roundup.games.filter((game) =>
-    game.must.some((item) => /レイトレーシング|TPM|VRAM 8GB/.test(item)),
+    game.must.some((item) => SPECIAL.test(item)),
   );
   const schema = [
     {
@@ -172,20 +175,31 @@ export default async function Page({
               <div>
                 <dt>特別な必須条件がある</dt>
                 <dd>
-                  {special
-                    .map(
-                      (game) =>
-                        `${game.name}（${game.must
-                          .filter((item) =>
-                            /レイトレーシング|TPM|VRAM 8GB/.test(item),
-                          )
-                          .join('・')}）`,
-                    )
-                    .join('、')}
+                  {special.length === 0
+                    ? 'なし'
+                    : special
+                        .map(
+                          (game) =>
+                            `${game.name}（${game.must
+                              .filter((item) => SPECIAL.test(item))
+                              .join('・')}）`,
+                        )
+                        .join('、')}
                 </dd>
               </div>
             </dl>
           </section>
+          {releaseRoundups.length > 1 ? (
+            <nav className="article-parent-links" aria-label="ほかの月">
+              {releaseRoundups
+                .filter((other) => other.slug !== roundup.slug)
+                .map((other) => (
+                  <a href={`/new-releases/${other.slug}`} key={other.slug}>
+                    {other.shortTitle}の動作環境まとめ
+                  </a>
+                ))}
+            </nav>
+          ) : null}
           <section
             className="diagnosis-table"
             id="requirements"
@@ -294,14 +308,17 @@ export default async function Page({
           </section>
           <section className="common-guides">
             <h2>起動しない時の共通の対処法</h2>
+            <a href="/guide/ray-tracing-gpu">
+              レイトレーシング対応GPUか確認する方法 <ArrowRight size={15} />
+            </a>
+            <a href="/guide/windows-11-required">
+              Windows 11が必要なゲームの確認方法 <ArrowRight size={15} />
+            </a>
+            <a href="/guide/tpm-secure-boot">
+              TPM 2.0・セキュアブートの有効化 <ArrowRight size={15} />
+            </a>
             <a href="/guide/steam-game-not-launching">
               Steamゲームが起動しない時の対処法 <ArrowRight size={15} />
-            </a>
-            <a href="/guide/vram-shortage">
-              VRAM不足の見分け方と対処法 <ArrowRight size={15} />
-            </a>
-            <a href="/guide/gpu-driver-update">
-              GPUドライバーの更新方法 <ArrowRight size={15} />
             </a>
           </section>
           <ShareButtons

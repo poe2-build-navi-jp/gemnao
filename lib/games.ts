@@ -215,6 +215,125 @@ export const games: GameGuide[] = [
     ],
   },
   {
+    slug: 'gears-of-war-e-day',
+    title: 'Gears of War: E-Day（ギアーズ・オブ・ウォー E-Day）',
+    shortTitle: 'Gears of War: E-Day',
+    lead: 'レイトレーシング対応GPUとSSDが必須。起動しない・落ちる原因を、公式の動作環境とベータ版の既知の問題から確認。',
+    accent: '#7a1f1f',
+    demand: '2026年10月7日発売（日本時間）・Premium Editionは10月2日から',
+    issueScale: '非常に高い',
+    updated: '2026-09-28',
+    tags: ['起動しない', 'クラッシュ', 'レイトレーシング', 'SSD', 'ドライバー'],
+    focused: true,
+    savePath: '',
+    configPath: '',
+    fps: '',
+    ultrawide: '',
+    hdr: '',
+    controller: '',
+    launchFixes: [
+      'GPUがハードウェアレイトレーシングに対応しているか確認',
+      'Windows 10 22H2（ビルド19045.7291）以降か確認',
+      'SSDにインストール（HDDは非対応）',
+      'GPUドライバーを公式の推奨版以降に更新',
+    ],
+    mod: '',
+    japanese:
+      '日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。',
+    specs: {
+      minimum:
+        'Windows 10 22H2以降／RTX 2060・RTX 5050・RX 6600・RX 9060（レイトレーシング対応必須）／メモリ12GB',
+      recommended:
+        'Windows 11 25H2以降／RTX 3060 Ti・RTX 5060・RX 6700 XT・RX 9060 XT／メモリ16GB',
+      storage: '115GB。SSD必須',
+    },
+    sources: [
+      { label: 'Steamストア', url: steam('3010850') },
+      {
+        label: '公式のお知らせ（Steamニュース）',
+        url: 'https://store.steampowered.com/news/app/3010850',
+      },
+    ],
+  },
+  {
+    slug: 'dragons-dogma-2',
+    title: 'ドラゴンズドグマ 2（ダークアリズン）',
+    shortTitle: 'ドラゴンズドグマ2',
+    lead: '街中で重い・カクつく原因と、TU3.2で追加された軽量化設定を公式情報から確認。ダークアリズン（10月9日）の導入前チェックも。',
+    accent: '#6b4a2b',
+    demand: '2024年3月発売・ダークアリズンは2026年10月9日発売',
+    issueScale: '高い',
+    updated: '2026-09-28',
+    tags: ['重い', 'カクつく', 'NPC', 'ダークアリズン', 'Windows 11'],
+    focused: true,
+    savePath: '',
+    configPath: '',
+    fps: '',
+    ultrawide: '',
+    hdr: '',
+    controller: '',
+    launchFixes: [
+      '最新のアップデート（TU3.2以降）を適用',
+      '「NPCの描画人数制御」「CPU省電力モード」などTU3.2の設定を見直す',
+      '使用グラフィックスメモリの表示をVRAM内に収める',
+      'エクスパンションは本編と最新パッチが必要',
+    ],
+    mod: '',
+    japanese: '日本語対応（カプコン）。',
+    specs: {
+      minimum:
+        'Windows 11（64bit必須）／GTX 1660・RX 5500 XT（8GB）／メモリ16GB（1080p・パフォーマンス重視・アップスケールで45〜60fps）',
+      recommended:
+        'Windows 11／RTX 2070 Super・RX 6600 XT／メモリ16GB（1080p・パフォーマンス重視・アップスケールで60fps）',
+      storage: '記載なし（SSD推奨）',
+    },
+    sources: [
+      { label: 'Steamストア', url: steam('2054970') },
+      {
+        label: '公式サイト：アップデート情報',
+        url: 'https://www.dragonsdogma.com/2/ja-jp/topics/update/',
+      },
+    ],
+  },
+  {
+    slug: 'final-fantasy-resonance',
+    title: 'ファイナルファンタジー レゾナンス（FINAL FANTASY RESONANCE）',
+    shortTitle: 'FFレゾナンス',
+    lead: 'Windows 11が必要。起動しない時の確認と、体験版セーブの引き継ぎ・予約特典の受け取り方を公式情報から整理。',
+    accent: '#2c4f7c',
+    demand: '2026年10月23日発売・体験版配信中（セーブ引き継ぎ可）',
+    issueScale: '中程度',
+    updated: '2026-09-28',
+    tags: ['起動しない', '体験版', 'セーブ引き継ぎ', '予約特典', 'Windows 11'],
+    focused: true,
+    savePath: '',
+    configPath: '',
+    fps: '',
+    ultrawide: '',
+    hdr: '',
+    controller: '',
+    launchFixes: [
+      'Windows 11か確認（最低環境からWindows 11）',
+      'GPUドライバーを更新し、ゲームファイルを確認',
+      '体験版で動作を確かめ、セーブを製品版に引き継ぐ',
+      '特典はゲームを進めてミトラの町の宿屋前のポストで受け取る',
+    ],
+    mod: '',
+    japanese:
+      '日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。',
+    specs: {
+      minimum:
+        'Windows 11／GTX 1650・RX 6400・Arc A580／メモリ8GB（1080p・30fps・すべて「低」）',
+      recommended:
+        'Windows 11／GTX 1650・RX 5500 XT・Arc A580／メモリ8GB（1080p・60fps・すべて「最高」）',
+      storage: '15GB',
+    },
+    sources: [
+      { label: 'Steamストア', url: steam('3259780') },
+      { label: 'Steamストア：第一章まるごと先行体験版', url: steam('4474710') },
+    ],
+  },
+  {
     slug: 'call-of-duty-modern-warfare-4',
     title:
       'Call of Duty: Modern Warfare 4（コール オブ デューティ モダン・ウォーフェア4）',
