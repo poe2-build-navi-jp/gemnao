@@ -8,7 +8,7 @@ import { ogImageFor } from '@/lib/og-images';
 export const metadata: Metadata = {
   title: 'PC・Windowsの不具合｜発生条件から探す解決ガイド',
   description:
-    'Windows 11のWi-Fi消失、更新エラー、スリープからの勝手な復帰、マイクや音声、USB-Cなどの不具合を症状別に切り分け。設定画面と結果別の対処を掲載。',
+    'Windows 11のサインイン後の黒い画面、Wi-Fi消失、更新エラー、スリープからの勝手な復帰、マイクや音声などの不具合を症状別に切り分け。結果別の対処を掲載。',
   alternates: { canonical: '/pc' },
   openGraph: {
     title: 'PC・Windowsの不具合｜発生条件から探す解決ガイド',
