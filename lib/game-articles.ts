@@ -4,6 +4,7 @@ import { eldenArticles } from '@/lib/elden-articles';
 import { currentGameArticles } from '@/lib/current-game-articles';
 import { newReleaseArticles } from '@/lib/new-release-articles';
 import { launchWeekArticles } from '@/lib/launch-week-articles';
+import { fallReleaseArticles } from '@/lib/fall-release-articles';
 import { aniimoArticles } from '@/lib/aniimo-articles';
 import { dawnwalkerArticles } from '@/lib/dawnwalker-articles';
 import { monsterHunterArticles } from '@/lib/monster-hunter-articles';
@@ -959,6 +960,7 @@ export const gameArticles: GameArticle[] = [
   ...dawnwalkerArticles,
   ...verifiedReleaseArticles,
   ...launchWeekArticles,
+  ...fallReleaseArticles,
 ];
 
 export function articlesForGame(gameSlug: string) {

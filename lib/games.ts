@@ -215,6 +215,136 @@ export const games: GameGuide[] = [
     ],
   },
   {
+    slug: 'control-resonant',
+    title: 'CONTROL Resonant（コントロール レゾナント）',
+    shortTitle: 'CONTROL Resonant',
+    lead: 'クラッシュ・重さ・音の途切れを、Remedy公式の既知の問題とサポート手順から確認。',
+    accent: '#8a1f1f',
+    demand: '2026年9月24日発売',
+    issueScale: '高い',
+    updated: '2026-09-28',
+    tags: ['クラッシュ', '重い', '音が途切れる', 'AMD', 'セーブ場所'],
+    focused: true,
+    savePath: String.raw`<Steam>\userdata\<Steam ID>\3669870`,
+    configPath: String.raw`%LOCALAPPDATA%\Remedy\CONTROLResonant\renderer.ini`,
+    fps: 'フレームレート上限は30〜360fps、または上限なし（PCGamingWiki）。',
+    ultrawide: 'ウルトラワイドは横に広がる表示（Hor+）に対応（PCGamingWiki）。',
+    hdr: 'HDR対応。一部の場所で色が濃くなりすぎる既知の問題あり（Remedy公式）。',
+    controller: '',
+    launchFixes: [
+      'AMD Radeon RX 7000・9000シリーズはAMDの対策ドライバーを確認',
+      'レイトレーシング設定を変えた後はゲームを再起動',
+      'GPUドライバーを更新し、ゲームファイルを確認',
+      '音の不具合はWindowsの出力先と音声設定を確認',
+    ],
+    mod: '',
+    japanese:
+      '日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。',
+    specs: {
+      minimum:
+        'Windows 10/11／GTX 1070・RX 5600 XT・Arc A580／メモリ16GB（1080p・低・30fps、アップスケール使用）',
+      recommended: 'RTX 3060 Ti・RX 6700 XT・Arc B580／メモリ16GB',
+      storage: '120GB。SSD必須',
+    },
+    sources: [
+      {
+        label: 'Remedy公式ヘルプ：既知の問題',
+        url: 'https://remedy.helpshift.com/hc/en/5-control-resonant/faq/314-resonance-disruption-known-issues-and-updates/',
+      },
+      { label: 'Steamストア', url: steam('3669870') },
+      { label: 'PCGamingWiki', url: pcgw('Control_Resonant') },
+    ],
+  },
+  {
+    slug: 'silent-hill-townfall',
+    title: 'SILENT HILL: Townfall（サイレントヒル タウンフォール）',
+    shortTitle: 'SILENT HILL: Townfall',
+    lead: 'PC版のカクつき・重さについて、公式が修正パッチを準備中。パッチまでにできる設定の見直しを確認。',
+    accent: '#4d5a5e',
+    demand: '2026年9月24日発売・PC版の修正パッチ準備中（公式）',
+    issueScale: '高い',
+    updated: '2026-09-28',
+    tags: ['カクつく', '重い', 'Windows 11', 'セーブ場所', 'DLC'],
+    focused: true,
+    savePath: String.raw`%LOCALAPPDATA%\Townfall\Saved\SaveGames`,
+    configPath: String.raw`%LOCALAPPDATA%\Townfall\Saved\Config\Windows`,
+    fps: 'フレームレート上限は30〜240fps（30fps刻み）で設定できます（PCGamingWiki）。',
+    ultrawide:
+      'ウルトラワイドに対応し、レターボックス（黒帯）はオフにできます（PCGamingWiki）。',
+    hdr: 'WindowsでHDRが有効なら起動時に自動でHDRになります。ゲーム内の調整項目はありません（PCGamingWiki）。',
+    controller: '',
+    launchFixes: [
+      '公式のお知らせで修正パッチの配信を確認',
+      'Windows 11か確認（動作環境はWindows 11）',
+      'アップスケーリングを使い、フレームレート上限を設定',
+      'GPUドライバーを更新し、ゲームファイルを確認',
+    ],
+    mod: '',
+    japanese:
+      '日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。',
+    specs: {
+      minimum:
+        'Windows 11／RTX 2060 Super・RX 6600／メモリ16GB（1080p・低・30fps）',
+      recommended:
+        'RTX 3080・RX 7800 XT／メモリ32GB（4K・高・30fps、DLSS・FSR・TSRのバランス使用）',
+      storage: '75GB',
+    },
+    sources: [
+      { label: 'Steamストア', url: steam('1636440') },
+      {
+        label: '公式のお知らせ（Steamニュース）',
+        url: 'https://store.steampowered.com/news/app/1636440',
+      },
+      { label: 'PCGamingWiki', url: pcgw('Silent_Hill:_Townfall') },
+    ],
+  },
+  {
+    slug: 'minecraft-dungeons-2',
+    title: 'Minecraft Dungeons II（マインクラフト ダンジョンズ2）',
+    shortTitle: 'Minecraft Dungeons II',
+    lead: 'Microsoftアカウント必須・最大4人のクロスプレイ。友達と遊べない時の確認を公式情報から整理。',
+    accent: '#3f7a3a',
+    demand: '2026年9月29日発売・Game Pass対応',
+    issueScale: '中程度',
+    updated: '2026-09-28',
+    tags: [
+      'マルチプレイ',
+      'クロスプレイ',
+      'Microsoftアカウント',
+      'パーティーコード',
+    ],
+    focused: true,
+    savePath: '',
+    configPath: '',
+    fps: '',
+    ultrawide: '',
+    hdr: '',
+    controller: '',
+    launchFixes: [
+      'Microsoftアカウントでサインイン（Steam版も必要）',
+      'パーティーコードで参加',
+      'パーティーは最大4人（同じPCで遊ぶ人も含む）',
+      'VPNを止め、回線を見直す',
+    ],
+    mod: '',
+    japanese:
+      '日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。',
+    specs: {
+      minimum:
+        'Windows 10（1703以降）／GTX 1050・RX 560（VRAM 2GB以上）／メモリ8GB',
+      recommended: 'GTX 1060・RX 580（VRAM 6GB以上）／メモリ16GB',
+      storage: '記載なし（Steamストア）',
+    },
+    sources: [
+      { label: 'Steamストア', url: steam('1912410') },
+      {
+        label:
+          'Minecraft公式：Minecraft Dungeons IIの新しいゲームシステム（英語）',
+        url: 'https://www.minecraft.net/en-us/article/minecraft-dungeons-ii-gameplay-systems',
+      },
+    ],
+  },
+  {
     slug: 'aion2',
     title: 'AION2（アイオン2）',
     shortTitle: 'AION2',
