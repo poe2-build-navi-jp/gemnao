@@ -30,7 +30,7 @@ export const ogImageManifest: Record<string, string> = {
   "/discord/slow-performance": "bd25d9b2",
   "/discord/stream-no-audio": "bfb2ee4d",
   "/discord/system-helper": "7455f630",
-  "/discord/update-failed": "45c152bc",
+  "/discord/update-failed": "713603d8",
   "/discord/user-volume-low": "31161b2c",
   "/discord/voice-client-outdated": "9940ed57",
   "/discord/voice-cutting-out": "e483fd4c",
