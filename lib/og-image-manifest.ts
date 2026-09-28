@@ -32,7 +32,7 @@ export const ogImageManifest: Record<string, string> = {
   "/discord/system-helper": "252bdb32",
   "/discord/update-failed": "713603d8",
   "/discord/user-volume-low": "31161b2c",
-  "/discord/voice-client-outdated": "9940ed57",
+  "/discord/voice-client-outdated": "553431b2",
   "/discord/voice-cutting-out": "e483fd4c",
   "/games/aniimo": "30fe6a2d",
   "/games/aniimo/black-screen": "d4ce40f0",
