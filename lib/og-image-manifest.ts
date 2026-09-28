@@ -4,7 +4,7 @@ export const ogImageManifest: Record<string, string> = {
   "/discord/audio-input-not-found": "2fd2279d",
   "/discord/bluetooth-audio-problem": "204d6798",
   "/discord/bot-add": "77bf7c24",
-  "/discord/bot-not-responding": "ee315b02",
+  "/discord/bot-not-responding": "905417cd",
   "/discord/bot-remove": "b35c5c5b",
   "/discord/call-disconnects": "bb6b1e0b",
   "/discord/camera-not-working": "1a81ecf4",
