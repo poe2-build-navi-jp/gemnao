@@ -119,6 +119,7 @@ export const ogImageManifest: Record<string, string> = {
   "/pc/microphone-after-update": "1d673823",
   "/pc/second-monitor-not-detected": "95cad41e",
   "/pc/usb-c-device-not-recognized": "c3fbb206",
+  "/pc/wifi-option-missing": "d226f737",
   "/trouble/mod": "aac0f787",
   "/trouble/server": "c6d1a835"
 };
