@@ -12,7 +12,7 @@ export const ogImageManifest: Record<string, string> = {
   "/discord/echo-double-voice": "bf3f502a",
   "/discord/error-1001": "7cb71244",
   "/discord/error-1002": "ead6d712",
-  "/discord/error-1003": "aa3963fa",
+  "/discord/error-1003": "6f4b64b2",
   "/discord/game-not-detected": "677b005b",
   "/discord/game-volume-lowers": "2553f87b",
   "/discord/installation-failed": "934a70cc",
