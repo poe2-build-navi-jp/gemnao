@@ -5,6 +5,7 @@ import { commonGuides } from '@/lib/common-guides';
 import { discordArticles } from '@/lib/discord-articles-all';
 import { troubleHubs } from '@/lib/trouble-hubs';
 import { releaseRoundups } from '@/lib/release-roundups';
+import { pcArticles } from '@/lib/pc-articles';
 export default function sitemap(): MetadataRoute.Sitemap {
   if (process.env.NEXT_PUBLIC_SITE_PUBLIC === 'false') return [];
   const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://gemnao.pages.dev';
@@ -12,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '', updated: '2026-09-18' },
     { path: '/guide', updated: '2026-09-12' },
     { path: '/discord', updated: '2026-09-17' },
+    { path: '/pc', updated: '2026-09-28' },
     { path: '/discord-servers', updated: '2026-09-26' },
     { path: '/discord-servers/guidelines', updated: '2026-09-17' },
     { path: '/about', updated: '2026-09-17' },
@@ -70,6 +72,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(roundup.checkedAt),
       changeFrequency: 'weekly' as const,
       priority: 0.84,
+    })),
+    ...pcArticles.map((article) => ({
+      url: `${base}/pc/${article.slug}`,
+      lastModified: new Date(article.checkedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.82,
     })),
   ];
 }

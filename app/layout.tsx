@@ -69,7 +69,7 @@ export default function RootLayout({
               alternateName: 'PCゲームのお直しWiki',
               url: siteUrl,
               description:
-                'PCゲームとDiscordのトラブルを、症状とゲーム名から探せる日本語の解決サイト。',
+                'PCゲーム・Discord・Windowsのトラブルを、症状と発生条件から探せる日本語の解決サイト。',
             }),
           }}
         />

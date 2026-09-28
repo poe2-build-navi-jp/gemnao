@@ -52,6 +52,10 @@ export default function Guide() {
           Discordの起動・音声・画面共有のトラブルは{' '}
           <a href="/discord">Discordの不具合・トラブル解決</a> で確認できます。
         </p>
+        <p className="correction-link">
+          更新後の音声や周辺機器、2台目のモニターなどWindows自体の問題は{' '}
+          <a href="/pc">PC・Windowsの不具合</a>から確認できます。
+        </p>
       </article>
       <WikiFooter />
     </main>

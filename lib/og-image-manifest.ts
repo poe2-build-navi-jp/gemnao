@@ -112,6 +112,13 @@ export const ogImageManifest: Record<string, string> = {
   "/guide/visual-c-runtime-error": "a59e0158",
   "/guide/vram-shortage": "733be1c8",
   "/new-releases/2026-10": "97afdc04",
+  "/pc": "a0324572",
+  "/pc/audio-after-update": "8d2f79f2",
+  "/pc/bluetooth-connected-no-sound": "c15b1535",
+  "/pc/call-starts-audio-disappears": "045c5c84",
+  "/pc/microphone-after-update": "1d673823",
+  "/pc/second-monitor-not-detected": "95cad41e",
+  "/pc/usb-c-device-not-recognized": "7217ab11",
   "/trouble/mod": "aac0f787",
   "/trouble/server": "c6d1a835"
 };

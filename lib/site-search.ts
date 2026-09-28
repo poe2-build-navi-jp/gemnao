@@ -2,6 +2,7 @@ import { games } from './games';
 import { categoryLabels, gameArticles } from './game-articles';
 import { commonGuides } from './common-guides';
 import { discordArticles } from './discord-articles';
+import { pcArticles } from './pc-articles';
 
 const aliases: [RegExp, string][] = [
   [/立ち上がらない|開かない/g, '起動しない'],
@@ -22,6 +23,7 @@ const knownTerms = [
   'カクつく',
   '黒画面',
   'discord',
+  'windows',
   'aniimo',
   'アニモ',
   'wardogs',
@@ -120,6 +122,18 @@ export function hasSiteSearchResult(query: string) {
           ].join(' '),
           query,
         ),
+    ) ||
+    pcArticles.some((article) =>
+      matchesNaturalQuery(
+        [
+          article.title,
+          article.shortTitle,
+          article.lead,
+          article.description,
+          ...article.quickChecks,
+        ].join(' '),
+        query,
+      ),
     )
   );
 }
