@@ -215,6 +215,132 @@ export const games: GameGuide[] = [
     ],
   },
   {
+    slug: 'aion2',
+    title: 'AION2（アイオン2）',
+    shortTitle: 'AION2',
+    lead: 'アーリーアクセス開始時のログイン待ち・接続不良を、運営側の混雑とPC側の原因に分けて確認。',
+    accent: '#3b5b8c',
+    demand: '2026年9月30日アーリーアクセス・10月5日正式サービス（基本無料）',
+    issueScale: '高い',
+    updated: '2026-09-28',
+    tags: ['ログインできない', '接続できない', '待機列', 'アーリーアクセス'],
+    focused: true,
+    savePath: '',
+    configPath: '',
+    fps: '',
+    ultrawide: '',
+    hdr: '',
+    controller: '',
+    launchFixes: [
+      '公式のお知らせで障害・メンテナンスを確認',
+      '待機列は抜けずに待つ',
+      'Steam版はPlaytestアプリを削除し、AION 2本体をダウンロード',
+      'VPN・通信ツールを止め、有線接続で試す',
+    ],
+    mod: '',
+    japanese:
+      '日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。',
+    specs: {
+      minimum:
+        'Windows 10/11（64bit）／GTX 1050 Ti・RX 470（4GB）／メモリ8GB（FHDはプリセット「非常に低い」）',
+      recommended:
+        'RTX 2070・RX 5700 XT（8GB）／メモリ16GB（FHDはプリセット「低い」）',
+      storage: '100GB',
+    },
+    sources: [
+      { label: 'Steamストア', url: steam('3393110') },
+      {
+        label: 'NC公式：ファウンダーズパックとアーリーアクセス',
+        url: 'https://about.ncsoft.com/jp/news/article/Aion2_update_2607232',
+      },
+    ],
+  },
+  {
+    slug: 'ace-combat-8',
+    title:
+      'エースコンバット8 ウイングス・オブ・シーヴ（ACE COMBAT 8: WINGS OF THEVE）',
+    shortTitle: 'エースコンバット8',
+    lead: 'レイトレーシング対応GPU・SSD・Windows 11が必須。起動しない原因を動作環境から順に確認。',
+    accent: '#2f5d73',
+    demand: '2026年10月2日発売・9月29日アーリーアクセス',
+    issueScale: '高い',
+    updated: '2026-09-28',
+    tags: [
+      '起動しない',
+      'クラッシュ',
+      'レイトレーシング',
+      'Windows 11',
+      '推奨スペック',
+    ],
+    focused: true,
+    savePath: '',
+    configPath: '',
+    fps: '',
+    ultrawide: '',
+    hdr: '',
+    controller: '',
+    launchFixes: [
+      'GPUがハードウェアレイトレーシングに対応しているか確認',
+      'Windows 11か確認（最低環境からWindows 11）',
+      'SSDにインストールし、空き容量150GBを確保',
+      'GPUドライバーを更新し、整合性を確認',
+    ],
+    mod: '',
+    japanese: '日本語のインターフェース・字幕・音声に対応（公式サイト）。',
+    specs: {
+      minimum:
+        'Windows 11／RTX 2060（6GB）・RX 6600 XT（8GB）／メモリ16GB（1080p・LOW・30fps、アップスケール使用）',
+      recommended:
+        'RTX 3070・RX 6800／メモリ32GB（1080p・MEDIUM・60fps、アップスケール使用）',
+      storage: '150GB。SSD必須',
+    },
+    sources: [
+      {
+        label: '公式サイト（STEAM版システム要件）',
+        url: 'https://enso-order.acecombat.jp/',
+      },
+      { label: 'Steamストア', url: steam('2288340') },
+    ],
+  },
+  {
+    slug: 'shin-sangoku-musou-2-remastered',
+    title: '真・三國無双２ with 猛将伝 Remastered',
+    shortTitle: '真・三國無双2 Remastered',
+    lead: 'VRAM 6GB以上・Windows 11が必要。起動しない・重い時の確認を、体験版での事前チェックと合わせて案内。',
+    accent: '#8c3b2f',
+    demand: '2026年10月1日発売・体験版配信中',
+    issueScale: '中程度',
+    updated: '2026-09-28',
+    tags: ['起動しない', '重い', 'VRAM', '体験版', '推奨スペック'],
+    focused: true,
+    savePath: '',
+    configPath: '',
+    fps: '',
+    ultrawide: '',
+    hdr: '',
+    controller: '',
+    launchFixes: [
+      'GPUのVRAMが6GB以上か確認',
+      'Windows 11か確認',
+      'GPUドライバーを更新してPCを再起動',
+      '体験版で自分のPCで動くか事前に確認',
+    ],
+    mod: '',
+    japanese:
+      '日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。',
+    specs: {
+      minimum:
+        'Windows 11／GTX 1060・RX 5600 XT・Arc A380（VRAM 6GB）／メモリ16GB（1080p・30fps・「低」、アップスケール使用）',
+      recommended:
+        'RTX 3060・RX 6700 XT（VRAM 8GB）／メモリ16GB（1080p・60fps・「高」、アップスケール使用）',
+      storage: '60GB',
+    },
+    sources: [
+      { label: '公式サイト', url: 'https://www.gamecity.ne.jp/smusou2-re/jp/' },
+      { label: 'Steamストア', url: steam('3841510') },
+    ],
+  },
+  {
     slug: 'wardogs',
     title: 'WARDOGS',
     shortTitle: 'WARDOGS',
