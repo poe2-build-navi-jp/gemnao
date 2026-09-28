@@ -8,7 +8,7 @@ import { ogImageFor } from '@/lib/og-images';
 export const metadata: Metadata = {
   title: 'PC・Windowsの不具合｜発生条件から探す解決ガイド',
   description:
-    'Windows 11のWi-Fi項目の消失、マイク、通話中の音、Bluetooth、USB-C、2台目モニター、更新後の無音を症状ごとに切り分け。設定画面と結果別の対処を掲載。',
+    'Windows 11のWi-Fi項目の消失、更新エラー0x800f081f、マイク、音声、Bluetooth、USB-C、モニターの不具合を症状別に切り分け。設定画面と結果別の対処を掲載。',
   alternates: { canonical: '/pc' },
   openGraph: {
     title: 'PC・Windowsの不具合｜発生条件から探す解決ガイド',

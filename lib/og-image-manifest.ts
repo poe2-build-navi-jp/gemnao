@@ -120,6 +120,7 @@ export const ogImageManifest: Record<string, string> = {
   "/pc/second-monitor-not-detected": "95cad41e",
   "/pc/usb-c-device-not-recognized": "c3fbb206",
   "/pc/wifi-option-missing": "d226f737",
+  "/pc/windows-update-0x800f081f": "f48af620",
   "/trouble/mod": "aac0f787",
   "/trouble/server": "c6d1a835"
 };

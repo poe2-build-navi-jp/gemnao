@@ -1040,6 +1040,205 @@ export const pcArticles: PcArticle[] = [
     ],
     checkedAt: '2026-09-29',
   },
+  {
+    slug: 'windows-update-0x800f081f',
+    title: 'Windows Updateエラー「0x800f081f」の直し方｜更新履歴と修復結果で判断【Windows 11】',
+    shortTitle: '更新エラー 0x800f081f',
+    seoTitle: 'Windows Updateの0x800f081fを直す｜失敗した更新と修復結果を確認',
+    description:
+      'Windows 11の更新エラー0x800f081f。更新履歴で失敗したKBを特定し、トラブルシューティング、DISM・SFCの結果別に次の操作を選ぶ手順を解説します。',
+    lead: 'Windows Updateで「インストール エラー - 0x800f081f」が出た場合の確認手順です。最初に失敗した更新を特定し、再試行後に同じ更新が成功したか確かめます。.NET Framework 3.5の有効化中だけ出た場合は別の対処が必要です。',
+    answer:
+      '0x800f081fは必要なファイルを利用できない時などに表示され、コードだけで「どのKBが失敗したか」や原因の場所までは決まりません。「設定→Windows Update→更新の履歴」で失敗した更新名・KB番号・日時を控え、Windows Updateのトラブルシューティング後に再試行します。続く場合はDISM、成功後にSFCを実行し、各結果と同じ更新の成否を比べてください。',
+    quickChecks: [
+      '設定→Windows Update→更新の履歴で、失敗した更新名・表示されるKB番号・日時とエラーを記録',
+      'Windows 11の「ヘルプを表示」または設定のWindows Updateトラブルシューティングを実行し、再起動して再試行',
+      '再失敗時だけDISM→SFCの順に結果を確認し、修復に失敗した場合は回復手順へ進む',
+    ],
+    diagnosis: [
+      {
+        symptom: '更新履歴に特定の更新が「失敗」と表示される',
+        check: '更新名・KB番号（表示される場合）・日時・エラーを控える',
+        next: 1,
+      },
+      {
+        symptom: 'Windows Update画面に0x800f081f、再試行しても失敗',
+        check: '診断ツールの結果と、同じ更新が再度失敗したかを確認',
+        next: 2,
+      },
+      {
+        symptom: 'DISMコマンドの実行結果に0x800f081fが出る',
+        check: '修復ソースが利用できなかった可能性。更新自体のエラーとは記録を分ける',
+        next: 3,
+      },
+      {
+        symptom: 'DISM・SFCは完了したが同じ更新が失敗する',
+        check: '履歴の同じ更新名・エラーと、回復機能の表示有無を確認',
+        next: 4,
+      },
+      {
+        symptom: '.NET Framework 3.5の追加時だけエラーが出る',
+        check: 'Windows Updateの更新失敗ではなく、機能のインストール元を確認',
+        next: 1,
+      },
+    ],
+    steps: [
+      {
+        title: '更新の履歴で失敗した項目とエラーの出た場所を記録する',
+        actions: [
+          'スタート→設定→Windows Update→「更新の履歴」を開き、更新プログラムの種類を展開。対象が「インストールに失敗」などと表示されるか確認し、更新の名前・KB番号があれば番号・表示日時・0x800f081fを控える。履歴にKBがない場合は表示された更新名をそのまま記録する。',
+          '同じ画面で直後に別の更新が「正常にインストール」となっていないか確認する。単に過去の「失敗」が残っているだけなら、今もインストール待ちか「Windows Update」の画面で確認。成功かどうかを履歴の1行だけで決めつけない。',
+          'エラーを見た場所も区別する。更新画面で出たならSTEP 2へ。管理者コマンドプロンプトの「DISM /RestoreHealth」の実行後に出た場合はSTEP 3の失敗分岐へ。.NET Framework 3.5を有効化する時だけ出た場合は、下のFAQからMicrosoftの専用案内を確認する。',
+        ],
+        expected:
+          '失敗した更新名と現在の状態が分かる。「更新名／KB（表示がある時）／失敗した日時／エラーが出た画面」を1行で残す。',
+        unexpected:
+          '履歴に失敗が見当たらないなら、Windows Updateの現在のエラー画面の文言と時刻を控える。DISMや.NET 3.5だけのエラーを更新の失敗と混同しない。',
+        revert:
+          '表示内容を読むだけなので設定変更はない。記録に個人名や組織情報が入ったスクリーンショットは公開前に隠す。',
+      },
+      {
+        title: 'Windows Updateの診断を実行し、同じ更新を再確認する',
+        actions: [
+          '重要な作業を保存する。スタートで「ヘルプを表示」を開き、Windows Updateのトラブルシューティングを選ぶ。利用できない場合は「設定→システム→トラブルシューティング→その他のトラブルシューティング ツール→Windows Update→実行」を開く。実行結果と修正された項目があれば控える。',
+          '診断後はPCを再起動。設定→Windows Update→「更新プログラムのチェック」を1回実行し、インストール・再起動が終わるまで待つ。必要な場合は電源とインターネット接続を維持する。',
+          '「更新の履歴」をもう一度開き、STEP 1の更新名・KB番号の成功／失敗と新しいエラーを比較。対象が配信されなくなり、別の累積更新が入った場合は、以前の失敗表示だけで未適用と断定せず、現在の更新状況と更新名を記録する。',
+        ],
+        resultRows: [
+          {
+            state: '同じ更新が正常にインストールされた',
+            meaning: '更新の失敗は解消した',
+            next: '更新の履歴の成功日時を控える。過去の失敗行が残っていても再修復は不要。',
+          },
+          {
+            state: '同じ更新が再び0x800f081fで失敗',
+            meaning: '診断・再試行だけでは解決していない',
+            next: 'エラーの日時を控えSTEP 3へ。',
+          },
+          {
+            state: '別のエラー番号になった',
+            meaning: '失敗条件が変わった可能性がある',
+            next: '新しい番号と更新名を記録し、その番号のMicrosoft公式案内を確認。',
+          },
+          {
+            state: '対象の更新が表示されなくなった',
+            meaning: '成功・置き換え・提供条件の変化など、表示だけでは確定しない',
+            next: '更新履歴と現在のWindows Update画面を照合。必要ならKBの公式ページで後続更新を確認。',
+          },
+        ],
+        expected:
+          '同じ更新が正常にインストールされれば完了。更新の履歴に過去の失敗行があっても、成功した記録と日時を確認する。',
+        unexpected:
+          '同じ更新が再失敗したらSTEP 3。診断自体が開けない、またはネットにつながらない場合は表示と日時を控え、接続問題から確認する。',
+        revert:
+          '診断ツールの自動修正やインストールした更新は、この画面から一括で元に戻せない。変更内容を結果画面で控え、問題が起きた場合は対象の更新名を確認してMicrosoftやPC管理者に相談する。',
+      },
+      {
+        title: 'DISMとSFCの表示結果を読み、更新をもう一度試す',
+        actions: [
+          '修復前に重要なファイルのバックアップを確認する。スタートで「コマンド プロンプト」を検索→「管理者として実行」→ユーザーアカウント制御で許可する。管理者権限がない場合は管理者へ相談する。',
+          '「DISM.exe /Online /Cleanup-Image /RestoreHealth」を入力してEnter。完了までウィンドウを閉じない。成功した場合だけ続けて「sfc /scannow」を実行する。入力は各コマンドを1行ずつ、スラッシュの前の半角スペースも含めて行う。',
+          '両方完了したら結果メッセージを控えて再起動し、STEP 2と同じ更新名・KBの成否を再確認。DISMで0x800f081fが出た場合は必要な修復ソースを利用できていない可能性があり、手元にある任意のISOを指定して繰り返さずSTEP 4へ進む。',
+        ],
+        resultRows: [
+          {
+            state: 'DISM成功／SFCも問題なし、または修復に成功',
+            meaning: '修復コマンドは完了したが、更新の成功はまだ未確認',
+            next: '再起動して同じ更新を再試行。成功なら完了、同じ失敗ならSTEP 4。',
+          },
+          {
+            state: 'DISMが0x800f081fで終了',
+            meaning: 'DISM側でも必要な修復ファイルを利用できない可能性',
+            next: 'コマンドの結果を控え、STEP 4のWindows 11修復機能を確認。',
+          },
+          {
+            state: 'DISMが別のエラーで終了',
+            meaning: 'このコード向けの手順だけでは判断できない',
+            next: '別の番号とメッセージを控えて公式案内・サポートへ。',
+          },
+          {
+            state: 'SFCが一部のファイルを修復できない／実行できない',
+            meaning: '保護対象のシステムファイルの確認が完了していない',
+            next: '表示全文を控えSTEP 4へ。管理PCなら管理者と相談。',
+          },
+        ],
+        expected:
+          'DISMとSFCが成功し、再起動後の更新履歴にも対象の成功が載れば完了。SFCの「問題なし」だけでは更新完了を意味しない。',
+        unexpected:
+          'DISMで0x800f081f、SFCで未修復、または同じ更新が再失敗する場合はSTEP 4へ。',
+        revert:
+          'DISM・SFCによるシステムファイル修復をワンクリックで取り消す機能はない。実施前の重要ファイルのバックアップを保管し、結果や別の不調が出た日時を記録する。',
+      },
+      {
+        title: '修復が失敗する時はWindows 11の回復機能を確認する',
+        actions: [
+          '設定→システム→回復→「Windows Updateを使用して問題を解決する」に「今すぐ再インストール」があるか確認する。表示されれば、Microsoftが案内する同じバージョンの修復を検討する。ファイル・アプリ・設定を維持する方式だが、先に重要なデータをバックアップし、電源とネット接続を用意する。',
+          '実行する場合は画面の「今すぐ再インストール」→確認内容を読む→「OK」。ダウンロードとインストール完了後は再起動する。起動後に設定→Windows Update→更新プログラムのチェックを実行し、STEP 1で控えた更新の状態を照合する。',
+          '回復項目が表示されない、ダウンロードできない、または修復後も同じ更新が失敗する場合は、更新名・KB・Windowsのバージョン（Windowsキー＋R→winver）・手順ごとの結果を控えてPC管理者またはMicrosoftサポートへ。会社・学校のPCでは修復項目が出ない場合がある。',
+        ],
+        expected:
+          '再インストール後に対象の更新が正常に適用されれば完了。修復しただけで成功と判断せず更新履歴まで確認する。',
+        unexpected:
+          '回復項目がない、修復が失敗、または更新が再失敗する場合は同じ作業を繰り返さず、対象のKBと表示メッセージを添えて相談する。',
+        revert:
+          'この再インストールは設定を1つ戻す操作のようには取り消せない。実行前にバックアップと作業時間を確保し、修復後に別の不具合が出た場合は発生時刻と更新履歴を控えてサポートに相談する。',
+      },
+    ],
+    escalation:
+      '相談用の記録例：「対象の更新名／KB（表示された時）／0x800f081fが出た日時と画面／診断ツールの結果／DISMとSFCの結果／修復後も失敗するか」。これは記入例であり、実測結果ではありません。CBS.logやdism.logを求められたら公式窓口にだけ提出し、個人情報が含まれ得るログを公開しないでください。Windows Updateのキャッシュ削除、サービスの一括停止、出所不明なISOの指定はこの手順では行いません。',
+    faqs: [
+      {
+        question: '更新履歴に0x800f081fが残っています。まだ失敗中ですか？',
+        answer:
+          '過去の失敗の記録は後で同じ更新が成功しても残り得ます。対象の更新名・KBと成功日時、現在のWindows Update画面を照合してください。KB番号が出ない場合は更新名を記録します。',
+      },
+      {
+        question: 'DISMでも0x800f081fと表示されました。同じ操作を続けますか？',
+        answer:
+          '更新の失敗とは別に、DISM側の修復ソースが利用できなかった可能性があります。任意のISOを使うとWindowsの版・更新状態が合わず失敗することがあるため、コードとメッセージを控え、Windows 11の回復機能や管理者への相談に進んでください。',
+      },
+      {
+        question: '.NET Framework 3.5の有効化中だけ0x800f081fが出ます',
+        answer:
+          'Windows Updateで特定のKBをインストールできない場合とは分けてください。必要な機能の取得元や利用中のWindows 11の版が関係することがあるため、下記のMicrosoft Learn「Windows 11に.NET Framework 3.5をインストールする」を確認してください。',
+      },
+    ],
+    sources: [
+      ms(
+        'deployment/install-upgrade/get-help-with-windows-upgrade-and-installation-errors',
+        '更新履歴から失敗した更新とエラーを調べる',
+      ),
+      ms(
+        'deployment/updates-lifecycle/troubleshoot-problems-updating-windows',
+        '0x800f081fの原因候補と更新エラーの対処',
+      ),
+      {
+        title: 'Microsoft サポート：Windows Updateトラブルシューティング ツール',
+        url: 'https://support.microsoft.com/ja-jp/windows/windows-update-%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0-%E3%83%84%E3%83%BC%E3%83%AB-19bc41ca-ad72-ae67-af3c-89ce169755dd',
+      },
+      ms(
+        'experience/backup-recovery/use-the-system-file-checker-tool-to-repair-missing-or-corrupted-system-files',
+        'DISM・SFCの操作と結果',
+      ),
+      ms(
+        'deployment/install-upgrade/fix-issues-by-reinstalling-the-current-version-of-windows',
+        '現在のバージョンを修復再インストールする',
+      ),
+      {
+        title: 'Microsoft Learn：.NET Framework 3.5をWindows 11に導入する',
+        url: 'https://learn.microsoft.com/ja-jp/dotnet/framework/install/dotnet-35-windows-11',
+      },
+      {
+        title: 'Microsoft Learn：Windows修復ソースの構成と版の注意点',
+        url: 'https://learn.microsoft.com/ja-jp/windows-hardware/manufacture/desktop/configure-a-windows-repair-source?view=windows-11',
+      },
+    ],
+    related: [
+      { href: '/pc/wifi-option-missing', label: 'Wi-Fiの項目自体が消えた' },
+      { href: '/pc/audio-after-update', label: '更新後に音が出なくなった' },
+    ],
+    checkedAt: '2026-09-29',
+  },
 ];
 
 export function pcArticleBySlug(slug: string) {
