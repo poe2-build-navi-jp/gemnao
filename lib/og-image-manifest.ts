@@ -111,6 +111,7 @@ export const ogImageManifest: Record<string, string> = {
   "/guide/verify-steam-files": "4efb9c04",
   "/guide/visual-c-runtime-error": "a59e0158",
   "/guide/vram-shortage": "733be1c8",
+  "/new-releases/2026-10": "97afdc04",
   "/trouble/mod": "aac0f787",
   "/trouble/server": "c6d1a835"
 };

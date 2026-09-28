@@ -5,6 +5,7 @@ import { commonGuides } from '@/lib/common-guides';
 import { discordArticles } from '@/lib/discord-articles-all';
 import { gameArticles } from '@/lib/game-articles';
 import { games } from '@/lib/games';
+import { releaseRoundups } from '@/lib/release-roundups';
 import { troubleHubs } from '@/lib/trouble-hubs';
 import {
   discordArticleVisualBySlug,
@@ -82,7 +83,21 @@ export function ogCardSpecs(): OgCardSpec[] {
       itemsLabel: 'まず試すこと',
       items: hub.quickChecks.slice(0, 4),
     }));
-  return [...gameCards, ...guideCards, ...discordCards, ...troubleCards].filter(
-    (card) => card.items.length,
-  );
+  const roundupCards = releaseRoundups.map((roundup) => ({
+    path: `/new-releases/${roundup.slug}`,
+    eyebrow: '新作PCゲームの動作環境',
+    title: roundup.title,
+    itemsLabel: 'GTX 1660では最低環境に届かない',
+    items: roundup.games
+      .filter((game) => game.gtx1660 === 'no')
+      .slice(0, 4)
+      .map((game) => game.name),
+  }));
+  return [
+    ...gameCards,
+    ...guideCards,
+    ...discordCards,
+    ...troubleCards,
+    ...roundupCards,
+  ].filter((card) => card.items.length);
 }

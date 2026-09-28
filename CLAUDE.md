@@ -15,6 +15,7 @@
 - `lib/game-articles.ts`: トラブル個別記事のデータ
 - `lib/common-guides.ts`: PCゲーム共通トラブル（`/guide`）のデータ
 - `lib/discord-articles.ts`: Discordトラブル（`/discord`）のデータ
+- `lib/release-roundups.ts`: 月ごとの新作PCゲーム動作環境まとめ（`/new-releases/[slug]`）のデータ。値はSteamストア・公式サイトで確認したものだけを入れ、不明な項目は「記載なし」にする
 - `components/troubleshooting-article.tsx`: ゲーム別個別記事の共通テンプレート
 - `components/wiki-home.tsx`: 日本語トップと検索・テーマ絞り込み
 - `components/issue-feedback.tsx`: 「解決した／解決しなかった」の匿名回答UI
