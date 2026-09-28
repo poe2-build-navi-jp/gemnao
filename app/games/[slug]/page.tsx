@@ -37,11 +37,16 @@ export async function generateMetadata({
   const title =
     game.slug === 'aniimo'
       ? 'アニモ（Aniimo）PC版の不具合・エラー対処法'
-      : `${game.shortTitle} PC版｜起動しない・セーブ場所・推奨スペック`;
+      : game.focused
+        ? // Focused hubs only list symptom articles, so don't promise save paths.
+          `${game.shortTitle} PC版の不具合・エラー対処法`
+        : `${game.shortTitle} PC版｜起動しない・セーブ場所・推奨スペック`;
   const description =
     game.slug === 'aniimo'
       ? 'アニモ（Aniimo）PC版が起動しない、クラッシュ、黒画面、ログインできない、ビデオメモリ不足、ランチャー表示の問題を症状別に解決します。'
-      : `${game.shortTitle}のセーブデータと設定ファイルの場所、FPS上限、ウルトラワイド、HDR、コントローラー、起動・クラッシュ対策、MOD、日本語対応を解説。`;
+      : game.focused
+        ? `${game.shortTitle} PC版の${game.tags.join('・')}を症状別に解決。${game.lead}`
+        : `${game.shortTitle}のセーブデータと設定ファイルの場所、FPS上限、ウルトラワイド、HDR、コントローラー、起動・クラッシュ対策、MOD、日本語対応を解説。`;
   return {
     title,
     description,
@@ -229,7 +234,8 @@ export default async function GamePage({
               </div>
             </div>
             <p className="evidence-caveat">
-              ※ 検索需要や解決率を推測で表示せず、確認できる出典と実際の匿名回答だけを利用します。
+              ※
+              検索需要や解決率を推測で表示せず、確認できる出典と実際の匿名回答だけを利用します。
             </p>
           </section>
 

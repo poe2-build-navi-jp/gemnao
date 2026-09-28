@@ -3,6 +3,7 @@ import { gameBySlug } from '@/lib/games';
 import { eldenArticles } from '@/lib/elden-articles';
 import { currentGameArticles } from '@/lib/current-game-articles';
 import { newReleaseArticles } from '@/lib/new-release-articles';
+import { launchWeekArticles } from '@/lib/launch-week-articles';
 import { aniimoArticles } from '@/lib/aniimo-articles';
 import { dawnwalkerArticles } from '@/lib/dawnwalker-articles';
 import { monsterHunterArticles } from '@/lib/monster-hunter-articles';
@@ -110,7 +111,8 @@ const originalGameArticles: GameArticle[] = [
       },
       {
         label: 'コピー成功の確認',
-        value: '両方のフォルダでファイル数・合計サイズとLevel.savなどのサイズを照合',
+        value:
+          '両方のフォルダでファイル数・合計サイズとLevel.savなどのサイズを照合',
       },
       {
         label: '復元する場所',
@@ -253,12 +255,14 @@ const originalGameArticles: GameArticle[] = [
           'それだけでは不足です。元と同じワールドIDのフォルダに、元にあったPlayersフォルダや他のファイルが揃い、ファイル数・合計サイズが一致するか確認してください。サイズが合っても読み込みの保証にはならず、復元後にゲーム内で進行状況を確かめます。',
       },
       {
-        question: 'バックアップのワールドIDフォルダに日付を付けて改名してもいいですか？',
+        question:
+          'バックアップのワールドIDフォルダに日付を付けて改名してもいいですか？',
         answer:
           '保管中は外側の親フォルダに日付を付け、内側のワールドID名はそのままにしてください。戻す際には元と同じユーザーIDの下に、元と同じワールドID名で置きます。',
       },
       {
-        question: 'クラウド同期を再開したら「ローカル」「クラウド」の選択が出ました',
+        question:
+          'クラウド同期を再開したら「ローカル」「クラウド」の選択が出ました',
         answer:
           '両方の日時と、直前にゲーム内で確認した進行状況を照合してください。復元したローカル側が目的の状態だと分かるまで選択せず、退避したセーブを保持します。判断がつかなければ同期をオフにしてSteam公式のクラウド案内を確認してください。',
       },
@@ -954,6 +958,7 @@ export const gameArticles: GameArticle[] = [
   ...newReleaseArticles,
   ...dawnwalkerArticles,
   ...verifiedReleaseArticles,
+  ...launchWeekArticles,
 ];
 
 export function articlesForGame(gameSlug: string) {
