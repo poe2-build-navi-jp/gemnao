@@ -14,7 +14,7 @@ export const ogImageManifest: Record<string, string> = {
   "/discord/error-1002": "ead6d712",
   "/discord/error-1003": "aa3963fa",
   "/discord/game-not-detected": "677b005b",
-  "/discord/game-volume-lowers": "51f67981",
+  "/discord/game-volume-lowers": "2553f87b",
   "/discord/installation-failed": "934a70cc",
   "/discord/loading-stuck": "c18e0bfc",
   "/discord/login-error": "de4a0c87",
