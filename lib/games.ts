@@ -215,6 +215,57 @@ export const games: GameGuide[] = [
     ],
   },
   {
+    slug: 'call-of-duty-modern-warfare-4',
+    title:
+      'Call of Duty: Modern Warfare 4（コール オブ デューティ モダン・ウォーフェア4）',
+    shortTitle: 'CoD MW4',
+    lead: 'PC版はTPM 2.0とセキュアブートが必須。遊べない時の確認と有効化の手順をActivision公式の案内から整理。',
+    accent: '#3d4a2f',
+    demand: '2026年10月23日発売・キャンペーン早期アクセスは10月16日（PT）から',
+    issueScale: '非常に高い',
+    updated: '2026-09-28',
+    tags: [
+      'TPM 2.0',
+      'セキュアブート',
+      '起動しない',
+      '電話番号',
+      '推奨スペック',
+    ],
+    focused: true,
+    savePath: '',
+    configPath: '',
+    fps: '',
+    ultrawide: '',
+    hdr: '',
+    controller: '',
+    launchFixes: [
+      'TPM 2.0とセキュアブートが有効か確認（tpm.msc・msinfo32）',
+      'Secure Attestation Wizardで要件を満たしているか確認',
+      '初回起動時のユーザーアカウント制御（UAC）の確認で「はい」を選ぶ',
+      'Steamアカウントに携帯電話番号を登録',
+    ],
+    mod: '',
+    japanese: '日本語の音声・テキスト・字幕に対応（Activision公式）。',
+    specs: {
+      minimum:
+        'Windows 10 64bit（22H2以降）／GTX 970・GTX 1060・RX 470・Arc A580（VRAM 3GB）／メモリ12GB（ベータ版の値）',
+      recommended:
+        'Windows 11 64bit／RTX 3060 Ti・RX 6700 XT・Arc B580（VRAM 8GB）／メモリ16GB（ベータ版の値）',
+      storage: 'SSD必須',
+    },
+    sources: [
+      {
+        label: 'Activision公式サポート：TPM 2.0とセキュアブート',
+        url: 'https://support.activision.com/articles/trusted-platform-module-and-secure-boot',
+      },
+      {
+        label: 'Call of Duty公式ブログ：ベータ版のPC動作環境',
+        url: 'https://www.callofduty.com/blog/2026/08/call-of-duty-modern-warfare-4-next-early-intel-pc-specs',
+      },
+      { label: 'Steamストア', url: steam('4435490') },
+    ],
+  },
+  {
     slug: 'control-resonant',
     title: 'CONTROL Resonant（コントロール レゾナント）',
     shortTitle: 'CONTROL Resonant',

@@ -44,6 +44,8 @@ export const ogImageManifest: Record<string, string> = {
   "/games/aniimo/login-error": "6262e42b",
   "/games/aniimo/not-launching": "0cedb67a",
   "/games/aniimo/video-memory-error": "dadcd94a",
+  "/games/call-of-duty-modern-warfare-4": "a8aa3588",
+  "/games/call-of-duty-modern-warfare-4/tpm-secure-boot": "5d764991",
   "/games/control-resonant": "3736f87e",
   "/games/control-resonant/crash-performance": "97d832c5",
   "/games/elden-ring": "7b6f68c6",
