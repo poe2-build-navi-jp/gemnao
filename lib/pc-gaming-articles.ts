@@ -184,4 +184,182 @@ export const pcGamingArticles: PcArticle[] = [
     ],
     checkedAt: '2026-09-29',
   },
+  {
+    slug: 'gaming-shortcut-keys',
+    title:
+      'ゲーム中に固まった・画面がおかしい時のショートカットキー｜PCゲーマー向け一覧【Windows 11】',
+    shortTitle: 'ゲーム中に使えるショートカットキー',
+    seoTitle: 'ゲーム中に固まった時のショートカットキー一覧【Windows 11】',
+    description:
+      'ゲーム中に画面が固まった・真っ黒になった、応答しない、HDRや表示がおかしい時に使えるWindows 11のショートカットキーを、困った場面ごとにまとめました。グラフィックスドライバーのリセット（Windows＋Ctrl＋Shift＋B）、タスクマネージャー、HDRの切り替え、Steamのスクリーンショットまで、公式の案内に沿って解説します。',
+    lead: '電源ボタンで強制終了する前に、キー操作で戻せないかを試します。症状ごとに使うキーが違うので、下の早見表から当てはまる場面を選んでください。Windows 11の表記です。',
+    answer:
+      '画面が固まった・真っ黒になった時は、Windowsキー＋Ctrl＋Shift＋Bでグラフィックスドライバーをリセットします。成功するとビープ音が鳴るか画面がちらつきます（Microsoft公式）。ゲームが応答しない時はCtrl＋Shift＋Escでタスクマネージャーを直接開いて終了し、HDRの表示がおかしい時はWindowsキー＋Alt＋BでHDRのオン・オフを切り替えます。',
+    quickChecks: [
+      '画面が固まった・真っ黒：Windowsキー＋Ctrl＋Shift＋B',
+      'ゲームが応答しない：Ctrl＋Shift＋Escでタスクマネージャーを開く',
+      'HDRで白っぽい・暗い：Windowsキー＋Alt＋BでHDRを切り替えて比べる',
+    ],
+    diagnosis: [
+      {
+        symptom: 'ゲーム中に画面が止まった・真っ黒になった',
+        check: 'グラフィックスドライバーのリセットで表示が戻るか',
+        next: 1,
+      },
+      {
+        symptom: '画面は動くが、ゲームが操作を受け付けない',
+        check: 'タスクマネージャーでゲームが応答しているか',
+        next: 2,
+      },
+      {
+        symptom: 'フルスクリーンから抜けられない・ウィンドウにしたい',
+        check: 'ゲームがAlt＋Enterの切り替えに対応しているか',
+        next: 3,
+      },
+      {
+        symptom: 'HDRにすると白っぽい・暗い、HDRを急いで切りたい',
+        check: 'WindowsのHDRのオン・オフで見え方が変わるか',
+        next: 4,
+      },
+      {
+        symptom: '症状を記録したい・セーブのフォルダを開きたい',
+        check: 'スクリーンショットと「ファイル名を指定して実行」',
+        next: 5,
+      },
+    ],
+    steps: [
+      {
+        title:
+          '画面が固まった・真っ黒なら、Windowsキー＋Ctrl＋Shift＋Bでドライバーをリセット',
+        actions: [
+          'Windowsキー＋Ctrl＋Shift＋Bを1回押す。Microsoftは、画面が空白または黒い時にグラフィックスドライバーをリセットする操作として案内しており、成功するとビープ音が鳴るか画面がちらつく。',
+          '表示が戻らない場合は、モニターの電源とケーブルの接続を確認する（Microsoft公式も、最初にモニターの接続と電源を確認するよう案内）。',
+          'モニターを2台以上つないでいる場合は、Windowsキー＋Pで表示モード（複製・拡張など）を選び直す。',
+        ],
+        resultRows: [
+          {
+            state: 'ビープ音・ちらつきの後に表示が戻った',
+            meaning: 'ドライバーのリセットで表示が回復した',
+            next: 'ゲームが動くか確認。何度も起きる場合はGPUドライバーの記事で更新・入れ直しを確認。',
+          },
+          {
+            state: '音もちらつきもなく、何も変わらない',
+            meaning: 'リセットが効いていないか、表示以外の問題',
+            next: 'モニターの電源・ケーブルを確認し、STEP 2でタスクマネージャーが開くか試す。',
+          },
+        ],
+        expected: '画面が一瞬ちらつき、ゲームまたはデスクトップの表示が戻る。',
+        unexpected:
+          '何度押しても変わらない場合は連打せず、STEP 2に進む。ゲームの進行状況が戻るとは限らない。',
+        revert: 'この操作は設定を変更しないため、元に戻す作業は不要。',
+      },
+      {
+        title:
+          'ゲームが応答しないなら、Ctrl＋Shift＋Escでタスクマネージャーを開く',
+        actions: [
+          'Ctrl＋Shift＋Escを押して、タスクマネージャーを直接開く（Microsoftのキーボードショートカット一覧に記載）。',
+          'フルスクリーンのゲームの裏に隠れて見えない場合は、Alt＋Tabでタスクマネージャーのウィンドウに切り替える。',
+          'プロセスの一覧で応答していないゲームを選び、終了する。保存していないゲームの進行は失われるため、少し待って戻らない時だけ行う。',
+        ],
+        resultRows: [
+          {
+            state: 'ゲームを終了でき、再起動したら動いた',
+            meaning: '一時的に応答が止まっていた',
+            next: '同じ場面で繰り返す場合は「ゲームが固まる」の記事で原因を切り分ける。',
+          },
+          {
+            state: 'タスクマネージャーも開かない',
+            meaning: 'Windows全体が応答していない',
+            next: '数分待っても変わらなければPCを再起動する。',
+          },
+        ],
+        expected: 'タスクマネージャーが開き、ゲームを終了できる。',
+        unexpected:
+          'ゲームを終了しても画面が真っ黒のままの場合は、STEP 1のドライバーリセットを試す。',
+        revert: 'ゲームを終了した場合は、もう一度起動し直す。',
+      },
+      {
+        title: 'フルスクリーンとウィンドウの切り替えは、Alt＋Enterを試す',
+        actions: [
+          'ゲーム中にAlt＋Enterを押す。DirectXで動く多くのゲームでは、この操作でフルスクリーンとウィンドウが切り替わる。',
+          'MicrosoftのDirectX（DXGI）の資料には、アプリ側がAlt＋Enterへの応答を止める設定が用意されている。そのため、ゲームによっては効かない、または別の操作が割り当てられている。',
+          '効かない場合は、ゲーム内の「表示」や「グラフィック」の設定で表示モードを切り替える（項目名はゲームごとに異なる）。',
+        ],
+        expected: 'フルスクリーンとウィンドウ表示が切り替わる。',
+        unexpected:
+          '切り替えた後に解像度が崩れた場合は、ゲーム内の表示設定で解像度を選び直す。',
+        revert: 'もう一度Alt＋Enterを押すか、ゲーム内の表示モードを元に戻す。',
+      },
+      {
+        title: 'HDRの見え方がおかしいなら、Windowsキー＋Alt＋Bで切り替えて比べる',
+        actions: [
+          'Windowsキー＋Alt＋Bを押すと、HDRのオン・オフが切り替わる。Microsoftは、Game Barアプリのバージョン5.721.7292.0以降で使える操作と案内している。',
+          'HDRをオフにして見え方が普通に戻るなら、HDRの設定が原因。WindowsのHDRを先にオンにしてからゲームを起動し直し、ゲーム内の明るさを調整する。',
+          'Windowsキー＋GでGame Barを開ける。キーが効かない場合は、Game Barが最新か確認する。',
+        ],
+        expected: '画面が一瞬暗くなり、HDRのオン・オフが切り替わる。',
+        unexpected:
+          'HDRに対応していないモニターでは切り替わらない。「設定」→「システム」→「ディスプレイ」でHDRの項目があるか確認する。',
+        revert: 'もう一度Windowsキー＋Alt＋Bを押すと、元の状態に戻る。',
+      },
+      {
+        title: '症状を記録する・セーブのフォルダを開くキー',
+        actions: [
+          'Steamのゲームでは、F12（既定のキー）でスクリーンショットを撮れる。Steamオーバーレイが有効な場合に使え、キーはSteamの「設定」→「ゲーム中」で変更できる。',
+          'エラー画面を残しておくと、原因を調べる時や問い合わせの時に役立つ。',
+          'Windowsキー＋Rで「ファイル名を指定して実行」を開き、%APPDATA%や%LOCALAPPDATA%と入力すると、多くのゲームのセーブがあるフォルダを直接開ける。ゲームごとの場所は各ゲームの記事で確認する。',
+        ],
+        expected: 'スクリーンショットが保存される／指定したフォルダが開く。',
+        unexpected:
+          'F12で撮れない場合は、Steamオーバーレイが有効か、Steamの設定でキーが変更されていないか確認する。',
+        revert: 'この操作は設定を変更しないため、元に戻す作業は不要。',
+      },
+    ],
+    escalation:
+      'ドライバーのリセットやタスクマネージャーで戻らず、同じ場面で何度も固まる場合は、発生した時刻・直前の操作・GPU名とドライバーのバージョンを控えて、「ゲームが固まる・応答なし」「黒い画面・音だけ出る」の記事で原因を切り分けてください。',
+    faqs: [
+      {
+        question:
+          'Windowsキー＋Ctrl＋Shift＋Bを押すと、ゲームのデータは消えますか？',
+        answer:
+          'グラフィックスドライバーをリセットする操作で、開いているアプリを閉じるものではありません。ただしゲームによってはリセットの後に止まったり落ちたりすることがあるため、戻った後はこまめにセーブしてください。',
+      },
+      {
+        question: 'Alt＋Enterを押しても何も起きません。',
+        answer:
+          'ゲーム側がAlt＋Enterの切り替えを使わない設定にしている場合があります。ゲーム内の表示設定で、フルスクリーン・ウィンドウ・ボーダーレスなどを選んでください。',
+      },
+      {
+        question: 'Windowsキー＋Alt＋BでHDRが切り替わりません。',
+        answer:
+          'Microsoftは、この操作をGame Barアプリのバージョン5.721.7292.0以降に適用されると案内しています。Game Barを更新し、モニターがHDRに対応しているかも確認してください。',
+      },
+    ],
+    sources: [
+      {
+        title: 'Microsoft サポート：Windows のキーボード ショートカット',
+        url: 'https://support.microsoft.com/ja-jp/accessibility/windows/keyboard-shortcuts-in-windows',
+      },
+      {
+        title: 'Microsoft サポート：Windows の空白の画面のトラブルシューティング',
+        url: 'https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/troubleshooting-blank-screens-in-windows',
+      },
+      {
+        title:
+          'Microsoft Learn：IDXGIFactory::MakeWindowAssociation（Alt＋Enterへの応答）',
+        url: 'https://learn.microsoft.com/ja-jp/windows/win32/api/dxgi/nf-dxgi-idxgifactory-makewindowassociation',
+      },
+      {
+        title: 'Steamworks ドキュメント：スクリーンショット',
+        url: 'https://partner.steamgames.com/doc/features/screenshots?l=japanese',
+      },
+    ],
+    related: [
+      { href: '/guide/pc-game-freezes', label: 'ゲームが固まる・応答なし' },
+      { href: '/guide/black-screen', label: '黒い画面・音だけ出る' },
+      { href: '/guide/save-data-backup', label: 'セーブデータのバックアップ' },
+      { href: '/pc/refresh-rate-stuck-60hz', label: 'モニターが144Hzにならない' },
+    ],
+    checkedAt: '2026-09-29',
+  },
 ];

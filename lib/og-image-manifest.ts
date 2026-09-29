@@ -142,6 +142,7 @@ export const ogImageManifest: Record<string, string> = {
   "/pc/bluetooth-connected-no-sound": "c15b1535",
   "/pc/call-starts-audio-disappears": "045c5c84",
   "/pc/file-explorer-freezes-on-right-click": "6475eb51",
+  "/pc/gaming-shortcut-keys": "8d6b44e5",
   "/pc/microphone-after-update": "1d673823",
   "/pc/refresh-rate-stuck-60hz": "71691165",
   "/pc/second-monitor-not-detected": "95cad41e",
