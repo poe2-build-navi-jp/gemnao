@@ -129,6 +129,7 @@ export const ogImageManifest: Record<string, string> = {
   "/pc/call-starts-audio-disappears": "045c5c84",
   "/pc/file-explorer-freezes-on-right-click": "6475eb51",
   "/pc/microphone-after-update": "1d673823",
+  "/pc/refresh-rate-stuck-60hz": "71691165",
   "/pc/second-monitor-not-detected": "95cad41e",
   "/pc/sleep-wakes-up-by-itself": "a56ed766",
   "/pc/usb-c-device-not-recognized": "c3fbb206",

@@ -6,6 +6,7 @@ import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { ShareButtons } from '@/components/share-buttons';
 import { ogImageFor } from '@/lib/og-images';
 import { pcArticleBySlug, pcArticles } from '@/lib/pc-articles';
+import { gameLinksForPcArticle } from '@/lib/cross-links';
 
 export function generateStaticParams() {
   return pcArticles.map(({ slug }) => ({ slug }));
@@ -252,6 +253,20 @@ export default async function PcArticlePage({
               ))}
             </div>
           </section>
+          {gameLinksForPcArticle(slug).length ? (
+            <section className="related-section">
+              <h2>PCゲームで困っている場合</h2>
+              <div>
+                {gameLinksForPcArticle(slug).map((link) => (
+                  <a href={link.href} key={link.href}>
+                    <span>PCゲーム</span>
+                    {link.label}
+                    <ArrowRight size={15} />
+                  </a>
+                ))}
+              </div>
+            </section>
+          ) : null}
           <ShareButtons
             title={article.title}
             path={`/pc/${slug}`}

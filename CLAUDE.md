@@ -15,6 +15,8 @@
 - `lib/game-articles.ts`: トラブル個別記事のデータ
 - `lib/common-guides.ts`: PCゲーム共通トラブル（`/guide`）のデータ
 - `lib/discord-articles.ts`: Discordトラブル（`/discord`）のデータ
+- `lib/cross-links.ts`: ゲーム記事⇔Windows記事（`/pc`）の相互リンク表。リンク先は実在するURLだけにする
+- `lib/pc-gaming-articles.ts`: ゲーマー向けのWindows記事（`lib/pc-articles.ts`と同じ形式）
 - `lib/release-roundups.ts`: 月ごとの新作PCゲーム動作環境まとめ（`/new-releases/[slug]`）のデータ。値はSteamストア・公式サイトで確認したものだけを入れ、不明な項目は「記載なし」にする
 - `components/troubleshooting-article.tsx`: ゲーム別個別記事の共通テンプレート
 - `components/wiki-home.tsx`: 日本語トップと検索・テーマ絞り込み
