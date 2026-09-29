@@ -5,6 +5,12 @@ import { ArrowRight, CheckCircle2, ExternalLink } from 'lucide-react';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { ShareButtons } from '@/components/share-buttons';
 import { ogImageFor } from '@/lib/og-images';
+import { KeyIllustration } from '@/components/key-illustration';
+import {
+  keyCheatSheetFor,
+  keyImagesFor,
+  keyVisualFor,
+} from '@/lib/key-visuals';
 import { pcArticleBySlug, pcArticles } from '@/lib/pc-articles';
 import { gameLinksForPcArticle } from '@/lib/cross-links';
 
@@ -88,7 +94,10 @@ export default async function PcArticlePage({
       author: { '@type': 'Organization', name: 'ゲムなお編集部' },
       about: 'Windows 11',
       mainEntityOfPage: canonical,
-      image: `https://gemnao.pages.dev${ogImageFor(`/pc/${slug}`).split('?')[0]}`,
+      image: [
+        ...keyImagesFor(`/pc/${slug}`),
+        ogImageFor(`/pc/${slug}`).split('?')[0],
+      ].map((src) => `https://gemnao.pages.dev${src}`),
     },
   ];
   return (
@@ -143,6 +152,7 @@ export default async function PcArticlePage({
                 <li key={check}>{check}</li>
               ))}
             </ol>
+            <KeyIllustration visual={keyCheatSheetFor(`/pc/${slug}`)} eager />
           </section>
           <section className="diagnosis-table" id="diagnosis">
             <h2>症状別の判断表</h2>
@@ -181,6 +191,7 @@ export default async function PcArticlePage({
                 <h3>
                   STEP {i + 1}｜{step.title}
                 </h3>
+                <KeyIllustration visual={keyVisualFor(`/pc/${slug}`, i + 1)} />
                 <ol>
                   {step.actions.map((action) => (
                     <li key={action}>{action}</li>
