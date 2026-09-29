@@ -22,6 +22,7 @@ import type { GameGuide } from '@/lib/games';
 import { commonGuideCategoryFor } from '@/lib/common-guide-categories';
 import { commonGuides } from '@/lib/common-guides';
 import { troubleHubForArticle } from '@/lib/trouble-hubs';
+import { pcLinksForGameArticle } from '@/lib/cross-links';
 
 const contentStatusLabels: Record<ContentStatus, string> = {
   verified: '確認済み',
@@ -332,21 +333,37 @@ export function TroubleshootingArticle({
               </div>
             </section>
           ) : null}
-          <section className="related-section">
-            <h2>まだ直りませんか？ 次に試す記事</h2>
-            <div>
-              {article.related.map((slug) => {
-                const related = articleBySlug(game.slug, slug);
-                return related ? (
-                  <a href={`/games/${game.slug}/${related.slug}`} key={slug}>
-                    <span>{categoryLabels[related.category]}</span>
-                    {related.shortTitle}
+          {article.related.length ? (
+            <section className="related-section">
+              <h2>まだ直りませんか？ 次に試す記事</h2>
+              <div>
+                {article.related.map((slug) => {
+                  const related = articleBySlug(game.slug, slug);
+                  return related ? (
+                    <a href={`/games/${game.slug}/${related.slug}`} key={slug}>
+                      <span>{categoryLabels[related.category]}</span>
+                      {related.shortTitle}
+                      <ArrowRight size={15} />
+                    </a>
+                  ) : null;
+                })}
+              </div>
+            </section>
+          ) : null}
+          {pcLinksForGameArticle(article).length ? (
+            <section className="related-section">
+              <h2>Windows側の原因も確認する</h2>
+              <div>
+                {pcLinksForGameArticle(article).map((link) => (
+                  <a href={link.href} key={link.href}>
+                    <span>PC・Windows</span>
+                    {link.label}
                     <ArrowRight size={15} />
                   </a>
-                ) : null;
-              })}
-            </div>
-          </section>
+                ))}
+              </div>
+            </section>
+          ) : null}
           <section className="common-guides">
             <h2>PCゲーム共通の解決方法</h2>
             {fallbackGuides.slice(0, 3).map((guide) => (

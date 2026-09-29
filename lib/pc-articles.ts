@@ -1,3 +1,5 @@
+import { pcGamingArticles } from '@/lib/pc-gaming-articles';
+
 // Windows 11 troubleshooting: one symptom, one reversible comparison at a time.
 // Source links are the primary Microsoft documentation used to check each path.
 export type PcArticle = {
@@ -697,7 +699,10 @@ export const pcArticles: PcArticle[] = [
         label: 'USB-C機器が認識されない',
       },
       { href: '/guide/black-screen', label: 'ゲーム画面だけが黒い場合' },
-      { href: '/pc/black-screen-after-sign-in', label: 'サインイン後にカーソルだけの黒い画面' },
+      {
+        href: '/pc/black-screen-after-sign-in',
+        label: 'サインイン後にカーソルだけの黒い画面',
+      },
     ],
     checkedAt: '2026-09-28',
   },
@@ -885,7 +890,8 @@ export const pcArticles: PcArticle[] = [
     slug: 'wifi-option-missing',
     title: 'Windows 11でWi-Fiの項目が消えた・接続先が表示されない時の直し方',
     shortTitle: 'Wi-Fiの項目が消えた',
-    seoTitle: 'Windows 11でWi-Fiの項目が消えた｜スイッチ・接続先・アダプター別の対処',
+    seoTitle:
+      'Windows 11でWi-Fiの項目が消えた｜スイッチ・接続先・アダプター別の対処',
     description:
       'Windows 11でWi-Fiのスイッチがない、接続先が0件、アダプターが見つからない場合を分けて解説。設定画面・デバイスマネージャー・サービスの確認結果から次の操作を選べます。',
     lead: '昨日まで使えたWi-Fiが見当たらない場合、設定の「Wi-Fi」自体がないのか、スイッチはあるが接続先が空なのかを先に確認します。Windows 11でデスクトップを操作できる人向けです。',
@@ -904,12 +910,14 @@ export const pcArticles: PcArticle[] = [
       },
       {
         symptom: '設定の「ネットワークとインターネット」にWi-Fi自体がない',
-        check: '無線スイッチ・機内モードと、デバイスマネージャーでアダプターの有無',
+        check:
+          '無線スイッチ・機内モードと、デバイスマネージャーでアダプターの有無',
         next: 2,
       },
       {
         symptom: 'Wi-Fiをオンにできるが接続先一覧が0件',
-        check: 'スマホにも同じSSID（接続先の名前）が見えるか／無線サービスが動作中か',
+        check:
+          'スマホにも同じSSID（接続先の名前）が見えるか／無線サービスが動作中か',
         next: 3,
       },
       {
@@ -948,7 +956,8 @@ export const pcArticles: PcArticle[] = [
           },
           {
             state: '無線アダプターはあるが警告マークが付く',
-            meaning: 'Windowsが機器の問題を報告している。原因は番号だけでは確定しない',
+            meaning:
+              'Windowsが機器の問題を報告している。原因は番号だけでは確定しない',
             next: '状態欄の番号と機種名を控え、製造元の適合ドライバーをSTEP 4で確認。',
           },
           {
@@ -1002,7 +1011,8 @@ export const pcArticles: PcArticle[] = [
       '相談時は「設定のWi-Fiの有無／SSID一覧が0件か特定の1件だけないか／スマホでも同じSSIDが見えるか／デバイスマネージャーの機器名と状態・エラー番号／更新日時／PCの型番」を伝えます。無線ドライバーを手元に用意する前にアダプターを削除すると、オフラインで復旧しにくくなります。ネットワークのリセットはVPNや仮想スイッチの再設定も必要になり得るため、この症状の初手にはしません。',
     faqs: [
       {
-        question: 'クイック設定にWi-Fiボタンがない時、無線LANは故障していますか？',
+        question:
+          'クイック設定にWi-Fiボタンがない時、無線LANは故障していますか？',
         answer:
           'それだけでは分かりません。「設定→ネットワークとインターネット」にWi-Fiがあるかと、デバイスマネージャーで無線アダプターが有効かを別々に確認してください。',
       },
@@ -1036,14 +1046,21 @@ export const pcArticles: PcArticle[] = [
       ),
     ],
     related: [
-      { href: '/discord/rtc-connecting', label: 'DiscordだけRTC接続中から進まない' },
-      { href: '/pc/bluetooth-connected-no-sound', label: 'Bluetoothだけ接続済みなのに無音' },
+      {
+        href: '/discord/rtc-connecting',
+        label: 'DiscordだけRTC接続中から進まない',
+      },
+      {
+        href: '/pc/bluetooth-connected-no-sound',
+        label: 'Bluetoothだけ接続済みなのに無音',
+      },
     ],
     checkedAt: '2026-09-29',
   },
   {
     slug: 'windows-update-0x800f081f',
-    title: 'Windows Updateエラー「0x800f081f」の直し方｜更新履歴と修復結果で判断【Windows 11】',
+    title:
+      'Windows Updateエラー「0x800f081f」の直し方｜更新履歴と修復結果で判断【Windows 11】',
     shortTitle: '更新エラー 0x800f081f',
     seoTitle: 'Windows Updateの0x800f081fを直す｜失敗した更新と修復結果を確認',
     description:
@@ -1069,7 +1086,8 @@ export const pcArticles: PcArticle[] = [
       },
       {
         symptom: 'DISMコマンドの実行結果に0x800f081fが出る',
-        check: '修復ソースが利用できなかった可能性。更新自体のエラーとは記録を分ける',
+        check:
+          '修復ソースが利用できなかった可能性。更新自体のエラーとは記録を分ける',
         next: 3,
       },
       {
@@ -1123,7 +1141,8 @@ export const pcArticles: PcArticle[] = [
           },
           {
             state: '対象の更新が表示されなくなった',
-            meaning: '成功・置き換え・提供条件の変化など、表示だけでは確定しない',
+            meaning:
+              '成功・置き換え・提供条件の変化など、表示だけでは確定しない',
             next: '更新履歴と現在のWindows Update画面を照合。必要ならKBの公式ページで後続更新を確認。',
           },
         ],
@@ -1214,7 +1233,8 @@ export const pcArticles: PcArticle[] = [
         '0x800f081fの原因候補と更新エラーの対処',
       ),
       {
-        title: 'Microsoft サポート：Windows Updateトラブルシューティング ツール',
+        title:
+          'Microsoft サポート：Windows Updateトラブルシューティング ツール',
         url: 'https://support.microsoft.com/ja-jp/windows/windows-update-%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0-%E3%83%84%E3%83%BC%E3%83%AB-19bc41ca-ad72-ae67-af3c-89ce169755dd',
       },
       ms(
@@ -2380,6 +2400,7 @@ export const pcArticles: PcArticle[] = [
     ],
     checkedAt: '2026-09-29',
   },
+  ...pcGamingArticles,
 ];
 
 export function pcArticleBySlug(slug: string) {
