@@ -117,6 +117,8 @@ export const ogImageManifest: Record<string, string> = {
   "/games/the-blood-of-dawnwalker/stutter-windowed": "d63c65d6",
   "/games/wardogs": "b4e73c57",
   "/games/wardogs/server-connection": "281cf030",
+  "/gear": "b7d145a7",
+  "/gear/stream-deck-plus-xl": "dd9a52a2",
   "/guide/black-screen": "01afcd40",
   "/guide/controller-double-input": "5d3dc6a7",
   "/guide/directx-error": "a389c7b7",

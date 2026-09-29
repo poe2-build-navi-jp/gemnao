@@ -148,6 +148,7 @@ export function WikiFooter({ locale = 'ja' }: { locale?: 'ja' | Locale }) {
         <a href="/pc">
           {locale === 'en' ? 'PC & Windows (Japanese)' : 'PC・Windowsの不具合'}
         </a>
+        {locale === 'ja' && <a href="/gear">ゲーマー向けデバイス</a>}
         <a href="/contact">
           {locale === 'en' ? 'Contact (Japanese)' : 'お問い合わせ'}
         </a>
@@ -155,6 +156,8 @@ export function WikiFooter({ locale = 'ja' }: { locale?: 'ja' | Locale }) {
       <small>
         © 2026 {locale === 'en' ? 'Gemnao. ' : 'ゲムなお。'}
         {text.footer}
+        {locale === 'ja' &&
+          ' Amazonのアソシエイトとして、ゲムなおは適格販売により収入を得ています。'}
       </small>
     </footer>
   );

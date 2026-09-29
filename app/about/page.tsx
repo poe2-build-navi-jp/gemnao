@@ -32,7 +32,7 @@ export default function About() {
         <h2>広告・アフィリエイト</h2>
         <p>
           運営費のためにGoogle
-          AdSense等の広告を掲載する場合があります。広告は本文と区別できる形で表示します。商品の購入に応じたアフィリエイト報酬は受け取っていません。
+          AdSense等の広告を掲載する場合があります。広告は本文と区別できる形で表示します。また、Amazonアソシエイト・プログラムに参加しています。Amazonのアソシエイトとして、ゲムなおは適格販売により収入を得ています。アソシエイトのリンクを含むページやリンクの近くには「広告」「PR」と表示し、紹介内容はメーカー公式情報などで確認した事実に基づいて編集しています。
         </p>
         <h2 id="contact">お問い合わせ</h2>
         {siteConfig.contactEmail ? (
@@ -52,7 +52,7 @@ export default function About() {
             </p>
           </div>
         )}
-        <p className="source-note">最終確認：2026.09.14</p>
+        <p className="source-note">最終確認：2026.09.30</p>
       </article>
       <WikiFooter />
     </main>

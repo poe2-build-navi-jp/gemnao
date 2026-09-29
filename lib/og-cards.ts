@@ -8,6 +8,7 @@ import { games } from '@/lib/games';
 import { releaseRoundups } from '@/lib/release-roundups';
 import { troubleHubs } from '@/lib/trouble-hubs';
 import { pcArticles } from '@/lib/pc-articles';
+import { gearArticles } from '@/lib/gear-articles';
 import {
   discordArticleVisualBySlug,
   guideVisualBySlug,
@@ -110,6 +111,22 @@ export function ogCardSpecs(): OgCardSpec[] {
       items: article.steps.map((step) => step.title),
     })),
   ];
+  const gearCards = [
+    {
+      path: '/gear',
+      eyebrow: 'ゲーマー向けデバイス',
+      title: 'ゲーマー向けデバイス｜できること・買う前の確認点',
+      itemsLabel: '掲載デバイス',
+      items: gearArticles.slice(0, 4).map((a) => a.shortTitle),
+    },
+    ...gearArticles.map((article) => ({
+      path: `/gear/${article.slug}`,
+      eyebrow: 'ゲーマー向けデバイス',
+      title: article.title,
+      itemsLabel: 'できること',
+      items: article.features.slice(0, 4).map((f) => f.title),
+    })),
+  ];
   return [
     ...gameCards,
     ...guideCards,
@@ -117,5 +134,6 @@ export function ogCardSpecs(): OgCardSpec[] {
     ...troubleCards,
     ...roundupCards,
     ...pcCards,
+    ...gearCards,
   ].filter((card) => card.items.length);
 }
