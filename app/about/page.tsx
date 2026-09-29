@@ -15,8 +15,15 @@ export default function About() {
         <p className="page-kicker">ABOUT</p>
         <h1>このサイトについて</h1>
         <p className="page-lead">
-          「ゲムなお」は、ゲムなお編集部が運営する、PC版ゲームの起動トラブルや設定を試す順番でまとめる日本語のお直しWikiです。
+          「ゲムなお」は、オカピ研究所が運営する、PC版ゲームの起動トラブルや設定を試す順番でまとめる日本語のお直しWikiです。
         </p>
+        <h2>サイト運営者情報</h2>
+        <dl>
+          <dt>運営者</dt>
+          <dd>{siteConfig.operatorName}</dd>
+          <dt>メールアドレス</dt>
+          <dd><a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a></dd>
+        </dl>
         <h2>編集・出典方針</h2>
         <p>
           公式サポート、開発元、公式ストアを優先し、補足が必要な場合のみ信頼できる技術資料や複数のユーザー報告を照合します。外部文章や画像は転載せず、独自の表現で要約して出典へリンクします。
@@ -52,6 +59,7 @@ export default function About() {
             </p>
           </div>
         )}
+        <p><a href="/contact">お問い合わせフォーム</a>からもご連絡いただけます。</p>
         <p className="source-note">最終確認：2026.09.30</p>
       </article>
       <WikiFooter />
