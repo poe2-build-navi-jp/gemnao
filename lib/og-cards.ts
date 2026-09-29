@@ -128,6 +128,18 @@ export function ogCardSpecs(): OgCardSpec[] {
     })),
   ];
   return [
+    {
+      path: '/discord-servers',
+      eyebrow: 'PCゲーム｜Discordサーバー募集',
+      title: 'Discordサーバー募集を条件から探す',
+      itemsLabel: '参加前に確認',
+      items: [
+        'ゲームと募集目的',
+        '活動時間',
+        'VC条件と参加ルール',
+        '招待リンクと募集継続',
+      ],
+    },
     ...gameCards,
     ...guideCards,
     ...discordCards,

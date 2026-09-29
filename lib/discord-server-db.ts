@@ -170,12 +170,29 @@ export async function listApprovedDiscordServers(): Promise<DiscordServer[]> {
   const result = await database()
     .prepare(
       `SELECT id, slug, server_name, description, invite_url, game, purpose,
-              play_style, activity_time, voice_chat, last_verified_at
+              play_style, activity_time, voice_chat, requirements, rules, last_verified_at
        FROM discord_server_submissions
        WHERE status = 'approved' AND invite_status = 'valid'
        ORDER BY COALESCE(last_verified_at, updated_at) DESC`,
     )
-    .all<Pick<D1Row, 'id' | 'slug' | 'server_name' | 'description' | 'invite_url' | 'game' | 'purpose' | 'play_style' | 'activity_time' | 'voice_chat' | 'last_verified_at'>>();
+    .all<
+      Pick<
+        D1Row,
+        | 'id'
+        | 'slug'
+        | 'server_name'
+        | 'description'
+        | 'invite_url'
+        | 'game'
+        | 'purpose'
+        | 'play_style'
+        | 'activity_time'
+        | 'voice_chat'
+        | 'requirements'
+        | 'rules'
+        | 'last_verified_at'
+      >
+    >();
 
   return result.results.map((row) => ({
     id: row.id,
@@ -188,6 +205,8 @@ export async function listApprovedDiscordServers(): Promise<DiscordServer[]> {
     voiceChat: row.voice_chat,
     activeTimes: readList(row.activity_time),
     description: row.description,
+    requirements: row.requirements,
+    rules: row.rules,
     inviteUrl: row.invite_url,
     lastVerifiedAt: row.last_verified_at || '',
     status: 'approved',

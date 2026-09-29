@@ -188,7 +188,7 @@ export function DiscordServerDirectory({
       ) : filtered.length ? (
         <div className="server-card-grid">
           {filtered.map((server) => (
-            <article className="server-card" key={server.slug}>
+            <article className="server-card" id={server.slug} key={server.slug}>
               <div className="server-card-status">
                 <span>
                   <ShieldCheck size={15} /> 活動確認済み
@@ -208,12 +208,43 @@ export function DiscordServerDirectory({
                 ))}
               </div>
               <p className="server-card-description">{server.description}</p>
+              <dl className="server-card-conditions">
+                <div>
+                  <dt>活動時間</dt>
+                  <dd>{server.activeTimes.join('・')}</dd>
+                </div>
+                <div>
+                  <dt>VC</dt>
+                  <dd>
+                    {server.voiceChat === 'required'
+                      ? '必須'
+                      : server.voiceChat === 'optional'
+                        ? '任意'
+                        : server.voiceChat === 'listen-only-ok'
+                          ? '聞き専OK'
+                          : 'なし'}
+                  </dd>
+                </div>
+                <div>
+                  <dt>参加条件</dt>
+                  <dd>{server.requirements}</dd>
+                </div>
+                <div>
+                  <dt>禁止事項</dt>
+                  <dd>{server.rules}</dd>
+                </div>
+              </dl>
               <a
                 href={server.inviteUrl}
                 target="_blank"
                 rel="noopener noreferrer nofollow"
               >
                 Discordに参加する <ArrowRight size={15} />
+              </a>
+              <a
+                href={`/contact?url=${encodeURIComponent(`https://gemnao.pages.dev/discord-servers#${server.slug}`)}`}
+              >
+                招待切れ・掲載内容を連絡する
               </a>
             </article>
           ))}

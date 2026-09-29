@@ -9,6 +9,8 @@ export type DiscordServer = {
   voiceChat: 'required' | 'optional' | 'listen-only-ok' | 'none';
   activeTimes: string[];
   description: string;
+  requirements: string;
+  rules: string;
   inviteUrl: string;
   lastVerifiedAt: string;
   status: 'approved';

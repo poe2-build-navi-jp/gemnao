@@ -2557,6 +2557,32 @@ kbd {
   font-weight: 800;
   text-decoration: none;
 }
+.server-card > a + a {
+  display: flex;
+  margin-top: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.server-card-conditions {
+  margin: 16px 0;
+  display: grid;
+  gap: 9px;
+  overflow-wrap: anywhere;
+}
+.server-card-conditions > div {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr);
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.65;
+}
+.server-card-conditions dt {
+  color: var(--muted);
+  font-weight: 800;
+}
+.server-card-conditions dd {
+  margin: 0;
+}
 .server-empty {
   padding: 42px 20px;
   text-align: center;
@@ -2601,6 +2627,8 @@ kbd {
   line-height: 1.6;
 }
 .server-howto,
+.server-match,
+.server-recruitment,
 .server-guide,
 .server-faq,
 .server-related {
@@ -2610,6 +2638,76 @@ kbd {
   margin: 0;
   font-size: clamp(25px, 3vw, 34px);
   letter-spacing: -0.025em;
+}
+.server-match h2,
+.server-recruitment h2 {
+  margin: 0;
+  font-size: clamp(25px, 3vw, 34px);
+  letter-spacing: -0.025em;
+}
+.server-match p,
+.server-recruitment p,
+.server-recruitment li {
+  line-height: 1.85;
+}
+.server-match-table {
+  overflow-x: auto;
+  margin: 20px 0;
+}
+.server-match table {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: collapse;
+  background: #fff;
+}
+.server-match th,
+.server-match td {
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.6;
+}
+.server-match thead th {
+  background: #eaf2f4;
+}
+.server-recruitment ol {
+  padding-left: 24px;
+}
+.server-recruitment li {
+  margin: 10px 0;
+}
+.server-recruitment a {
+  color: var(--blue);
+  font-weight: 700;
+}
+@media (max-width: 640px) {
+  .server-match table {
+    min-width: 0;
+  }
+  .server-match thead {
+    display: none;
+  }
+  .server-match tr {
+    display: block;
+    margin-bottom: 12px;
+    border: 1px solid var(--line);
+    background: #fff;
+  }
+  .server-match th,
+  .server-match td {
+    display: block;
+    border: 0;
+  }
+  .server-match th {
+    background: #eaf2f4;
+  }
+  .server-match td::before {
+    content: attr(data-label) '：';
+    display: block;
+    color: var(--muted);
+    font-weight: 700;
+  }
 }
 .server-howto-grid {
   display: grid;
