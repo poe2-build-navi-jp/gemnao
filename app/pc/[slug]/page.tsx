@@ -131,6 +131,9 @@ export default async function PcArticlePage({
         <aside className="toc issue-toc">
           <strong>このページの内容</strong>
           <a href="#answer">先に結論</a>
+          {article.shortcutRows && (
+            <a href="#shortcut-list">ショートカット早見表</a>
+          )}
           <a href="#diagnosis">症状別の判断表</a>
           {article.steps.map((step, i) => (
             <a href={`#step-${i + 1}`} key={step.title}>
@@ -154,6 +157,40 @@ export default async function PcArticlePage({
             </ol>
             <KeyIllustration visual={keyCheatSheetFor(`/pc/${slug}`)} eager />
           </section>
+          {article.shortcutRows && (
+            <section className="diagnosis-table" id="shortcut-list">
+              <h2>ゲーム中に使うショートカットキー早見表</h2>
+              <p>
+                画面が反応するかを先に確認し、当てはまる行のキーを1回押してください。キーが効く条件と、次に確認する手順も併記しています。
+              </p>
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">困っている場面</th>
+                    <th scope="col">押すキー</th>
+                    <th scope="col">起きること・使える条件</th>
+                    <th scope="col">詳しい手順</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {article.shortcutRows.map((row) => (
+                    <tr key={row.keys}>
+                      <td data-label="場面">{row.situation}</td>
+                      <td data-label="キー">
+                        <strong>{row.keys}</strong>
+                      </td>
+                      <td data-label="動作と条件">
+                        {row.effect}。{row.condition}
+                      </td>
+                      <td data-label="手順">
+                        <a href={`#step-${row.step}`}>STEP {row.step}</a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </section>
+          )}
           <section className="diagnosis-table" id="diagnosis">
             <h2>症状別の判断表</h2>
             <p>

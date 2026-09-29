@@ -191,14 +191,67 @@ export const pcGamingArticles: PcArticle[] = [
     shortTitle: 'ゲーム中に使えるショートカットキー',
     seoTitle: 'ゲーム中に固まった時のショートカットキー一覧【Windows 11】',
     description:
-      'ゲーム中に画面が固まった・真っ黒になった、応答しない、HDRや表示がおかしい時に使えるWindows 11のショートカットキーを、困った場面ごとにまとめました。グラフィックスドライバーのリセット（Windows＋Ctrl＋Shift＋B）、タスクマネージャー、HDRの切り替え、Steamのスクリーンショットまで、公式の案内に沿って解説します。',
+      'ゲーム中に固まる・画面が黒い・フルスクリーンから戻れない時のショートカットキー一覧。Windows 11のキー操作、効く条件、反応しない時の次の手順を場面別に比較できます。',
     lead: '電源ボタンで強制終了する前に、キー操作で戻せないかを試します。症状ごとに使うキーが違うので、下の早見表から当てはまる場面を選んでください。Windows 11の表記です。',
     answer:
-      '画面が固まった・真っ黒になった時は、Windowsキー＋Ctrl＋Shift＋Bでグラフィックスドライバーをリセットします。成功するとビープ音が鳴るか画面がちらつきます（Microsoft公式）。ゲームが応答しない時はCtrl＋Shift＋Escでタスクマネージャーを直接開いて終了し、HDRの表示がおかしい時はWindowsキー＋Alt＋BでHDRのオン・オフを切り替えます。',
+      'ゲーム中に画面が黒くなったらWindowsキー＋Ctrl＋Shift＋Bで表示ドライバーのリセットを試します。画面は見えるがゲームだけ応答しないならCtrl＋Shift＋Escでタスクマネージャーを開きます。フルスクリーンの切り替えはAlt＋Enter（対応ゲームのみ）、HDRの切り替えはWindowsキー＋Alt＋B（対応環境のみ）です。',
     quickChecks: [
       '画面が固まった・真っ黒：Windowsキー＋Ctrl＋Shift＋B',
       'ゲームが応答しない：Ctrl＋Shift＋Escでタスクマネージャーを開く',
       'HDRで白っぽい・暗い：Windowsキー＋Alt＋BでHDRを切り替えて比べる',
+    ],
+    shortcutRows: [
+      {
+        situation: '画面が黒い・表示が止まった',
+        keys: 'Windows＋Ctrl＋Shift＋B',
+        effect: '表示ドライバーをリセット',
+        condition: 'ビープ音やちらつきが起きても、ゲーム自体が直るとは限らない',
+        step: 1,
+      },
+      {
+        situation: 'ゲームだけ応答しない',
+        keys: 'Ctrl＋Shift＋Esc',
+        effect: 'タスクマネージャーを開く',
+        condition: '終了すると未保存の進行は失われる。まず応答を少し待つ',
+        step: 2,
+      },
+      {
+        situation: '全画面表示から切り替えたい',
+        keys: 'Alt＋Enter',
+        effect: '全画面とウィンドウを切り替える',
+        condition: 'ゲーム側が対応していない場合はゲーム内の表示設定を使う',
+        step: 3,
+      },
+      {
+        situation: 'HDRで暗い・白っぽい',
+        keys: 'Windows＋Alt＋B',
+        effect: 'HDRのオン・オフを切り替える',
+        condition: 'HDR対応画面と対応するGame Barの環境で確認する',
+        step: 4,
+      },
+      {
+        situation: 'Steamゲームの画面を残したい',
+        keys: 'F12',
+        effect: 'Steamのスクリーンショットを撮る',
+        condition:
+          'Steamのゲーム中設定とオーバーレイ、変更したキー割り当てを確認する',
+        step: 5,
+      },
+      {
+        situation: 'エラー画面の一部を残したい',
+        keys: 'Windows＋Shift＋S',
+        effect: '範囲を選んでクリップボードへコピー',
+        condition:
+          '貼り付けて保存する。ゲームの全画面表示では操作できない場合がある',
+        step: 5,
+      },
+      {
+        situation: 'フォルダーの場所を入力したい',
+        keys: 'Windows＋R',
+        effect: '「ファイル名を指定して実行」を開く',
+        condition: '入力した場所が開くだけで、セーブ先を自動で探す機能ではない',
+        step: 5,
+      },
     ],
     diagnosis: [
       {
@@ -234,12 +287,12 @@ export const pcGamingArticles: PcArticle[] = [
         actions: [
           'Windowsキー＋Ctrl＋Shift＋Bを1回押す。Microsoftは、画面が空白または黒い時にグラフィックスドライバーをリセットする操作として案内しており、成功するとビープ音が鳴るか画面がちらつく。',
           '表示が戻らない場合は、モニターの電源とケーブルの接続を確認する（Microsoft公式も、最初にモニターの接続と電源を確認するよう案内）。',
-          'モニターを2台以上つないでいる場合は、Windowsキー＋Pで表示モード（複製・拡張など）を選び直す。',
+          'モニターを2台以上つないでいてWindowsが操作できる場合は、Windowsキー＋Pで表示モード（複製・拡張など）を確認する。画面が見えず選択内容を確かめられない時は、むやみに切り替えずケーブルとモニターを先に確認する。',
         ],
         resultRows: [
           {
             state: 'ビープ音・ちらつきの後に表示が戻った',
-            meaning: 'ドライバーのリセットで表示が回復した',
+            meaning: '表示は回復したが、原因がドライバーと確定したわけではない',
             next: 'ゲームが動くか確認。何度も起きる場合はGPUドライバーの記事で更新・入れ直しを確認。',
           },
           {
@@ -269,8 +322,9 @@ export const pcGamingArticles: PcArticle[] = [
           },
           {
             state: 'タスクマネージャーも開かない',
-            meaning: 'Windows全体が応答していない',
-            next: '数分待っても変わらなければPCを再起動する。',
+            meaning:
+              'ゲームの全画面表示の裏に隠れているか、Windowsも応答していない可能性',
+            next: 'Alt＋Tabでも出ないか確認し、数分待っても操作できなければPCを再起動する。',
           },
         ],
         expected: 'タスクマネージャーが開き、ゲームを終了できる。',
@@ -281,7 +335,7 @@ export const pcGamingArticles: PcArticle[] = [
       {
         title: 'フルスクリーンとウィンドウの切り替えは、Alt＋Enterを試す',
         actions: [
-          'ゲーム中にAlt＋Enterを押す。DirectXで動く多くのゲームでは、この操作でフルスクリーンとウィンドウが切り替わる。',
+          'ゲーム中にAlt＋Enterを1回押し、表示モードが変わるか確認する。ゲームによってはこの操作でフルスクリーンとウィンドウが切り替わる。',
           'MicrosoftのDirectX（DXGI）の資料には、アプリ側がAlt＋Enterへの応答を止める設定が用意されている。そのため、ゲームによっては効かない、または別の操作が割り当てられている。',
           '効かない場合は、ゲーム内の「表示」や「グラフィック」の設定で表示モードを切り替える（項目名はゲームごとに異なる）。',
         ],
@@ -291,10 +345,11 @@ export const pcGamingArticles: PcArticle[] = [
         revert: 'もう一度Alt＋Enterを押すか、ゲーム内の表示モードを元に戻す。',
       },
       {
-        title: 'HDRの見え方がおかしいなら、Windowsキー＋Alt＋Bで切り替えて比べる',
+        title:
+          'HDRの見え方がおかしいなら、Windowsキー＋Alt＋Bで切り替えて比べる',
         actions: [
           'Windowsキー＋Alt＋Bを押すと、HDRのオン・オフが切り替わる。Microsoftは、Game Barアプリのバージョン5.721.7292.0以降で使える操作と案内している。',
-          'HDRをオフにして見え方が普通に戻るなら、HDRの設定が原因。WindowsのHDRを先にオンにしてからゲームを起動し直し、ゲーム内の明るさを調整する。',
+          'HDRをオフにした時だけ見え方が変わるなら、HDRの設定とゲーム内の明るさ設定を比較する。変更前の状態を控え、同じゲーム画面で比べる。',
           'Windowsキー＋GでGame Barを開ける。キーが効かない場合は、Game Barが最新か確認する。',
         ],
         expected: '画面が一瞬暗くなり、HDRのオン・オフが切り替わる。',
@@ -303,15 +358,15 @@ export const pcGamingArticles: PcArticle[] = [
         revert: 'もう一度Windowsキー＋Alt＋Bを押すと、元の状態に戻る。',
       },
       {
-        title: '症状を記録する・セーブのフォルダを開くキー',
+        title: 'エラー画面を残す・フォルダーを開くキー',
         actions: [
           'Steamのゲームでは、F12（既定のキー）でスクリーンショットを撮れる。Steamオーバーレイが有効な場合に使え、キーはSteamの「設定」→「ゲーム中」で変更できる。',
-          'エラー画面を残しておくと、原因を調べる時や問い合わせの時に役立つ。',
-          'Windowsキー＋Rで「ファイル名を指定して実行」を開き、%APPDATA%や%LOCALAPPDATA%と入力すると、多くのゲームのセーブがあるフォルダを直接開ける。ゲームごとの場所は各ゲームの記事で確認する。',
+          'SteamのF12が効かない場合やWindowsのエラー画面を残す場合は、Windowsキー＋Shift＋Sで範囲を選択し、ペイントなどにCtrl＋Vで貼り付けてファイルとして保存する。選択直後はクリップボードにあり、保存済みファイルとは限らない。',
+          'Windowsキー＋Rで「ファイル名を指定して実行」を開き、%APPDATA%または%LOCALAPPDATA%を入力すると、そのフォルダーが開く。これらはセーブ先そのものではなく、ゲームによって保存先は異なる。実際のコピー対象はゲーム別の案内で確認する。',
         ],
         expected: 'スクリーンショットが保存される／指定したフォルダが開く。',
         unexpected:
-          'F12で撮れない場合は、Steamオーバーレイが有効か、Steamの設定でキーが変更されていないか確認する。',
+          'F12で撮れない場合はSteamオーバーレイとキー割り当てを確認。Windowsキー＋Shift＋Sで選べない場合はゲームの表示モードをウィンドウに変え、再度試す。',
         revert: 'この操作は設定を変更しないため、元に戻す作業は不要。',
       },
     ],
@@ -334,6 +389,17 @@ export const pcGamingArticles: PcArticle[] = [
         answer:
           'Microsoftは、この操作をGame Barアプリのバージョン5.721.7292.0以降に適用されると案内しています。Game Barを更新し、モニターがHDRに対応しているかも確認してください。',
       },
+      {
+        question:
+          'ショートカットキーがデスクトップでは使えるのに、ゲーム中だけ効きません。',
+        answer:
+          'まずゲームをウィンドウ表示にして同じキーを試します。Alt＋Enterはゲームの対応次第、F12はSteamの設定とオーバーレイ次第です。ノートPCのF12に別機能が割り当てられている場合はFnキーの設定も確認してください。Windowsキーまで効かない場合はキーボードのゲームモードでWindowsキーが無効になっていないか製品の設定を見ます。',
+      },
+      {
+        question: 'Windowsキー＋Shift＋Sで撮った画像はどこに保存されますか？',
+        answer:
+          '範囲を選んだ直後はクリップボードへコピーされます。ペイントなどにCtrl＋Vで貼り付け、「名前を付けて保存」で保存先を選ぶと確実です。Snipping Toolの設定で自動保存が有効な環境では保存先も確認してください。',
+      },
     ],
     sources: [
       {
@@ -341,7 +407,8 @@ export const pcGamingArticles: PcArticle[] = [
         url: 'https://support.microsoft.com/ja-jp/accessibility/windows/keyboard-shortcuts-in-windows',
       },
       {
-        title: 'Microsoft サポート：Windows の空白の画面のトラブルシューティング',
+        title:
+          'Microsoft サポート：Windows の空白の画面のトラブルシューティング',
         url: 'https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/troubleshooting-blank-screens-in-windows',
       },
       {
@@ -350,15 +417,18 @@ export const pcGamingArticles: PcArticle[] = [
         url: 'https://learn.microsoft.com/ja-jp/windows/win32/api/dxgi/nf-dxgi-idxgifactory-makewindowassociation',
       },
       {
-        title: 'Steamworks ドキュメント：スクリーンショット',
-        url: 'https://partner.steamgames.com/doc/features/screenshots?l=japanese',
+        title: 'Steam サポート：SteamコミュニティオーバーレイとF12',
+        url: 'https://help.steampowered.com/ja/faqs/view/3978-072C-18DF-FBF9',
       },
     ],
     related: [
       { href: '/guide/pc-game-freezes', label: 'ゲームが固まる・応答なし' },
       { href: '/guide/black-screen', label: '黒い画面・音だけ出る' },
       { href: '/guide/save-data-backup', label: 'セーブデータのバックアップ' },
-      { href: '/pc/refresh-rate-stuck-60hz', label: 'モニターが144Hzにならない' },
+      {
+        href: '/pc/refresh-rate-stuck-60hz',
+        label: 'モニターが144Hzにならない',
+      },
     ],
     checkedAt: '2026-09-29',
   },

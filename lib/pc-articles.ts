@@ -11,6 +11,13 @@ export type PcArticle = {
   lead: string;
   answer: string;
   quickChecks: string[];
+  shortcutRows?: {
+    situation: string;
+    keys: string;
+    effect: string;
+    condition: string;
+    step: number;
+  }[];
   diagnosis: { symptom: string; check: string; next: number }[];
   steps: {
     title: string;
