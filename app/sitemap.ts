@@ -6,6 +6,7 @@ import { discordArticles } from '@/lib/discord-articles-all';
 import { troubleHubs } from '@/lib/trouble-hubs';
 import { releaseRoundups } from '@/lib/release-roundups';
 import { pcArticles } from '@/lib/pc-articles';
+import { gearArticles } from '@/lib/gear-articles';
 export default function sitemap(): MetadataRoute.Sitemap {
   if (process.env.NEXT_PUBLIC_SITE_PUBLIC === 'false') return [];
   const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://gemnao.pages.dev';
@@ -78,6 +79,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(article.checkedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.82,
+    })),
+    {
+      url: `${base}/gear`,
+      lastModified: new Date(gearArticles[0].checkedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    },
+    ...gearArticles.map((article) => ({
+      url: `${base}/gear/${article.slug}`,
+      lastModified: new Date(article.checkedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
     })),
   ];
 }

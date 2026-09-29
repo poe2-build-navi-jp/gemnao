@@ -3474,3 +3474,77 @@ kbd {
 .controller-double-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
 .controller-double-details li + li { margin-top: 8px; }
 .controller-double-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; }
+
+/* Amazonアソシエイトのリンク（広告であることが分かる表示） */
+.affiliate-box {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  margin: 28px 0;
+  padding: 20px 22px 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fffaf2;
+}
+.affiliate-box p {
+  margin: 0;
+  line-height: 1.7;
+}
+.affiliate-box strong {
+  display: block;
+  font-size: 17px;
+}
+.affiliate-label {
+  justify-self: start;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: #6b7280;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+.affiliate-button {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 11px 20px;
+  border-radius: 999px;
+  background: #ff9900;
+  color: #111;
+  font-weight: 800;
+  text-decoration: none;
+}
+.affiliate-button:hover {
+  filter: brightness(0.95);
+}
+.affiliate-box small {
+  color: #6b7280;
+  font-size: 12px;
+}
+.caution-block ul {
+  margin: 0;
+  padding-left: 1.2em;
+  line-height: 1.9;
+}
+/* 仕様表・比較表は行見出し（th）があるので、スマホで項目名を重ねて出さない */
+.spec-table th[scope='row'] {
+  text-align: left;
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  .spec-table td::before {
+    content: none;
+  }
+  .spec-table th[scope='row'] {
+    display: block;
+    padding: 6px 12px 0;
+    background: none;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .spec-table thead {
+    display: table-header-group;
+  }
+}
