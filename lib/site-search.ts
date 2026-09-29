@@ -12,6 +12,9 @@ const aliases: [RegExp, string][] = [
   [/マイクラ/g, 'マインクラフト'],
   [/セキュア ?ブート|secure ?boot/g, 'セキュアブート'],
   [/モダンウォーフェア|モダン・ウォーフェア/g, 'modern warfare'],
+  [/ゲームガード|game ?guard/g, 'gameguard'],
+  [/バルダーズ ?ゲート ?3|バルダーズ・ゲート ?3|バルゲ3/g, 'bg3'],
+  [/gta ?(?:5|v)(?![a-z0-9])/g, 'gta5'],
 ];
 const knownTerms = [
   'installation has failed',
@@ -34,6 +37,12 @@ const knownTerms = [
   'マインクラフト',
   'tpm',
   'セキュアブート',
+  'gameguard',
+  'skse',
+  'bg3',
+  'gta5',
+  'スカイリム',
+  'スターデューバレー',
   'steam',
   'マイク',
   'セーブ',

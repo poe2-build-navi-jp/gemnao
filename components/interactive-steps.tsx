@@ -10,6 +10,7 @@ import {
   Share2,
 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
+import { trackEvent } from '@/lib/analytics';
 import {
   solutionRanking,
   stepSolutionReports,
@@ -200,6 +201,11 @@ export function InteractiveSteps({
       setRows(data.rows || []);
       setMethods(data.methods || []);
       setSolvedStepId(step.id);
+      trackEvent('issue_resolved', {
+        game: contextSlug,
+        topic,
+        step_id: step.id,
+      });
       setCompletedIds((value) => [...new Set([...value, step.id])]);
       localStorage.setItem(`${voteKey}:resolved`, '1');
       setAlreadyVoted(true);
@@ -258,6 +264,7 @@ export function InteractiveSteps({
       setRows(data.rows || []);
       setCompletedIds(nextCompleted);
       localStorage.setItem(`${voteKey}:struggling`, '1');
+      trackEvent('issue_struggling', { game: contextSlug, topic });
       saveProgress({
         currentStep: index,
         completedIds: nextCompleted,
@@ -279,6 +286,11 @@ export function InteractiveSteps({
   async function copyLink() {
     try {
       await navigator.clipboard.writeText(shareUrl);
+      trackEvent('share', {
+        method: 'copy',
+        content_type: 'article',
+        item_id: articlePath,
+      });
       setMessage('リンクをコピーしました。');
     } catch {
       setMessage(
@@ -294,6 +306,11 @@ export function InteractiveSteps({
         title: articleTitle,
         text: shareText,
         url: shareUrl,
+      });
+      trackEvent('share', {
+        method: 'native',
+        content_type: 'article',
+        item_id: articlePath,
       });
     } catch (error) {
       if (error instanceof DOMException && error.name === 'AbortError') return;
@@ -521,6 +538,7 @@ export function InteractiveSteps({
               href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`}
               target="_blank"
               rel="noreferrer"
+              data-share="x"
             >
               Xで共有
             </a>

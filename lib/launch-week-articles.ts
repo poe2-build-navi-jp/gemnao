@@ -7,7 +7,7 @@ import type { GameArticle } from '@/lib/game-articles';
 type Draft = Omit<
   GameArticle,
   'checkedAt' | 'symptoms' | 'seoTitle' | 'status'
-> & { seoTitle?: string };
+> & { seoTitle?: string; checkedAt?: string };
 
 const make = (draft: Draft): GameArticle => ({
   checkedAt: '2026-09-28',
@@ -33,6 +33,11 @@ const aionSources = {
   predownload: {
     label:
       'Steamニュース（公式）：Pre-download Available Now（事前ダウンロードと復号）',
+    url: 'https://store.steampowered.com/news/app/3393110',
+  },
+  servers: {
+    label:
+      'Steamニュース（公式）：Advanced Access Servers（先行アクセスの日程・サーバー一覧）',
     url: 'https://store.steampowered.com/news/app/3393110',
   },
   steam: {
@@ -82,13 +87,14 @@ export const launchWeekArticles: GameArticle[] = [
   make({
     gameSlug: 'aion2',
     slug: 'login-error',
+    checkedAt: '2026-09-29',
     category: 'server',
     seoTitle: 'AION2にログインできない・接続できない時の対処法【PC版】',
     title:
       'AION2（アイオン2）にログインできない・接続できない時の対処法【PC版】',
     shortTitle: 'ログイン・接続できない',
     targetVersion:
-      'Steam版・PURPLE版（アーリーアクセス／正式サービス）・2026年9月28日時点',
+      'Steam版・PURPLE版（アーリーアクセス／正式サービス）・2026年9月29日時点',
     symptom:
       'ログイン画面から進まない、待機列が減らない、アーリーアクセスなのに入れない、プレイ中に切断される場合の確認手順です。',
     conclusion:
@@ -110,9 +116,23 @@ export const launchWeekArticles: GameArticle[] = [
       },
       {
         label: 'アーリーアクセス',
-        value: '2026年9月30日〜10月4日（ファウンダーズパック購入者）',
+        value:
+          '9月30日 22:00〜10月5日 14:00（日本時間。ファウンダーズパック購入者）',
       },
-      { label: '正式サービス', value: '2026年10月5日（基本無料）' },
+      {
+        label: 'メンテナンス',
+        value:
+          '10月5日 14:00〜22:00（日本時間）の予定。時間は変わる場合あり（公式）',
+      },
+      {
+        label: '正式サービス',
+        value: '10月5日 22:00（日本時間）から（基本無料）',
+      },
+      {
+        label: 'サーバーの選び方',
+        value:
+          '起動後に地域→種族→サーバーの順に選ぶ。1つのサーバーには1つの種族だけ（公式）',
+      },
       {
         label: 'Steamで事前テストに参加した人',
         value:
@@ -129,6 +149,11 @@ export const launchWeekArticles: GameArticle[] = [
         symptom: '事前ダウンロードしたのに9月30日に長い処理が始まった',
         cause: '暗号化ファイルの復号（正常な動作）',
         stepId: 'step-3',
+      },
+      {
+        symptom: '10月5日の14:00〜22:00に入れない',
+        cause: 'アーリーアクセス終了後のメンテナンス（予定）',
+        stepId: 'step-1',
       },
       {
         symptom: 'ログイン画面から進まない',
@@ -236,6 +261,16 @@ export const launchWeekArticles: GameArticle[] = [
     ],
     faqs: [
       {
+        question: 'アーリーアクセスは日本時間の何時から遊べますか？',
+        answer:
+          '公式の告知では、アーリーアクセスは9月30日13:00（UTC）から、日本時間では9月30日22:00からです。10月5日14:00（日本時間）に終わり、22:00までメンテナンスを行ったあと、正式サービスが始まる予定です。メンテナンスの時間は変わる場合があるため、公式のお知らせも確認してください。',
+      },
+      {
+        question: '別の種族の友達と同じサーバーで遊べますか？',
+        answer:
+          'AION 2では、1つのサーバーには天族（Elyos）か魔族（Asmodian）のどちらか一方だけが所属します。起動後に地域→種族→サーバーの順に選びます。天族と魔族のサーバーはペアになっており、アビスなどの対人の場で出会います（公式）。',
+      },
+      {
         question: '事前ダウンロードしたのに、9月30日にまた処理が始まりました。',
         answer:
           '公式によると、事前ダウンロードしたファイルは暗号化されており、アーリーアクセス開始時に復号（decrypt）が必要です。再インストールではなく、かかる時間はPCの性能によって異なります。途中で止めずに待ってください。',
@@ -257,6 +292,7 @@ export const launchWeekArticles: GameArticle[] = [
       },
     ],
     sources: [
+      aionSources.servers,
       aionSources.predownload,
       aionSources.steamNews,
       aionSources.founders,
