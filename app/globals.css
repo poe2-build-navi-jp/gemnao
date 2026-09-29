@@ -84,6 +84,23 @@ input {
   font-size: 13px;
   line-height: 1.6;
 }
+.key-illustration {
+  width: min(100%, 720px);
+  margin: 18px 0 22px;
+}
+.key-illustration img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.key-illustration figcaption {
+  margin-top: 8px;
+  color: #526274;
+  font-size: 13px;
+  line-height: 1.6;
+}
 .logo em {
   display: block;
   color: var(--blue);

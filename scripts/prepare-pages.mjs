@@ -90,21 +90,43 @@ for (const { image, ogImage } of visualGuides) {
   if (!existsSync(`dist/client${image}`) || !existsSync(`dist/client${ogImage}`))
     throw new Error(`Missing visual asset for ${image}`);
 }
-const imageByPage = new Map(visualGuides.map((item) => [item.page, item.image]));
+const imageByPage = new Map(visualGuides.map((item) => [item.page, [item.image]]));
 for (const slug of ['not-launching', 'crash', 'fps', 'save', 'controller']) {
-  imageByPage.set(`/trouble/${slug}`, troubleVisualBySlug(slug).image);
+  imageByPage.set(`/trouble/${slug}`, [troubleVisualBySlug(slug).image]);
+}
+// Keyboard diagrams in shortcut guides (several images per page).
+const keyBuild = await build({
+  entryPoints: ['lib/key-visuals.ts'],
+  bundle: true,
+  write: false,
+  platform: 'node',
+  format: 'esm',
+});
+const { keyVisuals, keyCheatSheets } = await import(
+  `data:text/javascript;base64,${Buffer.from(keyBuild.outputFiles[0].text).toString('base64')}`
+);
+for (const { page, image } of [...keyCheatSheets, ...keyVisuals]) {
+  if (!existsSync(`dist/client${image}`))
+    throw new Error(`Missing keyboard diagram ${image} (run pnpm visuals:keys)`);
+  imageByPage.set(page, [...(imageByPage.get(page) || []), image]);
 }
 const imageEntries = urls
-  .map(({ url }) => ({ url, image: imageByPage.get(new URL(url).pathname) }))
-  .filter(({ image }) => image);
+  .map(({ url }) => ({ url, images: imageByPage.get(new URL(url).pathname) }))
+  .filter(({ images }) => images);
 if (imageEntries.length !== imageByPage.size)
   throw new Error('Image sitemap includes a page missing from the canonical sitemap');
 const imageXml =
   '<?xml version="1.0" encoding="UTF-8"?>\n' +
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n' +
   imageEntries
-    .map(({ url, image }) =>
-      `<url><loc>${escapeXml(url)}</loc><image:image><image:loc>${escapeXml(new URL(image, url).href)}</image:loc></image:image></url>`,
+    .map(
+      ({ url, images }) =>
+        `<url><loc>${escapeXml(url)}</loc>${images
+          .map(
+            (image) =>
+              `<image:image><image:loc>${escapeXml(new URL(image, url).href)}</image:loc></image:image>`,
+          )
+          .join('')}</url>`,
     )
     .join('\n') +
   '\n</urlset>\n';
