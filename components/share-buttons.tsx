@@ -16,16 +16,19 @@ export function ShareButtons({
   const links = [
     {
       label: 'Xでポスト',
+      share: 'x',
       className: 'share-x',
       href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}${tag ? `&hashtags=${encodeURIComponent(tag)}` : ''}${via}`,
     },
     {
       label: 'LINEで送る',
+      share: 'line',
       className: 'share-line',
       href: `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(url)}`,
     },
     {
       label: 'はてブ',
+      share: 'hatena',
       className: 'share-hatena',
       href: `https://b.hatena.ne.jp/add?mode=confirm&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`,
     },
@@ -37,6 +40,7 @@ export function ShareButtons({
         {links.map((link) => (
           <a
             className={link.className}
+            data-share={link.share}
             href={link.href}
             key={link.className}
             target="_blank"

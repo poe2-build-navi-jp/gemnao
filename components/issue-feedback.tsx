@@ -3,6 +3,7 @@
 import { CheckCircle2, CircleHelp, LoaderCircle } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import type { Locale } from '@/lib/i18n';
+import { trackEvent } from '@/lib/analytics';
 
 type Row = { topic: string; struggling: number; resolved: number };
 const labels = {
@@ -200,6 +201,10 @@ export function IssueFeedback({
       setRows(data.rows || []);
       localStorage.setItem(`gemnao-feedback:${gameSlug}:${topic}:${kind}`, '1');
       setVoted(new Set([...voted, key]));
+      trackEvent(kind === 'resolved' ? 'issue_resolved' : 'issue_struggling', {
+        game: gameSlug,
+        topic,
+      });
       if (kind === 'resolved' && solutionOptions.length)
         setMethodQuestion(topic);
     } finally {
@@ -227,6 +232,11 @@ export function IssueFeedback({
         method.id,
       );
       setMethodSaved(true);
+      trackEvent('solution_method', {
+        game: gameSlug,
+        topic: methodQuestion,
+        method: method.id,
+      });
     } finally {
       setSending('');
     }
