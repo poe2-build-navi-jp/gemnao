@@ -32,6 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'ja_JP',
+    siteName: siteConfig.name,
     title: 'ゲムなお｜PCゲームのお直しWiki',
     description:
       'PCゲームの起動トラブル、セーブ場所、FPS設定、MOD導入を日本語で解説。',
@@ -64,12 +65,24 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
-              '@type': 'WebSite',
-              name: 'ゲムなお',
-              alternateName: 'PCゲームのお直しWiki',
-              url: siteUrl,
-              description:
-                'PCゲーム・Discord・Windowsのトラブルを、症状と発生条件から探せる日本語の解決サイト。',
+              '@graph': [
+                {
+                  '@type': 'WebSite',
+                  '@id': `${siteUrl}/#website`,
+                  name: siteConfig.name,
+                  url: siteUrl,
+                  description: siteConfig.description,
+                  inLanguage: 'ja-JP',
+                  publisher: { '@id': `${siteUrl}/#operator` },
+                },
+                {
+                  '@type': 'Organization',
+                  '@id': `${siteUrl}/#operator`,
+                  name: siteConfig.operatorName,
+                  url: `${siteUrl}/about`,
+                  email: siteConfig.contactEmail,
+                },
+              ],
             }),
           }}
         />

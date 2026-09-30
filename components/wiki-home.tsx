@@ -20,6 +20,7 @@ import { categoryLabels, gameArticles } from '@/lib/game-articles';
 import { commonGuides } from '@/lib/common-guides';
 import { discordArticles } from '@/lib/discord-articles';
 import { pcArticles } from '@/lib/pc-articles';
+import { siteConfig } from '@/lib/site-config';
 import { articleMatchesTrouble, troubleHubForGuide } from '@/lib/trouble-hubs';
 import { matchesNaturalQuery, normalizeSearchQuery } from '@/lib/site-search';
 import { RecentTroubles } from './recent-troubles';
@@ -490,7 +491,7 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
             </a>
           ))}
           <a href="/pc">
-            <strong>6記事から症状を選ぶ</strong>
+            <strong>発生条件から症状を選ぶ</strong>
             <span>結果別の対処と元に戻す方法まで掲載</span>
             <small>
               PC・Windowsの不具合一覧 <ChevronRight size={14} />
@@ -524,6 +525,23 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
             </small>
           </a>
         </div>
+      </section>
+      <section className="content" aria-labelledby="about-gemnao-title">
+        <div className="section-heading compact-heading">
+          <div>
+            <p>ABOUT GEMNAO</p>
+            <h2 id="about-gemnao-title">ゲムなおとは？</h2>
+          </div>
+        </div>
+        <p>{siteConfig.description}</p>
+        <p>
+          PCゲームの起動・セーブ・画面表示の問題、Discordの音声・接続・画面共有、Windowsの更新・周辺機器の不具合を扱います。公式情報を出典として示し、確認した結果から次の操作を選べるように整理しています。
+        </p>
+        <p>
+          記事の閲覧とDiscordサーバー募集の掲載申請は無料です。個別の修理を代行するサービスではありません。運営方針と連絡先は
+          <a href="/about">サイト運営者情報</a>、記事の訂正は
+          <a href="/contact">お問い合わせ</a>をご覧ください。
+        </p>
       </section>
       <WikiFooter />
     </main>

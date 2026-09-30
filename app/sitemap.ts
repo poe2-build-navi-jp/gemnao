@@ -11,13 +11,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   if (process.env.NEXT_PUBLIC_SITE_PUBLIC === 'false') return [];
   const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://gemnao.pages.dev';
   const fixed = [
-    { path: '', updated: '2026-09-18' },
+    { path: '', updated: '2026-09-30' },
     { path: '/guide', updated: '2026-09-12' },
     { path: '/discord', updated: '2026-09-17' },
     { path: '/pc', updated: '2026-09-29' },
     { path: '/discord-servers', updated: '2026-09-30' },
     { path: '/discord-servers/guidelines', updated: '2026-09-17' },
-    { path: '/about', updated: '2026-09-17' },
+    { path: '/about', updated: '2026-09-30' },
     { path: '/contact', updated: '2026-09-17' },
     { path: '/privacy', updated: '2026-09-17' },
     { path: '/terms', updated: '2026-09-17' },

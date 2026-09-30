@@ -3,26 +3,69 @@ import type { Metadata } from 'next';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { siteConfig } from '@/lib/site-config';
 export const metadata: Metadata = {
-  title: 'このサイトについて',
-  description: 'ゲムなおの運営方針、情報の確認方法、お問い合わせについて。',
+  title: 'ゲムなおとは？運営者情報・編集方針',
+  description: siteConfig.description,
   alternates: { canonical: '/about' },
 };
 export default function About() {
   return (
     <main>
       <WikiHeader />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'AboutPage',
+            '@id': `${siteConfig.url}/about#page`,
+            url: `${siteConfig.url}/about`,
+            name: 'ゲムなおとは？運営者情報・編集方針',
+            description: siteConfig.description,
+            inLanguage: 'ja-JP',
+            isPartOf: { '@id': `${siteConfig.url}/#website` },
+            about: [
+              { '@id': `${siteConfig.url}/#website` },
+              { '@id': `${siteConfig.url}/#operator` },
+            ],
+          }),
+        }}
+      />
       <article className="static-page">
         <p className="page-kicker">ABOUT</p>
-        <h1>このサイトについて</h1>
-        <p className="page-lead">
-          「ゲムなお」は、オカピ研究所が運営する、PC版ゲームの起動トラブルや設定を試す順番でまとめる日本語のお直しWikiです。
+        <h1>ゲムなおとは？運営者情報・編集方針</h1>
+        <p className="page-lead">{siteConfig.description}</p>
+        <h2>ゲムなおで調べられること</h2>
+        <p>
+          ゲーム名や症状から記事を探し、設定画面を開く操作、確認結果の読み方、改善しなかった場合の次の行動を確認できます。記事の閲覧は無料で、個別の修理や復旧を代行するサービスではありません。
         </p>
+        <ul>
+          <li>
+            <a href="/guide">PCゲーム共通ガイド</a>
+            ：起動しない、クラッシュ、FPS、セーブ、MODなど。
+          </li>
+          <li>
+            <a href="/discord">Discordの不具合</a>
+            ：音声、接続、画面共有、Botなど。
+          </li>
+          <li>
+            <a href="/pc">PC・Windowsの不具合</a>
+            ：更新後の音声、Wi-Fi、USB、モニターなど。
+          </li>
+          <li>
+            <a href="/discord-servers">Discordサーバー募集</a>
+            ：PCゲームの日本語コミュニティの探し方と、運営者向け無料掲載申請。
+          </li>
+        </ul>
         <h2>サイト運営者情報</h2>
         <dl>
           <dt>運営者</dt>
           <dd>{siteConfig.operatorName}</dd>
           <dt>メールアドレス</dt>
-          <dd><a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a></dd>
+          <dd>
+            <a href={`mailto:${siteConfig.contactEmail}`}>
+              {siteConfig.contactEmail}
+            </a>
+          </dd>
         </dl>
         <h2>編集・出典方針</h2>
         <p>
@@ -59,7 +102,9 @@ export default function About() {
             </p>
           </div>
         )}
-        <p><a href="/contact">お問い合わせフォーム</a>からもご連絡いただけます。</p>
+        <p>
+          <a href="/contact">お問い合わせフォーム</a>からもご連絡いただけます。
+        </p>
         <p className="source-note">最終確認：2026.09.30</p>
       </article>
       <WikiFooter />
