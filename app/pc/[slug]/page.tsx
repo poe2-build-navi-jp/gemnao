@@ -112,7 +112,7 @@ export default async function PcArticlePage({
       ].map((src) => `https://gemnao.pages.dev${src}`),
     },
   ];
-  if (slug === 'pc-hacked-signs') {
+  if (['pc-hacked-signs', 'pc-broken'].includes(slug)) {
     jsonLd.push({
       '@context': 'https://schema.org',
       '@type': 'FAQPage',

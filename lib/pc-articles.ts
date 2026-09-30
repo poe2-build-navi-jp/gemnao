@@ -1,3 +1,4 @@
+import { pcHardwareArticles } from '@/lib/pc-hardware-articles';
 import { pcSecurityArticles } from '@/lib/pc-security-articles';
 import { pcGamingArticles } from '@/lib/pc-gaming-articles';
 
@@ -48,6 +49,7 @@ const ms = (path: string, title: string) => ({
 });
 
 export const pcArticles: PcArticle[] = [
+  ...pcHardwareArticles,
   ...pcSecurityArticles,
   {
     slug: 'microphone-after-update',

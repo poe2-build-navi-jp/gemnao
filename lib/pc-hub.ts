@@ -32,6 +32,13 @@ export const pcHubSources = [
 
 export const pcHubRows = [
   {
+    symptom: 'PCが壊れた？電源・画面・起動のどこで止まるか不明',
+    check:
+      '危険な異常の有無、電源ランプ、ロゴ、Windowsの順に確認。初期化よりデータ保全を優先',
+    href: '/pc/pc-broken',
+    label: '故障の確認と修理に出す目安',
+  },
+  {
     symptom: 'PCが乗っ取られた疑い／勝手な操作・不審なログイン',
     check:
       '不審な遠隔操作があればネットを切り、安全な別端末からアカウントを保護。重いだけ・偽警告だけの場合と区別',
@@ -92,6 +99,13 @@ export const pcHubRows = [
 ];
 
 export const pcHubGroups = [
+  {
+    id: 'pc-hardware',
+    title: '壊れた？故障の確認・修理',
+    intro:
+      '電源無反応・画面が映らない・Windows起動失敗を分け、データ保全と点検の目安を確認します。',
+    slugs: ['pc-broken'],
+  },
   {
     id: 'pc-security',
     title: '乗っ取りの疑い・セキュリティ',
