@@ -144,6 +144,7 @@ export const ogImageManifest: Record<string, string> = {
   "/pc/audio-after-update": "fb1c9249",
   "/pc/black-screen-after-sign-in": "15363f76",
   "/pc/bluetooth-connected-no-sound": "c15b1535",
+  "/pc/bluetooth-option-missing": "5ae07e83",
   "/pc/call-starts-audio-disappears": "045c5c84",
   "/pc/file-explorer-freezes-on-right-click": "6475eb51",
   "/pc/gaming-shortcut-keys": "09b98b05",

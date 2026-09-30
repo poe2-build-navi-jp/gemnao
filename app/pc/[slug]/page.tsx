@@ -112,7 +112,7 @@ export default async function PcArticlePage({
       ].map((src) => `https://gemnao.pages.dev${src}`),
     },
   ];
-  if (['pc-hacked-signs', 'pc-broken'].includes(slug)) {
+  if (['pc-hacked-signs', 'pc-broken', 'bluetooth-option-missing'].includes(slug)) {
     jsonLd.push({
       '@context': 'https://schema.org',
       '@type': 'FAQPage',

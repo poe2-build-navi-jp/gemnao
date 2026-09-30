@@ -1,4 +1,5 @@
 import { pcHardwareArticles } from '@/lib/pc-hardware-articles';
+import { pcBluetoothArticles } from '@/lib/pc-bluetooth-articles';
 import { pcSecurityArticles } from '@/lib/pc-security-articles';
 import { pcGamingArticles } from '@/lib/pc-gaming-articles';
 
@@ -50,6 +51,7 @@ const ms = (path: string, title: string) => ({
 });
 
 export const pcArticles: PcArticle[] = [
+  ...pcBluetoothArticles,
   ...pcHardwareArticles,
   ...pcSecurityArticles,
   {
@@ -409,6 +411,10 @@ export const pcArticles: PcArticle[] = [
       {
         href: '/discord/bluetooth-audio-problem',
         label: 'Discord通話中のBluetooth音質',
+      },
+      {
+        href: '/pc/bluetooth-option-missing',
+        label: 'Bluetoothのスイッチ・アダプターが消えた場合',
       },
     ],
     checkedAt: '2026-09-28',

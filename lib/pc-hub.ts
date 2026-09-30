@@ -32,6 +32,12 @@ export const pcHubSources = [
 
 export const pcHubRows = [
   {
+    symptom: 'Bluetoothが消えた／スイッチ・アダプター・機器がない',
+    check: '設定のスイッチ、PC側のアダプター、接続する機器の3地点で表示を比較',
+    href: '/pc/bluetooth-option-missing',
+    label: 'Bluetoothがない地点から確認する',
+  },
+  {
     symptom: 'PCが壊れた？電源・画面・起動のどこで止まるか不明',
     check:
       '危険な異常の有無、電源ランプ、ロゴ、Windowsの順に確認。初期化よりデータ保全を優先',
@@ -133,10 +139,11 @@ export const pcHubGroups = [
   },
   {
     id: 'pc-devices',
-    title: 'USB-C機器・モニター・画面',
+    title: 'Bluetooth・USB-C機器・モニター・画面',
     intro:
       '機器が一覧にない場合と、認識されても使えない場合で確認する場所が異なります。',
     slugs: [
+      'bluetooth-option-missing',
       'usb-c-device-not-recognized',
       'second-monitor-not-detected',
       'black-screen-after-sign-in',
