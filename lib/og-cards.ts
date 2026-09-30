@@ -1,3 +1,4 @@
+import { pcHub } from '@/lib/pc-hub';
 // Per-page social preview cards. Everything is derived from the article
 // registries, so a new article gets a card spec without extra data.
 // Run `pnpm og:cards` after adding or renaming articles to render the PNGs.
@@ -102,9 +103,14 @@ export function ogCardSpecs(): OgCardSpec[] {
     {
       path: '/pc',
       eyebrow: 'PC・Windowsの不具合',
-      title: 'PC・Windowsの不具合を症状から探す',
-      itemsLabel: '発生条件から探す',
-      items: pcArticles.slice(0, 4).map((a) => a.shortTitle),
+      title: pcHub.title,
+      itemsLabel: '症状に合う確認先へ',
+      items: [
+        '黒い画面・起動しない',
+        'Wi-Fi・インターネット',
+        '音声・マイク',
+        'USB-C・モニター',
+      ],
     },
     ...pcArticles.map((article) => ({
       path: `/pc/${article.slug}`,

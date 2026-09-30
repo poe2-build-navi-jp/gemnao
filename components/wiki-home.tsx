@@ -477,7 +477,7 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
         <div className="section-heading">
           <div>
             <p>PC &amp; WINDOWS</p>
-            <h2 id="pc-title">PC・Windowsの不具合</h2>
+            <h2 id="pc-title">PCトラブル・Windowsの不具合</h2>
           </div>
         </div>
         <div className="guide-index-grid">
@@ -491,10 +491,10 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
             </a>
           ))}
           <a href="/pc">
-            <strong>発生条件から症状を選ぶ</strong>
-            <span>結果別の対処と元に戻す方法まで掲載</span>
+            <strong>PCトラブルの症状別判断表</strong>
+            <span>起動・画面・通信・音声から、確認結果に合う次の対処へ</span>
             <small>
-              PC・Windowsの不具合一覧 <ChevronRight size={14} />
+              PCトラブルの対処法一覧 <ChevronRight size={14} />
             </small>
           </a>
         </div>

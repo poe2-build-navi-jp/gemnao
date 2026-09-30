@@ -140,7 +140,7 @@ export const ogImageManifest: Record<string, string> = {
   "/guide/windows-11-required": "a6392032",
   "/new-releases/2026-10": "97afdc04",
   "/new-releases/2026-11": "92c5109f",
-  "/pc": "a0324572",
+  "/pc": "a3d1196e",
   "/pc/audio-after-update": "fb1c9249",
   "/pc/black-screen-after-sign-in": "15363f76",
   "/pc/bluetooth-connected-no-sound": "c15b1535",
