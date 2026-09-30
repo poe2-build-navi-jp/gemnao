@@ -3124,6 +3124,8 @@ kbd {
 }
 
 .bot-recommendations > h2 { margin: 32px 0 18px; }
+.bot-common-steps ol, .bot-recommendation ol { list-style: decimal; padding-left: 24px; }
+.bot-common-steps li { margin-bottom: 12px; line-height: 1.9; }
 .bot-recommendation h4 { margin: 22px 0 12px; }
 .bot-recommendation li { margin-bottom: 12px; line-height: 1.9; }
 .bot-official-links { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; }

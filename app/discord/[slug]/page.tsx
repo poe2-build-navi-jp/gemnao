@@ -293,7 +293,7 @@ export default async function DiscordArticlePage({
           ) : null}
           {item.botRecommendations ? (
             <>
-              <section>
+              <section className="bot-common-steps">
                 <h2>Botの選び方・共通の導入手順</h2>
                 {item.causes.map((cause, index) => (
                   <section
