@@ -3123,6 +3123,14 @@ kbd {
   outline-offset: 2px;
 }
 
+.bot-recommendations > h2 { margin: 32px 0 18px; }
+.bot-recommendation h4 { margin: 22px 0 12px; }
+.bot-recommendation li { margin-bottom: 12px; line-height: 1.9; }
+.bot-official-links { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
+.bot-official-links a { padding: 10px 14px; border: 1px solid var(--line); border-radius: 8px; overflow-wrap: anywhere; }
+.bot-result-list dt { font-weight: 700; margin-top: 18px; }
+.bot-result-list dd { margin: 6px 0 16px; line-height: 1.9; }
+
 /* Article upgrades: quick facts, symptom table, step badges, avoid list */
 .quick-facts {
   margin-top: 22px;

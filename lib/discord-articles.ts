@@ -5,6 +5,10 @@ import { discordP0Articles } from '@/lib/discord-p0-articles';
 import { discordStreamingGrowthArticles } from '@/lib/discord-streaming-growth-articles';
 import { discordAudioGrowthArticles } from '@/lib/discord-audio-growth-articles';
 import { discordBotArticles } from '@/lib/discord-bot-articles';
+import {
+  recommendedBotArticle,
+  type BotRecommendation,
+} from '@/lib/discord-recommended-bots';
 
 export type DiscordCategory =
   | 'launch'
@@ -53,6 +57,7 @@ export type DiscordArticle = {
   status: ContentStatus;
   ogTitle?: string;
   ogSteps?: string[];
+  botRecommendations?: BotRecommendation[];
 };
 
 export const discordCategoryLabels: Record<DiscordCategory, string> = {
@@ -1068,6 +1073,7 @@ export const discordArticles: DiscordArticle[] = [
   ...discordStreamingGrowthArticles,
   ...discordAudioGrowthArticles,
   ...discordBotArticles,
+  recommendedBotArticle,
   ...discordCompatibilityArticles,
 ];
 

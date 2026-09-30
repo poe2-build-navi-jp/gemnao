@@ -5,10 +5,12 @@ export function ShareButtons({
   title,
   path,
   hashtag,
+  label = '同じ症状の人に共有する',
 }: {
   title: string;
   path: string;
   hashtag?: string;
+  label?: string;
 }) {
   const url = `${siteConfig.url}${path}`;
   const tag = hashtag?.replace(/[^\p{L}\p{N}_]/gu, '');
@@ -35,7 +37,7 @@ export function ShareButtons({
   ];
   return (
     <nav className="article-share" aria-label="この記事を共有">
-      <strong>同じ症状の人に共有する</strong>
+      <strong>{label}</strong>
       <div>
         {links.map((link) => (
           <a

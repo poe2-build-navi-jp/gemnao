@@ -20,6 +20,10 @@ import {
   type DiscordCategory,
 } from '@/lib/discord-articles';
 import { ogImageFor } from '@/lib/og-images';
+import {
+  DiscordBotComparison,
+  DiscordBotRecommendations,
+} from '@/components/discord-bot-recommendations';
 
 const feedbackTopic: Record<
   DiscordCategory,
@@ -163,7 +167,10 @@ export default async function DiscordArticlePage({
             <b>{item.shortTitle}</b>
           </nav>
           <p className="article-label">
-            {discordCategoryLabels[item.category]}｜Discordトラブル解決
+            {discordCategoryLabels[item.category]}｜
+            {item.botRecommendations
+              ? 'Discordサーバー運営ガイド'
+              : 'Discordトラブル解決'}
           </p>
           <h1>{item.title}</h1>
           <p className="article-lead">{item.symptom}</p>
@@ -176,7 +183,14 @@ export default async function DiscordArticlePage({
       <div className="article-layout issue-layout">
         <aside className="toc issue-toc">
           <strong>このページの内容</strong>
-          <a href="#answer">まず試すこと</a>
+          <a href="#answer">
+            {item.botRecommendations
+              ? '用途別のおすすめ・結論'
+              : 'まず試すこと'}
+          </a>
+          {item.botRecommendations ? (
+            <a href="#bot-comparison">おすすめBot比較表</a>
+          ) : null}
           {item.diagnosis?.length ? (
             <a href="#diagnosis">症状別の判定表</a>
           ) : null}
@@ -188,13 +202,22 @@ export default async function DiscordArticlePage({
               {i + 1}. {cause.title}
             </a>
           ))}
+          {item.botRecommendations?.map((bot) => (
+            <a href={`#bot-${bot.id}`} key={bot.id}>
+              {bot.name}の設定手順
+            </a>
+          ))}
           {item.followUp ? <a href="#next-guide">次に確認する記事</a> : null}
           <a href="#faq">よくある質問</a>
           <a href="#references">参考情報</a>
         </aside>
         <article className="guide-article">
           <section className="answer-summary" id="answer">
-            <p className="evidence-label">まずこれを試す</p>
+            <p className="evidence-label">
+              {item.botRecommendations
+                ? 'ゲームサーバーの用途から選ぶ'
+                : 'まずこれを試す'}
+            </p>
             <h2>
               <CheckCircle2 size={23} />
               結論
@@ -206,6 +229,9 @@ export default async function DiscordArticlePage({
               ))}
             </ol>
           </section>
+          {item.botRecommendations ? (
+            <DiscordBotComparison bots={item.botRecommendations} />
+          ) : null}
           {item.diagnosis?.length ? (
             <section
               className="diagnosis-table"
@@ -265,28 +291,57 @@ export default async function DiscordArticlePage({
               </p>
             </section>
           ) : null}
-          <InteractiveSteps
-            contextSlug={`discord-${item.slug}`}
-            topic={feedbackTopic[item.category]}
-            articleTitle={item.title}
-            articlePath={`/discord/${item.slug}`}
-            shareHashtag="Discord"
-            heading="原因と対処法"
-            steps={item.causes.map((cause, index) => ({
-              id: `cause-${index + 1}`,
-              title: cause.title,
-              summary: cause.description,
-              actions: cause.actions,
-              note: cause.note,
-            }))}
-            nextLinks={[
-              ...relatedItems.map((related) => ({
-                href: `/discord/${related.slug}`,
-                label: related.shortTitle,
-              })),
-              { href: '/discord', label: 'Discordトラブル一覧へ戻る' },
-            ]}
-          />
+          {item.botRecommendations ? (
+            <>
+              <section>
+                <h2>Botの選び方・共通の導入手順</h2>
+                {item.causes.map((cause, index) => (
+                  <section
+                    className="guide-section"
+                    id={`cause-${index + 1}`}
+                    key={cause.title}
+                  >
+                    <h3>
+                      {index + 1}. {cause.title}
+                    </h3>
+                    <p>{cause.description}</p>
+                    <ol>
+                      {cause.actions.map((action) => (
+                        <li key={action}>{action}</li>
+                      ))}
+                    </ol>
+                    {cause.note ? (
+                      <p className="procedure-note">{cause.note}</p>
+                    ) : null}
+                  </section>
+                ))}
+              </section>
+              <DiscordBotRecommendations bots={item.botRecommendations} />
+            </>
+          ) : (
+            <InteractiveSteps
+              contextSlug={`discord-${item.slug}`}
+              topic={feedbackTopic[item.category]}
+              articleTitle={item.title}
+              articlePath={`/discord/${item.slug}`}
+              shareHashtag="Discord"
+              heading="原因と対処法"
+              steps={item.causes.map((cause, index) => ({
+                id: `cause-${index + 1}`,
+                title: cause.title,
+                summary: cause.description,
+                actions: cause.actions,
+                note: cause.note,
+              }))}
+              nextLinks={[
+                ...relatedItems.map((related) => ({
+                  href: `/discord/${related.slug}`,
+                  label: related.shortTitle,
+                })),
+                { href: '/discord', label: 'Discordトラブル一覧へ戻る' },
+              ]}
+            />
+          )}
           {item.followUp ? (
             <section className="answer-summary" id="next-guide">
               <h2>{item.followUp.title}</h2>
@@ -299,7 +354,9 @@ export default async function DiscordArticlePage({
           <section className="caution-block">
             <h2>
               <AlertTriangle size={22} />
-              直らない場合
+              {item.botRecommendations
+                ? '導入・設定で止まった場合'
+                : '直らない場合'}
             </h2>
             <p>{item.ifNotFixed}</p>
           </section>
@@ -315,7 +372,11 @@ export default async function DiscordArticlePage({
             </div>
           </section>
           <section className="related-section">
-            <h2>まだ直りませんか？ 次に試す記事</h2>
+            <h2>
+              {item.botRecommendations
+                ? '追加・無応答・解除の詳しい手順'
+                : 'まだ直りませんか？ 次に試す記事'}
+            </h2>
             <div>
               {relatedItems.map((r) => (
                 <a href={`/discord/${r.slug}`} key={r.slug}>
@@ -353,6 +414,11 @@ export default async function DiscordArticlePage({
             title={item.title}
             path={`/discord/${item.slug}`}
             hashtag="Discord"
+            label={
+              item.botRecommendations
+                ? 'サーバー運営メンバーに共有する'
+                : undefined
+            }
           />
           <p className="correction-link">
             この記事の情報に問題がありますか？{' '}
@@ -363,7 +429,10 @@ export default async function DiscordArticlePage({
           <section className="sources" id="references">
             <h2>参考情報・出典</h2>
             <p className="source-policy">
-              Discord公式の情報を優先して確認し、本文はゲムなお独自の表現で要約しています。UIの表記は更新で変わることがあるため、最新の状態は出典先でも確認してください。
+              {item.botRecommendations
+                ? 'Discord・各Botの公式情報を確認し、設定例と確認手順をゲムなお独自の構成で整理しています。'
+                : 'Discord公式の情報を優先して確認し、本文はゲムなお独自の表現で要約しています。'}
+              UIの表記は更新で変わることがあるため、最新の状態は出典先でも確認してください。
             </p>
             {item.sources.map((source) => (
               <a

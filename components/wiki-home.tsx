@@ -524,6 +524,13 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
               掲載を申し込む <ChevronRight size={14} />
             </small>
           </a>
+          <a href="/discord/recommended-bots">
+            <strong>ゲームサーバーにおすすめのBot</strong>
+            <span>日程調整・ゲーム別ロール・管理・個別相談</span>
+            <small>
+              比較して導入する <ChevronRight size={14} />
+            </small>
+          </a>
         </div>
       </section>
       <section className="content" aria-labelledby="about-gemnao-title">

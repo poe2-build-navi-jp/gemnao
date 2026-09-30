@@ -76,6 +76,11 @@ export default function DiscordHub() {
           大規模障害が発生している場合は、PC側の設定を変更せず復旧を待ってください。
         </p>
         <h2>Discordで何に困っていますか？</h2>
+        <p>
+          <a href="/discord/recommended-bots">
+            ゲームサーバーにおすすめのDiscord Bot｜用途別比較・導入・初期設定 →
+          </a>
+        </p>
         <nav className="symptom-nav" aria-label="Discordの症状を選ぶ">
           {grouped.map((group) => (
             <a key={group.category} href={`#${group.category}`}>
