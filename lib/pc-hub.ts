@@ -32,6 +32,13 @@ export const pcHubSources = [
 
 export const pcHubRows = [
   {
+    symptom: 'ディスク使用率100％／起動後や何もしていない時も重い',
+    check:
+      '上位プロセス・対象ディスク・メモリと、更新やコピー終了後の操作を比較',
+    href: '/pc/disk-usage-100',
+    label: 'ディスク100％の原因と結果別の対処',
+  },
+  {
     symptom: 'Windows Updateが終わらない／0％・100％・再起動後で止まる',
     check:
       'Windowsを操作できるか、ダウンロード・インストール・再起動のどこかを確認',
@@ -112,6 +119,13 @@ export const pcHubRows = [
 ];
 
 export const pcHubGroups = [
+  {
+    id: 'pc-disk',
+    title: 'ディスク100％・読み書きが遅い',
+    intro:
+      '使用率と空き容量を区別し、処理の進行・メモリ・ドライブの警告から対処を選びます。',
+    slugs: ['disk-usage-100'],
+  },
   {
     id: 'pc-hardware',
     title: '壊れた？故障の確認・修理',

@@ -118,6 +118,7 @@ export default async function PcArticlePage({
       'pc-broken',
       'bluetooth-option-missing',
       'windows-update-stuck',
+      'disk-usage-100',
     ].includes(slug)
   ) {
     jsonLd.push({

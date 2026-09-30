@@ -194,6 +194,12 @@ export default function PcHub() {
           </p>
           <ul>
             <li>
+              <strong>ディスク使用率が100％で重い：</strong>
+              空き容量とは別の数値です。上位プロセス・対象ディスク・メモリを見て、
+              <a href="/pc/disk-usage-100">原因別の確認手順</a>
+              で更新中・処理終了後・ドライブの警告を分けます。
+            </li>
+            <li>
               <strong>一つのアプリだけ「応答なし」：</strong>
               別のアプリを操作できるか確認。終了する場合は未保存の作業が失われるため、そのアプリだけを対象にする。右クリック操作でエクスプローラーだけ固まるなら
               <a href="/pc/file-explorer-freezes-on-right-click">

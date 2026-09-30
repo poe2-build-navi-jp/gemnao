@@ -1,6 +1,7 @@
 import { pcHardwareArticles } from '@/lib/pc-hardware-articles';
 import { pcBluetoothArticles } from '@/lib/pc-bluetooth-articles';
 import { pcUpdateStuckArticles } from '@/lib/pc-update-stuck-articles';
+import { pcDiskArticles } from '@/lib/pc-disk-articles';
 import { pcSecurityArticles } from '@/lib/pc-security-articles';
 import { pcGamingArticles } from '@/lib/pc-gaming-articles';
 
@@ -52,6 +53,7 @@ const ms = (path: string, title: string) => ({
 });
 
 export const pcArticles: PcArticle[] = [
+  ...pcDiskArticles,
   ...pcUpdateStuckArticles,
   ...pcBluetoothArticles,
   ...pcHardwareArticles,

@@ -413,6 +413,10 @@ export const pcUpdateStuckArticles: PcArticle[] = [
     ],
     related: [
       {
+        href: '/pc/disk-usage-100',
+        label: '更新中にディスク100％になる時の確認と、終了後の比較',
+      },
+      {
         href: '/pc/windows-update-0x800f081f',
         label: '0x800f081fが出る場合の結果別対処',
       },
