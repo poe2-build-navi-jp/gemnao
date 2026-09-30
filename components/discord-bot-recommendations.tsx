@@ -12,6 +12,7 @@ export function DiscordBotComparison({ bots }: { bots: BotRecommendation[] }) {
         <thead>
           <tr>
             <th scope="col">Bot・用途</th>
+            <th scope="col">こんな時に選ぶ</th>
             <th scope="col">費用・制限の見方</th>
             <th scope="col">導入と設定</th>
           </tr>
@@ -24,6 +25,7 @@ export function DiscordBotComparison({ bots }: { bots: BotRecommendation[] }) {
                 <br />
                 {bot.purpose}
               </td>
+              <td data-label="選ぶ理由">{bot.useCase}</td>
               <td data-label="費用・制限">{bot.cost}</td>
               <td data-label="導入と設定">
                 <a href={`#bot-${bot.id}`}>{bot.name}の設定手順へ →</a>

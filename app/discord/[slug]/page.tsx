@@ -126,6 +126,9 @@ export default async function DiscordArticlePage({
     description: item.metaDescription,
     dateModified: item.checkedAt,
     author: { '@type': 'Organization', name: 'ゲムなお編集部' },
+    ...(item.botRecommendations
+      ? { publisher: { '@id': 'https://gemnao.pages.dev/#operator' } }
+      : {}),
     inLanguage: 'ja-JP',
     about: 'Discord',
     mainEntityOfPage: canonical,

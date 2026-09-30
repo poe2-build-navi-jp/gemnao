@@ -4,6 +4,7 @@ export type BotRecommendation = {
   id: string;
   name: string;
   purpose: string;
+  useCase: string;
   fit: string;
   skip: string;
   cost: string;
@@ -41,6 +42,7 @@ export const recommendedBotArticle: DiscordArticle = {
       id: 'sesh',
       name: 'sesh',
       purpose: '日程調整・参加表明',
+      useCase: '遊ぶ日が決まらない・参加予定をまとめたい',
       fit: 'パルワールドの協力プレイや固定パーティーの集合日時を決めたい。複数のタイムゾーンにいるメンバーにも日時を伝えたい。',
       skip: '1回の告知と参加予定の確認だけなら、Discordのイベント機能から始められます。',
       cost: '基本のイベント・投票から開始。定期開催・参加枠制限などはPremium対象。',
@@ -68,6 +70,7 @@ export const recommendedBotArticle: DiscordArticle = {
       id: 'carl-bot',
       name: 'Carl-bot',
       purpose: 'ゲーム別のロール付与',
+      useCase: '遊ぶゲームをメンバー自身で選んでもらいたい',
       fit: '「パルワールド」「PoE2」など遊ぶゲームをメンバー自身で選び、ロールで募集先を分けたい。',
       skip: '少人数でロール変更がたまにしかないなら、管理者の手動付与でも運用できます。',
       cost: '通常のロール選択から開始。設定数の上限拡張や一部機能はPremium対象。',
@@ -95,6 +98,7 @@ export const recommendedBotArticle: DiscordArticle = {
       id: 'dyno',
       name: 'Dyno',
       purpose: '管理・荒らし対策',
+      useCase: '投稿ルールと管理記録をまとめたい',
       fit: 'メンバーが増え、禁止語・スパムへの対応と管理記録をまとめたい。すでにある標準AutoModのルールに不足がある。',
       skip: '禁止語・大量メンションの制限だけなら、「サーバー設定」→「AutoMod」を先に確認してください。',
       cost: '無料機能と有料モジュールを区別。設定画面・公式Premium比較表で必要な機能を照合。',
@@ -122,6 +126,7 @@ export const recommendedBotArticle: DiscordArticle = {
       id: 'ticket-tool',
       name: 'Ticket Tool',
       purpose: '運営への個別相談',
+      useCase: '公開チャットに書きにくい相談を受けたい',
       fit: '参加トラブルやメンバー間の相談を、公開チャットに書かせず担当者と話せる窓口にしたい。',
       skip: '相談がほぼなく、管理者へのDMで対応できる小規模サーバーなら後から追加できます。',
       cost: 'まず標準のパネルで試す。追加機能・上限・Premium表示は契約前にDashboardで確認。',
@@ -186,6 +191,11 @@ export const recommendedBotArticle: DiscordArticle = {
     '追加先がないなら管理権限、設定画面へ入れないならBot独自の管理条件、コマンド候補がないなら利用権限、実行後の失敗なら各Bot欄の「動かない時」を確認します。強い権限を一律に付けたり、削除・再追加を繰り返したりせず、Bot名・操作・エラー・チャンネル別の比較結果を控えて公式サポートへ相談してください。',
   faqs: [
     {
+      question: 'ゲームサーバーにはBotを何個入れるのがおすすめですか？',
+      answer:
+        '最初は不足している用途の1個から始めることをおすすめします。例えば集合日時で困っているサーバーならseshだけを追加し、一般メンバーが参加表明できるか確認します。ゲーム別ロールや相談窓口が必要になった段階で追加すれば、機能の重複と設定の管理負担を減らせます。',
+    },
+    {
       question: '初心者のゲームサーバーに最初に入れるおすすめBotは？',
       answer:
         '日程が決まらないならsesh、ゲームごとの募集先を分けたいならCarl-botが候補です。目的がないうちはBotなしでも始められます。まずDiscord標準のイベント・投票・AutoModを確認し、不足している用途だけ補ってください。',
@@ -193,7 +203,7 @@ export const recommendedBotArticle: DiscordArticle = {
     {
       question: '無料で使えるDiscord Botですか？',
       answer:
-        'sesh・Carl-bot・Dynoには無料の機能と有料機能があります。Ticket Toolも必要なパネル機能や上限を設定画面で確認してから使います。「追加できる」ことと「必要な機能を無料で使える」ことは別なので、Premium表示や上限に当たった時点で契約前に見直してください。',
+        '無料で始める候補は、基本の日程調整ならsesh、通常のゲーム別ロール選択ならCarl-bot、管理・荒らし対策ならDynoです。定期イベントや設定上限の拡張などは有料になる場合があります。Ticket Toolは必要なパネル機能と上限を設定画面で確認してください。契約前に、使いたい機能のPremium表示を確認します。',
     },
     {
       question: 'MEE6など有名なBotを入れれば全部できますか？',
