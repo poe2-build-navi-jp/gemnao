@@ -707,12 +707,13 @@ export const games: GameGuide[] = [
     slug: 'monster-hunter-wilds',
     title: 'モンスターハンターワイルズ',
     shortTitle: 'モンハンワイルズ',
-    lead: '起動失敗やカクつきを切り分け、セーブ保全から画質調整までを最短で確認。',
+    lead: 'モンハンワイルズのクラッシュ・起動失敗を発生場面別に切り分け。MOD、GPU、VRAM、クラッシュ記録から次の対処を選べます。',
     accent: '#d2673d',
     demand: '2025年発売・Steam最大約138万人',
     issueScale: '非常に高い',
-    updated: '2026-09-27',
+    updated: '2026-09-30',
     tags: [
+      'クラッシュ',
       '起動しない',
       'FPS低下',
       'セーブ場所',
@@ -731,7 +732,7 @@ export const games: GameGuide[] = [
       'コントローラー操作はSteam入力が前提。ボタン表示は自動で切り替わらないため手動で選択。DualSenseの振動はUSB接続で使います。',
     launchFixes: [
       'Steamの「インストール済みファイルの整合性を確認」を実行',
-      'GPUドライバーを公式推奨（NVIDIA 581.57・AMD 25.9.1以降）に更新し、PCを再起動',
+      '落ちた場面・エラー・GPUドライバー版を記録し、公式案内の対応版と照合して比較',
       'config.iniをバックアップ後に退避し、設定を再生成',
       'VRAM 16GB未満なら高解像度テクスチャパックを無効化（公式）',
     ],
@@ -750,7 +751,7 @@ export const games: GameGuide[] = [
       },
       {
         label: '公式お知らせ（推奨ドライバー）',
-        url: 'https://store.steampowered.com/news/app/2246340/view/1811772772359267',
+        url: 'https://store.steampowered.com/news/app/2246340/view/534357354429284375',
       },
       {
         label: 'PCGamingWiki（設定場所・表示対応）',
