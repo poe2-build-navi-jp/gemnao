@@ -12,6 +12,13 @@ export type PcArticle = {
   lead: string;
   answer: string;
   quickChecks: string[];
+  evidenceSummary?: {
+    title: string;
+    intro: string;
+    items: { label: string; explanation: string }[];
+    limitation: string;
+    sources: { label: string; url: string }[];
+  };
   shortcutRows?: {
     situation: string;
     keys: string;

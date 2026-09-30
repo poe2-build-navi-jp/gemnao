@@ -13,6 +13,7 @@ import {
 } from '@/lib/key-visuals';
 import { pcArticleBySlug, pcArticles } from '@/lib/pc-articles';
 import { gameLinksForPcArticle } from '@/lib/cross-links';
+import { siteConfig } from '@/lib/site-config';
 
 export function generateStaticParams() {
   return pcArticles.map(({ slug }) => ({ slug }));
@@ -93,6 +94,17 @@ export default async function PcArticlePage({
       inLanguage: 'ja-JP',
       author: { '@type': 'Organization', name: 'ゲムなお編集部' },
       about: 'Windows 11',
+      ...(article.evidenceSummary
+        ? {
+            publisher: { '@id': `${siteConfig.url}/#operator` },
+            citation: article.sources.map((source) => source.url),
+            hasPart: {
+              '@type': 'WebPageElement',
+              name: article.evidenceSummary.title,
+              url: `${canonical}#signs`,
+            },
+          }
+        : {}),
       mainEntityOfPage: canonical,
       image: [
         ...keyImagesFor(`/pc/${slug}`),
@@ -135,6 +147,9 @@ export default async function PcArticlePage({
               公式情報の確認：{article.checkedAt.replaceAll('-', '.')}
             </span>
             <span>対象：Windows 11</span>
+            {article.evidenceSummary && (
+              <span>編集：ゲムなお編集部（オカピ研究所）</span>
+            )}
           </div>
         </div>
       </header>
@@ -145,6 +160,7 @@ export default async function PcArticlePage({
           {article.shortcutRows && (
             <a href="#shortcut-list">ショートカット早見表</a>
           )}
+          {article.evidenceSummary && <a href="#signs">乗っ取りを疑う兆候</a>}
           <a href="#diagnosis">症状別の判断表</a>
           {article.steps.map((step, i) => (
             <a href={`#step-${i + 1}`} key={step.title}>
@@ -168,6 +184,35 @@ export default async function PcArticlePage({
             </ol>
             <KeyIllustration visual={keyCheatSheetFor(`/pc/${slug}`)} eager />
           </section>
+          {article.evidenceSummary && (
+            <section
+              className="guide-section"
+              id="signs"
+              aria-labelledby="signs-title"
+            >
+              <h2 id="signs-title">{article.evidenceSummary.title}</h2>
+              <p>{article.evidenceSummary.intro}</p>
+              <ol>
+                {article.evidenceSummary.items.map((item) => (
+                  <li key={item.label}>
+                    <strong>{item.label}：</strong>
+                    {item.explanation}
+                  </li>
+                ))}
+              </ol>
+              <p>{article.evidenceSummary.limitation}</p>
+              <p className="source-note">判断の根拠となる公式資料：</p>
+              <ul>
+                {article.evidenceSummary.sources.map((source) => (
+                  <li key={source.url}>
+                    <a href={source.url} target="_blank" rel="noreferrer">
+                      {source.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
           {article.shortcutRows && (
             <section className="diagnosis-table" id="shortcut-list">
               <h2>ゲーム中に使うショートカットキー早見表</h2>

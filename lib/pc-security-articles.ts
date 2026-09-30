@@ -17,6 +17,54 @@ export const pcSecurityArticles: PcArticle[] = [
       '不審なログイン・送信・決済がある → 安全な別端末から公式サービスで確認・保護',
       '警告表示だけ／重いだけ → 下の判断表で、詐欺画面・機器の不調・感染の確認先を分ける',
     ],
+    evidenceSummary: {
+      title: 'PCの乗っ取りを疑う5つの兆候と、断定できない症状',
+      intro:
+        '次の兆候があれば、単なる動作不良として放置せず、操作・アカウント・保護設定の記録を確認します。兆候の数を数えて感染判定するチェックリストではありません。',
+      items: [
+        {
+          label: '許可していない操作が続く',
+          explanation:
+            '文字入力、アプリの起動、送信などが勝手に行われる。カーソルの動きだけとは分け、不審なら先にネットを切ります。',
+        },
+        {
+          label: '不審な相手に遠隔操作を許可した',
+          explanation:
+            '電話の相手に接続番号を渡したり、操作を承認したりした。正規ソフトでも悪用されるため、ウイルス検出がないことだけでは安全と判断できません。',
+        },
+        {
+          label: '身に覚えのないログイン成功・送信・購入がある',
+          explanation:
+            '公式サービスの履歴で、日時と操作を照合します。アカウント侵害の兆候ですが、これだけでPC感染とは確定できません。',
+        },
+        {
+          label: '保護設定や復旧先が勝手に変わった',
+          explanation:
+            'セキュリティ機能の無効化、知らない復旧メールなど、自分の操作や管理者の設定で説明できない変更を確認します。',
+        },
+        {
+          label: 'ファイルが使えなくなり、身代金を要求された',
+          explanation:
+            'ランサムウェア被害を疑う状態です。接続と保存機器を切り離し、管理者・警察・専門窓口へ相談します。',
+        },
+      ],
+      limitation:
+        '一方、PCが重い、ファンが回る、カーソルだけ動く、ブラウザに感染警告が出る、といった症状だけでは乗っ取りと断定できません。また、目立った症状がないことやスキャンの検出なしも、侵害がない証明にはなりません。下の表で確認先を選んでください。',
+      sources: [
+        {
+          label: '遠隔操作ソフトの悪用と検知の限界：IPA',
+          url: 'https://www.ipa.go.jp/security/anshin/attention/2023/mgdayori20230411.html',
+        },
+        {
+          label: '偽警告は感染していなくても出る：警察庁',
+          url: 'https://www.npa.go.jp/bureau/cyber/countermeasures/support-fraud.html',
+        },
+        {
+          label: 'ログイン成功・設定変更の読み方：Microsoft',
+          url: 'https://support.microsoft.com/ja-jp/accounts-billing/security/what-is-the-recent-activity-page',
+        },
+      ],
+    },
     diagnosis: [
       {
         symptom: '触っていないのに文字入力・アプリ操作・送信が続く',
@@ -268,6 +316,10 @@ export const pcSecurityArticles: PcArticle[] = [
       },
     ],
     sources: [
+      {
+        title: 'IPA：ランサムウェア対策（暗号化・身代金要求と相談）',
+        url: 'https://www.ipa.go.jp/security/anshin/measures/ransom_tokusetsu.html',
+      },
       {
         title: '警察庁：サポート詐欺対策（切断・被害時の対処・相談）',
         url: 'https://www.npa.go.jp/bureau/cyber/countermeasures/support-fraud.html',
