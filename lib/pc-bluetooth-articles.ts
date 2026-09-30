@@ -20,6 +20,45 @@ export const pcBluetoothArticles: PcArticle[] = [
       'デバイスマネージャーにアダプターがない → STEP 3の電源・接続確認から',
       'Bluetoothはオン、イヤホン・マウスだけ見つからない → STEP 5のペアリングへ',
     ],
+    evidenceSummary: {
+      title: 'Bluetoothが消えた地点で、確認先が変わる理由',
+      tocLabel: '消えた地点と判断根拠',
+      intro:
+        'アダプターはPC側の無線通信機器、接続する機器はイヤホン・マウスなどの相手です。次の整理はMicrosoftの設定・認識・ペアリングの案内を基にした判断例で、実機の故障を再現した検証結果ではありません。',
+      items: [
+        {
+          label: '設定のスイッチがない・灰色',
+          explanation:
+            'WindowsがPC側のBluetoothを検出・有効化できていない可能性があります。ドライバーや機器側の状態も確認対象です。登録済みイヤホンを削除する前に、アダプターの状態を調べます。',
+        },
+        {
+          label: '非表示にするとアダプターが現れる',
+          explanation:
+            '過去に接続されていた機器の項目も含まれます。コード45なら現在接続されていない状態で、一覧に名前があるだけでは使用可能と判断できません。電源の入れ直しやUSB接続を比較します。',
+        },
+        {
+          label: 'Bluetoothはオンにできるが特定機器だけ出ない',
+          explanation:
+            'PC側のスイッチ消失とは分け、相手機器が検出可能か、電池と接続先、Windowsの検出設定を調べます。別機器が同じPCで見つかるかも判断材料になります。',
+        },
+      ],
+      limitation:
+        '「アダプターが正常」と表示されても、ペアリングや実際の動作まで保証されません。復旧は、スイッチ・現在のアダプター・同じ機器での使用を確認して判断します。症状やコードだけで故障部品を確定しません。',
+      sources: [
+        {
+          label: 'スイッチ消失とPC側の確認：Microsoft',
+          url: `${bluetoothSupport}fix-bluetooth-disappeared-in-windows`,
+        },
+        {
+          label: 'コード45などの状態の読み方：Microsoft',
+          url: 'https://support.microsoft.com/ja-jp/windows/hardware/drivers/error-codes-in-device-manager-in-windows',
+        },
+        {
+          label: '接続する機器の検出とペアリング：Microsoft',
+          url: `${bluetoothSupport}pair-a-bluetooth-device-in-windows`,
+        },
+      ],
+    },
     diagnosis: [
       {
         symptom: 'クイック設定のボタンだけ見当たらない',
@@ -248,6 +287,12 @@ export const pcBluetoothArticles: PcArticle[] = [
     escalation:
       'メーカーへ伝える要点は「設定のスイッチ」「デバイスマネージャーのアダプター」「検索される接続機器」の3地点です。どれが消えたか、直前の更新、入れ直しや版変更の結果を渡してください。非表示にもアダプターがなく適合ドライバーでも戻らない場合は、型番別の点検へ進みます。登録機器の一括削除、Windows初期化、別型番のBIOS適用を先に行わないでください。',
     faqs: [
+      {
+        question:
+          'クイック設定のBluetoothボタンだけ消えた場合も再インストールが必要？',
+        answer:
+          '設定→Bluetoothとデバイスのスイッチが使え、同じ機器を接続して動作するなら、まずクイック設定の表示だけの問題として分けます。アダプター削除を先に行わず、設定側でも操作できない場合に認識の確認へ進んでください。',
+      },
       {
         question: 'Bluetoothが消えたらPCの故障ですか？',
         answer:
