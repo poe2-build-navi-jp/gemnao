@@ -30,9 +30,19 @@ export function GameArticleLinks({
         ? '現在確認されている問題'
         : heading;
   const orderedClusters =
-    game.slug === 'palworld'
-      ? [clusters[1], clusters[2], clusters[0], clusters[3], clusters[4]]
-      : clusters;
+    game.slug === 'aniimo'
+      ? [
+          { label: '起動・クラッシュ', categories: ['launch'] },
+          { label: 'ログイン・通信', categories: ['server'] },
+          {
+            label: '画面・ランチャー表示',
+            categories: ['settings', 'display'],
+          },
+          { label: 'GPU・メモリ', categories: ['specs'] },
+        ]
+      : game.slug === 'palworld'
+        ? [clusters[1], clusters[2], clusters[0], clusters[3], clusters[4]]
+        : clusters;
   return (
     <section
       className="article-link-section"
@@ -69,7 +79,11 @@ export function GameArticleLinks({
                     href={`/games/${game.slug}/${article.slug}`}
                     key={article.slug}
                   >
-                    <span>{categoryLabels[article.category]}</span>
+                    <span>
+                      {game.slug === 'aniimo'
+                        ? cluster.label
+                        : categoryLabels[article.category]}
+                    </span>
                     <strong>{article.shortTitle}</strong>
                     <p>{article.symptom}</p>
                     <b>
