@@ -160,7 +160,11 @@ export default async function PcArticlePage({
           {article.shortcutRows && (
             <a href="#shortcut-list">ショートカット早見表</a>
           )}
-          {article.evidenceSummary && <a href="#signs">乗っ取りを疑う兆候</a>}
+          {article.evidenceSummary && (
+            <a href="#signs">
+              {article.evidenceSummary.tocLabel ?? '乗っ取りを疑う兆候'}
+            </a>
+          )}
           <a href="#diagnosis">症状別の判断表</a>
           {article.steps.map((step, i) => (
             <a href={`#step-${i + 1}`} key={step.title}>

@@ -15,6 +15,7 @@ export type PcArticle = {
   quickChecks: string[];
   evidenceSummary?: {
     title: string;
+    tocLabel?: string;
     intro: string;
     items: { label: string; explanation: string }[];
     limitation: string;
