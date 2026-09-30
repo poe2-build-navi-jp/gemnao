@@ -59,7 +59,7 @@ export default async function PcArticlePage({
   const article = pcArticleBySlug(slug);
   if (!article) notFound();
   const canonical = `https://gemnao.pages.dev/pc/${slug}`;
-  const jsonLd = [
+  const jsonLd: Record<string, unknown>[] = [
     {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
@@ -100,6 +100,17 @@ export default async function PcArticlePage({
       ].map((src) => `https://gemnao.pages.dev${src}`),
     },
   ];
+  if (slug === 'pc-hacked-signs') {
+    jsonLd.push({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: article.faqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+      })),
+    });
+  }
   return (
     <main>
       <WikiHeader />

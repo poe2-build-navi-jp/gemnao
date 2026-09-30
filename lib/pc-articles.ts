@@ -1,3 +1,4 @@
+import { pcSecurityArticles } from '@/lib/pc-security-articles';
 import { pcGamingArticles } from '@/lib/pc-gaming-articles';
 
 // Windows 11 troubleshooting: one symptom, one reversible comparison at a time.
@@ -40,6 +41,7 @@ const ms = (path: string, title: string) => ({
 });
 
 export const pcArticles: PcArticle[] = [
+  ...pcSecurityArticles,
   {
     slug: 'microphone-after-update',
     title:
