@@ -1,5 +1,6 @@
 import { pcHardwareArticles } from '@/lib/pc-hardware-articles';
 import { pcBluetoothArticles } from '@/lib/pc-bluetooth-articles';
+import { pcUpdateStuckArticles } from '@/lib/pc-update-stuck-articles';
 import { pcSecurityArticles } from '@/lib/pc-security-articles';
 import { pcGamingArticles } from '@/lib/pc-gaming-articles';
 
@@ -51,6 +52,7 @@ const ms = (path: string, title: string) => ({
 });
 
 export const pcArticles: PcArticle[] = [
+  ...pcUpdateStuckArticles,
   ...pcBluetoothArticles,
   ...pcHardwareArticles,
   ...pcSecurityArticles,
@@ -1280,6 +1282,10 @@ export const pcArticles: PcArticle[] = [
       },
     ],
     related: [
+      {
+        href: '/pc/windows-update-stuck',
+        label: 'Windows Updateが終わらない・同じ更新を繰り返す',
+      },
       { href: '/pc/wifi-option-missing', label: 'Wi-Fiの項目自体が消えた' },
       { href: '/pc/audio-after-update', label: '更新後に音が出なくなった' },
     ],

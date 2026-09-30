@@ -4,7 +4,7 @@ export const pcHub = {
     'PCトラブルは、Windowsを操作できるか・どこまで症状が出るかで対処が変わります。黒い画面、ネット接続、音・マイク、USB-C、更新エラーを症状別に確認。操作画面、結果別の次の行動、公式の相談先を案内します。',
   answer:
     'PCトラブルは、まず「Windowsを操作できるか」「PC全体か特定のアプリ・機器だけか」「更新や接続変更の直後か」を確認します。不審な遠隔操作が続く場合は先にネット接続を切ってください。それ以外で操作できる場合は作業を保存し、症状に合う設定や接続先を一つずつ比較してください。画面が映らない場合と、停止コードを伴って再起動する場合は確認先が異なります。下の表から、自分の症状に合う手順へ進めます。',
-  checkedAt: '2026-09-30',
+  checkedAt: '2026-10-01',
 };
 
 export const pcHubSources = [
@@ -31,6 +31,13 @@ export const pcHubSources = [
 ];
 
 export const pcHubRows = [
+  {
+    symptom: 'Windows Updateが終わらない／0％・100％・再起動後で止まる',
+    check:
+      'Windowsを操作できるか、ダウンロード・インストール・再起動のどこかを確認',
+    href: '/pc/windows-update-stuck',
+    label: '待つか対処するかを画面から判断する',
+  },
   {
     symptom: 'Bluetoothが消えた／スイッチ・アダプター・機器がない',
     check: '設定のスイッチ、PC側のアダプター、接続する機器の3地点で表示を比較',
@@ -155,6 +162,7 @@ export const pcHubGroups = [
     title: 'Windows Update・スリープ・エクスプローラー',
     intro: 'エラー番号や発生する操作を確認して、該当する手順へ進みます。',
     slugs: [
+      'windows-update-stuck',
       'windows-update-0x800f081f',
       'sleep-wakes-up-by-itself',
       'file-explorer-freezes-on-right-click',

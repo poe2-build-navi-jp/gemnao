@@ -14,7 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '', updated: '2026-09-30' },
     { path: '/guide', updated: '2026-09-12' },
     { path: '/discord', updated: '2026-09-30' },
-    { path: '/pc', updated: '2026-09-30' },
+    { path: '/pc', updated: '2026-10-01' },
     { path: '/discord-servers', updated: '2026-09-30' },
     { path: '/discord-servers/guidelines', updated: '2026-09-17' },
     { path: '/about', updated: '2026-09-30' },
