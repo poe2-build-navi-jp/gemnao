@@ -35,7 +35,10 @@ export function ogCardSpecs(): OgCardSpec[] {
       {
         path: `/games/${game.slug}`,
         eyebrow: 'PC版トラブル解決まとめ',
-        title: `${game.shortTitle} PC版の不具合・エラー対処法`,
+        title:
+          game.slug === 'aniimo'
+            ? game.hubTitle!
+            : `${game.shortTitle} PC版の不具合・エラー対処法`,
         itemsLabel: '症状から探す',
         items: articles.slice(0, 4).map((article) => article.shortTitle),
       },

@@ -1,3 +1,5 @@
+import { aniimoHubTitle, aniimoHubAnswer } from '@/lib/aniimo-troubleshooting';
+
 export type GameGuide = {
   slug: string;
   title: string;
@@ -31,12 +33,12 @@ export const games: GameGuide[] = [
     slug: 'aniimo',
     title: 'Aniimo / アニモ',
     shortTitle: 'アニモ（Aniimo）',
-    hubTitle: 'アニモ（Aniimo）PC版の不具合・エラー対処法',
-    lead: 'アニモPC版で起動しない、黒画面、ログインできない、ビデオメモリ不足、ランチャー表示の問題が起きたときの確認手順をまとめています。',
+    hubTitle: aniimoHubTitle,
+    lead: 'アニモ（Aniimo）の不具合を、起動・ログイン・画面表示の症状から切り分けるPC版ガイドです。公式の修復方法と、結果に応じた次の行動を確認できます。',
     accent: '#6f5bd3',
-    demand: '2026年9月16日グローバル正式リリース直後',
+    demand: 'Windows PC版：公式ランチャー・Steam',
     issueScale: '高い',
-    updated: '2026-09-17',
+    updated: '2026-09-30',
     tags: [
       '起動しない',
       'クラッシュ',
@@ -53,9 +55,9 @@ export const games: GameGuide[] = [
     hdr: '',
     controller: '',
     launchFixes: [
-      '公式のお知らせでメンテナンス・更新情報を確認',
-      'ランチャーまたはSteamを終了し、PC再起動後にファイルを修復',
-      'GPUドライバーとWindows Updateを確認',
+      aniimoHubAnswer,
+      '起動失敗なら、公式ランチャーのワンクリック修復またはSteamの整合性確認後に同じ操作で比較',
+      '同じ症状が残れば発生時刻・エラー・修復結果を記録して公式サポートへ',
     ],
     mod: '',
     japanese: '日本語に公式対応。',
@@ -65,7 +67,26 @@ export const games: GameGuide[] = [
       storage: '公式ストアの最新表示を確認',
     },
     sources: [
-      { label: 'Aniimo公式サイト', url: 'https://www.aniimo.com/ja' },
+      {
+        label: 'Aniimo公式FAQ：起動・修復・ログイン・表示倍率',
+        url: 'https://aniimo.com/ja/newslist/detail/100091',
+      },
+      {
+        label: 'Aniimo公式：Intel CPUの安定性問題',
+        url: 'https://aniimo.com/ja/newslist/detail/100102',
+      },
+      {
+        label: 'Aniimo公式：更新・修正内容（9月23日）',
+        url: 'https://aniimo.com/ja/newslist/detail/100139',
+      },
+      {
+        label: 'Aniimo公式：不具合の報告窓口',
+        url: 'https://aniimo.com/newslist/detail/100117',
+      },
+      {
+        label: 'Steam公式：ゲームファイルの整合性確認',
+        url: 'https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB',
+      },
       {
         label: 'Aniimo公式ニュース',
         url: 'https://www.aniimo.com/newslist',

@@ -1,4 +1,11 @@
 import type { Metadata } from 'next';
+import { AniimoTroubleshootingHub } from '@/components/aniimo-troubleshooting-hub';
+import {
+  aniimoHubTitle,
+  aniimoHubDescription,
+  aniimoHubFaqs,
+} from '@/lib/aniimo-troubleshooting';
+import { siteConfig } from '@/lib/site-config';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { notFound } from 'next/navigation';
 import {
@@ -36,14 +43,14 @@ export async function generateMetadata({
   if (!game) return {};
   const title =
     game.slug === 'aniimo'
-      ? 'アニモ（Aniimo）PC版の不具合・エラー対処法'
+      ? aniimoHubTitle
       : game.focused
         ? // Focused hubs only list symptom articles, so don't promise save paths.
           `${game.shortTitle} PC版の不具合・エラー対処法`
         : `${game.shortTitle} PC版｜起動しない・セーブ場所・推奨スペック`;
   const description =
     game.slug === 'aniimo'
-      ? 'アニモ（Aniimo）PC版が起動しない、クラッシュ、黒画面、ログインできない、ビデオメモリ不足、ランチャー表示の問題を症状別に解決します。'
+      ? aniimoHubDescription
       : game.focused
         ? `${game.shortTitle} PC版の${game.tags.join('・')}を症状別に解決。${game.lead}`
         : `${game.shortTitle}のセーブデータと設定ファイルの場所、FPS上限、ウルトラワイド、HDR、コントローラー、起動・クラッシュ対策、MOD、日本語対応を解説。`;
@@ -107,26 +114,50 @@ export default async function GamePage({
     id: article.slug,
     label: article.shortTitle,
   }));
-  const faq = game.focused
-    ? [
-        {
-          q: `${game.shortTitle}では何を確認できますか？`,
-          a: `${game.launchFixes.join('。')}。確認済みの問題だけを個別記事で案内しています。`,
-        },
-      ]
-    : [
-        { q: `${game.shortTitle}のセーブデータはどこ？`, a: game.savePath },
-        {
-          q: `${game.shortTitle}が起動しないときは？`,
-          a: game.launchFixes.slice(0, 2).join('。'),
-        },
-        { q: `${game.shortTitle}は日本語化が必要？`, a: game.japanese },
-      ];
+  const faq =
+    game.slug === 'aniimo'
+      ? aniimoHubFaqs
+      : game.focused
+        ? [
+            {
+              q: `${game.shortTitle}では何を確認できますか？`,
+              a: `${game.launchFixes.join('。')}。確認済みの問題だけを個別記事で案内しています。`,
+            },
+          ]
+        : [
+            { q: `${game.shortTitle}のセーブデータはどこ？`, a: game.savePath },
+            {
+              q: `${game.shortTitle}が起動しないときは？`,
+              a: game.launchFixes.slice(0, 2).join('。'),
+            },
+            { q: `${game.shortTitle}は日本語化が必要？`, a: game.japanese },
+          ];
   const schema = [
     {
       '@context': 'https://schema.org',
       '@type': 'TechArticle',
-      headline: `${game.shortTitle} PC版トラブル解決ガイド`,
+      headline:
+        game.slug === 'aniimo'
+          ? aniimoHubTitle
+          : `${game.shortTitle} PC版トラブル解決ガイド`,
+      ...(game.slug === 'aniimo'
+        ? {
+            description: aniimoHubDescription,
+            publisher: {
+              '@type': 'Organization',
+              name: siteConfig.operatorName,
+              url: `${siteConfig.url}/about`,
+            },
+            citation: game.sources.map((source) => source.url),
+            image: `${siteConfig.url}${ogImageFor('/games/aniimo')}`,
+            keywords: [
+              'アニモ 不具合',
+              'Aniimo 不具合',
+              'アニモ エラー',
+              'アニモ 起動しない',
+            ],
+          }
+        : {}),
       dateModified: game.updated,
       author: { '@type': 'Organization', name: 'ゲムなお編集部' },
       inLanguage: 'ja-JP',
@@ -142,6 +173,28 @@ export default async function GamePage({
         acceptedAnswer: { '@type': 'Answer', text: item.a },
       })),
     },
+    ...(game.slug === 'aniimo'
+      ? [
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'ゲムなお',
+                item: siteConfig.url,
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: game.shortTitle,
+                item: `${siteConfig.url}/games/aniimo`,
+              },
+            ],
+          },
+        ]
+      : []),
   ];
   return (
     <main>
@@ -177,6 +230,16 @@ export default async function GamePage({
           <strong>このページの内容</strong>
           {game.focused ? (
             <>
+              {game.slug === 'aniimo' ? (
+                <>
+                  <a href="#aniimo-first">最初に確認すること</a>
+                  <a href="#aniimo-symptoms">症状別の確認表</a>
+                  <a href="#aniimo-official">公式情報とPC側の切り分け</a>
+                  <a href="#aniimo-repair">配布元別の修復</a>
+                  <a href="#aniimo-report">直らない場合の報告</a>
+                  <a href="#faq">よくある質問</a>
+                </>
+              ) : null}
               <a href="#article-links-title">症状から探す</a>
               <a href="#references">参考情報</a>
             </>
@@ -193,16 +256,19 @@ export default async function GamePage({
           )}
         </aside>
         <article className="guide-article">
-          <div className="safety-note">
-            <AlertTriangle size={20} />
-            <div>
-              <strong>変更前にバックアップ</strong>
-              <p>
-                セーブと設定ファイルは、フォルダごと別の場所へコピーしてから操作してください。
-              </p>
+          {game.slug !== 'aniimo' ? (
+            <div className="safety-note">
+              <AlertTriangle size={20} />
+              <div>
+                <strong>変更前にバックアップ</strong>
+                <p>
+                  セーブと設定ファイルは、フォルダごと別の場所へコピーしてから操作してください。
+                </p>
+              </div>
             </div>
-          </div>
+          ) : null}
 
+          {game.slug === 'aniimo' ? <AniimoTroubleshootingHub /> : null}
           <GameArticleLinks game={game} />
 
           <section className="evidence-panel" aria-labelledby="evidence-title">
@@ -386,6 +452,19 @@ export default async function GamePage({
             </>
           )}
 
+          {game.slug === 'aniimo' ? (
+            <section className="faq-section" id="faq">
+              <h2>アニモの不具合についてよくある質問</h2>
+              <div>
+                {faq.map((item) => (
+                  <details key={item.q}>
+                    <summary>{item.q}</summary>
+                    <p>{item.a}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
+          ) : null}
           <section className="sources" id="references">
             <h2>参考・確認先</h2>
             {game.sources.map((source) => (

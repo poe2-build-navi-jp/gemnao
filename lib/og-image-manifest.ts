@@ -40,7 +40,7 @@ export const ogImageManifest: Record<string, string> = {
   "/games/ace-combat-8/not-launching": "61333f59",
   "/games/aion2": "c1b351f2",
   "/games/aion2/login-error": "db0fe781",
-  "/games/aniimo": "30fe6a2d",
+  "/games/aniimo": "91ec9e8d",
   "/games/aniimo/black-screen": "d4ce40f0",
   "/games/aniimo/launcher-display": "60776225",
   "/games/aniimo/login-error": "6262e42b",
