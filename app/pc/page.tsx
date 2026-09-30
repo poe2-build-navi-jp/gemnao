@@ -219,7 +219,10 @@ export default function PcHub() {
         </section>
         {pcHubGroups.map((group) => (
           <section id={group.id} className="guide-section" key={group.id}>
-            <h2>{group.title}のトラブル</h2>
+            <h2>
+              {group.title}
+              {group.id === 'pc-keys' ? '' : 'のトラブル'}
+            </h2>
             <p>{group.intro}</p>
             {group.id === 'pc-update' ? (
               <p>
