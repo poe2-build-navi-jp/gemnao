@@ -24,6 +24,8 @@ import { siteConfig } from '@/lib/site-config';
 import { articleMatchesTrouble, troubleHubForGuide } from '@/lib/trouble-hubs';
 import { matchesNaturalQuery, normalizeSearchQuery } from '@/lib/site-search';
 import { RecentTroubles } from './recent-troubles';
+import { MyShortcut } from './my-shortcut';
+import { StatusTicker } from './status-board';
 import { WikiFooter, WikiHeader } from './wiki-header';
 
 const topics = [
@@ -263,6 +265,13 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
       </section>
 
       {!isSearching ? <RecentTroubles /> : null}
+
+      {!isSearching ? (
+        <div className="content home-personal">
+          <StatusTicker />
+          <MyShortcut />
+        </div>
+      ) : null}
 
       {!isSearching && (
         <section

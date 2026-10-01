@@ -11,6 +11,7 @@ import {
   readFeedback,
   recordStepSolved,
 } from '@/lib/feedback-db';
+import { recordFeedbackEvent } from '@/lib/status/events-db';
 
 const topics = new Set([
   'save',
@@ -138,6 +139,10 @@ export async function POST(request: NextRequest) {
     body.topic,
     body.kind as 'struggling' | 'resolved',
   );
+  // Time-stamped copy for the status board's "reports are rising" list.
+  // A failure here must not lose the vote itself.
+  if (body.kind === 'struggling')
+    await recordFeedbackEvent(body.game, 'struggling').catch(() => undefined);
   return NextResponse.json(
     { rows: await readFeedback(body.game) },
     { headers: { 'Cache-Control': 'no-store' } },

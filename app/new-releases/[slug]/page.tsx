@@ -10,6 +10,7 @@ import {
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { ShareButtons } from '@/components/share-buttons';
 import { ogImageFor } from '@/lib/og-images';
+import { MyPcFit } from '@/components/my-pc-fit';
 import {
   type Fit,
   releaseRoundupBySlug,
@@ -251,7 +252,9 @@ export default async function Page({
           >
             <h2 id="fit-title">GTX 1660・Windows 10で遊べる？（目安）</h2>
             <p>
-              ○＝最低環境を満たす目安、△＝条件付き、×＝満たさない、？＝記載なし。GPUは、最低環境のGPUとの世代・VRAMを編集部が比べた目安です。快適に遊べるかは推奨環境も確認してください。
+              ○＝最低環境を満たす目安、△＝条件付き、×＝満たさない、？＝記載なし。GPUは、最低環境のGPUとの世代・VRAMを編集部が比べた目安です。快適に遊べるかは推奨環境も確認してください。「あなたのPC」は
+              <a href="/my#my-pc">マイPC</a>
+              に登録したGPU・メモリ・Windowsで判定します（GPUの性能は目安。TPMやSSDなどは表の必須条件を確認してください）。
             </p>
             <table>
               <thead>
@@ -259,6 +262,7 @@ export default async function Page({
                   <th scope="col">ゲーム</th>
                   <th scope="col">GTX 1660（6GB）</th>
                   <th scope="col">Windows 10</th>
+                  <th scope="col">あなたのPC（マイPC）</th>
                 </tr>
               </thead>
               <tbody>
@@ -274,6 +278,9 @@ export default async function Page({
                     </td>
                     <td data-label="Windows 10">
                       <b>{fitLabel[game.win10]}</b> {game.win10Note}
+                    </td>
+                    <td data-label="あなたのPC">
+                      <MyPcFit spec={game.spec} />
                     </td>
                   </tr>
                 ))}
