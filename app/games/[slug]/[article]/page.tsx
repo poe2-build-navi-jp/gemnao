@@ -4,6 +4,7 @@ import { TroubleshootingArticle } from '@/components/troubleshooting-article';
 import { articleBySlug, gameArticles } from '@/lib/game-articles';
 import { gameBySlug } from '@/lib/games';
 import { ogImageFor } from '@/lib/og-images';
+import { languageAlternates } from '@/lib/localized/index';
 
 export function generateStaticParams() {
   return gameArticles.map((article) => ({
@@ -24,7 +25,7 @@ export async function generateMetadata({
   return {
     title: article.seoTitle,
     description: article.metaDescription,
-    alternates: { canonical },
+    alternates: { canonical, languages: languageAlternates(canonical) },
     openGraph: {
       type: 'article',
       title: article.seoTitle,

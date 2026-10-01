@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { WikiHome } from '@/components/wiki-home';
 import { siteConfig } from '@/lib/site-config';
+import { languageAlternates } from '@/lib/localized/index';
 
 export const metadata: Metadata = {
   description: siteConfig.description,
@@ -19,6 +20,7 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: '/',
+    languages: languageAlternates(''),
   },
 };
 

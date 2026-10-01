@@ -4,6 +4,7 @@
 
 import { Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { ui } from '@/lib/localized/ui';
 
 type MobileNavigationProps = {
   locale: 'ja' | 'en' | 'zh' | 'es';
@@ -37,13 +38,13 @@ export function MobileNavigation({
         className="mobile-menu"
         type="button"
         aria-label={
-          locale === 'en'
+          locale === 'ja'
             ? open
-              ? 'Close menu'
-              : 'Open menu'
-            : open
               ? 'メニューを閉じる'
               : 'メニューを開く'
+            : open
+              ? ui[locale].closeMenu
+              : ui[locale].openMenu
         }
         aria-expanded={open}
         aria-controls="mobile-navigation-panel"
@@ -56,19 +57,21 @@ export function MobileNavigation({
           <button
             className="mobile-navigation-backdrop"
             type="button"
-            aria-label={locale === 'en' ? 'Close menu' : 'メニューを閉じる'}
+            aria-label={
+              locale === 'ja' ? 'メニューを閉じる' : ui[locale].closeMenu
+            }
             onClick={() => setOpen(false)}
           />
           <aside
             className="mobile-navigation-panel"
             id="mobile-navigation-panel"
             aria-label={
-              locale === 'en' ? 'Mobile navigation' : 'スマートフォンメニュー'
+              locale === 'ja' ? 'スマートフォンメニュー' : ui[locale].mobileNav
             }
           >
-            <p>{locale === 'en' ? 'Explore Gemnao' : '主要ページ'}</p>
+            <p>{locale === 'ja' ? '主要ページ' : ui[locale].explore}</p>
             <nav>
-              <a href={root}>{locale === 'en' ? 'Home' : 'ホーム'}</a>
+              <a href={root}>{locale === 'ja' ? 'ホーム' : ui[locale].home}</a>
               {locale === 'ja' ? (
                 <a href="/#site-search">ゲーム名・症状を検索</a>
               ) : null}
@@ -83,15 +86,17 @@ export function MobileNavigation({
               ) : null}
               <a href="/guide">
                 {basicsLabel}
-                {locale === 'en' ? ' (Japanese)' : ''}
+                {locale === 'ja' ? '' : ui[locale].inJapanese}
               </a>
               <a href="/discord">
-                {locale === 'en' ? 'Discord (Japanese)' : 'Discordトラブル'}
+                {locale === 'ja'
+                  ? 'Discordトラブル'
+                  : `Discord${ui[locale].inJapanese}`}
               </a>
               <a href="/pc">
-                {locale === 'en'
-                  ? 'PC & Windows (Japanese)'
-                  : 'PC・Windowsの不具合'}
+                {locale === 'ja'
+                  ? 'PC・Windowsの不具合'
+                  : `${ui[locale].pcWindows}${ui[locale].inJapanese}`}
               </a>
               {locale === 'ja' ? (
                 <a href="/discord-servers">Discordサーバー募集</a>
@@ -101,7 +106,7 @@ export function MobileNavigation({
               ) : null}
               <a href="/about">
                 {aboutLabel}
-                {locale === 'en' ? ' (Japanese)' : ''}
+                {locale === 'ja' ? '' : ui[locale].inJapanese}
               </a>
             </nav>
             {locale === 'ja' ? (

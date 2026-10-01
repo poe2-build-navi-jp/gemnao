@@ -6,6 +6,9 @@ import { discordArticles } from '@/lib/discord-articles-all';
 import { troubleHubs } from '@/lib/trouble-hubs';
 import { releaseRoundups } from '@/lib/release-roundups';
 import { pcArticles } from '@/lib/pc-articles';
+import { locales } from '@/lib/i18n';
+import { gameFacts } from '@/lib/localized/game-facts';
+import { localizedArticles, localizedGameSlugs } from '@/lib/localized/index';
 import { gearArticles } from '@/lib/gear-articles';
 export default function sitemap(): MetadataRoute.Sitemap {
   if (process.env.NEXT_PUBLIC_SITE_PUBLIC === 'false') return [];
@@ -91,6 +94,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(article.checkedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
+    })),
+    // Translated pages (hreflang alternates are declared on each page).
+    ...locales.map((locale) => ({
+      url: `${base}/${locale}`,
+      lastModified: new Date('2026-10-01'),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    })),
+    ...locales.flatMap((locale) =>
+      localizedGameSlugs.map((slug) => ({
+        url: `${base}/${locale}/games/${slug}`,
+        lastModified: new Date(gameFacts[slug].checkedAt),
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+      })),
+    ),
+    ...localizedArticles.map((article) => ({
+      url: `${base}/${article.locale}/games/${article.gameSlug}/${article.slug}`,
+      lastModified: new Date(article.checkedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.75,
     })),
   ];
 }
