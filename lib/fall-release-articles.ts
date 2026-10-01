@@ -8,7 +8,7 @@ import type { GameArticle } from '@/lib/game-articles';
 type Draft = Omit<
   GameArticle,
   'checkedAt' | 'symptoms' | 'seoTitle' | 'status'
-> & { seoTitle?: string };
+> & { seoTitle?: string; checkedAt?: string };
 
 const make = (draft: Draft): GameArticle => ({
   checkedAt: '2026-09-28',
@@ -54,6 +54,11 @@ const townfallSources = {
   news: {
     label:
       'Steamニュース（公式）：アップデートの予定・DLCが反映されない問題の解消',
+    url: 'https://store.steampowered.com/news/app/1636440',
+  },
+  patch131: {
+    label:
+      'Steamニュース（公式）：Game Update (Patch 1.3.1)（シェーダーのプリコンパイルによるカクつきを軽減）',
     url: 'https://store.steampowered.com/news/app/1636440',
   },
   steam: {
@@ -290,19 +295,21 @@ export const fallReleaseArticles: GameArticle[] = [
     gameSlug: 'silent-hill-townfall',
     slug: 'stutter',
     category: 'display',
+    checkedAt: '2026-10-01',
     seoTitle: 'SILENT HILL: Townfallが重い・カクつく時の対処法【PC版】',
     title:
       'SILENT HILL: Townfall（サイレントヒル タウンフォール）が重い・カクつく時の対処法【PC版】',
     shortTitle: '重い・カクつく',
-    targetVersion: 'Steam版・Epic版・2026年9月28日時点（修正パッチ配信前）',
+    targetVersion:
+      'Steam版・Epic版（Patch 1.3.1／v1.4.153829）・2026年10月1日時点',
     symptom:
       'PC版でカクつく、移動中に一瞬止まる、fpsが安定しない、予約特典やDLCが反映されない場合の確認手順です。',
     conclusion:
-      'KONAMIは、Steam版・Epic版の性能の問題を修正するアップデートを準備中と発表しています（配信日は未定）。PC側の設定だけで完全に直すのは難しいため、パッチまではアップスケーリングとフレームレート上限で負荷を下げ、公式の告知を待つのが現実的です。',
+      '2026年9月30日に、シェーダーのプリコンパイルが原因のカクつきを軽減するアップデート（Patch 1.3.1）が配信されました。まずメインメニュー右下のバージョンが「v1.4.153829」になっているか確認します。適用後も重い場合は、アップスケーリングとフレームレート上限で負荷を下げて比べます。',
     description:
       '本作はUnreal Engine 5で作られており、動作環境はWindows 11です。まず動作環境を満たしているかを確認し、そのうえで設定を見直します。',
     causes: [
-      'PC版の性能の問題（公式が修正パッチを準備中）',
+      'シェーダーのプリコンパイルによるカクつき（Patch 1.3.1で軽減）',
       'Windows 11ではない・動作環境を満たしていない',
       '画質や解像度に対してGPUの負荷が高い',
       '古いGPUドライバー・破損したゲームファイル',
@@ -310,7 +317,8 @@ export const fallReleaseArticles: GameArticle[] = [
     quickFacts: [
       {
         label: '修正パッチ',
-        value: '公式が準備中（配信日は未定・2026年9月28日時点）',
+        value:
+          'Patch 1.3.1（9月30日配信）でシェーダーのプリコンパイルによるカクつきを軽減。メインメニュー右下が「v1.4.153829」なら適用済み',
       },
       {
         label: '最低動作環境',
@@ -336,7 +344,7 @@ export const fallReleaseArticles: GameArticle[] = [
     diagnosis: [
       {
         symptom: '設定を変えても移動中にカクつく',
-        cause: 'PC版の性能の問題',
+        cause: 'Patch 1.3.1が未適用',
         stepId: 'step-1',
       },
       {
@@ -368,15 +376,16 @@ export const fallReleaseArticles: GameArticle[] = [
     steps: [
       {
         id: 'step-1',
-        title: '公式のお知らせで修正パッチの配信を確認する',
+        title: 'Patch 1.3.1が適用されているか確認する',
         summary:
-          'KONAMIは、Steam版・Epic版の性能の問題に対応するアップデートを準備中と発表しています。配信日は決まり次第、公式サイトと公式SNSで告知されます。',
+          '2026年9月30日配信のPatch 1.3.1で、シェーダーのプリコンパイルが原因のカクつきが軽減されました（公式）。',
         time: '約2分',
         risk: 'low',
         actions: [
-          'SteamのSILENT HILL: Townfallのページで「ニュース」を開き、最新の告知を確認する',
-          'SILENT HILL公式X（@silenthill）と公式サイトも確認する',
-          '更新が配信されたら、Steamのダウンロード画面で適用してから起動する',
+          'ゲームを起動し、メインメニュー右下のバージョンが「v1.4.153829」になっているか確認する',
+          '古いバージョンの場合は、ゲームを終了してSteam（またはEpic Games Launcher）のダウンロード画面で更新を適用してから起動する',
+          '更新の直後は、シェーダーの準備で最初の起動に時間がかかる場合がある。同じ場面で更新前と比べる',
+          '今後の更新は、SteamのSILENT HILL: Townfallのページの「ニュース」で確認する',
         ],
       },
       {
@@ -448,7 +457,7 @@ export const fallReleaseArticles: GameArticle[] = [
       '重いからといって、先にWindowsの再インストールをしない（まず公式パッチと設定を確認する）',
     ],
     cautions: [
-      '修正パッチの配信後は、この記事の内容と症状が変わることがあります。最新の告知もあわせて確認してください。',
+      'Patch 1.3.1の内容は「シェーダーのプリコンパイルによるカクつきの軽減」です。今後の更新で症状が変わることがあるため、最新の告知もあわせて確認してください。',
     ],
     faqs: [
       {
@@ -466,15 +475,21 @@ export const fallReleaseArticles: GameArticle[] = [
         answer:
           '公式が性能の問題への対応を発表したのは、Steam版とEpic Games Store版です。',
       },
+      {
+        question: 'Patch 1.3.1で何が直りましたか？',
+        answer:
+          '公式のお知らせによると、シェーダーのプリコンパイルの問題が原因のプレイ中のカクつきが軽減されました。適用後のバージョンは、メインメニュー右下に「v1.4.153829」と表示されます。',
+      },
     ],
     sources: [
+      townfallSources.patch131,
       townfallSources.news,
       townfallSources.steam,
       townfallSources.pcgw,
     ],
     related: [],
     metaDescription:
-      'SILENT HILL: Townfall PC版が重い・カクつく時の対処法。公式が準備中の修正パッチ、Windows 11の動作環境、アップスケーリングとフレームレート上限の設定、DLCが反映されない時の手順、セーブデータの場所まで解説。',
+      'SILENT HILL: Townfall PC版が重い・カクつく時の対処法。9月30日配信のPatch 1.3.1（カクつき軽減）の確認方法、Windows 11の動作環境、アップスケーリングとフレームレート上限の設定、DLCが反映されない時の手順、セーブデータの場所まで解説。',
   }),
   make({
     gameSlug: 'minecraft-dungeons-2',

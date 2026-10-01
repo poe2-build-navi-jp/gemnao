@@ -103,7 +103,7 @@ export const ogImageManifest: Record<string, string> = {
   "/games/shin-sangoku-musou-2-remastered": "71d4a2b1",
   "/games/shin-sangoku-musou-2-remastered/not-launching": "de2a8227",
   "/games/silent-hill-townfall": "b094cb57",
-  "/games/silent-hill-townfall/stutter": "dde93ad5",
+  "/games/silent-hill-townfall/stutter": "fa190889",
   "/games/skyrim-special-edition": "07be4434",
   "/games/skyrim-special-edition/skse-after-update": "9f73941d",
   "/games/star-wars-zero-company": "86c17651",
