@@ -40,6 +40,11 @@ const aionSources = {
       'Steamニュース（公式）：Advanced Access Servers（先行アクセスの日程・サーバー一覧）',
     url: 'https://store.steampowered.com/news/app/3393110',
   },
+  launch: {
+    label:
+      'Steamニュース（公式）：Launch FAQ／Information on server transfer（9月30日）',
+    url: 'https://store.steampowered.com/news/app/3393110',
+  },
   steam: {
     label: 'Steamストア：AION 2（動作環境・対応言語）',
     url: 'https://store.steampowered.com/app/3393110/',
@@ -47,6 +52,11 @@ const aionSources = {
 };
 
 const aceSources = {
+  notice: {
+    label:
+      'Steamニュース（公式）：Product Notice（クラッシュの調査）・Error Code ST-3100001・Flight Stick Support Update',
+    url: 'https://store.steampowered.com/news/app/2288340',
+  },
   official: {
     label:
       '公式サイト：ACE COMBAT 8: WINGS OF THEVE（STEAM版システム要件・製品情報）',
@@ -87,14 +97,14 @@ export const launchWeekArticles: GameArticle[] = [
   make({
     gameSlug: 'aion2',
     slug: 'login-error',
-    checkedAt: '2026-09-29',
+    checkedAt: '2026-10-01',
     category: 'server',
     seoTitle: 'AION2にログインできない・接続できない時の対処法【PC版】',
     title:
       'AION2（アイオン2）にログインできない・接続できない時の対処法【PC版】',
     shortTitle: 'ログイン・接続できない',
     targetVersion:
-      'Steam版・PURPLE版（アーリーアクセス／正式サービス）・2026年9月29日時点',
+      'Steam版・PURPLE版（アーリーアクセス／正式サービス）・2026年10月1日時点',
     symptom:
       'ログイン画面から進まない、待機列が減らない、アーリーアクセスなのに入れない、プレイ中に切断される場合の確認手順です。',
     conclusion:
@@ -117,7 +127,7 @@ export const launchWeekArticles: GameArticle[] = [
       {
         label: 'アーリーアクセス',
         value:
-          '9月30日 22:00〜10月5日 14:00（日本時間。ファウンダーズパック購入者）',
+          '9月30日 22:30〜10月5日 14:00（日本時間。ファウンダーズパック購入者）。開始は当日30分延期された（公式）',
       },
       {
         label: 'メンテナンス',
@@ -132,6 +142,11 @@ export const launchWeekArticles: GameArticle[] = [
         label: 'サーバーの選び方',
         value:
           '起動後に地域→種族→サーバーの順に選ぶ。1つのサーバーには1つの種族だけ（公式）',
+      },
+      {
+        label: 'サーバー移動',
+        value:
+          '10月14日から同じ種族のサーバー間で移動可能（当初は無料）。アーリーアクセスのサーバーからは、アーリーアクセスのサーバーにだけ移動できる（公式）',
       },
       {
         label: 'Steamで事前テストに参加した人',
@@ -204,7 +219,8 @@ export const launchWeekArticles: GameArticle[] = [
         risk: 'low',
         actions: [
           '待機画面が表示されている間は、キャンセルや再起動を繰り返さない',
-          '別のサーバーが選べる場合は、混雑していないサーバーも検討する',
+          '別のサーバーが選べる場合は、混雑していないサーバーも検討する。公式は、待機列の長いサーバーではなく「おすすめ」のサーバーや新しく追加されたサーバーでキャラクターを作るよう案内している',
+          '友達と別のサーバーになっても、10月14日からのサーバー移動（同じ種族の間・当初は無料）で合流できる。ダンジョンなどのインスタンスコンテンツはサーバーをまたいで遊べる（公式）',
         ],
         note: '優先列は、規約違反などで処分を受けたアカウントや、違反が疑われるアカウントでは利用できなくなる場合があります（公式の案内）。',
       },
@@ -257,13 +273,28 @@ export const launchWeekArticles: GameArticle[] = [
     ],
     cautions: [
       'サービス開始直後は告知や仕様が頻繁に変わります。最新のお知らせもあわせて確認してください。',
-      '直らない場合は、発生日時・エラーの文章（スクリーンショット）・Steam版かPURPLE版か・回線の種類を添えて公式サポートに問い合わせてください。',
+      '直らない場合は、発生日時・エラーの文章（スクリーンショット）・Steam版かPURPLE版か・回線の種類を添えて公式サポート（help.plaync.com）に問い合わせてください。',
     ],
     faqs: [
       {
         question: 'アーリーアクセスは日本時間の何時から遊べますか？',
         answer:
           '公式の告知では、アーリーアクセスは9月30日13:00（UTC）から、日本時間では9月30日22:00からです。10月5日14:00（日本時間）に終わり、22:00までメンテナンスを行ったあと、正式サービスが始まる予定です。メンテナンスの時間は変わる場合があるため、公式のお知らせも確認してください。',
+      },
+      {
+        question: 'Steam版とPURPLE版で同じサーバーに入れますか？',
+        answer:
+          '公式のLaunch FAQによると、Steam版とPURPLE版は同じサーバーで、ゲーム内容も同じです。Steam版はPURPLEのアカウントと連携しなくても遊べますが、同じキャラクターを両方で使う場合は連携が必要です。',
+      },
+      {
+        question: 'コントローラーで遊べますか？',
+        answer:
+          '公式のLaunch FAQでは、コントローラーでも遊べるものの公式サポートの対象外とされています。',
+      },
+      {
+        question: 'サーバーを後から移動できますか？',
+        answer:
+          '公式によると、10月14日から同じ種族のサーバー間で移動できるようになり、当初は無料です。ただしアーリーアクセスのサーバーからは、アーリーアクセスのサーバーにだけ移動できます。',
       },
       {
         question: '別の種族の友達と同じサーバーで遊べますか？',
@@ -292,6 +323,7 @@ export const launchWeekArticles: GameArticle[] = [
       },
     ],
     sources: [
+      aionSources.launch,
       aionSources.servers,
       aionSources.predownload,
       aionSources.steamNews,
@@ -306,15 +338,17 @@ export const launchWeekArticles: GameArticle[] = [
     gameSlug: 'ace-combat-8',
     slug: 'not-launching',
     category: 'launch',
+    checkedAt: '2026-10-01',
     seoTitle: 'エースコンバット8が起動しない・クラッシュする時の対処法【PC版】',
     title:
       'エースコンバット8（ACE COMBAT 8）が起動しない・クラッシュする時の対処法【PC版】',
     shortTitle: '起動しない・クラッシュ',
-    targetVersion: 'STEAM版・2026年9月28日時点の公式システム要件',
+    targetVersion:
+      'STEAM版・公式システム要件と2026年10月1日時点の公式のお知らせ',
     symptom:
       'PC版（Steam）が起動しない、起動直後に落ちる、読み込みで止まる、プレイ中にクラッシュする場合の確認手順です。',
     conclusion:
-      '最初に、GPUがハードウェアレイトレーシングに対応しているか、Windows 11か、SSDにインストールしているかを確認します。公式のシステム要件では、この3つが最低環境から必須です。前作が快適に動いたPCでも、GTX 10／16シリーズのGPUやWindows 10では要件を満たしません。',
+      '最初に、GPUがハードウェアレイトレーシングに対応しているか、Windows 11か、SSDにインストールしているかを確認します。公式のシステム要件では、この3つが最低環境から必須です。要件を満たしているのに落ちる場合、公式はSteam版のクラッシュを調査中と発表しており、起動時に表示される推奨ドライバーへの更新、SSDの空き容量（16GB以上を推奨）、Windowsの仮想メモリの有効化を確認するよう案内しています。',
     description:
       '発売は2026年10月2日、DELUXE EDITIONなどのアーリーアクセスは9月29日からです。配信開始時間はストアに準拠するため前後する可能性があると、公式は案内しています。',
     causes: [
@@ -345,6 +379,16 @@ export const launchWeekArticles: GameArticle[] = [
         label: '発売日',
         value: '2026年10月2日（アーリーアクセスは9月29日から）',
       },
+      {
+        label: 'クラッシュ（公式が調査中）',
+        value:
+          '推奨ドライバーに更新／SSDの空きを16GB以上／仮想メモリを有効に（9月29日の公式のお知らせ）',
+      },
+      {
+        label: 'エラー ST-3100001',
+        value:
+          'ACE COMBAT ONLINEでサーバーとの通信が切れた時に出る。Windowsの時刻を同期（公式）',
+      },
     ],
     diagnosis: [
       {
@@ -374,8 +418,13 @@ export const launchWeekArticles: GameArticle[] = [
       },
       {
         symptom: 'プレイ中にだけ落ちる',
-        cause: '設定・メモリの負荷',
+        cause: '設定・メモリの負荷・仮想メモリ',
         stepId: 'step-6',
+      },
+      {
+        symptom: 'オンラインで「ST-3100001」が出て続けられない',
+        cause: 'サーバーとの通信切れ・PCの時刻のずれ',
+        stepId: 'step-7',
       },
     ],
     steps: [
@@ -413,7 +462,7 @@ export const launchWeekArticles: GameArticle[] = [
         risk: 'low',
         actions: [
           'Steamのライブラリでゲームを右クリック→「プロパティ」→「インストール済みファイル」→「インストールフォルダを移動」からSSDを選ぶ（再ダウンロード不要）',
-          '移動先のSSDに、アップデート分も含めて余裕があるか確認する',
+          'インストール後も、ゲームを入れたSSDに16GB以上の空きを残す（公式がクラッシュ対策として推奨）',
         ],
       },
       {
@@ -424,6 +473,7 @@ export const launchWeekArticles: GameArticle[] = [
         time: '約10分',
         risk: 'low',
         actions: [
+          'ゲームの起動時に推奨のドライバーのバージョンが表示された場合は、そのバージョンに更新する（公式）',
           'NVIDIA：NVIDIA Appからドライバーを更新する',
           'AMD：AMD Software: Adrenalin Editionから更新する',
           '更新後にPCを再起動してから起動する',
@@ -452,8 +502,23 @@ export const launchWeekArticles: GameArticle[] = [
           'グラフィック設定を1段階下げる（特にテクスチャ品質）',
           'アップスケーリングを有効にする（公式の性能の目安もアップスケール使用時の数値）',
           'ブラウザなどの常駐アプリを閉じてメモリの空きを増やす',
+          'Windowsの仮想メモリが有効か確認する（公式の案内）：「設定」→「システム」→「バージョン情報」→「システムの詳細設定」→「パフォーマンス」の「設定」→「詳細設定」タブ→「仮想メモリ」の「変更」で、「すべてのドライブのページング ファイルのサイズを自動的に管理する」にチェックが入っているか見る',
           'フライトスティックなど追加の入力機器を外して試す',
         ],
+      },
+      {
+        id: 'step-7',
+        title: 'オンラインで「ST-3100001」が出たらWindowsの時刻を同期する',
+        summary:
+          '公式によると、ACE COMBAT ONLINEでゲームサーバーとの通信が切れると、エラーコード「ST-3100001」が表示されます。',
+        time: '約2分',
+        risk: 'low',
+        actions: [
+          'タスクバーの時計がずれていないか確認する',
+          '「設定」→「時刻と言語」→「日付と時刻」を開き、「今すぐ同期」を押す',
+          'ゲームを起動し直して、もう一度オンラインに入る',
+        ],
+        note: '直らない場合は、公式のお知らせで障害の告知が出ていないか確認してください。',
       },
     ],
     avoid: [
@@ -461,7 +526,7 @@ export const launchWeekArticles: GameArticle[] = [
       '起動しないからといって、先にWindowsの再インストールをしない（まず要件を確認する）',
     ],
     cautions: [
-      '発売直後に見つかった不具合は、公式の告知とアップデートで修正されることがあります。最新のお知らせも確認してください。',
+      '公式はSteam版のクラッシュの原因を調査中です（2026年10月1日時点）。最新のお知らせも確認してください。',
     ],
     faqs: [
       {
@@ -480,12 +545,23 @@ export const launchWeekArticles: GameArticle[] = [
           '公式の「HIGH」設定・3840×2160（アップスケール使用）・60fpsの目安は、RTX 4080（16GB）・RX 7900 XTX（24GB）、Core i7-13700K・Ryzen 5 7600X、メモリ32GBです。',
       },
       {
+        question:
+          'フライトスティック（HOTAS）の設定が7のように細かくできません。',
+        answer:
+          '公式は、エースコンバット7で一部の機器に用意されていた設定の一部が8では使えないことを認め、改善を検討していると発表しています（9月30日）。対応には時間がかかる場合があるため、続報は公式のお知らせで確認してください。',
+      },
+      {
         question: 'オンラインは何人で遊べますか？クロスプレイは？',
         answer:
           'オンラインは最大8人です。クロスプラットフォームプレイに対応していますが、機種間でのセーブデータの共有（クロスセーブ）には対応していません（公式サイト）。',
       },
     ],
-    sources: [aceSources.official, aceSources.famitsu, aceSources.steam],
+    sources: [
+      aceSources.notice,
+      aceSources.official,
+      aceSources.famitsu,
+      aceSources.steam,
+    ],
     related: [],
     metaDescription:
       'PC版エースコンバット8が起動しない・落ちる時の対処法。レイトレーシング対応GPU・Windows 11・SSD（150GB）が最低環境から必須。GPUの確認方法、ドライバー更新、プレイ中のクラッシュ対策まで公式要件をもとに解説。',
