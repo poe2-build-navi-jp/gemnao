@@ -1,3 +1,5 @@
+import type { MinSpec } from '@/lib/my-pc';
+
 // Monthly roundups of the PC requirements for new releases.
 // Every value comes from the Steam store or the publisher's official site
 // (checked on `checkedAt`); Japanese release dates follow the publisher or
@@ -22,6 +24,8 @@ export type RoundupGame = {
   win10Note: string;
   article?: { href: string; label: string };
   source: string;
+  /** Structured minimum requirement for the マイPC check (lib/my-pc.ts). */
+  spec?: MinSpec;
 };
 
 export type ReleaseRoundup = {
@@ -57,6 +61,7 @@ export const releaseRoundups: ReleaseRoundup[] = [
         memory: '16GB',
         storage: '60GB',
         must: ['VRAM 6GB以上', 'Windows 11'],
+        spec: { gpu: ['gtx-1060-6gb'], vramGb: 6, ramGb: 16, windows11: true },
         gtx1660: 'yes',
         gtx1660Note: 'VRAM 6GBで、最低環境のGTX 1060（6GB）と同等以上',
         win10: 'no',
@@ -75,6 +80,12 @@ export const releaseRoundups: ReleaseRoundup[] = [
         memory: '16GB',
         storage: '150GB（SSD）',
         must: ['ハードウェアレイトレーシング対応GPU', 'SSD', 'Windows 11'],
+        spec: {
+          gpu: ['rtx-2060'],
+          ramGb: 16,
+          windows11: true,
+          rayTracing: true,
+        },
         gtx1660: 'no',
         gtx1660Note: 'レイトレーシング非対応のため起動できない',
         win10: 'no',
@@ -93,6 +104,7 @@ export const releaseRoundups: ReleaseRoundup[] = [
         memory: '8GB',
         storage: '100GB',
         must: ['常時インターネット接続'],
+        spec: { gpu: ['gtx-1050-ti'], vramGb: 4, ramGb: 8 },
         gtx1660: 'yes',
         gtx1660Note: '最低環境のGTX 1050 Ti（4GB）より上',
         win10: 'yes',
@@ -111,6 +123,7 @@ export const releaseRoundups: ReleaseRoundup[] = [
         memory: '12GB',
         storage: '115GB（SSD）',
         must: ['ハードウェアレイトレーシング対応GPU', 'SSD'],
+        spec: { gpu: ['rtx-2060'], ramGb: 12, rayTracing: true },
         gtx1660: 'no',
         gtx1660Note: 'レイトレーシング対応GPUが必須',
         win10: 'yes',
@@ -129,6 +142,7 @@ export const releaseRoundups: ReleaseRoundup[] = [
         memory: '16GB',
         storage: '記載なし（SSD推奨）',
         must: ['Windows 11（本編の動作環境）'],
+        spec: { gpu: ['gtx-1660'], ramGb: 16, windows11: true },
         gtx1660: 'yes',
         gtx1660Note: '最低環境がGTX 1660（本編の動作環境）',
         win10: 'no',
@@ -147,6 +161,7 @@ export const releaseRoundups: ReleaseRoundup[] = [
         memory: '16GB',
         storage: '10GB',
         must: ['Windows 11'],
+        spec: { gpu: ['gtx-1650'], ramGb: 16, windows11: true },
         gtx1660: 'yes',
         gtx1660Note: '最低環境のGTX 1650より上',
         win10: 'no',
@@ -161,6 +176,7 @@ export const releaseRoundups: ReleaseRoundup[] = [
         memory: '4GB',
         storage: '8GB',
         must: ['Windows 11'],
+        spec: { gpu: ['gtx-650-ti'], ramGb: 4, windows11: true },
         gtx1660: 'yes',
         gtx1660Note: '最低環境のGTX 650 Tiより上',
         win10: 'partial',
@@ -176,6 +192,7 @@ export const releaseRoundups: ReleaseRoundup[] = [
         memory: '16GB',
         storage: '記載なし',
         must: ['VRAM 8GB'],
+        spec: { gpu: ['gtx-1070'], vramGb: 8, ramGb: 16 },
         gtx1660: 'no',
         gtx1660Note: '最低環境のGPUはVRAM 8GBで、GTX 1660（6GB）は下回る',
         win10: 'unknown',
@@ -190,6 +207,7 @@ export const releaseRoundups: ReleaseRoundup[] = [
         memory: '12GB',
         storage: 'SSD必須',
         must: ['TPM 2.0とセキュアブート', 'Steamアカウントに電話番号', 'SSD'],
+        spec: { gpu: ['gtx-970'], vramGb: 3, ramGb: 12 },
         gtx1660: 'yes',
         gtx1660Note: 'ベータ版の最低環境（GTX 1060）より上',
         win10: 'partial',
@@ -209,6 +227,7 @@ export const releaseRoundups: ReleaseRoundup[] = [
         memory: '8GB',
         storage: '15GB',
         must: ['Windows 11'],
+        spec: { gpu: ['gtx-1650'], ramGb: 8, windows11: true },
         gtx1660: 'yes',
         gtx1660Note: '最低環境のGTX 1650より上',
         win10: 'no',
@@ -271,6 +290,7 @@ export const releaseRoundups: ReleaseRoundup[] = [
         memory: '16GB',
         storage: '10GB',
         must: ['最低GPUがRTX 2060'],
+        spec: { gpu: ['rtx-2060'], vramGb: 6, ramGb: 16 },
         gtx1660: 'no',
         gtx1660Note:
           '最低環境のRTX 2060（6GB）を下回る。体験版で確かめるのが確実',
@@ -286,6 +306,7 @@ export const releaseRoundups: ReleaseRoundup[] = [
         memory: '12GB',
         storage: '22GB',
         must: ['動作環境は確定前（公式の注記）'],
+        spec: { gpu: ['gtx-1060-6gb'], vramGb: 6, ramGb: 12 },
         gtx1660: 'yes',
         gtx1660Note: '最低環境のGTX 1060（6GB）より上',
         win10: 'yes',
@@ -300,6 +321,7 @@ export const releaseRoundups: ReleaseRoundup[] = [
         memory: '16GB',
         storage: '10GB（SSD必須）',
         must: ['Windows 11', 'SSD'],
+        spec: { gpu: ['gtx-1660'], vramGb: 6, ramGb: 16, windows11: true },
         gtx1660: 'yes',
         gtx1660Note: '最低環境がGTX 1660（6GB）',
         win10: 'no',
@@ -314,6 +336,7 @@ export const releaseRoundups: ReleaseRoundup[] = [
         memory: '8GB',
         storage: '3GB',
         must: [],
+        spec: { gpu: ['gtx-780'], ramGb: 8 },
         gtx1660: 'yes',
         gtx1660Note: '最低環境のGTX 780より上',
         win10: 'yes',
@@ -328,6 +351,7 @@ export const releaseRoundups: ReleaseRoundup[] = [
         memory: '4GB',
         storage: '1GB',
         must: [],
+        spec: { gpu: ['gtx-1050-ti'], ramGb: 4 },
         gtx1660: 'yes',
         gtx1660Note: '最低環境のGTX 1050 Tiより上',
         win10: 'yes',
@@ -342,6 +366,7 @@ export const releaseRoundups: ReleaseRoundup[] = [
         memory: '記載なし',
         storage: '記載なし',
         must: ['Windows 11'],
+        spec: { gpu: [], ramGb: 0, windows11: true },
         gtx1660: 'unknown',
         gtx1660Note: '最低環境のGPUは記載なし',
         win10: 'no',
@@ -356,6 +381,7 @@ export const releaseRoundups: ReleaseRoundup[] = [
         memory: '4GB',
         storage: '400MB',
         must: ['Windows 11'],
+        spec: { gpu: [], ramGb: 4, windows11: true },
         gtx1660: 'yes',
         gtx1660Note: '最低環境はDirectX 11対応GPU',
         win10: 'no',

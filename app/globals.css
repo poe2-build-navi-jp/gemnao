@@ -3123,15 +3123,45 @@ kbd {
   outline-offset: 2px;
 }
 
-.bot-recommendations > h2 { margin: 32px 0 18px; }
-.bot-common-steps ol, .bot-recommendation ol { list-style: decimal; padding-left: 24px; }
-.bot-common-steps li { margin-bottom: 12px; line-height: 1.9; }
-.bot-recommendation h4 { margin: 22px 0 12px; }
-.bot-recommendation li { margin-bottom: 12px; line-height: 1.9; }
-.bot-official-links { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
-.bot-official-links a { padding: 10px 14px; border: 1px solid var(--line); border-radius: 8px; overflow-wrap: anywhere; }
-.bot-result-list dt { font-weight: 700; margin-top: 18px; }
-.bot-result-list dd { margin: 6px 0 16px; line-height: 1.9; }
+.bot-recommendations > h2 {
+  margin: 32px 0 18px;
+}
+.bot-common-steps ol,
+.bot-recommendation ol {
+  list-style: decimal;
+  padding-left: 24px;
+}
+.bot-common-steps li {
+  margin-bottom: 12px;
+  line-height: 1.9;
+}
+.bot-recommendation h4 {
+  margin: 22px 0 12px;
+}
+.bot-recommendation li {
+  margin-bottom: 12px;
+  line-height: 1.9;
+}
+.bot-official-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+}
+.bot-official-links a {
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+}
+.bot-result-list dt {
+  font-weight: 700;
+  margin-top: 18px;
+}
+.bot-result-list dd {
+  margin: 6px 0 16px;
+  line-height: 1.9;
+}
 
 /* Article upgrades: quick facts, symptom table, step badges, avoid list */
 .quick-facts {
@@ -3386,8 +3416,12 @@ kbd {
   }
 }
 @media (max-width: 640px) {
-  .pc-step { padding: 18px 15px; }
-  .pc-step-results > div { padding: 11px 12px; }
+  .pc-step {
+    padding: 18px 15px;
+  }
+  .pc-step-results > div {
+    padding: 11px 12px;
+  }
 }
 
 .reset-config-details {
@@ -3458,130 +3492,375 @@ kbd {
 }
 .remove-mods-details li + li,
 .visual-c-details li + li,
-.verify-steam-details li + li { margin-top: 10px; }
-.remove-mods-details code,
-.visual-c-details code { overflow-wrap: anywhere; }
-
-.reset-examples { table-layout: fixed; }
-.reset-examples td { overflow-wrap: anywhere; }
-.reset-examples td p { margin: 0 0 8px; }
-.reset-examples .copy-button {
-  display: flex; align-items: center; gap: 6px; margin-top: 12px;
-  min-height: 40px; padding: 8px 12px; border: 1px solid #006c87;
-  border-radius: 6px; background: #fff; color: #00566c; cursor: pointer;
+.verify-steam-details li + li {
+  margin-top: 10px;
 }
-.reset-checklist-interactive fieldset { border: 0; padding: 0; margin: 0; }
-.reset-checklist-interactive legend { font-weight: 700; }
+.remove-mods-details code,
+.visual-c-details code {
+  overflow-wrap: anywhere;
+}
+
+.reset-examples {
+  table-layout: fixed;
+}
+.reset-examples td {
+  overflow-wrap: anywhere;
+}
+.reset-examples td p {
+  margin: 0 0 8px;
+}
+.reset-examples .copy-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px solid #006c87;
+  border-radius: 6px;
+  background: #fff;
+  color: #00566c;
+  cursor: pointer;
+}
+.reset-checklist-interactive fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+.reset-checklist-interactive legend {
+  font-weight: 700;
+}
 .reset-checklist-interactive label {
-  margin: 8px 0; padding: 14px; background: white; border: 2px solid #91aab3;
+  margin: 8px 0;
+  padding: 14px;
+  background: white;
+  border: 2px solid #91aab3;
   border-radius: 8px;
 }
-.reset-checklist-interactive label.is-checked { border-color: #08795f; background: #e4f5ee; }
-.reset-checklist-interactive input { appearance: auto; opacity: 1; position: static; }
-.reset-checklist-interactive output { display: block; margin-top: 12px; font-weight: 800; color: #075d49; }
-.reset-checklist-interactive label:focus-within { outline: 3px solid #e99b29; outline-offset: 2px; }
+.reset-checklist-interactive label.is-checked {
+  border-color: #08795f;
+  background: #e4f5ee;
+}
+.reset-checklist-interactive input {
+  appearance: auto;
+  opacity: 1;
+  position: static;
+}
+.reset-checklist-interactive output {
+  display: block;
+  margin-top: 12px;
+  font-weight: 800;
+  color: #075d49;
+}
+.reset-checklist-interactive label:focus-within {
+  outline: 3px solid #e99b29;
+  outline-offset: 2px;
+}
 
 /* Freeze guide: keep instructions and diagnostic readings easy to scan. */
-.freeze-details h3 { margin: 24px 0 10px; font-size: 18px; font-weight: 700; }
-.freeze-details p { margin: 12px 0; }
-.freeze-details ol, .freeze-details ul { margin: 16px 0; padding-left: 24px; }
-.freeze-details ol { list-style: decimal; }
-.freeze-details ul { list-style: disc; }
-.freeze-details li + li { margin-top: 8px; }
+.freeze-details h3 {
+  margin: 24px 0 10px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.freeze-details p {
+  margin: 12px 0;
+}
+.freeze-details ol,
+.freeze-details ul {
+  margin: 16px 0;
+  padding-left: 24px;
+}
+.freeze-details ol {
+  list-style: decimal;
+}
+.freeze-details ul {
+  list-style: disc;
+}
+.freeze-details li + li {
+  margin-top: 8px;
+}
 
 /* Black-screen guide instructions and diagnostic tables. */
-.black-screen-details h3 { margin: 24px 0 10px; font-size: 18px; font-weight: 700; }
-.black-screen-details p { margin: 12px 0; }
-.black-screen-details ol, .black-screen-details ul { margin: 16px 0; padding-left: 24px; }
-.black-screen-details ol { list-style: decimal; }
-.black-screen-details ul { list-style: disc; }
-.black-screen-details li + li { margin-top: 8px; }
+.black-screen-details h3 {
+  margin: 24px 0 10px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.black-screen-details p {
+  margin: 12px 0;
+}
+.black-screen-details ol,
+.black-screen-details ul {
+  margin: 16px 0;
+  padding-left: 24px;
+}
+.black-screen-details ol {
+  list-style: decimal;
+}
+.black-screen-details ul {
+  list-style: disc;
+}
+.black-screen-details li + li {
+  margin-top: 8px;
+}
 
 /* GPU driver guide: make vendor-specific procedures and comparisons scannable. */
-.gpu-driver-details h3 { margin: 24px 0 10px; font-size: 18px; font-weight: 700; }
-.gpu-driver-details p { margin: 12px 0; }
-.gpu-driver-details ol, .gpu-driver-details ul { margin: 16px 0; padding-left: 24px; }
-.gpu-driver-details ol { list-style: decimal; }
-.gpu-driver-details ul { list-style: disc; }
-.gpu-driver-details li + li { margin-top: 8px; }
+.gpu-driver-details h3 {
+  margin: 24px 0 10px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.gpu-driver-details p {
+  margin: 12px 0;
+}
+.gpu-driver-details ol,
+.gpu-driver-details ul {
+  margin: 16px 0;
+  padding-left: 24px;
+}
+.gpu-driver-details ol {
+  list-style: decimal;
+}
+.gpu-driver-details ul {
+  list-style: disc;
+}
+.gpu-driver-details li + li {
+  margin-top: 8px;
+}
 
 /* BSOD guide: keep diagnostic lists and Windows paths readable. */
-.bsod-details p { margin: 12px 0; }
-.bsod-details ol, .bsod-details ul { margin: 16px 0; padding-left: 24px; }
-.bsod-details ol { list-style: decimal; }
-.bsod-details ul { list-style: disc; }
-.bsod-details li + li { margin-top: 8px; }
-.bsod-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; }
+.bsod-details p {
+  margin: 12px 0;
+}
+.bsod-details ol,
+.bsod-details ul {
+  margin: 16px 0;
+  padding-left: 24px;
+}
+.bsod-details ol {
+  list-style: decimal;
+}
+.bsod-details ul {
+  list-style: disc;
+}
+.bsod-details li + li {
+  margin-top: 8px;
+}
+.bsod-details code {
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: #eef3f5;
+}
 
 /* Sudden power loss guide: readable comparison and diagnostic steps. */
-.power-shutdown-details p { margin: 12px 0; }
-.power-shutdown-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
-.power-shutdown-details li + li { margin-top: 8px; }
-.power-shutdown-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; }
+.power-shutdown-details p {
+  margin: 12px 0;
+}
+.power-shutdown-details ol {
+  margin: 16px 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+.power-shutdown-details li + li {
+  margin-top: 8px;
+}
+.power-shutdown-details code {
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: #eef3f5;
+}
 
 /* Steam Cloud conflicts: keep copy paths and choice examples readable. */
-.steam-cloud-details p { margin: 12px 0; }
-.steam-cloud-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
-.steam-cloud-details li + li { margin-top: 8px; }
-.steam-cloud-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; }
+.steam-cloud-details p {
+  margin: 12px 0;
+}
+.steam-cloud-details ol {
+  margin: 16px 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+.steam-cloud-details li + li {
+  margin-top: 8px;
+}
+.steam-cloud-details code {
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: #eef3f5;
+}
 
 /* Game crash guide: readable symptom table and Windows history instructions. */
-.crash-details p { margin: 12px 0; }
-.crash-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
-.crash-details li + li { margin-top: 8px; }
-.crash-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; overflow-wrap: anywhere; }
+.crash-details p {
+  margin: 12px 0;
+}
+.crash-details ol {
+  margin: 16px 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+.crash-details li + li {
+  margin-top: 8px;
+}
+.crash-details code {
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: #eef3f5;
+  overflow-wrap: anywhere;
+}
 
 /* DirectX guide: make the error-name branches and commands readable. */
-.directx-details p { margin: 12px 0; }
-.directx-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
-.directx-details li + li { margin-top: 8px; }
-.directx-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; overflow-wrap: anywhere; }
+.directx-details p {
+  margin: 12px 0;
+}
+.directx-details ol {
+  margin: 16px 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+.directx-details li + li {
+  margin-top: 8px;
+}
+.directx-details code {
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: #eef3f5;
+  overflow-wrap: anywhere;
+}
 
 /* Steam launch guide: make symptom and history branches readable. */
-.steam-launch-details p { margin: 12px 0; }
-.steam-launch-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
-.steam-launch-details li + li { margin-top: 8px; }
-.steam-launch-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; overflow-wrap: anywhere; }
+.steam-launch-details p {
+  margin: 12px 0;
+}
+.steam-launch-details ol {
+  margin: 16px 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+.steam-launch-details li + li {
+  margin-top: 8px;
+}
+.steam-launch-details code {
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: #eef3f5;
+  overflow-wrap: anywhere;
+}
 
 /* Game audio guide: keep output-device and per-app paths easy to scan. */
-.audio-details p { margin: 12px 0; }
-.audio-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
-.audio-details li + li { margin-top: 8px; }
-.audio-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; overflow-wrap: anywhere; }
+.audio-details p {
+  margin: 12px 0;
+}
+.audio-details ol {
+  margin: 16px 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+.audio-details li + li {
+  margin-top: 8px;
+}
+.audio-details code {
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: #eef3f5;
+  overflow-wrap: anywhere;
+}
 
 /* VRAM diagnosis: readable steps beside the existing responsive tables. */
-.vram-details p { margin: 12px 0; }
-.vram-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
-.vram-details li + li { margin-top: 8px; }
-.vram-details h3 { margin: 18px 0 10px; font-weight: 700; }
+.vram-details p {
+  margin: 12px 0;
+}
+.vram-details ol {
+  margin: 16px 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+.vram-details li + li {
+  margin-top: 8px;
+}
+.vram-details h3 {
+  margin: 18px 0 10px;
+  font-weight: 700;
+}
 
 /* FPS diagnosis: keep measurement instructions and comparisons legible. */
-.low-fps-details p { margin: 12px 0; }
-.low-fps-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
-.low-fps-details li + li { margin-top: 8px; }
-.low-fps-details h3 { margin: 18px 0 10px; font-weight: 700; }
+.low-fps-details p {
+  margin: 12px 0;
+}
+.low-fps-details ol {
+  margin: 16px 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+.low-fps-details li + li {
+  margin-top: 8px;
+}
+.low-fps-details h3 {
+  margin: 18px 0 10px;
+  font-weight: 700;
+}
 
 /* Steam disk write guide: keep steps readable beside responsive result tables. */
-.steam-disk-write-details p { margin: 12px 0; }
-.steam-disk-write-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
-.steam-disk-write-details li + li { margin-top: 8px; }
-.steam-disk-write-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; overflow-wrap: anywhere; }
+.steam-disk-write-details p {
+  margin: 12px 0;
+}
+.steam-disk-write-details ol {
+  margin: 16px 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+.steam-disk-write-details li + li {
+  margin-top: 8px;
+}
+.steam-disk-write-details code {
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: #eef3f5;
+  overflow-wrap: anywhere;
+}
 
 /* Low GPU usage guide: readable measurement steps and comparisons. */
-.low-gpu-usage-details p { margin: 12px 0; }
-.low-gpu-usage-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
-.low-gpu-usage-details li + li { margin-top: 8px; }
+.low-gpu-usage-details p {
+  margin: 12px 0;
+}
+.low-gpu-usage-details ol {
+  margin: 16px 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+.low-gpu-usage-details li + li {
+  margin-top: 8px;
+}
 
 /* Steam Input guide: make device, game, and result branches easy to scan. */
-.steam-input-details p { margin: 12px 0; }
-.steam-input-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
-.steam-input-details li + li { margin-top: 8px; }
+.steam-input-details p {
+  margin: 12px 0;
+}
+.steam-input-details ol {
+  margin: 16px 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+.steam-input-details li + li {
+  margin-top: 8px;
+}
 
 /* Double input guide: readable Windows checks and result branches. */
-.controller-double-details p { margin: 12px 0; }
-.controller-double-details ol { margin: 16px 0; padding-left: 24px; list-style: decimal; }
-.controller-double-details li + li { margin-top: 8px; }
-.controller-double-details code { padding: 2px 5px; border-radius: 4px; background: #eef3f5; }
+.controller-double-details p {
+  margin: 12px 0;
+}
+.controller-double-details ol {
+  margin: 16px 0;
+  padding-left: 24px;
+  list-style: decimal;
+}
+.controller-double-details li + li {
+  margin-top: 8px;
+}
+.controller-double-details code {
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: #eef3f5;
+}
 
 /* Amazonアソシエイトのリンク（広告であることが分かる表示） */
 .affiliate-box {
@@ -3691,4 +3970,277 @@ kbd {
   color: var(--blue);
   text-decoration: underline;
   overflow-wrap: anywhere;
+}
+
+/* Status board, マイPC, tools */
+.home-personal {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  padding-top: 18px;
+  padding-bottom: 0;
+}
+.status-ticker,
+.my-shortcut {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 18px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--orange);
+  border-radius: 12px;
+}
+.my-shortcut {
+  border-left-color: var(--blue);
+}
+.status-ticker h2,
+.my-shortcut h2 {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  font-size: 18px;
+}
+.status-ticker p,
+.my-shortcut p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.status-ticker > a,
+.my-shortcut > a {
+  align-self: flex-start;
+  color: var(--blue);
+  font-weight: 700;
+}
+.status-ticker-item b {
+  color: var(--orange);
+}
+.my-shortcut-games {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.my-shortcut-games a {
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 13px;
+}
+.status-board section,
+.my-dashboard section {
+  margin-top: 30px;
+}
+.status-updated,
+.status-note {
+  color: var(--muted);
+  font-size: 13px;
+}
+.status-empty {
+  padding: 12px 14px;
+  background: var(--card);
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  color: var(--muted);
+}
+.status-list {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.status-list li,
+div.status-list {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px 14px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow-wrap: anywhere;
+}
+div.status-list {
+  flex-direction: column;
+  gap: 4px;
+}
+.status-list p {
+  margin: 2px 0;
+}
+.status-badge {
+  flex: none;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #e8f1f5;
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.status-ongoing {
+  background: #fde7dd;
+  color: #a6421a;
+}
+.status-upcoming {
+  background: #fff3cd;
+  color: #7a5a00;
+}
+.my-pc-fit {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 13px;
+}
+.my-pc-fit b {
+  font-size: 16px;
+}
+.my-pc-fit small {
+  color: var(--muted);
+}
+.my-pc-fit-ok b {
+  color: #1f7a3f;
+}
+.my-pc-fit-maybe b {
+  color: #9a6b00;
+}
+.my-pc-fit-no b {
+  color: #b3261e;
+}
+.my-pc-fit-empty {
+  color: var(--blue);
+  font-weight: 700;
+}
+.my-pc-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  max-width: 560px;
+  padding: 18px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.my-pc-form label {
+  display: grid;
+  gap: 6px;
+  font-weight: 700;
+}
+.my-pc-form select {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  padding: 9px;
+  font: inherit;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.my-pc-form fieldset {
+  display: flex;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.my-pc-form fieldset label {
+  display: inline-flex;
+  font-weight: 400;
+}
+.my-pc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.my-pc-actions button,
+.refresh-check button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--blue);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.my-pc-actions button.secondary {
+  background: #fff;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+.my-pc-actions output {
+  color: #1f7a3f;
+  font-size: 14px;
+}
+.my-game-picker {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px 14px;
+}
+.my-game-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.my-game-card {
+  padding: 16px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow-wrap: anywhere;
+}
+.my-game-card h3 {
+  margin: 0 0 8px;
+}
+.my-game-card h4 {
+  margin: 12px 0 4px;
+  font-size: 14px;
+}
+.my-game-card ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14px;
+}
+.my-game-maintenance b {
+  color: var(--orange);
+}
+.save-location-list section {
+  margin-top: 26px;
+}
+.save-location-list h2 {
+  margin-bottom: 6px;
+  font-size: 20px;
+}
+.save-location-list h3 {
+  margin: 10px 0 4px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.refresh-check {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  margin: 24px 0;
+  padding: 20px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.refresh-check output b {
+  font-size: 28px;
+}
+@media (max-width: 760px) {
+  .home-personal,
+  .my-game-cards {
+    grid-template-columns: 1fr;
+  }
+  .my-game-picker {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }

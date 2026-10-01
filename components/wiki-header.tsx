@@ -56,6 +56,7 @@ export function WikiHeader({
           {labels.games}
         </a>
         {locale === 'ja' ? <a href="/#symptoms">症状から探す</a> : null}
+        {locale === 'ja' ? <a href="/status">障害情報</a> : null}
         <a href="/guide">
           {labels.basics}
           {locale === 'ja' ? '' : ui[locale].inJapanese}
@@ -163,6 +164,8 @@ export function WikiFooter({ locale = 'ja' }: { locale?: 'ja' | Locale }) {
         <a href="/about">運営情報</a>
         <a href="/privacy">プライバシー</a>
         <a href="/terms">利用規約・免責</a>
+        <a href="/status">障害・メンテ情報</a>
+        <a href="/tools">便利ツール</a>
         <a href="/discord-servers">Discordサーバー募集</a>
         <a href="/pc">PC・Windowsの不具合</a>
         <a href="/gear">ゲーマー向けデバイス</a>

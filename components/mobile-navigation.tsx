@@ -81,6 +81,9 @@ export function MobileNavigation({
                 {gamesLabel}
               </a>
               {locale === 'ja' ? <a href="/#symptoms">症状から探す</a> : null}
+              {locale === 'ja' ? <a href="/status">障害・メンテ情報</a> : null}
+              {locale === 'ja' ? <a href="/my">マイPC・マイゲーム</a> : null}
+              {locale === 'ja' ? <a href="/tools">便利ツール</a> : null}
               {locale === 'ja' ? (
                 <a href="/?view=articles#articles">解決記事一覧</a>
               ) : null}
