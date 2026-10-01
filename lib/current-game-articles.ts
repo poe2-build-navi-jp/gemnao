@@ -397,7 +397,10 @@ export const currentGameArticles: GameArticle[] = [
         label: '推奨環境の目安',
         value: 'RTX 2060 Super・RX 6600：「中」1080p（アップスケール）60fps',
       },
-      { label: '超解像技術', value: 'DLSS 4.5・FSR 3.1に対応（Steamストア）' },
+      {
+        label: '超解像技術',
+        value: 'DLSS・FSRに対応（DLSSは対応するGeForce RTXが必要）',
+      },
       {
         label: 'フレームレート上限',
         value: '30〜360fpsで設定、または上限なし（PCGamingWiki）',
@@ -475,11 +478,12 @@ export const currentGameArticles: GameArticle[] = [
         time: '約5分',
         risk: 'low',
         actions: [
-          'NVIDIAのGPUはDLSS、それ以外はFSRをオンにして、同じ場所で見え方とFPSを比べる',
+          '対応するGeForce RTXではDLSSを試す。GTX 1660などDLSS非対応のGPUでは、ゲーム内で選べるFSRなどの超解像設定を使う',
+          '設定を1項目ずつ変え、同じ場所・同じ場面で見え方とFPSを比べる',
           'フレームレート上限を、普段出ている値より少し低い値（例：60fps）にする',
           '変化がない場合は元の設定に戻す',
         ],
-        note: '公式の動作環境の目安は、アップスケール（DLSS 4.0・FSR 3.1）を使った状態で測定されています。',
+        note: '公式の動作環境の目安は、アップスケールを使った状態で測定されています。',
       },
       {
         id: 'step-5',
@@ -519,7 +523,15 @@ export const currentGameArticles: GameArticle[] = [
           'カプコンの公式ガイドでは、モバイルGPUや外付けGPUは基本的に動作保証の対象外とされています。遊ぶ場合は、充電器の接続、高パフォーマンスの電源設定、高パフォーマンスGPUの選択を確認してください。',
       },
     ],
-    sources: [sources.capcom, sources.steam, sources.pcgw],
+    sources: [
+      sources.capcom,
+      sources.steam,
+      sources.pcgw,
+      {
+        label: 'NVIDIA公式：DLSSの対応GPU（英語）',
+        url: 'https://forums.developer.nvidia.com/t/dlss-4-faq/321939',
+      },
+    ],
     related: [
       'gpu-driver-version',
       'shader-cache',

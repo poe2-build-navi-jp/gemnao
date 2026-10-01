@@ -53,3 +53,32 @@ assert.ok(pcPage.includes('id={`step-${i + 1}`}'));
 console.log(
   'Topic guide links: save targets, Discord branches, and Hz round trip passed.',
 );
+
+const mic = discordArticleBySlug('mic-volume-low');
+assert.ok(mic?.symptomGuide);
+assert.equal(mic.symptomGuide.href, '/discord/user-volume-low');
+assert.ok(discordArticleBySlug('user-volume-low'));
+assert.ok(mic.related.includes('user-volume-low'));
+assert.equal(new Set(mic.related).size, mic.related.length);
+const discordPage = readFileSync('app/discord/[slug]/page.tsx', 'utf8');
+assert.ok(
+  discordPage.indexOf('item.symptomGuide.href') <
+    discordPage.indexOf('id="answer"'),
+);
+const fps = articleBySlug('onimusha-way-of-the-sword', 'low-fps');
+assert.ok(fps);
+const upscaling = fps.steps.find((step) => step.id === 'step-4');
+assert.ok(upscaling);
+assert.match(upscaling.actions.join(' '), /対応するGeForce RTX/);
+assert.match(upscaling.actions.join(' '), /GTX 1660.*非対応.*FSR/);
+assert.match(upscaling.actions.join(' '), /同じ場所・同じ場面/);
+assert.doesNotMatch(JSON.stringify(fps), /DLSS 4\.[05]/);
+assert.ok(
+  fps.sources?.some(
+    (source) =>
+      source.url === 'https://forums.developer.nvidia.com/t/dlss-4-faq/321939',
+  ),
+);
+console.log(
+  'Article clarity: DLSS compatibility and early Discord listening route passed.',
+);

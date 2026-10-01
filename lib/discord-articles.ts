@@ -34,6 +34,7 @@ export type DiscordArticle = {
   metaDescription: string;
   symptom: string;
   target: string;
+  symptomGuide?: { description: string; href: string; label: string };
   conclusion: string;
   quickFixes: string[];
   /** Optional 1-based cause targets for the existing opening bullets. */

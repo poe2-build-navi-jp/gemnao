@@ -177,6 +177,12 @@ export default async function DiscordArticlePage({
           </p>
           <h1>{item.title}</h1>
           <p className="article-lead">{item.symptom}</p>
+          {item.symptomGuide ? (
+            <div className="procedure-note">
+              <p>{item.symptomGuide.description}</p>
+              <a href={item.symptomGuide.href}>{item.symptomGuide.label} →</a>
+            </div>
+          ) : null}
           <div className="article-meta">
             <span>最終確認：{item.checkedAt.replaceAll('-', '.')}</span>
             <span>対象：{item.target}</span>
