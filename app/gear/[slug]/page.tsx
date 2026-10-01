@@ -5,10 +5,14 @@ import { ArrowRight, CheckCircle2, ExternalLink } from 'lucide-react';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { ShareButtons } from '@/components/share-buttons';
 import { ogImageFor } from '@/lib/og-images';
-import { amazonUrl, gearArticleBySlug, gearArticles } from '@/lib/gear-articles';
+import { AffiliateLink } from '@/components/affiliate-link';
+import type { AffiliatePosition } from '@/lib/affiliate-analytics';
+import { gearArticleBySlug, gearArticles } from '@/lib/gear-articles';
+import { gearGuideBySlug, gearGuides } from '@/lib/gear-guides';
+import { GearBuyerGuide } from '@/components/gear-buyer-guide';
 
 export function generateStaticParams() {
-  return gearArticles.map(({ slug }) => ({ slug }));
+  return [...gearArticles, ...gearGuides].map(({ slug }) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -17,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const article = gearArticleBySlug(slug);
+  const article = gearArticleBySlug(slug) ?? gearGuideBySlug(slug);
   if (!article) return {};
   const path = `/gear/${slug}`;
   const image = ogImageFor(path);
@@ -44,7 +48,17 @@ export async function generateMetadata({
 }
 
 // 広告（PR）であることが分かる形でAmazonへのリンクを表示する
-function AmazonBox({ name, asin }: { name: string; asin: string }) {
+function AmazonBox({
+  name,
+  asin,
+  articlePath,
+  position,
+}: {
+  name: string;
+  asin: string;
+  articlePath: string;
+  position: AffiliatePosition;
+}) {
   return (
     <aside className="affiliate-box" aria-label="広告">
       <span className="affiliate-label">PR</span>
@@ -52,15 +66,15 @@ function AmazonBox({ name, asin }: { name: string; asin: string }) {
         <strong>{name}</strong>
         価格・在庫は販売ページで確認してください。
       </p>
-      <a
+      <AffiliateLink
         className="affiliate-button"
-        href={amazonUrl(asin)}
-        target="_blank"
-        rel="sponsored nofollow noopener"
+        asin={asin}
+        articlePath={articlePath}
+        position={position}
       >
         Amazonで見る
         <ExternalLink size={15} />
-      </a>
+      </AffiliateLink>
       <small>
         Amazonのアソシエイトとして、ゲムなおは適格販売により収入を得ています。
       </small>
@@ -74,6 +88,8 @@ export default async function GearArticlePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const guide = gearGuideBySlug(slug);
+  if (guide) return <GearBuyerGuide guide={guide} />;
   const article = gearArticleBySlug(slug);
   if (!article) notFound();
   const canonical = `https://gemnao.pages.dev/gear/${slug}`;
@@ -82,9 +98,24 @@ export default async function GearArticlePage({
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'ゲムなお', item: 'https://gemnao.pages.dev/' },
-        { '@type': 'ListItem', position: 2, name: 'ゲーマー向けデバイス', item: 'https://gemnao.pages.dev/gear' },
-        { '@type': 'ListItem', position: 3, name: article.shortTitle, item: canonical },
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'ゲムなお',
+          item: 'https://gemnao.pages.dev/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'ゲーマー向けデバイス',
+          item: 'https://gemnao.pages.dev/gear',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: article.shortTitle,
+          item: canonical,
+        },
       ],
     },
     {
@@ -97,7 +128,9 @@ export default async function GearArticlePage({
       author: { '@type': 'Organization', name: 'ゲムなお編集部' },
       about: article.product.name,
       mainEntityOfPage: canonical,
-      image: [`https://gemnao.pages.dev${ogImageFor(`/gear/${slug}`).split('?')[0]}`],
+      image: [
+        `https://gemnao.pages.dev${ogImageFor(`/gear/${slug}`).split('?')[0]}`,
+      ],
     },
   ];
   return (
@@ -116,11 +149,15 @@ export default async function GearArticlePage({
             <span>›</span>
             <b>{article.shortTitle}</b>
           </nav>
-          <p className="article-label">ゲーマー向けデバイス｜{article.product.maker}</p>
+          <p className="article-label">
+            ゲーマー向けデバイス｜{article.product.maker}
+          </p>
           <h1>{article.title}</h1>
           <p className="article-lead">{article.lead}</p>
           <div className="article-meta">
-            <span>公式情報の確認：{article.checkedAt.replaceAll('-', '.')}</span>
+            <span>
+              公式情報の確認：{article.checkedAt.replaceAll('-', '.')}
+            </span>
             <span>このページには広告（PR）を含みます</span>
           </div>
         </div>
@@ -144,7 +181,12 @@ export default async function GearArticlePage({
             </h2>
             <p>{article.answer}</p>
           </section>
-          <AmazonBox name={article.product.name} asin={article.product.asin} />
+          <AmazonBox
+            name={article.product.name}
+            asin={article.product.asin}
+            articlePath={`/gear/${slug}`}
+            position="after-answer"
+          />
           <section className="diagnosis-table" id="fit">
             <h2>向いている人・向いていない人</h2>
             <table>
@@ -204,7 +246,9 @@ export default async function GearArticlePage({
                 <thead>
                   <tr>
                     {article.compare.headers.map((h) => (
-                      <th scope="col" key={h}>{h}</th>
+                      <th scope="col" key={h}>
+                        {h}
+                      </th>
                     ))}
                   </tr>
                 </thead>
@@ -213,7 +257,9 @@ export default async function GearArticlePage({
                     <tr key={row[0]}>
                       {row.map((cell, i) =>
                         i === 0 ? (
-                          <th scope="row" key={cell}>{cell}</th>
+                          <th scope="row" key={cell}>
+                            {cell}
+                          </th>
                         ) : (
                           <td key={`${row[0]}-${i}`}>{cell}</td>
                         ),
@@ -241,7 +287,12 @@ export default async function GearArticlePage({
               ))}
             </div>
           </section>
-          <AmazonBox name={article.product.name} asin={article.product.asin} />
+          <AmazonBox
+            name={article.product.name}
+            asin={article.product.asin}
+            articlePath={`/gear/${slug}`}
+            position="after-faq"
+          />
           <section className="related-section">
             <h2>関連記事</h2>
             <div>
@@ -254,7 +305,11 @@ export default async function GearArticlePage({
               ))}
             </div>
           </section>
-          <ShareButtons title={article.title} path={`/gear/${slug}`} hashtag="ゲムなお" />
+          <ShareButtons
+            title={article.title}
+            path={`/gear/${slug}`}
+            hashtag="ゲムなお"
+          />
           <p className="correction-link">
             記載内容の誤りは
             <a href={`/contact?url=${encodeURIComponent(canonical)}`}>
@@ -268,7 +323,12 @@ export default async function GearArticlePage({
               仕様はメーカー公式ページで確認し、ゲムなおで整理しました。価格は販売店や時期で変わるため記載していません。実機での検証結果ではありません。
             </p>
             {article.sources.map((source) => (
-              <a href={source.url} key={source.url} target="_blank" rel="noreferrer">
+              <a
+                href={source.url}
+                key={source.url}
+                target="_blank"
+                rel="noreferrer"
+              >
                 {source.title}
                 <ExternalLink size={15} />
               </a>

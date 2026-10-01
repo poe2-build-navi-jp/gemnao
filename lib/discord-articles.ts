@@ -23,6 +23,7 @@ export type DiscordCause = {
   description: string;
   actions: string[];
   note?: string;
+  guideLink?: { href: string; label: string; description: string };
 };
 
 export type DiscordArticle = {

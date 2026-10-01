@@ -349,6 +349,7 @@ export default async function DiscordArticlePage({
                 summary: cause.description,
                 actions: cause.actions,
                 note: cause.note,
+                guideLink: cause.guideLink,
               }))}
               nextLinks={[
                 ...relatedItems.map((related) => ({

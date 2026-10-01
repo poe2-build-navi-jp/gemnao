@@ -10,6 +10,7 @@ import { releaseRoundups } from '@/lib/release-roundups';
 import { troubleHubs } from '@/lib/trouble-hubs';
 import { pcArticles } from '@/lib/pc-articles';
 import { gearArticles } from '@/lib/gear-articles';
+import { gearGuides } from '@/lib/gear-guides';
 import {
   discordArticleVisualBySlug,
   guideVisualBySlug,
@@ -126,8 +127,22 @@ export function ogCardSpecs(): OgCardSpec[] {
       eyebrow: 'ゲーマー向けデバイス',
       title: 'ゲーマー向けデバイス｜できること・買う前の確認点',
       itemsLabel: '掲載デバイス',
-      items: gearArticles.slice(0, 4).map((a) => a.shortTitle),
+      items: [...gearGuides, ...gearArticles]
+        .slice(0, 4)
+        .map((a) => a.shortTitle),
     },
+    ...gearGuides.map((guide) => ({
+      path: `/gear/${guide.slug}`,
+      eyebrow: 'ゲーマー向けデバイス',
+      title: guide.title,
+      itemsLabel: '買う前の判断',
+      items: [
+        '内蔵マイクで足りる？',
+        'USB別マイクとヘッドセット',
+        '端子・収音方向・周囲の音',
+        '必要な場合だけ製品を検討',
+      ],
+    })),
     ...gearArticles.map((article) => ({
       path: `/gear/${article.slug}`,
       eyebrow: 'ゲーマー向けデバイス',

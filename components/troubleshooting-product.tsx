@@ -1,4 +1,4 @@
-import { amazonUrl } from '@/lib/gear-articles';
+import { AffiliateLink } from '@/components/affiliate-link';
 
 // Show one optional product only in the relevant diagnostic step of these articles.
 const products: Record<
@@ -73,13 +73,13 @@ export function TroubleshootingProduct({
         。実機での動作検証に基づく紹介ではありません。
       </p>
       <p>
-        <a
-          href={amazonUrl(product.asin)}
-          target="_blank"
-          rel="sponsored nofollow noopener"
+        <AffiliateLink
+          asin={product.asin}
+          articlePath={articlePath}
+          position={`diagnostic-step-${step}`}
         >
           Amazonで製品の詳細を確認する
-        </a>
+        </AffiliateLink>
       </p>
       <small>
         Amazonのアソシエイトとして、ゲムなおは適格販売により収入を得ています。

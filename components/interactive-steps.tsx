@@ -24,6 +24,7 @@ type Step = {
   summary?: string;
   actions: string[];
   note?: string;
+  guideLink?: { href: string; label: string; description: string };
   time?: string;
   risk?: 'low' | 'medium' | 'high';
 };
@@ -472,6 +473,12 @@ export function InteractiveSteps({
                 </ol>
                 {step.note ? (
                   <p className="procedure-note">{step.note}</p>
+                ) : null}
+                {step.guideLink ? (
+                  <p className="procedure-note">
+                    {step.guideLink.description}{' '}
+                    <a href={step.guideLink.href}>{step.guideLink.label} →</a>
+                  </p>
                 ) : null}
                 <TroubleshootingProduct
                   articlePath={articlePath}

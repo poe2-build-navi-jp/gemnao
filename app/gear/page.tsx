@@ -3,12 +3,13 @@ import type { Metadata } from 'next';
 import { ArrowRight } from 'lucide-react';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { gearArticles } from '@/lib/gear-articles';
+import { gearGuides } from '@/lib/gear-guides';
 import { ogImageFor } from '@/lib/og-images';
 
 export const metadata: Metadata = {
   title: 'ゲーマー向けデバイス｜できること・買う前の確認点',
   description:
-    '左手デバイスなどゲーマー向けデバイスを、メーカー公式の仕様から整理。できること、向いている人、買う前に確認したい端子・対応OS・サイズをまとめています。',
+    'Discord用マイクや左手デバイスなどゲーマー向けデバイスを、メーカー公式の仕様から整理。できること、向いている人、買う前に確認したい端子・対応OS・サイズをまとめています。',
   alternates: { canonical: '/gear' },
   openGraph: {
     title: 'ゲーマー向けデバイス｜できること・買う前の確認点',
@@ -46,12 +47,12 @@ export default function GearHub() {
           気になるデバイスを、メーカー公式の仕様から整理しています。買う前に確認したい端子・対応OS・置き場所のサイズもまとめました。
         </p>
         <div className="guide-index-grid">
-          {gearArticles.map((article) => (
+          {[...gearGuides, ...gearArticles].map((article) => (
             <a href={`/gear/${article.slug}`} key={article.slug}>
               <strong>{article.shortTitle}</strong>
               <span>{article.lead}</span>
               <small>
-                できることを見る <ArrowRight size={14} />
+                選び方・確認点を見る <ArrowRight size={14} />
               </small>
             </a>
           ))}

@@ -10,6 +10,7 @@ import { locales } from '@/lib/i18n';
 import { gameFacts } from '@/lib/localized/game-facts';
 import { localizedArticles, localizedGameSlugs } from '@/lib/localized/index';
 import { gearArticles } from '@/lib/gear-articles';
+import { gearGuides } from '@/lib/gear-guides';
 export default function sitemap(): MetadataRoute.Sitemap {
   if (process.env.NEXT_PUBLIC_SITE_PUBLIC === 'false') return [];
   const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://gemnao.pages.dev';
@@ -89,11 +90,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     {
       url: `${base}/gear`,
-      lastModified: new Date(gearArticles[0].checkedAt),
+      lastModified: new Date(
+        [...gearArticles, ...gearGuides]
+          .map((article) => article.checkedAt)
+          .sort()
+          .at(-1)!,
+      ),
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     },
-    ...gearArticles.map((article) => ({
+    ...[...gearArticles, ...gearGuides].map((article) => ({
       url: `${base}/gear/${article.slug}`,
       lastModified: new Date(article.checkedAt),
       changeFrequency: 'monthly' as const,

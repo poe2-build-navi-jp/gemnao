@@ -7,7 +7,8 @@ export type AnalyticsEvent =
   | 'issue_resolved'
   | 'issue_struggling'
   | 'solution_method'
-  | 'share';
+  | 'share'
+  | 'affiliate_click';
 
 type Gtag = (
   command: 'event',
@@ -22,7 +23,12 @@ export function trackEvent(
   name: AnalyticsEvent,
   params: Record<string, string> = {},
 ) {
+  if (typeof window === 'undefined') return;
   const gtag = (window as unknown as { gtag?: Gtag }).gtag;
   if (typeof gtag !== 'function' || untrackedPath(location.pathname)) return;
-  gtag('event', name, params);
+  try {
+    gtag('event', name, params);
+  } catch {
+    // Analytics must never break the underlying interaction or navigation.
+  }
 }

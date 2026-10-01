@@ -1,5 +1,6 @@
 'use client';
 
+import { listenForAffiliateClicks } from '@/lib/affiliate-analytics';
 import { useEffect } from 'react';
 import { afterPageLoad } from '@/components/deferred-load';
 import { trackEvent, untrackedPath } from '@/lib/analytics';
@@ -22,6 +23,7 @@ export function AnalyticsLoader({ id }: { id: string }) {
       });
     };
     document.addEventListener('click', onClick);
+    const stopAffiliateClicks = listenForAffiliateClicks();
     const cancel = afterPageLoad(() => {
       if (document.querySelector('script[src*="googletagmanager.com/gtag"]'))
         return;
@@ -32,6 +34,7 @@ export function AnalyticsLoader({ id }: { id: string }) {
     });
     return () => {
       document.removeEventListener('click', onClick);
+      stopAffiliateClicks();
       cancel();
     };
   }, [id]);
