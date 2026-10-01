@@ -14,6 +14,7 @@ import {
 import { pcArticleBySlug, pcArticles } from '@/lib/pc-articles';
 import { gameLinksForPcArticle } from '@/lib/cross-links';
 import { siteConfig } from '@/lib/site-config';
+import { TroubleshootingProduct } from '@/components/troubleshooting-product';
 
 export function generateStaticParams() {
   return pcArticles.map(({ slug }) => ({ slug }));
@@ -339,6 +340,10 @@ export default async function PcArticlePage({
                     <dd>{step.revert}</dd>
                   </div>
                 </dl>
+                <TroubleshootingProduct
+                  articlePath={`/pc/${slug}`}
+                  step={i + 1}
+                />
               </section>
             ))}
           </section>

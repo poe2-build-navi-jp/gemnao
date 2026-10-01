@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { trackEvent } from '@/lib/analytics';
+import { TroubleshootingProduct } from '@/components/troubleshooting-product';
 import {
   solutionRanking,
   stepSolutionReports,
@@ -472,6 +473,10 @@ export function InteractiveSteps({
                 {step.note ? (
                   <p className="procedure-note">{step.note}</p>
                 ) : null}
+                <TroubleshootingProduct
+                  articlePath={articlePath}
+                  step={index + 1}
+                />
                 <div className="step-actions">
                   <button
                     className="step-solved"
