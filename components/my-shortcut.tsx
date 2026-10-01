@@ -10,14 +10,17 @@ import { gpuById } from '@/lib/my-pc';
 export function MyShortcut() {
   const [pc, , pcReady] = useMyPc();
   const [myGames, , gamesReady] = useMyGames();
-  if (!pcReady || !gamesReady) return null;
   const mine = games.filter((game) => myGames.includes(game.slug));
   return (
     <section className="my-shortcut" aria-labelledby="my-shortcut-title">
       <h2 id="my-shortcut-title">
-        <Cpu size={18} /> マイPC・マイゲーム
+        <Cpu size={18} aria-hidden="true" /> 自分のPC用にまとめる
       </h2>
-      {pc || mine.length ? (
+      <p>
+        PCと遊んでいるゲームを登録して、関連する解決記事や公式のお知らせ・メンテ情報をまとめて確認。
+        ログイン不要で、登録内容はこのブラウザにだけ保存されます。
+      </p>
+      {pcReady && gamesReady && (pc || mine.length) ? (
         <>
           {pc ? (
             <p>
@@ -33,15 +36,10 @@ export function MyShortcut() {
               ))}
             </div>
           ) : null}
-          <a href="/my">マイゲームの最新情報を見る</a>
+          <a href="/my">マイPC・マイゲームを見る →</a>
         </>
       ) : (
-        <>
-          <p>
-            PCと遊んでいるゲームを登録すると、新作が動くかの目安と、公式のお知らせ・メンテ情報がまとまります（ログイン不要）。
-          </p>
-          <a href="/my">登録する</a>
-        </>
+        <a href="/my">PC・ゲームを登録する →</a>
       )}
     </section>
   );

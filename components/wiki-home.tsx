@@ -264,12 +264,17 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
         ) : null}
       </section>
 
+      {!isSearching ? (
+        <div className="content home-my-shortcut">
+          <MyShortcut />
+        </div>
+      ) : null}
+
       {!isSearching ? <RecentTroubles /> : null}
 
       {!isSearching ? (
         <div className="content home-personal">
           <StatusTicker />
-          <MyShortcut />
         </div>
       ) : null}
 

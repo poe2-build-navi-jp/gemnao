@@ -57,6 +57,7 @@ export function WikiHeader({
         </a>
         {locale === 'ja' ? <a href="/#symptoms">症状から探す</a> : null}
         {locale === 'ja' ? <a href="/status">障害情報</a> : null}
+        {locale === 'ja' ? <a href="/my">マイPC</a> : null}
         <a href="/guide">
           {labels.basics}
           {locale === 'ja' ? '' : ui[locale].inJapanese}
