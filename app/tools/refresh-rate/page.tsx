@@ -19,9 +19,16 @@ export default function RefreshRatePage() {
         <p className="page-kicker">TOOLS</p>
         <h1>モニターのリフレッシュレート（Hz）確認ツール</h1>
         <p className="page-lead">
-          このページを測りたいモニターに表示して、ボタンを押してください。ブラウザが画面を描き直す間隔から、今のリフレッシュレートを測ります。
+          このページを測りたいモニターに表示して、ボタンを押してください。ブラウザが画面を描き直す間隔から、リフレッシュレートの目安を測ります。変更前の結果とWindowsの設定値を控えておくと、変更後と比べられます。
         </p>
         <RefreshRateCheck />
+        <p>
+          60Hzのまま、またはWindowsの表示と合わない場合は、
+          <a href="/pc/refresh-rate-stuck-60hz#diagnosis">
+            症状別の判断表から直す手順を選ぶ
+          </a>
+          → 設定を1つ変更 → このページで再測定、の順に進めます。
+        </p>
         <section>
           <h2>結果の見方</h2>
           <ul>
@@ -40,6 +47,28 @@ export default function RefreshRatePage() {
               測った値は目安です。正確な値は、Windowsの「設定」→「システム」→「ディスプレイ」→「ディスプレイの詳細設定」で確認できます。
             </li>
           </ul>
+        </section>
+        <section id="retest">
+          <h2>直した後に、同じ条件で再確認</h2>
+          <ol>
+            <li>
+              Windowsの「ディスプレイの詳細設定」で、対象モニターと現在のHzをもう一度確認します。
+            </li>
+            <li>
+              変更前と同じモニターにこのページを置き、上の測定ボタンをもう一度押します。Windowsの表示とブラウザの目安を別々に比べてください。
+            </li>
+            <li>
+              Windowsは高いHzになったのにゲームだけ滑らかでなければ、
+              <a href="/pc/refresh-rate-stuck-60hz#step-2">
+                ゲームだけ低い時の確認手順
+              </a>
+              へ。高いHzを選べないままなら、
+              <a href="/pc/refresh-rate-stuck-60hz#step-3">
+                ケーブル・端子の確認
+              </a>
+              に進みます。
+            </li>
+          </ol>
         </section>
         <section>
           <h2>HzとFPSの違い</h2>

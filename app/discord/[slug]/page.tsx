@@ -227,8 +227,16 @@ export default async function DiscordArticlePage({
             </h2>
             <p>{item.conclusion}</p>
             <ol>
-              {item.quickFixes.map((fix) => (
-                <li key={fix}>{fix}</li>
+              {item.quickFixes.map((fix, index) => (
+                <li key={fix}>
+                  {item.quickFixCauseIndexes?.[index] ? (
+                    <a href={`#cause-${item.quickFixCauseIndexes[index]}`}>
+                      {fix}
+                    </a>
+                  ) : (
+                    fix
+                  )}
+                </li>
               ))}
             </ol>
           </section>

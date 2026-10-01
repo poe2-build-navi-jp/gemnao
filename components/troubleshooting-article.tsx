@@ -23,6 +23,7 @@ import { commonGuideCategoryFor } from '@/lib/common-guide-categories';
 import { commonGuides } from '@/lib/common-guides';
 import { troubleHubForArticle } from '@/lib/trouble-hubs';
 import { pcLinksForGameArticle } from '@/lib/cross-links';
+import { saveGuideByGame } from '@/lib/tool-guide-links';
 
 const contentStatusLabels: Record<ContentStatus, string> = {
   verified: '確認済み',
@@ -168,6 +169,15 @@ export function TroubleshootingArticle({
               結論
             </h2>
             <p>{article.conclusion}</p>
+            {saveGuideByGame[game.slug]?.slug === article.slug ? (
+              <p>
+                保存場所をコピーするなら、
+                <a href={`/tools/save-locations#${game.slug}`}>
+                  {game.shortTitle}のセーブ・設定ファイル一覧
+                </a>
+                へ。バックアップ・復元は、このページの対象と手順を確認してから進めてください。
+              </p>
+            ) : null}
           </section>
           {article.quickFacts?.length ? (
             <section

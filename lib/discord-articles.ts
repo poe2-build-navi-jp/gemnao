@@ -36,6 +36,8 @@ export type DiscordArticle = {
   target: string;
   conclusion: string;
   quickFixes: string[];
+  /** Optional 1-based cause targets for the existing opening bullets. */
+  quickFixCauseIndexes?: number[];
   /** Where sharing fails, how to confirm it, and the cause section to follow. */
   diagnosis?: { symptom: string; check: string; causeIndex: number }[];
   diagnosisTitle?: string;
@@ -775,13 +777,14 @@ const existingDiscordArticles: DiscordArticle[] = [
     conclusion:
       '配信者もゲーム音が聞こえなければWindowsの音量ミキサーへ。配信者には聞こえるのに全員が無音なら、共有対象をゲームのアプリに選び直して比較。1人だけ無音なら、その視聴者が配信のミュートと音量を確認します。',
     quickFixes: [
-      '配信者がゲーム音を聞けるか、同じ配信を見ている2人には聞こえるか比べる',
-      '全員が無音なら、ゲームを起動したまま「アプリケーション」からそのウィンドウを選び直す',
-      '1人だけ無音なら、視聴者が配信画面を右クリックし、ミュートと配信の音量を確認する',
+      '配信者本人も聞こえない → 配信者がゲーム音量・出力先を確認',
+      '本人には聞こえるが視聴者全員が無音 → 配信者が共有対象を選び直す',
+      '同じ配信で視聴者1人だけ無音 → その視聴者が配信のミュート・音量を確認',
     ],
+    quickFixCauseIndexes: [1, 2, 3],
     diagnosisTitle: '誰に聞こえない？ 共有方法・配信者・視聴者の確認表',
     diagnosisIntro:
-      '同じ場面でゲーム音を鳴らし、配信者本人と視聴者2人に聞こえるか確かめてください。マイクの声と配信のゲーム音は分けて判定します。',
+      '同じ場面でゲーム音を鳴らし、配信者本人と視聴者2人に聞こえるか確かめてください。視聴者が1人だけなら「全員」か「その人だけ」かはまだ確定できません。マイクの声と配信のゲーム音は分けて判定します。',
     diagnosis: [
       {
         symptom: '配信者本人もゲーム音が聞こえない',
@@ -796,15 +799,15 @@ const existingDiscordArticles: DiscordArticle[] = [
         causeIndex: 2,
       },
       {
+        symptom: '同じ配信で1人だけゲーム音が聞こえない',
+        check: 'その人の配信画面のミュート・配信音量・Discordの出力先を確認',
+        causeIndex: 3,
+      },
+      {
         symptom: '「音声を共有」が見つからない',
         check:
           'Windows版デスクトップアプリか確認。項目がない場合もゲームのウィンドウを選んで比較',
         causeIndex: 2,
-      },
-      {
-        symptom: '同じ配信で1人だけゲーム音が聞こえない',
-        check: 'その人の配信画面のミュート・配信音量・Discordの出力先を確認',
-        causeIndex: 3,
       },
       {
         symptom: '別のアプリの音は届くが、このゲームだけ無音',

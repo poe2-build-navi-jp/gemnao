@@ -15,14 +15,14 @@ import {
   Server,
   Wrench,
 } from 'lucide-react';
-import { games } from '@/lib/games';
-import { categoryLabels, gameArticles } from '@/lib/game-articles';
 import { commonGuides } from '@/lib/common-guides';
-import { discordArticles } from '@/lib/discord-articles';
 import { pcArticles } from '@/lib/pc-articles';
 import { siteConfig } from '@/lib/site-config';
-import { articleMatchesTrouble, troubleHubForGuide } from '@/lib/trouble-hubs';
-import { matchesNaturalQuery, normalizeSearchQuery } from '@/lib/site-search';
+import {
+  searchGames,
+  searchArticles,
+  normalizeSearchQuery,
+} from '@/lib/site-search';
 import { RecentTroubles } from './recent-troubles';
 import { MyShortcut } from './my-shortcut';
 import { StatusTicker } from './status-board';
@@ -54,126 +54,24 @@ const featuredGuideSlugs = [
 export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
   const [query, setQuery] = useState('');
   const [articleCluster, setArticleCluster] = useState('all');
-  const visible = useMemo(
-    () =>
-      games.filter((game) => {
-        const haystack = [game.title, game.shortTitle, game.lead, ...game.tags]
-          .join(' ')
-          .toLowerCase();
-        return matchesNaturalQuery(haystack, query);
-      }),
-    [query],
-  );
+  const visible = useMemo(() => searchGames(query), [query]);
   const visibleArticles = useMemo(
-    () =>
-      [...gameArticles]
-        .filter((article) => {
-          const game = games.find((item) => item.slug === article.gameSlug);
-          const haystack = [
-            game?.title,
-            game?.shortTitle,
-            article.title,
-            article.shortTitle,
-            article.symptom,
-            article.description,
-            article.metaDescription,
-            categoryLabels[article.category],
-          ]
-            .join(' ')
-            .toLowerCase();
-          return (
-            matchesNaturalQuery(haystack, query) &&
-            (articleCluster === 'all' ||
-              articleMatchesTrouble(article, articleCluster))
-          );
-        })
-        .sort((a, b) => b.checkedAt.localeCompare(a.checkedAt)),
+    () => searchArticles(query, articleCluster),
     [articleCluster, query],
   );
   const isSearching = Boolean(query.trim());
   const isArticleFiltering = articleCluster !== 'all';
   const displayedGames =
     isSearching || view === 'games' ? visible : visible.slice(0, 6);
+  // Keep the existing game-only home preview. Search ranks all article types
+  // together, so a title match cannot be buried below incidental game mentions.
   const displayedArticles =
     isSearching || isArticleFiltering || view === 'articles'
       ? visibleArticles
-      : visibleArticles.slice(0, 6);
-  const supplementalArticles = useMemo(() => {
-    if (view !== 'articles' && !isSearching) return [];
-    const guides = commonGuides
-      .filter((guide) => guide.status === 'verified')
-      .filter(
-        (guide) =>
-          articleCluster === 'all' ||
-          troubleHubForGuide(guide)?.slug === articleCluster,
-      )
-      .filter((guide) =>
-        matchesNaturalQuery(
-          [
-            guide.title,
-            guide.shortTitle,
-            guide.description,
-            ...guide.causes,
-          ].join(' '),
-          query,
-        ),
-      )
-      .map((guide) => ({
-        key: `guide-${guide.slug}`,
-        href: `/guide/${guide.slug}`,
-        label: 'PC共通ガイド',
-        title: guide.shortTitle,
-        checkedAt: guide.checkedAt,
-      }));
-    const discord = discordArticles
-      .filter((article) => article.status === 'verified')
-      .filter(() => articleCluster === 'all' || articleCluster === 'discord')
-      .filter((article) =>
-        matchesNaturalQuery(
-          [
-            article.title,
-            article.shortTitle,
-            article.symptom,
-            article.metaDescription,
-            ...article.quickFixes,
-          ].join(' '),
-          query,
-        ),
-      )
-      .map((article) => ({
-        key: `discord-${article.slug}`,
-        href: `/discord/${article.slug}`,
-        label: 'Discord',
-        title: article.shortTitle,
-        checkedAt: article.checkedAt,
-      }));
-    const pc = pcArticles
-      .filter(() => articleCluster === 'all' || articleCluster === 'pc')
-      .filter((article) =>
-        matchesNaturalQuery(
-          [
-            article.title,
-            article.shortTitle,
-            article.lead,
-            article.description,
-            ...article.quickChecks,
-          ].join(' '),
-          query,
-        ),
-      )
-      .map((article) => ({
-        key: `pc-${article.slug}`,
-        href: `/pc/${article.slug}`,
-        label: 'PC・Windows',
-        title: article.shortTitle,
-        checkedAt: article.checkedAt,
-      }));
-    return [...guides, ...discord, ...pc].sort((a, b) =>
-      b.checkedAt.localeCompare(a.checkedAt),
-    );
-  }, [articleCluster, isSearching, query, view]);
-  const displayedArticleCount =
-    displayedArticles.length + supplementalArticles.length;
+      : visibleArticles
+          .filter((article) => article.kind === 'game')
+          .slice(0, 6);
+  const displayedArticleCount = displayedArticles.length;
   const featuredGuides = featuredGuideSlugs
     .map((slug) => commonGuides.find((guide) => guide.slug === slug))
     .filter((guide): guide is NonNullable<typeof guide> => Boolean(guide));
@@ -442,27 +340,7 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
           ) : null}
           {displayedArticleCount ? (
             <div className="home-article-grid">
-              {displayedArticles.map((article) => {
-                const game = games.find(
-                  (item) => item.slug === article.gameSlug,
-                );
-                return (
-                  <a
-                    href={`/games/${article.gameSlug}/${article.slug}`}
-                    key={`${article.gameSlug}-${article.slug}`}
-                  >
-                    <span>
-                      {game?.shortTitle}・{categoryLabels[article.category]}
-                    </span>
-                    <h3>{article.shortTitle}</h3>
-                    <p>更新日：{article.checkedAt.replaceAll('-', '.')}</p>
-                    <b>
-                      解決手順を見る <ChevronRight size={16} />
-                    </b>
-                  </a>
-                );
-              })}
-              {supplementalArticles.map((article) => (
+              {displayedArticles.map((article) => (
                 <a href={article.href} key={article.key}>
                   <span>{article.label}</span>
                   <h3>{article.title}</h3>

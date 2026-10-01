@@ -190,6 +190,16 @@ export default async function PcArticlePage({
               <CheckCircle2 size={23} /> 結論
             </h2>
             <p>{article.answer}</p>
+            {slug === 'refresh-rate-stuck-60hz' ? (
+              <p>
+                変更前後を比べるには
+                <a href="/tools/refresh-rate">Hz確認ツール</a>を使えます。
+                まずWindowsの現在値とツールの目安を控え、下の症状に合う手順を1つ試し、
+                <a href="/tools/refresh-rate#retest">同じモニターで再確認</a>
+                してください。
+                ツールの数値だけで設定の成否を決めず、Windowsの表示とゲームのFPSも分けて確認します。
+              </p>
+            ) : null}
             <ol>
               {article.quickChecks.map((check) => (
                 <li key={check}>{check}</li>
