@@ -973,6 +973,21 @@ export function articlesForGame(gameSlug: string) {
   return gameArticles.filter((article) => article.gameSlug === gameSlug);
 }
 
+/**
+ * A game hub is worth indexing only when it adds something beyond its
+ * articles: two or more articles to choose from, or (for the non-focused
+ * hubs) its own save-path / settings reference. A focused hub with a single
+ * article would just repeat that article, so it stays noindex, follow.
+ */
+export function hubIndexable(game: { slug: string; focused?: boolean }) {
+  if (!game.focused) return true;
+  return (
+    articlesForGame(game.slug).filter(
+      (article) => !['draft', 'thin'].includes(article.status || 'verified'),
+    ).length >= 2
+  );
+}
+
 export function articleBySlug(gameSlug: string, articleSlug: string) {
   return gameArticles.find(
     (article) => article.gameSlug === gameSlug && article.slug === articleSlug,

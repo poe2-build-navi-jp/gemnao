@@ -23,7 +23,7 @@ const labels = {
     ],
     title: 'みんなの困りごと・解決状況',
     intro:
-      'ゲムなお内でボタンが押された回数を集計します。公開後に実測値が蓄積され、どの問題が多く、どの情報が解決につながったかを確認できます。',
+      '同じ症状で困っている人・解決した人の数です。押していただいた結果は、記事の見直しに使います。',
     struggling: '困っている',
     resolved: '解決した',
     unit: '件',
@@ -249,7 +249,6 @@ export function IssueFeedback({
     >
       <div className="feedback-heading">
         <div>
-          <p className="evidence-label">GEMNAO FIRST-PARTY DATA</p>
           <h2 id="feedback-title">
             {compact && locale === 'ja'
               ? 'この情報は役に立ちましたか？'

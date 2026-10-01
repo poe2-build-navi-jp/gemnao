@@ -329,7 +329,6 @@ export function InteractiveSteps({
           "collecting data" panel on every article reads as unfinished. */}
       {solvedRate !== null ? (
         <div className="solution-data-panel">
-          <p className="evidence-label">GEMNAO FIRST-PARTY DATA</p>
           <h2>このトラブルの解決状況</h2>
           <div className="solution-data-summary">
             <strong>解決報告の割合 {solvedRate}%</strong>

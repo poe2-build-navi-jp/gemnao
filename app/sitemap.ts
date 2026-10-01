@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { games } from '@/lib/games';
-import { gameArticles } from '@/lib/game-articles';
+import { gameArticles, hubIndexable } from '@/lib/game-articles';
 import { commonGuides } from '@/lib/common-guides';
 import { discordArticles } from '@/lib/discord-articles-all';
 import { troubleHubs } from '@/lib/trouble-hubs';
@@ -53,7 +53,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${base}${path}`,
       lastModified: new Date(updated),
     })),
-    ...games.map((game) => ({
+    ...games.filter(hubIndexable).map((game) => ({
       url: `${base}/games/${game.slug}`,
       lastModified: new Date(game.updated),
       changeFrequency: 'monthly' as const,
