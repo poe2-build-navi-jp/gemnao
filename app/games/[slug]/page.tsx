@@ -10,7 +10,6 @@ import { siteConfig } from '@/lib/site-config';
 import { notFound } from 'next/navigation';
 import {
   AlertTriangle,
-  BarChart3,
   CheckCircle2,
   ExternalLink,
   FolderOpen,
@@ -25,7 +24,7 @@ import { IssueFeedback } from '@/components/issue-feedback';
 import { GameArticleLinks } from '@/components/game-article-links';
 import { PathCopy } from '@/components/path-copy';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
-import { articlesForGame } from '@/lib/game-articles';
+import { articlesForGame, hubIndexable } from '@/lib/game-articles';
 import { gameBySlug, games } from '@/lib/games';
 import { ogImageFor } from '@/lib/og-images';
 
@@ -57,6 +56,7 @@ export async function generateMetadata({
   return {
     title,
     description,
+    ...(hubIndexable(game) ? {} : { robots: { index: false, follow: true } }),
     alternates: {
       canonical: `/games/${game.slug}`,
     },
@@ -220,7 +220,6 @@ export default async function GamePage({
           <p className="article-lead">{game.lead}</p>
           <div className="article-meta">
             <span>最終確認 {game.updated.replaceAll('-', '.')}</span>
-            <span>{game.demand}</span>
           </div>
         </div>
       </div>
@@ -270,40 +269,6 @@ export default async function GamePage({
 
           {game.slug === 'aniimo' ? <AniimoTroubleshootingHub /> : null}
           <GameArticleLinks game={game} />
-
-          <section className="evidence-panel" aria-labelledby="evidence-title">
-            <div className="evidence-copy">
-              <p className="evidence-label">EVIDENCE STATUS</p>
-              <h2 id="evidence-title">
-                <BarChart3 size={22} />
-                このガイドの根拠
-              </h2>
-              <p>
-                公式ストアと技術資料を照合し、実行可能な手順だけを要約しています。外部サイトの文章は転載していません。
-              </p>
-            </div>
-            <div className="evidence-stats">
-              <div>
-                <span>情報の確認状況</span>
-                <b>継続確認中</b>
-                <small>公式情報と匿名回答を確認</small>
-              </div>
-              <div>
-                <span>確認した出典</span>
-                <b>{game.sources.length}件</b>
-                <small>本ページから確認可能</small>
-              </div>
-              <div>
-                <span>優先度付き対策</span>
-                <b>{game.launchFixes.length}件</b>
-                <small>上から順に切り分け</small>
-              </div>
-            </div>
-            <p className="evidence-caveat">
-              ※
-              検索需要や解決率を推測で表示せず、確認できる出典と実際の匿名回答だけを利用します。
-            </p>
-          </section>
 
           {feedbackTopics.length ? (
             <IssueFeedback
@@ -390,11 +355,6 @@ export default async function GamePage({
                       <span>{index + 1}</span>
                       <div>
                         <b>{fix}</b>
-                        {index === 0 && (
-                          <small>
-                            ここで直るケースが最も多いため、最初に実施します。
-                          </small>
-                        )}
                       </div>
                     </li>
                   ))}

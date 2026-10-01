@@ -111,7 +111,7 @@ export default function DiscordHub() {
         <p className="correction-link">
           ここに載っていない症状もありますか？{' '}
           <a href="/contact">お問い合わせから教えてください</a>
-          。検索需要を確認したうえで記事化を検討します。
+          。いただいた内容をもとに、記事の追加を検討します。
         </p>
         <p className="correction-link">
           PCゲーム中の起動・FPS・MODなどのトラブルは{' '}

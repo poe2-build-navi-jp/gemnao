@@ -50,7 +50,6 @@ export function GameArticleLinks({
     >
       <div className="article-link-heading">
         <div>
-          <p className="evidence-label">TROUBLESHOOTING</p>
           <h2 id="article-links-title">{displayHeading}</h2>
         </div>
         <span>{articles.length}記事</span>
@@ -60,7 +59,7 @@ export function GameArticleLinks({
           ? '各記事で、設定画面の開き方・確認結果の読み方・改善しない場合の次の行動を確認できます。'
           : game.focused
             ? '確認済みの問題から、当てはまる症状を選んでください。各記事に確認日と参照元を掲載しています。'
-            : '困っている内容に近い項目を1つ選んでください。各記事は検索意図が重ならないよう、1つの問題と解決手順に絞っています。'}
+            : '困っている内容に近い項目を1つ選んでください。各記事に確認日と参照元を掲載しています。'}
       </p>
       <div className="article-clusters">
         {orderedClusters.map((cluster) => {

@@ -19,7 +19,7 @@ export default function Guide() {
         <p className="page-kicker">PC GAME FIX GUIDE</p>
         <h1>PCゲーム共通トラブル解決ガイド</h1>
         <p className="page-lead">
-          ゲーム名に関係なく使える確認手順を、1つの検索意図につき1ページでまとめました。
+          ゲーム名に関係なく使える確認手順を、症状ごとに1ページでまとめました。
         </p>
         <nav className="symptom-nav" aria-label="共通ガイドのカテゴリ">
           <strong>何に困っていますか？</strong>
