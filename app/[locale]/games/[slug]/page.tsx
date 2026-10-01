@@ -1,15 +1,20 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { LocalizedGamePage } from '@/components/localized-game-page';
-import { gameBySlug, games } from '@/lib/games';
-import { copy, isLocale, locales, localizedGames } from '@/lib/i18n';
-import { englishTitle } from '@/lib/english-quality';
+import { gameBySlug } from '@/lib/games';
+import { isLocale, locales } from '@/lib/i18n';
+import { gameFacts } from '@/lib/localized/game-facts';
+import { localizedHubs } from '@/lib/localized/hubs';
+import {
+  languageAlternates,
+  localizedGameSlugs,
+  ogLocale,
+} from '@/lib/localized/index';
+import { ui } from '@/lib/localized/ui';
 
 export function generateStaticParams() {
   return locales.flatMap((locale) =>
-    games
-      .filter((game) => localizedGames[locale][game.slug])
-      .map((game) => ({ locale, slug: game.slug })),
+    localizedGameSlugs.map((slug) => ({ locale, slug })),
   );
 }
 
@@ -20,27 +25,23 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, slug } = await params;
   const game = gameBySlug(slug);
-  if (!isLocale(locale) || !game || !localizedGames[locale][slug]) return {};
-  const ui = copy[locale];
-  const title = `${locale === 'en' ? englishTitle(game) : game.shortTitle} – ${ui.launch} | Gemnao`;
-  const description = localizedGames[locale][slug].lead;
+  if (!isLocale(locale) || !game || !localizedHubs[slug]) return {};
+  const t = ui[locale];
+  const title = `${gameFacts[slug].names[locale]} — ${t.gameLabel} | Gemnao`;
+  const description = localizedHubs[slug].lead[locale];
   return {
     title: { absolute: title },
     description,
     openGraph: {
       title,
       description,
-      locale: locale === 'en' ? 'en_US' : locale === 'zh' ? 'zh_CN' : 'es_ES',
+      locale: ogLocale[locale],
       url: `/${locale}/games/${slug}`,
-      images: [],
     },
-    twitter: { card: 'summary', title, description, images: [] },
-    robots: {
-      index: false,
-      follow: true,
-    },
+    twitter: { card: 'summary', title, description },
     alternates: {
       canonical: `/${locale}/games/${slug}`,
+      languages: languageAlternates(`/games/${slug}`),
     },
   };
 }
@@ -52,6 +53,6 @@ export default async function LocaleGame({
 }) {
   const { locale, slug } = await params;
   const game = gameBySlug(slug);
-  if (!isLocale(locale) || !game || !localizedGames[locale][slug]) notFound();
+  if (!isLocale(locale) || !game || !localizedHubs[slug]) notFound();
   return <LocalizedGamePage game={game} locale={locale} />;
 }

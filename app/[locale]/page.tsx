@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { LocalizedHome } from '@/components/localized-home';
-import { copy, isLocale, locales } from '@/lib/i18n';
+import { isLocale, locales } from '@/lib/i18n';
+import { languageAlternates, ogLocale } from '@/lib/localized/index';
+import { ui } from '@/lib/localized/ui';
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -14,29 +16,21 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const ui = copy[locale];
+  const t = ui[locale];
+  const title = `${t.homeTitle} | Gemnao`;
   return {
-    title: { absolute: `${ui.hero} | Gemnao` },
-    description: ui.heroBody,
+    title: { absolute: title },
+    description: t.homeBody,
     openGraph: {
-      title: `${ui.hero} | Gemnao`,
-      description: ui.heroBody,
-      locale: locale === 'en' ? 'en_US' : locale === 'zh' ? 'zh_CN' : 'es_ES',
+      title,
+      description: t.homeBody,
+      locale: ogLocale[locale],
       url: `/${locale}`,
-      images: [],
     },
-    twitter: {
-      card: 'summary',
-      title: `${ui.hero} | Gemnao`,
-      description: ui.heroBody,
-      images: [],
-    },
-    robots: {
-      index: false,
-      follow: true,
-    },
+    twitter: { card: 'summary', title, description: t.homeBody },
     alternates: {
       canonical: `/${locale}`,
+      languages: languageAlternates(''),
     },
   };
 }

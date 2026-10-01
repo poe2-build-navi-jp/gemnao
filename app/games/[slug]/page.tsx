@@ -27,6 +27,7 @@ import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { articlesForGame, hubIndexable } from '@/lib/game-articles';
 import { gameBySlug, games } from '@/lib/games';
 import { ogImageFor } from '@/lib/og-images';
+import { languageAlternates } from '@/lib/localized/index';
 
 export function generateStaticParams() {
   return games.map((game) => ({ slug: game.slug }));
@@ -59,6 +60,7 @@ export async function generateMetadata({
     ...(hubIndexable(game) ? {} : { robots: { index: false, follow: true } }),
     alternates: {
       canonical: `/games/${game.slug}`,
+      languages: languageAlternates(`/games/${game.slug}`),
     },
     openGraph: {
       type: 'website',

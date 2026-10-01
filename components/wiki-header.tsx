@@ -3,6 +3,8 @@ import { Languages, Search } from 'lucide-react';
 import type { Locale } from '@/lib/i18n';
 import { copy, localeNames, localizedRoot } from '@/lib/i18n';
 import { MobileNavigation } from '@/components/mobile-navigation';
+import { hasTranslation } from '@/lib/localized/index';
+import { ui } from '@/lib/localized/ui';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 
 export function WikiHeader({
@@ -39,17 +41,15 @@ export function WikiHeader({
           />
         </span>
         <span className="brand-name">
-          {locale === 'en' ? 'Gemnao' : 'ゲムなお'}
+          {locale === 'ja' ? 'ゲムなお' : 'Gemnao'}
           <em>
-            {locale === 'en'
-              ? 'PC game troubleshooting'
-              : 'PCゲームのお直しWiki'}
+            {locale === 'ja' ? 'PCゲームのお直しWiki' : ui[locale].brandTagline}
           </em>
         </span>
       </a>
       <nav
         aria-label={
-          locale === 'en' ? 'Main navigation' : 'メインナビゲーション'
+          locale === 'ja' ? 'メインナビゲーション' : ui[locale].mainNav
         }
       >
         <a href={locale === 'ja' ? '/?view=games#games' : `${root}/#games`}>
@@ -58,10 +58,16 @@ export function WikiHeader({
         {locale === 'ja' ? <a href="/#symptoms">症状から探す</a> : null}
         <a href="/guide">
           {labels.basics}
-          {locale === 'en' ? ' (Japanese)' : ''}
+          {locale === 'ja' ? '' : ui[locale].inJapanese}
         </a>
-        <a href="/discord">Discord{locale === 'en' ? ' (Japanese)' : ''}</a>
-        <a href="/pc">PC・Windows{locale === 'en' ? ' (Japanese)' : ''}</a>
+        <a href="/discord">
+          Discord{locale === 'ja' ? '' : ui[locale].inJapanese}
+        </a>
+        <a href="/pc">
+          {locale === 'ja'
+            ? 'PC・Windows'
+            : `${ui[locale].pcWindows}${ui[locale].inJapanese}`}
+        </a>
         {locale === 'ja' ? (
           <a href="/discord-servers">Discordサーバー</a>
         ) : null}
@@ -77,7 +83,7 @@ export function WikiHeader({
         ) : (
           <a href="/about">
             {labels.about}
-            {locale === 'en' ? ' (Japanese)' : ''}
+            {ui[locale].inJapanese}
           </a>
         )}
       </nav>
@@ -88,12 +94,18 @@ export function WikiHeader({
         </summary>
         <div>
           {(['ja', 'en', 'zh', 'es'] as const).map((item) => {
+            // Link to the same page in that language when it exists,
+            // otherwise to that language's home page.
             const target =
-              `${item === 'ja' ? '' : `/${item}`}${pagePath}` || '/';
+              item === 'ja'
+                ? pagePath || '/'
+                : hasTranslation(item, pagePath)
+                  ? `/${item}${pagePath}`
+                  : `/${item}`;
             return (
               <a
                 href={target}
-                hrefLang={item === 'zh' ? 'zh-CN' : item}
+                hrefLang={item === 'zh' ? 'zh-Hans' : item}
                 key={item}
                 aria-current={item === locale ? 'page' : undefined}
               >
@@ -115,49 +127,50 @@ export function WikiHeader({
 }
 
 export function WikiFooter({ locale = 'ja' }: { locale?: 'ja' | Locale }) {
-  const text =
-    locale === 'ja'
-      ? {
-          tagline: 'まず試す順番がわかる、日本語のPCゲームお直しWiki。',
-          footer: '各ゲーム名・商標は各権利者に帰属します。',
-        }
-      : copy[locale];
+  if (locale !== 'ja') {
+    const t = ui[locale];
+    const link = (href: string, label: string) => (
+      <a href={href}>
+        {label}
+        {t.inJapanese}
+      </a>
+    );
+    return (
+      <footer className="site-footer" id="footer-nav">
+        <div>
+          <strong>Gemnao</strong>
+          <p>{t.footerTagline}</p>
+        </div>
+        <nav aria-label={t.footerNav}>
+          {link('/about', t.about)}
+          {link('/privacy', t.privacy)}
+          {link('/terms', t.terms)}
+          {link('/discord-servers', t.discordServers)}
+          {link('/pc', t.pcWindows)}
+          {link('/contact', t.contact)}
+        </nav>
+        <small>© 2026 Gemnao. {t.trademarks}</small>
+      </footer>
+    );
+  }
   return (
     <footer className="site-footer" id="footer-nav">
       <div>
-        <strong>{locale === 'en' ? 'Gemnao' : 'ゲムなお'}</strong>
-        <p>{text.tagline}</p>
+        <strong>ゲムなお</strong>
+        <p>まず試す順番がわかる、日本語のPCゲームお直しWiki。</p>
       </div>
-      <nav
-        aria-label={
-          locale === 'en' ? 'Footer navigation' : 'フッターナビゲーション'
-        }
-      >
-        <a href="/about">{locale === 'en' ? 'About (Japanese)' : '運営情報'}</a>
-        <a href="/privacy">
-          {locale === 'en' ? 'Privacy (Japanese)' : 'プライバシー'}
-        </a>
-        <a href="/terms">
-          {locale === 'en' ? 'Terms (Japanese)' : '利用規約・免責'}
-        </a>
-        <a href="/discord-servers">
-          {locale === 'en'
-            ? 'Discord servers (Japanese)'
-            : 'Discordサーバー募集'}
-        </a>
-        <a href="/pc">
-          {locale === 'en' ? 'PC & Windows (Japanese)' : 'PC・Windowsの不具合'}
-        </a>
-        {locale === 'ja' && <a href="/gear">ゲーマー向けデバイス</a>}
-        <a href="/contact">
-          {locale === 'en' ? 'Contact (Japanese)' : 'お問い合わせ'}
-        </a>
+      <nav aria-label="フッターナビゲーション">
+        <a href="/about">運営情報</a>
+        <a href="/privacy">プライバシー</a>
+        <a href="/terms">利用規約・免責</a>
+        <a href="/discord-servers">Discordサーバー募集</a>
+        <a href="/pc">PC・Windowsの不具合</a>
+        <a href="/gear">ゲーマー向けデバイス</a>
+        <a href="/contact">お問い合わせ</a>
       </nav>
       <small>
-        © 2026 {locale === 'en' ? 'Gemnao. ' : 'ゲムなお。'}
-        {text.footer}
-        {locale === 'ja' &&
-          ' Amazonのアソシエイトとして、ゲムなおは適格販売により収入を得ています。'}
+        © 2026 ゲムなお。各ゲーム名・商標は各権利者に帰属します。
+        Amazonのアソシエイトとして、ゲムなおは適格販売により収入を得ています。
       </small>
     </footer>
   );

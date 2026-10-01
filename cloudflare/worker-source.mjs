@@ -40,7 +40,7 @@ async function render(request, env, context, pathname) {
     return new HTMLRewriter()
       .on('html', {
         element(element) {
-          element.setAttribute('lang', locale === 'zh' ? 'zh-CN' : locale);
+          element.setAttribute('lang', locale === 'zh' ? 'zh-Hans' : locale);
         },
       })
       .transform(response);

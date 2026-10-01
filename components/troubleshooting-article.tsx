@@ -112,7 +112,7 @@ export function TroubleshootingArticle({
     : null;
   return (
     <main>
-      <WikiHeader pagePath={`/games/${game.slug}`} />
+      <WikiHeader pagePath={`/games/${game.slug}/${article.slug}`} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

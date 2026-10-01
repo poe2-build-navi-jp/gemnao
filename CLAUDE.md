@@ -18,6 +18,7 @@
 - `lib/cross-links.ts`: ゲーム記事⇔Windows記事（`/pc`）の相互リンク表。リンク先は実在するURLだけにする
 - `lib/pc-gaming-articles.ts`: ゲーマー向けのWindows記事（`lib/pc-articles.ts`と同じ形式）
 - `lib/key-visuals.ts`: ショートカット記事のキーボード図解（`pnpm visuals:keys`でWebPを生成し、画像はコミットする）。画像サイトマップと記事のJSON-LDに自動で載る
+- `lib/localized/`: 英語・中国語（簡体）・スペイン語のページ。`hubs.ts`（ゲームページの本文）、`articles-{en,zh,es}.ts`（日本語記事と同じ公式出典・同じSTEP idで書き直した記事）、`game-facts.ts`（Steamの正式名・動作環境・対応言語）。翻訳がある日本語ページには hreflang が自動で付く。追加・変更後は `pnpm check:localized` で日本語の混入とSTEP idのずれを確認する
 - `lib/release-roundups.ts`: 月ごとの新作PCゲーム動作環境まとめ（`/new-releases/[slug]`）のデータ。値はSteamストア・公式サイトで確認したものだけを入れ、不明な項目は「記載なし」にする
 - `components/troubleshooting-article.tsx`: ゲーム別個別記事の共通テンプレート
 - `components/wiki-home.tsx`: 日本語トップと検索・テーマ絞り込み

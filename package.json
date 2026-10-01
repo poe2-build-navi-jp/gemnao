@@ -14,7 +14,8 @@
     "og:cards": "node scripts/generate-og-cards.mjs",
     "lint": "oxlint",
     "format": "oxfmt",
-    "visuals:keys": "node scripts/generate-key-visuals.mjs"
+    "visuals:keys": "node scripts/generate-key-visuals.mjs",
+    "check:localized": "node scripts/run-localized-check.mjs"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",
