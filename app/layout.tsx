@@ -95,7 +95,7 @@ export default function RootLayout({
               dangerouslySetInnerHTML={{
                 // The admin screens are not counted (see lib/analytics.ts).
                 __html: `(function(){var p=location.pathname;
-if (p === '/admin' || p.indexOf('/admin/') === 0) return;
+if (p === '/admin' || p.indexOf('/admin/') === 0 || /^\\/diagnos(?:e|is)(?:\\/|$)/.test(p)) return;
 window.dataLayer = window.dataLayer || [];
 window.gtag = function(){dataLayer.push(arguments);};
 gtag('js', new Date());

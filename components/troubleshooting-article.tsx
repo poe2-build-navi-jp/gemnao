@@ -1,3 +1,4 @@
+import { DiagnosisCta } from '@/components/diagnosis-cta';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import {
   AlertTriangle,
@@ -319,6 +320,7 @@ export function TroubleshootingArticle({
               </ul>
             </section>
           ) : null}
+          {['launch', 'settings', 'mods', 'specs'].includes(article.category) ? <DiagnosisCta /> : null}
           <section className="caution-block">
             <h2>
               <AlertTriangle size={22} />

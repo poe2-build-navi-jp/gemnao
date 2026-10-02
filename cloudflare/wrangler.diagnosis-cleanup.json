@@ -1,0 +1,9 @@
+{
+ "$schema":"../node_modules/wrangler/config-schema.json",
+ "name":"gemnao-diagnosis-cleanup",
+ "main":"diagnosis-cleanup.ts",
+ "compatibility_date":"2026-05-22",
+ "triggers":{"crons":["17 * * * *"]},
+ "observability":{"enabled":true,"head_sampling_rate":1},
+ "d1_databases":[{"binding":"DB","database_name":"REPLACE_WITH_VERIFIED_DATABASE_NAME","database_id":"REPLACE_WITH_VERIFIED_DATABASE_ID"}]
+}

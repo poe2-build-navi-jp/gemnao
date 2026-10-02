@@ -37,3 +37,8 @@ next-env.d.ts
 /outputs/
 /work/
 /.worktrees/
+
+# Diagnosis browser/test artifacts
+/test-results/
+/playwright-report/
+*.tsbuildinfo
