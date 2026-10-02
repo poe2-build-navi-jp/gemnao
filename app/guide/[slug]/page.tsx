@@ -331,6 +331,7 @@ export default async function Page({
               <a href="#crash-scope">ゲームだけ落ちる？</a>
               <a href="#crash-timing">タイミング別の対処表</a>
               <a href="#crash-history">エラーなし時の履歴</a>
+              <a href="#steam-client-case">ワイルズの実際の改善報告</a>
               <a href="#crash-compare">結果から次を選ぶ</a>
             </>
           ) : null}

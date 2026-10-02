@@ -127,11 +127,13 @@ export function CrashAfterSteps() {
           改善した状態を保ち、再発を起こすための再有効化は不要です。
         </p>
         <p>
-          確認したDLL名、読み取り確認、復元できる一時停止と結果の詳細は
-          <a href="/games/monster-hunter-wilds/not-launching#steam-client-check">
+          確認したDLL名、読み取り確認、復元できる一時停止と結果は、次の事例にまとめています。
+          他のゲームにも同じ原因や成功率を当てはめないでください。
+        </p>
+        <p>
+          <a href="/games/monster-hunter-wilds/not-launching#steam-client-check" style={{ display: 'inline-block' }}>
             モンハンワイルズの起動前クラッシュ改善事例
           </a>
-          にまとめています。他のゲームにも同じ原因や成功率を当てはめないでください。
         </p>
       </section>
       <section className="diagnosis-table" id="crash-compare">
