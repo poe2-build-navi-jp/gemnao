@@ -23,6 +23,7 @@ import {
   searchArticles,
   normalizeSearchQuery,
 } from '@/lib/site-search';
+import { DiagnosisCta } from './diagnosis-cta';
 import { RecentTroubles } from './recent-troubles';
 import { MyShortcut } from './my-shortcut';
 import { StatusTicker } from './status-board';
@@ -161,6 +162,7 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
           </output>
         ) : null}
       </section>
+      {!isSearching ? <DiagnosisCta home /> : null}
 
       {!isSearching ? (
         <div className="content home-my-shortcut">

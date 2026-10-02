@@ -1,3 +1,5 @@
+import { DiagnosisCta } from '@/components/diagnosis-cta';
+import { diagnosisGuideSlugs } from '@/lib/diagnosis/cta';
 import {
   GpuDriverBeforeSteps,
   GpuDriverAfterSteps,
@@ -688,6 +690,7 @@ export default async function Page({
                                       : '変更前にセーブと設定をバックアップし、対策は1項目ずつ試してください。'}
             </p>
           </section>
+          {diagnosisGuideSlugs.has(item.slug) ? <DiagnosisCta /> : null}
           <section className="faq-section" id="faq">
             <h2>よくある質問</h2>
             <div>

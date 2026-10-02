@@ -4252,3 +4252,14 @@ div.status-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* Additive diagnosis CTA: existing article typography and contents are unchanged. */
+.diagnosis-cta { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:18px; border:1px solid #bfd7c9; border-left:4px solid #08794e; background:#f0f8f3; border-radius:12px; margin:28px 0; padding:24px; }
+.diagnosis-cta-home { max-width:1180px; margin:24px auto; }
+.diagnosis-cta .diagnosis-cta-eyebrow { font-size:12px; font-weight:800; color:#08794e; margin:0 0 7px; letter-spacing:.07em; }
+.diagnosis-cta h2 { font-size:20px; line-height:1.5; margin:0 0 8px; }
+.diagnosis-cta p { margin:6px 0; font-size:14px; }
+.diagnosis-cta small { color:#53655c; font-size:12px; }
+.diagnosis-cta>a { display:inline-flex; justify-content:center; align-items:center; min-height:48px; border-radius:8px; padding:13px 20px; color:white; background:#08794e; font-weight:700; text-decoration:none; font-size:14px; }
+.diagnosis-cta>a:focus-visible { outline:3px solid #164734; outline-offset:4px; }
+@media(max-width:640px){.diagnosis-cta {padding:20px 16px}.diagnosis-cta-home{margin:20px 16px}.diagnosis-cta>a{width:100%}.diagnosis-cta h2{font-size:19px}}

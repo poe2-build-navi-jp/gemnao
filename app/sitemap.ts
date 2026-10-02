@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const fixed = [
     { path: '', updated: '2026-09-30' },
     { path: '/guide', updated: '2026-09-12' },
+    { path: '/diagnose', updated: '2026-10-02' },
     { path: '/discord', updated: '2026-09-30' },
     { path: '/status', updated: '2026-10-01' },
     { path: '/tools', updated: '2026-10-01' },
