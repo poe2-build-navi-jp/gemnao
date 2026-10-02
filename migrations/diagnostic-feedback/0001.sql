@@ -12,5 +12,5 @@ CREATE INDEX diagnostic_reports_created ON diagnostic_reports(created_at);
 CREATE TABLE diagnostic_retention_health (singleton INTEGER PRIMARY KEY CHECK(singleton=1), last_cleanup INTEGER NOT NULL);
 -- No initial heartbeat: writes fail closed until the cleanup job actually succeeds.
 
-CREATE TABLE diagnostic_report_tombstones(receipt_id TEXT PRIMARY KEY, expires_at INTEGER NOT NULL);
+CREATE TABLE diagnostic_report_tombstones(receipt_id TEXT PRIMARY KEY, delete_hash TEXT NOT NULL, expires_at INTEGER NOT NULL);
 CREATE INDEX diagnostic_tombstone_expiry ON diagnostic_report_tombstones(expires_at);

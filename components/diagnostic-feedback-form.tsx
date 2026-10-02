@@ -114,14 +114,27 @@ export function DiagnosticFeedbackForm() {
     lock.current = true;
     setBusy(true);
     try {
-      pending.current ??= {
-        receipt_id:
-          Math.floor(Date.now() / 1000)
-            .toString(16)
-            .padStart(8, '0') + random(12),
-        delete_key: random(32),
-        report,
-      };
+      if (!pending.current) {
+        const key = random(32);
+        const digest = Array.from(
+          new Uint8Array(
+            await crypto.subtle.digest(
+              'SHA-256',
+              new TextEncoder().encode(key),
+            ),
+          ),
+        )
+          .map((v) => v.toString(16).padStart(2, '0'))
+          .join('');
+        pending.current = {
+          receipt_id:
+            Math.floor(Date.now() / 1000)
+              .toString(16)
+              .padStart(8, '0') + digest.slice(0, 24),
+          delete_key: key,
+          report,
+        };
+      }
       setDeleteId(pending.current.receipt_id);
       setDeleteKey(pending.current.delete_key);
       const response = await fetch('/api/diagnostic-feedback', {
@@ -284,7 +297,7 @@ export function DiagnosticFeedbackForm() {
             D1です。ゲーム・症状・版番号・選んだ手順・本人の結果と、任意でOS/GPUの分類・ドライバー版を受け取ります。手順の選択から追加ソフト等の利用が推測される場合があります。編集者が内容を見直し、テスト後の手順改善に利用します。生ログや個人の識別情報は受け付けません。
           </p>
           <p>
-            通常の保存データは30日後に期限切れとなり、毎時の削除処理で消去します。障害時は削除が遅れる場合があり、受付を自動停止します。Cloudflareのバックアップ・リクエストログは別の保持規定が適用され、即時消去を保証できません。削除後の再送防止用受付番号は最大30日保持します。個別回答・公開一覧・自動学習は行いません。
+            通常の保存データは30日後に期限切れとなり、毎時の削除処理で消去します。障害時は削除が遅れる場合があり、受付を自動停止します。Cloudflareのバックアップ・リクエストログは別の保持規定が適用され、即時消去を保証できません。削除後の再送防止用受付番号と削除キーのハッシュは最大30日保持します。個別回答・公開一覧・自動学習は行いません。
           </p>
           <label className="flex gap-3">
             <input

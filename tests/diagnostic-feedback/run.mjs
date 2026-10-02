@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 /* oxlint-disable unicorn/no-invalid-fetch-options -- req test helper defaults to POST, never GET. */
 import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
@@ -79,13 +80,17 @@ const report = {
   ],
 };
 let seq = 0;
-const envelope = () => ({
-  report,
-  consent_version: 1,
-  receipt_id:
-    now.toString(16).padStart(8, '0') + (++seq).toString(16).padStart(24, '0'),
-  delete_key: 'a'.repeat(64),
-});
+const envelope = () => {
+  const key = (++seq).toString(16).padStart(64, '0');
+  return {
+    report,
+    consent_version: 1,
+    receipt_id:
+      now.toString(16).padStart(8, '0') +
+      createHash('sha256').update(key).digest('hex').slice(0, 24),
+    delete_key: key,
+  };
+};
 const env = {
   FEEDBACK_ENABLED: 'true',
   FEEDBACK_DB: db,
@@ -193,7 +198,13 @@ await test('new expired receipt rejected', async () => {
       await handleFeedback(
         req({
           ...envelope(),
-          receipt_id: (now - 86401).toString(16) + 'a'.repeat(24),
+          delete_key: 'a'.repeat(64),
+          receipt_id:
+            (now - 86401).toString(16) +
+            createHash('sha256')
+              .update('a'.repeat(64))
+              .digest('hex')
+              .slice(0, 24),
         }),
         env,
       )
@@ -311,6 +322,48 @@ await test('INSERT failure never returns a receipt success', async () => {
       .status,
     503,
   );
+});
+await test('DELETE before delayed POST cancels with key-bound tombstone', async () => {
+  const body = envelope();
+  const cancel = { receipt_id: body.receipt_id, delete_key: body.delete_key };
+  assert.equal((await handleFeedback(req(cancel, 'DELETE'), env)).status, 200);
+  assert.equal((await handleFeedback(req(body), env)).status, 409);
+  assert.equal(
+    sql
+      .prepare(
+        'SELECT count(*) AS n FROM diagnostic_reports WHERE receipt_id=?',
+      )
+      .get(body.receipt_id).n,
+    0,
+  );
+});
+await test('old absent cancellation rejected but completed DELETE retry remains idempotent', async () => {
+  const body = envelope();
+  const cancel = { receipt_id: body.receipt_id, delete_key: body.delete_key };
+  await handleFeedback(req(body), env);
+  await handleFeedback(req(cancel, 'DELETE'), env);
+  sql
+    .prepare('UPDATE diagnostic_retention_health SET last_cleanup=?')
+    .run(now + 86401);
+  assert.equal(
+    (await handleFeedback(req(cancel, 'DELETE'), env, now + 86401)).status,
+    200,
+  );
+  const other = envelope();
+  assert.equal(
+    (
+      await handleFeedback(
+        req(
+          { receipt_id: other.receipt_id, delete_key: other.delete_key },
+          'DELETE',
+        ),
+        env,
+        now + 86401,
+      )
+    ).status,
+    400,
+  );
+  sql.prepare('UPDATE diagnostic_retention_health SET last_cleanup=?').run(now);
 });
 console.log(`${tests} groups passed`);
 sql.close();

@@ -114,13 +114,42 @@ export async function handleFeedback(
     }
     const db = env.FEEDBACK_DB;
     const keyHash = await hash(input.delete_key);
+    if (input.receipt_id.slice(8) !== keyHash.slice(0, 24))
+      return reply({ error: '受付番号と削除キーが一致しません' }, 409);
     if (request.method === 'DELETE') {
+      if (
+        await db
+          .prepare(
+            'SELECT receipt_id FROM diagnostic_report_tombstones WHERE receipt_id=? AND delete_hash=?',
+          )
+          .bind(input.receipt_id, keyHash)
+          .first()
+      )
+        return reply({ ok: true });
+      const issued = parseInt(input.receipt_id.slice(0, 8), 16);
+      const existing = await db
+        .prepare(
+          'SELECT receipt_id FROM diagnostic_reports WHERE receipt_id=? AND delete_hash=?',
+        )
+        .bind(input.receipt_id, keyHash)
+        .first();
+      if (!existing && (issued > now + 300 || issued < now - 86400))
+        return reply(
+          { error: 'キャンセル用受付番号の期限が切れています' },
+          400,
+        );
       const results = await db.batch([
         db
           .prepare(
-            'INSERT OR IGNORE INTO diagnostic_report_tombstones(receipt_id,expires_at) SELECT receipt_id,? FROM diagnostic_reports WHERE receipt_id=? AND delete_hash=?',
+            'INSERT OR IGNORE INTO diagnostic_report_tombstones(receipt_id,delete_hash,expires_at) SELECT ?,?,? WHERE NOT EXISTS(SELECT 1 FROM diagnostic_reports WHERE receipt_id=? AND delete_hash<>?)',
           )
-          .bind(now + 30 * 86400, input.receipt_id, keyHash),
+          .bind(
+            input.receipt_id,
+            keyHash,
+            now + 30 * 86400,
+            input.receipt_id,
+            keyHash,
+          ),
         db
           .prepare(
             'DELETE FROM diagnostic_reports WHERE receipt_id=? AND delete_hash=?',
@@ -158,7 +187,7 @@ export async function handleFeedback(
             expires_at: previous.expires_at,
           })
         : reply({ error: '受付番号が競合しています' }, 409);
-    // The first 8 receipt hex digits encode browser creation time; 96 random bits remain.
+    // The first 8 receipt hex digits encode browser creation time; 96 key-digest bits bind cancellation to the independent secret.
     // New submissions expire after 24h; 30-day tombstones therefore cannot resurrect.
     const issued = parseInt(input.receipt_id.slice(0, 8), 16);
     if (issued > now + 300 || issued < now - 86400)

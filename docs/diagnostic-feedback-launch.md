@@ -19,11 +19,10 @@ settings were modified. No deployment or migration has been performed.
 - Rate-limiter binding required, for both CF-derived IP and a shared global key.
   The app does not persist IP, UA, cookies, paths, free text or raw files. Cloudflare
   itself sees requests: do not promise anonymity from the hosting provider.
-- Browser receipt: first 8 hex = UTC creation seconds, next 24 hex = fresh random
-  bytes. Independent random 32-byte deletion key is stored as SHA-256 only. A new
+- Browser receipt: first 8 hex = UTC creation seconds, next 24 hex = first24 SHA-256 hex of the independently random deletion key. Independent random 32-byte deletion key is stored as SHA-256 only. A new
   submission's receipt expires after 24h (5-minute future-clock tolerance).
   Active receipts idempotent for retention duration. Deletion transaction creates
-  30-day receipt tombstone; concurrent POST checks tombstone inside INSERT.
+  30-day receipt/key-hash tombstone even for a not-yet-arrived report (24h receipt freshness required); concurrent POST checks tombstone inside INSERT.
 - Rows expire at 30 days; independent hourly cleanup deletes them and updates
   heartbeat. API stops receiving if heartbeat exceeds 2 hours. Expired rows are
   excluded from review. Backups/platform logs follow provider policies, not the
@@ -86,7 +85,7 @@ Wrangler preview should use a dedicated local binding configuration, never remot
 
 ## Verification completed in this branch
 
-- 13 test groups passed against SQLite, including persisted retry/delete,
+- 15 test groups passed against SQLite, including persisted retry/delete,
   duplicate keys, strict enums, stale/missing configuration, rate limit,
   storage failure, global retained-row ceiling, and cleanup.
 - `tsc --noEmit`, full `oxlint`, `vinext build`, `prepare-pages.mjs`, and
@@ -94,6 +93,8 @@ Wrangler preview should use a dedicated local binding configuration, never remot
 - Wrangler `d1 execute --local` applied all six migration statements successfully
   to dummy database feedback-local-only. No remote command was used. Wrangler
   could not write its usual home-directory log; migration itself returned success.
-- UI browser verification not yet completed: local Chromium was blocked by
-  sandbox sockets and cloud browser refused localhost. A disabled branch preview
-  remains required for import/consent/retry/mobile and tracking network QA.
+- Disabled Cloudflare preview checked in the cloud browser: manual preview,
+  unchecked/reset consent, permanently disabled send, and native synthetic JSON
+  import succeeded. DOM showed only same-origin scripts and no desktop overflow.
+  Mobile viewport, complete network capture, enabled submission and retry UI QA
+  still require isolated preview bindings; no real report was submitted.
