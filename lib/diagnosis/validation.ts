@@ -1,5 +1,6 @@
 import {
   isSymptom,
+  answerLabel,
   isPcIssue,
   observationQuestion,
   questions,
@@ -96,6 +97,15 @@ export function buildSnapshot(input: unknown) {
     ...result.recommendations.map((r) => r.action.id),
   ]);
   if (Object.keys(results).some((k) => !allowed.has(k))) return null;
-  return { answers, tried, results, result };
+  const answerLabels = Object.fromEntries(
+    Object.entries(answers).map(([key, value]) => [
+      key,
+      answerLabel(key, value!, answers.symptom),
+    ]),
+  );
+  const actionLabels = Object.fromEntries(
+    [...allowed].map((id) => [id, actions[id].title]),
+  );
+  return { answers, answerLabels, tried, results, actionLabels, result };
 }
 export type Snapshot = NonNullable<ReturnType<typeof buildSnapshot>>;

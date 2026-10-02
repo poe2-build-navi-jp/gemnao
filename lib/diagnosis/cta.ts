@@ -15,7 +15,7 @@ export const diagnosisGuideSlugs = new Set([
   'steam-disk-write-error',
   'steam-cloud-sync-error',
   'no-game-audio',
-  'steam-input',
+  'steam-input-controller',
   'controller-double-input',
   'remove-mods-safely',
   'reset-config-file',

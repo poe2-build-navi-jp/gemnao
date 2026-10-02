@@ -9,6 +9,7 @@ import {
   changeAnswer,
   isPcIssue,
   statuses,
+  type Action,
   type ActionStatus,
   type Answers,
 } from '@/lib/diagnosis/model';
@@ -24,6 +25,33 @@ import {
 } from '@/lib/diagnosis/local';
 import { DiagnosisResultView, DiagnosisSummary } from './diagnosis-result';
 import { DiagnosisShare } from './diagnosis-share';
+function TriedActionField({
+  action,
+  current,
+  onChange,
+}: {
+  action: Action;
+  current: ActionStatus;
+  onChange: (status: ActionStatus) => void;
+}) {
+  return (
+    <div className="diag-field">
+      <label htmlFor={`tried-${action.id}`}>{action.title}</label>
+      <select
+        id={`tried-${action.id}`}
+        value={current}
+        onChange={(e) => onChange(e.target.value as ActionStatus)}
+      >
+        {Object.entries(statuses).map(([value, label]) => (
+          <option key={value} value={value}>
+            {label}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
 export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
   const [data, setData] = useState<LocalDiagnosis>(freshLocal);
   const [ready, setReady] = useState(false),
@@ -95,6 +123,19 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
   const index = stepIndex < 0 ? 0 : stepIndex;
   const q = questionFor(data.step, data.answers);
   const result = diagnose(data.answers, data.tried);
+  const relevantActionIds = new Set(
+    diagnose(data.answers, {}).recommendations.map((r) => r.action.id),
+  );
+  const triedChoices = Object.values(actions).filter(
+    (a) => !['pc', 'inspect'].includes(a.id),
+  );
+  const recordTried = (id: string, status: ActionStatus) =>
+    setData((d) => ({
+      ...d,
+      tried: { ...d.tried, [id]: status },
+      results: {},
+      shareId: undefined,
+    }));
   const change = (id: keyof Answers, value: string) =>
     setData((d) =>
       d.answers[id] === value
@@ -361,36 +402,36 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
               <p>
                 「改善しなかった」「試した」を選んだ対処は、今回の優先候補から外します。未実施ならそのまま進めます。
               </p>
-              <div className="diag-tried">
-                {Object.values(actions)
-                  .filter((a) => !['pc', 'inspect'].includes(a.id))
+              <div className="diag-relevant-tried">
+                {triedChoices
+                  .filter((a) => relevantActionIds.has(a.id))
                   .map((a) => (
-                    <div className="diag-field" key={a.id}>
-                      <label htmlFor={`tried-${a.id}`}>{a.title}</label>
-                      <select
-                        id={`tried-${a.id}`}
-                        value={data.tried[a.id] || 'untried'}
-                        onChange={(e) =>
-                          setData((d) => ({
-                            ...d,
-                            tried: {
-                              ...d.tried,
-                              [a.id]: e.target.value as ActionStatus,
-                            },
-                            results: {},
-                            shareId: undefined,
-                          }))
-                        }
-                      >
-                        {Object.entries(statuses).map(([v, l]) => (
-                          <option key={v} value={v}>
-                            {l}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                    <TriedActionField
+                      key={a.id}
+                      action={a}
+                      current={data.tried[a.id] || 'untried'}
+                      onChange={(status) => recordTried(a.id, status)}
+                    />
                   ))}
               </div>
+              <details className="diag-other-actions">
+                <summary>ほかに試した対処を選ぶ（任意）</summary>
+                <p className="diag-small">
+                  今回の候補以外で試した対処も、必要なら記録できます。
+                </p>
+                <div className="diag-tried">
+                  {triedChoices
+                    .filter((a) => !relevantActionIds.has(a.id))
+                    .map((a) => (
+                      <TriedActionField
+                        key={a.id}
+                        action={a}
+                        current={data.tried[a.id] || 'untried'}
+                        onChange={(status) => recordTried(a.id, status)}
+                      />
+                    ))}
+                </div>
+              </details>
             </>
           )}
           <button

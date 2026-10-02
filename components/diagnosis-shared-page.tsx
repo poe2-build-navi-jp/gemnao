@@ -5,7 +5,6 @@ import { DiagnosisResultView, DiagnosisSummary } from './diagnosis-result';
 import { ShareControls } from './diagnosis-share';
 import { diagnosisRequest, readLocal } from '@/lib/diagnosis/local';
 import { statuses, type ActionStatus } from '@/lib/diagnosis/model';
-import { actions } from '@/lib/diagnosis/rules';
 import type { Snapshot } from '@/lib/diagnosis/validation';
 type Shared = {
   id: string;
@@ -164,7 +163,10 @@ export function DiagnosisSharedPage({
                 有効期限：{new Date(data.expiresAt).toLocaleString('ja-JP')}
                 （更新しても延長しません）
               </p>
-              <DiagnosisSummary answers={data.snapshot.answers} />
+              <DiagnosisSummary
+                answers={data.snapshot.answers}
+                snapshotLabels={data.snapshot.answerLabels}
+              />
               <DiagnosisResultView
                 result={data.snapshot.result}
                 records={{
@@ -190,7 +192,12 @@ export function DiagnosisSharedPage({
                       .filter(([, s]) => s !== 'untried')
                       .map(([a, s]) => (
                         <li key={a}>
-                          {actions[a]?.title || a}：{statuses[s]}
+                          {data.snapshot.actionLabels?.[a] ||
+                            data.snapshot.result.recommendations.find(
+                              (r) => r.action.id === a,
+                            )?.action.title ||
+                            a}
+                          ：{statuses[s]}
                         </li>
                       ))}
                   </ul>
@@ -268,7 +275,12 @@ export function DiagnosisSharedPage({
                   <ul>
                     {Object.entries(draft).map(([a, s]) => (
                       <li key={a}>
-                        {actions[a]?.title || a}：{statuses[s]}
+                        {data.snapshot.actionLabels?.[a] ||
+                          data.snapshot.result.recommendations.find(
+                            (r) => r.action.id === a,
+                          )?.action.title ||
+                          a}
+                        ：{statuses[s]}
                       </li>
                     ))}
                   </ul>

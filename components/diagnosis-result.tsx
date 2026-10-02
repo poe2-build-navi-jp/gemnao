@@ -7,7 +7,13 @@ import {
   type Answers,
   answerLabel,
 } from '@/lib/diagnosis/model';
-export function DiagnosisSummary({ answers }: { answers: Answers }) {
+export function DiagnosisSummary({
+  answers,
+  snapshotLabels,
+}: {
+  answers: Answers;
+  snapshotLabels?: Record<string, string>;
+}) {
   const labels: Record<string, string> = {
     symptom: '症状',
     scope: '影響範囲',
@@ -24,7 +30,7 @@ export function DiagnosisSummary({ answers }: { answers: Answers }) {
       {Object.entries(answers).map(([k, v]) => (
         <div key={k}>
           <dt>{labels[k]}</dt>
-          <dd>{answerLabel(k, v!, answers.symptom)}</dd>
+          <dd>{snapshotLabels?.[k] || answerLabel(k, v!, answers.symptom)}</dd>
         </div>
       ))}
     </dl>

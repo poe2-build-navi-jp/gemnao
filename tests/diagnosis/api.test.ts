@@ -7,6 +7,7 @@ import {
   cleanupDiagnosis,
   type DiagnosisEnv,
 } from '../../lib/diagnosis/server';
+import { actions } from '../../lib/diagnosis/rules';
 import { RULE_VERSION, answerLabel } from '../../lib/diagnosis/model';
 import { buildSnapshot, type Snapshot } from '../../lib/diagnosis/validation';
 type TestDTO = {
@@ -16,6 +17,7 @@ type TestDTO = {
   updatedAt: number;
   snapshot: Snapshot;
   sharing: boolean;
+  metrics: boolean;
   inactive: boolean;
   repeated: boolean;
 };
@@ -566,4 +568,47 @@ void test('unverified preview storage gate never touches D1 even for owner APIs'
   const config = await (await handleDiagnosis(req('/config'), env, now)).json();
   assert.equal(config.sharing, false);
   assert.equal(touched, false);
+});
+
+void test('archived answer and attempted-action labels survive future registry changes', async () => {
+  const { env, cookie } = await setup();
+  const { data } = await create(env, cookie);
+  const previous = actions.verify.title;
+  try {
+    actions.verify.title = 'FUTURE TITLE MUST NOT APPEAR';
+    const shared = await (
+      await handleDiagnosis(req('/' + data.id), env, now)
+    ).json();
+    assert.equal(shared.snapshot.actionLabels.verify, previous);
+    assert.equal(shared.snapshot.answerLabels.symptom, 'ゲームが起動しない');
+    assert.equal(shared.snapshot.answerLabels.error, 'DirectX / DXGI');
+  } finally {
+    actions.verify.title = previous;
+  }
+});
+
+void test('stale cleanup disables metric writes as well as shares', async () => {
+  const { env, sql } = await setup();
+  sql.exec("DELETE FROM diagnosis_operations WHERE key='cleanup_success'");
+  const config = await (await handleDiagnosis(req('/config'), env, now)).json();
+  assert.equal(config.metrics, false);
+  assert.equal(
+    (
+      await handleDiagnosis(
+        req('/events', {
+          event: 'record',
+          step: 'none',
+          action: 'dx',
+          status: 'improved',
+        }),
+        env,
+        now,
+      )
+    ).status,
+    503,
+  );
+  assert.equal(
+    sql.prepare('SELECT COUNT(*) n FROM diagnosis_metrics').get()?.n,
+    0,
+  );
 });

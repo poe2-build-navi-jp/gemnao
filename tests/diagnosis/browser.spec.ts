@@ -264,3 +264,36 @@ test('article navigation resets external scripts; SEO, existing assets and feedb
   for (const u of urls.slice(0, 8))
     expect((await request.get(u)).status()).toBe(200);
 });
+
+test('tried actions initially show only relevant candidates, with other actions optional', async ({
+  page,
+}) => {
+  await begin(page);
+  await choose(page, 'ゲームだけ（Windowsは操作できる）');
+  await choose(page, 'プレイを押しても無反応');
+  await choose(page, '思い当たる変更はない');
+  await choose(page, 'Steam');
+  await page.getByRole('button', { name: '次へ' }).click();
+  await page.getByRole('button', { name: '次へ' }).click();
+  expect(
+    await page.locator('.diag-relevant-tried select').count(),
+  ).toBeLessThanOrEqual(3);
+  await expect(
+    page.getByLabel('FPS上限と表示設定を確認する'),
+  ).not.toBeVisible();
+  await page
+    .getByText('ほかに試した対処を選ぶ（任意）', { exact: true })
+    .click();
+  await expect(page.getByLabel('FPS上限と表示設定を確認する')).toBeVisible();
+  await page
+    .getByLabel('FPS上限と表示設定を確認する')
+    .selectOption('unchanged');
+  await page.getByRole('button', { name: '確認する順番を見る' }).click();
+  expect(
+    await page.evaluate(
+      () =>
+        JSON.parse(localStorage.getItem('gemnao-diagnosis-v1') || '{}').tried
+          .fpscap,
+    ),
+  ).toBe('unchanged');
+});

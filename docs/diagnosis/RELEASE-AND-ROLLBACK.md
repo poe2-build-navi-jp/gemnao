@@ -39,7 +39,7 @@
 - cleanup Workerの実行ログは`diagnosis_cleanup_success`。秘密や回答はログへ出さない
 - D1: `SELECT value FROM diagnosis_operations WHERE key='cleanup_success';` のUNIXミリ秒が2時間以内か
 - 期限切れ残留: `SELECT COUNT(*) FROM diagnosis_shared WHERE expires_at <= <現在のUNIXミリ秒>;`
-- 値が古い/失敗ならCron設定、対象DB、Workerエラー/上限を確認。新規作成/更新は自動停止し、期限による閲覧拒否は継続
+- 値が古い/失敗ならCron設定、対象DB、Workerエラー/上限を確認。新規作成/更新と集計は自動停止し、期限による閲覧拒否は継続
 - 復旧後に削除処理を実行し、成功heartbeatと期限切れ件数を確認してから作成の再開を判断
 - CF使用量/費用のアラートと大量アクセス時のWAF上限も公開前に確認
 
@@ -53,7 +53,7 @@
 - `DIAGNOSIS_METRICS_ENABLED=false`: 集計停止
 - CTAをHTML初期表示から隠すには `NEXT_PUBLIC_DIAGNOSIS_ENABLED=false` で再buildする（API側フラグも併用）
 
-Pagesの環境変数反映には再デプロイが必要な場合がある。変更後は実際のレスポンスを確認する。ボタン非表示だけで停止したと判断しない。
+フラグはプロジェクトで実際に有効な設定元（wrangler.jsonのvarsまたはPagesの管理設定）へ文字列で設定する。設定元を確認せず管理画面側だけの変更が有効になると仮定しない。反映には再デプロイが必要な場合がある。変更後は実際のレスポンスを確認する。ボタン非表示だけで停止したと判断しない。
 
 ## コードのロールバック
 

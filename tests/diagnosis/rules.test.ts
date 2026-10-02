@@ -9,6 +9,7 @@ import {
   type Answers,
 } from '../../lib/diagnosis/model';
 import { diagnose, actions, rules } from '../../lib/diagnosis/rules';
+import { diagnosisGuideSlugs } from '../../lib/diagnosis/cta';
 import { commonGuides } from '../../lib/common-guides';
 void test('all six P0 symptoms complete, with at most three specific actions', () => {
   for (const s of symptoms) {
@@ -159,5 +160,13 @@ void test('all action article links actually exist and are verified', () => {
           `/guide/${g.slug}` ===
           diagnose({ scope }).recommendations[0].action.article,
       ),
+    );
+});
+
+void test('article CTA targets use the actual verified guide registry', () => {
+  for (const slug of diagnosisGuideSlugs)
+    assert.ok(
+      commonGuides.some((g) => g.slug === slug && g.status === 'verified'),
+      slug,
     );
 });

@@ -232,15 +232,17 @@ export async function handleDiagnosis(
   try {
     if (path === '/config' && request.method === 'GET') {
       let ready = false;
-      if (db && writes(env))
+      if (
+        db &&
+        enabled(env) &&
+        (writes(env) || env.DIAGNOSIS_METRICS_ENABLED === 'true')
+      )
         ready = await cleanupReady(db, now).catch(() => false);
       return reply({
         enabled: enabled(env),
-        sharing: ready,
+        sharing: writes(env) && ready,
         metrics:
-          Boolean(db) &&
-          enabled(env) &&
-          env.DIAGNOSIS_METRICS_ENABLED === 'true',
+          ready && enabled(env) && env.DIAGNOSIS_METRICS_ENABLED === 'true',
       });
     }
     if (!db)
@@ -325,6 +327,8 @@ export async function handleDiagnosis(
           !Object.hasOwn(statuses, String(input.status)))
       )
         return fail(400, '入力が正しくありません。');
+      if (!(await cleanupReady(db, now)))
+        return fail(503, '保存期間を守るため、集計を一時停止しています。');
       if (!(await rate(db, request, 'event', 100, now))) return rateFail();
       await count(
         db,
