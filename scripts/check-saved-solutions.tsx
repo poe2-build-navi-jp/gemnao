@@ -136,6 +136,18 @@ const quota = {
 assert.throws(() => upsertSolution(quota, record));
 assert.throws(() => importSolutions(quota, backup));
 assert.throws(() => parseSolutions('a'.repeat(2_000_001)));
+// Exported UTF-8 bytes must also fit the import limit (Japanese uses >1 byte).
+assert.throws(() =>
+  serializeSolutions(
+    Array.from({ length: 100 }, (_, i) => ({
+      ...record,
+      id: `large-${i}`,
+      diagnosis: 'あ'.repeat(4000),
+      settings: 'あ'.repeat(4000),
+      notes: 'あ'.repeat(4000),
+    })),
+  ),
+);
 const enriched = JSON.stringify({
   version: 1,
   items: [{ ...record, unexpected: 'discard' }],

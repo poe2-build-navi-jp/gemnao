@@ -99,7 +99,10 @@ function clean(value: SavedSolution): SavedSolution {
 }
 export function parseSolutions(raw: string | null): SavedSolution[] {
   if (!raw) return [];
-  if (raw.length > MAX_BACKUP_BYTES)
+  if (
+    raw.length > MAX_BACKUP_BYTES ||
+    new TextEncoder().encode(raw).byteLength > MAX_BACKUP_BYTES
+  )
     throw new Error('保存データが大きすぎます。');
   const value: unknown = JSON.parse(raw);
   if (
