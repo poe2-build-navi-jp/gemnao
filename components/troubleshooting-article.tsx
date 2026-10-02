@@ -181,6 +181,16 @@ export function TroubleshootingArticle({
               </p>
             ) : null}
           </section>
+          {['launch', 'display'].includes(article.category) ? (
+            <aside className="diagnosis-article-entry">
+              <a href="/tools/windows-diagnosis">
+                PCゲーム診断ツールで記録と症状を整理する →
+              </a>
+              <p>
+                Windows用の試作版です。ゲーム本体と症状を選んで確認できます。全ゲームの対応・原因特定を保証せず、すでに直った状態を崩して再現する必要はありません。
+              </p>
+            </aside>
+          ) : null}
           {article.quickFacts?.length ? (
             <section
               className="quick-facts"

@@ -13,8 +13,8 @@ export const metadata: Metadata = {
 const tools = [
   {
     href: '/tools/windows-diagnosis',
-    title: 'ワイルズ起動診断（Windows用・試作版）',
-    body: 'ダウンロードからZIPの展開、診断の進め方、履歴の保存・削除まで。未署名・0.4のWindows実機検証前です。',
+    title: 'PCゲーム診断（Windows用・試作版）',
+    body: 'ゲーム本体と6つの症状を選んで、記録と次の確認を整理。共通診断とゲーム固有チェックを分けた試作版です。',
   },
   {
     href: '/status',
