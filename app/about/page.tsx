@@ -4,7 +4,8 @@ import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { siteConfig } from '@/lib/site-config';
 export const metadata: Metadata = {
   title: 'ゲムなおとは？運営者情報・編集方針',
-  description: siteConfig.description,
+  description:
+    'ゲムなおの運営者、出典の確認方法、記事の訂正方針、広告・製品提供の開示、PC・周辺機器メーカーからの企画相談について案内します。',
   alternates: { canonical: '/about' },
 };
 export default function About() {
@@ -105,7 +106,31 @@ export default function About() {
         <p>
           <a href="/contact">お問い合わせフォーム</a>からもご連絡いただけます。
         </p>
-        <p className="source-note">最終確認：2026.09.30</p>
+        <section id="business">
+          <h2>PC・周辺機器メーカーの皆さまへ</h2>
+          <p>
+            ゲムなおでは、PCゲームの不具合を調べる読者に向けた、使い方案内・トラブル切り分けの記事を公開しています。製品の公式情報の訂正や、貸出機を用いた検証記事の企画についてご相談いただけます。内容・機材・日程を確認してから対応の可否をお伝えします。
+          </p>
+          <h3>公開中のコンテンツと機能</h3>
+          <ul>
+            <li><a href="/guide">症状別の確認手順</a>と、ゲーム・Windows・Discordの関連記事</li>
+            <li><a href="/tools/windows-diagnosis">Windows向け診断ツールの配布・使い方</a>。対応範囲と制限は配布ページに記載しています</li>
+            <li><a href="/gear/discord-microphone-guide">購入前の比較ポイント</a>。手持ちの機器や無料の設定確認で足りる場合も案内します</li>
+          </ul>
+          <h3>検証・広告の扱い</h3>
+          <ul>
+            <li>公式仕様の紹介と実機検証を区別します。未使用の製品を実機レビューとして扱いません。</li>
+            <li>実機検証を行う場合は、使用機材・設定・ソフトウェアの版・確認日・検証範囲を記載します。未実施の測定値や実績を掲載しません。</li>
+            <li>広告、報酬、製品提供・貸出などの関係は、読者が分かるよう記事内に明記します。</li>
+            <li>読者の判断に必要な制限や改善しなかった結果も記載します。肯定的な評価、検索順位、閲覧数、販売数は保証しません。</li>
+            <li>記事の事実確認と編集判断を分け、誤りが見つかった場合は訂正します。</li>
+          </ul>
+          <p>
+            <a href="/contact?category=business#business">企画相談を送る</a>
+            。問い合わせだけで契約や掲載が確定することはありません。
+          </p>
+        </section>
+        <p className="source-note">最終確認：2026.10.03（企画相談・編集方針）</p>
       </article>
       <WikiFooter />
     </main>

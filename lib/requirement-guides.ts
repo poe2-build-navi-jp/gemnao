@@ -20,6 +20,10 @@ const activisionTpm = {
   label: 'Activision公式：Call of DutyのためのTPM 2.0とセキュアブート（英語）',
   url: 'https://support.activision.com/articles/trusted-platform-module-and-secure-boot',
 };
+const msMbr2gpt = {
+  label: 'Microsoft公式：MBR2GPTの前提条件・BitLocker・変換後の注意（安全上の注意：2026-10-03確認）',
+  url: 'https://learn.microsoft.com/ja-jp/windows/deployment/mbr-to-gpt',
+};
 const roundup = {
   label: 'ゲムなお：2026年10月発売の新作PCゲーム 動作環境まとめ',
   url: 'https://gemnao.pages.dev/new-releases/2026-10',
@@ -31,9 +35,9 @@ export const tpmSecureBootGuide: CommonGuide = {
     'ゲームでTPM 2.0・セキュアブートが必要と出た時の確認と有効化の方法【Windows】',
   shortTitle: 'TPM 2.0・セキュアブート',
   description:
-    '不正対策のため、TPM 2.0とセキュアブートを必須にするPCゲームが増えています（Call of Duty: Modern Warfare 4など）。まずWindowsで今の状態を確認し、無効ならPCのUEFI（BIOS）で有効にします。',
+    'PCゲームでTPM 2.0・セキュアブートが必要と表示された時の確認方法。tpm.msc・msinfo32で状態を調べ、変更前にディスク形式、バックアップ、暗号化の回復キー、メーカーの手順を確認します。',
   conclusion:
-    'Windows + R で「tpm.msc」を開き、TPMの仕様バージョンが2.0か確認します。セキュアブートは「msinfo32」の「BIOSモード」がUEFIで、「セキュアブートの状態」が有効かを見ます。無効な場合は「設定」→「システム」→「回復」→「PCの起動をカスタマイズする」の「今すぐ再起動」→「トラブルシューティング」→「詳細オプション」→「UEFIファームウェアの設定」から有効にします（Microsoft公式の手順）。',
+    'Windows + R で「tpm.msc」を開き、TPMの仕様バージョンが2.0か確認します。セキュアブートは「msinfo32」でBIOSモードと現在の状態を確認。無効でも、すぐに起動モードを切り替えないでください。先にディスク形式、バックアップ、暗号化の回復キー、PCメーカーの機種別手順を確認します。',
   checkedAt: '2026-09-28',
   status: 'verified',
   causes: [
@@ -54,6 +58,7 @@ export const tpmSecureBootGuide: CommonGuide = {
     {
       title: 'UEFI（BIOS）の設定画面を開く',
       actions: [
+        '大切なデータをバックアップし、BitLocker・デバイスの暗号化を使っている場合は回復キーを確認する。機種別の公式手順や回復キーが不明なら、変更せずPCメーカー・管理者に相談する。TPMの「クリア」は選ばない',
         'Windows 11：「設定」→「システム」→「回復」→「PCの起動をカスタマイズする」の「今すぐ再起動」を選ぶ',
         '再起動後の画面で「トラブルシューティング」→「詳細オプション」→「UEFIファームウェアの設定」→「再起動」を選ぶ',
         '作業中のファイルは先に保存しておく。画面や項目名はPC・マザーボードのメーカーで異なる',
@@ -70,9 +75,9 @@ export const tpmSecureBootGuide: CommonGuide = {
     {
       title: 'セキュアブートを有効にする',
       actions: [
-        '起動モードがレガシー（CSM）の場合はUEFIに切り替える。UEFIとレガシーの両方を有効にできる場合は、UEFIを最初（または唯一）の選択肢にする（Microsoft公式）',
-        '「Boot」タブなどで「Secure Boot」を有効にし、保存して再起動する。msinfo32 で状態を確認する',
-        '「ディスクの管理」でWindowsのディスクを右クリック→「プロパティ」→「ボリューム」タブの「パーティションのスタイル」がMBRの場合は、先にGPTへの変換が必要（データのバックアップが必須。Microsoft公式のMBR2GPTの手順に従う）',
+        '設定変更前に「ディスクの管理」でWindowsが入ったディスク番号を右クリック→「プロパティ」→「ボリューム」からパーティションのスタイルを確認する。MBRまたは不明なら、CSMを無効にしたりUEFIに切り替えたりせず、メーカーに相談する',
+        'UEFI・GPTを確認でき、機種別の手順と復旧方法を用意できた場合に限り、メーカーの手順でSecure Bootを有効にする。現在の設定を先に記録し、再起動後にmsinfo32で確認する。項目が選べない場合は推測でキーを削除しない',
+        'MBRからGPTへの変換が必要な環境では、Microsoft公式のMBR2GPTの前提条件をメーカー・管理者と確認する。変換は元へ戻す機能がなく、暗号化の保護や起動設定にも対応が必要。バックアップと回復キーなしで進めたり、暗号化を一律に解除したりしない',
       ],
     },
     {
@@ -107,7 +112,7 @@ export const tpmSecureBootGuide: CommonGuide = {
     'windows-11-required',
     'ray-tracing-gpu',
   ],
-  sources: [msTpm, msSecureBoot, activisionTpm],
+  sources: [msTpm, msSecureBoot, activisionTpm, msMbr2gpt],
 };
 
 export const windows11RequiredGuide: CommonGuide = {
