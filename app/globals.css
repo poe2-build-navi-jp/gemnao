@@ -4430,3 +4430,123 @@ div.status-list {
     grid-template-columns: 1fr;
   }
 }
+
+/* Native diagnosis download guide: scoped to preserve existing pages. */
+.diagnosis-download {
+  max-width: 960px;
+}
+.diagnosis-download section {
+  scroll-margin-top: 90px;
+}
+.diagnosis-download code {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  font-size: 0.9em;
+}
+.diagnosis-download nav[aria-label='パンくず'] {
+  font-size: 13px;
+  margin-bottom: 24px;
+}
+.download-box,
+.download-caution,
+.download-grid > div {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px;
+  background: var(--card);
+}
+.download-box {
+  border-top: 5px solid var(--blue);
+  margin: 24px 0;
+}
+.download-caution {
+  border-left: 5px solid var(--orange);
+  margin: 20px 0;
+}
+.diagnosis-download .download-primary {
+  display: inline-block;
+  background: var(--blue);
+  color: #fff;
+  border-radius: 10px;
+  padding: 14px 20px;
+  text-decoration: none;
+  font-weight: 800;
+}
+.download-primary:hover {
+  filter: brightness(0.9);
+}
+.diagnosis-download a:focus-visible,
+.diagnosis-download summary:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 4px;
+}
+.download-small {
+  color: var(--muted);
+  font-size: 13px;
+}
+.download-facts > div {
+  display: grid;
+  grid-template-columns: 145px 1fr;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.download-facts dt {
+  font-weight: 800;
+}
+.download-facts dd {
+  margin: 0;
+}
+.download-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 28px 0;
+}
+.download-toc a {
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.download-steps > li {
+  padding: 6px 0 16px 8px;
+}
+.download-steps > li::marker {
+  font-weight: 800;
+  color: var(--blue);
+}
+.download-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.diagnosis-download .download-grid h3 {
+  margin-top: 0;
+}
+.diagnosis-download details {
+  margin: 12px 0;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.diagnosis-download summary {
+  cursor: pointer;
+  font-weight: 800;
+}
+@media (max-width: 640px) {
+  .download-grid {
+    grid-template-columns: 1fr;
+  }
+  .download-facts > div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .download-box,
+  .download-caution {
+    padding: 16px;
+  }
+  .diagnosis-download .download-primary {
+    display: block;
+    text-align: center;
+  }
+}

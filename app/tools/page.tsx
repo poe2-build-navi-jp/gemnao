@@ -12,6 +12,11 @@ export const metadata: Metadata = {
 
 const tools = [
   {
+    href: '/tools/windows-diagnosis',
+    title: 'ワイルズ起動診断（Windows用・試作版）',
+    body: 'ダウンロードからZIPの展開、診断の進め方、履歴の保存・削除まで。未署名・0.4のWindows実機検証前です。',
+  },
+  {
     href: '/status',
     title: '今日、落ちてる？（障害・メンテ情報）',
     body: 'Discordの稼働状況、ゲームの公式メンテナンス予定と公式のお知らせを1ページで確認。',

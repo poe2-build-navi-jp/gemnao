@@ -2,6 +2,8 @@ import application from '../dist/server/index.js';
 
 const staticFiles = new Set([
   '/ads.txt',
+  // Versioned, audited native distributable. Keep routing explicit.
+  '/downloads/gemnao-wilds-diagnosis-0.4.0-windows-x64.zip',
   '/favicon.svg',
   '/gemnao-logo.png',
   '/robots.txt',
