@@ -181,12 +181,6 @@ export default async function GearArticlePage({
             </h2>
             <p>{article.answer}</p>
           </section>
-          <AmazonBox
-            name={article.product.name}
-            asin={article.product.asin}
-            articlePath={`/gear/${slug}`}
-            position="after-answer"
-          />
           <section className="diagnosis-table" id="fit">
             <h2>向いている人・向いていない人</h2>
             <table>
@@ -270,6 +264,12 @@ export default async function GearArticlePage({
               </table>
             </section>
           )}
+          <AmazonBox
+            name={article.product.name}
+            asin={article.product.asin}
+            articlePath={`/gear/${slug}`}
+            position="after-fit-check"
+          />
           {article.notice && (
             <section className="answer-summary">
               <p className="evidence-label">実物を触れる機会</p>

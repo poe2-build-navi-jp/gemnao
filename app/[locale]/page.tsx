@@ -25,9 +25,10 @@ export async function generateMetadata({
       title,
       description: t.homeBody,
       locale: ogLocale[locale],
+      images: ['/og-default.png'],
       url: `/${locale}`,
     },
-    twitter: { card: 'summary', title, description: t.homeBody },
+    twitter: { card: 'summary', title, description: t.homeBody, images: ['/og-default.png'] },
     alternates: {
       canonical: `/${locale}`,
       languages: languageAlternates(''),

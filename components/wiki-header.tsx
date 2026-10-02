@@ -163,6 +163,7 @@ export function WikiFooter({ locale = 'ja' }: { locale?: 'ja' | Locale }) {
       </div>
       <nav aria-label="フッターナビゲーション">
         <a href="/about">運営情報</a>
+        <a href="/about#business">企業・メーカーの方へ</a>
         <a href="/privacy">プライバシー</a>
         <a href="/terms">利用規約・免責</a>
         <a href="/status">障害・メンテ情報</a>
