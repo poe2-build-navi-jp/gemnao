@@ -612,3 +612,22 @@ void test('stale cleanup disables metric writes as well as shares', async () => 
     0,
   );
 });
+
+void test('daily metrics bucket at the 30-day boundary is purged, newer bucket remains', async () => {
+  const { db, sql } = await setup();
+  const cutoff = new Date(now - 30 * 86400000).toISOString().slice(0, 10);
+  const newer = new Date(now - 29 * 86400000).toISOString().slice(0, 10);
+  const insert = sql.prepare(
+    "INSERT INTO diagnosis_metrics (day,event,step,action,status,count) VALUES (?,'start','none','none','none',1)",
+  );
+  insert.run(cutoff);
+  insert.run(newer);
+  await cleanupDiagnosis(db, now);
+  assert.deepEqual(
+    sql
+      .prepare('SELECT day FROM diagnosis_metrics ORDER BY day')
+      .all()
+      .map((row) => row.day),
+    [newer],
+  );
+});

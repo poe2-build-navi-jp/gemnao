@@ -541,7 +541,7 @@ export async function cleanupDiagnosis(db: D1Database, now = Date.now()) {
       )
       .bind(now),
     db
-      .prepare('DELETE FROM diagnosis_metrics WHERE day < ?')
+      .prepare('DELETE FROM diagnosis_metrics WHERE day <= ?')
       .bind(new Date(now - TTL).toISOString().slice(0, 10)),
   ]);
   // Mark success only after deletion committed. Never refresh on a failed cleanup.
