@@ -1,0 +1,27 @@
+import assert from 'node:assert/strict';
+import { build } from 'esbuild';
+
+const result = await build({ stdin: { contents: "export {classicGameArticles} from './lib/classic-game-articles'; export {codMw4Articles} from './lib/cod-mw4-articles'; export {tpmSecureBootGuide} from './lib/requirement-guides';", resolveDir: process.cwd() }, bundle: true, write: false, platform: 'node', format: 'esm' });
+const { classicGameArticles, codMw4Articles, tpmSecureBootGuide } = await import(`data:text/javascript;base64,${Buffer.from(result.outputFiles[0].text).toString('base64')}`);
+const save = classicGameArticles.find((a) => a.gameSlug === 'stardew-valley' && a.slug === 'save-restore');
+assert.ok(save);
+const undo = save.steps.find((s) => s.id === 'undo-save');
+assert.ok(undo.actions.some((a) => a.includes('削除せず')));
+assert.ok(undo.actions.some((a) => a.includes('元のフォルダへ戻す')));
+const cloud = save.steps.find((s) => s.id === 'cloud-overwrite');
+assert.ok(cloud.actions[0].includes('ゲームを終了'));
+assert.ok(!cloud.actions.some((a) => a.includes('フォルダを削除し')));
+assert.ok(cloud.summary.includes('断定できません'));
+assert.deepEqual(save.steps.map((s) => s.id), ['open-backup','tmp-name','undo-save','smapi-backup','cloud-overwrite']);
+const cod = codMw4Articles.find((a) => a.slug === 'tpm-secure-boot');
+assert.ok(cod.steps.find((s) => s.id === 'step-2').actions[0].includes('回復キー'));
+assert.ok(cod.steps.find((s) => s.id === 'step-3').actions[0].includes('MBR・不明なら手順4'));
+const conversion = cod.steps.find((s) => s.id === 'step-4');
+assert.ok(!conversion.actions.some((a) => a.includes('暗号化をオフにしてから')));
+assert.ok(conversion.actions.some((a) => a.includes('保護の中断') && a.includes('暗号化の解除')));
+assert.ok(conversion.note.includes('元の形式へ戻す機能はありません'));
+const secure = tpmSecureBootGuide.steps.find((s) => s.title === 'セキュアブートを有効にする');
+assert.ok(secure.actions[0].includes('設定変更前'));
+assert.ok(secure.actions[0].includes('MBRまたは不明'));
+assert.ok(tpmSecureBootGuide.sources.some((s) => s.url.includes('mbr-to-gpt')));
+console.log('PASS: save backup/rollback, no live save deletion, stable feedback IDs, encryption distinction and disk-format stop before BIOS changes');
