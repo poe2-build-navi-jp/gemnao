@@ -188,6 +188,25 @@ export function WikiHome({
         </div>
       ) : null}
 
+      {!isSearching ? (
+        <section
+          className="content diagnosis-entry"
+          aria-labelledby="diagnosis-entry-title"
+        >
+          <div className="launch-watch-card">
+            <h2 id="diagnosis-entry-title">PCゲーム診断ツール</h2>
+            <p>
+              起動しない・落ちる・黒画面・フリーズ・低FPS・カクつき。ゲームと症状を選び、PCの記録と次の確認を整理します。
+            </p>
+            <a href="/tools/windows-diagnosis">
+              診断ツールの対応範囲・ダウンロード・使い方 →
+            </a>
+            <small>
+              Windows用の試作版。原因の確定・自動修復・すべてのゲームでの動作を保証するものではありません。
+            </small>
+          </div>
+        </section>
+      ) : null}
       {!isSearching ? <RecentTroubles /> : null}
 
       {!isSearching && launches.length ? (

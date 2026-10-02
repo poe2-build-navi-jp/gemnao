@@ -4550,3 +4550,37 @@ div.status-list {
     text-align: center;
   }
 }
+
+.diagnosis-entry {
+  padding-top: 24px;
+  padding-bottom: 12px;
+}
+.diagnosis-entry h2 {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0;
+}
+.diagnosis-entry .launch-watch-card > p {
+  display: block;
+  font-size: 15px;
+  font-weight: 400;
+}
+.diagnosis-entry small {
+  color: var(--muted);
+}
+.diagnosis-article-entry {
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--blue);
+  border-radius: 10px;
+  padding: 16px;
+  margin: 20px 0;
+  background: var(--card);
+}
+.diagnosis-article-entry > a {
+  color: var(--blue);
+  font-weight: 800;
+}
+.diagnosis-article-entry > p {
+  font-size: 14px;
+  margin: 8px 0 0;
+}
