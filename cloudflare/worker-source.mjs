@@ -7,6 +7,8 @@ const staticFiles = new Set([
   '/robots.txt',
   '/sitemap.xml',
   '/image-sitemap.xml',
+  // IndexNow key (scripts/ping-index.mjs)
+  '/8a431ad6b1d387ce80049b38cc6a027a.txt',
 ]);
 
 // Replaced at build time (scripts/prepare-pages.mjs). Cache keys include it

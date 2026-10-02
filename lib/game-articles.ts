@@ -8,6 +8,7 @@ import { fallReleaseArticles } from '@/lib/fall-release-articles';
 import { codMw4Articles } from '@/lib/cod-mw4-articles';
 import { octoberReleaseArticles } from '@/lib/october-release-articles';
 import { classicGameArticles } from '@/lib/classic-game-articles';
+import { errorCodeArticles } from '@/lib/error-code-articles';
 import { aniimoArticles } from '@/lib/aniimo-articles';
 import { dawnwalkerArticles } from '@/lib/dawnwalker-articles';
 import { monsterHunterArticles } from '@/lib/monster-hunter-articles';
@@ -967,6 +968,7 @@ export const gameArticles: GameArticle[] = [
   ...codMw4Articles,
   ...octoberReleaseArticles,
   ...classicGameArticles,
+  ...errorCodeArticles,
 ];
 
 export function articlesForGame(gameSlug: string) {

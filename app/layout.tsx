@@ -57,6 +57,12 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <head>
+        <link
+          rel="alternate"
+          type="application/atom+xml"
+          title="ゲムなお 新着・更新"
+          href="/feed.xml"
+        />
         {siteConfig.xAccount ? (
           <meta name="twitter:site" content={`@${siteConfig.xAccount}`} />
         ) : null}

@@ -44,7 +44,8 @@ export const octoberReleaseArticles: GameArticle[] = [
     slug: 'not-launching',
     category: 'launch',
     checkedAt: '2026-09-28',
-    seoTitle: 'Gears of War: E-Dayが起動しない・落ちる時の対処法【PC版】',
+    seoTitle:
+      'Gears of War: E-Day（ギアーズ）が起動しない・落ちる時の対処法【PC版】',
     title:
       'Gears of War: E-Day（ギアーズ・オブ・ウォー E-Day）が起動しない・落ちる時の対処法【PC版】',
     shortTitle: '起動しない・クラッシュ',
@@ -232,7 +233,7 @@ export const octoberReleaseArticles: GameArticle[] = [
     ],
     related: [],
     metaDescription:
-      'Gears of War: E-Day PC版が起動しない・落ちる時の対処法。必須のレイトレーシング対応GPUとSSD、Windows 10 22H2以降、推奨ドライバー、OBS・セキュリティソフトとの競合、Intel ArcのReBAR、オンラインのポートまで公式情報をもとに解説。',
+      'Gears of War: E-Day（ギアーズ・オブ・ウォー E-Day）PC版が起動しない・落ちる時の対処法。必須のレイトレーシング対応GPUとSSD、Windows 10 22H2以降、推奨ドライバー、OBS・セキュリティソフトとの競合、Intel ArcのReBAR、オンラインのポートまで公式情報をもとに解説。',
   }),
   make({
     gameSlug: 'dragons-dogma-2',

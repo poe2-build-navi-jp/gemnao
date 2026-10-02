@@ -339,7 +339,8 @@ export const launchWeekArticles: GameArticle[] = [
     slug: 'not-launching',
     category: 'launch',
     checkedAt: '2026-10-01',
-    seoTitle: 'エースコンバット8が起動しない・クラッシュする時の対処法【PC版】',
+    seoTitle:
+      'エースコンバット8（エスコン8）が起動しない・落ちる時の対処法【PC版】',
     title:
       'エースコンバット8（ACE COMBAT 8）が起動しない・クラッシュする時の対処法【PC版】',
     shortTitle: '起動しない・クラッシュ',
@@ -518,7 +519,7 @@ export const launchWeekArticles: GameArticle[] = [
           '「設定」→「時刻と言語」→「日付と時刻」を開き、「今すぐ同期」を押す',
           'ゲームを起動し直して、もう一度オンラインに入る',
         ],
-        note: '直らない場合は、公式のお知らせで障害の告知が出ていないか確認してください。',
+        note: '時刻のずれを秒単位で確かめる方法や、同期できない時の対処は「エラーコード ST-3100001の意味と直し方」の記事で詳しく解説しています。',
       },
     ],
     avoid: [
@@ -562,9 +563,9 @@ export const launchWeekArticles: GameArticle[] = [
       aceSources.famitsu,
       aceSources.steam,
     ],
-    related: [],
+    related: ['error-st-3100001'],
     metaDescription:
-      'PC版エースコンバット8が起動しない・落ちる時の対処法。レイトレーシング対応GPU・Windows 11・SSD（150GB）が最低環境から必須。GPUの確認方法、ドライバー更新、プレイ中のクラッシュ対策まで公式要件をもとに解説。',
+      'PC版エースコンバット8（エスコン8）が起動しない・落ちる時の対処法。公式が調査中のクラッシュの確認事項（推奨ドライバー・SSDの空き16GB・仮想メモリ）、エラーST-3100001、レイトレーシング対応GPU・Windows 11・SSDが必須の動作環境まで公式情報をもとに解説。',
   }),
   make({
     gameSlug: 'shin-sangoku-musou-2-remastered',
