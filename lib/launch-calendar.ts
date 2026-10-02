@@ -12,7 +12,7 @@ export type Launch = {
 };
 
 export const launches: Launch[] = [
-  { gameSlug: 'silent-hill-townfall', release: '2026-09-23' },
+  { gameSlug: 'silent-hill-townfall', release: '2026-09-24' },
   { gameSlug: 'control-resonant', release: '2026-09-24' },
   { gameSlug: 'minecraft-dungeons-2', release: '2026-09-29' },
   { gameSlug: 'shin-sangoku-musou-2-remastered', release: '2026-10-01' },
