@@ -4,8 +4,9 @@
 import { ArrowRight, Cpu, ExternalLink, Gamepad2, Trash2 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { MyPcFit } from '@/components/my-pc-fit';
+import { SolutionNotebook } from '@/components/solution-notebook';
 import { useMyGames, useMyPc } from '@/components/use-my-pc';
-import { gpus, type MinSpec, type MyPc } from '@/lib/my-pc';
+import { gpus, MY_GAMES_KEY, type MinSpec, type MyPc } from '@/lib/my-pc';
 
 export type DashboardGame = {
   slug: string;
@@ -42,21 +43,27 @@ function PcForm({
   onClear,
 }: {
   pc: MyPc | null;
-  onSave: (pc: MyPc) => void;
-  onClear: () => void;
+  onSave: (pc: MyPc) => boolean;
+  onClear: () => boolean;
 }) {
   const [gpu, setGpu] = useState(pc?.gpu ?? '');
   const [ramGb, setRam] = useState(pc?.ramGb ?? 16);
   const [windows, setWindows] = useState<10 | 11>(pc?.windows ?? 11);
   const [saved, setSaved] = useState(false);
+  const [error, setError] = useState('');
   return (
     <form
       className="my-pc-form"
       onSubmit={(event) => {
         event.preventDefault();
         if (!gpu) return;
-        onSave({ gpu, ramGb, windows });
-        setSaved(true);
+        const success = onSave({ gpu, ramGb, windows });
+        setSaved(success);
+        setError(
+          success
+            ? ''
+            : '保存できませんでした。ブラウザの保存設定を確認してください。',
+        );
       }}
     >
       <label>
@@ -119,12 +126,22 @@ function PcForm({
       <div className="my-pc-actions">
         <button type="submit">{pc ? '更新する' : '登録する'}</button>
         {pc ? (
-          <button type="button" className="secondary" onClick={onClear}>
+          <button
+            type="button"
+            className="secondary"
+            onClick={() => {
+              if (!onClear())
+                setError(
+                  '削除できませんでした。ブラウザの保存設定を確認してください。',
+                );
+            }}
+          >
             <Trash2 size={15} /> 削除
           </button>
         ) : null}
         {saved ? <output>このブラウザに保存しました</output> : null}
       </div>
+      {error ? <p role="alert">{error}</p> : null}
       <details>
         <summary>自分のPCの調べ方</summary>
         <ul>
@@ -147,6 +164,7 @@ type News = Record<string, { title: string; date: string; url: string }[]>;
 export function MyDashboard({ games }: { games: DashboardGame[] }) {
   const [pc, savePc, pcReady] = useMyPc();
   const [myGames, saveGames, gamesReady] = useMyGames();
+  const [gameMessage, setGameMessage] = useState('');
   const [news, setNews] = useState<News>({});
   const mine = useMemo(
     () => games.filter((game) => myGames.includes(game.slug)),
@@ -169,12 +187,36 @@ export function MyDashboard({ games }: { games: DashboardGame[] }) {
     return () => controller.abort();
   }, [newsKey]);
 
-  const toggle = (slug: string) =>
-    saveGames(
-      myGames.includes(slug)
-        ? myGames.filter((item) => item !== slug)
-        : [...myGames, slug].slice(-10),
-    );
+  function toggle(slug: string) {
+    try {
+      const value: unknown = JSON.parse(
+        localStorage.getItem(MY_GAMES_KEY) || '[]',
+      );
+      if (
+        !Array.isArray(value) ||
+        !value.every((item) => typeof item === 'string')
+      )
+        throw new Error('保存データを読み取れないため、変更していません。');
+      const current = [...new Set(value as string[])];
+      const removing = current.includes(slug);
+      if (!removing && current.length >= 10) {
+        setGameMessage('最大10本です。選択を減らしてから追加してください。');
+        return;
+      }
+      const success = saveGames(
+        removing ? current.filter((item) => item !== slug) : [...current, slug],
+      );
+      setGameMessage(
+        success
+          ? 'マイゲームをこのブラウザに保存しました。'
+          : '保存できませんでした。ブラウザの保存設定を確認してください。',
+      );
+    } catch (error) {
+      setGameMessage(
+        error instanceof Error ? error.message : '保存できませんでした。',
+      );
+    }
+  }
 
   return (
     <div className="my-dashboard">
@@ -216,7 +258,10 @@ export function MyDashboard({ games }: { games: DashboardGame[] }) {
             ))}
           </div>
         ) : null}
+        <output className="solution-message">{gameMessage}</output>
       </section>
+
+      <SolutionNotebook />
 
       {mine.length ? (
         <section aria-labelledby="my-feed-title">

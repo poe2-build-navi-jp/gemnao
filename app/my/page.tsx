@@ -9,7 +9,7 @@ import { maintenanceSchedule, steamAppIds } from '@/lib/status/sources';
 // Personal page: everything is stored in the reader's browser, so there is
 // nothing for search engines to index.
 export const metadata: Metadata = {
-  title: 'マイPC・マイゲーム',
+  title: 'マイページ｜遊ぶゲーム・診断結果・解決した設定を保存',
   description:
     '自分のPCのGPU・メモリ・Windowsと、遊んでいるゲームを登録すると、動作環境の目安と公式のお知らせ・メンテナンス・解決記事をまとめて確認できます。',
   alternates: { canonical: '/my' },
@@ -59,10 +59,15 @@ export default function MyPage() {
       <WikiHeader pagePath="/my" />
       <article className="static-page">
         <p className="page-kicker">MY PAGE</p>
-        <h1>マイPC・マイゲーム</h1>
+        <h1>マイPC・マイゲーム・解決ノート</h1>
         <p className="page-lead">
-          自分のPCと遊んでいるゲームを登録しておくと、次に来た時にここから最新の情報を確認できます。ログインは不要で、登録内容はこのブラウザにだけ保存されます。
+          遊ぶゲームと、診断結果・解決した設定を保存して、次に困った時にここから見返せます。ログインは不要で、登録内容はこのブラウザにだけ保存されます。
         </p>
+        <nav className="my-page-links" aria-label="マイページの内容">
+          <a href="#my-games">遊ぶゲーム</a>
+          <a href="#my-solutions">診断結果・解決ノート</a>
+          <a href="#my-pc">PCの登録</a>
+        </nav>
         <MyDashboard games={data} />
       </article>
       <WikiFooter />
