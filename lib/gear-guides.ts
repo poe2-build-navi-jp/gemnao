@@ -1,3 +1,4 @@
+import { saveBackupStorageGuide } from './save-backup-storage-guide';
 // Buyer guides describe a decision, not a single-product review.
 export type GearGuide = {
   slug: string;
@@ -9,6 +10,8 @@ export type GearGuide = {
   answer: string;
   checkedAt: string;
   beforeBuying: string[];
+  compareTitle?: string;
+  setupTitle?: string;
   compare: { headers: string[]; rows: string[][] };
   sections: {
     id: string;
@@ -16,7 +19,7 @@ export type GearGuide = {
     paragraphs: string[];
     items?: string[];
   }[];
-  example: {
+  example?: {
     title: string;
     introduction: string;
     fits: string[];
@@ -31,6 +34,7 @@ export type GearGuide = {
 };
 
 export const gearGuides: GearGuide[] = [
+  saveBackupStorageGuide,
   {
     slug: 'discord-microphone-guide',
     title: 'Discord用マイクの選び方｜内蔵・USB・ヘッドセットを比較',

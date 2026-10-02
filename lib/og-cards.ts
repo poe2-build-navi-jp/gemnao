@@ -136,12 +136,7 @@ export function ogCardSpecs(): OgCardSpec[] {
       eyebrow: 'ゲーマー向けデバイス',
       title: guide.title,
       itemsLabel: '買う前の判断',
-      items: [
-        '内蔵マイクで足りる？',
-        'USB別マイクとヘッドセット',
-        '端子・収音方向・周囲の音',
-        '必要な場合だけ製品を検討',
-      ],
+      items: guide.sections.slice(0, 4).map((section) => section.title),
     })),
     ...gearArticles.map((article) => ({
       path: `/gear/${article.slug}`,
