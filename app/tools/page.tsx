@@ -12,6 +12,11 @@ export const metadata: Metadata = {
 
 const tools = [
   {
+    href: '/tools/windows-diagnosis',
+    title: 'PCゲーム診断（Windows用・試作版）',
+    body: 'ゲーム本体と6つの症状を選んで、記録と次の確認を整理。共通診断とゲーム固有チェックを分けた試作版です。',
+  },
+  {
     href: '/status',
     title: '今日、落ちてる？（障害・メンテ情報）',
     body: 'Discordの稼働状況、ゲームの公式メンテナンス予定と公式のお知らせを1ページで確認。',
