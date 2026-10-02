@@ -17,7 +17,7 @@ type Gtag = (
 ) => void;
 
 /** Paths that must never be counted (the admin screens). */
-export const untrackedPath = (path: string) => /^\/admin(?:\/|$)/.test(path);
+export const untrackedPath = (path: string) => /^\/(?:admin|diagnostic-feedback)(?:\/|$)/.test(path);
 
 export function trackEvent(
   name: AnalyticsEvent,
