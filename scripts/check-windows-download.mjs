@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
+const name = 'gemnao-wilds-diagnosis-0.4.0-windows-x64.zip';
+const zip = readFileSync(`public/downloads/${name}`);
+assert.equal(zip.length, 192536);
+assert.equal(createHash('sha256').update(zip).digest('hex'), 'bc39326824f113ab61abd590403432e9743a7edb1a3cbef644c30ac2f379e229');
+const page = readFileSync('app/tools/windows-diagnosis/page.tsx', 'utf8');
+for (const required of [name, '未署名', '合成テスト', '実機未検証', 'history-v1.dat', 'Webの報告受付は準備中', '送信しません', '完全匿名ではありません', 'ダウンロードする前に', 'すべて展開', 'Gemnao.Diagnostics.exe', 'MonsterHunterWilds.exe']) assert.ok(page.includes(required), required);
+const worker = readFileSync('cloudflare/worker-source.mjs', 'utf8');
+assert.ok(worker.includes(`'/downloads/${name}'`));
+assert.ok(worker.includes('return env.ASSETS.fetch(request)'));
+assert.ok(readFileSync('app/tools/page.tsx', 'utf8').includes('/tools/windows-diagnosis'));
+assert.ok(readFileSync('app/sitemap.ts', 'utf8').includes('/tools/windows-diagnosis'));
+console.log('Download artifact identity, guide safety copy, discovery and static route checks passed');
