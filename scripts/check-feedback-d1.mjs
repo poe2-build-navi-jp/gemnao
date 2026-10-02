@@ -72,7 +72,7 @@ try {
   let data = await response.json();
   assert.deepEqual(data.rows, [{ topic, struggling: 8, resolved: 1 }]);
   assert.equal(data.methods[0].responses, 1);
-  assert.equal(data.methods[0].methodLabel, 'レイトレーシングと影を下げる');
+  assert.equal(data.methods[0].methodLabel, 'FPSが上限値で頭打ちなら、まず上限設定を確認する');
   response = await post({ kind: 'step-solved', method: 'step-1' });
   data = await response.json();
   assert.deepEqual(data.rows, [{ topic, struggling: 8, resolved: 2 }]);

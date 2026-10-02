@@ -36,11 +36,13 @@ export async function generateMetadata({
       title: article.title,
       description: article.description,
       locale: ogLocale[locale],
+      images: ['/og-default.png'],
       url: path,
       modifiedTime: article.checkedAt,
     },
     twitter: {
       card: 'summary',
+      images: ['/og-default.png'],
       title: article.title,
       description: article.description,
     },

@@ -36,9 +36,10 @@ export async function generateMetadata({
       title,
       description,
       locale: ogLocale[locale],
+      images: ['/og-default.png'],
       url: `/${locale}/games/${slug}`,
     },
-    twitter: { card: 'summary', title, description },
+    twitter: { card: 'summary', title, description, images: ['/og-default.png'] },
     alternates: {
       canonical: `/${locale}/games/${slug}`,
       languages: languageAlternates(`/games/${slug}`),
