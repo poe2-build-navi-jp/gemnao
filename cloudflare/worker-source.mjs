@@ -37,6 +37,14 @@ function edgeCacheKey(request) {
 
 async function render(request, env, context, pathname) {
   const response = await application.fetch(request, env, context);
+  if (/^\/diagnostic-feedback(?:\/|$)/.test(pathname)) {
+    const privateResponse = new Response(response.body, response);
+    privateResponse.headers.set('Cache-Control', 'private, no-store');
+    privateResponse.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+    privateResponse.headers.set('Referrer-Policy', 'no-referrer');
+    privateResponse.headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'");
+    return privateResponse;
+  }
   const locale = pathname.match(/^\/(en|zh|es)(?:\/|$)/)?.[1];
   if (locale && response.headers.get('content-type')?.includes('text/html')) {
     return new HTMLRewriter()
