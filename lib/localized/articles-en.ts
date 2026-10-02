@@ -84,7 +84,7 @@ export const articlesEn: LocalizedArticle[] = [
           'NVIDIA and Intel: remove the old driver with Display Driver Uninstaller (DDU), then install the driver you downloaded. AMD: remove it with the AMD Cleanup Utility, then install the new one.',
           'If the crashes started right after a driver update, install the previous version instead.',
         ],
-        note: 'The screen resolution may drop while the driver is removed. Keep these steps open on another device.',
+        note: 'The screen resolution may be lower while the GPU driver is uninstalled. Keep these steps open on another device.',
       },
       {
         id: 'vcredist',
@@ -103,16 +103,16 @@ export const articlesEn: LocalizedArticle[] = [
         title:
           'Verify the game files and turn off overlays and background apps',
         summary:
-          'Replace damaged files, then remove apps that commonly interfere with the game.',
+          'Replace damaged files, then test for conflicts with other apps.',
         time: '10–20 min',
         actions: [
           verify('Cyberpunk 2077'),
           'On GOG GALAXY or Epic Games, use the launcher’s verify/repair option.',
-          'Turn off overlays (Discord, Ubisoft Connect, GOG GALAXY and similar) and close hardware monitors, antivirus and other apps you do not need.',
+          'Turn off overlays (Discord, Ubisoft Connect, GOG GALAXY and similar) and close unneeded hardware-monitoring or other non-security apps one at a time. Keep antivirus and firewall protection enabled.',
           'Run the launcher (Steam, GOG GALAXY or Epic) as administrator, then start the game.',
           'If your CPU or GPU is overclocked or undervolted, return it to stock settings (official advice).',
         ],
-        note: 'If you add an exception to your security software, switch the protection back on afterwards.',
+        note: 'If protection history identifies an official game file, confirm the file’s source and the detected issue with the security provider or game support before changing security settings. Do not restore a quarantined file or add an exclusion just to make the game start.',
       },
     ],
     avoid: [
@@ -157,10 +157,10 @@ export const articlesEn: LocalizedArticle[] = [
       'Baldur’s Gate 3 Crashing on Startup or Not Launching (PC): Larian’s Fixes',
     shortTitle: 'Crashing on startup',
     description:
-      'Baldur’s Gate 3 crashes on startup or will not launch? Switch between DirectX 11 and Vulkan, launch the exe directly, remove old mods and rebuild the profile folder, following Larian’s support steps.',
-    lead: 'For the Steam and GOG versions on Windows: nothing happens after Play in the launcher, the game closes around the logo, or it stopped launching after a patch.',
+      'Baldur’s Gate 3 crashes on startup or will not launch? Switch between DirectX 11 and Vulkan, launch the executable directly, remove old mods and rebuild the profile folder, following Larian’s support steps.',
+    lead: 'For the Steam and GOG versions on Windows: nothing happens after you click Play in the launcher, the game closes around the logo, or it stopped launching after a patch.',
     summary:
-      'Larian’s support suggests, in order: close non-essential apps, verify the files, switch between DirectX 11 and Vulkan in the launcher, start the exe directly without the launcher, and remove old mods completely. Leave rebuilding the profile folder for last, and rename it instead of deleting it so your saves stay safe.',
+      'Larian’s support suggests, in order: close non-essential apps, verify the files, switch between DirectX 11 and Vulkan in the launcher, start the executable directly without the launcher, and remove old mods completely. Leave rebuilding the profile folder for last, and rename it instead of deleting it so your saves stay safe.',
     quickFacts: [
       {
         label: 'Executables',
@@ -208,12 +208,12 @@ export const articlesEn: LocalizedArticle[] = [
       {
         id: 'switch-api',
         title:
-          'Close background apps, verify files and switch DirectX 11 / Vulkan',
+          'Close background apps, verify files and switch between DirectX 11 and Vulkan',
         summary:
-          'These are the first, fully reversible checks in Larian’s list.',
+          'These checks come first in Larian’s list. Review any software-removal step before proceeding.',
         time: '10–15 min',
         actions: [
-          'Close antivirus, firewalls, graphics-tweaking or monitoring overlays and chat apps.',
+          'Close nonessential graphics-tweaking tools, monitoring overlays and chat apps one at a time. Keep antivirus and firewall protection enabled; if protection history identifies an official game file, ask the security provider or game support what to do.',
           'If you use ASUS Sonic Studio Virtual Mixer, disable or uninstall it (a known issue listed by Larian).',
           verify("Baldur's Gate 3"),
           'In the launcher, switch between DirectX 11 and Vulkan and try again.',
@@ -221,7 +221,7 @@ export const articlesEn: LocalizedArticle[] = [
       },
       {
         id: 'direct-exe',
-        title: 'Skip the launcher and run the exe as administrator',
+        title: 'Skip the launcher and run the executable as administrator',
         summary:
           'Exit Steam or GOG GALAXY and start the game from the bin folder.',
         time: 'About 3 min',
@@ -256,7 +256,7 @@ export const articlesEn: LocalizedArticle[] = [
           String.raw`First, delete the contents of “%LocalAppData%\Larian Studios\Baldur's Gate 3\LevelCache” and try again (official).`,
           String.raw`If that does not help, open “%LocalAppData%\Larian Studios” and rename the “Baldur's Gate 3” folder (for example, add _old to the end).`,
           'If the game now starts, check that you can begin a new game, save and load.',
-          'To get your saves back, delete the newly created folder and rename the old one back.',
+          'To restore the original profile, close the game and launcher, keep the newly created folder separately, then rename the old folder back. Do not overwrite any saves you want to keep.',
         ],
         note: 'With Steam Cloud enabled, Steam may download your cloud data when the game starts. Larian suggests turning off Steam Cloud for this game temporarily if needed.',
       },
@@ -301,10 +301,10 @@ export const articlesEn: LocalizedArticle[] = [
     title: 'HELLDIVERS 2 GameGuard Error 114 on PC: How to Fix It',
     shortTitle: 'GameGuard error 114',
     description:
-      'HELLDIVERS 2 won’t start because of nProtect GameGuard error 114? Follow Arrowhead’s official steps: administrator and compatibility mode, reinstall GameGuard, close utilities and add security exceptions.',
+      'HELLDIVERS 2 won’t start because of nProtect GameGuard error 114? Review Arrowhead’s guidance on launch permissions, compatibility, GameGuard reinstallation, utility conflicts and security alerts.',
     lead: 'Arrowhead’s official steps for when nProtect GameGuard shows error 114 and the game does not start (Steam version).',
     summary:
-      'Arrowhead’s support lists five workarounds: run the game as administrator (and in Windows 8 compatibility mode on Windows 11), uninstall and reinstall GameGuard, close utility programs, add exceptions in your security software, and disconnect old hard drives.',
+      'Arrowhead lists workarounds involving launch permissions and compatibility, GameGuard reinstallation, utility conflicts, security software and unused drives. Review the steps and their cautions below. Error 114 alone is not a reason to weaken security or disconnect internal hardware.',
     quickFacts: [
       {
         label: 'Open the game folder',
@@ -368,28 +368,28 @@ export const articlesEn: LocalizedArticle[] = [
       },
       {
         id: 'utilities',
-        title: 'Close utility programs and add security exceptions',
+        title: 'Close utility programs and review security alerts',
         summary:
           'Arrowhead notes that error 114 can be triggered by programs that are not cheats.',
         time: 'About 10 min',
         actions: [
           'Close overlays, macro tools, RGB lighting software and monitoring tools one at a time, and check whether the game starts.',
-          'Add exceptions for nProtect GameGuard and HELLDIVERS 2 in your security software — including Microsoft Defender.',
-          'In rare cases an old hard drive can cause the problem. If you have an old HDD connected that you do not use, disconnect it and try again (official).',
+          'If security software reports a detection involving an official GameGuard or HELLDIVERS 2 file, record the threat name and file path, then ask the security provider or Arrowhead before changing exclusions. Do not allowlist unknown files, modified files or whole folders automatically.',
+          'Arrowhead also mentions old hard drives as a possible factor. Do not disconnect internal hardware while the PC is running. If you are unsure which drive is involved or whether it contains needed data, ask the PC manufacturer or a technician before making a hardware change.',
         ],
         note: 'If you find the program that causes it, Arrowhead asks players to report its name.',
       },
     ],
     avoid: [
-      'Do not play with your security software switched off; add the exception and switch it back on.',
+      'Keep security protection enabled. Review any relevant detection with the security provider or game support before considering an exclusion.',
       'Do not use modification or cheat tools; the anti-cheat will react to them.',
     ],
     cautions: ['If none of these steps help, contact Arrowhead support.'],
     faqs: [
       {
-        question: 'I only use Windows Defender. Do I still need an exception?',
+        question: 'Should I add an exception in Microsoft Defender?',
         answer:
-          'Yes. Arrowhead’s support says to add exceptions for nProtect GameGuard and HELLDIVERS 2 even when you only use Microsoft Defender.',
+          'Not automatically. Arrowhead discusses exceptions for GameGuard and HELLDIVERS 2, including in Microsoft Defender. First confirm whether a detection refers to an official game file and ask the security provider or Arrowhead for guidance. Do not exclude an unknown file or disable protection.',
       },
       {
         question: 'Will reinstalling GameGuard delete my progress?',
@@ -420,7 +420,7 @@ export const articlesEn: LocalizedArticle[] = [
       'Hogwarts Legacy crashing on PC? Undo Engine.ini edits and mods, then follow WB Games’ troubleshooting: drivers, Windows Update, overclocking, file verification, graphics settings and security software.',
     lead: 'WB Games (Portkey Games) support steps for when the Steam version closes at launch, crashes to the desktop or freezes while loading.',
     summary:
-      'Official support covers, in order: update GPU and sound drivers, run Windows Update (which updates DirectX), return overclocked parts to stock, verify the game files, lower graphics settings, and add security exceptions while closing unneeded apps. If you edited Engine.ini or installed mods, undo that first.',
+      'Official support covers, in order: update GPU and sound drivers, run Windows Update (which updates DirectX), return overclocked parts to stock, verify the game files, lower graphics settings, and review relevant security alerts and conflicts with unneeded apps. If you edited Engine.ini or installed mods, undo that first.',
     quickFacts: [
       {
         label: 'Save location',
@@ -457,7 +457,7 @@ export const articlesEn: LocalizedArticle[] = [
       },
       {
         symptom: 'Your security software showed a warning',
-        cause: 'Game files were quarantined',
+        cause: 'Check whether the alert refers to official game files',
         stepId: 'background-apps',
       },
     ],
@@ -501,13 +501,13 @@ export const articlesEn: LocalizedArticle[] = [
       },
       {
         id: 'background-apps',
-        title: 'Add security exceptions and close unneeded apps',
+        title: 'Review security alerts and close unneeded apps',
         summary:
           'Check for quarantined files and conflicts with other apps. A clean boot is only a temporary test.',
         time: 'About 10 min',
         actions: [
-          'Check your security software’s quarantine and add the game folder as an exception.',
-          'Close as many apps as you can before starting the game.',
+          'Review protection history for a detection matching the official game file and failure time. Keep protection enabled and ask the security provider or game support before restoring a quarantined file or adding an exclusion. Do not exclude the entire game folder automatically.',
+          'Close nonessential, non-security apps before starting the game and compare one change at a time.',
           'If it still crashes, do a clean boot using Microsoft’s instructions to compare, then return Windows to a normal startup when you are done.',
         ],
         note: 'WB Games warns that a clean boot done incorrectly can affect how your PC starts, so follow Microsoft’s steps exactly.',
@@ -555,7 +555,7 @@ export const articlesEn: LocalizedArticle[] = [
       'Move your GTA V Story Mode progress from Legacy to Enhanced on PC: upload one save in Legacy, download it in Enhanced. One transfer per account, 90-day window, PC only — Rockstar’s official steps.',
     lead: 'For players who started Story Mode in GTA V Legacy and want to continue in GTA V Enhanced, using Rockstar’s official process.',
     summary:
-      'In GTA V Legacy, open the pause menu and choose Game → Upload Save Game. Then, in GTA V Enhanced, download it from the Story tab on the landing page, or from the pause menu under Game → Download Save Game. Each account can transfer only once, and the transfer becomes final when you download.',
+      'In GTA V Legacy, open the pause menu and choose Game → Upload Save Game. Then, in GTA V Enhanced, download it from the Story tab on the landing page, or from the pause menu under Game → Download Save Game. Each account can transfer only once, and the transfer becomes final when you download the save.',
     quickFacts: [
       {
         label: 'Number of transfers',
@@ -738,7 +738,7 @@ export const articlesEn: LocalizedArticle[] = [
         id: 'check-version',
         title: 'Install the SKSE build that matches your game version',
         summary:
-          'SKSE supports only the latest Steam version of the game, and each build targets a specific version.',
+          'For the Steam edition, the SKSE team targets the latest game version. Each SKSE build requires a matching game version.',
         time: 'About 10 min',
         actions: [
           'In the game folder (Steam: right-click → Manage → Browse local files), right-click “SkyrimSE.exe” → Properties → Details and note the File version.',
@@ -762,7 +762,7 @@ export const articlesEn: LocalizedArticle[] = [
       },
     ],
     avoid: [
-      'Back up older saves before overwriting them; a save made without your mods may not be reversible.',
+      'Back up older saves before overwriting them; changes saved after removing mods may not be reversible.',
       'Do not download SKSE from unofficial sites.',
     ],
     cautions: [

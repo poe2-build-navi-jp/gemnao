@@ -1,5 +1,7 @@
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { ArrowRight, ChevronRight, Wrench } from 'lucide-react';
+import { gearGuidesEn } from '@/lib/localized/gear-guides-en';
+import { crashGuideEn } from '@/lib/localized/crash-guide-en';
 import type { Locale } from '@/lib/i18n';
 import { games } from '@/lib/games';
 import { gameFacts } from '@/lib/localized/game-facts';
@@ -27,6 +29,34 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
           <p>{t.homeNote}</p>
         </div>
       </section>
+      {locale === 'en' ? (
+        <section className="content" id="tools">
+          <div className="section-heading">
+            <h2>Windows diagnosis and recent guides</h2>
+          </div>
+          <div className="related-section">
+            <div>
+              <a href="/en/tools/windows-diagnosis">
+                <span>Free Windows prototype</span>Check a PC game launch or
+                crash problem
+                <ArrowRight size={15} />
+              </a>
+              <a href={`/en${crashGuideEn.path}`}>
+                <span>PC troubleshooting</span>
+                {crashGuideEn.title}
+                <ArrowRight size={15} />
+              </a>
+              {gearGuidesEn.map((guide) => (
+                <a href={`/en/gear/${guide.slug}`} key={guide.slug}>
+                  <span>Before you buy</span>
+                  {guide.title}
+                  <ArrowRight size={15} />
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
       <section className="content" id="articles">
         <div className="section-heading">
           <div>
@@ -41,7 +71,10 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
                 href={`/${locale}/games/${article.gameSlug}/${article.slug}`}
                 key={`${article.gameSlug}/${article.slug}`}
               >
-                <span>{gameFacts[article.gameSlug].names[locale]}</span>
+                <span>
+                  {article.gameName ||
+                    gameFacts[article.gameSlug].names[locale]}
+                </span>
                 {article.title}
                 <ArrowRight size={15} />
               </a>

@@ -1,3 +1,4 @@
+import { hasTranslation, languageAlternates } from '@/lib/localized/index';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { notFound } from 'next/navigation';
@@ -28,7 +29,7 @@ export async function generateMetadata({
   return {
     title: article.seoTitle,
     description: article.description,
-    alternates: { canonical: path },
+    alternates: { canonical: path, ...(hasTranslation('en', path) ? { languages: languageAlternates(path) } : {}) },
     openGraph: {
       type: 'article',
       locale: 'ja_JP',

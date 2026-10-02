@@ -84,6 +84,10 @@ export function MobileNavigation({
               {locale === 'ja' ? <a href="/status">障害・メンテ情報</a> : null}
               {locale === 'ja' ? <a href="/my">マイPC</a> : null}
               {locale === 'ja' ? <a href="/tools">便利ツール</a> : null}
+              {locale === 'en' ? (
+                <a href="/en/tools">Tools and Windows diagnosis</a>
+              ) : null}
+              {locale === 'en' ? <a href="/en#tools">Recent guides</a> : null}
               {locale === 'ja' ? (
                 <a href="/?view=articles#articles">解決記事一覧</a>
               ) : null}

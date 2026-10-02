@@ -4,9 +4,13 @@ export const windowsDiagnosisRelease: {
   file: string;
   bytes: number;
   sha256: string;
+  languages: readonly ('ja' | 'en')[];
+  syntheticTests: number;
 } | null = {
-  version: '0.5.0',
-  file: 'gemnao-game-diagnosis-0.5.0-windows-x64.zip',
-  bytes: 210897,
-  sha256: '88023049dee7e92aad94f6d6653b4a63e2eedf3a086e0bb6e5ca8058a4cdaaa0',
+  version: '0.6.0',
+  languages: ['ja', 'en'],
+  syntheticTests: 386,
+  file: 'gemnao-game-diagnosis-0.6.0-windows-x64.zip',
+  bytes: 299650,
+  sha256: '34719ffa93fe31143dcd392b383831fdf8f3f3ecc98d64f2d9e68d9405126b77',
 };

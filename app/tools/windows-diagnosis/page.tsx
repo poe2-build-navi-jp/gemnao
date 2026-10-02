@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { languageAlternates } from '@/lib/localized/index';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { windowsDiagnosisRelease as release } from '@/lib/windows-diagnosis-release';
@@ -9,7 +10,10 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: '/tools/windows-diagnosis' },
+  alternates: {
+    canonical: '/tools/windows-diagnosis',
+    languages: languageAlternates('/tools/windows-diagnosis'),
+  },
   openGraph: {
     title,
     description,
@@ -57,10 +61,54 @@ const symptoms = [
 ];
 
 export default function WindowsDiagnosis() {
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://gemnao.pages.dev';
+  const schema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        name: title,
+        description,
+        url: `${siteUrl}/tools/windows-diagnosis`,
+        inLanguage: 'ja',
+        dateModified: '2026-10-03',
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'ホーム',
+            item: `${siteUrl}/`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: '便利ツール',
+            item: `${siteUrl}/tools`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: 'PCゲーム診断',
+            item: `${siteUrl}/tools/windows-diagnosis`,
+          },
+        ],
+      },
+    ],
+  };
   return (
     <main>
       <WikiHeader pagePath="/tools/windows-diagnosis" />
       <article className="static-page diagnosis-download">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(schema).replace(/</g, '\\u003c'),
+          }}
+        />
         <nav aria-label="パンくず">
           <a href="/">ホーム</a> › <a href="/tools">便利ツール</a> ›
           PCゲーム診断
@@ -168,6 +216,14 @@ export default function WindowsDiagnosis() {
               </dd>
             </div>
             <div>
+              <dt>表示言語</dt>
+              <dd>
+                {release?.languages.includes('en')
+                  ? '日本語・英語。日本語のWindowsでは日本語、それ以外では英語で起動します。アプリが待機中なら上部の言語選択で切り替えられます。診断内容は維持し、選択は今回の起動中だけ有効です。'
+                  : 'この配布版は日本語のみです。'}
+              </dd>
+            </div>
+            <div>
               <dt>対象ゲーム</dt>
               <dd>
                 自分でローカルのゲーム本体EXEを選択。ランチャー・保護された配置・ネットワーク保存先など、選択や読み取りができない環境があります。全ゲームでの対応確認はしていません。
@@ -188,7 +244,8 @@ export default function WindowsDiagnosis() {
             <div>
               <dt>確認済みの範囲</dt>
               <dd>
-                0.5.0はコンパイル（警告・エラー0件）、352件の合成テスト、配布内容の確認済みです。Windows実機検証とは別です。新版のWindowsでの画面操作・実ゲームでの取得・履歴保護・削除操作は未検証です。
+                {release?.version}はコンパイル、{release?.syntheticTests}
+                件の合成テスト、配布内容の確認済みです。Windows実機検証とは別です。新版のWindowsでの画面操作・実ゲームでの取得・履歴保護・削除操作は未検証です。
               </dd>
             </div>
           </dl>
@@ -411,6 +468,27 @@ export default function WindowsDiagnosis() {
         </section>
         <section id="older-version">
           <h2>旧バージョンについて</h2>
+          {release?.version !== '0.5.0' ? (
+            <details>
+              <summary>0.5.0は日本語のみの旧版です</summary>
+              <p>
+                一般ゲーム向けの旧試作版です。英語の画面・診断文は含まれません。既存ファイルとの照合用に
+                <a
+                  href="/downloads/gemnao-game-diagnosis-0.5.0-windows-x64.zip"
+                  download
+                >
+                  旧0.5.0（日本語のみ）
+                </a>
+                を残しています。未署名・Windows実機での新版確認前です。
+              </p>
+              <p>
+                210,897 bytes · SHA-256：
+                <code>
+                  88023049dee7e92aad94f6d6653b4a63e2eedf3a086e0bb6e5ca8058a4cdaaa0
+                </code>
+              </p>
+            </details>
+          ) : null}
           <details>
             <summary>0.4.0はワイルズ専用の旧版です</summary>
             <p>

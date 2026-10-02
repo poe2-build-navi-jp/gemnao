@@ -1,25 +1,38 @@
 import assert from 'node:assert/strict';
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { cp, mkdir, mkdtemp, readFile, readdir, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
 import { createWriteStream } from 'node:fs';
 import { spawn } from 'node:child_process';
 import path from 'node:path';
 import { once } from 'node:events';
 
 const root = process.cwd();
-const dir = path.join(root, '.wrangler/static-delivery-test');
-await mkdir(dir, { recursive: true });
-// Deliberately no D1 binding, account, token or production credential.
-await writeFile(path.join(dir, 'wrangler.json'), JSON.stringify({ name: 'gemnao-static-local-test', pages_build_output_dir: '../../dist/client', compatibility_date: '2026-05-22', compatibility_flags: ['nodejs_compat'] }));
+const resultDir = path.join(root, '.wrangler/static-delivery-test');
+await mkdir(resultDir, { recursive: true });
+// Keep config AND copied assets outside the repository. Otherwise the inner
+// Pages runtime rediscovers the repository config and inherits its local D1.
+const dir = await mkdtemp(path.join(tmpdir(), 'gemnao-static-local-test-'));
+await writeFile(path.join(resultDir, 'runtime-directory.txt'), dir);
+await cp(path.join(root, 'dist/client'), path.join(dir, 'assets'), { recursive: true });
+// Local-only Pages runtime; no D1 binding or account in this configuration.
+await writeFile(path.join(dir, 'wrangler.json'), JSON.stringify({ name: 'gemnao-static-local-test', pages_build_output_dir: './assets', compatibility_date: '2026-05-22', compatibility_flags: ['nodejs_compat'] }));
 await writeFile(path.join(dir, 'bootstrap.mjs'), `import os from 'node:os'; const original=os.networkInterfaces; os.networkInterfaces=()=>{try{return original()}catch{return {lo:[{address:'127.0.0.1',netmask:'255.0.0.0',family:'IPv4',mac:'00:00:00:00:00:00',internal:true,cidr:'127.0.0.1/8'}]}}};`);
-const server = spawn(path.join(root, 'node_modules/.bin/wrangler'), ['pages', 'dev', '../../dist/client', '--ip', '127.0.0.1', '--port', '8795', '--persist-to', path.join(dir, 'state')], {
+const localEnv = { ...process.env };
+for (const name of Object.keys(localEnv)) {
+  if (/^(CLOUDFLARE_|CF_API_|CF_ACCOUNT_|CF_ZONE_)/.test(name)) delete localEnv[name];
+}
+const server = spawn(path.join(root, 'node_modules/.bin/wrangler'), ['pages', 'dev', './assets', '--ip', '127.0.0.1', '--port', '8795', '--persist-to', path.join(dir, 'state')], {
   cwd: dir,
-  env: { ...process.env, WRANGLER_SEND_METRICS: 'false', WRANGLER_LOG_PATH: path.join(dir, 'logs'), MINIFLARE_REGISTRY_PATH: path.join(dir, 'registry'), XDG_CONFIG_HOME: path.join(dir, 'config'), NODE_OPTIONS: `${process.env.NODE_OPTIONS || ''} --import=${path.join(dir, 'bootstrap.mjs')}` },
+  env: { ...localEnv, WRANGLER_SEND_METRICS: 'false', WRANGLER_LOG_PATH: path.join(dir, 'logs'), MINIFLARE_REGISTRY_PATH: path.join(dir, 'registry'), XDG_CONFIG_HOME: path.join(dir, 'config'), NODE_OPTIONS: `${process.env.NODE_OPTIONS || ''} --import=${path.join(dir, 'bootstrap.mjs')}` },
   stdio: ['ignore', 'pipe', 'pipe'],
 });
-const log = createWriteStream(path.join(dir, 'server.log'));
+const log = createWriteStream(path.join(resultDir, 'server.log'));
 server.stdout.pipe(log);
 server.stderr.pipe(log);
 const base = 'http://127.0.0.1:8795';
+let serverOutput = '';
+server.stdout.on('data', chunk => { serverOutput += chunk; });
+server.stderr.on('data', chunk => { serverOutput += chunk; });
 const request = (pathname, init) => fetch(`${base}${pathname}`, { ...init, signal: AbortSignal.timeout(15000) });
 try {
   let ready = false;
@@ -29,6 +42,7 @@ try {
     await new Promise((r) => setTimeout(r, 1000));
   }
   assert.ok(ready, 'Local Pages server started');
+  assert.ok(!/D1 Database|env\.DB/.test(serverOutput), 'QA worker must not inherit a D1 binding');
   const manifest = JSON.parse(await readFile('dist/editorial-snapshots.json', 'utf8'));
   const result = [];
   for (const pathname of Object.keys(manifest)) {
@@ -64,13 +78,15 @@ try {
   assert.equal((await request(Object.values(manifest)[0])).status, 404);
   const invalidContact = await request('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ category: 1 }) });
   assert.equal(invalidContact.status, 400);
-  for (const asset of ['/ads.txt', '/robots.txt', '/sitemap.xml', '/downloads/gemnao-game-diagnosis-0.5.0-windows-x64.zip', '/downloads/gemnao-wilds-diagnosis-0.4.0-windows-x64.zip']) {
+  const downloads = (await readdir('dist/client/downloads')).filter(name => name.endsWith('.zip')).map(name => `/downloads/${name}`);
+  for (const asset of ['/ads.txt', '/robots.txt', '/sitemap.xml', ...downloads]) {
     const response = await request(asset);
     assert.equal(response.status, 200, asset);
-    await response.arrayBuffer();
+    const bytes = Buffer.from(await response.arrayBuffer());
+    if (asset.startsWith('/downloads/')) assert.deepEqual(bytes, await readFile(`dist/client${asset}`), `Download bytes: ${asset}`);
   }
-  await writeFile(path.join(dir, 'results.json'), JSON.stringify(result, null, 2));
-  console.log(`PASS: ${result.length} real local Pages HTML routes; HEAD/query/RSC/non-GET/privacy separation; missing route/internal asset 404; invalid contact 400; robots/ads/sitemap and both native ZIPs retained; no D1 bound`);
+  await writeFile(path.join(resultDir, 'results.json'), JSON.stringify(result, null, 2));
+  console.log(`PASS: ${result.length} real local Pages HTML routes; HEAD/query/RSC/non-GET/privacy separation; missing route/internal asset 404; invalid contact 400; robots/ads/sitemap and ${downloads.length} byte-identical native ZIPs retained; no D1 bound`);
 } finally {
   server.kill('SIGTERM');
   await Promise.race([once(server, 'exit'), new Promise((r) => setTimeout(r, 3000))]);

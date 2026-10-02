@@ -1,3 +1,5 @@
+import { recentGameArticlesEn } from '@/lib/localized/recent-game-articles-en';
+import { gearGuidesEn } from '@/lib/localized/gear-guides-en';
 import type { Locale } from '@/lib/i18n';
 import { articlesEn } from '@/lib/localized/articles-en';
 import { articlesEs } from '@/lib/localized/articles-es';
@@ -7,6 +9,7 @@ import type { LocalizedArticle } from '@/lib/localized/types';
 
 export const localizedArticles: LocalizedArticle[] = [
   ...articlesEn,
+  ...recentGameArticlesEn,
   ...articlesZh,
   ...articlesEs,
 ];
@@ -46,6 +49,14 @@ export const ogLocale: Record<Locale, string> = {
   es: 'es_ES',
 };
 
+/** English-only editorial routes. Do not infer translations from a prefix. */
+export const englishEditorialPaths = [
+  '/guide/pc-game-crash',
+  ...gearGuidesEn.map((guide) => `/gear/${guide.slug}`),
+  '/tools',
+  '/tools/windows-diagnosis',
+];
+
 /**
  * Whether `/{locale}{path}` exists. `path` is the Japanese path ('' for
  * the home page). Used for hreflang and the language menu, so no link
@@ -53,10 +64,12 @@ export const ogLocale: Record<Locale, string> = {
  */
 export function hasTranslation(locale: Locale, path: string) {
   if (path === '' || path === '/') return true;
+  if (locale === 'en' && englishEditorialPaths.includes(path)) return true;
   const [, section, gameSlug, slug, extra] = path.split('/');
   if (section !== 'games' || !gameSlug || extra) return false;
-  if (!localizedGameSlugs.includes(gameSlug)) return false;
-  return slug ? Boolean(localizedArticle(locale, gameSlug, slug)) : true;
+  return slug
+    ? Boolean(localizedArticle(locale, gameSlug, slug))
+    : localizedGameSlugs.includes(gameSlug);
 }
 
 /**

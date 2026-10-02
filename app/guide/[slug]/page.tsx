@@ -1,3 +1,4 @@
+import { hasTranslation, languageAlternates } from '@/lib/localized/index';
 import {
   GpuDriverBeforeSteps,
   GpuDriverAfterSteps,
@@ -95,7 +96,7 @@ export async function generateMetadata({
     ? {
         title: item.title,
         description: item.description,
-        alternates: { canonical: `/guide/${slug}` },
+        alternates: { canonical: `/guide/${slug}`, ...(hasTranslation('en', `/guide/${slug}`) ? { languages: languageAlternates(`/guide/${slug}`) } : {}) },
         openGraph: {
           type: 'article',
           title: item.title,
@@ -205,7 +206,7 @@ export default async function Page({
   ];
   return (
     <main>
-      <WikiHeader />
+      <WikiHeader pagePath={`/guide/${slug}`} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}

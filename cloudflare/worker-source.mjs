@@ -7,6 +7,7 @@ const staticFiles = new Set([
   // Versioned, audited native distributable. Keep routing explicit.
   '/downloads/gemnao-wilds-diagnosis-0.4.0-windows-x64.zip',
   '/downloads/gemnao-game-diagnosis-0.5.0-windows-x64.zip',
+  '/downloads/gemnao-game-diagnosis-0.6.0-windows-x64.zip',
   '/favicon.svg',
   '/gemnao-logo.png',
   '/robots.txt',
