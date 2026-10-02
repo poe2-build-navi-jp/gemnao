@@ -107,6 +107,35 @@ export function CrashAfterSteps() {
           。複数ゲームが落ちる、Windowsも停止する場合はPC側も調べます。
         </p>
       </section>
+      <section className="diagnosis-table" id="steam-client-case">
+        <h2>改善報告：ゲームのMODがなくてもSteam本体の拡張を確認</h2>
+        <p>
+          2026年10月3日（日本時間）、Steam版モンハンワイルズがタイトル前に落ちる環境で、
+          Steamクライアントの外部拡張を一時停止した後に「プレイできた」との報告が1件ありました。
+          OBS終了・SteamオーバーレイOFF・ゲームの整合性確認・管理者実行OFFの確認・GPUドライバー更新と再起動だけでは改善せず、
+          SteamプロセスにSteam直下の追加DLLが読み込まれていることを確認してから切り分けています。
+        </p>
+        <p>
+          ファイルが置かれていることと、プロセスに実際に読み込まれていることは別です。
+          ゲーム側への読み込みを確認した事例ではなく、特定DLLだけが原因と証明したものでもありません。
+          名前だけで削除せず、導入の心当たりがなければ変更を止めてください。
+          WindowsのSystem32にある同名DLLは操作対象にしません。
+        </p>
+        <p>
+          変更前には設定とセーブをコピーして照合します。保存先を転送する拡張では外部クラウドや独自保存先も確認し、
+          保全できない場合は進みません。対象ゲームだけを確認し、同期競合・セーブ消失の表示では上書きせず中止します。
+          改善した状態を保ち、再発を起こすための再有効化は不要です。
+        </p>
+        <p>
+          確認したDLL名、読み取り確認、復元できる一時停止と結果は、次の事例にまとめています。
+          他のゲームにも同じ原因や成功率を当てはめないでください。
+        </p>
+        <p>
+          <a href="/games/monster-hunter-wilds/not-launching#steam-client-check" style={{ display: 'inline-block' }}>
+            モンハンワイルズの起動前クラッシュ改善事例
+          </a>
+        </p>
+      </section>
       <section className="diagnosis-table" id="crash-compare">
         <h2>試した対処が効いたか、同じ条件で比べる</h2>
         <table className="reset-examples">
