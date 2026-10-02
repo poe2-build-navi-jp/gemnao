@@ -10,7 +10,8 @@ import { PathCopy } from '@/components/path-copy';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import type { GameGuide } from '@/lib/games';
 import { gameFacts } from '@/lib/localized/game-facts';
-import { languageTag } from '@/lib/localized/index';
+import { ogImageFor } from '@/lib/og-images';
+import { hasTranslation, languageTag } from '@/lib/localized/index';
 import type { LocalizedArticle as Article } from '@/lib/localized/types';
 import { ui } from '@/lib/localized/ui';
 
@@ -25,9 +26,11 @@ export function LocalizedArticle({
 }) {
   const { locale } = article;
   const t = ui[locale];
-  const name = gameFacts[game.slug].names[locale];
-  const hubPath = `/${locale}/games/${game.slug}`;
-  const path = `${hubPath}/${article.slug}`;
+  const name = article.gameName || gameFacts[game.slug].names[locale];
+  const translatedHub = hasTranslation(locale, `/games/${game.slug}`);
+  const hubPath = `${translatedHub ? `/${locale}` : ''}/games/${game.slug}`;
+  const hubLabel = `${name}${translatedHub ? '' : t.inJapanese}`;
+  const path = `/${locale}/games/${game.slug}/${article.slug}`;
   const schema = [
     {
       '@context': 'https://schema.org',
@@ -38,8 +41,12 @@ export function LocalizedArticle({
       inLanguage: languageTag[locale],
       author: { '@type': 'Organization', name: 'Gemnao' },
       mainEntityOfPage: `${SITE}${path}`,
-      about: { '@type': 'VideoGame', name: gameFacts[game.slug].names.en },
+      about: {
+        '@type': 'VideoGame',
+        name: article.gameName || gameFacts[game.slug].names.en,
+      },
       citation: article.sources.map((source) => source.url),
+      image: `${SITE}${ogImageFor(path).split('?')[0]}`,
     },
     {
       '@context': 'https://schema.org',
@@ -60,7 +67,12 @@ export function LocalizedArticle({
           name: t.home,
           item: `${SITE}/${locale}`,
         },
-        { '@type': 'ListItem', position: 2, name, item: `${SITE}${hubPath}` },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: hubLabel,
+          item: `${SITE}${hubPath}`,
+        },
         {
           '@type': 'ListItem',
           position: 3,
@@ -85,7 +97,9 @@ export function LocalizedArticle({
           <nav className="breadcrumbs" aria-label="breadcrumb">
             <a href={`/${locale}`}>{t.home}</a>
             <span>›</span>
-            <a href={hubPath}>{name}</a>
+            <a href={hubPath} hrefLang={translatedHub ? locale : 'ja'}>
+              {hubLabel}
+            </a>
             <span>›</span>
             <b>{article.shortTitle}</b>
           </nav>
@@ -177,6 +191,7 @@ export function LocalizedArticle({
                 <p>{step.summary}</p>
                 <p className="step-badges">
                   {t.time}: {step.time}
+                  {step.risk && locale === 'en' ? ` · Risk: ${step.risk}` : ''}
                 </p>
                 <ol>
                   {step.actions.map((action) => (
@@ -184,6 +199,14 @@ export function LocalizedArticle({
                   ))}
                 </ol>
                 {step.note ? <p className="tip">{step.note}</p> : null}
+                {step.guideLink ? (
+                  <p>
+                    <a href={step.guideLink.href}>{step.guideLink.label}</a>
+                    {step.guideLink.description
+                      ? ` — ${step.guideLink.description}`
+                      : ''}
+                  </p>
+                ) : null}
               </section>
             ))}
           </section>
@@ -216,9 +239,28 @@ export function LocalizedArticle({
               ))}
             </div>
           </section>
+          {article.related ? (
+            <section className="related-section">
+              <h2>Related guides</h2>
+              <div>
+                {article.related.map((link) => (
+                  <a
+                    href={link.href}
+                    hrefLang={link.href.startsWith('/en/') ? 'en' : 'ja'}
+                    key={link.href}
+                  >
+                    {link.label}
+                    <ArrowRight size={15} />
+                  </a>
+                ))}
+              </div>
+            </section>
+          ) : null}
           <section className="sources" id="references">
             <h2>{t.references}</h2>
-            <p className="source-policy">{t.sourcePolicy}</p>
+            <p className="source-policy">
+              {article.sourcePolicy || t.sourcePolicy}
+            </p>
             {article.sources.map((source) => (
               <a
                 href={source.url}
@@ -230,8 +272,8 @@ export function LocalizedArticle({
                 <ExternalLink size={15} />
               </a>
             ))}
-            <a href={hubPath}>
-              {name}
+            <a href={hubPath} hrefLang={translatedHub ? locale : 'ja'}>
+              {hubLabel}
               <ArrowRight size={15} />
             </a>
             <a href={`/games/${game.slug}/${article.slug}`} hrefLang="ja">

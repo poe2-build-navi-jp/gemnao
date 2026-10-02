@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { languageAlternates } from '@/lib/localized/index';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { ArrowRight } from 'lucide-react';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
   title: 'PCゲーマー向け便利ツール・早見表',
   description:
     '障害・メンテ情報、マイPCでの動作環境チェック、セーブデータの場所一覧、ショートカットキー早見表、リフレッシュレート確認ツールなど、ブックマークしておくと便利なページをまとめました。',
-  alternates: { canonical: '/tools' },
+  alternates: { canonical: '/tools', languages: languageAlternates('/tools') },
 };
 
 const tools = [

@@ -1,3 +1,6 @@
+import { recentGameArticlesEn } from '@/lib/localized/recent-game-articles-en';
+import { gearGuidesEn } from '@/lib/localized/gear-guides-en';
+import { crashGuideEn, crashSectionsEn } from '@/lib/localized/crash-guide-en';
 import { pcHub } from '@/lib/pc-hub';
 // Per-page social preview cards. Everything is derived from the article
 // registries, so a new article gets a card spec without extra data.
@@ -18,6 +21,7 @@ import {
 } from '@/lib/visual-guides';
 
 export type OgCardSpec = {
+  locale?: 'en';
   path: string;
   eyebrow: string;
   title: string;
@@ -166,5 +170,63 @@ export function ogCardSpecs(): OgCardSpec[] {
     ...roundupCards,
     ...pcCards,
     ...gearCards,
+    {
+      path: '/en/tools',
+      locale: 'en' as const,
+      eyebrow: 'PC gaming tools and guides',
+      title: 'PC gaming tools and quick references',
+      itemsLabel: 'Choose what you need',
+      items: [
+        'Windows game diagnosis',
+        'Crash troubleshooting',
+        'Save backups and storage',
+      ],
+    },
+    {
+      path: '/en/tools/windows-diagnosis',
+      locale: 'en' as const,
+      eyebrow: 'Unsigned Windows prototype',
+      title: 'PC Game Diagnosis for Windows',
+      itemsLabel: 'English and Japanese',
+      items: [
+        'Choose a game and symptom',
+        'Review local Windows records',
+        'Track one step at a time',
+        'Read privacy and safety limits',
+      ],
+    },
+    ...recentGameArticlesEn.map((article) => ({
+      path: `/en/games/${article.gameSlug}/${article.slug}`,
+      locale: 'en' as const,
+      eyebrow: 'PC game troubleshooting',
+      title: article.title,
+      itemsLabel: 'Checks in order',
+      items: article.steps.slice(0, 4).map((step) => step.title),
+    })),
+    ...gearGuidesEn.map((guide) => ({
+      path: `/en/gear/${guide.slug}`,
+      locale: 'en' as const,
+      eyebrow: 'Before-you-buy guide',
+      title: guide.title,
+      itemsLabel: 'Check before spending',
+      items: guide.sections.slice(0, 4).map((section) => section.title),
+    })),
+    {
+      path: `/en${crashGuideEn.path}`,
+      locale: 'en' as const,
+      eyebrow: 'PC game troubleshooting',
+      title: crashGuideEn.title,
+      itemsLabel: 'Find your next check',
+      items: crashSectionsEn
+        .filter((section) =>
+          [
+            'crash-scope',
+            'crash-timing',
+            'crash-history',
+            'steam-client-case',
+          ].includes(section.id),
+        )
+        .map((section) => section.title),
+    },
   ].filter((card) => card.items.length);
 }

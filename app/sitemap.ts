@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next';
+import { gearGuidesEn } from '@/lib/localized/gear-guides-en';
 import { games } from '@/lib/games';
 import { gameArticles, hubIndexable } from '@/lib/game-articles';
 import { commonGuides } from '@/lib/common-guides';
@@ -106,10 +107,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     })),
+    ...[
+      { path: '/en/guide/pc-game-crash', updated: '2026-10-03' },
+      ...gearGuidesEn.map((guide) => ({
+        path: `/en/gear/${guide.slug}`,
+        updated: guide.checkedAt,
+      })),
+      { path: '/en/tools', updated: '2026-10-03' },
+      { path: '/en/tools/windows-diagnosis', updated: '2026-10-03' },
+    ].map(({ path, updated }) => ({
+      url: `${base}${path}`,
+      lastModified: new Date(updated),
+      changeFrequency: 'monthly' as const,
+      priority: 0.75,
+    })),
     // Translated pages (hreflang alternates are declared on each page).
     ...locales.map((locale) => ({
       url: `${base}/${locale}`,
-      lastModified: new Date('2026-10-01'),
+      lastModified: new Date(locale === 'en' ? '2026-10-03' : '2026-10-01'),
       changeFrequency: 'weekly' as const,
       priority: 0.7,
     })),

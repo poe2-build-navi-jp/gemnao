@@ -17,6 +17,11 @@ artifact(
   192536,
   'bc39326824f113ab61abd590403432e9743a7edb1a3cbef644c30ac2f379e229',
 );
+artifact(
+  'gemnao-game-diagnosis-0.5.0-windows-x64.zip',
+  210897,
+  '88023049dee7e92aad94f6d6653b4a63e2eedf3a086e0bb6e5ca8058a4cdaaa0',
+);
 const bundled = await build({
   entryPoints: ['lib/windows-diagnosis-release.ts'],
   bundle: true,
@@ -29,6 +34,12 @@ const { windowsDiagnosisRelease: release } = await import(
 );
 if (release) {
   assert.notEqual(release.version, '0.4.0');
+  assert.ok(release.languages.includes('ja'));
+  assert.ok(
+    Number.isInteger(release.syntheticTests) && release.syntheticTests > 0,
+  );
+  if (release.languages.includes('en'))
+    assert.notEqual(release.version, '0.5.0');
   artifact(release.file, release.bytes, release.sha256);
 }
 const page = readFileSync('app/tools/windows-diagnosis/page.tsx', 'utf8');

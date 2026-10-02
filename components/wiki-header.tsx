@@ -58,6 +58,7 @@ export function WikiHeader({
         {locale === 'ja' ? <a href="/#symptoms">症状から探す</a> : null}
         {locale === 'ja' ? <a href="/status">障害情報</a> : null}
         {locale === 'ja' ? <a href="/my">マイPC</a> : null}
+        {locale === 'en' ? <a href="/en/tools">Tools</a> : null}
         <a href="/guide">
           {labels.basics}
           {locale === 'ja' ? '' : ui[locale].inJapanese}
@@ -144,6 +145,7 @@ export function WikiFooter({ locale = 'ja' }: { locale?: 'ja' | Locale }) {
           <p>{t.footerTagline}</p>
         </div>
         <nav aria-label={t.footerNav}>
+          {locale === 'en' ? <a href="/en/tools">Tools</a> : null}
           {link('/about', t.about)}
           {link('/privacy', t.privacy)}
           {link('/terms', t.terms)}

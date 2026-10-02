@@ -49,7 +49,7 @@ export function GearBuyerGuide({ guide }: { guide: GearGuide }) {
   ];
   return (
     <main>
-      <WikiHeader />
+      <WikiHeader pagePath={path} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
