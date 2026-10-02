@@ -4217,6 +4217,137 @@ div.status-list {
 .my-game-maintenance b {
   color: var(--orange);
 }
+.my-page-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  margin: 20px 0;
+}
+.save-game {
+  margin-top: 18px;
+}
+.save-game > output {
+  flex-basis: 100%;
+  font-size: 14px;
+}
+.save-solution {
+  margin: 18px 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+}
+.solution-form {
+  display: grid;
+  gap: 14px;
+  margin-top: 20px;
+}
+.solution-form label,
+.solution-filters label {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  font-weight: 700;
+}
+.solution-form input,
+.solution-form textarea,
+.solution-form select,
+.solution-filters input,
+.solution-filters select {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  padding: 10px;
+  font: inherit;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.solution-form textarea {
+  resize: vertical;
+}
+.solution-form-row,
+.solution-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 12px;
+}
+.solution-filters {
+  margin: 22px 0 16px;
+}
+.solution-hint {
+  color: var(--muted);
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.solution-error {
+  color: #b3261e;
+  overflow-wrap: anywhere;
+}
+.solution-message {
+  display: block;
+  margin: 12px 0;
+  overflow-wrap: anywhere;
+}
+.solution-editor,
+.solution-card {
+  min-width: 0;
+  padding: 18px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow-wrap: anywhere;
+}
+.solution-editor {
+  margin-top: 20px;
+}
+.solution-cards {
+  display: grid;
+  gap: 16px;
+}
+.solution-card-meta {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.solution-card-meta b {
+  color: var(--navy);
+}
+.solution-card dt {
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 12px;
+}
+.solution-card dd {
+  margin: 4px 0;
+  white-space: pre-wrap;
+}
+.solution-delete {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+.my-pc-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+@media (max-width: 600px) {
+  .solution-form-row,
+  .solution-filters {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .save-solution .my-pc-actions > a {
+    flex-basis: 100%;
+  }
+  .my-game-picker label {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+}
 .save-location-list section {
   margin-top: 26px;
 }

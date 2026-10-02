@@ -21,6 +21,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { IssueFeedback } from '@/components/issue-feedback';
+import { SaveGame } from '@/components/save-game';
 import { GameArticleLinks } from '@/components/game-article-links';
 import { PathCopy } from '@/components/path-copy';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
@@ -223,6 +224,7 @@ export default async function GamePage({
           <div className="article-meta">
             <span>最終確認 {game.updated.replaceAll('-', '.')}</span>
           </div>
+          <SaveGame slug={game.slug} />
         </div>
       </div>
 

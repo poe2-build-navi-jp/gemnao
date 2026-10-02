@@ -17,7 +17,7 @@ export function MyShortcut() {
         <Cpu size={18} aria-hidden="true" /> 自分のPC用にまとめる
       </h2>
       <p>
-        PCと遊んでいるゲームを登録して、関連する解決記事や公式のお知らせ・メンテ情報をまとめて確認。
+        遊ぶゲームと、診断結果・解決した設定を保存。関連する解決記事や公式のお知らせ・メンテ情報もまとめて確認。
         ログイン不要で、登録内容はこのブラウザにだけ保存されます。
       </p>
       {pcReady && gamesReady && (pc || mine.length) ? (
@@ -36,10 +36,10 @@ export function MyShortcut() {
               ))}
             </div>
           ) : null}
-          <a href="/my">マイPC・マイゲームを見る →</a>
+          <a href="/my">マイゲーム・解決ノートを見る →</a>
         </>
       ) : (
-        <a href="/my">PC・ゲームを登録する →</a>
+        <a href="/my">ゲーム・診断結果を保存する →</a>
       )}
     </section>
   );

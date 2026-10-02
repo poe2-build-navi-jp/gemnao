@@ -41,9 +41,11 @@ function useStored<T>(key: string, parse: (raw: string | null) => T) {
         if (next === null) localStorage.removeItem(key);
         else localStorage.setItem(key, JSON.stringify(next));
       } catch {
-        // Private mode or storage disabled: nothing is saved.
+        // Let callers distinguish a failed write from a saved value.
+        return false;
       }
       window.dispatchEvent(new Event(EVENT));
+      return true;
     },
     [key],
   );

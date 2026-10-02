@@ -10,6 +10,7 @@ import {
   Share2,
 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
+import { SaveSolution } from '@/components/save-solution';
 import { trackEvent } from '@/lib/analytics';
 import { TroubleshootingProduct } from '@/components/troubleshooting-product';
 import {
@@ -426,6 +427,29 @@ export function InteractiveSteps({
           <ListChecks size={26} />
           {heading}
         </h2>
+        <SaveSolution
+          draft={{
+            title: articleTitle,
+            gameSlug: articlePath.match(/^\/games\/([a-z0-9-]+)\//)?.[1] || '',
+            status: solvedStep
+              ? 'resolved'
+              : completedIds.length >= steps.length
+                ? 'unresolved'
+                : 'investigating',
+            diagnosis: solvedStep
+              ? `「${solvedStep.title}」で解決したと記録。`
+              : completedIds.length
+                ? '確認した手順では解決せず。現在の症状・結果を追記してください。'
+                : '',
+            settings: solvedStep?.title || '',
+            notes: '',
+            articlePath,
+            stepId: solvedStep?.id || '',
+            completedSteps: steps
+              .filter((step) => completedIds.includes(step.id))
+              .map((step) => step.title),
+          }}
+        />
         <div className="procedure-list">
           {steps.map((step, index) => {
             const completed = completedIds.includes(step.id);

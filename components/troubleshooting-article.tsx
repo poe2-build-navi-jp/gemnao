@@ -8,6 +8,7 @@ import {
   Timer,
 } from 'lucide-react';
 import { PathCopy } from '@/components/path-copy';
+import { SaveGame } from '@/components/save-game';
 import { ogImageFor } from '@/lib/og-images';
 import { InteractiveSteps } from '@/components/interactive-steps';
 import { ShareButtons } from '@/components/share-buttons';
@@ -148,6 +149,7 @@ export function TroubleshootingArticle({
           {article.targetVersion ? (
             <p className="target-version">対象：{article.targetVersion}</p>
           ) : null}
+          <SaveGame slug={game.slug} />
         </div>
       </header>
       <div className="article-layout issue-layout">
