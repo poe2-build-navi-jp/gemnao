@@ -4252,3 +4252,50 @@ div.status-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+.launch-watch {
+  padding-top: 26px;
+  padding-bottom: 0;
+}
+.launch-watch .section-heading > a {
+  color: var(--blue);
+  font-weight: 700;
+  font-size: 14px;
+}
+.launch-watch-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.launch-watch-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--orange);
+  border-radius: 12px;
+}
+.launch-watch-card p {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 8px;
+  margin: 0 0 2px;
+  font-weight: 800;
+}
+.launch-watch-card p span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+.launch-watch-card > a {
+  color: var(--blue);
+  font-size: 14px;
+}
+@media (max-width: 760px) {
+  .launch-watch-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -51,7 +51,27 @@ const featuredGuideSlugs = [
   'save-data-backup',
 ];
 
-export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
+export type LaunchItem = {
+  slug: string;
+  name: string;
+  release: string;
+  earlyAccess?: string;
+  released: boolean;
+  articles: { href: string; label: string }[];
+};
+
+const md = (iso: string) => {
+  const [, m, d] = iso.split('-');
+  return `${Number(m)}/${Number(d)}`;
+};
+
+export function WikiHome({
+  view,
+  launches = [],
+}: {
+  view?: 'games' | 'articles';
+  launches?: LaunchItem[];
+}) {
   const [query, setQuery] = useState('');
   const [articleCluster, setArticleCluster] = useState('all');
   const visible = useMemo(() => searchGames(query), [query]);
@@ -169,6 +189,41 @@ export function WikiHome({ view }: { view?: 'games' | 'articles' }) {
       ) : null}
 
       {!isSearching ? <RecentTroubles /> : null}
+
+      {!isSearching && launches.length ? (
+        <section
+          className="content launch-watch"
+          aria-labelledby="launch-watch-title"
+        >
+          <div className="section-heading compact-heading">
+            <div>
+              <p>LAUNCH WATCH</p>
+              <h2 id="launch-watch-title">発売直後の新作｜不具合・対処法</h2>
+            </div>
+            <a href="/status">公式の障害・メンテ情報</a>
+          </div>
+          <div className="launch-watch-grid">
+            {launches.map((launch) => (
+              <div className="launch-watch-card" key={launch.slug}>
+                <p>
+                  <a href={`/games/${launch.slug}`}>{launch.name}</a>
+                  <span>
+                    {launch.released ? '発売' : '発売予定'} {md(launch.release)}
+                    {launch.earlyAccess
+                      ? `（先行 ${md(launch.earlyAccess)}）`
+                      : ''}
+                  </span>
+                </p>
+                {launch.articles.map((article) => (
+                  <a href={article.href} key={article.href}>
+                    {article.label}
+                  </a>
+                ))}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       {!isSearching ? (
         <div className="content home-personal">

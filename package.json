@@ -15,7 +15,8 @@
     "lint": "oxlint",
     "format": "oxfmt",
     "visuals:keys": "node scripts/generate-key-visuals.mjs",
-    "check:localized": "node scripts/run-localized-check.mjs"
+    "check:localized": "node scripts/run-localized-check.mjs",
+    "ping:index": "node scripts/ping-index.mjs"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",

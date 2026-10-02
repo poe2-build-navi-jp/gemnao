@@ -339,7 +339,8 @@ export const launchWeekArticles: GameArticle[] = [
     slug: 'not-launching',
     category: 'launch',
     checkedAt: '2026-10-01',
-    seoTitle: 'エースコンバット8が起動しない・クラッシュする時の対処法【PC版】',
+    seoTitle:
+      'エースコンバット8（エスコン8）が起動しない・落ちる時の対処法【PC版】',
     title:
       'エースコンバット8（ACE COMBAT 8）が起動しない・クラッシュする時の対処法【PC版】',
     shortTitle: '起動しない・クラッシュ',
@@ -564,7 +565,7 @@ export const launchWeekArticles: GameArticle[] = [
     ],
     related: [],
     metaDescription:
-      'PC版エースコンバット8が起動しない・落ちる時の対処法。レイトレーシング対応GPU・Windows 11・SSD（150GB）が最低環境から必須。GPUの確認方法、ドライバー更新、プレイ中のクラッシュ対策まで公式要件をもとに解説。',
+      'PC版エースコンバット8（エスコン8）が起動しない・落ちる時の対処法。公式が調査中のクラッシュの確認事項（推奨ドライバー・SSDの空き16GB・仮想メモリ）、エラーST-3100001、レイトレーシング対応GPU・Windows 11・SSDが必須の動作環境まで公式情報をもとに解説。',
   }),
   make({
     gameSlug: 'shin-sangoku-musou-2-remastered',
