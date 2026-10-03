@@ -1,3 +1,5 @@
+import { EditorialByline } from '@/components/editorial-byline';
+import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
 import { SaveArticle } from '@/components/save-article';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import {
@@ -96,7 +98,9 @@ export function TroubleshootingArticle({
     headline: article.title,
     description: article.metaDescription,
     dateModified: article.checkedAt,
-    author: { '@type': 'Organization', name: 'ゲムなお編集部' },
+    author: editorialAuthor,
+    publisher: editorialPublisher,
+    citation: sources.map((source) => source.url),
     inLanguage: 'ja-JP',
     about: game.title,
     mainEntityOfPage: canonical,
@@ -146,6 +150,7 @@ export function TroubleshootingArticle({
           <h1>{article.title}</h1>
           <p className="article-lead">{article.symptom}</p>
           <div className="article-meta">
+            <EditorialByline />
             <span>最終確認：{article.checkedAt.replaceAll('-', '.')}</span>
             <span>
               情報の状態：{contentStatusLabels[article.status || 'verified']}

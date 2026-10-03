@@ -1,13 +1,17 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { TroubleshootingArticle } from '@/components/troubleshooting-article';
-import { articleBySlug, gameArticles } from '@/lib/game-articles';
+import {
+  articleBySlug,
+  gameArticles,
+  isPublishedGameArticle,
+} from '@/lib/game-articles';
 import { gameBySlug } from '@/lib/games';
 import { ogImageFor } from '@/lib/og-images';
 import { languageAlternates } from '@/lib/localized/index';
 
 export function generateStaticParams() {
-  return gameArticles.map((article) => ({
+  return gameArticles.filter(isPublishedGameArticle).map((article) => ({
     slug: article.gameSlug,
     article: article.slug,
   }));
@@ -20,7 +24,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug, article: articleSlug } = await params;
   const article = articleBySlug(slug, articleSlug);
-  if (!article) return {};
+  if (!article || !isPublishedGameArticle(article)) return {};
   const canonical = `/games/${slug}/${articleSlug}`;
   return {
     title: article.seoTitle,
@@ -52,6 +56,6 @@ export default async function GameIssuePage({
   const { slug, article: articleSlug } = await params;
   const game = gameBySlug(slug);
   const article = articleBySlug(slug, articleSlug);
-  if (!game || !article) notFound();
+  if (!game || !article || !isPublishedGameArticle(article)) notFound();
   return <TroubleshootingArticle game={game} article={article} />;
 }

@@ -405,13 +405,14 @@ export const onimushaArticlesEn: LocalizedArticle[] = [
         stepId: 'step-3',
       },
       {
-        symptom: 'Lower settings still feel uneven',
-        cause: 'Compare compatible upscaling and a sustainable frame cap',
+        symptom: 'FPS stops at a steady number such as 30 or 60',
+        cause: 'Check whether the current frame cap matches that number',
         stepId: 'step-4',
       },
       {
-        symptom: 'Slow only while recording or streaming',
-        cause: 'Check memory use and capture overhead',
+        symptom:
+          'Lower graphics settings still miss your target, or recording makes performance worse',
+        cause: 'Compare GPU preferences and background apps one at a time',
         stepId: 'step-5',
       },
     ],
@@ -436,9 +437,9 @@ export const onimushaArticlesEn: LocalizedArticle[] = [
         time: 'About 5 minutes',
         risk: 'low',
         actions: [
-          'Take screenshots of your current graphics settings.',
+          'In Steam → Settings → In Game, enable the performance monitor. Record resolution, preset, upscaling, frame generation and the frame cap, then note the FPS range after loading settles in the same location and viewpoint. If frame generation is enabled, distinguish the displayed rate including generated frames from the game’s base frame rate.',
           'Open the game’s graphics settings and choose the Low graphics preset. Compare frame rate in the same location.',
-          'If it improves, raise resolution and quality options one at a time to identify the setting that brings the slowdown back.',
+          'If it improves, raise resolution and quality options individually. If little changes, do not keep lowering everything: go to step 4 if FPS stops at a fixed number, or step 5 if it remains below your target.',
         ],
       },
       {
@@ -449,38 +450,39 @@ export const onimushaArticlesEn: LocalizedArticle[] = [
         time: 'About 5 minutes',
         risk: 'low',
         actions: [
-          'Connect the laptop’s appropriate charger and select the manufacturer-supported performance power mode if available. Note the old setting so you can restore it.',
+          'Connect the correct charger and record the old power mode. In Windows 11, use Settings → System → Power & battery → Power mode → Best performance if available, then compare the same scene. If Windows separates Plugged in and On battery settings, change Plugged in while testing with the charger connected. If the option is absent, consult the manufacturer’s power controls or Control Panel → Power Options; change only an available supported setting and restore it if it does not help.',
           'For USB-C charging, check the laptop manual for the correct charging port and required charger and cable capability.',
           'Keep ventilation openings clear and allow space around the PC. A lower frame cap can reduce load; stop testing if the PC overheats or shuts down.',
         ],
       },
       {
         id: 'step-4',
-        title: 'Compare upscaling and a sustainable frame cap',
+        title: 'Check rendering load and the frame cap separately',
         summary:
-          'Upscaling may lower rendering load; a cap may reduce large frame-rate swings.',
+          'Upscaling may lower rendering load. A suitable cap may reduce frame-rate swings and heat; lowering it does not raise FPS that is already low.',
         time: 'About 5 minutes',
         risk: 'low',
         actions: [
-          'On a supported GeForce RTX GPU, try DLSS if available. A GTX 1660 cannot use DLSS; compare an available compatible upscaler such as FSR instead.',
-          'Change one option at a time, checking image quality and FPS in the same scene.',
+          'If FPS stops at a fixed number such as 30 or 60, record and compare the in-game frame cap. If FPS is already below the cap, raising the limit alone will not add performance.',
+          'On a supported GeForce RTX GPU, compare DLSS if available. A GTX 1660 cannot use DLSS; compare a compatible available option such as FSR. Check text, edges and FPS at the same output resolution, location and viewpoint, changing one option at a time.',
           'Choose a frame cap the PC can usually sustain, slightly below its typical rate. Use 60 FPS only if the PC can consistently reach it.',
-          'Restore the previous setting if it does not help.',
+          'Restore changes that do not help. If FPS remains below your target, continue to the GPU-preference and background-app checks rather than repeatedly changing limits.',
         ],
         note: 'Steam’s listed performance targets use upscaling. A frame cap does not create performance the hardware cannot deliver.',
       },
       {
         id: 'step-5',
-        title: 'Check recording overhead and memory use',
+        title: 'Compare background apps and the game’s GPU preference',
         summary:
-          'Steam recommends additional RAM as appropriate when recording or streaming alongside the game.',
+          'First compare background-app load, then the per-app GPU preference on a multi-GPU PC. The Windows preference screen alone does not prove which GPU the game is actually using.',
         time: 'About 2 minutes',
         risk: 'low',
         actions: [
-          'Open Task Manager and inspect memory use while the slowdown occurs.',
-          'Save your work and close unneeded recording, streaming and browser apps, then compare. Keep security protection enabled.',
-          'In Windows Settings → System → Display → Graphics, select OnimushaWotS.exe and choose the intended high-performance GPU preference. Relaunch and compare; this preference screen alone does not prove which GPU is executing the game.',
+          'Record memory use in Task Manager and compare with recording or streaming stopped. High memory use alone does not establish a memory shortage.',
+          'Save your work and close unneeded recording, streaming and browser apps one at a time, comparing the same scene after each change. Keep security protection enabled. If nothing changes, do not assume background apps are the sole cause.',
+          'On a multi-GPU PC, open Windows Settings → System → Display → Graphics and select OnimushaWotS.exe. If missing, use Steam’s Browse local files to locate and add the executable. Record the old preference, choose Options → High performance, restart the game and compare the same scene. Restore the preference if it does not help.',
         ],
+        note: 'If the Low preset still does not help, record the GPU, driver, resolution, test scene and each comparison result for Capcom support. Use the CrashReport guide if the game also crashes.',
       },
     ],
     avoid: [
@@ -514,6 +516,14 @@ export const onimushaArticlesEn: LocalizedArticle[] = [
       {
         label: 'NVIDIA: DLSS 4 FAQ',
         url: 'https://forums.developer.nvidia.com/t/dlss-4-faq/321939',
+      },
+      {
+        label: 'Steam: In-Game Performance Monitor and frame generation',
+        url: 'https://help.steampowered.com/en/faqs/view/3462-CD4C-36BD-5767',
+      },
+      {
+        label: 'Microsoft: Change the power mode for your Windows PC',
+        url: 'https://support.microsoft.com/en-us/windows/change-the-power-mode-for-your-windows-pc-c2aff038-22c9-f46d-5ca0-78696fdf2de8',
       },
     ],
     related: related(

@@ -972,6 +972,10 @@ export const gameArticles: GameArticle[] = [
   ...errorCodeArticles,
 ];
 
+export function isPublishedGameArticle(article: Pick<GameArticle, 'status'>) {
+  return article.status !== 'draft' && article.status !== 'thin';
+}
+
 export function articlesForGame(gameSlug: string) {
   return gameArticles.filter((article) => article.gameSlug === gameSlug);
 }

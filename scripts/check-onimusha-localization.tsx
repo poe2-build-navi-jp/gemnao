@@ -137,6 +137,27 @@ for (const path of [base, ...slugs.map((article) => `${base}/${article}`)]) {
     assert.ok(!html.includes('win64_save'));
   }
 }
+const fps = onimushaArticlesEn.find((article) => article.slug === 'low-fps')!;
+const originalFps = articleBySlug(slug, 'low-fps')!;
+assert.equal(originalFps.checkedAt, '2026-10-03');
+assert.deepEqual(
+  fps.sources.map((source) => source.url),
+  originalFps.sources!.map((source) =>
+    source.url.replace('589562598193771782', '589562598193771781'),
+  ),
+);
+assert.ok(JSON.stringify(fps).includes('base frame rate'));
+assert.ok(
+  JSON.stringify(fps).includes(
+    'raising the limit alone will not add performance',
+  ),
+);
+assert.ok(
+  JSON.stringify(fps).includes('preference screen alone does not prove'),
+);
+assert.ok(
+  JSON.stringify(fps).includes('High memory use alone does not establish'),
+);
 const text = JSON.stringify(onimushaArticlesEn);
 for (const unsafe of [
   'add the game folder as an exception',
