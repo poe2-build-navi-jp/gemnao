@@ -1,3 +1,5 @@
+import { EditorialByline } from '@/components/editorial-byline';
+import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
 import { SaveArticle } from '@/components/save-article';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
@@ -126,10 +128,9 @@ export default async function DiscordArticlePage({
     headline: item.title,
     description: item.metaDescription,
     dateModified: item.checkedAt,
-    author: { '@type': 'Organization', name: 'ゲムなお編集部' },
-    ...(item.botRecommendations
-      ? { publisher: { '@id': 'https://gemnao.pages.dev/#operator' } }
-      : {}),
+    author: editorialAuthor,
+    publisher: editorialPublisher,
+    citation: item.sources.map((source) => source.url),
     inLanguage: 'ja-JP',
     about: 'Discord',
     mainEntityOfPage: canonical,
@@ -185,6 +186,7 @@ export default async function DiscordArticlePage({
             </div>
           ) : null}
           <div className="article-meta">
+            <EditorialByline />
             <span>最終確認：{item.checkedAt.replaceAll('-', '.')}</span>
             <span>対象：{item.target}</span>
           </div>

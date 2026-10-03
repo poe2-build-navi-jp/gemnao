@@ -1,3 +1,5 @@
+import { EditorialByline } from '@/components/editorial-byline';
+import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
 import { SaveArticle } from '@/components/save-article';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
@@ -14,7 +16,6 @@ import {
 } from '@/lib/key-visuals';
 import { pcArticleBySlug, pcArticles } from '@/lib/pc-articles';
 import { gameLinksForPcArticle } from '@/lib/cross-links';
-import { siteConfig } from '@/lib/site-config';
 import { TroubleshootingProduct } from '@/components/troubleshooting-product';
 
 export function generateStaticParams() {
@@ -94,12 +95,12 @@ export default async function PcArticlePage({
       description: article.description,
       dateModified: article.checkedAt,
       inLanguage: 'ja-JP',
-      author: { '@type': 'Organization', name: 'ゲムなお編集部' },
+      author: editorialAuthor,
+      publisher: editorialPublisher,
+      citation: article.sources.map((source) => source.url),
       about: 'Windows 11',
       ...(article.evidenceSummary
         ? {
-            publisher: { '@id': `${siteConfig.url}/#operator` },
-            citation: article.sources.map((source) => source.url),
             hasPart: {
               '@type': 'WebPageElement',
               name: article.evidenceSummary.title,
@@ -157,9 +158,7 @@ export default async function PcArticlePage({
               公式情報の確認：{article.checkedAt.replaceAll('-', '.')}
             </span>
             <span>対象：Windows 11</span>
-            {article.evidenceSummary && (
-              <span>編集：ゲムなお編集部（オカピ研究所）</span>
-            )}
+            <EditorialByline />
           </div>
           <SaveArticle path={`/pc/${article.slug}`} title={article.title} />
         </div>
