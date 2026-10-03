@@ -8,7 +8,7 @@ import { officialStatusPages } from '@/lib/status/sources';
 export const metadata: Metadata = {
   title: 'PCゲーム・Discordの障害・メンテナンス情報｜今日落ちてる？',
   description:
-    'Discordの稼働状況、PCゲームの公式メンテナンス予定、Steamの公式アナウンス（障害・修正）、ゲムなおで「困っている」が急増しているゲームを1ページで確認できます。約10分ごとに更新。',
+    'Discordの稼働状況、PCゲームの公式メンテナンス予定、Steamの公式アナウンス（障害・修正）、ゲムなおで「困っている」が急増しているゲームを1ページで確認できます。ページを開いている間は約10分ごとに自動取得。復旧・完了が確認できた情報は一覧から外します。',
   alternates: { canonical: '/status' },
 };
 
@@ -20,7 +20,7 @@ export default function StatusPage() {
         <p className="page-kicker">STATUS</p>
         <h1>今日、落ちてる？｜PCゲーム・Discordの障害・メンテ情報</h1>
         <p className="page-lead">
-          ゲームやDiscordにつながらない時、自分のPCを疑う前に、公式の障害・メンテナンス情報を確認できます。表示しているのは公式の情報だけで、それぞれの出典にリンクしています。
+          ゲームやDiscordにつながらない時、自分のPCを疑う前に、公式の障害・メンテナンス情報を確認できます。障害・メンテナンス情報は公式発表を出典にしています。修正のお知らせや読者の回答数は、稼働中の障害と分けて表示します。
         </p>
         <StatusBoard />
         <section aria-labelledby="status-official">

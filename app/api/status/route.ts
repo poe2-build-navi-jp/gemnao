@@ -3,7 +3,7 @@ import { buildStatus } from '@/lib/status/data';
 
 // Cached at the edge for 10 minutes: the board calls ~26 official endpoints.
 const TTL = 600;
-const cacheKey = 'https://gemnao.pages.dev/__cache/status-v1';
+const cacheKey = 'https://gemnao.pages.dev/__cache/status-v2';
 
 export async function GET() {
   const cache =

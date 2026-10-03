@@ -6,6 +6,13 @@ import {
   noticePattern,
   steamAppIds,
 } from '@/lib/status/sources';
+import {
+  currentMaintenance,
+  isActiveOfficialStatus,
+  officialSteamNoticeUrl,
+  resolvedNoticePattern,
+  type MaintenanceState,
+} from '@/lib/status/policy';
 
 // Builds the status board data on the server. Every item links to its
 // official source; nothing is inferred except the vote "spike" (shown as
@@ -13,7 +20,13 @@ import {
 
 export type StatusData = {
   checkedAt: string;
+  discordSource: {
+    checkedAt: string;
+    lastSuccessfulAt: string | null;
+    available: boolean;
+  };
   discord: {
+    checkedAt: string;
     indicator: string;
     description: string;
     incidents: {
@@ -22,7 +35,13 @@ export type StatusData = {
       updatedAt: string;
       url: string;
     }[];
-    maintenances: { name: string; start: string; end: string; url: string }[];
+    maintenances: {
+      name: string;
+      start: string;
+      end: string;
+      url: string;
+      status: string;
+    }[];
   } | null;
   notices: {
     gameSlug: string;
@@ -37,9 +56,18 @@ export type StatusData = {
     title: string;
     start: string;
     end: string;
-    state: 'upcoming' | 'ongoing';
+    state: MaintenanceState;
+    verifiedAt: string;
     note?: string;
     source: { label: string; url: string };
+  }[];
+  steamSources: {
+    gameSlug: string;
+    game: string;
+    url: string;
+    checkedAt: string;
+    available: boolean;
+    lastSuccessfulAt: string | null;
   }[];
   spikes: { label: string; href: string; last24h: number }[];
 };
@@ -64,81 +92,152 @@ async function discordStatus(): Promise<StatusData['discord']> {
       }[];
       scheduled_maintenances: {
         name: string;
+        status: string;
         scheduled_for: string;
         scheduled_until: string;
         shortlink: string;
       }[];
     };
+    if (
+      !data.status ||
+      typeof data.status.indicator !== 'string' ||
+      typeof data.status.description !== 'string' ||
+      !Array.isArray(data.incidents) ||
+      !Array.isArray(data.scheduled_maintenances) ||
+      data.incidents.some(
+        (item) =>
+          typeof item.name !== 'string' ||
+          typeof item.status !== 'string' ||
+          typeof item.shortlink !== 'string' ||
+          typeof item.updated_at !== 'string' ||
+          !Number.isFinite(Date.parse(item.updated_at)),
+      ) ||
+      data.scheduled_maintenances.some(
+        (item) =>
+          typeof item.name !== 'string' ||
+          typeof item.status !== 'string' ||
+          typeof item.shortlink !== 'string' ||
+          typeof item.scheduled_for !== 'string' ||
+          typeof item.scheduled_until !== 'string' ||
+          !Number.isFinite(Date.parse(item.scheduled_for)) ||
+          !Number.isFinite(Date.parse(item.scheduled_until)),
+      )
+    )
+      return null;
     return {
+      checkedAt: new Date().toISOString(),
       indicator: data.status.indicator,
       description: data.status.description,
-      incidents: data.incidents.map((item) => ({
-        name: item.name,
-        status: item.status,
-        updatedAt: item.updated_at,
-        url: item.shortlink,
-      })),
-      maintenances: data.scheduled_maintenances.map((item) => ({
-        name: item.name,
-        start: item.scheduled_for,
-        end: item.scheduled_until,
-        url: item.shortlink,
-      })),
+      incidents: data.incidents
+        .filter((item) => isActiveOfficialStatus(item.status))
+        .map((item) => ({
+          name: item.name,
+          status: item.status,
+          updatedAt: item.updated_at,
+          url: item.shortlink,
+        })),
+      maintenances: data.scheduled_maintenances
+        .filter((item) => isActiveOfficialStatus(item.status))
+        .map((item) => ({
+          name: item.name,
+          status: item.status,
+          start: item.scheduled_for,
+          end: item.scheduled_until,
+          url: item.shortlink,
+        })),
     };
   } catch {
     return null;
   }
 }
 
-async function steamNotices(): Promise<StatusData['notices']> {
-  const since = Date.now() / 1000 - 3 * 86_400;
+async function steamNotices(now: number) {
+  const since = now / 1000 - 3 * 86_400;
   const results = await Promise.all(
     Object.entries(steamAppIds).map(async ([gameSlug, appId]) => {
+      const source = {
+        gameSlug,
+        game: gameName(gameSlug),
+        url: `https://store.steampowered.com/news/app/${appId}`,
+        checkedAt: new Date(now).toISOString(),
+      };
       try {
         const response = await fetch(
           `https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=${appId}&count=5&maxlength=1&feeds=steam_community_announcements&format=json`,
           { signal: AbortSignal.timeout(4000) },
         );
-        if (!response.ok) return [];
+        if (!response.ok) throw new Error('Steam source unavailable');
         const data = (await response.json()) as {
           appnews?: {
-            newsitems?: { title: string; date: number; gid: string }[];
+            appid: number;
+            newsitems?: {
+              title: string;
+              date: number;
+              gid: string;
+              url: string;
+              feedname: string;
+              appid: number;
+            }[];
           };
         };
-        return (data.appnews?.newsitems ?? [])
-          .filter(
-            (item) => item.date >= since && noticePattern.test(item.title),
+        if (
+          data.appnews?.appid !== Number(appId) ||
+          !Array.isArray(data.appnews?.newsitems) ||
+          data.appnews.newsitems.some(
+            (item) =>
+              typeof item.title !== 'string' ||
+              !Number.isFinite(item.date) ||
+              typeof item.gid !== 'string' ||
+              typeof item.url !== 'string',
           )
-          .map((item) => ({
-            gameSlug,
-            game: gameName(gameSlug),
-            title: item.title,
-            date: new Date(item.date * 1000).toISOString(),
-            url: `https://store.steampowered.com/news/app/${appId}/view/${item.gid}`,
-          }));
+        )
+          throw new Error('Invalid Steam source');
+        return {
+          source: {
+            ...source,
+            checkedAt: new Date().toISOString(),
+            available: true,
+            lastSuccessfulAt: new Date().toISOString(),
+          },
+          notices: data.appnews.newsitems
+            .filter(
+              (item) =>
+                item.appid === Number(appId) &&
+                item.feedname === 'steam_community_announcements' &&
+                officialSteamNoticeUrl(item.url) &&
+                item.date >= since &&
+                item.date <= now / 1000 &&
+                noticePattern.test(item.title) &&
+                !resolvedNoticePattern.test(item.title),
+            )
+            .map((item) => ({
+              gameSlug,
+              game: gameName(gameSlug),
+              title: item.title,
+              date: new Date(item.date * 1000).toISOString(),
+              url: officialSteamNoticeUrl(item.url)!,
+            })),
+        };
       } catch {
-        return [];
+        return {
+          source: {
+            ...source,
+            checkedAt: new Date().toISOString(),
+            available: false,
+            lastSuccessfulAt: null,
+          },
+          notices: [],
+        };
       }
     }),
   );
-  return results
-    .flat()
-    .sort((a, b) => b.date.localeCompare(a.date))
-    .slice(0, 12);
-}
-
-function currentMaintenance(now: number): StatusData['maintenance'] {
-  return maintenanceSchedule
-    .filter((item) => Date.parse(item.end) > now)
-    .map((item) => ({
-      ...item,
-      game: gameName(item.gameSlug),
-      state:
-        Date.parse(item.start) <= now
-          ? ('ongoing' as const)
-          : ('upcoming' as const),
-    }))
-    .sort((a, b) => a.start.localeCompare(b.start));
+  return {
+    sources: results.map((result) => result.source),
+    notices: results
+      .flatMap((result) => result.notices)
+      .sort((a, b) => b.date.localeCompare(a.date))
+      .slice(0, 12),
+  };
 }
 
 /** Turn a feedback context ("game-aion2-login-error") into a readable link. */
@@ -175,14 +274,23 @@ export async function buildStatus(): Promise<StatusData> {
   const now = Date.now();
   const [discord, notices, spikeList] = await Promise.all([
     discordStatus(),
-    steamNotices(),
+    steamNotices(now),
     spikes(),
   ]);
   return {
-    checkedAt: new Date(now).toISOString(),
+    checkedAt: new Date().toISOString(),
     discord,
-    notices,
-    maintenance: currentMaintenance(now),
+    discordSource: {
+      checkedAt: new Date().toISOString(),
+      available: !!discord,
+      lastSuccessfulAt: discord?.checkedAt ?? null,
+    },
+    notices: notices.notices,
+    steamSources: notices.sources,
+    maintenance: currentMaintenance(maintenanceSchedule, now).map((item) => ({
+      ...item,
+      game: gameName(item.gameSlug),
+    })),
     spikes: spikeList,
   };
 }
@@ -208,17 +316,32 @@ export async function buildGameNews(slugs: string[]): Promise<GameNews> {
           if (!response.ok) return [slug, []] as const;
           const data = (await response.json()) as {
             appnews?: {
-              newsitems?: { title: string; date: number; gid: string }[];
+              appid: number;
+              newsitems?: {
+                title: string;
+                date: number;
+                gid: string;
+                url: string;
+                feedname: string;
+                appid: number;
+              }[];
             };
           };
           return [
             slug,
             (data.appnews?.newsitems ?? [])
-              .filter((item) => item.date >= since)
+              .filter(
+                (item) =>
+                  item.appid === Number(appId) &&
+                  item.date >= since &&
+                  item.date <= Date.now() / 1000 &&
+                  item.feedname === 'steam_community_announcements' &&
+                  officialSteamNoticeUrl(item.url),
+              )
               .map((item) => ({
                 title: item.title,
                 date: new Date(item.date * 1000).toISOString(),
-                url: `https://store.steampowered.com/news/app/${appId}/view/${item.gid}`,
+                url: officialSteamNoticeUrl(item.url)!,
               })),
           ] as const;
         } catch {
