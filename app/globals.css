@@ -3332,6 +3332,11 @@ kbd {
     border: 0;
     padding: 4px 12px;
   }
+  .diagnosis-table td a {
+    display: block;
+    min-height: 44px;
+    padding-block: 8px;
+  }
   .diagnosis-table td::before {
     content: attr(data-label) '：';
     color: var(--muted);
