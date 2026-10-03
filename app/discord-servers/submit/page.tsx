@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function DiscordServerSubmitPage() {
   return (
     <main>
-      <WikiHeader />
+      <WikiHeader pagePath="/discord-servers/submit" />
       <article className="static-page server-submit-page">
         <p className="page-kicker">FREE LISTING REQUEST</p>
         <h1>Discordサーバーを無料掲載する</h1>

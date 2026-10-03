@@ -129,7 +129,7 @@ export default async function DiscordServersPage() {
 
   return (
     <main>
-      <WikiHeader />
+      <WikiHeader pagePath="/discord-servers" />
       {structuredData.map((data, index) => (
         <script
           key={index}

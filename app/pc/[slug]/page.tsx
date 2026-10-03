@@ -136,7 +136,7 @@ export default async function PcArticlePage({
   }
   return (
     <main>
-      <WikiHeader />
+      <WikiHeader pagePath={`/pc/${slug}`} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

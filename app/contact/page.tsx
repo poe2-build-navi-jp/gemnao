@@ -19,7 +19,7 @@ export default async function ContactPage({
   const initialUrl = typeof url === 'string' && url.startsWith('https://gemnao.pages.dev/') ? url : '';
   return (
     <main>
-      <WikiHeader />
+      <WikiHeader pagePath="/contact" />
       <article className="static-page contact-page">
         <p className="page-kicker">CONTACT</p>
         <h1>お問い合わせ・記事の訂正依頼</h1>

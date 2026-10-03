@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function DiscordServerGuidelinesPage() {
   return (
     <main>
-      <WikiHeader />
+      <WikiHeader pagePath="/discord-servers/guidelines" />
       <article className="static-page">
         <p className="page-kicker">SERVER LISTING GUIDELINES</p>
         <h1>Discordサーバー掲載ガイドライン</h1>

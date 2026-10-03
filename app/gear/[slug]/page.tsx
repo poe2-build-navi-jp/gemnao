@@ -136,7 +136,7 @@ export default async function GearArticlePage({
   ];
   return (
     <main>
-      <WikiHeader />
+      <WikiHeader pagePath={`/gear/${slug}`} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
