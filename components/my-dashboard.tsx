@@ -7,6 +7,7 @@ import { MyPcFit } from '@/components/my-pc-fit';
 import { SolutionNotebook } from '@/components/solution-notebook';
 import { useMyGames, useMyPc } from '@/components/use-my-pc';
 import { gpus, MY_GAMES_KEY, type MinSpec, type MyPc } from '@/lib/my-pc';
+import { trackMyGameAdded } from '@/lib/analytics';
 
 export type DashboardGame = {
   slug: string;
@@ -206,6 +207,7 @@ export function MyDashboard({ games }: { games: DashboardGame[] }) {
       const success = saveGames(
         removing ? current.filter((item) => item !== slug) : [...current, slug],
       );
+      if (success && !removing) trackMyGameAdded();
       setGameMessage(
         success
           ? 'マイゲームをこのブラウザに保存しました。'
