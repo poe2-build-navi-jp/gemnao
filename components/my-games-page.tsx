@@ -1,4 +1,5 @@
 import { WikiHeader, WikiFooter } from '@/components/wiki-header';
+import { GameRequestForm } from '@/components/game-request-form';
 import { MyGamesPanel } from '@/components/my-games-panel';
 import { myGamesCopy, type MyGamesLocale } from '@/lib/my-games-copy';
 import { myGamesData } from '@/lib/my-games-data';
@@ -18,6 +19,7 @@ export function MyGamesPage({ locale = 'ja' }: { locale?: MyGamesLocale }) {
         </a>
         <p className="my-games-privacy">{t.privacy}</p>
         <MyGamesPanel games={myGamesData(locale)} locale={locale} />
+        <GameRequestForm locale={locale} />
         <p className="my-games-other">
           <a href="/my#my-reading-list">{t.savedLink} →</a>
         </p>
