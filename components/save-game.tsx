@@ -67,7 +67,7 @@ export function SaveGame({ slug }: { slug: string }) {
         )}
         {saved ? 'マイゲームに保存済み（外す）' : '遊ぶゲームとして保存'}
       </button>
-      <a href="/my#my-games">マイゲームを見る →</a>
+      <a href="/my#my-feed">マイゲームを見る →</a>
       <output>{message}</output>
     </div>
   );

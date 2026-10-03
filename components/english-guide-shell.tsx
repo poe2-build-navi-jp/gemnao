@@ -1,3 +1,5 @@
+import { ShareButtons } from '@/components/share-buttons';
+import { SaveArticle } from '@/components/save-article';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import type { ReactNode } from 'react';
 import { ArrowRight, CheckCircle2, ExternalLink } from 'lucide-react';
@@ -97,6 +99,7 @@ export function EnglishGuideShell({
               <span>Contains advertising / affiliate links</span>
             ) : null}
           </div>
+          <SaveArticle path={path} title={guide.title} locale="en" />
         </div>
       </header>
       <div className="article-layout issue-layout">
@@ -154,6 +157,7 @@ export function EnglishGuideShell({
               Report an error (Japanese contact form)
             </a>
           </p>
+          <ShareButtons title={guide.title} path={path} locale="en" />
           <section className="sources" id="references">
             <h2>Sources and editorial notes</h2>
             <p className="source-policy">{guide.sourcePolicy}</p>

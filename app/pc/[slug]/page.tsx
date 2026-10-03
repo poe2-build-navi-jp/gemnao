@@ -1,3 +1,4 @@
+import { SaveArticle } from '@/components/save-article';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { notFound } from 'next/navigation';
@@ -160,6 +161,7 @@ export default async function PcArticlePage({
               <span>編集：ゲムなお編集部（オカピ研究所）</span>
             )}
           </div>
+          <SaveArticle path={`/pc/${article.slug}`} title={article.title} />
         </div>
       </header>
       <div className="article-layout issue-layout">

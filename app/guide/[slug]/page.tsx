@@ -1,3 +1,4 @@
+import { SaveArticle } from '@/components/save-article';
 import { hasTranslation, languageAlternates } from '@/lib/localized/index';
 import {
   GpuDriverBeforeSteps,
@@ -227,6 +228,7 @@ export default async function Page({
             <span>最終確認：{item.checkedAt.replaceAll('-', '.')}</span>
             <span>公式資料を優先して確認</span>
           </div>
+          <SaveArticle path={`/guide/${item.slug}`} title={item.title} />
         </div>
       </header>
       <div className="article-layout issue-layout">

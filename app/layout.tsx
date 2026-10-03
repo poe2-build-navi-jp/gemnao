@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { siteConfig } from '@/lib/site-config';
 import { AdsenseLoader } from '@/components/adsense-loader';
+import { analyticsOrigin } from '@/lib/analytics';
 import { AnalyticsLoader } from '@/components/analytics-loader';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://gemnao.pages.dev';
@@ -100,7 +101,7 @@ export default function RootLayout({
             <script
               dangerouslySetInnerHTML={{
                 // The admin screens are not counted (see lib/analytics.ts).
-                __html: `(function(){var p=location.pathname;
+                __html: `(function(){if(location.origin !== ${JSON.stringify(analyticsOrigin).replace(/</g, '\\u003c')}) return;var p=location.pathname;
 if (p === '/admin' || p.indexOf('/admin/') === 0) return;
 window.dataLayer = window.dataLayer || [];
 window.gtag = function(){dataLayer.push(arguments);};

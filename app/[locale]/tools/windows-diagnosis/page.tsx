@@ -1,3 +1,4 @@
+import { SaveArticle } from '@/components/save-article';
 import { ogImageFor } from '@/lib/og-images';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -154,6 +155,11 @@ export default async function EnglishWindowsDiagnosis({
           Guide checked: October 3, 2026 (Japan time) · Gemnao / Okapi
           Laboratory
         </p>
+        <SaveArticle
+          path="/en/tools/windows-diagnosis"
+          title="PC Game Diagnosis for Windows"
+          locale="en"
+        />
         <aside className="download-caution" aria-labelledby="trial-title">
           <h2 id="trial-title">Before you start: scope and safety</h2>
           <p>
@@ -343,6 +349,11 @@ export default async function EnglishWindowsDiagnosis({
               </p>
             </li>
           </ol>
+          <SaveArticle
+            path="/en/tools/windows-diagnosis"
+            title="PC Game Diagnosis for Windows"
+            locale="en"
+          />
           <aside className="download-caution">
             <h3>Stop if Windows protection blocks it</h3>
             <p>

@@ -3,18 +3,26 @@
 import { listenForAffiliateClicks } from '@/lib/affiliate-analytics';
 import { useEffect } from 'react';
 import { afterPageLoad } from '@/components/deferred-load';
-import { trackEvent, untrackedPath } from '@/lib/analytics';
+import {
+  trackEvent,
+  trackReadingAction,
+  canTrackAnalytics,
+} from '@/lib/analytics';
 
 // The gtag() queue is set up inline in <head>, so page views are recorded
 // even though gtag.js itself is only fetched after the page has loaded.
 // The admin screens are skipped so the owner's visits are not counted.
 export function AnalyticsLoader({ id }: { id: string }) {
   useEffect(() => {
-    if (untrackedPath(location.pathname)) return;
+    if (!canTrackAnalytics()) return;
     // Share links are plain <a data-share="x"> so they work without
     // JavaScript; count them with one delegated listener.
     const onClick = (event: MouseEvent) => {
-      const link = (event.target as Element | null)?.closest?.('a[data-share]');
+      if (event.defaultPrevented || event.button !== 0) return;
+      const target = event.target as Element | null;
+      if (target?.closest?.('a[data-related]') instanceof HTMLAnchorElement)
+        trackReadingAction('related_article_opened');
+      const link = target?.closest?.('a[data-share]');
       if (!(link instanceof HTMLAnchorElement)) return;
       trackEvent('share', {
         method: link.dataset.share || 'link',

@@ -1,3 +1,5 @@
+import { ShareButtons } from '@/components/share-buttons';
+import { SaveArticle } from '@/components/save-article';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import {
   AlertTriangle,
@@ -111,6 +113,7 @@ export function LocalizedArticle({
               {t.lastChecked} {article.checkedAt}
             </span>
           </div>
+          <SaveArticle path={path} title={article.title} locale={locale} />
         </div>
       </header>
       <div className="article-layout issue-layout">
@@ -256,6 +259,7 @@ export function LocalizedArticle({
               </div>
             </section>
           ) : null}
+          <ShareButtons title={article.title} path={path} locale={locale} />
           <section className="sources" id="references">
             <h2>{t.references}</h2>
             <p className="source-policy">
