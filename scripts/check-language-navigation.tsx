@@ -31,6 +31,10 @@ for (const locale of locales) {
       /<details class="language-menu">([\s\S]*?)<\/details>/,
     )?.[1];
     assert.ok(menu);
+    assert.ok(
+      menu.includes(`: ${localeNames[locale]}"`),
+      'Language control includes its visible label in its accessible name',
+    );
     const links = [...menu.matchAll(/<a href="([^"]+)"[^>]*>(.*?)<\/a>/g)];
     assert.equal(links.length, 4);
     for (const [index, item] of locales.entries()) {
