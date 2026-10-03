@@ -118,7 +118,7 @@ export function WikiHeader({
         )}
       </nav>
       <details className="language-menu">
-        <summary aria-label={languageLabels.menu}>
+        <summary aria-label={`${languageLabels.menu}: ${localeNames[locale]}`}>
           <Languages size={18} />
           <span>{localeNames[locale]}</span>
         </summary>
