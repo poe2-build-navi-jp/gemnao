@@ -1,7 +1,13 @@
 import application from '../dist/server/index.js';
+import editorialSnapshots from '../dist/editorial-snapshots.json';
+import { snapshotAssetFor } from './prerender-policy.mjs';
 
 const staticFiles = new Set([
   '/ads.txt',
+  // Versioned, audited native distributable. Keep routing explicit.
+  '/downloads/gemnao-wilds-diagnosis-0.4.0-windows-x64.zip',
+  '/downloads/gemnao-game-diagnosis-0.5.0-windows-x64.zip',
+  '/downloads/gemnao-game-diagnosis-0.6.0-windows-x64.zip',
   '/favicon.svg',
   '/gemnao-logo.png',
   '/robots.txt',
@@ -53,6 +59,26 @@ async function render(request, env, context, pathname) {
 const worker = {
   async fetch(request, env, context) {
     const { pathname } = new URL(request.url);
+
+    // Internal asset URLs are not alternate public article URLs.
+    if (pathname.startsWith('/_gemnao-snapshots/')) {
+      return new Response('Not found', { status: 404, headers: { 'X-Robots-Tag': 'noindex' } });
+    }
+
+    const snapshot = snapshotAssetFor(request, editorialSnapshots);
+    if (snapshot) {
+      const assetUrl = new URL(snapshot, request.url);
+      const asset = await env.ASSETS.fetch(new Request(assetUrl, { method: request.method, headers: request.headers }));
+      if (asset.status === 200 || asset.status === 304) {
+        const response = new Response(asset.body, asset);
+        response.headers.set('Content-Type', 'text/html; charset=utf-8');
+        response.headers.set('Cache-Control', 'public, max-age=0, must-revalidate');
+        response.headers.set('X-Gemnao-Cache', 'STATIC');
+        return response;
+      }
+      // A missing deployment asset must not expose an internal path or make
+      // articles unavailable; the existing renderer remains the fallback.
+    }
 
     if (pathname.startsWith('/_next/static/') || pathname.startsWith('/images/') || staticFiles.has(pathname)) {
       return env.ASSETS.fetch(request);

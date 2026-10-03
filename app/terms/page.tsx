@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 export const metadata: Metadata = {
   title: '利用規約・免責事項',
+  description:
+    'ゲムなおの情報利用にあたっての注意、設定変更とバックアップ、著作権・商標、Discordサーバー募集、MOD・外部ツールの掲載方針を案内します。',
   alternates: { canonical: '/terms' },
 };
 export default function Terms() {

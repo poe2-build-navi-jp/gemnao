@@ -25,6 +25,34 @@ const expected = {
 };
 assert.deepEqual(affiliateClickParams(data), expected);
 assert.deepEqual(
+  affiliateClickParams({
+    ...data,
+    affiliatePath: '/en/gear/discord-microphone-guide',
+    affiliateAsin: 'B08H6X6G28',
+  }),
+  {
+    ...expected,
+    article_path: '/en/gear/discord-microphone-guide',
+    product_id: 'B08H6X6G28',
+    page_location: 'https://gemnao.pages.dev/en/gear/discord-microphone-guide',
+  },
+);
+assert.equal(
+  affiliateClickParams({
+    ...data,
+    affiliatePath: '/en/gear/discord-microphone-guide?email=private',
+  }),
+  null,
+);
+assert.equal(
+  affiliateClickParams({
+    ...data,
+    affiliatePath: '/en/gear/discord-microphone-guide#private',
+  }),
+  null,
+);
+
+assert.deepEqual(
   affiliateClickParams({ ...data, affiliatePosition: 'after-fit-check' }),
   { ...expected, link_position: 'after-fit-check' },
 );

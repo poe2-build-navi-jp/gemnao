@@ -86,7 +86,7 @@ export const localizedHubs: Record<string, LocalizedHub> = {
   },
   palworld: {
     lead: {
-      en: 'World save location, a mod-free launch test after updates, and the official dedicated server settings file.',
+      en: 'World save locations, a mod-free launch test after updates, and the official dedicated-server settings file.',
       zh: '世界存档位置、更新后不加载 MOD 的启动测试，以及官方专用服务器设置文件。',
       es: 'Ubicación de los mundos, prueba de inicio sin mods tras una actualización y el archivo oficial de ajustes del servidor dedicado.',
     },
@@ -158,7 +158,7 @@ export const localizedHubs: Record<string, LocalizedHub> = {
         'Verify the game files in Steam',
         'Update Windows and your GPU driver',
         'Turn off the Steam overlay and other tools that run in the background',
-        'Move mods and external DLL files out of the game folder',
+        'Move only files you can identify as installed mods or their added DLLs out of the game folder; keep a copy and record their original locations',
         'Back up GraphicsConfig.xml and let the game recreate it',
       ],
       zh: [
@@ -204,7 +204,7 @@ export const localizedHubs: Record<string, LocalizedHub> = {
       es: 'Ubicación de la partida, requisitos oficiales y los pasos de CD PROJEKT RED para fallos de inicio y cierres.',
     },
     intro: {
-      en: 'Cyberpunk 2077 saves to Saved Games\\CD Projekt Red, separate from the game folder, so reinstalling does not remove them. If the game will not start or keeps crashing, test it without mods first, then follow the official order: GPU driver clean install, Visual C++ redistributables, file verification and overlays.',
+      en: 'Cyberpunk 2077 stores saves under Saved Games\\CD Projekt Red, outside the game installation folder. Back up your saves before reinstalling. If the game will not start or keeps crashing, test it without mods first, then follow the official order: GPU driver clean install, Visual C++ redistributables, file verification and overlays.',
       zh: '《赛博朋克 2077》的存档保存在“保存的游戏\\CD Projekt Red”中，与游戏文件夹分开，因此重新安装不会删除存档。无法启动或频繁崩溃时，先在不加载 MOD 的状态下测试，再按官方顺序检查：显卡驱动全新安装、Visual C++ 运行库、文件验证和叠加层。',
       es: 'Cyberpunk 2077 guarda las partidas en Saved Games\\CD Projekt Red, fuera de la carpeta del juego, así que reinstalar no las borra. Si no inicia o se cierra, pruébalo primero sin mods y después sigue el orden oficial: instalación limpia del controlador, paquetes de Visual C++, verificación de archivos y superposiciones.',
     },
@@ -227,7 +227,7 @@ export const localizedHubs: Record<string, LocalizedHub> = {
       es: 'Ubicación de la partida, requisitos oficiales y los pasos de Larian para cierres al iniciar.',
     },
     intro: {
-      en: 'Baldur’s Gate 3 keeps saves, settings and a level cache under %LocalAppData%\\Larian Studios\\Baldur’s Gate 3. The game has two executables: bg3.exe for Vulkan and bg3_dx11.exe for DirectX 11. Larian’s support suggests switching between them, launching the executable directly, and removing old mods when the game crashes on startup.',
+      en: "Baldur’s Gate 3 keeps saves, settings and a level cache under %LocalAppData%\\Larian Studios\\Baldur's Gate 3. The game has two executables: bg3.exe for Vulkan and bg3_dx11.exe for DirectX 11. Larian’s support suggests switching between them, launching the executable directly, and removing old mods when the game crashes on startup.",
       zh: '《博德之门3》的存档、设置和关卡缓存都在 %LocalAppData%\\Larian Studios\\Baldur’s Gate 3 中。游戏有两个程序：Vulkan 用的 bg3.exe 和 DirectX 11 用的 bg3_dx11.exe。启动时崩溃的话，Larian 官方建议在两者之间切换、直接运行程序，并清除旧的 MOD。',
       es: 'Baldur’s Gate 3 guarda partidas, ajustes y caché de niveles en %LocalAppData%\\Larian Studios\\Baldur’s Gate 3. Tiene dos ejecutables: bg3.exe para Vulkan y bg3_dx11.exe para DirectX 11. Si se cierra al iniciar, el soporte de Larian recomienda alternar entre ellos, abrir el ejecutable directamente y quitar mods antiguos.',
     },
@@ -250,7 +250,7 @@ export const localizedHubs: Record<string, LocalizedHub> = {
       es: 'Ubicación de la partida, requisitos oficiales y la solución de Arrowhead para el error 114 de GameGuard.',
     },
     intro: {
-      en: 'HELLDIVERS 2 uses the nProtect GameGuard anti-cheat. When it fails with error 114, Arrowhead’s support lists a fixed order: run the game as administrator (with Windows 8 compatibility mode on Windows 11), reinstall GameGuard from the game’s tools folder, close utility programs and add security software exceptions.',
+      en: 'HELLDIVERS 2 uses the nProtect GameGuard anti-cheat system. For error 114, Arrowhead lists checks involving launch permissions and compatibility, reinstalling GameGuard, utility conflicts and security software. Keep protection enabled and review any detection with the security provider or Arrowhead before changing exclusions.',
       zh: '《绝地潜兵2》使用 nProtect GameGuard 反作弊程序。出现错误 114 时，Arrowhead 官方给出了固定的处理顺序：以管理员身份运行游戏（Windows 11 还需开启 Windows 8 兼容模式），从游戏的 tools 文件夹重新安装 GameGuard，关闭工具类程序，并在安全软件中添加例外。',
       es: 'HELLDIVERS 2 usa el antitrampas nProtect GameGuard. Ante el error 114, el soporte de Arrowhead indica un orden concreto: ejecutar el juego como administrador (con compatibilidad con Windows 8 en Windows 11), reinstalar GameGuard desde la carpeta tools, cerrar programas de utilidades y añadir excepciones en el antivirus.',
     },
@@ -342,7 +342,7 @@ export const localizedHubs: Record<string, LocalizedHub> = {
       es: 'Dónde se guardan las partidas y cómo recuperar una que desapareció o no carga.',
     },
     intro: {
-      en: 'Stardew Valley only saves when the in-game day ends. Each farm is a folder under %appdata%\\StardewValley\\Saves that needs two files to load. The official wiki lists four ways to recover a save: fix a temporary file name, undo the last save, restore an SMAPI backup, or put back a save that Steam Cloud overwrote.',
+      en: 'Stardew Valley only saves when the in-game day ends. Each farm has a folder under %appdata%\\StardewValley\\Saves, and the game needs both required save files in that folder to load it. The official wiki lists four ways to recover a save: fix a temporary file name, undo the last save, restore an SMAPI backup, or put back a save that Steam Cloud overwrote.',
       zh: '《星露谷物语》只在游戏内一天结束时存档。每个农场都是 %appdata%\\StardewValley\\Saves 下的一个文件夹，需要其中两个文件才能读取。官方 Wiki 列出了四种恢复方法：修正临时文件名、撤销上一次存档、从 SMAPI 备份恢复，以及恢复被 Steam 云覆盖的存档。',
       es: 'Stardew Valley solo guarda al terminar el día en el juego. Cada granja es una carpeta dentro de %appdata%\\StardewValley\\Saves y necesita dos archivos para cargar. La wiki oficial indica cuatro formas de recuperarla: corregir un nombre temporal, deshacer el último guardado, restaurar una copia de SMAPI o recuperar una partida que Steam Cloud sobrescribió.',
     },

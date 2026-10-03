@@ -1,3 +1,4 @@
+import { ogImageFor } from '@/lib/og-images';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { LocalizedArticle } from '@/components/localized-article';
@@ -36,11 +37,13 @@ export async function generateMetadata({
       title: article.title,
       description: article.description,
       locale: ogLocale[locale],
+      images: [ogImageFor(path)],
       url: path,
       modifiedTime: article.checkedAt,
     },
     twitter: {
-      card: 'summary',
+      card: 'summary_large_image',
+      images: [ogImageFor(path)],
       title: article.title,
       description: article.description,
     },

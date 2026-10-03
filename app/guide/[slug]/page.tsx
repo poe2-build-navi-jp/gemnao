@@ -1,3 +1,4 @@
+import { hasTranslation, languageAlternates } from '@/lib/localized/index';
 import {
   GpuDriverBeforeSteps,
   GpuDriverAfterSteps,
@@ -95,7 +96,7 @@ export async function generateMetadata({
     ? {
         title: item.title,
         description: item.description,
-        alternates: { canonical: `/guide/${slug}` },
+        alternates: { canonical: `/guide/${slug}`, ...(hasTranslation('en', `/guide/${slug}`) ? { languages: languageAlternates(`/guide/${slug}`) } : {}) },
         openGraph: {
           type: 'article',
           title: item.title,
@@ -205,7 +206,7 @@ export default async function Page({
   ];
   return (
     <main>
-      <WikiHeader />
+      <WikiHeader pagePath={`/guide/${slug}`} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
@@ -331,6 +332,7 @@ export default async function Page({
               <a href="#crash-scope">ゲームだけ落ちる？</a>
               <a href="#crash-timing">タイミング別の対処表</a>
               <a href="#crash-history">エラーなし時の履歴</a>
+              <a href="#steam-client-case">ワイルズの実際の改善報告</a>
               <a href="#crash-compare">結果から次を選ぶ</a>
             </>
           ) : null}

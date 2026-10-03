@@ -55,7 +55,7 @@
 ## SEO・SNS共有の仕組み（壊さないこと）
 
 - `next.config.ts`の`htmlLimitedBots: /.*/`を削除しない。削除するとtitle・description・canonical・OGPが`<body>`側に出力され、LINE・はてブ・Bluesky・Googlebotで正しく読まれなくなる。
-- 多言語ページ（`/en`・`/zh`・`/es`）は内容が一部だけのため`noindex`。hreflangは設定しない（noindexや404のページを指すとGoogleで無効扱いになる）。全記事を翻訳してindexする段階になったら、日本語ページと翻訳ページの双方向hreflangとsitemapを同時に追加する。
+- 検証済みの多言語ページ（`/en`・`/zh`・`/es`）は検索対象。日本語と実在する翻訳の双方向hreflang・自己canonical・sitemapを維持する。対応は`lib/localized/index.ts`の`hasTranslation`で判定する。英語だけの記事・ツールもあり、翻訳記事があっても翻訳ハブがあるとは限らない。未翻訳ページへ架空の多言語URLを作らない。新しいルートは`cloudflare/prerender-policy.mjs`の公開記事用許可リストにも追加し、`pnpm check:localized`とビルド後の英語回帰テストで確認する。
 - 記事ごとのOGP画像は`lib/og-cards.ts`が記事データから自動で内容を作り、`public/images/og/`にPNGとして保存する。記事を追加・タイトル変更したら`pnpm og:cards`を実行し、`public/images/og/`と`lib/og-image-manifest.ts`をコミットする（Python 3と`pip install pymupdf pillow`が必要）。未実行でもビルドは成功し、その記事は`/og-default.png`になる（`pnpm build`で警告が出る）。
 - `lib/og-image-manifest.ts`は自動生成ファイル。手で編集しない。
 - 共有ボタンは`components/share-buttons.tsx`。Xアカウントを作ったら環境変数`NEXT_PUBLIC_X_ACCOUNT`（@なし）を設定すると`twitter:site`と共有時の`via`が有効になる。

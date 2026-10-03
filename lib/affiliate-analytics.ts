@@ -12,7 +12,8 @@ export function affiliateClickParams(data: DOMStringMap) {
   const asin = data.affiliateAsin ?? '';
   const position = data.affiliatePosition ?? '';
   if (
-    !/^\/(?:discord|guide|pc|gear)\/[a-z0-9-]{1,100}$/.test(path) ||
+    (!/^\/(?:discord|guide|pc|gear)\/[a-z0-9-]{1,100}$/.test(path) &&
+      path !== '/en/gear/discord-microphone-guide') ||
     !/^[A-Z0-9]{10}$/.test(asin) ||
     !/^(?:after-answer|after-faq|after-fit-check|diagnostic-step-(?:[1-9]|[1-9][0-9]))$/.test(
       position,

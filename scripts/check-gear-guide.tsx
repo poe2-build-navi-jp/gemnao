@@ -19,7 +19,7 @@ assert.ok(html.indexOf('合わない場合・購入前の注意') < html.indexOf
 assert.ok(html.indexOf('買い替えは不要') < html.indexOf('data-affiliate-asin'));
 const structured = JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/)![1]);
 assert.deepEqual(structured.map((item: { '@type': string }) => item['@type']), ['BreadcrumbList', 'Article']);
-assert.equal(structured[1].about, 'Discord用マイクの選び方と購入前の確認');
+assert.equal(structured[1].about, guide.shortTitle);
 assert.ok(!html.includes('AggregateRating'));
 const guideLinks = discordAudioGrowthArticles.flatMap((article) => article.causes.flatMap((cause, index) => cause.guideLink ? [{ slug: article.slug, step: index + 1, href: cause.guideLink.href }] : []));
 assert.deepEqual(guideLinks, [
@@ -29,3 +29,21 @@ assert.deepEqual(guideLinks, [
 assert.ok(gearArticles.some((article) => article.slug === 'stream-deck-plus-xl'));
 assert.ok(ogCardSpecs().some((card) => card.path === '/gear/discord-microphone-guide'));
 console.log('Gear guide SSR/content checks passed: one late CTA, truthful schema, two diagnostic links, OG registration.');
+
+const storage = gearGuides.find((item) => item.slug === 'save-backup-storage-guide')!;
+assert.ok(storage);
+const storageHtml = renderToStaticMarkup(<GearBuyerGuide guide={storage} />);
+assert.equal((storageHtml.match(/data-affiliate-asin=/g) ?? []).length, 0);
+assert.ok(!storageHtml.includes('id="product-example"'));
+assert.ok(!storageHtml.includes('href="#product-example"'));
+assert.ok(!storageHtml.includes('400-MC017'));
+assert.ok(storageHtml.includes('新しい機器は不要'));
+assert.ok(storageHtml.includes(storage.compareTitle!));
+assert.ok(storageHtml.includes(storage.setupTitle!));
+const storageStructured = JSON.parse(storageHtml.match(/<script type="application\/ld\+json">(.*?)<\/script>/)![1]);
+assert.deepEqual(storageStructured.map((item: { '@type': string }) => item['@type']), ['BreadcrumbList', 'Article']);
+assert.equal(storageStructured[1].about, storage.shortTitle);
+assert.equal(storageStructured[1].mainEntityOfPage, 'https://gemnao.pages.dev/gear/save-backup-storage-guide');
+assert.ok(!storageHtml.includes('AggregateRating'));
+assert.ok(ogCardSpecs().some((card) => card.path === '/gear/save-backup-storage-guide'));
+console.log('Storage guide SSR checks passed: no product CTA, article-specific schema, headings and OG registration.');

@@ -1,6 +1,9 @@
 import { copyFile, unlink, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { build } from 'esbuild';
+import { prepareEditorialSnapshots } from './prepare-editorial-snapshots.mjs';
+
+await prepareEditorialSnapshots();
 
 await build({
   entryPoints: ['cloudflare/worker-source.mjs'],

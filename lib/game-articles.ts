@@ -28,6 +28,7 @@ export type ContentStatus = 'verified' | 'needs-review' | 'draft' | 'thin';
 export type StepRisk = 'low' | 'medium' | 'high';
 
 export type ArticleStep = {
+  guideLink?: { href: string; label: string; description: string };
   id: string;
   title: string;
   summary: string;

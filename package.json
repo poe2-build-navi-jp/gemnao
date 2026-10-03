@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "vinext dev",
-    "build": "vinext build && node scripts/prepare-pages.mjs && node scripts/generate-og-cards.mjs --check",
+    "build": "vinext build --prerender-all --prerender-concurrency 1 && node scripts/prepare-pages.mjs && node scripts/generate-og-cards.mjs --check",
     "build:pages": "pnpm build",
     "start": "wrangler dev --config dist/server/wrangler.json",
     "content:freshness": "node scripts/run-freshness-report.mjs",

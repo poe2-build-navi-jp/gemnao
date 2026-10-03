@@ -124,7 +124,8 @@ def card(spec):
     header = 112 + leading * len(lines) + 18
     rect(page, 0, 0, WIDTH, header, NAVY)
     badge(page, MARGIN, 34)
-    eyebrow = clamp(wrap(f"ゲムなお | {spec['eyebrow']}", 28, inner - 70), 28, inner - 70, 1)[0]
+    brand = 'Gemnao' if spec.get('locale') == 'en' else 'ゲムなお'
+    eyebrow = clamp(wrap(f"{brand} | {spec['eyebrow']}", 28, inner - 70), 28, inner - 70, 1)[0]
     draw_line(page, eyebrow, MARGIN + 63, 64, 28, MUTED)
     y = 112 + size * 0.9
     for line in lines:
@@ -154,7 +155,7 @@ def card(spec):
         for line in text_lines:
             draw_line(page, line, x + 85, ty, item_size, NAVY)
             ty += item_size * 1.25
-    draw_line(page, '詳しい手順 → gemnao.pages.dev', MARGIN, 606, 24, GREY)
+    draw_line(page, 'Read the guide → gemnao.pages.dev' if spec.get('locale') == 'en' else '詳しい手順 → gemnao.pages.dev', MARGIN, 606, 24, GREY)
 
     out = BASE / (spec['path'].strip('/') + '.png')
     out.parent.mkdir(parents=True, exist_ok=True)

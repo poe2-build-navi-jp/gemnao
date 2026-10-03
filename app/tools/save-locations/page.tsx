@@ -43,6 +43,13 @@ export default function SaveLocations() {
             </li>
           </ol>
         </section>
+        <p className="source-policy">
+          保存先を用意する前に、
+          <a href="/gear/save-backup-storage-guide">
+            バックアップ先の選び方・必要容量
+          </a>
+          も確認できます。手持ちのUSBメモリーや外付けドライブで足りる場合、新規購入は不要です。
+        </p>
         <div className="save-location-list">
           {listed.map((game) => (
             <section key={game.slug} id={game.slug}>

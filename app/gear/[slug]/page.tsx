@@ -1,3 +1,4 @@
+import { hasTranslation, languageAlternates } from '@/lib/localized/index';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { notFound } from 'next/navigation';
@@ -28,7 +29,7 @@ export async function generateMetadata({
   return {
     title: article.seoTitle,
     description: article.description,
-    alternates: { canonical: path },
+    alternates: { canonical: path, ...(hasTranslation('en', path) ? { languages: languageAlternates(path) } : {}) },
     openGraph: {
       type: 'article',
       locale: 'ja_JP',
@@ -181,12 +182,6 @@ export default async function GearArticlePage({
             </h2>
             <p>{article.answer}</p>
           </section>
-          <AmazonBox
-            name={article.product.name}
-            asin={article.product.asin}
-            articlePath={`/gear/${slug}`}
-            position="after-answer"
-          />
           <section className="diagnosis-table" id="fit">
             <h2>向いている人・向いていない人</h2>
             <table>
@@ -270,6 +265,12 @@ export default async function GearArticlePage({
               </table>
             </section>
           )}
+          <AmazonBox
+            name={article.product.name}
+            asin={article.product.asin}
+            articlePath={`/gear/${slug}`}
+            position="after-fit-check"
+          />
           {article.notice && (
             <section className="answer-summary">
               <p className="evidence-label">実物を触れる機会</p>

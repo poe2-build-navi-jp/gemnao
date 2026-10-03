@@ -1,6 +1,14 @@
 // Renders every translated page and fails if Japanese text leaks into it,
 // if a page lacks hreflang alternates, or if an article and its Japanese
 // original drift apart (different step ids). Run: pnpm check:localized
+import { EnglishGearGuide } from '../components/english-gear-guide';
+import { EnglishCrashGuide } from '../components/english-crash-guide';
+import { gearGuidesEn } from '../lib/localized/gear-guides-en';
+import { gearGuideBySlug } from '../lib/gear-guides';
+import { recentGameArticlesEn } from '../lib/localized/recent-game-articles-en';
+import { articlesEn } from '../lib/localized/articles-en';
+import { localizedHubs } from '../lib/localized/hubs';
+import { hasTranslation } from '../lib/localized/index';
 import assert from 'node:assert/strict';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { LocalizedArticle } from '../components/localized-article';
@@ -83,4 +91,111 @@ for (const article of localizedArticles) {
   );
   pages++;
 }
+for (const guide of gearGuidesEn) {
+  const original = gearGuideBySlug(guide.slug);
+  assert(original);
+  const path = `/gear/${guide.slug}`;
+  assert.deepEqual(
+    guide.sections.map((section) => section.id),
+    original.sections.map((section) => section.id),
+  );
+  assert.equal(guide.beforeBuying.length, original.beforeBuying.length);
+  assert.equal(guide.setup.length, original.setup.length);
+  assert.equal(guide.faqs.length, original.faqs.length);
+  assert.deepEqual(
+    guide.sources.map((source) => source.url),
+    original.sources!.map((source) => source.url),
+  );
+  check(
+    `/en${path}`,
+    'en',
+    renderToStaticMarkup(<EnglishGearGuide guide={guide} />),
+  );
+  assert.equal(languageAlternates(path).en, `/en${path}`);
+  assert.equal(hasTranslation('zh', path), false);
+  assert.equal(hasTranslation('es', path), false);
+  pages++;
+}
+check(
+  '/en/guide/pc-game-crash',
+  'en',
+  renderToStaticMarkup(<EnglishCrashGuide />),
+);
+pages++;
+for (const article of recentGameArticlesEn) {
+  const original = articleBySlug(article.gameSlug, article.slug)!;
+  assert.deepEqual(
+    article.sources.map((source) => source.url),
+    original.sources!.map((source) => source.url),
+  );
+  assert.equal(article.faqs.length, original.faqs?.length);
+  article.steps.forEach((step, index) => {
+    assert.equal(
+      step.actions.length,
+      original.steps[index].actions.length,
+      `${step.id}: omitted actions`,
+    );
+    assert.equal(
+      step.risk,
+      original.steps[index].risk,
+      `${step.id}: risk drift`,
+    );
+  });
+  assert.equal(
+    languageAlternates(`/games/${article.gameSlug}/${article.slug}`).en,
+    `/en/games/${article.gameSlug}/${article.slug}`,
+  );
+}
+assert.equal(
+  hasTranslation('en', '/games/ace-combat-8'),
+  false,
+  'Do not fabricate a hub',
+);
+assert.equal(
+  hasTranslation('en', '/games/ace-combat-8/error-st-3100001'),
+  true,
+);
+assert.equal(
+  hasTranslation('zh', '/games/ace-combat-8/error-st-3100001'),
+  false,
+);
+assert.equal(
+  hasTranslation('en', '/games/monster-hunter-wilds/system-requirements'),
+  false,
+);
+assert.equal(hasTranslation('en', '/guide/save-data-backup'), false);
+const existingEnglishText = JSON.stringify(articlesEn);
+for (const unsafe of [
+  'fully reversible',
+  'Close antivirus, firewalls',
+  'close hardware monitors, antivirus',
+  'delete the newly created folder',
+  'add the game folder as an exception',
+  'add the exception and switch it back on',
+  'Close as many apps as you can',
+])
+  assert.ok(
+    !existingEnglishText.includes(unsafe),
+    `Unsafe English instruction: ${unsafe}`,
+  );
+assert.ok(
+  existingEnglishText.includes(
+    'Keep antivirus and firewall protection enabled',
+  ),
+);
+assert.ok(
+  existingEnglishText.includes(
+    'Do not exclude the entire game folder automatically',
+  ),
+);
+assert.ok(
+  localizedHubs['baldurs-gate-3'].intro.en.includes(
+    "Larian Studios\\Baldur's Gate 3",
+  ),
+);
+assert.ok(
+  !localizedHubs['cyberpunk-2077'].intro.en.includes(
+    'reinstalling does not remove them',
+  ),
+);
 console.log(`PASS: ${pages} translated pages`);

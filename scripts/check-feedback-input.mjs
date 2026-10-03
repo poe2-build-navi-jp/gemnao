@@ -14,7 +14,7 @@ const result = await build({
           path: 'response',
           namespace: 'test',
         }));
-        builder.onResolve({ filter: /feedback-db$/ }, () => ({
+        builder.onResolve({ filter: /(?:feedback-db|events-db)$/ }, () => ({
           path: 'database',
           namespace: 'test',
         }));
@@ -22,7 +22,7 @@ const result = await build({
           contents:
             path === 'response'
               ? 'export const NextResponse = {json: (body, options) => Response.json(body, options)};'
-              : 'const fail=()=>{throw new Error("Invalid input reached database")}; export const incrementFeedback=fail,incrementSolutionMethod=fail,readSolutionMethods=fail,readFeedback=fail,recordStepSolved=fail;',
+              : 'const fail=()=>{throw new Error("Invalid input reached database")}; export const incrementFeedback=fail,incrementSolutionMethod=fail,readSolutionMethods=fail,readFeedback=fail,recordStepSolved=fail,recordFeedbackEvent=fail;',
           loader: 'js',
         }));
       },

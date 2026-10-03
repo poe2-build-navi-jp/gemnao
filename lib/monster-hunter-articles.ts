@@ -3,6 +3,7 @@ import type { GameArticle } from '@/lib/game-articles';
 // モンスターハンターワイルズ（PC・Steam版）の個別記事。
 // 2026-09-27にカプコン公式トラブルシューティングガイド、Steamの公式アップデート告知
 // （Ver.1.042系・ドライバーのお知らせ）、Steamストア、PCGamingWikiで確認した内容だけを載せています。
+// 起動トラブル記事には2026-10-03（日本時間）の匿名改善報告1件を追記しています。
 // STEPのidは解決報告（D1）の集計キーなので、既存のidは変更しないでください。
 const sources = {
   capcom: {
@@ -68,7 +69,7 @@ export const monsterHunterArticles: GameArticle[] = [
   make({
     slug: 'not-launching',
     category: 'launch',
-    checkedAt: '2026-09-30',
+    checkedAt: '2026-10-03',
     targetVersion: 'PC・Steam製品版／公式案内を2026年9月30日に確認',
     title:
       'モンハンワイルズがクラッシュ・落ちる時の対処法｜起動直後・狩猟中・シェーダー準備別',
@@ -86,7 +87,7 @@ export const monsterHunterArticles: GameArticle[] = [
     conclusion:
       'モンハンワイルズがクラッシュしたら、まず落ちた時刻・場面・エラー全文を記録します。更新やMOD導入後ならMODを退避、起動直後や同じロードで落ちるならSteamの整合性確認、狩猟中ならGPUドライバーと画質設定を確認します。高解像度テクスチャパックはVRAM 16GB以上が条件です。対処は1つずつ行い、落ちた場面を再実行して判断してください。',
     description:
-      'カプコンの公式案内を基に、確認する場所と結果による次の行動をまとめました。原因を断定する診断表ではありません。実機検証や改善率のデータは掲載していません。PS5・Xbox版にはSteamやWindowsの操作を適用しないでください。',
+      'カプコンの公式案内を基に、確認する場所と結果による次の行動をまとめました。原因を断定する診断表ではありません。2026年10月3日（日本時間）に受け取った、Steamクライアントの外部拡張を一時停止した後に遊べたという1件の報告を追加しました。単独の原因や改善率を示すものではありません。PS5・Xbox版にはSteamやWindowsの操作を適用しないでください。',
     quickFacts: [
       {
         label: '最初に残す記録',
@@ -105,6 +106,13 @@ export const monsterHunterArticles: GameArticle[] = [
       },
     ],
     diagnosis: [
+      {
+        symptom:
+          '整合性・ドライバー確認後もタイトル前で落ちる／Steamに外部拡張がある',
+        cause:
+          'ゲーム側のMODと別に、Steam本体へ読み込まれた追加DLLを読み取りだけで確認',
+        stepId: 'steam-client-check',
+      },
       {
         symptom: '更新・MOD導入後から落ちる',
         cause:
@@ -305,8 +313,48 @@ export const monsterHunterArticles: GameArticle[] = [
         ],
         note: 'ログやDxDiagにはPC名・ユーザー名・ファイルパスなどが含まれることがあります。SNSへ丸ごと公開せず、公式窓口の案内に沿って渡してください。',
       },
+      {
+        id: 'steam-client-check',
+        title: '通常の対処で直らない時は、Steam本体の外部拡張を確認する',
+        summary:
+          'ゲームのMODなし・SteamオーバーレイOFFでも、Steam本体の追加DLLが停止するとは限りません。導入の心当たりがある場合の追加確認です。',
+        time: '約5〜10分',
+        risk: 'low',
+        actions: [
+          '2026年10月3日（日本時間）の改善報告1件：Windows PCでSteam版がタイトル前に終了し、プレイを始められなかった。MOD・ReShadeは使っていないとの申告だった',
+          'この事例ではOBS終了、SteamオーバーレイOFF、ゲームファイルの整合性確認成功、管理者実行・互換モード指定なしの確認、公式NVIDIAドライバー更新と再起動だけでは改善しなかった。全員に同じ結果になるという意味ではない',
+          '変更前の読み取り確認で、Steam本体のプロセスに、Steamのインストール先直下のHidden属性（隠し属性）の付いたOpenSteamTool.dll、cloud_redirect.dll、dwmapi.dllが読み込まれていた。ゲーム本体への読み込みを確認した結果ではない',
+          '自分のPCでは、タスクマネージャーで実行中のSteamのファイルの場所を確認する。ゲームの「ローカルファイルを閲覧」で開く場所とは異なる。ファイル名が似ているという理由だけで操作しない',
+          '読み取りだけで確認する場合は64ビットのPowerShellで Get-Process -Name steam -Module | Where-Object { $_.ModuleName -in @("OpenSteamTool.dll", "cloud_redirect.dll", "dwmapi.dll", "xinput1_4.dll") } | Select-Object ModuleName,FileName を実行し、名前だけでなく読み込み元を照合する。この4名称だけの確認では、他の追加物がすべて存在しないとは言えない。WindowsのSystem32由来の同名DLLは対象外。アクセス拒否・空欄・Steam終了中なら「未確認」とし、安全と判定したり削除したりしない',
+        ],
+        note: '異なる記録の例外コードを同じ障害として扱ったり、コードやCPU型番だけで故障・原因を断定したりしないでください。出力には個人のフォルダ名が含まれるため公開前に伏せてください。',
+        guideLink: {
+          href: '/guide/pc-game-crash#steam-client-case',
+          label: 'PCゲーム共通：Steam本体の拡張とゲーム側のMODを分ける',
+          description: '確認できた範囲と、変更を止める条件を確認します。',
+        },
+      },
+      {
+        id: 'steam-client-isolation',
+        title: '追加物だと確認できた場合だけ、バックアップして一時停止する',
+        summary:
+          '上の1件では復元できる状態でSteam側のローダー2ファイルを一時停止した後、本人から「プレイできた」と報告がありました。原因DLLを1つに特定した実験ではありません。',
+        time: '保存先とバックアップ量による',
+        risk: 'high',
+        actions: [
+          '対象はSteamのインストール先直下に、自分で導入した外部拡張のローダーだと確認できたファイルだけ。心当たり・導入元・元に戻す方法が分からない場合はここで止め、DLL名と読み込み元を控えて相談する',
+          'ゲームとSteamを終了してから、確認できるローカルのSteam設定・対象ゲームのセーブ・追加物の設定を別の場所へコピーし、ファイル数・サイズを照合する。この事例ではコピーと元データのハッシュを照合したが、PC内外の全セーブを保証するものではない',
+          'cloud_redirect.dllなど保存先を変える拡張がある場合、Steamのuserdataだけで十分とは限らない。外部クラウド・別ドライブ・独自保存先と復元方法も確認し、大事なセーブを保全できるまで進まない',
+          'この事例ではSteamとゲームを終了し、追加ローダーだと確認したSteam直下のdwmapi.dllとxinput1_4.dllだけを、元の場所・名前を記録しコピーを残してから、末尾に重複しない.disabled名を付けて一時停止した。削除やWindowsのSystem32、セーブの変更は行っていない',
+          'Steamを起動し直して読み込み元を再確認する。この事例ではOpenSteamTool.dllとcloud_redirect.dllが読み込み一覧に現れなくなり、同名のWindows DLLはSystem32由来であることを確認した。その後、本人から対象ゲームを起動して「プレイできた」と報告を受けた。ファイルが存在するだけの確認と、実際の読み込み確認を区別する',
+          '確認するのはまず対象ゲームだけ。クラウド競合、セーブが見つからない、同期先が違う場合は保存・上書きをせず中止する。改善した場合は動く状態を保ち、原因証明のために再び有効化しない。再発や未改善なら、その結果と変更記録を公式サポートへ伝える',
+          '元へ戻す必要がある場合はゲームとSteamを終了し、記録した元の場所と名前へ対象だけを戻す。同名ファイルが新しくできていたら上書きせず止める。入手元が不明・安全性に疑問がある追加物は、再有効化する前に導入元やサポートへ確認する',
+        ],
+        note: 'これはSteamクライアント側の外部拡張の干渉が候補になった単一事例です。2つのローダーをまとめて停止しており、特定DLLが必ず原因、他のPCでも解決、長期安定を確認済みとは言えません。拡張の導入や権利確認の回避を案内する手順ではありません。',
+      },
     ],
     avoid: [
+      'Steam直下とWindowsのSystem32を混同する／DLLをまとめて削除する／セキュリティ機能を無効にする',
       '原因を断定してセーブやゲームフォルダを丸ごと削除する',
       '無関係なDLL配布サイトから不足ファイルを入れる',
       '同時にMOD・画質・ドライバー・BIOSを変更する',
@@ -343,6 +391,20 @@ export const monsterHunterArticles: GameArticle[] = [
       },
     ],
     sources: [
+      {
+        label:
+          'Microsoft Learn：Get-Process（読み込みモジュールと64ビットでの確認）',
+        url: 'https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-process',
+      },
+      {
+        label:
+          'OpenSteamTool 開発元資料：Steam直下のローダー構成を確認（導入の推奨ではありません）',
+        url: 'https://github.com/OpenSteam001/OpenSteamTool/blob/main/README.md',
+      },
+      {
+        label: 'CloudRedirect 開発元資料：保存先の転送とバックアップの警告',
+        url: 'https://github.com/Selectively11/CloudRedirect#readme',
+      },
       sources.capcom,
       {
         label:

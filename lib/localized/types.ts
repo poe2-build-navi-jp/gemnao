@@ -7,6 +7,10 @@ import type { Locale } from '@/lib/i18n';
 export type LocalizedArticle = {
   locale: Locale;
   gameSlug: string;
+  /** English name when the game has no translated hub yet. */
+  gameName?: string;
+  sourcePolicy?: string;
+  related?: { href: string; label: string }[];
   slug: string;
   title: string;
   /** <meta name="description"> and the social preview text. */
@@ -26,6 +30,8 @@ export type LocalizedArticle = {
     time: string;
     actions: string[];
     note?: string;
+    risk?: 'low' | 'medium' | 'high';
+    guideLink?: { href: string; label: string; description?: string };
   }[];
   avoid: string[];
   cautions: string[];
