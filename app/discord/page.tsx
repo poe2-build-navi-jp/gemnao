@@ -38,7 +38,7 @@ export default function DiscordHub() {
   }));
   return (
     <main>
-      <WikiHeader />
+      <WikiHeader pagePath="/discord" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

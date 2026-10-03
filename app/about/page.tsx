@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function About() {
   return (
     <main>
-      <WikiHeader />
+      <WikiHeader pagePath="/about" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

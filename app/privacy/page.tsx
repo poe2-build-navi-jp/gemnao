@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function Privacy() {
   return (
     <main>
-      <WikiHeader />
+      <WikiHeader pagePath="/privacy" />
       <article className="static-page">
         <p className="page-kicker">PRIVACY</p>
         <h1>プライバシーポリシー</h1>

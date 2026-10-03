@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function Terms() {
   return (
     <main>
-      <WikiHeader />
+      <WikiHeader pagePath="/terms" />
       <article className="static-page">
         <p className="page-kicker">TERMS</p>
         <h1>利用規約・免責事項</h1>

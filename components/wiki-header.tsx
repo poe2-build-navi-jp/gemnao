@@ -15,6 +15,33 @@ export function WikiHeader({
   pagePath?: string;
 }) {
   const root = localizedRoot(locale);
+  const languageLabels = {
+    ja: {
+      menu: '表示言語',
+      home: 'ホーム',
+      fallback: '翻訳がないページでは、選んだ言語のホームへ移動します。',
+    },
+    en: {
+      menu: 'Language',
+      home: 'home',
+      fallback:
+        'If this page is not translated, the link opens that language’s home page.',
+    },
+    zh: {
+      menu: '语言',
+      home: '首页',
+      fallback: '如果此页面没有对应的翻译，链接将打开所选语言的首页。',
+    },
+    es: {
+      menu: 'Idioma',
+      home: 'inicio',
+      fallback:
+        'Si esta página no está traducida, el enlace abre la página de inicio de ese idioma.',
+    },
+  }[locale];
+  const hasHomeFallback = (['en', 'zh', 'es'] as const).some(
+    (item) => !hasTranslation(item, pagePath),
+  );
   const labels =
     locale === 'ja'
       ? {
@@ -91,7 +118,7 @@ export function WikiHeader({
         )}
       </nav>
       <details className="language-menu">
-        <summary aria-label="Language">
+        <summary aria-label={`${languageLabels.menu}: ${localeNames[locale]}`}>
           <Languages size={18} />
           <span>{localeNames[locale]}</span>
         </summary>
@@ -99,6 +126,8 @@ export function WikiHeader({
           {(['ja', 'en', 'zh', 'es'] as const).map((item) => {
             // Link to the same page in that language when it exists,
             // otherwise to that language's home page.
+            const homeFallback =
+              item !== 'ja' && !hasTranslation(item, pagePath);
             const target =
               item === 'ja'
                 ? pagePath || '/'
@@ -113,9 +142,13 @@ export function WikiHeader({
                 aria-current={item === locale ? 'page' : undefined}
               >
                 {localeNames[item]}
+                {homeFallback ? ` (${languageLabels.home})` : ''}
               </a>
             );
           })}
+          {hasHomeFallback ? (
+            <p className="language-menu-note">{languageLabels.fallback}</p>
+          ) : null}
         </div>
       </details>
       <MobileNavigation

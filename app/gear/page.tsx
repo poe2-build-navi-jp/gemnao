@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 export default function GearHub() {
   return (
     <main>
-      <WikiHeader />
+      <WikiHeader pagePath="/gear" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

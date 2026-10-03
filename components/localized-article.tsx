@@ -130,6 +130,7 @@ export function LocalizedArticle({
             <span>
               <a href="/about" hrefLang="ja">
                 {editorialLabel}
+                {t.inJapanese}
               </a>
             </span>
             <span>

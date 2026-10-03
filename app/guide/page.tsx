@@ -14,7 +14,7 @@ export default function Guide() {
   const groups = groupedCommonGuides(commonGuides);
   return (
     <main>
-      <WikiHeader />
+      <WikiHeader pagePath="/guide" />
       <article className="static-page">
         <p className="page-kicker">PC GAME FIX GUIDE</p>
         <h1>PCゲーム共通トラブル解決ガイド</h1>
