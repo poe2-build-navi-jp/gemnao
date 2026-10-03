@@ -1,4 +1,6 @@
 import { recentGameArticlesEn } from '@/lib/localized/recent-game-articles-en';
+import { rocketLeagueLocalizedArticles } from '@/lib/localized/rocket-league-articles';
+import { localizedDiscordUploadArticles } from '@/lib/localized/discord-upload-articles';
 import { gearGuidesEn } from '@/lib/localized/gear-guides-en';
 import type { Locale } from '@/lib/i18n';
 import { articlesEn } from '@/lib/localized/articles-en';
@@ -15,7 +17,14 @@ export const localizedArticles: LocalizedArticle[] = [
   ...onimushaArticlesEn,
   ...articlesZh,
   ...articlesEs,
+  ...rocketLeagueLocalizedArticles,
 ];
+
+export const localizedDiscordArticles = localizedDiscordUploadArticles;
+export const localizedDiscordArticle = (locale: Locale, slug: string) =>
+  localizedDiscordArticles.find(
+    (article) => article.locale === locale && article.slug === slug,
+  );
 
 /** Union of translated hubs; use localizedGameSlugsFor for locale-specific routes. */
 export const localizedGameSlugs = Object.keys(localizedHubs);
@@ -69,6 +78,8 @@ export function hasTranslation(locale: Locale, path: string) {
   if (path === '' || path === '/') return true;
   if (locale === 'en' && englishEditorialPaths.includes(path)) return true;
   const [, section, gameSlug, slug, extra] = path.split('/');
+  if (section === 'discord' && gameSlug && !slug && !extra)
+    return Boolean(localizedDiscordArticle(locale, gameSlug));
   if (section !== 'games' || !gameSlug || extra) return false;
   return slug
     ? Boolean(localizedArticle(locale, gameSlug, slug))
@@ -81,6 +92,9 @@ export function hasTranslation(locale: Locale, path: string) {
  * points to the Japanese original.
  */
 export function languageAlternates(path: string) {
+  const [, section, gameSlug, articleSlug] = path.split('/');
+  if (section === 'games' && !articleSlug && localizedHubs[gameSlug]?.noindex)
+    return {};
   const languages: Record<string, string> = {
     ja: path || '/',
     'x-default': path || '/',

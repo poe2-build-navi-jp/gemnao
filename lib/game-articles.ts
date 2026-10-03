@@ -1,4 +1,5 @@
 import { verifiedReleaseArticles } from './verified-release-articles';
+import { rocketLeagueArticles } from './rocket-league-articles';
 import { gameBySlug } from '@/lib/games';
 import { eldenArticles } from '@/lib/elden-articles';
 import { currentGameArticles } from '@/lib/current-game-articles';
@@ -956,6 +957,7 @@ const originalGameArticles: GameArticle[] = [
 ];
 
 export const gameArticles: GameArticle[] = [
+  ...rocketLeagueArticles,
   ...aniimoArticles,
   ...monsterHunterArticles,
   ...originalGameArticles,

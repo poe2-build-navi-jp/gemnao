@@ -1,4 +1,5 @@
 import { discordCompatibilityArticles } from './discord-compatibility-articles';
+import { discordUploadArticles } from './discord-upload-articles';
 import type { ContentStatus } from '@/lib/game-articles';
 import { discordGrowthArticles } from '@/lib/discord-growth-articles';
 import { discordP0Articles } from '@/lib/discord-p0-articles';
@@ -19,6 +20,8 @@ export type DiscordCategory =
   | 'bot';
 
 export type DiscordCause = {
+  time?: string;
+  risk?: 'low' | 'medium' | 'high';
   title: string;
   description: string;
   actions: string[];
@@ -1072,6 +1075,7 @@ const existingDiscordArticles: DiscordArticle[] = [
 ];
 
 export const discordArticles: DiscordArticle[] = [
+  ...discordUploadArticles,
   ...existingDiscordArticles,
   ...discordP0Articles,
   ...discordGrowthArticles,

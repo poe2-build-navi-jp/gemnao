@@ -1,4 +1,5 @@
 import type { Locale } from '@/lib/i18n';
+import { rocketLeagueLocalizedHub } from '@/lib/rocket-league-guide';
 
 // Hand-written text for the translated game pages. Each checklist mirrors a
 // verified Japanese article (same official sources); keep them in sync when
@@ -8,6 +9,13 @@ import type { Locale } from '@/lib/i18n';
 export type L10n = Record<Locale, string>;
 
 export type LocalizedHub = {
+  /** A source-scoped hub without unverified file paths or hardware/language facts. */
+  focused?: boolean;
+  /** Navigation-only hub, mirroring the Japanese single-article hub policy. */
+  noindex?: boolean;
+  names?: Partial<L10n>;
+  title?: Partial<L10n>;
+  checkedAt?: string;
   lead: Partial<L10n>;
   intro: Partial<L10n>;
   /** Short launch checklist for games without a translated article. */
@@ -36,6 +44,7 @@ const store = (appId: string): LocalizedHub['sources'][number] => ({
 });
 
 export const localizedHubs: Record<string, LocalizedHub> = {
+  'rocket-league': { ...rocketLeagueLocalizedHub, noindex: true },
   'onimusha-way-of-the-sword': {
     lead: {
       en: 'Seven PC troubleshooting guides for launch crashes, CrashReport, GPU drivers, shader caches, black screens, HDR and low FPS.',

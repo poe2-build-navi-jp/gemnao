@@ -43,12 +43,13 @@ export async function generateMetadata({
   const game = gameBySlug(slug);
   if (!game) return {};
   const title =
-    game.slug === 'aniimo'
+    game.hubTitle ||
+    (game.slug === 'aniimo'
       ? aniimoHubTitle
       : game.focused
         ? // Focused hubs only list symptom articles, so don't promise save paths.
           `${game.shortTitle} PC版の不具合・エラー対処法`
-        : `${game.shortTitle} PC版｜起動しない・セーブ場所・推奨スペック`;
+        : `${game.shortTitle} PC版｜起動しない・セーブ場所・推奨スペック`);
   const description =
     game.slug === 'aniimo'
       ? aniimoHubDescription
@@ -140,9 +141,10 @@ export default async function GamePage({
       '@context': 'https://schema.org',
       '@type': 'TechArticle',
       headline:
-        game.slug === 'aniimo'
+        game.hubTitle ||
+        (game.slug === 'aniimo'
           ? aniimoHubTitle
-          : `${game.shortTitle} PC版トラブル解決ガイド`,
+          : `${game.shortTitle} PC版トラブル解決ガイド`),
       ...(game.slug === 'aniimo'
         ? {
             description: aniimoHubDescription,
@@ -259,7 +261,7 @@ export default async function GamePage({
           )}
         </aside>
         <article className="guide-article">
-          {game.slug !== 'aniimo' ? (
+          {game.slug !== 'aniimo' && game.slug !== 'rocket-league' ? (
             <div className="safety-note">
               <AlertTriangle size={20} />
               <div>

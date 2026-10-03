@@ -24,6 +24,10 @@ import {
 } from '@/lib/discord-articles';
 import { ogImageFor } from '@/lib/og-images';
 import {
+  languageAlternates,
+  localizedDiscordArticles,
+} from '@/lib/localized/index';
+import {
   DiscordBotComparison,
   DiscordBotRecommendations,
 } from '@/components/discord-bot-recommendations';
@@ -59,7 +63,12 @@ export async function generateMetadata({
   return {
     title: item.seoTitle,
     description: item.metaDescription,
-    alternates: { canonical },
+    alternates: {
+      canonical,
+      ...(localizedDiscordArticles.some((article) => article.slug === slug)
+        ? { languages: languageAlternates(canonical) }
+        : {}),
+    },
     openGraph: {
       type: 'article',
       title: item.seoTitle,
@@ -149,7 +158,7 @@ export default async function DiscordArticlePage({
     : null;
   return (
     <main>
-      <WikiHeader pagePath="/discord" />
+      <WikiHeader pagePath={`/discord/${item.slug}`} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -353,6 +362,8 @@ export default async function DiscordArticlePage({
                 summary: cause.description,
                 actions: cause.actions,
                 note: cause.note,
+                time: cause.time,
+                risk: cause.risk,
                 guideLink: cause.guideLink,
               }))}
               nextLinks={[
