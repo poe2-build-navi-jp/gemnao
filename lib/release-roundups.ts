@@ -49,9 +49,9 @@ export const releaseRoundups: ReleaseRoundup[] = [
       '2026年10月発売の新作PCゲーム 動作環境まとめ｜GTX 1660・Windows 10で遊べる？',
     shortTitle: '2026年10月の新作',
     description:
-      '2026年10月に発売・サービス開始する新作PCゲーム10本の動作環境を1つの表に整理。レイトレーシング対応GPU、Windows 11、TPM 2.0など「起動できない」原因になる必須条件と、GTX 1660・Windows 10で遊べるかの目安をまとめました。',
+      '2026年10月に発売・サービス開始する新作PCゲーム11本の動作環境を1つの表に整理。レイトレーシング対応GPU、Windows 11、TPM 2.0など「起動できない」原因になる必須条件と、GTX 1660・Windows 10で遊べるかの目安をまとめました。',
     lead: '発売日に「起動しない」と困らないように、購入前に確認したい必須条件をまとめました。',
-    checkedAt: '2026-09-28',
+    checkedAt: '2026-10-03',
     games: [
       {
         name: '真・三國無双２ with 猛将伝 Remastered',
@@ -166,6 +166,10 @@ export const releaseRoundups: ReleaseRoundup[] = [
         gtx1660Note: '最低環境のGTX 1650より上',
         win10: 'no',
         win10Note: '動作環境の表記はWindows 11',
+        article: {
+          href: '/games/castlevania-belmonts-curse/not-launching',
+          label: '起動しない・コントローラーが効かない',
+        },
         source: steam('4231820'),
       },
       {
@@ -182,6 +186,10 @@ export const releaseRoundups: ReleaseRoundup[] = [
         win10: 'partial',
         win10Note:
           '動作環境の表記はWindows 11。DirectX 12にはWindows 10（1809以降）とVRAM 4GB以上が必要との注記あり',
+        article: {
+          href: '/games/tales-of-eternia-remastered/not-launching',
+          label: '起動しない・DirectX 12とVRAMの確認',
+        },
         source: steam('3470960'),
       },
       {
@@ -238,6 +246,26 @@ export const releaseRoundups: ReleaseRoundup[] = [
         },
         source: steam('3259780'),
       },
+      {
+        name: 'Phantom Blade Zero（影の刃零）',
+        date: '10月28日',
+        os: 'Windows 10/11（64bit）',
+        minGpu: 'GTX 1660（6GB）・RX 5500 XT（8GB）',
+        memory: '16GB',
+        storage: '記載なし（SSD必須）',
+        must: ['SSD'],
+        spec: { gpu: ['gtx-1660'], ramGb: 16 },
+        gtx1660: 'yes',
+        gtx1660Note:
+          '最低環境に含まれる（アップスケーリング使用で1080p・30fpsの目安）',
+        win10: 'yes',
+        win10Note: '動作環境の表記はWindows 10/11（64bit）',
+        article: {
+          href: '/games/phantom-blade-zero/not-launching',
+          label: '起動しない・重い時の設定',
+        },
+        source: steam('4115450'),
+      },
     ],
     faqs: [
       {
@@ -248,7 +276,7 @@ export const releaseRoundups: ReleaseRoundup[] = [
       {
         question: 'Windows 10で遊べる10月の新作はどれですか？',
         answer:
-          '動作環境の表記上、Windows 10で遊べるのはAION2、Gears of War: E-Day（22H2以降）、Call of Duty: Modern Warfare 4（22H2以降で、TPM 2.0とセキュアブートが必要）です。ほかの多くはWindows 11と記載されています。',
+          '動作環境の表記上、Windows 10で遊べるのはAION2、Gears of War: E-Day（22H2以降）、Call of Duty: Modern Warfare 4（22H2以降で、TPM 2.0とセキュアブートが必要）、Phantom Blade Zero（64bit）です。ほかの多くはWindows 11と記載されています。',
       },
       {
         question:
