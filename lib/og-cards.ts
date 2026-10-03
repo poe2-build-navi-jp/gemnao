@@ -14,6 +14,7 @@ import { discordArticles } from '@/lib/discord-articles-all';
 import { gameArticles } from '@/lib/game-articles';
 import { games } from '@/lib/games';
 import { releaseRoundups } from '@/lib/release-roundups';
+import { weeklyReports } from '@/lib/weekly-reports';
 import { troubleHubs } from '@/lib/trouble-hubs';
 import { pcArticles } from '@/lib/pc-articles';
 import { gearArticles } from '@/lib/gear-articles';
@@ -99,6 +100,13 @@ export function ogCardSpecs(): OgCardSpec[] {
       itemsLabel: 'まず試すこと',
       items: hub.quickChecks.slice(0, 4),
     }));
+  const weeklyCards = weeklyReports.map((report) => ({
+    path: `/weekly/${report.slug}`,
+    eyebrow: '今週のPCゲーム不具合まとめ',
+    title: `${report.period}の公式パッチ・障害・エラー`,
+    itemsLabel: '今週の主なゲーム',
+    items: [...new Set(report.items.map((item) => item.game))].slice(0, 4),
+  }));
   const roundupCards = releaseRoundups.map((roundup) => ({
     path: `/new-releases/${roundup.slug}`,
     eyebrow: '新作PCゲームの動作環境',
@@ -173,6 +181,7 @@ export function ogCardSpecs(): OgCardSpec[] {
     ...discordCards,
     ...troubleCards,
     ...roundupCards,
+    ...weeklyCards,
     ...pcCards,
     ...gearCards,
     ...[
