@@ -4746,3 +4746,152 @@ div.status-list {
 .save-article .my-pc-actions button {
   min-height: 44px;
 }
+
+/* Home: quick next actions, useful repeat checks, and opt-in bookmark help. */
+.home-search-examples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  max-width: 760px;
+  color: #c8d7de;
+}
+.home-search-examples button {
+  min-height: 40px;
+  max-width: 100%;
+  padding: 7px 12px;
+  border: 1px solid #728e9d;
+  border-radius: 6px;
+  background: #ffffff0a;
+  color: #eef7fa;
+  font-size: 13px;
+  cursor: pointer;
+}
+.home-search-examples button:hover {
+  background: #ffffff1a;
+}
+.search-box:focus-within {
+  outline: 3px solid var(--cyan);
+  outline-offset: 3px;
+}
+.home-search-examples button:focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: 3px;
+}
+.home-saved-entry,
+.home-tools .section-heading > a {
+  flex-shrink: 0;
+  color: #126e8c;
+  font-size: 14px;
+  font-weight: 700;
+}
+.home-tool-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.home-tool-grid > a {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--blue);
+  border-radius: 10px;
+  background: var(--card);
+  overflow-wrap: anywhere;
+}
+.home-tool-grid > a:hover {
+  border-color: var(--blue);
+}
+.home-tool-grid svg,
+.home-tool-grid b {
+  color: var(--blue);
+}
+.home-tool-grid strong {
+  font-size: 17px;
+}
+.home-tool-grid span,
+.home-tool-grid b,
+.home-tools-note {
+  font-size: 13px;
+  line-height: 1.7;
+}
+.home-tool-grid span,
+.home-tools-note {
+  color: var(--muted);
+}
+.home-tool-grid b {
+  margin-top: auto;
+}
+.home-tools-note {
+  margin: 12px 0 0;
+}
+.home-bookmark-slot {
+  padding-top: 18px;
+  padding-bottom: 0;
+}
+.home-bookmark-help {
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+.home-bookmark-help summary {
+  padding: 13px 16px;
+  color: var(--blue);
+  font-weight: 700;
+  cursor: pointer;
+}
+.home-bookmark-help > div {
+  padding: 0 16px 14px;
+  color: var(--muted);
+  line-height: 1.75;
+}
+.home-bookmark-help p {
+  margin: 0 0 10px;
+}
+.home-bookmark-help p:last-child {
+  margin-bottom: 0;
+}
+.home-bookmark-help ul {
+  padding-left: 20px;
+  list-style: disc;
+}
+.home-bookmark-help li + li {
+  margin-top: 8px;
+}
+.home-tool-grid a:focus-visible,
+.home-bookmark-help summary:focus-visible,
+.home-saved-entry:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+}
+@media (max-width: 760px) {
+  .home-tool-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .home-search-examples button {
+    min-height: 44px;
+  }
+  .symptom-section .section-heading,
+  .home-tools .section-heading {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .home-saved-entry,
+  .home-tools .section-heading > a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+/* Keep a single, consistently labeled clear control across browsers. */
+.search-box input[type='search']::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
