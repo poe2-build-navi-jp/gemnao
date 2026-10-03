@@ -9,7 +9,10 @@ import { releaseRoundups } from '@/lib/release-roundups';
 import { pcArticles } from '@/lib/pc-articles';
 import { locales } from '@/lib/i18n';
 import { gameFacts } from '@/lib/localized/game-facts';
-import { localizedArticles, localizedGameSlugs } from '@/lib/localized/index';
+import {
+  localizedArticles,
+  localizedGameSlugsFor,
+} from '@/lib/localized/index';
 import { gearArticles } from '@/lib/gear-articles';
 import { gearGuides } from '@/lib/gear-guides';
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -129,7 +132,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     })),
     ...locales.flatMap((locale) =>
-      localizedGameSlugs.map((slug) => ({
+      localizedGameSlugsFor(locale).map((slug) => ({
         url: `${base}/${locale}/games/${slug}`,
         lastModified: new Date(gameFacts[slug].checkedAt),
         changeFrequency: 'monthly' as const,

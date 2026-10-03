@@ -5,14 +5,16 @@ import { crashGuideEn } from '@/lib/localized/crash-guide-en';
 import type { Locale } from '@/lib/i18n';
 import { games } from '@/lib/games';
 import { gameFacts } from '@/lib/localized/game-facts';
-import { localizedHubs } from '@/lib/localized/hubs';
+import { localizedHubs, hasLocalizedHub } from '@/lib/localized/hubs';
 import { languageTag, localizedArticles } from '@/lib/localized/index';
 import { ui } from '@/lib/localized/ui';
 import { WikiFooter, WikiHeader } from './wiki-header';
 
 export function LocalizedHome({ locale }: { locale: Locale }) {
   const t = ui[locale];
-  const translatedGames = games.filter((game) => localizedHubs[game.slug]);
+  const translatedGames = games.filter((game) =>
+    hasLocalizedHub(locale, game.slug),
+  );
   const articles = localizedArticles.filter(
     (article) => article.locale === locale,
   );
