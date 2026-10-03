@@ -8,7 +8,8 @@ export type AnalyticsEvent =
   | 'issue_struggling'
   | 'solution_method'
   | 'share'
-  | 'affiliate_click';
+  | 'affiliate_click'
+  | 'my_game_added';
 
 type Gtag = (
   command: 'event',
@@ -31,4 +32,16 @@ export function trackEvent(
   } catch {
     // Analytics must never break the underlying interaction or navigation.
   }
+}
+
+/** Call only after a new My Games selection has been persisted successfully.
+ * No game/PC/note data or custom user identifier is sent. Fixed page metadata
+ * also prevents GA's defaults from including the source game's title or URL.
+ */
+export function trackMyGameAdded() {
+  trackEvent('my_game_added', {
+    page_location: 'https://gemnao.pages.dev/my',
+    page_title: 'My Games',
+    page_referrer: '',
+  });
 }
