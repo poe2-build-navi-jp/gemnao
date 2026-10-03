@@ -4966,3 +4966,7 @@ div.status-list {
   .my-games-experience .my-game-card, .my-games-example { padding: 16px; }
   .my-games-card-heading { align-items: flex-start; }
 }
+
+.my-games-page > .page-lead { margin: 16px 0 20px; }
+.my-games-page > .my-games-privacy { margin: 18px 0; }
+.my-games-experience h2 { margin: 0 0 12px; }
