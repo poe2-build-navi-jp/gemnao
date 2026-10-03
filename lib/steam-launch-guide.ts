@@ -9,7 +9,7 @@ export const steamLaunchGuide: CommonGuide = {
     'Steamの「プレイ」を押しても無反応、一瞬「実行中」になって戻る、エラーが出る場合を分けて対処。タスクマネージャーとWindowsの信頼性履歴で起動の痕跡を確認し、結果別に次の手順を選びます。',
   conclusion:
     '「プレイ」を押した直後にボタンが変わるか、ゲームのプロセスが現れるかを観察します。Steam全体が反応しないならSteamを通常終了してPCを再起動。ゲームのプロセスが一瞬現れて閉じるなら信頼性履歴で同時刻のエラーを確認。表示されたエラー文があるなら名前ごとの手順を先に選びます。整合性確認やMOD停止は確認結果に合わせて1つずつ試してください。',
-  checkedAt: '2026-09-27',
+  checkedAt: '2026-10-03',
   status: 'verified',
   causes: [
     'Steamクライアント側が応答しない、別のゲームも起動しない',
@@ -54,6 +54,11 @@ export const steamLaunchGuide: CommonGuide = {
   ],
   faqs: [
     {
+      question: 'Steamで買ったのにEA appのログイン画面が出ます。異常ですか？',
+      answer:
+        '一部のEAゲームはSteam版でもEA appが必要です。対象ゲームのSteamストアの第三者DRM・外部アプリの条件を確認してください。ログインや認証で止まる場合は、そのランチャー名とエラー文を控えて公式ヘルプへ進み、原因が分からないままアカウント連携を解除しないでください。',
+    },
+    {
       question:
         '「プレイ」が一瞬「停止」になって元に戻ります。何が分かりますか？',
       answer:
@@ -91,6 +96,10 @@ export const steamLaunchGuide: CommonGuide = {
     'visual-c-runtime-error',
   ],
   sources: [
+    {
+      label: 'EA公式：Steam版でEA appが必要な条件とlink2eaエラー',
+      url: 'https://help.ea.com/en/articles/platforms/download-and-play-ea-app-games/',
+    },
     {
       label: 'Steamサポート：起動準備後にゲームが動かない場合',
       url: 'https://help.steampowered.com/ja/faqs/view/5814-D9A3-BE42-62DF',
