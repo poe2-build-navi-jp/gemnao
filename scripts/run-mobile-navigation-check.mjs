@@ -23,6 +23,7 @@ const result = await build({
         export const useState = () => [globalThis.__mobileOpen, (value) => {
           globalThis.__mobileOpen = typeof value === 'function' ? value(globalThis.__mobileOpen) : value;
         }];
+        export const useRef = () => globalThis.__mobileTrigger;
         export const useEffect = (fn) => globalThis.__mobileEffects.push(fn);
       `,
         }));
