@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { LocalizedArticle } from '../components/localized-article';
+import { ui } from '../lib/localized/ui';
 import { LocalizedGamePage } from '../components/localized-game-page';
 import { LocalizedHome } from '../components/localized-home';
 import { articleBySlug, hubIndexable } from '../lib/game-articles';
@@ -128,7 +129,14 @@ for (const basePath of [gamePath, discordPath]) {
           `${path}: reciprocal menu ${route}`,
         ),
       );
-      assert(html.includes('href="/about"'), `${path}: editorial byline`);
+      const byline = html.match(
+        /<a href="\/about" hrefLang="ja">([^<]+)<\/a>/,
+      )?.[1];
+      assert.ok(byline, `${path}: editorial byline`);
+      assert.ok(
+        byline.endsWith(ui[locale].inJapanese),
+        `${path}: Japanese byline destination disclosed`,
+      );
       assert(html.includes('class="save-article"'), `${path}: save UI`);
       const schemas = [
         ...html.matchAll(
