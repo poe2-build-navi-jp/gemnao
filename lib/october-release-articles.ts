@@ -19,6 +19,11 @@ const steamVerify =
   'Steam：ライブラリでゲームを右クリック→「プロパティ」→「インストール済みファイル」→「ゲームファイルの整合性を確認」';
 
 const gearsSources = {
+  launch: {
+    label:
+      'Steamニュース（公式）：Gears of War: E-Day is Available in Early Access Today（10月1日・サポートとサービス状況の案内）',
+    url: 'https://store.steampowered.com/news/app/3010850',
+  },
   gold: {
     label: 'Steamニュース（公式）：ゴールド到達・発売日時・最終PC動作環境',
     url: 'https://store.steampowered.com/news/app/3010850',
@@ -36,6 +41,10 @@ const gearsSources = {
     label: 'Gears of War公式サポート（問い合わせ）',
     url: 'https://aka.ms/gearscontactsupport',
   },
+  status: {
+    label: 'Gears of War公式：サービス状況（status.gearsofwar.com）',
+    url: 'https://status.gearsofwar.com/',
+  },
 };
 
 export const octoberReleaseArticles: GameArticle[] = [
@@ -43,13 +52,13 @@ export const octoberReleaseArticles: GameArticle[] = [
     gameSlug: 'gears-of-war-e-day',
     slug: 'not-launching',
     category: 'launch',
-    checkedAt: '2026-09-28',
+    checkedAt: '2026-10-03',
     seoTitle:
       'Gears of War: E-Day（ギアーズ）が起動しない・落ちる時の対処法【PC版】',
     title:
       'Gears of War: E-Day（ギアーズ・オブ・ウォー E-Day）が起動しない・落ちる時の対処法【PC版】',
     shortTitle: '起動しない・クラッシュ',
-    targetVersion: 'Steam版・XBOX on PC版・2026年9月28日時点の公式情報',
+    targetVersion: 'Steam版・XBOX on PC版・2026年10月1日時点の公式情報',
     symptom:
       'PC版が起動しない、起動直後に落ちる、読み込みが終わらない、テクスチャが表示されない、オンラインに接続できない場合の確認手順です。',
     conclusion:
@@ -193,9 +202,10 @@ export const octoberReleaseArticles: GameArticle[] = [
         time: '約10分',
         risk: 'low',
         actions: [
+          '先に公式のサービス状況ページ（status.gearsofwar.com）で、障害やメンテナンスが出ていないか確認する（公式の案内）',
           'XBOX on PC版（Game Pass）の場合、XBOXアプリとMicrosoft Storeで同じMicrosoftアカウントにサインインしているか確認する',
           'drone-snubのエラーが出る場合は、ルーターでUDP 3074の通信が遮断されていないか確認する（ルーターの説明書やプロバイダーの案内を参照）',
-          '直らない場合は、表示されたエラーコードと時刻を控えて公式サポート（aka.ms/gearscontactsupport）に問い合わせる',
+          '直らない場合は、表示されたエラーコードと時刻を控えて公式サポート（GearsofWar.com/support）に問い合わせる',
         ],
       },
     ],
@@ -222,14 +232,16 @@ export const octoberReleaseArticles: GameArticle[] = [
       {
         question: 'PC Game Passでも遊べますか？',
         answer:
-          'Game Pass UltimateとPC Game Passでは発売日（日本時間10月7日0時）から遊べます。10月2日からの早期アクセスはPremium Editionの特典です。',
+          'Game Pass UltimateとPC Game Passでは発売日（日本時間10月7日0時）から遊べます。10月2日からの早期アクセスはPremium Editionと、Game Passでプレミアムアップグレードを購入した人が対象です（10月1日の公式のお知らせ）。',
       },
     ],
     sources: [
+      gearsSources.launch,
       gearsSources.gold,
       gearsSources.steam,
       gearsSources.beta,
       gearsSources.support,
+      gearsSources.status,
     ],
     related: [],
     metaDescription:

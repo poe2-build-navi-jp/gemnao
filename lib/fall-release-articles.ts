@@ -87,6 +87,10 @@ const dungeonsSources = {
       'Steamニュース（公式）：Hero Cape（同じMicrosoftアカウントで受け取り）',
     url: 'https://store.steampowered.com/news/app/1912410',
   },
+  deck: {
+    label: 'Steamニュース（公式）：New Update: Steam Deck Playable（10月1日）',
+    url: 'https://store.steampowered.com/news/app/1912410',
+  },
 };
 
 export const fallReleaseArticles: GameArticle[] = [
@@ -495,13 +499,14 @@ export const fallReleaseArticles: GameArticle[] = [
     gameSlug: 'minecraft-dungeons-2',
     slug: 'multiplayer',
     category: 'server',
+    checkedAt: '2026-10-03',
     seoTitle:
       'Minecraft Dungeons IIで友達と遊べない時の対処法【マルチ・クロスプレイ】',
     title:
       'Minecraft Dungeons IIで友達と遊べない・マルチプレイに入れない時の対処法【PC版】',
     shortTitle: 'マルチプレイ・クロスプレイ',
     targetVersion:
-      'Steam版・Microsoft Store版（Game Pass）・2026年9月28日時点の公式情報',
+      'Steam版・Microsoft Store版（Game Pass）・2026年10月1日時点の公式情報',
     symptom:
       '友達のパーティーに入れない、クロスプレイで一緒に遊べない、Microsoftアカウントのサインインで止まる、Hero Capeが受け取れない場合の確認手順です。',
     conclusion:
@@ -650,6 +655,7 @@ export const fallReleaseArticles: GameArticle[] = [
     ],
     cautions: [
       '発売前後は仕様や告知が変わることがあります。最新のお知らせもあわせて確認してください。',
+      '不具合は、公式のバグ報告窓口（aka.ms/Dungeons2Bugs）から報告できます（公式の案内）。',
     ],
     faqs: [
       {
@@ -667,11 +673,17 @@ export const fallReleaseArticles: GameArticle[] = [
         answer:
           '最低動作環境は、GTX 1050・RX 560（VRAM 2GB以上）の専用グラフィックス、メモリ8GB、Windows 10（1703以降）です。推奨はGTX 1060・RX 580（VRAM 6GB以上）、メモリ16GBです。',
       },
+      {
+        question: 'Steam Deckで遊べますか？',
+        answer:
+          '10月1日のアップデートで、Steam Deckで遊べるようになりました（公式）。ただし画面上のキーボードが出ないなどの問題が残る場合があり、Steam Deck認証（Verified）に向けた改善は今後のアップデートで行うと公式は案内しています。',
+      },
     ],
     sources: [
       dungeonsSources.systems,
       dungeonsSources.steam,
       dungeonsSources.cape,
+      dungeonsSources.deck,
     ],
     related: [],
     metaDescription:

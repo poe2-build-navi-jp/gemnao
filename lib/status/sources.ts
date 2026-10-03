@@ -80,6 +80,11 @@ export const officialStatusPages = [
     note: 'PlayStation公式のサービス状況',
   },
   {
+    name: 'Gears of War: E-Day',
+    url: 'https://status.gearsofwar.com/',
+    note: 'Gears of War公式のサービス状況（発売時の公式のお知らせで案内）',
+  },
+  {
     name: 'EA app',
     url: 'https://help.ea.com/jp/',
     note: 'EA公式ヘルプ（サーバー状況はゲームごとに案内）',

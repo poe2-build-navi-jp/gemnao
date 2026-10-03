@@ -40,6 +40,11 @@ const aionSources = {
       'Steamニュース（公式）：Advanced Access Servers（先行アクセスの日程・サーバー一覧）',
     url: 'https://store.steampowered.com/news/app/3393110',
   },
+  fixes: {
+    label:
+      'Steamニュース（公式）：Update on account issues and in-game fixes（10月1日）・Twitch Drops Account Linking Guide（10月2日）',
+    url: 'https://store.steampowered.com/news/app/3393110',
+  },
   launch: {
     label:
       'Steamニュース（公式）：Launch FAQ／Information on server transfer（9月30日）',
@@ -54,7 +59,7 @@ const aionSources = {
 const aceSources = {
   notice: {
     label:
-      'Steamニュース（公式）：Product Notice（クラッシュの調査）・Error Code ST-3100001・Flight Stick Support Update',
+      'Steamニュース（公式）：Product Notice（クラッシュの調査）・Error Code ST-3100001・Flight Stick Support Update・PC Crash Report Thread',
     url: 'https://store.steampowered.com/news/app/2288340',
   },
   official: {
@@ -97,14 +102,14 @@ export const launchWeekArticles: GameArticle[] = [
   make({
     gameSlug: 'aion2',
     slug: 'login-error',
-    checkedAt: '2026-10-01',
+    checkedAt: '2026-10-03',
     category: 'server',
     seoTitle: 'AION2にログインできない・接続できない時の対処法【PC版】',
     title:
       'AION2（アイオン2）にログインできない・接続できない時の対処法【PC版】',
     shortTitle: 'ログイン・接続できない',
     targetVersion:
-      'Steam版・PURPLE版（アーリーアクセス／正式サービス）・2026年10月1日時点',
+      'Steam版・PURPLE版（アーリーアクセス／正式サービス）・2026年10月2日時点',
     symptom:
       'ログイン画面から進まない、待機列が減らない、アーリーアクセスなのに入れない、プレイ中に切断される場合の確認手順です。',
     conclusion:
@@ -235,6 +240,7 @@ export const launchWeekArticles: GameArticle[] = [
           'Steam版：ライブラリから「AION 2 Playtest」を削除し、「AION 2」本体をダウンロードする',
           'PURPLE版：追加の作業は不要（公式の案内）',
           'ファウンダーズパックを購入したアカウントと、ログインしているアカウントが同じか確認する',
+          'Steam版・PURPLE版とも、ゲームを再起動してクライアントを最新にする。ログイン時にアーリーアクセスの権利が認識されない不具合は、10月1日に修正が配信された（公式。再起動時に自動で更新される）',
         ],
         note: '事前テストの進行状況はアーリーアクセスや正式サービスに引き継がれません。',
       },
@@ -248,6 +254,7 @@ export const launchWeekArticles: GameArticle[] = [
         actions: [
           'Ctrl + Shift + Esc でタスクマネージャーを開き、AION 2とSteamまたはPURPLEのプロセスを終了する',
           'ランチャーから起動し直す。直らなければPCを再起動する',
+          'Twitchドロップのために、NCの公式サイトで別途アカウント連携をしない。公式は、既存の連携が外れてキャラクターに入れなくなる場合があると注意している。Twitchには、いま遊んでいる方のアカウント（Steam版ならSteam、PURPLE版ならNC）を連携する',
           steamVerify,
           'ストレージの空き容量を確認する（動作環境は100GB。更新分の余裕も必要）',
         ],
@@ -273,6 +280,7 @@ export const launchWeekArticles: GameArticle[] = [
     ],
     cautions: [
       'サービス開始直後は告知や仕様が頻繁に変わります。最新のお知らせもあわせて確認してください。',
+      'アカウント連携の不具合は、公式が調査中です（2026年10月1日の告知）。',
       '直らない場合は、発生日時・エラーの文章（スクリーンショット）・Steam版かPURPLE版か・回線の種類を添えて公式サポート（help.plaync.com）に問い合わせてください。',
     ],
     faqs: [
@@ -323,6 +331,7 @@ export const launchWeekArticles: GameArticle[] = [
       },
     ],
     sources: [
+      aionSources.fixes,
       aionSources.launch,
       aionSources.servers,
       aionSources.predownload,
@@ -338,14 +347,14 @@ export const launchWeekArticles: GameArticle[] = [
     gameSlug: 'ace-combat-8',
     slug: 'not-launching',
     category: 'launch',
-    checkedAt: '2026-10-01',
+    checkedAt: '2026-10-03',
     seoTitle:
       'エースコンバット8（エスコン8）が起動しない・落ちる時の対処法【PC版】',
     title:
       'エースコンバット8（ACE COMBAT 8）が起動しない・クラッシュする時の対処法【PC版】',
     shortTitle: '起動しない・クラッシュ',
     targetVersion:
-      'STEAM版・公式システム要件と2026年10月1日時点の公式のお知らせ',
+      'STEAM版・公式システム要件と2026年10月2日時点の公式のお知らせ',
     symptom:
       'PC版（Steam）が起動しない、起動直後に落ちる、読み込みで止まる、プレイ中にクラッシュする場合の確認手順です。',
     conclusion:
@@ -527,7 +536,8 @@ export const launchWeekArticles: GameArticle[] = [
       '起動しないからといって、先にWindowsの再インストールをしない（まず要件を確認する）',
     ],
     cautions: [
-      '公式はSteam版のクラッシュの原因を調査中です（2026年10月1日時点）。最新のお知らせも確認してください。',
+      '公式はSteam版のクラッシュの原因を調査中です（2026年10月2日時点）。最新のお知らせも確認してください。',
+      '直らない場合は、公式がSteamのお知らせに設けた「PC Crash Report Thread」（10月2日）に報告できます。公式は、PCの構成（GPU・CPU・メモリなど）、Windowsとシステムソフトウェアのバージョン、エラーメッセージや再現手順、一緒に起動していたアプリの一覧を書くよう求めています。',
     ],
     faqs: [
       {
