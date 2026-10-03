@@ -368,13 +368,13 @@ export const currentGameArticles: GameArticle[] = [
     checkedAt: '2026-10-03',
     targetVersion: 'Steam版・2026年10月3日にFPSとGPUの切り分け手順を再確認',
     // Shorter <title> for search results; the page heading keeps the full title.
-    seoTitle: '鬼武者 Way of the SwordのFPSが低い時の設定【PC版】',
+    seoTitle: '鬼武者 Way of the Swordが重い・FPSが低い時の設定【PC版】',
     category: 'display',
     title:
-      '鬼武者 Way of the SwordのFPSが低い・安定しない時の設定と対処法【PC版】',
+      '鬼武者 Way of the Swordが重い・FPSが低い・カクつく時の設定と対処法【PC版】',
     shortTitle: 'FPS低下・不安定',
     symptom:
-      'フレームレートが低い、場面によって急に重くなる、ノートPCで重い、録画・配信中に重い場合の確認手順です。',
+      'PC版が重い、フレームレートが低い・安定しない、場面によって急にカクつく、ノートPCで重い、録画・配信中に重い場合の確認手順です。',
     conclusion:
       'カプコンの公式ガイドは、フレームレートが安定しない場合に「設定＞グラフィックス＞グラフィックプリセット」を「最低」にするよう案内しています。あわせてGPUドライバーを公式指定以上へ更新し、ノートPCは電源と排熱を確認します。',
     description:
@@ -525,10 +525,19 @@ export const currentGameArticles: GameArticle[] = [
         answer:
           'カプコンの公式ガイドでは、モバイルGPUや外付けGPUは基本的に動作保証の対象外とされています。遊ぶ場合は、充電器の接続、高パフォーマンスの電源設定、高パフォーマンスGPUの選択を確認してください。',
       },
+      {
+        question: '購入前に、自分のPCで重いかどうか確かめられますか？',
+        answer:
+          'Steamで無料の体験版（鬼武者 Way of the Sword DEMO）が配信されています。体験版で、この記事の手順2の方法で同じ場面のFPSを測っておくと、製品版でどの設定を選べばよいかの目安になります。',
+      },
     ],
     sources: [
       sources.capcom,
       sources.steam,
+      {
+        label: 'Steamストア：鬼武者 Way of the Sword DEMO（無料体験版）',
+        url: 'https://store.steampowered.com/app/3974650/',
+      },
       sources.pcgw,
       {
         label: 'NVIDIA公式：DLSSの対応GPU（英語）',
@@ -550,7 +559,7 @@ export const currentGameArticles: GameArticle[] = [
       'black-screen',
     ],
     metaDescription:
-      '鬼武者 Way of the Sword PC版のFPSが低い時の対処法。公式が案内するグラフィックプリセット「最低」、最低・推奨環境ごとのfps目安、DLSS・FSRとFPS上限、ノートPCの電源と排熱、配信時のメモリまで解説。',
+      '鬼武者 Way of the Sword PC版が重い・FPSが低い時の対処法。公式が案内するグラフィックプリセット「最低」、最低・推奨環境ごとのfps目安、DLSS・FSRとFPS上限、ノートPCの電源と排熱、配信時のメモリまで解説。',
   }),
   make({
     slug: 'shader-cache',
