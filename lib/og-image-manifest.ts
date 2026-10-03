@@ -117,7 +117,7 @@ export const ogImageManifest: Record<string, string> = {
   "/games/onimusha-way-of-the-sword/crash-report": "6f981b7f",
   "/games/onimusha-way-of-the-sword/gpu-driver-version": "e83221a2",
   "/games/onimusha-way-of-the-sword/hdr": "b6142e60",
-  "/games/onimusha-way-of-the-sword/low-fps": "2e598507",
+  "/games/onimusha-way-of-the-sword/low-fps": "62a0069a",
   "/games/onimusha-way-of-the-sword/not-launching": "f517c8e3",
   "/games/onimusha-way-of-the-sword/shader-cache": "14861f9f",
   "/games/palworld": "5de18a32",
