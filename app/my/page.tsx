@@ -59,12 +59,13 @@ export default function MyPage() {
       <WikiHeader pagePath="/my" />
       <article className="static-page">
         <p className="page-kicker">MY PAGE</p>
-        <h1>マイPC・マイゲーム・解決ノート</h1>
+        <h1>保存した記事と、遊ぶゲームのマイページ</h1>
         <p className="page-lead">
-          遊ぶゲームと、診断結果・解決した設定を保存して、次に困った時にここから見返せます。ログインは不要で、登録内容はこのブラウザにだけ保存されます。
+          あとで読む記事、最近見た手順、遊ぶゲームの最新情報をここに。診断結果・解決した設定も見返せます。ログイン不要で、登録内容はこのブラウザにだけ保存されます。
         </p>
         <nav className="my-page-links" aria-label="マイページの内容">
-          <a href="#my-games">遊ぶゲーム</a>
+          <a href="#my-reading-list">あとで読む</a>
+          <a href="#my-games">マイゲーム・最新情報</a>
           <a href="#my-solutions">診断結果・解決ノート</a>
           <a href="#my-pc">PCの登録</a>
         </nav>

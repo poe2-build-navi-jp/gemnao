@@ -1,3 +1,4 @@
+import { SaveArticle } from '@/components/save-article';
 import type { Metadata } from 'next';
 import { languageAlternates } from '@/lib/localized/index';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
@@ -126,6 +127,11 @@ export default function WindowsDiagnosis() {
           特定のゲーム専用ではありません。一般のゲーム本体EXEを選ぶ共通診断と、対応するゲームだけの追加チェックを分けています。今回のモンハンワイルズでの切り分けは、ゲーム固有チェックの更新に反映しています。
         </p>
         <p>説明確認日：2026年10月3日（日本時間） · ゲムなお／オカピ研究所</p>
+        <SaveArticle
+          path="/tools/windows-diagnosis"
+          title="PCゲーム診断ツール"
+          locale="ja"
+        />
         <aside className="download-caution" aria-labelledby="trial-title">
           <h2 id="trial-title">使う前に：できることと限界</h2>
           <p>
@@ -275,6 +281,11 @@ export default function WindowsDiagnosis() {
               </p>
             </li>
           </ol>
+          <SaveArticle
+            path="/tools/windows-diagnosis"
+            title="PCゲーム診断ツール"
+            locale="ja"
+          />
           <aside className="download-caution">
             <h3>Windowsの保護機能に止められたら中止</h3>
             <p>

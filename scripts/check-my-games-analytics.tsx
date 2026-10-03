@@ -8,12 +8,13 @@ import { importSolutions, serializeSolutions } from '../lib/saved-solutions';
 // No Google script, network requests, or live analytics events in this check.
 const root = globalThis as unknown as {
   window?: { gtag?: (...args: unknown[]) => void };
-  location: { pathname: string; search: string; hash: string };
+  location: { origin: string; pathname: string; search: string; hash: string };
 };
 assert.doesNotThrow(trackMyGameAdded); // SSR / analytics not available.
 const calls: unknown[][] = [];
 const capture = (...args: unknown[]) => calls.push(args);
 root.location = {
+  origin: 'https://gemnao.pages.dev',
   pathname: '/games/private-game',
   search: '?email=private@example.com',
   hash: '#private-note',

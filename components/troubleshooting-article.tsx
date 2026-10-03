@@ -1,3 +1,4 @@
+import { SaveArticle } from '@/components/save-article';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import {
   AlertTriangle,
@@ -54,13 +55,17 @@ export function TroubleshootingArticle({
       all.findIndex((item) => item.url === source.url) === index,
   );
   const troubleHub = troubleHubForArticle(article);
-  const matchedGuides = commonGuides.filter((guide) =>
-    troubleHub?.guideSlugs.includes(guide.slug),
-  );
-  const fallbackGuides = matchedGuides.length
-    ? matchedGuides
-    : commonGuides.slice(0, 3);
-  const guideCategory = commonGuideCategoryFor(fallbackGuides[0]);
+  const matchedGuides =
+    article.category === 'server'
+      ? []
+      : commonGuides.filter((guide) =>
+          troubleHub?.guideSlugs.includes(guide.slug),
+        );
+  // Do not recommend unrelated launch fixes when this symptom has no common guide.
+  const fallbackGuides = matchedGuides;
+  const guideCategory = fallbackGuides[0]
+    ? commonGuideCategoryFor(fallbackGuides[0])
+    : undefined;
   const breadcrumbSchema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -150,6 +155,10 @@ export function TroubleshootingArticle({
             <p className="target-version">対象：{article.targetVersion}</p>
           ) : null}
           <SaveGame slug={game.slug} />
+          <SaveArticle
+            path={`/games/${game.slug}/${article.slug}`}
+            title={article.title}
+          />
         </div>
       </header>
       <div className="article-layout issue-layout">
@@ -171,6 +180,11 @@ export function TroubleshootingArticle({
               結論
             </h2>
             <p>{article.conclusion}</p>
+            {article.related.length ? (
+              <a className="article-next-jump" href="#related-guides">
+                症状が違う・まだ直らない場合の次の確認 →
+              </a>
+            ) : null}
             {saveGuideByGame[game.slug]?.slug === article.slug ? (
               <p>
                 保存場所をコピーするなら、
@@ -356,13 +370,20 @@ export function TroubleshootingArticle({
             </section>
           ) : null}
           {article.related.length ? (
-            <section className="related-section">
-              <h2>まだ直りませんか？ 次に試す記事</h2>
+            <section className="related-section" id="related-guides">
+              <h2>別の症状がある場合</h2>
+              <p>
+                起動・画面など、今起きている症状に当てはまる記事を選んでください。
+              </p>
               <div>
                 {article.related.map((slug) => {
                   const related = articleBySlug(game.slug, slug);
                   return related ? (
-                    <a href={`/games/${game.slug}/${related.slug}`} key={slug}>
+                    <a
+                      data-related="true"
+                      href={`/games/${game.slug}/${related.slug}`}
+                      key={slug}
+                    >
                       <span>{categoryLabels[related.category]}</span>
                       {related.shortTitle}
                       <ArrowRight size={15} />
@@ -374,10 +395,14 @@ export function TroubleshootingArticle({
           ) : null}
           {pcLinksForGameArticle(article).length ? (
             <section className="related-section">
-              <h2>Windows側の原因も確認する</h2>
+              <h2>
+                {article.category === 'server'
+                  ? 'ほかのサイトもつながらない場合'
+                  : 'Windows側の原因も確認する'}
+              </h2>
               <div>
                 {pcLinksForGameArticle(article).map((link) => (
-                  <a href={link.href} key={link.href}>
+                  <a data-related="true" href={link.href} key={link.href}>
                     <span>PC・Windows</span>
                     {link.label}
                     <ArrowRight size={15} />
@@ -387,20 +412,35 @@ export function TroubleshootingArticle({
             </section>
           ) : null}
           <section className="common-guides">
-            <h2>PCゲーム共通の解決方法</h2>
+            <h2>
+              {fallbackGuides.length
+                ? 'PC共通の原因も切り分ける'
+                : '別の症状・対処法を探す'}
+            </h2>
+            {article.category === 'server' ? (
+              <a href="/status" data-related="true">
+                公式の障害・メンテナンス情報を確認 <ArrowRight size={15} />
+              </a>
+            ) : null}
             {fallbackGuides.slice(0, 3).map((guide) => (
-              <a href={`/guide/${guide.slug}`} key={guide.slug}>
+              <a
+                data-related="true"
+                href={`/guide/${guide.slug}`}
+                key={guide.slug}
+              >
                 {guide.shortTitle}
                 <ArrowRight size={15} />
               </a>
             ))}
-            <a href={guideCategory ? `/guide#${guideCategory.id}` : '/guide'}>
-              {guideCategory
-                ? `${guideCategory.label}の共通ガイドを見る`
-                : '共通ガイドをすべて見る'}{' '}
-              <ArrowRight size={15} />
-            </a>
-            <a href={`/games/${game.slug}`}>
+            {guideCategory ? (
+              <a href={`/guide#${guideCategory.id}`} data-related="true">
+                {guideCategory
+                  ? `${guideCategory.label}の共通ガイドを見る`
+                  : '共通ガイドをすべて見る'}{' '}
+                <ArrowRight size={15} />
+              </a>
+            ) : null}
+            <a data-related="true" href={`/games/${game.slug}`}>
               {game.shortTitle}の総合トラブルまとめ <ArrowRight size={15} />
             </a>
           </section>

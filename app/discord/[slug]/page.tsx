@@ -1,3 +1,4 @@
+import { SaveArticle } from '@/components/save-article';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { notFound } from 'next/navigation';
@@ -187,6 +188,7 @@ export default async function DiscordArticlePage({
             <span>最終確認：{item.checkedAt.replaceAll('-', '.')}</span>
             <span>対象：{item.target}</span>
           </div>
+          <SaveArticle path={`/discord/${item.slug}`} title={item.title} />
         </div>
       </header>
       <div className="article-layout issue-layout">

@@ -76,7 +76,7 @@ class Anchor {
 }
 const root = globalThis as unknown as {
   window?: { gtag?: (...args: unknown[]) => void };
-  location: { pathname: string; search: string; hash: string };
+  location: { origin: string; pathname: string; search: string; hash: string };
   HTMLAnchorElement: typeof Anchor;
 };
 // Server use is harmless.
@@ -88,6 +88,7 @@ root.window = {
   },
 };
 root.location = {
+  origin: 'https://gemnao.pages.dev',
   pathname: '/gear/stream-deck-plus-xl',
   search: '?private=1',
   hash: '#private',

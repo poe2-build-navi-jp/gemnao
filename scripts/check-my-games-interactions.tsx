@@ -31,7 +31,7 @@ let notifications = 0;
 const root = globalThis as unknown as {
   localStorage: Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
   window: { gtag?: (...args: unknown[]) => void; dispatchEvent: () => boolean };
-  location: { pathname: string };
+  location: { origin: string; pathname: string };
   __myGamesServerSnapshot: boolean;
 };
 root.localStorage = {
@@ -47,7 +47,7 @@ root.localStorage = {
     values.delete(key);
   },
 };
-root.location = { pathname: '/my' };
+root.location = { origin: 'https://gemnao.pages.dev', pathname: '/my' };
 root.window = {
   gtag: capture,
   dispatchEvent: () => {

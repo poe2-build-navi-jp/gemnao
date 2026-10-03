@@ -80,50 +80,50 @@ export function InteractiveSteps({
   const [methods, setMethods] = useState<Method[]>([]);
 
   useEffect(() => {
-    const saved = localStorage.getItem(storageKey);
+    let saved: string | null = null;
+    try {
+      saved = localStorage.getItem(storageKey);
+    } catch {
+      /* Keep the article usable. */
+    }
     if (saved) {
       try {
         const progress = JSON.parse(saved) as Progress;
         const safeStep = Math.min(
-          Math.max(progress.currentStep || 0, 0),
+          Math.max(
+            Number.isInteger(progress.currentStep) ? progress.currentStep : 0,
+            0,
+          ),
           Math.max(steps.length - 1, 0),
         );
         queueMicrotask(() => {
           setCurrentStep(safeStep);
-          setCompletedIds(progress.completedIds || []);
-          setSolvedStepId(progress.solvedStepId || '');
+          setCompletedIds(
+            Array.isArray(progress.completedIds)
+              ? progress.completedIds.filter(
+                  (id) =>
+                    typeof id === 'string' &&
+                    steps.some((step) => step.id === id),
+                )
+              : [],
+          );
+          setSolvedStepId(
+            steps.some((step) => step.id === progress.solvedStepId)
+              ? progress.solvedStepId!
+              : '',
+          );
           setShowResume(safeStep > 0 && !progress.solved);
         });
       } catch {
-        localStorage.removeItem(storageKey);
+        // Ignore malformed progress without deleting private data.
       }
     }
-    const recentKey = 'gemnao-recent-troubles';
-    const current = {
-      contextSlug,
-      title: articleTitle,
-      path: articlePath,
-      viewedAt: new Date().toISOString(),
-    };
     try {
-      const previous = JSON.parse(
-        localStorage.getItem(recentKey) || '[]',
-      ) as (typeof current)[];
-      localStorage.setItem(
-        recentKey,
-        JSON.stringify(
-          [
-            current,
-            ...previous.filter((item) => item.contextSlug !== contextSlug),
-          ].slice(0, 5),
-        ),
-      );
+      const voted = Boolean(localStorage.getItem(`${voteKey}:resolved`));
+      queueMicrotask(() => setAlreadyVoted(voted));
     } catch {
-      localStorage.setItem(recentKey, JSON.stringify([current]));
+      /* Storage may be disabled. */
     }
-    queueMicrotask(() =>
-      setAlreadyVoted(Boolean(localStorage.getItem(`${voteKey}:resolved`))),
-    );
     const controller = new AbortController();
     async function loadFeedback() {
       try {
@@ -144,17 +144,32 @@ export function InteractiveSteps({
     }
     void loadFeedback();
     return () => controller.abort();
-  }, [
-    articlePath,
-    articleTitle,
-    contextSlug,
-    steps.length,
-    storageKey,
-    voteKey,
-  ]);
+  }, [articlePath, articleTitle, contextSlug, steps, storageKey, voteKey]);
+
+  function hasVote(kind: string) {
+    try {
+      return Boolean(localStorage.getItem(`${voteKey}:${kind}`));
+    } catch {
+      return false;
+    }
+  }
+
+  function markVote(kind: string) {
+    try {
+      localStorage.setItem(`${voteKey}:${kind}`, '1');
+    } catch {
+      // A successful server response must not become a false failure message.
+    }
+  }
 
   function saveProgress(next: Progress) {
-    localStorage.setItem(storageKey, JSON.stringify(next));
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(next));
+    } catch {
+      setMessage(
+        '進行状況を保存できませんでした。このまま手順を確認できます。',
+      );
+    }
   }
 
   const row = rows.find((item) => item.topic === topic) || {
@@ -181,7 +196,7 @@ export function InteractiveSteps({
     : articleTitle;
 
   async function solved(step: Step) {
-    if (sending || localStorage.getItem(`${voteKey}:resolved`)) return;
+    if (sending || alreadyVoted || hasVote('resolved')) return;
     setSending(step.id);
     setMessage('');
     try {
@@ -210,7 +225,7 @@ export function InteractiveSteps({
         step_id: step.id,
       });
       setCompletedIds((value) => [...new Set([...value, step.id])]);
-      localStorage.setItem(`${voteKey}:resolved`, '1');
+      markVote('resolved');
       setAlreadyVoted(true);
       saveProgress({
         currentStep,
@@ -250,7 +265,7 @@ export function InteractiveSteps({
       );
       return;
     }
-    if (localStorage.getItem(`${voteKey}:struggling`)) return;
+    if (hasVote('struggling')) return;
     setSending(step.id);
     try {
       const response = await fetch('/api/feedback', {
@@ -266,7 +281,7 @@ export function InteractiveSteps({
       const data = (await response.json()) as { rows?: Row[] };
       setRows(data.rows || []);
       setCompletedIds(nextCompleted);
-      localStorage.setItem(`${voteKey}:struggling`, '1');
+      markVote('struggling');
       trackEvent('issue_struggling', { game: contextSlug, topic });
       saveProgress({
         currentStep: index,

@@ -4,6 +4,8 @@
 import { ArrowRight, Cpu, ExternalLink, Gamepad2, Trash2 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { MyPcFit } from '@/components/my-pc-fit';
+import { ReadingList } from '@/components/reading-list';
+import { RecentTroubles } from '@/components/recent-troubles';
 import { SolutionNotebook } from '@/components/solution-notebook';
 import { useMyGames, useMyPc } from '@/components/use-my-pc';
 import { gpus, MY_GAMES_KEY, type MinSpec, type MyPc } from '@/lib/my-pc';
@@ -222,51 +224,11 @@ export function MyDashboard({ games }: { games: DashboardGame[] }) {
 
   return (
     <div className="my-dashboard">
-      <section id="my-pc" aria-labelledby="my-pc-title">
-        <h2 id="my-pc-title">
-          <Cpu size={21} /> マイPC
-        </h2>
-        <p>
-          登録すると、新作の動作環境まとめなどで「あなたのPCで動くか」の目安が表示されます。内容はこのブラウザだけに保存され、サーバーには送信しません。
-        </p>
-        {pcReady ? (
-          <PcForm
-            key={pc ? `${pc.gpu}-${pc.ramGb}-${pc.windows}` : 'new'}
-            pc={pc}
-            onSave={(value) => savePc(value)}
-            onClear={() => savePc(null)}
-          />
-        ) : null}
-      </section>
-
-      <section id="my-games" aria-labelledby="my-games-title">
-        <h2 id="my-games-title">
-          <Gamepad2 size={21} /> マイゲーム
-        </h2>
-        <p>
-          遊んでいるゲームを選ぶと、公式のお知らせ・メンテナンス・解決記事がここにまとまります（最大10本）。
-        </p>
-        {gamesReady ? (
-          <div className="my-game-picker">
-            {games.map((game) => (
-              <label key={game.slug}>
-                <input
-                  type="checkbox"
-                  checked={myGames.includes(game.slug)}
-                  onChange={() => toggle(game.slug)}
-                />{' '}
-                {game.name}
-              </label>
-            ))}
-          </div>
-        ) : null}
-        <output className="solution-message">{gameMessage}</output>
-      </section>
-
-      <SolutionNotebook />
+      <ReadingList />
+      <RecentTroubles variant="my" />
 
       {mine.length ? (
-        <section aria-labelledby="my-feed-title">
+        <section id="my-feed" aria-labelledby="my-feed-title">
           <h2 id="my-feed-title">マイゲームの最新情報</h2>
           <div className="my-game-cards">
             {mine.map((game) => (
@@ -323,6 +285,48 @@ export function MyDashboard({ games }: { games: DashboardGame[] }) {
           </div>
         </section>
       ) : null}
+      <section id="my-games" aria-labelledby="my-games-title">
+        <h2 id="my-games-title">
+          <Gamepad2 size={21} /> マイゲーム
+        </h2>
+        <p>
+          遊んでいるゲームを選ぶと、公式のお知らせ・メンテナンス・解決記事がここにまとまります（最大10本）。
+        </p>
+        {gamesReady ? (
+          <div className="my-game-picker">
+            {games.map((game) => (
+              <label key={game.slug}>
+                <input
+                  type="checkbox"
+                  checked={myGames.includes(game.slug)}
+                  onChange={() => toggle(game.slug)}
+                />{' '}
+                {game.name}
+              </label>
+            ))}
+          </div>
+        ) : null}
+        <output className="solution-message">{gameMessage}</output>
+      </section>
+
+      <SolutionNotebook />
+
+      <section id="my-pc" aria-labelledby="my-pc-title">
+        <h2 id="my-pc-title">
+          <Cpu size={21} /> マイPC
+        </h2>
+        <p>
+          登録すると、新作の動作環境まとめなどで「あなたのPCで動くか」の目安が表示されます。内容はこのブラウザだけに保存され、サーバーには送信しません。
+        </p>
+        {pcReady ? (
+          <PcForm
+            key={pc ? `${pc.gpu}-${pc.ramGb}-${pc.windows}` : 'new'}
+            pc={pc}
+            onSave={(value) => savePc(value)}
+            onClear={() => savePc(null)}
+          />
+        ) : null}
+      </section>
     </div>
   );
 }
