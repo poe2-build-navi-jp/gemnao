@@ -5,8 +5,20 @@ import { Check, Gamepad2 } from 'lucide-react';
 import { useMyGames } from '@/components/use-my-pc';
 import { MY_GAMES_KEY } from '@/lib/my-pc';
 import { trackMyGameAdded } from '@/lib/analytics';
+import {
+  myGamesCopy,
+  myGamesPath,
+  type MyGamesLocale,
+} from '@/lib/my-games-copy';
 
-export function SaveGame({ slug }: { slug: string }) {
+export function SaveGame({
+  slug,
+  locale = 'ja',
+}: {
+  slug: string;
+  locale?: MyGamesLocale;
+}) {
+  const t = myGamesCopy[locale];
   const [myGames, saveGames, ready] = useMyGames();
   const [message, setMessage] = useState('');
   const saved = myGames.includes(slug);
@@ -26,15 +38,11 @@ export function SaveGame({ slug }: { slug: string }) {
               !Array.isArray(value) ||
               !value.every((item) => typeof item === 'string')
             )
-              throw new Error(
-                '保存データを読み取れません。マイページで確認してください。',
-              );
+              throw new Error(t.corrupt);
             const current = [...new Set(value as string[])];
             const removing = current.includes(slug);
             if (!removing && current.length >= 10) {
-              setMessage(
-                '最大10本です。マイページで選択を減らしてから追加してください。',
-              );
+              setMessage(t.limit);
               return;
             }
             if (
@@ -44,19 +52,11 @@ export function SaveGame({ slug }: { slug: string }) {
                   : [...current, slug],
               )
             )
-              throw new Error(
-                '保存できませんでした。ブラウザの保存設定を確認してください。',
-              );
+              throw new Error(t.error);
             if (!removing) trackMyGameAdded();
-            setMessage(
-              removing
-                ? 'マイゲームから外しました。'
-                : 'このブラウザのマイゲームに保存しました。',
-            );
+            setMessage(removing ? t.removed : t.success);
           } catch (error) {
-            setMessage(
-              error instanceof Error ? error.message : '保存できませんでした。',
-            );
+            setMessage(error instanceof Error ? error.message : t.error);
           }
         }}
       >
@@ -65,10 +65,19 @@ export function SaveGame({ slug }: { slug: string }) {
         ) : (
           <Gamepad2 size={18} aria-hidden="true" />
         )}
-        {saved ? 'マイゲームに保存済み（外す）' : '遊ぶゲームとして保存'}
+        {saved ? `${t.selected} · ${t.remove}` : `${t.name} · ${t.add}`}
       </button>
-      <a href="/my#my-feed">マイゲームを見る →</a>
-      <output>{message}</output>
+      <a href={`${myGamesPath(locale)}#my-feed`}>{t.return} →</a>
+      <small className="save-game-benefit">
+        {locale === 'ja'
+          ? 'このゲームの対処法を、次回もすぐ開く。アカウント不要・このブラウザのみ。'
+          : locale === 'en'
+            ? 'Keep this game’s fixes handy. No account. This browser only.'
+            : locale === 'zh'
+              ? '下次直接打开这款游戏的解决方法。无需账号，仅保存在当前浏览器。'
+              : 'Ten a mano las soluciones de este juego. Sin cuenta. Solo en este navegador.'}
+      </small>
+      <output aria-live="polite">{message}</output>
     </div>
   );
 }

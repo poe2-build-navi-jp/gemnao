@@ -16,10 +16,12 @@ export function MyShortcut() {
     <section className="my-shortcut" aria-labelledby="my-shortcut-title">
       <h2 id="my-shortcut-title">
         <Bookmark size={18} aria-hidden="true" />
-        {hasSaved ? '保存した記事から、続きへ' : '次に困ったとき、探し直さない'}
+        {hasSaved
+          ? '保存した記事から、続きへ'
+          : '遊ぶゲームの対処法を、自分の一覧に。'}
       </h2>
       <p>
-        記事の「あとで読む」と解決ノートをひとまとめに。遊ぶゲームを選ぶと、公式のお知らせも確認できます。ログイン不要・このブラウザだけに保存。
+        ゲームを1本選ぶだけで、そのゲームの解決記事をまとめて確認。次に困ったときも、ここからすぐ開けます。無料・アカウント不要・このブラウザだけに保存。
       </p>
       {hasSaved ? (
         <a
@@ -35,17 +37,18 @@ export function MyShortcut() {
         </a>
       ) : null}
       <div className="my-shortcut-actions">
+        <a className="my-games-primary" href="/my-games">
+          {gamesReady && mine.length
+            ? `マイゲーム ${mine.length}本を開く`
+            : '自分のゲームを選ぶ'}{' '}
+          →
+        </a>
         <a href="/my#my-reading-list">
           {hasSaved
             ? `保存した記事 ${items.length}件を開く`
             : 'マイページを使ってみる'}{' '}
           →
         </a>
-        {gamesReady && mine.length ? (
-          <a href="/my#my-feed">マイゲーム {mine.length}本の最新情報 →</a>
-        ) : (
-          <a href="/my#my-games">遊ぶゲームを登録する →</a>
-        )}
       </div>
     </section>
   );

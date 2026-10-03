@@ -4,6 +4,7 @@ import type { Locale } from '@/lib/i18n';
 import { copy, localeNames, localizedRoot } from '@/lib/i18n';
 import { MobileNavigation } from '@/components/mobile-navigation';
 import { hasTranslation } from '@/lib/localized/index';
+import { myGamesCopy, myGamesPath } from '@/lib/my-games-copy';
 import { ui } from '@/lib/localized/ui';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 
@@ -85,6 +86,9 @@ export function WikiHeader({
         {locale === 'ja' ? <a href="/#symptoms">症状から探す</a> : null}
         {locale === 'ja' ? <a href="/status">障害情報</a> : null}
         {locale === 'ja' ? <a href="/my">マイページ</a> : null}
+        {locale !== 'ja' ? (
+          <a href={myGamesPath(locale)}>{myGamesCopy[locale].name}</a>
+        ) : null}
         {locale === 'en' ? <a href="/en/tools">Tools</a> : null}
         <a href="/guide">
           {labels.basics}
@@ -178,6 +182,7 @@ export function WikiFooter({ locale = 'ja' }: { locale?: 'ja' | Locale }) {
           <p>{t.footerTagline}</p>
         </div>
         <nav aria-label={t.footerNav}>
+          <a href={myGamesPath(locale)}>{myGamesCopy[locale].name}</a>
           {locale === 'en' ? <a href="/en/tools">Tools</a> : null}
           {link('/about', t.about)}
           {link('/privacy', t.privacy)}

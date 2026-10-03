@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { MyGamesPanel } from '../components/my-games-panel';
 import { SaveGame } from '../components/save-game';
 import { MyDashboard } from '../components/my-dashboard';
 import { MY_GAMES_KEY } from '../lib/my-pc';
@@ -81,20 +82,39 @@ const game = {
   maintenance: [],
   hasNews: false,
 };
-for (const source of ['game-page', 'my-page']) {
+for (const source of [
+  'game-page',
+  'my-page',
+  'focused-ja',
+  'focused-en',
+  'focused-zh',
+  'focused-es',
+]) {
   const render = () =>
     source === 'game-page'
       ? SaveGame({ slug: game.slug })
-      : MyDashboard({ games: [game] });
+      : source === 'my-page'
+        ? MyDashboard({ games: [game] })
+        : MyGamesPanel({
+            games: [
+              {
+                ...game,
+                searchNames: game.name,
+                hub: '/games/elden-ring',
+                hubJapanese: false,
+              },
+            ],
+            locale: source.slice(-2) as 'ja' | 'en' | 'zh' | 'es',
+          });
   const handler = () => {
     const control = find(render(), (node) =>
-      source === 'game-page'
+      source !== 'my-page'
         ? node.type === 'button'
         : node.type === 'input' && node.props?.type === 'checkbox',
     );
     assert.ok(control, source);
     return control.props![
-      source === 'game-page' ? 'onClick' : 'onChange'
+      source !== 'my-page' ? 'onClick' : 'onChange'
     ] as () => void;
   };
   reset();
@@ -195,5 +215,5 @@ for (const source of ['game-page', 'my-page']) {
   );
 }
 console.log(
-  'My Games real-handler checks passed for both entry points: add/remove/re-add, repeated callbacks, duplicates, stale storage, read/write failures, corrupt data, cap, unavailable GA, server snapshots, and existing selections.',
+  'My Games real-handler checks passed for article, legacy dashboard, and all four focused-page languages: add/remove/re-add, repeated callbacks, duplicates, stale storage, read/write failures, corrupt data, cap, unavailable GA, server snapshots, and existing selections.',
 );

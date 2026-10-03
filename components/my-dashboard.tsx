@@ -297,6 +297,9 @@ export function MyDashboard({ games }: { games: DashboardGame[] }) {
         )}
       </section>
       <section id="my-games" aria-labelledby="my-games-title">
+        <p>
+          <a href="/my-games">ゲーム名で探して、解決記事をすぐ開く →</a>
+        </p>
         <h2 id="my-games-title">
           <Gamepad2 size={21} /> マイゲーム
         </h2>

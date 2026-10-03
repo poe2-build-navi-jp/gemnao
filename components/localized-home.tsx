@@ -13,6 +13,7 @@ import {
 } from '@/lib/localized/index';
 import { ui } from '@/lib/localized/ui';
 import { WikiFooter, WikiHeader } from './wiki-header';
+import { MyGamesHomeEntry } from './my-games-home-entry';
 import { HomeBookmarkHelp } from './home-bookmark-help';
 
 export function LocalizedHome({ locale }: { locale: Locale }) {
@@ -36,6 +37,9 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
           <p>{t.homeNote}</p>
         </div>
       </section>
+      <div className="content home-my-shortcut">
+        <MyGamesHomeEntry locale={locale} />
+      </div>
       <div className="content home-bookmark-slot">
         <HomeBookmarkHelp locale={locale} />
       </div>

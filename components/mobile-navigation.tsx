@@ -4,6 +4,7 @@
 
 import { Menu, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import { myGamesCopy, myGamesPath } from '@/lib/my-games-copy';
 import { ui } from '@/lib/localized/ui';
 
 type MobileNavigationProps = {
@@ -88,6 +89,7 @@ export function MobileNavigation({
               {locale === 'ja' ? <a href="/#symptoms">症状から探す</a> : null}
               {locale === 'ja' ? <a href="/status">障害・メンテ情報</a> : null}
               {locale === 'ja' ? <a href="/my">マイページ</a> : null}
+              <a href={myGamesPath(locale)}>{myGamesCopy[locale].name}</a>
               {locale === 'ja' ? <a href="/tools">便利ツール</a> : null}
               {locale === 'en' ? (
                 <a href="/en/tools">Tools and Windows diagnosis</a>
