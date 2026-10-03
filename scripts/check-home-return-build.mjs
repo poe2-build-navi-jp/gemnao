@@ -20,8 +20,13 @@ for (const path of [
   const html = await response.text();
   const head = html.match(/<head>([\s\S]*?)<\/head>/)?.[1] || '';
   const canonicalPath = path.startsWith('/?') ? '/' : path;
-  assert.ok(
-    head.includes(`href="https://gemnao.pages.dev${canonicalPath}"`),
+  const canonicalTag =
+    head.match(/<link\b[^>]*rel="canonical"[^>]*>/)?.[0] || '';
+  const canonical = canonicalTag.match(/href="([^"]+)"/)?.[1];
+  assert.ok(canonical, `${path} canonical in head`);
+  assert.equal(
+    new URL(canonical).href,
+    new URL(canonicalPath, 'https://gemnao.pages.dev').href,
     `${path} canonical`,
   );
   for (const content of [
