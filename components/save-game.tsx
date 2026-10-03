@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Check, Gamepad2 } from 'lucide-react';
 import { useMyGames } from '@/components/use-my-pc';
 import { MY_GAMES_KEY } from '@/lib/my-pc';
+import { trackMyGameAdded } from '@/lib/analytics';
 
 export function SaveGame({ slug }: { slug: string }) {
   const [myGames, saveGames, ready] = useMyGames();
@@ -46,6 +47,7 @@ export function SaveGame({ slug }: { slug: string }) {
               throw new Error(
                 '保存できませんでした。ブラウザの保存設定を確認してください。',
               );
+            if (!removing) trackMyGameAdded();
             setMessage(
               removing
                 ? 'マイゲームから外しました。'
