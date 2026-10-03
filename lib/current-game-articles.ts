@@ -41,7 +41,7 @@ type Draft = Omit<
   | 'seoTitle'
   | 'status'
   | 'targetVersion'
-> & { seoTitle?: string };
+> & { seoTitle?: string; checkedAt?: string; targetVersion?: string };
 
 const make = (draft: Draft): GameArticle => ({
   gameSlug: game.slug,
@@ -365,6 +365,8 @@ export const currentGameArticles: GameArticle[] = [
   }),
   make({
     slug: 'low-fps',
+    checkedAt: '2026-10-03',
+    targetVersion: 'Steam版・2026年10月3日にFPSとGPUの切り分け手順を再確認',
     // Shorter <title> for search results; the page heading keeps the full title.
     seoTitle: '鬼武者 Way of the SwordのFPSが低い時の設定【PC版】',
     category: 'display',
@@ -381,8 +383,8 @@ export const currentGameArticles: GameArticle[] = [
       'カプコン指定より古いGPUドライバー',
       'PCの性能に対して高すぎる描画設定',
       'ノートPCの省電力状態や排熱不足',
-      '内蔵GPUで動いている',
-      '録画・配信との同時実行によるメモリ不足',
+      '複数GPU環境でのGPU選択や電源設定の影響',
+      '録画・配信など、同時に動くアプリによる負荷',
     ],
     quickFacts: [
       {
@@ -409,7 +411,7 @@ export const currentGameArticles: GameArticle[] = [
     diagnosis: [
       {
         symptom: '全体的にFPSが低い',
-        cause: 'PCの性能に対して設定が高い',
+        cause: '解像度・画質の負荷を、同じ場面で比較する',
         stepId: 'step-2',
       },
       {
@@ -419,17 +421,17 @@ export const currentGameArticles: GameArticle[] = [
       },
       {
         symptom: 'ノートPCで重い、しばらく遊ぶと重くなる',
-        cause: '省電力状態、排熱不足',
+        cause: '電源・通気を確認し、時間の経過による変化を比較する',
         stepId: 'step-3',
       },
       {
-        symptom: '設定を下げても重い・画質を保ちたい',
-        cause: '超解像技術やFPS上限を使っていない',
+        symptom: '30fps・60fpsなど、一定の値から上がらない',
+        cause: '現在のFPS上限と一致しているかを先に確認する',
         stepId: 'step-4',
       },
       {
-        symptom: '録画・配信しながらだと重い',
-        cause: 'メモリ不足',
+        symptom: '画質を下げても目標FPSに届かない／録画・配信中だけ重い',
+        cause: 'GPUの選択・同時アプリの影響を一つずつ切り分ける',
         stepId: 'step-5',
       },
     ],
@@ -453,9 +455,9 @@ export const currentGameArticles: GameArticle[] = [
         time: '約5分',
         risk: 'low',
         actions: [
-          '今の設定をスクリーンショットで控える',
+          'Steamの「設定」→「ゲーム中（In Game）」でパフォーマンスモニターを表示する。解像度・画質・超解像・フレーム生成・FPS上限を控え、読み込みが落ち着いた同じ場所・視点でFPSの範囲を記録する。フレーム生成を使う場合は、生成分を含む表示とゲーム本来のFPSを区別して比較する',
           '「設定」→「グラフィックス」→「グラフィックプリセット」を「最低」にして、同じ場所でFPSを比べる',
-          '改善したら、解像度や画質を1項目ずつ戻し、重くなる項目を見つける',
+          '改善したら、解像度や画質を1項目ずつ戻し、重くなる項目を見つける。ほとんど変わらないなら設定を下げ続けず、一定値で頭打ちならSTEP 4、目標値を下回るならSTEP 5へ進む',
         ],
       },
       {
@@ -465,38 +467,39 @@ export const currentGameArticles: GameArticle[] = [
         time: '約5分',
         risk: 'low',
         actions: [
-          'ノートPCは充電器をつなぎ、コントロールパネルの「電源オプション」で「高パフォーマンス」を選ぶ',
+          'ノートPCは充電器をつなぎ、変更前の電源モードを控える。Windows 11では「設定」→「システム」→「電源とバッテリー」→「電源モード」でBest performance（最適なパフォーマンス）を選び、同じ場面で比較する。電源接続時とバッテリー使用時が分かれている場合は、電源接続時の設定を変更する。項目がない場合は、メーカーの電源管理やコントロールパネルの「電源オプション」を確認し、対応する項目がある場合だけ変更する。改善しなければ元に戻す',
           'USB Type-Cで給電するノートPCは、給電用の正しいポートと対応ケーブルを使っているか確認する',
           'PCを壁から離して通気を確保する。フレームレート上限を抑えると発熱を減らせる場合もある',
         ],
       },
       {
         id: 'step-4',
-        title: '超解像技術とFPS上限を使う',
+        title: '描画負荷とFPS上限を別々に確認する',
         summary:
-          'DLSSやFSRで描画の負荷を下げ、上限を決めてフレームレートの上下を抑えます。',
+          '超解像は描画負荷の軽減、FPS上限は変動や発熱の抑制が目的です。上限を下げても、すでに低いFPSそのものが上がるわけではありません。',
         time: '約5分',
         risk: 'low',
         actions: [
-          '対応するGeForce RTXではDLSSを試す。GTX 1660などDLSS非対応のGPUでは、ゲーム内で選べるFSRなどの超解像設定を使う',
-          '設定を1項目ずつ変え、同じ場所・同じ場面で見え方とFPSを比べる',
-          'フレームレート上限を、普段出ている値より少し低い値（例：60fps）にする',
-          '変化がない場合は元の設定に戻す',
+          'FPSが30・60など一定値で止まるなら、ゲーム内の現在の上限値を控えて照合する。上限に届いていない場合は、上限を上げるだけで性能が改善すると考えない',
+          '対応するGeForce RTXではDLSS、GTX 1660などDLSS非対応のGPUではゲーム内で選べるFSRを1項目ずつ比較する。同じ解像度・場所・視点で、文字や輪郭の見え方とFPSの両方を見る',
+          '変動や発熱を抑えたい場合は、その場面で維持できるFPSを目安に上限を選ぶ。60fpsを維持できないPCに一律60fpsを勧める設定ではない',
+          '改善しない変更は元に戻す。目標FPSを下回ったままなら、次のGPU選択・同時アプリを確認し、設定値だけを上げ下げし続けない',
         ],
         note: '公式の動作環境の目安は、アップスケールを使った状態で測定されています。',
       },
       {
         id: 'step-5',
-        title: '同時に動いているアプリを減らす',
+        title: '同時アプリと、ゲームに指定したGPUを確認する',
         summary:
-          '録画や配信をしながら遊ぶ場合、Steamストアでは環境に応じたメモリの追加が推奨されています。',
+          'まず同時アプリの影響を比較し、複数GPUのPCではゲームのGPU優先設定を確認します。Windowsの設定画面だけで、実際に内蔵GPUで動いたと断定はできません。',
         time: '約2分',
         risk: 'low',
         actions: [
-          'タスクマネージャーでメモリ使用率を確認する',
-          '録画・配信・ブラウザなど、今必要ないアプリを終了する',
-          'ゲームを内蔵GPUで動かしていないか、Windowsの「設定」→「システム」→「ディスプレイ」→「グラフィック」で確認する',
+          'タスクマネージャーでメモリ使用率を記録し、録画・配信を止めた状態と比較する。使用率が高いだけでメモリ不足と断定しない',
+          '録画・配信・ブラウザなど不要なアプリを一つずつ終了し、同じ場面のFPSを比較する。変化がなければ、同時アプリだけが原因とは考えない',
+          '複数GPUのPCでは、Windows「設定」→「システム」→「ディスプレイ」→「グラフィック」でOnimushaWotS.exeを選ぶ。なければSteamの「ローカルファイルを閲覧」で実行ファイルの場所を確認して追加する。変更前を控えて「オプション」→「高パフォーマンス」を選び、ゲームを再起動して同じ場面で比較する。変化がなければ元の設定へ戻す',
         ],
+        note: '最低プリセットでも改善しなければ、GPU名・ドライバー版・解像度・比較した場面・各変更の結果を記録し、カプコン公式のトラブルシューティングへ。クラッシュも起きる場合は、関連記事のCrashReportを確認します。',
       },
     ],
     avoid: [
@@ -530,6 +533,14 @@ export const currentGameArticles: GameArticle[] = [
       {
         label: 'NVIDIA公式：DLSSの対応GPU（英語）',
         url: 'https://forums.developer.nvidia.com/t/dlss-4-faq/321939',
+      },
+      {
+        label: 'Steam公式：ゲーム内パフォーマンスモニターとフレーム生成',
+        url: 'https://help.steampowered.com/en/faqs/view/3462-CD4C-36BD-5767',
+      },
+      {
+        label: 'Microsoft公式：Windows PCの電源モードを変更する',
+        url: 'https://support.microsoft.com/en-us/windows/change-the-power-mode-for-your-windows-pc-c2aff038-22c9-f46d-5ca0-78696fdf2de8',
       },
     ],
     related: [

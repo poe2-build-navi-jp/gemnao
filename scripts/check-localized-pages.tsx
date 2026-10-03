@@ -20,7 +20,7 @@ import { locales } from '../lib/i18n';
 import {
   languageAlternates,
   localizedArticles,
-  localizedGameSlugs,
+  localizedGameSlugsFor,
 } from '../lib/localized/index';
 
 // Kana always means untranslated Japanese. Kanji is allowed on Chinese
@@ -52,7 +52,7 @@ for (const locale of locales) {
     renderToStaticMarkup(<LocalizedHome locale={locale} />),
   );
   pages++;
-  for (const slug of localizedGameSlugs) {
+  for (const slug of localizedGameSlugsFor(locale)) {
     const game = gameBySlug(slug);
     assert(game, `missing game ${slug}`);
     check(
@@ -189,12 +189,12 @@ assert.ok(
   ),
 );
 assert.ok(
-  localizedHubs['baldurs-gate-3'].intro.en.includes(
+  localizedHubs['baldurs-gate-3'].intro.en?.includes(
     "Larian Studios\\Baldur's Gate 3",
   ),
 );
 assert.ok(
-  !localizedHubs['cyberpunk-2077'].intro.en.includes(
+  !localizedHubs['cyberpunk-2077'].intro.en?.includes(
     'reinstalling does not remove them',
   ),
 );

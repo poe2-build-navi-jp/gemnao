@@ -71,7 +71,7 @@ const upscaling = fps.steps.find((step) => step.id === 'step-4');
 assert.ok(upscaling);
 assert.match(upscaling.actions.join(' '), /対応するGeForce RTX/);
 assert.match(upscaling.actions.join(' '), /GTX 1660.*非対応.*FSR/);
-assert.match(upscaling.actions.join(' '), /同じ場所・同じ場面/);
+assert.match(upscaling.actions.join(' '), /同じ解像度・場所・視点/);
 assert.doesNotMatch(JSON.stringify(fps), /DLSS 4\.[05]/);
 assert.ok(
   fps.sources?.some(

@@ -4,17 +4,20 @@ import type { Locale } from '@/lib/i18n';
 import { articlesEn } from '@/lib/localized/articles-en';
 import { articlesEs } from '@/lib/localized/articles-es';
 import { articlesZh } from '@/lib/localized/articles-zh';
-import { localizedHubs } from '@/lib/localized/hubs';
+import { localizedHubs, hasLocalizedHub } from '@/lib/localized/hubs';
+export { localizedGameSlugsFor } from '@/lib/localized/hubs';
+import { onimushaArticlesEn } from '@/lib/localized/onimusha-articles-en';
 import type { LocalizedArticle } from '@/lib/localized/types';
 
 export const localizedArticles: LocalizedArticle[] = [
   ...articlesEn,
   ...recentGameArticlesEn,
+  ...onimushaArticlesEn,
   ...articlesZh,
   ...articlesEs,
 ];
 
-/** Games that have a translated page in every locale. */
+/** Union of translated hubs; use localizedGameSlugsFor for locale-specific routes. */
 export const localizedGameSlugs = Object.keys(localizedHubs);
 
 export const localizedArticle = (
@@ -69,7 +72,7 @@ export function hasTranslation(locale: Locale, path: string) {
   if (section !== 'games' || !gameSlug || extra) return false;
   return slug
     ? Boolean(localizedArticle(locale, gameSlug, slug))
-    : localizedGameSlugs.includes(gameSlug);
+    : hasLocalizedHub(locale, gameSlug);
 }
 
 /**

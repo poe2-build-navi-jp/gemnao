@@ -8,11 +8,13 @@ import type { Locale } from '@/lib/i18n';
 export type L10n = Record<Locale, string>;
 
 export type LocalizedHub = {
-  lead: L10n;
-  intro: L10n;
+  lead: Partial<L10n>;
+  intro: Partial<L10n>;
   /** Short launch checklist for games without a translated article. */
-  checklist?: Record<Locale, string[]>;
-  sources: { label: L10n; url: string }[];
+  checklist?: Partial<Record<Locale, string[]>>;
+  sources: { label: Partial<L10n>; url: string }[];
+  /** Override unverified legacy file paths instead of silently repeating them. */
+  fileLocations?: { saveNote: string; configPath: string };
 };
 
 const steamFiles = {
@@ -34,6 +36,29 @@ const store = (appId: string): LocalizedHub['sources'][number] => ({
 });
 
 export const localizedHubs: Record<string, LocalizedHub> = {
+  'onimusha-way-of-the-sword': {
+    lead: {
+      en: 'Seven PC troubleshooting guides for launch crashes, CrashReport, GPU drivers, shader caches, black screens, HDR and low FPS.',
+    },
+    intro: {
+      en: 'Choose the symptom that matches your Steam version of Onimusha: Way of the Sword. These guides summarize Capcom’s English troubleshooting instructions and current Steam requirements, with one change and one comparison at a time. They do not claim hands-on verification of every fix. Keep security protection enabled and check diagnostic files for private information before sharing them with support.',
+    },
+    fileLocations: {
+      saveNote:
+        'We have not independently verified the PC save-file path for this English guide. Do not guess a save folder or treat shader caches as saved progress. Back up confirmed save files before making any save-related changes.',
+      configPath: String.raw`<Steam game library>\steamapps\common\OnimushaWotS\config.ini`,
+    },
+    sources: [
+      {
+        label: { en: 'Capcom: official English PC troubleshooting guide' },
+        url: 'https://steamcommunity.com/app/2638890/discussions/0/589562598193771781/',
+      },
+      {
+        label: { en: 'Steam: requirements, features and language support' },
+        url: 'https://store.steampowered.com/app/2638890/',
+      },
+    ],
+  },
   'monster-hunter-wilds': {
     lead: {
       en: 'Save location, config.ini, official requirements and a launch-crash checklist for the PC version.',
@@ -359,3 +384,16 @@ export const localizedHubs: Record<string, LocalizedHub> = {
     ],
   },
 };
+
+/** A hub exists only when its own language copy is present. */
+export function hasLocalizedHub(locale: Locale, slug: string) {
+  return Boolean(
+    localizedHubs[slug]?.lead[locale] && localizedHubs[slug]?.intro[locale],
+  );
+}
+
+export function localizedGameSlugsFor(locale: Locale) {
+  return Object.keys(localizedHubs).filter((slug) =>
+    hasLocalizedHub(locale, slug),
+  );
+}
