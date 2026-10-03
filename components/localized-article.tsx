@@ -1,5 +1,6 @@
 import { ShareButtons } from '@/components/share-buttons';
 import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
+import { SaveGame } from '@/components/save-game';
 import { SaveArticle } from '@/components/save-article';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import {
@@ -170,6 +171,7 @@ export function LocalizedArticle({
               </a>
             ) : null}
           </section>
+          {!isDiscord ? <SaveGame slug={game!.slug} locale={locale} /> : null}
           <section className="quick-facts" aria-labelledby="quick-facts-title">
             <h2 id="quick-facts-title">
               <Timer size={21} /> {t.quickFacts}

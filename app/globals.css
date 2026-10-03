@@ -4928,3 +4928,41 @@ div.status-list {
 .search-box input[type='search']::-webkit-search-cancel-button {
   -webkit-appearance: none;
 }
+
+/* My Games: a browser-local collection with immediate, useful guide links. */
+.my-games-page { max-width: 980px; }
+.my-games-privacy { padding: 14px 18px; border: 1px solid var(--line); border-radius: 10px; background: white; font-size: 14px; line-height: 1.7; }
+.my-games-experience section { margin-top: 32px; scroll-margin-top: 100px; }
+.my-games-experience h2 { display: flex; gap: 10px; align-items: center; font-size: clamp(21px, 3vw, 27px); line-height: 1.35; }
+.my-games-experience h2 svg { flex-shrink: 0; }
+.my-games-experience .page-kicker { margin-bottom: 8px; }
+.my-games-search { display: grid; gap: 8px; font-weight: 700; margin-top: 20px; }
+.my-games-search input { width: 100%; min-width: 0; min-height: 48px; padding: 11px 14px; border: 1px solid #a7b5bf; border-radius: 8px; background: white; font: inherit; }
+.my-games-count { font-size: 14px; color: var(--muted); }
+.my-games-choices { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; max-height: 284px; overflow-y: auto; padding: 3px; scrollbar-gutter: stable; }
+.my-games-choices button { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 58px; padding: 12px; border: 1px solid #bdcbd3; border-radius: 9px; background: white; text-align: left; font: inherit; cursor: pointer; overflow-wrap: anywhere; }
+.my-games-choices button[aria-pressed="true"] { border-color: #087ca3; background: #e8f5fa; }
+.my-games-choices button small { display: flex; align-items: center; gap: 4px; flex-shrink: 0; color: #075b7a; font-weight: 700; }
+.my-games-choices button:focus-visible, .my-games-search input:focus-visible { outline: 3px solid #117ca3; outline-offset: 2px; }
+.my-games-choices button:disabled { cursor: wait; opacity: .6; }
+.my-games-message { display: block; min-height: 26px; margin-top: 12px; font-size: 14px; color: #185c45; }
+.my-games-view, a.my-games-primary { display: inline-flex; align-self: flex-start; align-items: center; min-height: 46px; padding: 10px 16px; border-radius: 8px; background: #08789f; color: white; font-weight: 700; text-decoration: none; }
+.my-games-results { display: grid; gap: 16px; }
+.my-games-experience .my-game-card, .my-games-example { padding: 22px; border: 1px solid var(--line); border-radius: 12px; background: white; }
+.my-games-example { border-style: dashed; background: #f6fafc; }
+.my-games-card-heading { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.my-games-card-heading h3 { margin: 0; }
+.my-games-card-heading button { flex-shrink: 0; min-height: 44px; padding: 8px; border: 0; background: transparent; color: #526574; font: inherit; text-decoration: underline; cursor: pointer; }
+.my-games-experience h4 { margin: 18px 0 8px; }
+.my-games-experience ul { list-style: none; padding: 0; margin: 0 0 14px; }
+.my-games-experience li a { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 46px; padding: 10px 0; border-bottom: 1px solid var(--line); color: #076489; text-decoration: underline; overflow-wrap: anywhere; }
+.my-games-experience li a svg { flex-shrink: 0; }
+.my-games-experience details { margin-top: 18px; }
+.my-games-experience summary { min-height: 44px; padding: 10px 0; cursor: pointer; }
+.my-games-other { margin-top: 32px; }
+.save-game-benefit { flex-basis: 100%; color: var(--muted); font-size: 13px; line-height: 1.6; }
+@media (max-width: 600px) {
+  .my-games-choices { grid-template-columns: minmax(0,1fr); max-height: 258px; }
+  .my-games-experience .my-game-card, .my-games-example { padding: 16px; }
+  .my-games-card-heading { align-items: flex-start; }
+}

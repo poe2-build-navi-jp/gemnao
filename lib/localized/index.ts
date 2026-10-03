@@ -75,7 +75,7 @@ export const englishEditorialPaths = [
  * points to a missing translation.
  */
 export function hasTranslation(locale: Locale, path: string) {
-  if (path === '' || path === '/') return true;
+  if (path === '' || path === '/' || path === '/my-games') return true;
   if (locale === 'en' && englishEditorialPaths.includes(path)) return true;
   const [, section, gameSlug, slug, extra] = path.split('/');
   if (section === 'discord' && gameSlug && !slug && !extra)
