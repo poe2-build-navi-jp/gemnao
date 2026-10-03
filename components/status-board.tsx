@@ -139,9 +139,9 @@ export function StatusTicker() {
       (!data.discord || data.steamSources.some((source) => !source.available)));
   const discordIssues = data?.discord
     ? Math.max(
-        data.discord.incidents.length,
+        data.discord.incidents.length + data.discord.maintenances.length,
         data.discord.indicator !== 'none' ? 1 : 0,
-      ) + data.discord.maintenances.length
+      )
     : 0;
   const issues = (data?.maintenance.length ?? 0) + discordIssues;
   return (

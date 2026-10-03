@@ -262,6 +262,25 @@ assert.ok(
   'patch/known issue news must not count as current outages',
 );
 assert.match(render(StatusBoard, good, true), /前回取得した情報/);
+const maintenanceOnly = {
+  ...newsOnly,
+  discord: {
+    ...newsOnly.discord,
+    indicator: 'maintenance',
+    maintenances: good.discord!.maintenances.slice(0, 1),
+  },
+};
+assert.match(
+  render(StatusTicker, maintenanceOnly),
+  /情報 1件/,
+  'overall maintenance indicator and its detail are counted once',
+);
+const twoIncidentsAndMaintenance = {
+  ...maintenanceOnly,
+  discord: { ...maintenanceOnly.discord, incidents: good.discord!.incidents },
+};
+assert.match(render(StatusTicker, twoIncidentsAndMaintenance), /情報 3件/);
+
 const staleTicker = render(StatusTicker, newsOnly, true);
 assert.match(staleTicker, /前回取得した情報：/);
 assert.match(staleTicker, /日本時間/);
