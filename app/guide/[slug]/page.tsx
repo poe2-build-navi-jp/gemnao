@@ -517,10 +517,19 @@ export default async function Page({
             </h2>
             <p>{item.conclusion}</p>
             <ol>
-              {item.steps.map((s) => (
-                <li key={s.title}>{s.title}</li>
+              {item.steps.map((s, index) => (
+                <li key={s.title}>
+                  <a className="summary-step-link" href={`#step-${index + 1}`}>
+                    {s.title}
+                  </a>
+                </li>
               ))}
             </ol>
+            {item.related.length ? (
+              <a className="article-next-jump" href="#related-guides">
+                この手順で直らない場合：症状に合う次の確認 →
+              </a>
+            ) : null}
           </section>
           {visual ? <SolutionIllustration visual={visual} /> : null}
           {slug === 'low-fps' ? (
@@ -708,13 +717,13 @@ export default async function Page({
               ))}
             </div>
           </section>
-          <section className="related-section">
+          <section className="related-section" id="related-guides">
             <h2>まだ直りませんか？ 次に試す記事</h2>
             <div>
               {item.related.map((s) => {
                 const r = commonGuideBySlug(s);
                 return r ? (
-                  <a href={`/guide/${s}`} key={s}>
+                  <a data-related="true" href={`/guide/${s}`} key={s}>
                     {r.shortTitle}
                     <ArrowRight size={15} />
                   </a>
@@ -728,6 +737,7 @@ export default async function Page({
               {gameLinks.map((article) => (
                 <a
                   href={`/games/${article.gameSlug}/${article.slug}`}
+                  data-related="true"
                   key={`${article.gameSlug}-${article.slug}`}
                 >
                   {gameBySlug(article.gameSlug)?.shortTitle}：

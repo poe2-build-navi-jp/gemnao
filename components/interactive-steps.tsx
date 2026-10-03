@@ -564,7 +564,7 @@ export function InteractiveSteps({
           <p>現在の症状に近いものから、次の対処法を確認してください。</p>
           <div>
             {nextLinks.slice(0, 5).map((link) => (
-              <a href={link.href} key={link.href}>
+              <a data-related="true" href={link.href} key={link.href}>
                 {link.label}
                 <ChevronRight size={16} />
               </a>

@@ -258,6 +258,13 @@ export default async function DiscordArticlePage({
                 </li>
               ))}
             </ol>
+            {relatedItems.length ? (
+              <a className="article-next-jump" href="#related-guides">
+                {item.botRecommendations
+                  ? '追加・無応答・解除の詳しい手順へ →'
+                  : '症状が違う・まだ直らない場合の次の確認 →'}
+              </a>
+            ) : null}
           </section>
           {item.botRecommendations ? (
             <DiscordBotComparison bots={item.botRecommendations} />
@@ -404,7 +411,7 @@ export default async function DiscordArticlePage({
               ))}
             </div>
           </section>
-          <section className="related-section">
+          <section className="related-section" id="related-guides">
             <h2>
               {item.botRecommendations
                 ? '追加・無応答・解除の詳しい手順'
@@ -412,7 +419,7 @@ export default async function DiscordArticlePage({
             </h2>
             <div>
               {relatedItems.map((r) => (
-                <a href={`/discord/${r.slug}`} key={r.slug}>
+                <a data-related="true" href={`/discord/${r.slug}`} key={r.slug}>
                   <span>{discordCategoryLabels[r.category]}</span>
                   {r.shortTitle}
                   <ArrowRight size={15} />
