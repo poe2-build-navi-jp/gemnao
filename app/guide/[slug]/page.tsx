@@ -1,3 +1,5 @@
+import { EditorialByline } from '@/components/editorial-byline';
+import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
 import { SaveArticle } from '@/components/save-article';
 import { hasTranslation, languageAlternates } from '@/lib/localized/index';
 import {
@@ -166,7 +168,9 @@ export default async function Page({
       headline: item.title,
       description: item.description,
       dateModified: item.checkedAt,
-      author: { '@type': 'Organization', name: 'ゲムなお編集部' },
+      author: editorialAuthor,
+      publisher: editorialPublisher,
+      citation: item.sources.map((source) => source.url),
       inLanguage: 'ja-JP',
       mainEntityOfPage: canonical,
       image: `https://gemnao.pages.dev${visual?.image || ogImageFor(`/guide/${slug}`)}`,
@@ -225,6 +229,7 @@ export default async function Page({
           <h1>{item.title}</h1>
           <p className="article-lead">{item.description}</p>
           <div className="article-meta">
+            <EditorialByline />
             <span>最終確認：{item.checkedAt.replaceAll('-', '.')}</span>
             <span>公式資料を優先して確認</span>
           </div>
