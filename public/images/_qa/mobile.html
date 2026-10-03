@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>Gemnao preview-only responsive QA</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #e6ebef; color: #172731; font: 14px/1.5 system-ui,sans-serif; }
+    header { padding: 12px 20px; background: white; border-bottom: 1px solid #b7c4ce; }
+    h1 { font-size: 18px; margin: 0 0 5px; }
+    p { margin: 4px 0; }
+    .controls { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; align-items: center; }
+    select, button { min-height: 40px; font: inherit; }
+    main { display: flex; align-items: flex-start; gap: 20px; padding: 16px 20px; }
+    iframe { flex: none; width: 390px; height: 740px; border: 0; box-shadow: 0 0 0 1px #8093a0; background: white; }
+    aside { max-width: 540px; min-width: 230px; }
+    pre { white-space: pre-wrap; overflow-wrap: anywhere; padding: 12px; background: white; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Gemnao preview-only responsive QA</h1>
+    <p>Actual nested browsing viewport. Desktop Chromium with pointer input, not an iPhone or touch-device test. This harness is excluded from the production merge branch.</p>
+    <p id="status">Checking preview origin…</p>
+    <div class="controls" id="controls" hidden>
+      <label>Width <select id="width"><option>375</option><option selected>390</option><option>430</option></select> CSS px</label>
+      <label>Page <select id="page">
+        <option value="/">Japanese home/search</option>
+        <option value="/my">Saved articles</option>
+        <option value="/guide/pc-game-crash">Japanese crash guide</option>
+        <option value="/en/guide/pc-game-crash">English crash guide</option>
+        <option value="/games/rocket-league/dualsense-not-working">Rocket League article/table</option>
+        <option value="/zh/games/rocket-league/dualsense-not-working">Chinese Rocket League</option>
+        <option value="/es/games/rocket-league/dualsense-not-working">Spanish Rocket League</option>
+        <option value="/pc/microphone-after-update">Untranslated PC article</option>
+      </select></label>
+      <button id="load" type="button">Load page</button>
+      <button id="measure" type="button">Refresh measurements</button>
+    </div>
+  </header>
+  <main id="workspace" hidden>
+    <iframe id="frame" title="Responsive Gemnao preview"></iframe>
+    <aside>
+      <h2>Observed frame measurements</h2>
+      <p>Read from the iframe window and rendered DOM. No page CSS or content is modified. Internally scrollable article tables can exceed their scroll container without page-level overflow.</p>
+      <pre id="metrics">Waiting for app…</pre>
+    </aside>
+  </main>
+  <script src="./mobile.js"></script>
+</body>
+</html>
