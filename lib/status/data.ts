@@ -101,20 +101,24 @@ async function discordStatus(): Promise<StatusData['discord']> {
     if (
       !data.status ||
       typeof data.status.indicator !== 'string' ||
+      typeof data.status.description !== 'string' ||
       !Array.isArray(data.incidents) ||
       !Array.isArray(data.scheduled_maintenances) ||
       data.incidents.some(
         (item) =>
-          !item.name ||
-          !item.status ||
-          !item.shortlink ||
+          typeof item.name !== 'string' ||
+          typeof item.status !== 'string' ||
+          typeof item.shortlink !== 'string' ||
+          typeof item.updated_at !== 'string' ||
           !Number.isFinite(Date.parse(item.updated_at)),
       ) ||
       data.scheduled_maintenances.some(
         (item) =>
-          !item.name ||
-          !item.status ||
-          !item.shortlink ||
+          typeof item.name !== 'string' ||
+          typeof item.status !== 'string' ||
+          typeof item.shortlink !== 'string' ||
+          typeof item.scheduled_for !== 'string' ||
+          typeof item.scheduled_until !== 'string' ||
           !Number.isFinite(Date.parse(item.scheduled_for)) ||
           !Number.isFinite(Date.parse(item.scheduled_until)),
       )

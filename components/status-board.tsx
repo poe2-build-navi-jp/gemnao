@@ -152,12 +152,15 @@ export function StatusTicker() {
         </h2>
         {data ? (
           <p>
+            {failed
+              ? `前回取得した情報：${fmt(data.checkedAt)}（日本時間）｜`
+              : ''}
             {issues
               ? `公式の障害・メンテナンス情報 ${issues}件（予定・終了未確認を含む）`
               : unavailable
                 ? '取得できない公式情報があります。現在の状況は確認できません'
                 : '現在表示できる障害・メンテナンス情報はありません'}
-            {data.discord
+            {data.discord && !failed
               ? `｜Discord：${discordLabel[data.discord.indicator] ?? data.discord.description}`
               : ''}
           </p>

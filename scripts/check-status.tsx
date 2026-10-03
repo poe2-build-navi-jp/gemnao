@@ -189,6 +189,31 @@ assert.equal(gameNews.aion2[0].url, knownUrl);
 assert.ok(
   !gameNews.aion2.some((item) => item.title === 'Unofficial outage claim'),
 );
+const providerFetch = globalThis.fetch;
+for (const field of ['name', 'status', 'shortlink']) {
+  globalThis.fetch = async (input, init) => {
+    const response = await providerFetch(input, init);
+    if (
+      (input instanceof Request ? input.url : input.toString()).includes(
+        'discordstatus.com',
+      )
+    ) {
+      const payload = (await response.json()) as {
+        incidents: Record<string, unknown>[];
+      };
+      payload.incidents[0][field] = { unexpected: true };
+      return Response.json(payload);
+    }
+    return response;
+  };
+  assert.equal(
+    (await buildStatus()).discord,
+    null,
+    `invalid Discord ${field} is unavailable`,
+  );
+}
+globalThis.fetch = providerFetch;
+
 const runtime = globalThis as unknown as {
   __statusValues: unknown[];
   __statusIndex: number;
@@ -237,6 +262,18 @@ assert.ok(
   'patch/known issue news must not count as current outages',
 );
 assert.match(render(StatusBoard, good, true), /前回取得した情報/);
+const staleTicker = render(StatusTicker, newsOnly, true);
+assert.match(staleTicker, /前回取得した情報：/);
+assert.match(staleTicker, /日本時間/);
+assert.ok(
+  !staleTicker.includes('Discord：正常に稼働中'),
+  'a previous healthy Discord snapshot must not sound current after total refresh failure',
+);
+assert.match(
+  render(StatusTicker, { ...newsOnly, steamSources: partial.steamSources }),
+  /Discord：正常に稼働中/,
+  'fresh Discord success can be shown despite a partial Steam failure',
+);
 assert.match(
   render(StatusBoard, {
     ...good,
