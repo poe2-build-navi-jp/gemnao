@@ -215,3 +215,22 @@ export async function updateGameRequest(input: {
     )
     .first();
 }
+
+export async function admitGameRequestConsumerCall() {
+  const db = database(),
+    now = Date.now();
+  // Server-generated namespace cannot collide with public YYYY-MM-DD rate rows.
+  const minute = 'consumer:' + new Date(now).toISOString().slice(0, 16);
+  const result = await db.batch([
+    db
+      .prepare(
+        "DELETE FROM game_request_attempts WHERE day >= 'consumer:' AND day < 'consumer;' AND fingerprint='consumer' AND created_at < ?",
+      )
+      .bind(now - 2 * DAY),
+    db
+      .prepare(`INSERT INTO game_request_attempts (id,day,fingerprint,created_at) SELECT ?,?,'consumer',?
+      WHERE (SELECT COUNT(*) FROM game_request_attempts WHERE day=? AND fingerprint='consumer') < 120`)
+      .bind(crypto.randomUUID(), minute, now, minute),
+  ]);
+  return result[1].meta.changes === 1;
+}
