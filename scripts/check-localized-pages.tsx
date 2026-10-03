@@ -9,6 +9,9 @@ import { recentGameArticlesEn } from '../lib/localized/recent-game-articles-en';
 import { articlesEn } from '../lib/localized/articles-en';
 import { localizedHubs } from '../lib/localized/hubs';
 import { hasTranslation } from '../lib/localized/index';
+import { localizedDiscordArticles } from '../lib/localized/index';
+import { discordArticleBySlug } from '../lib/discord-articles';
+import { rocketLeagueLocalizedArticles } from '../lib/localized/rocket-league-articles';
 import assert from 'node:assert/strict';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { LocalizedArticle } from '../components/localized-article';
@@ -60,12 +63,19 @@ for (const locale of locales) {
       locale,
       renderToStaticMarkup(<LocalizedGamePage game={game} locale={locale} />),
     );
-    assert(
-      languageAlternates(`/games/${slug}`)[
-        locale === 'zh' ? 'zh-Hans' : locale
-      ],
-      `${slug}: missing hreflang for ${locale}`,
-    );
+    if (localizedHubs[slug].noindex) {
+      assert.deepEqual(
+        languageAlternates(`/games/${slug}`),
+        {},
+        'No hreflang to a noindex discovery hub',
+      );
+    } else
+      assert(
+        languageAlternates(`/games/${slug}`)[
+          locale === 'zh' ? 'zh-Hans' : locale
+        ],
+        `${slug}: missing hreflang for ${locale}`,
+      );
     pages++;
   }
 }
@@ -90,6 +100,124 @@ for (const article of localizedArticles) {
     renderToStaticMarkup(<LocalizedArticle game={game} article={article} />),
   );
   pages++;
+}
+for (const article of localizedDiscordArticles) {
+  const path = `/discord/${article.slug}`;
+  const original = discordArticleBySlug(article.slug);
+  assert(original, `${path}: Japanese original missing`);
+  assert.deepEqual(
+    article.steps.map((step) => step.id),
+    original.causes.map((_, index) => `cause-${index + 1}`),
+  );
+  assert.deepEqual(
+    article.sources.map((source) => source.url),
+    original.sources.map((source) => source.url),
+  );
+  assert.equal(article.faqs.length, original.faqs.length, 'Discord FAQ parity');
+  assert.equal(
+    article.diagnosis.length,
+    original.diagnosis?.length,
+    'Discord diagnosis parity',
+  );
+  article.steps.forEach((step, index) => {
+    assert.equal(
+      step.actions.length,
+      original.causes[index].actions.length,
+      `${path}: action parity`,
+    );
+    assert.equal(
+      step.risk,
+      original.causes[index].risk,
+      `${path}: risk parity`,
+    );
+    assert.equal(
+      Boolean(step.note),
+      Boolean(original.causes[index].note),
+      `${path}: note parity`,
+    );
+  });
+  article.diagnosis.forEach((row) =>
+    assert(article.steps.some((step) => step.id === row.stepId)),
+  );
+  const html = renderToStaticMarkup(
+    <LocalizedArticle section="discord" article={article} />,
+  );
+  check(`/${article.locale}${path}`, article.locale, html);
+  assert(html.includes(`/${article.locale}${path}`), 'Correct Discord path');
+  assert(!html.includes('/games/discord/'), 'No invented Discord game path');
+  assert(html.includes('SoftwareApplication'), 'Discord schema entity type');
+  assert.equal(
+    languageAlternates(path)[
+      article.locale === 'zh' ? 'zh-Hans' : article.locale
+    ],
+    `/${article.locale}${path}`,
+  );
+  pages++;
+}
+for (const article of rocketLeagueLocalizedArticles) {
+  const original = articleBySlug(article.gameSlug, article.slug)!;
+  assert.deepEqual(
+    article.sources.map((source) => source.url),
+    original.sources!.map((source) => source.url),
+  );
+  assert.equal(
+    article.faqs.length,
+    original.faqs?.length,
+    'Rocket League FAQ parity',
+  );
+  assert.equal(
+    article.diagnosis.length,
+    original.diagnosis?.length,
+    'Rocket League diagnosis parity',
+  );
+  assert.equal(
+    article.avoid.length,
+    original.avoid?.length,
+    'Rocket League safety parity',
+  );
+  assert.equal(
+    article.cautions.length,
+    original.cautions.length,
+    'Rocket League cautions parity',
+  );
+  article.steps.forEach((step, index) => {
+    assert.equal(
+      step.actions.length,
+      original.steps[index].actions.length,
+      'Rocket League action parity',
+    );
+    assert.equal(
+      step.risk,
+      original.steps[index].risk,
+      'Rocket League risk parity',
+    );
+    assert.equal(
+      Boolean(step.note),
+      Boolean(original.steps[index].note),
+      'Rocket League note parity',
+    );
+  });
+  assert(article.title.includes('DualSense'), 'Scope must remain DualSense');
+  assert.equal(
+    languageAlternates(`/games/${article.gameSlug}/${article.slug}`)[
+      article.locale === 'zh' ? 'zh-Hans' : article.locale
+    ],
+    `/${article.locale}/games/${article.gameSlug}/${article.slug}`,
+  );
+}
+for (const locale of locales) {
+  assert(hasTranslation(locale, '/discord/upload-failed'));
+  assert.equal(
+    hasTranslation(locale, '/discord'),
+    false,
+    'Do not invent a translated Discord hub',
+  );
+  assert.equal(
+    hasTranslation(locale, '/discord/mic-not-working'),
+    false,
+    'Do not invent other Discord translations',
+  );
+  assert.equal(hasTranslation(locale, '/games/discord/upload-failed'), false);
 }
 for (const guide of gearGuidesEn) {
   const original = gearGuideBySlug(guide.slug);

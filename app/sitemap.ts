@@ -9,8 +9,10 @@ import { releaseRoundups } from '@/lib/release-roundups';
 import { pcArticles } from '@/lib/pc-articles';
 import { locales } from '@/lib/i18n';
 import { gameFacts } from '@/lib/localized/game-facts';
+import { localizedHubs } from '@/lib/localized/hubs';
 import {
   localizedArticles,
+  localizedDiscordArticles,
   localizedGameSlugsFor,
 } from '@/lib/localized/index';
 import { gearArticles } from '@/lib/gear-articles';
@@ -132,15 +134,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     })),
     ...locales.flatMap((locale) =>
-      localizedGameSlugsFor(locale).map((slug) => ({
-        url: `${base}/${locale}/games/${slug}`,
-        lastModified: new Date(gameFacts[slug].checkedAt),
-        changeFrequency: 'monthly' as const,
-        priority: 0.7,
-      })),
+      localizedGameSlugsFor(locale)
+        .filter((slug) => !localizedHubs[slug].noindex)
+        .map((slug) => ({
+          url: `${base}/${locale}/games/${slug}`,
+          lastModified: new Date(
+            localizedHubs[slug].checkedAt || gameFacts[slug].checkedAt,
+          ),
+          changeFrequency: 'monthly' as const,
+          priority: 0.7,
+        })),
     ),
     ...localizedArticles.map((article) => ({
       url: `${base}/${article.locale}/games/${article.gameSlug}/${article.slug}`,
+      lastModified: new Date(article.checkedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.75,
+    })),
+    ...localizedDiscordArticles.map((article) => ({
+      url: `${base}/${article.locale}/discord/${article.slug}`,
       lastModified: new Date(article.checkedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.75,

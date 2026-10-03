@@ -1,4 +1,5 @@
 import { aniimoHubTitle, aniimoHubAnswer } from '@/lib/aniimo-troubleshooting';
+import { rocketLeagueGuide } from '@/lib/rocket-league-guide';
 
 export type GameGuide = {
   slug: string;
@@ -29,6 +30,7 @@ const pcgw = (path: string) => `https://www.pcgamingwiki.com/wiki/${path}`;
 const steam = (id: string) => `https://store.steampowered.com/app/${id}`;
 
 export const games: GameGuide[] = [
+  rocketLeagueGuide,
   {
     slug: 'aniimo',
     title: 'Aniimo / アニモ',

@@ -6,7 +6,11 @@ import type { Locale } from '@/lib/i18n';
 import { games } from '@/lib/games';
 import { gameFacts } from '@/lib/localized/game-facts';
 import { localizedHubs, hasLocalizedHub } from '@/lib/localized/hubs';
-import { languageTag, localizedArticles } from '@/lib/localized/index';
+import {
+  languageTag,
+  localizedArticles,
+  localizedDiscordArticles,
+} from '@/lib/localized/index';
 import { ui } from '@/lib/localized/ui';
 import { WikiFooter, WikiHeader } from './wiki-header';
 import { HomeBookmarkHelp } from './home-bookmark-help';
@@ -16,7 +20,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
   const translatedGames = games.filter((game) =>
     hasLocalizedHub(locale, game.slug),
   );
-  const articles = localizedArticles.filter(
+  const articles = [...localizedArticles, ...localizedDiscordArticles].filter(
     (article) => article.locale === locale,
   );
   return (
@@ -74,12 +78,18 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
           <div>
             {articles.map((article) => (
               <a
-                href={`/${locale}/games/${article.gameSlug}/${article.slug}`}
+                href={
+                  article.gameSlug === 'discord'
+                    ? `/${locale}/discord/${article.slug}`
+                    : `/${locale}/games/${article.gameSlug}/${article.slug}`
+                }
                 key={`${article.gameSlug}/${article.slug}`}
               >
                 <span>
-                  {article.gameName ||
-                    gameFacts[article.gameSlug].names[locale]}
+                  {article.gameSlug === 'discord'
+                    ? 'Discord'
+                    : article.gameName ||
+                      gameFacts[article.gameSlug].names[locale]}
                 </span>
                 {article.title}
                 <ArrowRight size={15} />
@@ -104,7 +114,10 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
               style={{ '--game-accent': game.accent } as React.CSSProperties}
             >
               <div>
-                <h3>{gameFacts[game.slug].names[locale]}</h3>
+                <h3>
+                  {localizedHubs[game.slug].names?.[locale] ||
+                    gameFacts[game.slug].names[locale]}
+                </h3>
                 <p className="localized-card-lead">
                   {localizedHubs[game.slug].lead[locale]}
                 </p>

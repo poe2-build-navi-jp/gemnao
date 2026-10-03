@@ -19,7 +19,8 @@ PALE = (0.94, 0.965, 0.985)
 WHITE = (1, 1, 1)
 GREY = (0.32, 0.40, 0.47)
 MUTED = (0.72, 0.80, 0.87)
-FONT = fitz.Font('japan')
+CJK_FONT_NAME = 'japan'
+FONT = fitz.Font(CJK_FONT_NAME)
 LATIN = fitz.Font('helv')
 BASE = Path('public/images/og')
 WIDTH, HEIGHT, MARGIN = 1200, 630, 62
@@ -86,7 +87,7 @@ def clamp(lines, size, width, limit):
 def draw_line(page, text, x, y, size, color):
     run, previous, cursor = '', None, x
     for char in text + '\0':
-        family = 'helv' if char != '\0' and ord(char) < 128 else 'japan'
+        family = 'helv' if char != '\0' and ord(char) < 128 else CJK_FONT_NAME
         if previous is not None and (family != previous or char == '\0'):
             page.insert_text((cursor, y), run, fontsize=size, fontname=previous, color=color)
             cursor += measure(run, size)
@@ -115,6 +116,11 @@ def fit_title(title, width):
 
 
 def card(spec):
+    global FONT, CJK_FONT_NAME
+    # The Japanese built-in font omits some Simplified Chinese glyphs.
+    # Select a complete Chinese font for zh cards rather than dropping letters.
+    CJK_FONT_NAME = 'china-s' if spec.get('locale') == 'zh' else 'japan'
+    FONT = fitz.Font(CJK_FONT_NAME)
     doc = fitz.open()
     page = doc.new_page(width=WIDTH, height=HEIGHT)
     rect(page, 0, 0, WIDTH, HEIGHT, PALE)
@@ -124,7 +130,7 @@ def card(spec):
     header = 112 + leading * len(lines) + 18
     rect(page, 0, 0, WIDTH, header, NAVY)
     badge(page, MARGIN, 34)
-    brand = 'Gemnao' if spec.get('locale') == 'en' else 'ゲムなお'
+    brand = 'Gemnao' if spec.get('locale') in ('en', 'zh', 'es') else 'ゲムなお'
     eyebrow = clamp(wrap(f"{brand} | {spec['eyebrow']}", 28, inner - 70), 28, inner - 70, 1)[0]
     draw_line(page, eyebrow, MARGIN + 63, 64, 28, MUTED)
     y = 112 + size * 0.9
@@ -155,7 +161,12 @@ def card(spec):
         for line in text_lines:
             draw_line(page, line, x + 85, ty, item_size, NAVY)
             ty += item_size * 1.25
-    draw_line(page, 'Read the guide → gemnao.pages.dev' if spec.get('locale') == 'en' else '詳しい手順 → gemnao.pages.dev', MARGIN, 606, 24, GREY)
+    footer = {
+        'en': 'Read the guide → gemnao.pages.dev',
+        'zh': '查看详细步骤 → gemnao.pages.dev',
+        'es': 'Consulta la guía → gemnao.pages.dev',
+    }.get(spec.get('locale'), '詳しい手順 → gemnao.pages.dev')
+    draw_line(page, footer, MARGIN, 606, 24, GREY)
 
     out = BASE / (spec['path'].strip('/') + '.png')
     out.parent.mkdir(parents=True, exist_ok=True)

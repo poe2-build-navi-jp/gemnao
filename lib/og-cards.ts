@@ -1,4 +1,7 @@
 import { onimushaArticlesEn } from '@/lib/localized/onimusha-articles-en';
+import { rocketLeagueLocalizedArticles } from '@/lib/localized/rocket-league-articles';
+import { localizedDiscordUploadArticles } from '@/lib/localized/discord-upload-articles';
+import { localizedHubs } from '@/lib/localized/hubs';
 import { recentGameArticlesEn } from '@/lib/localized/recent-game-articles-en';
 import { gearGuidesEn } from '@/lib/localized/gear-guides-en';
 import { crashGuideEn, crashSectionsEn } from '@/lib/localized/crash-guide-en';
@@ -22,7 +25,7 @@ import {
 } from '@/lib/visual-guides';
 
 export type OgCardSpec = {
-  locale?: 'en';
+  locale?: 'en' | 'zh' | 'es';
   path: string;
   eyebrow: string;
   title: string;
@@ -43,9 +46,10 @@ export function ogCardSpecs(): OgCardSpec[] {
         path: `/games/${game.slug}`,
         eyebrow: 'PC版トラブル解決まとめ',
         title:
-          game.slug === 'aniimo'
+          game.hubTitle ||
+          (game.slug === 'aniimo'
             ? game.hubTitle!
-            : `${game.shortTitle} PC版の不具合・エラー対処法`,
+            : `${game.shortTitle} PC版の不具合・エラー対処法`),
         itemsLabel: '症状から探す',
         items: articles.slice(0, 4).map((article) => article.shortTitle),
       },
@@ -171,6 +175,49 @@ export function ogCardSpecs(): OgCardSpec[] {
     ...roundupCards,
     ...pcCards,
     ...gearCards,
+    ...[
+      ...rocketLeagueLocalizedArticles,
+      ...localizedDiscordUploadArticles,
+    ].map((article) => ({
+      path:
+        article.gameSlug === 'discord'
+          ? `/${article.locale}/discord/${article.slug}`
+          : `/${article.locale}/games/${article.gameSlug}/${article.slug}`,
+      locale: article.locale,
+      eyebrow: {
+        en: 'Troubleshooting guide',
+        zh: '故障排查指南',
+        es: 'Guía de solución de problemas',
+      }[article.locale],
+      title: article.title,
+      itemsLabel: {
+        en: 'Choose the matching check',
+        zh: '选择对应的检查步骤',
+        es: 'Elige la comprobación adecuada',
+      }[article.locale],
+      items: article.steps.slice(0, 4).map((step) => step.title),
+    })),
+    ...(['en', 'zh', 'es'] as const).map((locale) => ({
+      path: `/${locale}/games/rocket-league`,
+      locale,
+      eyebrow: {
+        en: 'Rocket League PC help',
+        zh: 'Rocket League PC 版帮助',
+        es: 'Ayuda de Rocket League para PC',
+      }[locale],
+      title: {
+        en: 'DualSense not working in Rocket League?',
+        zh: 'Rocket League 无法使用 DualSense 手柄？',
+        es: '¿Tu DualSense no funciona en Rocket League?',
+      }[locale],
+      itemsLabel: {
+        en: 'Start with your setup',
+        zh: '先确认使用环境',
+        es: 'Empieza por tu configuración',
+      }[locale],
+      items:
+        localizedHubs['rocket-league'].checklist?.[locale]?.slice(0, 4) || [],
+    })),
     {
       path: '/en/tools',
       locale: 'en' as const,

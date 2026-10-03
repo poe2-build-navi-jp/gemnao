@@ -28,11 +28,14 @@ export async function generateMetadata({
   const game = gameBySlug(slug);
   if (!isLocale(locale) || !game || !hasLocalizedHub(locale, slug)) return {};
   const t = ui[locale];
-  const title = `${gameFacts[slug].names[locale]} — ${t.gameLabel} | Gemnao`;
+  const title = `${localizedHubs[slug].title?.[locale] || `${localizedHubs[slug].names?.[locale] || gameFacts[slug].names[locale]} — ${t.gameLabel}`} | Gemnao`;
   const description = localizedHubs[slug].lead[locale];
   return {
     title: { absolute: title },
     description,
+    ...(localizedHubs[slug].noindex
+      ? { robots: { index: false, follow: true } }
+      : {}),
     openGraph: {
       title,
       description,
@@ -42,7 +45,7 @@ export async function generateMetadata({
     },
     twitter: {
       card:
-        slug === 'onimusha-way-of-the-sword'
+        slug === 'onimusha-way-of-the-sword' || localizedHubs[slug].focused
           ? 'summary_large_image'
           : 'summary',
       title,

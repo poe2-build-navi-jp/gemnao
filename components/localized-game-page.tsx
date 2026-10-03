@@ -54,7 +54,9 @@ export function LocalizedGamePage({
   const t = ui[locale];
   const hub = localizedHubs[game.slug];
   const facts = gameFacts[game.slug];
-  const name = facts.names[locale];
+  const name = hub.names?.[locale] || facts.names[locale];
+  const title = hub.title?.[locale] || name;
+  const checkedAt = hub.checkedAt || facts.checkedAt;
   const articles = localizedArticlesFor(locale, game.slug);
   const path = `/${locale}/games/${game.slug}`;
   const localPath = (value: string) =>
@@ -63,13 +65,13 @@ export function LocalizedGamePage({
     {
       '@context': 'https://schema.org',
       '@type': 'TechArticle',
-      headline: `${name} — ${t.gameLabel}`,
+      headline: hub.title?.[locale] || `${name} — ${t.gameLabel}`,
       description: hub.lead[locale],
-      dateModified: facts.checkedAt,
+      dateModified: checkedAt,
       inLanguage: languageTag[locale],
       author: { '@type': 'Organization', name: 'Gemnao' },
       mainEntityOfPage: `${SITE}${path}`,
-      about: { '@type': 'VideoGame', name: facts.names.en },
+      about: { '@type': 'VideoGame', name: hub.names?.en || facts.names.en },
     },
     {
       '@context': 'https://schema.org',
@@ -103,11 +105,11 @@ export function LocalizedGamePage({
             <b>{name}</b>
           </nav>
           <p className="article-label">{t.gameLabel}</p>
-          <h1>{name}</h1>
+          <h1>{title}</h1>
           <p className="article-lead">{hub.lead[locale]}</p>
           <div className="article-meta">
             <span>
-              {t.lastChecked} {facts.checkedAt}
+              {t.lastChecked} {checkedAt}
             </span>
           </div>
         </div>
@@ -119,9 +121,13 @@ export function LocalizedGamePage({
           {hub.checklist?.[locale] ? (
             <a href="#checklist">{t.checklist}</a>
           ) : null}
-          <a href="#saves">{t.saves}</a>
-          <a href="#requirements">{t.requirements}</a>
-          <a href="#languages">{t.languages}</a>
+          {!hub.focused ? (
+            <>
+              <a href="#saves">{t.saves}</a>
+              <a href="#requirements">{t.requirements}</a>
+              <a href="#languages">{t.languages}</a>
+            </>
+          ) : null}
           <a href="#references">{t.references}</a>
         </aside>
         <article className="guide-article">
@@ -159,102 +165,108 @@ export function LocalizedGamePage({
               </ol>
             </section>
           ) : null}
-          <section className="guide-section" id="saves">
-            <h2>
-              <FolderOpen />
-              {t.saves}
-            </h2>
-            <h3>{t.saveData}</h3>
-            {hub.fileLocations ? (
-              <p>{hub.fileLocations.saveNote}</p>
-            ) : (
-              <div className="path-box">
-                <code>{localPath(game.savePath)}</code>
-                <PathCopy
-                  value={localPath(game.savePath)}
-                  labels={t.copyLabels}
-                />
-              </div>
-            )}
-            <h3>{t.config}</h3>
-            <div className="path-box">
-              <code>
-                {localPath(hub.fileLocations?.configPath || game.configPath)}
-              </code>
-              <PathCopy
-                value={localPath(
-                  hub.fileLocations?.configPath || game.configPath,
+          {!hub.focused ? (
+            <>
+              <section className="guide-section" id="saves">
+                <h2>
+                  <FolderOpen />
+                  {t.saves}
+                </h2>
+                <h3>{t.saveData}</h3>
+                {hub.fileLocations ? (
+                  <p>{hub.fileLocations.saveNote}</p>
+                ) : (
+                  <div className="path-box">
+                    <code>{localPath(game.savePath)}</code>
+                    <PathCopy
+                      value={localPath(game.savePath)}
+                      labels={t.copyLabels}
+                    />
+                  </div>
                 )}
-                labels={t.copyLabels}
-              />
-            </div>
-            <p className="tip">
-              {hub.fileLocations
-                ? 'Use Steam → Library → right-click the game → Manage → Browse local files to open the actual installation. The library placeholder above is not a path to paste into Run. Copy config.ini before editing it.'
-                : t.openPath}
-            </p>
-          </section>
-          <section className="diagnosis-table" id="requirements">
-            <h2>{t.requirements}</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">{t.specItem}</th>
-                  <th scope="col">{t.minimum}</th>
-                  {facts.recommended ? (
-                    <th scope="col">{t.recommended}</th>
-                  ) : null}
-                </tr>
-              </thead>
-              <tbody>
-                {specFields.map((field) => (
-                  <tr key={field}>
-                    <th scope="row">{t[field]}</th>
-                    <td data-label={t.minimum}>
-                      <SpecValue spec={facts.minimum} field={field} t={t} />
-                    </td>
-                    {facts.recommended ? (
-                      <td data-label={t.recommended}>
-                        <SpecValue
-                          spec={facts.recommended}
-                          field={field}
-                          t={t}
-                        />
-                      </td>
-                    ) : null}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <p className="source-note">{t.requirementsNote}</p>
-          </section>
-          <section className="diagnosis-table" id="languages">
-            <h2>
-              <Languages size={21} /> {t.languages}
-            </h2>
-            <table>
-              <thead>
-                <tr>
-                  <th scope="col">{t.language}</th>
-                  <th scope="col">{t.interfaceText}</th>
-                  <th scope="col">{t.fullAudio}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {(['en', 'zh', 'es', 'ja'] as const).map((lang) => (
-                  <tr key={lang}>
-                    <th scope="row">{t.langNames[lang]}</th>
-                    <td data-label={t.interfaceText}>
-                      {facts.languages[lang].ui ? t.yes : t.no}
-                    </td>
-                    <td data-label={t.fullAudio}>
-                      {facts.languages[lang].audio ? t.yes : t.no}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </section>
+                <h3>{t.config}</h3>
+                <div className="path-box">
+                  <code>
+                    {localPath(
+                      hub.fileLocations?.configPath || game.configPath,
+                    )}
+                  </code>
+                  <PathCopy
+                    value={localPath(
+                      hub.fileLocations?.configPath || game.configPath,
+                    )}
+                    labels={t.copyLabels}
+                  />
+                </div>
+                <p className="tip">
+                  {hub.fileLocations
+                    ? 'Use Steam → Library → right-click the game → Manage → Browse local files to open the actual installation. The library placeholder above is not a path to paste into Run. Copy config.ini before editing it.'
+                    : t.openPath}
+                </p>
+              </section>
+              <section className="diagnosis-table" id="requirements">
+                <h2>{t.requirements}</h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">{t.specItem}</th>
+                      <th scope="col">{t.minimum}</th>
+                      {facts.recommended ? (
+                        <th scope="col">{t.recommended}</th>
+                      ) : null}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {specFields.map((field) => (
+                      <tr key={field}>
+                        <th scope="row">{t[field]}</th>
+                        <td data-label={t.minimum}>
+                          <SpecValue spec={facts.minimum} field={field} t={t} />
+                        </td>
+                        {facts.recommended ? (
+                          <td data-label={t.recommended}>
+                            <SpecValue
+                              spec={facts.recommended}
+                              field={field}
+                              t={t}
+                            />
+                          </td>
+                        ) : null}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p className="source-note">{t.requirementsNote}</p>
+              </section>
+              <section className="diagnosis-table" id="languages">
+                <h2>
+                  <Languages size={21} /> {t.languages}
+                </h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">{t.language}</th>
+                      <th scope="col">{t.interfaceText}</th>
+                      <th scope="col">{t.fullAudio}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(['en', 'zh', 'es', 'ja'] as const).map((lang) => (
+                      <tr key={lang}>
+                        <th scope="row">{t.langNames[lang]}</th>
+                        <td data-label={t.interfaceText}>
+                          {facts.languages[lang].ui ? t.yes : t.no}
+                        </td>
+                        <td data-label={t.fullAudio}>
+                          {facts.languages[lang].audio ? t.yes : t.no}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </section>
+            </>
+          ) : null}
           <section className="sources" id="references">
             <h2>
               <CheckCircle2 size={21} /> {t.references}

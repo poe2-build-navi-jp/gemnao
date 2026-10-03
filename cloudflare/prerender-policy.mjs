@@ -3,6 +3,7 @@
 export function isEditorialSnapshotPath(pathname) {
   return /^\/(?:games|guide|trouble|discord|pc|gear|new-releases|tools)(?:\/[a-z0-9-]+)*$/.test(pathname) ||
     /^\/(?:en|zh|es)(?:\/games\/[a-z0-9-]+(?:\/[a-z0-9-]+)?)?$/.test(pathname) ||
+    /^\/(?:en|zh|es)\/discord\/[a-z0-9-]+$/.test(pathname) ||
     ['/en/guide/pc-game-crash', '/en/gear/save-backup-storage-guide', '/en/gear/discord-microphone-guide', '/en/tools', '/en/tools/windows-diagnosis'].includes(pathname) ||
     ['/about', '/privacy', '/terms'].includes(pathname);
 }

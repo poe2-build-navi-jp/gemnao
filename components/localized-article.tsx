@@ -1,4 +1,5 @@
 import { ShareButtons } from '@/components/share-buttons';
+import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
 import { SaveArticle } from '@/components/save-article';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import {
@@ -22,17 +23,34 @@ const SITE = 'https://gemnao.pages.dev';
 export function LocalizedArticle({
   game,
   article,
-}: {
-  game: GameGuide;
-  article: Article;
-}) {
+  section,
+}: { article: Article } & (
+  | { game: GameGuide; section?: 'games' }
+  | { game?: never; section: 'discord' }
+)) {
   const { locale } = article;
   const t = ui[locale];
-  const name = article.gameName || gameFacts[game.slug].names[locale];
-  const translatedHub = hasTranslation(locale, `/games/${game.slug}`);
-  const hubPath = `${translatedHub ? `/${locale}` : ''}/games/${game.slug}`;
+  const isDiscord = section === 'discord';
+  const name = isDiscord
+    ? 'Discord'
+    : article.gameName || gameFacts[game!.slug].names[locale];
+  const originalHubPath = isDiscord ? '/discord' : `/games/${game!.slug}`;
+  const originalPath = `${originalHubPath}/${article.slug}`;
+  const translatedHub = hasTranslation(locale, originalHubPath);
+  const hubPath = `${translatedHub ? `/${locale}` : ''}${originalHubPath}`;
   const hubLabel = `${name}${translatedHub ? '' : t.inJapanese}`;
-  const path = `/${locale}/games/${game.slug}/${article.slug}`;
+  const path = `/${locale}${originalPath}`;
+  const editorialLabel = {
+    en: 'Edited by Gemnao Editorial Team',
+    zh: '编辑：Gemnao 编辑团队',
+    es: 'Edición: equipo editorial de Gemnao',
+  }[locale];
+  const riskLabel = { en: 'Risk', zh: '风险', es: 'Riesgo' }[locale];
+  const risks = {
+    en: { low: 'low', medium: 'medium', high: 'high' },
+    zh: { low: '低', medium: '中', high: '高' },
+    es: { low: 'bajo', medium: 'medio', high: 'alto' },
+  }[locale];
   const schema = [
     {
       '@context': 'https://schema.org',
@@ -41,11 +59,14 @@ export function LocalizedArticle({
       description: article.description,
       dateModified: article.checkedAt,
       inLanguage: languageTag[locale],
-      author: { '@type': 'Organization', name: 'Gemnao' },
+      author: editorialAuthor,
+      publisher: editorialPublisher,
       mainEntityOfPage: `${SITE}${path}`,
       about: {
-        '@type': 'VideoGame',
-        name: article.gameName || gameFacts[game.slug].names.en,
+        '@type': isDiscord ? 'SoftwareApplication' : 'VideoGame',
+        name: isDiscord
+          ? 'Discord'
+          : article.gameName || gameFacts[game!.slug].names.en,
       },
       citation: article.sources.map((source) => source.url),
       image: `${SITE}${ogImageFor(path).split('?')[0]}`,
@@ -86,10 +107,7 @@ export function LocalizedArticle({
   ];
   return (
     <main lang={languageTag[locale]}>
-      <WikiHeader
-        locale={locale}
-        pagePath={`/games/${game.slug}/${article.slug}`}
-      />
+      <WikiHeader locale={locale} pagePath={originalPath} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
@@ -109,6 +127,11 @@ export function LocalizedArticle({
           <h1>{article.title}</h1>
           <p className="article-lead">{article.lead}</p>
           <div className="article-meta">
+            <span>
+              <a href="/about" hrefLang="ja">
+                {editorialLabel}
+              </a>
+            </span>
             <span>
               {t.lastChecked} {article.checkedAt}
             </span>
@@ -194,7 +217,7 @@ export function LocalizedArticle({
                 <p>{step.summary}</p>
                 <p className="step-badges">
                   {t.time}: {step.time}
-                  {step.risk && locale === 'en' ? ` · Risk: ${step.risk}` : ''}
+                  {step.risk ? ` · ${riskLabel}: ${risks[step.risk]}` : ''}
                 </p>
                 <ol>
                   {step.actions.map((action) => (
@@ -244,12 +267,20 @@ export function LocalizedArticle({
           </section>
           {article.related ? (
             <section className="related-section">
-              <h2>Related guides</h2>
+              <h2>
+                {
+                  {
+                    en: 'Related guides',
+                    zh: '相关指南',
+                    es: 'Guías relacionadas',
+                  }[locale]
+                }
+              </h2>
               <div>
                 {article.related.map((link) => (
                   <a
                     href={link.href}
-                    hrefLang={link.href.startsWith('/en/') ? 'en' : 'ja'}
+                    hrefLang={link.href.match(/^\/(en|zh|es)\//)?.[1] || 'ja'}
                     key={link.href}
                   >
                     {link.label}
@@ -280,7 +311,7 @@ export function LocalizedArticle({
               {hubLabel}
               <ArrowRight size={15} />
             </a>
-            <a href={`/games/${game.slug}/${article.slug}`} hrefLang="ja">
+            <a href={originalPath} hrefLang="ja">
               {t.japaneseVersion}
               <ArrowRight size={15} />
             </a>
