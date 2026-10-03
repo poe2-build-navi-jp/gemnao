@@ -17,6 +17,8 @@ export type WeeklyItem = {
   /** 日本時間の日付（M/D）。 */
   date: string;
   game: string;
+  /** games.ts のslug。マイページの「新着」表示に使う。 */
+  gameSlug?: string;
   kind: WeeklyKind;
   title: string;
   summary: string;
@@ -60,6 +62,7 @@ export const weeklyReports: WeeklyReport[] = [
       {
         date: '9/29',
         game: 'エースコンバット8',
+        gameSlug: 'ace-combat-8',
         kind: 'notice',
         title: 'Steam版のクラッシュを調査中と発表',
         summary:
@@ -73,6 +76,7 @@ export const weeklyReports: WeeklyReport[] = [
       {
         date: '9/30',
         game: 'エースコンバット8',
+        gameSlug: 'ace-combat-8',
         kind: 'error',
         title: 'エラーコード「ST-3100001」の原因を公式が説明',
         summary:
@@ -86,6 +90,7 @@ export const weeklyReports: WeeklyReport[] = [
       {
         date: '9/30',
         game: 'エースコンバット8',
+        gameSlug: 'ace-combat-8',
         kind: 'notice',
         title: 'フライトスティック（HOTAS）の設定について公式見解',
         summary:
@@ -95,6 +100,7 @@ export const weeklyReports: WeeklyReport[] = [
       {
         date: '10/2',
         game: 'エースコンバット8',
+        gameSlug: 'ace-combat-8',
         kind: 'notice',
         title: '予約特典「ACE COMBAT ZERO」を単体アプリで配信する方向で検討',
         summary:
@@ -104,6 +110,7 @@ export const weeklyReports: WeeklyReport[] = [
       {
         date: '10/2',
         game: 'エースコンバット8',
+        gameSlug: 'ace-combat-8',
         kind: 'release',
         title: '発売。PC版のクラッシュ報告スレッドを開設',
         summary:
@@ -117,6 +124,7 @@ export const weeklyReports: WeeklyReport[] = [
       {
         date: '9/30',
         game: 'SILENT HILL: Townfall',
+        gameSlug: 'silent-hill-townfall',
         kind: 'patch',
         title: 'Patch 1.3.1：シェーダーのプリコンパイルによるカクつきを軽減',
         summary:
@@ -130,6 +138,7 @@ export const weeklyReports: WeeklyReport[] = [
       {
         date: '10/1',
         game: 'CONTROL Resonant',
+        gameSlug: 'control-resonant',
         kind: 'patch',
         title: 'Update 1.4.0：New Game++と多数の修正',
         summary:
@@ -143,6 +152,7 @@ export const weeklyReports: WeeklyReport[] = [
       {
         date: '10/2',
         game: 'CONTROL Resonant',
+        gameSlug: 'control-resonant',
         kind: 'patch',
         title: 'Hotfix 1.4.1：1.4.0で起きた進行不能を修正',
         summary:
@@ -156,6 +166,7 @@ export const weeklyReports: WeeklyReport[] = [
       {
         date: '9/30',
         game: 'AION2',
+        gameSlug: 'aion2',
         kind: 'outage',
         title: 'アーリーアクセス開始が30分延期（22:30開始）',
         summary:
@@ -169,6 +180,7 @@ export const weeklyReports: WeeklyReport[] = [
       {
         date: '10/1',
         game: 'AION2',
+        gameSlug: 'aion2',
         kind: 'outage',
         title: '臨時メンテナンス（15:00から約1時間30分）',
         summary:
@@ -178,6 +190,7 @@ export const weeklyReports: WeeklyReport[] = [
       {
         date: '10/1',
         game: 'AION2',
+        gameSlug: 'aion2',
         kind: 'patch',
         title: 'アーリーアクセスの権利が認識されない不具合を修正',
         summary:
@@ -191,6 +204,7 @@ export const weeklyReports: WeeklyReport[] = [
       {
         date: '10/2',
         game: 'AION2',
+        gameSlug: 'aion2',
         kind: 'notice',
         title: 'Twitchドロップの連携で注意。NCの公式サイトで別途連携しない',
         summary:
@@ -204,6 +218,7 @@ export const weeklyReports: WeeklyReport[] = [
       {
         date: '10/3',
         game: 'AION2',
+        gameSlug: 'aion2',
         kind: 'notice',
         title: '既知の問題を公開（10/2更新）',
         summary:
@@ -213,6 +228,7 @@ export const weeklyReports: WeeklyReport[] = [
       {
         date: '10/1',
         game: 'Minecraft Dungeons II',
+        gameSlug: 'minecraft-dungeons-2',
         kind: 'patch',
         title: 'Steam Deckで遊べるようになるアップデート',
         summary:
@@ -226,6 +242,7 @@ export const weeklyReports: WeeklyReport[] = [
       {
         date: '10/2',
         game: 'Gears of War: E-Day',
+        gameSlug: 'gears-of-war-e-day',
         kind: 'release',
         title:
           '早期アクセス開始（Premium Edition・Game Passのプレミアムアップグレード）',

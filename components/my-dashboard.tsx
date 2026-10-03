@@ -8,6 +8,7 @@ import { ReadingList } from '@/components/reading-list';
 import { RecentTroubles } from '@/components/recent-troubles';
 import { SolutionNotebook } from '@/components/solution-notebook';
 import { useMyGames, useMyPc } from '@/components/use-my-pc';
+import { jstDate, usePreviousVisit } from '@/components/use-last-visit';
 import { gpus, MY_GAMES_KEY, type MinSpec, type MyPc } from '@/lib/my-pc';
 import { trackMyGameAdded } from '@/lib/analytics';
 
@@ -18,7 +19,14 @@ export type DashboardGame = {
   maintenance: { title: string; start: string; end: string; url: string }[];
   spec?: MinSpec;
   hasNews: boolean;
+  /** ゲムなおの記事更新・週刊まとめ（30日以内、新しい順。dateはYYYY-MM-DD）。 */
+  updates: { date: string; label: string; href: string }[];
 };
+
+function shortDate(value: string) {
+  const [, month, date] = value.split('-').map(Number);
+  return `${month}/${date}`;
+}
 
 const time = new Intl.DateTimeFormat('ja-JP', {
   timeZone: 'Asia/Tokyo',
@@ -169,6 +177,13 @@ export function MyDashboard({ games }: { games: DashboardGame[] }) {
   const [myGames, saveGames, gamesReady] = useMyGames();
   const [gameMessage, setGameMessage] = useState('');
   const [news, setNews] = useState<News>({});
+  const previous = usePreviousVisit();
+  const previousDate = previous ? jstDate(previous) : '';
+  // Only after a known earlier visit; on the first visit nothing is "new".
+  const isNewDate = (date: string) =>
+    Boolean(previousDate) && date > previousDate;
+  const isNewTime = (iso: string) =>
+    Boolean(previous) && Date.parse(iso) > Date.parse(previous as string);
   const mine = useMemo(
     () => games.filter((game) => myGames.includes(game.slug)),
     [games, myGames],
@@ -229,59 +244,96 @@ export function MyDashboard({ games }: { games: DashboardGame[] }) {
 
       <section id="my-feed" aria-labelledby="my-feed-title">
         <h2 id="my-feed-title">マイゲームの最新情報</h2>
+        {mine.length && previous !== undefined ? (
+          <p className="my-visit-note">
+            {previous
+              ? `前回（${shortDate(previousDate)}）見た後に出た情報に「新着」が付いています。`
+              : '次に開いた時から、前回見た後に出た情報に「新着」が付きます。'}
+          </p>
+        ) : null}
         {mine.length ? (
           <div className="my-game-cards">
-            {mine.map((game) => (
-              <article className="my-game-card" key={game.slug}>
-                <h3>
-                  <a href={`/games/${game.slug}`}>{game.name}</a>
-                </h3>
-                {game.spec ? (
-                  <p>
-                    あなたのPCで：
-                    <MyPcFit spec={game.spec} />
-                  </p>
-                ) : null}
-                {game.maintenance.map((item) => (
-                  <p className="my-game-maintenance" key={item.start}>
-                    <b>メンテ</b> {time.format(new Date(item.start))}〜
-                    {time.format(new Date(item.end))}：{item.title}{' '}
-                    <a href={item.url} target="_blank" rel="noreferrer">
-                      公式 <ExternalLink size={12} />
-                    </a>
-                  </p>
-                ))}
-                {news[game.slug]?.length ? (
-                  <>
-                    <h4>公式のお知らせ（Steam・30日以内）</h4>
-                    <ul>
-                      {news[game.slug].map((item) => (
-                        <li key={item.url}>
-                          {day.format(new Date(item.date))}{' '}
-                          <a href={item.url} target="_blank" rel="noreferrer">
-                            {item.title} <ExternalLink size={12} />
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                ) : null}
-                {game.articles.length ? (
-                  <>
-                    <h4>ゲムなおの解決記事</h4>
-                    <ul>
-                      {game.articles.map((article) => (
-                        <li key={article.href}>
-                          <a href={article.href}>
-                            {article.label} <ArrowRight size={12} />
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                ) : null}
-              </article>
-            ))}
+            {mine.map((game) => {
+              const fresh =
+                game.updates.filter((item) => isNewDate(item.date)).length +
+                (news[game.slug] ?? []).filter((item) => isNewTime(item.date))
+                  .length;
+              return (
+                <article className="my-game-card" key={game.slug}>
+                  <h3>
+                    <a href={`/games/${game.slug}`}>{game.name}</a>
+                    {fresh ? (
+                      <span className="my-new-badge">新着 {fresh}</span>
+                    ) : null}
+                  </h3>
+                  {game.spec ? (
+                    <p>
+                      あなたのPCで：
+                      <MyPcFit spec={game.spec} />
+                    </p>
+                  ) : null}
+                  {game.maintenance.map((item) => (
+                    <p className="my-game-maintenance" key={item.start}>
+                      <b>メンテ</b> {time.format(new Date(item.start))}〜
+                      {time.format(new Date(item.end))}：{item.title}{' '}
+                      <a href={item.url} target="_blank" rel="noreferrer">
+                        公式 <ExternalLink size={12} />
+                      </a>
+                    </p>
+                  ))}
+                  {news[game.slug]?.length ? (
+                    <>
+                      <h4>公式のお知らせ（Steam・30日以内）</h4>
+                      <ul>
+                        {news[game.slug].map((item) => (
+                          <li key={item.url}>
+                            {isNewTime(item.date) ? (
+                              <span className="my-new-mark">新着</span>
+                            ) : null}
+                            {day.format(new Date(item.date))}{' '}
+                            <a href={item.url} target="_blank" rel="noreferrer">
+                              {item.title} <ExternalLink size={12} />
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  ) : null}
+                  {game.updates.length ? (
+                    <>
+                      <h4>ゲムなおの更新（30日以内）</h4>
+                      <ul>
+                        {game.updates.map((item) => (
+                          <li key={`${item.date}-${item.label}`}>
+                            {isNewDate(item.date) ? (
+                              <span className="my-new-mark">新着</span>
+                            ) : null}
+                            {shortDate(item.date)}{' '}
+                            <a href={item.href}>
+                              {item.label} <ArrowRight size={12} />
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  ) : null}
+                  {game.articles.length ? (
+                    <>
+                      <h4>ゲムなおの解決記事</h4>
+                      <ul>
+                        {game.articles.map((article) => (
+                          <li key={article.href}>
+                            <a href={article.href}>
+                              {article.label} <ArrowRight size={12} />
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  ) : null}
+                </article>
+              );
+            })}
           </div>
         ) : (
           <p>

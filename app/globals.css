@@ -5246,3 +5246,29 @@ a.my-games-primary {
 .weekly-item-links a {
   color: var(--blue);
 }
+
+/* マイページの「新着」（前回見た後に出た情報） */
+.my-visit-note {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.my-new-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--orange);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  vertical-align: middle;
+}
+.my-new-mark {
+  margin-right: 6px;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: #fdece4;
+  color: #9a3412;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
