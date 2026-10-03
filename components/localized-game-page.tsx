@@ -116,7 +116,9 @@ export function LocalizedGamePage({
         <aside className="toc">
           <strong>{t.contents}</strong>
           {articles.length ? <a href="#guides">{t.guides}</a> : null}
-          {hub.checklist ? <a href="#checklist">{t.checklist}</a> : null}
+          {hub.checklist?.[locale] ? (
+            <a href="#checklist">{t.checklist}</a>
+          ) : null}
           <a href="#saves">{t.saves}</a>
           <a href="#requirements">{t.requirements}</a>
           <a href="#languages">{t.languages}</a>
@@ -138,7 +140,7 @@ export function LocalizedGamePage({
               </div>
             </section>
           ) : null}
-          {hub.checklist ? (
+          {hub.checklist?.[locale] ? (
             <section className="guide-section" id="checklist">
               <h2>
                 <AlertTriangle />
@@ -146,7 +148,7 @@ export function LocalizedGamePage({
               </h2>
               <p>{t.checklistIntro}</p>
               <ol className="fix-list">
-                {hub.checklist[locale].map((item, index) => (
+                {hub.checklist[locale]!.map((item, index) => (
                   <li key={item}>
                     <span>{index + 1}</span>
                     <div>
@@ -163,22 +165,34 @@ export function LocalizedGamePage({
               {t.saves}
             </h2>
             <h3>{t.saveData}</h3>
-            <div className="path-box">
-              <code>{localPath(game.savePath)}</code>
-              <PathCopy
-                value={localPath(game.savePath)}
-                labels={t.copyLabels}
-              />
-            </div>
+            {hub.fileLocations ? (
+              <p>{hub.fileLocations.saveNote}</p>
+            ) : (
+              <div className="path-box">
+                <code>{localPath(game.savePath)}</code>
+                <PathCopy
+                  value={localPath(game.savePath)}
+                  labels={t.copyLabels}
+                />
+              </div>
+            )}
             <h3>{t.config}</h3>
             <div className="path-box">
-              <code>{localPath(game.configPath)}</code>
+              <code>
+                {localPath(hub.fileLocations?.configPath || game.configPath)}
+              </code>
               <PathCopy
-                value={localPath(game.configPath)}
+                value={localPath(
+                  hub.fileLocations?.configPath || game.configPath,
+                )}
                 labels={t.copyLabels}
               />
             </div>
-            <p className="tip">{t.openPath}</p>
+            <p className="tip">
+              {hub.fileLocations
+                ? 'Use Steam → Library → right-click the game → Manage → Browse local files to open the actual installation. The library placeholder above is not a path to paste into Run. Copy config.ini before editing it.'
+                : t.openPath}
+            </p>
           </section>
           <section className="diagnosis-table" id="requirements">
             <h2>{t.requirements}</h2>

@@ -1,20 +1,21 @@
+import { ogImageFor } from '@/lib/og-images';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { LocalizedGamePage } from '@/components/localized-game-page';
 import { gameBySlug } from '@/lib/games';
 import { isLocale, locales } from '@/lib/i18n';
 import { gameFacts } from '@/lib/localized/game-facts';
-import { localizedHubs } from '@/lib/localized/hubs';
+import { localizedHubs, hasLocalizedHub } from '@/lib/localized/hubs';
 import {
   languageAlternates,
-  localizedGameSlugs,
+  localizedGameSlugsFor,
   ogLocale,
 } from '@/lib/localized/index';
 import { ui } from '@/lib/localized/ui';
 
 export function generateStaticParams() {
   return locales.flatMap((locale) =>
-    localizedGameSlugs.map((slug) => ({ locale, slug })),
+    localizedGameSlugsFor(locale).map((slug) => ({ locale, slug })),
   );
 }
 
@@ -25,7 +26,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, slug } = await params;
   const game = gameBySlug(slug);
-  if (!isLocale(locale) || !game || !localizedHubs[slug]) return {};
+  if (!isLocale(locale) || !game || !hasLocalizedHub(locale, slug)) return {};
   const t = ui[locale];
   const title = `${gameFacts[slug].names[locale]} — ${t.gameLabel} | Gemnao`;
   const description = localizedHubs[slug].lead[locale];
@@ -36,10 +37,18 @@ export async function generateMetadata({
       title,
       description,
       locale: ogLocale[locale],
-      images: ['/og-default.png'],
+      images: [ogImageFor(`/${locale}/games/${slug}`)],
       url: `/${locale}/games/${slug}`,
     },
-    twitter: { card: 'summary', title, description, images: ['/og-default.png'] },
+    twitter: {
+      card:
+        slug === 'onimusha-way-of-the-sword'
+          ? 'summary_large_image'
+          : 'summary',
+      title,
+      description,
+      images: [ogImageFor(`/${locale}/games/${slug}`)],
+    },
     alternates: {
       canonical: `/${locale}/games/${slug}`,
       languages: languageAlternates(`/games/${slug}`),
@@ -54,6 +63,6 @@ export default async function LocaleGame({
 }) {
   const { locale, slug } = await params;
   const game = gameBySlug(slug);
-  if (!isLocale(locale) || !game || !localizedHubs[slug]) notFound();
+  if (!isLocale(locale) || !game || !hasLocalizedHub(locale, slug)) notFound();
   return <LocalizedGamePage game={game} locale={locale} />;
 }

@@ -1,3 +1,4 @@
+import { onimushaArticlesEn } from '@/lib/localized/onimusha-articles-en';
 import { recentGameArticlesEn } from '@/lib/localized/recent-game-articles-en';
 import { gearGuidesEn } from '@/lib/localized/gear-guides-en';
 import { crashGuideEn, crashSectionsEn } from '@/lib/localized/crash-guide-en';
@@ -195,7 +196,7 @@ export function ogCardSpecs(): OgCardSpec[] {
         'Read privacy and safety limits',
       ],
     },
-    ...recentGameArticlesEn.map((article) => ({
+    ...[...recentGameArticlesEn, ...onimushaArticlesEn].map((article) => ({
       path: `/en/games/${article.gameSlug}/${article.slug}`,
       locale: 'en' as const,
       eyebrow: 'PC game troubleshooting',
@@ -203,6 +204,19 @@ export function ogCardSpecs(): OgCardSpec[] {
       itemsLabel: 'Checks in order',
       items: article.steps.slice(0, 4).map((step) => step.title),
     })),
+    {
+      path: '/en/games/onimusha-way-of-the-sword',
+      locale: 'en' as const,
+      eyebrow: 'PC troubleshooting guides',
+      title: 'Onimusha: Way of the Sword PC Help',
+      itemsLabel: 'Choose your symptom',
+      items: [
+        'Launch crashes and CrashReport',
+        'GPU drivers and shader caches',
+        'Black screens and HDR',
+        'Low FPS and stuttering',
+      ],
+    },
     ...gearGuidesEn.map((guide) => ({
       path: `/en/gear/${guide.slug}`,
       locale: 'en' as const,

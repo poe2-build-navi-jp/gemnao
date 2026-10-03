@@ -36,6 +36,34 @@ const text = { ui: true, audio: false };
 const none = { ui: false, audio: false };
 
 export const gameFacts: Record<string, GameFacts> = {
+  // Steam appdetails (English), rechecked 2026-10-03. Only the English hub
+  // is published; language-support facts do not imply translated site pages.
+  'onimusha-way-of-the-sword': {
+    appId: '2638890',
+    names: {
+      en: 'Onimusha: Way of the Sword',
+      zh: 'Onimusha: Way of the Sword',
+      es: 'Onimusha: Way of the Sword',
+    },
+    minimum: {
+      os: 'Windows 11 (64-bit)',
+      cpu: 'Core i5-8400 / Ryzen 3 3100',
+      gpu: 'GeForce GTX 1660 (6 GB) / Radeon RX 5500 XT (8 GB)',
+      ram: '16 GB',
+      storage: '50 GB',
+      ssd: 'required',
+    },
+    recommended: {
+      os: 'Windows 11 (64-bit)',
+      cpu: 'Core i5-10400 / Ryzen 5 3600',
+      gpu: 'GeForce RTX 2060 SUPER (8 GB) / Radeon RX 6600 (8 GB)',
+      ram: '16 GB',
+      storage: '50 GB',
+      ssd: 'required',
+    },
+    languages: { ja: both, en: both, zh: both, es: both },
+    checkedAt: '2026-10-03',
+  },
   'monster-hunter-wilds': {
     appId: '2246340',
     names: {
