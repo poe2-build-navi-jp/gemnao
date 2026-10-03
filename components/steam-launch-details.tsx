@@ -63,6 +63,20 @@ export function SteamLaunchBeforeSteps() {
               </td>
             </tr>
             <tr>
+              <td data-label="状態">
+                EA appなどが開き、ログイン・認証エラーで止まる
+              </td>
+              <td data-label="確認先">
+                エラーを出しているランチャーと、ゲームの利用条件
+              </td>
+              <td data-label="最初の行動">
+                <a href="#steam-launch-publisher">
+                  別ランチャーの画面とエラーを確認
+                </a>
+                。Steamの無反応やゲーム本体のクラッシュと分ける
+              </td>
+            </tr>
+            <tr>
               <td data-label="状態">ウィンドウは残り画面だけ黒い</td>
               <td data-label="確認先">ゲームのプロセスが続いているか</td>
               <td data-label="最初の行動">
@@ -78,6 +92,35 @@ export function SteamLaunchBeforeSteps() {
           <a href="/guide/visual-c-runtime-error">Visual C++</a>
           など該当する記事の手順を優先してください。
         </p>
+      </section>
+      <section className="diagnosis-table" id="steam-launch-publisher">
+        <h2>別ランチャーが開いた後にログイン・認証で止まる場合</h2>
+        <p>
+          Steamで購入したゲームでも、起動に販売元のランチャーが必要な場合があります。
+          EAは、対象ゲームのSteamストアに記載される第三者DRM・EA
+          appの利用条件を確認するよう案内しています。 すべてのSteamゲームにEA
+          appが必要という意味ではありません。
+        </p>
+        <ol>
+          <li>
+            エラーがSteam・EA
+            app・ゲーム本体のどの画面に出たか、ウィンドウ名・エラー全文・発生時刻を控えます。スクリーンショットを共有する場合はメールアドレスやアカウント情報を隠してください。
+          </li>
+          <li>
+            対象ゲームのストアにある外部アプリ・アカウントの条件を確認し、その販売元の公式ヘルプで同じエラーを探します。EA
+            appの「link2ea」など、コードがある場合は一致する公式手順を優先します。
+          </li>
+          <li>
+            認証・アカウント連携で止まる場合は、ゲーム本体の再インストールを繰り返さず公式サポートへ。Steamの整合性確認は、ログインや連携先の確認を代わりに行う機能ではありません。原因が分からないまま連携を解除しないでください。
+          </li>
+        </ol>
+        <a
+          href="https://help.ea.com/en/articles/platforms/download-and-play-ea-app-games/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          EA公式：Steam版でEA appが必要な条件とlink2eaエラー
+        </a>
       </section>
       <section className="diagnosis-table" id="steam-launch-process">
         <h2>本当に起動していない？ タスクマネージャーで見る</h2>
