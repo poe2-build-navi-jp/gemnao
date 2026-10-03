@@ -3,6 +3,7 @@ import { discordArticles } from '@/lib/discord-articles-all';
 import { gameArticles } from '@/lib/game-articles';
 import { games } from '@/lib/games';
 import { pcArticles } from '@/lib/pc-articles';
+import { weeklyReports } from '@/lib/weekly-reports';
 
 // Atom feed of the most recently checked pages. Its URL is announced to
 // Google's WebSub hub after a deploy (scripts/ping-index.mjs) so new and
@@ -35,6 +36,13 @@ export function GET() {
         updated: item.checkedAt,
         category: gameName(item.gameSlug),
       })),
+    ...weeklyReports.map((item) => ({
+      title: item.title,
+      summary: item.description,
+      path: `/weekly/${item.slug}`,
+      updated: item.publishedAt,
+      category: '今週の不具合まとめ',
+    })),
     ...pcArticles.map((item) => ({
       title: item.seoTitle,
       summary: item.description,

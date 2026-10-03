@@ -6,6 +6,7 @@ import { commonGuides } from '@/lib/common-guides';
 import { discordArticles } from '@/lib/discord-articles-all';
 import { troubleHubs } from '@/lib/trouble-hubs';
 import { releaseRoundups } from '@/lib/release-roundups';
+import { weeklyReports } from '@/lib/weekly-reports';
 import { pcArticles } from '@/lib/pc-articles';
 import { locales } from '@/lib/i18n';
 import { gameFacts } from '@/lib/localized/game-facts';
@@ -83,6 +84,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...articles,
     ...common,
     ...discord,
+    {
+      url: `${base}/weekly`,
+      lastModified: new Date(weeklyReports[0].publishedAt),
+      changeFrequency: 'weekly' as const,
+      priority: 0.85,
+    },
+    ...weeklyReports.map((report) => ({
+      url: `${base}/weekly/${report.slug}`,
+      lastModified: new Date(report.publishedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.84,
+    })),
     ...releaseRoundups.map((roundup) => ({
       url: `${base}/new-releases/${roundup.slug}`,
       lastModified: new Date(roundup.checkedAt),

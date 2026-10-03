@@ -197,6 +197,7 @@ export const ogImageManifest: Record<string, string> = {
   "/pc/windows-update-stuck": "0a3df6d5",
   "/trouble/mod": "aac0f787",
   "/trouble/server": "c6d1a835",
+  "/weekly/2026-09-28": "4104553c",
   "/zh/discord/upload-failed": "83328097",
   "/zh/games/rocket-league": "4307697e",
   "/zh/games/rocket-league/dualsense-not-working": "e60ca766"

@@ -26,7 +26,9 @@ const edgeCacheSeconds = 3600;
 // `/contact`, `/admin` and `/api` read D1 or the request and are excluded.
 const cacheablePath = (pathname) =>
   pathname === '/' ||
-  /^\/(?:games|guide|trouble|discord|new-releases|pc|status|tools|my)(?:\/|$)/.test(pathname) ||
+  /^\/(?:games|guide|trouble|discord|new-releases|weekly|pc|status|tools|my)(?:\/|$)/.test(
+    pathname,
+  ) ||
   /^\/(?:en|zh|es)(?:\/|$)/.test(pathname) ||
   ['/about', '/privacy', '/terms'].includes(pathname);
 
@@ -35,7 +37,11 @@ function edgeCacheKey(request) {
   if (request.method !== 'GET' || url.search || !cacheablePath(url.pathname))
     return null;
   // Client-side navigation requests share the URL but return RSC payloads.
-  for (const header of ['rsc', 'next-router-state-tree', 'next-router-prefetch'])
+  for (const header of [
+    'rsc',
+    'next-router-state-tree',
+    'next-router-prefetch',
+  ])
     if (request.headers.has(header)) return null;
   url.searchParams.set('__build', buildId);
   return new Request(url.toString(), { method: 'GET' });
@@ -62,17 +68,28 @@ const worker = {
 
     // Internal asset URLs are not alternate public article URLs.
     if (pathname.startsWith('/_gemnao-snapshots/')) {
-      return new Response('Not found', { status: 404, headers: { 'X-Robots-Tag': 'noindex' } });
+      return new Response('Not found', {
+        status: 404,
+        headers: { 'X-Robots-Tag': 'noindex' },
+      });
     }
 
     const snapshot = snapshotAssetFor(request, editorialSnapshots);
     if (snapshot) {
       const assetUrl = new URL(snapshot, request.url);
-      const asset = await env.ASSETS.fetch(new Request(assetUrl, { method: request.method, headers: request.headers }));
+      const asset = await env.ASSETS.fetch(
+        new Request(assetUrl, {
+          method: request.method,
+          headers: request.headers,
+        }),
+      );
       if (asset.status === 200 || asset.status === 304) {
         const response = new Response(asset.body, asset);
         response.headers.set('Content-Type', 'text/html; charset=utf-8');
-        response.headers.set('Cache-Control', 'public, max-age=0, must-revalidate');
+        response.headers.set(
+          'Cache-Control',
+          'public, max-age=0, must-revalidate',
+        );
         response.headers.set('X-Gemnao-Cache', 'STATIC');
         return response;
       }
@@ -80,11 +97,16 @@ const worker = {
       // articles unavailable; the existing renderer remains the fallback.
     }
 
-    if (pathname.startsWith('/_next/static/') || pathname.startsWith('/images/') || staticFiles.has(pathname)) {
+    if (
+      pathname.startsWith('/_next/static/') ||
+      pathname.startsWith('/images/') ||
+      staticFiles.has(pathname)
+    ) {
       return env.ASSETS.fetch(request);
     }
 
-    const cacheKey = typeof caches === 'undefined' ? null : edgeCacheKey(request);
+    const cacheKey =
+      typeof caches === 'undefined' ? null : edgeCacheKey(request);
     if (!cacheKey) return render(request, env, context, pathname);
 
     try {
@@ -107,7 +129,9 @@ const worker = {
     )
       return response;
 
-    const [forClient, forCache] = response.body ? response.body.tee() : [null, null];
+    const [forClient, forCache] = response.body
+      ? response.body.tee()
+      : [null, null];
     const stored = new Response(forCache, response);
     stored.headers.set('Cache-Control', `public, s-maxage=${edgeCacheSeconds}`);
     stored.headers.delete('vary');
