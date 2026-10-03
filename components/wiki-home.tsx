@@ -1,7 +1,7 @@
 'use client';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Bug,
   ChevronRight,
@@ -25,6 +25,7 @@ import {
 } from '@/lib/site-search';
 import { RecentTroubles } from './recent-troubles';
 import { MyShortcut } from './my-shortcut';
+import { HomeBookmarkHelp } from './home-bookmark-help';
 import { StatusTicker } from './status-board';
 import { WikiFooter, WikiHeader } from './wiki-header';
 
@@ -73,6 +74,7 @@ export function WikiHome({
   launches?: LaunchItem[];
 }) {
   const [query, setQuery] = useState('');
+  const searchInput = useRef<HTMLInputElement>(null);
   const [articleCluster, setArticleCluster] = useState('all');
   const visible = useMemo(() => searchGames(query), [query]);
   const visibleArticles = useMemo(
@@ -138,9 +140,11 @@ export function WikiHome({
             PCゲームのトラブルを症状から探せます。
           </p>
         </div>
-        <label className="search-box">
+        <div className="search-box">
           <Search size={20} aria-hidden="true" />
           <input
+            ref={searchInput}
+            type="search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             aria-label="ゲーム名や症状を検索"
@@ -150,15 +154,37 @@ export function WikiHome({
             <button
               className="clear-search"
               type="button"
-              onClick={() => setQuery('')}
+              onClick={() => {
+                setQuery('');
+                searchInput.current?.focus();
+              }}
             >
               クリア
             </button>
           )}
-        </label>
-        <p className="search-examples">
-          例：Aniimo 黒画面 / WARDOGS 起動しない / パルワールド セーブ
-        </p>
+        </div>
+        <div
+          className="search-examples home-search-examples"
+          aria-label="検索例"
+        >
+          <span>検索例：</span>
+          {['Aniimo 黒画面', 'Steam 起動しない', 'Discord マイク'].map(
+            (example) => (
+              <button
+                key={example}
+                type="button"
+                onClick={() => {
+                  setQuery(example);
+                  setArticleCluster('all');
+                  searchInput.current?.focus();
+                }}
+                aria-label={`${example}で検索`}
+              >
+                {example}
+              </button>
+            ),
+          )}
+        </div>
         {isSearching && !noSearchResults ? (
           <output className="search-result-summary" aria-live="polite">
             検索結果：{searchResultCount}件
@@ -182,32 +208,96 @@ export function WikiHome({
         ) : null}
       </section>
 
+      {!isSearching && (
+        <section
+          className="content symptom-section"
+          id="symptoms"
+          aria-labelledby="symptom-title"
+        >
+          <div className="section-heading compact-heading">
+            <div>
+              <p>TROUBLE TYPE</p>
+              <h2 id="symptom-title">何に困っていますか？</h2>
+            </div>
+            <a className="home-saved-entry" href="/my#my-reading-list">
+              保存した記事を開く →
+            </a>
+          </div>
+          <div className="symptom-grid" aria-label="症状から探す">
+            {topics.map((item) => {
+              const Icon = item.icon;
+              return (
+                <a href={`/trouble/${item.slug}`} key={item.slug}>
+                  <Icon size={19} />
+                  {item.label}
+                </a>
+              );
+            })}
+            <a href="/discord">
+              <MessageCircle size={19} />
+              Discord
+            </a>
+            <a href="/pc">
+              <Wrench size={19} />
+              PC・Windows
+            </a>
+          </div>
+        </section>
+      )}
+
       {!isSearching ? (
         <div className="content home-my-shortcut">
           <MyShortcut />
+          <HomeBookmarkHelp />
         </div>
       ) : null}
 
+      {!isSearching ? <RecentTroubles /> : null}
+
       {!isSearching ? (
         <section
-          className="content diagnosis-entry"
-          aria-labelledby="diagnosis-entry-title"
+          className="content home-tools"
+          id="home-tools"
+          aria-labelledby="home-tools-title"
         >
-          <div className="launch-watch-card">
-            <h2 id="diagnosis-entry-title">PCゲーム診断ツール</h2>
-            <p>
-              起動しない・落ちる・黒画面・フリーズ・低FPS・カクつき。ゲームと症状を選び、PCの記録と次の確認を整理します。
-            </p>
-            <a href="/tools/windows-diagnosis">
-              診断ツールの対応範囲・ダウンロード・使い方 →
-            </a>
-            <small>
-              Windows用の試作版。原因の確定・自動修復・すべてのゲームでの動作を保証するものではありません。
-            </small>
+          <div className="section-heading compact-heading">
+            <div>
+              <p>QUICK TOOLS</p>
+              <h2 id="home-tools-title">プレイ前・設定変更後の確認に</h2>
+            </div>
+            <a href="/tools">便利ツール一覧 →</a>
           </div>
+          <div className="home-tool-grid">
+            <a href="/tools/save-locations">
+              <Save size={20} aria-hidden="true" />
+              <strong>セーブの保存場所を調べる</strong>
+              <span>
+                バックアップ前に。ゲーム別の保存先と、コピー・復元の注意点を確認。
+              </span>
+              <b>保存場所一覧を見る →</b>
+            </a>
+            <a href="/tools/refresh-rate">
+              <Gauge size={20} aria-hidden="true" />
+              <strong>モニターのHzを確認する</strong>
+              <span>
+                設定や接続を変えた後に。ブラウザ描画の目安を測り、Windowsの設定値と比較。
+              </span>
+              <b>Hzの目安を測る →</b>
+            </a>
+            <a href="/tools/windows-diagnosis">
+              <Wrench size={20} aria-hidden="true" />
+              <strong>PCゲームの不具合を調べる</strong>
+              <span>
+                起動しない・落ちる時に。PCの記録と次の確認を整理するWindows用の試作版。
+              </span>
+              <b>PCゲーム診断ツールの使い方 →</b>
+            </a>
+          </div>
+          <p className="home-tools-note">
+            Hzは測定の目安です。診断ツールは原因の確定・自動修復・すべてのゲームでの動作を保証しません。
+          </p>
         </section>
       ) : null}
-      {!isSearching ? <RecentTroubles /> : null}
 
       {!isSearching && launches.length ? (
         <section
@@ -249,40 +339,6 @@ export function WikiHome({
           <StatusTicker />
         </div>
       ) : null}
-
-      {!isSearching && (
-        <section
-          className="content symptom-section"
-          id="symptoms"
-          aria-labelledby="symptom-title"
-        >
-          <div className="section-heading compact-heading">
-            <div>
-              <p>TROUBLE TYPE</p>
-              <h2 id="symptom-title">何に困っていますか？</h2>
-            </div>
-          </div>
-          <div className="symptom-grid" aria-label="症状から探す">
-            {topics.map((item) => {
-              const Icon = item.icon;
-              return (
-                <a href={`/trouble/${item.slug}`} key={item.slug}>
-                  <Icon size={19} />
-                  {item.label}
-                </a>
-              );
-            })}
-            <a href="/discord">
-              <MessageCircle size={19} />
-              Discord
-            </a>
-            <a href="/pc">
-              <Wrench size={19} />
-              PC・Windows
-            </a>
-          </div>
-        </section>
-      )}
 
       {(!isSearching || displayedGames.length > 0) && (
         <section className="content home-compact" id="games">

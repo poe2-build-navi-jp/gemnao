@@ -9,6 +9,7 @@ import { localizedHubs, hasLocalizedHub } from '@/lib/localized/hubs';
 import { languageTag, localizedArticles } from '@/lib/localized/index';
 import { ui } from '@/lib/localized/ui';
 import { WikiFooter, WikiHeader } from './wiki-header';
+import { HomeBookmarkHelp } from './home-bookmark-help';
 
 export function LocalizedHome({ locale }: { locale: Locale }) {
   const t = ui[locale];
@@ -31,6 +32,9 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
           <p>{t.homeNote}</p>
         </div>
       </section>
+      <div className="content home-bookmark-slot">
+        <HomeBookmarkHelp locale={locale} />
+      </div>
       {locale === 'en' ? (
         <section className="content" id="tools">
           <div className="section-heading">
