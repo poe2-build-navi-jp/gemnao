@@ -80,7 +80,7 @@ export const ogImageManifest: Record<string, string> = {
   "/games/cyberpunk-2077": "b8f02bca",
   "/games/cyberpunk-2077/not-launching": "01feef5f",
   "/games/dragon-quest-monsters-4": "11edd9af",
-  "/games/dragon-quest-monsters-4/demo-transfer": "15a96635",
+  "/games/dragon-quest-monsters-4/demo-transfer": "4d4c5b94",
   "/games/dragons-dogma-2": "50fbbc48",
   "/games/dragons-dogma-2/performance": "3eeed0b7",
   "/games/elden-ring": "7b6f68c6",
