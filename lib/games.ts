@@ -357,6 +357,166 @@ export const games: GameGuide[] = [
     ],
   },
   {
+    slug: 'castlevania-belmonts-curse',
+    title:
+      'Castlevania: Belmont’s Curse（キャッスルヴァニア ベルモンドの呪い）',
+    shortTitle: 'Castlevania: Belmont’s Curse',
+    lead: 'Windows 11が必要。起動しない時の確認、コントローラーの設定、Midnight Editionの内容を公式情報から整理。',
+    accent: '#7a1730',
+    demand: '2026年10月15日発売（KONAMIの発表）',
+    issueScale: '中程度',
+    updated: '2026-10-03',
+    tags: ['起動しない', 'Windows 11', 'コントローラー', 'Midnight Edition'],
+    focused: true,
+    savePath: '',
+    configPath: '',
+    fps: '',
+    ultrawide: '',
+    hdr: '',
+    controller:
+      'フルコントローラーサポート・ゲームパッド推奨。DualSense対応、キーボードだけでも遊べる（Steamストアの表記）。',
+    launchFixes: [
+      'Windows 11か確認（最低環境からWindows 11）',
+      'GPUドライバーを更新し、ゲームファイルを確認',
+      'コントローラーはSteam InputのON・OFFを比べる',
+    ],
+    mod: '',
+    japanese:
+      '日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。',
+    specs: {
+      minimum: 'Windows 11／Core i5 8400／GTX 1650／メモリ16GB／DirectX 11',
+      recommended: 'Windows 11／Core i5 10400／RTX 3060／メモリ16GB',
+      storage: '10GB',
+    },
+    sources: [
+      { label: 'Steamストア', url: steam('4231820') },
+      {
+        label: '公式のお知らせ（Steamニュース）',
+        url: 'https://store.steampowered.com/news/app/4231820',
+      },
+    ],
+  },
+  {
+    slug: 'tales-of-eternia-remastered',
+    title: 'テイルズ オブ エターニア リマスター',
+    shortTitle: 'テイルズ オブ エターニア リマスター',
+    lead: '要件は軽いがWindows 11の記載あり。DirectX 12にはVRAM 4GB以上が必要。起動しない時の確認を公式情報から整理。',
+    accent: '#2f6f8f',
+    demand: '日本時間2026年10月16日7時発売',
+    issueScale: '中程度',
+    updated: '2026-10-03',
+    tags: ['起動しない', 'DirectX 12', 'VRAM', 'デラックスエディション'],
+    focused: true,
+    savePath: '',
+    configPath: '',
+    fps: '',
+    ultrawide: '',
+    hdr: '',
+    controller:
+      'フルコントローラーサポート。DUALSHOCK・DualSense対応（Steamストアの表記）。',
+    launchFixes: [
+      'Windowsのバージョンを確認（動作環境の表記はWindows 11）',
+      'DirectX 12を使うにはVRAM 4GB以上のGPUが必要',
+      'GPUドライバーを更新し、ゲームファイルを確認',
+    ],
+    mod: '',
+    japanese:
+      '日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。',
+    specs: {
+      minimum:
+        'Windows 11／Core i3-8100・Ryzen 3 3100／GTX 650 Ti（1GB）・HD 7770（2GB）・Arc A310（4GB）／メモリ4GB（「低」で1080p・60fps）',
+      recommended:
+        '最低と同じ構成で「高」設定・1080p・60fps。DirectX 12にはWindows 10（1809以降）とVRAM 4GB以上が必須',
+      storage: '8GB',
+    },
+    sources: [
+      { label: 'Steamストア', url: steam('3470960') },
+      {
+        label: '公式のお知らせ（Steamニュース）',
+        url: 'https://store.steampowered.com/news/app/3470960',
+      },
+    ],
+  },
+  {
+    slug: 'phantom-blade-zero',
+    title: 'Phantom Blade Zero（ファントムブレード ゼロ／影の刃零）',
+    shortTitle: 'Phantom Blade Zero',
+    lead: '最低環境からSSD必須。起動しない・重い時に、アップスケーリングとレイトレーシングの設定から確認する手順を公式情報から整理。',
+    accent: '#5a1d1d',
+    demand: '2026年10月28日発売（Steamストアの表記。公式発表は10月29日）',
+    issueScale: '高い',
+    updated: '2026-10-03',
+    tags: ['起動しない', '重い', 'SSD', 'アップスケーリング', 'Denuvo'],
+    focused: true,
+    savePath: '',
+    configPath: '',
+    fps: '',
+    ultrawide: '',
+    hdr: '',
+    controller:
+      'フルコントローラーサポート・ゲームパッド推奨。DUALSHOCK・DualSense・Steam Input API対応（Steamストアの表記）。',
+    launchFixes: [
+      'SSDにインストール（最低環境から必須）',
+      'アップスケーリングをONにし、レイトレーシングを切る',
+      'GPUドライバーを更新し、ゲームファイルを確認',
+    ],
+    mod: '',
+    japanese:
+      '日本語のインターフェース・字幕に対応。音声は日本語非対応（Steamストアの表記）。',
+    specs: {
+      minimum:
+        'Windows 10/11（64bit）／Core i7-8700K・Ryzen 5 3600／GTX 1660（6GB）・RX 5500 XT（8GB）／メモリ16GB（1080p・30fps、アップスケーリング使用）',
+      recommended:
+        'Windows 10/11（64bit）／Core i5-10600K・Ryzen 5 5600X／RTX 3060 Ti（8GB）・RX 6700 XT（12GB）／メモリ16GB（1440p・60fps、アップスケーリング使用）',
+      storage: 'SSD必須（容量はSteamストアに記載なし）',
+    },
+    sources: [
+      { label: 'Steamストア', url: steam('4115450') },
+      {
+        label: '公式のお知らせ（Steamニュース）',
+        url: 'https://store.steampowered.com/news/app/4115450',
+      },
+    ],
+  },
+  {
+    slug: 'dragon-quest-monsters-4',
+    title: 'ドラゴンクエストモンスターズ4 枯れ木の国のビアンカ・フローラ',
+    shortTitle: 'ドラクエモンスターズ4',
+    lead: '体験版のモンスターを製品版に引き継ぐ条件と、特典の受け取り方、Windows 11・VRAM 6GBの動作環境を公式情報から整理。',
+    accent: '#3a6b2f',
+    demand: '2026年12月3日発売・体験版配信中（モンスター最大8体を引き継ぎ可）',
+    issueScale: '高い',
+    updated: '2026-10-03',
+    tags: ['体験版', '引き継ぎ', '特典', 'Windows 11', 'VRAM'],
+    focused: true,
+    savePath: '',
+    configPath: '',
+    fps: '',
+    ultrawide: '',
+    hdr: '',
+    controller:
+      '部分的コントローラーサポート・ゲームパッド推奨。DUALSHOCK・DualSense対応、キーボードだけでも遊べる（Steamストアの表記）。',
+    launchFixes: [
+      'Windows 11か確認（最低環境からWindows 11）',
+      'GPUのVRAMが6GB以上か確認',
+      '体験版で動作を確かめ、モンスターを製品版に引き継ぐ',
+    ],
+    mod: '',
+    japanese:
+      '日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。',
+    specs: {
+      minimum:
+        'Windows 11／Ryzen 3 2300X・Core i3-8100／GTX 1660・RX 470・RX 5500 XT・Arc A380（VRAM 6GB以上）／メモリ8GB',
+      recommended:
+        'Windows 11／Ryzen 5 3500・Core i5-8400／RTX 2060 SUPER・RX 5500 XT・Arc A580（VRAM 8GB以上）／メモリ16GB',
+      storage: '40GB',
+    },
+    sources: [
+      { label: 'Steamストア', url: steam('3681610') },
+      { label: 'Steamストア：体験版', url: steam('4445890') },
+    ],
+  },
+  {
     slug: 'call-of-duty-modern-warfare-4',
     title:
       'Call of Duty: Modern Warfare 4（コール オブ デューティ モダン・ウォーフェア4）',

@@ -8,6 +8,7 @@ import { launchWeekArticles } from '@/lib/launch-week-articles';
 import { fallReleaseArticles } from '@/lib/fall-release-articles';
 import { codMw4Articles } from '@/lib/cod-mw4-articles';
 import { octoberReleaseArticles } from '@/lib/october-release-articles';
+import { upcomingReleaseArticles } from '@/lib/upcoming-release-articles';
 import { classicGameArticles } from '@/lib/classic-game-articles';
 import { errorCodeArticles } from '@/lib/error-code-articles';
 import { aniimoArticles } from '@/lib/aniimo-articles';
@@ -970,6 +971,7 @@ export const gameArticles: GameArticle[] = [
   ...fallReleaseArticles,
   ...codMw4Articles,
   ...octoberReleaseArticles,
+  ...upcomingReleaseArticles,
   ...classicGameArticles,
   ...errorCodeArticles,
 ];

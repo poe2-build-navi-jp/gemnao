@@ -22,10 +22,22 @@ export const launches: Launch[] = [
     earlyAccess: '2026-09-29',
   },
   { gameSlug: 'aion2', release: '2026-10-05', earlyAccess: '2026-09-30' },
-  { gameSlug: 'gears-of-war-e-day', release: '2026-10-07' },
+  {
+    gameSlug: 'gears-of-war-e-day',
+    release: '2026-10-07',
+    earlyAccess: '2026-10-02',
+  },
   { gameSlug: 'dragons-dogma-2', release: '2026-10-09' },
+  { gameSlug: 'castlevania-belmonts-curse', release: '2026-10-15' },
+  { gameSlug: 'tales-of-eternia-remastered', release: '2026-10-16' },
   { gameSlug: 'call-of-duty-modern-warfare-4', release: '2026-10-23' },
   { gameSlug: 'final-fantasy-resonance', release: '2026-10-23' },
+  { gameSlug: 'phantom-blade-zero', release: '2026-10-28' },
+  {
+    gameSlug: 'dragon-quest-monsters-4',
+    release: '2026-12-03',
+    earlyAccess: '2026-12-02',
+  },
 ];
 
 const DAY = 86_400_000;
