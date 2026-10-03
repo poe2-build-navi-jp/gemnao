@@ -227,9 +227,9 @@ export function MyDashboard({ games }: { games: DashboardGame[] }) {
       <ReadingList />
       <RecentTroubles variant="my" />
 
-      {mine.length ? (
-        <section id="my-feed" aria-labelledby="my-feed-title">
-          <h2 id="my-feed-title">マイゲームの最新情報</h2>
+      <section id="my-feed" aria-labelledby="my-feed-title">
+        <h2 id="my-feed-title">マイゲームの最新情報</h2>
+        {mine.length ? (
           <div className="my-game-cards">
             {mine.map((game) => (
               <article className="my-game-card" key={game.slug}>
@@ -283,8 +283,19 @@ export function MyDashboard({ games }: { games: DashboardGame[] }) {
               </article>
             ))}
           </div>
-        </section>
-      ) : null}
+        ) : (
+          <p>
+            {gamesReady ? (
+              <>
+                <a href="#my-games">遊ぶゲームを登録</a>
+                すると、公式のお知らせと解決記事がここにまとまります。
+              </>
+            ) : (
+              'マイゲームを確認しています…'
+            )}
+          </p>
+        )}
+      </section>
       <section id="my-games" aria-labelledby="my-games-title">
         <h2 id="my-games-title">
           <Gamepad2 size={21} /> マイゲーム

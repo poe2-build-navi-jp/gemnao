@@ -154,3 +154,11 @@ for (const origin of [
 }
 assert.equal(calls.length, 3);
 console.log('PASS: preview, local and lookalike origins never emit analytics');
+
+assert.match(dashboard, /id="my-feed"/);
+assert.ok(
+  dashboard.indexOf('id="my-feed"') < dashboard.indexOf('id="my-games"'),
+);
+console.log(
+  'PASS: official-update hash target exists before hydration and precedes setup',
+);

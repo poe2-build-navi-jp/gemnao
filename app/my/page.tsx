@@ -65,7 +65,8 @@ export default function MyPage() {
         </p>
         <nav className="my-page-links" aria-label="マイページの内容">
           <a href="#my-reading-list">あとで読む</a>
-          <a href="#my-games">マイゲーム・最新情報</a>
+          <a href="#my-feed">ゲームの最新情報</a>
+          <a href="#my-games">ゲームの登録</a>
           <a href="#my-solutions">診断結果・解決ノート</a>
           <a href="#my-pc">PCの登録</a>
         </nav>
