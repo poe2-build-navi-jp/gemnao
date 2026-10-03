@@ -69,9 +69,12 @@ const md = (iso: string) => {
 export function WikiHome({
   view,
   launches = [],
+  weekly,
 }: {
   view?: 'games' | 'articles';
   launches?: LaunchItem[];
+  /** Latest weekly roundup, passed from the server to keep it out of the bundle. */
+  weekly?: { slug: string; period: string };
 }) {
   const [query, setQuery] = useState('');
   const searchInput = useRef<HTMLInputElement>(null);
@@ -311,6 +314,13 @@ export function WikiHome({
             </div>
             <a href="/status">公式の障害・メンテ情報</a>
           </div>
+          {weekly ? (
+            <a className="weekly-banner" href={`/weekly/${weekly.slug}`}>
+              <span>今週の不具合まとめ</span>
+              {weekly.period}の公式パッチ・障害・エラー情報
+              <ChevronRight size={16} />
+            </a>
+          ) : null}
           <div className="launch-watch-grid">
             {launches.map((launch) => (
               <div className="launch-watch-card" key={launch.slug}>

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { WikiHome, type LaunchItem } from '@/components/wiki-home';
+import { latestWeeklyReport } from '@/lib/weekly-reports';
 import { articlesForGame } from '@/lib/game-articles';
 import { gameBySlug } from '@/lib/games';
 import { activeLaunches } from '@/lib/launch-calendar';
@@ -62,6 +63,10 @@ export default async function Home({
     <WikiHome
       view={view === 'games' || view === 'articles' ? view : undefined}
       launches={launchItems(new Date().getTime())}
+      weekly={{
+        slug: latestWeeklyReport.slug,
+        period: latestWeeklyReport.period,
+      }}
     />
   );
 }
