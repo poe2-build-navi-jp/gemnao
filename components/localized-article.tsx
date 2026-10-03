@@ -45,6 +45,11 @@ export function LocalizedArticle({
     zh: '编辑：Gemnao 编辑团队',
     es: 'Edición: equipo editorial de Gemnao',
   }[locale];
+  const nextGuideLabel = {
+    en: 'Different symptom or still not fixed? Find the next check →',
+    zh: '症状不同或仍未解决？查看下一步排查 →',
+    es: '¿Otro síntoma o sigue sin resolverse? Consulta qué revisar después →',
+  }[locale];
   const riskLabel = { en: 'Risk', zh: '风险', es: 'Riesgo' }[locale];
   const risks = {
     en: { low: 'low', medium: 'medium', high: 'high' },
@@ -159,6 +164,11 @@ export function LocalizedArticle({
               <CheckCircle2 size={23} /> {t.summary}
             </h2>
             <p>{article.summary}</p>
+            {article.related?.length ? (
+              <a className="article-next-jump" href="#related-guides">
+                {nextGuideLabel}
+              </a>
+            ) : null}
           </section>
           <section className="quick-facts" aria-labelledby="quick-facts-title">
             <h2 id="quick-facts-title">
@@ -266,8 +276,8 @@ export function LocalizedArticle({
               ))}
             </div>
           </section>
-          {article.related ? (
-            <section className="related-section">
+          {article.related?.length ? (
+            <section className="related-section" id="related-guides">
               <h2>
                 {
                   {
@@ -281,6 +291,7 @@ export function LocalizedArticle({
                 {article.related.map((link) => (
                   <a
                     href={link.href}
+                    data-related="true"
                     hrefLang={link.href.match(/^\/(en|zh|es)\//)?.[1] || 'ja'}
                     key={link.href}
                   >

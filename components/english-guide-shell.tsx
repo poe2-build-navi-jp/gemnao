@@ -120,6 +120,11 @@ export function EnglishGuideShell({
               <CheckCircle2 size={23} /> The short answer
             </h2>
             <p>{guide.summary}</p>
+            {guide.related.length ? (
+              <a className="article-next-jump" href="#related-guides">
+                Need a different check? Find a related guide or tool →
+              </a>
+            ) : null}
           </section>
           {children}
           <section className="faq-section" id="faq">
@@ -133,12 +138,13 @@ export function EnglishGuideShell({
               ))}
             </div>
           </section>
-          <section className="related-section">
+          <section className="related-section" id="related-guides">
             <h2>Related guides and tools</h2>
             <div>
               {guide.related.map((link) => (
                 <a
                   href={link.href}
+                  data-related="true"
                   hrefLang={link.href.startsWith('/en/') ? 'en' : 'ja'}
                   key={link.href}
                 >

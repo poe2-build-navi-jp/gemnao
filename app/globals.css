@@ -4719,8 +4719,24 @@ div.status-list {
   font-weight: 700;
   color: var(--blue);
 }
+.summary-step-link,
 .article-next-jump {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  /* Existing dark link color: 5.32:1 on the pale answer background. */
+  color: #126e8c;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.summary-step-link:focus-visible,
+.article-next-jump:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+.article-next-jump {
   margin-top: 8px;
   padding: 8px 0;
 }
