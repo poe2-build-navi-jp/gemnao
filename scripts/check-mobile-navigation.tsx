@@ -21,6 +21,7 @@ function find(
 }
 const runtime = globalThis as unknown as {
   __mobileOpen: boolean;
+  __mobileTrigger: { current: { focus: () => void } };
   __mobileEffects: (() => void | (() => void))[];
   window: {
     addEventListener: (
@@ -42,6 +43,14 @@ runtime.window = {
   removeEventListener: (name, fn) => {
     assert.equal(name, 'keydown');
     listeners.delete(fn);
+  },
+};
+let focusReturns = 0;
+runtime.__mobileTrigger = {
+  current: {
+    focus: () => {
+      focusReturns++;
+    },
   },
 };
 let cleanups: (() => void)[] = [];
@@ -74,7 +83,13 @@ for (const locale of ['ja', 'en', 'zh', 'es'] as const) {
   assert.ok(find(tree, (node) => node.props?.id === 'mobile-navigation-panel'));
   listeners.forEach((fn) => fn({ key: 'a' }));
   assert.equal(runtime.__mobileOpen, true);
+  const previousFocusReturns = focusReturns;
   listeners.forEach((fn) => fn({ key: 'Escape' }));
+  assert.equal(
+    focusReturns,
+    previousFocusReturns + 1,
+    'Escape restores menu trigger focus',
+  );
   tree = render();
   assert.equal(toggle(tree).props!['aria-expanded'], false);
   assert.equal(listeners.size, 0);
@@ -96,5 +111,5 @@ for (const locale of ['ja', 'en', 'zh', 'es'] as const) {
   assert.equal(listeners.size, 0);
 }
 console.log(
-  'PASS: four-language mobile menu handler tests: repeated toggle, backdrop dismissal, Escape dismissal, listener cleanup, aria-expanded/panel state. Not browser/focus/layout validation.',
+  'PASS: four-language mobile menu handler tests: repeated toggle, backdrop dismissal, Escape dismissal/trigger-focus restoration, listener cleanup, aria-expanded/panel state. Not browser/focus/layout validation.',
 );

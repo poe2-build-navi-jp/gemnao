@@ -3,7 +3,7 @@
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 
 import { Menu, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ui } from '@/lib/localized/ui';
 
 type MobileNavigationProps = {
@@ -22,11 +22,15 @@ export function MobileNavigation({
   aboutLabel,
 }: MobileNavigationProps) {
   const [open, setOpen] = useState(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!open) return;
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setOpen(false);
+      if (event.key === 'Escape') {
+        setOpen(false);
+        triggerRef.current?.focus();
+      }
     };
     window.addEventListener('keydown', closeOnEscape);
     return () => window.removeEventListener('keydown', closeOnEscape);
@@ -35,6 +39,7 @@ export function MobileNavigation({
   return (
     <div className="mobile-navigation">
       <button
+        ref={triggerRef}
         className="mobile-menu"
         type="button"
         aria-label={
