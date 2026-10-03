@@ -520,7 +520,7 @@ export default async function Page({
               {item.steps.map((s, index) => (
                 <li key={s.title}>
                   <a className="summary-step-link" href={`#step-${index + 1}`}>
-                    {s.title}
+                    STEP {index + 1}｜{s.title}
                   </a>
                 </li>
               ))}

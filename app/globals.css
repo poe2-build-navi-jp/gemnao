@@ -4726,6 +4726,14 @@ div.status-list {
   min-height: 44px;
   max-width: 100%;
   overflow-wrap: anywhere;
+  color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.summary-step-link:focus-visible,
+.article-next-jump:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
 }
 .article-next-jump {
   margin-top: 8px;
