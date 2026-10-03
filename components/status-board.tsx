@@ -26,24 +26,106 @@ const time = new Intl.DateTimeFormat('ja-JP', {
   minute: '2-digit',
 });
 const fmt = (iso: string) => time.format(new Date(iso));
+const refreshMs = 10 * 60 * 1000;
+const maintenanceLabels = {
+  upcoming: '予定',
+  'scheduled-window': '予定時間内',
+  ongoing: '実施中',
+  unconfirmed: '終了未確認',
+};
+const discordMaintenanceLabels: Record<string, string> = {
+  scheduled: 'メンテ予定',
+  in_progress: 'メンテ実施中',
+  verifying: '復旧確認中',
+};
+const incidentLabels: Record<string, string> = {
+  investigating: '調査中',
+  identified: '原因特定',
+  monitoring: '復旧を監視中',
+};
 
 function useStatus() {
   const [data, setData] = useState<StatusData | null>(null);
   const [failed, setFailed] = useState(false);
   useEffect(() => {
-    const controller = new AbortController();
-    fetch('/api/status', { signal: controller.signal })
-      .then((response) =>
-        response.ok
-          ? (response.json() as Promise<StatusData>)
-          : Promise.reject(new Error(String(response.status))),
+    let controller: AbortController | null = null;
+    let lastAttempt = 0;
+    let disposed = false;
+    const refresh = async () => {
+      if (
+        disposed ||
+        document.visibilityState === 'hidden' ||
+        (controller && !controller.signal.aborted)
       )
-      .then((value) => setData(value))
-      .catch((error: unknown) => {
-        if (!(error instanceof DOMException && error.name === 'AbortError'))
+        return;
+      const requestController = new AbortController();
+      controller = requestController;
+      lastAttempt = Date.now();
+      try {
+        const response = await fetch('/api/status?v=2', {
+          signal: requestController.signal,
+        });
+        if (!response.ok) throw new Error(String(response.status));
+        const value = (await response.json()) as StatusData;
+        if (!value.discordSource || !Array.isArray(value.steamSources))
+          throw new Error('Invalid status response');
+        if (!disposed && !requestController.signal.aborted) {
+          setData((previous) => ({
+            ...value,
+            discordSource: {
+              ...value.discordSource,
+              lastSuccessfulAt:
+                value.discordSource.lastSuccessfulAt ??
+                previous?.discordSource.lastSuccessfulAt ??
+                null,
+            },
+            steamSources: value.steamSources.map((source) => ({
+              ...source,
+              lastSuccessfulAt:
+                source.lastSuccessfulAt ??
+                previous?.steamSources.find(
+                  (old) => old.gameSlug === source.gameSlug,
+                )?.lastSuccessfulAt ??
+                null,
+            })),
+          }));
+          setFailed(false);
+        }
+      } catch (error: unknown) {
+        if (
+          !disposed &&
+          !(error instanceof DOMException && error.name === 'AbortError')
+        )
           setFailed(true);
-      });
-    return () => controller.abort();
+      } finally {
+        if (controller === requestController) controller = null;
+      }
+    };
+    const onVisibility = () => {
+      if (document.visibilityState === 'hidden') {
+        if (controller) {
+          controller.abort();
+          lastAttempt = 0;
+        }
+        return;
+      }
+      if (
+        document.visibilityState === 'visible' &&
+        Date.now() - lastAttempt >= refreshMs
+      )
+        void refresh();
+    };
+    void refresh();
+    const interval = window.setInterval(() => {
+      void refresh();
+    }, refreshMs);
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => {
+      disposed = true;
+      controller?.abort();
+      window.clearInterval(interval);
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
   }, []);
   return { data, failed };
 }
@@ -51,13 +133,17 @@ function useStatus() {
 /** One-glance version for the top page. */
 export function StatusTicker() {
   const { data, failed } = useStatus();
-  if (failed) return null;
-  const discordOk = !data?.discord || data.discord.indicator === 'none';
-  const issues =
-    (data?.maintenance.length ?? 0) +
-    (data?.notices.length ?? 0) +
-    (data?.spikes.length ?? 0) +
-    (discordOk ? 0 : 1);
+  const unavailable =
+    failed ||
+    (data &&
+      (!data.discord || data.steamSources.some((source) => !source.available)));
+  const discordIssues = data?.discord
+    ? Math.max(
+        data.discord.incidents.length,
+        data.discord.indicator !== 'none' ? 1 : 0,
+      ) + data.discord.maintenances.length
+    : 0;
+  const issues = (data?.maintenance.length ?? 0) + discordIssues;
   return (
     <section className="status-ticker" aria-labelledby="status-ticker-title">
       <div>
@@ -67,24 +153,31 @@ export function StatusTicker() {
         {data ? (
           <p>
             {issues
-              ? `公式の告知・メンテナンスなど ${issues}件`
-              : '公式に告知された障害・メンテナンスはありません'}
+              ? `公式の障害・メンテナンス情報 ${issues}件（予定・終了未確認を含む）`
+              : unavailable
+                ? '取得できない公式情報があります。現在の状況は確認できません'
+                : '現在表示できる障害・メンテナンス情報はありません'}
             {data.discord
               ? `｜Discord：${discordLabel[data.discord.indicator] ?? data.discord.description}`
               : ''}
           </p>
         ) : (
-          <p>公式の障害情報を確認しています…</p>
+          <p>
+            {failed
+              ? '公式の情報を取得できませんでした。公式ページを確認してください'
+              : '公式の障害情報を確認しています…'}
+          </p>
         )}
+        {data && unavailable && issues > 0 ? (
+          <p>
+            一部の最新情報を取得できません。詳細で確認日時をご確認ください。
+          </p>
+        ) : null}
         {data?.maintenance[0] ? (
           <p className="status-ticker-item">
-            <b>
-              {data.maintenance[0].state === 'ongoing'
-                ? 'メンテ中'
-                : 'メンテ予定'}
-            </b>{' '}
+            <b>{maintenanceLabels[data.maintenance[0].state]}</b>{' '}
             {data.maintenance[0].game}：{fmt(data.maintenance[0].start)}〜
-            {fmt(data.maintenance[0].end)}
+            {fmt(data.maintenance[0].end)}（日本時間）
           </p>
         ) : null}
       </div>
@@ -95,19 +188,29 @@ export function StatusTicker() {
 
 export function StatusBoard() {
   const { data, failed } = useStatus();
-  if (failed)
+  if (failed && !data)
     return (
       <p className="status-empty">
         情報を読み込めませんでした。時間をおいて再読み込みするか、下の公式ページを確認してください。
       </p>
     );
   if (!data) return <p className="status-empty">公式の情報を確認しています…</p>;
+  const failedSources = data.steamSources.filter((source) => !source.available);
   return (
     <div className="status-board">
       <p className="status-updated">
-        最終確認：{fmt(data.checkedAt)}（約10分ごとに更新）
+        最終取得：{fmt(data.checkedAt)}
+        （日本時間／ページを開いている間は約10分ごとに更新）
       </p>
 
+      {failed ? (
+        <output className="status-empty">
+          最新情報への更新に失敗しました。前回取得した情報を表示しています。復旧・継続状況は公式ページで確認してください。
+        </output>
+      ) : null}
+      <p className="status-note">
+        公式が復旧・完了を発表した情報は、次の取得時または確認後の更新で一覧から外します。予定の終了時刻を過ぎただけでは復旧扱いにしません。ゲームの公式告知は編集部が確認して登録し、DiscordとSteamのお知らせは自動取得しています。
+      </p>
       <section aria-labelledby="status-maintenance">
         <h2 id="status-maintenance">メンテナンス</h2>
         {data.maintenance.length ? (
@@ -115,7 +218,7 @@ export function StatusBoard() {
             {data.maintenance.map((item) => (
               <li key={item.gameSlug + item.start}>
                 <span className={`status-badge status-${item.state}`}>
-                  {item.state === 'ongoing' ? '実施中' : '予定'}
+                  {maintenanceLabels[item.state]}
                 </span>
                 <div>
                   <b>
@@ -125,7 +228,13 @@ export function StatusBoard() {
                   <p>
                     {fmt(item.start)}〜{fmt(item.end)}（日本時間）
                     {item.note ? ` ${item.note}` : ''}
+                    {item.state === 'unconfirmed'
+                      ? ' 予定時刻は過ぎていますが、公式の終了・復旧発表は未確認です。'
+                      : item.state === 'scheduled-window'
+                        ? ' 予定の時間帯です。実施・延長状況は公式告知をご確認ください。'
+                        : ''}
                   </p>
+                  <p>告知確認：{fmt(item.verifiedAt)}（日本時間）</p>
                   <a href={item.source.url} target="_blank" rel="noreferrer">
                     {item.source.label} <ExternalLink size={13} />
                   </a>
@@ -135,7 +244,7 @@ export function StatusBoard() {
           </ul>
         ) : (
           <p className="status-empty">
-            予定されているメンテナンスの登録はありません。
+            確認済みのメンテナンス情報の登録はありません。
           </p>
         )}
       </section>
@@ -155,21 +264,27 @@ export function StatusBoard() {
                   data.discord.description}
               </b>
               （Discord公式の稼働状況）
+              <br />
+              取得成功：{fmt(data.discord.checkedAt)}（日本時間）
             </p>
             {data.discord.incidents.map((incident) => (
               <p key={incident.url}>
                 <a href={incident.url} target="_blank" rel="noreferrer">
-                  {incident.name}（{incident.status}・{fmt(incident.updatedAt)}
-                  更新）
+                  {incident.name}（
+                  {incidentLabels[incident.status] ?? incident.status}・
+                  {fmt(incident.updatedAt)}
+                  更新／日本時間）
                   <ExternalLink size={13} />
                 </a>
               </p>
             ))}
             {data.discord.maintenances.map((item) => (
               <p key={item.url}>
-                メンテ予定：
+                {discordMaintenanceLabels[item.status] ??
+                  'メンテナンス状況確認中'}
+                ：
                 <a href={item.url} target="_blank" rel="noreferrer">
-                  {item.name}（{fmt(item.start)}〜{fmt(item.end)}）
+                  {item.name}（{fmt(item.start)}〜{fmt(item.end)}／日本時間）
                   <ExternalLink size={13} />
                 </a>
               </p>
@@ -177,7 +292,11 @@ export function StatusBoard() {
           </div>
         ) : (
           <p className="status-empty">
-            Discordの稼働状況を取得できませんでした。
+            Discordの稼働状況を取得できませんでした（取得を試みた日時：
+            {fmt(data.discordSource.checkedAt)}／日本時間）。
+            {data.discordSource.lastSuccessfulAt
+              ? ` 前回の取得成功：${fmt(data.discordSource.lastSuccessfulAt)}（日本時間）。`
+              : ' 取得成功した情報がないため、現在の状況は確認できません。'}
             <a
               href="https://discordstatus.com/"
               target="_blank"
@@ -193,8 +312,34 @@ export function StatusBoard() {
       <section aria-labelledby="status-notices">
         <h2 id="status-notices">ゲームの公式のお知らせ（直近3日）</h2>
         <p className="status-note">
-          各ゲームのSteam公式アナウンスから、メンテナンス・障害・修正・アップデートに関するものを表示しています。原文のタイトルのまま載せています。
+          各ゲームの運営元がSteamに公開した公式アナウンスのうち、直近3日のメンテナンス・不具合・修正・アップデートを掲載しています（各ゲーム最新5件から最大12件）。修正済みの内容を含む参考情報で、現在のサーバー障害を示す一覧ではありません。復旧・完了を表す告知は除外しています。
         </p>
+        <details className="status-note">
+          <summary>
+            取得元と確認日時（{data.steamSources.length - failedSources.length}/
+            {data.steamSources.length}ゲーム取得成功）
+          </summary>
+          <ul>
+            {data.steamSources.map((source) => (
+              <li key={source.gameSlug}>
+                <a href={source.url} target="_blank" rel="noreferrer">
+                  {source.game}
+                </a>
+                ：{source.available ? '取得成功' : '取得できませんでした'}{' '}
+                {fmt(source.checkedAt)}（日本時間）
+                {!source.available && source.lastSuccessfulAt
+                  ? `／前回の取得成功：${fmt(source.lastSuccessfulAt)}（日本時間）`
+                  : ''}
+              </li>
+            ))}
+          </ul>
+        </details>
+        {failedSources.length ? (
+          <p className="status-empty">
+            {failedSources.map((source) => source.game).join('、')}{' '}
+            のお知らせを取得できませんでした。お知らせの有無や復旧状況は判断できません。
+          </p>
+        ) : null}
         {data.notices.length ? (
           <ul className="status-list">
             {data.notices.map((notice) => (
@@ -215,7 +360,9 @@ export function StatusBoard() {
           </ul>
         ) : (
           <p className="status-empty">
-            直近3日の該当するお知らせはありません。
+            {failedSources.length
+              ? '取得できた公式情報には、直近3日の該当するお知らせはありません。'
+              : '取得した範囲に直近3日の該当するお知らせはありません。'}
           </p>
         )}
       </section>

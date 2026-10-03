@@ -31,7 +31,7 @@ export const steamAppIds: Record<string, string> = {
   'stardew-valley': '413150',
 };
 
-export type Maintenance = {
+type MaintenanceDetails = {
   gameSlug: string;
   title: string;
   /** ISO 8601 with offset. */
@@ -39,20 +39,37 @@ export type Maintenance = {
   end: string;
   note?: string;
   source: { label: string; url: string };
+  /** When an editor last verified this official notice; not the API request time. */
+  verifiedAt: string;
 };
 
-// Scheduled maintenance from official notices. Remove entries a few days
-// after they end; never add a window that is not in an official notice.
+export type Maintenance = MaintenanceDetails &
+  (
+    | { status: 'scheduled' | 'in_progress' }
+    | {
+        status: 'completed' | 'cancelled';
+        resolution: {
+          confirmedAt: string;
+          source: { label: string; url: string };
+        };
+      }
+  );
+
+// Only verified official notices. Mark completed/cancelled with the confirming
+// source to remove an entry from the public board; history remains recoverable in Git.
+// Never infer completion from the planned end time. A passed window stays unconfirmed.
 export const maintenanceSchedule: Maintenance[] = [
   {
     gameSlug: 'aion2',
-    title: 'アーリーアクセス終了後のメンテナンス（正式サービス開始前）',
+    status: 'scheduled',
+    verifiedAt: '2026-10-03T08:38:00Z',
+    title: 'グローバル版（Steam／PURPLE）の正式サービス開始前メンテナンス',
     start: '2026-10-05T14:00:00+09:00',
     end: '2026-10-05T22:00:00+09:00',
-    note: '時間は変更される場合があると公式が案内しています。',
+    note: '日本を含むグローバル版の予定です。時間は変更される場合があると公式が案内しています。',
     source: {
       label: 'Steamニュース（公式）：Advanced Access Servers',
-      url: 'https://store.steampowered.com/news/app/3393110',
+      url: 'https://store.steampowered.com/news/app/3393110/view/689769594581155930',
     },
   },
 ];
