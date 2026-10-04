@@ -1,3 +1,4 @@
+import { ArticleToc } from '@/components/article-toc';
 import { SaveArticle } from '@/components/save-article';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { ArrowRight, CheckCircle2, ExternalLink } from 'lucide-react';
@@ -77,8 +78,7 @@ export function GearBuyerGuide({ guide }: { guide: GearGuide }) {
         </div>
       </header>
       <div className="article-layout issue-layout">
-        <aside className="toc issue-toc">
-          <strong>このページの内容</strong>
+        <ArticleToc title={'このページの内容'} className="issue-toc">
           <a href="#answer">先に結論</a>
           <a href="#before-buying">買わずに済むか確認</a>
           <a href="#compare">選び方を比較</a>
@@ -92,7 +92,7 @@ export function GearBuyerGuide({ guide }: { guide: GearGuide }) {
           )}
           <a href="#setup">{guide.setupTitle ?? '接続後の確認'}</a>
           <a href="#references">公式出典</a>
-        </aside>
+        </ArticleToc>
         <article className="guide-article pc-guide">
           <section className="answer-summary" id="answer">
             <p className="evidence-label">買う前に切り分ける</p>

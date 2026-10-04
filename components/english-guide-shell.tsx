@@ -1,3 +1,4 @@
+import { ArticleToc } from '@/components/article-toc';
 import { ArticleDiagnosisEntry } from '@/components/article-diagnosis-entry';
 import { ShareButtons } from '@/components/share-buttons';
 import { SaveArticle } from '@/components/save-article';
@@ -104,8 +105,7 @@ export function EnglishGuideShell({
         </div>
       </header>
       <div className="article-layout issue-layout">
-        <aside className="toc issue-toc">
-          <strong>On this page</strong>
+        <ArticleToc title={'On this page'} className="issue-toc">
           <a href="#answer">The short answer</a>
           {contents.map((section) => (
             <a href={`#${section.id}`} key={section.id}>
@@ -114,7 +114,7 @@ export function EnglishGuideShell({
           ))}
           <a href="#faq">FAQ</a>
           <a href="#references">Sources</a>
-        </aside>
+        </ArticleToc>
         <article className="guide-article pc-guide">
           <section className="answer-summary" id="answer">
             <h2>

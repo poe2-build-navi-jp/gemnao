@@ -1,3 +1,4 @@
+import { ArticleToc } from '@/components/article-toc';
 import { ArticleDiagnosisEntry } from '@/components/article-diagnosis-entry';
 import { EditorialByline } from '@/components/editorial-byline';
 import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
@@ -168,8 +169,7 @@ export function TroubleshootingArticle({
         </div>
       </header>
       <div className="article-layout issue-layout">
-        <aside className="toc issue-toc">
-          <strong>症状から移動</strong>
+        <ArticleToc title={'症状から移動'} className="issue-toc">
           {article.symptoms.map((symptom) => (
             <a href={`#${symptom.target}`} key={symptom.label}>
               {symptom.label}
@@ -177,7 +177,7 @@ export function TroubleshootingArticle({
           ))}
           {faqs.length ? <a href="#faq">よくある質問</a> : null}
           <a href="#references">参考情報</a>
-        </aside>
+        </ArticleToc>
         <article className="guide-article">
           <section className="answer-summary" aria-labelledby="answer-title">
             <p className="evidence-label">まずこれを試す</p>
@@ -261,17 +261,6 @@ export function TroubleshootingArticle({
               </table>
             </section>
           ) : null}
-          <nav className="symptom-nav" aria-label="症状別ナビゲーション">
-            <strong>当てはまる症状</strong>
-            <div>
-              {article.symptoms.map((symptom) => (
-                <a href={`#${symptom.target}`} key={symptom.label}>
-                  {symptom.label}
-                  <ArrowRight size={14} />
-                </a>
-              ))}
-            </div>
-          </nav>
           {article.description ? (
             <p className="article-introduction">{article.description}</p>
           ) : null}

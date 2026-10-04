@@ -1,3 +1,4 @@
+import { ArticleToc } from '@/components/article-toc';
 import { hasTranslation, languageAlternates } from '@/lib/localized/index';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
@@ -164,8 +165,7 @@ export default async function GearArticlePage({
         </div>
       </header>
       <div className="article-layout issue-layout">
-        <aside className="toc issue-toc">
-          <strong>このページの内容</strong>
+        <ArticleToc title={'このページの内容'} className="issue-toc">
           <a href="#answer">先に結論</a>
           <a href="#fit">向いている人・向いていない人</a>
           <a href="#specs">主な仕様</a>
@@ -173,7 +173,7 @@ export default async function GearArticlePage({
           <a href="#before-buying">買う前の確認</a>
           {article.compare && <a href="#compare">小さいモデルとの違い</a>}
           <a href="#references">公式出典</a>
-        </aside>
+        </ArticleToc>
         <article className="guide-article pc-guide">
           <section className="answer-summary" id="answer">
             <p className="evidence-label">最初に確かめる</p>

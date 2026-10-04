@@ -90,10 +90,10 @@ export function SupportWorkspace({
     }
   }
   return (
-    <section className="support-workspace" aria-label={t.heading} lang={locale}>
+    <section className="support-workspace" id="issue-notebook" aria-label={t.heading} lang={locale}>
       <h3>{t.heading}</h3>
       <p>{t.privacy}</p>
-      <label>
+      {items.length > 0 && <label>
         {t.choose}
         <select
           aria-label={t.choose}
@@ -108,8 +108,8 @@ export function SupportWorkspace({
             </option>
           ))}
         </select>
-      </label>
-      <p>{t.active}</p>
+      </label>}
+      {items.length > 0 && <p>{t.active}</p>}
       <div className="my-pc-actions">
         <button
           type="button"
@@ -504,7 +504,10 @@ export function SupportUpdates({ locale = 'ja' }: { locale?: SupportLocale }) {
     <section className="support-workspace" aria-label={t.updates}>
       <h2>{t.updates}</h2>
       <p>{t.updateHint}</p>
-      {ready && !error && !matches.length && <p>{t.emptyUpdates}</p>}
+      {ready && !error && !matches.length && (
+        !items.length ? <p>{t.noRecords} <a href="#issue-notebook">{t.create} →</a></p>
+          : <p>{items.every(item => item.status === 'resolved') ? t.noUnresolved : t.emptyUpdates}</p>
+      )}
       {(error || failed) && <p role="alert">{t.error}</p>}
       {matches.map(({ item, update }) => (
         <article key={`${item.id}:${update.id}`}>

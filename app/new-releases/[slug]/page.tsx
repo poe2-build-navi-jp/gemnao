@@ -1,3 +1,4 @@
+import { ArticleToc } from '@/components/article-toc';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { notFound } from 'next/navigation';
@@ -141,14 +142,13 @@ export default async function Page({
         </div>
       </header>
       <div className="article-layout issue-layout">
-        <aside className="toc issue-toc">
-          <strong>このページの内容</strong>
+        <ArticleToc title={'このページの内容'} className="issue-toc">
           <a href="#answer">結論</a>
           <a href="#requirements">動作環境の一覧</a>
           <a href="#fit">GTX 1660・Windows 10の目安</a>
           <a href="#faq">よくある質問</a>
           <a href="#references">参考情報</a>
-        </aside>
+        </ArticleToc>
         <article className="guide-article">
           <section
             className="answer-summary"

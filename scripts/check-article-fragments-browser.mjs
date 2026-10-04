@@ -43,6 +43,7 @@ try {
       for (const selector of [`aside a[href="${target}"]`, `.diagnosis-table a[href="${target}"]`]) {
         await page.goto('about:blank');
         await page.goto(base + path, { waitUntil: 'networkidle' });
+        if (width <= 760 && selector.startsWith('aside')) await page.locator('.toc-toggle').click();
         const link = page.locator(selector);
         await link.click();
         await arrived(page);

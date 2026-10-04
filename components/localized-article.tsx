@@ -1,3 +1,4 @@
+import { ArticleToc } from '@/components/article-toc';
 import { ArticleDiagnosisEntry } from '@/components/article-diagnosis-entry';
 import { SupportWorkspace } from '@/components/support-workspace';
 import { ShareButtons } from '@/components/share-buttons';
@@ -149,8 +150,7 @@ export function LocalizedArticle({
         </div>
       </header>
       <div className="article-layout issue-layout">
-        <aside className="toc issue-toc">
-          <strong>{t.contents}</strong>
+        <ArticleToc title={t.contents} className="issue-toc">
           <a href="#answer">{t.summary}</a>
           <a href="#diagnosis">{t.diagnosis}</a>
           {article.steps.map((step, index) => (
@@ -160,7 +160,7 @@ export function LocalizedArticle({
           ))}
           <a href="#faq">{t.faq}</a>
           <a href="#references">{t.references}</a>
-        </aside>
+        </ArticleToc>
         <article className="guide-article">
           <section className="answer-summary" id="answer">
             <h2>

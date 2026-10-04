@@ -1,3 +1,4 @@
+import { ArticleToc } from '@/components/article-toc';
 import { SupportWorkspace } from '@/components/support-workspace';
 import { EditorialByline } from '@/components/editorial-byline';
 import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
@@ -165,8 +166,7 @@ export default async function PcArticlePage({
         </div>
       </header>
       <div className="article-layout issue-layout">
-        <aside className="toc issue-toc">
-          <strong>このページの内容</strong>
+        <ArticleToc title={'このページの内容'} className="issue-toc">
           <a href="#answer">先に結論</a>
           {article.shortcutRows && (
             <a href="#shortcut-list">ショートカット早見表</a>
@@ -184,7 +184,7 @@ export default async function PcArticlePage({
           ))}
           <a href="#escalation">直らない場合</a>
           <a href="#references">公式出典</a>
-        </aside>
+        </ArticleToc>
         <article className="guide-article pc-guide">
           <section className="answer-summary" id="answer">
             <p className="evidence-label">最初に確かめる</p>

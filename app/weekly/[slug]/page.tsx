@@ -1,3 +1,4 @@
+import { ArticleToc } from '@/components/article-toc';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { notFound } from 'next/navigation';
@@ -134,8 +135,7 @@ export default async function Page({
         </div>
       </header>
       <div className="article-layout issue-layout">
-        <aside className="toc issue-toc">
-          <strong>このページの内容</strong>
+        <ArticleToc title={'このページの内容'} className="issue-toc">
           <a href="#highlights">今週の要点</a>
           {games.map((game, gameIndex) => (
             <a href={`#game-${gameIndex + 1}`} key={game}>
@@ -143,7 +143,7 @@ export default async function Page({
             </a>
           ))}
           <a href="#upcoming">来週以降の予定</a>
-        </aside>
+        </ArticleToc>
         <article className="guide-article">
           <section
             className="answer-summary"

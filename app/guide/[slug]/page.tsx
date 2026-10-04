@@ -1,3 +1,4 @@
+import { ArticleToc } from '@/components/article-toc';
 import { ArticleDiagnosisEntry } from '@/components/article-diagnosis-entry';
 import { EditorialByline } from '@/components/editorial-byline';
 import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
@@ -238,8 +239,7 @@ export default async function Page({
         </div>
       </header>
       <div className="article-layout issue-layout">
-        <aside className="toc issue-toc">
-          <strong>このページの内容</strong>
+        <ArticleToc title={'このページの内容'} className="issue-toc">
           <a href="#answer">まず試すこと</a>
           {slug === 'verify-steam-files' ? (
             <>
@@ -508,7 +508,7 @@ export default async function Page({
             </>
           ) : null}
           <a href="#faq">よくある質問</a>
-        </aside>
+        </ArticleToc>
         <article className="guide-article">
           <section className="answer-summary" id="answer">
             <p className="evidence-label">まずこれを試す</p>
