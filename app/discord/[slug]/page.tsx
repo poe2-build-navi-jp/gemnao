@@ -1,4 +1,5 @@
 import { EditorialByline } from '@/components/editorial-byline';
+import { DiscordMicVolumeDiagram } from '@/components/discord-mic-volume-diagram';
 import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
 import { SaveArticle } from '@/components/save-article';
 import type { Metadata } from 'next';
@@ -307,6 +308,7 @@ export default async function DiscordArticlePage({
               </table>
             </section>
           ) : null}
+          {item.slug === 'mic-volume-low' ? <DiscordMicVolumeDiagram /> : null}
           {visual ? <SolutionIllustration visual={visual} /> : null}
           {item.showStatusCheck !== false ? (
             <section className="caution-block" id="status-check">

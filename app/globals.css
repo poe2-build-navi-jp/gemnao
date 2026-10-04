@@ -71,6 +71,28 @@ input {
   width: min(100%, 400px);
   margin: 24px auto;
 }
+.voice-direction-diagram {
+  margin: 24px 0;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #f0f6fc;
+  overflow-wrap: anywhere;
+}
+.voice-direction-diagram figcaption span {
+  display: block;
+  margin-top: 8px;
+  font-size: 14px;
+}
+.voice-direction-path {
+  margin-top: 16px;
+  padding: 16px;
+  background: white;
+  border-left: 3px solid var(--blue);
+}
+.voice-direction-path ul {
+  padding-left: 20px;
+}
 .solution-illustration img {
   display: block;
   width: 100%;
