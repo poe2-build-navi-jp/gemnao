@@ -10,6 +10,8 @@ import {
   Share2,
 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
+import { ACTIVE_CASE_KEY, recordAttempt } from '@/lib/support-record';
+import { announceMyData } from '@/components/use-saved-solutions';
 import { SaveSolution } from '@/components/save-solution';
 import { trackEvent } from '@/lib/analytics';
 import { TroubleshootingProduct } from '@/components/troubleshooting-product';
@@ -75,6 +77,7 @@ export function InteractiveSteps({
   const [showResume, setShowResume] = useState(false);
   const [sending, setSending] = useState('');
   const [message, setMessage] = useState('');
+  const [progressError, setProgressError] = useState('');
   const [alreadyVoted, setAlreadyVoted] = useState(false);
   const [rows, setRows] = useState<Row[]>([]);
   const [methods, setMethods] = useState<Method[]>([]);
@@ -162,12 +165,39 @@ export function InteractiveSteps({
     }
   }
 
-  function saveProgress(next: Progress) {
+  // Snapshot the selected problem when the user acts, before any feedback request.
+  function selectedCase() {
+    try {
+      return localStorage.getItem(ACTIVE_CASE_KEY);
+    } catch {
+      return undefined;
+    }
+  }
+
+  function saveProgress(
+    next: Progress,
+    step: Step,
+    caseId: string | null | undefined,
+  ) {
+    setProgressError('');
     try {
       localStorage.setItem(storageKey, JSON.stringify(next));
+      if (caseId === undefined) throw new Error('Cannot read selected issue');
+      if (caseId) {
+        // Article progress can predate this problem or belong to another one.
+        // Only this explicit action is evidence for the selected problem.
+        recordAttempt(localStorage, caseId, {
+          path: articlePath,
+          stepId: step.id,
+          label: step.title,
+          result: next.solved ? 'resolved' : 'unresolved',
+          at: next.lastViewedAt,
+        });
+        announceMyData();
+      }
     } catch {
-      setMessage(
-        '進行状況を保存できませんでした。このまま手順を確認できます。',
+      setProgressError(
+        '進行状況・問題のノートを保存できませんでした。このまま手順を確認できます。',
       );
     }
   }
@@ -197,6 +227,7 @@ export function InteractiveSteps({
 
   async function solved(step: Step) {
     if (sending || alreadyVoted || hasVote('resolved')) return;
+    const caseId = selectedCase();
     setSending(step.id);
     setMessage('');
     try {
@@ -227,13 +258,17 @@ export function InteractiveSteps({
       setCompletedIds((value) => [...new Set([...value, step.id])]);
       markVote('resolved');
       setAlreadyVoted(true);
-      saveProgress({
-        currentStep,
-        completedIds: [...new Set([...completedIds, step.id])],
-        solved: true,
-        solvedStepId: step.id,
-        lastViewedAt: new Date().toISOString(),
-      });
+      saveProgress(
+        {
+          currentStep,
+          completedIds: [...new Set([...completedIds, step.id])],
+          solved: true,
+          solvedStepId: step.id,
+          lastViewedAt: new Date().toISOString(),
+        },
+        step,
+        caseId,
+      );
     } catch {
       setMessage(
         '回答を保存できませんでした。通信状態を確認して、もう一度お試しください。',
@@ -245,18 +280,23 @@ export function InteractiveSteps({
 
   async function notSolved(step: Step, index: number) {
     if (sending || solvedStepId) return;
+    const caseId = selectedCase();
     const nextCompleted = [...new Set([...completedIds, step.id])];
     setCompletedIds(nextCompleted);
     if (index < steps.length - 1) {
       const next = index + 1;
       setCurrentStep(next);
       setShowResume(false);
-      saveProgress({
-        currentStep: next,
-        completedIds: nextCompleted,
-        solved: false,
-        lastViewedAt: new Date().toISOString(),
-      });
+      saveProgress(
+        {
+          currentStep: next,
+          completedIds: nextCompleted,
+          solved: false,
+          lastViewedAt: new Date().toISOString(),
+        },
+        step,
+        caseId,
+      );
       requestAnimationFrame(() =>
         document.getElementById(steps[next].id)?.scrollIntoView({
           behavior: 'smooth',
@@ -265,6 +305,16 @@ export function InteractiveSteps({
       );
       return;
     }
+    saveProgress(
+      {
+        currentStep: index,
+        completedIds: nextCompleted,
+        solved: false,
+        lastViewedAt: new Date().toISOString(),
+      },
+      step,
+      caseId,
+    );
     if (hasVote('struggling')) return;
     setSending(step.id);
     try {
@@ -283,12 +333,6 @@ export function InteractiveSteps({
       setCompletedIds(nextCompleted);
       markVote('struggling');
       trackEvent('issue_struggling', { game: contextSlug, topic });
-      saveProgress({
-        currentStep: index,
-        completedIds: nextCompleted,
-        solved: false,
-        lastViewedAt: new Date().toISOString(),
-      });
       setMessage(
         '回答を記録しました。下の「まだ直りませんか？」から次の対処法も確認できます。',
       );
@@ -437,32 +481,25 @@ export function InteractiveSteps({
         </div>
       </div>
 
+      {progressError && <p role="alert">{progressError}</p>}
       <div className="procedure-section">
         <h2 id="interactive-steps-title">
           <ListChecks size={26} />
           {heading}
         </h2>
         <SaveSolution
+          steps={steps}
           draft={{
             title: articleTitle,
             gameSlug: articlePath.match(/^\/games\/([a-z0-9-]+)\//)?.[1] || '',
-            status: solvedStep
-              ? 'resolved'
-              : completedIds.length >= steps.length
-                ? 'unresolved'
-                : 'investigating',
-            diagnosis: solvedStep
-              ? `「${solvedStep.title}」で解決したと記録。`
-              : completedIds.length
-                ? '確認した手順では解決せず。現在の症状・結果を追記してください。'
-                : '',
-            settings: solvedStep?.title || '',
+            // Article-wide progress does not identify which problem it belongs to.
+            status: 'investigating',
+            diagnosis: '',
+            settings: '',
             notes: '',
             articlePath,
-            stepId: solvedStep?.id || '',
-            completedSteps: steps
-              .filter((step) => completedIds.includes(step.id))
-              .map((step) => step.title),
+            stepId: '',
+            completedSteps: [],
           }}
         />
         <div className="procedure-list">
