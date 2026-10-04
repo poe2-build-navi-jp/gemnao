@@ -18,6 +18,7 @@ import {
   announceMyData,
   useSavedSolutions,
 } from '@/components/use-saved-solutions';
+import { SupportTools, SupportUpdates } from '@/components/support-workspace';
 import { SolutionForm } from '@/components/solution-form';
 
 const empty: SolutionDraft = {
@@ -225,6 +226,7 @@ export function SolutionNotebook() {
             : 'まだ記録はありません。記事から保存するか、「新しい記録」で追加してください。'}
         </p>
       ) : null}
+      <SupportUpdates />
       <div className="solution-cards">
         {visible.map((item) => (
           <article className="solution-card" key={item.id}>
@@ -266,6 +268,7 @@ export function SolutionNotebook() {
                 </a>
               </p>
             ) : null}
+            <SupportTools item={item} />
             <div className="my-pc-actions">
               <button
                 type="button"

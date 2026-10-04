@@ -347,7 +347,7 @@ export const launchWeekArticles: GameArticle[] = [
     gameSlug: 'ace-combat-8',
     slug: 'not-launching',
     category: 'launch',
-    checkedAt: '2026-10-03',
+    checkedAt: '2026-10-04',
     seoTitle:
       'エースコンバット8（エスコン8）が起動しない・落ちる時の対処法【PC版】',
     title:
@@ -418,7 +418,7 @@ export const launchWeekArticles: GameArticle[] = [
       },
       {
         symptom: '要件は満たしているのに起動直後に落ちる',
-        cause: '古いドライバー',
+        cause: '推奨ドライバーを確認（クラッシュだけでは原因は確定しない）',
         stepId: 'step-4',
       },
       {
@@ -477,9 +477,9 @@ export const launchWeekArticles: GameArticle[] = [
       },
       {
         id: 'step-4',
-        title: 'GPUドライバーを最新にする',
+        title: 'ゲームが示す推奨GPUドライバーを確認する',
         summary:
-          '発売の前後には、新作向けのドライバーが配布されることがあります。',
+          '公式案内は起動時に示される推奨版の確認です。新しい版なら必ず安定するという意味ではありません。',
         time: '約10分',
         risk: 'low',
         actions: [
@@ -532,6 +532,7 @@ export const launchWeekArticles: GameArticle[] = [
       },
     ],
     avoid: [
+      'セキュリティ保護を無効にしたり、非公式サイトから替えのDLLを入れたりしない',
       'レイトレーシング非対応のGPUで、設定ファイルの書き換えや非公式ツールで起動させようとしない',
       '起動しないからといって、先にWindowsの再インストールをしない（まず要件を確認する）',
     ],
@@ -568,6 +569,15 @@ export const launchWeekArticles: GameArticle[] = [
       },
     ],
     sources: [
+      {
+        label:
+          '公式告知本文：クラッシュ・ST-3100001・フライトスティック（英語、2026年10月4日確認）',
+        url: 'https://steamcommunity.com/app/2288340/allnews/',
+      },
+      {
+        label: 'Steam：ゲームファイルの整合性確認（英語）',
+        url: 'https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB',
+      },
       aceSources.notice,
       aceSources.official,
       aceSources.famitsu,

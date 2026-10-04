@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { supportCopy, type SupportLocale } from '@/lib/support-copy';
 import { games } from '@/lib/games';
 import {
   readSolutions,
@@ -18,12 +19,16 @@ export function SolutionForm({
   id,
   onSaved,
   onCancel,
+  locale = 'ja',
 }: {
+  locale?: SupportLocale;
   initial: SolutionDraft;
   id?: string;
   onSaved: (item: SavedSolution) => void;
   onCancel: () => void;
 }) {
+  const t = supportCopy[locale];
+  const stableId = useRef(id);
   const [draft, setDraft] = useState(initial);
   const [error, setError] = useState('');
   function field<K extends keyof SolutionDraft>(
@@ -39,13 +44,17 @@ export function SolutionForm({
         event.preventDefault();
         try {
           const now = new Date().toISOString();
-          const previous = id
-            ? readSolutions(localStorage).find((item) => item.id === id)
+          const previous = stableId.current
+            ? readSolutions(localStorage).find(
+                (item) => item.id === stableId.current,
+              )
             : undefined;
+          stableId.current ||= crypto.randomUUID();
           const item: SavedSolution = {
             ...draft,
+            ...(previous?.support ? { support: previous.support } : {}),
             title: draft.title.trim(),
-            id: id || crypto.randomUUID(),
+            id: stableId.current,
             createdAt: previous?.createdAt || now,
             updatedAt: now,
           };
@@ -53,12 +62,12 @@ export function SolutionForm({
           announceMyData();
           onSaved(item);
         } catch (caught) {
-          setError(solutionError(caught));
+          setError(locale === 'ja' ? solutionError(caught) : t.error);
         }
       }}
     >
       <label>
-        記録のタイトル
+        {t.title}
         <input
           value={draft.title}
           maxLength={200}
@@ -68,12 +77,13 @@ export function SolutionForm({
       </label>
       <div className="solution-form-row">
         <label>
-          ゲーム・対象
+          {t.game}
           <select
+            aria-label={t.game}
             value={draft.gameSlug}
             onChange={(event) => field('gameSlug', event.target.value)}
           >
-            <option value="">PC・Windows／Discord／その他</option>
+            <option value="">{t.other}</option>
             {games.map((game) => (
               <option value={game.slug} key={game.slug}>
                 {game.shortTitle}
@@ -82,64 +92,60 @@ export function SolutionForm({
           </select>
         </label>
         <label>
-          現在の状態
+          {t.status}
           <select
+            aria-label={t.status}
             value={draft.status}
             onChange={(event) =>
               field('status', event.target.value as SolutionStatus)
             }
           >
-            {Object.entries(statusLabels).map(([value, label]) => (
+            {Object.keys(statusLabels).map((value) => (
               <option value={value} key={value}>
-                {label}
+                {t[value as SolutionStatus]}
               </option>
             ))}
           </select>
         </label>
       </div>
       <label>
-        診断結果・確認できたこと
+        {t.diagnosis}
         <textarea
           rows={3}
           value={draft.diagnosis}
           maxLength={4000}
           required
-          placeholder="例：ゲームだけ無音。Windowsのテスト音は聞こえた。"
           onChange={(event) => field('diagnosis', event.target.value)}
         />
       </label>
       <label>
-        変更した設定・解決した方法
+        {t.settings}
         <textarea
           rows={3}
           value={draft.settings}
           maxLength={4000}
-          placeholder="例：音量ミキサーのゲームの出力先を、モニターからヘッドセットへ変更。変更前→変更後を書いておくと戻せます。"
           onChange={(event) => field('settings', event.target.value)}
         />
       </label>
       <label>
-        再確認した結果・メモ
+        {t.notes}
         <textarea
           rows={3}
           value={draft.notes}
           maxLength={4000}
-          placeholder="例：同じ場面で再確認し、再起動後もゲーム音が出た。パスワード・認証コードは書かないでください。"
           onChange={(event) => field('notes', event.target.value)}
         />
       </label>
       {draft.completedSteps.length ? (
         <p className="solution-hint">
-          確認した手順：{draft.completedSteps.join('／')}
+          {t.completed}: {draft.completedSteps.join('／')}
         </p>
       ) : null}
-      <p className="solution-hint">
-        入力内容はこのブラウザだけに保存します。匿名の「これで直った」の回答とは別で、ノートの内容を公開・送信しません。
-      </p>
+      <p className="solution-hint">{t.local}</p>
       <div className="my-pc-actions">
-        <button type="submit">ノートに保存する</button>
+        <button type="submit">{t.save}</button>
         <button className="secondary" type="button" onClick={onCancel}>
-          キャンセル
+          {t.cancel}
         </button>
       </div>
       {error ? (

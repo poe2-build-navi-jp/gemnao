@@ -1,3 +1,4 @@
+import { aceCombatLaunchArticles } from '@/lib/localized/ace-combat-launch-articles';
 import { recentGameArticlesEn } from '@/lib/localized/recent-game-articles-en';
 import { rocketLeagueLocalizedArticles } from '@/lib/localized/rocket-league-articles';
 import { localizedDiscordUploadArticles } from '@/lib/localized/discord-upload-articles';
@@ -12,6 +13,7 @@ import { onimushaArticlesEn } from '@/lib/localized/onimusha-articles-en';
 import type { LocalizedArticle } from '@/lib/localized/types';
 
 export const localizedArticles: LocalizedArticle[] = [
+  ...aceCombatLaunchArticles,
   ...articlesEn,
   ...recentGameArticlesEn,
   ...onimushaArticlesEn,

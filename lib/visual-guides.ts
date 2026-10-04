@@ -71,7 +71,7 @@ const guideVisuals = specs.map(([key, filename, title]) => {
     page: `/guide/${key}`,
     title,
     alt: `${title}を示すゲムなおの図解`,
-    caption: `「${guide.shortTitle}」の記事のSTEP順です。詳しい操作と注意事項は本文を確認してください。`,
+    caption: `${['steam-game-not-launching', 'steam-input-controller'].includes(key) ? '説明図：実際のWindows・Steam・ゲーム画面ではありません。' : ''}「${guide.shortTitle}」の記事のSTEP順です。詳しい操作と注意事項は本文を確認してください。`,
     steps: guide.steps.map((step) => step.title),
     image: `/images/${filename}.webp`,
     ogImage: `/images/${filename}-og.png`,

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: '/weekly' },
-  openGraph: { title, description, url: '/weekly', locale: 'ja_JP' },
+  openGraph: { title, description, url: '/weekly', locale: 'ja_JP', images: ['/og-default.png'] },
 };
 
 export default function Page() {

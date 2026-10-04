@@ -1,3 +1,7 @@
+import {
+  SupportWorkspace,
+  SupportUpdates,
+} from '@/components/support-workspace';
 import { WikiHeader, WikiFooter } from '@/components/wiki-header';
 import { MyGamesPanel } from '@/components/my-games-panel';
 import { myGamesCopy, type MyGamesLocale } from '@/lib/my-games-copy';
@@ -18,6 +22,8 @@ export function MyGamesPage({ locale = 'ja' }: { locale?: MyGamesLocale }) {
         </a>
         <p className="my-games-privacy">{t.privacy}</p>
         <MyGamesPanel games={myGamesData(locale)} locale={locale} />
+        <SupportWorkspace locale={locale} />
+        <SupportUpdates locale={locale} />
         <p className="my-games-other">
           <a href="/my#my-reading-list">{t.savedLink} →</a>
         </p>

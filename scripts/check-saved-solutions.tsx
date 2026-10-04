@@ -161,7 +161,7 @@ assert.match(notebook, /読み込んでいます/);
 assert.ok(!notebook.includes(record.settings));
 assert.match(
   renderToStaticMarkup(<SaveGame slug="elden-ring" />),
-  /遊ぶゲームとして保存/,
+  /マイゲーム · 追加/,
 );
 assert.match(
   renderToStaticMarkup(<SaveSolution draft={record} />),

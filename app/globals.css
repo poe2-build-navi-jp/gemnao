@@ -71,6 +71,28 @@ input {
   width: min(100%, 400px);
   margin: 24px auto;
 }
+.voice-direction-diagram {
+  margin: 24px 0;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #f0f6fc;
+  overflow-wrap: anywhere;
+}
+.voice-direction-diagram figcaption span {
+  display: block;
+  margin-top: 8px;
+  font-size: 14px;
+}
+.voice-direction-path {
+  margin-top: 16px;
+  padding: 16px;
+  background: white;
+  border-left: 3px solid var(--blue);
+}
+.voice-direction-path ul {
+  padding-left: 20px;
+}
 .solution-illustration img {
   display: block;
   width: 100%;
@@ -3259,6 +3281,9 @@ kbd {
   background: #eef3f5;
   font-size: 14px;
 }
+.diagnosis-table .diagnosis-step-link {
+  white-space: nowrap;
+}
 .diagnosis-table td a {
   color: var(--blue);
   font-weight: 700;
@@ -4388,6 +4413,12 @@ div.status-list {
   border: 1px solid var(--line);
   border-radius: 12px;
 }
+.refresh-check output {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  overflow-wrap: anywhere;
+}
 .refresh-check output b {
   font-size: 28px;
 }
@@ -5272,3 +5303,21 @@ a.my-games-primary {
   font-size: 0.75rem;
   font-weight: 700;
 }
+
+/* Private issue notebook: native controls, visible focus, narrow-screen wrapping. */
+.support-workspace, .support-tools { min-width: 0; overflow-wrap: anywhere; }
+.support-workspace { margin-block: 1.5rem; padding: 1rem; border: 1px solid var(--border, #888); border-radius: 12px; }
+.support-workspace label, .support-tools label { display: grid; gap: .4rem; margin-block: .7rem; min-width: 0; }
+.support-workspace input, .support-workspace select, .support-workspace textarea,
+.support-tools input, .support-tools select, .support-tools textarea { width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box; font: inherit; color: inherit; background: var(--background, #fff); border: 1px solid var(--border, #888); border-radius: 6px; padding: .6rem; }
+.support-tools details { margin-block: 1rem; border-top: 1px solid var(--border, #888); padding-top: .7rem; }
+.support-tools summary { cursor: pointer; font-weight: 600; padding-block: .5rem; }
+.support-tools .support-check { display: flex; align-items: center; gap: .6rem; }
+.support-tools .support-check input { width: 1.2rem; height: 1.2rem; flex-shrink: 0; }
+.support-tools fieldset { min-width: 0; }
+.support-setting { padding-block: .7rem; border-bottom: 1px solid var(--border, #888); }
+.support-workspace button, .support-tools button { white-space: normal; min-height: 44px; padding: .6rem .8rem; }
+.support-workspace :focus-visible, .support-tools :focus-visible { outline: 3px solid #5478da; outline-offset: 3px; }
+.support-workspace output, .support-tools output { display: block; margin-block: .7rem; }
+.support-tools button { border: 1px solid var(--border, #888); border-radius: 6px; background: var(--background, #fff); color: inherit; }
+.support-tools a { text-decoration: underline; text-underline-offset: .15em; }

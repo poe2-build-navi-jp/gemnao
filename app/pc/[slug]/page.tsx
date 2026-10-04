@@ -1,3 +1,4 @@
+import { SupportWorkspace } from '@/components/support-workspace';
 import { EditorialByline } from '@/components/editorial-byline';
 import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
 import { SaveArticle } from '@/components/save-article';
@@ -299,6 +300,23 @@ export default async function PcArticlePage({
           </section>
           <section className="pc-steps" aria-label="確認と対処の手順">
             <h2>画面を見ながら順番に確認する</h2>
+            <SupportWorkspace
+              steps={article.steps.map((step, i) => ({
+                id: `step-${i + 1}`,
+                title: step.title,
+              }))}
+              draft={{
+                title: article.title,
+                gameSlug: '',
+                status: 'investigating',
+                diagnosis: '',
+                settings: '',
+                notes: '',
+                articlePath: `/pc/${slug}`,
+                stepId: '',
+                completedSteps: [],
+              }}
+            />
             {article.steps.map((step, i) => (
               <section
                 className="pc-step"

@@ -1,14 +1,26 @@
+import { ogImageFor } from '@/lib/og-images';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { RefreshRateCheck } from '@/components/refresh-rate-check';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 
 export const metadata: Metadata = {
-  title:
-    'モニターのリフレッシュレート（Hz）確認ツール｜144Hzになっているか測る',
+  title: 'モニターのHz確認ツール｜ブラウザ描画の目安とWindows設定を比較',
   description:
-    'ブラウザでモニターのリフレッシュレート（60Hz・144Hz・165Hzなど）を測れる確認ツール。144Hzのはずが60Hzのまま、という時の切り分けに使えます。結果の見方とWindowsでの確認方法も解説。',
+    'ブラウザの描画間隔を約4秒間測り、Windowsのリフレッシュレート設定と比較。144Hz設定なのに約60回／秒と出る時の確認先、使い方と限界を解説します。物理モニターのHzやゲームFPSの直接測定ではありません。',
   alternates: { canonical: '/tools/refresh-rate' },
+  openGraph: {
+    title: 'モニターのHz確認｜ブラウザ描画とWindows設定を比較',
+    description:
+      '約4秒の描画間隔を測定。モニターHzやゲームFPSの直接測定ではありません。',
+    url: '/tools/refresh-rate',
+    images: [ogImageFor('/tools/refresh-rate')],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'モニターのHz確認｜ブラウザ描画とWindows設定を比較',
+    images: [ogImageFor('/tools/refresh-rate')],
+  },
 };
 
 export default function RefreshRatePage() {
@@ -19,8 +31,22 @@ export default function RefreshRatePage() {
         <p className="page-kicker">TOOLS</p>
         <h1>モニターのリフレッシュレート（Hz）確認ツール</h1>
         <p className="page-lead">
-          このページを測りたいモニターに表示して、ボタンを押してください。ブラウザが画面を描き直す間隔から、リフレッシュレートの目安を測ります。変更前の結果とWindowsの設定値を控えておくと、変更後と比べられます。
+          このツールで分かるのは、ブラウザが描画を更新する頻度の目安です。モニターの設定Hz・最大Hzや、ゲーム中のFPSは直接取得できません。まずWindowsの表示設定を確認し、このページの測定値と分けて比較してください。
         </p>
+        <section>
+          <h2>使い方：対象モニターを選んで約4秒測る</h2>
+          <ol>
+            <li>
+              Windowsの「設定」→「システム」→「ディスプレイ」→「ディスプレイの詳細設定」で、対象モニターと設定Hzを控えます。
+            </li>
+            <li>
+              このウィンドウを対象モニターの中に収め、複数の画面にまたがらせず、ノートPCは電源条件をそろえます。
+            </li>
+            <li>
+              測定ボタンを押し、タブを表示したまま待ちます。別の画面へ動かす場合は中断し、移動後に測り直します。
+            </li>
+          </ol>
+        </section>
         <RefreshRateCheck />
         <p>
           60Hzのまま、またはWindowsの表示と合わない場合は、
@@ -29,22 +55,28 @@ export default function RefreshRatePage() {
           </a>
           → 設定を1つ変更 → このページで再測定、の順に進めます。
         </p>
-        <section>
-          <h2>結果の見方</h2>
+        <section id="results">
+          <h2>WindowsのHzと測定結果から次の確認を選ぶ</h2>
           <ul>
             <li>
-              144Hzや165Hzのモニターで「約60Hz」と出た場合は、Windowsの設定・ケーブル・端子のどこかで60Hzになっている可能性があります。
-              <a href="/pc/refresh-rate-stuck-60hz">60Hzのままの時の直し方</a>
-              で確認してください。
+              <strong>Windowsも60Hz：</strong>高いHzに対応するモニターなら、
+              <a href="/pc/refresh-rate-stuck-60hz#diagnosis">
+                Windows設定・接続端子の判断表
+              </a>
+              へ。測定値だけでケーブルの故障とは判断できません。
             </li>
             <li>
-              ノートPCの省電力モードや、ブラウザの省エネ設定が有効だと、低めに出ることがあります。電源につないだ状態で測ってください。
+              <strong>Windowsは144Hz以上、ブラウザは約60回／秒：</strong>
+              タブを表示したまま再測定し、ブラウザの省電力設定やPCの負荷を確認します。ブラウザの結果だけでWindows設定が失敗したとは言えません。
             </li>
             <li>
-              モニターが2台以上ある場合は、このウィンドウを置いているモニターの値になります。
+              <strong>Windowsとブラウザは高い値、ゲームだけ重い：</strong>
+              <a href="/guide/low-fps">ゲーム内のFPSと画質設定を確認</a>
+              してください。このツールではゲームのFPSは測れません。
             </li>
             <li>
-              測った値は目安です。正確な値は、Windowsの「設定」→「システム」→「ディスプレイ」→「ディスプレイの詳細設定」で確認できます。
+              <strong>測るたびに変わる・中断される：</strong>
+              測定中は別タブへ移動せず、同じモニター・同じ電源条件で再試行してください。数値は丸めを含む目安です。143と144などの差だけで故障と判断しないでください。
             </li>
           </ul>
         </section>
@@ -77,6 +109,31 @@ export default function RefreshRatePage() {
             <a href="/guide/low-fps">ゲームのFPSが低い時の対処法</a>
             を確認してください。
           </p>
+        </section>
+        <section>
+          <h2>測定の仕組みと限界</h2>
+          <p>
+            約4秒間のブラウザの描画コールバック間隔を集め、中央値から1秒当たりの回数を計算します。間隔の中央80％も表示します。これは描画タイミングのばらつきであり、モニターの応答速度や入力遅延ではありません。
+          </p>
+          <p>
+            ブラウザ負荷・省電力・非表示タブなどの影響を受けます。可変リフレッシュレート（VRR）の動作や、パネルの最大性能を保証するテストではありません。非表示になった測定は中断します。
+          </p>
+          <p>
+            このページの数値はその場のブラウザ測定です。特定の144Hz／240Hzモニターで精度を実機検証したという意味ではありません。
+          </p>
+          <h2>参考情報</h2>
+          <ul>
+            <li>
+              <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame">
+                MDN：requestAnimationFrameの動作と非表示タブでの停止（英語）
+              </a>
+            </li>
+            <li>
+              <a href="https://support.microsoft.com/en-us/windows/hardware/display-graphics/change-the-refresh-rate-on-your-monitor-in-windows">
+                Microsoft：モニターごとのリフレッシュレート設定（英語）
+              </a>
+            </li>
+          </ul>
         </section>
       </article>
       <WikiFooter />
