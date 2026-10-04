@@ -4624,7 +4624,19 @@ div.status-list {
   margin: 20px 0;
   background: var(--card);
 }
+.diagnosis-article-entry > h2 {
+  font-size: 20px;
+  line-height: 1.5;
+  margin: 0 0 8px;
+}
 .diagnosis-article-entry > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 12px;
+  padding: 8px 0;
+  text-underline-offset: 4px;
+  overflow-wrap: anywhere;
   color: var(--blue);
   font-weight: 800;
 }
@@ -5321,3 +5333,9 @@ a.my-games-primary {
 .support-workspace output, .support-tools output { display: block; margin-block: .7rem; }
 .support-tools button { border: 1px solid var(--border, #888); border-radius: 6px; background: var(--background, #fff); color: inherit; }
 .support-tools a { text-decoration: underline; text-underline-offset: .15em; }
+
+.diagnosis-article-entry > a:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 4px;
+  border-radius: 3px;
+}

@@ -192,16 +192,6 @@ export default async function PcArticlePage({
               <CheckCircle2 size={23} /> 結論
             </h2>
             <p>{article.answer}</p>
-            {slug === 'refresh-rate-stuck-60hz' ? (
-              <p>
-                変更前後を比べるには
-                <a href="/tools/refresh-rate">Hz確認ツール</a>を使えます。
-                まずWindowsの現在値とツールの目安を控え、下の症状に合う手順を1つ試し、
-                <a href="/tools/refresh-rate#retest">同じモニターで再確認</a>
-                してください。
-                ツールの数値だけで設定の成否を決めず、Windowsの表示とゲームのFPSも分けて確認します。
-              </p>
-            ) : null}
             <ol>
               {article.quickChecks.map((check) => (
                 <li key={check}>{check}</li>
@@ -391,6 +381,18 @@ export default async function PcArticlePage({
               ))}
             </div>
           </section>
+          {slug === 'refresh-rate-stuck-60hz' ? (
+            <aside className="diagnosis-article-entry" aria-labelledby="refresh-check-title">
+              <h2 id="refresh-check-title">手順のあとも、60Hzのままですか？</h2>
+              <p>
+                Windowsの設定値を確認したら、同じモニター・同じ電源条件でブラウザーの描画頻度の目安を比較できます。ダウンロードは不要です。調べたいPCのモニター上で開いてください。
+              </p>
+              <p>
+                モニターの設定Hz・最大HzやゲームFPSを直接測るものではありません。数値だけで設定の成否や故障を判断せず、Windowsの表示と分けて確認してください。
+              </p>
+              <a href="/tools/refresh-rate">ブラウザーでHzの目安を確認する →</a>
+            </aside>
+          ) : null}
           <section className="related-section">
             <h2>症状が違う場合の関連記事</h2>
             <div>

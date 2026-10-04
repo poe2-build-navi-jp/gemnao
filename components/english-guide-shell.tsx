@@ -1,3 +1,4 @@
+import { ArticleDiagnosisEntry } from '@/components/article-diagnosis-entry';
 import { ShareButtons } from '@/components/share-buttons';
 import { SaveArticle } from '@/components/save-article';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
@@ -138,6 +139,7 @@ export function EnglishGuideShell({
               ))}
             </div>
           </section>
+          <ArticleDiagnosisEntry path={guide.path} locale="en" />
           <section className="related-section" id="related-guides">
             <h2>Related guides and tools</h2>
             <div>

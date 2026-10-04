@@ -68,7 +68,7 @@ assert.ok(
   ),
 );
 assert.ok(
-  readFileSync('components/troubleshooting-article.tsx', 'utf8').includes(
+  readFileSync('components/article-diagnosis-entry.tsx', 'utf8').includes(
     '/tools/windows-diagnosis',
   ),
 );

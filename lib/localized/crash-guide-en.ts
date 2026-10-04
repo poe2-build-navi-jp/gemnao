@@ -47,10 +47,6 @@ export const crashGuideEn: EnglishGuideInfo = {
       label: 'Choose a save-backup destination',
     },
     {
-      href: '/en/tools/windows-diagnosis',
-      label: 'Windows game-diagnosis tool and guide',
-    },
-    {
       href: '/guide/pc-game-freezes',
       label: 'Game freezes and temperature checks (Japanese)',
     },

@@ -1,3 +1,4 @@
+import { ArticleDiagnosisEntry } from '@/components/article-diagnosis-entry';
 import { SupportWorkspace } from '@/components/support-workspace';
 import { ShareButtons } from '@/components/share-buttons';
 import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
@@ -294,6 +295,7 @@ export function LocalizedArticle({
               ))}
             </div>
           </section>
+          <ArticleDiagnosisEntry path={originalPath} locale={locale} />
           {article.related?.length ? (
             <section className="related-section" id="related-guides">
               <h2>

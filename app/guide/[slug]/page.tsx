@@ -1,3 +1,4 @@
+import { ArticleDiagnosisEntry } from '@/components/article-diagnosis-entry';
 import { EditorialByline } from '@/components/editorial-byline';
 import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
 import { SaveArticle } from '@/components/save-article';
@@ -717,6 +718,7 @@ export default async function Page({
               ))}
             </div>
           </section>
+          <ArticleDiagnosisEntry path={`/guide/${slug}`} />
           <section className="related-section" id="related-guides">
             <h2>まだ直りませんか？ 次に試す記事</h2>
             <div>
