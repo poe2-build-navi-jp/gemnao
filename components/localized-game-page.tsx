@@ -1,3 +1,4 @@
+import { ArticleToc } from '@/components/article-toc';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import {
   AlertTriangle,
@@ -115,8 +116,7 @@ export function LocalizedGamePage({
         </div>
       </div>
       <div className="article-layout">
-        <aside className="toc">
-          <strong>{t.contents}</strong>
+        <ArticleToc title={t.contents}>
           {articles.length ? <a href="#guides">{t.guides}</a> : null}
           {hub.checklist?.[locale] ? (
             <a href="#checklist">{t.checklist}</a>
@@ -129,7 +129,7 @@ export function LocalizedGamePage({
             </>
           ) : null}
           <a href="#references">{t.references}</a>
-        </aside>
+        </ArticleToc>
         <article className="guide-article">
           <p className="article-introduction">{hub.intro[locale]}</p>
           {articles.length ? (

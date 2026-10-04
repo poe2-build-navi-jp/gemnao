@@ -1,3 +1,4 @@
+import { ArticleToc } from '@/components/article-toc';
 import { EditorialByline } from '@/components/editorial-byline';
 import { DiscordMicVolumeDiagram } from '@/components/discord-mic-volume-diagram';
 import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
@@ -204,8 +205,7 @@ export default async function DiscordArticlePage({
         </div>
       </header>
       <div className="article-layout issue-layout">
-        <aside className="toc issue-toc">
-          <strong>このページの内容</strong>
+        <ArticleToc title={'このページの内容'} className="issue-toc">
           <a href="#answer">
             {item.botRecommendations
               ? '用途別のおすすめ・結論'
@@ -233,7 +233,7 @@ export default async function DiscordArticlePage({
           {item.followUp ? <a href="#next-guide">次に確認する記事</a> : null}
           <a href="#faq">よくある質問</a>
           <a href="#references">参考情報</a>
-        </aside>
+        </ArticleToc>
         <article className="guide-article">
           <section className="answer-summary" id="answer">
             <p className="evidence-label">

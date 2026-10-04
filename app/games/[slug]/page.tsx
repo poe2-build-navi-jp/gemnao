@@ -1,3 +1,4 @@
+import { ArticleToc } from '@/components/article-toc';
 import type { Metadata } from 'next';
 import { AniimoTroubleshootingHub } from '@/components/aniimo-troubleshooting-hub';
 import {
@@ -231,8 +232,7 @@ export default async function GamePage({
       </div>
 
       <div className="article-layout">
-        <aside className="toc">
-          <strong>このページの内容</strong>
+        <ArticleToc title={'このページの内容'}>
           {game.focused ? (
             <>
               {game.slug === 'aniimo' ? (
@@ -259,7 +259,7 @@ export default async function GamePage({
               <a href="#faq">7. よくある質問</a>
             </>
           )}
-        </aside>
+        </ArticleToc>
         <article className="guide-article">
           {game.slug !== 'aniimo' && game.slug !== 'rocket-league' ? (
             <div className="safety-note">

@@ -5339,3 +5339,36 @@ a.my-games-primary {
   outline-offset: 4px;
   border-radius: 3px;
 }
+
+/* Keep the answer near the top on narrow screens without duplicating anchors. */
+.toc-links { display: grid; gap: 2px; }
+.toc-toggle { display: none; }
+.toc-toggle:focus-visible, .toc-links a:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+@media (max-width: 760px) {
+  .article-toc .toc-title { display: none; }
+  .toc-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    min-height: 44px;
+    padding: 8px 10px;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    text-align: left;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .article-toc:not(.toc-expanded) .toc-links { display: none; }
+  .toc-links a { min-height: 44px; }
+}
+/* Storage scope must stay legible on the dark article hero. */
+.article-hero .save-article small,
+.article-hero .save-game-benefit {
+  color: #dfe8eb;
+}

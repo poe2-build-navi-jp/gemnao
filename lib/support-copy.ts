@@ -1,5 +1,7 @@
 export type SupportLocale = 'ja' | 'en' | 'zh' | 'es';
 const en = {
+  noRecords: 'No issues recorded yet. Save your first symptom to continue checking it later.',
+  noUnresolved: 'All saved issues are marked resolved. There are no unresolved issues to check for updates.',
   heading: 'Continue this issue',
   privacy:
     'Private notes stay in this browser. Nothing is sent automatically. Back up important notes on My Page. PC settings are never changed by this site.',
@@ -73,6 +75,8 @@ const en = {
 export const supportCopy: Record<SupportLocale, typeof en> = {
   en,
   ja: {
+    noRecords: '症状の記録はまだありません。最初の症状を保存すると、次回も続きから確認できます。',
+    noUnresolved: '保存した症状はすべて解決済みです。進展を確認する未解決の記録はありません。',
     heading: '同じ問題の続きから',
     privacy:
       '記録はこのブラウザ内だけに保存し、自動送信しません。大切な記録はマイページでバックアップしてください。PC設定を自動操作することはありません。',
@@ -145,6 +149,8 @@ export const supportCopy: Record<SupportLocale, typeof en> = {
       '一般Steamニュースとは別です。保存したゲームと記事の症状を対応付け、記事の更新日だけで修正とは判定しません。適用条件・バージョンを確認してください。',
   },
   zh: {
+    noRecords: '还没有症状记录。保存第一个症状，下次即可继续排查。',
+    noUnresolved: '所有已保存的症状均已标记为已解决。目前没有需要查看进展的未解决记录。',
     heading: '继续处理同一个问题',
     privacy:
       '记录仅保存在此浏览器中，不会自动发送。请在个人页面备份重要记录。本站不会自动更改电脑设置。',
@@ -214,6 +220,8 @@ export const supportCopy: Record<SupportLocale, typeof en> = {
       '与一般 Steam 新闻分开显示。按已保存的游戏和文章症状匹配，不会仅凭文章更新日期判断修复。请确认适用版本与环境。',
   },
   es: {
+    noRecords: 'Todavía no hay síntomas registrados. Guarda el primero para continuar la comprobación más adelante.',
+    noUnresolved: 'Todos los problemas guardados están marcados como resueltos. No hay problemas pendientes para consultar novedades.',
     heading: 'Continuar con este problema',
     privacy:
       'Las notas se guardan solo en este navegador. No se envían automáticamente. Haz una copia de las notas importantes en Mi página. El sitio nunca modifica los ajustes del PC.',

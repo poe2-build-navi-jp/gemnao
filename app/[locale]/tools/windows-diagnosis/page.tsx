@@ -492,6 +492,13 @@ export default async function EnglishWindowsDiagnosis({
             are not reused as a current comparison baseline. Unsaved results
             disappear when you close the app.
           </p>
+          <h3>Keep a short summary in your Web solution notebook</h3>
+          <p>
+            <a href="/my#my-solutions" hrefLang="ja">My Page: diagnosis results and solution notes (Japanese)</a> lets you manually record symptoms, key findings, settings changed and results. It does not import raw logs or app history files, or send them automatically.
+          </p>
+          <p>
+            The linked page is in Japanese. No account is needed; notes stay in the same browser on the device where you enter them. They are separate from the Windows app history and do not sync automatically between PCs, phones or browsers. Clearing browser data can erase them. Back up important notes on My Page.
+          </p>
           <h3>Diagnosis text and feedback JSON are different exports</h3>
           <p>
             Preview the full report text, then choose where to save it locally.
