@@ -3281,6 +3281,9 @@ kbd {
   background: #eef3f5;
   font-size: 14px;
 }
+.diagnosis-table .diagnosis-step-link {
+  white-space: nowrap;
+}
 .diagnosis-table td a {
   color: var(--blue);
   font-weight: 700;
