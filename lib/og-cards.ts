@@ -1,3 +1,4 @@
+import { aceCombatLaunchArticles } from '@/lib/localized/ace-combat-launch-articles';
 import { onimushaArticlesEn } from '@/lib/localized/onimusha-articles-en';
 import { rocketLeagueLocalizedArticles } from '@/lib/localized/rocket-league-articles';
 import { localizedDiscordUploadArticles } from '@/lib/localized/discord-upload-articles';
@@ -165,6 +166,17 @@ export function ogCardSpecs(): OgCardSpec[] {
   ];
   return [
     {
+      path: '/tools/refresh-rate',
+      eyebrow: 'ブラウザ描画の確認ツール',
+      title: 'モニターのHzとブラウザの値を比べる',
+      itemsLabel: '測定の使い方と限界',
+      items: [
+        'Windowsの設定Hzを控える',
+        'タブを表示して約4秒測る',
+        'ゲームFPS・実Hzとは分けて判断',
+      ],
+    },
+    {
       path: '/discord-servers',
       eyebrow: 'PCゲーム｜Discordサーバー募集',
       title: 'Discordサーバー募集を条件から探す',
@@ -185,6 +197,7 @@ export function ogCardSpecs(): OgCardSpec[] {
     ...pcCards,
     ...gearCards,
     ...[
+      ...aceCombatLaunchArticles,
       ...rocketLeagueLocalizedArticles,
       ...localizedDiscordUploadArticles,
     ].map((article) => ({
