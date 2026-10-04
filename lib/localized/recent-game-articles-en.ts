@@ -6,7 +6,7 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
     locale: 'en',
     gameSlug: 'monster-hunter-wilds',
     slug: 'not-launching',
-    checkedAt: '2026-10-03',
+    checkedAt: '2026-10-04',
     title:
       'Monster Hunter Wilds Crashing on PC: Launch, Hunting and Shader-Preparation Checks',
     shortTitle: 'Crashing or not launching',
@@ -39,6 +39,12 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
       },
     ],
     diagnosis: [
+      {
+        symptom: 'Cutscenes alone fail to play on Windows N/KN',
+        cause:
+          'Check the edition and installed media features; skip installation on non-N editions or if already installed',
+        stepId: 'media-playback',
+      },
       {
         symptom:
           'Still closes before the title screen after file and driver checks; Steam has third-party extensions',
@@ -150,9 +156,9 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
           'Press Windows + R, run dxdiag, and record the GPU name and driver version on the Display tab. For a laptop, also check the PC manufacturer’s supported driver.',
           'Check Drivers in the NVIDIA app or updates in AMD Software for an appropriate version. Compare the conditions in the driver notice linked from Capcom’s troubleshooting guide.',
           'Restart Windows after updating and retest without mods, using the same graphics settings and scene. Shader preparation immediately after a driver update may take time.',
-          'If problems began after updating, obtain a previously working version from the GPU or PC manufacturer and compare. See the related GPU-driver guide (Japanese) for installing or reverting. If unchanged, check DLC, graphics settings and records.',
+          'If problems began after updating, confirm supported versions and the restore procedure with the GPU or PC manufacturer before comparing a previously working version. See the related GPU-driver guide (Japanese) for installing or reverting. If unchanged, check DLC, graphics settings and records.',
         ],
-        note: 'No older driver version is a permanent recommendation. Removing drivers with DDU or changing BIOS settings should not be the first step for every crash.',
+        note: 'The driver notice checked on October 4, 2026 warns about issues with 25.10.2 or later on some Radeon models, including RX 5500 XT and RX 7800 XT. Newer does not always mean more stable: compare your model and installed version with the latest notice. No older driver version is a permanent recommendation. Removing drivers with DDU or changing BIOS settings should not be the first step for every crash.',
       },
       {
         id: 'check-vram',
@@ -297,6 +303,21 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
         ],
         note: 'This single case suggests that a Steam-client extension may have contributed to the crash. Two loaders were temporarily disabled together; it does not prove a specific DLL was the cause, that other PCs will recover, or that long-term stability was verified. These steps do not recommend installing an extension or bypassing entitlement checks.',
       },
+      {
+        id: 'media-playback',
+        title: 'Cutscenes only: check media features on Windows N',
+        summary:
+          'Item 7 of Capcom’s guide concerns video playback. Missing media components are not a diagnosis for every crash.',
+        time: 'About 5–10 minutes, excluding installation and restart',
+        risk: 'low',
+        actions: [
+          'Use Windows + R → winver to check the edition. On a non-N edition, or if Media Feature Pack is already installed, skip installation and return to file/display checks. For older KN editions, consult Microsoft’s version-specific list first.',
+          'Windows 11 N: Settings → Apps → Optional features → View features beside Add an optional feature. Windows 10 N (1909 or later): Settings → Apps → Apps & features → Optional features → Add a feature. Search Settings for Optional features if its location differs.',
+          'Only on a supported N edition without the pack, add Media Feature Pack and retest the same cutscene after any required restart. If it is unavailable, consult Microsoft’s edition list; do not install a pack for another OS or a random codec bundle.',
+          'If unchanged, record the scene, Windows edition and whether the pack is installed, then return to file verification or display checks. If the whole game closes, inspect crash records.',
+        ],
+        note: 'The Capcom post dates from February 2025. October 4, 2026 is our source-check date, not the start of a new incident. We have not verified playback recovery on a gaming PC.',
+      },
     ],
     avoid: [
       'Confusing the Steam root with Windows System32, deleting DLLs in bulk, or disabling security features',
@@ -389,6 +410,14 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
       {
         label: 'Capcom: Monster Hunter Wilds troubleshooting guide',
         url: 'https://steamcommunity.com/app/2246340/discussions/0/596267902352499417/',
+      },
+      {
+        label: 'Capcom: cutscene playback and Media Feature Pack (item 7)',
+        url: 'https://steamcommunity.com/app/2246340/discussions/0/596267902352499612/',
+      },
+      {
+        label: 'Microsoft: Media Feature Pack by Windows N version',
+        url: 'https://support.microsoft.com/en-us/windows/experience/platform-variants/media-feature-pack-list-for-windows-n-editions',
       },
       {
         label: 'Capcom: Graphics-driver notice linked from the official guide',
@@ -551,8 +580,8 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
     ],
     related: [
       {
-        href: '/games/ace-combat-8/not-launching',
-        label: 'ACE COMBAT 8 launch troubleshooting (Japanese)',
+        href: '/en/games/ace-combat-8/not-launching',
+        label: 'ACE COMBAT 8 launch troubleshooting',
       },
       { href: '/status', label: 'Outage and maintenance status (Japanese)' },
     ],

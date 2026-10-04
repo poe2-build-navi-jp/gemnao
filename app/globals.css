@@ -4410,6 +4410,12 @@ div.status-list {
   border: 1px solid var(--line);
   border-radius: 12px;
 }
+.refresh-check output {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  overflow-wrap: anywhere;
+}
 .refresh-check output b {
   font-size: 28px;
 }

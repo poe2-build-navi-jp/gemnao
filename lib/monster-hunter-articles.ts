@@ -12,7 +12,7 @@ const sources = {
   },
   driverNotice: {
     label: 'Steam公式お知らせ：Regarding your Video/Graphics Drivers',
-    url: 'https://store.steampowered.com/news/app/2246340/view/1811772772359267',
+    url: 'https://store.steampowered.com/news/app/2246340/view/534357354429284375',
   },
   update1042: {
     label: 'Steam公式：Update Summary (Ver.1.042.00.00)',
@@ -69,8 +69,9 @@ export const monsterHunterArticles: GameArticle[] = [
   make({
     slug: 'not-launching',
     category: 'launch',
-    checkedAt: '2026-10-03',
-    targetVersion: 'PC・Steam製品版／公式案内を2026年9月30日に確認',
+    checkedAt: '2026-10-04',
+    targetVersion:
+      'PC・Steam製品版／ドライバー・動画再生の公式案内を2026年10月4日に再確認',
     title:
       'モンハンワイルズがクラッシュ・落ちる時の対処法｜起動直後・狩猟中・シェーダー準備別',
     seoTitle:
@@ -106,6 +107,12 @@ export const monsterHunterArticles: GameArticle[] = [
       },
     ],
     diagnosis: [
+      {
+        symptom: 'カットシーンだけ映らない・再生できない／Windows N・KN',
+        cause:
+          'Windowsのエディションとメディア機能の有無を確認。通常版や導入済みならスキップ',
+        stepId: 'media-playback',
+      },
       {
         symptom:
           '整合性・ドライバー確認後もタイトル前で落ちる／Steamに外部拡張がある',
@@ -211,9 +218,9 @@ export const monsterHunterArticles: GameArticle[] = [
           'Windows＋R → dxdiag →「ディスプレイ」でGPU名・ドライバーのバージョンを記録する。ノートPCはPCメーカーの対応ドライバーも確認する',
           'NVIDIAはNVIDIAアプリの「ドライバー」、AMDはAMD Softwareの更新確認から対応版を確認する。カプコン公式ガイドがリンクする「Regarding your Video/Graphics Drivers」の条件と照合する',
           '更新後はWindowsを再起動し、MODなし・同じ画質・同じ場面で再実行する。更新した直後のシェーダー準備には時間がかかる場合がある',
-          '更新後から悪化した場合は以前動いていた版をGPU・PCメーカーから入手して比較する。導入・戻し方は共通ガイド「GPUドライバー更新」を参照。変わらなければDLC・画質設定と記録を確認する',
+          '更新後から悪化した場合は対応版と復元手順をGPU・PCメーカーで確認したうえで、以前動いていた版と比較する。導入・戻し方は共通ガイド「GPUドライバー更新」を参照。変わらなければDLC・画質設定と記録を確認する',
         ],
-        note: '特定の古い版を永久に推奨しません。DDUによる削除やBIOS変更は、最初に一律で行う手順にはしていません。',
+        note: '2026年10月4日に確認した公式ドライバー告知には、一部Radeon（RX 5500 XT・RX 7800 XTなど）で25.10.2以降の問題への注意があります。新しい版なら必ず安定するとは限りません。型番・導入版を記録し、最新の告知と照合してください。特定の古い版を永久に推奨しません。DDUによる削除やBIOS変更は、最初に一律で行う手順にはしていません。',
       },
       {
         id: 'check-vram',
@@ -352,6 +359,21 @@ export const monsterHunterArticles: GameArticle[] = [
         ],
         note: 'これはSteamクライアント側の外部拡張の干渉が候補になった単一事例です。2つのローダーをまとめて停止しており、特定DLLが必ず原因、他のPCでも解決、長期安定を確認済みとは言えません。拡張の導入や権利確認の回避を案内する手順ではありません。',
       },
+      {
+        id: 'media-playback',
+        title: 'カットシーンだけ再生できない：Windows Nのメディア機能を確認',
+        summary:
+          '公式項目7は動画再生の問題をWindowsのメディア構成要素と関連づけています。すべてのクラッシュの原因という意味ではありません。',
+        time: '約5〜10分（インストール・再起動を除く）',
+        risk: 'low',
+        actions: [
+          'Windows＋R → winverでエディションを確認。通常のHome／ProなどNではない場合、またはMedia Feature Packが導入済みなら、この導入手順はスキップし、ファイル・表示設定の切り分けに戻る。KNなど旧版では、出典のMicrosoft版別一覧で対応を先に確認する',
+          'Windows 11 N：設定 → アプリ → オプション機能 → オプション機能を追加の「機能を表示」でMedia Feature Packを探す。Windows 10 N（1909以降）：設定 → アプリ → アプリと機能 → オプション機能 → 機能の追加。画面配置が異なる場合は設定内で「オプション機能」を検索する',
+          'N版で未導入の場合だけ対応するMedia Feature Packを追加し、必要な再起動後に同じカットシーンを試す。項目が見つからない場合は版別のMicrosoft案内を確認し、別OS用のパックや無関係なコーデック集を入れない',
+          '改善しなければ、映らない場面・Windowsエディション・導入済みかを控え、整合性確認や表示設定の切り分けへ。ゲーム全体が落ちるならクラッシュ記録を確認する',
+        ],
+        note: 'カプコンの元投稿は2025年2月のものです。2026年10月4日は本文の確認日で、新しい障害の発生日ではありません。実機で再生改善を検証した記録ではありません。',
+      },
     ],
     avoid: [
       'Steam直下とWindowsのSystem32を混同する／DLLをまとめて削除する／セキュリティ機能を無効にする',
@@ -406,6 +428,14 @@ export const monsterHunterArticles: GameArticle[] = [
         url: 'https://github.com/Selectively11/CloudRedirect#readme',
       },
       sources.capcom,
+      {
+        label: 'カプコン公式：動画再生・Media Feature Pack（項目7、英語）',
+        url: 'https://steamcommunity.com/app/2246340/discussions/0/596267902352499612/',
+      },
+      {
+        label: 'Microsoft：Windows N版のMedia Feature Packと導入手順（英語）',
+        url: 'https://support.microsoft.com/en-us/windows/experience/platform-variants/media-feature-pack-list-for-windows-n-editions',
+      },
       {
         label:
           'カプコン公式：GPUドライバーのお知らせ（公式ガイドの現在のリンク先）',
@@ -565,6 +595,7 @@ export const monsterHunterArticles: GameArticle[] = [
   }),
   make({
     slug: 'fps',
+    checkedAt: '2026-10-04',
     // Shorter <title> for search results; the page heading keeps the full title.
     seoTitle: 'モンハンワイルズのFPSが低い・カクつく時の設定【PC版】',
     category: 'display',
@@ -682,7 +713,7 @@ export const monsterHunterArticles: GameArticle[] = [
         risk: 'low',
         actions: [
           'Steamでゲームの更新を確認し、最新版にする',
-          'GPUドライバーを公式推奨（NVIDIA 581.57以降・AMD 25.9.1以降）にしてPCを再起動する',
+          'GPU型番と導入版を記録し、カプコン公式の最新ドライバー告知と照合する。2026年10月4日の確認では、一部Radeon（RX 5500 XT・RX 7800 XTなど）に25.10.2以降の問題への注意があるため、AMD 25.9.1以上ならすべて安定とは判断しない。変更する場合はメーカーの対応版・復元手順を確認し、再起動後に同じ場面で比較する',
           '同じ場所でFPSを比べる',
         ],
       },

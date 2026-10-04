@@ -29,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/tools', updated: '2026-10-03' },
     { path: '/tools/windows-diagnosis', updated: '2026-10-03' },
     { path: '/tools/save-locations', updated: '2026-10-01' },
-    { path: '/tools/refresh-rate', updated: '2026-10-01' },
+    { path: '/tools/refresh-rate', updated: '2026-10-04' },
     { path: '/pc', updated: '2026-10-01' },
     { path: '/discord-servers', updated: '2026-09-30' },
     { path: '/discord-servers/guidelines', updated: '2026-09-17' },
