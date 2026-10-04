@@ -762,6 +762,9 @@ export default async function Page({
             <h2>参考情報・出典</h2>
             <p className="source-policy">
               公式資料を確認し、本文は独自の表現で要約しています。
+              {['steam-game-not-launching', 'steam-input-controller'].includes(slug)
+                ? '本文の「期待結果」は、設定を変えた後に読者が判断する目安です。編集部が実機で改善を確認した結果ではありません。変化がなければ元の設定へ戻し、症状に合う次の確認先へ進んでください。'
+                : null}
             </p>
             {item.sources.map((s) => (
               <a href={s.url} target="_blank" rel="noreferrer" key={s.url}>
