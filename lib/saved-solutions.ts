@@ -1,3 +1,8 @@
+import {
+  copySupport,
+  validSupport,
+  type SupportRecord,
+} from './support-record';
 // Private notes: localStorage only. No API/analytics receives these fields.
 export const SOLUTIONS_KEY = 'gemnao-solutions-v1';
 export const MY_DATA_EVENT = 'gemnao-my-data';
@@ -10,6 +15,7 @@ export const statusLabels = {
 } as const;
 export type SolutionStatus = keyof typeof statusLabels;
 export type SavedSolution = {
+  support?: SupportRecord;
   id: string;
   title: string;
   gameSlug: string;
@@ -40,6 +46,7 @@ export const safeArticlePath = (path: string) =>
 function validSolution(value: unknown): value is SavedSolution {
   if (!isObject(value)) return false;
   return (
+    (value.support === undefined || validSupport(value.support)) &&
     string(value.id, 240) &&
     Boolean(value.id) &&
     string(value.title, 200) &&
@@ -83,6 +90,7 @@ function clean(value: SavedSolution): SavedSolution {
     updatedAt,
   } = value;
   return {
+    ...(value.support ? { support: copySupport(value.support) } : {}),
     id,
     title,
     gameSlug,

@@ -1,3 +1,4 @@
+import { SupportWorkspace } from '@/components/support-workspace';
 import { ShareButtons } from '@/components/share-buttons';
 import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
 import { SaveGame } from '@/components/save-game';
@@ -222,6 +223,21 @@ export function LocalizedArticle({
           </section>
           <section className="pc-steps" aria-label={t.steps}>
             <h2>{t.steps}</h2>
+            <SupportWorkspace
+              locale={locale}
+              steps={article.steps}
+              draft={{
+                title: article.title,
+                gameSlug: game?.slug || '',
+                status: 'investigating',
+                diagnosis: '',
+                settings: '',
+                notes: '',
+                articlePath: originalPath,
+                stepId: '',
+                completedSteps: [],
+              }}
+            />
             {article.steps.map((step, index) => (
               <section className="pc-step" id={step.id} key={step.id}>
                 <h3>

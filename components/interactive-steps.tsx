@@ -10,6 +10,12 @@ import {
   Share2,
 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
+import {
+  ACTIVE_CASE_KEY,
+  changeSupport,
+  emptySupport,
+} from '@/lib/support-record';
+import { announceMyData } from '@/components/use-saved-solutions';
 import { SaveSolution } from '@/components/save-solution';
 import { trackEvent } from '@/lib/analytics';
 import { TroubleshootingProduct } from '@/components/troubleshooting-product';
@@ -75,6 +81,7 @@ export function InteractiveSteps({
   const [showResume, setShowResume] = useState(false);
   const [sending, setSending] = useState('');
   const [message, setMessage] = useState('');
+  const [progressError, setProgressError] = useState('');
   const [alreadyVoted, setAlreadyVoted] = useState(false);
   const [rows, setRows] = useState<Row[]>([]);
   const [methods, setMethods] = useState<Method[]>([]);
@@ -163,11 +170,51 @@ export function InteractiveSteps({
   }
 
   function saveProgress(next: Progress) {
+    setProgressError('');
     try {
       localStorage.setItem(storageKey, JSON.stringify(next));
+      const active = localStorage.getItem(ACTIVE_CASE_KEY);
+      if (active) {
+        changeSupport(localStorage, active, (item) => {
+          const data = item.support || emptySupport();
+          const attempts = steps
+            .filter((step) => next.completedIds.includes(step.id))
+            .map((step) => ({
+              path: articlePath,
+              stepId: step.id,
+              label: step.title,
+              result: (next.solvedStepId === step.id
+                ? 'resolved'
+                : 'unresolved') as 'resolved' | 'unresolved',
+              at: next.lastViewedAt,
+            }));
+          return {
+            ...item,
+            articlePath: item.articlePath || articlePath,
+            stepId:
+              !item.articlePath || item.articlePath === articlePath
+                ? steps[next.currentStep]?.id || ''
+                : item.stepId,
+            status: next.solved ? 'resolved' : 'unresolved',
+            support: {
+              ...data,
+              attempts: [
+                ...data.attempts.filter(
+                  (a) =>
+                    !attempts.some(
+                      (b) => a.path === b.path && a.stepId === b.stepId,
+                    ),
+                ),
+                ...attempts,
+              ],
+            },
+          };
+        });
+        announceMyData();
+      }
     } catch {
-      setMessage(
-        '進行状況を保存できませんでした。このまま手順を確認できます。',
+      setProgressError(
+        '進行状況・問題のノートを保存できませんでした。このまま手順を確認できます。',
       );
     }
   }
@@ -265,6 +312,12 @@ export function InteractiveSteps({
       );
       return;
     }
+    saveProgress({
+      currentStep: index,
+      completedIds: nextCompleted,
+      solved: false,
+      lastViewedAt: new Date().toISOString(),
+    });
     if (hasVote('struggling')) return;
     setSending(step.id);
     try {
@@ -437,12 +490,14 @@ export function InteractiveSteps({
         </div>
       </div>
 
+      {progressError && <p role="alert">{progressError}</p>}
       <div className="procedure-section">
         <h2 id="interactive-steps-title">
           <ListChecks size={26} />
           {heading}
         </h2>
         <SaveSolution
+          steps={steps}
           draft={{
             title: articleTitle,
             gameSlug: articlePath.match(/^\/games\/([a-z0-9-]+)\//)?.[1] || '',
