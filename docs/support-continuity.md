@@ -4,7 +4,7 @@ Base: `gemunao` at `7c424d3`. This change does not include draft PR #45.
 
 The existing solution notebook (`gemnao-solutions-v1`) is the source of truth. Its optional `support` field holds bounded, validated per-article/step results, temporary-setting restoration records, and read update IDs. Old records need no rewrite. Existing notes, solution statuses, checked steps, backup/restore, and per-article progress keys remain supported. A separately stored active note ID lets the reader explicitly connect articles to the same problem. The choice is visible on every article; selecting another note does not merge problems automatically. Repeated recording of a step updates its latest result, rather than creating duplicate entries. This is a latest-results notebook, not an immutable audit log.
 
-Japanese staged diagnosis writes into the selected note as well as its existing progress key. English, Simplified Chinese and Spanish articles use the same notebook and explicit step/result controls. PC articles and all four My Games pages expose the same workflow. The existing Japanese My Page retains its notebook editing, deletion, export and import controls and adds summaries, restoration checklists and a separate verified-development section. Private data is stored only in the browser; there is no sync, server action, analysis event, URL parameter, external send, or PC settings operation.
+Japanese staged diagnosis writes only the explicitly operated step into the note selected at the moment of the action, as well as updating its existing article progress key. Article-wide checked steps (including legacy progress) are never imported into another problem. A pending anonymous feedback response retains the original note ID even if the reader switches problems. New-note drafts do not inherit article-wide results or checked steps. English, Simplified Chinese and Spanish articles use the same notebook and explicit step/result controls. PC articles and all four My Games pages expose the same workflow. The existing Japanese My Page retains its notebook editing, deletion, export and import controls and adds summaries, restoration checklists and a separate verified-development section. Private data is stored only in the browser; there is no sync, server action, analysis event, URL parameter, external send, or PC settings operation.
 
 ## Support summaries
 
@@ -44,8 +44,12 @@ The browser regression script requires Playwright and Chromium; neither is added
 # Run the site's local dev server first. External APIs are intercepted by the test.
 PLAYWRIGHT_MODULE=/path/to/playwright CHROMIUM_PATH=/path/to/chromium \
   node scripts/check-support-browser.mjs
+PLAYWRIGHT_MODULE=/path/to/playwright CHROMIUM_PATH=/path/to/chromium \
+  node scripts/check-support-isolation.mjs
 ```
 
 It exercises four languages at 375/390/430px, keyboard disclosure controls, note creation, cross-article attempts, existing staged diagnosis integration, reload/back/forward, double clicks, restoration states, selectable/editable/copyable preview, clipboard denial, storage quota failure, fresh-context persistence and absence of private input in network requests. Screenshots are written to `/tmp/gemnao-support-{ja,en,zh,es}.png`.
 
 Fresh-browser-context restoration simulates reopening after a PC restart; a physical OS reboot has not been performed. Screen-reader output and non-Chromium engines have not been tested. No production deployment, production D1/API test, authentication setup, request-feature flag change, or real private user data access was performed. Before release, review the draft, inspect preview behavior, and verify production HTML/assets after the authorized merge/deployment. Evidence-backed update entries remain an editorial task; the empty state is production behavior until they exist.
+
+The issue-isolation browser regression covers A step 1 → switch to B → step 2, legacy common progress before note selection, reload/double-click behavior, clean new-note drafts, and switching the selected note while an anonymous feedback request is pending. These synthetic records remain in the local test browser.
