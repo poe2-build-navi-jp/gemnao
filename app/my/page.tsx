@@ -5,6 +5,7 @@ import { articlesForGame } from '@/lib/game-articles';
 import { games } from '@/lib/games';
 import { releaseRoundups } from '@/lib/release-roundups';
 import { maintenanceSchedule, steamAppIds } from '@/lib/status/sources';
+import { weeklyKindLabels, weeklyReports } from '@/lib/weekly-reports';
 
 // Personal page: everything is stored in the reader's browser, so there is
 // nothing for search engines to index.
@@ -22,6 +23,43 @@ function specFor(slug: string) {
       if (game.spec && game.article?.href.startsWith(`/games/${slug}/`))
         return game.spec;
   return undefined;
+}
+
+const DAY = 86_400_000;
+
+/** 'M/D' in a weekly report → 'YYYY-MM-DD' (the report's year, or the year before). */
+function weeklyDate(monthDay: string, publishedAt: string) {
+  const [month, date] = monthDay.split('/').map(Number);
+  const [year, publishedMonth] = publishedAt.split('-').map(Number);
+  const y = month > publishedMonth ? year - 1 : year;
+  return `${y}-${String(month).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
+}
+
+/** What changed for a game in the last 30 days, newest first. */
+function updatesFor(slug: string, now: number) {
+  const since = now - 30 * DAY;
+  const articles = articlesForGame(slug)
+    .filter(
+      (article) => !['draft', 'thin'].includes(article.status || 'verified'),
+    )
+    .map((article) => ({
+      date: article.checkedAt,
+      label: `記事を更新：${article.shortTitle}`,
+      href: `/games/${slug}/${article.slug}`,
+    }));
+  const weekly = weeklyReports.flatMap((report) =>
+    report.items
+      .filter((item) => item.gameSlug === slug)
+      .map((item) => ({
+        date: weeklyDate(item.date, report.publishedAt),
+        label: `${weeklyKindLabels[item.kind]}：${item.title}`,
+        href: `/weekly/${report.slug}`,
+      })),
+  );
+  return [...articles, ...weekly]
+    .filter((item) => Date.parse(item.date) >= since)
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .slice(0, 6);
 }
 
 function dashboardGames(now: number): DashboardGame[] {
@@ -48,6 +86,7 @@ function dashboardGames(now: number): DashboardGame[] {
         url: item.source.url,
       })),
     spec: specFor(game.slug),
+    updates: updatesFor(game.slug, now),
     hasNews: Boolean(steamAppIds[game.slug]),
   }));
 }

@@ -22,7 +22,7 @@
 - `lib/status/`: 障害・メンテ情報（/status、トップの「今日、落ちてる？」）。公式情報だけを使う：Discord Status API、各ゲームのSteam公式アナウンス（`sources.ts` の `steamAppIds`）、公式告知のメンテ予定（`maintenanceSchedule`、終了後は削除）。「困っている」急増は D1 の `feedback_events`（自動作成・30日で削除。既存の集計表は変更しない）
 - `lib/my-pc.ts`: マイPC（ブラウザの localStorage のみ）。OS・メモリ・VRAM・レイトレーシングは公式の要件で判定、GPU性能は編集部の目安（△まで）。新作まとめの各ゲームの `spec` で判定する。`/my`（noindex）、`/tools`（セーブ場所一覧・Hz確認）
 - `lib/launch-calendar.ts`: 新作の発売日。発売14日前〜21日後のゲームの記事をトップの「発売直後の新作」に表示する。`/feed.xml`（Atom）と `pnpm ping:index`（IndexNowとGoogleのWebSubハブへ通知）は、マージ後に実行して新しいページを早く見つけてもらうためのもの
-- `lib/weekly-reports.ts`: 週刊「今週のPCゲーム不具合まとめ」（`/weekly`）。毎週月曜日ごろ、前の週（月〜日）の公式パッチ・障害・エラーコード・お知らせだけを新しい号として配列の先頭に追加する（slugは週の月曜日、日付は日本時間）。Steam app IDは `lib/status/sources.ts` から取り、推測で書かない。追加後は `pnpm og:cards`
+- `lib/weekly-reports.ts`: 週刊（各項目に `gameSlug` を付けると、マイページの「新着」にも出る）「今週のPCゲーム不具合まとめ」（`/weekly`）。毎週月曜日ごろ、前の週（月〜日）の公式パッチ・障害・エラーコード・お知らせだけを新しい号として配列の先頭に追加する（slugは週の月曜日、日付は日本時間）。Steam app IDは `lib/status/sources.ts` から取り、推測で書かない。追加後は `pnpm og:cards`
 - `lib/release-roundups.ts`: 月ごとの新作PCゲーム動作環境まとめ（`/new-releases/[slug]`）のデータ。値はSteamストア・公式サイトで確認したものだけを入れ、不明な項目は「記載なし」にする
 - `components/troubleshooting-article.tsx`: ゲーム別個別記事の共通テンプレート
 - `components/wiki-home.tsx`: 日本語トップと検索・テーマ絞り込み

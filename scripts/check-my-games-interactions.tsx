@@ -81,6 +81,7 @@ const game = {
   articles: [],
   maintenance: [],
   hasNews: false,
+  updates: [],
 };
 for (const source of [
   'game-page',
