@@ -1,3 +1,4 @@
+import { ArticleDiagnosisEntry } from '@/components/article-diagnosis-entry';
 import { EditorialByline } from '@/components/editorial-byline';
 import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
 import { SaveArticle } from '@/components/save-article';
@@ -200,16 +201,6 @@ export function TroubleshootingArticle({
               </p>
             ) : null}
           </section>
-          {['launch', 'display'].includes(article.category) ? (
-            <aside className="diagnosis-article-entry">
-              <a href="/tools/windows-diagnosis">
-                PCゲーム診断ツールで記録と症状を整理する →
-              </a>
-              <p>
-                Windows用の試作版です。ゲーム本体と症状を選んで確認できます。全ゲームの対応・原因特定を保証せず、すでに直った状態を崩して再現する必要はありません。
-              </p>
-            </aside>
-          ) : null}
           {article.quickFacts?.length ? (
             <section
               className="quick-facts"
@@ -374,6 +365,7 @@ export function TroubleshootingArticle({
               </div>
             </section>
           ) : null}
+          <ArticleDiagnosisEntry path={`/games/${game.slug}/${article.slug}`} />
           {article.related.length ? (
             <section className="related-section" id="related-guides">
               <h2>別の症状がある場合</h2>
