@@ -1,7 +1,8 @@
 'use client';
+import { useSearchQuery } from './use-search-query';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import {
   Bug,
   ChevronRight,
@@ -76,9 +77,9 @@ export function WikiHome({
   /** Latest weekly roundup, passed from the server to keep it out of the bundle. */
   weekly?: { slug: string; period: string };
 }) {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useSearchQuery();
   const searchInput = useRef<HTMLInputElement>(null);
-  const [articleCluster, setArticleCluster] = useState('all');
+  const [articleCluster, setArticleCluster] = useSearchQuery('topic', 'all');
   const visible = useMemo(() => searchGames(query), [query]);
   const visibleArticles = useMemo(
     () => searchArticles(query, articleCluster),

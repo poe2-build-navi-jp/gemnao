@@ -20,7 +20,7 @@ import { ShareButtons } from '@/components/share-buttons';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import {
   articleBySlug,
-  categoryLabels,
+  articleCategoryLabel,
   type ContentStatus,
   type GameArticle,
 } from '@/lib/game-articles';
@@ -147,7 +147,7 @@ export function TroubleshootingArticle({
             <b>{article.shortTitle}</b>
           </nav>
           <p className="article-label">
-            {categoryLabels[article.category]}｜PC版トラブル解決
+            {articleCategoryLabel(article)}｜PC版トラブル解決
           </p>
           <h1>{article.title}</h1>
           <p className="article-lead">{article.symptom}</p>
@@ -370,7 +370,7 @@ export function TroubleshootingArticle({
                       href={`/games/${game.slug}/${related.slug}`}
                       key={slug}
                     >
-                      <span>{categoryLabels[related.category]}</span>
+                      <span>{articleCategoryLabel(related)}</span>
                       {related.shortTitle}
                       <ArrowRight size={15} />
                     </a>

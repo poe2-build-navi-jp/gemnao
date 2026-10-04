@@ -1,6 +1,8 @@
+import { normalizeSearchQuery, rankSearchDocuments, type SearchDocument } from './search-ranking';
+export { normalizeSearchQuery } from './search-ranking';
 import { games, type GameGuide } from './games';
 import {
-  categoryLabels,
+  articleCategoryLabel,
   gameArticles,
   type GameArticle,
 } from './game-articles';
@@ -27,9 +29,6 @@ const aliases: [RegExp, string][] = [
   [/gta ?(?:5|v)(?![a-z0-9])/g, 'gta5'],
 ];
 
-export function normalizeSearchQuery(value: string) {
-  return value.normalize('NFKC').toLowerCase().trim().replace(/\s+/g, ' ');
-}
 
 function normalizeText(value: string) {
   return aliases.reduce(
@@ -126,12 +125,7 @@ export type SearchArticle = {
   gameArticle?: GameArticle;
   cluster?: string;
 };
-type SearchDocument<T> = {
-  item: T;
-  title: string;
-  keywords: string;
-  body: string;
-};
+
 function document<T>(
   item: T,
   title: string[],
@@ -156,7 +150,7 @@ const articleIndex: SearchDocument<SearchArticle>[] = [
       {
         key: `game-${article.gameSlug}-${article.slug}`,
         href: `/games/${article.gameSlug}/${article.slug}`,
-        label: `${game?.shortTitle ?? ''}・${categoryLabels[article.category]}`,
+        label: `${game?.shortTitle ?? ''}・${articleCategoryLabel(article)}`,
         title: article.shortTitle,
         checkedAt: article.checkedAt,
         kind: 'game',
@@ -166,7 +160,7 @@ const articleIndex: SearchDocument<SearchArticle>[] = [
       [
         game?.title ?? '',
         game?.shortTitle ?? '',
-        categoryLabels[article.category],
+        articleCategoryLabel(article),
       ],
       [article.symptom, article.description, article.metaDescription],
     );
@@ -230,32 +224,7 @@ function rank<T>(
   query: string,
   tieBreak: (a: T, b: T) => number,
 ): T[] {
-  const terms = searchQueryTerms(query);
-  if (!terms.length)
-    return query.trim() ? [] : index.map(({ item }) => item).sort(tieBreak);
-  const phrase = normalizeText(query);
-  return index
-    .map((entry) => {
-      const all = `${entry.title} ${entry.keywords} ${entry.body}`;
-      if (!terms.every((term) => all.includes(term)))
-        return { item: entry.item, score: -1 };
-      const score =
-        (entry.title.includes(phrase) ? 100 : 0) +
-        terms.reduce(
-          (sum, term) =>
-            sum +
-            (entry.title.includes(term)
-              ? 30
-              : entry.keywords.includes(term)
-                ? 12
-                : 3),
-          0,
-        );
-      return { item: entry.item, score };
-    })
-    .filter(({ score }) => score >= 0)
-    .sort((a, b) => b.score - a.score || tieBreak(a.item, b.item))
-    .map(({ item }) => item);
+  return rankSearchDocuments(index, searchQueryTerms(query), normalizeText(query), !query.trim(), tieBreak);
 }
 
 export function searchGames(query: string): GameGuide[] {
