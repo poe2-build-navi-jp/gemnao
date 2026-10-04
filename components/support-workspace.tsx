@@ -493,7 +493,10 @@ function SupportSummary({
     </details>
   );
 }
-export function SupportUpdates({ locale = 'ja' }: { locale?: SupportLocale }) {
+export function SupportUpdates({ locale = 'ja', createHref }: {
+  locale?: SupportLocale;
+  createHref: string;
+}) {
   const t = supportCopy[locale];
   const { items, ready, error } = useSavedSolutions();
   const [failed, setFailed] = useState(false);
@@ -505,7 +508,7 @@ export function SupportUpdates({ locale = 'ja' }: { locale?: SupportLocale }) {
       <h2>{t.updates}</h2>
       <p>{t.updateHint}</p>
       {ready && !error && !matches.length && (
-        !items.length ? <p>{t.noRecords} <a href="#issue-notebook">{t.create} →</a></p>
+        !items.length ? <p>{t.noRecords} <a href={createHref}>{t.create} →</a></p>
           : <p>{items.every(item => item.status === 'resolved') ? t.noUnresolved : t.emptyUpdates}</p>
       )}
       {(error || failed) && <p role="alert">{t.error}</p>}

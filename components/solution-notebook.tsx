@@ -108,6 +108,7 @@ export function SolutionNotebook() {
       </p>
       <div className="my-pc-actions">
         <button
+          id="new-solution"
           type="button"
           disabled={!ready || Boolean(error)}
           onClick={() => {
@@ -226,7 +227,7 @@ export function SolutionNotebook() {
             : 'まだ記録はありません。記事から保存するか、「新しい記録」で追加してください。'}
         </p>
       ) : null}
-      <SupportUpdates />
+      <SupportUpdates createHref="#new-solution" />
       <div className="solution-cards">
         {visible.map((item) => (
           <article className="solution-card" key={item.id}>

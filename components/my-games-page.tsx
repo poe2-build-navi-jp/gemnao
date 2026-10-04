@@ -23,7 +23,7 @@ export function MyGamesPage({ locale = 'ja' }: { locale?: MyGamesLocale }) {
         <p className="my-games-privacy">{t.privacy}</p>
         <MyGamesPanel games={myGamesData(locale)} locale={locale} />
         <SupportWorkspace locale={locale} />
-        <SupportUpdates locale={locale} />
+        <SupportUpdates locale={locale} createHref="#issue-notebook" />
         <p className="my-games-other">
           <a href="/my#my-reading-list">{t.savedLink} →</a>
         </p>

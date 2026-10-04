@@ -16,15 +16,15 @@ try {
  await writeFile(output,bundle.outputFiles[0].contents);
  const {SupportUpdates,supportUpdates,supportCopy}=await import(output.href);
  const item={id:'test',title:'Test symptom',gameSlug:'elden-ring',articlePath:'/games/elden-ring/not-launching',status:'unresolved'};
- for(const locale of ['ja','en','zh','es']) {
+ for(const locale of ['ja','en','zh','es']) for(const createHref of ['#issue-notebook','#new-solution']) {
   const t=supportCopy[locale];
   const render=(items,ready=true,error='')=>{
    globalThis.__auditSavedNotes={items,ready,error};
-   return renderToStaticMarkup(createElement(SupportUpdates,{locale}));
+   return renderToStaticMarkup(createElement(SupportUpdates,{locale,createHref}));
   };
   const empty=render([]);
   assert.ok(empty.includes(t.noRecords));
-  assert.ok(empty.includes('href="#issue-notebook"'));
+  assert.ok(empty.includes(`href="${createHref}"`));
   assert.ok(!empty.includes(t.emptyUpdates));
   assert.ok(!render([],false).includes(t.noRecords));
   assert.ok(!render([],true,'storage blocked').includes(t.noRecords));
