@@ -211,7 +211,7 @@ export function LocalizedArticle({
                       <td data-label={t.symptom}>{row.symptom}</td>
                       <td data-label={t.cause}>{row.cause}</td>
                       <td data-label={t.step}>
-                        <a href={`#${row.stepId}`}>
+                        <a className="diagnosis-step-link" href={`#${row.stepId}`}>
                           {t.stepLabel} {index + 1}
                         </a>
                       </td>
