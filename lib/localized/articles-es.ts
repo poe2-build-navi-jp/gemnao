@@ -112,7 +112,7 @@ export const articlesEs: LocalizedArticle[] = [
           'En GOG GALAXY o Epic Games, usa la opción de verificar o reparar del lanzador.',
           'Desactiva solo las superposiciones no esenciales (Discord, Ubisoft Connect, GOG GALAXY, etc.), una por una, y compara el inicio. Mantén activos el antivirus y el cortafuegos.',
           'Ejecuta el lanzador (Steam, GOG GALAXY o Epic) como administrador e inicia el juego.',
-          'Si la CPU o la GPU tienen overclock o undervolt, vuelve a los valores de fábrica (consejo oficial).',
+          'Si aumentaste o redujiste la frecuencia de la CPU o la GPU, restaura la frecuencia de fábrica (consejo oficial).',
         ],
         note: 'No restaures archivos en cuarentena ni añadas exclusiones solo para iniciar el juego. Si sospechas un falso positivo en un archivo oficial, anota el nombre de la detección y el archivo afectado y consulta al soporte oficial del producto de seguridad o de CD PROJEKT RED.',
       },
@@ -762,8 +762,8 @@ export const articlesEs: LocalizedArticle[] = [
         time: 'Unos 5 min',
         actions: [
           'Copia antes la carpeta de partidas en otro lugar.',
-          'Inicia «The Elder Scrolls V: Skyrim Special Edition» normalmente desde Steam, sin el cargador de SKSE.',
-          'Si no inicia: ' +
+          'Inicia «The Elder Scrolls V: Skyrim Special Edition» sin el cargador de SKSE por la vía normal de tu edición: Steam para la edición de Steam o el inicio normal de GOG para la edición de GOG.',
+          'Si la edición de Steam no inicia: ' +
             verify('The Elder Scrolls V: Skyrim Special Edition'),
         ],
         note: 'La verificación también restaura los archivos del juego que hayan sustituido los mods. Si usas un gestor de mods, revisa también sus instrucciones.',
@@ -772,7 +772,7 @@ export const articlesEs: LocalizedArticle[] = [
         id: 'check-version',
         title: 'Instala la versión de SKSE que corresponde a tu juego',
         summary:
-          'SKSE solo admite la última versión del juego en Steam, y cada versión de SKSE apunta a una versión concreta.',
+          'Steam y GOG tienen compilaciones distintas de SKSE, cada una para una versión concreta del juego. Comprueba tanto la tienda como la versión.',
         time: 'Unos 10 min',
         actions: [
           'En la carpeta del juego (Steam: clic derecho → Administrar → Ver archivos locales), haz clic derecho en «SkyrimSE.exe» → Propiedades → Detalles y anota la versión del archivo.',
@@ -780,14 +780,14 @@ export const articlesEs: LocalizedArticle[] = [
           'Reinstala SKSE siguiendo las instrucciones del sitio.',
           'Si aún no hay una versión para tu versión del juego, espera a que se actualice SKSE.',
         ],
-        note: 'El equipo de SKSE advierte que no uses nada de la tienda de aplicaciones de Windows para descomprimir el archivo; usa la instalación por Steam, el instalador o 7-Zip, como se indica en el sitio.',
+        note: 'Sigue el enlace de descarga y las instrucciones incluidas de la compilación SE/AE que elegiste en el sitio oficial. Puedes extraer archivos 7z con 7-Zip. No confundas «Install via Steam» ni el instalador de la versión classic con un método de instalación de SE/AE.',
       },
       {
         id: 'plugins-off',
         title:
           'Retira los plugins de SKSE y vuelve a añadir los mods actualizados',
         summary:
-          'Tras una actualización del juego, los mods que usan plugins de SKSE casi siempre necesitan actualizarse también.',
+          'Tras una actualización del juego, los mods que usan plugins de SKSE también pueden necesitar una actualización.',
         time: 'Unos 10 min',
         actions: [
           String.raw`Mueve a otro lugar el contenido de «Data\SKSE\Plugins» en la carpeta del juego (con un gestor de mods, desactiva los mods que incluyen plugins).`,

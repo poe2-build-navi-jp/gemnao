@@ -80,10 +80,6 @@ export function ShaderCacheAfterSteps() {
           「削除するファイル」で他のチェックを外し、「DirectX シェーダー
           キャッシュ」だけを選択。「OK」→「ファイルの削除」で実行します。
         </p>
-        <p>
-          Windows
-          11の設定から開く場合は「設定」→「システム」→「ストレージ」→「一時ファイル」。一覧の読み込み後、同じ項目だけを選び「ファイルの削除」を押します。ダウンロードやごみ箱など、ほかの項目のチェックを必ず確認してください。
-        </p>
         <p className="reset-small">
           <a href="https://community.intel.com/t5/Gaming-on-Intel-Processors-with/CS2-crashed-Failure-Exception-IP-Module-igd10umt64xe-DLL/m-p/1757369">
             Intelサポート担当者の操作案内

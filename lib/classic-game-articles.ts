@@ -853,8 +853,8 @@ export const classicGameArticles: GameArticle[] = [
         risk: 'low',
         actions: [
           'セーブフォルダを別の場所へコピーしておく',
-          'Steamから通常どおり「The Elder Scrolls V: Skyrim Special Edition」を起動する（SKSEのローダーは使わない）',
-          '起動しない場合は、' +
+          '購入したストアの通常の起動方法で「The Elder Scrolls V: Skyrim Special Edition」を起動する（Steam版はSteam、GOG版はGOGの通常起動。SKSEのローダーは使わない）',
+          'Steam版が起動しない場合は、' +
             verifySteam('The Elder Scrolls V: Skyrim Special Edition'),
         ],
         note: '整合性の確認は、MODで置き換えた本体のファイルも元に戻します。MOD管理ツールを使っている場合は、ツールの案内も確認してください。',
@@ -863,7 +863,7 @@ export const classicGameArticles: GameArticle[] = [
         id: 'check-version',
         title: '本体のバージョンに合ったSKSEを入れ直す',
         summary:
-          'SKSEはSteamの最新版の本体だけをサポートし、ビルドごとに対応する本体のバージョンが決まっています。',
+          'Steam版とGOG版では配布ビルドが異なり、それぞれ対応する本体バージョンが決まっています。ストアとバージョンの両方を合わせます。',
         time: '約10分',
         risk: 'low',
         actions: [
@@ -872,13 +872,13 @@ export const classicGameArticles: GameArticle[] = [
           '公式サイトの案内に従って、SKSEのファイルを入れ直す',
           'まだ対応ビルドが出ていない場合は、SKSEの更新を待つ',
         ],
-        note: 'SKSE公式は、Windowsのアプリストアのものを使わないよう注意しています。圧縮ファイルは公式サイトの案内（Steam経由のインストール、インストーラー、7-Zip）で展開してください。',
+        note: '公式ページで選んだSE/AE用ビルドの配布先と同梱手順に従ってください。7zファイルの展開には7-Zipを使えます。classic版の「Install via Steam」やインストーラーをSE/AE用と取り違えないでください。',
       },
       {
         id: 'plugins-off',
         title: 'SKSEプラグインを外して、対応するMODから戻す',
         summary:
-          '本体の更新後は、SKSEのプラグインを使うMODも更新が必要な場合がほとんどです。',
+          '本体の更新後は、SKSEのプラグインを使うMODも更新が必要な場合があります。',
         time: '約10分',
         risk: 'medium',
         actions: [

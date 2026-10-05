@@ -1,0 +1,572 @@
+[
+  {
+    "id": "discord-bot-add-1-c1",
+    "path": "/discord/bot-add",
+    "claim": "スマホで招待リンクを使える場合がある",
+    "before": "招待リンクなどから追加できる場合がありますが、Discord公式のApp Directoryはデスクトップ版・ブラウザ版で利用します。権限内容を確認しやすいため、管理作業はPC版を推奨します。",
+    "priorStatus": "M",
+    "disposition": "narrowed",
+    "sources": [
+      "https://support.discord.com/hc/en-us/articles/21334461140375-Using-Apps-on-Discord"
+    ],
+    "comparison": "モバイルでの起動とインストール経路は同一ではない。未確認のスマホ招待可能性を削り、公式が記載するPCのApp Directoryと提供元確認に限定。",
+    "resumeCondition": null
+  },
+  {
+    "id": "discord-bot-not-responding-1-c2",
+    "path": "/discord/bot-not-responding",
+    "claim": "interaction応答と通常投稿で条件が異なる",
+    "before": "スラッシュコマンドへの応答と通常のメッセージ投稿では動作条件が異なるため、送信権限を付ければすべて直るとは考えない。Bot独自の許可チャンネル設定もあれば確認する。",
+    "priorStatus": "M",
+    "disposition": "supported",
+    "sources": [
+      "https://docs.discord.com/developers/interactions/receiving-and-responding"
+    ],
+    "comparison": "本文は具体的な権限ビット差を断定していない。公式のinteraction専用callback・token・応答期限と、通常メッセージ投稿とは動作条件が異なるという限定主張を比較。特定Botの成功は保証していない。",
+    "resumeCondition": null
+  },
+  {
+    "id": "discord-echo-double-voice-1-c1",
+    "path": "/discord/echo-double-voice",
+    "claim": "Runからmmsys.cplで録音プロパティを開く",
+    "before": "Windows＋Rを押し「mmsys.cpl」と入力してサウンド画面を開く。「録音」タブ → 使用中のマイク →「プロパティ」を開く",
+    "priorStatus": "M",
+    "disposition": "supported",
+    "sources": [
+      "https://learn.microsoft.com/en-us/windows/win32/shell/controlpanel-canonical-names",
+      "https://support.microsoft.com/en-us/servicing/os/windows/2017/01/how-to-run-control-panel-tools-by-typing-a-command",
+      "https://support.focusrite.com/hc/de/articles/206849219-Latency-while-using-Direct-Monitor"
+    ],
+    "comparison": "MicrosoftのSound canonical項目がmmsys.cplを指定し、コントロールパネル実行資料がOpen欄からの起動を説明。Focusriteの録音デバイス→プロパティ手順と組み合わせて入口と操作対象を照合。現行Windows実機操作をしたとの意味ではない。",
+    "resumeCondition": null
+  },
+  {
+    "id": "discord-slow-performance-1-c2",
+    "path": "/discord/slow-performance",
+    "claim": "リンク先のキャッシュ退避手順で比較する",
+    "before": "アプリだけ重い状態が続くなら、関連記事「Discordが起動しない」のキャッシュ退避手順を使って比較する。再インストールはその後にし、メール・パスワード・二要素認証を確認してから行う",
+    "priorStatus": "U",
+    "disposition": "narrowed",
+    "sources": [
+      "https://support.discord.com/hc/en-us/articles/31623498041623-Discord-Troubleshooting-Guide"
+    ],
+    "comparison": "リンク先STEP3を実読。公式が具体指定するCacheに絞り、Code Cache/GPUCacheへ拡張する追加操作を削除。名前変更と復元は削除を避ける編集手順として維持し、公式操作そのものとは扱わない。",
+    "resumeCondition": null
+  },
+  {
+    "id": "discord-notifications-not-working-1-c1",
+    "path": "/discord/notifications-not-working",
+    "claim": "DMミュートの解除操作",
+    "before": "1. DMだけ届かないなら、会話ごとのミュートと「無視」を調べる",
+    "priorStatus": "B",
+    "disposition": "deferred",
+    "sources": [
+      "https://support.discord.com/hc/en-us/articles/223657667"
+    ],
+    "comparison": "公式223657667本文取得不能を維持。DM/グループDMの適用差も未解決。",
+    "resumeCondition": "対象の一次本文または元資料を通常の公開経路で取得できた時だけ再開。実機未実施とは別。"
+  },
+  {
+    "id": "discord-recommended-bots-1-c1",
+    "path": "/discord/recommended-bots",
+    "claim": "DynoのModulesからAutomodを開く",
+    "before": "Dynoを追加し、dyno.gg/accountで対象サーバーを選ぶ。「Modules」→「Automod」の設定を開く。使わない管理機能は一度に有効にしない。",
+    "priorStatus": "B",
+    "disposition": "deferred",
+    "sources": [
+      "https://docs.dyno.gg/en/modules/automod"
+    ],
+    "comparison": "本文取得不能。画面経路を確認できていない。",
+    "resumeCondition": "対象の一次本文または元資料を通常の公開経路で取得できた時だけ再開。実機未実施とは別。"
+  },
+  {
+    "id": "discord-recommended-bots-1-c2",
+    "path": "/discord/recommended-bots",
+    "claim": "Dyno完全一致の禁止語とWarn処理",
+    "before": "最初はBanned Words（exact／完全一致）でテスト語「gemnao_test_123」を設定し、Warnなど警告の処理から試す。自動BAN・キック・長時間のタイムアウトをテストには選ばない。",
+    "priorStatus": "B",
+    "disposition": "deferred",
+    "sources": [
+      "https://docs.dyno.gg/en/modules/automod"
+    ],
+    "comparison": "本文取得不能。exactとWarnの組合せが未比較。",
+    "resumeCondition": "対象の一次本文または元資料を通常の公開経路で取得できた時だけ再開。実機未実施とは別。"
+  },
+  {
+    "id": "discord-recommended-bots-1-c3",
+    "path": "/discord/recommended-bots",
+    "claim": "Dynoの免除ロール・チャンネル",
+    "before": "一般メンバーにテスト語を1回投稿してもらい、警告やログを確認する。免除ロール・免除チャンネルでは検出されない場合があるため、管理者の投稿だけで合否を決めない。確認後はテスト語を外し、必要なルールを1つずつ追加する。",
+    "priorStatus": "B",
+    "disposition": "deferred",
+    "sources": [
+      "https://docs.dyno.gg/en/modules/automod"
+    ],
+    "comparison": "本文取得不能。設定条件が未比較。",
+    "resumeCondition": "対象の一次本文または元資料を通常の公開経路で取得できた時だけ再開。実機未実施とは別。"
+  },
+  {
+    "id": "discord-recommended-bots-1-c4",
+    "path": "/discord/recommended-bots",
+    "claim": "Dyno無料で始められる機能範囲",
+    "before": "無料で始める候補は、基本の日程調整ならsesh、通常のゲーム別ロール選択ならCarl-bot、管理・荒らし対策ならDynoです。定期イベントや設定上限の拡張などは有料になる場合があります。Ticket Toolは必要なパネル機能と上限を設定画面で確認してください。契約前に、使いたい機能のPremium表示を確認します。",
+    "priorStatus": "B",
+    "disposition": "deferred",
+    "sources": [
+      "https://docs.dyno.gg/en/premium"
+    ],
+    "comparison": "今回Premium資料もCopied to clipboardのみ。Automod本文とは別URL。",
+    "resumeCondition": "対象の一次本文または元資料を通常の公開経路で取得できた時だけ再開。実機未実施とは別。"
+  },
+  {
+    "id": "discord-recommended-bots-2-c1",
+    "path": "/discord/recommended-bots",
+    "claim": "Carl DashboardのReaction Roles設定入口",
+    "before": "carl.ggでログインし対象サーバーを選び、Reaction Roles（リアクションロール）の作成画面を開く。投稿先を「#ゲーム選択」にし、説明文と絵文字・ロールの組み合わせを登録する。メニュー表記が違う場合は公式マニュアルのReaction Rolesを参照する。",
+    "priorStatus": "M",
+    "disposition": "deferred",
+    "sources": [
+      "https://docs.carl.gg/roles/reaction-roles/",
+      "https://carl.gg/about"
+    ],
+    "comparison": "Carl about本文は機能概説のみ。公式Reaction Roles資料は取得不能。コマンド資料からDashboard画面や現行Premium境界を推定しない。契約・Bot起動による補完も行わない。",
+    "resumeCondition": "対象の一次本文または元資料を通常の公開経路で取得できた時だけ再開。実機未実施とは別。"
+  },
+  {
+    "id": "discord-recommended-bots-2-c2",
+    "path": "/discord/recommended-bots",
+    "claim": "Carl等の設定上限拡張の有料境界",
+    "before": "無料で始める候補は、基本の日程調整ならsesh、通常のゲーム別ロール選択ならCarl-bot、管理・荒らし対策ならDynoです。定期イベントや設定上限の拡張などは有料になる場合があります。Ticket Toolは必要なパネル機能と上限を設定画面で確認してください。契約前に、使いたい機能のPremium表示を確認します。",
+    "priorStatus": "M",
+    "disposition": "deferred",
+    "sources": [
+      "https://docs.carl.gg/roles/reaction-roles/",
+      "https://carl.gg/about"
+    ],
+    "comparison": "Carl about本文は機能概説のみ。公式Reaction Roles資料は取得不能。コマンド資料からDashboard画面や現行Premium境界を推定しない。契約・Bot起動による補完も行わない。",
+    "resumeCondition": "対象の一次本文または元資料を通常の公開経路で取得できた時だけ再開。実機未実施とは別。"
+  },
+  {
+    "id": "guide-gpu-driver-update-1-c2",
+    "path": "/guide/gpu-driver-update",
+    "claim": "複数GPUのRenderタブ表示",
+    "before": "対象GPUを右クリック→「プロパティ」→「ドライバー」で「ドライバーのバージョン」「日付」を記録する。Windows＋R→dxdiag→「ディスプレイ」または「レンダー」も確認できるが、複数GPUでは対象名を取り違えない。",
+    "priorStatus": "M",
+    "disposition": "narrowed",
+    "sources": [
+      "https://devblogs.microsoft.com/directx/gpus-in-the-task-manager/"
+    ],
+    "comparison": "取得済みMicrosoft資料が説明するDisplayまでに限定し、複数GPUでRenderタブが出るという未確認の具体名を外した。",
+    "resumeCondition": null
+  },
+  {
+    "id": "guide-pc-game-crash-1-c2",
+    "path": "/guide/pc-game-crash",
+    "claim": "10月3日のSteam拡張停止でプレイできた1件の来歴",
+    "before": "2026年10月3日（日本時間）、Steam版モンハンワイルズがタイトル前に落ちる環境で、 Steamクライアントの外部拡張を一時停止した後に「プレイできた」との報告が1件ありました。 OBS終了・SteamオーバーレイOFF・ゲームの整合性確認・管理者実行OFFの確認・GPUドライバー更新と再起動だけでは改善せず、 SteamプロセスにSteam直下の追加DLLが読み込まれていることを確認してから切り分けています。",
+    "priorStatus": "I",
+    "disposition": "deferred",
+    "sources": [],
+    "comparison": "2026-10-03に受け取った報告という本文は一次サポートの一般論で真偽確認できない。元ユーザー報告の記録はこの作業環境にない。報告件数や因果・改善率を補わず、私的履歴の推測取得もしない。",
+    "resumeCondition": "対象の一次本文または元資料を通常の公開経路で取得できた時だけ再開。実機未実施とは別。"
+  },
+  {
+    "id": "guide-pc-game-crash-1-c4",
+    "path": "/guide/pc-game-crash",
+    "claim": "Steam整合性の手順",
+    "before": "セーブ・エリアのロード中\t特定のセーブ・場面だけか、別スロットや新規ゲームでも起きるか\tセーブをコピー。別スロットも落ちるならSteamの整合性確認。特定データだけなら消さずにゲームのサポートへ",
+    "priorStatus": "B",
+    "disposition": "supported",
+    "sources": [
+      "https://support.cdprojektred.com/en/cyberpunk/pc/sp-technical/issue/1562/verify-integrity-of-game-files-1"
+    ],
+    "comparison": "Valve FAQ本文は引き続き読めないが、CD PROJEKT REDの公式修復資料にSteamのLibrary→Properties→Installed files→Verifyが明記。公開本文の整合性確認の入口と破損修復という限定用途を比較した。症状との対照、バックアップ、追加MODが全削除されたと判断しない注意は編集上の条件で、全ファイル削除や必ず直るとの主張ではない。",
+    "resumeCondition": null
+  },
+  {
+    "id": "guide-pc-game-freezes-1-c2",
+    "path": "/guide/pc-game-freezes",
+    "claim": "HWiNFOのSensors-only→Start/Run",
+    "before": "メーカー付属の監視ソフトがあるなら先に使います。ない場合はHWiNFO公式から入手し、起動時に「Sensors-only」を選んで「Start」または「Run」でセンサー画面を開きます。版によって表示名は異なります。",
+    "priorStatus": "M",
+    "disposition": "narrowed",
+    "sources": [
+      "https://www.hwinfo.com/about-software/"
+    ],
+    "comparison": "HWiNFO公式は監視機能を説明するが起動画面のボタン名は保証しない。Sensors-only/Start/Runの断定を外し、使用版の公式案内でセンサー監視画面を特定する手順にした。",
+    "resumeCondition": null
+  },
+  {
+    "id": "guide-pc-game-freezes-1-c3",
+    "path": "/guide/pc-game-freezes",
+    "claim": "HWiNFOのCPU Package/Tctl/Tdie欄",
+    "before": "CPUの欄で「CPU Package」や「CPU (Tctl/Tdie)」などの温度項目を探します。表示されるセンサー名はCPUによって異なります。",
+    "priorStatus": "M",
+    "disposition": "narrowed",
+    "sources": [
+      "https://www.hwinfo.com/about-software/"
+    ],
+    "comparison": "CPU Package/Tctl/Tdieの機種別表示を公式概説で裏付けられないため列挙を外し、CPUに対応する実際のセンサー名を記録する操作に限定。",
+    "resumeCondition": null
+  },
+  {
+    "id": "guide-pc-game-freezes-1-c4",
+    "path": "/guide/pc-game-freezes",
+    "claim": "Task ManagerではCPU温度を調べられない",
+    "before": "「パフォーマンス」→使用中の「GPU」で温度表示を確認します。対応するGPU・ドライバーでのみ表示されます。温度がないこと自体は故障ではありません。また、ここでCPU温度を調べることはできません。",
+    "priorStatus": "M",
+    "disposition": "narrowed",
+    "sources": [
+      "https://blogs.windows.com/windows-insider/2019/08/16/announcing-windows-10-insider-preview-build-18963/"
+    ],
+    "comparison": "GPU温度の公式資料からCPU温度機能全体の不存在を推定していた。断定を外し、GPU欄の値をCPU温度と混同しない説明に変更。",
+    "resumeCondition": null
+  },
+  {
+    "id": "guide-pc-game-freezes-1-c7",
+    "path": "/guide/pc-game-freezes",
+    "claim": "Steam整合性手順",
+    "before": "Alt＋Tabで他アプリに切り替えられ、操作もできる\tゲーム側の停止を優先して調べる\t進捗を確認し、戻らなければ対象ゲームだけ終了。整合性・MOD・メモリを比較",
+    "priorStatus": "B",
+    "disposition": "supported",
+    "sources": [
+      "https://support.cdprojektred.com/en/cyberpunk/pc/sp-technical/issue/1562/verify-integrity-of-game-files-1"
+    ],
+    "comparison": "Valve FAQ本文は引き続き読めないが、CD PROJEKT REDの公式修復資料にSteamのLibrary→Properties→Installed files→Verifyが明記。公開本文の整合性確認の入口と破損修復という限定用途を比較した。症状との対照、バックアップ、追加MODが全削除されたと判断しない注意は編集上の条件で、全ファイル削除や必ず直るとの主張ではない。",
+    "resumeCondition": null
+  },
+  {
+    "id": "guide-ray-tracing-gpu-1-c1",
+    "path": "/guide/ray-tracing-gpu",
+    "claim": "RTX各世代の専用RT機能",
+    "before": "NVIDIA：GeForce RTX（RTX 20・30・40・50シリーズ）は対応。GeForce GTX（GTX 10・16シリーズなど）は非対応",
+    "priorStatus": "M",
+    "disposition": "supported",
+    "sources": [
+      "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/",
+      "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/",
+      "https://www.nvidia.com/en-us/geforce/news/geforce-gtx-dxr-ray-tracing-available-now/"
+    ],
+    "comparison": "RTX20/30とGTXの既資料にRTX40の第三世代RT Cores、RTX50の第四世代Ray Tracing Coresの製品本文を加え、20/30/40/50の専用ハードウェアという範囲を照合。GTXのソフトウェアDXRとは区別。",
+    "resumeCondition": null
+  },
+  {
+    "id": "guide-ray-tracing-gpu-1-c2",
+    "path": "/guide/ray-tracing-gpu",
+    "claim": "RX5000以前がハードウェアRT非対応",
+    "before": "タスクマネージャーの「パフォーマンス」→「GPU」でGPU名を確認します。NVIDIAはGeForce RTXシリーズ（RTX 20シリーズ以降）、AMDはRadeon RX 6000シリーズ以降が、ハードウェアのレイトレーシング機能を備えています。GTX 10／16シリーズやRadeon RX 5000シリーズ以前は非対応で、ゲーム側の設定では解決できません。",
+    "priorStatus": "M",
+    "disposition": "deferred",
+    "sources": [
+      "https://www.amd.com/en/products/graphics/desktops/radeon/6000-series.html",
+      "https://www.amd.com/en/products/graphics/desktops/radeon/5000-series.html",
+      "https://www.amd.com/en/technologies/rdna-2"
+    ],
+    "comparison": "RX6000のRay Acceleratorは支持されるがRX5000以前の全機種否定までをそのページでは証明できない。5000シリーズ公式URLは取得不能、RDNA2旧URLは一般トップへ転送。世代全体の裏付けは未取得。",
+    "resumeCondition": "対象の一次本文または元資料を通常の公開経路で取得できた時だけ再開。実機未実施とは別。"
+  },
+  {
+    "id": "guide-ray-tracing-gpu-1-c4",
+    "path": "/guide/ray-tracing-gpu",
+    "claim": "GPU列を見出し右クリックから追加",
+    "before": "ゲームを起動したままタスクマネージャーの「プロセス」タブで、「GPUエンジン」列にどのGPUが使われているか見る（列がなければ見出しを右クリックして追加）",
+    "priorStatus": "U",
+    "disposition": "narrowed",
+    "sources": [
+      "https://devblogs.microsoft.com/directx/gpus-in-the-task-manager/"
+    ],
+    "comparison": "MicrosoftはProcessesのGPU/Engine表示を説明する一方、右クリックSelect columnsの説明はDetailsタブ。Processesの具体メニューを混同せず、列が表示されない場合は既存のGPU設定確認へ進む案内に変更。",
+    "resumeCondition": null
+  },
+  {
+    "id": "guide-ray-tracing-gpu-1-c7",
+    "path": "/guide/ray-tracing-gpu",
+    "claim": "Gears E-Dayの10月発売・RT必須",
+    "before": "エースコンバット8とGears of War: E-Dayです。一覧は「2026年10月発売の新作PCゲーム 動作環境まとめ」で確認できます。",
+    "priorStatus": "B",
+    "disposition": "deferred",
+    "sources": [
+      "https://store.steampowered.com/app/3010850/"
+    ],
+    "comparison": "Steam年齢確認で本文未取得。発売日と要件は別属性だが同じ取得不能に依存。",
+    "resumeCondition": "対象の一次本文または元資料を通常の公開経路で取得できた時だけ再開。実機未実施とは別。"
+  },
+  {
+    "id": "guide-remove-mods-safely-1-c2",
+    "path": "/guide/remove-mods-safely",
+    "claim": "MO2で対象プロファイルのMODを無効化",
+    "before": "Vortex等の管理ツールなら対象ゲームの管理画面で疑わしいMODを無効化し、必要に応じ「Deploy Mods」等の反映を完了。Vortexの「Purge Mods」を使う場合はツールが配置したリンクをまとめて外す操作であり、手動導入分は対象外。MOD一覧を削除する操作とは区別する。MO2など仮想配置のツールでは対象プロファイルのMODを無効化し、そのツール経由で起動して比較する。",
+    "priorStatus": "U",
+    "disposition": "supported",
+    "sources": [
+      "https://raw.githubusercontent.com/ModOrganizer2/modorganizer/master/src/profile.cpp",
+      "https://github.com/ModOrganizer2/usvfs"
+    ],
+    "comparison": "公式ソースProfileがプロファイル内modlist.txtとenabled状態を保持し、setModEnabledで変更することを確認。usvfsの仮想配置と合わせ、対象プロファイルで無効にしてツール経由起動という本文を支持。本文は未確認のボタン名を指定しない。",
+    "resumeCondition": null
+  },
+  {
+    "id": "guide-remove-mods-safely-1-c4",
+    "path": "/guide/remove-mods-safely",
+    "claim": "Steam修復は追加MOD全削除の証明ではない",
+    "before": "本体ファイルの破損が疑われる時だけ、Steam「ライブラリ」→対象ゲームを右クリック→「プロパティ」→「インストール済みファイル」→「ゲームファイルの整合性を確認」を使う。Steamの修復だけで、後から追加したMODファイルがすべて消えるとは判断しない。",
+    "priorStatus": "B",
+    "disposition": "supported",
+    "sources": [
+      "https://support.cdprojektred.com/en/cyberpunk/pc/sp-technical/issue/1562/verify-integrity-of-game-files-1"
+    ],
+    "comparison": "Valve FAQ本文は引き続き読めないが、CD PROJEKT REDの公式修復資料にSteamのLibrary→Properties→Installed files→Verifyが明記。公開本文の整合性確認の入口と破損修復という限定用途を比較した。症状との対照、バックアップ、追加MODが全削除されたと判断しない注意は編集上の条件で、全ファイル削除や必ず直るとの主張ではない。",
+    "resumeCondition": null
+  },
+  {
+    "id": "guide-shader-cache-delete-1-c2",
+    "path": "/guide/shader-cache-delete",
+    "claim": "Windows11設定→一時ファイル側の削除経路",
+    "before": "Windows 11の設定から開く場合は「設定」→「システム」→「ストレージ」→「一時ファイル」。一覧の読み込み後、同じ項目だけを選び「ファイルの削除」を押します。ダウンロードやごみ箱など、ほかの項目のチェックを必ず確認してください。",
+    "priorStatus": "U",
+    "disposition": "narrowed",
+    "sources": [
+      "https://support.microsoft.com/en-us/windows/experience/storage-filemanagement/free-up-drive-space-in-windows",
+      "https://community.intel.com/t5/Gaming-on-Intel-Processors-with/CS2-crashed-Failure-Exception-IP-Module-igd10umt64xe-DLL/m-p/1757369"
+    ],
+    "comparison": "Microsoft空き容量資料だけではSettings側のDirectX項目名を確認できない。重複する代替経路を外し、Intel公式担当者が説明するDisk Cleanupの既存手順を残した。",
+    "resumeCondition": null
+  },
+  {
+    "id": "guide-steam-disk-write-error-1-c1",
+    "path": "/guide/steam-disk-write-error",
+    "claim": "Steamライブラリ修復操作",
+    "before": "Steamのインストール・更新で「ディスク書き込みエラー」が出る時は、対象ゲームの保存先ドライブを先に特定。空き容量を確認し、ライブラリ修復後の再試行結果から、整合性確認・競合調査・Windowsのドライブ点検へ進む条件を解説します。",
+    "priorStatus": "B",
+    "disposition": "deferred",
+    "sources": [
+      "https://help.steampowered.com/en/faqs/view/21F5-8D5D-0141-7A5E"
+    ],
+    "comparison": "FAQ本文取得不能。Windowsの検査とは別。",
+    "resumeCondition": "対象の一次本文または元資料を通常の公開経路で取得できた時だけ再開。実機未実施とは別。"
+  },
+  {
+    "id": "guide-steam-disk-write-error-1-c2",
+    "path": "/guide/steam-disk-write-error",
+    "claim": "Windowsドライブのツール→エラーチェック",
+    "before": "Windowsキー＋E→「このPC」→問題のドライブを右クリック→「プロパティ」→「ツール」→「エラーチェック」の「チェック」を開き、Windowsが表示する結果と修復指示を記録。システムドライブの修復を求められたら保存中の作業を終え、指示に従う。",
+    "priorStatus": "U",
+    "disposition": "deferred",
+    "sources": [],
+    "comparison": "ドライブProperties→Tools→Error checkingの正確なUIを支える一次箇所を特定できない。Windows一般案内は対象画面を説明しない。検索が指定語・ドメインに沿わない結果を返したため、その結果を証拠にしていない。取得済みで未読の該当本文がある状態ではない。",
+    "resumeCondition": "対象の一次本文または元資料を通常の公開経路で取得できた時だけ再開。実機未実施とは別。"
+  },
+  {
+    "id": "guide-steam-game-not-launching-1-c1",
+    "path": "/guide/steam-game-not-launching",
+    "claim": "起動準備後のSteam公式対処順",
+    "before": "Steamゲームが起動しない時の対処法｜プレイを押しても起動しない・「起動準備を行っています」で止まる",
+    "priorStatus": "B",
+    "disposition": "deferred",
+    "sources": [
+      "https://help.steampowered.com/ja/faqs/view/5814-D9A3-BE42-62DF"
+    ],
+    "comparison": "本文取得不能。FAQへの帰属が未確認。",
+    "resumeCondition": "対象の一次本文または元資料を通常の公開経路で取得できた時だけ再開。実機未実施とは別。"
+  },
+  {
+    "id": "guide-steam-game-not-launching-1-c2",
+    "path": "/guide/steam-game-not-launching",
+    "claim": "Radeonや一部ゲームの.NET更新要件",
+    "before": "Windows Updateでは、追加の更新プログラムに出てくる.NET Frameworkも入れる。Steam公式によると、AMD Radeonのドライバーや一部のゲームは.NET Frameworkのインストールと最新の状態を必要とする。",
+    "priorStatus": "B",
+    "disposition": "deferred",
+    "sources": [
+      "https://help.steampowered.com/ja/faqs/view/5814-D9A3-BE42-62DF"
+    ],
+    "comparison": "FAQ本文取得不能。現在の全Radeonへ拡張しない必要があるが編集は保留。",
+    "resumeCondition": "対象の一次本文または元資料を通常の公開経路で取得できた時だけ再開。実機未実施とは別。"
+  },
+  {
+    "id": "guide-steam-game-not-launching-1-c3",
+    "path": "/guide/steam-game-not-launching",
+    "claim": "Steamと競合するソフトの対処",
+    "before": "「起動準備を行っています」と出たあと何も起きない場合、Steam公式は、PCを再起動してから「Windowsを最新にする」「ドライバーを最新にする」「ゲームファイルの整合性を確認する」「Steamを妨害するソフトを止める」「システム要件を確認する」の順に試すよう案内している。",
+    "priorStatus": "B",
+    "disposition": "deferred",
+    "sources": [
+      "https://help.steampowered.com/ja/faqs/view/1F39-DCB4-FF28-5748"
+    ],
+    "comparison": "今回該当FAQも画像1行のみと判明。",
+    "resumeCondition": "対象の一次本文または元資料を通常の公開経路で取得できた時だけ再開。実機未実施とは別。"
+  },
+  {
+    "id": "guide-steam-game-not-launching-1-c4",
+    "path": "/guide/steam-game-not-launching",
+    "claim": "実行ファイル不明時の整合性操作",
+    "before": "「実行ファイルが見つかりません」\t不足ファイル、Windowsセキュリティの保護履歴\tゲームファイルの整合性を確認し、同時刻の隔離も確認",
+    "priorStatus": "B",
+    "disposition": "deferred",
+    "sources": [
+      "https://help.steampowered.com/ja/faqs/view/3A2A-BF2D-15FF-7963"
+    ],
+    "comparison": "今回該当FAQも画像1行のみ。",
+    "resumeCondition": "対象の一次本文または元資料を通常の公開経路で取得できた時だけ再開。実機未実施とは別。"
+  },
+  {
+    "id": "guide-steam-game-not-launching-1-c5",
+    "path": "/guide/steam-game-not-launching",
+    "claim": "既に実行中のエラー対処",
+    "before": "一瞬「停止／実行中」になり「プレイ」に戻る\tゲームのプロセスと同時刻のWindows停止履歴\t信頼性の履歴でゲームやランチャーの名前を照合",
+    "priorStatus": "B",
+    "disposition": "deferred",
+    "sources": [
+      "https://help.steampowered.com/ja/faqs/view/7CFE-6339-CEA8-DC13"
+    ],
+    "comparison": "今回該当FAQも画像1行のみ。",
+    "resumeCondition": "対象の一次本文または元資料を通常の公開経路で取得できた時だけ再開。実機未実施とは別。"
+  },
+  {
+    "id": "guide-stutter-fix-1-c2",
+    "path": "/guide/stutter-fix",
+    "claim": "Steam性能モニターの現行UI",
+    "before": "同じセーブ・練習場・同じカメラ方向を使い、約60秒で通れるルートを決めます。Steamでは「設定」→「ゲーム中（In Game）」のパフォーマンスオーバーレイから表示を設定できます。ゲーム内のFPS表示でも構いません。計測表示は1つにし、全比較で同じ表示を使います。",
+    "priorStatus": "B",
+    "disposition": "deferred",
+    "sources": [
+      "https://help.steampowered.com/en/faqs/view/3462-CD4C-36BD-5767"
+    ],
+    "comparison": "第5バッチの画像1行のみを維持。",
+    "resumeCondition": "対象の一次本文または元資料を通常の公開経路で取得できた時だけ再開。実機未実施とは別。"
+  },
+  {
+    "id": "guide-verify-steam-files-1-c1",
+    "path": "/guide/verify-steam-files",
+    "claim": "Steam整合性の現行UIと照合範囲",
+    "before": "ゲームとSteamの更新を終え、必要なセーブ・MODの記録を残してから「ライブラリ→ゲームのプロパティ→インストール済みファイル→ゲームファイルの整合性を確認」を実行します。再取得された場合はダウンロード完了後に同じ症状を比較し、変化がなければ起動条件・MOD・設定など別の原因を確認します。毎回再取得される場合は更新履歴・保存先ドライブ・セキュリティソフトの履歴を照合します。",
+    "priorStatus": "B",
+    "disposition": "supported",
+    "sources": [
+      "https://support.cdprojektred.com/en/cyberpunk/pc/sp-technical/issue/1562/verify-integrity-of-game-files-1"
+    ],
+    "comparison": "Valve FAQ本文は引き続き読めないが、CD PROJEKT REDの公式修復資料にSteamのLibrary→Properties→Installed files→Verifyが明記。公開本文の整合性確認の入口と破損修復という限定用途を比較した。症状との対照、バックアップ、追加MODが全削除されたと判断しない注意は編集上の条件で、全ファイル削除や必ず直るとの主張ではない。",
+    "resumeCondition": null
+  },
+  {
+    "id": "pc-bluetooth-option-missing-1-c3",
+    "path": "/pc/bluetooth-option-missing",
+    "claim": "ロールバック灰色は以前の版がない等",
+    "before": "更新後だけ悪化し、アダプターが表示される場合はプロパティ→ドライバー→ドライバーを元に戻すが使えるか確認する。戻したら再起動して、スイッチ・アダプター・機器の接続を同じ条件で比較する。灰色なら以前の版が保存されていないなどの理由があり、その操作は使えない。",
+    "priorStatus": "M",
+    "disposition": "narrowed",
+    "sources": [
+      "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/update-bluetooth-drivers-in-windows"
+    ],
+    "comparison": "GPU向けの旧版がない説明をBluetooth全般へ流用しない。灰色なら使わずメーカーの適合ドライバー確認へ進むという既存FAQと同じ分岐に限定。",
+    "resumeCondition": null
+  },
+  {
+    "id": "pc-disk-usage-100-1-c1",
+    "path": "/pc/disk-usage-100",
+    "claim": "100%は忙しい時間割合で転送速度と別",
+    "before": "使用率100％＝最大の転送速度とは限らない：「アクティブな時間」は処理で忙しい時間の割合、「読み取り／書き込み速度」は1秒に転送したデータ量です。細かな読み書きや応答待ちでも、速度が小さいまま100％になることがあります。MB/sだけで故障とは判断しません。",
+    "priorStatus": "B",
+    "disposition": "deferred",
+    "sources": [
+      "https://techcommunity.microsoft.com/blog/askperf/windows-8--windows-server-2012-the-new-task-manager/375149",
+      "https://learn.microsoft.com/en-us/previous-versions/aa394262(v=vs.85)"
+    ],
+    "comparison": "旧Task Manager本文が取得不能。Microsoft PhysicalDiskカウンター資料は転送量と時間の区別を支持するが、Task Managerの現在のアクティブ時間との対応までは記載しない。別カウンターを同一と断定せず保留。",
+    "resumeCondition": "対象の一次本文または元資料を通常の公開経路で取得できた時だけ再開。実機未実施とは別。"
+  },
+  {
+    "id": "pc-disk-usage-100-1-c2",
+    "path": "/pc/disk-usage-100",
+    "claim": "リソースモニターでディスク詳細を見る",
+    "before": "同じ画面で「メモリ」と「CPU」も見る。上位がSystemで読み書き先が分からなければ、Windowsキー＋R→resmon→「ディスク」を開き、「ディスク活動」のイメージ名・ファイルのパス・合計（B/秒）を照合する。SystemはWindowsの処理を含むため終了しない。",
+    "priorStatus": "M",
+    "disposition": "deferred",
+    "sources": [
+      "https://support.microsoft.com/ja-jp/windows/experience/system-configuration-tools-in-windows"
+    ],
+    "comparison": "MicrosoftのSystem configuration tools本文はTask Manager等の説明で、resmon→Disk活動のイメージ・パス・B/秒の画面を支持しない。対象一次箇所を検索で特定できず、現行Windows画面もこのLinux環境にはない。実機がないことのみを理由にせず、文書の具体名対応不足を保留理由にする。",
+    "resumeCondition": "対象の一次本文または元資料を通常の公開経路で取得できた時だけ再開。実機未実施とは別。"
+  },
+  {
+    "id": "pc-pc-broken-1-c3",
+    "path": "/pc/pc-broken",
+    "claim": "膨張・液体侵入時の中止",
+    "before": "膨張したバッテリーを押す・穴を開ける・無理に外すことはしない。電源ユニットやACアダプターも分解しない。発煙・火災など差し迫る危険がある場合は避難と消防への連絡を優先する。",
+    "priorStatus": "M",
+    "disposition": "supported",
+    "sources": [
+      "https://www.dell.com/support/manuals/en-id/dell/swollenbattery",
+      "https://www.dell.com/support/kbdoc/ja-jp/000124389/"
+    ],
+    "comparison": "Dellの現行膨張バッテリー手引きで圧迫・貫通・工具でこじる・膨張で引っ掛かったものの取り外し禁止を本文と比較。電源資料では液体/物理損傷の修理を指示。危険時の中止と専門窓口への相談という範囲に整合し、自己分解は案内していない。",
+    "resumeCondition": null
+  },
+  {
+    "id": "pc-pc-hacked-signs-1-c5",
+    "path": "/pc/pc-hacked-signs",
+    "claim": "Offline前のBitLocker条件",
+    "before": "必要に応じて「Microsoft Defender オフライン スキャン」を選択する。再起動するため作業を保存し、BitLockerを使う場合は回復キーの入手方法を事前に確認する。再起動後、Windows セキュリティ→保護の履歴で結果を確認する。",
+    "priorStatus": "G",
+    "disposition": "corrected",
+    "sources": [
+      "https://learn.microsoft.com/ja-jp/defender-endpoint/microsoft-defender-offline"
+    ],
+    "comparison": "公式にはBitLocker保護の一時停止と、未実施時に回復キーを要求する可能性の明示がある。キー確認だけの本文に前提を追記し、管理端末・方法不明なら自己変更せず相談する条件と保護再開の確認を付けた。",
+    "resumeCondition": null
+  },
+  {
+    "id": "pc-pc-hacked-signs-1-c7",
+    "path": "/pc/pc-hacked-signs",
+    "claim": "身代金・暗号化ファイル・外部機器の初動",
+    "before": "暗号化や身代金要求がある場合は外付け保存機器も切り離す。復元可能なバックアップを保護し、身代金の支払い・暗号化ファイルの削除・復号ツールの実行を自己判断で急がない。警察・専門窓口へ状況を伝える。",
+    "priorStatus": "M",
+    "disposition": "supported",
+    "sources": [
+      "https://www.jpcert.or.jp/magazine/security/ransom-faq.html",
+      "https://www.ipa.go.jp/security/anshin/attention/2017/mgdayori20170515.html"
+    ],
+    "comparison": "JPCERT/CCのQ1-3とQ3で隔離・未侵害バックアップの退避・暗号化ファイルの保管・支払い非推奨を確認。外付けの保護と自己判断で復号や削除を急がず相談する本文はこれらを家庭向けに限定した案内。",
+    "resumeCondition": null
+  },
+  {
+    "id": "pc-second-monitor-not-detected-1-c4",
+    "path": "/pc/second-monitor-not-detected",
+    "claim": "以前の版がある時だけロールバック",
+    "before": "更新直後の不具合で以前の版が残っている時だけ「ドライバーを元に戻す」を検討し、再起動後に設定→ディスプレイで1・2があるか確認する。",
+    "priorStatus": "M",
+    "disposition": "supported",
+    "sources": [
+      "https://support.microsoft.com/en-us/windows/hardware/display-graphics/troubleshoot-screen-flickering-in-windows"
+    ],
+    "comparison": "Microsoftのディスプレイドライバー向け資料に旧版がない時はロールバック不可、操作後再起動が明記される。Bluetooth資料の流用をやめ、対象デバイスに合う根拠で照合。",
+    "resumeCondition": null
+  },
+  {
+    "id": "pc-wifi-connected-no-internet-1-c6",
+    "path": "/pc/wifi-connected-no-internet",
+    "claim": "Get Help日本語の結果名",
+    "before": "まだPCだけ開けなければ、スタートで「ヘルプを表示」を開き、検索欄に「ネットワーク」と入力して「ネットワーク診断の実行」を探す。見つからなければ公式ページに記載の「connect to network and internet」で検索する。提案と結果を控え、同じサイトを開く。IP・DNS関連の指摘が出たらSTEP 5へ。Wi-Fiボタン自体がない場合は関連記事の専用記事へ。",
+    "priorStatus": "M",
+    "disposition": "narrowed",
+    "sources": [
+      "https://support.microsoft.com/ja-jp/support/get-help/windows-troubleshooters"
+    ],
+    "comparison": "公式日本語本文に「ネットワーク診断の実行」は実在し、旧保留はこの点で過大だった。検索語は英語が明示されるため、未確認の日本語検索を先に試す経路を外して公式の英語検索語から結果選択する手順にした。",
+    "resumeCondition": null
+  },
+  {
+    "id": "pc-wifi-option-missing-1-c2",
+    "path": "/pc/wifi-option-missing",
+    "claim": "停止WlanSvcの開始操作",
+    "before": "スマホには見えるがPCには1件も出ない時は、Windowsキー＋R→services.msc→「WLAN AutoConfig」を開いて「状態」を確認。実行中なら右クリック→「再起動」、停止中なら「開始」を選び、接続先一覧をもう一度開く。開始に失敗したら表示されたエラーを控え、ほかのサービスを推測で変更しない。",
+    "priorStatus": "M",
+    "disposition": "deferred",
+    "sources": [
+      "https://learn.microsoft.com/en-us/troubleshoot/windows-client/networking/wireless-network-connectivity-issues-troubleshooting",
+      "https://support.microsoft.com/en-us/windows/experience/connectivity-networking/fix-wi-fi-connection-issues-in-windows",
+      "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/sc-start"
+    ],
+    "comparison": "公式はWlanSvc稼働の必要とservices.mscからのRestartを説明するが、停止時Startボタンまで対象文書で確認できない。sc-startの追加公式URLも取得不能。具体UIの文書対応が不足しており、サービスの推測変更で補わない。",
+    "resumeCondition": "対象の一次本文または元資料を通常の公開経路で取得できた時だけ再開。実機未実施とは別。"
+  }
+]
