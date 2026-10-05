@@ -181,7 +181,16 @@ export const windows11RequiredGuide: CommonGuide = {
     },
   ],
   related: ['tpm-secure-boot', 'save-data-backup', 'steam-game-not-launching'],
-  sources: [msHealthCheck, msTpm, msSecureBoot, { label: 'Microsoft：Windows 10拡張セキュリティ更新（ESU）', url: 'https://www.microsoft.com/en-us/windows/extended-security-updates' }, roundup],
+  sources: [
+    msHealthCheck,
+    msTpm,
+    msSecureBoot,
+    {
+      label: 'Microsoft：Windows 10拡張セキュリティ更新（ESU）',
+      url: 'https://www.microsoft.com/en-us/windows/extended-security-updates',
+    },
+    roundup,
+  ],
 };
 
 export const rayTracingGpuGuide: CommonGuide = {

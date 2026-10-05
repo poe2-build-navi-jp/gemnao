@@ -1,0 +1,4 @@
+PASS 375px: keyboard unknown/confirmed branches, no recognition votes/writes, no bypass skip, legacy/notes A→B→A, cancel/save/reload, game-result dedup, 4-language article layout
+PASS 390px: keyboard unknown/confirmed branches, no recognition votes/writes, no bypass skip, legacy/notes A→B→A, cancel/save/reload, game-result dedup, 4-language article layout
+PASS 430px: keyboard unknown/confirmed branches, no recognition votes/writes, no bypass skip, legacy/notes A→B→A, cancel/save/reload, game-result dedup, 4-language article layout
+PASS 1440px: keyboard unknown/confirmed branches, no recognition votes/writes, no bypass skip, legacy/notes A→B→A, cancel/save/reload, game-result dedup, 4-language article layout

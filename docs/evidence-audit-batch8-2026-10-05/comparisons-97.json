@@ -106,12 +106,21 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
-    "holds": [],
-    "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    "comparisonStatus": "compared",
+    "comparedClaims": [
+      {
+        "scope": "本文・FAQ・判断表・meta/OG要約",
+        "finding": "入力/出力、機器一覧/入力成功/実通話の区別、個別音量、Mute/Deafen、音声設定リセット、Krisp比較は公式の対象と矛盾なし。比較結果から次へ進む箇所は編集上の切り分けで、原因の保証ではない。",
+        "sources": [
+          "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide",
+          "https://support.discord.com/hc/en-us/articles/360040843952-Krisp-FAQ",
+          "https://support.discord.com/hc/en-us/articles/360020641332-Mic-Testing",
+          "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows"
+        ]
+      }
     ],
+    "holds": [],
+    "uncomparedScopes": [],
     "wholePageVerified": false
   },
   {
@@ -120,12 +129,25 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
-    "holds": [],
-    "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    "comparisonStatus": "compared-with-holds",
+    "comparedClaims": [
+      {
+        "scope": "本文・FAQ・判断表・meta/OG要約",
+        "finding": "Windows通信減衰とアプリ出力、LE Audioの対応OS/機器/driver条件を比較。通話開始だけでBluetooth故障や減衰と断定しない。",
+        "sources": [
+          "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows",
+          "https://support.microsoft.com/en-us/windows/hardware/bluetooth/configuring-bluetooth-le-audio-quality-settings-on-windows-11",
+          "https://learn.microsoft.com/en-us/windows/win32/coreaudio/stream-attenuation"
+        ]
+      }
     ],
+    "holds": [
+      {
+        "claim": "Discord減衰0%と発言条件の現行UI・Bluetooth既知問題の公式本文",
+        "reason": "206342888 EN長URL/JA短URL、19850083499159 EN短URL取得失敗。Windows側の根拠は取得済み。Discord側代替本文は未確保。"
+      }
+    ],
+    "uncomparedScopes": [],
     "wholePageVerified": false
   },
   {
@@ -134,12 +156,19 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
-    "holds": [],
-    "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    "comparisonStatus": "compared",
+    "comparedClaims": [
+      {
+        "scope": "本文・FAQ・判断表・meta/OG要約",
+        "finding": "切断/アプリ終了/音切れ、UDP VPN、チャンネルと回線比較の確認先は公式と一致。",
+        "sources": [
+          "https://support.discord.com/hc/en-us/articles/115001310031-Voice-Connection-Errors",
+          "https://support.discord.com/hc/en-us/articles/31623498041623-Discord-Troubleshooting-Guide"
+        ]
+      }
     ],
+    "holds": [],
+    "uncomparedScopes": [],
     "wholePageVerified": false
   },
   {
@@ -148,11 +177,20 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
+    "comparisonStatus": "partial",
+    "comparedClaims": [
+      {
+        "scope": "本文・FAQ・判断表・meta/OG",
+        "finding": "Discordのカメラ選択・アクセス許可・競合アプリ終了を比較。Windows→プレビュー→受信者の比較は保証でなく確認分岐。",
+        "sources": [
+          "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide",
+          "https://support.discord.com/hc/en-us/articles/31623498041623-Discord-Troubleshooting-Guide"
+        ]
+      }
+    ],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "Microsoftのカメラ権限UI一次本文との比較"
     ],
     "wholePageVerified": false
   },
@@ -162,12 +200,21 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
-    "holds": [],
-    "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    "comparisonStatus": "compared",
+    "comparedClaims": [
+      {
+        "scope": "本文・FAQ・判断表・meta/OG要約",
+        "finding": "入力/出力、機器一覧/入力成功/実通話の区別、個別音量、Mute/Deafen、音声設定リセット、Krisp比較は公式の対象と矛盾なし。比較結果から次へ進む箇所は編集上の切り分けで、原因の保証ではない。",
+        "sources": [
+          "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide",
+          "https://support.discord.com/hc/en-us/articles/360040843952-Krisp-FAQ",
+          "https://support.discord.com/hc/en-us/articles/360020641332-Mic-Testing",
+          "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows"
+        ]
+      }
     ],
+    "holds": [],
+    "uncomparedScopes": [],
     "wholePageVerified": false
   },
   {
@@ -176,12 +223,26 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
-    "holds": [],
-    "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    "comparisonStatus": "compared-with-holds",
+    "comparedClaims": [
+      {
+        "scope": "本文・FAQ・判断表・meta/OG要約",
+        "finding": "全終了、描画設定比較、再導入範囲、perfmon /relの用途は一次と一致。STEP6/7とFAQの読み落としを補完。",
+        "sources": [
+          "https://support.discord.com/hc/en-us/articles/31623498041623-Discord-Troubleshooting-Guide",
+          "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide",
+          "https://support.discord.com/hc/en-us/articles/209099387--Windows-Installer-Errors",
+          "https://learn.microsoft.com/ja-jp/windows-server/administration/windows-commands/perfmon"
+        ]
+      }
     ],
+    "holds": [
+      {
+        "claim": "信頼性履歴の技術的詳細欄の日本語名称と表示フィールド",
+        "reason": "perfmon一次は起動引数まで。詳細画面は資料本文に記載なく、Windows実機もない。記事は「など」「表示された項目」と条件付き。"
+      }
+    ],
+    "uncomparedScopes": [],
     "wholePageVerified": false
   },
   {
@@ -190,12 +251,20 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
-    "holds": [],
-    "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    "comparisonStatus": "compared",
+    "comparedClaims": [
+      {
+        "scope": "本文・FAQ・判断表・meta/OG要約",
+        "finding": "公式のコード定義と復帰手順を比較。1001音声共有許可、1002抑制内部エラー、1003入力サンプルレートを区別。番号が消えたことと実際の音声成功を混同していない。1002の末尾未読部分も再読済み。",
+        "sources": [
+          "https://support.discord.com/hc/en-us/articles/30952914470807-Discord-Audio-and-Video-Error-Codes-Troubleshooting-Guide",
+          "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide",
+          "https://support.discord.com/hc/en-us/articles/360040843952-Krisp-FAQ"
+        ]
+      }
     ],
+    "holds": [],
+    "uncomparedScopes": [],
     "wholePageVerified": false
   },
   {
@@ -204,12 +273,20 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
-    "holds": [],
-    "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    "comparisonStatus": "compared",
+    "comparedClaims": [
+      {
+        "scope": "本文・FAQ・判断表・meta/OG要約",
+        "finding": "公式のコード定義と復帰手順を比較。1001音声共有許可、1002抑制内部エラー、1003入力サンプルレートを区別。番号が消えたことと実際の音声成功を混同していない。1002の末尾未読部分も再読済み。",
+        "sources": [
+          "https://support.discord.com/hc/en-us/articles/30952914470807-Discord-Audio-and-Video-Error-Codes-Troubleshooting-Guide",
+          "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide",
+          "https://support.discord.com/hc/en-us/articles/360040843952-Krisp-FAQ"
+        ]
+      }
     ],
+    "holds": [],
+    "uncomparedScopes": [],
     "wholePageVerified": false
   },
   {
@@ -218,12 +295,20 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
-    "holds": [],
-    "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    "comparisonStatus": "compared",
+    "comparedClaims": [
+      {
+        "scope": "本文・FAQ・判断表・meta/OG要約",
+        "finding": "公式のコード定義と復帰手順を比較。1001音声共有許可、1002抑制内部エラー、1003入力サンプルレートを区別。番号が消えたことと実際の音声成功を混同していない。1002の末尾未読部分も再読済み。",
+        "sources": [
+          "https://support.discord.com/hc/en-us/articles/30952914470807-Discord-Audio-and-Video-Error-Codes-Troubleshooting-Guide",
+          "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide",
+          "https://support.discord.com/hc/en-us/articles/360040843952-Krisp-FAQ"
+        ]
+      }
     ],
+    "holds": [],
+    "uncomparedScopes": [],
     "wholePageVerified": false
   },
   {
@@ -232,12 +317,25 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
-    "holds": [],
-    "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    "comparisonStatus": "compared-with-holds",
+    "comparedClaims": [
+      {
+        "scope": "本文・FAQ・判断表・meta/OG要約",
+        "finding": "Windows通信減衰とアプリ出力、LE Audioの対応OS/機器/driver条件を比較。通話開始だけでBluetooth故障や減衰と断定しない。",
+        "sources": [
+          "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows",
+          "https://support.microsoft.com/en-us/windows/hardware/bluetooth/configuring-bluetooth-le-audio-quality-settings-on-windows-11",
+          "https://learn.microsoft.com/en-us/windows/win32/coreaudio/stream-attenuation"
+        ]
+      }
     ],
+    "holds": [
+      {
+        "claim": "Discord減衰0%と発言条件の現行UI・Bluetooth既知問題の公式本文",
+        "reason": "206342888 EN長URL/JA短URL、19850083499159 EN短URL取得失敗。Windows側の根拠は取得済み。Discord側代替本文は未確保。"
+      }
+    ],
+    "uncomparedScopes": [],
     "wholePageVerified": false
   },
   {
@@ -275,12 +373,19 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
-    "holds": [],
-    "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    "comparisonStatus": "compared",
+    "comparedClaims": [
+      {
+        "scope": "本文・FAQ・判断表・meta/OG要約",
+        "finding": "全終了、Cache対象パス、時刻/通信制限は公式と一致。ブラウザ会話まで比較し、Cacheのみ退避は削除範囲を狭めた可逆な編集手順。",
+        "sources": [
+          "https://support.discord.com/hc/en-us/articles/31623498041623-Discord-Troubleshooting-Guide",
+          "https://support.discord.com/hc/en-us/articles/115001130052-Stuck-on-the-Main-Connecting-Screen"
+        ]
+      }
     ],
+    "holds": [],
+    "uncomparedScopes": [],
     "wholePageVerified": false
   },
   {
@@ -289,12 +394,19 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
-    "holds": [],
-    "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    "comparisonStatus": "compared",
+    "comparedClaims": [
+      {
+        "scope": "本文・FAQ・判断表・meta/OG（残る中段・後段も再読）",
+        "finding": "入力機器、Windows許可、テストと通話、権限の区別は一次と一致。",
+        "sources": [
+          "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide",
+          "https://support.discord.com/hc/en-us/articles/360020641332-Mic-Testing"
+        ]
+      }
     ],
+    "holds": [],
+    "uncomparedScopes": [],
     "wholePageVerified": false
   },
   {
@@ -303,12 +415,21 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
-    "holds": [],
-    "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    "comparisonStatus": "compared",
+    "comparedClaims": [
+      {
+        "scope": "本文・FAQ・判断表・meta/OG要約",
+        "finding": "入力/出力、機器一覧/入力成功/実通話の区別、個別音量、Mute/Deafen、音声設定リセット、Krisp比較は公式の対象と矛盾なし。比較結果から次へ進む箇所は編集上の切り分けで、原因の保証ではない。",
+        "sources": [
+          "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide",
+          "https://support.discord.com/hc/en-us/articles/360040843952-Krisp-FAQ",
+          "https://support.discord.com/hc/en-us/articles/360020641332-Mic-Testing",
+          "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows"
+        ]
+      }
     ],
+    "holds": [],
+    "uncomparedScopes": [],
     "wholePageVerified": false
   },
   {
@@ -317,12 +438,18 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
-    "holds": [],
-    "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    "comparisonStatus": "compared",
+    "comparedClaims": [
+      {
+        "scope": "本文・FAQ・判断表・meta/OG（残る中段・後段も再読）",
+        "finding": "UDP VPN、通話先/回線/端末の比較、管理者への確認先を一次と比較。",
+        "sources": [
+          "https://support.discord.com/hc/en-us/articles/115001310031-Voice-Connection-Errors"
+        ]
+      }
     ],
+    "holds": [],
+    "uncomparedScopes": [],
     "wholePageVerified": false
   },
   {
@@ -356,11 +483,21 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
+    "comparisonStatus": "partial",
+    "comparedClaims": [
+      {
+        "scope": "本文・FAQ",
+        "finding": "UDP VPN、音声リージョン、障害・回線比較は公式に一致。AMD対処は条件付き。",
+        "sources": [
+          "https://support.discord.com/hc/en-us/articles/115001310031-Voice-Connection-Errors",
+          "https://support.discord.com/hc/en-us/articles/4978019693463-AMD-GPU-CPU-RTC-CONNECTING-Troubleshooting"
+        ]
+      }
+    ],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "判断表/meta/OGの出力切れ箇所",
+      "AMD一次冒頭の正確な対象条件"
     ],
     "wholePageVerified": false
   },
@@ -395,12 +532,19 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
-    "holds": [],
-    "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    "comparisonStatus": "compared",
+    "comparedClaims": [
+      {
+        "scope": "本文・FAQ・判断表・meta/OG要約",
+        "finding": "Windows一部ユーザーへの提供、権限が異なるゲームのキー補助、未提供時の分岐と削除位置を公式に照合。キー割り当ての編集中無効も公式本文で確認。",
+        "sources": [
+          "https://support.discord.com/hc/ja/articles/34853435033367-Discordシステムヘルパー",
+          "https://support.discord.com/hc/en-us/articles/217083547-How-do-I-add-different-Keybinds"
+        ]
+      }
     ],
+    "holds": [],
+    "uncomparedScopes": [],
     "wholePageVerified": false
   },
   {
@@ -409,12 +553,19 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
-    "holds": [],
-    "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    "comparisonStatus": "compared",
+    "comparedClaims": [
+      {
+        "scope": "本文・FAQ・判断表・meta/OG要約",
+        "finding": "公式の全終了・残存Discordフォルダー2か所・再起動再導入と照合。ブラウザ成功から更新回線まで正常とは断定せず、再ログイン条件を先に確認。",
+        "sources": [
+          "https://support.discord.com/hc/en-us/articles/31623498041623-Discord-Troubleshooting-Guide",
+          "https://support.discord.com/hc/en-us/articles/209099387--Windows-Installer-Errors"
+        ]
+      }
     ],
+    "holds": [],
+    "uncomparedScopes": [],
     "wholePageVerified": false
   },
   {
@@ -426,11 +577,20 @@
       "es",
       "zh"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
+    "comparisonStatus": "partial",
+    "comparedClaims": [
+      {
+        "scope": "本文後半・判断表・meta/OG・容量FAQ",
+        "finding": "Attachment FAQの無料20MB/Basic50MB/Nitro1GB、圧縮前判定、PDFプレビュー対象外、Chat表示設定と一致。",
+        "sources": [
+          "https://support.discord.com/hc/en-us/articles/25444343291031-File-Attachments-FAQ"
+        ]
+      }
+    ],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "本文前半の通読",
+      "権限/安全警告の個別一次資料との比較"
     ],
     "wholePageVerified": false
   },
@@ -440,12 +600,21 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
-    "holds": [],
-    "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    "comparisonStatus": "compared",
+    "comparedClaims": [
+      {
+        "scope": "本文・FAQ・判断表・meta/OG要約",
+        "finding": "入力/出力、機器一覧/入力成功/実通話の区別、個別音量、Mute/Deafen、音声設定リセット、Krisp比較は公式の対象と矛盾なし。比較結果から次へ進む箇所は編集上の切り分けで、原因の保証ではない。",
+        "sources": [
+          "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide",
+          "https://support.discord.com/hc/en-us/articles/360040843952-Krisp-FAQ",
+          "https://support.discord.com/hc/en-us/articles/360020641332-Mic-Testing",
+          "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows"
+        ]
+      }
     ],
+    "holds": [],
+    "uncomparedScopes": [],
     "wholePageVerified": false
   },
   {
@@ -454,12 +623,21 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
-    "holds": [],
-    "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    "comparisonStatus": "compared",
+    "comparedClaims": [
+      {
+        "scope": "本文・FAQ・判断表・meta/OG要約",
+        "finding": "入力/出力、機器一覧/入力成功/実通話の区別、個別音量、Mute/Deafen、音声設定リセット、Krisp比較は公式の対象と矛盾なし。比較結果から次へ進む箇所は編集上の切り分けで、原因の保証ではない。",
+        "sources": [
+          "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide",
+          "https://support.discord.com/hc/en-us/articles/360040843952-Krisp-FAQ",
+          "https://support.discord.com/hc/en-us/articles/360020641332-Mic-Testing",
+          "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows"
+        ]
+      }
     ],
+    "holds": [],
+    "uncomparedScopes": [],
     "wholePageVerified": false
   },
   {
@@ -468,11 +646,11 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
+    "comparisonStatus": "read-not-compared",
     "comparedClaims": [],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "JA主要データは通読済み。各事実と一次情報の全対応・翻訳ハブ・meta・実際の表示範囲は未比較"
     ],
     "wholePageVerified": false
   },
@@ -482,11 +660,11 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
+    "comparisonStatus": "read-not-compared",
     "comparedClaims": [],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "JA主要データは通読済み。各事実と一次情報の全対応・翻訳ハブ・meta・実際の表示範囲は未比較"
     ],
     "wholePageVerified": false
   },
@@ -499,11 +677,11 @@
       "ja",
       "zh"
     ],
-    "comparisonStatus": "not-started",
+    "comparisonStatus": "read-not-compared",
     "comparedClaims": [],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "JA主要データは通読済み。各事実と一次情報の全対応・翻訳ハブ・meta・実際の表示範囲は未比較"
     ],
     "wholePageVerified": false
   },
@@ -513,11 +691,11 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
+    "comparisonStatus": "read-not-compared",
     "comparedClaims": [],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "JA主要データは通読済み。各事実と一次情報の全対応・翻訳ハブ・meta・実際の表示範囲は未比較"
     ],
     "wholePageVerified": false
   },
@@ -527,11 +705,11 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
+    "comparisonStatus": "read-not-compared",
     "comparedClaims": [],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "JA主要データは通読済み。各事実と一次情報の全対応・翻訳ハブ・meta・実際の表示範囲は未比較"
     ],
     "wholePageVerified": false
   },
@@ -541,11 +719,11 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
+    "comparisonStatus": "read-not-compared",
     "comparedClaims": [],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "JA主要データは通読済み。各事実と一次情報の全対応・翻訳ハブ・meta・実際の表示範囲は未比較"
     ],
     "wholePageVerified": false
   },
@@ -558,11 +736,23 @@
       "ja",
       "zh"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
+    "comparisonStatus": "partial-with-corrections",
+    "comparedClaims": [
+      {
+        "scope": "HDR調整のWindows 11限定",
+        "finding": "同日batch7の同じ主張の一次比較をハブへ適用。一般化されていた要約を対象条件付きに修正。",
+        "sources": [
+          "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/calibrate-your-hdr-display-using-the-windows-hdr-calibration-app",
+          "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/hdr-settings-in-windows"
+        ],
+        "priorComparisonPaths": [
+          "/games/elden-ring/hdr"
+        ]
+      }
+    ],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "残るハブ仕様・保存パス・対応機能・翻訳・metaと表示範囲の全対応"
     ],
     "wholePageVerified": false
   },
@@ -572,11 +762,11 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
+    "comparisonStatus": "read-not-compared",
     "comparedClaims": [],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "JA主要データは通読済み。各事実と一次情報の全対応・翻訳ハブ・meta・実際の表示範囲は未比較"
     ],
     "wholePageVerified": false
   },
@@ -589,11 +779,11 @@
       "ja",
       "zh"
     ],
-    "comparisonStatus": "not-started",
+    "comparisonStatus": "read-not-compared",
     "comparedClaims": [],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "JA主要データは通読済み。各事実と一次情報の全対応・翻訳ハブ・meta・実際の表示範囲は未比較"
     ],
     "wholePageVerified": false
   },
@@ -606,11 +796,11 @@
       "ja",
       "zh"
     ],
-    "comparisonStatus": "not-started",
+    "comparisonStatus": "read-not-compared",
     "comparedClaims": [],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "JA主要データは通読済み。各事実と一次情報の全対応・翻訳ハブ・meta・実際の表示範囲は未比較"
     ],
     "wholePageVerified": false
   },
@@ -620,11 +810,11 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
+    "comparisonStatus": "read-not-compared",
     "comparedClaims": [],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "JA主要データは通読済み。各事実と一次情報の全対応・翻訳ハブ・meta・実際の表示範囲は未比較"
     ],
     "wholePageVerified": false
   },
@@ -637,11 +827,11 @@
       "ja",
       "zh"
     ],
-    "comparisonStatus": "not-started",
+    "comparisonStatus": "read-not-compared",
     "comparedClaims": [],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "JA主要データは通読済み。各事実と一次情報の全対応・翻訳ハブ・meta・実際の表示範囲は未比較"
     ],
     "wholePageVerified": false
   },
@@ -652,11 +842,25 @@
       "en",
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
+    "comparisonStatus": "partial-with-corrections",
+    "comparedClaims": [
+      {
+        "scope": "固定driver版を恒久要件にしない・cache不存在スキップ",
+        "finding": "同日batch7の同じ主張の一次比較をハブへ適用。一般化されていた要約を対象条件付きに修正。",
+        "sources": [
+          "https://steamcommunity.com/app/2638890/discussions/0/589562598193771782/",
+          "https://steamcommunity.com/app/2638890/discussions/0/589562598193771781/",
+          "https://www.nvidia.com/en-gb/drivers/drivers-faq/"
+        ],
+        "priorComparisonPaths": [
+          "/games/onimusha-way-of-the-sword/gpu-driver-version",
+          "/games/onimusha-way-of-the-sword/shader-cache"
+        ]
+      }
+    ],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "残るハブ仕様・保存パス・対応機能・翻訳・metaと表示範囲の全対応"
     ],
     "wholePageVerified": false
   },
@@ -666,11 +870,11 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
+    "comparisonStatus": "read-not-compared",
     "comparedClaims": [],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "JA主要データは通読済み。各事実と一次情報の全対応・翻訳ハブ・meta・実際の表示範囲は未比較"
     ],
     "wholePageVerified": false
   },
@@ -683,11 +887,11 @@
       "ja",
       "zh"
     ],
-    "comparisonStatus": "not-started",
+    "comparisonStatus": "read-not-compared",
     "comparedClaims": [],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "JA主要データは通読済み。各事実と一次情報の全対応・翻訳ハブ・meta・実際の表示範囲は未比較"
     ],
     "wholePageVerified": false
   },
@@ -697,11 +901,11 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
+    "comparisonStatus": "read-not-compared",
     "comparedClaims": [],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "JA主要データは通読済み。各事実と一次情報の全対応・翻訳ハブ・meta・実際の表示範囲は未比較"
     ],
     "wholePageVerified": false
   },
@@ -714,11 +918,11 @@
       "ja",
       "zh"
     ],
-    "comparisonStatus": "not-started",
+    "comparisonStatus": "read-not-compared",
     "comparedClaims": [],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "JA主要データは通読済み。各事実と一次情報の全対応・翻訳ハブ・meta・実際の表示範囲は未比較"
     ],
     "wholePageVerified": false
   },
@@ -728,11 +932,29 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
+    "comparisonStatus": "partial-with-corrections",
+    "comparedClaims": [
+      {
+        "scope": "Intel対象desktop条件と感度0.8のconsole限定",
+        "finding": "同日batch7の同じ主張の一次比較をハブへ適用。一般化されていた要約を対象条件付きに修正。",
+        "sources": [
+          "https://dawnwalkergame.com/us/en/news/hotfix-102",
+          "https://www.reddit.com/r/DawnwalkerOfficial/comments/1w7fcbx/hotfix_103/",
+          "https://dawnwalkergame.com/us/en/news/hotfix-104",
+          "https://www.reddit.com/r/DawnwalkerOfficial/comments/1w615p8/known_issues_fixes_workarounds_03092026/",
+          "https://www.reddit.com/r/DawnwalkerOfficial/comments/1wcu57e/hotfix_105/",
+          "https://www.radgametools.com/oodleintel.htm",
+          "https://community.intel.com/t5/Mobile-and-Desktop-Processors/Intel-Core-13th-and-14th-Gen-Desktop-Instability-Root-Cause/td-p/1633442"
+        ],
+        "priorComparisonPaths": [
+          "/games/the-blood-of-dawnwalker/controller-sprint",
+          "/games/the-blood-of-dawnwalker/shader-compilation-crash"
+        ]
+      }
+    ],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "残るハブ仕様・保存パス・対応機能・翻訳・metaと表示範囲の全対応"
     ],
     "wholePageVerified": false
   },
@@ -742,11 +964,11 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
+    "comparisonStatus": "read-not-compared",
     "comparedClaims": [],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "JA主要データは通読済み。各事実と一次情報の全対応・翻訳ハブ・meta・実際の表示範囲は未比較"
     ],
     "wholePageVerified": false
   },
@@ -771,12 +993,29 @@
       "en",
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
-    "holds": [],
-    "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    "comparisonStatus": "compared-with-holds",
+    "comparedClaims": [
+      {
+        "scope": "全文・比較表・製品例・meta",
+        "finding": "指向性の定義と環境音が消える保証のないことをShureで比較。Krisp/入力出力/テスト中muteはDiscord既読一次と一致。製品仕様は下記保留。",
+        "sources": [
+          "https://www.shure.com/en-GB/insights/microphone-directionality-polar-pattern-basics",
+          "https://support.discord.com/hc/en-us/articles/360040843952-Krisp-FAQ",
+          "https://support.discord.com/hc/en-us/articles/360020641332-Mic-Testing"
+        ]
+      }
     ],
+    "holds": [
+      {
+        "claim": "400-MC017のUSB-A/約2m/約30g/無指向性と互換性",
+        "reason": "メーカー商品ページ503。検索も無関連結果で代替本文を確保できず。"
+      },
+      {
+        "claim": "DiscordのBluetooth音質変化公式説明",
+        "reason": "該当公式記事取得失敗。Windows LE Audio条件は別途比較済み。"
+      }
+    ],
+    "uncomparedScopes": [],
     "wholePageVerified": false
   },
   {
@@ -786,12 +1025,24 @@
       "en",
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
-    "holds": [],
-    "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    "comparisonStatus": "compared-with-holds",
+    "comparedClaims": [
+      {
+        "scope": "全文・比較表・meta",
+        "finding": "同一物理driveのコピーと別機器コピーを区別。容量計算は仮定2GB×5=10GB。FAT32の単一ファイル上限と安全な取外しをMicrosoftで照合。",
+        "sources": [
+          "https://learn.microsoft.com/en-us/windows/win32/fileio/filesystem-functionality-comparison",
+          "https://support.microsoft.com/en-us/windows/hardware/safely-remove-hardware-in-windows"
+        ]
+      }
     ],
+    "holds": [
+      {
+        "claim": "Steam Cloudの対象指定・同期競合とSteam本体バックアップのセーブ範囲",
+        "reason": "Steam FAQ 68D2/4593はJA/ENとも画像1行だけで本文を取得できない。リンクだけで確認済みとしない。"
+      }
+    ],
+    "uncomparedScopes": [],
     "wholePageVerified": false
   },
   {
@@ -800,11 +1051,21 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
+    "comparisonStatus": "partial",
+    "comparedClaims": [
+      {
+        "scope": "仕様表・比較表・meta・イベント告知",
+        "finding": "36キー/6dial、161×14、1085g、205×147×175、USB-C3.0、Win11/macOS13、C-C1.5mとPlus比較をElgatoに照合。展示予定と10/10 13–17:30無料は主催ASCII本文と一致。",
+        "sources": [
+          "https://www.elgato.com/jp/ja/p/stream-deck-plus-xl",
+          "https://ascii.jp/elem/000/004/435/4435364/"
+        ]
+      }
+    ],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "Multi Actions/Key Logicの3種操作・自動プロファイル切替・タッチストリップの詳細一次仕様（製品ページは機能名のみ）",
+      "answer/lead/setupなど未出力フィールド"
     ],
     "wholePageVerified": false
   },
@@ -1126,11 +1387,20 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
+    "comparisonStatus": "partial",
+    "comparedClaims": [
+      {
+        "scope": "主要本文・FAQ",
+        "finding": "出力デバイス、10秒オフオン、再ペアリング、メーカー適合driver、A2DPの条件をMicrosoftの本文と照合。",
+        "sources": [
+          "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/fix-bluetooth-connected-but-no-sound-issue-on-windows",
+          "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows"
+        ]
+      }
+    ],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "meta/表など残るフィールド"
     ],
     "wholePageVerified": false
   },
@@ -1140,11 +1410,21 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
+    "comparisonStatus": "partial",
+    "comparedClaims": [
+      {
+        "scope": "主要本文・FAQ",
+        "finding": "出力/通信減衰/音質低下を区別、LE Audio条件、別マイク比較は公式と矛盾なし。",
+        "sources": [
+          "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows",
+          "https://learn.microsoft.com/en-us/windows/win32/coreaudio/stream-attenuation",
+          "https://support.microsoft.com/en-us/windows/hardware/bluetooth/configuring-bluetooth-le-audio-quality-settings-on-windows-11"
+        ]
+      }
+    ],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "meta/表など残るフィールド"
     ],
     "wholePageVerified": false
   },
@@ -1154,11 +1434,22 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
+    "comparisonStatus": "partial",
+    "comparedClaims": [
+      {
+        "scope": "主要本文・FAQ",
+        "finding": "Win+E、旧メニュー、起動先このPC、AutorunsのMicrosoft非表示/チェック解除と削除の区別、DISM→SFCを比較。原因の断定なく対象1項目だけ比較する手順。",
+        "sources": [
+          "https://learn.microsoft.com/ja-jp/sysinternals/downloads/autoruns",
+          "https://support.microsoft.com/ja-jp/windows/experience/fileexplorer/file-explorer-in-windows",
+          "https://support.microsoft.com/ja-jp/windows/experience/backup-recovery/use-the-system-file-checker-tool-to-repair-missing-or-corrupted-system-files"
+        ]
+      }
+    ],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "meta/表など残るフィールド",
+      "プロセス再起動とShift+F10の一次資料の追加比較"
     ],
     "wholePageVerified": false
   },
@@ -1168,11 +1459,20 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
+    "comparisonStatus": "partial-with-corrections",
+    "comparedClaims": [
+      {
+        "scope": "主要本文・FAQ",
+        "finding": "AltEnterが効かない時、見えないゲームメニュー操作へ誘導しないよう条件を明記。",
+        "sources": [
+          "lib/pc-gaming-articles.ts"
+        ]
+      }
+    ],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "各キー/DXGI/GameBar/SteamF12の一次細部",
+      "meta/表"
     ],
     "wholePageVerified": false
   },
@@ -1208,11 +1508,19 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
+    "comparisonStatus": "partial-with-corrections",
+    "comparedClaims": [
+      {
+        "scope": "主要本文・FAQ",
+        "finding": "選択中画面・DRR条件とゲーム制限をMicrosoft本文と比較。低FPS=GPU不足の決めつけとDRR因果の断定を修正。",
+        "sources": [
+          "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/change-the-refresh-rate-on-your-monitor-in-windows"
+        ]
+      }
+    ],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "answer一部、meta/表、外部モニター接続の追加一次比較"
     ],
     "wholePageVerified": false
   },
@@ -1222,11 +1530,27 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
-    "holds": [],
+    "comparisonStatus": "partial",
+    "comparedClaims": [
+      {
+        "scope": "主要本文・FAQ",
+        "finding": "powercfgのlastwake/waketimers/wake_armed/a/requestsの用途を区別。SleepStudyのModernStandby限定・ScreenOff/SleepとVAIOの復帰設定を比較。",
+        "sources": [
+          "https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/powercfg-command-line-options",
+          "https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/modern-standby-sleepstudy",
+          "https://solutions.vaio.com/6160"
+        ]
+      }
+    ],
+    "holds": [
+      {
+        "claim": "Power-TroubleshooterイベントID1",
+        "reason": "取得したpowercfg/SleepStudy本文ではIDの裏づけがない。記事は表示がある場合だけとしている。"
+      }
+    ],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "meta/表など残るフィールド",
+      "S0/S3とネットワーク復帰の対象条件の追加比較"
     ],
     "wholePageVerified": false
   },
@@ -1236,11 +1560,21 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
+    "comparisonStatus": "partial",
+    "comparedClaims": [
+      {
+        "scope": "主要本文・FAQ",
+        "finding": "DISM→SFC、修復元のversion/servicing/language整合、.NET3.5の26H1以降standalone条件を比較。",
+        "sources": [
+          "https://learn.microsoft.com/ja-jp/dotnet/framework/install/dotnet-35-windows-11",
+          "https://learn.microsoft.com/ja-jp/windows-hardware/manufacture/desktop/configure-a-windows-repair-source?view=windows-11",
+          "https://support.microsoft.com/ja-jp/windows/experience/backup-recovery/use-the-system-file-checker-tool-to-repair-missing-or-corrupted-system-files"
+        ]
+      }
+    ],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "meta/表など残るフィールド"
     ],
     "wholePageVerified": false
   },
@@ -1264,11 +1598,21 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
+    "comparisonStatus": "partial-with-corrections",
+    "comparedClaims": [
+      {
+        "scope": "全文のうち回答記録の説明",
+        "finding": "件数だけでなく対象/種別/日時を記録。30日超は新規書込時削除である実装に説明を合わせる。ノート本文はこの変更で送信しない。",
+        "sources": [
+          "lib/status/events-db.ts",
+          "app/api/feedback/route.ts",
+          "lib/feedback-db.ts"
+        ]
+      }
+    ],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "問い合わせ/広告/その他保存の説明と実装全体の照合"
     ],
     "wholePageVerified": false
   },
@@ -1307,11 +1651,21 @@
       "en",
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
+    "comparisonStatus": "partial-with-corrections",
+    "comparedClaims": [
+      {
+        "scope": "一覧本文",
+        "finding": "Hz直接測定という誤認を避け、実装が推定するブラウザ描画頻度へ修正。",
+        "sources": [
+          "components/refresh-rate-check.tsx",
+          "lib/refresh-rate.ts",
+          "https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame"
+        ]
+      }
+    ],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "他のツールカードの説明と実装の対応"
     ],
     "wholePageVerified": false
   },
@@ -1321,12 +1675,20 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
-    "comparedClaims": [],
-    "holds": [],
-    "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    "comparisonStatus": "compared",
+    "comparedClaims": [
+      {
+        "scope": "全文と計測実装",
+        "finding": "4秒計測・間隔中央値・中央80%・非表示中断・直接Hz/FPS取得なしを実装とMDNに照合。",
+        "sources": [
+          "components/refresh-rate-check.tsx",
+          "lib/refresh-rate.ts",
+          "https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame"
+        ]
+      }
     ],
+    "holds": [],
+    "uncomparedScopes": [],
     "wholePageVerified": false
   },
   {
