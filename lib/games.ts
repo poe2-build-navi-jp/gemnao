@@ -119,10 +119,10 @@ export const games: GameGuide[] = [
     controller:
       'コントローラー対応。入力不良時はSteam Inputと外部変換ツールを1つずつ比較します。',
     launchFixes: [
-      'NVIDIA 596.49以上／AMD 26.5.1以上へ更新し再起動',
+      'GPU・PCメーカーの案内で対応するドライバーを確認し、更新する場合は変更前の版を控えて再起動',
       'Steamでゲームファイルの整合性を確認',
       '描画オーバーレイや録画ツールを終了',
-      'shader.cacheとshader.cache2を退避して再構築',
+      'ゲームとSteamを終了し、存在するshader.cacheとshader.cache2だけを退避して再構築。なければ省略',
     ],
     mod: '本体の安定性確認中はMODやReShadeを外し、オンライン機能の規約を優先します。',
     japanese: '日本語インターフェース・音声・字幕に公式対応。',
@@ -166,9 +166,9 @@ export const games: GameGuide[] = [
       'フルコントローラー対応。DualSenseはHotfix 1.0.3でSteam版に対応。ボタン割り当ては「標準」「代替」のプリセットのみです。',
     launchFixes: [
       'ゲームを最新版（1.0.5以降）に更新',
-      'シェーダーのコンパイル中に落ちる場合はBIOSを最新に（Intel第13・14世代CPUは特に）',
+      'Intel第13・14世代の対象デスクトップCPUは、PC・マザーボードメーカーの安定性対策とBIOS手順を確認。ノートPCへ一律に適用しない',
       'カクつく場合はフルスクリーンで起動',
-      'コントローラーで走りが止まる場合は感度を1から0.8へ',
+      'コントローラーで走りが止まる場合は公式既知問題を確認。感度0.8の回避策はコンソール向けで、PCへの適用は未確認',
     ],
     mod: '',
     japanese:
@@ -989,7 +989,7 @@ export const games: GameGuide[] = [
     fps: '公式仕様は60FPS上限。解除MOD利用時はEasy Anti-Cheatを無効化し、必ずオフラインで運用します。',
     ultrawide:
       '公式は16:9表示。21:9/32:9は黒帯が入り、解除には非公式ツールが必要です。',
-    hdr: 'HDR対応。色が白っぽい場合はWindows HDRキャリブレーション後にゲームを再起動。',
+    hdr: 'HDR対応。Windows 11ではWindows HDR Calibrationアプリで調整を比較できます。Windows 10ではこのアプリの手順を飛ばし、ゲームとモニターのHDR設定を確認します。',
     controller:
       'Xbox/PlayStation系対応。ボタンが二重反応する場合はDS4WindowsとSteam Inputの二重変換を解消。',
     launchFixes: [

@@ -1,0 +1,1473 @@
+[
+  {
+    "path": "/",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja",
+      "en",
+      "es",
+      "zh"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/about",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/contact",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord-servers",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord-servers/guidelines",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord-servers/submit",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/audio-input-not-found",
+    "kind": "discord-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/bluetooth-audio-problem",
+    "kind": "discord-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/call-disconnects",
+    "kind": "discord-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/camera-not-working",
+    "kind": "discord-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/cant-hear-voice",
+    "kind": "discord-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/crashing",
+    "kind": "discord-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/error-1001",
+    "kind": "discord-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/error-1002",
+    "kind": "discord-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/error-1003",
+    "kind": "discord-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/game-volume-lowers",
+    "kind": "discord-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/installation-failed",
+    "kind": "discord-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "compared-with-holds",
+    "comparedClaims": [
+      {
+        "scope": "全主要手順・FAQ：AppData/LocalAppData対象、全終了、再起動・再導入、使用中の扱い",
+        "finding": "公式Installer Errors対象と一致。記事は追加の削除/強制権限変更を避け、ログ読解は例として限定",
+        "sources": [
+          "https://support.discord.com/hc/en-us/articles/209099387--Windows-Installer-Errors"
+        ]
+      },
+      {
+        "scope": "diagnosis・meta・相談文・OG要約",
+        "finding": "本文と同じ主張に対応づけ。事例は記入例と明示、成功率など独立した数値の断定なし。"
+      }
+    ],
+    "holds": [
+      {
+        "claim": "Open Setup Logの表示と具体的なログ書式",
+        "reason": "取得した公式Installer Errors本文は削除対象・終了再起動を説明するが、このボタン/ログ書式を説明していない。記事は「ある場合」かつ検索語を例として限定。Windows実機未実行。"
+      }
+    ],
+    "uncomparedScopes": [],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/loading-stuck",
+    "kind": "discord-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/mic-not-working",
+    "kind": "discord-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/mic-volume-low",
+    "kind": "discord-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/no-route",
+    "kind": "discord-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/overlay-not-showing",
+    "kind": "discord-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "compared",
+    "comparedClaims": [
+      {
+        "scope": "全主要手順・FAQ：Windows限定、常時/発言時、メッセージ抑制、pin、windowed、helper条件",
+        "finding": "公式Overlay101と先に取得したSystem Helperに一致。ゲーム保護解除や恒久管理者権限の強制なし",
+        "sources": [
+          "https://support.discord.com/hc/en-us/articles/217659737-Game-Overlay-101",
+          "https://support.discord.com/hc/ja/articles/34853435033367-Discordシステムヘルパー"
+        ]
+      },
+      {
+        "scope": "diagnosis・meta・相談文・OG要約",
+        "finding": "本文と同じ主張に対応づけ。事例は記入例と明示、成功率など独立した数値の断定なし。"
+      }
+    ],
+    "holds": [],
+    "uncomparedScopes": [],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/rtc-connecting",
+    "kind": "discord-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/stream-no-audio",
+    "kind": "discord-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "compared",
+    "comparedClaims": [
+      {
+        "scope": "全主要手順・FAQ：配信者/視聴者の分離、共有方式、対応OS/Chrome、配信volume",
+        "finding": "GoLiveとWindowsミキサー一次説明に一致。画面全体は常に無音という旧断定なし",
+        "sources": [
+          "https://support.discord.com/hc/ja/articles/360040816151",
+          "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows"
+        ]
+      },
+      {
+        "scope": "diagnosis・meta・相談文・OG要約",
+        "finding": "本文と同じ主張に対応づけ。事例は記入例と明示、成功率など独立した数値の断定なし。"
+      }
+    ],
+    "holds": [],
+    "uncomparedScopes": [],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/system-helper",
+    "kind": "discord-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/update-failed",
+    "kind": "discord-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/upload-failed",
+    "kind": "discord-article",
+    "locales": [
+      "ja",
+      "en",
+      "es",
+      "zh"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/user-volume-low",
+    "kind": "discord-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/discord/voice-cutting-out",
+    "kind": "discord-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/aion2",
+    "kind": "game-hub",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/aniimo",
+    "kind": "game-hub",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/baldurs-gate-3",
+    "kind": "game-hub",
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/call-of-duty-modern-warfare-4",
+    "kind": "game-hub",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/castlevania-belmonts-curse",
+    "kind": "game-hub",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/dragons-dogma-2",
+    "kind": "game-hub",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/elden-ring",
+    "kind": "game-hub",
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/gears-of-war-e-day",
+    "kind": "game-hub",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/gta-v-enhanced",
+    "kind": "game-hub",
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/helldivers-2",
+    "kind": "game-hub",
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/minecraft-dungeons-2",
+    "kind": "game-hub",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/monster-hunter-wilds",
+    "kind": "game-hub",
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword",
+    "kind": "game-hub",
+    "locales": [
+      "en",
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/phantom-blade-zero",
+    "kind": "game-hub",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/rocket-league",
+    "kind": "game-hub",
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/silent-hill-townfall",
+    "kind": "game-hub",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/skyrim-special-edition",
+    "kind": "game-hub",
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/the-blood-of-dawnwalker",
+    "kind": "game-hub",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/wardogs",
+    "kind": "game-hub",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/gear",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/gear/discord-microphone-guide",
+    "kind": "gear-article",
+    "locales": [
+      "en",
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/gear/save-backup-storage-guide",
+    "kind": "gear-article",
+    "locales": [
+      "en",
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/gear/stream-deck-plus-xl",
+    "kind": "gear-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/guide",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/guide/black-screen",
+    "kind": "common-guide",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/guide/bsod-while-gaming",
+    "kind": "common-guide",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/guide/controller-double-input",
+    "kind": "common-guide",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/guide/low-fps",
+    "kind": "common-guide",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/guide/low-gpu-usage",
+    "kind": "common-guide",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/guide/no-game-audio",
+    "kind": "common-guide",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/guide/pc-shuts-down-while-gaming",
+    "kind": "common-guide",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/guide/reset-config-file",
+    "kind": "common-guide",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/guide/save-data-backup",
+    "kind": "common-guide",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/guide/steam-cloud-sync-error",
+    "kind": "common-guide",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/guide/uninstall-save-data",
+    "kind": "common-guide",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/guide/visual-c-runtime-error",
+    "kind": "common-guide",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/guide/vram-shortage",
+    "kind": "common-guide",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/guide/windows-11-required",
+    "kind": "common-guide",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "partial-with-corrections",
+    "comparedClaims": [
+      {
+        "scope": "TPM・Secure Boot条件/ESUの要約・手順・FAQ",
+        "finding": "Secure Boot対応と有効を混同、ESU例外欠落を修正中",
+        "sources": [
+          "https://support.microsoft.com/ja-jp/windows/security/devicesecurity/windows-11-and-secure-boot",
+          "https://support.microsoft.com/ja-jp/windows/security/devicesecurity/enable-tpm-2-0-on-your-pc",
+          "https://www.microsoft.com/en-us/windows/extended-security-updates"
+        ]
+      }
+    ],
+    "holds": [],
+    "uncomparedScopes": [
+      "新作ゲームのOS要件列挙・description、PC正常性チェックの画面操作、補足表示とメタ反映"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/my",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/my-games",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/pc",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/pc/audio-after-update",
+    "kind": "pc-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "compared-with-holds",
+    "comparedClaims": [
+      {
+        "scope": "本文5STEP・FAQ：入出力/ミキサー/検出/ロールバック/サービス/更新削除・修復再インストール",
+        "finding": "公式の条件・利用可能時のみという分岐と一致。修復は同一OS/ファイル等保持、電源ネット維持。更新日時のみで原因確定しない",
+        "sources": [
+          "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows",
+          "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-missing-or-undetected-audio-output-device-in-windows",
+          "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-audio-stops-working-after-a-windows-update-in-windows",
+          "https://support.microsoft.com/ja-jp/windows/deployment/updates-lifecycle/how-to-uninstall-a-windows-update",
+          "https://support.microsoft.com/ja-jp/windows/deployment/install-upgrade/fix-issues-by-reinstalling-the-current-version-of-windows"
+        ]
+      },
+      {
+        "scope": "diagnosis・meta・相談文・OG要約",
+        "finding": "本文と同じ主張に対応づけ。事例は記入例と明示、成功率など独立した数値の断定なし。"
+      }
+    ],
+    "holds": [
+      {
+        "claim": "msinfo32のシステムモデル・ベースボード製品という表示名",
+        "reason": "取得済みMicrosoft音声ページはメーカー適合driverを案内するが、その表示名の一次箇所は今回未特定。機種/Windows実機未実行。"
+      }
+    ],
+    "uncomparedScopes": [],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/pc/black-screen-after-sign-in",
+    "kind": "pc-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/pc/bluetooth-connected-no-sound",
+    "kind": "pc-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/pc/call-starts-audio-disappears",
+    "kind": "pc-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/pc/file-explorer-freezes-on-right-click",
+    "kind": "pc-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/pc/gaming-shortcut-keys",
+    "kind": "pc-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/pc/microphone-after-update",
+    "kind": "pc-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "compared",
+    "comparedClaims": [
+      {
+        "scope": "本文3STEP・FAQ：入力再生テスト、アプリ/デスクトップ権限、以前のドライバー有無、接続比較",
+        "finding": "取得したMicrosoft手順と一致。比較結果は断定でなく切り分けとして記述",
+        "sources": [
+          "https://support.microsoft.com/ja-jp/windows/hardware/drivers/how-to-set-up-and-test-microphones-in-windows",
+          "https://support.microsoft.com/ja-jp/windows/hardware/drivers/fix-microphone-problems",
+          "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-audio-stops-working-after-a-windows-update-in-windows"
+        ]
+      },
+      {
+        "scope": "diagnosis・meta・相談文・OG要約",
+        "finding": "本文と同じ主張に対応づけ。事例は記入例と明示、成功率など独立した数値の断定なし。"
+      }
+    ],
+    "holds": [],
+    "uncomparedScopes": [],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/pc/refresh-rate-stuck-60hz",
+    "kind": "pc-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/pc/sleep-wakes-up-by-itself",
+    "kind": "pc-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/pc/windows-update-0x800f081f",
+    "kind": "pc-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/pc/windows-update-stuck",
+    "kind": "pc-article",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/privacy",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/status",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/terms",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/tools",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "en",
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/tools/refresh-rate",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/tools/save-locations",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/tools/windows-diagnosis",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "en",
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/trouble/controller",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/trouble/crash",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/trouble/fps",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/trouble/mod",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/trouble/not-launching",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/trouble/save",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/trouble/server",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  },
+  {
+    "path": "/weekly",
+    "kind": "navigation-tool-policy-or-other",
+    "locales": [
+      "ja"
+    ],
+    "comparisonStatus": "not-started",
+    "comparedClaims": [],
+    "holds": [],
+    "uncomparedScopes": [
+      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+    ],
+    "wholePageVerified": false
+  }
+]

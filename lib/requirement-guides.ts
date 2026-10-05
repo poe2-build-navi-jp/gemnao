@@ -123,12 +123,12 @@ export const windows11RequiredGuide: CommonGuide = {
   description:
     '2026年10月の新作では、エースコンバット8、真・三國無双2 Remastered、FFレゾナンスなど、動作環境の最低条件がWindows 11の作品が増えています。自分のWindowsのバージョンと、Windows 11にアップグレードできるかを確認する方法をまとめました。',
   conclusion:
-    'Windows + R →「winver」でWindowsのバージョンを確認します。動作環境の最低条件がWindows 11のゲームは、Windows 10では公式にサポートされません。Windows 10のサポートは2025年10月14日に終了しており、Microsoftも移行を推奨しています。アップグレードできるかは「PC正常性チェック」アプリで確認できます。',
+    'Windows + R →「winver」でWindowsのバージョンを確認します。動作環境の最低条件がWindows 11のゲームは、Windows 10では公式にサポートされません。Windows 10の通常サポートは2025年10月14日に終了しました。対象機器では登録条件付きの拡張セキュリティ更新（ESU）がありますが、ゲームの対応OSが変わるわけではありません。アップグレードできるかは「PC正常性チェック」アプリで確認できます。',
   checkedAt: '2026-09-28',
   status: 'verified',
   causes: [
     'Windows 10のまま遊んでいる（動作環境の最低条件を満たさない）',
-    'TPM 2.0やセキュアブートが無効で、Windows 11にアップグレードできない',
+    'TPM 2.0が無効、またはUEFI・セキュアブート対応などの要件を満たしていない',
     'Windows 10でもバージョンが古い（22H2以降を求めるゲームもある）',
   ],
   steps: [
@@ -144,7 +144,7 @@ export const windows11RequiredGuide: CommonGuide = {
       title: 'Windows 11にアップグレードできるか確認する',
       actions: [
         'タスクバーの検索で「PC正常性チェック」を開き、「今すぐチェック」を選ぶ（未インストールなら aka.ms/GetPCHealthCheckApp から入手）',
-        '要件を満たさない理由が表示されたら、その項目を確認する。TPM 2.0やセキュアブートが無効なだけなら、設定で有効にできる場合がある',
+        '要件を満たさない理由を確認する。TPM 2.0が無効な場合はメーカーの案内を確認する。Windows 11のセキュアブート要件は「対応」であり、「無効」だけでは非対応とは判断しない。ゲーム側が有効化を求める条件とは区別する',
       ],
     },
     {
@@ -172,16 +172,16 @@ export const windows11RequiredGuide: CommonGuide = {
     {
       question: 'Windows 10のサポートはいつ終わりましたか？',
       answer:
-        '2025年10月14日に終了しました。PCは引き続き動きますが、Windows Updateによる無料の更新やセキュリティ修正は提供されなくなっています（Microsoft公式）。',
+        '通常サポートは2025年10月14日に終了しました。対象のWindows 10 22H2では、ESUへの登録条件を満たすと重要なセキュリティ更新を受けられます。ESUは新機能や一般の技術サポートを含まず、ゲームのWindows 11要件を満たす代わりにはなりません。登録条件はMicrosoftの最新案内で確認してください。',
     },
     {
       question: 'PC正常性チェックで「要件を満たしていない」と出ました。',
       answer:
-        '表示された理由を確認してください。TPM 2.0やセキュアブートが無効なだけの場合は、UEFI（BIOS）で有効にすると要件を満たせることがあります。CPUが対象外の場合は、設定では解決できません。',
+        '表示された項目ごとに確認してください。TPM 2.0の有効化と、UEFI・セキュアブートへの対応は別の確認です。設定変更が必要な場合も、起動方式を自己判断で切り替えず、PCメーカーの手順と暗号化の回復キーを先に確認します。CPUが対象外の場合は、設定変更だけでは要件を満たせません。',
     },
   ],
   related: ['tpm-secure-boot', 'save-data-backup', 'steam-game-not-launching'],
-  sources: [msHealthCheck, msTpm, msSecureBoot, roundup],
+  sources: [msHealthCheck, msTpm, msSecureBoot, { label: 'Microsoft：Windows 10拡張セキュリティ更新（ESU）', url: 'https://www.microsoft.com/en-us/windows/extended-security-updates' }, roundup],
 };
 
 export const rayTracingGpuGuide: CommonGuide = {
