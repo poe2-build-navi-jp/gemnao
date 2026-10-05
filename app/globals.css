@@ -5388,3 +5388,6 @@ a.my-games-primary {
 .step-actions button { white-space: normal; text-align: left; overflow-wrap: anywhere; }
 .step-actions button svg { flex-shrink: 0; }
 .step-skip { margin: 0 20px 12px; overflow-wrap: anywhere; }
+
+.step-actions a.step-next { display: inline-flex; align-items: center; padding: 10px 14px; border-radius: 7px; min-height: 42px; font-weight: 800; white-space: normal; overflow-wrap: anywhere; }
+.step-actions:has(.step-confirm) { flex-wrap: wrap; }

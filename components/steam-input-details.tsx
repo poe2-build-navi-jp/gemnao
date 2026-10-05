@@ -67,7 +67,7 @@ export function SteamInputBeforeSteps() {
         </p>
       </section>
 
-      <section className="diagnosis-table" id="input-device">
+      <section className="diagnosis-table" id="input-device" tabIndex={-1}>
         <h2>Steamが認識しない場合：機器名とボタンの両方を見る</h2>
         <ol>
           <li>
@@ -83,6 +83,12 @@ export function SteamInputBeforeSteps() {
             Bluetooth接続ならWindows「設定」→「Bluetoothとデバイス」→「デバイス」で接続状態を確認。接続できない時に限り、機器のメーカーのペアリング手順を見て再接続してください。Steamに機器名が出るようになったら、ボタン入力のテストをやり直します。
           </li>
         </ol>
+        <p>
+          別ポート・データ通信対応ケーブルでも名前やボタン反応を確認できない場合は、機器メーカーの公式サポートで接続・入力テスト・故障診断を確認してください。認識を確認できるまでは、ゲーム別設定を切り替えません。
+        </p>
+        <p>
+          <a href="#step-1">接続を確認したら、STEP 1で認識の結果を選ぶ</a>
+        </p>
         <p className="procedure-note">
           <strong>PS4パッドなのに「Xbox 360」と出る場合：</strong>
           DS4Windows・InputMapperなどで変換していると、Steamはツールが作る仮想Xbox
