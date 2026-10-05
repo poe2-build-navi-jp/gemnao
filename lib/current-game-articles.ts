@@ -752,6 +752,13 @@ export const currentGameArticles: GameArticle[] = [
       {
         id: 'step-1',
         title: '表示方式を切り替えて画面を取り戻す',
+        nextStepId: 'step-3',
+        guideLink: {
+          href: '#step-2',
+          label: '画面が戻った場合だけ、STEP 2で表示設定を確認',
+          description:
+            '黒いままなら下のスキップ・直らないボタンからSTEP 3へ進みます。',
+        },
         summary: '画面が見えるようになれば、設定を安全な値に戻せます。',
         time: '約1分',
         risk: 'low',
@@ -768,7 +775,7 @@ export const currentGameArticles: GameArticle[] = [
         time: '約3分',
         risk: 'low',
         actions: [
-          '画面設定を開き、今の値をスクリーンショットで控える',
+          '画面が見える場合だけ画面設定を開き、今の値をスクリーンショットで控える',
           'スクリーンモードだけをボーダーレスかウィンドウに変えて比べる',
           '次に解像度だけをモニターの標準解像度にして比べる',
           '次に垂直同期だけを切り替えて比べる',
