@@ -12,6 +12,8 @@ export type Gpu = {
   id: string;
   name: string;
   vramGb: number;
+  /** Upper bound for an older combined choice whose exact model is unknown. */
+  vramMaxGb?: number;
   /** Hardware ray tracing (RTX / RX 6000+ / Arc). */
   rt: boolean;
   /** Editorial performance tier, higher is faster. */
@@ -57,7 +59,11 @@ export const gpus: Gpu[] = [
   g('rtx-4060', 'GeForce RTX 4060', 8, true, 8),
   g('rtx-4060-ti', 'GeForce RTX 4060 Ti', 8, true, 9),
   g('rtx-4070', 'GeForce RTX 4070 / 4070 SUPER', 12, true, 10),
-  g('rtx-4070-ti', 'GeForce RTX 4070 Ti / Ti SUPER', 12, true, 11),
+  // Preserve the old combined ID: saved selections cannot reveal which model.
+  // NVIDIA RTX 4070 family specifications: Ti 12GB, Ti SUPER 16GB.
+  { ...g('rtx-4070-ti', 'GeForce RTX 4070 Ti / Ti SUPER（型番未選択）', 12, true, 11), vramMaxGb: 16 },
+  g('rtx-4070-ti-12gb', 'GeForce RTX 4070 Ti（12GB）', 12, true, 11),
+  g('rtx-4070-ti-super-16gb', 'GeForce RTX 4070 Ti SUPER（16GB）', 16, true, 11),
   g('rtx-4080', 'GeForce RTX 4080 / 4080 SUPER', 16, true, 12),
   g('rtx-4090', 'GeForce RTX 4090', 24, true, 13),
   g('rtx-5050', 'GeForce RTX 5050', 8, true, 7),
@@ -86,7 +92,10 @@ export const gpus: Gpu[] = [
   g('rx-7600', 'Radeon RX 7600 / 7600 XT', 8, true, 7),
   g('rx-7700-xt', 'Radeon RX 7700 XT', 12, true, 9),
   g('rx-7800-xt', 'Radeon RX 7800 XT', 16, true, 10),
-  g('rx-7900-xt', 'Radeon RX 7900 XT / GRE', 20, true, 12),
+  // AMD product specifications: XT 20GB, GRE 16GB. Keep legacy ID ambiguous.
+  { ...g('rx-7900-xt', 'Radeon RX 7900 XT / GRE（型番未選択）', 16, true, 12), vramMaxGb: 20 },
+  g('rx-7900-xt-20gb', 'Radeon RX 7900 XT（20GB）', 20, true, 12),
+  g('rx-7900-gre-16gb', 'Radeon RX 7900 GRE（16GB）', 16, true, 12),
   g('rx-7900-xtx', 'Radeon RX 7900 XTX', 24, true, 13),
   g('rx-9060-xt', 'Radeon RX 9060 XT', 16, true, 9),
   g('rx-9070', 'Radeon RX 9070 / 9070 XT', 16, true, 12),
@@ -128,8 +137,12 @@ export function checkFit(pc: MyPc, spec: MinSpec): Fit {
     no.push(`メモリが最低環境（${spec.ramGb}GB）より少ない`);
   if (spec.rayTracing && gpu && !gpu.rt)
     no.push('レイトレーシング対応GPUが必須です');
-  if (spec.vramGb && gpu && gpu.vramGb < spec.vramGb)
-    no.push(`VRAMが最低環境（${spec.vramGb}GB）より少ない`);
+  if (spec.vramGb && gpu && gpu.vramGb < spec.vramGb) {
+    if ((gpu.vramMaxGb ?? gpu.vramGb) < spec.vramGb)
+      no.push(`VRAMが最低環境（${spec.vramGb}GB）より少ない`);
+    else
+      maybe.push(`VRAM容量で判定が変わります。マイページでGPUの型番を選び直してください（最低${spec.vramGb}GB）`);
+  }
   const reference = spec.gpu
     .map(gpuById)
     .filter((item): item is Gpu => Boolean(item));
