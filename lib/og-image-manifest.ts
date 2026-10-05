@@ -80,7 +80,7 @@ export const ogImageManifest: Record<string, string> = {
   "/games/control-resonant": "3736f87e",
   "/games/control-resonant/crash-performance": "97d832c5",
   "/games/cyberpunk-2077": "b8f02bca",
-  "/games/cyberpunk-2077/not-launching": "01feef5f",
+  "/games/cyberpunk-2077/not-launching": "2c33ea77",
   "/games/dragon-quest-monsters-4": "11edd9af",
   "/games/dragon-quest-monsters-4/demo-transfer": "4d4c5b94",
   "/games/dragons-dogma-2": "50fbbc48",

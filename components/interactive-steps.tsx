@@ -10,6 +10,7 @@ import {
   Share2,
 } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import type { AdvanceCheck } from '@/lib/step-navigation';
 import { useSavedSolutions } from '@/components/use-saved-solutions';
 import { useActiveCase } from '@/components/support-workspace';
 import { ResultNote } from '@/components/result-note';
@@ -26,6 +27,7 @@ type Step = {
   id: string;
   title: string;
   summary?: string;
+  advanceCheck?: AdvanceCheck;
   actions: string[];
   note?: string;
   guideLink?: { href: string; label: string; description: string };
@@ -77,6 +79,7 @@ export function InteractiveSteps({
   const activeNote = savedNotes.find((item) => item.id === activeCase);
   const [legacyProgress, setLegacyProgress] = useState<Progress | null>(null);
   type Session = {
+    confirmedStepIds: string[];
     currentStep: number;
     completedIds: string[];
     solvedStepId: string;
@@ -103,6 +106,7 @@ export function InteractiveSteps({
       : -1;
   const legacy = !activeCase ? legacyProgress : null;
   const initial: Session = {
+    confirmedStepIds: [],
     currentStep: noteIndex >= 0 ? noteIndex : legacy?.currentStep || 0,
     completedIds: activeNote
       ? (activeNote.support?.attempts || [])
@@ -126,6 +130,13 @@ export function InteractiveSteps({
     message: '',
     outcome: null,
   };
+  const firstCheck = steps.findIndex((step) => step.advanceCheck);
+  if (
+    !initial.solvedStepId &&
+    firstCheck >= 0 &&
+    initial.currentStep > firstCheck
+  )
+    initial.currentStep = firstCheck;
   const session = sessions[scope] || initial;
   const {
     currentStep,
@@ -519,12 +530,22 @@ export function InteractiveSteps({
         />
         <div className="procedure-list">
           {steps.map((step, index) => {
+            const prerequisite =
+              !solvedStepId &&
+              steps
+                .slice(0, index)
+                .find(
+                  (prior) =>
+                    prior.advanceCheck &&
+                    !session.confirmedStepIds.includes(prior.id),
+                );
             const completed = completedIds.includes(step.id);
             const solvedHere = solvedStepId === step.id;
             return (
               <section
                 className={`procedure-card interactive-step${index === currentStep ? ' current' : ''}${completed ? ' completed' : ''}`}
                 id={step.id}
+                tabIndex={-1}
                 key={step.id}
               >
                 <header>
@@ -575,36 +596,97 @@ export function InteractiveSteps({
                   articlePath={articlePath}
                   step={index + 1}
                 />
-                {!solvedStepId && index < steps.length - 1 && (
-                  <p className="step-skip">
-                    <a href={`#${steps[index + 1].id}`}>
-                      対象外なら「{steps[index + 1].title}」へスキップ
-                    </a>
+                {!solvedStepId &&
+                  !prerequisite &&
+                  !step.advanceCheck &&
+                  index < steps.length - 1 && (
+                    <p className="step-skip">
+                      <a href={`#${steps[index + 1].id}`}>
+                        対象外なら「{steps[index + 1].title}」へスキップ
+                      </a>
+                    </p>
+                  )}
+                {prerequisite ? (
+                  <p className="procedure-note">
+                    先に「{prerequisite.title}」で前提条件を確認してください。
+                    <a href={`#${prerequisite.id}`}>認識の確認へ戻る</a>
                   </p>
+                ) : (
+                  <>
+                    {!solvedStepId && step.advanceCheck && (
+                      <p className="procedure-note">
+                        {step.advanceCheck.prompt}
+                      </p>
+                    )}
+                    <div className="step-actions">
+                      <button
+                        className="step-solved"
+                        type="button"
+                        onClick={() => void solved(step)}
+                        disabled={Boolean(solvedStepId)}
+                      >
+                        <CheckCircle2 size={18} />
+                        {solvedHere
+                          ? 'この方法で解決済み'
+                          : step.advanceCheck?.resolvedLabel || 'これで直った'}
+                      </button>
+                      {!solvedStepId && step.advanceCheck ? (
+                        <>
+                          <a
+                            className="step-next"
+                            href={step.advanceCheck.unresolvedHref}
+                            onClick={() =>
+                              updateSession({
+                                currentStep: index,
+                                confirmedStepIds:
+                                  session.confirmedStepIds.filter(
+                                    (id) => id !== step.id,
+                                  ),
+                                showResume: false,
+                                outcome: null,
+                              })
+                            }
+                          >
+                            {step.advanceCheck.unresolvedLabel}
+                          </a>
+                          <a
+                            className="step-next step-confirm"
+                            href={`#${steps[index + 1]?.id}`}
+                            onClick={() =>
+                              updateSession({
+                                confirmedStepIds: [
+                                  ...new Set([
+                                    ...session.confirmedStepIds,
+                                    step.id,
+                                  ]),
+                                ],
+                                currentStep: Math.min(
+                                  index + 1,
+                                  steps.length - 1,
+                                ),
+                                showResume: false,
+                                outcome: null,
+                              })
+                            }
+                          >
+                            {step.advanceCheck.confirmedLabel}
+                          </a>
+                        </>
+                      ) : !solvedStepId ? (
+                        <button
+                          className="step-next"
+                          type="button"
+                          onClick={() => void notSolved(step, index)}
+                        >
+                          {index < steps.length - 1
+                            ? `直らない → 次は「${steps[index + 1].title}」を確認`
+                            : '全部試したが直らない'}
+                          <ChevronRight size={17} />
+                        </button>
+                      ) : null}
+                    </div>
+                  </>
                 )}
-                <div className="step-actions">
-                  <button
-                    className="step-solved"
-                    type="button"
-                    onClick={() => void solved(step)}
-                    disabled={Boolean(solvedStepId)}
-                  >
-                    <CheckCircle2 size={18} />
-                    {solvedHere ? 'この方法で解決済み' : 'これで直った'}
-                  </button>
-                  {!solvedStepId ? (
-                    <button
-                      className="step-next"
-                      type="button"
-                      onClick={() => void notSolved(step, index)}
-                    >
-                      {index < steps.length - 1
-                        ? `直らない → 次は「${steps[index + 1].title}」を確認`
-                        : '全部試したが直らない'}
-                      <ChevronRight size={17} />
-                    </button>
-                  ) : null}
-                </div>
                 {outcome?.step.id === step.id && (
                   <ResultNote
                     key={`${scope}:${outcome.at}`}

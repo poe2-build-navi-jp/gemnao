@@ -19,6 +19,14 @@ export const steamInputGuide: CommonGuide = {
   steps: [
     {
       title: 'Steamが機器とボタン入力を認識するか確認する',
+      advanceCheck: {
+        prompt:
+          'Steamに機器名とボタン反応の両方が出ていますか？ 名前だけ・未確認の場合は接続とメーカー診断へ戻ります。認識の確認だけでは、ゲームの問題が解決したことにはなりません。',
+        confirmedLabel: '機器名とボタン反応を確認した → ゲーム別設定を比較',
+        unresolvedLabel: '未確認・認識しない → 接続とメーカー診断を確認',
+        unresolvedHref: '#input-device',
+        resolvedLabel: 'ゲーム内の操作も直った',
+      },
       actions: [
         'ゲームを終了し、コントローラーを1台だけ接続。「Steam」→「設定」→「コントローラ」で機器名を確認し、入力テストが使える場合はA／決定ボタンとスティックを操作。名前と入力が両方出るならゲーム側の確認へ進む。',
         '名前が出ない、またはテストが動かない場合は別のUSBポートとデータ通信できるケーブルで比べる。Bluetooth接続ならWindows「設定」→「Bluetoothとデバイス」で接続状態を確認。有線では動くなら無線側の接続を調べる。Steam Inputを切り替える前に、接続を戻す。',

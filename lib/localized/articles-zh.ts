@@ -19,7 +19,7 @@ export const articlesZh: LocalizedArticle[] = [
       '《赛博朋克 2077》PC 版无法启动或频繁崩溃？先在不加载 MOD 的状态下测试，再按 CD PROJEKT RED 官方顺序排查：显卡驱动全新安装、Visual C++ 运行库、验证文件、叠加层与超频。',
     lead: '适用于 Windows 上的 Steam、GOG、Epic 版：点击“开始”后没有反应、REDlauncher 之后闪退，或游玩中突然回到桌面。',
     summary:
-      'CD PROJEKT RED 官方支持页面给出的检查顺序是：确认配置需求与 Windows 版本、全新安装显卡驱动、重新安装 Visual C++ 运行库、验证游戏文件、关闭叠加层和后台程序。如果安装了 MOD，请先确认在不加载 MOD 的状态下能否启动。',
+      '参考 CD PROJEKT RED 官方支持的检查项目，本文依次检查配置需求与 Windows、显卡驱动、Visual C++ 运行库和游戏文件。本文保留安全防护，仅逐一比较非必要叠加层。如果安装了 MOD，请先确认在不加载 MOD 的状态下能否启动。',
     quickFacts: [
       {
         label: '查看 Windows 版本',
@@ -96,17 +96,17 @@ export const articlesZh: LocalizedArticle[] = [
       },
       {
         id: 'verify-files',
-        title: '验证游戏文件，关闭叠加层和后台程序',
-        summary: '修复损坏的文件，并排除容易干扰游戏的程序。',
+        title: '验证游戏文件，逐一比较非必要叠加层',
+        summary: '修复损坏的文件，仅逐一比较非必要叠加层，并保持安全防护开启。',
         time: '10～20 分钟',
         actions: [
           verify('Cyberpunk 2077'),
           'GOG GALAXY 或 Epic Games 版本，请使用各启动器的验证/修复功能。',
-          '关闭 Discord、Ubisoft Connect、GOG GALAXY 等叠加层，并退出硬件监控、杀毒软件等不需要的程序。',
+          '仅逐一关闭 Discord、Ubisoft Connect、GOG GALAXY 等非必要叠加层，再比较启动结果。保持杀毒软件和防火墙开启。',
           '以管理员身份运行启动器（Steam、GOG GALAXY 或 Epic），再启动游戏。',
           'CPU 或显卡超频、降频时，请恢复默认设置（官方建议）。',
         ],
-        note: '在安全软件中添加例外后，请重新开启防护。',
+        note: '不要仅为启动游戏而恢复隔离文件或添加排除项。如果怀疑官方游戏文件被误报，请记录防护历史中的检测名称和目标文件，向安全软件官方支持或 CD PROJEKT RED 客服确认。',
       },
     ],
     avoid: [

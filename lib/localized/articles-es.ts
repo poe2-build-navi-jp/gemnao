@@ -21,7 +21,7 @@ export const articlesEs: LocalizedArticle[] = [
       '¿Cyberpunk 2077 no arranca o se cierra en PC? Pruébalo sin mods y sigue el orden de CD PROJEKT RED: instalación limpia del controlador, Visual C++, verificación de archivos, superposiciones y overclock.',
     lead: 'Para las versiones de Steam, GOG y Epic en Windows: no pasa nada al pulsar Jugar, el juego se cierra tras REDlauncher o vuelve al escritorio mientras juegas.',
     summary:
-      'La página de soporte de CD PROJEKT RED indica este orden: comprobar los requisitos y la versión de Windows, hacer una instalación limpia del controlador gráfico, reinstalar los paquetes de Visual C++, verificar los archivos del juego y desactivar superposiciones y programas en segundo plano. Si usas mods, comprueba primero si el juego inicia sin ellos.',
+      'A partir de las comprobaciones del soporte de CD PROJEKT RED, esta guía revisa los requisitos y Windows, el controlador gráfico, Visual C++ y los archivos del juego. Aquí mantenemos activa la protección y comparamos solo las superposiciones no esenciales, una por una. Si usas mods, comprueba primero si el juego inicia sin ellos.',
     quickFacts: [
       {
         label: 'Ver la versión de Windows',
@@ -103,18 +103,18 @@ export const articlesEs: LocalizedArticle[] = [
       {
         id: 'verify-files',
         title:
-          'Verifica los archivos y desactiva superposiciones y programas en segundo plano',
+          'Verifica los archivos y compara las superposiciones no esenciales',
         summary:
-          'Repara archivos dañados y retira los programas que suelen interferir.',
+          'Repara archivos dañados y compara solo las superposiciones no esenciales, manteniendo activa la protección.',
         time: '10–20 min',
         actions: [
           verify('Cyberpunk 2077'),
           'En GOG GALAXY o Epic Games, usa la opción de verificar o reparar del lanzador.',
-          'Desactiva las superposiciones (Discord, Ubisoft Connect, GOG GALAXY, etc.) y cierra monitores de hardware, antivirus y otros programas que no necesites.',
+          'Desactiva solo las superposiciones no esenciales (Discord, Ubisoft Connect, GOG GALAXY, etc.), una por una, y compara el inicio. Mantén activos el antivirus y el cortafuegos.',
           'Ejecuta el lanzador (Steam, GOG GALAXY o Epic) como administrador e inicia el juego.',
           'Si la CPU o la GPU tienen overclock o undervolt, vuelve a los valores de fábrica (consejo oficial).',
         ],
-        note: 'Si añades una excepción en el antivirus, vuelve a activar la protección después.',
+        note: 'No restaures archivos en cuarentena ni añadas exclusiones solo para iniciar el juego. Si sospechas un falso positivo en un archivo oficial, anota el nombre de la detección y el archivo afectado y consulta al soporte oficial del producto de seguridad o de CD PROJEKT RED.',
       },
     ],
     avoid: [

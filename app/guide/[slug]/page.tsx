@@ -597,6 +597,7 @@ export default async function Page({
               id: `step-${index + 1}`,
               title: step.title,
               actions: step.actions,
+              advanceCheck: step.advanceCheck,
             }))}
             nextLinks={[
               ...item.related
