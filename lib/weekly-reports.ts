@@ -134,7 +134,10 @@ export const weeklyReports: WeeklyReport[] = [
           href: '/games/silent-hill-townfall/stutter',
           label: '重い・カクつく時の対処法',
         },
-        source: { label: 'Steamニュース（公式）', url: steamNews('1636440') },
+        source: {
+          label: 'KONAMI公式：Patch 1.3.1',
+          url: 'https://www.konami.com/games/silenthill/townfall/updates/jp/ja/patch-note_v1-3-1',
+        },
       },
       {
         date: '10/1',

@@ -352,6 +352,10 @@ export const games: GameGuide[] = [
       storage: '15GB',
     },
     sources: [
+      {
+        label: '公式サイト：製品情報（Steam版は2026年10月23日）',
+        url: 'https://www.jp.square-enix.com/FFRS/',
+      },
       { label: 'Steamストア', url: steam('3259780') },
       { label: 'Steamストア：第一章まるごと先行体験版', url: steam('4474710') },
     ],
@@ -815,7 +819,7 @@ export const games: GameGuide[] = [
       minimum:
         'Windows 11／GTX 1060・RX 5600 XT・Arc A380（VRAM 6GB）／メモリ16GB（1080p・30fps・「低」、アップスケール使用）',
       recommended:
-        'RTX 3060・RX 6700 XT（VRAM 8GB）／メモリ16GB（1080p・60fps・「高」、アップスケール使用）',
+        'RTX 3060（8GB）・RX 6700 XT（12GB）／メモリ16GB（1080p・60fps・「高」、アップスケール使用）',
       storage: '60GB',
     },
     sources: [

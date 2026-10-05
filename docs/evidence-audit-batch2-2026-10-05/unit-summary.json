@@ -1,0 +1,30 @@
+{
+  "rawRenderedProseBlocks": 17427,
+  "exactDuplicateRemovedProseBlocks": 17272,
+  "proseBlocksAreNotFactClaims": true,
+  "renderedUrls": 296,
+  "canonicalArticleAndPageUnits": 212,
+  "kinds": {
+    "navigation-tool-policy-or-other": 27,
+    "discord-article": 38,
+    "game-hub": 30,
+    "game-article": 64,
+    "gear-article": 3,
+    "common-guide": 28,
+    "roundup": 2,
+    "pc-article": 19,
+    "weekly": 1
+  },
+  "procedureTopics": 683,
+  "procedureLocaleOccurrences": 865,
+  "sharedGameFactTopics": 279,
+  "sharedGameFactOccurrences": 462,
+  "languageStepPairs": 182,
+  "numericDifferencePairs": 7,
+  "limitations": [
+    "Article/page units are the audit denominator, not 17,272 rendered blocks.",
+    "STEP topics and fact topics overlap: do not add them or call them unique atomic facts.",
+    "Cross-language STEP IDs and game/topic keys group likely same meaning; content remains visible for semantic review.",
+    "Common UI/SEO duplicates are absent; unstructured special routes still require individual review."
+  ]
+}

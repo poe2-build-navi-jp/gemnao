@@ -21,7 +21,6 @@ import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import {
   articleBySlug,
   articleCategoryLabel,
-  type ContentStatus,
   type GameArticle,
 } from '@/lib/game-articles';
 import type { GameGuide } from '@/lib/games';
@@ -30,13 +29,6 @@ import { commonGuides } from '@/lib/common-guides';
 import { troubleHubForArticle } from '@/lib/trouble-hubs';
 import { pcLinksForGameArticle } from '@/lib/cross-links';
 import { saveGuideByGame } from '@/lib/tool-guide-links';
-
-const contentStatusLabels: Record<ContentStatus, string> = {
-  verified: '確認済み',
-  'needs-review': '再確認が必要',
-  draft: '下書き',
-  thin: '内容確認中',
-};
 
 export function TroubleshootingArticle({
   game,
@@ -154,9 +146,16 @@ export function TroubleshootingArticle({
           <div className="article-meta">
             <EditorialByline />
             <span>最終確認：{article.checkedAt.replaceAll('-', '.')}</span>
-            <span>
-              情報の状態：{contentStatusLabels[article.status || 'verified']}
-            </span>
+            {article.status && article.status !== 'verified' ? (
+              <span>
+                情報の状態：
+                {article.status === 'needs-review'
+                  ? '再確認が必要'
+                  : article.status === 'draft'
+                    ? '下書き'
+                    : '内容確認中'}
+              </span>
+            ) : null}
           </div>
           {article.targetVersion ? (
             <p className="target-version">対象：{article.targetVersion}</p>
@@ -229,7 +228,9 @@ export function TroubleshootingArticle({
               aria-labelledby="diagnosis-title"
             >
               <h2 id="diagnosis-title">症状別の早見表</h2>
-              <p>当てはまる症状から、試すSTEPへ移動できます。対象外の手順は飛ばして構いません。</p>
+              <p>
+                当てはまる症状から、試すSTEPへ移動できます。対象外の手順は飛ばして構いません。
+              </p>
               <table>
                 <thead>
                   <tr>

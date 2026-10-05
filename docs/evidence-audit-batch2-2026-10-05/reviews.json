@@ -1,0 +1,192 @@
+[
+  {
+    "id": "musou-recommended-vram",
+    "status": "corrected",
+    "target": "lib/games.ts; lib/launch-week-articles.ts",
+    "source": "https://store.steampowered.com/app/3841510/",
+    "finding": "推奨GPUはRTX 3060 8GB、RX 6700 XT 12GB。両方8GBという表記を修正。最低/推奨fps条件にアップスケーリング使用を補足。",
+    "localeScope": "ja; no translated article",
+    "checkedAt": "2026-10-05",
+    "wholeArticleVerified": false
+  },
+  {
+    "id": "ff-steam-release",
+    "status": "verified-scope",
+    "target": "final-fantasy-resonance:release-and-status",
+    "source": "https://www.jp.square-enix.com/FFRS/",
+    "finding": "日本向け公式製品情報は10月22日、Steamのみ10月23日と明示。既存Steam日付は正しい。",
+    "localeScope": "ja",
+    "checkedAt": "2026-10-05",
+    "wholeArticleVerified": false
+  },
+  {
+    "id": "ace-release",
+    "status": "verified-scope",
+    "target": "ace-combat-8:release-and-status",
+    "source": "https://acecombat.jp/ace8news/?p=27",
+    "finding": "2026年10月2日の発売告知本文にSteam購入リンクあり。9月29日先行アクセスはこの確認の範囲外。",
+    "localeScope": "ja",
+    "checkedAt": "2026-10-05",
+    "wholeArticleVerified": false
+  },
+  {
+    "id": "ace-requirements",
+    "status": "verified-scope",
+    "target": "ace-combat-8:requirements.minimum; ace-combat-8:requirements.recommended",
+    "source": "https://enso-order.acecombat.jp/",
+    "finding": "最低16GB・RTX2060/RX6600XT、推奨32GB・RTX3070/RX6800、SSD150GB、ハードウェアRT/SM6.6を照合。",
+    "localeScope": "ja/en/zh/es; translated STEP 1 omits broad GPU families; STEP 6 omits 16GB closing-app suggestion; no numeric contradiction",
+    "checkedAt": "2026-10-05",
+    "wholeArticleVerified": false
+  },
+  {
+    "id": "dqm-demo",
+    "status": "verified-scope",
+    "target": "dragon-quest-monsters-4 demo and release",
+    "source": "https://store.steampowered.com/app/3681610/?l=japanese",
+    "finding": "12月3日発売、先行12月2日02時JST、体験版G/F最大8体、同じPC/アカウント/プラットフォーム、レベルとスキル初期化、アイテム/所持金なしを照合。",
+    "localeScope": "ja; extends prior reviewed scopes",
+    "checkedAt": "2026-10-05",
+    "wholeArticleVerified": false
+  },
+  {
+    "id": "palworld-spec",
+    "status": "verified-scope",
+    "target": "palworld:requirements.minimum; palworld:requirements.recommended",
+    "source": "https://store.steampowered.com/app/1623730/",
+    "finding": "最低Win10・16GB・GTX1660、推奨Win11・32GB・RTX3060Ti/RX6700XT、40GB SSD必須を照合。",
+    "localeScope": "ja and shared localized gameFacts",
+    "checkedAt": "2026-10-05",
+    "wholeArticleVerified": false
+  },
+  {
+    "id": "hogwarts-spec",
+    "status": "verified-scope",
+    "target": "hogwarts-legacy:requirements.minimum; hogwarts-legacy:requirements.recommended",
+    "source": "https://store.steampowered.com/app/990080/",
+    "finding": "最低i5-6600/R5 1400・GTX960/RX470、推奨i7-8700/R5 3600・GTX1080Ti/RX5700XT、16GB/85GBを照合。公式の追加候補Arc A770省略は矛盾ではない。",
+    "localeScope": "ja and shared localized gameFacts",
+    "checkedAt": "2026-10-05",
+    "wholeArticleVerified": false
+  },
+  {
+    "id": "stardew-minimum",
+    "status": "verified-scope",
+    "target": "stardew-valley:requirements.minimum",
+    "source": "https://store.steampowered.com/app/413150/",
+    "finding": "ストア最低要件2GHz、2GB、256MB Shader3、500MB。SteamクライアントのOSサポートまで確認した意味ではない。",
+    "localeScope": "ja and shared localized gameFacts",
+    "checkedAt": "2026-10-05",
+    "wholeArticleVerified": false
+  },
+  {
+    "id": "zero-company-spec",
+    "status": "verified-scope",
+    "target": "star-wars-zero-company requirements and release",
+    "source": "https://help.ea.com/en/articles/star-wars/zero-company/platforms-pc-requirements-guide/",
+    "finding": "8月27日発売、PC/PS5/Xbox Series。最低16GB/GTX1080/RX5600XT/ArcB580、推奨32GB/RTX3080/RX7800XT、50GBを照合。",
+    "localeScope": "ja",
+    "checkedAt": "2026-10-05",
+    "wholeArticleVerified": false
+  },
+  {
+    "id": "silent-patch",
+    "status": "verified-scope",
+    "target": "weekly/2026-09-28 SILENT HILL item",
+    "source": "https://www.konami.com/games/silenthill/townfall/updates/jp/ja/patch-note_v1-3-1",
+    "finding": "9月30日Patch1.3.1、表示v1.4.153829、シェーダー事前コンパイルによるカクつき軽減。週刊の一般ニュースリンクを本文リンクへ。",
+    "localeScope": "ja",
+    "checkedAt": "2026-10-05",
+    "wholeArticleVerified": false
+  },
+  {
+    "id": "control-known-issues",
+    "status": "verified-scope",
+    "target": "control-resonant known issues only",
+    "source": "https://remedy.helpshift.com/hc/en/5-control-resonant/faq/314-resonance-disruption-known-issues-and-updates/",
+    "finding": "AMD7000/9000性能問題、RT変更後fps低下時再起動、Steam Input再接続問題の公式記載を確認。10月2日hotfix1.4.1適用済みを証明する資料ではない。",
+    "localeScope": "ja; translations not reviewed",
+    "checkedAt": "2026-10-05",
+    "wholeArticleVerified": false
+  },
+  {
+    "id": "wardogs-update-scope",
+    "status": "unverified-patch",
+    "target": "weekly/2026-09-28 WARDOGS v0.1.2",
+    "source": "https://steamcommunity.com/app/1867240/discussions/3/585060903246925093/",
+    "finding": "開発者本文で9月22日プレビューKB5124010との互換問題は確認。9月30日v0.1.2による修正済みという別主張は証明できない。未確認を誤りとは扱わない。",
+    "localeScope": "ja",
+    "checkedAt": "2026-10-05",
+    "wholeArticleVerified": false
+  },
+  {
+    "id": "tales-requirements",
+    "status": "source-conditions-need-review",
+    "target": "tales-of-eternia requirements",
+    "source": "https://store.steampowered.com/app/3470960/",
+    "finding": "最低/推奨にWin11・4GB RAM・8GBとGPU1GB/2GB候補。一方追加注記にDX12利用時4GB VRAMあり。1GBで必ず動作とは結論できず、発売日時も継続確認。",
+    "localeScope": "ja",
+    "checkedAt": "2026-10-05",
+    "wholeArticleVerified": false
+  },
+  {
+    "id": "crymelight-minimum",
+    "status": "verified-scope",
+    "target": "new-releases monthly minimum requirements only",
+    "source": "https://store.steampowered.com/app/3891160/",
+    "finding": "最低16GB/RTX2060/RX5600/10GBを既存まとめと照合。日本発売日・解禁時刻はこの確認に含まない。",
+    "localeScope": "ja",
+    "checkedAt": "2026-10-05",
+    "wholeArticleVerified": false
+  },
+  {
+    "id": "where-seeds-fall-minimum",
+    "status": "verified-scope",
+    "target": "new-releases monthly minimum requirements only",
+    "source": "https://store.steampowered.com/app/4139580/",
+    "finding": "最低Win11/16GB/GTX1660/RX6600/10GB SSD必須を既存まとめと照合。日本発売日・解禁時刻はこの確認に含まない。",
+    "localeScope": "ja",
+    "checkedAt": "2026-10-05",
+    "wholeArticleVerified": false
+  },
+  {
+    "id": "moomin-minimum",
+    "status": "verified-scope",
+    "target": "new-releases monthly minimum requirements only",
+    "source": "https://store.steampowered.com/app/4463520/",
+    "finding": "最低8GB/GTX780/3000MBを既存まとめと照合。日本発売日・解禁時刻はこの確認に含まない。",
+    "localeScope": "ja",
+    "checkedAt": "2026-10-05",
+    "wholeArticleVerified": false
+  },
+  {
+    "id": "prinny-party-minimum",
+    "status": "verified-scope",
+    "target": "new-releases monthly minimum requirements only",
+    "source": "https://store.steampowered.com/app/4509300/",
+    "finding": "最低4GB/GTX1050Ti/1GBを既存まとめと照合。日本発売日・解禁時刻はこの確認に含まない。",
+    "localeScope": "ja",
+    "checkedAt": "2026-10-05",
+    "wholeArticleVerified": false
+  },
+  {
+    "id": "sonic-pico-park-minimum",
+    "status": "verified-scope",
+    "target": "new-releases monthly minimum requirements only",
+    "source": "https://store.steampowered.com/app/4304060/",
+    "finding": "Win11/i5、GPU/RAM/容量は記載なしを既存まとめと照合。日本発売日・解禁時刻はこの確認に含まない。",
+    "localeScope": "ja",
+    "checkedAt": "2026-10-05",
+    "wholeArticleVerified": false
+  },
+  {
+    "id": "stellar-angel-minimum",
+    "status": "verified-scope",
+    "target": "new-releases monthly minimum requirements only",
+    "source": "https://store.steampowered.com/app/4607420/",
+    "finding": "最低Win11/4GB/400MBを既存まとめと照合。日本発売日・解禁時刻はこの確認に含まない。",
+    "localeScope": "ja",
+    "checkedAt": "2026-10-05",
+    "wholeArticleVerified": false
+  }
+]

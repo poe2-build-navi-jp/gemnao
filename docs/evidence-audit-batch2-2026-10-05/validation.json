@@ -1,0 +1,66 @@
+{
+  "environment": "local only; no D1 binding; browser APIs mocked; external requests blocked",
+  "browserEnv": {
+    "TEST_BASE_URL": "http://127.0.0.1:3001",
+    "PLAYWRIGHT_MODULE": "/opt/codex/runtimes/cua/lib/node_modules/playwright",
+    "CHROMIUM_PATH": "/usr/bin/chromium"
+  },
+  "checks": [
+    {
+      "command": "pnpm lint",
+      "exitCode": 0,
+      "log": "/tmp/batch2-lint.log",
+      "tail": "$ oxlint\n"
+    },
+    {
+      "command": "pnpm exec tsc --noEmit",
+      "exitCode": 0,
+      "log": "/tmp/batch2-types.log",
+      "tail": ""
+    },
+    {
+      "command": "pnpm check:localized",
+      "exitCode": 0,
+      "log": "/tmp/batch2-localized.log",
+      "tail": "$ node scripts/run-localized-check.mjs\nPASS: 79 translated pages\n"
+    },
+    {
+      "command": "pnpm build",
+      "exitCode": 0,
+      "log": "/tmp/batch2-build.log",
+      "tail": "            \n  ├ ○ /gear                            \n  ├ ƒ /gear/:slug                      \n  ├ ○ /guide                           \n  ├ ƒ /guide/:slug                     \n  ├ ○ /my                              \n  ├ ○ /my-games                        \n  ├ ƒ /new-releases/:slug              \n  ├ ○ /pc                              \n  ├ ƒ /pc/:slug                        \n  ├ ○ /privacy                         \n  ├ ○ /status                          \n  ├ ○ /terms                           \n  ├ ○ /tools                           \n  ├ ○ /tools/refresh-rate              \n  ├ ○ /tools/save-locations            \n  ├ ○ /tools/windows-diagnosis         \n  ├ ƒ /trouble/:slug                   \n  ├ ○ /weekly                          \n  └ ƒ /weekly/:slug                    \n\n  λ API  ƒ Dynamic  ○ Static  ? Unknown\n\n  ? Some routes could not be classified. vinext currently uses static analysis\n    and cannot detect dynamic API usage (headers(), cookies(), etc.) at build time.\n    Automatic classification will be improved in a future release.\n\n  ○ Routes marked static were confirmed by speculative prerender (attempted render\n    succeeded without dynamic API usage).\n\n  Build complete. Run `vinext start` to start the production server.\n\nPrepared editorial HTML snapshots: 285 (dynamic routes excluded)\nGenerated sitemap: 272 URLs\nGenerated image sitemap: 21 pages\nOG cards up to date: 204 pages\n"
+    },
+    {
+      "command": "node scripts/check-safe-step-navigation.mjs",
+      "exitCode": 0,
+      "log": "/tmp/batch2-navigation.log",
+      "tail": "PASS: four-language Cyberpunk protection/one-at-a-time/support guidance, unchanged STEP IDs; prerequisite only on Steam Input STEP 1\n"
+    },
+    {
+      "command": "node scripts/check-audit-batch2-browser.mjs",
+      "exitCode": 0,
+      "log": "/tmp/batch2-browser.log",
+      "tail": "PASS: 20 page/width combinations, corrected VRAM, primary patch link, no blanket verified badge, no overflow/JS errors; APIs mocked, external requests blocked\n"
+    },
+    {
+      "command": "node scripts/check-safe-step-navigation-browser.mjs",
+      "exitCode": 0,
+      "log": "/tmp/batch2-interactions.log",
+      "tail": "PASS 375px: keyboard unknown/confirmed branches, no recognition votes/writes, no bypass skip, legacy/notes A→B→A, cancel/save/reload, game-result dedup, 4-language article layout\nPASS 390px: keyboard unknown/confirmed branches, no recognition votes/writes, no bypass skip, legacy/notes A→B→A, cancel/save/reload, game-result dedup, 4-language article layout\nPASS 430px: keyboard unknown/confirmed branches, no recognition votes/writes, no bypass skip, legacy/notes A→B→A, cancel/save/reload, game-result dedup, 4-language article layout\nPASS 1440px: keyboard unknown/confirmed branches, no recognition votes/writes, no bypass skip, legacy/notes A→B→A, cancel/save/reload, game-result dedup, 4-language article layout\n"
+    },
+    {
+      "command": "node scripts/check-static-pages-http.mjs",
+      "exitCode": 0,
+      "log": "/tmp/batch2-static.log",
+      "tail": "PASS: 285 real local Pages HTML routes; HEAD/query/RSC/non-GET/privacy separation; missing route/internal asset 404; invalid contact 400; robots/ads/sitemap and 3 byte-identical native ZIPs retained; no D1 bound\n"
+    }
+  ],
+  "initialFailures": [
+    "lint prefer-const fixed",
+    "Browser VRAM assertion initially targeted simplified hub without specs. Corrected to article that renders specs; final 20 combinations pass."
+  ],
+  "limits": [
+    "No public Cloudflare login, CAPTCHA or production writes",
+    "All-page audit remains incomplete; see reviews and README"
+  ]
+}

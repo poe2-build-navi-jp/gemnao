@@ -1,0 +1,5576 @@
+[
+  {
+    "id": "rocket-league:controller",
+    "game": "rocket-league",
+    "topic": "controller",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/rocket-league",
+        "field": "controller",
+        "value": "通常のDualSenseを対象に、公式ソフトウェアの確認と接続の切り分けを案内。別機種や高度な振動機能の対応を保証するページではありません。"
+      }
+    ]
+  },
+  {
+    "id": "rocket-league:release-and-status",
+    "game": "rocket-league",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/rocket-league",
+        "field": "demand",
+        "value": "Windows PC・DualSense・Epic Games Launcher／Steam"
+      }
+    ]
+  },
+  {
+    "id": "aniimo:requirements.minimum",
+    "game": "aniimo",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/aniimo",
+        "field": "specs.minimum",
+        "value": "公式ストアの最新要件を確認"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/aniimo/not-launching",
+        "field": "quickFacts[4]",
+        "value": "64ビット版Windows 10、RAM 8GB、DirectX 11、空き容量40GBなど（Steam掲載）"
+      }
+    ]
+  },
+  {
+    "id": "aniimo:requirements.recommended",
+    "game": "aniimo",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/aniimo",
+        "field": "specs.recommended",
+        "value": "公式ストアの最新要件を確認"
+      }
+    ]
+  },
+  {
+    "id": "aniimo:requirements.storage",
+    "game": "aniimo",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/aniimo",
+        "field": "specs.storage",
+        "value": "公式ストアの最新表示を確認"
+      }
+    ]
+  },
+  {
+    "id": "aniimo:savePath",
+    "game": "aniimo",
+    "topic": "savePath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/aniimo",
+        "field": "savePath",
+        "value": "公式サポートで確認できる情報のみ案内"
+      }
+    ]
+  },
+  {
+    "id": "aniimo:configPath",
+    "game": "aniimo",
+    "topic": "configPath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/aniimo",
+        "field": "configPath",
+        "value": "公式サポートで確認できる情報のみ案内"
+      }
+    ]
+  },
+  {
+    "id": "aniimo:japanese",
+    "game": "aniimo",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/aniimo",
+        "field": "japanese",
+        "value": "日本語に公式対応。"
+      }
+    ]
+  },
+  {
+    "id": "aniimo:release-and-status",
+    "game": "aniimo",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/aniimo",
+        "field": "demand",
+        "value": "Windows PC版：公式ランチャー・Steam"
+      }
+    ]
+  },
+  {
+    "id": "onimusha-way-of-the-sword:requirements.minimum",
+    "game": "onimusha-way-of-the-sword",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/onimusha-way-of-the-sword",
+        "field": "specs.minimum",
+        "value": "Windows 11／GTX 1660（6GB）・RX 5500 XT（8GB）／メモリ16GB（「低」1080p・アップスケール30fps）"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/onimusha-way-of-the-sword",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 11 (64-bit)",
+          "cpu": "Core i5-8400 / Ryzen 3 3100",
+          "gpu": "GeForce GTX 1660 (6 GB) / Radeon RX 5500 XT (8 GB)",
+          "ram": "16 GB",
+          "storage": "50 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "ja",
+        "path": "/games/onimusha-way-of-the-sword/not-launching",
+        "field": "quickFacts[1]",
+        "value": "Windows 11／GTX 1660（6GB）・RX 5500 XT（8GB）／メモリ16GB／SSD必須（Steamストア）"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/onimusha-way-of-the-sword/low-fps",
+        "field": "quickFacts[1]",
+        "value": "GTX 1660・RX 5500 XT：「低」1080p（アップスケール）30fps"
+      }
+    ]
+  },
+  {
+    "id": "onimusha-way-of-the-sword:requirements.recommended",
+    "game": "onimusha-way-of-the-sword",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/onimusha-way-of-the-sword",
+        "field": "specs.recommended",
+        "value": "Windows 11／RTX 2060 Super（8GB）・RX 6600（8GB）／メモリ16GB（「中」1080p・アップスケール60fps）"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/onimusha-way-of-the-sword",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 11 (64-bit)",
+          "cpu": "Core i5-10400 / Ryzen 5 3600",
+          "gpu": "GeForce RTX 2060 SUPER (8 GB) / Radeon RX 6600 (8 GB)",
+          "ram": "16 GB",
+          "storage": "50 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "ja",
+        "path": "/games/onimusha-way-of-the-sword/low-fps",
+        "field": "quickFacts[2]",
+        "value": "RTX 2060 Super・RX 6600：「中」1080p（アップスケール）60fps"
+      }
+    ]
+  },
+  {
+    "id": "onimusha-way-of-the-sword:requirements.storage",
+    "game": "onimusha-way-of-the-sword",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/onimusha-way-of-the-sword",
+        "field": "specs.storage",
+        "value": "50GB（SSD必須）"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/onimusha-way-of-the-sword",
+        "field": "gameFacts.minimum.storage",
+        "value": "50 GB"
+      }
+    ]
+  },
+  {
+    "id": "onimusha-way-of-the-sword:savePath",
+    "game": "onimusha-way-of-the-sword",
+    "topic": "savePath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/onimusha-way-of-the-sword",
+        "field": "savePath",
+        "value": "<Steam>\\userdata\\<Steam ID>\\2638890\\remote\\win64_save"
+      }
+    ]
+  },
+  {
+    "id": "onimusha-way-of-the-sword:configPath",
+    "game": "onimusha-way-of-the-sword",
+    "topic": "configPath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/onimusha-way-of-the-sword",
+        "field": "configPath",
+        "value": "<Steam>\\steamapps\\common\\OnimushaWotS\\config.ini"
+      }
+    ]
+  },
+  {
+    "id": "onimusha-way-of-the-sword:fps",
+    "game": "onimusha-way-of-the-sword",
+    "topic": "fps",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/onimusha-way-of-the-sword",
+        "field": "fps",
+        "value": "フレームレート上限は30〜360fpsまたは上限なしで設定可能。安定しない時は公式案内どおりグラフィックプリセット「最低」から段階的に上げます。"
+      }
+    ]
+  },
+  {
+    "id": "onimusha-way-of-the-sword:ultrawide",
+    "game": "onimusha-way-of-the-sword",
+    "topic": "ultrawide",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/onimusha-way-of-the-sword",
+        "field": "ultrawide",
+        "value": "21:9に対応。32:9では21:9の比率で表示され、左右に黒帯が入ります（PCGamingWiki）。"
+      }
+    ]
+  },
+  {
+    "id": "onimusha-way-of-the-sword:hdr",
+    "game": "onimusha-way-of-the-sword",
+    "topic": "hdr",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/onimusha-way-of-the-sword",
+        "field": "hdr",
+        "value": "HDR対応。最大輝度・全体の明るさ・彩度・UIの明るさを調整できます。表示が不安定な場合は公式案内どおりスクリーンモード・解像度・垂直同期と分けて比較します。"
+      }
+    ]
+  },
+  {
+    "id": "onimusha-way-of-the-sword:controller",
+    "game": "onimusha-way-of-the-sword",
+    "topic": "controller",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/onimusha-way-of-the-sword",
+        "field": "controller",
+        "value": "コントローラー対応。入力不良時はSteam Inputと外部変換ツールを1つずつ比較します。"
+      }
+    ]
+  },
+  {
+    "id": "onimusha-way-of-the-sword:mod",
+    "game": "onimusha-way-of-the-sword",
+    "topic": "mod",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/onimusha-way-of-the-sword",
+        "field": "mod",
+        "value": "本体の安定性確認中はMODやReShadeを外し、オンライン機能の規約を優先します。"
+      }
+    ]
+  },
+  {
+    "id": "onimusha-way-of-the-sword:japanese",
+    "game": "onimusha-way-of-the-sword",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/onimusha-way-of-the-sword",
+        "field": "japanese",
+        "value": "日本語インターフェース・音声・字幕に公式対応。"
+      }
+    ]
+  },
+  {
+    "id": "onimusha-way-of-the-sword:release-and-status",
+    "game": "onimusha-way-of-the-sword",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/onimusha-way-of-the-sword",
+        "field": "demand",
+        "value": "2026年9月3日発売の新作"
+      }
+    ]
+  },
+  {
+    "id": "the-blood-of-dawnwalker:requirements.minimum",
+    "game": "the-blood-of-dawnwalker",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/the-blood-of-dawnwalker",
+        "field": "specs.minimum",
+        "value": "Windows 10／GTX 1060・RX 580（VRAM 6GB）／メモリ16GB"
+      }
+    ]
+  },
+  {
+    "id": "the-blood-of-dawnwalker:requirements.recommended",
+    "game": "the-blood-of-dawnwalker",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/the-blood-of-dawnwalker",
+        "field": "specs.recommended",
+        "value": "RTX 4060・RX 7600 XT・Intel Arc B580（VRAM 8GB）／メモリ16GB"
+      }
+    ]
+  },
+  {
+    "id": "the-blood-of-dawnwalker:requirements.storage",
+    "game": "the-blood-of-dawnwalker",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/the-blood-of-dawnwalker",
+        "field": "specs.storage",
+        "value": "60GB（SSD）"
+      }
+    ]
+  },
+  {
+    "id": "the-blood-of-dawnwalker:savePath",
+    "game": "the-blood-of-dawnwalker",
+    "topic": "savePath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/the-blood-of-dawnwalker",
+        "field": "savePath",
+        "value": "%LOCALAPPDATA%\\Dawnwalker\\Saved\\SaveGames"
+      }
+    ]
+  },
+  {
+    "id": "the-blood-of-dawnwalker:configPath",
+    "game": "the-blood-of-dawnwalker",
+    "topic": "configPath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/the-blood-of-dawnwalker",
+        "field": "configPath",
+        "value": "%LOCALAPPDATA%\\Dawnwalker\\Saved\\Config\\Windows"
+      }
+    ]
+  },
+  {
+    "id": "the-blood-of-dawnwalker:fps",
+    "game": "the-blood-of-dawnwalker",
+    "topic": "fps",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/the-blood-of-dawnwalker",
+        "field": "fps",
+        "value": "フレームレート上限は30〜モニターの最大リフレッシュレートまで設定可能。ゲーム内のムービーは30fps固定です（PCGamingWiki）。"
+      }
+    ]
+  },
+  {
+    "id": "the-blood-of-dawnwalker:ultrawide",
+    "game": "the-blood-of-dawnwalker",
+    "topic": "ultrawide",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/the-blood-of-dawnwalker",
+        "field": "ultrawide",
+        "value": "ウルトラワイドはゲームプレイが横に広がる表示に対応。ムービーは上下に黒帯が入ります（PCGamingWiki）。"
+      }
+    ]
+  },
+  {
+    "id": "the-blood-of-dawnwalker:hdr",
+    "game": "the-blood-of-dawnwalker",
+    "topic": "hdr",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/the-blood-of-dawnwalker",
+        "field": "hdr",
+        "value": "ネイティブのHDR出力には対応していません（PCGamingWiki）。"
+      }
+    ]
+  },
+  {
+    "id": "the-blood-of-dawnwalker:controller",
+    "game": "the-blood-of-dawnwalker",
+    "topic": "controller",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/the-blood-of-dawnwalker",
+        "field": "controller",
+        "value": "フルコントローラー対応。DualSenseはHotfix 1.0.3でSteam版に対応。ボタン割り当ては「標準」「代替」のプリセットのみです。"
+      }
+    ]
+  },
+  {
+    "id": "the-blood-of-dawnwalker:japanese",
+    "game": "the-blood-of-dawnwalker",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/the-blood-of-dawnwalker",
+        "field": "japanese",
+        "value": "日本語のインターフェース・字幕に対応（音声は非対応。Steamストアの表記）。"
+      }
+    ]
+  },
+  {
+    "id": "the-blood-of-dawnwalker:release-and-status",
+    "game": "the-blood-of-dawnwalker",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/the-blood-of-dawnwalker",
+        "field": "demand",
+        "value": "2026年9月発売・発売直後の既知問題あり"
+      }
+    ]
+  },
+  {
+    "id": "star-wars-zero-company:requirements.minimum",
+    "game": "star-wars-zero-company",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/star-wars-zero-company",
+        "field": "specs.minimum",
+        "value": "Windows 10/11（64bit）／GTX 1080・RX 5600 XT・Intel Arc B580／メモリ16GB（1080p・「低」・30fps）"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/star-wars-zero-company/not-launching",
+        "field": "quickFacts[0]",
+        "value": "Windows 10/11（64bit）／GTX 1080・RX 5600 XT・Intel Arc B580／メモリ16GB（1080p・「低」・30fps）"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/star-wars-zero-company/black-screen",
+        "field": "quickFacts[1]",
+        "value": "Windows 10/11（64bit）／GTX 1080・RX 5600 XT・Intel Arc B580／メモリ16GB（1080p・「低」・30fps）"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/star-wars-zero-company/gtx10-rtx20-low-fps",
+        "field": "quickFacts[0]",
+        "value": "Windows 10/11（64bit）／GTX 1080・RX 5600 XT・Intel Arc B580／メモリ16GB（1080p・「低」・30fps）"
+      }
+    ]
+  },
+  {
+    "id": "star-wars-zero-company:requirements.recommended",
+    "game": "star-wars-zero-company",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/star-wars-zero-company",
+        "field": "specs.recommended",
+        "value": "RTX 3080・RX 7800 XT／メモリ32GB（1440p・「高」・60fps）"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/star-wars-zero-company/not-launching",
+        "field": "quickFacts[1]",
+        "value": "RTX 3080・RX 7800 XT／メモリ32GB（1440p・「高」・60fps）"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/star-wars-zero-company/gtx10-rtx20-low-fps",
+        "field": "quickFacts[1]",
+        "value": "RTX 3080・RX 7800 XT／メモリ32GB（1440p・「高」・60fps）"
+      }
+    ]
+  },
+  {
+    "id": "star-wars-zero-company:requirements.storage",
+    "game": "star-wars-zero-company",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/star-wars-zero-company",
+        "field": "specs.storage",
+        "value": "50GB"
+      }
+    ]
+  },
+  {
+    "id": "star-wars-zero-company:savePath",
+    "game": "star-wars-zero-company",
+    "topic": "savePath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/star-wars-zero-company",
+        "field": "savePath",
+        "value": "%LOCALAPPDATA%\\SWZeroCompany\\Saved\\SaveGames"
+      }
+    ]
+  },
+  {
+    "id": "star-wars-zero-company:configPath",
+    "game": "star-wars-zero-company",
+    "topic": "configPath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/star-wars-zero-company",
+        "field": "configPath",
+        "value": "%LOCALAPPDATA%\\SWZeroCompany\\Saved"
+      }
+    ]
+  },
+  {
+    "id": "star-wars-zero-company:fps",
+    "game": "star-wars-zero-company",
+    "topic": "fps",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/star-wars-zero-company",
+        "field": "fps",
+        "value": "フレームレート上限は無制限・30〜240fpsから選択。GTX 10・RTX 20は「環境ジオメトリ詳細」をオフ、Intel ArcはResizable BARをオン（EA公式）。"
+      }
+    ]
+  },
+  {
+    "id": "star-wars-zero-company:hdr",
+    "game": "star-wars-zero-company",
+    "topic": "hdr",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/star-wars-zero-company",
+        "field": "hdr",
+        "value": "HDR対応（Steamストア）。ピーク輝度・明るさ・シャドウ・UIの明るさを調整できます（PCGamingWiki）。"
+      }
+    ]
+  },
+  {
+    "id": "star-wars-zero-company:controller",
+    "game": "star-wars-zero-company",
+    "topic": "controller",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/star-wars-zero-company",
+        "field": "controller",
+        "value": "DualShock・DualSense対応（Steamストアの表記は部分的コントローラーサポート）。"
+      }
+    ]
+  },
+  {
+    "id": "star-wars-zero-company:release-and-status",
+    "game": "star-wars-zero-company",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/star-wars-zero-company",
+        "field": "demand",
+        "value": "2026年8月27日発売・EA公式に既知の対処あり"
+      }
+    ]
+  },
+  {
+    "id": "gears-of-war-e-day:requirements.minimum",
+    "game": "gears-of-war-e-day",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/gears-of-war-e-day",
+        "field": "specs.minimum",
+        "value": "Windows 10 22H2以降／RTX 2060・RTX 5050・RX 6600・RX 9060（レイトレーシング対応必須）／メモリ12GB"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/gears-of-war-e-day/not-launching",
+        "field": "quickFacts[0]",
+        "value": "ハードウェアレイトレーシング対応GPU／SSD／DirectX 12"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/gears-of-war-e-day/not-launching",
+        "field": "quickFacts[1]",
+        "value": "Windows 10 22H2以降／RTX 2060・RTX 5050・RX 6600・RX 9060／メモリ12GB／115GB"
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[3]",
+        "value": {
+          "os": "Windows 10（22H2）以降",
+          "minGpu": "RTX 2060・RTX 5050・RX 6600・RX 9060",
+          "memory": "12GB",
+          "must": [
+            "ハードウェアレイトレーシング対応GPU",
+            "SSD"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "gears-of-war-e-day:requirements.recommended",
+    "game": "gears-of-war-e-day",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/gears-of-war-e-day",
+        "field": "specs.recommended",
+        "value": "Windows 11 25H2以降／RTX 3060 Ti・RTX 5060・RX 6700 XT・RX 9060 XT／メモリ16GB"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/gears-of-war-e-day/not-launching",
+        "field": "quickFacts[2]",
+        "value": "Windows 11 25H2以降／RTX 3060 Ti・RTX 5060・RX 6700 XT・RX 9060 XT／メモリ16GB"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/gears-of-war-e-day/not-launching",
+        "field": "quickFacts[3]",
+        "value": "NVIDIA 610.74以降／AMD 26.7.1／Intel 101.8864"
+      }
+    ]
+  },
+  {
+    "id": "gears-of-war-e-day:requirements.storage",
+    "game": "gears-of-war-e-day",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/gears-of-war-e-day",
+        "field": "specs.storage",
+        "value": "115GB。SSD必須"
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[3].storage",
+        "value": "115GB（SSD）"
+      }
+    ]
+  },
+  {
+    "id": "gears-of-war-e-day:japanese",
+    "game": "gears-of-war-e-day",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/gears-of-war-e-day",
+        "field": "japanese",
+        "value": "日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。"
+      }
+    ]
+  },
+  {
+    "id": "gears-of-war-e-day:release-and-status",
+    "game": "gears-of-war-e-day",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/gears-of-war-e-day",
+        "field": "demand",
+        "value": "2026年10月7日発売（日本時間）・Premium Editionは10月2日から"
+      },
+      {
+        "locale": "ja",
+        "path": "/",
+        "field": "launches",
+        "value": {
+          "gameSlug": "gears-of-war-e-day",
+          "release": "2026-10-07",
+          "earlyAccess": "2026-10-02"
+        }
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[3].date",
+        "value": "10月7日"
+      }
+    ]
+  },
+  {
+    "id": "dragons-dogma-2:requirements.minimum",
+    "game": "dragons-dogma-2",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/dragons-dogma-2",
+        "field": "specs.minimum",
+        "value": "Windows 11（64bit必須）／GTX 1660・RX 5500 XT（8GB）／メモリ16GB（1080p・パフォーマンス重視・アップスケールで45〜60fps）"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/dragons-dogma-2/performance",
+        "field": "quickFacts[2]",
+        "value": "Windows 11（64bit必須）／GTX 1660・RX 5500 XT（8GB）／メモリ16GB"
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[4]",
+        "value": {
+          "os": "Windows 11",
+          "minGpu": "GTX 1660・RX 5500 XT（8GB）",
+          "memory": "16GB",
+          "must": [
+            "Windows 11（本編の動作環境）"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "dragons-dogma-2:requirements.recommended",
+    "game": "dragons-dogma-2",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/dragons-dogma-2",
+        "field": "specs.recommended",
+        "value": "Windows 11／RTX 2070 Super・RX 6600 XT／メモリ16GB（1080p・パフォーマンス重視・アップスケールで60fps）"
+      }
+    ]
+  },
+  {
+    "id": "dragons-dogma-2:requirements.storage",
+    "game": "dragons-dogma-2",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/dragons-dogma-2",
+        "field": "specs.storage",
+        "value": "記載なし（SSD推奨）"
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[4].storage",
+        "value": "記載なし（SSD推奨）"
+      }
+    ]
+  },
+  {
+    "id": "dragons-dogma-2:japanese",
+    "game": "dragons-dogma-2",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/dragons-dogma-2",
+        "field": "japanese",
+        "value": "日本語対応（カプコン）。"
+      }
+    ]
+  },
+  {
+    "id": "dragons-dogma-2:release-and-status",
+    "game": "dragons-dogma-2",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/dragons-dogma-2",
+        "field": "demand",
+        "value": "2024年3月発売・ダークアリズンは2026年10月9日発売"
+      },
+      {
+        "locale": "ja",
+        "path": "/",
+        "field": "launches",
+        "value": {
+          "gameSlug": "dragons-dogma-2",
+          "release": "2026-10-09"
+        }
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[4].date",
+        "value": "10月9日"
+      }
+    ]
+  },
+  {
+    "id": "final-fantasy-resonance:requirements.minimum",
+    "game": "final-fantasy-resonance",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/final-fantasy-resonance",
+        "field": "specs.minimum",
+        "value": "Windows 11／GTX 1650・RX 6400・Arc A580／メモリ8GB（1080p・30fps・すべて「低」）"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/final-fantasy-resonance/not-launching",
+        "field": "quickFacts[0]",
+        "value": "Windows 11／GTX 1650・RX 6400・Arc A580／メモリ8GB／15GB"
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[9]",
+        "value": {
+          "os": "Windows 11",
+          "minGpu": "GTX 1650・RX 6400・Arc A580",
+          "memory": "8GB",
+          "must": [
+            "Windows 11"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "final-fantasy-resonance:requirements.recommended",
+    "game": "final-fantasy-resonance",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/final-fantasy-resonance",
+        "field": "specs.recommended",
+        "value": "Windows 11／GTX 1650・RX 5500 XT・Arc A580／メモリ8GB（1080p・60fps・すべて「最高」）"
+      }
+    ]
+  },
+  {
+    "id": "final-fantasy-resonance:requirements.storage",
+    "game": "final-fantasy-resonance",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/final-fantasy-resonance",
+        "field": "specs.storage",
+        "value": "15GB"
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[9].storage",
+        "value": "15GB"
+      }
+    ]
+  },
+  {
+    "id": "final-fantasy-resonance:japanese",
+    "game": "final-fantasy-resonance",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/final-fantasy-resonance",
+        "field": "japanese",
+        "value": "日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。"
+      }
+    ]
+  },
+  {
+    "id": "final-fantasy-resonance:release-and-status",
+    "game": "final-fantasy-resonance",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/final-fantasy-resonance",
+        "field": "demand",
+        "value": "2026年10月23日発売・体験版配信中（セーブ引き継ぎ可）"
+      },
+      {
+        "locale": "ja",
+        "path": "/",
+        "field": "launches",
+        "value": {
+          "gameSlug": "final-fantasy-resonance",
+          "release": "2026-10-23"
+        }
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[9].date",
+        "value": "10月23日"
+      }
+    ]
+  },
+  {
+    "id": "castlevania-belmonts-curse:requirements.minimum",
+    "game": "castlevania-belmonts-curse",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/castlevania-belmonts-curse",
+        "field": "specs.minimum",
+        "value": "Windows 11／Core i5 8400／GTX 1650／メモリ16GB／DirectX 11"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/castlevania-belmonts-curse/not-launching",
+        "field": "quickFacts[0]",
+        "value": "Windows 11／Core i5 8400／GTX 1650／メモリ16GB／DirectX 11／10GB"
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[5]",
+        "value": {
+          "os": "Windows 11",
+          "minGpu": "GTX 1650",
+          "memory": "16GB",
+          "must": [
+            "Windows 11"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "castlevania-belmonts-curse:requirements.recommended",
+    "game": "castlevania-belmonts-curse",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/castlevania-belmonts-curse",
+        "field": "specs.recommended",
+        "value": "Windows 11／Core i5 10400／RTX 3060／メモリ16GB"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/castlevania-belmonts-curse/not-launching",
+        "field": "quickFacts[1]",
+        "value": "Windows 11／Core i5 10400／RTX 3060／メモリ16GB"
+      }
+    ]
+  },
+  {
+    "id": "castlevania-belmonts-curse:requirements.storage",
+    "game": "castlevania-belmonts-curse",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/castlevania-belmonts-curse",
+        "field": "specs.storage",
+        "value": "10GB"
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[5].storage",
+        "value": "10GB"
+      }
+    ]
+  },
+  {
+    "id": "castlevania-belmonts-curse:controller",
+    "game": "castlevania-belmonts-curse",
+    "topic": "controller",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/castlevania-belmonts-curse",
+        "field": "controller",
+        "value": "フルコントローラーサポート・ゲームパッド推奨。DualSense対応、キーボードだけでも遊べる（Steamストアの表記）。"
+      }
+    ]
+  },
+  {
+    "id": "castlevania-belmonts-curse:japanese",
+    "game": "castlevania-belmonts-curse",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/castlevania-belmonts-curse",
+        "field": "japanese",
+        "value": "日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。"
+      }
+    ]
+  },
+  {
+    "id": "castlevania-belmonts-curse:release-and-status",
+    "game": "castlevania-belmonts-curse",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/castlevania-belmonts-curse",
+        "field": "demand",
+        "value": "2026年10月15日発売（KONAMIの発表）"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/castlevania-belmonts-curse/not-launching",
+        "field": "quickFacts[2]",
+        "value": "2026年10月15日（KONAMIの発表）"
+      },
+      {
+        "locale": "ja",
+        "path": "/",
+        "field": "launches",
+        "value": {
+          "gameSlug": "castlevania-belmonts-curse",
+          "release": "2026-10-15"
+        }
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[5].date",
+        "value": "10月15日"
+      }
+    ]
+  },
+  {
+    "id": "tales-of-eternia-remastered:requirements.minimum",
+    "game": "tales-of-eternia-remastered",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/tales-of-eternia-remastered",
+        "field": "specs.minimum",
+        "value": "Windows 11／Core i3-8100・Ryzen 3 3100／GTX 650 Ti（1GB）・HD 7770（2GB）・Arc A310（4GB）／メモリ4GB（「低」で1080p・60fps）"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/tales-of-eternia-remastered/not-launching",
+        "field": "quickFacts[0]",
+        "value": "Windows 11／Core i3-8100・Ryzen 3 3100／GTX 650 Ti（1GB）・HD 7770（2GB）・Arc A310（4GB）／メモリ4GB／8GB"
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[6]",
+        "value": {
+          "os": "Windows 11",
+          "minGpu": "GTX 650 Ti・Radeon HD 7770・Arc A310",
+          "memory": "4GB",
+          "must": [
+            "Windows 11"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "tales-of-eternia-remastered:requirements.recommended",
+    "game": "tales-of-eternia-remastered",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/tales-of-eternia-remastered",
+        "field": "specs.recommended",
+        "value": "最低と同じ構成で「高」設定・1080p・60fps。DirectX 12にはWindows 10（1809以降）とVRAM 4GB以上が必須"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/tales-of-eternia-remastered/not-launching",
+        "field": "quickFacts[0]",
+        "value": "Windows 11／Core i3-8100・Ryzen 3 3100／GTX 650 Ti（1GB）・HD 7770（2GB）・Arc A310（4GB）／メモリ4GB／8GB"
+      }
+    ]
+  },
+  {
+    "id": "tales-of-eternia-remastered:requirements.storage",
+    "game": "tales-of-eternia-remastered",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/tales-of-eternia-remastered",
+        "field": "specs.storage",
+        "value": "8GB"
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[6].storage",
+        "value": "8GB"
+      }
+    ]
+  },
+  {
+    "id": "tales-of-eternia-remastered:controller",
+    "game": "tales-of-eternia-remastered",
+    "topic": "controller",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/tales-of-eternia-remastered",
+        "field": "controller",
+        "value": "フルコントローラーサポート。DUALSHOCK・DualSense対応（Steamストアの表記）。"
+      }
+    ]
+  },
+  {
+    "id": "tales-of-eternia-remastered:japanese",
+    "game": "tales-of-eternia-remastered",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/tales-of-eternia-remastered",
+        "field": "japanese",
+        "value": "日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。"
+      }
+    ]
+  },
+  {
+    "id": "tales-of-eternia-remastered:release-and-status",
+    "game": "tales-of-eternia-remastered",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/tales-of-eternia-remastered",
+        "field": "demand",
+        "value": "日本時間2026年10月16日7時発売"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/tales-of-eternia-remastered/not-launching",
+        "field": "quickFacts[2]",
+        "value": "日本時間 2026年10月16日 7:00"
+      },
+      {
+        "locale": "ja",
+        "path": "/",
+        "field": "launches",
+        "value": {
+          "gameSlug": "tales-of-eternia-remastered",
+          "release": "2026-10-16"
+        }
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[6].date",
+        "value": "10月16日"
+      }
+    ]
+  },
+  {
+    "id": "phantom-blade-zero:requirements.minimum",
+    "game": "phantom-blade-zero",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/phantom-blade-zero",
+        "field": "specs.minimum",
+        "value": "Windows 10/11（64bit）／Core i7-8700K・Ryzen 5 3600／GTX 1660（6GB）・RX 5500 XT（8GB）／メモリ16GB（1080p・30fps、アップスケーリング使用）"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/phantom-blade-zero/not-launching",
+        "field": "quickFacts[1]",
+        "value": "GTX 1660（6GB）・RX 5500 XT（8GB）／Core i7-8700K・Ryzen 5 3600／メモリ16GB（1080p・30fps、アップスケーリング使用）"
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[10]",
+        "value": {
+          "os": "Windows 10/11（64bit）",
+          "minGpu": "GTX 1660（6GB）・RX 5500 XT（8GB）",
+          "memory": "16GB",
+          "must": [
+            "SSD"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "phantom-blade-zero:requirements.recommended",
+    "game": "phantom-blade-zero",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/phantom-blade-zero",
+        "field": "specs.recommended",
+        "value": "Windows 10/11（64bit）／Core i5-10600K・Ryzen 5 5600X／RTX 3060 Ti（8GB）・RX 6700 XT（12GB）／メモリ16GB（1440p・60fps、アップスケーリング使用）"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/phantom-blade-zero/not-launching",
+        "field": "quickFacts[2]",
+        "value": "RTX 3060 Ti（8GB）・RX 6700 XT（12GB）／Core i5-10600K・Ryzen 5 5600X／メモリ16GB（1440p・60fps、アップスケーリング使用）"
+      }
+    ]
+  },
+  {
+    "id": "phantom-blade-zero:requirements.storage",
+    "game": "phantom-blade-zero",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/phantom-blade-zero",
+        "field": "specs.storage",
+        "value": "SSD必須（容量はSteamストアに記載なし）"
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[10].storage",
+        "value": "記載なし（SSD必須）"
+      }
+    ]
+  },
+  {
+    "id": "phantom-blade-zero:controller",
+    "game": "phantom-blade-zero",
+    "topic": "controller",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/phantom-blade-zero",
+        "field": "controller",
+        "value": "フルコントローラーサポート・ゲームパッド推奨。DUALSHOCK・DualSense・Steam Input API対応（Steamストアの表記）。"
+      }
+    ]
+  },
+  {
+    "id": "phantom-blade-zero:japanese",
+    "game": "phantom-blade-zero",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/phantom-blade-zero",
+        "field": "japanese",
+        "value": "日本語のインターフェース・字幕に対応。音声は日本語非対応（Steamストアの表記）。"
+      }
+    ]
+  },
+  {
+    "id": "phantom-blade-zero:release-and-status",
+    "game": "phantom-blade-zero",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/phantom-blade-zero",
+        "field": "demand",
+        "value": "2026年10月28日発売（Steamストアの表記。公式発表は10月29日）"
+      },
+      {
+        "locale": "ja",
+        "path": "/",
+        "field": "launches",
+        "value": {
+          "gameSlug": "phantom-blade-zero",
+          "release": "2026-10-28"
+        }
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[10].date",
+        "value": "10月28日"
+      }
+    ]
+  },
+  {
+    "id": "dragon-quest-monsters-4:requirements.minimum",
+    "game": "dragon-quest-monsters-4",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/dragon-quest-monsters-4",
+        "field": "specs.minimum",
+        "value": "Windows 11／Ryzen 3 2300X・Core i3-8100／GTX 1660・RX 470・RX 5500 XT・Arc A380（VRAM 6GB以上）／メモリ8GB"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/dragon-quest-monsters-4/demo-transfer",
+        "field": "quickFacts[4]",
+        "value": "Windows 11／GTX 1660・RX 470・RX 5500 XT・Arc A380（VRAM 6GB以上）／メモリ8GB／40GB"
+      }
+    ]
+  },
+  {
+    "id": "dragon-quest-monsters-4:requirements.recommended",
+    "game": "dragon-quest-monsters-4",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/dragon-quest-monsters-4",
+        "field": "specs.recommended",
+        "value": "Windows 11／Ryzen 5 3500・Core i5-8400／RTX 2060 SUPER・RX 5500 XT・Arc A580（VRAM 8GB以上）／メモリ16GB"
+      }
+    ]
+  },
+  {
+    "id": "dragon-quest-monsters-4:requirements.storage",
+    "game": "dragon-quest-monsters-4",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/dragon-quest-monsters-4",
+        "field": "specs.storage",
+        "value": "40GB"
+      }
+    ]
+  },
+  {
+    "id": "dragon-quest-monsters-4:controller",
+    "game": "dragon-quest-monsters-4",
+    "topic": "controller",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/dragon-quest-monsters-4",
+        "field": "controller",
+        "value": "部分的コントローラーサポート・ゲームパッド推奨。DUALSHOCK・DualSense対応、キーボードだけでも遊べる（Steamストアの表記）。"
+      }
+    ]
+  },
+  {
+    "id": "dragon-quest-monsters-4:japanese",
+    "game": "dragon-quest-monsters-4",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/dragon-quest-monsters-4",
+        "field": "japanese",
+        "value": "日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。"
+      }
+    ]
+  },
+  {
+    "id": "dragon-quest-monsters-4:release-and-status",
+    "game": "dragon-quest-monsters-4",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/dragon-quest-monsters-4",
+        "field": "demand",
+        "value": "2026年12月3日発売・体験版配信中（モンスター最大8体を引き継ぎ可）"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/dragon-quest-monsters-4/demo-transfer",
+        "field": "quickFacts[3]",
+        "value": "2026年12月3日（マスターズ版のアーリーアクセスは日本時間12月2日2:00開始予定）"
+      },
+      {
+        "locale": "ja",
+        "path": "/",
+        "field": "launches",
+        "value": {
+          "gameSlug": "dragon-quest-monsters-4",
+          "release": "2026-12-03",
+          "earlyAccess": "2026-12-02"
+        }
+      }
+    ]
+  },
+  {
+    "id": "call-of-duty-modern-warfare-4:requirements.minimum",
+    "game": "call-of-duty-modern-warfare-4",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/call-of-duty-modern-warfare-4",
+        "field": "specs.minimum",
+        "value": "Windows 10 64bit（22H2以降）／GTX 970・GTX 1060・RX 470・Arc A580（VRAM 3GB）／メモリ12GB（ベータ版の値）"
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[8]",
+        "value": {
+          "os": "Windows 10（22H2）以降",
+          "minGpu": "GTX 970・GTX 1060・RX 470・Arc A580（VRAM 3GB）※ベータ版の値",
+          "memory": "12GB",
+          "must": [
+            "TPM 2.0とセキュアブート",
+            "Steamアカウントに電話番号",
+            "SSD"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "call-of-duty-modern-warfare-4:requirements.recommended",
+    "game": "call-of-duty-modern-warfare-4",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/call-of-duty-modern-warfare-4",
+        "field": "specs.recommended",
+        "value": "Windows 11 64bit／RTX 3060 Ti・RX 6700 XT・Arc B580（VRAM 8GB）／メモリ16GB（ベータ版の値）"
+      }
+    ]
+  },
+  {
+    "id": "call-of-duty-modern-warfare-4:requirements.storage",
+    "game": "call-of-duty-modern-warfare-4",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/call-of-duty-modern-warfare-4",
+        "field": "specs.storage",
+        "value": "SSD必須"
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[8].storage",
+        "value": "SSD必須"
+      }
+    ]
+  },
+  {
+    "id": "call-of-duty-modern-warfare-4:japanese",
+    "game": "call-of-duty-modern-warfare-4",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/call-of-duty-modern-warfare-4",
+        "field": "japanese",
+        "value": "日本語の音声・テキスト・字幕に対応（Activision公式）。"
+      }
+    ]
+  },
+  {
+    "id": "call-of-duty-modern-warfare-4:release-and-status",
+    "game": "call-of-duty-modern-warfare-4",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/call-of-duty-modern-warfare-4",
+        "field": "demand",
+        "value": "2026年10月23日発売・キャンペーン早期アクセスは10月16日（PT）から"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/call-of-duty-modern-warfare-4/tpm-secure-boot",
+        "field": "quickFacts[5]",
+        "value": "2026年10月23日（デジタル版の予約でキャンペーン早期アクセスは10月16日〈PT〉から）"
+      },
+      {
+        "locale": "ja",
+        "path": "/",
+        "field": "launches",
+        "value": {
+          "gameSlug": "call-of-duty-modern-warfare-4",
+          "release": "2026-10-23"
+        }
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[8].date",
+        "value": "10月23日（デジタル版予約でキャンペーン早期アクセス10月17日）"
+      }
+    ]
+  },
+  {
+    "id": "control-resonant:requirements.minimum",
+    "game": "control-resonant",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/control-resonant",
+        "field": "specs.minimum",
+        "value": "Windows 10/11／GTX 1070・RX 5600 XT・Arc A580／メモリ16GB（1080p・低・30fps、アップスケール使用）"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/control-resonant/crash-performance",
+        "field": "quickFacts[2]",
+        "value": "GTX 1070・RX 5600 XT・Arc A580／メモリ16GB／SSD 120GB（Windows 10/11）"
+      }
+    ]
+  },
+  {
+    "id": "control-resonant:requirements.recommended",
+    "game": "control-resonant",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/control-resonant",
+        "field": "specs.recommended",
+        "value": "RTX 3060 Ti・RX 6700 XT・Arc B580／メモリ16GB"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/control-resonant/crash-performance",
+        "field": "quickFacts[3]",
+        "value": "RTX 3060 Ti・RX 6700 XT・Arc B580／メモリ16GB"
+      }
+    ]
+  },
+  {
+    "id": "control-resonant:requirements.storage",
+    "game": "control-resonant",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/control-resonant",
+        "field": "specs.storage",
+        "value": "120GB。SSD必須"
+      }
+    ]
+  },
+  {
+    "id": "control-resonant:savePath",
+    "game": "control-resonant",
+    "topic": "savePath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/control-resonant",
+        "field": "savePath",
+        "value": "<Steam>\\userdata\\<Steam ID>\\3669870"
+      }
+    ]
+  },
+  {
+    "id": "control-resonant:configPath",
+    "game": "control-resonant",
+    "topic": "configPath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/control-resonant",
+        "field": "configPath",
+        "value": "%LOCALAPPDATA%\\Remedy\\CONTROLResonant\\renderer.ini"
+      }
+    ]
+  },
+  {
+    "id": "control-resonant:fps",
+    "game": "control-resonant",
+    "topic": "fps",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/control-resonant",
+        "field": "fps",
+        "value": "フレームレート上限は30〜360fps、または上限なし（PCGamingWiki）。"
+      }
+    ]
+  },
+  {
+    "id": "control-resonant:ultrawide",
+    "game": "control-resonant",
+    "topic": "ultrawide",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/control-resonant",
+        "field": "ultrawide",
+        "value": "ウルトラワイドは横に広がる表示（Hor+）に対応（PCGamingWiki）。"
+      }
+    ]
+  },
+  {
+    "id": "control-resonant:hdr",
+    "game": "control-resonant",
+    "topic": "hdr",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/control-resonant",
+        "field": "hdr",
+        "value": "HDR対応。一部の場所で色が濃くなりすぎる既知の問題あり（Remedy公式）。"
+      }
+    ]
+  },
+  {
+    "id": "control-resonant:japanese",
+    "game": "control-resonant",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/control-resonant",
+        "field": "japanese",
+        "value": "日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。"
+      }
+    ]
+  },
+  {
+    "id": "control-resonant:release-and-status",
+    "game": "control-resonant",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/control-resonant",
+        "field": "demand",
+        "value": "2026年9月24日発売"
+      },
+      {
+        "locale": "ja",
+        "path": "/",
+        "field": "launches",
+        "value": {
+          "gameSlug": "control-resonant",
+          "release": "2026-09-24"
+        }
+      }
+    ]
+  },
+  {
+    "id": "silent-hill-townfall:requirements.minimum",
+    "game": "silent-hill-townfall",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/silent-hill-townfall",
+        "field": "specs.minimum",
+        "value": "Windows 11／RTX 2060 Super・RX 6600／メモリ16GB（1080p・低・30fps）"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/silent-hill-townfall/stutter",
+        "field": "quickFacts[1]",
+        "value": "Windows 11／RTX 2060 Super・RX 6600／メモリ16GB（1080p・低・30fps）"
+      }
+    ]
+  },
+  {
+    "id": "silent-hill-townfall:requirements.recommended",
+    "game": "silent-hill-townfall",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/silent-hill-townfall",
+        "field": "specs.recommended",
+        "value": "RTX 3080・RX 7800 XT／メモリ32GB（4K・高・30fps、DLSS・FSR・TSRのバランス使用）"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/silent-hill-townfall/stutter",
+        "field": "quickFacts[2]",
+        "value": "RTX 3080・RX 7800 XT／メモリ32GB（4K・高・30fps、アップスケールのバランス使用）"
+      }
+    ]
+  },
+  {
+    "id": "silent-hill-townfall:requirements.storage",
+    "game": "silent-hill-townfall",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/silent-hill-townfall",
+        "field": "specs.storage",
+        "value": "75GB"
+      }
+    ]
+  },
+  {
+    "id": "silent-hill-townfall:savePath",
+    "game": "silent-hill-townfall",
+    "topic": "savePath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/silent-hill-townfall",
+        "field": "savePath",
+        "value": "%LOCALAPPDATA%\\Townfall\\Saved\\SaveGames"
+      }
+    ]
+  },
+  {
+    "id": "silent-hill-townfall:configPath",
+    "game": "silent-hill-townfall",
+    "topic": "configPath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/silent-hill-townfall",
+        "field": "configPath",
+        "value": "%LOCALAPPDATA%\\Townfall\\Saved\\Config\\Windows"
+      }
+    ]
+  },
+  {
+    "id": "silent-hill-townfall:fps",
+    "game": "silent-hill-townfall",
+    "topic": "fps",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/silent-hill-townfall",
+        "field": "fps",
+        "value": "フレームレート上限は30〜240fps（30fps刻み）で設定できます（PCGamingWiki）。"
+      }
+    ]
+  },
+  {
+    "id": "silent-hill-townfall:ultrawide",
+    "game": "silent-hill-townfall",
+    "topic": "ultrawide",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/silent-hill-townfall",
+        "field": "ultrawide",
+        "value": "ウルトラワイドに対応し、レターボックス（黒帯）はオフにできます（PCGamingWiki）。"
+      }
+    ]
+  },
+  {
+    "id": "silent-hill-townfall:hdr",
+    "game": "silent-hill-townfall",
+    "topic": "hdr",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/silent-hill-townfall",
+        "field": "hdr",
+        "value": "WindowsでHDRが有効なら起動時に自動でHDRになります。ゲーム内の調整項目はありません（PCGamingWiki）。"
+      }
+    ]
+  },
+  {
+    "id": "silent-hill-townfall:japanese",
+    "game": "silent-hill-townfall",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/silent-hill-townfall",
+        "field": "japanese",
+        "value": "日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。"
+      }
+    ]
+  },
+  {
+    "id": "silent-hill-townfall:release-and-status",
+    "game": "silent-hill-townfall",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/silent-hill-townfall",
+        "field": "demand",
+        "value": "2026年9月24日発売・Patch 1.3.1を9月30日に配信（公式）"
+      },
+      {
+        "locale": "ja",
+        "path": "/",
+        "field": "launches",
+        "value": {
+          "gameSlug": "silent-hill-townfall",
+          "release": "2026-09-24"
+        }
+      }
+    ]
+  },
+  {
+    "id": "minecraft-dungeons-2:requirements.minimum",
+    "game": "minecraft-dungeons-2",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/minecraft-dungeons-2",
+        "field": "specs.minimum",
+        "value": "Windows 10（1703以降）／GTX 1050・RX 560（VRAM 2GB以上）／メモリ8GB"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/minecraft-dungeons-2/multiplayer",
+        "field": "quickFacts[3]",
+        "value": "Windows 10（1703以降）／GTX 1050・RX 560（VRAM 2GB以上）／メモリ8GB"
+      }
+    ]
+  },
+  {
+    "id": "minecraft-dungeons-2:requirements.recommended",
+    "game": "minecraft-dungeons-2",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/minecraft-dungeons-2",
+        "field": "specs.recommended",
+        "value": "GTX 1060・RX 580（VRAM 6GB以上）／メモリ16GB"
+      }
+    ]
+  },
+  {
+    "id": "minecraft-dungeons-2:requirements.storage",
+    "game": "minecraft-dungeons-2",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/minecraft-dungeons-2",
+        "field": "specs.storage",
+        "value": "記載なし（Steamストア）"
+      }
+    ]
+  },
+  {
+    "id": "minecraft-dungeons-2:japanese",
+    "game": "minecraft-dungeons-2",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/minecraft-dungeons-2",
+        "field": "japanese",
+        "value": "日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。"
+      }
+    ]
+  },
+  {
+    "id": "minecraft-dungeons-2:release-and-status",
+    "game": "minecraft-dungeons-2",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/minecraft-dungeons-2",
+        "field": "demand",
+        "value": "2026年9月29日発売・Game Pass対応"
+      },
+      {
+        "locale": "ja",
+        "path": "/",
+        "field": "launches",
+        "value": {
+          "gameSlug": "minecraft-dungeons-2",
+          "release": "2026-09-29"
+        }
+      }
+    ]
+  },
+  {
+    "id": "aion2:requirements.minimum",
+    "game": "aion2",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/aion2",
+        "field": "specs.minimum",
+        "value": "Windows 10/11（64bit）／GTX 1050 Ti・RX 470（4GB）／メモリ8GB（FHDはプリセット「非常に低い」）"
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[2]",
+        "value": {
+          "os": "Windows 10/11",
+          "minGpu": "GTX 1050 Ti・RX 470（4GB）",
+          "memory": "8GB",
+          "must": [
+            "常時インターネット接続"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "aion2:requirements.recommended",
+    "game": "aion2",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/aion2",
+        "field": "specs.recommended",
+        "value": "RTX 2070・RX 5700 XT（8GB）／メモリ16GB（FHDはプリセット「低い」）"
+      }
+    ]
+  },
+  {
+    "id": "aion2:requirements.storage",
+    "game": "aion2",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/aion2",
+        "field": "specs.storage",
+        "value": "100GB"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/aion2/login-error",
+        "field": "quickFacts[8]",
+        "value": "100GB（Steamストアの動作環境）"
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[2].storage",
+        "value": "100GB"
+      }
+    ]
+  },
+  {
+    "id": "aion2:japanese",
+    "game": "aion2",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/aion2",
+        "field": "japanese",
+        "value": "日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。"
+      }
+    ]
+  },
+  {
+    "id": "aion2:release-and-status",
+    "game": "aion2",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/aion2",
+        "field": "demand",
+        "value": "2026年9月30日アーリーアクセス・10月5日正式サービス（基本無料）"
+      },
+      {
+        "locale": "ja",
+        "path": "/",
+        "field": "launches",
+        "value": {
+          "gameSlug": "aion2",
+          "release": "2026-10-05",
+          "earlyAccess": "2026-09-30"
+        }
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[2].date",
+        "value": "10月5日（アーリーアクセス9月30日）"
+      }
+    ]
+  },
+  {
+    "id": "ace-combat-8:requirements.minimum",
+    "game": "ace-combat-8",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/ace-combat-8",
+        "field": "specs.minimum",
+        "value": "Windows 11／RTX 2060（6GB）・RX 6600 XT（8GB）／メモリ16GB（1080p・LOW・30fps、アップスケール使用）"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/ace-combat-8/not-launching",
+        "field": "quickFacts[0]",
+        "value": "ハードウェアレイトレーシング対応GPU／SSD／Shader Model 6.6以上のDirectX 12／Windows 11"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/ace-combat-8/not-launching",
+        "field": "quickFacts[1]",
+        "value": "RTX 2060（6GB）・RX 6600 XT（8GB）／メモリ16GB（1080p・LOW・30fps、アップスケール使用）"
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[1]",
+        "value": {
+          "os": "Windows 11",
+          "minGpu": "RTX 2060（6GB）・RX 6600 XT（8GB）",
+          "memory": "16GB",
+          "must": [
+            "ハードウェアレイトレーシング対応GPU",
+            "SSD",
+            "Windows 11"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "ace-combat-8:requirements.recommended",
+    "game": "ace-combat-8",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/ace-combat-8",
+        "field": "specs.recommended",
+        "value": "RTX 3070・RX 6800／メモリ32GB（1080p・MEDIUM・60fps、アップスケール使用）"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/ace-combat-8/not-launching",
+        "field": "quickFacts[2]",
+        "value": "RTX 3070・RX 6800／メモリ32GB（1080p・MEDIUM・60fps、アップスケール使用）"
+      }
+    ]
+  },
+  {
+    "id": "ace-combat-8:requirements.storage",
+    "game": "ace-combat-8",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/ace-combat-8",
+        "field": "specs.storage",
+        "value": "150GB。SSD必須"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/ace-combat-8/not-launching",
+        "field": "quickFacts[3]",
+        "value": "150GB（SSD）"
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[1].storage",
+        "value": "150GB（SSD）"
+      }
+    ]
+  },
+  {
+    "id": "ace-combat-8:japanese",
+    "game": "ace-combat-8",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/ace-combat-8",
+        "field": "japanese",
+        "value": "日本語のインターフェース・字幕・音声に対応（公式サイト）。"
+      }
+    ]
+  },
+  {
+    "id": "ace-combat-8:release-and-status",
+    "game": "ace-combat-8",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/ace-combat-8",
+        "field": "demand",
+        "value": "2026年10月2日発売・9月29日アーリーアクセス"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/ace-combat-8/not-launching",
+        "field": "quickFacts[4]",
+        "value": "2026年10月2日（アーリーアクセスは9月29日から）"
+      },
+      {
+        "locale": "ja",
+        "path": "/",
+        "field": "launches",
+        "value": {
+          "gameSlug": "ace-combat-8",
+          "release": "2026-10-02",
+          "earlyAccess": "2026-09-29"
+        }
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[1].date",
+        "value": "10月2日（アーリーアクセス9月29日）"
+      }
+    ]
+  },
+  {
+    "id": "shin-sangoku-musou-2-remastered:requirements.minimum",
+    "game": "shin-sangoku-musou-2-remastered",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/shin-sangoku-musou-2-remastered",
+        "field": "specs.minimum",
+        "value": "Windows 11／GTX 1060・RX 5600 XT・Arc A380（VRAM 6GB）／メモリ16GB（1080p・30fps・「低」、アップスケール使用）"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/shin-sangoku-musou-2-remastered/not-launching",
+        "field": "quickFacts[0]",
+        "value": "Windows 11／GTX 1060・RX 5600 XT・Arc A380（VRAM 6GB）／メモリ16GB（1080p・30fps・「低」、アップスケール使用）"
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[0]",
+        "value": {
+          "os": "Windows 11",
+          "minGpu": "GTX 1060・RX 5600 XT・Arc A380（VRAM 6GB）",
+          "memory": "16GB",
+          "must": [
+            "VRAM 6GB以上",
+            "Windows 11"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "shin-sangoku-musou-2-remastered:requirements.recommended",
+    "game": "shin-sangoku-musou-2-remastered",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/shin-sangoku-musou-2-remastered",
+        "field": "specs.recommended",
+        "value": "RTX 3060（8GB）・RX 6700 XT（12GB）／メモリ16GB（1080p・60fps・「高」、アップスケール使用）"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/shin-sangoku-musou-2-remastered/not-launching",
+        "field": "quickFacts[1]",
+        "value": "RTX 3060（8GB）・RX 6700 XT（12GB）／メモリ16GB（1080p・60fps・「高」、アップスケール使用）"
+      }
+    ]
+  },
+  {
+    "id": "shin-sangoku-musou-2-remastered:requirements.storage",
+    "game": "shin-sangoku-musou-2-remastered",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/shin-sangoku-musou-2-remastered",
+        "field": "specs.storage",
+        "value": "60GB"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/shin-sangoku-musou-2-remastered/not-launching",
+        "field": "quickFacts[2]",
+        "value": "60GB"
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[0].storage",
+        "value": "60GB"
+      }
+    ]
+  },
+  {
+    "id": "shin-sangoku-musou-2-remastered:japanese",
+    "game": "shin-sangoku-musou-2-remastered",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/shin-sangoku-musou-2-remastered",
+        "field": "japanese",
+        "value": "日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。"
+      }
+    ]
+  },
+  {
+    "id": "shin-sangoku-musou-2-remastered:release-and-status",
+    "game": "shin-sangoku-musou-2-remastered",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/shin-sangoku-musou-2-remastered",
+        "field": "demand",
+        "value": "2026年10月1日発売・体験版配信中"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/shin-sangoku-musou-2-remastered/not-launching",
+        "field": "quickFacts[4]",
+        "value": "2026年10月1日"
+      },
+      {
+        "locale": "ja",
+        "path": "/",
+        "field": "launches",
+        "value": {
+          "gameSlug": "shin-sangoku-musou-2-remastered",
+          "release": "2026-10-01"
+        }
+      },
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[0].date",
+        "value": "10月1日"
+      }
+    ]
+  },
+  {
+    "id": "wardogs:requirements.minimum",
+    "game": "wardogs",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/wardogs",
+        "field": "specs.minimum",
+        "value": "Windows 10／GTX 1660・RX 590／メモリ16GB（1080p・低・アップスケールで60fps）"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/wardogs/server-connection",
+        "field": "quickFacts[3]",
+        "value": "Windows 10／GTX 1660・RX 590／メモリ16GB（1080p・低・アップスケールで60fps）"
+      }
+    ]
+  },
+  {
+    "id": "wardogs:requirements.recommended",
+    "game": "wardogs",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/wardogs",
+        "field": "specs.recommended",
+        "value": "Windows 11／RTX 3070・RX 6700 XT／メモリ16GB（1440p・中で70fps以上）"
+      }
+    ]
+  },
+  {
+    "id": "wardogs:requirements.storage",
+    "game": "wardogs",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/wardogs",
+        "field": "specs.storage",
+        "value": "50GB"
+      }
+    ]
+  },
+  {
+    "id": "wardogs:savePath",
+    "game": "wardogs",
+    "topic": "savePath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/wardogs",
+        "field": "savePath",
+        "value": "%LOCALAPPDATA%\\Wardogs\\Saved\\SaveGames"
+      }
+    ]
+  },
+  {
+    "id": "wardogs:configPath",
+    "game": "wardogs",
+    "topic": "configPath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/wardogs",
+        "field": "configPath",
+        "value": "%LOCALAPPDATA%\\Wardogs\\Saved\\Config\\WindowsClient"
+      }
+    ]
+  },
+  {
+    "id": "wardogs:fps",
+    "game": "wardogs",
+    "topic": "fps",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/wardogs",
+        "field": "fps",
+        "value": "フレームレートは上限なし、または最大360fpsまで設定可能。メインメニューは別に設定できます（PCGamingWiki）。"
+      }
+    ]
+  },
+  {
+    "id": "wardogs:ultrawide",
+    "game": "wardogs",
+    "topic": "ultrawide",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/wardogs",
+        "field": "ultrawide",
+        "value": "ウルトラワイドは横に広がる表示（Hor+）に対応（PCGamingWiki）。"
+      }
+    ]
+  },
+  {
+    "id": "wardogs:hdr",
+    "game": "wardogs",
+    "topic": "hdr",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/wardogs",
+        "field": "hdr",
+        "value": "ネイティブのHDR出力には対応していません（PCGamingWiki）。"
+      }
+    ]
+  },
+  {
+    "id": "wardogs:japanese",
+    "game": "wardogs",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/wardogs",
+        "field": "japanese",
+        "value": "日本語のインターフェース・字幕に対応（音声は非対応。Steamストアの表記）。"
+      }
+    ]
+  },
+  {
+    "id": "wardogs:release-and-status",
+    "game": "wardogs",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/wardogs",
+        "field": "demand",
+        "value": "2026年9月10日早期アクセス・最大30万人超"
+      }
+    ]
+  },
+  {
+    "id": "monster-hunter-wilds:requirements.minimum",
+    "game": "monster-hunter-wilds",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/monster-hunter-wilds",
+        "field": "specs.minimum",
+        "value": "GTX 1660 6GB / RX 5500 XT 8GB、メモリ16GB"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/monster-hunter-wilds",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10 / 11 (64-bit)",
+          "cpu": "Core i5-10400 / Core i3-12100 / Ryzen 5 3600",
+          "gpu": "GeForce GTX 1660 (6 GB) / Radeon RX 5500 XT (8 GB)",
+          "ram": "16 GB",
+          "storage": "75 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/monster-hunter-wilds",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10 / 11 (64-bit)",
+          "cpu": "Core i5-10400 / Core i3-12100 / Ryzen 5 3600",
+          "gpu": "GeForce GTX 1660 (6 GB) / Radeon RX 5500 XT (8 GB)",
+          "ram": "16 GB",
+          "storage": "75 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/monster-hunter-wilds",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10 / 11 (64-bit)",
+          "cpu": "Core i5-10400 / Core i3-12100 / Ryzen 5 3600",
+          "gpu": "GeForce GTX 1660 (6 GB) / Radeon RX 5500 XT (8 GB)",
+          "ram": "16 GB",
+          "storage": "75 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "ja",
+        "path": "/games/monster-hunter-wilds/fps",
+        "field": "quickFacts[1]",
+        "value": "GTX 1660・RX 5500 XTで「最低」1080p（720pからアップスケール）・30fps"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/monster-hunter-wilds/system-requirements",
+        "field": "quickFacts[1]",
+        "value": "GTX 1660（VRAM 6GB）・RX 5500 XT（VRAM 8GB）／メモリ16GB"
+      }
+    ]
+  },
+  {
+    "id": "monster-hunter-wilds:requirements.recommended",
+    "game": "monster-hunter-wilds",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/monster-hunter-wilds",
+        "field": "specs.recommended",
+        "value": "RTX 2060 Super 8GB / RX 6600 8GB以上"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/monster-hunter-wilds",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 10 / 11 (64-bit)",
+          "cpu": "Core i5-10400 / Core i3-12100 / Ryzen 5 3600",
+          "gpu": "GeForce RTX 2060 SUPER (8 GB) / Radeon RX 6600 (8 GB)",
+          "ram": "16 GB",
+          "storage": "75 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/monster-hunter-wilds",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 10 / 11 (64-bit)",
+          "cpu": "Core i5-10400 / Core i3-12100 / Ryzen 5 3600",
+          "gpu": "GeForce RTX 2060 SUPER (8 GB) / Radeon RX 6600 (8 GB)",
+          "ram": "16 GB",
+          "storage": "75 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/monster-hunter-wilds",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 10 / 11 (64-bit)",
+          "cpu": "Core i5-10400 / Core i3-12100 / Ryzen 5 3600",
+          "gpu": "GeForce RTX 2060 SUPER (8 GB) / Radeon RX 6600 (8 GB)",
+          "ram": "16 GB",
+          "storage": "75 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "ja",
+        "path": "/games/monster-hunter-wilds/fps",
+        "field": "quickFacts[0]",
+        "value": "RTX 2060 Super・RX 6600で「中」1080p・60fps（フレーム生成使用）"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/monster-hunter-wilds/system-requirements",
+        "field": "quickFacts[0]",
+        "value": "Core i5-10400・Ryzen 5 3600／RTX 2060 Super・RX 6600（VRAM 8GB）／メモリ16GB"
+      }
+    ]
+  },
+  {
+    "id": "monster-hunter-wilds:requirements.storage",
+    "game": "monster-hunter-wilds",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/monster-hunter-wilds",
+        "field": "specs.storage",
+        "value": "75GB以上。SSD必須"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/monster-hunter-wilds",
+        "field": "gameFacts.minimum.storage",
+        "value": "75 GB"
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/monster-hunter-wilds",
+        "field": "gameFacts.minimum.storage",
+        "value": "75 GB"
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/monster-hunter-wilds",
+        "field": "gameFacts.minimum.storage",
+        "value": "75 GB"
+      },
+      {
+        "locale": "ja",
+        "path": "/games/monster-hunter-wilds/system-requirements",
+        "field": "quickFacts[2]",
+        "value": "SSD必須・75GB以上（DirectStorage対応）"
+      }
+    ]
+  },
+  {
+    "id": "monster-hunter-wilds:savePath",
+    "game": "monster-hunter-wilds",
+    "topic": "savePath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/monster-hunter-wilds",
+        "field": "savePath",
+        "value": "<Steam>\\userdata\\<Steam ID>\\2246340\\remote\\win64_save"
+      }
+    ]
+  },
+  {
+    "id": "monster-hunter-wilds:configPath",
+    "game": "monster-hunter-wilds",
+    "topic": "configPath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/monster-hunter-wilds",
+        "field": "configPath",
+        "value": "<インストール先>\\config.ini"
+      }
+    ]
+  },
+  {
+    "id": "monster-hunter-wilds:fps",
+    "game": "monster-hunter-wilds",
+    "topic": "fps",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/monster-hunter-wilds",
+        "field": "fps",
+        "value": "ゲーム中のFPS上限は30〜360fps、ムービーは30〜60fpsで設定。推奨環境の60fpsはフレーム生成を使った目安です。フレーム生成を選べない時はWindowsの「ハードウェアアクセラレータによるGPUスケジューリング」をオンにします。"
+      }
+    ]
+  },
+  {
+    "id": "monster-hunter-wilds:ultrawide",
+    "game": "monster-hunter-wilds",
+    "topic": "ultrawide",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/monster-hunter-wilds",
+        "field": "ultrawide",
+        "value": "21:9まで対応（ゲームプレイ・ムービーとも横に広がる表示）。3440×1440では正確な21:9に合わせるため端に小さな黒帯が出ます。32:9は非対応。"
+      }
+    ]
+  },
+  {
+    "id": "monster-hunter-wilds:hdr",
+    "game": "monster-hunter-wilds",
+    "topic": "hdr",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/monster-hunter-wilds",
+        "field": "hdr",
+        "value": "HDR対応。Windows側のHDRを先に有効化し、ゲーム内輝度を再調整します。"
+      }
+    ]
+  },
+  {
+    "id": "monster-hunter-wilds:controller",
+    "game": "monster-hunter-wilds",
+    "topic": "controller",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/monster-hunter-wilds",
+        "field": "controller",
+        "value": "コントローラー操作はSteam入力が前提。ボタン表示は自動で切り替わらないため手動で選択。DualSenseの振動はUSB接続で使います。"
+      }
+    ]
+  },
+  {
+    "id": "monster-hunter-wilds:mod",
+    "game": "monster-hunter-wilds",
+    "topic": "mod",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/monster-hunter-wilds",
+        "field": "mod",
+        "value": "セーブとゲームフォルダを先にバックアップ。アップデート直後はMODを外し、本体のみで起動確認します。"
+      }
+    ]
+  },
+  {
+    "id": "monster-hunter-wilds:japanese",
+    "game": "monster-hunter-wilds",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/monster-hunter-wilds",
+        "field": "japanese",
+        "value": "日本語は公式対応。非公式の日本語化MODは不要です。"
+      }
+    ]
+  },
+  {
+    "id": "monster-hunter-wilds:release-and-status",
+    "game": "monster-hunter-wilds",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/monster-hunter-wilds",
+        "field": "demand",
+        "value": "2025年発売・Steam最大約138万人"
+      }
+    ]
+  },
+  {
+    "id": "palworld:requirements.minimum",
+    "game": "palworld",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/palworld",
+        "field": "specs.minimum",
+        "value": "Core i5-9400F / GTX 1660、メモリ16GB"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/palworld",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10 (64-bit)",
+          "cpu": "Core i5-9400F",
+          "gpu": "GeForce GTX 1660",
+          "ram": "16 GB",
+          "storage": "40 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/palworld",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10 (64-bit)",
+          "cpu": "Core i5-9400F",
+          "gpu": "GeForce GTX 1660",
+          "ram": "16 GB",
+          "storage": "40 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/palworld",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10 (64-bit)",
+          "cpu": "Core i5-9400F",
+          "gpu": "GeForce GTX 1660",
+          "ram": "16 GB",
+          "storage": "40 GB",
+          "ssd": "required"
+        }
+      }
+    ]
+  },
+  {
+    "id": "palworld:requirements.recommended",
+    "game": "palworld",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/palworld",
+        "field": "specs.recommended",
+        "value": "Core i5-12400 / Ryzen 5 5600X、RTX 3060 Ti / RX 6700 XT、メモリ32GB"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/palworld",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 11 (64-bit)",
+          "cpu": "Core i5-12400 / Ryzen 5 5600X",
+          "gpu": "GeForce RTX 3060 Ti / Radeon RX 6700 XT",
+          "ram": "32 GB",
+          "storage": "40 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/palworld",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 11 (64-bit)",
+          "cpu": "Core i5-12400 / Ryzen 5 5600X",
+          "gpu": "GeForce RTX 3060 Ti / Radeon RX 6700 XT",
+          "ram": "32 GB",
+          "storage": "40 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/palworld",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 11 (64-bit)",
+          "cpu": "Core i5-12400 / Ryzen 5 5600X",
+          "gpu": "GeForce RTX 3060 Ti / Radeon RX 6700 XT",
+          "ram": "32 GB",
+          "storage": "40 GB",
+          "ssd": "required"
+        }
+      }
+    ]
+  },
+  {
+    "id": "palworld:requirements.storage",
+    "game": "palworld",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/palworld",
+        "field": "specs.storage",
+        "value": "40GB。SSD必須"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/palworld",
+        "field": "gameFacts.minimum.storage",
+        "value": "40 GB"
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/palworld",
+        "field": "gameFacts.minimum.storage",
+        "value": "40 GB"
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/palworld",
+        "field": "gameFacts.minimum.storage",
+        "value": "40 GB"
+      }
+    ]
+  },
+  {
+    "id": "palworld:savePath",
+    "game": "palworld",
+    "topic": "savePath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/palworld",
+        "field": "savePath",
+        "value": "%LOCALAPPDATA%\\Pal\\Saved\\SaveGames\\<Steam ID>"
+      }
+    ]
+  },
+  {
+    "id": "palworld:configPath",
+    "game": "palworld",
+    "topic": "configPath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/palworld",
+        "field": "configPath",
+        "value": "%LOCALAPPDATA%\\Pal\\Saved\\Config\\Windows"
+      }
+    ]
+  },
+  {
+    "id": "palworld:fps",
+    "game": "palworld",
+    "topic": "fps",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/palworld",
+        "field": "fps",
+        "value": "フレームレート上限はグラフィック設定で変更。安定しない場合はモニターのリフレッシュレートより少し低く固定。"
+      }
+    ]
+  },
+  {
+    "id": "palworld:ultrawide",
+    "game": "palworld",
+    "topic": "ultrawide",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/palworld",
+        "field": "ultrawide",
+        "value": "21:9でプレイ可能。UIの端切れは解像度スケールを100%に戻して確認。"
+      }
+    ]
+  },
+  {
+    "id": "palworld:hdr",
+    "game": "palworld",
+    "topic": "hdr",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/palworld",
+        "field": "hdr",
+        "value": "ゲーム内に安定した専用HDR調整がない環境ではWindows Auto HDRを個別に比較。"
+      }
+    ]
+  },
+  {
+    "id": "palworld:controller",
+    "game": "palworld",
+    "topic": "controller",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/palworld",
+        "field": "controller",
+        "value": "フルコントローラー対応。反応しないときはSteam Inputの「デフォルト」と「有効」を比較。"
+      }
+    ]
+  },
+  {
+    "id": "palworld:mod",
+    "game": "palworld",
+    "topic": "mod",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/palworld",
+        "field": "mod",
+        "value": "1.0更新後は古いMODを管理画面でOFFにするだけでなく、手動導入ファイルも退避します。導入前にSaveGamesを別ドライブへコピーしてください。"
+      }
+    ]
+  },
+  {
+    "id": "palworld:japanese",
+    "game": "palworld",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/palworld",
+        "field": "japanese",
+        "value": "日本語は公式対応。"
+      }
+    ]
+  },
+  {
+    "id": "palworld:release-and-status",
+    "game": "palworld",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/palworld",
+        "field": "demand",
+        "value": "2026年7月の1.0で再び大規模プレイ"
+      }
+    ]
+  },
+  {
+    "id": "elden-ring:requirements.minimum",
+    "game": "elden-ring",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/elden-ring",
+        "field": "specs.minimum",
+        "value": "GTX 1060 3GB / RX 580 4GB、メモリ12GB"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/elden-ring",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10",
+          "cpu": "Core i5-8400 / Ryzen 3 3300X",
+          "gpu": "GeForce GTX 1060 (3 GB) / Radeon RX 580 (4 GB)",
+          "ram": "12 GB",
+          "storage": "60 GB"
+        }
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/elden-ring",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10",
+          "cpu": "Core i5-8400 / Ryzen 3 3300X",
+          "gpu": "GeForce GTX 1060 (3 GB) / Radeon RX 580 (4 GB)",
+          "ram": "12 GB",
+          "storage": "60 GB"
+        }
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/elden-ring",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10",
+          "cpu": "Core i5-8400 / Ryzen 3 3300X",
+          "gpu": "GeForce GTX 1060 (3 GB) / Radeon RX 580 (4 GB)",
+          "ram": "12 GB",
+          "storage": "60 GB"
+        }
+      },
+      {
+        "locale": "ja",
+        "path": "/games/elden-ring/not-launching",
+        "field": "quickFacts[0]",
+        "value": "Windows 10（64bit）／DirectX 12／GTX 1060 3GB・RX 580 4GB／メモリ12GB（Steamストア）"
+      }
+    ]
+  },
+  {
+    "id": "elden-ring:requirements.recommended",
+    "game": "elden-ring",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/elden-ring",
+        "field": "specs.recommended",
+        "value": "GTX 1070 / RX Vega 56、メモ16GB"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/elden-ring",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 10 / 11",
+          "cpu": "Core i7-8700K / Ryzen 5 3600X",
+          "gpu": "GeForce GTX 1070 (8 GB) / Radeon RX Vega 56 (8 GB)",
+          "ram": "16 GB",
+          "storage": "60 GB"
+        }
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/elden-ring",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 10 / 11",
+          "cpu": "Core i7-8700K / Ryzen 5 3600X",
+          "gpu": "GeForce GTX 1070 (8 GB) / Radeon RX Vega 56 (8 GB)",
+          "ram": "16 GB",
+          "storage": "60 GB"
+        }
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/elden-ring",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 10 / 11",
+          "cpu": "Core i7-8700K / Ryzen 5 3600X",
+          "gpu": "GeForce GTX 1070 (8 GB) / Radeon RX Vega 56 (8 GB)",
+          "ram": "16 GB",
+          "storage": "60 GB"
+        }
+      },
+      {
+        "locale": "ja",
+        "path": "/games/elden-ring/not-launching",
+        "field": "quickFacts[1]",
+        "value": "Windows 10/11／GTX 1070 8GB・RX Vega 56 8GB／メモリ16GB（Steamストア）"
+      }
+    ]
+  },
+  {
+    "id": "elden-ring:requirements.storage",
+    "game": "elden-ring",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/elden-ring",
+        "field": "specs.storage",
+        "value": "60GB"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/elden-ring",
+        "field": "gameFacts.minimum.storage",
+        "value": "60 GB"
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/elden-ring",
+        "field": "gameFacts.minimum.storage",
+        "value": "60 GB"
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/elden-ring",
+        "field": "gameFacts.minimum.storage",
+        "value": "60 GB"
+      }
+    ]
+  },
+  {
+    "id": "elden-ring:savePath",
+    "game": "elden-ring",
+    "topic": "savePath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/elden-ring",
+        "field": "savePath",
+        "value": "%APPDATA%\\EldenRing\\<Steam ID>\\ER0000.sl2"
+      }
+    ]
+  },
+  {
+    "id": "elden-ring:configPath",
+    "game": "elden-ring",
+    "topic": "configPath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/elden-ring",
+        "field": "configPath",
+        "value": "%APPDATA%\\EldenRing\\GraphicsConfig.xml"
+      }
+    ]
+  },
+  {
+    "id": "elden-ring:fps",
+    "game": "elden-ring",
+    "topic": "fps",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/elden-ring",
+        "field": "fps",
+        "value": "公式仕様は60FPS上限。解除MOD利用時はEasy Anti-Cheatを無効化し、必ずオフラインで運用します。"
+      }
+    ]
+  },
+  {
+    "id": "elden-ring:ultrawide",
+    "game": "elden-ring",
+    "topic": "ultrawide",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/elden-ring",
+        "field": "ultrawide",
+        "value": "公式は16:9表示。21:9/32:9は黒帯が入り、解除には非公式ツールが必要です。"
+      }
+    ]
+  },
+  {
+    "id": "elden-ring:hdr",
+    "game": "elden-ring",
+    "topic": "hdr",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/elden-ring",
+        "field": "hdr",
+        "value": "HDR対応。色が白っぽい場合はWindows HDRキャリブレーション後にゲームを再起動。"
+      }
+    ]
+  },
+  {
+    "id": "elden-ring:controller",
+    "game": "elden-ring",
+    "topic": "controller",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/elden-ring",
+        "field": "controller",
+        "value": "Xbox/PlayStation系対応。ボタンが二重反応する場合はDS4WindowsとSteam Inputの二重変換を解消。"
+      }
+    ]
+  },
+  {
+    "id": "elden-ring:mod",
+    "game": "elden-ring",
+    "topic": "mod",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/elden-ring",
+        "field": "mod",
+        "value": "オンラインでの改変ファイル利用は避けます。セーブを複製し、MOD専用のオフライン環境を分けるのが安全です。"
+      }
+    ]
+  },
+  {
+    "id": "elden-ring:japanese",
+    "game": "elden-ring",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/elden-ring",
+        "field": "japanese",
+        "value": "日本語は公式対応。"
+      }
+    ]
+  },
+  {
+    "id": "elden-ring:release-and-status",
+    "game": "elden-ring",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/elden-ring",
+        "field": "demand",
+        "value": "2026年もSteam上位に継続登場"
+      }
+    ]
+  },
+  {
+    "id": "cyberpunk-2077:requirements.minimum",
+    "game": "cyberpunk-2077",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/cyberpunk-2077",
+        "field": "specs.minimum",
+        "value": "GTX 1060 6GB / RX 580 8GBクラス"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/cyberpunk-2077",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10 (64-bit)",
+          "cpu": "Core i7-6700 / Ryzen 5 1600",
+          "gpu": "GeForce GTX 1060 6 GB / Radeon RX 580 8 GB / Arc A380",
+          "ram": "12 GB",
+          "storage": "70 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/cyberpunk-2077",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10 (64-bit)",
+          "cpu": "Core i7-6700 / Ryzen 5 1600",
+          "gpu": "GeForce GTX 1060 6 GB / Radeon RX 580 8 GB / Arc A380",
+          "ram": "12 GB",
+          "storage": "70 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/cyberpunk-2077",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10 (64-bit)",
+          "cpu": "Core i7-6700 / Ryzen 5 1600",
+          "gpu": "GeForce GTX 1060 6 GB / Radeon RX 580 8 GB / Arc A380",
+          "ram": "12 GB",
+          "storage": "70 GB",
+          "ssd": "required"
+        }
+      }
+    ]
+  },
+  {
+    "id": "cyberpunk-2077:requirements.recommended",
+    "game": "cyberpunk-2077",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/cyberpunk-2077",
+        "field": "specs.recommended",
+        "value": "RTX 2060 Super / RX 5700 XT以上"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/cyberpunk-2077",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 10 (64-bit)",
+          "cpu": "Core i7-12700 / Ryzen 7 7800X3D",
+          "gpu": "GeForce RTX 2060 SUPER / Radeon RX 5700 XT / Arc A770",
+          "ram": "16 GB",
+          "storage": "70 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/cyberpunk-2077",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 10 (64-bit)",
+          "cpu": "Core i7-12700 / Ryzen 7 7800X3D",
+          "gpu": "GeForce RTX 2060 SUPER / Radeon RX 5700 XT / Arc A770",
+          "ram": "16 GB",
+          "storage": "70 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/cyberpunk-2077",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 10 (64-bit)",
+          "cpu": "Core i7-12700 / Ryzen 7 7800X3D",
+          "gpu": "GeForce RTX 2060 SUPER / Radeon RX 5700 XT / Arc A770",
+          "ram": "16 GB",
+          "storage": "70 GB",
+          "ssd": "required"
+        }
+      }
+    ]
+  },
+  {
+    "id": "cyberpunk-2077:requirements.storage",
+    "game": "cyberpunk-2077",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/cyberpunk-2077",
+        "field": "specs.storage",
+        "value": "70GB。SSD必須"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/cyberpunk-2077",
+        "field": "gameFacts.minimum.storage",
+        "value": "70 GB"
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/cyberpunk-2077",
+        "field": "gameFacts.minimum.storage",
+        "value": "70 GB"
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/cyberpunk-2077",
+        "field": "gameFacts.minimum.storage",
+        "value": "70 GB"
+      }
+    ]
+  },
+  {
+    "id": "cyberpunk-2077:savePath",
+    "game": "cyberpunk-2077",
+    "topic": "savePath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/cyberpunk-2077",
+        "field": "savePath",
+        "value": "%USERPROFILE%\\Saved Games\\CD Projekt Red\\Cyberpunk 2077"
+      }
+    ]
+  },
+  {
+    "id": "cyberpunk-2077:configPath",
+    "game": "cyberpunk-2077",
+    "topic": "configPath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/cyberpunk-2077",
+        "field": "configPath",
+        "value": "%LOCALAPPDATA%\\CD Projekt Red\\Cyberpunk 2077"
+      }
+    ]
+  },
+  {
+    "id": "cyberpunk-2077:fps",
+    "game": "cyberpunk-2077",
+    "topic": "fps",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/cyberpunk-2077",
+        "field": "fps",
+        "value": "ゲーム内で最大FPSを設定可能。レイトレーシングとフレーム生成を分けて調整。"
+      }
+    ]
+  },
+  {
+    "id": "cyberpunk-2077:ultrawide",
+    "game": "cyberpunk-2077",
+    "topic": "ultrawide",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/cyberpunk-2077",
+        "field": "ultrawide",
+        "value": "21:9/32:9に対応。会話やミニマップの表示は解像度により小さく感じる場合があります。"
+      }
+    ]
+  },
+  {
+    "id": "cyberpunk-2077:hdr",
+    "game": "cyberpunk-2077",
+    "topic": "hdr",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/cyberpunk-2077",
+        "field": "hdr",
+        "value": "HDR対応。HDR10 PQ等をディスプレイに合わせ、最大輝度とペーパーホワイトを調整。"
+      }
+    ]
+  },
+  {
+    "id": "cyberpunk-2077:controller",
+    "game": "cyberpunk-2077",
+    "topic": "controller",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/cyberpunk-2077",
+        "field": "controller",
+        "value": "コントローラー対応。DualSenseの追加機能は有線接続が必要になる場合があります。"
+      }
+    ]
+  },
+  {
+    "id": "cyberpunk-2077:mod",
+    "game": "cyberpunk-2077",
+    "topic": "mod",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/cyberpunk-2077",
+        "field": "mod",
+        "value": "公式REDmodと外部ローダーの役割は別。必要前提のバージョンを揃え、1個ずつ導入します。"
+      }
+    ]
+  },
+  {
+    "id": "cyberpunk-2077:japanese",
+    "game": "cyberpunk-2077",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/cyberpunk-2077",
+        "field": "japanese",
+        "value": "音声・字幕とも日本語に公式対応。"
+      }
+    ]
+  },
+  {
+    "id": "cyberpunk-2077:release-and-status",
+    "game": "cyberpunk-2077",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/cyberpunk-2077",
+        "field": "demand",
+        "value": "大型更新後も長期的に高いMOD需要"
+      }
+    ]
+  },
+  {
+    "id": "baldurs-gate-3:requirements.minimum",
+    "game": "baldurs-gate-3",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/baldurs-gate-3",
+        "field": "specs.minimum",
+        "value": "GTX 970 / RX 480、メモリ8GB"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/baldurs-gate-3",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10 (64-bit)",
+          "cpu": "Core i5-4690 / FX 8350",
+          "gpu": "GeForce GTX 970 / Radeon RX 480 / Arc A380 (4 GB+ VRAM)",
+          "ram": "8 GB",
+          "storage": "150 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/baldurs-gate-3",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10 (64-bit)",
+          "cpu": "Core i5-4690 / FX 8350",
+          "gpu": "GeForce GTX 970 / Radeon RX 480 / Arc A380 (4 GB+ VRAM)",
+          "ram": "8 GB",
+          "storage": "150 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/baldurs-gate-3",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10 (64-bit)",
+          "cpu": "Core i5-4690 / FX 8350",
+          "gpu": "GeForce GTX 970 / Radeon RX 480 / Arc A380 (4 GB+ VRAM)",
+          "ram": "8 GB",
+          "storage": "150 GB",
+          "ssd": "required"
+        }
+      }
+    ]
+  },
+  {
+    "id": "baldurs-gate-3:requirements.recommended",
+    "game": "baldurs-gate-3",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/baldurs-gate-3",
+        "field": "specs.recommended",
+        "value": "RTX 2060 Super / RX 5700 XT、メモリ16GB"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/baldurs-gate-3",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 10 (64-bit)",
+          "cpu": "Core i7-8700K / Ryzen 5 3600",
+          "gpu": "GeForce RTX 2060 SUPER / Radeon RX 5700 XT / Arc A580 (8 GB+ VRAM)",
+          "ram": "16 GB",
+          "storage": "150 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/baldurs-gate-3",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 10 (64-bit)",
+          "cpu": "Core i7-8700K / Ryzen 5 3600",
+          "gpu": "GeForce RTX 2060 SUPER / Radeon RX 5700 XT / Arc A580 (8 GB+ VRAM)",
+          "ram": "16 GB",
+          "storage": "150 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/baldurs-gate-3",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 10 (64-bit)",
+          "cpu": "Core i7-8700K / Ryzen 5 3600",
+          "gpu": "GeForce RTX 2060 SUPER / Radeon RX 5700 XT / Arc A580 (8 GB+ VRAM)",
+          "ram": "16 GB",
+          "storage": "150 GB",
+          "ssd": "required"
+        }
+      }
+    ]
+  },
+  {
+    "id": "baldurs-gate-3:requirements.storage",
+    "game": "baldurs-gate-3",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/baldurs-gate-3",
+        "field": "specs.storage",
+        "value": "150GB。SSD必須"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/baldurs-gate-3",
+        "field": "gameFacts.minimum.storage",
+        "value": "150 GB"
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/baldurs-gate-3",
+        "field": "gameFacts.minimum.storage",
+        "value": "150 GB"
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/baldurs-gate-3",
+        "field": "gameFacts.minimum.storage",
+        "value": "150 GB"
+      }
+    ]
+  },
+  {
+    "id": "baldurs-gate-3:savePath",
+    "game": "baldurs-gate-3",
+    "topic": "savePath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/baldurs-gate-3",
+        "field": "savePath",
+        "value": "%LOCALAPPDATA%\\Larian Studios\\Baldur's Gate 3\\PlayerProfiles\\Public\\Savegames\\Story"
+      }
+    ]
+  },
+  {
+    "id": "baldurs-gate-3:configPath",
+    "game": "baldurs-gate-3",
+    "topic": "configPath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/baldurs-gate-3",
+        "field": "configPath",
+        "value": "%LOCALAPPDATA%\\Larian Studios\\Baldur's Gate 3\\PlayerProfiles\\Public"
+      }
+    ]
+  },
+  {
+    "id": "baldurs-gate-3:fps",
+    "game": "baldurs-gate-3",
+    "topic": "fps",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/baldurs-gate-3",
+        "field": "fps",
+        "value": "ゲーム内で上限を設定可能。終盤のCPU負荷が高い場面は上限解除より安定値へ固定。"
+      }
+    ]
+  },
+  {
+    "id": "baldurs-gate-3:ultrawide",
+    "game": "baldurs-gate-3",
+    "topic": "ultrawide",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/baldurs-gate-3",
+        "field": "ultrawide",
+        "value": "ウルトラワイド対応。カットシーンの表示差はパッチとMODのバージョンを確認。"
+      }
+    ]
+  },
+  {
+    "id": "baldurs-gate-3:hdr",
+    "game": "baldurs-gate-3",
+    "topic": "hdr",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/baldurs-gate-3",
+        "field": "hdr",
+        "value": "HDR対応。WindowsでHDRを先に有効化し、DX11とVulkanで見え方を比較。"
+      }
+    ]
+  },
+  {
+    "id": "baldurs-gate-3:controller",
+    "game": "baldurs-gate-3",
+    "topic": "controller",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/baldurs-gate-3",
+        "field": "controller",
+        "value": "フルコントローラー対応。ランチャーが操作できない場合は起動オプションでスキップ。"
+      }
+    ]
+  },
+  {
+    "id": "baldurs-gate-3:mod",
+    "game": "baldurs-gate-3",
+    "topic": "mod",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/baldurs-gate-3",
+        "field": "mod",
+        "value": "マルチは全員が同じMODと読み込み順を使用。パッチ後はバニラセーブで起動確認します。"
+      }
+    ]
+  },
+  {
+    "id": "baldurs-gate-3:japanese",
+    "game": "baldurs-gate-3",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/baldurs-gate-3",
+        "field": "japanese",
+        "value": "日本語は公式対応。"
+      }
+    ]
+  },
+  {
+    "id": "baldurs-gate-3:release-and-status",
+    "game": "baldurs-gate-3",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/baldurs-gate-3",
+        "field": "demand",
+        "value": "長編RPGとMODで継続的な検索需要"
+      }
+    ]
+  },
+  {
+    "id": "helldivers-2:requirements.minimum",
+    "game": "helldivers-2",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/helldivers-2",
+        "field": "specs.minimum",
+        "value": "GTX 1050 Ti / RX 470、メモリ8GB"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/helldivers-2",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10",
+          "cpu": "Core i7-4790K / Ryzen 5 1500X",
+          "gpu": "GeForce GTX 1050 Ti / Radeon RX 470",
+          "ram": "8 GB",
+          "storage": "135 GB"
+        }
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/helldivers-2",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10",
+          "cpu": "Core i7-4790K / Ryzen 5 1500X",
+          "gpu": "GeForce GTX 1050 Ti / Radeon RX 470",
+          "ram": "8 GB",
+          "storage": "135 GB"
+        }
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/helldivers-2",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10",
+          "cpu": "Core i7-4790K / Ryzen 5 1500X",
+          "gpu": "GeForce GTX 1050 Ti / Radeon RX 470",
+          "ram": "8 GB",
+          "storage": "135 GB"
+        }
+      }
+    ]
+  },
+  {
+    "id": "helldivers-2:requirements.recommended",
+    "game": "helldivers-2",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/helldivers-2",
+        "field": "specs.recommended",
+        "value": "RTX 2060 / RX 6600 XT、メモリ16GB"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/helldivers-2",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 10",
+          "cpu": "Core i7-9700K / Ryzen 7 3700X",
+          "gpu": "GeForce RTX 2060 / Radeon RX 6600 XT",
+          "ram": "16 GB",
+          "storage": "—",
+          "ssd": "recommended"
+        }
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/helldivers-2",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 10",
+          "cpu": "Core i7-9700K / Ryzen 7 3700X",
+          "gpu": "GeForce RTX 2060 / Radeon RX 6600 XT",
+          "ram": "16 GB",
+          "storage": "—",
+          "ssd": "recommended"
+        }
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/helldivers-2",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 10",
+          "cpu": "Core i7-9700K / Ryzen 7 3700X",
+          "gpu": "GeForce RTX 2060 / Radeon RX 6600 XT",
+          "ram": "16 GB",
+          "storage": "—",
+          "ssd": "recommended"
+        }
+      }
+    ]
+  },
+  {
+    "id": "helldivers-2:requirements.storage",
+    "game": "helldivers-2",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/helldivers-2",
+        "field": "specs.storage",
+        "value": "100GB"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/helldivers-2",
+        "field": "gameFacts.minimum.storage",
+        "value": "135 GB"
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/helldivers-2",
+        "field": "gameFacts.minimum.storage",
+        "value": "135 GB"
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/helldivers-2",
+        "field": "gameFacts.minimum.storage",
+        "value": "135 GB"
+      }
+    ]
+  },
+  {
+    "id": "helldivers-2:savePath",
+    "game": "helldivers-2",
+    "topic": "savePath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/helldivers-2",
+        "field": "savePath",
+        "value": "%APPDATA%\\Arrowhead\\Helldivers2\\saves"
+      }
+    ]
+  },
+  {
+    "id": "helldivers-2:configPath",
+    "game": "helldivers-2",
+    "topic": "configPath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/helldivers-2",
+        "field": "configPath",
+        "value": "%APPDATA%\\Arrowhead\\Helldivers2\\user_settings.config"
+      }
+    ]
+  },
+  {
+    "id": "helldivers-2:fps",
+    "game": "helldivers-2",
+    "topic": "fps",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/helldivers-2",
+        "field": "fps",
+        "value": "ゲーム内で上限設定。フレーム落ちはグラフィック最下部のAsynchronous ComputeをON/OFF比較。"
+      }
+    ]
+  },
+  {
+    "id": "helldivers-2:ultrawide",
+    "game": "helldivers-2",
+    "topic": "ultrawide",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/helldivers-2",
+        "field": "ultrawide",
+        "value": "21:9対応。照準やHUDの位置は画面比率で見え方が変わります。"
+      }
+    ]
+  },
+  {
+    "id": "helldivers-2:hdr",
+    "game": "helldivers-2",
+    "topic": "hdr",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/helldivers-2",
+        "field": "hdr",
+        "value": "HDR出力対応。専用HDRスライダーは限定的なためWindows側の調整も使用。"
+      }
+    ]
+  },
+  {
+    "id": "helldivers-2:controller",
+    "game": "helldivers-2",
+    "topic": "controller",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/helldivers-2",
+        "field": "controller",
+        "value": "Xbox系・DualSense対応。DualSenseのハプティクとアダプティブトリガーはUSB有線接続を推奨。"
+      }
+    ]
+  },
+  {
+    "id": "helldivers-2:mod",
+    "game": "helldivers-2",
+    "topic": "mod",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/helldivers-2",
+        "field": "mod",
+        "value": "オンライン専用かつアンチチート搭載のため、改変ツールの導入は非推奨です。"
+      }
+    ]
+  },
+  {
+    "id": "helldivers-2:japanese",
+    "game": "helldivers-2",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/helldivers-2",
+        "field": "japanese",
+        "value": "日本語は公式対応。"
+      }
+    ]
+  },
+  {
+    "id": "helldivers-2:release-and-status",
+    "game": "helldivers-2",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/helldivers-2",
+        "field": "demand",
+        "value": "オンライン人口と更新に連動するトラブル需要"
+      }
+    ]
+  },
+  {
+    "id": "hogwarts-legacy:requirements.minimum",
+    "game": "hogwarts-legacy",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/hogwarts-legacy",
+        "field": "specs.minimum",
+        "value": "GTX 960 / RX 470、メモリ16GB"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/hogwarts-legacy",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10 (64-bit)",
+          "cpu": "Core i5-6600 / Ryzen 5 1400",
+          "gpu": "GeForce GTX 960 4 GB / Radeon RX 470 4 GB",
+          "ram": "16 GB",
+          "storage": "85 GB",
+          "ssd": "preferred"
+        }
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/hogwarts-legacy",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10 (64-bit)",
+          "cpu": "Core i5-6600 / Ryzen 5 1400",
+          "gpu": "GeForce GTX 960 4 GB / Radeon RX 470 4 GB",
+          "ram": "16 GB",
+          "storage": "85 GB",
+          "ssd": "preferred"
+        }
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/hogwarts-legacy",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10 (64-bit)",
+          "cpu": "Core i5-6600 / Ryzen 5 1400",
+          "gpu": "GeForce GTX 960 4 GB / Radeon RX 470 4 GB",
+          "ram": "16 GB",
+          "storage": "85 GB",
+          "ssd": "preferred"
+        }
+      }
+    ]
+  },
+  {
+    "id": "hogwarts-legacy:requirements.recommended",
+    "game": "hogwarts-legacy",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/hogwarts-legacy",
+        "field": "specs.recommended",
+        "value": "GTX 1080 Ti / RX 5700 XT以上"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/hogwarts-legacy",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 10 (64-bit)",
+          "cpu": "Core i7-8700 / Ryzen 5 3600",
+          "gpu": "GeForce GTX 1080 Ti / Radeon RX 5700 XT / Arc A770",
+          "ram": "16 GB",
+          "storage": "85 GB",
+          "ssd": "recommended"
+        }
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/hogwarts-legacy",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 10 (64-bit)",
+          "cpu": "Core i7-8700 / Ryzen 5 3600",
+          "gpu": "GeForce GTX 1080 Ti / Radeon RX 5700 XT / Arc A770",
+          "ram": "16 GB",
+          "storage": "85 GB",
+          "ssd": "recommended"
+        }
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/hogwarts-legacy",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 10 (64-bit)",
+          "cpu": "Core i7-8700 / Ryzen 5 3600",
+          "gpu": "GeForce GTX 1080 Ti / Radeon RX 5700 XT / Arc A770",
+          "ram": "16 GB",
+          "storage": "85 GB",
+          "ssd": "recommended"
+        }
+      }
+    ]
+  },
+  {
+    "id": "hogwarts-legacy:requirements.storage",
+    "game": "hogwarts-legacy",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/hogwarts-legacy",
+        "field": "specs.storage",
+        "value": "85GB。SSD推奨"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/hogwarts-legacy",
+        "field": "gameFacts.minimum.storage",
+        "value": "85 GB"
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/hogwarts-legacy",
+        "field": "gameFacts.minimum.storage",
+        "value": "85 GB"
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/hogwarts-legacy",
+        "field": "gameFacts.minimum.storage",
+        "value": "85 GB"
+      }
+    ]
+  },
+  {
+    "id": "hogwarts-legacy:savePath",
+    "game": "hogwarts-legacy",
+    "topic": "savePath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/hogwarts-legacy",
+        "field": "savePath",
+        "value": "%LOCALAPPDATA%\\Hogwarts Legacy\\Saved\\SaveGames"
+      }
+    ]
+  },
+  {
+    "id": "hogwarts-legacy:configPath",
+    "game": "hogwarts-legacy",
+    "topic": "configPath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/hogwarts-legacy",
+        "field": "configPath",
+        "value": "%LOCALAPPDATA%\\Hogwarts Legacy\\Saved\\Config\\WindowsNoEditor"
+      }
+    ]
+  },
+  {
+    "id": "hogwarts-legacy:fps",
+    "game": "hogwarts-legacy",
+    "topic": "fps",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/hogwarts-legacy",
+        "field": "fps",
+        "value": "ゲーム内で上限を設定可能。スタッターが出る場合はテクスチャ品質とRTを先に下げます。"
+      }
+    ]
+  },
+  {
+    "id": "hogwarts-legacy:ultrawide",
+    "game": "hogwarts-legacy",
+    "topic": "ultrawide",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/hogwarts-legacy",
+        "field": "ultrawide",
+        "value": "ウルトラワイドプレイに対応。カットシーンは黒帯が出る場合があります。"
+      }
+    ]
+  },
+  {
+    "id": "hogwarts-legacy:hdr",
+    "game": "hogwarts-legacy",
+    "topic": "hdr",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/hogwarts-legacy",
+        "field": "hdr",
+        "value": "HDR対応。Windows HDRをONにしてからゲームを起動。"
+      }
+    ]
+  },
+  {
+    "id": "hogwarts-legacy:controller",
+    "game": "hogwarts-legacy",
+    "topic": "controller",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/hogwarts-legacy",
+        "field": "controller",
+        "value": "Xbox/PlayStation系対応。無線で表示が合わない場合はSteam Inputを確認。"
+      }
+    ]
+  },
+  {
+    "id": "hogwarts-legacy:mod",
+    "game": "hogwarts-legacy",
+    "topic": "mod",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/hogwarts-legacy",
+        "field": "mod",
+        "value": "UE系MODはPhoenix\\Content\\Paks配下に入る形式が中心。必要前提と本体対応版を確認。"
+      }
+    ]
+  },
+  {
+    "id": "hogwarts-legacy:japanese",
+    "game": "hogwarts-legacy",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/hogwarts-legacy",
+        "field": "japanese",
+        "value": "音声・字幕とも公式の日本語対応があります。"
+      }
+    ]
+  },
+  {
+    "id": "hogwarts-legacy:release-and-status",
+    "game": "hogwarts-legacy",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/hogwarts-legacy",
+        "field": "demand",
+        "value": "長期セールとMODで技術系検索が継続"
+      }
+    ]
+  },
+  {
+    "id": "gta-v-enhanced:requirements.minimum",
+    "game": "gta-v-enhanced",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/gta-v-enhanced",
+        "field": "specs.minimum",
+        "value": "GTX 1630 / RX 6400クラス"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/gta-v-enhanced",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10",
+          "cpu": "Core i7-4770 / FX-9590",
+          "gpu": "GeForce GTX 1630 (4 GB) / Radeon RX 6400 (4 GB)",
+          "ram": "8 GB",
+          "storage": "105 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/gta-v-enhanced",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10",
+          "cpu": "Core i7-4770 / FX-9590",
+          "gpu": "GeForce GTX 1630 (4 GB) / Radeon RX 6400 (4 GB)",
+          "ram": "8 GB",
+          "storage": "105 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/gta-v-enhanced",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 10",
+          "cpu": "Core i7-4770 / FX-9590",
+          "gpu": "GeForce GTX 1630 (4 GB) / Radeon RX 6400 (4 GB)",
+          "ram": "8 GB",
+          "storage": "105 GB",
+          "ssd": "required"
+        }
+      }
+    ]
+  },
+  {
+    "id": "gta-v-enhanced:requirements.recommended",
+    "game": "gta-v-enhanced",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/gta-v-enhanced",
+        "field": "specs.recommended",
+        "value": "RTX 3060 / RX 6600 XT以上"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/gta-v-enhanced",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 11",
+          "cpu": "Core i5-9600K / Ryzen 5 3600",
+          "gpu": "GeForce RTX 3060 (8 GB) / Radeon RX 6600 XT (8 GB)",
+          "ram": "16 GB",
+          "storage": "105 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/gta-v-enhanced",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 11",
+          "cpu": "Core i5-9600K / Ryzen 5 3600",
+          "gpu": "GeForce RTX 3060 (8 GB) / Radeon RX 6600 XT (8 GB)",
+          "ram": "16 GB",
+          "storage": "105 GB",
+          "ssd": "required"
+        }
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/gta-v-enhanced",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 11",
+          "cpu": "Core i5-9600K / Ryzen 5 3600",
+          "gpu": "GeForce RTX 3060 (8 GB) / Radeon RX 6600 XT (8 GB)",
+          "ram": "16 GB",
+          "storage": "105 GB",
+          "ssd": "required"
+        }
+      }
+    ]
+  },
+  {
+    "id": "gta-v-enhanced:requirements.storage",
+    "game": "gta-v-enhanced",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/gta-v-enhanced",
+        "field": "specs.storage",
+        "value": "105GB。SSD必須"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/gta-v-enhanced",
+        "field": "gameFacts.minimum.storage",
+        "value": "105 GB"
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/gta-v-enhanced",
+        "field": "gameFacts.minimum.storage",
+        "value": "105 GB"
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/gta-v-enhanced",
+        "field": "gameFacts.minimum.storage",
+        "value": "105 GB"
+      }
+    ]
+  },
+  {
+    "id": "gta-v-enhanced:savePath",
+    "game": "gta-v-enhanced",
+    "topic": "savePath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/gta-v-enhanced",
+        "field": "savePath",
+        "value": "%USERPROFILE%\\Documents\\Rockstar Games\\GTAV Enhanced\\Profiles\\<ID>"
+      }
+    ]
+  },
+  {
+    "id": "gta-v-enhanced:configPath",
+    "game": "gta-v-enhanced",
+    "topic": "configPath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/gta-v-enhanced",
+        "field": "configPath",
+        "value": "%USERPROFILE%\\Documents\\Rockstar Games\\GTAV Enhanced\\settings.xml"
+      }
+    ]
+  },
+  {
+    "id": "gta-v-enhanced:fps",
+    "game": "gta-v-enhanced",
+    "topic": "fps",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/gta-v-enhanced",
+        "field": "fps",
+        "value": "高FPSでスタッターが出る場合は140FPS以下に固定して比較。非公式解除はストーリー専用。"
+      }
+    ]
+  },
+  {
+    "id": "gta-v-enhanced:ultrawide",
+    "game": "gta-v-enhanced",
+    "topic": "ultrawide",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/gta-v-enhanced",
+        "field": "ultrawide",
+        "value": "21:9はHor+で対応。カットシーンは16:9の黒帯が入ります。"
+      }
+    ]
+  },
+  {
+    "id": "gta-v-enhanced:hdr",
+    "game": "gta-v-enhanced",
+    "topic": "hdr",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/gta-v-enhanced",
+        "field": "hdr",
+        "value": "Enhanced版はHDR対応。Windowsとゲーム側の両方を有効化。"
+      }
+    ]
+  },
+  {
+    "id": "gta-v-enhanced:controller",
+    "game": "gta-v-enhanced",
+    "topic": "controller",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/gta-v-enhanced",
+        "field": "controller",
+        "value": "Xbox系およびDualSense対応。DualSenseのアダプティブトリガーはUSB有線接続。"
+      }
+    ]
+  },
+  {
+    "id": "gta-v-enhanced:mod",
+    "game": "gta-v-enhanced",
+    "topic": "mod",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/gta-v-enhanced",
+        "field": "mod",
+        "value": "MODはストーリーモード専用。BattlEyeとオンラインを使う環境には混ぜず、MOD用起動を分けます。"
+      }
+    ]
+  },
+  {
+    "id": "gta-v-enhanced:japanese",
+    "game": "gta-v-enhanced",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/gta-v-enhanced",
+        "field": "japanese",
+        "value": "日本語字幕に公式対応。"
+      }
+    ]
+  },
+  {
+    "id": "gta-v-enhanced:release-and-status",
+    "game": "gta-v-enhanced",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/gta-v-enhanced",
+        "field": "demand",
+        "value": "Enhanced移行とLegacy版との違いで検索が集中"
+      }
+    ]
+  },
+  {
+    "id": "skyrim-special-edition:requirements.minimum",
+    "game": "skyrim-special-edition",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/skyrim-special-edition",
+        "field": "specs.minimum",
+        "value": "GTX 470 / Radeon 7870、メモリ8GB"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/skyrim-special-edition",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 7 / 8.1 / 10 (64-bit)",
+          "cpu": "Core i5-750 / Phenom II X4-945",
+          "gpu": "GeForce GTX 470 1 GB / Radeon HD 7870 2 GB",
+          "ram": "8 GB",
+          "storage": "12 GB"
+        }
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/skyrim-special-edition",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 7 / 8.1 / 10 (64-bit)",
+          "cpu": "Core i5-750 / Phenom II X4-945",
+          "gpu": "GeForce GTX 470 1 GB / Radeon HD 7870 2 GB",
+          "ram": "8 GB",
+          "storage": "12 GB"
+        }
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/skyrim-special-edition",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows 7 / 8.1 / 10 (64-bit)",
+          "cpu": "Core i5-750 / Phenom II X4-945",
+          "gpu": "GeForce GTX 470 1 GB / Radeon HD 7870 2 GB",
+          "ram": "8 GB",
+          "storage": "12 GB"
+        }
+      }
+    ]
+  },
+  {
+    "id": "skyrim-special-edition:requirements.recommended",
+    "game": "skyrim-special-edition",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/skyrim-special-edition",
+        "field": "specs.recommended",
+        "value": "GTX 780 / R9 290以上"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/skyrim-special-edition",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 7 / 8.1 / 10 (64-bit)",
+          "cpu": "Core i5-2400 / FX-8320",
+          "gpu": "GeForce GTX 780 3 GB / Radeon R9 290 4 GB",
+          "ram": "8 GB",
+          "storage": "12 GB"
+        }
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/skyrim-special-edition",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 7 / 8.1 / 10 (64-bit)",
+          "cpu": "Core i5-2400 / FX-8320",
+          "gpu": "GeForce GTX 780 3 GB / Radeon R9 290 4 GB",
+          "ram": "8 GB",
+          "storage": "12 GB"
+        }
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/skyrim-special-edition",
+        "field": "gameFacts.recommended",
+        "value": {
+          "os": "Windows 7 / 8.1 / 10 (64-bit)",
+          "cpu": "Core i5-2400 / FX-8320",
+          "gpu": "GeForce GTX 780 3 GB / Radeon R9 290 4 GB",
+          "ram": "8 GB",
+          "storage": "12 GB"
+        }
+      }
+    ]
+  },
+  {
+    "id": "skyrim-special-edition:requirements.storage",
+    "game": "skyrim-special-edition",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/skyrim-special-edition",
+        "field": "specs.storage",
+        "value": "12GB+。MOD構成は100GB以上も想定"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/skyrim-special-edition",
+        "field": "gameFacts.minimum.storage",
+        "value": "12 GB"
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/skyrim-special-edition",
+        "field": "gameFacts.minimum.storage",
+        "value": "12 GB"
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/skyrim-special-edition",
+        "field": "gameFacts.minimum.storage",
+        "value": "12 GB"
+      }
+    ]
+  },
+  {
+    "id": "skyrim-special-edition:savePath",
+    "game": "skyrim-special-edition",
+    "topic": "savePath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/skyrim-special-edition",
+        "field": "savePath",
+        "value": "%USERPROFILE%\\Documents\\My Games\\Skyrim Special Edition\\Saves"
+      }
+    ]
+  },
+  {
+    "id": "skyrim-special-edition:configPath",
+    "game": "skyrim-special-edition",
+    "topic": "configPath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/skyrim-special-edition",
+        "field": "configPath",
+        "value": "%USERPROFILE%\\Documents\\My Games\\Skyrim Special Edition"
+      }
+    ]
+  },
+  {
+    "id": "skyrim-special-edition:fps",
+    "game": "skyrim-special-edition",
+    "topic": "fps",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/skyrim-special-edition",
+        "field": "fps",
+        "value": "デフォルトは60Hz前提。高リフレッシュレートはSKSE64とSSE Display Tweaksで物理演算を含めて調整。"
+      }
+    ]
+  },
+  {
+    "id": "skyrim-special-edition:ultrawide",
+    "game": "skyrim-special-edition",
+    "topic": "ultrawide",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/skyrim-special-edition",
+        "field": "ultrawide",
+        "value": "21:9は解像度設定とUI補正MODの組み合わせが実用的。"
+      }
+    ]
+  },
+  {
+    "id": "skyrim-special-edition:hdr",
+    "game": "skyrim-special-edition",
+    "topic": "hdr",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/skyrim-special-edition",
+        "field": "hdr",
+        "value": "ネイティブHDRは非対応。Windows Auto HDRまたは対応ReShade等は自己責任で比較。"
+      }
+    ]
+  },
+  {
+    "id": "skyrim-special-edition:controller",
+    "game": "skyrim-special-edition",
+    "topic": "controller",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/skyrim-special-edition",
+        "field": "controller",
+        "value": "Xbox系に対応。PlayStation系はSteam Input経由での確認が安定。"
+      }
+    ]
+  },
+  {
+    "id": "skyrim-special-edition:mod",
+    "game": "skyrim-special-edition",
+    "topic": "mod",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/skyrim-special-edition",
+        "field": "mod",
+        "value": "初心者はVortex、構成を厳密に分けたい場合はMod Organizer 2が候補。対応ランタイム表記を必ず確認。"
+      }
+    ]
+  },
+  {
+    "id": "skyrim-special-edition:japanese",
+    "game": "skyrim-special-edition",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/skyrim-special-edition",
+        "field": "japanese",
+        "value": "公式日本語版あり。MODによっては英語版本体+日本語リソースの構成を求められるため、個別手順を優先。"
+      }
+    ]
+  },
+  {
+    "id": "skyrim-special-edition:release-and-status",
+    "game": "skyrim-special-edition",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/skyrim-special-edition",
+        "field": "demand",
+        "value": "2026年の本体更新後もMOD検索が非常に多い"
+      }
+    ]
+  },
+  {
+    "id": "stardew-valley:requirements.minimum",
+    "game": "stardew-valley",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/stardew-valley",
+        "field": "specs.minimum",
+        "value": "2GHz CPU、メモリ2GB、256MB VRAM"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/stardew-valley",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows Vista or later",
+          "cpu": "2 GHz",
+          "gpu": "256 MB VRAM, Shader Model 3.0+",
+          "ram": "2 GB",
+          "storage": "500 MB"
+        }
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/stardew-valley",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows Vista or later",
+          "cpu": "2 GHz",
+          "gpu": "256 MB VRAM, Shader Model 3.0+",
+          "ram": "2 GB",
+          "storage": "500 MB"
+        }
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/stardew-valley",
+        "field": "gameFacts.minimum",
+        "value": {
+          "os": "Windows Vista or later",
+          "cpu": "2 GHz",
+          "gpu": "256 MB VRAM, Shader Model 3.0+",
+          "ram": "2 GB",
+          "storage": "500 MB"
+        }
+      }
+    ]
+  },
+  {
+    "id": "stardew-valley:requirements.recommended",
+    "game": "stardew-valley",
+    "topic": "requirements.recommended",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/stardew-valley",
+        "field": "specs.recommended",
+        "value": "内蔵GPUを含む幅広いPCで動作"
+      }
+    ]
+  },
+  {
+    "id": "stardew-valley:requirements.storage",
+    "game": "stardew-valley",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/stardew-valley",
+        "field": "specs.storage",
+        "value": "1GB未満+バックアップ領域"
+      },
+      {
+        "locale": "en",
+        "path": "/en/games/stardew-valley",
+        "field": "gameFacts.minimum.storage",
+        "value": "500 MB"
+      },
+      {
+        "locale": "es",
+        "path": "/es/games/stardew-valley",
+        "field": "gameFacts.minimum.storage",
+        "value": "500 MB"
+      },
+      {
+        "locale": "zh",
+        "path": "/zh/games/stardew-valley",
+        "field": "gameFacts.minimum.storage",
+        "value": "500 MB"
+      }
+    ]
+  },
+  {
+    "id": "stardew-valley:savePath",
+    "game": "stardew-valley",
+    "topic": "savePath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/stardew-valley",
+        "field": "savePath",
+        "value": "%APPDATA%\\StardewValley\\Saves"
+      }
+    ]
+  },
+  {
+    "id": "stardew-valley:configPath",
+    "game": "stardew-valley",
+    "topic": "configPath",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/stardew-valley",
+        "field": "configPath",
+        "value": "%APPDATA%\\StardewValley"
+      }
+    ]
+  },
+  {
+    "id": "stardew-valley:fps",
+    "game": "stardew-valley",
+    "topic": "fps",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/stardew-valley",
+        "field": "fps",
+        "value": "60FPS基準で安定。カクつきはMODの処理負荷とフルスクリーン/ボーダーレスを比較。"
+      }
+    ]
+  },
+  {
+    "id": "stardew-valley:ultrawide",
+    "game": "stardew-valley",
+    "topic": "ultrawide",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/stardew-valley",
+        "field": "ultrawide",
+        "value": "広い解像度でプレイ可能。UIスケールとズーム値を個別に調整。"
+      }
+    ]
+  },
+  {
+    "id": "stardew-valley:hdr",
+    "game": "stardew-valley",
+    "topic": "hdr",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/stardew-valley",
+        "field": "hdr",
+        "value": "ネイティブHDRは非対応。Windows Auto HDRの効果は環境差があります。"
+      }
+    ]
+  },
+  {
+    "id": "stardew-valley:controller",
+    "game": "stardew-valley",
+    "topic": "controller",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/stardew-valley",
+        "field": "controller",
+        "value": "フルコントローラー対応。Steam Inputの公式レイアウトから確認。"
+      }
+    ]
+  },
+  {
+    "id": "stardew-valley:mod",
+    "game": "stardew-valley",
+    "topic": "mod",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/stardew-valley",
+        "field": "mod",
+        "value": "SMAPIを使い、Modsフォルダに1個ずつ導入。本体アップデート後はSMAPIとContent Patcherを先に更新。"
+      }
+    ]
+  },
+  {
+    "id": "stardew-valley:japanese",
+    "game": "stardew-valley",
+    "topic": "japanese",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/stardew-valley",
+        "field": "japanese",
+        "value": "日本語は公式対応。古い日本語化MODは通常不要です。"
+      }
+    ]
+  },
+  {
+    "id": "stardew-valley:release-and-status",
+    "game": "stardew-valley",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/games/stardew-valley",
+        "field": "demand",
+        "value": "Steam DeckとMOD導入で定番の長期人気作"
+      }
+    ]
+  },
+  {
+    "id": "store-3486530:release-and-status",
+    "game": "store-3486530",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[7].date",
+        "value": "10月22日"
+      }
+    ]
+  },
+  {
+    "id": "store-3486530:requirements.minimum",
+    "game": "store-3486530",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[7]",
+        "value": {
+          "os": "記載なし（推奨はWindows 11）",
+          "minGpu": "GTX 1070・RTX 3050・RX 580（8GB）",
+          "memory": "16GB",
+          "must": [
+            "VRAM 8GB"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "store-3486530:requirements.storage",
+    "game": "store-3486530",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-10",
+        "field": "games[7].storage",
+        "value": "記載なし"
+      }
+    ]
+  },
+  {
+    "id": "store-3891160:release-and-status",
+    "game": "store-3891160",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-11",
+        "field": "games[0].date",
+        "value": "11月5日（体験版あり）"
+      }
+    ]
+  },
+  {
+    "id": "store-3891160:requirements.minimum",
+    "game": "store-3891160",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-11",
+        "field": "games[0]",
+        "value": {
+          "os": "Windows 10/11（64bit）",
+          "minGpu": "RTX 2060（6GB）・RX 5600",
+          "memory": "16GB",
+          "must": [
+            "最低GPUがRTX 2060"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "store-3891160:requirements.storage",
+    "game": "store-3891160",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-11",
+        "field": "games[0].storage",
+        "value": "10GB"
+      }
+    ]
+  },
+  {
+    "id": "store-2738170:release-and-status",
+    "game": "store-2738170",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-11",
+        "field": "games[1].date",
+        "value": "11月5日"
+      }
+    ]
+  },
+  {
+    "id": "store-2738170:requirements.minimum",
+    "game": "store-2738170",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-11",
+        "field": "games[1]",
+        "value": {
+          "os": "Windows 10/11",
+          "minGpu": "GTX 1060（6GB）・RX 590（8GB）・Arc A580（8GB）",
+          "memory": "12GB",
+          "must": [
+            "動作環境は確定前（公式の注記）"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "store-2738170:requirements.storage",
+    "game": "store-2738170",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-11",
+        "field": "games[1].storage",
+        "value": "22GB"
+      }
+    ]
+  },
+  {
+    "id": "store-4139580:release-and-status",
+    "game": "store-4139580",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-11",
+        "field": "games[2].date",
+        "value": "11月（Steamストアの表記）"
+      }
+    ]
+  },
+  {
+    "id": "store-4139580:requirements.minimum",
+    "game": "store-4139580",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-11",
+        "field": "games[2]",
+        "value": {
+          "os": "Windows 11",
+          "minGpu": "GTX 1660（6GB）・RX 6600（8GB）",
+          "memory": "16GB",
+          "must": [
+            "Windows 11",
+            "SSD"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "store-4139580:requirements.storage",
+    "game": "store-4139580",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-11",
+        "field": "games[2].storage",
+        "value": "10GB（SSD必須）"
+      }
+    ]
+  },
+  {
+    "id": "store-4463520:release-and-status",
+    "game": "store-4463520",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-11",
+        "field": "games[3].date",
+        "value": "11月12日"
+      }
+    ]
+  },
+  {
+    "id": "store-4463520:requirements.minimum",
+    "game": "store-4463520",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-11",
+        "field": "games[3]",
+        "value": {
+          "os": "Windows 10",
+          "minGpu": "GTX 780",
+          "memory": "8GB",
+          "must": []
+        }
+      }
+    ]
+  },
+  {
+    "id": "store-4463520:requirements.storage",
+    "game": "store-4463520",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-11",
+        "field": "games[3].storage",
+        "value": "3GB"
+      }
+    ]
+  },
+  {
+    "id": "store-4509300:release-and-status",
+    "game": "store-4509300",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-11",
+        "field": "games[4].date",
+        "value": "11月12日（体験版あり）"
+      }
+    ]
+  },
+  {
+    "id": "store-4509300:requirements.minimum",
+    "game": "store-4509300",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-11",
+        "field": "games[4]",
+        "value": {
+          "os": "Windows 10/11",
+          "minGpu": "GTX 1050 Ti",
+          "memory": "4GB",
+          "must": []
+        }
+      }
+    ]
+  },
+  {
+    "id": "store-4509300:requirements.storage",
+    "game": "store-4509300",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-11",
+        "field": "games[4].storage",
+        "value": "1GB"
+      }
+    ]
+  },
+  {
+    "id": "store-4304060:release-and-status",
+    "game": "store-4304060",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-11",
+        "field": "games[5].date",
+        "value": "11月12日"
+      }
+    ]
+  },
+  {
+    "id": "store-4304060:requirements.minimum",
+    "game": "store-4304060",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-11",
+        "field": "games[5]",
+        "value": {
+          "os": "Windows 11（64bit）",
+          "minGpu": "記載なし",
+          "memory": "記載なし",
+          "must": [
+            "Windows 11"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "store-4304060:requirements.storage",
+    "game": "store-4304060",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-11",
+        "field": "games[5].storage",
+        "value": "記載なし"
+      }
+    ]
+  },
+  {
+    "id": "store-4607420:release-and-status",
+    "game": "store-4607420",
+    "topic": "release-and-status",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-11",
+        "field": "games[6].date",
+        "value": "11月26日"
+      }
+    ]
+  },
+  {
+    "id": "store-4607420:requirements.minimum",
+    "game": "store-4607420",
+    "topic": "requirements.minimum",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-11",
+        "field": "games[6]",
+        "value": {
+          "os": "Windows 11（64bit）",
+          "minGpu": "DirectX 11対応GPU",
+          "memory": "4GB",
+          "must": [
+            "Windows 11"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "store-4607420:requirements.storage",
+    "game": "store-4607420",
+    "topic": "requirements.storage",
+    "reviewStatus": "unverified",
+    "occurrences": [
+      {
+        "locale": "ja",
+        "path": "/new-releases/2026-11",
+        "field": "games[6].storage",
+        "value": "400MB"
+      }
+    ]
+  }
+]
