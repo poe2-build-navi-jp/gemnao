@@ -1,0 +1,24 @@
+{
+  "articlePages": 42,
+  "families": 35,
+  "changedJapaneseArticles": [
+    "/games/monster-hunter-wilds/save-data",
+    "/games/monster-hunter-wilds/hdr",
+    "/games/elden-ring/save-data",
+    "/games/elden-ring/hdr",
+    "/games/onimusha-way-of-the-sword/black-screen",
+    "/games/onimusha-way-of-the-sword/hdr",
+    "/games/the-blood-of-dawnwalker/shader-compilation-crash",
+    "/games/the-blood-of-dawnwalker/stutter-windowed",
+    "/games/the-blood-of-dawnwalker/controller-sprint"
+  ],
+  "stableStepIds": true,
+  "stableArticleTitles": true,
+  "unchangedCheckedAt": true,
+  "saveFixture": {
+    "cases": 2,
+    "basenameAndHashRestore": true,
+    "realGameLoadTest": false
+  },
+  "realUserData": false
+}

@@ -756,9 +756,9 @@ export const currentGameArticles: GameArticle[] = [
         time: '約1分',
         risk: 'low',
         actions: [
-          'ゲームのウィンドウを選んだ状態で、Alt＋Enterを一度押す',
+          'ゲームのウィンドウを選んだ状態で、Alt＋Enterを一度押す（この切り替えに対応していない場合は操作を繰り返さない）',
           '表示が戻れば、オプションの画面設定を開く',
-          '戻らない場合は、見えないメニューを操作せず次のSTEPへ進む',
+          '戻らない場合は、見えないメニューを操作せずSTEP 2を飛ばしてSTEP 3へ進む',
         ],
       },
       {
@@ -769,7 +769,8 @@ export const currentGameArticles: GameArticle[] = [
         risk: 'low',
         actions: [
           '画面設定を開き、今の値をスクリーンショットで控える',
-          'スクリーンモードをボーダーレスかウィンドウに、解像度をモニターの標準解像度にする',
+          'スクリーンモードだけをボーダーレスかウィンドウに変えて比べる',
+          '次に解像度だけをモニターの標準解像度にして比べる',
           '次に垂直同期だけを切り替えて比べる',
         ],
       },
@@ -792,7 +793,7 @@ export const currentGameArticles: GameArticle[] = [
         time: '約5分',
         risk: 'low',
         actions: [
-          'ゲームの画面設定でHDR出力をオフにして比べる',
+          'ゲームの画面が見える場合だけ、画面設定でHDR出力をオフにして比べる。見えない場合はゲームを終了し、Windowsの画面が見える場合だけWindows側のHDRをオフにして再起動する',
           'モニターの説明書を見て、入力設定や解像度・リフレッシュレートの対応を確認する',
           'HDMIケーブルが4K・HDRに対応した製品か確認する',
         ],
@@ -859,7 +860,7 @@ export const currentGameArticles: GameArticle[] = [
       },
       {
         label: 'Windows側の調整',
-        value: 'Microsoftの「Windows HDR 調整」アプリ',
+        value: 'Windows 11用のMicrosoft「Windows HDR 調整」アプリ',
       },
     ],
     diagnosis: [
@@ -894,7 +895,7 @@ export const currentGameArticles: GameArticle[] = [
         risk: 'low',
         actions: [
           '「設定」→「システム」→「ディスプレイ」でゲームを表示するモニターを選ぶ',
-          '「HDRを使用する」をオンにする。項目がない場合は、そのモニターまたは接続方法がHDRに対応していない',
+          '「HDRを使用する」をオンにする。項目がない場合は、モニターのHDR対応・接続方法・表示モード・ドライバーを確認する。項目がないだけでは原因を特定できない',
           'モニター本体のメニューで、HDR入力が有効になっているか確認する',
         ],
       },
@@ -924,12 +925,12 @@ export const currentGameArticles: GameArticle[] = [
       },
       {
         id: 'step-4',
-        title: 'Windows HDR 調整アプリで調整する',
+        title: 'Windows 11用のWindows HDR 調整アプリで調整する',
         summary: 'モニターが表示できる明るさを、Windowsに正しく伝えます。',
         time: '約5分',
         risk: 'low',
         actions: [
-          'Microsoft Storeから「Windows HDR 調整」アプリを入手する',
+          'Windows 11の場合だけ、Microsoft Storeから「Windows HDR 調整」アプリを入手する。Windows 10ではこのアプリの手順を飛ばし、ゲーム内とモニター本体の明るさを調整する',
           '案内に沿って暗い部分・明るい部分・色の濃さを調整し、プロファイルを保存する',
           'ゲームを再起動して、STEP 3の設定を見直す',
         ],
@@ -958,7 +959,7 @@ export const currentGameArticles: GameArticle[] = [
       {
         question: 'HDRにすると全体が白っぽく見えます。',
         answer:
-          '最大輝度の設定がモニターの性能と合っていない可能性があります。STEP 3のとおり、最大輝度をモニターに合わせてから全体の明るさを調整し、それでも白っぽい場合はWindows HDR 調整アプリでWindows側も調整してください。',
+          '最大輝度の設定がモニターの性能と合っていない可能性があります。STEP 3のとおり、最大輝度をモニターに合わせてから全体の明るさを調整し、それでも白っぽい場合はWindows 11用のWindows HDR 調整アプリでWindows側も調整してください。',
       },
       {
         question: 'UIや字幕だけがまぶしいです。',

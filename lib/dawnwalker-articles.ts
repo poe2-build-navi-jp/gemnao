@@ -14,8 +14,8 @@ const sources = {
     url: 'https://dawnwalkergame.com/us/en/news/hotfix-102',
   },
   hotfix103: {
-    label: 'Steamニュース：Hotfix 1.0.3（DualSense対応）',
-    url: 'https://store.steampowered.com/news/app/3751260/view/667249691758429334',
+    label: 'Rebel Wolves公式：Hotfix 1.0.3（DualSense対応）',
+    url: 'https://www.reddit.com/r/DawnwalkerOfficial/comments/1w7fcbx/hotfix_103/',
   },
   hotfix104: {
     label: '公式：Hotfix 1.0.4',
@@ -24,6 +24,10 @@ const sources = {
   hotfix105: {
     label: 'Rebel Wolves公式：Hotfix 1.0.5（シェーダーコンパイルの改善）',
     url: 'https://www.reddit.com/r/DawnwalkerOfficial/comments/1wcu57e/hotfix_105/',
+  },
+  intel: {
+    label: 'Intel：第13・14世代デスクトップCPUの不安定性と対象外のモバイルCPU',
+    url: 'https://community.intel.com/t5/Mobile-and-Desktop-Processors/Intel-Core-13th-and-14th-Gen-Desktop-Instability-Root-Cause/td-p/1633442',
   },
   rad: {
     label: 'RAD Game Tools：Intel第13・14世代CPUの不安定性とクラッシュ（英語）',
@@ -82,11 +86,11 @@ export const dawnwalkerArticles: GameArticle[] = [
     symptom:
       '起動時の「シェーダーのコンパイル」中にゲームが落ちる、エラーが出て先へ進めない場合の確認手順です。',
     conclusion:
-      '開発元のRebel Wolvesは、この既知の問題の対処として「BIOSを最新にする」ことを案内しています。案内先のRAD Game Toolsの解説によると、Intel第13・14世代Core（13xxx・14xxx）の不安定性が原因で、Unreal Engine製のゲームがシェーダーの展開に失敗して落ちることがあります。まずCPUの型番を確認し、該当する場合はPCメーカーまたはマザーボードメーカーのBIOSを最新にします。',
+      '開発元のRebel Wolvesは、この既知の問題の対処として「BIOSを最新にする」ことを案内しています。案内先のRAD Game Toolsの解説によると、Intel第13・14世代デスクトップCoreの一部モデルの不安定性が原因で、Unreal Engine製のゲームがシェーダーの展開に失敗して落ちることがあります。まずCPUの正確な型番とメーカーの対象案内を確認し、該当する場合はPCメーカーまたはマザーボードメーカーのBIOSを最新にします。',
     description:
       'この症状は「ゲームの不具合」ではなく「CPU側の問題」が原因の場合があります。CPUの型番で原因の候補が大きく変わるため、最初にCPUを確認するのが近道です。',
     causes: [
-      'Intel第13・14世代Core（13xxx・14xxx）の不安定性（RAD Game Toolsの解説）',
+      'Intel第13・14世代デスクトップCoreの一部モデルの不安定性（RAD Game Toolsの解説）',
       'BIOSが古く、不安定性を防ぐ対策が入っていない',
       'ゲームが古いバージョンのまま（1.0.4で安定性、1.0.5でシェーダーコンパイル処理を改善）',
     ],
@@ -94,7 +98,7 @@ export const dawnwalkerArticles: GameArticle[] = [
       { label: '開発元の対処', value: 'BIOSを最新にする（Rebel Wolves公式）' },
       {
         label: '対象になりやすいCPU',
-        value: 'Intel Core 13xxx・14xxx（第13・14世代）',
+        value: 'Intel第13・14世代デスクトップCoreの対象モデル（モバイルCPUは対象外）',
       },
       {
         label: 'よく出るエラー',
@@ -111,17 +115,17 @@ export const dawnwalkerArticles: GameArticle[] = [
         stepId: 'step-1',
       },
       {
-        symptom: 'CPUがIntel第13・14世代',
+        symptom: 'CPUがIntel第13・14世代デスクトップの対象モデル',
         cause: 'CPUの不安定性・古いBIOS',
         stepId: 'step-2',
       },
       {
-        symptom: 'CPUがAMDやそれ以外',
+        symptom: 'CPUがAMD・モバイルCPU・それ以外',
         cause: 'ゲームのバージョン・ファイル・ドライバー',
         stepId: 'step-4',
       },
       {
-        symptom: 'Intel第13・14世代で「ビデオメモリ不足」と出る',
+        symptom: '対象のIntelデスクトップCPUで「ビデオメモリ不足」と出る',
         cause: 'CPU側の不安定性でも表示されることがある',
         stepId: 'step-2',
       },
@@ -135,7 +139,7 @@ export const dawnwalkerArticles: GameArticle[] = [
       {
         id: 'step-1',
         title: '落ちる場面とCPUの型番を確認する',
-        summary: 'CPUがIntel第13・14世代かどうかで、次に試すSTEPが変わります。',
+        summary: 'CPUの正確な型番を確認します。対象のデスクトップモデル以外（モバイルCPU・AMDを含む）は、この不安定性を理由にBIOSを更新せずSTEP 4へ進んでください。',
         time: '約3分',
         risk: 'low',
         actions: [
@@ -148,7 +152,7 @@ export const dawnwalkerArticles: GameArticle[] = [
         id: 'step-2',
         title: 'BIOSのバージョンを確認し、最新にする',
         summary:
-          'Intel第13・14世代の場合、BIOSの更新で不安定性を起こす動作条件を避けられます（RAD Game Tools）。',
+          'メーカーが対象と案内するIntel第13・14世代デスクトップモデルだけ確認します。BIOS更新は劣化を防ぐ対策で、すでに生じた劣化を修復するものではありません。',
         time: '20〜40分',
         risk: 'high',
         actions: [
@@ -208,12 +212,12 @@ export const dawnwalkerArticles: GameArticle[] = [
       {
         question: 'AMDのCPUでも同じ対処でいいですか？',
         answer:
-          'RAD Game Toolsの解説はIntel第13・14世代Coreの問題です。AMDなど他のCPUの場合は、STEP 4のゲーム更新・整合性確認・ドライバー更新を行い、改善しなければエラー全文を添えて開発元のサポートへ報告してください。',
+          'Intelが説明するこの不安定性は第13・14世代デスクトップCPUの問題で、同世代のモバイルCPUは対象外です。AMDやモバイルCPUなどの場合は、STEP 4のゲーム更新・整合性確認・ドライバー更新を行い、改善しなければエラー全文を添えて開発元のサポートへ報告してください。',
       },
       {
         question: '他のゲームやソフトでも落ちます。',
         answer:
-          'RAD Game Toolsによると、この不安定性はUnreal Engine製のゲームだけでなく、動画編集ソフトやベンチマークなどCPUを多く使うソフトでもクラッシュを起こします。複数のソフトで落ちる場合はCPU側の問題の可能性が高いため、STEP 5のとおりメーカーへ相談してください。',
+          'RAD Game Toolsによると、この不安定性はUnreal Engine製のゲームだけでなく、動画編集ソフトやベンチマークなどCPUを多く使うソフトでもクラッシュを起こします。複数のソフトで落ちることだけではCPUが原因と断定できません。調査の手掛かりとして症状を控え、STEP 5のとおりメーカーへ相談してください。',
       },
       {
         question: 'BIOSを更新すれば必ず直りますか？',
@@ -225,6 +229,7 @@ export const dawnwalkerArticles: GameArticle[] = [
       sources.knownIssues,
       sources.hotfix102,
       sources.rad,
+      sources.intel,
       sources.hotfix104,
       sources.hotfix105,
     ],
@@ -331,7 +336,7 @@ export const dawnwalkerArticles: GameArticle[] = [
           '1.0.5でシェーダーコンパイル処理が改善され、一部の人のカクつきが直る可能性があると告知されています。',
         actions: [
           'SteamまたはGOG Galaxyでゲームの更新を確認し、1.0.5以降にする',
-          'Steam版でコントローラーをつないだ時にFPSが落ちる問題は、1.0.4で修正済み',
+          'Steam版で古いGameInputを使用中にコントローラーをつなぐとFPSが落ちる問題は、1.0.4で修正済み',
           'GPUドライバーを最新にして、PCを再起動してから比べる',
         ],
       },
@@ -396,7 +401,7 @@ export const dawnwalkerArticles: GameArticle[] = [
     symptom:
       '方向を変えると走りが止まる、PS5コントローラー（DualSense）が使えない・ボタン割り当てを変えられない場合の確認手順です。',
     conclusion:
-      '走りが止まる問題は、PC版でHotfix 1.0.2と1.0.4でデッドゾーンと走行入力が調整されています。まず最新版へ更新し、それでも止まる場合は開発元が案内する回避策（コントローラーの感度を1から0.8へ下げる）を試します。DualSenseはHotfix 1.0.3でSteam版に対応しました。',
+      '走りが止まる問題は、PC版でHotfix 1.0.2と1.0.4でデッドゾーンと走行入力が調整されています。まず最新版へ更新し、それでも止まる場合は入力設定を確認し、改善しなければ開発元へ報告します。公式投稿の感度0.8はコンソール設定の案内で、PC版に同じ手順が使えるとは確認できていません。DualSenseはHotfix 1.0.3でSteam版に対応しました。',
     description:
       'コントローラーの症状は、ゲームのバージョンによって状況が大きく違います。まず今のバージョンを確認するのが近道です。',
     causes: [
@@ -408,7 +413,7 @@ export const dawnwalkerArticles: GameArticle[] = [
       { label: '走りが止まる問題', value: '1.0.2と1.0.4で調整（PC版）' },
       {
         label: '公式の回避策',
-        value: 'コントローラーの感度を1から0.8に下げる',
+        value: '感度0.8はコンソール設定の案内。PC版への適用は未確認',
       },
       {
         label: 'DualSense（PS5コントローラー）',
@@ -427,7 +432,7 @@ export const dawnwalkerArticles: GameArticle[] = [
       },
       {
         symptom: '最新版でも走りが止まる',
-        cause: '感度の設定',
+        cause: '入力設定の確認・公式サポートへの報告',
         stepId: 'step-4',
       },
       {
@@ -487,16 +492,16 @@ export const dawnwalkerArticles: GameArticle[] = [
       },
       {
         id: 'step-4',
-        title: 'コントローラーの感度を1から0.8に下げる',
-        summary: '開発元が修正までの回避策として案内している方法です。',
+        title: '入力設定を確認し、改善しなければ報告する',
+        summary: '公式投稿の感度1→0.8はコンソール設定の案内です。PC版では同じ項目や効果を確認できていないため、一律には変更しません。',
         time: '約2分',
         risk: 'low',
         actions: [
-          'コントローラーの感度の設定を開き、今の値を控える',
-          '感度を1から0.8に下げて、同じ場所で方向を変えて比べる',
+          'ゲーム内に入力設定がある場合だけ開き、今の設定とコントローラーの型番を控える',
+          '変更を試す場合は、表示されている設定だけを1つずつ比べる。該当項目がなければ飛ばす',
           '変化がなければ元の値に戻す',
         ],
-        note: '回避策のため、すべての環境で改善するとは限りません。',
+        note: '改善しない場合はゲームのバージョン、入力設定、コントローラーの型番と症状を開発元へ報告してください。',
       },
     ],
     avoid: [
@@ -518,9 +523,9 @@ export const dawnwalkerArticles: GameArticle[] = [
           'PCGamingWikiによると、DualSenseは通常の振動に対応しています（HD振動としての対応ではありません）。',
       },
       {
-        question: '感度を0.8にしても走りが止まります。',
+        question: '最新版でも走りが止まります。',
         answer:
-          '感度の変更は修正までの回避策です。最新版に更新したうえで改善しない場合は、ゲームのバージョンとコントローラーの種類を添えて開発元へ報告してください。',
+          '公式投稿の感度0.8はコンソール設定の案内で、PC版での適用は未確認です。最新版に更新したうえで改善しない場合は、ゲームのバージョンとコントローラーの種類を添えて開発元へ報告してください。',
       },
     ],
     sources: [
@@ -532,6 +537,6 @@ export const dawnwalkerArticles: GameArticle[] = [
     ],
     related: ['stutter-windowed', 'shader-compilation-crash'],
     metaDescription:
-      'The Blood of Dawnwalker PC版でコントローラーの走りが止まる時の対処法。Hotfix 1.0.2・1.0.4の調整、公式の回避策（感度を0.8へ）、1.0.3で対応したDualSense、ボタン割り当ての現状を解説。',
+      'The Blood of Dawnwalker PC版でコントローラーの走りが止まる時の対処法。Hotfix 1.0.2・1.0.4の調整、入力設定の確認と公式サポートへの報告、1.0.3で対応したDualSense、ボタン割り当ての現状を解説。',
   }),
 ];

@@ -1,0 +1,52 @@
+{
+  "base": "92d3736df480bfb4026fe2e5fc7e13b547bafda2",
+  "date": "2026-10-05",
+  "checks": {
+    "typecheck": "pnpm exec tsc --noEmit",
+    "lint": "pnpm lint",
+    "translations": "pnpm check:localized: 79 pages",
+    "build": "pnpm build: 285 snapshots / 272 sitemap URLs / 21 image sitemap pages / 204 current OG cards",
+    "safety": "scripts/check-editorial-safety.mjs",
+    "snapshot": "scripts/check-editorial-snapshots.mjs",
+    "navigation": "scripts/check-safe-step-navigation.mjs",
+    "english": "scripts/check-english-articles.mjs",
+    "http": "scripts/check-static-pages-http.mjs: 285 routes; HEAD/query/RSC/non-GET/privacy isolation; 404; invalid contact 400; robots/ads/sitemap; 3 ZIP byte checks"
+  },
+  "browser": {
+    "widths": [
+      375,
+      390,
+      430,
+      1440
+    ],
+    "pages": 42,
+    "pageWidthCombinations": 168,
+    "detailsKeyboardChecks": 712,
+    "pageErrors": 0,
+    "horizontalOverflow": 0,
+    "historyBackForward": true,
+    "safeStepNavigation": "all four widths: keyboard unknown/confirmed, no writes on recognition, skip prerequisites, legacy/notes A-B-A, cancel/save/reload, game-result dedup, four-language layout",
+    "externalRequests": "blocked",
+    "APIs": "synthetic fixtures"
+  },
+  "visualInspection": [
+    "Onimusha black-screen 390px full page",
+    "4 regenerated OG images"
+  ],
+  "saveFixture": "2 synthetic directory copies preserve basenames and restored hashes; no game-load claim",
+  "limits": [
+    "No Windows or game hardware validation",
+    "Source acquisition failures and unmatched primary claims remain itemized",
+    "97 families classified only, not semantically compared",
+    "17 prior-review mappings remain unresolved",
+    "Browser full sweep preceded final punctuation/source-link and backup instruction ordering clarification; final snapshots/HTTP rechecked separately"
+  ],
+  "productionD1Accessed": false,
+  "realUserNotesAccessed": false,
+  "botRestarted": false,
+  "cloudflareLoginOrCaptcha": false,
+  "analyticsChanges": false,
+  "PVEffectMeasured": false,
+  "resolutionRateMeasured": false,
+  "mergeOrProductionDeploy": false
+}

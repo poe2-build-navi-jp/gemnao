@@ -1,0 +1,2962 @@
+[
+  {
+    "path": "/",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja",
+      "en",
+      "es",
+      "zh"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "記事要約・発売直後/障害/解決ノートの表示条件"
+  },
+  {
+    "path": "/about",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "運営者・編集方針・無料閲覧の説明"
+  },
+  {
+    "path": "/contact",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "メール任意・添付不可・送信の取扱い"
+  },
+  {
+    "path": "/discord",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "音声/接続/インストールの手順要約"
+  },
+  {
+    "path": "/discord-servers",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "活動確認済みの意味・招待有効性・データ取扱い"
+  },
+  {
+    "path": "/discord-servers/guidelines",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "審査・30日活動確認と掲載停止条件"
+  },
+  {
+    "path": "/discord-servers/submit",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "申請内容・必須条件・審査後掲載の説明"
+  },
+  {
+    "path": "/discord/audio-input-not-found",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/bluetooth-audio-problem",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/bot-add",
+    "kind": "discord-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/bot-not-responding",
+    "kind": "discord-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/bot-remove",
+    "kind": "discord-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/call-disconnects",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/camera-not-working",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/cant-hear-voice",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/crashing",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/echo-double-voice",
+    "kind": "discord-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/error-1001",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/error-1002",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/error-1003",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/game-not-detected",
+    "kind": "discord-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/game-volume-lowers",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/installation-failed",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/loading-stuck",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/login-error",
+    "kind": "discord-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/mic-not-working",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/mic-volume-low",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/no-route",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/not-opening",
+    "kind": "discord-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "docs/evidence-audit-batch6-2026-10-05/common-43-dispositions.json#discord-slow-performance-1-c2"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/notifications-not-working",
+    "kind": "discord-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/overlay-not-showing",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/phone-verification-error",
+    "kind": "discord-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/recommended-bots",
+    "kind": "discord-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/rtc-connecting",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/screen-share-black-screen",
+    "kind": "discord-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/screen-share-not-working",
+    "kind": "discord-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch3/manual-comparisons:discord-stream-acceleration"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/slow-performance",
+    "kind": "discord-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/stream-no-audio",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/stream-stuttering",
+    "kind": "discord-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch3/manual-comparisons:discord-stream-acceleration"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/system-helper",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/update-failed",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/upload-failed",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja",
+      "en",
+      "es",
+      "zh"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/user-volume-low",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/voice-client-outdated",
+    "kind": "discord-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/voice-cutting-out",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/ace-combat-8",
+    "kind": "game-hub",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch2/reviews:ace-release (game-level attribute)",
+      "batch2/reviews:ace-requirements (game-level attribute)"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/ace-combat-8/error-st-3100001",
+    "kind": "game-article",
+    "status": "prior-game-review-location-unresolved",
+    "evidence": [],
+    "unresolvedPriorMapping": [
+      "batch2:ace-release; exact occurrence not recorded",
+      "batch2:ace-requirements; exact occurrence not recorded"
+    ],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/ace-combat-8/not-launching",
+    "kind": "game-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch1/reviews:V02-ac8-minimum"
+    ],
+    "unresolvedPriorMapping": [
+      "batch2:ace-release; exact occurrence not recorded",
+      "batch2:ace-requirements; exact occurrence not recorded"
+    ],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ]
+  },
+  {
+    "path": "/games/aion2",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/aion2/login-error",
+    "kind": "game-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch1/reviews:S05-aion2"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/aniimo",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/aniimo/black-screen",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/aniimo/launcher-display",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/aniimo/login-error",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/aniimo/not-launching",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/aniimo/video-memory-error",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/baldurs-gate-3",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/baldurs-gate-3/crash-on-startup",
+    "kind": "game-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch1/reviews:S01-bg3"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ]
+  },
+  {
+    "path": "/games/call-of-duty-modern-warfare-4",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/call-of-duty-modern-warfare-4/tpm-secure-boot",
+    "kind": "game-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch3/manual-comparisons:secure-capable-not-enabled"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/castlevania-belmonts-curse",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/castlevania-belmonts-curse/not-launching",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/control-resonant",
+    "kind": "game-hub",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch2/reviews:control-known-issues (game-level attribute)"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/control-resonant/crash-performance",
+    "kind": "game-article",
+    "status": "prior-game-review-location-unresolved",
+    "evidence": [],
+    "unresolvedPriorMapping": [
+      "batch2:control-known-issues; exact occurrence not recorded"
+    ],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/cyberpunk-2077",
+    "kind": "game-hub",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch5/priority-game-comparisons"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ]
+  },
+  {
+    "path": "/games/cyberpunk-2077/not-launching",
+    "kind": "game-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "docs/evidence-audit-batch6-2026-10-05/game-comparisons.json#/games/cyberpunk-2077/not-launching"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ]
+  },
+  {
+    "path": "/games/dragon-quest-monsters-4",
+    "kind": "game-hub",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch2/reviews:dqm-demo (game-level attribute)"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/dragon-quest-monsters-4/demo-transfer",
+    "kind": "game-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch1/reviews:V03-dqm-demo"
+    ],
+    "unresolvedPriorMapping": [
+      "batch2:dqm-demo; exact occurrence not recorded"
+    ],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/dragons-dogma-2",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/dragons-dogma-2/performance",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/elden-ring",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/elden-ring/fps",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/elden-ring/hdr",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/elden-ring/mod",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/elden-ring/not-launching",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/elden-ring/save-data",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/elden-ring/ultrawide",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/final-fantasy-resonance",
+    "kind": "game-hub",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch2/reviews:ff-steam-release (game-level attribute)"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/final-fantasy-resonance/not-launching",
+    "kind": "game-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch1/reviews:V01-ff-demo"
+    ],
+    "unresolvedPriorMapping": [
+      "batch2:ff-steam-release; exact occurrence not recorded"
+    ],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/gears-of-war-e-day",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/gears-of-war-e-day/not-launching",
+    "kind": "game-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch1/reviews:S06-gears"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/gta-v-enhanced",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/gta-v-enhanced/story-save-migration",
+    "kind": "game-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "docs/evidence-audit-batch6-2026-10-05/game-comparisons.json#/games/gta-v-enhanced/story-save-migration"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ]
+  },
+  {
+    "path": "/games/helldivers-2",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/helldivers-2/gameguard-error-114",
+    "kind": "game-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch1/reviews:S02-helldivers"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ]
+  },
+  {
+    "path": "/games/hogwarts-legacy",
+    "kind": "game-hub",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch2/reviews:hogwarts-spec (game-level attribute)"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ]
+  },
+  {
+    "path": "/games/hogwarts-legacy/crash",
+    "kind": "game-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch1/reviews:S03-hogwarts"
+    ],
+    "unresolvedPriorMapping": [
+      "batch2:hogwarts-spec; exact occurrence not recorded"
+    ],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ]
+  },
+  {
+    "path": "/games/minecraft-dungeons-2",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/minecraft-dungeons-2/multiplayer",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/monster-hunter-wilds",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/monster-hunter-wilds/config-file",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/monster-hunter-wilds/controller",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/monster-hunter-wilds/fps",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/monster-hunter-wilds/hdr",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/monster-hunter-wilds/mod",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/monster-hunter-wilds/not-launching",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/monster-hunter-wilds/save-data",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/monster-hunter-wilds/system-requirements",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/monster-hunter-wilds/ultrawide",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword/black-screen",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword/crash-report",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword/gpu-driver-version",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword/hdr",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword/low-fps",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword/not-launching",
+    "kind": "game-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch1/reviews:F01-onimusha-order",
+      "batch1/reviews:S04-onimusha"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword/shader-cache",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/palworld",
+    "kind": "game-hub",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch2/reviews:palworld-spec (game-level attribute)"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ]
+  },
+  {
+    "path": "/games/palworld/dedicated-server-backup",
+    "kind": "game-article",
+    "status": "prior-game-review-location-unresolved",
+    "evidence": [],
+    "unresolvedPriorMapping": [
+      "batch2:palworld-spec; exact occurrence not recorded"
+    ],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/palworld/dedicated-server-port",
+    "kind": "game-article",
+    "status": "prior-game-review-location-unresolved",
+    "evidence": [],
+    "unresolvedPriorMapping": [
+      "batch2:palworld-spec; exact occurrence not recorded"
+    ],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/palworld/dedicated-server-settings",
+    "kind": "game-article",
+    "status": "prior-game-review-location-unresolved",
+    "evidence": [],
+    "unresolvedPriorMapping": [
+      "batch2:palworld-spec; exact occurrence not recorded"
+    ],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/palworld/not-launching",
+    "kind": "game-article",
+    "status": "prior-game-review-location-unresolved",
+    "evidence": [],
+    "unresolvedPriorMapping": [
+      "batch2:palworld-spec; exact occurrence not recorded"
+    ],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/palworld/save-data",
+    "kind": "game-article",
+    "status": "prior-game-review-location-unresolved",
+    "evidence": [],
+    "unresolvedPriorMapping": [
+      "batch2:palworld-spec; exact occurrence not recorded"
+    ],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/palworld/system-requirements",
+    "kind": "game-article",
+    "status": "prior-game-review-location-unresolved",
+    "evidence": [],
+    "unresolvedPriorMapping": [
+      "batch2:palworld-spec; exact occurrence not recorded"
+    ],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/phantom-blade-zero",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/phantom-blade-zero/not-launching",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/rocket-league",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/rocket-league/dualsense-not-working",
+    "kind": "game-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "docs/evidence-audit-batch6-2026-10-05/game-comparisons.json#/games/rocket-league/dualsense-not-working"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ]
+  },
+  {
+    "path": "/games/shin-sangoku-musou-2-remastered",
+    "kind": "game-hub",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch2/reviews:musou-recommended-vram (game-level attribute)"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/shin-sangoku-musou-2-remastered/not-launching",
+    "kind": "game-article",
+    "status": "prior-game-review-location-unresolved",
+    "evidence": [],
+    "unresolvedPriorMapping": [
+      "batch2:musou-recommended-vram; exact occurrence not recorded"
+    ],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/silent-hill-townfall",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/silent-hill-townfall/stutter",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/skyrim-special-edition",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/skyrim-special-edition/skse-after-update",
+    "kind": "game-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "docs/evidence-audit-batch6-2026-10-05/game-comparisons.json#/games/skyrim-special-edition/skse-after-update"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ]
+  },
+  {
+    "path": "/games/star-wars-zero-company",
+    "kind": "game-hub",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch2/reviews:zero-company-spec (game-level attribute)"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/star-wars-zero-company/black-screen",
+    "kind": "game-article",
+    "status": "prior-game-review-location-unresolved",
+    "evidence": [],
+    "unresolvedPriorMapping": [
+      "batch2:zero-company-spec; exact occurrence not recorded"
+    ],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/star-wars-zero-company/gtx10-rtx20-low-fps",
+    "kind": "game-article",
+    "status": "prior-game-review-location-unresolved",
+    "evidence": [],
+    "unresolvedPriorMapping": [
+      "batch2:zero-company-spec; exact occurrence not recorded"
+    ],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/star-wars-zero-company/not-launching",
+    "kind": "game-article",
+    "status": "prior-game-review-location-unresolved",
+    "evidence": [],
+    "unresolvedPriorMapping": [
+      "batch2:zero-company-spec; exact occurrence not recorded"
+    ],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/star-wars-zero-company/save-progress",
+    "kind": "game-article",
+    "status": "prior-game-review-location-unresolved",
+    "evidence": [],
+    "unresolvedPriorMapping": [
+      "batch2:zero-company-spec; exact occurrence not recorded"
+    ],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/stardew-valley",
+    "kind": "game-hub",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch2/reviews:stardew-minimum (game-level attribute)"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ]
+  },
+  {
+    "path": "/games/stardew-valley/save-restore",
+    "kind": "game-article",
+    "status": "prior-game-review-location-unresolved",
+    "evidence": [],
+    "unresolvedPriorMapping": [
+      "batch2:stardew-minimum; exact occurrence not recorded"
+    ],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ]
+  },
+  {
+    "path": "/games/tales-of-eternia-remastered",
+    "kind": "game-hub",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch2/reviews:tales-requirements (game-level attribute)"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/tales-of-eternia-remastered/not-launching",
+    "kind": "game-article",
+    "status": "prior-game-review-location-unresolved",
+    "evidence": [],
+    "unresolvedPriorMapping": [
+      "batch2:tales-requirements; exact occurrence not recorded"
+    ],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/the-blood-of-dawnwalker",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/the-blood-of-dawnwalker/controller-sprint",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/the-blood-of-dawnwalker/shader-compilation-crash",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/the-blood-of-dawnwalker/stutter-windowed",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/games/wardogs",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/wardogs/server-connection",
+    "kind": "game-article",
+    "status": "scoped-game-comparison-with-explicit-holds",
+    "evidence": [
+      "game-35-comparisons.json"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/gear",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "機器選定記事の技術要約"
+  },
+  {
+    "path": "/gear/discord-microphone-guide",
+    "kind": "gear-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/gear/save-backup-storage-guide",
+    "kind": "gear-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/gear/stream-deck-plus-xl",
+    "kind": "gear-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "共通対処の記事要約"
+  },
+  {
+    "path": "/guide/black-screen",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/bsod-while-gaming",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/controller-double-input",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/directx-error",
+    "kind": "common-guide",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch3/manual-comparisons:feature-level-capability"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/gpu-driver-update",
+    "kind": "common-guide",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/low-fps",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/low-gpu-usage",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/no-game-audio",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/pc-game-crash",
+    "kind": "common-guide",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/pc-game-freezes",
+    "kind": "common-guide",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/pc-shuts-down-while-gaming",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/ray-tracing-gpu",
+    "kind": "common-guide",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/remove-mods-safely",
+    "kind": "common-guide",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/reset-config-file",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/reshade-uninstall",
+    "kind": "common-guide",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/save-data-backup",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/shader-cache-delete",
+    "kind": "common-guide",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/steam-cloud-sync-error",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/steam-disk-write-error",
+    "kind": "common-guide",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/steam-game-not-launching",
+    "kind": "common-guide",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/steam-input-controller",
+    "kind": "common-guide",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch3/manual-comparisons:steam-controller-detection"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/stutter-fix",
+    "kind": "common-guide",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/tpm-secure-boot",
+    "kind": "common-guide",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch3/manual-comparisons:secure-capable-not-enabled"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/uninstall-save-data",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/verify-steam-files",
+    "kind": "common-guide",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/visual-c-runtime-error",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/vram-shortage",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/windows-11-required",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/my",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "ノート・診断・PC登録のブラウザ内保存の説明"
+  },
+  {
+    "path": "/my-games",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "登録上限・公式更新・ローカル保存の説明"
+  },
+  {
+    "path": "/new-releases/2026-10",
+    "kind": "roundup",
+    "status": "prior-game-review-location-unresolved",
+    "evidence": [],
+    "unresolvedPriorMapping": [
+      "batch2:crymelight-minimum; monthly issue path not recorded",
+      "batch2:moomin-minimum; monthly issue path not recorded",
+      "batch2:prinny-party-minimum; monthly issue path not recorded",
+      "batch2:sonic-pico-park-minimum; monthly issue path not recorded",
+      "batch2:stellar-angel-minimum; monthly issue path not recorded",
+      "batch2:where-seeds-fall-minimum; monthly issue path not recorded"
+    ],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/new-releases/2026-11",
+    "kind": "roundup",
+    "status": "prior-game-review-location-unresolved",
+    "evidence": [],
+    "unresolvedPriorMapping": [
+      "batch2:crymelight-minimum; monthly issue path not recorded",
+      "batch2:moomin-minimum; monthly issue path not recorded",
+      "batch2:prinny-party-minimum; monthly issue path not recorded",
+      "batch2:sonic-pico-park-minimum; monthly issue path not recorded",
+      "batch2:stellar-angel-minimum; monthly issue path not recorded",
+      "batch2:where-seeds-fall-minimum; monthly issue path not recorded"
+    ],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "Windows設定記事の技術要約"
+  },
+  {
+    "path": "/pc/audio-after-update",
+    "kind": "pc-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/pc/black-screen-after-sign-in",
+    "kind": "pc-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/pc/bluetooth-connected-no-sound",
+    "kind": "pc-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/pc/bluetooth-option-missing",
+    "kind": "pc-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/call-starts-audio-disappears",
+    "kind": "pc-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/pc/disk-usage-100",
+    "kind": "pc-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/file-explorer-freezes-on-right-click",
+    "kind": "pc-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/pc/gaming-shortcut-keys",
+    "kind": "pc-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/pc/microphone-after-update",
+    "kind": "pc-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/pc/pc-broken",
+    "kind": "pc-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/pc-hacked-signs",
+    "kind": "pc-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/refresh-rate-stuck-60hz",
+    "kind": "pc-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/pc/second-monitor-not-detected",
+    "kind": "pc-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/sleep-wakes-up-by-itself",
+    "kind": "pc-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/pc/usb-c-device-not-recognized",
+    "kind": "pc-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch3/manual-comparisons:new-disk-only"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/wifi-connected-no-internet",
+    "kind": "pc-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/wifi-option-missing",
+    "kind": "pc-article",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch4/manual-comparisons-30"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/windows-update-0x800f081f",
+    "kind": "pc-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/pc/windows-update-stuck",
+    "kind": "pc-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/privacy",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "保存/送信/端末同期/解析の具体的説明"
+  },
+  {
+    "path": "/status",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "公式情報・障害判定・集計方法の説明"
+  },
+  {
+    "path": "/terms",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "非公式性・MOD・募集審査等の運用表明"
+  },
+  {
+    "path": "/tools",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "診断/Hz/保存先等の機能説明"
+  },
+  {
+    "path": "/tools/refresh-rate",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "ブラウザ測定値とモニター設定の違い"
+  },
+  {
+    "path": "/tools/save-locations",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "ゲーム別の具体的保存パス・退避/復元"
+  },
+  {
+    "path": "/tools/windows-diagnosis",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "取得情報・権限・中止方法・ZIP配布の仕様"
+  },
+  {
+    "path": "/trouble/controller",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "症状別の初動手順・原因候補と記事要約"
+  },
+  {
+    "path": "/trouble/crash",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "症状別の初動手順・原因候補と記事要約"
+  },
+  {
+    "path": "/trouble/fps",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "症状別の初動手順・原因候補と記事要約"
+  },
+  {
+    "path": "/trouble/mod",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "症状別の初動手順・原因候補と記事要約"
+  },
+  {
+    "path": "/trouble/not-launching",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "症状別の初動手順・原因候補と記事要約"
+  },
+  {
+    "path": "/trouble/save",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "症状別の初動手順・原因候補と記事要約"
+  },
+  {
+    "path": "/trouble/server",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "症状別の初動手順・原因候補と記事要約"
+  },
+  {
+    "path": "/weekly",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "公式告知の要約・掲載周期"
+  },
+  {
+    "path": "/weekly/2026-09-28",
+    "kind": "weekly",
+    "status": "scoped-comparison-recorded",
+    "evidence": [
+      "batch2/reviews:silent-patch",
+      "batch2/reviews:wardogs-update-scope"
+    ],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ]
+  }
+]

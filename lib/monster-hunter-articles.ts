@@ -522,7 +522,7 @@ export const monsterHunterArticles: GameArticle[] = [
           String.raw`Windows＋Rキーで「C:\Program Files (x86)\Steam\userdata」を開く（Steamを別の場所に入れた場合はその中のuserdata）`,
           '数字のフォルダ（アカウントID）→「2246340」→「remote」→「win64_save」の順に開き、更新日時が最後に遊んだ日時と合うか確認する',
         ],
-        note: '数字のフォルダが複数ある場合は、「2246340」フォルダが入っている方、更新日時が新しい方が普段使っているアカウントです。',
+        note: '「2246340」の有無や更新日時だけでは使用中のアカウントを特定できません。元のパスと数字のアカウントID、対応するSteamアカウントを記録してください。不明なら各アカウントのフォルダを区別して保全し、推測で上書きしないでください。',
       },
       {
         id: 'backup-save',
@@ -532,8 +532,8 @@ export const monsterHunterArticles: GameArticle[] = [
         risk: 'low',
         actions: [
           'win64_saveフォルダを右クリックして「コピー」を選ぶ',
-          '別のドライブ、USBメモリ、クラウドストレージのいずれかへ貼り付ける',
-          'フォルダ名に日付を付ける（例：MHWilds_save_2026-09-27）',
+          '別のドライブ、USBメモリ、クラウドストレージのいずれかに、日付付きの親フォルダ（例：MHWilds_save_2026-09-27）を作る',
+          'その親フォルダの中へwin64_saveを元の名前のまま貼り付ける',
         ],
       },
       {
@@ -556,11 +556,11 @@ export const monsterHunterArticles: GameArticle[] = [
         risk: 'medium',
         actions: [
           'Steamでゲームを右クリック→「プロパティ」→「一般」で、Steamクラウドへの保存を一時的にオフにする',
-          '今あるwin64_saveフォルダを消さずに、名前の末尾へ「_old」を付けて残す',
+          'ゲームとSteamを終了する。記録した元のパスと同じSteamアカウントであることを確認し、今あるwin64_saveフォルダを別の保存先へコピーして残す。不明なら復元を中止する',
           'バックアップのwin64_saveフォルダを同じ場所へ貼り付け、ゲームを起動してロードを確認する',
           '問題がなければ、Steamクラウドへの保存をオンに戻す',
         ],
-        note: '同じSteamアカウントのフォルダへ戻すのが前提です。',
+        note: '同じSteamアカウントのフォルダへ戻すのが前提です。クラウドの競合が出た場合は、内容を確認できるまで同期するデータを選ばず、両方の控えを保全してください。',
       },
     ],
     avoid: [
@@ -1324,7 +1324,7 @@ export const monsterHunterArticles: GameArticle[] = [
     symptom:
       'HDRを有効にしたい、HDRにすると白っぽい・暗い、HDRの項目が出ない、HDRにすると映らない・ちらつく場合の確認手順です。',
     conclusion:
-      '先にWindowsで使うモニターのHDRをオンにし、Windows HDR 調整アプリで明るさを合わせてから、ゲームを再起動してゲーム内のHDRを設定します。映らない・ちらつく場合は、公式ガイドのとおりオプション「GRAPHICS」の「HDR出力設定」「垂直同期」「ディスプレイ周波数」を見直します。',
+      '先にWindowsで使うモニターのHDRをオンにし、Windows 11用のWindows HDR 調整アプリで明るさを合わせてから、ゲームを再起動してゲーム内のHDRを設定します。映らない・ちらつく場合は、公式ガイドのとおりオプション「GRAPHICS」の「HDR出力設定」「垂直同期」「ディスプレイ周波数」を見直します。',
     description:
       'HDRの見え方は、モニターの性能・ケーブル・Windowsの設定・ゲームの設定がすべてそろって初めて正しくなります。Windows側から順に整えるのが近道です。',
     causes: [
@@ -1410,12 +1410,12 @@ export const monsterHunterArticles: GameArticle[] = [
       },
       {
         id: 'calibrate-hdr',
-        title: 'Windows HDR 調整アプリで調整する',
+        title: 'Windows 11用のWindows HDR 調整アプリで調整する',
         summary: 'モニターが表示できる明るさを、Windowsに正しく伝えます。',
         time: '約5分',
         risk: 'low',
         actions: [
-          'Microsoft Storeから「Windows HDR 調整」アプリを入手する',
+          'Windows 11の場合だけ、Microsoft Storeから「Windows HDR 調整」アプリを入手する。Windows 10ではこのアプリの手順を飛ばし、ゲーム内とモニター本体の明るさを調整する',
           '案内に沿って暗い部分・最大の明るさ・色の濃さを調整し、プロファイルを保存する',
           'ゲームを再起動し、ゲーム内の明るさを調整し直す',
         ],

@@ -1,0 +1,1395 @@
+[
+  {
+    "path": "/",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja",
+      "en",
+      "es",
+      "zh"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "記事要約・発売直後/障害/解決ノートの表示条件"
+  },
+  {
+    "path": "/about",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "運営者・編集方針・無料閲覧の説明"
+  },
+  {
+    "path": "/contact",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "メール任意・添付不可・送信の取扱い"
+  },
+  {
+    "path": "/discord",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "音声/接続/インストールの手順要約"
+  },
+  {
+    "path": "/discord-servers",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "活動確認済みの意味・招待有効性・データ取扱い"
+  },
+  {
+    "path": "/discord-servers/guidelines",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "審査・30日活動確認と掲載停止条件"
+  },
+  {
+    "path": "/discord-servers/submit",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "申請内容・必須条件・審査後掲載の説明"
+  },
+  {
+    "path": "/discord/audio-input-not-found",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/bluetooth-audio-problem",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/call-disconnects",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/camera-not-working",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/cant-hear-voice",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/crashing",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/error-1001",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/error-1002",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/error-1003",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/game-volume-lowers",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/installation-failed",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/loading-stuck",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/mic-not-working",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/mic-volume-low",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/no-route",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/overlay-not-showing",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/rtc-connecting",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/stream-no-audio",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/system-helper",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/update-failed",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/upload-failed",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja",
+      "en",
+      "es",
+      "zh"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/user-volume-low",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/discord/voice-cutting-out",
+    "kind": "discord-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/aion2",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/aniimo",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/baldurs-gate-3",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/call-of-duty-modern-warfare-4",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/castlevania-belmonts-curse",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/dragons-dogma-2",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/elden-ring",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/gears-of-war-e-day",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/gta-v-enhanced",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/helldivers-2",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/minecraft-dungeons-2",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/monster-hunter-wilds",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/phantom-blade-zero",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/rocket-league",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/silent-hill-townfall",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/skyrim-special-edition",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/the-blood-of-dawnwalker",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/games/wardogs",
+    "kind": "game-hub",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/gear",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "機器選定記事の技術要約"
+  },
+  {
+    "path": "/gear/discord-microphone-guide",
+    "kind": "gear-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/gear/save-backup-storage-guide",
+    "kind": "gear-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/gear/stream-deck-plus-xl",
+    "kind": "gear-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "共通対処の記事要約"
+  },
+  {
+    "path": "/guide/black-screen",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/bsod-while-gaming",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/controller-double-input",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/low-fps",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/low-gpu-usage",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/no-game-audio",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/pc-shuts-down-while-gaming",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/reset-config-file",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/save-data-backup",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/steam-cloud-sync-error",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/uninstall-save-data",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/visual-c-runtime-error",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/vram-shortage",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/guide/windows-11-required",
+    "kind": "common-guide",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/my",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "ノート・診断・PC登録のブラウザ内保存の説明"
+  },
+  {
+    "path": "/my-games",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "es",
+      "ja",
+      "zh"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "登録上限・公式更新・ローカル保存の説明"
+  },
+  {
+    "path": "/pc",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "Windows設定記事の技術要約"
+  },
+  {
+    "path": "/pc/audio-after-update",
+    "kind": "pc-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/pc/black-screen-after-sign-in",
+    "kind": "pc-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/pc/bluetooth-connected-no-sound",
+    "kind": "pc-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/pc/call-starts-audio-disappears",
+    "kind": "pc-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/pc/file-explorer-freezes-on-right-click",
+    "kind": "pc-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/pc/gaming-shortcut-keys",
+    "kind": "pc-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/pc/microphone-after-update",
+    "kind": "pc-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/pc/refresh-rate-stuck-60hz",
+    "kind": "pc-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/pc/sleep-wakes-up-by-itself",
+    "kind": "pc-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/pc/windows-update-0x800f081f",
+    "kind": "pc-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/pc/windows-update-stuck",
+    "kind": "pc-article",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "本文にゲーム仕様・技術手順・機器選定の主張がある"
+  },
+  {
+    "path": "/privacy",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "保存/送信/端末同期/解析の具体的説明"
+  },
+  {
+    "path": "/status",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "公式情報・障害判定・集計方法の説明"
+  },
+  {
+    "path": "/terms",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "非公式性・MOD・募集審査等の運用表明"
+  },
+  {
+    "path": "/tools",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "診断/Hz/保存先等の機能説明"
+  },
+  {
+    "path": "/tools/refresh-rate",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "ブラウザ測定値とモニター設定の違い"
+  },
+  {
+    "path": "/tools/save-locations",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "ゲーム別の具体的保存パス・退避/復元"
+  },
+  {
+    "path": "/tools/windows-diagnosis",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "en",
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "取得情報・権限・中止方法・ZIP配布の仕様"
+  },
+  {
+    "path": "/trouble/controller",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "症状別の初動手順・原因候補と記事要約"
+  },
+  {
+    "path": "/trouble/crash",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "症状別の初動手順・原因候補と記事要約"
+  },
+  {
+    "path": "/trouble/fps",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "症状別の初動手順・原因候補と記事要約"
+  },
+  {
+    "path": "/trouble/mod",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "症状別の初動手順・原因候補と記事要約"
+  },
+  {
+    "path": "/trouble/not-launching",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "症状別の初動手順・原因候補と記事要約"
+  },
+  {
+    "path": "/trouble/save",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "症状別の初動手順・原因候補と記事要約"
+  },
+  {
+    "path": "/trouble/server",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "症状別の初動手順・原因候補と記事要約"
+  },
+  {
+    "path": "/weekly",
+    "kind": "navigation-tool-policy-or-other",
+    "status": "classified-not-semantically-compared-in-batch7",
+    "evidence": [],
+    "unresolvedPriorMapping": [],
+    "wholePageVerified": false,
+    "locales": [
+      "ja"
+    ],
+    "classificationOnly": true,
+    "factAuditExcluded": false,
+    "reason": "公式告知の要約・掲載周期"
+  }
+]
