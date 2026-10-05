@@ -2183,7 +2183,7 @@
     "comparisonStatus": "partial-with-corrections",
     "comparedClaims": [
       {
-        "claim": "短い案内を関連記事本文/補足と照合し、使用中のMODだけの停止退避、DLLを名前だけで削除しない、通常再起動、クラウド同期後の終了、対応パッドのみ有線・Steam版の入力比較と戻し方を反映。",
+        "claim": "短い案内を関連記事本文/補足と照合し、使用中のMODだけの停止退避、DLLを名前だけで削除しない、通常再起動、消失・破損時は同期再試行/新規保存より先にローカル退避、正常時のバックアップだけ同期完了後に終了、対応パッドのみ有線・Steam版の入力比較と戻し方を反映。",
         "sources": [
           "lib/trouble-hubs.ts",
           "lib/controller-double-input-guide.ts",
@@ -2210,7 +2210,7 @@
     "comparisonStatus": "partial-with-corrections",
     "comparedClaims": [
       {
-        "claim": "短い案内を関連記事本文/補足と照合し、使用中のMODだけの停止退避、DLLを名前だけで削除しない、通常再起動、クラウド同期後の終了、対応パッドのみ有線・Steam版の入力比較と戻し方を反映。",
+        "claim": "短い案内を関連記事本文/補足と照合し、使用中のMODだけの停止退避、DLLを名前だけで削除しない、通常再起動、消失・破損時は同期再試行/新規保存より先にローカル退避、正常時のバックアップだけ同期完了後に終了、対応パッドのみ有線・Steam版の入力比較と戻し方を反映。",
         "sources": [
           "lib/trouble-hubs.ts",
           "lib/controller-double-input-guide.ts",
@@ -2267,7 +2267,7 @@
     "comparisonStatus": "partial-with-corrections",
     "comparedClaims": [
       {
-        "claim": "短い案内を関連記事本文/補足と照合し、使用中のMODだけの停止退避、DLLを名前だけで削除しない、通常再起動、クラウド同期後の終了、対応パッドのみ有線・Steam版の入力比較と戻し方を反映。",
+        "claim": "短い案内を関連記事本文/補足と照合し、使用中のMODだけの停止退避、DLLを名前だけで削除しない、通常再起動、消失・破損時は同期再試行/新規保存より先にローカル退避、正常時のバックアップだけ同期完了後に終了、対応パッドのみ有線・Steam版の入力比較と戻し方を反映。",
         "sources": [
           "lib/trouble-hubs.ts",
           "lib/controller-double-input-guide.ts",
@@ -2294,7 +2294,7 @@
     "comparisonStatus": "partial-with-corrections",
     "comparedClaims": [
       {
-        "claim": "短い案内を関連記事本文/補足と照合し、使用中のMODだけの停止退避、DLLを名前だけで削除しない、通常再起動、クラウド同期後の終了、対応パッドのみ有線・Steam版の入力比較と戻し方を反映。",
+        "claim": "短い案内を関連記事本文/補足と照合し、使用中のMODだけの停止退避、DLLを名前だけで削除しない、通常再起動、消失・破損時は同期再試行/新規保存より先にローカル退避、正常時のバックアップだけ同期完了後に終了、対応パッドのみ有線・Steam版の入力比較と戻し方を反映。",
         "sources": [
           "lib/trouble-hubs.ts",
           "lib/controller-double-input-guide.ts",
