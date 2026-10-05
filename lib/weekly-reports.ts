@@ -51,12 +51,13 @@ export const weeklyReports: WeeklyReport[] = [
     period: '2026年9月28日〜10月4日',
     publishedAt: '2026-10-04',
     description:
-      '9月28日〜10月4日に出たPCゲームの公式パッチ・障害・エラーコードをまとめました。エースコンバット8のクラッシュ調査とエラーST-3100001、AION2のログイン不具合の修正、CONTROL Resonantのクエスト進行不能の修正、SILENT HILL: Townfallのカクつき軽減など。',
+      '9月28日〜10月4日に出たPCゲームの公式パッチ・障害・エラーコードをまとめました。エースコンバット8のクラッシュ調査とエラーST-3100001、AION2のログイン不具合の修正、CONTROL Resonantのクエスト進行不能の修正、SILENT HILL: Townfallのカクつき軽減、WARDOGSのエラーWD-L020の修正など。',
     lead: '今週出た公式のパッチ・障害・エラー情報を、ゲームごとに1行で確認できます。詳しい直し方は各記事へ。',
     highlights: [
       'エースコンバット8：Steam版のクラッシュを公式が調査中。クラッシュ報告用のスレッドが設けられた。エラーST-3100001は時刻の同期で直ることがある',
       'CONTROL Resonant：1.4.0で起きたクエスト「The Park Resonant」の進行不能は、翌日のHotfix 1.4.1で修正',
-      'AION2：アーリーアクセスの権利が認識されない不具合を修正。アカウント連携の不具合は調査中',
+      'AION2：アーリーアクセスの権利が認識されない不具合を修正。正式サービスは10/5 22:00から（14:00〜22:00はメンテナンス）',
+      'WARDOGS：Windows 11の更新（KB5124010）後に出ていたエラー「WD-L020」のクラッシュを修正',
     ],
     items: [
       {
@@ -220,9 +221,45 @@ export const weeklyReports: WeeklyReport[] = [
         game: 'AION2',
         gameSlug: 'aion2',
         kind: 'notice',
-        title: '既知の問題を公開（10/2更新）',
+        title: '既知の問題を公開（10/4更新）',
         summary:
-          'レベル45になる前にマップの「Duty」タブを開くと、45になってもその日はDutyが使えない。45になるまで開かなければ避けられる。',
+          'レベル45になる前にマップの「Duty」タブを開くと、45になってもその日はDutyが使えない（45になるまで開かなければ避けられる）。10/4追加：チャットで「Please Try Again Later」が出て送受信できない時は、キャラクターを切り替える・ロード画面を挟む・ログインし直すと直る。',
+        source: { label: 'Steamニュース（公式）', url: steamNews('3393110') },
+      },
+      {
+        date: '10/4',
+        game: 'AION2',
+        gameSlug: 'aion2',
+        kind: 'outage',
+        title: '正式サービス開始前のメンテナンスが確定（10/5 14:00〜22:00）',
+        summary:
+          'アーリーアクセスを終了し、正式サービスを開始するための約8時間のメンテナンス。始まるとゲームから切断される。時間は変更される場合がある。',
+        article: {
+          href: '/games/aion2/login-error',
+          label: 'ログイン・接続できない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('3393110') },
+      },
+      {
+        date: '10/4',
+        game: 'AION2',
+        gameSlug: 'aion2',
+        kind: 'notice',
+        title:
+          '正式サービスのサーバー一覧と、対戦相手のサーバーの組み合わせを公開',
+        summary:
+          '1つのサーバーには1つの種族だけ。起動後に地域→種族→サーバーの順に選ぶ。各サーバーは一定期間、アビスなどで戦う相手の種族のサーバーと組み合わされる。',
+        source: { label: 'Steamニュース（公式）', url: steamNews('3393110') },
+      },
+      {
+        date: '10/4',
+        game: 'AION2',
+        gameSlug: 'aion2',
+        kind: 'notice',
+        title:
+          'ファウンダーズパックの衣装を、全サーバーの全キャラクターで使えるように変更へ',
+        summary:
+          '別サーバーの友達と遊ぶ時や別の職業を育てる時の不便を受けた変更。実施時期は公式のお知らせで案内される。',
         source: { label: 'Steamニュース（公式）', url: steamNews('3393110') },
       },
       {
@@ -254,12 +291,40 @@ export const weeklyReports: WeeklyReport[] = [
         },
         source: { label: 'Steamニュース（公式）', url: steamNews('3010850') },
       },
+      {
+        date: '9/30',
+        game: 'WARDOGS',
+        gameSlug: 'wardogs',
+        kind: 'error',
+        title: 'Update 0.1.2：エラー「WD-L020」で落ちる問題を修正',
+        summary:
+          'Windows 11の更新プログラム KB5124010 の適用後に起きていた WD-L020 のクラッシュを修正。経験値・お金の不正取得への対策も含む（約1時間のメンテナンス）。',
+        article: {
+          href: '/games/wardogs/server-connection',
+          label: 'サーバーに接続できない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('1867240') },
+      },
+      {
+        date: '10/2',
+        game: 'WARDOGS',
+        gameSlug: 'wardogs',
+        kind: 'outage',
+        title: 'セキュリティ・安定性の修正でメンテナンス（17:00から約1時間）',
+        summary:
+          '一部のプレイヤーに影響していた軽微なセキュリティと安定性の問題に対応。',
+        article: {
+          href: '/games/wardogs/server-connection',
+          label: 'サーバーに接続できない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('1867240') },
+      },
     ],
     upcoming: [
       {
         date: '10/5',
         game: 'AION2',
-        note: '14:00〜22:00メンテナンス（予定）、22:00から正式サービス',
+        note: '14:00〜22:00メンテナンス（公式の告知で確定。変更の場合あり）、22:00から正式サービス',
         href: '/games/aion2/login-error',
       },
       {
