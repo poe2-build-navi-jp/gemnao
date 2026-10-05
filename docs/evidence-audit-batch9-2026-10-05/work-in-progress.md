@@ -14,3 +14,6 @@ PR66のhead 061d3a81e90c6ba38064090447f5ff980619cc51を固定して別ブラン�
 
 - 親よりPR66マージ基準885e89ba34bfe84563f81c736b3265f7c2991562受領。本番確認は親側で進行中。
 - low-fps/low-gpu-usage本文・メタ・補足全文読了。Microsoft CPU/GPU制約・TaskManager GPU・GPUアプリ設定、NVIDIA上限/VSync、AMD FRTCを比較。Steam FAQ本文と論理プロセッサ切替UIは保留。更新台帳をcomparisons-97.jsonに保存。
+
+- 修正後375/390/430/1440pxのDiscord募集FAQ開閉・キーボード送信・503入力保持→201成功・戻る/進む・横幅をPASS。最初の実行はプレビュー起動前で接続拒否、次は履歴遷移の待機不足。DOM遷移とnetworkidleを待って4幅を完走。全外部通信を遮断、APIモックのみ。
+- 親よりPR66本番反映確認完了の連絡。Dawnwalker/OnimushaのlaunchFixes修正はfocused hubではFAQ JSON-LDへの反映で、可視本文の修正とは区別する。

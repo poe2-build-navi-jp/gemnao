@@ -94,7 +94,7 @@
           "https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server",
           "https://support.discord.com/hc/ja/articles/208866998",
           "components/discord-server-submit-form.tsx",
-          "lib/discord-servers-db.ts"
+          "lib/discord-server-db.ts"
         ]
       }
     ],
@@ -121,7 +121,7 @@
           "https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server",
           "https://support.discord.com/hc/ja/articles/208866998",
           "components/discord-server-submit-form.tsx",
-          "lib/discord-servers-db.ts"
+          "lib/discord-server-db.ts"
         ]
       }
     ],
@@ -148,7 +148,7 @@
           "https://support.discord.com/hc/en-us/articles/204849977-How-do-I-create-a-server",
           "https://support.discord.com/hc/ja/articles/208866998",
           "components/discord-server-submit-form.tsx",
-          "lib/discord-servers-db.ts"
+          "lib/discord-server-db.ts"
         ]
       }
     ],
@@ -1149,11 +1149,11 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
+    "comparisonStatus": "read-not-compared",
     "comparedClaims": [],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "batch8で主本文既読。補足コンポーネント・メタデータ・一次資料との個別対応は未完"
     ],
     "wholePageVerified": false
   },
@@ -1177,11 +1177,11 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
+    "comparisonStatus": "read-not-compared",
     "comparedClaims": [],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "batch8で主本文既読。補足コンポーネント・メタデータ・一次資料との個別対応は未完"
     ],
     "wholePageVerified": false
   },
@@ -1339,11 +1339,11 @@
     "locales": [
       "ja"
     ],
-    "comparisonStatus": "not-started",
+    "comparisonStatus": "read-not-compared",
     "comparedClaims": [],
     "holds": [],
     "uncomparedScopes": [
-      "本文・表・FAQ・メタ要約・構造化データ・翻訳・補足コンポーネント"
+      "batch8で主本文既読。補足コンポーネント・メタデータ・一次資料との個別対応は未完"
     ],
     "wholePageVerified": false
   },
