@@ -10,8 +10,7 @@ import {
   Share2,
 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
-import { ACTIVE_CASE_KEY, recordAttempt } from '@/lib/support-record';
-import { announceMyData } from '@/components/use-saved-solutions';
+import { ResultNote } from '@/components/result-note';
 import { SaveSolution } from '@/components/save-solution';
 import { trackEvent } from '@/lib/analytics';
 import { TroubleshootingProduct } from '@/components/troubleshooting-product';
@@ -77,7 +76,7 @@ export function InteractiveSteps({
   const [showResume, setShowResume] = useState(false);
   const [sending, setSending] = useState('');
   const [message, setMessage] = useState('');
-  const [progressError, setProgressError] = useState('');
+  const [outcome, setOutcome] = useState<{ step: Step; resolved: boolean; nextId: string; at: string } | null>(null);
   const [alreadyVoted, setAlreadyVoted] = useState(false);
   const [rows, setRows] = useState<Row[]>([]);
   const [methods, setMethods] = useState<Method[]>([]);
@@ -165,43 +164,6 @@ export function InteractiveSteps({
     }
   }
 
-  // Snapshot the selected problem when the user acts, before any feedback request.
-  function selectedCase() {
-    try {
-      return localStorage.getItem(ACTIVE_CASE_KEY);
-    } catch {
-      return undefined;
-    }
-  }
-
-  function saveProgress(
-    next: Progress,
-    step: Step,
-    caseId: string | null | undefined,
-  ) {
-    setProgressError('');
-    try {
-      localStorage.setItem(storageKey, JSON.stringify(next));
-      if (caseId === undefined) throw new Error('Cannot read selected issue');
-      if (caseId) {
-        // Article progress can predate this problem or belong to another one.
-        // Only this explicit action is evidence for the selected problem.
-        recordAttempt(localStorage, caseId, {
-          path: articlePath,
-          stepId: step.id,
-          label: step.title,
-          result: next.solved ? 'resolved' : 'unresolved',
-          at: next.lastViewedAt,
-        });
-        announceMyData();
-      }
-    } catch {
-      setProgressError(
-        '進行状況・問題のノートを保存できませんでした。このまま手順を確認できます。',
-      );
-    }
-  }
-
   const row = rows.find((item) => item.topic === topic) || {
     topic,
     struggling: 0,
@@ -227,7 +189,8 @@ export function InteractiveSteps({
 
   async function solved(step: Step) {
     if (sending || alreadyVoted || hasVote('resolved')) return;
-    const caseId = selectedCase();
+
+    setOutcome({ step, resolved: true, nextId: step.id, at: new Date().toISOString() });
     setSending(step.id);
     setMessage('');
     try {
@@ -258,17 +221,7 @@ export function InteractiveSteps({
       setCompletedIds((value) => [...new Set([...value, step.id])]);
       markVote('resolved');
       setAlreadyVoted(true);
-      saveProgress(
-        {
-          currentStep,
-          completedIds: [...new Set([...completedIds, step.id])],
-          solved: true,
-          solvedStepId: step.id,
-          lastViewedAt: new Date().toISOString(),
-        },
-        step,
-        caseId,
-      );
+
     } catch {
       setMessage(
         '回答を保存できませんでした。通信状態を確認して、もう一度お試しください。',
@@ -280,41 +233,15 @@ export function InteractiveSteps({
 
   async function notSolved(step: Step, index: number) {
     if (sending || solvedStepId) return;
-    const caseId = selectedCase();
+    setOutcome({ step, resolved: false, nextId: steps[index + 1]?.id || step.id, at: new Date().toISOString() });
     const nextCompleted = [...new Set([...completedIds, step.id])];
     setCompletedIds(nextCompleted);
     if (index < steps.length - 1) {
       const next = index + 1;
       setCurrentStep(next);
       setShowResume(false);
-      saveProgress(
-        {
-          currentStep: next,
-          completedIds: nextCompleted,
-          solved: false,
-          lastViewedAt: new Date().toISOString(),
-        },
-        step,
-        caseId,
-      );
-      requestAnimationFrame(() =>
-        document.getElementById(steps[next].id)?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-        }),
-      );
       return;
     }
-    saveProgress(
-      {
-        currentStep: index,
-        completedIds: nextCompleted,
-        solved: false,
-        lastViewedAt: new Date().toISOString(),
-      },
-      step,
-      caseId,
-    );
     if (hasVote('struggling')) return;
     setSending(step.id);
     try {
@@ -481,7 +408,6 @@ export function InteractiveSteps({
         </div>
       </div>
 
-      {progressError && <p role="alert">{progressError}</p>}
       <div className="procedure-section">
         <h2 id="interactive-steps-title">
           <ListChecks size={26} />
@@ -584,6 +510,11 @@ export function InteractiveSteps({
                     </button>
                   ) : null}
                 </div>
+                {outcome?.step.id === step.id && <ResultNote key={outcome.at} onClose={() => setOutcome(null)}
+                  attempt={{ path: articlePath, stepId: step.id, label: step.title, result: outcome.resolved ? 'resolved' : 'unresolved', at: outcome.at }}
+                  draft={{ title: articleTitle, gameSlug: articlePath.match(/^\/games\/([a-z0-9-]+)\//)?.[1] || '',
+                    status: outcome.resolved ? 'resolved' : 'unresolved', diagnosis: '', settings: '', notes: '', articlePath,
+                    stepId: outcome.nextId, completedSteps: [step.title] }} />}
               </section>
             );
           })}
