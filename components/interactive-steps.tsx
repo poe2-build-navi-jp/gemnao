@@ -9,7 +9,7 @@ import {
   RotateCcw,
   Share2,
 } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSavedSolutions } from '@/components/use-saved-solutions';
 import { useActiveCase } from '@/components/support-workspace';
 import { ResultNote } from '@/components/result-note';
@@ -72,29 +72,80 @@ export function InteractiveSteps({
 }) {
   const storageKey = `gemnao-progress:${contextSlug}`;
   const voteKey = `gemnao-feedback:${contextSlug}:${topic}`;
-  const [currentStep, setCurrentStep] = useState(0);
-  const [completedIds, setCompletedIds] = useState<string[]>([]);
-  const [reportedSolvedStepId, setSolvedStepId] = useState('');
   const activeCase = useActiveCase();
   const { items: savedNotes } = useSavedSolutions();
-  const activeNote = savedNotes.find(
-    (item) => item.id === activeCase && item.articlePath === articlePath,
-  );
-  const solvedStepId =
-    reportedSolvedStepId ||
-    (activeNote?.status === 'resolved' &&
-    steps.some((step) => step.id === activeNote.stepId)
-      ? activeNote.stepId
-      : '');
-  const [showResume, setShowResume] = useState(false);
-  const [sending, setSending] = useState('');
-  const [message, setMessage] = useState('');
-  const [outcome, setOutcome] = useState<{
-    step: Step;
-    resolved: boolean;
-    nextId: string;
-    at: string;
-  } | null>(null);
+  const activeNote = savedNotes.find((item) => item.id === activeCase);
+  const [legacyProgress, setLegacyProgress] = useState<Progress | null>(null);
+  type Session = {
+    currentStep: number;
+    completedIds: string[];
+    solvedStepId: string;
+    showResume: boolean;
+    message: string;
+    outcome: {
+      step: Step;
+      resolved: boolean;
+      nextId: string;
+      at: string;
+    } | null;
+  };
+  // A saved revision supersedes transient results. Different issues never share
+  // transient state, including results arriving from an earlier feedback request.
+  const scope = JSON.stringify([
+    articlePath,
+    activeCase,
+    activeNote?.updatedAt,
+  ]);
+  const [sessions, setSessions] = useState<Record<string, Session>>({});
+  const noteIndex =
+    activeNote?.articlePath === articlePath
+      ? steps.findIndex((step) => step.id === activeNote.stepId)
+      : -1;
+  const legacy = !activeCase ? legacyProgress : null;
+  const initial: Session = {
+    currentStep: noteIndex >= 0 ? noteIndex : legacy?.currentStep || 0,
+    completedIds: activeNote
+      ? (activeNote.support?.attempts || [])
+          .filter(
+            (attempt) =>
+              attempt.path === articlePath &&
+              steps.some((step) => step.id === attempt.stepId),
+          )
+          .map((attempt) => attempt.stepId)
+      : legacy?.completedIds || [],
+    solvedStepId: activeNote
+      ? activeNote.status === 'resolved' && noteIndex >= 0
+        ? activeNote.stepId
+        : ''
+      : legacy?.solved
+        ? legacy.solvedStepId || ''
+        : '',
+    showResume: activeNote
+      ? activeNote.status !== 'resolved' && noteIndex >= 0
+      : Boolean(legacy && legacy.currentStep > 0 && !legacy.solved),
+    message: '',
+    outcome: null,
+  };
+  const session = sessions[scope] || initial;
+  const {
+    currentStep,
+    completedIds,
+    solvedStepId,
+    showResume,
+    message,
+    outcome,
+  } = session;
+  function updateSession(change: Partial<Session>) {
+    setSessions((previous) => ({
+      ...previous,
+      [scope]: { ...(previous[scope] || initial), ...change },
+    }));
+  }
+  function setMessage(message: string) {
+    updateSession({ message });
+  }
+  // Anonymous vote deduplication is article-wide, never a lock on note actions.
+  const pendingVotes = useRef(new Set<string>());
   const [alreadyVoted, setAlreadyVoted] = useState(false);
   const [rows, setRows] = useState<Row[]>([]);
   const [methods, setMethods] = useState<Method[]>([]);
@@ -116,24 +167,24 @@ export function InteractiveSteps({
           ),
           Math.max(steps.length - 1, 0),
         );
-        queueMicrotask(() => {
-          setCurrentStep(safeStep);
-          setCompletedIds(
-            Array.isArray(progress.completedIds)
+        queueMicrotask(() =>
+          setLegacyProgress({
+            ...progress,
+            currentStep: safeStep,
+            completedIds: Array.isArray(progress.completedIds)
               ? progress.completedIds.filter(
                   (id) =>
                     typeof id === 'string' &&
                     steps.some((step) => step.id === id),
                 )
               : [],
-          );
-          setSolvedStepId(
-            steps.some((step) => step.id === progress.solvedStepId)
-              ? progress.solvedStepId!
-              : '',
-          );
-          setShowResume(safeStep > 0 && !progress.solved);
-        });
+            solvedStepId:
+              progress.solved &&
+              steps.some((step) => step.id === progress.solvedStepId)
+                ? progress.solvedStepId
+                : '',
+          }),
+        );
       } catch {
         // Ignore malformed progress without deleting private data.
       }
@@ -165,16 +216,6 @@ export function InteractiveSteps({
     void loadFeedback();
     return () => controller.abort();
   }, [articlePath, articleTitle, contextSlug, steps, storageKey, voteKey]);
-
-  // Explicitly saved notebook progress takes priority over legacy article progress.
-  useEffect(() => {
-    if (!activeNote) return;
-    const index = steps.findIndex((step) => step.id === activeNote.stepId);
-    queueMicrotask(() => {
-      if (index >= 0) setCurrentStep(index);
-      setShowResume(activeNote.status !== 'resolved' && index >= 0);
-    });
-  }, [activeNote, steps]);
 
   function hasVote(kind: string) {
     try {
@@ -216,15 +257,26 @@ export function InteractiveSteps({
     : articleTitle;
 
   async function solved(step: Step) {
-    if (sending || alreadyVoted || hasVote('resolved')) return;
-    setOutcome({
-      step,
-      resolved: true,
-      nextId: step.id,
-      at: new Date().toISOString(),
+    if (solvedStepId) return;
+    updateSession({
+      solvedStepId: step.id,
+      completedIds: [...new Set([...completedIds, step.id])],
+      showResume: false,
+      message: '',
+      outcome: {
+        step,
+        resolved: true,
+        nextId: step.id,
+        at: new Date().toISOString(),
+      },
     });
-    setSending(step.id);
-    setMessage('');
+    if (
+      alreadyVoted ||
+      hasVote('resolved') ||
+      pendingVotes.current.has('resolved')
+    )
+      return;
+    pendingVotes.current.add('resolved');
     try {
       const response = await fetch('/api/feedback', {
         method: 'POST',
@@ -244,42 +296,44 @@ export function InteractiveSteps({
       };
       setRows(data.rows || []);
       setMethods(data.methods || []);
-      setSolvedStepId(step.id);
       trackEvent('issue_resolved', {
         game: contextSlug,
         topic,
         step_id: step.id,
       });
-      setCompletedIds((value) => [...new Set([...value, step.id])]);
       markVote('resolved');
       setAlreadyVoted(true);
     } catch {
       setMessage(
-        '回答を保存できませんでした。通信状態を確認して、もう一度お試しください。',
+        '匿名回答を送信できませんでした。ノートの保存は、表示された案内から別に行えます。',
       );
     } finally {
-      setSending('');
+      pendingVotes.current.delete('resolved');
     }
   }
 
   async function notSolved(step: Step, index: number) {
-    if (sending || solvedStepId) return;
-    setOutcome({
-      step,
-      resolved: false,
-      nextId: steps[index + 1]?.id || step.id,
-      at: new Date().toISOString(),
-    });
+    if (solvedStepId) return;
     const nextCompleted = [...new Set([...completedIds, step.id])];
-    setCompletedIds(nextCompleted);
-    if (index < steps.length - 1) {
-      const next = index + 1;
-      setCurrentStep(next);
-      setShowResume(false);
+    updateSession({
+      currentStep: Math.min(index + 1, steps.length - 1),
+      completedIds: nextCompleted,
+      showResume: false,
+      message: '',
+      outcome: {
+        step,
+        resolved: false,
+        nextId: steps[index + 1]?.id || step.id,
+        at: new Date().toISOString(),
+      },
+    });
+    if (
+      index < steps.length - 1 ||
+      hasVote('struggling') ||
+      pendingVotes.current.has('struggling')
+    )
       return;
-    }
-    if (hasVote('struggling')) return;
-    setSending(step.id);
+    pendingVotes.current.add('struggling');
     try {
       const response = await fetch('/api/feedback', {
         method: 'POST',
@@ -293,7 +347,6 @@ export function InteractiveSteps({
       if (!response.ok) throw new Error('save failed');
       const data = (await response.json()) as { rows?: Row[] };
       setRows(data.rows || []);
-      setCompletedIds(nextCompleted);
       markVote('struggling');
       trackEvent('issue_struggling', { game: contextSlug, topic });
       setMessage(
@@ -301,10 +354,10 @@ export function InteractiveSteps({
       );
     } catch {
       setMessage(
-        '回答を保存できませんでした。通信状態を確認して、もう一度お試しください。',
+        '匿名回答を送信できませんでした。ノートの保存は、表示された案内から別に行えます。',
       );
     } finally {
-      setSending('');
+      pendingVotes.current.delete('struggling');
     }
   }
 
@@ -534,7 +587,7 @@ export function InteractiveSteps({
                     className="step-solved"
                     type="button"
                     onClick={() => void solved(step)}
-                    disabled={Boolean(sending || solvedStepId || alreadyVoted)}
+                    disabled={Boolean(solvedStepId)}
                   >
                     <CheckCircle2 size={18} />
                     {solvedHere ? 'この方法で解決済み' : 'これで直った'}
@@ -544,7 +597,6 @@ export function InteractiveSteps({
                       className="step-next"
                       type="button"
                       onClick={() => void notSolved(step, index)}
-                      disabled={Boolean(sending)}
                     >
                       {index < steps.length - 1
                         ? `直らない → 次は「${steps[index + 1].title}」を確認`
@@ -555,8 +607,8 @@ export function InteractiveSteps({
                 </div>
                 {outcome?.step.id === step.id && (
                   <ResultNote
-                    key={outcome.at}
-                    onClose={() => setOutcome(null)}
+                    key={`${scope}:${outcome.at}`}
+                    onClose={() => updateSession({ outcome: null })}
                     attempt={{
                       path: articlePath,
                       stepId: step.id,
