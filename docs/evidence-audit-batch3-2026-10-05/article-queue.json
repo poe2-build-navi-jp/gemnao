@@ -1,0 +1,2367 @@
+[
+  {
+    "path": "/discord/audio-input-not-found",
+    "title": "Discordでオーディオ入力が見つからない｜Windows・アプリ・ブラウザで切り分け",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-input-output",
+      "windows-desktop-mic"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "Windowsの入力一覧にないなら、接続と入力機器を確認する",
+      "一覧にはあるが声が入らないなら、Windowsのテストで確認する",
+      "Windowsでは成功するなら、アプリの許可と入力機器をそろえる",
+      "ブラウザ版だけ失敗するなら、サイト権限と使用マイクを確認する",
+      "テスト成功なら、実際の通話で届くかを確認する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/ja/articles/360045138471",
+      "https://support.microsoft.com/ja-jp/windows/hardware/drivers/how-to-set-up-and-test-microphones-in-windows",
+      "https://support.microsoft.com/en-us/windows/hardware/drivers/fix-microphone-problems",
+      "https://support.google.com/chrome/answer/2693767?hl=ja"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/bluetooth-audio-problem",
+    "title": "Discord通話でBluetoothのゲーム音が消える・音質が悪くなる原因と直し方",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "le-audio",
+      "windows-app-output"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "ゲーム音が消えたら、ゲームとDiscordの出力先を確認",
+      "音質だけ落ちるなら、Bluetoothマイクを別の入力に替える",
+      "音量だけ下がるなら、通話中の音量調整を確認",
+      "通話の外でも接続が不安定な場合だけ、再接続を試す",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/ja/articles/19850083499159--既知の問題-通話に参加すると音質が低下する",
+      "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/fix-bluetooth-connected-but-no-sound-issue-on-windows",
+      "https://support.microsoft.com/en-us/windows/hardware/bluetooth/configuring-bluetooth-le-audio-quality-settings-on-windows-11",
+      "https://support.microsoft.com/windows/fix-bluetooth-problems-in-windows-723e092f-03fa-858b-5c80-131ec3fba75c"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/bot-add",
+    "title": "Discord Botの入れ方・追加方法｜サーバーへ導入する手順",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "サーバー管理権限と追加先を確認する",
+      "App DirectoryからBot・アプリを選ぶ",
+      "追加後にメンバー一覧とコマンドを確認する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/en-us/articles/21334461140375-Using-Apps-on-Discord",
+      "https://docs.discord.com/developers/topics/permissions"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/bot-not-responding",
+    "title": "Discord Botが反応しない｜コマンドが出ない・エラー・無応答で切り分け",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "候補が出ないなら、使い方とアプリの追加先を確認する",
+      "同じコマンドで、チャンネルと利用者を1つずつ変える",
+      "実行エラーは、文言と失敗した処理で次の確認先を選ぶ",
+      "管理者は、利用者のコマンド権限とBotの操作権限を別々に確認する",
+      "無応答が広く再現するなら、Bot提供者と応答先を確認する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/en-us/articles/21334461140375-Using-Apps-on-Discord",
+      "https://docs.discord.com/developers/topics/permissions",
+      "https://support.discord.com/hc/en-us/articles/10543994968087-Channel-Permissions-Settings-101",
+      "https://support.discord.com/hc/en-us/articles/10952702911639-Command-Permissions-Lockout",
+      "https://docs.discord.com/developers/interactions/receiving-and-responding",
+      "https://discordstatus.com/"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/bot-remove",
+    "title": "Discord Botの消し方・連携解除｜削除後も投稿が続く時の確認",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "削除前に、止まる機能と戻すための情報を確認する",
+      "サーバーのBotは、対象をキックして追加状態を確認する",
+      "自分のアカウントのアプリは、認証を解除する",
+      "削除後も新しい投稿が続くなら、Webhookと転送元を調べる",
+      "コマンド・過去の投稿・ロールが残る時は、残った物ごとに判断する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/en-us/articles/21334461140375-Using-Apps-on-Discord",
+      "https://docs.discord.com/developers/topics/permissions",
+      "https://support-apps.discord.com/hc/en-us/articles/26501864012951-Moderating-Apps-on-Discord",
+      "https://support.discord.com/hc/en-us/articles/360045093012-Server-Integrations-Page",
+      "https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks",
+      "https://support.discord.com/hc/en-us/articles/214836687-Discord-Roles-and-Permissions",
+      "https://support.discord.com/hc/en-us/articles/24160905919511-My-Discord-Account-was-Hacked-or-Compromised"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/call-disconnects",
+    "title": "Discordの通話が切れる・落ちる時の直し方【切断・アプリ終了を区別】",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-udp"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "最初に通話切断・アプリ終了・音切れを区別する",
+      "別チャンネル・DMで、通話場所だけを変えて比較",
+      "アプリとブラウザを、同じPC・同じ回線で比較",
+      "別回線で比較し、元の回線やVPNを確認",
+      "ゲーム・配信中だけ切れる：負荷と症状を再確認",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://discordstatus.com/"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/camera-not-working",
+    "title": "Discordでカメラが映らない時の直し方【自分・相手の画面で切り分け】",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-mute-permission"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "Windows・Discord・相手の画面を順に比較する",
+      "Windowsでも映らない：カバー・接続・権限を確認",
+      "Windowsだけ映る：Discordの機器選択とアクセス許可",
+      "自分には映る：通話のカメラ開始と相手側を確認",
+      "特定サーバーだけ映らない：ビデオ権限を確認",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/ja/articles/360041721052",
+      "https://support.microsoft.com/ja-jp/windows/hardware/camera/camera-doesn-t-work-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/privacy/manage-app-permissions-for-a-camera-in-windows"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/cant-hear-voice",
+    "title": "Discordで相手の声が聞こえない時の直し方｜全員・一人だけで切り分け",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-input-output",
+      "discord-mute-permission",
+      "discord-reset",
+      "discord-mic-test",
+      "windows-app-output"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "Windowsや別アプリの音を同じヘッドホンで確認する",
+      "Discordだけ全員無音：スピーカーミュートと出力を確認する",
+      "一人だけ無音：個別設定と話す側を比較する",
+      "特定サーバー・接続中だけの問題を分ける",
+      "ゲーム・配信中だけ無音：出力先と音の種類を確認する",
+      "アプリだけ直らない場合は、ブラウザ版と比較する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://discordstatus.com/",
+      "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-sound-or-audio-problems-in-windows"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/crashing",
+    "title": "Discordが落ちる・勝手に終了する原因と直し方【起動・通話・配信別】",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-cache",
+      "discord-install-folders",
+      "discord-overlay"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "最小化・通話切断・アプリ終了を見分ける",
+      "起動直後に落ちる：完全終了とブラウザ比較を行う",
+      "通話開始で落ちる：音声だけで機器を比較する",
+      "カメラ・画面共有で落ちる：共有対象と描画設定を比較する",
+      "ゲーム中・長時間後に落ちる：併用機能と負荷を確認する",
+      "エラーなしで落ちる：Windowsの信頼性履歴を読む",
+      "アプリだけ落ち続ける場合：データの場所を確認して入れ直す",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/en-us/articles/360046057772-Discord-Bugs",
+      "https://support.discord.com/hc/en-us/articles/225733808-Why-does-Discord-have-multiple-processes",
+      "https://learn.microsoft.com/ja-jp/windows-server/administration/windows-commands/perfmon"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/echo-double-voice",
+    "title": "Discordで自分の声が返る・二重になる時の直し方【エコーの原因別】",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "まず1人ずつミュートして、声が戻る経路を探す",
+      "特定の相手をミュートすると止まる：その人の再生音を確認",
+      "退出後も自分の声が聞こえる：モニター機能を確認",
+      "相手に二重に届く：通話・配信・仮想音声を分けて比較",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.focusrite.com/hc/de/articles/206849219-Latency-while-using-Direct-Monitor"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/error-1001",
+    "title": "Discordエラー1001の直し方｜音声共有の許可画面が出ない場合も解説",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "code1001"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "許可画面が出たら、サウンド共有を許可して結果を聞く",
+      "許可画面が出ない場合は、配信対象を選び直して再確認する",
+      "1001が続く場合、別アプリでも出るか比べて相談先を決める",
+      "1001が消えたのに無音なら、ゲーム音の記事へ進む",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/ja/articles/360045138471",
+      "https://discordstatus.com/",
+      "https://support.discord.com/hc/ja/articles/360040816151"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/error-1002",
+    "title": "Discordエラー1002の直し方｜ノイズ抑制の比較と再発時の対処",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-mute-permission",
+      "krisp-conditions",
+      "code1002"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "1002を確認し、再参加と完全再起動を順に試す",
+      "元の設定→オフ→元の設定で、エラーと声を比較する",
+      "戻すと再発する場合は、通話を確保して発生条件を絞る",
+      "通話自体ができない場合は、止まる地点で別の確認へ進む",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/ja/articles/360045138471",
+      "https://support.discord.com/hc/en-us/requests/new"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/error-1003",
+    "title": "Discordエラー1003・ロボット声の直し方｜入力と出力を分けて比較",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "code1003"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "1003の表示があるか、誰が歪んだ声を聞くかを確認する",
+      "入力だけ・出力だけを変え、改善する組み合わせを調べる",
+      "予備機器がない場合は、内蔵機器・録音・ブラウザで比較する",
+      "比較結果に合わせて、設定確認かサポート相談へ進む",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/ja/articles/360045138471",
+      "https://support.microsoft.com/ja-jp/windows/hardware/drivers/how-to-set-up-and-test-microphones-in-windows",
+      "https://support.discord.com/hc/en-us/requests/new"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/game-not-detected",
+    "title": "Discordがゲームを認識しない・表示されない時の直し方｜検出と共有を切り分け",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "未検出なら、ゲーム本体を起動して手動追加を確認する",
+      "検出済みなら、共有設定を確認して相手の画面と比べる",
+      "相手によって表示が違うなら、共有する範囲を確認する",
+      "別のゲームと比べて、1本だけか全体の問題かを絞る",
+      "招待・参加・オーバーレイだけ使えない場合は別に確認する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/en-us/requests/new",
+      "https://support.discord.com/hc/en-us/articles/7931156448919-Activity-Sharing-on-Discord-FAQ",
+      "https://support.discord.com/hc/en-us/articles/115001557452-Game-Invites"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/game-volume-lowers",
+    "title": "Discord通話中にゲーム音が小さくなる｜発言時・参加直後・音質変化で切り分け",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "le-audio",
+      "windows-ducking"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "同じBGMで、通話前・無言・発言中・退出後を比較する",
+      "発言中だけなら、Discordの減衰を0％にして比べる",
+      "参加直後から小さいなら、Windowsの通信設定を確認する",
+      "Bluetoothで音質も変わるなら、マイク使用時のモードを切り分ける",
+      "退出後も小さい・特定ゲームだけなら、音量と出力先を確認する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [
+      "https://support.discord.com/hc/en-us/articles/206342888-How-do-I-stop-Discord-from-lowering-my-app-volume-when-someone-else-is-talking"
+    ],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/ja/articles/19850083499159--既知の問題-通話に参加すると音質が低下する",
+      "https://support.microsoft.com/en-us/windows/hardware/bluetooth/configuring-bluetooth-le-audio-quality-settings-on-windows-11",
+      "https://learn.microsoft.com/en-us/windows/win32/coreaudio/using-the-communication-device"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/installation-failed",
+    "title": "DiscordのInstallation has failedを直す｜初回・再インストールとログで切り分け",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-install-folders"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "初回インストールは、取得元と失敗した段階を確認する",
+      "再インストールは、ログイン手段を確保して完全終了する",
+      "Open Setup Logでは、今回の日時・失敗行・前後の処理を見る",
+      "残存フォルダーを確認し、ない・使用中・拒否を分けて進む",
+      "起動・再起動で完了を確認し、再失敗なら比較結果を添えて相談する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/en-us/requests/new",
+      "https://discord.com/download"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/loading-stuck",
+    "title": "Discordが読み込み中から進まないときの直し方【ロゴ・灰色画面】",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-cache"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "まずブラウザ版と同じアカウントで比較する",
+      "ブラウザ版は開く：Discordアプリを完全終了する",
+      "ブラウザ版も止まる：障害情報と接続を確認する",
+      "アプリだけ止まる：キャッシュを退避して比較する",
+      "更新・破損エラーが表示された場合は専用の対処へ",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://discordstatus.com/",
+      "https://support.discord.com/hc/en-us/articles/115001130052-Stuck-on-the-Main-Connecting-Screen"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/login-error",
+    "title": "Discordにログインできない時の直し方｜メール・パスワード・二要素認証別",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "登録メールを確認し、ログイン済み端末を残す",
+      "パスワードを忘れた場合は、公式画面から再設定する",
+      "再設定メールが届かない：宛先と受信側を確認する",
+      "認証コードで止まる：使える認証方法を確認する",
+      "アプリだけ失敗する：同じアカウントでブラウザ比較を行う",
+      "無効化・身に覚えのない変更は、通知内容に合う窓口へ進む",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://discordstatus.com/",
+      "https://support.discord.com/hc/en-us/articles/32557375603479-Discord-Login-Email-Troubleshooting-Guide",
+      "https://support.discord.com/hc/en-us/articles/218410947-How-to-Reset-or-Change-Your-Forgotten-Password-on-Discord",
+      "https://support.discord.com/hc/en-us/articles/115001221072-How-to-Recover-Your-Discord-Account-When-Locked-Out-of-Multi-Factor-Authentication-MFA",
+      "https://support.discord.com/hc/en-us/articles/219576828-Setting-up-Multi-Factor-Authentication",
+      "https://support.discord.com/hc/en-us/articles/27299669812375-My-Discord-Email-was-Changed-and-I-Want-to-Undo-It"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/mic-not-working",
+    "title": "Discordでマイクが反応しない・声が届かない時の直し方【Windows】",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-input-output",
+      "discord-mute-permission",
+      "discord-reset",
+      "discord-mic-test",
+      "windows-desktop-mic"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "Windowsで同じマイクに入力があるか確認する",
+      "Windowsのマイク許可とDiscordの入出力をそろえる",
+      "テストは成功する場合：ミュート・入力モード・感度を確認する",
+      "通話相手・サーバーを変え、権限と受信側を切り分ける",
+      "アプリだけ改善しない場合はブラウザ比較と音声設定のリセットへ",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/en-us/articles/211376518-Voice-Input-Modes-101-Push-to-Talk-Voice-Activated",
+      "https://support.microsoft.com/ja-jp/windows/hardware/drivers/fix-microphone-problems"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/mic-volume-low",
+    "title": "Discordでマイク・声が小さい時の直し方【自分と相手の設定を切り分け】",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-input-output",
+      "discord-mic-test"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "特定の相手だけ小さい：聞く人が個別音量を確認",
+      "全員に小さい：録音・マイクテスト・通話を比較",
+      "Windows録音から小さい：入力音量を調整する",
+      "Discordだけ小さい：入力音量と音声処理を比較",
+      "100％でも小さい：位置・機器のゲイン・接続を確認",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/en-us/windows/hardware/drivers/fix-microphone-problems",
+      "https://support.microsoft.com/en-us/windows/hardware/drivers/how-to-set-up-and-test-microphones-in-windows"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/no-route",
+    "title": "DiscordでNo Routeが出る時の直し方｜回線・PC・通話先で切り分け",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-udp"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "障害確認と比較で、失敗する範囲を決める",
+      "特定回線だけ失敗する場合はVPNとルーターを確認する",
+      "PCだけ失敗する場合は、アプリ・通信許可・QoSを比較する",
+      "特定チャンネルだけ失敗する場合は音声リージョンを比較する",
+      "DNS変更やネットワーク初期化へ進む前に結果を整理する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://discordstatus.com/"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/not-opening",
+    "title": "Discordが起動しない原因と直し方｜無反応・すぐ閉じる場合【Windows】",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-cache"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "完全終了して、起動経路を変えて確認する",
+      "ブラウザ版と比較し、アプリ・接続・ログインを分ける",
+      "アプリだけ開かない場合は、キャッシュを退避して比較する",
+      "ブロック通知がある場合は、検出内容を確認する",
+      "改善しない場合は、ログイン手段を確保して再インストールする",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://discordstatus.com/"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/notifications-not-working",
+    "title": "Discordの通知が来ない原因と直し方｜DM・メンション・開いている時で切り分け【PC版】",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "DMだけ届かないなら、会話ごとのミュートと「無視」を調べる",
+      "初めての相手のDMが見当たらないなら、リクエストを探す",
+      "サーバー投稿・メンションだけなら、通知の種類を見比べる",
+      "Discordを開いている時だけなら、表示中の会話と状態を比較",
+      "全部の通知が出ない・ゲーム中だけ出ないなら、DiscordとWindowsを確認",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/ja/articles/215253258",
+      "https://support.discord.com/hc/ja/articles/223657667",
+      "https://support.discord.com/hc/ja/articles/227779547",
+      "https://support.discord.com/hc/ja/articles/218485407",
+      "https://support.discord.com/hc/ja/articles/28084948873623",
+      "https://support.discord.com/hc/en-us/articles/7924992471191-Message-Requests",
+      "https://support.microsoft.com/ja-jp/windows/experience/notifications-and-do-not-disturb-in-windows"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/overlay-not-showing",
+    "title": "Discordのオーバーレイが表示されない｜本体・通話・通知別の直し方",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-overlay",
+      "discord-helper"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "本体が開かない：有効化とゲーム内でのキー操作を確認する",
+      "通話参加者だけ見えない：表示条件とボイスウィンドウを確認する",
+      "通知だけ出ない：受信とゲーム内表示を分けて確認する",
+      "特定ゲームだけ出ない：表示モードと別ゲームで比較する",
+      "権限の高いゲームでキーが効かない：公式ヘルパーの案内を確認する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/ja/articles/217659737",
+      "https://support.discord.com/hc/ja/articles/34853435033367"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/phone-verification-error",
+    "title": "Discordの電話番号認証ができない｜無効・登録済み・SMSが届かない場合の直し方",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "「無効な電話番号」なら形式と番号の種類を確認",
+      "「すでに登録済み」なら登録元のアカウントで番号を外す",
+      "「レートリミット・最近使用された」なら待機する",
+      "番号は通ったがSMSが届かないなら受信段階を比べる",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/en-us/requests/new",
+      "https://support.discord.com/hc/ja/articles/26680694104215-Discordの電話番号エラーを修正する方法",
+      "https://support.discord.com/hc/ja/articles/6181726888215-Discordアカウントを認証する方法",
+      "https://support.discord.com/hc/ja/articles/4413460214807-How-to-Remove-a-Phone-Number-From-a-Discord-Account"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/recommended-bots",
+    "title": "DiscordおすすめBot 4選｜ゲームサーバー向けの選び方・導入手順",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "導入前：標準機能と既存Botで足りるか確認する",
+      "共通の入れ方：公式リンクから追加先・権限を確認する",
+      "導入後：管理者以外で、期待した結果を確認する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/en-us/articles/21334461140375-Using-Apps-on-Discord",
+      "https://support.discord.com/hc/en-us/articles/22163184112407-Polls-FAQ",
+      "https://support.discord.com/hc/en-us/articles/4409494125719-Scheduled-Events",
+      "https://support.discord.com/hc/en-us/articles/4421269296535-AutoMod-FAQ",
+      "https://sesh.fyi/",
+      "https://sesh.fyi/manual/",
+      "https://carl.gg/about",
+      "https://github.com/botlabs-gg/carlbot-docs/blob/master/docs/roles.md",
+      "https://docs.dyno.gg/en/modules/automod",
+      "https://docs.dyno.gg/en/premium",
+      "https://docs.tickettool.xyz/general/setup",
+      "https://docs.tickettool.xyz/dashboard/panel-configs"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/rtc-connecting",
+    "title": "DiscordがRTC接続中から進まない時の直し方｜端末・回線・通話先で判定",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-reset",
+      "discord-udp"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "表示と障害情報を確認し、通話へ入り直す",
+      "チャンネル・ブラウザ・端末を順に比較する",
+      "回線・VPN・PCの通信許可を確認する",
+      "特定チャンネルだけ失敗する場合は、音声リージョンを比較する",
+      "ブラウザ版だけ成功する場合は、アプリとAMD対象条件を確認する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://discordstatus.com/",
+      "https://support.discord.com/hc/en-us/articles/4978019693463-AMD-GPU-CPU-RTC-CONNECTING-Troubleshooting"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/screen-share-black-screen",
+    "title": "Discord画面共有が黒いときの直し方｜配信者・視聴者・特定アプリで切り分け",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "最初に「配信者の小窓」と「視聴者の配信画面」を区別する",
+      "同じメモ帳をアプリ共有と画面全体共有で比べる",
+      "一人の視聴者だけ黒いなら、同じ配信を二人で開く",
+      "特定アプリだけ黒いなら表示モードと共有対象を調べる",
+      "普通のアプリも画面全体も全員に黒い場合を調べる",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/ja/articles/360045138471",
+      "https://discordstatus.com/",
+      "https://support.discord.com/hc/ja/articles/360040816151",
+      "https://support.discord.com/hc/en-us/articles/9410427556375--Windows-Capturing-Application-Window-for-Screen-Share-and-Go-Live",
+      "https://support.discord.com/hc/ja/articles/33030151293079",
+      "https://learn.microsoft.com/en-us/windows-hardware/drivers/display/desktop-duplication-api"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/screen-share-not-working",
+    "title": "Discordで画面共有できない・相手に映らない時の直し方【PC版】",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-stream-acceleration"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "共有を始められない：通話への参加と「動画」権限を調べる",
+      "配信中なのに見えない：視聴画面とプレビューを区別する",
+      "特定アプリだけ映らない：アプリ単体と画面全体を比べる",
+      "一人だけ見えない：二人目の視聴者で切り分ける",
+      "通常アプリも全員に黒い：描画設定と通信を一つずつ比較する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://discordstatus.com/",
+      "https://support.discord.com/hc/en-us/articles/360040816151-Go-Live-and-Screen-Share"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/slow-performance",
+    "title": "Discordが重い・遅い時の直し方｜画面操作・通信・ゲーム中で切り分け",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "同じ操作を決め、変更前の状態を記録する",
+      "CPU・メモリ・GPU・ディスクの結果から次の操作を選ぶ",
+      "送受信だけ遅い：障害・接続・通信中の処理を比較する",
+      "Discordの画面だけ重い：アニメーションと描画設定を比較する",
+      "ゲーム・配信中だけ重い：同時に使う機能を減らして比較する",
+      "アプリだけ重い場合：完全終了・更新後に再確認する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://discordstatus.com/",
+      "https://support.discord.com/hc/en-us/articles/225733808-Why-does-Discord-have-multiple-processes",
+      "https://support.discord.com/hc/en-us/articles/213491697-What-are-the-OS-system-requirements-for-Discord",
+      "https://support.microsoft.com/ja-jp/windows/experience/performance-optimization/tips-to-improve-pc-performance-in-windows"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/stream-no-audio",
+    "title": "Discord配信でゲーム音が入らない・相手に聞こえない時の直し方",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "windows-app-output"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "配信者側：ゲームの音量と出力先を確認する",
+      "共有方法：ゲームのアプリと画面全体を比べる",
+      "視聴者側：配信のミュート・配信音量を確認する",
+      "特定のゲームだけ無音：ゲーム内設定と共有対象を照合する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/ja/articles/360040816151-Go-Live%E3%81%A8%E7%94%BB%E9%9D%A2%E5%85%B1%E6%9C%89"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/stream-stuttering",
+    "title": "Discord配信がカクカクする・重いときの直し方【配信者・視聴者別】",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-stream-acceleration"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "配信の解像度・フレームレートが回線に対して高い",
+      "アップロード回線またはDiscord側に問題がある",
+      "ゲーム・録画・DiscordでPC負荷が高い",
+      "配信対象やGPUドライバーとの相性",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://discordstatus.com/",
+      "https://support.discord.com/hc/ja/articles/360040816151"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/system-helper",
+    "title": "Discordシステムヘルパーとキー割り当て｜ゲーム中だけ効かない時の直し方",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-helper"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "編集画面を閉じ、同じ操作をゲーム外とゲーム中で比べる",
+      "別の未使用キーを記録し、競合と設定ミスを確認する",
+      "ゲーム中だけ失敗する場合は、Discord内の公式案内を確認する",
+      "案内がない場合は、基本確認と代替操作を使う",
+      "導入後も、キー操作・音声・オーバーレイを分けて再確認する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/en-us/requests/new",
+      "https://support.discord.com/hc/ja/articles/217659737",
+      "https://support.discord.com/hc/ja/articles/34853435033367",
+      "https://support.discord.com/hc/ja/articles/217083547-How-do-I-add-different-Keybinds"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/update-failed",
+    "title": "DiscordのUpdate Failed・更新ループの直し方｜削除前に通信とアプリを確認",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-install-folders"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "障害情報とブラウザ版を、ファイル削除より先に確認する",
+      "同じPCで回線を変え、ダウンロードと更新を比較する",
+      "Discordと更新プロセスを完全終了して起動し直す",
+      "条件がそろった場合だけ、残存フォルダーを整理して入れ直す",
+      "入れ直しても失敗する場合は、止まる画面と比較結果を残す",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://discordstatus.com/",
+      "https://support.discord.com/hc/en-us/requests/new",
+      "https://discord.com/download"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/upload-failed",
+    "title": "Discordで画像・ファイルを送れない時の対処法｜容量・権限・送信失敗を切り分け",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-file-limit"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "失敗の場所を記録し、安全な比較用ファイルを用意する",
+      "今の上限表示と、圧縮前のファイル容量を照合する",
+      "同じチャンネルの「ファイルを添付」権限を確認する",
+      "元ファイルの問題と、プレビューだけの問題を分ける",
+      "同じ条件でアプリとブラウザを比べ、通信の範囲を絞る",
+      "安全上の警告を尊重し、必要な情報だけで問い合わせる",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://docs.discord.com/developers/topics/permissions",
+      "https://discordstatus.com/",
+      "https://support.discord.com/hc/en-us/requests/new",
+      "https://support.discord.com/hc/en-us/articles/115000435108-What-are-Nitro-Nitro-Basic",
+      "https://discord.com/community/permissions-on-discord-discord",
+      "https://support.discord.com/hc/en-us/articles/1500005466681-File-Preview",
+      "https://support.discord.com/hc/en-us/articles/115000068672-Safer-Messaging-on-Discord"
+    ],
+    "locales": [
+      "ja",
+      "en",
+      "es",
+      "zh"
+    ]
+  },
+  {
+    "path": "/discord/user-volume-low",
+    "title": "Discordで相手の声が小さい時の直し方｜1人だけ・全員・ゲーム中で切り分け",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-input-output",
+      "windows-app-output"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "1人だけ小さいなら、その人のユーザー音量を調整する",
+      "全員小さいなら、Discordの出力先と出力音量を確認する",
+      "Windowsの音量ミキサーと機器本体を確認する",
+      "ゲーム中だけ小さいなら、ゲーム音とのバランスを比べる",
+      "他の参加者にも同じなら、相手側のマイクを確認してもらう",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/en-us/articles/205287897-How-do-I-adjust-the-volume-level-of-individual-users-in-my-server"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/voice-client-outdated",
+    "title": "Discordの古いバージョンで通話できない｜更新できない時の対処",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "更新前の版を記録し、完全終了して更新する",
+      "番号が変わらない・更新できない時は、表示と起動先を確認する",
+      "ブラウザ自体を更新・再起動して、同じ通話を試す",
+      "比較結果に合わせ、更新・接続・音声・Botを分けて対処する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://discordstatus.com/",
+      "https://discord.com/download",
+      "https://support.discord.com/hc/en-us/articles/38025123604631-Minimum-Client-Version-Requirements-for-Voice-Chat",
+      "https://support.google.com/chrome/answer/95414?hl=ja",
+      "https://support.mozilla.org/ja/kb/update-firefox-latest-release",
+      "https://support.microsoft.com/en-us/topic/microsoft-edge-update-settings-af8aaca2-1b69-4870-94fe-18822dbb7ef1"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/discord/voice-cutting-out",
+    "title": "Discordで音声・マイクが途切れる時の直し方【語尾・ゲーム中の症状別】",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-mic-test",
+      "krisp-conditions"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "同じ文章を録音・テスト・通話で比較する",
+      "Windows録音も切れる：接続と使用マイクを確認",
+      "語尾だけ切れる：入力モードに合う項目を調整",
+      "Discordだけ欠ける：ノイズ抑制を1項目ずつ比較",
+      "通話・ゲーム中だけ切れる：相手と回線・負荷を比較",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.discord.com/hc/en-us/articles/211376518-Voice-Input-Modes-101-Push-to-Talk-Voice-Activated",
+      "https://support.microsoft.com/ja-jp/windows/apps/sound-recorder-app-for-windows-faq"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/black-screen",
+    "title": "PCゲームが黒い画面になる時の対処法｜音だけ出る・起動後に真っ暗",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "blank-screen-keys"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "Windowsの画面が出るか確認",
+      "画面モードと直前の設定を戻す",
+      "修復と追加機能を1つずつ比較",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/hdr-settings-in-windows",
+      "https://support.microsoft.com/en-us/windows/hardware/display-graphics/change-the-refresh-rate-on-your-monitor-in-windows",
+      "https://www.epicgames.com/help/c-34254770/c-38015632/a14140539?lang=ja",
+      "https://www.nexusmods.com/eldenring/mods/135",
+      "https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/bsod-while-gaming",
+    "title": "ゲーム中のブルースクリーン｜停止コード・メモリ診断・ミニダンプの調べ方",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "kernel-power"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "停止コードと発生時刻を記録する",
+      "コード別にGPU・メモリ・機器を調べる",
+      "メモリ診断とダンプを確認する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/windows/experience/performance-optimization/troubleshooting-windows-unexpected-restarts-and-stop-code-errors",
+      "https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/bug-check-0x116---video-tdr-failure",
+      "https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/bug-check-0x1a--memory-management",
+      "https://support.microsoft.com/en-us/windows/experience/performance-optimization/how-to-fix-error-0xa-irql-not-less-or-equal",
+      "https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/bug-check-0x124---whea-uncorrectable-error",
+      "https://learn.microsoft.com/en-us/troubleshoot/windows-client/performance/read-small-memory-dump-file",
+      "https://learn.microsoft.com/en-us/troubleshoot/windows-client/performance/stop-code-error-troubleshooting"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/controller-double-input",
+    "title": "コントローラーが二重入力する時の直し方｜Steam Input・仮想パッドの見分け方",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "steam-input-legacy"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "1回押した結果と実機・仮想パッドを記録する",
+      "外部ツールを停止しSteam Inputだけで比較する",
+      "残る場合だけSteam Inputかゲーム側を確認する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://kanuan.github.io/DS4WSite/guides/solving-double-input/",
+      "https://support.microsoft.com/en-us/topic/how-to-run-control-panel-tools-by-typing-a-command-bce95b4d-e8c2-1cd0-ee0d-027679d520a6",
+      "https://help.steampowered.com/ja/wizard/HelpWithGameIssue/?appid=353370&issueid=361&nodeid=9"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/directx-error",
+    "title": "DirectXエラー｜機能レベル・DLL不足・GPUエラーの見分け方",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "dism-order",
+      "legacy-directx",
+      "dxgi-removed",
+      "feature-level-capability"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "エラー全文と使用GPUを確認する",
+      "一致したエラーの対処だけを試す",
+      "同じ条件で再確認し、記録を残す",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB",
+      "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/which-version-of-directx-is-on-your-pc",
+      "https://support.microsoft.com/ja-jp/windows/experience/backup-recovery/using-system-file-checker-in-windows"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/gpu-driver-update",
+    "title": "GPUドライバーの更新方法｜NVIDIA・AMD・Intel別の操作と戻し方",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "GPU名・現在の版と症状を記録する",
+      "メーカー別に1つの経路で更新する",
+      "同じ条件で比較し、悪化したら戻す",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://www.nvidia.com/en-us/geforce/news/gfecnt/202411/nvidia-app-download-and-features/",
+      "https://www.nvidia.com/ja-jp/drivers/",
+      "https://www.amd.com/en/resources/support-articles/faqs/DH3-016.html",
+      "https://www.amd.com/en/resources/support-articles/faqs/rsx2-install.html",
+      "https://www.intel.com/content/www/us/en/support/articles/000005629/graphics/processor-graphics.html",
+      "https://www.intel.com/content/www/us/en/support/detect.html",
+      "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/fix-graphics-device-problems-with-error-code-43"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/low-fps",
+    "title": "PCゲームのFPSが低い時の調べ方｜上限・CPU・GPU負荷を切り分ける",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "cpu-gpu-load"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "同じ場面でFPS・上限・使用GPUを記録する",
+      "FPSが上限値で頭打ちなら、まず上限設定を確認する",
+      "解像度だけを下げてFPSを比べる",
+      "結果に合わせてCPU側・GPU側の対処を選ぶ",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/en-us/windows/experience/compatibility/find-out-how-many-cores-a-processor-on-a-windows-device-has",
+      "https://help.steampowered.com/en/faqs/view/3462-CD4C-36BD-5767",
+      "https://www.nvidia.com/content/Control-Panel-Help/vLatest/en-us/mergedProjects/nv3d/Manage_3D_Settings_(reference).htm",
+      "https://www.amd.com/en/products/software/adrenalin/frtc.html",
+      "https://devblogs.microsoft.com/directx/navigating-the-redesigned-graphics-settings-page/"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/low-gpu-usage",
+    "title": "ゲーム中にGPU使用率が低い時の見方｜正常なFPS上限と性能不足を判別",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "cpu-gpu-load"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "プレイ中のFPSと上限が一致しているか確認する",
+      "ゲームが使うGPUとCPUの負荷をセットで記録する",
+      "目標未達ならCPU側か使用GPUかを一つずつ比べる",
+      "改善しない時は電源と描画設定を条件付きで確認する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/windows/experience/performance-optimization/tips-to-improve-pc-performance-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/optimizations-for-windowed-games-in-windows-11",
+      "https://support.microsoft.com/ja-jp/windows/experience/compatibility/find-out-how-many-cores-a-processor-on-a-windows-device-has",
+      "https://help.steampowered.com/ja/faqs/view/3462-CD4C-36BD-5767"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/no-game-audio",
+    "title": "PCゲームで音が出ない時の直し方｜Windows全体・ゲームだけ無音を切り分ける",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "windows-app-output"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "同じ出力機器で、ほかの音が聞こえるか調べる",
+      "Windowsの出力先とゲーム別の音量を確認する",
+      "ゲーム内の音量を確認し、同じ場面で聞き比べる",
+      "直らない場合だけ、結果に合う次の確認へ進む",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/fix-bluetooth-connected-but-no-sound-issue-on-windows",
+      "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-sound-or-audio-problems-in-windows",
+      "https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB",
+      "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-audio-issues-when-no-sound-plays-from-speakers-or-headphones-in-windows"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/pc-game-crash",
+    "title": "PCゲームが落ちる・強制終了する時の対処法｜タイミング別の原因確認",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "落ち方と発生時刻を記録する",
+      "発生タイミングに合う1項目を試す",
+      "同じ条件で結果を比べ、次へ進む",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB",
+      "https://support.microsoft.com/ja-jp/windows/experience/system-configuration-tools-in-windows",
+      "https://learn.microsoft.com/en-us/troubleshoot/windows-server/performance/troubleshoot-application-service-crashing-behavior",
+      "https://www.dell.com/support/kbdoc/en-us/000178177/how-to-use-windows-reliability-monitor-to-identify-software-issues"
+    ],
+    "locales": [
+      "en",
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/pc-game-freezes",
+    "title": "PCゲームが固まる・応答なしになる時の対処法｜メモリ・温度の確認手順",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "ゲームだけかPC全体か分ける",
+      "メモリと温度を記録する",
+      "結果に合う対処を1つ試す",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB",
+      "https://support.microsoft.com/ja-jp/windows/experience/system-configuration-tools-in-windows",
+      "https://www.dell.com/support/kbdoc/en-us/000178177/how-to-use-windows-reliability-monitor-to-identify-software-issues",
+      "https://learn.microsoft.com/en-us/troubleshoot/windows-client/performance/introduction-to-the-page-file",
+      "https://blogs.windows.com/windows-insider/2019/08/16/announcing-windows-10-insider-preview-build-18963/",
+      "https://www.amd.com/en/resources/support-articles/faqs/DH3-038.html",
+      "https://www.intel.com/content/www/us/en/support/articles/000005597/processors.html",
+      "https://www.hwinfo.com/about-software/"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/pc-shuts-down-while-gaming",
+    "title": "ゲーム中にPCの電源が落ちる・勝手に再起動する時の調べ方",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "kernel-power"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "電源断・再起動・停止コードを分ける",
+      "信頼性履歴とイベント41を時刻で照合する",
+      "温度・冷却・電源接続を安全に確認する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/windows/experience/performance-optimization/troubleshooting-windows-unexpected-restarts-and-stop-code-errors",
+      "https://support.microsoft.com/ja-jp/windows/experience/system-configuration-tools-in-windows",
+      "https://blogs.windows.com/windows-insider/2019/08/16/announcing-windows-10-insider-preview-build-18963/",
+      "https://www.amd.com/en/resources/support-articles/faqs/DH3-038.html",
+      "https://www.intel.com/content/www/us/en/support/articles/000005597/processors.html",
+      "https://www.asus.com/jp/support/faq/1015064/",
+      "https://www.dell.com/support/kbdoc/en-us/000130867/how-to-troubleshoot-a-overheating-shutdown-or-thermal-issue-on-a-dell-pc"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/ray-tracing-gpu",
+    "title": "「レイトレーシング対応GPUが必要」なゲームが起動しない｜自分のGPUが対応か確認する方法",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "GPU名を確認する",
+      "レイトレーシングに対応しているか判断する",
+      "ノートPCはゲームが使うGPUを確認する",
+      "対応GPUなのに起動しない場合",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://www.amd.com/ja/products/graphics/desktops/radeon/6000-series/amd-radeon-rx-6600.html",
+      "https://enso-order.acecombat.jp/",
+      "https://store.steampowered.com/app/3010850/",
+      "https://gemnao.pages.dev/new-releases/2026-10"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/remove-mods-safely",
+    "title": "PCゲームのMODを安全に外す方法｜管理ツール・手動・Steamワークショップ別の戻し方",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "セーブ・導入記録・退避先を用意する",
+      "管理ツール・手動導入・ワークショップ別に外す",
+      "残存を確認し、MODなしの起動を比べる",
+      "元に戻す場合は、導入経路から1件ずつ再適用する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB",
+      "https://github.com/Nexus-Mods/Vortex/wiki/MODDINGWIKI-Users-FAQ",
+      "https://github.com/ModOrganizer2/modorganizer/releases",
+      "https://steamcommunity.com/workshop/"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/reset-config-file",
+    "title": "PCゲームの設定ファイルを初期化する方法｜場所の探し方・安全な戻し方",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "steam-cloud-timing"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "対象ファイルとセーブの場所を確認する",
+      "ゲームを終了し、別の場所へコピーする",
+      "設定だけを退避し、既定値で起動する",
+      "再起動で確認し、必要なら元に戻す",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [
+      "https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB"
+    ],
+    "notAttemptedUrls": [
+      "https://www.nexusmods.com/eldenring/mods/135",
+      "https://steamcommunity.com/app/2246340/discussions/0/596267902352499417/",
+      "https://www.epicgames.com/help/c-202300000001636/c-202300000001719/a202300000013484",
+      "https://support.microsoft.com/ja-jp/windows/experience/fileexplorer/file-explorer-in-windows",
+      "https://help.steampowered.com/en/faqs/view/68D2-35AB-09A9-7678",
+      "https://dev.epicgames.com/documentation/ja-jp/unreal-engine/configuration-files-in-unreal-engine",
+      "https://help.steampowered.com/en/faqs/view/4593-5CB7-DC3C-64F0"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/reshade-uninstall",
+    "title": "ReShadeのアンインストール方法｜消すファイルの見分け方・戻し方",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "導入先とプリセットを控える",
+      "導入方法に合わせてReShadeを解除する",
+      "起動を確認し、残すものを整理する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [
+      "https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB"
+    ],
+    "notAttemptedUrls": [
+      "https://reshade.me/",
+      "https://github.com/crosire/reshade/blob/v6.8.0/setup/MainWindow.xaml.cs",
+      "https://github.com/crosire/reshade/blob/v6.8.0/setup/Pages/SelectOperationPage.xaml",
+      "https://reshade.me/forum/troubleshooting/3407-how-to-uninstall-completely"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/save-data-backup",
+    "title": "PCゲームのセーブデータをバックアップする方法｜保存先・確認・復元手順",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "steam-cloud-timing"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "保存先とコピー対象を確認する",
+      "元の名前で日付別にコピーする",
+      "コピーの一致を確認して記録する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [
+      "https://help.steampowered.com/ja/faqs/view/68D2-35AB-09A9-7678"
+    ],
+    "notAttemptedUrls": [
+      "https://support.cdprojektred.com/ja/cyberpunk/pc/sp-technical/issue/1706/sebudetanobao-cun-chang-suo-wojiao-etekudasai",
+      "https://larian.com/support/faqs/multiplayer-issues_84",
+      "https://www.stardewvalley.net/missing-corrupt-save-file-troubleshooting-guide/",
+      "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash?view=powershell-5.1"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/shader-cache-delete",
+    "title": "シェーダーキャッシュの削除・再構築方法｜Windows・NVIDIA・AMD",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "症状を控え、ゲームを終了する",
+      "対象のキャッシュだけを削除する",
+      "再構築を待ち、同じ場面で比較する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://www.nvidia.com/content/Control-Panel-Help/vLatest/en-us/mergedProjects/nv3d/Manage_3D_Settings_(reference).htm",
+      "https://community.intel.com/t5/Gaming-on-Intel-Processors-with/CS2-crashed-Failure-Exception-IP-Module-igd10umt64xe-DLL/m-p/1757369",
+      "https://support.microsoft.com/en-us/windows/experience/storage-filemanagement/free-up-drive-space-in-windows",
+      "https://nvidia.custhelp.com/app/answers/detail/a_id/5735/~/deleting-nvidia-shader-cache-files",
+      "https://www.amd.com/en/resources/support-articles/faqs/dh3-012.html",
+      "https://support.activision.com/black-ops-6/articles/black-ops-6-pc-troubleshooting",
+      "https://www.epicgames.com/help/c-34254770/c-38015632/a11302262"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/steam-cloud-sync-error",
+    "title": "Steamクラウド同期エラー・競合｜ローカルとクラウドの選び方",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "steam-cloud-timing"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "競合画面を記録し候補を保全する",
+      "PCごとの最後のプレイを調べる",
+      "判断例に当てはめて候補を選ぶ",
+      "選択後に進行を確認する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [
+      "https://help.steampowered.com/ja/faqs/view/68D2-35AB-09A9-7678"
+    ],
+    "notAttemptedUrls": [
+      "https://store.steampowered.com/account/remotestorage"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/steam-disk-write-error",
+    "title": "Steamディスク書き込みエラーの直し方｜保存先と空き容量・修復後の判断",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "対象ゲームの保存先ドライブと空き容量を確認する",
+      "再起動後に同じ更新を一度再開して結果を記録する",
+      "対象のSteamライブラリを修復し、更新完了まで確認する",
+      "複数ゲームでも失敗する場合はドライブ側を点検する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [
+      "https://help.steampowered.com/ja/faqs/view/21F5-8D5D-0141-7A5E"
+    ],
+    "notAttemptedUrls": [
+      "https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB",
+      "https://help.steampowered.com/en/faqs/view/4BD4-4528-6B2E-8327",
+      "https://support.microsoft.com/ja-jp/windows/experience/storage-filemanagement/free-up-drive-space-in-windows",
+      "https://learn.microsoft.com/ja-jp/windows-server/administration/windows-commands/chkdsk",
+      "https://help.steampowered.com/ja/faqs/view/1F39-DCB4-FF28-5748"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/steam-game-not-launching",
+    "title": "Steamゲームが起動しない時の対処法｜プレイを押しても起動しない・「起動準備を行っています」で止まる",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "プレイ直後の状態を見分ける",
+      "無反応・「起動準備」で止まるならSteam公式の基本手順を試す",
+      "一瞬起動して閉じるなら停止履歴を調べる",
+      "試した結果から次の行動を決める",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [
+      "https://help.steampowered.com/ja/faqs/view/5814-D9A3-BE42-62DF"
+    ],
+    "notAttemptedUrls": [
+      "https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB",
+      "https://support.microsoft.com/ja-jp/windows/experience/system-configuration-tools-in-windows",
+      "https://www.dell.com/support/kbdoc/en-us/000178177/how-to-use-windows-reliability-monitor-to-identify-software-issues",
+      "https://help.steampowered.com/ja/faqs/view/1F39-DCB4-FF28-5748",
+      "https://help.ea.com/en/articles/platforms/download-and-play-ea-app-games/",
+      "https://help.steampowered.com/ja/faqs/view/3A2A-BF2D-15FF-7963",
+      "https://help.steampowered.com/ja/faqs/view/7CFE-6339-CEA8-DC13",
+      "https://support.microsoft.com/ja-jp/windows/security/windows-security/protection-history-in-the-windows-security-app"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/steam-input-controller",
+    "title": "Steam Inputでコントローラーが反応しない時の直し方｜認識場所別に確認",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "steam-input-legacy",
+      "steam-controller-detection"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "Steamが機器とボタン入力を認識するか確認する",
+      "ゲーム別Steam Inputと入力方式を比較する",
+      "外部変換・複数機器を外して結果を確かめる",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://help.steampowered.com/ja/wizard/HelpWithGameIssue/?appid=353370&issueid=361&nodeid=9",
+      "https://store.steampowered.com/news/posts/?enddate=1701713393&feed=steam_blog",
+      "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/fix-bluetooth-problems-in-windows"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/stutter-fix",
+    "title": "PCゲームがカクつく・一瞬止まる時の対処法｜FPS上限の設定と比較手順",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "FPS上限を1か所で設定する",
+      "シェーダー構築の完了を確認",
+      "VRAM・読み込み負荷を確認",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://help.steampowered.com/en/faqs/view/3462-CD4C-36BD-5767",
+      "https://www.nvidia.com/content/Control-Panel-Help/vLatest/en-us/mergedProjects/nv3d/Manage_3D_Settings_(reference).htm",
+      "https://www.amd.com/en/products/software/adrenalin/frtc.html",
+      "https://www.amd.com/en/resources/support-articles/faqs/dh3-012.html",
+      "https://www.epicgames.com/help/c-34254770/c-38015632/a11302262",
+      "https://www.epicgames.com/help/c-34254770/c-38015632/a17266354"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/tpm-secure-boot",
+    "title": "ゲームでTPM 2.0・セキュアブートが必要と出た時の確認と有効化の方法【Windows】",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "tpm-check",
+      "secure-capable-not-enabled"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "Windowsで今の状態を確認する",
+      "UEFI（BIOS）の設定画面を開く",
+      "TPMを有効にする",
+      "セキュアブートを有効にする",
+      "有効にしたのにゲームで要件を満たさないと出る場合",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.activision.com/articles/trusted-platform-module-and-secure-boot",
+      "https://learn.microsoft.com/ja-jp/windows/deployment/mbr-to-gpt"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/uninstall-save-data",
+    "title": "ゲームをアンインストールするとセーブは消える？Steam・PC版の判断方法",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "steam-cloud-timing"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "本体とセーブの場所を分けて確認する",
+      "クラウド同期と使用アカウントを確認する",
+      "削除範囲の外へコピーして照合する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [
+      "https://help.steampowered.com/ja/faqs/view/68D2-35AB-09A9-7678"
+    ],
+    "notAttemptedUrls": [
+      "https://larian.com/support/faqs/multiplayer-issues_84",
+      "https://www.stardewvalley.net/missing-corrupt-save-file-troubleshooting-guide/",
+      "https://support.cdprojektred.com/en/cyberpunk/pc/sp-technical/issue/2233/how-do-i-perform-a-clean-install-of-the-game",
+      "https://help.steampowered.com/en/faqs/view/4566-6D94-3A46-953A",
+      "https://www.epicgames.com/help/c-32735058/c-36403860/a12795838?lang=en-US"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/verify-steam-files",
+    "title": "Steamゲームファイルの整合性確認｜再取得・変化なし・再発時の判断方法",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "ゲームを終了し、MODとセーブの状態を残す",
+      "ライブラリから整合性確認を実行する",
+      "「再取得」「変化なし」を起動結果と組み合わせて判断する",
+      "再発または毎回再取得される場合は発生時刻を照合する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [
+      "https://help.steampowered.com/ja/faqs/view/68D2-35AB-09A9-7678",
+      "https://help.steampowered.com/ja/faqs/view/21F5-8D5D-0141-7A5E"
+    ],
+    "notAttemptedUrls": [
+      "https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB",
+      "https://partner.steamgames.com/doc/features/workshop/implementation?l=japanese",
+      "https://help.steampowered.com/ja/faqs/view/5F3D-1477-AFF9-C4F3"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/visual-c-runtime-error",
+    "title": "ゲームのVisual C++ Runtimeエラー対処｜DLL別の版とx86・x64の選び方",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "vc-architecture",
+      "vc-series"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "エラーの全文とゲームの対象を控える",
+      "Windowsで同じ系列・x86／x64の導入状況を見る",
+      "Microsoft公式の該当パッケージを修復または導入する",
+      "再起動して再現を確認し、結果で次を決める",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB",
+      "https://support.microsoft.com/ja-jp/windows/apps/repair-apps-and-programs-in-windows",
+      "https://learn.microsoft.com/ja-jp/cpp/windows/troubleshoot-vc-redistributable-installation-issues"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/vram-shortage",
+    "title": "PCゲームのVRAM不足を確認する方法｜専用・共有GPUメモリの見方と比較例",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "gpu-memory"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "ゲームが使うGPUと専用・共有GPUメモリを確認する",
+      "症状と数値を照合して、変える設定を一つ選ぶ",
+      "同じ場面を再訪し、使用量と症状を一緒に比べる",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://learn.microsoft.com/en-us/windows-hardware/drivers/display/examples-of-graphics-memory-reporting",
+      "https://learn.microsoft.com/ja-jp/troubleshoot/windows-client/performance/gpu-process-memory-counters-report-wrong-value",
+      "https://www.nvidia.com/en-us/geforce/news/the-witcher-3-wild-hunt-graphics-performance-and-tweaking-guide/"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/guide/windows-11-required",
+    "title": "動作環境が「Windows 11」のゲームをWindows 10で遊べる？確認方法とアップグレード前の注意",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "tpm-check"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "Windowsのバージョンを確認する",
+      "Windows 11にアップグレードできるか確認する",
+      "アップグレードの前にセーブデータをバックアップする",
+      "Windows 10のまま遊ぶ場合の注意",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合",
+      "app/guide/[slug]/page.tsxで対応する補足コンポーネントを確認（supplement-queue.json）"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://gemnao.pages.dev/new-releases/2026-10",
+      "https://support.microsoft.com/ja-jp/windows/experience/compatibility/how-to-use-the-pc-health-check-app"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/audio-after-update",
+    "title": "Windows Update後に音が出なくなった時の直し方【Windows 11】",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "windows-app-output"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "音が出る範囲と出力先を同じ音で比べる",
+      "出力機器が一覧にない場合は、認識と有効状態を確認する",
+      "更新履歴とドライバーの版を照合する",
+      "音声サービスが止まっていないか確認する",
+      "特定の更新が原因と疑われる時だけ回復・削除を検討する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-audio-stops-working-after-a-windows-update-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-missing-or-undetected-audio-output-device-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/hardware/drivers/error-codes-in-device-manager-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/deployment/updates-lifecycle/how-to-uninstall-a-windows-update"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/black-screen-after-sign-in",
+    "title": "Windows 11でサインイン後に黒い画面・マウスカーソルだけが出る時の直し方",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "blank-screen-keys"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "Windowsの画面が見えているかを最初に分ける",
+      "タスクマネージャーが開くなら、デスクトップの表示を戻す",
+      "画面全体が映らないなら、表示先と接続を確認する",
+      "デスクトップが一度戻っても再発する時は、起動条件を照合する",
+      "タスクマネージャーが使えない・再発する時はセーフモードで比較する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/windows/experience/startup-boot/configure-startup-applications-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/experience/backup-recovery/windows-recovery-environment",
+      "https://support.microsoft.com/ja-jp/windows/experience/startup-boot/windows-startup-settings",
+      "https://support.microsoft.com/ja-jp/windows/security/identity-signin/troubleshoot-problems-signing-in-to-windows",
+      "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/troubleshoot-screen-flickering-in-windows",
+      "https://support.microsoft.com/ja-jp/servicing/os/hotpatch/windows-11/2026/kb5129241-windows-11-24h2-25h2-security-update"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/bluetooth-connected-no-sound",
+    "title": "Bluetoothイヤホンが接続済みなのに音が出ない時の確認手順【Windows 11】",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "le-audio",
+      "windows-app-output"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "「接続済み」と「音の出力先」を分けて確認する",
+      "特定アプリだけ無音なら音量ミキサーを見る",
+      "出力に現れない時だけ接続をやり直す",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/fix-bluetooth-connected-but-no-sound-issue-on-windows"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/bluetooth-option-missing",
+    "title": "Windows 11でBluetoothが消えた時の直し方｜スイッチ・アダプター・機器別",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "設定とクイック設定を比べ、何が消えたか確かめる",
+      "デバイスマネージャーのアダプター名・状態を読む",
+      "アダプターがない場合は、搭載仕様と電源・USB接続を確認する",
+      "更新前後の記録から、ドライバーの更新・戻し・再導入を選ぶ",
+      "機器だけ見つからない場合は、ペアリングと検出設定を比べる",
+      "復旧を確認し、再発時は同じ条件の記録をメーカーへ渡す",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/fix-bluetooth-problems-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/hardware/drivers/error-codes-in-device-manager-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/fix-bluetooth-disappeared-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/update-bluetooth-drivers-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/pair-a-bluetooth-device-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/troubleshoot-bluetooth-not-connecting-in-windows",
+      "https://learn.microsoft.com/en-us/windows-hardware/drivers/install/viewing-hidden-devices",
+      "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/bluetooth-keeps-disconnecting-in-windows"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/call-starts-audio-disappears",
+    "title": "通話を始めるとゲームや動画の音が消える・小さくなる時の直し方【Windows 11】",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "le-audio",
+      "windows-ducking"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "Windowsの「通信」設定を一度だけ比較する",
+      "通話前後でゲームと通話の出力先を比べる",
+      "Bluetoothヘッドセットのマイク使用による変化を分ける",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/teams/meetings/share-sound-from-your-computer-in-microsoft-teams-meetings-or-live-events"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/disk-usage-100",
+    "title": "ディスク使用率100％でPCが重い時の対処法｜Windows 11",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "タスクマネージャーでプロセス・ディスク・メモリを見る",
+      "更新・ゲームの展開・同期が進んでいるか確認する",
+      "自動起動するアプリを一つずつ減らす",
+      "メモリ不足による読み書きが重なっていないか比べる",
+      "検索インデックスとウイルススキャンを区別する",
+      "空き容量が少ない場合だけ、削除する項目を確認する",
+      "低速で固まる場合はドライブの警告・接続・履歴を調べる",
+      "同じ操作で改善を確認し、相談用の記録を残す",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/windows/experience/performance-optimization/tips-to-improve-pc-performance-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/experience/system-configuration-tools-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/experience/storage-filemanagement/free-up-drive-space-in-windows",
+      "https://techcommunity.microsoft.com/blog/askperf/windows-8--windows-server-2012-the-new-task-manager/375149",
+      "https://faq.nec-lavie.jp/fa/qa/web/knowledge24546.html",
+      "https://learn.microsoft.com/ja-jp/troubleshoot/windows-client/performance/introduction-to-the-page-file",
+      "https://support.microsoft.com/ja-jp/windows/experience/performance-optimization/search-indexing-in-windows",
+      "https://learn.microsoft.com/ja-jp/troubleshoot/windows-client/shell-experience/windows-search-performance-issues",
+      "https://support.microsoft.com/ja-jp/windows/experience/storage-filemanagement/what-to-do-about-a-critical-warning-for-a-storage-device",
+      "https://jpwinsup.github.io/blog/2022/08/05/Storage/Management/Disk153/",
+      "https://help.steampowered.com/en/faqs/view/71AB-698D-57EB-178C",
+      "https://partner.steamgames.com/doc/sdk/uploading"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/file-explorer-freezes-on-right-click",
+    "title": "Windows 11のエクスプローラーが右クリックで固まる・応答なしになる時の直し方",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "dism-order"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "開く段階と、固まる操作を記録する",
+      "ウィンドウが開かないなら、エクスプローラーを再起動する",
+      "右クリックだけ止まるなら、対象とメニューを比較する",
+      "特定の場所だけ固まるなら、別の場所と比べる",
+      "右クリック時の追加機能が疑わしい場合、1つずつ一時的に外す",
+      "ローカルの全フォルダーで失敗するならWindows側の状態を調べる",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/windows/experience/backup-recovery/using-system-file-checker-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/experience/fileexplorer/file-explorer-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/experience/fileexplorer/fix-file-explorer-if-it-won-t-open-or-start",
+      "https://learn.microsoft.com/ja-jp/windows/win32/shell/shell-exts",
+      "https://learn.microsoft.com/ja-jp/sysinternals/downloads/autoruns",
+      "https://support.microsoft.com/ja-jp/accessibility/windows/keyboard-shortcuts-in-windows"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/gaming-shortcut-keys",
+    "title": "ゲーム中に固まった・画面がおかしい時のショートカットキー｜PCゲーマー向け一覧【Windows 11】",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "blank-screen-keys"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "画面が固まった・真っ黒なら、Windowsキー＋Ctrl＋Shift＋Bでドライバーをリセット",
+      "ゲームが応答しないなら、Ctrl＋Shift＋Escでタスクマネージャーを開く",
+      "フルスクリーンとウィンドウの切り替えは、Alt＋Enterを試す",
+      "HDRの見え方がおかしいなら、Windowsキー＋Alt＋Bで切り替えて比べる",
+      "エラー画面を残す・フォルダーを開くキー",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/accessibility/windows/keyboard-shortcuts-in-windows",
+      "https://learn.microsoft.com/ja-jp/windows/win32/api/dxgi/nf-dxgi-idxgifactory-makewindowassociation",
+      "https://help.steampowered.com/ja/faqs/view/3978-072C-18DF-FBF9"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/microphone-after-update",
+    "title": "Windows Update後にマイクが使えない・認識されない時の確認手順【Windows 11】",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "windows-desktop-mic"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "Windowsの入力テストで、OSまで声が届くか調べる",
+      "通話アプリだけ使えない場合は権限と入力先を合わせる",
+      "マイクが一覧にない時は機器とエラー表示を調べる",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/windows/hardware/drivers/how-to-set-up-and-test-microphones-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/hardware/drivers/fix-microphone-problems",
+      "https://support.microsoft.com/ja-jp/windows/hardware/drivers/error-codes-in-device-manager-in-windows"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/pc-broken",
+    "title": "PCが壊れた？症状別の確認方法と修理に出す目安【電源・画面・起動】",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "危険な異常があれば、使用・充電を止めて相談する",
+      "電源が入らない場合は、外から確認できる接続を調べる",
+      "電源は入るが映らない場合は、モニターとPCを分ける",
+      "Windowsが起動しない場合は、データと回復キーを先に確認する",
+      "起動できるが落ちる・重い場合は、PC全体か一部か比較する",
+      "データを保全し、診断結果と見積もりで修理・買い替えを決める",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/windows/experience/performance-optimization/troubleshooting-windows-unexpected-restarts-and-stop-code-errors",
+      "https://www.dell.com/support/contents/ja-jp/article/product-support/self-support-knowledgebase/fix-common-issues/no-post",
+      "https://www.dell.com/support/kbdoc/ja-jp/000124389/dellノートパソコンの電源に関する問題をトラブルシューティングする方法",
+      "https://www.nite.go.jp/jiko/chuikanki/press/2024fy/prs241128.html",
+      "https://support.microsoft.com/ja-jp/windows/experience/startup-boot/startup-repair",
+      "https://support.microsoft.com/ja-jp/windows/experience/backup-recovery/recovery-options-in-windows"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/pc-hacked-signs",
+    "title": "PCが乗っ取られた症状は？危険な兆候・確認方法・最初にすること【Windows 11】",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "不審な遠隔操作があるなら先にネット接続を切る",
+      "安全な別端末からアカウントの履歴と復旧先を確認する",
+      "ブラウザの偽警告と本物の検知を分ける",
+      "遠隔操作ソフト・拡張機能の導入経緯を確認する",
+      "重さ・カーソルの動きだけなら機器や通常処理も比較する",
+      "Windowsのフルスキャン・オフラインスキャンと結果を確認する",
+      "遠隔操作済み・暗号化・被害ありなら復旧と相談を決める",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/windows/security/windows-security/protection-history-in-the-windows-security-app",
+      "https://support.microsoft.com/ja-jp/windows/experience/backup-recovery/recovery-options-in-windows",
+      "https://www.ipa.go.jp/security/anshin/measures/ransom_tokusetsu.html",
+      "https://www.npa.go.jp/bureau/cyber/countermeasures/support-fraud.html",
+      "https://www.ipa.go.jp/security/anshin/attention/2023/mgdayori20230411.html",
+      "https://www.ipa.go.jp/security/anshin/attention/2024/mgdayori20241119.html",
+      "https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app",
+      "https://learn.microsoft.com/ja-jp/defender-endpoint/microsoft-defender-offline",
+      "https://support.microsoft.com/ja-jp/accounts-billing/security/what-is-the-recent-activity-page",
+      "https://support.microsoft.com/ja-jp/accounts-billing/manage/how-to-sign-out-of-your-microsoft-account-everywhere",
+      "https://support.microsoft.com/en-us/accounts-billing/manage/how-to-recover-a-hacked-or-compromised-microsoft-account"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/refresh-rate-stuck-60hz",
+    "title": "モニターが144Hzにならない・60Hzのまま｜リフレッシュレートの確認と直し方【Windows 11】",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "refresh-drr"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "Windowsの「ディスプレイの詳細設定」で今のHzを見て、選び直す",
+      "ゲームだけ低いなら、動的リフレッシュレート（DRR）とゲーム内設定を確認",
+      "高いHzが出てこないなら、ケーブル・端子・接続を確認",
+      "ドライバーをリセット・ロールバック・再インストールする",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/troubleshoot-external-monitor-connections-in-windows"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/second-monitor-not-detected",
+    "title": "2台目のモニターが認識されない・映らない時の確認手順【Windows 11】",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "Windowsが2台目を見つけているか確認する",
+      "検出と直結で接続経路を分ける",
+      "更新後に限る場合はグラフィックドライバーの版を確認する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/troubleshoot-external-monitor-connections-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/how-to-use-multiple-monitors-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/hardware/fix-usb-c-problems-in-windows"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/sleep-wakes-up-by-itself",
+    "title": "Windows 11がスリープから勝手に復帰する原因の調べ方と直し方",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "powercfg-meaning"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "画面消灯とスリープを区別し、復帰時刻を控える",
+      "4つの powercfg コマンドで、解除元と候補を分ける",
+      "機器が解除元なら、該当する1台の許可を比較する",
+      "時刻が合う場合だけスリープ解除タイマーを比較する",
+      "解除元が不明なら、スリープ方式と時間帯から絞り込む",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/windows/experience/power-battery/power-settings-in-windows-11",
+      "https://support.microsoft.com/ja-jp/windows/experience/power-battery/shut-down-sleep-or-hibernate-your-pc",
+      "https://learn.microsoft.com/ja-jp/windows-hardware/design/device-experiences/modern-standby-sleepstudy",
+      "https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/modern-standby-wake-sources",
+      "https://solutions.vaio.com/6160"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/usb-c-device-not-recognized",
+    "title": "USB-C機器が認識されない・「機能が制限される」と出る時の調べ方【Windows 11】",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "new-disk-only"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "直結・ケーブル・別ポートを1つずつ比較する",
+      "デバイスマネージャーで状態とエラーコードを見る",
+      "SSDは「ディスクの管理」の表示結果から判断する",
+      "映像・ドック・USB4はポートの対応機能を照合する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/windows/hardware/drivers/error-codes-in-device-manager-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/troubleshoot-external-monitor-connections-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/hardware/fix-usb-c-problems-in-windows",
+      "https://learn.microsoft.com/ja-jp/windows-server/storage/disk-management/change-a-drive-letter"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/wifi-connected-no-internet",
+    "title": "Wi-Fiは接続済みなのにインターネットなし｜PCだけ・家中・特定サイト別の直し方",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "PC・スマホ・別サイトで、止まる範囲を比べる",
+      "家中の端末で使えないなら、回線とルーターを調べる",
+      "PCだけ使えないなら、接続先とWindowsの診断を確認",
+      "特定サイトだけなら、同じURLを別環境で比べる",
+      "PCだけ続く場合、IPアドレスとDNSの結果を読む",
+      "まだPCだけ失敗するなら、プロキシとVPNを確認",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/windows/experience/connectivity-networking/fix-wi-fi-connection-issues-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/experience/connectivity-networking/essential-network-settings-and-tasks-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/experience/connectivity-networking/use-a-proxy-server-in-windows",
+      "https://support.microsoft.com/ja-jp/support/get-help/windows-troubleshooters",
+      "https://support.microsoft.com/ja-jp/edge/what-to-do-if-microsoft-edge-isn-t-working",
+      "https://support.microsoft.com/ja-jp/edge/add-turn-off-or-remove-extensions-in-microsoft-edge"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/wifi-option-missing",
+    "title": "Windows 11でWi-Fiの項目が消えた・接続先が表示されない時の直し方",
+    "status": "not-started-semantic-review",
+    "scopedClaimIds": [],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "スイッチがないのか、接続先だけが空なのか確かめる",
+      "デバイスマネージャーで無線アダプターの状態を読む",
+      "接続先が空なら別端末・周波数帯・無線サービスを比べる",
+      "無線アダプターがない・更新後から消えた時に確認する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/windows/hardware/drivers/error-codes-in-device-manager-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/experience/connectivity-networking/fix-wi-fi-connection-issues-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/experience/connectivity-networking/connect-to-a-wi-fi-network-in-windows",
+      "https://learn.microsoft.com/ja-jp/troubleshoot/windows-client/networking/wireless-network-connectivity-issues-troubleshooting"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/windows-update-0x800f081f",
+    "title": "Windows Updateエラー「0x800f081f」の直し方｜更新履歴と修復結果で判断【Windows 11】",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "dism-order",
+      "windows-repair"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "更新の履歴で失敗した項目とエラーの出た場所を記録する",
+      "Windows Updateの診断を実行し、同じ更新を再確認する",
+      "DISMとSFCの表示結果を読み、更新をもう一度試す",
+      "修復が失敗する時はWindows 11の回復機能を確認する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/windows/deployment/install-upgrade/get-help-with-windows-upgrade-and-installation-errors",
+      "https://support.microsoft.com/ja-jp/windows/deployment/updates-lifecycle/troubleshoot-problems-updating-windows",
+      "https://support.microsoft.com/ja-jp/windows/windows-update-%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0-%E3%83%84%E3%83%BC%E3%83%AB-19bc41ca-ad72-ae67-af3c-89ce169755dd",
+      "https://learn.microsoft.com/ja-jp/dotnet/framework/install/dotnet-35-windows-11",
+      "https://learn.microsoft.com/ja-jp/windows-hardware/manufacture/desktop/configure-a-windows-repair-source?view=windows-11"
+    ],
+    "locales": [
+      "ja"
+    ]
+  },
+  {
+    "path": "/pc/windows-update-stuck",
+    "title": "Windows Updateが終わらない時の対処法｜0％・100％・再起動中を切り分ける",
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "dism-order",
+      "windows-repair"
+    ],
+    "wholePageVerified": false,
+    "remainingClaimGroups": [
+      "止まった画面と更新名を記録する",
+      "ダウンロードが進まない時は通信とWindows側の空き容量を確認する",
+      "再起動待ちを終え、同じ更新が失敗するなら診断する",
+      "更新が繰り返し失敗する時だけ、DISM→SFCの結果を確認する",
+      "再起動後の更新画面・取り消し画面から戻れない場合",
+      "起動できても直らない場合は、現在のWindowsを修復再インストールする",
+      "同じ更新の成功・再起動待ち・再発を確認する",
+      "要約・症状早見表・FAQ・想定結果/戻し方の残る主張を照合",
+      "実在する翻訳variantの意味と対応UIを照合"
+    ],
+    "bodyUnavailableUrls": [],
+    "notAttemptedUrls": [
+      "https://support.microsoft.com/ja-jp/windows/experience/storage-filemanagement/free-up-drive-space-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/experience/backup-recovery/windows-recovery-environment",
+      "https://support.microsoft.com/ja-jp/windows/experience/backup-recovery/recovery-options-in-windows",
+      "https://support.microsoft.com/ja-jp/windows/deployment/updates-lifecycle/troubleshoot-problems-updating-windows",
+      "https://support.microsoft.com/ja-jp/windows/deployment/updates-lifecycle/windows-update-faq",
+      "https://support.microsoft.com/en-us/windows/windows-update-troubleshooter-19bc41ca-ad72-ae67-af3c-89ce169755dd",
+      "https://support.microsoft.com/ja-jp/windows/deployment/updates-lifecycle/free-up-space-for-windows-updates",
+      "https://support.microsoft.com/en-us/windows/deployment/updates-lifecycle/how-to-uninstall-a-windows-update",
+      "https://learn.microsoft.com/ja-jp/windows/release-health/"
+    ],
+    "locales": [
+      "ja"
+    ]
+  }
+]

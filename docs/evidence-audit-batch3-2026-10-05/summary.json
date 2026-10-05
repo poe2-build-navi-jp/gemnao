@@ -1,0 +1,30 @@
+{
+  "pageFamilies": 212,
+  "batchPageFamilies": 85,
+  "kinds": {
+    "discord-article": 38,
+    "common-guide": 28,
+    "pc-article": 19
+  },
+  "scopedSharedClaims": 38,
+  "candidateLocationsNotVerifiedParagraphs": 894,
+  "sourceObservations": {
+    "body-read": 35,
+    "body-unavailable": 5,
+    "initial-url-unavailable-resolved": 4
+  },
+  "sourceReferenceQueue": {
+    "not-attempted-this-batch": 252,
+    "body-read": 32,
+    "initial-url-unavailable-resolved": 3,
+    "body-unavailable": 5
+  },
+  "articleStates": {
+    "partial-scoped-claims": 55,
+    "not-started-semantic-review": 30
+  },
+  "wholePagesVerified": 0,
+  "confirmedContentCorrections": 1,
+  "correctedOccurrences": 2,
+  "supplementFilesPending": 27
+}

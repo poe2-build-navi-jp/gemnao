@@ -1,0 +1,16 @@
+{
+  "scope": "This continuation only: 14 explicitly defined claim groups, not all site claims. Prior 33 scoped propositions remain in shared-claims.json; not added to this denominator. Full 212-page audit incomplete.",
+  "before": {
+    "compared": 0,
+    "comparison-pending": 9,
+    "unavailable": 5
+  },
+  "after": {
+    "compared": 5,
+    "comparison-pending": 4,
+    "unavailable": 5
+  },
+  "correctedClaimGroups": 1,
+  "correctedOccurrences": 2,
+  "wholePagesVerified": 0
+}

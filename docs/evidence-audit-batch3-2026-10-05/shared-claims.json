@@ -1,0 +1,621 @@
+[
+  {
+    "id": "dism-order",
+    "claim": "管理者でDISM修復の後にSFC検査を行い、完了結果を読む。",
+    "sourceIds": [
+      "sfc"
+    ],
+    "articlePaths": [
+      "/pc/windows-update-0x800f081f",
+      "/pc/windows-update-stuck",
+      "/pc/file-explorer-freezes-on-right-click",
+      "/guide/directx-error"
+    ],
+    "matchPattern": "DISM|sfc /scannow",
+    "status": "source-supported-scoped-claim",
+    "excludes": "更新成功や全障害の解決を保証しない。ISO指定条件は別確認。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "windows-repair",
+    "claim": "Windows Update経由の同じバージョン再インストールはアプリ・ファイル・設定を保持する方式。",
+    "sourceIds": [
+      "repair"
+    ],
+    "articlePaths": [
+      "/pc/windows-update-0x800f081f",
+      "/pc/windows-update-stuck"
+    ],
+    "matchPattern": "再インストール|保持",
+    "status": "source-supported-scoped-claim",
+    "excludes": "初期化とは別。全機種への提供やバックアップ不要を意味しない。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "vc-architecture",
+    "claim": "VC++再頒布可能パッケージの対象はWindowsのbit数ではなくアプリのアーキテクチャに合わせる。",
+    "sourceIds": [
+      "vc"
+    ],
+    "articlePaths": [
+      "/guide/visual-c-runtime-error"
+    ],
+    "matchPattern": "x86|x64|32bit|64bit",
+    "status": "source-supported-scoped-claim",
+    "excludes": "個別ゲームのアーキテクチャはこの根拠では確定しない。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "vc-series",
+    "claim": "v14と2013/2012/2010は同じ単一パッケージではなく、旧系列は並存する。",
+    "sourceIds": [
+      "vc"
+    ],
+    "articlePaths": [
+      "/guide/visual-c-runtime-error"
+    ],
+    "matchPattern": "2013|2012|2010|v14",
+    "status": "source-supported-scoped-claim",
+    "excludes": "全DLL名の対応表とインストールエラー別分岐は別確認。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "legacy-directx",
+    "claim": "旧DirectX追加ランタイムはD3DX/XInput等を追加し、OSのDirectXバージョンを上げない。",
+    "sourceIds": [
+      "dxlegacy"
+    ],
+    "articlePaths": [
+      "/guide/directx-error"
+    ],
+    "matchPattern": "ランタイム|XINPUT|d3dx",
+    "status": "source-supported-scoped-claim",
+    "excludes": "個別ゲームの必須ソフトや標準DLLの修復成功は別。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "dxgi-removed",
+    "claim": "DEVICE_REMOVEDは物理脱落だけでなくドライバー更新でも生じ得るという定義。",
+    "sourceIds": [
+      "dxgi"
+    ],
+    "articlePaths": [
+      "/guide/directx-error"
+    ],
+    "matchPattern": "DEVICE_REMOVED",
+    "status": "source-supported-scoped-claim",
+    "excludes": "ユーザーPCの原因を特定したという意味ではない。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "powercfg-meaning",
+    "claim": "lastwakeは直前の復帰情報、waketimersは現在のタイマー、wake_armedは解除許可機器、aは利用可能な状態。",
+    "sourceIds": [
+      "power"
+    ],
+    "articlePaths": [
+      "/pc/sleep-wakes-up-by-itself"
+    ],
+    "matchPattern": "/lastwake|/waketimers|wake_armed|/a ",
+    "status": "source-supported-scoped-claim",
+    "excludes": "表示だけで特定の機器・タイマーを今回の原因と決めない。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "tpm-check",
+    "claim": "tpm.mscで仕様2.0を確認。検出されなくても無効状態の場合があり、UEFIの名称は機種で異なる。",
+    "sourceIds": [
+      "tpm"
+    ],
+    "articlePaths": [
+      "/guide/tpm-secure-boot",
+      "/guide/windows-11-required"
+    ],
+    "matchPattern": "tpm.msc|TPM|PTT|fTPM",
+    "status": "source-supported-scoped-claim",
+    "excludes": "TPMクリアやBIOSの一律変更を正当化しない。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "le-audio",
+    "claim": "マイク利用中ステレオは対応Windows11・LE Audio機器・ドライバーが条件。対応項目でモノラル比較できる。",
+    "sourceIds": [
+      "le"
+    ],
+    "articlePaths": [
+      "/pc/call-starts-audio-disappears",
+      "/pc/bluetooth-connected-no-sound",
+      "/discord/bluetooth-audio-problem",
+      "/discord/game-volume-lowers"
+    ],
+    "matchPattern": "LE Audio|マイクがアクティブ|モノラル|ステレオ",
+    "status": "source-supported-scoped-claim",
+    "excludes": "Bluetooth全機種で使える機能とはしない。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "kernel-power",
+    "claim": "イベント41は正常終了しなかった結果。BugcheckCode0だけで電源故障と断定できない。",
+    "sourceIds": [
+      "event41"
+    ],
+    "articlePaths": [
+      "/guide/pc-shuts-down-while-gaming",
+      "/guide/bsod-while-gaming"
+    ],
+    "matchPattern": "41|BugcheckCode",
+    "status": "source-supported-scoped-claim",
+    "excludes": "PSU/CPU故障や具体的停止コード原因は別確認。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "gpu-memory",
+    "claim": "専用GPUメモリと共有システムメモリは別。内蔵GPUの専用メモリが小さいだけで不足とは判定しない。",
+    "sourceIds": [
+      "memory"
+    ],
+    "articlePaths": [
+      "/guide/vram-shortage"
+    ],
+    "matchPattern": "専用|共有|内蔵",
+    "status": "source-supported-scoped-claim",
+    "excludes": "数値例は実測ではない。設定変更の改善率を示さない。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "cpu-gpu-load",
+    "claim": "CPU/GPU負荷は場面と設定で変わる。解像度と表示距離は影響する側が異なる。",
+    "sourceIds": [
+      "bound"
+    ],
+    "articlePaths": [
+      "/guide/low-fps",
+      "/guide/low-gpu-usage"
+    ],
+    "matchPattern": "解像度|表示距離|CPU|GPU",
+    "status": "source-supported-scoped-claim",
+    "excludes": "使用率だけで故障や購入必要性を断定しない。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "refresh-drr",
+    "claim": "詳細表示からHzを変更でき、星印の値は解像度も変更する。DRRでゲームの最大Hzが制限される場合がある。",
+    "sourceIds": [
+      "refresh"
+    ],
+    "articlePaths": [
+      "/pc/refresh-rate-stuck-60hz"
+    ],
+    "matchPattern": "DRR|アスタリスク|リフレッシュ",
+    "status": "source-supported-scoped-claim",
+    "excludes": "Hzと実際のfpsが必ず一致する意味ではない。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "blank-screen-keys",
+    "claim": "WinCtrlShiftBは表示ドライバーのリセット、Explorer再起動やexplorer.exe起動は公式の黒画面確認手順。",
+    "sourceIds": [
+      "blank"
+    ],
+    "articlePaths": [
+      "/pc/black-screen-after-sign-in",
+      "/pc/gaming-shortcut-keys",
+      "/guide/black-screen"
+    ],
+    "matchPattern": "Shift|explorer.exe|エクスプローラー",
+    "status": "source-supported-scoped-claim",
+    "excludes": "強制電源断や回復環境への移行条件まで確認済みとはしない。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "discord-input-output",
+    "claim": "Discordの入力/出力機器と音量、入力モードを確認する。",
+    "sourceIds": [
+      "voice"
+    ],
+    "articlePaths": [
+      "/discord/mic-not-working",
+      "/discord/cant-hear-voice",
+      "/discord/user-volume-low",
+      "/discord/mic-volume-low",
+      "/discord/audio-input-not-found"
+    ],
+    "matchPattern": "入力デバイス|出力デバイス|入力機器|出力機器|入力モード",
+    "status": "source-supported-scoped-claim",
+    "excludes": "Windows/ブラウザ側の詳細権限、機器故障は別。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "discord-mute-permission",
+    "claim": "ミュート/スピーカーミュート、サーバーの接続・発言権限を区別する。",
+    "sourceIds": [
+      "voice"
+    ],
+    "articlePaths": [
+      "/discord/mic-not-working",
+      "/discord/cant-hear-voice",
+      "/discord/camera-not-working",
+      "/discord/error-1002"
+    ],
+    "matchPattern": "ミュート|権限",
+    "status": "source-supported-scoped-claim",
+    "excludes": "権限の全ビット/ロールの優先順位は別。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "discord-reset",
+    "claim": "音声設定のリセットはVoice & VideoのDebugging項目にある。",
+    "sourceIds": [
+      "voice"
+    ],
+    "articlePaths": [
+      "/discord/mic-not-working",
+      "/discord/cant-hear-voice",
+      "/discord/rtc-connecting"
+    ],
+    "matchPattern": "リセット|デバッグ",
+    "status": "source-supported-scoped-claim",
+    "excludes": "実機の全バージョンで同じ配置と保証しない。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "discord-mic-test",
+    "claim": "マイクテストはdesktop/browserにあり、通話中のテストではミュートとスピーカーミュートになる。停止後に通話確認する。",
+    "sourceIds": [
+      "mic"
+    ],
+    "articlePaths": [
+      "/discord/mic-not-working",
+      "/discord/cant-hear-voice",
+      "/discord/mic-volume-low",
+      "/discord/voice-cutting-out"
+    ],
+    "matchPattern": "テスト",
+    "status": "source-supported-scoped-claim",
+    "excludes": "マイクテストで相手へ届く音や回線品質まで証明しない。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "krisp-conditions",
+    "claim": "Krispは自分の送信音を処理し、高CPU負荷で自動停止する。静かな環境では音質低下の場合がある。",
+    "sourceIds": [
+      "krisp"
+    ],
+    "articlePaths": [
+      "/discord/error-1002",
+      "/discord/voice-cutting-out"
+    ],
+    "matchPattern": "Krisp|ノイズ抑制",
+    "status": "source-supported-scoped-claim",
+    "excludes": "1002原因がCPU不足と確定する意味ではない。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "code1001",
+    "claim": "1001はアプリ音声共有の問題。許可要求が出たら許可する公式案内。",
+    "sourceIds": [
+      "codes"
+    ],
+    "articlePaths": [
+      "/discord/error-1001"
+    ],
+    "matchPattern": "1001|許可",
+    "status": "source-supported-scoped-claim",
+    "excludes": "許可画面を必ず手動表示できるとはしない。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "code1002",
+    "claim": "1002はノイズキャンセラー内部エラー。公式初動は通話再参加と完全再起動。",
+    "sourceIds": [
+      "codes"
+    ],
+    "articlePaths": [
+      "/discord/error-1002"
+    ],
+    "matchPattern": "1002|再参加|再起動",
+    "status": "source-supported-scoped-claim",
+    "excludes": "以後の比較順序は編集上の切り分けで公式の必須手順ではない。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "code1003",
+    "claim": "1003は入力レート差に関するエラー。入出力を別機器にする/機器を変える/再参加が公式候補。",
+    "sourceIds": [
+      "codes"
+    ],
+    "articlePaths": [
+      "/discord/error-1003"
+    ],
+    "matchPattern": "1003|入力|出力",
+    "status": "source-supported-scoped-claim",
+    "excludes": "特定のHz設定やハード故障を断定しない。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "discord-cache",
+    "claim": "Windows Discordのキャッシュ例は%appdata%/discord/Cache。完全終了してから整理する。",
+    "sourceIds": [
+      "general"
+    ],
+    "articlePaths": [
+      "/discord/not-opening",
+      "/discord/loading-stuck",
+      "/discord/crashing"
+    ],
+    "matchPattern": "Cache|キャッシュ|完全終了",
+    "status": "source-supported-scoped-claim",
+    "excludes": "Code Cache/GPUCacheの全挙動・再ログイン条件は別確認。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "discord-install-folders",
+    "claim": "公式再導入手順の削除対象はAppData配下とLocalAppData配下のDiscordフォルダー。プロセス終了・再起動・公式再導入を案内。",
+    "sourceIds": [
+      "install",
+      "corrupt"
+    ],
+    "articlePaths": [
+      "/discord/installation-failed",
+      "/discord/update-failed",
+      "/discord/crashing"
+    ],
+    "matchPattern": "AppData|appdata|フォルダー",
+    "status": "source-supported-scoped-claim",
+    "excludes": "AppData全体の削除やセキュリティ停止は案内しない。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "discord-udp",
+    "claim": "RTC/No Routeは音声接続エラー。VPNはUDP対応が必要で、管理ネットワークは管理者確認。",
+    "sourceIds": [
+      "connection"
+    ],
+    "articlePaths": [
+      "/discord/rtc-connecting",
+      "/discord/no-route",
+      "/discord/call-disconnects"
+    ],
+    "matchPattern": "UDP|VPN|管理者",
+    "status": "source-supported-scoped-claim",
+    "excludes": "VPNやファイアウォールが必ず原因とはしない。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "discord-overlay",
+    "claim": "公式OverlayはWindowsのみ。通知はミュート/配信モードで抑制され、不調時は対象ゲームのOverlay無効化を比較。",
+    "sourceIds": [
+      "overlay"
+    ],
+    "articlePaths": [
+      "/discord/overlay-not-showing",
+      "/discord/crashing"
+    ],
+    "matchPattern": "オーバーレイ|配信モード",
+    "status": "source-supported-scoped-claim",
+    "excludes": "DirectX対応表や排他フルスクリーン対応可否の全般を確定しない。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "discord-helper",
+    "claim": "System HelperはWindows一部ユーザー向け実験機能。高権限ゲームのキー操作用、公式アプリ内案内から導入、必須ではない。",
+    "sourceIds": [
+      "helper"
+    ],
+    "articlePaths": [
+      "/discord/system-helper",
+      "/discord/overlay-not-showing"
+    ],
+    "matchPattern": "ヘルパー|実験",
+    "status": "source-supported-scoped-claim",
+    "excludes": "導入による解決保証や外部インストーラーの正当化をしない。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "discord-file-limit",
+    "claim": "添付FAQの9月30日版は20MB/50MB/最大1GBで圧縮前判定・実験を明記。旧画像ガイドは10MBが残る。",
+    "sourceIds": [
+      "upload",
+      "old-upload"
+    ],
+    "articlePaths": [
+      "/discord/upload-failed"
+    ],
+    "matchPattern": "20MB|10MB|50MB|1GB|圧縮前",
+    "status": "source-supported-scoped-claim",
+    "excludes": "すべてのアカウントの表示が一律とはしない。英中西の意味確認は残る。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "steam-cloud-timing",
+    "claim": "Steam Cloudはセッション前後に同期し、全体/ゲーム別に無効化できる。",
+    "sourceIds": [
+      "cloud"
+    ],
+    "articlePaths": [
+      "/guide/steam-cloud-sync-error",
+      "/guide/save-data-backup",
+      "/guide/uninstall-save-data",
+      "/guide/reset-config-file"
+    ],
+    "matchPattern": "同期|Cloud|クラウド",
+    "status": "source-supported-scoped-claim",
+    "excludes": "競合画面の選択肢・Steamサポートの警告文は本文取得不能のまま。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "steam-input-legacy",
+    "claim": "Steam Input legacyはキー・マウス・XInputをエミュレートできる。",
+    "sourceIds": [
+      "input"
+    ],
+    "articlePaths": [
+      "/guide/steam-input-controller",
+      "/guide/controller-double-input"
+    ],
+    "matchPattern": "XInput|キーボード|マウス|変換",
+    "status": "source-supported-scoped-claim",
+    "excludes": "現在のクライアントの全設定画面やゲーム固有対応は未確認。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja; translated occurrences require separate semantic review"
+  },
+  {
+    "id": "windows-app-output",
+    "claim": "Windows音量ミキサーではアプリ別音量と既定とは異なる出力先を確認できる。",
+    "sourceIds": [
+      "app-audio"
+    ],
+    "articlePaths": [
+      "/guide/no-game-audio",
+      "/pc/audio-after-update",
+      "/pc/bluetooth-connected-no-sound",
+      "/discord/cant-hear-voice",
+      "/discord/user-volume-low",
+      "/discord/stream-no-audio",
+      "/discord/bluetooth-audio-problem"
+    ],
+    "matchPattern": "ミキサー|出力先",
+    "status": "source-supported-scoped-claim",
+    "excludes": "個別症状の原因や必ず改善することは保証しない。他の文や手順は未確認。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja"
+  },
+  {
+    "id": "windows-desktop-mic",
+    "claim": "Windowsではデスクトップアプリのマイク許可も確認する。",
+    "sourceIds": [
+      "permission"
+    ],
+    "articlePaths": [
+      "/pc/microphone-after-update",
+      "/discord/mic-not-working",
+      "/discord/audio-input-not-found"
+    ],
+    "matchPattern": "デスクトップ|アクセス|許可",
+    "status": "source-supported-scoped-claim",
+    "excludes": "個別症状の原因や必ず改善することは保証しない。他の文や手順は未確認。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja"
+  },
+  {
+    "id": "windows-ducking",
+    "claim": "Windowsサウンドの通信タブでは通信以外の音声の減衰を設定・無効化できる。",
+    "sourceIds": [
+      "ducking"
+    ],
+    "articlePaths": [
+      "/pc/call-starts-audio-disappears",
+      "/discord/game-volume-lowers"
+    ],
+    "matchPattern": "通信|何もしない",
+    "status": "source-supported-scoped-claim",
+    "excludes": "個別症状の原因や必ず改善することは保証しない。他の文や手順は未確認。",
+    "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
+    "localeScope": "ja"
+  },
+  {
+    "id": "feature-level-capability",
+    "claim": "Direct3DのAPIバージョンとGPUの機能レベルは別であり、必要機能をGPUで確認する。",
+    "sourceIds": [
+      "feature"
+    ],
+    "articlePaths": [
+      "/guide/directx-error"
+    ],
+    "matchPattern": "機能レベル",
+    "status": "source-supported-scoped-claim",
+    "excludes": "STEP2の必要機能比較を照合。dxdiagの現行UI、GPU選択UI、機種別対応、ランタイム個別挙動は未確認。",
+    "occurrenceStatus": "manually compared only at locations in manual-comparisons.json; other regex matches remain candidates",
+    "localeScope": "ja only"
+  },
+  {
+    "id": "secure-capable-not-enabled",
+    "claim": "Windows 11のセキュアブート要件は対応であり、有効状態はOS名から断定できない。",
+    "sourceIds": [
+      "secure"
+    ],
+    "articlePaths": [
+      "/guide/tpm-secure-boot"
+    ],
+    "matchPattern": "Windows 11",
+    "status": "source-supported-scoped-claim",
+    "excludes": "OS要件として両方有効という表現を2か所修正。CoDのゲーム固有要件、BIOS操作、BitLocker条件はこの根拠では未確認。",
+    "occurrenceStatus": "manually compared only at locations in manual-comparisons.json; other regex matches remain candidates",
+    "localeScope": "ja only"
+  },
+  {
+    "id": "new-disk-only",
+    "claim": "初期化は既存データのない新しい未初期化ディスクに限定し、既存データがあるディスクには安易に実行しない。",
+    "sourceIds": [
+      "disk"
+    ],
+    "articlePaths": [
+      "/pc/usb-c-device-not-recognized"
+    ],
+    "matchPattern": "初期化",
+    "status": "source-supported-scoped-claim",
+    "excludes": "STEP3のデータ有無による分岐と不可逆の注意を照合。文字割当てUI、USB/AltMode仕様、コード28/43の意味は別資料が必要。",
+    "occurrenceStatus": "manually compared only at locations in manual-comparisons.json; other regex matches remain candidates",
+    "localeScope": "ja only"
+  },
+  {
+    "id": "steam-controller-detection",
+    "claim": "Steamの設定からコントローラー設定を開き、接続した対応機器が認識されるか確認する。",
+    "sourceIds": [
+      "input-start"
+    ],
+    "articlePaths": [
+      "/guide/steam-input-controller"
+    ],
+    "matchPattern": "機器名|コントローラ",
+    "status": "source-supported-scoped-claim",
+    "excludes": "STEP1および認識しない場合の補足の経路と機器表示のみ照合。公式本文は旧UIを含み、現在の入力テスト名、ゲーム別設定、仮想機器表示は未確認。",
+    "occurrenceStatus": "manually compared only at locations in manual-comparisons.json; other regex matches remain candidates",
+    "localeScope": "ja only"
+  },
+  {
+    "id": "discord-stream-acceleration",
+    "claim": "配信が遅延しハードウェアアクセラレーションが有効なら、音声・ビデオのビデオ設定で無効化を比較する公式案内がある。",
+    "sourceIds": [
+      "streaming"
+    ],
+    "articlePaths": [
+      "/discord/stream-stuttering",
+      "/discord/screen-share-not-working"
+    ],
+    "matchPattern": "ハードウェアアクセラレーション",
+    "status": "source-supported-scoped-claim",
+    "excludes": "設定経路と有効時の無効化だけを照合。現在と反対という双方向の提案全体、黒画面への効果、2008/2009エラーへの適用は未確認。",
+    "occurrenceStatus": "manually compared only at locations in manual-comparisons.json; other regex matches remain candidates",
+    "localeScope": "ja only"
+  }
+]
