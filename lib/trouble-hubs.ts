@@ -21,9 +21,9 @@ export const troubleHubs: TroubleHub[] = [
     description:
       'ゲームが無反応、起動直後に終了、ランチャーから進まない時に、共通手順とゲーム固有の対処法を探せます。',
     quickChecks: [
-      'PCとランチャーを完全に再起動する',
+      '作業を保存し、通常の操作でPCとランチャーを再起動する',
       'ゲームファイルの整合性・修復を1回だけ実行する',
-      'MOD、オーバーレイ、外部DLLを一時的に外す',
+      '自分で追加したMOD・オーバーレイがある場合だけ、導入元の手順で一時停止・退避する。DLLを名前だけで削除しない',
     ],
     guideSlugs: [
       'steam-game-not-launching',
@@ -43,7 +43,7 @@ export const troubleHubs: TroubleHub[] = [
       '起動直後やプレイ中にデスクトップへ戻る、フリーズして応答しない時の切り分け先をまとめています。',
     quickChecks: [
       '発生場面とエラー表示を記録する',
-      'MOD・オーバーレイ・録画ツールを外す',
+      '使用中のMOD・オーバーレイ・録画ツールがある場合だけ、1つずつ停止・退避して比較する',
       '整合性確認とGPUドライバーを確認する',
     ],
     guideSlugs: [
@@ -79,9 +79,9 @@ export const troubleHubs: TroubleHub[] = [
     description:
       'セーブデータの保存場所、バックアップ、進行が保存されない問題をゲーム別に確認できます。',
     quickChecks: [
-      'ゲームとランチャーを終了してから操作する',
+      'ゲームを終了し、クラウド同期を使う場合は完了を確認する。その後ランチャーも終了する',
       'フォルダを削除せず、別ドライブへ丸ごとコピーする',
-      'クラウド同期が完了しているか確認する',
+      '復元する時も、現在のデータを先に別の場所へ退避する',
     ],
     guideSlugs: [
       'save-data-backup',
@@ -113,9 +113,9 @@ export const troubleHubs: TroubleHub[] = [
     description:
       'コントローラーが反応しない、二重入力、表示やボタン設定がおかしい時の対処法を探せます。',
     quickChecks: [
-      '入力機器を有線1台だけにする',
-      'Steam InputをON・OFFで比較する',
-      'DS4Windowsなどの入力変換を同時使用しない',
+      '有線接続に対応するパッドなら、1台だけを有線で接続して比較する',
+      'Steam版は対象ゲームのSteam Inputを1つずつ比較し、無反応になったら元に戻す',
+      'DS4Windowsなどを使っている場合だけ、ゲームを終了してツール停止前後を比較する',
     ],
     guideSlugs: ['steam-input-controller', 'controller-double-input'],
     relatedSlugs: ['fps', 'not-launching'],

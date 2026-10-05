@@ -1,0 +1,2 @@
+PASS: all verified common-guide STEP targets, all localized article shortcuts, empty related links, JA Discord and EN shell, and navigation-only event markers
+PASS: save backup/rollback, no live save deletion, stable feedback IDs, encryption distinction and disk-format stop before BIOS changes
