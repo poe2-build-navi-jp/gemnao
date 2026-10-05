@@ -1,8 +1,8 @@
 import type { LocalizedArticle } from '@/lib/localized/types';
 
-// Versiones en español de los siete artículos de juegos clásicos. Todos los
-// pasos proceden de la página de soporte oficial de cada editor (revisada el
-// 29/09 y el 01/10/2026); ver `sources`.
+// Artículos clásicos basados en el soporte oficial, con adaptaciones de seguridad.
+// La revisión parcial consta en docs/evidence-audit-2026-10-05; no implica
+// una nueva verificación de todo el artículo.
 
 const verify = (name: string) =>
   `En la biblioteca de Steam, haz clic derecho en «${name}» → Propiedades → Archivos instalados → Verificar integridad de los archivos del juego.`;
@@ -215,10 +215,10 @@ export const articlesEs: LocalizedArticle[] = [
         title:
           'Cierra programas, verifica los archivos y alterna DirectX 11 / Vulkan',
         summary:
-          'Son las primeras comprobaciones de la lista de Larian y se pueden deshacer.',
+          'Esta guía adapta las comprobaciones de Larian manteniendo activa la protección de seguridad.',
         time: '10–15 min',
         actions: [
-          'Cierra el antivirus, el cortafuegos, las superposiciones de programas de ajuste o monitorización y las aplicaciones de chat.',
+          'Cierra una por una las herramientas de ajuste, las superposiciones de monitorización y las aplicaciones de chat que no necesites. Mantén activos el antivirus y el cortafuegos. Si hay una detección, consulta el archivo y el nombre detectado con el proveedor de seguridad o Larian.',
           'Si usas ASUS Sonic Studio Virtual Mixer, desactívalo o desinstálalo (problema conocido indicado por Larian).',
           verify("Baldur's Gate 3"),
           'En el lanzador, cambia entre DirectX 11 y Vulkan y vuelve a probar.',
@@ -287,6 +287,11 @@ export const articlesEs: LocalizedArticle[] = [
     ],
     sources: [
       {
+        label:
+          'Microsoft: protección contra virus y amenazas (riesgos de las exclusiones)',
+        url: 'https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app',
+      },
+      {
         label: 'Soporte de Larian: Crashing upon startup (PC) (en inglés)',
         url: 'https://larian.com/support/faqs/crashing-upon-startup-pc_59',
       },
@@ -307,10 +312,10 @@ export const articlesEs: LocalizedArticle[] = [
     title: 'Error 114 de GameGuard en HELLDIVERS 2 (PC): cómo solucionarlo',
     shortTitle: 'Error 114 de GameGuard',
     description:
-      '¿HELLDIVERS 2 no inicia por el error 114 de nProtect GameGuard? Sigue los pasos oficiales de Arrowhead: administrador y modo de compatibilidad, reinstalar GameGuard, cerrar utilidades y añadir excepciones.',
-    lead: 'Los pasos oficiales de Arrowhead cuando nProtect GameGuard muestra el error 114 y el juego no se inicia (versión de Steam).',
+      '¿HELLDIVERS 2 no inicia por el error 114 de nProtect GameGuard? Guía basada en las recomendaciones de Arrowhead: administrador y modo de compatibilidad, reinstalar GameGuard, cerrar utilidades y revisar las alertas de seguridad.',
+    lead: 'Guía basada en Arrowhead para cuando nProtect GameGuard muestra el error 114 y el juego no se inicia (versión de Steam).',
     summary:
-      'El soporte de Arrowhead indica cinco soluciones: ejecutar el juego como administrador (y en modo de compatibilidad con Windows 8 en Windows 11), desinstalar y reinstalar GameGuard, cerrar programas de utilidades, añadir excepciones en el antivirus y desconectar discos duros antiguos.',
+      'El soporte de Arrowhead indica cinco soluciones: ejecutar el juego como administrador (y en modo de compatibilidad con Windows 8 en Windows 11), desinstalar y reinstalar GameGuard, cerrar programas de utilidades, revisar el antivirus y los discos duros antiguos. Esta guía mantiene activa la protección y remite las detecciones al proveedor. No desconectes hardware interno con el equipo encendido; consulta al fabricante o a un técnico si tienes dudas.',
     quickFacts: [
       {
         label: 'Abrir la carpeta del juego',
@@ -378,20 +383,21 @@ export const articlesEs: LocalizedArticle[] = [
       },
       {
         id: 'utilities',
-        title: 'Cierra las utilidades y añade excepciones en el antivirus',
+        title:
+          'Cierra utilidades una por una y revisa las alertas de seguridad',
         summary:
           'Arrowhead explica que el error 114 puede aparecer con programas que no son trampas.',
         time: 'Unos 10 min',
         actions: [
           'Cierra de uno en uno superposiciones, herramientas de macros, programas de iluminación RGB y de monitorización, y comprueba si el juego inicia.',
-          'Añade excepciones para nProtect GameGuard y HELLDIVERS 2 en tu antivirus, incluido Microsoft Defender.',
-          'En casos raros, un disco duro antiguo puede causar el problema. Si tienes conectado un HDD antiguo que no usas, desconéctalo y vuelve a probar (oficial).',
+          'Mantén activa la protección. Si detecta un archivo oficial de GameGuard o HELLDIVERS 2, anota el nombre de la detección y la ruta y consulta al proveedor de seguridad o a Arrowhead antes de excluirlo o restaurarlo desde cuarentena. No excluyas carpetas enteras automáticamente.',
+          'Arrowhead también menciona discos antiguos. No desconectes hardware interno con el equipo encendido. Si no sabes qué disco está afectado o si contiene datos necesarios, consulta primero al fabricante o a un técnico.',
         ],
         note: 'Si descubres qué programa lo provoca, Arrowhead pide a los jugadores que informen de su nombre.',
       },
     ],
     avoid: [
-      'No juegues con el antivirus desactivado: añade la excepción y vuelve a activarlo.',
+      'No desactives la protección ni añadas exclusiones solo para iniciar el juego.',
       'No uses herramientas de modificación ni trampas; el antitrampas reaccionará.',
     ],
     cautions: [
@@ -401,7 +407,7 @@ export const articlesEs: LocalizedArticle[] = [
       {
         question: 'Solo uso Windows Defender. ¿También necesito una excepción?',
         answer:
-          'Sí. El soporte de Arrowhead indica que hay que añadir excepciones para nProtect GameGuard y HELLDIVERS 2 aunque solo uses Microsoft Defender.',
+          'No automáticamente. Arrowhead menciona excepciones, pero los archivos excluidos dejan de analizarse en tiempo real. Mantén activa la protección y consulta al proveedor de seguridad o a Arrowhead para confirmar si la detección corresponde a un archivo oficial.',
       },
       {
         question: '¿Reinstalar GameGuard borra mi progreso?',
@@ -410,6 +416,11 @@ export const articlesEs: LocalizedArticle[] = [
       },
     ],
     sources: [
+      {
+        label:
+          'Microsoft: protección contra virus y amenazas (riesgos de las exclusiones)',
+        url: 'https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app',
+      },
       {
         label:
           'Soporte de Arrowhead: error 114 al iniciar HELLDIVERS 2 (en inglés)',
@@ -432,7 +443,7 @@ export const articlesEs: LocalizedArticle[] = [
       '¿Hogwarts Legacy se cierra en PC? Deshaz los cambios en Engine.ini y los mods, y sigue la guía de WB Games: controladores, Windows Update, overclock, verificación de archivos, gráficos y antivirus.',
     lead: 'Los pasos del soporte de WB Games (Portkey Games) cuando la versión de Steam se cierra al iniciar, vuelve al escritorio o se queda colgada al cargar.',
     summary:
-      'El soporte oficial revisa, en este orden: actualizar los controladores de vídeo y sonido, ejecutar Windows Update (que actualiza DirectX), devolver a fábrica los componentes con overclock, verificar los archivos, bajar los ajustes gráficos y añadir excepciones en el antivirus cerrando los programas innecesarios. Si editaste Engine.ini o instalaste mods, deshazlo primero.',
+      'El soporte oficial revisa, en este orden: actualizar los controladores de vídeo y sonido, ejecutar Windows Update (que actualiza DirectX), devolver a fábrica los componentes con overclock, verificar los archivos, bajar los ajustes gráficos y revisar la seguridad y cerrar programas innecesarios. El soporte también menciona excepciones, pero esta guía mantiene activa la protección y recomienda consultar las detecciones con el proveedor de seguridad. Si editaste Engine.ini o instalaste mods, deshazlo primero.',
     quickFacts: [
       {
         label: 'Ubicación de las partidas',
@@ -516,12 +527,12 @@ export const articlesEs: LocalizedArticle[] = [
       {
         id: 'background-apps',
         title:
-          'Añade excepciones en el antivirus y cierra programas innecesarios',
+          'Revisa las alertas de seguridad y cierra programas innecesarios uno por uno',
         summary:
           'Comprueba si hay archivos en cuarentena o conflictos con otros programas. El arranque limpio es solo una prueba temporal.',
         time: 'Unos 10 min',
         actions: [
-          'Revisa la cuarentena del antivirus y añade la carpeta del juego como excepción.',
+          'Mantén activa la protección y anota la detección y la ruta del archivo en el historial de cuarentena. No restaures archivos ni excluyas la carpeta entera solo para iniciar el juego; consulta antes al proveedor de seguridad o a WB Games.',
           'Cierra todos los programas que puedas antes de iniciar el juego.',
           'Si sigue cerrándose, haz un arranque limpio siguiendo las instrucciones de Microsoft para comparar y, al terminar, vuelve a un inicio normal de Windows.',
         ],
@@ -549,6 +560,11 @@ export const articlesEs: LocalizedArticle[] = [
       },
     ],
     sources: [
+      {
+        label:
+          'Microsoft: protección contra virus y amenazas (riesgos de las exclusiones)',
+        url: 'https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app',
+      },
       {
         label:
           'Soporte de Portkey Games: PC Troubleshooting (Steam) (en inglés)',

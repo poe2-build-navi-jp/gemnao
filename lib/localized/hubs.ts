@@ -285,8 +285,8 @@ export const localizedHubs: Record<string, LocalizedHub> = {
     },
     intro: {
       en: 'HELLDIVERS 2 uses the nProtect GameGuard anti-cheat system. For error 114, Arrowhead lists checks involving launch permissions and compatibility, reinstalling GameGuard, utility conflicts and security software. Keep protection enabled and review any detection with the security provider or Arrowhead before changing exclusions.',
-      zh: '《绝地潜兵2》使用 nProtect GameGuard 反作弊程序。出现错误 114 时，Arrowhead 官方给出了固定的处理顺序：以管理员身份运行游戏（Windows 11 还需开启 Windows 8 兼容模式），从游戏的 tools 文件夹重新安装 GameGuard，关闭工具类程序，并在安全软件中添加例外。',
-      es: 'HELLDIVERS 2 usa el antitrampas nProtect GameGuard. Ante el error 114, el soporte de Arrowhead indica un orden concreto: ejecutar el juego como administrador (con compatibilidad con Windows 8 en Windows 11), reinstalar GameGuard desde la carpeta tools, cerrar programas de utilidades y añadir excepciones en el antivirus.',
+      zh: '《绝地潜兵2》使用 nProtect GameGuard 反作弊程序。出现错误 114 时，本指南参考 Arrowhead 的说明，检查以下项目：以管理员身份运行游戏（Windows 11 还需开启 Windows 8 兼容模式），从游戏的 tools 文件夹重新安装 GameGuard，关闭工具类程序，并检查防护历史。保持防护开启，先向安全软件提供商或 Arrowhead 确认检测内容，不要自动添加排除项。',
+      es: 'HELLDIVERS 2 usa el antitrampas nProtect GameGuard. Ante el error 114, esta guía se basa en las recomendaciones de Arrowhead: ejecutar el juego como administrador (con compatibilidad con Windows 8 en Windows 11), reinstalar GameGuard desde la carpeta tools, cerrar utilidades y revisar las alertas de seguridad. Mantén activa la protección y consulta las detecciones con el proveedor de seguridad o Arrowhead antes de considerar una exclusión.',
     },
     sources: [
       {

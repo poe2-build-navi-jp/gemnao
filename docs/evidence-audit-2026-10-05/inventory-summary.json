@@ -1,0 +1,17 @@
+{
+  "pages": 296,
+  "candidate_prose_blocks": 17272,
+  "candidate_status_counts": {
+    "unverified": 17242,
+    "erroneous": 17,
+    "verified": 13
+  },
+  "by_locale": {
+    "ja": 212,
+    "en": 38,
+    "es": 23,
+    "zh": 23
+  },
+  "status": "partial-audit; candidates are NOT verified claims",
+  "production_fetch": "blocked: proxy CONNECT 403; no login attempted"
+}

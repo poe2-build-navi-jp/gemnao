@@ -1,0 +1,44 @@
+[
+  {
+    "subject": "Dragon’s Dogma 2 Dark Arisen / TU3.2",
+    "status": "verified-limited",
+    "checked_at": "2026-10-05",
+    "applicable_version": "TU3.2 / DLC planned 2026-10-09",
+    "evidence_url": "https://prtimes.jp/main/html/rd/p/000006004.000013450.html",
+    "finding": "カプコン自身の9月2日プレスリリースでTU3.2配信と10月9日DLC予定を確認。架空ゲーム・架空パッチとは扱わない。全記事の設定値を確認した意味ではない。"
+  },
+  {
+    "subject": "FF Resonance / AC8 Japanese release date",
+    "status": "unverified",
+    "checked_at": "2026-10-05",
+    "evidence_urls": [
+      "https://store.steampowered.com/app/3259780/?l=japanese",
+      "https://store.steampowered.com/app/2288340/"
+    ],
+    "finding": "取得したSteam表示はそれぞれ10/22・10/1、記事は10/23・10/2。地域・タイムゾーン差または誤記を区別する確証がなく日付は変更していない。"
+  },
+  {
+    "subject": "AION2 maintenance announcement",
+    "status": "unverified",
+    "checked_at": "2026-10-05",
+    "evidence_url": "https://store.steampowered.com/news/app/3393110/view/689769594581155930",
+    "finding": "タイトルのみ取得、告知本文なし。予定終了の時刻を過ぎただけで終了済みとは判定しない。"
+  },
+  {
+    "subject": "AC8 ST-3100001 official news",
+    "status": "unverified",
+    "checked_at": "2026-10-05",
+    "evidence_url": "https://store.steampowered.com/news/app/2288340/view/695399726270382123",
+    "finding": "検索でタイトルとエラー報告の存在を確認したが本文取得不可。時刻同期・ペナルティ解除の主張は今回未検証。"
+  },
+  {
+    "subject": "Weekly 2026-09-28: WARDOGS KB5124010 / CONTROL 1.4.1",
+    "status": "unverified",
+    "checked_at": "2026-10-05",
+    "evidence_urls": [
+      "https://store.steampowered.com/news/app/1867240",
+      "https://store.steampowered.com/news/app/3669870"
+    ],
+    "finding": "ニュースハブ本文取得不可。検索で得たコミュニティ報告は公式修正の根拠に昇格させない。"
+  }
+]
