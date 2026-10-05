@@ -1,0 +1,4 @@
+PASS 375px: legacy selection, unsaved discard, four exact variants, keyboard save, reload, back/forward, removal, no overflow or exceptions; local fixtures only
+PASS 390px: legacy selection, unsaved discard, four exact variants, keyboard save, reload, back/forward, removal, no overflow or exceptions; local fixtures only
+PASS 430px: legacy selection, unsaved discard, four exact variants, keyboard save, reload, back/forward, removal, no overflow or exceptions; local fixtures only
+PASS 1440px: legacy selection, unsaved discard, four exact variants, keyboard save, reload, back/forward, removal, no overflow or exceptions; local fixtures only
