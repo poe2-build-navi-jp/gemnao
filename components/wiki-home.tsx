@@ -487,7 +487,7 @@ export function WikiHome({
                 <a href={article.href} key={article.key}>
                   <span>{article.label}</span>
                   <h3>{article.title}</h3>
-                  <p>更新日：{article.checkedAt.replaceAll('-', '.')}</p>
+                  <p>確認日：{article.checkedAt.replaceAll('-', '.')}</p>
                   <b>
                     解決手順を見る <ChevronRight size={16} />
                   </b>

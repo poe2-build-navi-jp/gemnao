@@ -1,0 +1,4 @@
+PASS 375px: home and all-articles check dates, search/filter, keyboard clear, article navigation, back/forward, HidHide target and keyboard FAQ, no overflow or exceptions; local API fixtures only
+PASS 390px: home and all-articles check dates, search/filter, keyboard clear, article navigation, back/forward, HidHide target and keyboard FAQ, no overflow or exceptions; local API fixtures only
+PASS 430px: home and all-articles check dates, search/filter, keyboard clear, article navigation, back/forward, HidHide target and keyboard FAQ, no overflow or exceptions; local API fixtures only
+PASS 1440px: home and all-articles check dates, search/filter, keyboard clear, article navigation, back/forward, HidHide target and keyboard FAQ, no overflow or exceptions; local API fixtures only
