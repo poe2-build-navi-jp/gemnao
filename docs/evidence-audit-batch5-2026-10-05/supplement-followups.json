@@ -1,0 +1,44 @@
+[
+  {
+    "file": "components/uninstall-save-details.tsx",
+    "fullFileRead": true,
+    "status": "partially-compared",
+    "supportedScopes": [
+      "Cyberpunk保存先・クリーンインストールの削除範囲とバックアップ",
+      "BG3のStory保存先",
+      "Stardew ValleyのSavesとキャラクターフォルダー",
+      "Epicライブラリの対象…からアンインストール"
+    ],
+    "sources": [
+      "https://support.cdprojektred.com/en/cyberpunk/pc/sp-technical/issue/2233/how-do-i-perform-a-clean-install-of-the-game",
+      "https://larian.com/support/faqs/multiplayer-issues_84",
+      "https://www.stardewvalley.net/missing-corrupt-save-file-troubleshooting-guide/",
+      "https://www.epicgames.com/help/c-32735058/c-36403860/a12795838?lang=en-US"
+    ],
+    "remaining": [
+      "Steam通常アンインストールUIの一次資料本文",
+      "全ストア・全版の実際の削除結果は未実測",
+      "復元・アカウント・クラウド比較の全条件"
+    ],
+    "wholeFileVerified": false
+  },
+  {
+    "file": "components/reshade-details.tsx",
+    "fullFileRead": true,
+    "status": "partially-compared",
+    "supportedScopes": [
+      "製品名による識別",
+      "API別本体と設定の区別",
+      "Vulkan/OpenXR共有登録を含む解除",
+      "PresetPathから保存先を読む"
+    ],
+    "sources": [
+      "https://raw.githubusercontent.com/crosire/reshade/v6.8.0/setup/MainWindow.xaml.cs"
+    ],
+    "remaining": [
+      "全導入経路の実アンインストール・復元は未実測",
+      "手動退避と再配置に関する各管理ツール側の条件"
+    ],
+    "wholeFileVerified": false
+  }
+]

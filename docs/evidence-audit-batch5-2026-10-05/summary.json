@@ -1,0 +1,19 @@
+{
+  "base": "b7060e36c94a7871217e5613d24b764cb79ad93a",
+  "inheritedPendingGroups": 27,
+  "groupsWithNewComparisons": 25,
+  "comparisonRecords": 43,
+  "distinctSources": 56,
+  "wholePagesVerified": 0,
+  "completeDocumentGroups": 1,
+  "productCorrections": 2,
+  "full212PageAudit": "incomplete",
+  "full27SupplementAudit": "incomplete",
+  "originalUnavailableGroups": 8,
+  "additionalUnavailableSource": "https://help.steampowered.com/en/faqs/view/3462-CD4C-36BD-5767",
+  "actualWindowsGameDiscordOperation": "not performed",
+  "realUserData": "not accessed",
+  "bot": "not installed, enabled, or executed",
+  "priorityGameFamiliesComparedWithinScope": 1,
+  "supplementFilesReadAndPartiallyCompared": 2
+}

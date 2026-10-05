@@ -1,0 +1,18 @@
+[
+  {
+    "path": "/games/cyberpunk-2077",
+    "locales": [
+      "en",
+      "zh",
+      "es"
+    ],
+    "claim": "再インストール前のセーブ保全",
+    "status": "corrected-with-primary-source",
+    "sources": [
+      "https://support.cdprojektred.com/en/cyberpunk/pc/sp-technical/issue/2233/how-do-i-perform-a-clean-install-of-the-game"
+    ],
+    "finding": "中国語・スペイン語に残る無条件のセーブ非削除を撤回。3翻訳にバックアップとクリーンインストールで保存先も消す条件を揃え、出典を追加。日本語データの保存先は公式と一致するがハブ全体の全仕様は未比較。",
+    "wholePageVerified": false,
+    "actualGameOperation": "not performed"
+  }
+]

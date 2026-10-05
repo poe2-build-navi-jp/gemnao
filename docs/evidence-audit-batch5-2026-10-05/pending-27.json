@@ -16,7 +16,8 @@
     ],
     "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "discord-bot-not-responding-1",
@@ -36,7 +37,8 @@
     ],
     "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "discord-bot-remove-1",
@@ -65,7 +67,8 @@
     ],
     "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "discord-echo-double-voice-1",
@@ -84,7 +87,8 @@
     ],
     "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "discord-slow-performance-1",
@@ -104,7 +108,8 @@
     ],
     "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "discord-voice-client-outdated-1",
@@ -123,27 +128,30 @@
         "checkedAt": "2026-10-05"
       }
     ],
-    "status": "partially-compared",
+    "status": "document-scope-compared-with-correction",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "このグループのChrome/Firefox/Edge更新操作の文書比較は完了。記事全体と実アプリの更新成功は未検証。"
   },
   {
     "id": "discord-notifications-not-working-1",
     "path": "/discord/notifications-not-working",
     "originalPendingScope": "DMミュート資料223657667は本文取得不能",
     "comparisons": [],
-    "status": "pending",
+    "status": "source-body-unavailable-carried-forward",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "DMミュート資料223657667は本文取得不能"
   },
   {
     "id": "discord-recommended-bots-1",
     "path": "/discord/recommended-bots",
     "originalPendingScope": "Dyno AutomodはCopied to clipboardのみで本文取得不能。機能/料金比較は未確認",
     "comparisons": [],
-    "status": "pending",
+    "status": "source-body-unavailable-carried-forward",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "Dyno AutomodはCopied to clipboardのみで本文取得不能。機能/料金比較は未確認"
   },
   {
     "id": "discord-recommended-bots-2",
@@ -172,16 +180,29 @@
     ],
     "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "guide-gpu-driver-update-1",
     "path": "/guide/gpu-driver-update",
     "originalPendingScope": "dxdiag経路、個別OEM配布物の対応、GPUごとの再導入結果は文書照合の対象外。",
-    "comparisons": [],
-    "status": "pending",
+    "comparisons": [
+      {
+        "claim": "dxdiagでの表示確認",
+        "sources": [
+          "https://support.microsoft.com/en-us/windows/hardware/display-graphics/which-version-of-directx-is-on-your-pc",
+          "https://devblogs.microsoft.com/directx/gpus-in-the-task-manager/"
+        ],
+        "finding": "Microsoft文書はdxdiag起動とDisplayタブのドライバー情報を説明。記事の補助確認と整合。ただしWin+R入口・Renderタブの全構成は未実機確認。OEMの機種対応と再導入成功は記事も製造元確認・比較としており文書だけで成功認定しない。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "guide-pc-game-crash-1",
@@ -200,7 +221,8 @@
     ],
     "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "guide-pc-game-freezes-1",
@@ -228,16 +250,47 @@
     ],
     "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "guide-ray-tracing-gpu-1",
     "path": "/guide/ray-tracing-gpu",
     "originalPendingScope": "NVIDIA/AMD各世代全体の機能範囲、GPUエンジン列と高パフォーマンス指定UI、2026年10月発売の断定は未比較。Gears Steamページは年齢確認画面で要件本文を読めず保留。",
-    "comparisons": [],
-    "status": "pending",
+    "comparisons": [
+      {
+        "claim": "RTXとGTXの専用RTハードウェア、RX6000の加速",
+        "sources": [
+          "https://www.nvidia.com/en-us/geforce/news/geforce-gtx-dxr-ray-tracing-available-now/",
+          "https://www.amd.com/en/products/graphics/desktops/radeon/6000-series.html"
+        ],
+        "finding": "NVIDIAはRTXのRT CoreとGTXのシェーダー演算によるDXRを区別。AMDはRX6000のハードウェア加速を明記。記事の専用機能必須という限定に整合。RTX40/50・RX7000以降全製品の仕様とRX5000以前の否定をこの2資料だけで全確認とはしない。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      },
+      {
+        "claim": "エースコンバット8の必須レイトレーシング条件",
+        "sources": [
+          "https://enso-order.acecombat.jp/"
+        ],
+        "finding": "公式Steam要件にWindows11、RTX2060/RX6600XT、SSD、ハードウェアRT、SM6.6以上DX12を確認。記事の必須機能の例を支持。10月発売という日付は今回の取得本文に具体日がなく別比較を残す。Gearsは従来の年齢確認による本文取得不能を維持。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      },
+      {
+        "claim": "GPUエンジン列の意味",
+        "sources": [
+          "https://devblogs.microsoft.com/directx/gpus-in-the-task-manager/"
+        ],
+        "finding": "Microsoft開発者説明はプロセスごとの最も使用されるGPUとエンジンの組み合わせを列に表示すると説明。記事のどのGPUが使用されるかという確認を支持。列追加の現行操作と高パフォーマンス指定は別比較。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "guide-remove-mods-safely-1",
@@ -256,7 +309,8 @@
     ],
     "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "guide-reshade-uninstall-1",
@@ -275,7 +329,8 @@
     ],
     "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "guide-shader-cache-delete-1",
@@ -314,7 +369,8 @@
     ],
     "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "guide-steam-disk-write-error-1",
@@ -342,7 +398,8 @@
     ],
     "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "guide-steam-game-not-launching-1",
@@ -361,7 +418,8 @@
     ],
     "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "guide-stutter-fix-1",
@@ -385,11 +443,21 @@
         "finding": "詳細ディスプレイで選択する経路、候補がディスプレイ依存である点を比較。VRR/DRRの全ゲーム・配線条件や改善効果を確認した扱いにしない。",
         "status": "supported-within-scope",
         "checkedAt": "2026-10-05"
+      },
+      {
+        "claim": "SteamオーバーレイPerformance Monitorの本文取得",
+        "sources": [
+          "https://help.steampowered.com/en/faqs/view/3462-CD4C-36BD-5767"
+        ],
+        "finding": "本文は画像リンク1行だけで現行UIを比較できない。既存8出典群とは別の新規取得不能として記録。",
+        "status": "source-body-unavailable",
+        "checkedAt": "2026-10-05"
       }
     ],
     "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "guide-verify-steam-files-1",
@@ -408,7 +476,8 @@
     ],
     "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "pc-bluetooth-option-missing-1",
@@ -439,7 +508,8 @@
     ],
     "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "pc-disk-usage-100-1",
@@ -477,7 +547,8 @@
     ],
     "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "pc-pc-broken-1",
@@ -497,7 +568,8 @@
     ],
     "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "pc-pc-hacked-signs-1",
@@ -535,7 +607,8 @@
     ],
     "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "pc-second-monitor-not-detected-1",
@@ -563,7 +636,8 @@
     ],
     "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "pc-wifi-connected-no-internet-1",
@@ -578,11 +652,24 @@
         "finding": "設定→ネットワークとインターネット→プロキシ、スクリプトと手動設定の区別をSTEP6と比較。組織で必要な場合があり管理者確認を残す条件と整合。個別VPNの動作は未実測。",
         "status": "supported-within-scope",
         "checkedAt": "2026-10-05"
+      },
+      {
+        "claim": "IP再取得の対象とDNSキャッシュ・診断検索・Edge拡張",
+        "sources": [
+          "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/ipconfig",
+          "https://support.microsoft.com/en-us/windows/experience/connectivity-networking/fix-wi-fi-connection-issues-in-windows",
+          "https://support.microsoft.com/ja-jp/support/get-help/windows-troubleshooters",
+          "https://support.microsoft.com/ja-jp/edge/add-turn-off-or-remove-extensions-in-microsoft-edge"
+        ],
+        "finding": "release/renewはDHCP自動取得、IPv6用コマンドは別、flushdnsはクライアントキャッシュの操作。169.254はルーターから取得できない例という公式説明とSTEP5の限定適用を比較。Get Helpの英語検索語とEdge管理画面のトグルは一致。日本語検索の具体的な診断結果文言は端末で未確認。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
       }
     ],
     "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   },
   {
     "id": "pc-wifi-option-missing-1",
@@ -597,10 +684,20 @@
         "finding": "STEP 3と判断表の、WlanSvc停止時にWi-Fi操作が消える、スキャン/プロファイル/接続管理を行うという役割を確認。開始/再起動の具体GUIは別確認。",
         "status": "supported-within-scope",
         "checkedAt": "2026-10-05"
+      },
+      {
+        "claim": "WLAN AutoConfig再起動の入口",
+        "sources": [
+          "https://support.microsoft.com/en-us/windows/experience/connectivity-networking/fix-wi-fi-connection-issues-in-windows"
+        ],
+        "finding": "公式Wi-Fi案内にWin+R→services.msc→WLAN AutoConfig右クリック→Restart。STEP3と一致。停止時の開始操作、更新アイコン、チップ固有の名前とドライバー状態は別範囲。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
       }
     ],
     "status": "partially-compared",
     "wholePageVerified": false,
-    "actualApplicationOperation": "not performed"
+    "actualApplicationOperation": "not performed",
+    "remainingDocumentScope": "本文比較はcomparisonsに明記した範囲のみ。originalPendingScopeのうち、comparisonsで未確認とした事項およびまだ扱っていない事項は未完了。"
   }
 ]
