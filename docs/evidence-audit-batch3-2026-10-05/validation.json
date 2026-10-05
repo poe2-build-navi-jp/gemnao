@@ -42,10 +42,53 @@
       "every scoped claim has local occurrence references"
     ]
   },
-  "scope": "Documentation and audit queue generation only; no production code/content changes. Existing UI browser tests were not rerun for this documentation-only diff. Prior PR60 browser tests are not represented as new runs. No real Windows/Steam/Discord application operation performed.",
+  "scope": "Initial checks are retained as historical runs. Continuation includes two Japanese body wording corrections and a source link. No actual Windows/Steam/Discord operation or production verification.",
   "limits": [
     "Full-site and whole-article audit incomplete",
     "No production writes/D1/notes accessed",
     "No login/CAPTCHA/proxy bypass"
-  ]
+  ],
+  "continuation": {
+    "checks": [
+      {
+        "name": "lint",
+        "exitCode": 0,
+        "log": "/tmp/batch3-followup-lint.log",
+        "tail": "$ oxlint\n"
+      },
+      {
+        "name": "types",
+        "exitCode": 0,
+        "log": "/tmp/batch3-followup-types.log",
+        "tail": ""
+      },
+      {
+        "name": "localized",
+        "exitCode": 0,
+        "log": "/tmp/batch3-followup-localized.log",
+        "tail": "$ node scripts/run-localized-check.mjs\nPASS: 79 translated pages\n"
+      },
+      {
+        "name": "build",
+        "exitCode": 0,
+        "log": "/tmp/batch3-followup-build.log",
+        "tail": "weekly                          \n  └ ƒ /weekly/:slug                    \n\n  λ API  ƒ Dynamic  ○ Static  ? Unknown\n\n  ? Some routes could not be classified. vinext currently uses static analysis\n    and cannot detect dynamic API usage (headers(), cookies(), etc.) at build time.\n    Automatic classification will be improved in a future release.\n\n  ○ Routes marked static were confirmed by speculative prerender (attempted render\n    succeeded without dynamic API usage).\n\n  Build complete. Run `vinext start` to start the production server.\n\nPrepared editorial HTML snapshots: 285 (dynamic routes excluded)\nGenerated sitemap: 272 URLs\nGenerated image sitemap: 21 pages\nOG cards up to date: 204 pages\n"
+      },
+      {
+        "name": "browser",
+        "exitCode": 0,
+        "log": "/tmp/batch3-followup-browser.log",
+        "tail": "PASS: 8 corrected page/width combinations; keyboard details open/close; APIs mocked, external requests blocked\n"
+      },
+      {
+        "name": "safe-step-navigation-browser",
+        "command": "node scripts/check-safe-step-navigation-browser.mjs (local fixture environment)",
+        "exitCode": 0,
+        "log": "/tmp/batch3-followup-navigation.log",
+        "output": "PASS 375px: keyboard unknown/confirmed branches, no recognition votes/writes, no bypass skip, legacy/notes A→B→A, cancel/save/reload, game-result dedup, 4-language article layout\nPASS 390px: keyboard unknown/confirmed branches, no recognition votes/writes, no bypass skip, legacy/notes A→B→A, cancel/save/reload, game-result dedup, 4-language article layout\nPASS 430px: keyboard unknown/confirmed branches, no recognition votes/writes, no bypass skip, legacy/notes A→B→A, cancel/save/reload, game-result dedup, 4-language article layout\nPASS 1440px: keyboard unknown/confirmed branches, no recognition votes/writes, no bypass skip, legacy/notes A→B→A, cancel/save/reload, game-result dedup, 4-language article layout\n"
+      }
+    ],
+    "ledgerDeterministicAndJsonParse": "pass",
+    "browserScope": "Corrected two routes at 375/390/430/1440px: rendered wording, horizontal overflow, keyboard details open/close; local API fixtures only."
+  }
 }

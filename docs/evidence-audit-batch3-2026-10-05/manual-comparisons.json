@@ -1,0 +1,147 @@
+[
+  {
+    "id": "feature-level-capability",
+    "claim": "Direct3DのAPIバージョンとGPUの機能レベルは別であり、必要機能をGPUで確認する。",
+    "sourceUrl": "https://learn.microsoft.com/ja-jp/windows/win32/direct3d12/hardware-feature-levels",
+    "articlePaths": [
+      "/guide/directx-error"
+    ],
+    "location": "STEP2第1段落",
+    "status": "compared",
+    "finding": "supported-within-scope",
+    "limits": "STEP2の必要機能比較を照合。dxdiagの現行UI、GPU選択UI、機種別対応、ランタイム個別挙動は未確認。",
+    "beforeStatus": "comparison-pending",
+    "evidence": "Manual comparison of official body with local rendered main text, details expanded. Production URL unavailable in this environment; NOT a production verification.",
+    "wholePageVerified": false
+  },
+  {
+    "id": "secure-capable-not-enabled",
+    "claim": "Windows 11のセキュアブート要件は対応であり、有効状態はOS名から断定できない。",
+    "sourceUrl": "https://support.microsoft.com/ja-jp/windows/security/devicesecurity/windows-11-and-secure-boot",
+    "articlePaths": [
+      "/guide/tpm-secure-boot"
+    ],
+    "location": "STEP1注意書きおよびCoD MW4記事description",
+    "status": "compared",
+    "finding": "corrected",
+    "limits": "OS要件として両方有効という表現を2か所修正。CoDのゲーム固有要件、BIOS操作、BitLocker条件はこの根拠では未確認。",
+    "beforeStatus": "comparison-pending",
+    "evidence": "Manual comparison of official body with local rendered main text, details expanded. Production URL unavailable in this environment; NOT a production verification.",
+    "wholePageVerified": false,
+    "additionalCorrectedPath": "/games/call-of-duty-modern-warfare-4/tpm-secure-boot"
+  },
+  {
+    "id": "new-disk-only",
+    "claim": "初期化は既存データのない新しい未初期化ディスクに限定し、既存データがあるディスクには安易に実行しない。",
+    "sourceUrl": "https://learn.microsoft.com/ja-jp/windows-server/storage/disk-management/initialize-new-disks",
+    "articlePaths": [
+      "/pc/usb-c-device-not-recognized"
+    ],
+    "location": "STEP3の新規空SSDと以前のデータがある場合の分岐",
+    "status": "compared",
+    "finding": "supported-within-scope",
+    "limits": "STEP3のデータ有無による分岐と不可逆の注意を照合。文字割当てUI、USB/AltMode仕様、コード28/43の意味は別資料が必要。",
+    "beforeStatus": "comparison-pending",
+    "evidence": "Manual comparison of official body with local rendered main text, details expanded. Production URL unavailable in this environment; NOT a production verification.",
+    "wholePageVerified": false
+  },
+  {
+    "id": "steam-controller-detection",
+    "claim": "Steamの設定からコントローラー設定を開き、接続した対応機器が認識されるか確認する。",
+    "sourceUrl": "https://partner.steamgames.com/doc/features/steam_controller/getting_started_for_players",
+    "articlePaths": [
+      "/guide/steam-input-controller"
+    ],
+    "location": "STEP1および「Steamが認識しない場合」冒頭",
+    "status": "compared",
+    "finding": "supported-within-scope",
+    "limits": "STEP1および認識しない場合の補足の経路と機器表示のみ照合。公式本文は旧UIを含み、現在の入力テスト名、ゲーム別設定、仮想機器表示は未確認。",
+    "beforeStatus": "comparison-pending",
+    "evidence": "Manual comparison of official body with local rendered main text, details expanded. Production URL unavailable in this environment; NOT a production verification.",
+    "wholePageVerified": false
+  },
+  {
+    "id": "discord-stream-acceleration",
+    "claim": "配信が遅延しハードウェアアクセラレーションが有効なら、音声・ビデオのビデオ設定で無効化を比較する公式案内がある。",
+    "sourceUrl": "https://support.discord.com/hc/en-us/articles/33030151293079-Discord-Voice-Video-Streaming-Guide",
+    "articlePaths": [
+      "/discord/stream-stuttering",
+      "/discord/screen-share-not-working"
+    ],
+    "location": "配信カクつきSTEP4と画面共有STEP4のアクセラレーション文",
+    "status": "compared",
+    "finding": "supported-within-scope",
+    "limits": "設定経路と有効時の無効化だけを照合。現在と反対という双方向の提案全体、黒画面への効果、2008/2009エラーへの適用は未確認。",
+    "beforeStatus": "comparison-pending",
+    "evidence": "Manual comparison of official body with local rendered main text, details expanded. Production URL unavailable in this environment; NOT a production verification.",
+    "wholePageVerified": false
+  },
+  {
+    "id": "current-steam-input-ui",
+    "claim": "現在のSteam入力テスト項目名とゲーム別Steam Input設定画面",
+    "status": "comparison-pending",
+    "beforeStatus": "comparison-pending",
+    "reason": "上記5資料で確認した限定命題の範囲外。別の一次資料と本文比較が必要。"
+  },
+  {
+    "id": "discord-acceleration-reverse",
+    "claim": "アクセラレーション無効時の有効化比較と黒画面への適用条件",
+    "status": "comparison-pending",
+    "beforeStatus": "comparison-pending",
+    "reason": "上記5資料で確認した限定命題の範囲外。別の一次資料と本文比較が必要。"
+  },
+  {
+    "id": "usb-device-codes",
+    "claim": "USB機器のコード28/43の意味とドライバー更新条件",
+    "status": "comparison-pending",
+    "beforeStatus": "comparison-pending",
+    "reason": "上記5資料で確認した限定命題の範囲外。別の一次資料と本文比較が必要。"
+  },
+  {
+    "id": "secure-boot-firmware-safety",
+    "claim": "UEFI/CSM切替・MBR/GPT・BitLocker復旧キーの前提",
+    "status": "comparison-pending",
+    "beforeStatus": "comparison-pending",
+    "reason": "上記5資料で確認した限定命題の範囲外。別の一次資料と本文比較が必要。"
+  },
+  {
+    "id": "blocked-verify",
+    "claim": "Steamファイル整合性確認の操作と注意",
+    "status": "unavailable",
+    "beforeStatus": "unavailable",
+    "sourceUrl": "https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB",
+    "reason": "Title/image only or tool inaccessible; no usable body. No bypass attempted."
+  },
+  {
+    "id": "blocked-cloud-help",
+    "claim": "Steam Cloud競合時の選択・復旧",
+    "status": "unavailable",
+    "beforeStatus": "unavailable",
+    "sourceUrl": "https://help.steampowered.com/ja/faqs/view/68D2-35AB-09A9-7678",
+    "reason": "Title/image only or tool inaccessible; no usable body. No bypass attempted."
+  },
+  {
+    "id": "blocked-disk-help",
+    "claim": "Steam更新・ディスク書込み障害の手順",
+    "status": "unavailable",
+    "beforeStatus": "unavailable",
+    "sourceUrl": "https://help.steampowered.com/ja/faqs/view/21F5-8D5D-0141-7A5E",
+    "reason": "Title/image only or tool inaccessible; no usable body. No bypass attempted."
+  },
+  {
+    "id": "blocked-launch-help",
+    "claim": "Steam起動準備中の対処",
+    "status": "unavailable",
+    "beforeStatus": "unavailable",
+    "sourceUrl": "https://help.steampowered.com/ja/faqs/view/5814-D9A3-BE42-62DF",
+    "reason": "Title/image only or tool inaccessible; no usable body. No bypass attempted."
+  },
+  {
+    "id": "blocked-attenuation",
+    "claim": "Discord音量減衰の設定条件",
+    "status": "unavailable",
+    "beforeStatus": "unavailable",
+    "sourceUrl": "https://support.discord.com/hc/en-us/articles/206342888-How-do-I-stop-Discord-from-lowering-my-app-volume-when-someone-else-is-talking",
+    "reason": "Title/image only or tool inaccessible; no usable body. No bypass attempted."
+  }
+]

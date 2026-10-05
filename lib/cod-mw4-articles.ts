@@ -54,7 +54,7 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
     conclusion:
       'PC版のModern Warfare 4は、TPM 2.0とセキュアブートの両方が必須です。ベータ版では、どちらかが無効だとオンラインモードを一切遊べませんでした。まずWindowsの「tpm.msc」と「msinfo32」で状態を確認し、無効ならBIOS（UEFI）で有効にします。Steam版は、Steamアカウントに携帯電話番号の登録も必要です。',
     description:
-      'Windows 11のPCは、OSの要件として両方が有効になっていることが多いです。Windows 10のPCや、自作PCでBIOSの設定を変えたことがある場合は特に確認が必要です。BIOSの操作を誤るとPCが起動しなくなることがあるため、マザーボードやPCメーカーの公式手順も必ず確認してください。',
+      'Windows 11の要件はセキュアブートに対応していることで、有効になっているとは限りません。Windowsの版だけで判断せず、現在の状態を確認してください。Windows 10のPCや、自作PCでBIOSの設定を変えたことがある場合は特に確認が必要です。BIOSの操作を誤るとPCが起動しなくなることがあるため、マザーボードやPCメーカーの公式手順も必ず確認してください。',
     causes: [
       'TPM 2.0が無効（Intel PTT・AMD fTPMがBIOSでオフ）',
       'セキュアブートが無効、またはBIOSの起動モードがレガシー（CSM）',
@@ -242,6 +242,10 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
       sources.specs,
       sources.steam,
       sources.mbr2gpt,
+      {
+        label: 'Microsoft：Windows 11とセキュアブート（対応と有効状態の違い）',
+        url: 'https://support.microsoft.com/ja-jp/windows/security/devicesecurity/windows-11-and-secure-boot',
+      },
     ],
     related: [],
     metaDescription:

@@ -541,5 +541,81 @@
     "excludes": "個別症状の原因や必ず改善することは保証しない。他の文や手順は未確認。",
     "occurrenceStatus": "candidate-location-only; full paragraph and step NOT verified",
     "localeScope": "ja"
+  },
+  {
+    "id": "feature-level-capability",
+    "claim": "Direct3DのAPIバージョンとGPUの機能レベルは別であり、必要機能をGPUで確認する。",
+    "sourceIds": [
+      "feature"
+    ],
+    "articlePaths": [
+      "/guide/directx-error"
+    ],
+    "matchPattern": "機能レベル",
+    "status": "source-supported-scoped-claim",
+    "excludes": "STEP2の必要機能比較を照合。dxdiagの現行UI、GPU選択UI、機種別対応、ランタイム個別挙動は未確認。",
+    "occurrenceStatus": "manually compared only at locations in manual-comparisons.json; other regex matches remain candidates",
+    "localeScope": "ja only"
+  },
+  {
+    "id": "secure-capable-not-enabled",
+    "claim": "Windows 11のセキュアブート要件は対応であり、有効状態はOS名から断定できない。",
+    "sourceIds": [
+      "secure"
+    ],
+    "articlePaths": [
+      "/guide/tpm-secure-boot"
+    ],
+    "matchPattern": "Windows 11",
+    "status": "source-supported-scoped-claim",
+    "excludes": "OS要件として両方有効という表現を2か所修正。CoDのゲーム固有要件、BIOS操作、BitLocker条件はこの根拠では未確認。",
+    "occurrenceStatus": "manually compared only at locations in manual-comparisons.json; other regex matches remain candidates",
+    "localeScope": "ja only"
+  },
+  {
+    "id": "new-disk-only",
+    "claim": "初期化は既存データのない新しい未初期化ディスクに限定し、既存データがあるディスクには安易に実行しない。",
+    "sourceIds": [
+      "disk"
+    ],
+    "articlePaths": [
+      "/pc/usb-c-device-not-recognized"
+    ],
+    "matchPattern": "初期化",
+    "status": "source-supported-scoped-claim",
+    "excludes": "STEP3のデータ有無による分岐と不可逆の注意を照合。文字割当てUI、USB/AltMode仕様、コード28/43の意味は別資料が必要。",
+    "occurrenceStatus": "manually compared only at locations in manual-comparisons.json; other regex matches remain candidates",
+    "localeScope": "ja only"
+  },
+  {
+    "id": "steam-controller-detection",
+    "claim": "Steamの設定からコントローラー設定を開き、接続した対応機器が認識されるか確認する。",
+    "sourceIds": [
+      "input-start"
+    ],
+    "articlePaths": [
+      "/guide/steam-input-controller"
+    ],
+    "matchPattern": "機器名|コントローラ",
+    "status": "source-supported-scoped-claim",
+    "excludes": "STEP1および認識しない場合の補足の経路と機器表示のみ照合。公式本文は旧UIを含み、現在の入力テスト名、ゲーム別設定、仮想機器表示は未確認。",
+    "occurrenceStatus": "manually compared only at locations in manual-comparisons.json; other regex matches remain candidates",
+    "localeScope": "ja only"
+  },
+  {
+    "id": "discord-stream-acceleration",
+    "claim": "配信が遅延しハードウェアアクセラレーションが有効なら、音声・ビデオのビデオ設定で無効化を比較する公式案内がある。",
+    "sourceIds": [
+      "streaming"
+    ],
+    "articlePaths": [
+      "/discord/stream-stuttering",
+      "/discord/screen-share-not-working"
+    ],
+    "matchPattern": "ハードウェアアクセラレーション",
+    "status": "source-supported-scoped-claim",
+    "excludes": "設定経路と有効時の無効化だけを照合。現在と反対という双方向の提案全体、黒画面への効果、2008/2009エラーへの適用は未確認。",
+    "occurrenceStatus": "manually compared only at locations in manual-comparisons.json; other regex matches remain candidates",
+    "localeScope": "ja only"
   }
 ]

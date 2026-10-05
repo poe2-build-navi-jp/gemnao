@@ -764,8 +764,10 @@
   {
     "path": "/discord/screen-share-not-working",
     "title": "Discordで画面共有できない・相手に映らない時の直し方【PC版】",
-    "status": "not-started-semantic-review",
-    "scopedClaimIds": [],
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-stream-acceleration"
+    ],
     "wholePageVerified": false,
     "remainingClaimGroups": [
       "共有を始められない：通話への参加と「動画」権限を調べる",
@@ -839,8 +841,10 @@
   {
     "path": "/discord/stream-stuttering",
     "title": "Discord配信がカクカクする・重いときの直し方【配信者・視聴者別】",
-    "status": "not-started-semantic-review",
-    "scopedClaimIds": [],
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "discord-stream-acceleration"
+    ],
     "wholePageVerified": false,
     "remainingClaimGroups": [
       "配信の解像度・フレームレートが回線に対して高い",
@@ -1120,7 +1124,8 @@
     "scopedClaimIds": [
       "dism-order",
       "legacy-directx",
-      "dxgi-removed"
+      "dxgi-removed",
+      "feature-level-capability"
     ],
     "wholePageVerified": false,
     "remainingClaimGroups": [
@@ -1601,7 +1606,8 @@
     "title": "Steam Inputでコントローラーが反応しない時の直し方｜認識場所別に確認",
     "status": "partial-scoped-claims",
     "scopedClaimIds": [
-      "steam-input-legacy"
+      "steam-input-legacy",
+      "steam-controller-detection"
     ],
     "wholePageVerified": false,
     "remainingClaimGroups": [
@@ -1654,7 +1660,8 @@
     "title": "ゲームでTPM 2.0・セキュアブートが必要と出た時の確認と有効化の方法【Windows】",
     "status": "partial-scoped-claims",
     "scopedClaimIds": [
-      "tpm-check"
+      "tpm-check",
+      "secure-capable-not-enabled"
     ],
     "wholePageVerified": false,
     "remainingClaimGroups": [
@@ -2214,8 +2221,10 @@
   {
     "path": "/pc/usb-c-device-not-recognized",
     "title": "USB-C機器が認識されない・「機能が制限される」と出る時の調べ方【Windows 11】",
-    "status": "not-started-semantic-review",
-    "scopedClaimIds": [],
+    "status": "partial-scoped-claims",
+    "scopedClaimIds": [
+      "new-disk-only"
+    ],
     "wholePageVerified": false,
     "remainingClaimGroups": [
       "直結・ケーブル・別ポートを1つずつ比較する",

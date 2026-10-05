@@ -52,7 +52,7 @@ export const tpmSecureBootGuide: CommonGuide = {
       actions: [
         'Windows + R を押して「tpm.msc」と入力し、OKを押す。TPMを使用する準備ができている旨の表示と、「TPM製造元情報」の仕様バージョンが2.0かを確認する。「互換性のあるTPMが見つかりません」と出たらTPMが無効の可能性がある',
         'Windows + R を押して「msinfo32」と入力し、「BIOSモード」がUEFIか、「セキュアブートの状態」が有効（英語表示ではOn）かを確認する',
-        'Windows 11のPCは、OSの要件として両方が有効になっていることが多い',
+        'Windows 11の要件はセキュアブートに対応していることで、有効になっているとは限りません。Windowsの版だけで判断せず、現在の状態を確認してください',
       ],
     },
     {

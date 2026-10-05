@@ -504,7 +504,7 @@ Discord画面共有が黒いときの直し方｜配信者・視聴者・特定�
 
 Discordで画面共有できない・相手に映らない時の直し方【PC版】
 
-共通根拠の対象: 未着手
+共通根拠の対象: discord-stream-acceleration
 
 未完了の確認:
 
@@ -558,7 +558,7 @@ Discord配信でゲーム音が入らない・相手に聞こえない時の直�
 
 Discord配信がカクカクする・重いときの直し方【配信者・視聴者別】
 
-共通根拠の対象: 未着手
+共通根拠の対象: discord-stream-acceleration
 
 未完了の確認:
 
@@ -734,7 +734,7 @@ PCゲームが黒い画面になる時の対処法｜音だけ出る・起動後
 
 DirectXエラー｜機能レベル・DLL不足・GPUエラーの見分け方
 
-共通根拠の対象: dism-order, legacy-directx, dxgi-removed
+共通根拠の対象: dism-order, legacy-directx, dxgi-removed, feature-level-capability
 
 未完了の確認:
 
@@ -1032,7 +1032,7 @@ Steamゲームが起動しない時の対処法｜プレイを押しても起動
 
 Steam Inputでコントローラーが反応しない時の直し方｜認識場所別に確認
 
-共通根拠の対象: steam-input-legacy
+共通根拠の対象: steam-input-legacy, steam-controller-detection
 
 未完了の確認:
 
@@ -1066,7 +1066,7 @@ PCゲームがカクつく・一瞬止まる時の対処法｜FPS上限の設定
 
 ゲームでTPM 2.0・セキュアブートが必要と出た時の確認と有効化の方法【Windows】
 
-共通根拠の対象: tpm-check
+共通根拠の対象: tpm-check, secure-capable-not-enabled
 
 未完了の確認:
 
@@ -1424,7 +1424,7 @@ Windows 11がスリープから勝手に復帰する原因の調べ方と直し�
 
 USB-C機器が認識されない・「機能が制限される」と出る時の調べ方【Windows 11】
 
-共通根拠の対象: 未着手
+共通根拠の対象: new-disk-only
 
 未完了の確認:
 

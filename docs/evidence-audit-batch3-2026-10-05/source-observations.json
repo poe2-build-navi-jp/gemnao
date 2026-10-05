@@ -86,9 +86,9 @@
   {
     "id": "streaming",
     "url": "https://support.discord.com/hc/en-us/articles/33030151293079-Discord-Voice-Video-Streaming-Guide",
-    "state": "body-retrieved-not-compared",
+    "state": "body-read",
     "checkedAt": "2026-10-05",
-    "scopeRead": "Body retrieved; detailed platform/quality claims not yet compared"
+    "scopeRead": "配信が遅延しハードウェアアクセラレーションが有効なら、音声・ビデオのビデオ設定で無効化を比較する公式案内がある。 設定経路と有効時の無効化だけを照合。現在と反対という双方向の提案全体、黒画面への効果、2008/2009エラーへの適用は未確認。"
   },
   {
     "id": "sfc",
@@ -121,9 +121,9 @@
   {
     "id": "feature",
     "url": "https://learn.microsoft.com/ja-jp/windows/win32/direct3d12/hardware-feature-levels",
-    "state": "body-retrieved-not-compared",
+    "state": "body-read",
     "checkedAt": "2026-10-05",
-    "scopeRead": "Hardware feature levels and Direct3D feature support"
+    "scopeRead": "Direct3DのAPIバージョンとGPUの機能レベルは別であり、必要機能をGPUで確認する。 STEP2の必要機能比較を照合。dxdiagの現行UI、GPU選択UI、機種別対応、ランタイム個別挙動は未確認。"
   },
   {
     "id": "dxgi",
@@ -149,9 +149,9 @@
   {
     "id": "secure",
     "url": "https://support.microsoft.com/ja-jp/windows/security/devicesecurity/windows-11-and-secure-boot",
-    "state": "body-retrieved-not-compared",
+    "state": "body-read",
     "checkedAt": "2026-10-05",
-    "scopeRead": "Body retrieved; firmware switching/BitLocker claims not yet compared"
+    "scopeRead": "Windows 11のセキュアブート要件は対応であり、有効状態はOS名から断定できない。 OS要件として両方有効という表現を2か所修正。CoDのゲーム固有要件、BIOS操作、BitLocker条件はこの根拠では未確認。"
   },
   {
     "id": "le",
@@ -219,9 +219,9 @@
   {
     "id": "disk",
     "url": "https://learn.microsoft.com/ja-jp/windows-server/storage/disk-management/initialize-new-disks",
-    "state": "body-retrieved-not-compared",
+    "state": "body-read",
     "checkedAt": "2026-10-05",
-    "scopeRead": "Body retrieved; destructive initialization conditions pending comparison"
+    "scopeRead": "初期化は既存データのない新しい未初期化ディスクに限定し、既存データがあるディスクには安易に実行しない。 STEP3のデータ有無による分岐と不可逆の注意を照合。文字割当てUI、USB/AltMode仕様、コード28/43の意味は別資料が必要。"
   },
   {
     "id": "cloud",
@@ -240,9 +240,9 @@
   {
     "id": "input-start",
     "url": "https://partner.steamgames.com/doc/features/steam_controller/getting_started_for_players",
-    "state": "body-retrieved-not-compared",
+    "state": "body-read",
     "checkedAt": "2026-10-05",
-    "scopeRead": "Body retrieved; current client settings UI not yet compared"
+    "scopeRead": "Steamの設定からコントローラー設定を開き、接続した対応機器が認識されるか確認する。 STEP1および認識しない場合の補足の経路と機器表示のみ照合。公式本文は旧UIを含み、現在の入力テスト名、ゲーム別設定、仮想機器表示は未確認。"
   },
   {
     "id": "verify",
