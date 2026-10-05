@@ -20,7 +20,7 @@ for (const [name, interaction] of [
             name: 'home-hooks',
             setup(build) {
               build.onResolve({ filter: /^react$/ }, (args) =>
-                args.importer.endsWith('/components/wiki-home.tsx')
+                (args.importer.endsWith('/components/wiki-home.tsx') || args.importer.endsWith('/components/use-search-query.ts'))
                   ? { path: 'home-hooks', namespace: 'home-test' }
                   : undefined,
               );

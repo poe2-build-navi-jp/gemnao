@@ -8,6 +8,13 @@ import { myGamesCopy, myGamesPath } from '@/lib/my-games-copy';
 import { ui } from '@/lib/localized/ui';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 
+export const languageFallbackLabels = {
+  ja: '未翻訳のため日本語トップへ',
+  en: 'Not translated — go to English home',
+  zh: '暂无翻译，前往中文首页',
+  es: 'Sin traducción: ir al inicio en español',
+};
+
 export function WikiHeader({
   locale = 'ja',
   pagePath = '',
@@ -147,7 +154,7 @@ export function WikiHeader({
                 aria-current={item === locale ? 'page' : undefined}
               >
                 {localeNames[item]}
-                {homeFallback ? ` (${languageLabels.home})` : ''}
+                {homeFallback ? <small lang={item}>{languageFallbackLabels[item]}</small> : null}
               </a>
             );
           })}

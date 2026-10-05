@@ -1,12 +1,12 @@
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { ArrowRight } from 'lucide-react';
-import { articlesForGame, categoryLabels } from '@/lib/game-articles';
+import { articlesForGame, articleCategoryLabel } from '@/lib/game-articles';
 import type { GameGuide } from '@/lib/games';
 
 const clusters = [
   { label: '起動・クラッシュ', categories: ['launch'] },
   { label: 'データ・設定', categories: ['save', 'settings'] },
-  { label: '専用サーバー', categories: ['server'] },
+  { label: 'サーバー・接続', categories: ['server'] },
   { label: '映像・パフォーマンス', categories: ['display', 'specs'] },
   { label: '操作・拡張', categories: ['controller', 'mods'] },
 ] as const;
@@ -71,7 +71,7 @@ export function GameArticleLinks({
           if (!clusterArticles.length) return null;
           return (
             <section key={cluster.label}>
-              <h3>{cluster.label}</h3>
+              <h3>{clusterArticles.every(article => article.category === 'server' && articleCategoryLabel(article) === '専用サーバー') ? '専用サーバー' : cluster.label}</h3>
               <div className="article-link-grid">
                 {clusterArticles.map((article) => (
                   <a
@@ -81,7 +81,7 @@ export function GameArticleLinks({
                     <span>
                       {game.slug === 'aniimo'
                         ? cluster.label
-                        : categoryLabels[article.category]}
+                        : articleCategoryLabel(article)}
                     </span>
                     <strong>{article.shortTitle}</strong>
                     <p>{article.symptom}</p>
