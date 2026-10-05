@@ -35,7 +35,7 @@ function weeklyDate(monthDay: string, publishedAt: string) {
   return `${y}-${String(month).padStart(2, '0')}-${String(date).padStart(2, '0')}`;
 }
 
-/** What changed for a game in the last 30 days, newest first. */
+/** Article check dates and weekly items from the last 30 days, newest first. */
 function updatesFor(slug: string, now: number) {
   const since = now - 30 * DAY;
   const articles = articlesForGame(slug)
@@ -44,7 +44,7 @@ function updatesFor(slug: string, now: number) {
     )
     .map((article) => ({
       date: article.checkedAt,
-      label: `記事を更新：${article.shortTitle}`,
+      label: `記事の確認：${article.shortTitle}`,
       href: `/games/${slug}/${article.slug}`,
     }));
   const weekly = weeklyReports.flatMap((report) =>

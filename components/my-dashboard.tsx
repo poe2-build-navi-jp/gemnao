@@ -19,7 +19,7 @@ export type DashboardGame = {
   maintenance: { title: string; start: string; end: string; url: string }[];
   spec?: MinSpec;
   hasNews: boolean;
-  /** ゲムなおの記事更新・週刊まとめ（30日以内、新しい順。dateはYYYY-MM-DD）。 */
+  /** 記事の確認・週刊まとめ（30日以内、新しい順。dateはYYYY-MM-DD）。 */
   updates: { date: string; label: string; href: string }[];
 };
 
@@ -301,7 +301,7 @@ export function MyDashboard({ games }: { games: DashboardGame[] }) {
                   ) : null}
                   {game.updates.length ? (
                     <>
-                      <h4>ゲムなおの更新（30日以内）</h4>
+                      <h4>記事の確認・週刊まとめ（30日以内）</h4>
                       <ul>
                         {game.updates.map((item) => (
                           <li key={`${item.date}-${item.label}`}>

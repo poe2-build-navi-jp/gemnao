@@ -1,0 +1,4 @@
+PASS 375px: first visit, saved game/check-date copy, revisit badges, keyboard details, back/forward, removal/empty, no overflow or page errors; API fixtures only
+PASS 390px: first visit, saved game/check-date copy, revisit badges, keyboard details, back/forward, removal/empty, no overflow or page errors; API fixtures only
+PASS 430px: first visit, saved game/check-date copy, revisit badges, keyboard details, back/forward, removal/empty, no overflow or page errors; API fixtures only
+PASS 1440px: first visit, saved game/check-date copy, revisit badges, keyboard details, back/forward, removal/empty, no overflow or page errors; API fixtures only
