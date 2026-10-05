@@ -1,7 +1,7 @@
 import type { LocalizedArticle } from '@/lib/localized/types';
 
-// 七款经典游戏文章的简体中文版。所有步骤均来自各发行商的官方支持页面
-// （2026-09-29／10-01 核对），见 sources。
+// 七款经典游戏文章的简体中文版，依据官方支持并进行安全性编辑。
+// 本次核对范围见 docs/evidence-audit-2026-10-05，不代表全文重新核对。
 
 const verify = (name: string) =>
   `在 Steam 库中右键点击“${name}”→“属性”→“已安装文件”→“验证游戏文件的完整性”。`;
@@ -201,10 +201,10 @@ export const articlesZh: LocalizedArticle[] = [
       {
         id: 'switch-api',
         title: '关闭后台程序、验证文件，并切换 DirectX 11／Vulkan',
-        summary: '这是 Larian 列表中最先进行、可随时还原的检查。',
+        summary: '本指南依据 Larian 的检查项目进行排查，并保持安全防护开启。',
         time: '10～15 分钟',
         actions: [
-          '关闭杀毒软件、防火墙、显卡调节或监控工具的叠加层以及聊天软件。',
+          '逐一关闭非必要的显卡调节工具、监控叠加层和聊天软件，比较启动结果。保持杀毒软件和防火墙开启；如有检测记录，请向安全软件提供商或 Larian 确认目标文件和检测名称。',
           '使用 ASUS Sonic Studio Virtual Mixer 时，请禁用或卸载它（Larian 列出的已知问题）。',
           verify("Baldur's Gate 3"),
           '在启动器中切换 DirectX 11 与 Vulkan 后再试。',
@@ -270,6 +270,10 @@ export const articlesZh: LocalizedArticle[] = [
     ],
     sources: [
       {
+        label: 'Microsoft：病毒和威胁防护（排除项风险）',
+        url: 'https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app',
+      },
+      {
         label: 'Larian 客服：Crashing upon startup (PC)（英文）',
         url: 'https://larian.com/support/faqs/crashing-upon-startup-pc_59',
       },
@@ -290,10 +294,10 @@ export const articlesZh: LocalizedArticle[] = [
     title: '《绝地潜兵2》GameGuard 错误 114 无法启动的解决方法（PC）',
     shortTitle: 'GameGuard 错误 114',
     description:
-      '《绝地潜兵2》因 nProtect GameGuard 错误 114 无法启动？按 Arrowhead 官方步骤：管理员与兼容模式、重新安装 GameGuard、关闭工具类程序、在安全软件中添加例外。',
+      '《绝地潜兵2》因 nProtect GameGuard 错误 114 无法启动？参考 Arrowhead 官方说明：管理员与兼容模式、重新安装 GameGuard、关闭工具类程序并检查防护记录。',
     lead: '启动时 nProtect GameGuard 显示错误 114、游戏无法开始时，Arrowhead 官方给出的处理步骤（Steam 版）。',
     summary:
-      'Arrowhead 官方支持列出了五种方法：以管理员身份运行（Windows 11 还需 Windows 8 兼容模式）、卸载并重新安装 GameGuard、关闭工具类程序、在安全软件中添加例外、断开老旧的机械硬盘。',
+      'Arrowhead 官方支持列出了五种方法：以管理员身份运行（Windows 11 还需 Windows 8 兼容模式）、卸载并重新安装 GameGuard、关闭工具类程序、安全软件与老旧机械硬盘。本指南建议保持防护开启，先向提供商确认检测内容；不要在电脑通电时拆卸内部硬盘，不确定时请咨询电脑厂商或技术人员。',
     quickFacts: [
       {
         label: '打开游戏文件夹',
@@ -352,19 +356,19 @@ export const articlesZh: LocalizedArticle[] = [
       },
       {
         id: 'utilities',
-        title: '关闭工具类程序，并在安全软件中添加例外',
+        title: '逐一关闭工具类程序，查看防护历史记录',
         summary: 'Arrowhead 说明，即使不是作弊程序，也可能触发错误 114。',
         time: '约 10 分钟',
         actions: [
           '逐个关闭叠加层、宏工具、RGB 灯效软件、监控工具等常驻程序，确认能否启动。',
-          '在安全软件（包括 Microsoft Defender）中为 nProtect GameGuard 和 HELLDIVERS 2 添加例外。',
-          '极少数情况下，连接的老旧机械硬盘也会导致问题。如果接有不用的旧硬盘，请断开后再试（官方）。',
+          '保持安全防护开启。如果检测涉及官方 GameGuard 或 HELLDIVERS 2 文件，请记录检测名称和路径，先向安全软件提供商或 Arrowhead 确认，再考虑排除或恢复隔离文件。不要自动排除整个文件夹。',
+          'Arrowhead 也提到老旧硬盘的影响。不要在电脑通电时拆卸内部硬盘；不确定目标硬盘或其中是否有重要数据时，请先咨询电脑厂商或技术人员。',
         ],
         note: '如果找到了引起问题的程序，Arrowhead 希望玩家告知该程序的名称。',
       },
     ],
     avoid: [
-      '不要在关闭安全软件的状态下游玩，添加例外后请重新开启。',
+      '不要仅为启动游戏而关闭防护或添加排除项。',
       '不要使用修改器或作弊工具，反作弊程序会对其作出反应。',
     ],
     cautions: ['以上步骤都无效时，请联系 Arrowhead 客服。'],
@@ -372,7 +376,7 @@ export const articlesZh: LocalizedArticle[] = [
       {
         question: '我只用 Windows Defender，也需要添加例外吗？',
         answer:
-          '需要。Arrowhead 官方支持说明，即使只使用 Microsoft Defender，也要为 nProtect GameGuard 和 HELLDIVERS 2 添加例外。',
+          '不应自动添加。Arrowhead 提到了排除项，但被排除的文件将不再接受实时扫描。请保持防护开启，先确认检测是否涉及官方文件，并咨询安全软件提供商或 Arrowhead。',
       },
       {
         question: '重新安装 GameGuard 会删除进度吗？',
@@ -381,6 +385,10 @@ export const articlesZh: LocalizedArticle[] = [
       },
     ],
     sources: [
+      {
+        label: 'Microsoft：病毒和威胁防护（排除项风险）',
+        url: 'https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app',
+      },
       {
         label: 'Arrowhead 客服：启动 HELLDIVERS 2 时出现错误 114（英文）',
         url: 'https://arrowhead.zendesk.com/hc/en-us/articles/14732747845020-I-receive-Error-114-when-attempting-to-launch-HELLDIVERS-2',
@@ -401,7 +409,7 @@ export const articlesZh: LocalizedArticle[] = [
       '《霍格沃茨之遗》PC 版闪退？先还原 Engine.ini 修改和 MOD，再按 WB Games 官方步骤检查：驱动、Windows 更新、超频、文件验证、画质设置和安全软件。',
     lead: 'Steam 版启动后关闭、游玩中回到桌面或读取时卡住时，WB Games（Portkey Games）官方支持给出的步骤。',
     summary:
-      '官方支持的检查顺序是：更新显卡和声卡驱动、执行 Windows 更新（DirectX 也随之更新）、把超频的硬件恢复默认、验证游戏文件、降低画质设置、在安全软件中添加例外并关闭不需要的程序。如果修改过 Engine.ini 或安装了 MOD，请先还原。',
+      '官方支持的检查顺序是：更新显卡和声卡驱动、执行 Windows 更新（DirectX 也随之更新）、把超频的硬件恢复默认、验证游戏文件、降低画质设置、检查防护记录并关闭非必要程序。官方也提到排除项，但本指南建议保持防护开启，先向安全软件提供商确认检测内容。如果修改过 Engine.ini 或安装了 MOD，请先还原。',
     quickFacts: [
       {
         label: '存档位置',
@@ -478,12 +486,12 @@ export const articlesZh: LocalizedArticle[] = [
       },
       {
         id: 'background-apps',
-        title: '在安全软件中添加例外，关闭不需要的程序',
+        title: '查看防护记录，逐一关闭非必要程序',
         summary:
           '检查文件是否被隔离、是否与其他程序冲突。干净启动只是临时测试。',
         time: '约 10 分钟',
         actions: [
-          '查看安全软件的隔离记录，把游戏文件夹添加为例外。',
+          '保持防护开启，记录隔离历史中的检测名称和文件路径。不要仅为启动游戏而恢复隔离文件或排除整个游戏文件夹；请先咨询安全软件提供商或 WB Games。',
           '启动游戏前尽量关闭不用的程序。',
           '仍然闪退时，按 Microsoft 的官方步骤进行“干净启动”来比较；测试结束后务必恢复正常启动。',
         ],
@@ -510,6 +518,10 @@ export const articlesZh: LocalizedArticle[] = [
       },
     ],
     sources: [
+      {
+        label: 'Microsoft：病毒和威胁防护（排除项风险）',
+        url: 'https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app',
+      },
       {
         label: 'Portkey Games 客服：PC Troubleshooting (Steam)（英文）',
         url: 'https://portkeygamessupport.wbgames.com/hc/en-us/articles/10765467342099-PC-Troubleshooting-Steam',

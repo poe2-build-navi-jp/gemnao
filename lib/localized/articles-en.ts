@@ -1,7 +1,8 @@
 import type { LocalizedArticle } from '@/lib/localized/types';
 
-// English versions of the seven classic-game articles. Every step comes from
-// the publisher's own support page (checked 2026-09-29/10-01); see `sources`.
+// English versions of the seven classic-game articles, based on publisher
+// support with editorial safety adaptations. See sources and the scoped audit
+// in docs/evidence-audit-2026-10-05; checkedAt is not a full re-audit date.
 
 const verify = (name: string) =>
   `In your Steam Library, right-click “${name}” → Properties → Installed Files → Verify integrity of game files.`;
@@ -281,6 +282,10 @@ export const articlesEn: LocalizedArticle[] = [
     ],
     sources: [
       {
+        label: 'Microsoft: Virus and threat protection (exclusion risks)',
+        url: 'https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app',
+      },
+      {
         label: 'Larian Support: Crashing upon startup (PC)',
         url: 'https://larian.com/support/faqs/crashing-upon-startup-pc_59',
       },
@@ -398,6 +403,10 @@ export const articlesEn: LocalizedArticle[] = [
       },
     ],
     sources: [
+      {
+        label: 'Microsoft: Virus and threat protection (exclusion risks)',
+        url: 'https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app',
+      },
       {
         label:
           'Arrowhead Support: I receive Error 114 when attempting to launch HELLDIVERS 2',
@@ -534,6 +543,10 @@ export const articlesEn: LocalizedArticle[] = [
       },
     ],
     sources: [
+      {
+        label: 'Microsoft: Virus and threat protection (exclusion risks)',
+        url: 'https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app',
+      },
       {
         label: 'Portkey Games Support: PC Troubleshooting (Steam)',
         url: 'https://portkeygamessupport.wbgames.com/hc/en-us/articles/10765467342099-PC-Troubleshooting-Steam',

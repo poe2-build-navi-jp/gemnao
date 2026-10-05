@@ -267,7 +267,7 @@ export const launchWeekArticles: GameArticle[] = [
         risk: 'low',
         actions: [
           'VPNや通信最適化ツールを使っている場合はオフにして試す',
-          'セキュリティソフトを一時停止して接続できたら、AION 2とランチャーを除外（許可）リストに追加してから元に戻す',
+          'セキュリティソフトは有効に保つ。ブロック記録がある場合は対象ファイル・検出名・発生時刻を確認し、除外や許可を変更する前にセキュリティソフトの提供元かAION 2公式サポートに相談する',
           'ルーターの電源を抜いて30秒ほど待ち、入れ直す',
           'Wi-Fiの場合は、可能であればLANケーブルで有線接続にする',
         ],
@@ -276,7 +276,7 @@ export const launchWeekArticles: GameArticle[] = [
     avoid: [
       '待機列を何度も抜けて並び直さない',
       '障害の告知が出ている間に、再インストールやルーターの設定変更をしない',
-      'セキュリティソフトをオフにしたままプレイしない（除外設定をして戻す）',
+      '接続するためだけに保護機能を停止したり、除外設定を追加したりしない',
     ],
     cautions: [
       'サービス開始直後は告知や仕様が頻繁に変わります。最新のお知らせもあわせて確認してください。',
@@ -331,6 +331,10 @@ export const launchWeekArticles: GameArticle[] = [
       },
     ],
     sources: [
+      {
+        label: 'Microsoft：Windowsセキュリティの除外設定の注意',
+        url: 'https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app',
+      },
       aionSources.fixes,
       aionSources.launch,
       aionSources.servers,

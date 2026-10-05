@@ -177,7 +177,7 @@ export const octoberReleaseArticles: GameArticle[] = [
         risk: 'low',
         actions: [
           'OBSを使っている場合はバージョン29.0.0以降に更新する',
-          'Comodo Antivirusを使っている場合は、ゲームの実行ファイルを許可リストに追加する（一時的に無効にして起動できるか確かめる場合は、確認後に必ず元に戻す）',
+          'Comodo Antivirusを含む保護機能は有効に保つ。検出がある場合は検出名と対象ファイルを確認し、除外や隔離からの復元を行う前にComodoかゲームの公式サポートに相談する',
           'Discord・Steamのオーバーレイ、FPS表示ツールも一度オフにして起動を比べる',
         ],
       },
@@ -211,7 +211,7 @@ export const octoberReleaseArticles: GameArticle[] = [
     ],
     avoid: [
       'レイトレーシング非対応のGPUで、非公式ツールや設定ファイルの書き換えで起動させようとしない',
-      'セキュリティソフトを無効にしたまま遊ばない（許可リストに追加して元に戻す）',
+      '起動させるためだけに保護機能を停止したり、許可リストに追加したりしない',
       'ルーターのポートを無闇に開放しない（必要なポートだけを確認する）',
     ],
     cautions: [
@@ -236,6 +236,10 @@ export const octoberReleaseArticles: GameArticle[] = [
       },
     ],
     sources: [
+      {
+        label: 'Microsoft：Windowsセキュリティの除外設定の注意',
+        url: 'https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app',
+      },
       gearsSources.launch,
       gearsSources.gold,
       gearsSources.steam,

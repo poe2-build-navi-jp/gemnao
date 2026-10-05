@@ -2,7 +2,8 @@ import type { GameArticle } from '@/lib/game-articles';
 
 // 定番タイトル7作品の個別記事。各社の公式サポート（CD PROJEKT RED・Larian・
 // Arrowhead・WB Games・Rockstar・SKSE公式・Stardew Valley公式Wiki）で
-// 2026-09-29に確認した手順だけを載せています。
+// を基に編集。本記事の安全方針は公式手順と区別する。
+// 今回の部分確認範囲は docs/evidence-audit-2026-10-05 を参照。
 // STEPのidは解決報告（D1）の集計キーなので、公開後は変更しないでください。
 
 type Draft = Omit<
@@ -252,11 +253,12 @@ export const classicGameArticles: GameArticle[] = [
       {
         id: 'switch-api',
         title: '常駐アプリを閉じ、ファイル確認とDX11／Vulkanの切り替えを試す',
-        summary: '公式サポートが最初に挙げている、元に戻せる確認です。',
+        summary:
+          'Larianの確認項目を基に、保護機能を有効に保ったまま切り分ける本記事の手順です。',
         time: '10〜15分',
         risk: 'low',
         actions: [
-          'セキュリティソフト・ファイアウォール・グラフィック調整や監視ツールのオーバーレイ・チャットアプリを終了する',
+          '不要なグラフィック調整ツール・監視用オーバーレイ・チャットアプリを1つずつ終了して比較する。セキュリティソフトとファイアウォールは有効に保つ。検出がある場合は、対象ファイルと検出名を確認してセキュリティソフトの提供元かLarianに相談する',
           'ASUS Sonic Studio Virtual Mixerを使っている場合は、無効にするかアンインストールする（公式の既知の問題）',
           verifySteam("Baldur's Gate 3"),
           'ランチャーでDirectX 11とVulkanを切り替えて起動する',
@@ -326,6 +328,11 @@ export const classicGameArticles: GameArticle[] = [
     ],
     sources: [
       {
+        label:
+          'Microsoft：Windowsセキュリティのウイルスと脅威の防止（除外の注意）',
+        url: 'https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app',
+      },
+      {
         label: 'Larian公式サポート：Crashing upon startup (PC)',
         url: 'https://larian.com/support/faqs/crashing-upon-startup-pc_59',
       },
@@ -354,9 +361,9 @@ export const classicGameArticles: GameArticle[] = [
     symptom:
       '起動時にnProtect GameGuardのエラー114が出てゲームが始まらない場合の、Arrowhead公式サポートの手順です。',
     conclusion:
-      'Arrowheadの公式サポートは、①exeを管理者として（Windows 11では互換モードWindows 8も）実行、②GameGuardのアンインストールと再インストール、③常駐ツールの停止、④セキュリティソフトの例外設定、⑤古いHDDの取り外し、の順で案内しています。',
+      'Arrowheadの公式サポートは、①exeを管理者として（Windows 11では互換モードWindows 8も）実行、②GameGuardのアンインストールと再インストール、③常駐ツールの停止、④セキュリティソフト、⑤古いHDD、を案内しています。ただし本記事では、保護機能を止めず検出内容を提供元に相談し、内部機器の変更は安全を確認してから判断する手順にしています。',
     description:
-      'Windows標準のセキュリティ（Microsoft Defender）でも、nProtect GameGuardとHELLDIVERS 2の例外を追加するよう公式が案内しています。',
+      'Arrowheadの案内には除外設定も含まれますが、除外したファイルはリアルタイムの検査対象外になります。本記事では保護を有効に保ち、検出内容を提供元に確認してから判断する手順にしています。',
     causes: [
       'GameGuardのインストール状態の破損',
       '常駐しているユーティリティ（不正ツールでなくても反応する場合がある）',
@@ -427,21 +434,21 @@ export const classicGameArticles: GameArticle[] = [
       },
       {
         id: 'utilities',
-        title: '常駐ツールを止め、セキュリティソフトに例外を追加する',
+        title: '常駐ツールを1つずつ閉じ、保護履歴を確認する',
         summary:
           '不正ツールではないアプリでもエラー114が出る場合があると公式が説明しています。',
         time: '約10分',
         risk: 'low',
         actions: [
           'オーバーレイ、マクロ、RGB制御、監視ツールなどの常駐アプリを1つずつ終了して、起動できるか確認する',
-          'セキュリティソフト（Microsoft Defenderを含む）に、nProtect GameGuardとHELLDIVERS 2の例外を追加する',
-          'まれに、接続している古いHDDが原因になる場合がある。使っていない古いHDDがあれば取り外して確認する（公式）',
+          '保護機能を有効に保つ。GameGuardやHELLDIVERS 2の公式ファイルが検出された場合は、検出名と対象ファイルを記録し、除外や隔離からの復元を行う前に提供元かArrowheadに相談する。フォルダ全体を一律に除外しない',
+          'Arrowheadは古いHDDの影響にも言及しています。通電中に内部ドライブを外さないでください。対象のドライブや必要なデータの有無が分からない場合は、変更前にPCメーカーや技術者に相談してください',
         ],
         note: '原因のアプリが分かった場合、Arrowheadはアプリ名を報告するよう案内しています。',
       },
     ],
     avoid: [
-      'セキュリティソフトをオフにしたままプレイしない（例外を追加して元に戻す）',
+      '起動させるためだけに保護機能を停止したり、除外を追加したりしない',
       '改変ツール・チートツールを使わない（アンチチートが反応する）',
     ],
     cautions: [
@@ -452,7 +459,7 @@ export const classicGameArticles: GameArticle[] = [
         question:
           'Windows Defenderしか使っていませんが、例外設定は必要ですか？',
         answer:
-          'Arrowheadの公式サポートは、Windows標準のMicrosoft Defenderの場合もnProtect GameGuardとHELLDIVERS 2の例外を追加するよう案内しています。',
+          '自動的に追加する必要はありません。Arrowheadは除外設定にも言及していますが、リアルタイムの検査対象外になるリスクがあります。公式ファイルへの検出かを確認し、保護を有効にしたまま提供元かArrowheadに相談してください。',
       },
       {
         question: 'GameGuardを入れ直すとセーブは消えますか？',
@@ -461,6 +468,11 @@ export const classicGameArticles: GameArticle[] = [
       },
     ],
     sources: [
+      {
+        label:
+          'Microsoft：Windowsセキュリティのウイルスと脅威の防止（除外の注意）',
+        url: 'https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app',
+      },
       {
         label:
           'Arrowhead公式サポート：I receive Error 114 when attempting to launch HELLDIVERS 2',
@@ -473,7 +485,7 @@ export const classicGameArticles: GameArticle[] = [
     ],
     related: [],
     metaDescription:
-      'ヘルダイバー2（HELLDIVERS 2）でGameGuardのエラー114が出て起動しない時の直し方。Arrowhead公式の手順（管理者・互換モード、GameGuardの再インストール、常駐ツールとセキュリティソフトの例外）を解説。',
+      'ヘルダイバー2（HELLDIVERS 2）でGameGuardのエラー114が出て起動しない時の直し方。Arrowheadの案内を基に、管理者・互換モード、GameGuardの再インストール、常駐ツールと保護履歴の確認を解説。',
   }),
   make({
     gameSlug: 'hogwarts-legacy',
@@ -488,7 +500,7 @@ export const classicGameArticles: GameArticle[] = [
     symptom:
       '起動直後やプレイ中にデスクトップへ戻る、読み込み中に止まる場合の、WB Games（Portkey Games）公式サポートの手順です。',
     conclusion:
-      '公式サポートは、①GPU・サウンドドライバーの更新、②Windows Update（DirectXの更新）、③オーバークロックを定格に戻す、④ゲームファイルの確認、⑤グラフィック設定を下げる、⑥セキュリティソフトの例外と不要なアプリの終了、の順で案内しています。Engine.iniを編集したりMODを入れたりしている場合は、先に元に戻して確認します。',
+      '公式サポートは、①GPU・サウンドドライバーの更新、②Windows Update（DirectXの更新）、③オーバークロックを定格に戻す、④ゲームファイルの確認、⑤グラフィック設定を下げる、⑥セキュリティソフトと不要なアプリの確認、を案内しています。公式は除外設定にも言及していますが、本記事では保護機能を有効に保ち、検出内容を提供元に相談する手順にしています。Engine.iniを編集したりMODを入れたりしている場合は、先に元に戻して確認します。',
     description:
       '最低動作環境を満たしていても、高い画質設定は安定性に影響する場合があると公式は説明しています。落ちる場合はグラフィック設定を下げて比べます。',
     causes: [
@@ -584,14 +596,14 @@ export const classicGameArticles: GameArticle[] = [
       },
       {
         id: 'background-apps',
-        title: 'セキュリティソフトの例外を追加し、不要なアプリを閉じる',
+        title: '保護履歴を確認し、不要なアプリを1つずつ閉じる',
         summary:
           'ファイルの隔離や、他のアプリとの干渉を確認します。クリーンブートは一時的な確認用です。',
         time: '約10分',
         risk: 'medium',
         actions: [
-          'セキュリティソフトの隔離履歴を確認し、ゲームのフォルダを例外に追加する',
-          'ゲームを起動する前に、使っていないアプリをできるだけ終了する',
+          '保護機能を有効にしたまま隔離履歴の検出名と対象ファイルを確認する。ゲームを起動させるためだけに隔離ファイルを復元したり、ゲームフォルダ全体を除外したりせず、セキュリティソフトの提供元かWB Gamesに相談する',
+          'ゲームを起動する前に、不要なオーバーレイや監視ツールなど保護機能以外のアプリを1つずつ閉じて比較する',
           'それでも落ちる場合は、Microsoftの公式手順でクリーンブートを行って比べる。確認が終わったら必ず通常の起動に戻す',
         ],
         note: '公式は、クリーンブートの手順を誤るとPCの起動に影響する場合があるため、Microsoftの手順どおりに行うよう注意しています。',
@@ -617,6 +629,11 @@ export const classicGameArticles: GameArticle[] = [
       },
     ],
     sources: [
+      {
+        label:
+          'Microsoft：Windowsセキュリティのウイルスと脅威の防止（除外の注意）',
+        url: 'https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app',
+      },
       {
         label: 'Portkey Games公式サポート：PC Troubleshooting (Steam)',
         url: 'https://portkeygamessupport.wbgames.com/hc/en-us/articles/10765467342099-PC-Troubleshooting-Steam',

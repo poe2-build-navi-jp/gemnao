@@ -1,0 +1,170 @@
+[
+  {
+    "id": "S01-bg3",
+    "status": "erroneous",
+    "candidate_ids": [
+      "896b488b06b31770",
+      "50cee110b7c15238",
+      "af05269268f36f1a"
+    ],
+    "checked_at": "2026-10-05",
+    "applicable_version": "Windows PC / Steam・GOG; Microsoft applies Windows 10/11",
+    "evidence_urls": [
+      "https://larian.com/support/faqs/crashing-upon-startup-pc_59",
+      "https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app"
+    ],
+    "reason": "ゲーム公式にも停止への言及はある。虚偽引用ではなく、一般手順として保護停止を推奨した編集上の安全問題。",
+    "issue_type": "unsafe-guidance",
+    "resolution": "corrected; JA/ZH/ES matched EN safety policy"
+  },
+  {
+    "id": "S02-helldivers",
+    "status": "erroneous",
+    "candidate_ids": [
+      "4dee306f715d6936",
+      "f75710159b3515ba",
+      "26e9b238af810a70",
+      "9bcd365effd8c929",
+      "117790a78327c1e6",
+      "c5803247f16c5a96"
+    ],
+    "checked_at": "2026-10-05",
+    "applicable_version": "Windows PC / Steam GameGuard error 114",
+    "evidence_urls": [
+      "https://arrowhead.zendesk.com/hc/en-us/articles/14732747845020-I-receive-Error-114-when-attempting-to-launch-HELLDIVERS-2",
+      "https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app"
+    ],
+    "reason": "Arrowheadは除外も案内しているが、一律追加は検査範囲を狭める。本記事は検出内容を提供元へ相談する安全な手順に変更。",
+    "issue_type": "unsafe-guidance",
+    "resolution": "corrected including summaries/FAQ and localized hubs"
+  },
+  {
+    "id": "S03-hogwarts",
+    "status": "erroneous",
+    "candidate_ids": [
+      "54fb7247f796a6c1",
+      "47cbdfb0105d7889",
+      "e1f0ddf30436f096"
+    ],
+    "checked_at": "2026-10-05",
+    "applicable_version": "Windows PC / Steam",
+    "evidence_urls": [
+      "https://portkeygamessupport.wbgames.com/hc/en-us/articles/10765467342099-PC-Troubleshooting-Steam",
+      "https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app"
+    ],
+    "reason": "検出内容の確認なしにゲームフォルダ全体を除外する手順。公式の案内と本記事の安全な編集方針を区別した。",
+    "issue_type": "unsafe-guidance",
+    "resolution": "corrected in JA/ZH/ES; source added in all four locales"
+  },
+  {
+    "id": "S04-onimusha",
+    "status": "erroneous",
+    "candidate_ids": [
+      "66f67671a45b218c",
+      "e4c652c57d142395"
+    ],
+    "checked_at": "2026-10-05",
+    "applicable_version": "Windows PC / Steam; official guide September 3, 2026",
+    "evidence_urls": [
+      "https://steamcommunity.com/app/2638890/discussions/0/589562598193771782/",
+      "https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app"
+    ],
+    "reason": "公式にも広い除外案内はあるが、Steam全体の一律除外を通常手順にしていた。",
+    "issue_type": "unsafe-guidance",
+    "resolution": "corrected to review detection and consult publisher/security provider"
+  },
+  {
+    "id": "S05-aion2",
+    "status": "erroneous",
+    "candidate_ids": [
+      "155a77df24c867c0"
+    ],
+    "checked_at": "2026-10-05",
+    "applicable_version": "Windows PC / Steam・PURPLE",
+    "evidence_urls": [
+      "https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app"
+    ],
+    "reason": "接続確認のため保護停止と除外追加を促していた。ゲーム固有の誤検知とは断定できない。",
+    "issue_type": "unsafe-guidance",
+    "resolution": "corrected; no claimed confirmation of game-specific false positive"
+  },
+  {
+    "id": "S06-gears",
+    "status": "erroneous",
+    "candidate_ids": [
+      "f0151d7f4a5de84d"
+    ],
+    "checked_at": "2026-10-05",
+    "applicable_version": "Windows PC; article discusses open beta",
+    "evidence_urls": [
+      "https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app"
+    ],
+    "reason": "実行ファイルを許可し、一時停止で試すことを通常手順としていた。ベータの誤検知状況や製品版での再現は今回未確認。",
+    "issue_type": "unsafe-guidance",
+    "resolution": "corrected; beta-specific historical claims remain unverified"
+  },
+  {
+    "id": "F01-onimusha-order",
+    "status": "erroneous",
+    "candidate_ids": [
+      "88e989703c153ebe"
+    ],
+    "checked_at": "2026-10-05",
+    "applicable_version": "Windows PC / Steam; official guide September 3, 2026",
+    "evidence_urls": [
+      "https://steamcommunity.com/app/2638890/discussions/0/589562598193771782/"
+    ],
+    "reason": "公式は1:動作環境、2:除外、3:権限、4:ドライバーの順。ドライバーが公式の最初という説明は不一致。",
+    "issue_type": "factual-attribution",
+    "resolution": "corrected; editorial ordering explicitly distinguished"
+  },
+  {
+    "id": "V01-ff-demo",
+    "status": "verified",
+    "candidate_ids": [
+      "422a4b49594641f8",
+      "523b09281172d413"
+    ],
+    "checked_at": "2026-10-05",
+    "applicable_version": "Steam prerelease demo listing as of 2026-10-05",
+    "evidence_urls": [
+      "https://store.steampowered.com/app/3259780/?l=japanese"
+    ],
+    "reason": "第1章、レベルの制限、製品版へのセーブ引き継ぎが公式ストアに明記。発売日の日本時間換算はこの判定に含めない。"
+  },
+  {
+    "id": "V02-ac8-minimum",
+    "status": "verified",
+    "candidate_ids": [
+      "47ea7c5fcc9166c6"
+    ],
+    "checked_at": "2026-10-05",
+    "applicable_version": "Steam listing as of 2026-10-05",
+    "evidence_urls": [
+      "https://store.steampowered.com/app/2288340/"
+    ],
+    "reason": "最低GPU・RAM・アップスケール1080p/Low/30fpsの掲載値が一致。実測性能の保証ではない。"
+  },
+  {
+    "id": "V03-dqm-demo",
+    "status": "verified",
+    "candidate_ids": [
+      "13623d4d3cb65a6b",
+      "29371c04f4e472b2",
+      "4684de659bf38b53",
+      "54c3ebc6bc35f3d1",
+      "6f9699ec843b2441",
+      "b0f1619c77655fba",
+      "c9409083ea517124",
+      "ca98519d83b8bf44",
+      "ee2933b512b7660d",
+      "fd4913d282b50c06"
+    ],
+    "checked_at": "2026-10-05",
+    "applicable_version": "Steam prerelease/demo; Masters early access planned 2026-12-02 02:00 JST",
+    "evidence_urls": [
+      "https://store.steampowered.com/app/3681610/?l=japanese"
+    ],
+    "reason": "体験版引き継ぎ条件・初期化・製品発売日・先行開始日時を日本語公式ストアで照合。予定時刻は将来変更され得る。"
+  }
+]

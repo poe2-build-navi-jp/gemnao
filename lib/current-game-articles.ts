@@ -75,7 +75,7 @@ export const currentGameArticles: GameArticle[] = [
     symptom:
       '起動しない、起動直後やロード中に落ちる、表示が乱れる場合を、カプコン公式トラブルシューティングガイドの内容に沿って確認します。',
     conclusion:
-      'カプコンの公式ガイドでは、GPUドライバーをNVIDIA 596.49以上・AMD 26.5.1以上へ更新してWindowsを再起動することが最初の確認項目です。次にSteamの整合性確認、録画・オーバーレイの停止、セキュリティソフトの除外設定の順に試します。',
+      'カプコンの公式ガイドはPCの動作環境の確認から始まります。本記事では、動作環境を満たすことを確認したうえで、GPUドライバー（NVIDIA 596.49以上・AMD 26.5.1以上）と再起動、Steamの整合性確認、録画・オーバーレイの停止、保護履歴の順に切り分けます。公式は除外設定にも言及していますが、本記事では保護機能を有効に保ち、検出内容を提供元に相談する手順にしています。',
     description:
       '公式ガイドには17項目がありますが、多くの人に関係する順に並べ直しました。症状が分かっている場合は、下の早見表から該当するSTEPへ進めます。',
     causes: [
@@ -170,15 +170,15 @@ export const currentGameArticles: GameArticle[] = [
       },
       {
         id: 'security',
-        title: 'セキュリティソフトの除外リストに追加する',
+        title: '保護履歴の検出内容を確認する',
         summary:
-          '誤検知で起動しない・FPSが下がる可能性があるとして、公式が除外設定を案内しています。',
+          '公式は除外設定にも言及していますが、一律の除外は検査範囲を狭めます。まず検出内容と対象ファイルを確認します。',
         time: '約5分',
         risk: 'medium',
         actions: [
-          String.raw`OnimushaWotS.exe（標準：C:\Program Files (x86)\Steam\steamapps\common\OnimushaWotS）を除外リストに追加する`,
-          String.raw`Steam.exe（標準：C:\Program Files (x86)\Steam）と、Steamのデータフォルダ（標準：C:\Users\%USERNAME%\AppData\Local\Steam）も追加する`,
-          '以前に追加済みの場合は、一度削除してから追加し直す',
+          String.raw`保護履歴の検出名・時刻・対象ファイルを確認し、Steamから入れた正規のOnimushaWotS.exeへの検出か確かめる`,
+          String.raw`ゲームファイルを確認し、検出がある場合はセキュリティソフトの提供元かカプコンに相談する。Steam全体やデータフォルダを一律に除外しない`,
+          '誤検知と確認できた場合に限り提供元の指示で対象を絞って判断する。変更内容を記録し、不要な除外は残さない',
         ],
         note: '設定方法はセキュリティソフトごとに異なります。各ソフトの案内に従ってください。',
       },
@@ -211,7 +211,7 @@ export const currentGameArticles: GameArticle[] = [
       },
     ],
     avoid: [
-      'セキュリティソフトを無効にしたまま遊ばない（公式ガイドでも、無効化は整合性確認や起動時の一時的な切り分けとして案内されています）',
+      '起動させるために保護機能を停止したり、出所不明の隔離ファイルを復元したりしない',
       'Windows Insider Programなどの一般提供前のWindowsで問題を切り分けない（公式に動作保証外）',
       '複数の対処を同時に行わない。1つ試すごとに起動を確認する',
     ],
@@ -236,7 +236,14 @@ export const currentGameArticles: GameArticle[] = [
           'Windows NまたはKNエディションでは動画再生に必要なコーデックが入っていない可能性があるため、公式ガイドはMicrosoftの「Media Feature Pack」のインストールを案内しています。',
       },
     ],
-    sources: [sources.capcom, sources.steam],
+    sources: [
+      {
+        label: 'Microsoft：Windowsセキュリティの除外設定の注意',
+        url: 'https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app',
+      },
+      sources.capcom,
+      sources.steam,
+    ],
     related: [
       'gpu-driver-version',
       'crash-report',
@@ -244,7 +251,7 @@ export const currentGameArticles: GameArticle[] = [
       'black-screen',
     ],
     metaDescription:
-      '鬼武者 Way of the Sword PC版が起動しない・クラッシュする時の対処法。カプコン公式ガイドのドライバー条件（NVIDIA 596.49／AMD 26.5.1以上）、整合性確認、録画ソフト停止、セキュリティソフト除外を症状別に解説。',
+      '鬼武者 Way of the Sword PC版が起動しない・クラッシュする時の対処法。カプコン公式ガイドのドライバー条件（NVIDIA 596.49／AMD 26.5.1以上）、整合性確認、録画ソフト停止、保護履歴の確認を症状別に解説。',
   }),
   make({
     slug: 'crash-report',
