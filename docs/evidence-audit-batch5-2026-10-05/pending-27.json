@@ -1,0 +1,606 @@
+[
+  {
+    "id": "discord-bot-add-1",
+    "path": "/discord/bot-add",
+    "originalPendingScope": "スマホ招待リンクの個別アプリ対応・要求権限の妥当性は提供者別。Bot実行は行わない。",
+    "comparisons": [
+      {
+        "claim": "アプリ追加時に権限要求を確認する条件",
+        "sources": [
+          "https://support.discord.com/hc/en-us/articles/21334461140375-Using-Apps-on-Discord"
+        ],
+        "finding": "公式は追加画面で要求アクセス・権限を示すと説明。提供者ごとの権限必要性やスマホ招待の成功は文書だけで一律確認できず、実Botの追加・起動は行っていない。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "discord-bot-not-responding-1",
+    "path": "/discord/bot-not-responding",
+    "originalPendingScope": "応答期限とinteraction固有権限は開発者資料比較が残る",
+    "comparisons": [
+      {
+        "claim": "無応答と権限の区別",
+        "sources": [
+          "https://docs.discord.com/developers/interactions/receiving-and-responding",
+          "https://docs.discord.com/developers/topics/permissions"
+        ],
+        "finding": "公式は初回応答3秒・token15分、通常投稿権限とinteraction応答は異なる構造。本文は期限数値を一般利用者に断定せず、無応答を権限不足だけとしない。STEP 3/4の区別は整合。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "discord-bot-remove-1",
+    "path": "/discord/bot-remove",
+    "originalPendingScope": "Webhookとチャンネルフォローの管理・削除後URL、Kickロール階層、個人アプリ認証解除UIは追加文書比較が必要",
+    "comparisons": [
+      {
+        "claim": "連携一覧のWebhook/チャンネルフォロー",
+        "sources": [
+          "https://support.discord.com/hc/en-us/articles/360045093012-Server-Integrations-Page"
+        ],
+        "finding": "STEP 4の作成者・時刻・投稿チャンネル、コピーURL、対象削除、フォロー元解除は本文と一致。再作成URLが変わるAPI仕様は別に残る。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      },
+      {
+        "claim": "Kickロール階層と個人アプリ解除",
+        "sources": [
+          "https://support.discord.com/hc/en-us/articles/214836687-Discord-Roles-and-Permissions",
+          "https://support.discord.com/hc/en-us/articles/24160905919511-My-Discord-Account-was-Hacked-or-Compromised"
+        ],
+        "finding": "同等以上のロールをKickできない条件、User Settings→Authorized Apps→DeauthorizeはSTEP 2/3と一致。実際の解除は行わない。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "discord-echo-double-voice-1",
+    "path": "/discord/echo-double-voice",
+    "originalPendingScope": "ヘッドセット固有のサイドトーン項目・mmsys.cplの現行経路、各仮想ミキサーの配線は別文書",
+    "comparisons": [
+      {
+        "claim": "Direct Monitorとソフトウェアモニターの重複",
+        "sources": [
+          "https://support.focusrite.com/hc/de/articles/206849219-Latency-while-using-Direct-Monitor"
+        ],
+        "finding": "FocusriteのDirect MonitorとDAW監視の二重再生、Windows Listen to this deviceの切り分けをSTEP3と比較。メーカー固有のサイドトーンや仮想ミキサー配線は記事も説明書確認としており具体機種のUIを断定していない。mmsys.cplによる入口は本資料の経路と異なり未確認。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "discord-slow-performance-1",
+    "path": "/discord/slow-performance",
+    "originalPendingScope": "タスクマネージャー各指標・PC負荷・キャッシュ対処の文書照合",
+    "comparisons": [
+      {
+        "claim": "PC負荷の確認とDiscordキャッシュ対処",
+        "sources": [
+          "https://support.microsoft.com/ja-jp/windows/experience/performance-optimization/tips-to-improve-pc-performance-in-windows",
+          "https://support.discord.com/hc/en-us/articles/31623498041623-Discord-Troubleshooting-Guide"
+        ],
+        "finding": "STEP 1/2のTask Manager、CPU/メモリ/ディスクの確認と不要アプリ終了、STEP 6のアプリ固有時にキャッシュ比較へ進むことに根拠あり。GPU列・ディスク100%の定義・退避先の細部は別資料。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "discord-voice-client-outdated-1",
+    "path": "/discord/voice-client-outdated",
+    "originalPendingScope": "Chrome/Firefox/Edgeの更新操作の文書比較",
+    "comparisons": [
+      {
+        "claim": "3ブラウザの更新経路と再起動",
+        "sources": [
+          "https://support.google.com/chrome/answer/95414?hl=ja",
+          "https://support.mozilla.org/ja/kb/update-firefox-latest-release",
+          "https://support.microsoft.com/en-us/topic/microsoft-edge-update-settings-af8aaca2-1b69-4870-94fe-18822dbb7ef1"
+        ],
+        "finding": "STEP 3のChrome/Edge経路は一致。FirefoxはMozilla配布版限定でStore版はStore更新という公式注記を追加。通話成功は実測していない。",
+        "status": "corrected",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "discord-notifications-not-working-1",
+    "path": "/discord/notifications-not-working",
+    "originalPendingScope": "DMミュート資料223657667は本文取得不能",
+    "comparisons": [],
+    "status": "pending",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "discord-recommended-bots-1",
+    "path": "/discord/recommended-bots",
+    "originalPendingScope": "Dyno AutomodはCopied to clipboardのみで本文取得不能。機能/料金比較は未確認",
+    "comparisons": [],
+    "status": "pending",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "discord-recommended-bots-2",
+    "path": "/discord/recommended-bots",
+    "originalPendingScope": "Carl Dashboardの現行UI・Premium上限、sesh Premium境界、Ticket Toolの役割/カテゴリ権限の詳細文書",
+    "comparisons": [
+      {
+        "claim": "sesh Premium境界・Ticket担当者権限",
+        "sources": [
+          "https://sesh.fyi/",
+          "https://docs.tickettool.xyz/dashboard/panel-configs/general-options"
+        ],
+        "finding": "sesh定期開催/参加枠制限がPremium対象という表は公式と一致。TicketのSupport Team Rolesが担当者アクセスと専用操作を付与する説明も一致。カテゴリ詳細は別資料。Carl aboutは短い概要だけでDashboard UIを読めず未確認。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      },
+      {
+        "claim": "Ticket Toolの権限対象と適用条件",
+        "sources": [
+          "https://docs.tickettool.xyz/dashboard/panel-configs/permission-options.md"
+        ],
+        "finding": "Panel ConfigsからPermission Options、Support Team・User・Additional Roles・Everyoneの別、Bot自身にない権限の上書き不可を確認。記事の閲覧範囲確認を支持。カテゴリ設定の細部は未比較。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "guide-gpu-driver-update-1",
+    "path": "/guide/gpu-driver-update",
+    "originalPendingScope": "dxdiag経路、個別OEM配布物の対応、GPUごとの再導入結果は文書照合の対象外。",
+    "comparisons": [],
+    "status": "pending",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "guide-pc-game-crash-1",
+    "path": "/guide/pc-game-crash",
+    "originalPendingScope": "KERNELBASE名だけでは根因でないことの具体説明、ゲーム別MOD/セーブ依存、既存の個別報告の来歴、診断ツール動作は未比較。Steam整合性FAQ本文は取得不能。",
+    "comparisons": [
+      {
+        "claim": "KERNELBASE名だけで根因を決めない",
+        "sources": [
+          "https://learn.microsoft.com/en-us/troubleshoot/windows-server/performance/troubleshoot-application-service-crashing-behavior"
+        ],
+        "finding": "Microsoftはkernelbase等が他モジュールによる破損の被害側として障害モジュールになる場合を説明。記事のDLL名だけで原因断定や単体DLL入替をしない方針を支持。ゲーム別報告と実ツール操作は別範囲。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "guide-pc-game-freezes-1",
+    "path": "/guide/pc-game-freezes",
+    "originalPendingScope": "AMD Metricsのキー・HWiNFOのSensors-only UI・Task ManagerのGPU温度対応範囲は資料比較が残る。強制電源断は機種別手順。Steam整合性FAQ本文は取得不能。",
+    "comparisons": [
+      {
+        "claim": "Task Manager GPU温度表示の範囲",
+        "sources": [
+          "https://blogs.windows.com/windows-insider/2019/08/16/announcing-windows-10-insider-preview-build-18963/"
+        ],
+        "finding": "本文の専用GPU・対応ドライバーに限るという説明に一致。一次資料は2019 Insider導入記事で、全現行機種の対応やCPU温度UIの不存在を証明するものではない。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      },
+      {
+        "claim": "AMD Metrics温度とログのキー",
+        "sources": [
+          "https://www.amd.com/en/resources/support-articles/faqs/DH3-038.html"
+        ],
+        "finding": "GPU Current/Junction温度、CPU Metrics、既定Ctrl+Shift+Lのログ切替を本文と照合。対象GPU/CPU・Full Install・版で表示が異なる条件あり。性能→メトリクスという旧UI配置までは本文だけで確認できず、公式は検索Metricsの入口。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "guide-ray-tracing-gpu-1",
+    "path": "/guide/ray-tracing-gpu",
+    "originalPendingScope": "NVIDIA/AMD各世代全体の機能範囲、GPUエンジン列と高パフォーマンス指定UI、2026年10月発売の断定は未比較。Gears Steamページは年齢確認画面で要件本文を読めず保留。",
+    "comparisons": [],
+    "status": "pending",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "guide-remove-mods-safely-1",
+    "path": "/guide/remove-mods-safely",
+    "originalPendingScope": "MO2の仮想配置・プロファイルとゲームごとのセーブ依存は未比較。Steam修復が手動追加物を全削除しない範囲はFAQ本文取得不能のため保留。",
+    "comparisons": [
+      {
+        "claim": "MO2の仮想配置と直接起動を区別",
+        "sources": [
+          "https://github.com/ModOrganizer2/usvfs"
+        ],
+        "finding": "USVFS READMEの対象プロセスだけに別場所のファイルを見せる機構、MO2の中核である説明を比較。記事の管理ツール経由と直接起動の区別を支持。個別プロファイルの保存UI・ゲーム別セーブ互換はこの資料で確認していない。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "guide-reshade-uninstall-1",
+    "path": "/guide/reshade-uninstall",
+    "originalPendingScope": "MainWindowの識別・削除対象、Vulkan/OpenXR共有レイヤー、プリセット復元と手動DLL退避の全条件は未比較。",
+    "comparisons": [
+      {
+        "claim": "ReShade識別、設定と共有APIの削除範囲",
+        "sources": [
+          "https://raw.githubusercontent.com/crosire/reshade/v6.8.0/setup/MainWindow.xaml.cs"
+        ],
+        "finding": "v6.8.0の855–936、1310–1328、1340–1476を比較。ProductName識別、API別DLL、PresetPath解決、Vulkan/OpenXR共有登録の対象除外と最終対象時の削除、通常APIの設定・関連効果削除を確認。記事の導入経路識別と事前退避に整合。全バージョンの復元成功や手動退避の実行は検証していない。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "guide-shader-cache-delete-1",
+    "path": "/guide/shader-cache-delete",
+    "originalPendingScope": "Windowsの削除UI、AMD Reset Shader Cache、Intel個別報告、Activision/Epicのゲーム内構築手順は未比較。",
+    "comparisons": [
+      {
+        "claim": "AMDリセットとゲーム内構築の区別",
+        "sources": [
+          "https://www.amd.com/en/resources/support-articles/faqs/dh3-012.html",
+          "https://support.activision.com/black-ops-6/articles/black-ops-6-pc-troubleshooting",
+          "https://www.epicgames.com/help/c-34254770/c-38015632/a11302262"
+        ],
+        "finding": "AMD資料の23.9.1 Full Installという適用範囲とReset Shader Cache機能、BO6のメインメニュー離脱で停止、Fortnite DX12の初回再コンパイルによるカクつき例を本文と比較。一律の改善保証をしていない。現行全構成のAMD画面経路は未実機確認。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      },
+      {
+        "claim": "Windowsクリーンアップ対象選択",
+        "sources": [
+          "https://support.microsoft.com/en-us/windows/experience/storage-filemanagement/free-up-drive-space-in-windows"
+        ],
+        "finding": "検索から起動、ドライブ選択、対象チェック、他の既定チェックを外す点を比較。DirectX項目の詳細はこの文書だけでは確認できずIntel個別資料の比較を残す。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      },
+      {
+        "claim": "Intelサポート担当のDirectX項目指定",
+        "sources": [
+          "https://community.intel.com/t5/Gaming-on-Intel-Processors-with/CS2-crashed-Failure-Exception-IP-Module-igd10umt64xe-DLL/m-p/1757369"
+        ],
+        "finding": "2026-08-20のIntel担当返信は検索→Disk Cleanup→C:→DirectX Shader Cache→OKを案内。記事は操作例として紹介し、解決実績とはしていない。同スレッドの継続未解決報告を一般的な有効性の根拠にしない。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "guide-steam-disk-write-error-1",
+    "path": "/guide/steam-disk-write-error",
+    "originalPendingScope": "Steamライブラリ修復・整合性確認のFAQ本文は取得不能。WindowsエラーチェックGUI、展開一時領域、隔離履歴、空き容量表示は未比較。",
+    "comparisons": [
+      {
+        "claim": "Windows保護履歴と確認前の許可を避ける説明",
+        "sources": [
+          "https://support.microsoft.com/ja-jp/windows/security/windows-security/protection-history-in-the-windows-security-app"
+        ],
+        "finding": "記事の隔離記録・対象/時刻/理由を確認し無条件に許可しない説明は公式の検疫/復元/許可の区別と整合。履歴は2週間のみなので履歴なしを安全証明にしない。ゲーム別影響をこの資料で検証したとはしない。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      },
+      {
+        "claim": "Steam更新量とローカルI/O・追加領域",
+        "sources": [
+          "https://partner.steamgames.com/doc/sdk/uploading"
+        ],
+        "finding": "SteamPipe文書は圧縮チャンクの展開、パック更新の大きなローカルI/O、新版を旧版と並べて構築する方式を説明。記事のダウンロード量と必要空き領域を同一視しない注意、ネット速度だけで停止と判断しない条件を支持。個別ゲームの容量は測定していない。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "guide-steam-game-not-launching-1",
+    "path": "/guide/steam-game-not-launching",
+    "originalPendingScope": "Steam起動準備・.NET・競合ソフト・実行中/実行ファイル不明FAQは取得不能または未比較。保護履歴UIと個別ランチャー認証は未比較。",
+    "comparisons": [
+      {
+        "claim": "Windows保護履歴と確認前の許可を避ける説明",
+        "sources": [
+          "https://support.microsoft.com/ja-jp/windows/security/windows-security/protection-history-in-the-windows-security-app"
+        ],
+        "finding": "記事の隔離記録・対象/時刻/理由を確認し無条件に許可しない説明は公式の検疫/復元/許可の区別と整合。履歴は2週間のみなので履歴なしを安全証明にしない。ゲーム別影響をこの資料で検証したとはしない。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "guide-stutter-fix-1",
+    "path": "/guide/stutter-fix",
+    "originalPendingScope": "Fortnite・Steamオーバーレイの現行UI、AMD設定画面経路、Hz/VRRの全条件は未比較。個別ゲームの改善効果は未実測。",
+    "comparisons": [
+      {
+        "claim": "AMD FRTC設定の適用範囲",
+        "sources": [
+          "https://www.amd.com/en/resources/support-articles/faqs/dh3-012.html"
+        ],
+        "finding": "Global GraphicsのAdvancedにあるフレームレート上限機能とフルスクリーン条件を資料比較。資料の版依存があり、全GPU・ゲームへの適用と改善効果は未実測。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      },
+      {
+        "claim": "Hzの設定経路と表示依存",
+        "sources": [
+          "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/change-the-refresh-rate-on-your-monitor-in-windows"
+        ],
+        "finding": "詳細ディスプレイで選択する経路、候補がディスプレイ依存である点を比較。VRR/DRRの全ゲーム・配線条件や改善効果を確認した扱いにしない。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "guide-verify-steam-files-1",
+    "path": "/guide/verify-steam-files",
+    "originalPendingScope": "Steam整合性FAQ本文は取得不能のため現行操作UIと照合対象の完全な範囲は保留。ゲームごとのセーブ/MOD影響・隔離履歴も未比較。",
+    "comparisons": [
+      {
+        "claim": "Windows保護履歴と確認前の許可を避ける説明",
+        "sources": [
+          "https://support.microsoft.com/ja-jp/windows/security/windows-security/protection-history-in-the-windows-security-app"
+        ],
+        "finding": "記事の隔離記録・対象/時刻/理由を確認し無条件に許可しない説明は公式の検疫/復元/許可の区別と整合。履歴は2週間のみなので履歴なしを安全証明にしない。ゲーム別影響をこの資料で検証したとはしない。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "pc-bluetooth-option-missing-1",
+    "path": "/pc/bluetooth-option-missing",
+    "originalPendingScope": "非表示機器、ペアリング検出設定、ロールバック不可条件、切断時の電源管理は別資料の比較が残る。",
+    "comparisons": [
+      {
+        "claim": "非表示機器とペアリング失敗を分ける",
+        "sources": [
+          "https://learn.microsoft.com/en-us/windows-hardware/drivers/install/viewing-hidden-devices",
+          "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/troubleshoot-bluetooth-not-connecting-in-windows"
+        ],
+        "finding": "STEP 2のView→Show hidden devices、過去に物理的に取り外した機器も含む限定に一致。STEP 5の電池/ペアリングモード/近距離/登録済み対象だけ再追加も一致。検出Advancedと電源管理は別資料。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      },
+      {
+        "claim": "Bluetooth検出の詳細設定・戻す操作・切断時の省電力",
+        "sources": [
+          "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/fix-bluetooth-problems-in-windows",
+          "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/update-bluetooth-drivers-in-windows",
+          "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/bluetooth-keeps-disconnecting-in-windows"
+        ],
+        "finding": "詳細設定で全タイプを検出、更新前に動作した場合かつ使用可能ならロールバック、切断時だけ省電力を比較する公式案内をSTEP4–6と比較。ロールバックが灰色となる具体理由はこの3文書で説明されていないため別資料の確認を残す。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "pc-disk-usage-100-1",
+    "path": "/pc/disk-usage-100",
+    "originalPendingScope": "100%アクティブ時間とMB/s、リソースモニター、検索索引、イベント153、SteamPipe展開、SysMainの扱いは未比較。",
+    "comparisons": [
+      {
+        "claim": "ディスク負荷のあるプロセスを確認",
+        "sources": [
+          "https://faq.nec-lavie.jp/fa/qa/web/knowledge24546.html"
+        ],
+        "finding": "NECのプロセスタブでディスク欄を降順にし負荷アプリを確認する案内と一致。この資料は100%アクティブ時間の定義やSysMain停止の根拠には使わない。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      },
+      {
+        "claim": "Steam更新量とローカルI/O・追加領域",
+        "sources": [
+          "https://partner.steamgames.com/doc/sdk/uploading"
+        ],
+        "finding": "SteamPipe文書は圧縮チャンクの展開、パック更新の大きなローカルI/O、新版を旧版と並べて構築する方式を説明。記事のダウンロード量と必要空き領域を同一視しない注意、ネット速度だけで停止と判断しない条件を支持。個別ゲームの容量は測定していない。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      },
+      {
+        "claim": "検索索引とDisk153の意味",
+        "sources": [
+          "https://support.microsoft.com/ja-jp/windows/experience/performance-optimization/search-indexing-in-windows",
+          "https://jpwinsup.github.io/blog/2022/08/05/Storage/Management/Disk153/"
+        ],
+        "finding": "検索設定経路と対象場所の変更、初回索引に時間がかかることをSTEP5と比較。Disk153はI/Oリトライで高負荷・ハードウェア・ドライバーを含むため単独でSSD故障としないSTEP7に整合。除外フォルダーの表示名、100%指標・SysMainは別範囲。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "pc-pc-broken-1",
+    "path": "/pc/pc-broken",
+    "originalPendingScope": "Dellの無通電/POST/映像区別、NITE危険兆候、黒画面・BSOD・回復オプションの全条件は未比較。",
+    "comparisons": [
+      {
+        "claim": "電源・POST・起動・映像を分ける条件と危険時の中止",
+        "sources": [
+          "https://www.dell.com/support/contents/ja-jp/article/product-support/self-support-knowledgebase/fix-common-issues/no-post",
+          "https://www.nite.go.jp/jiko/chuikanki/press/2024fy/prs241128.html"
+        ],
+        "finding": "Dellの4分類を症状表と比較。NITEの配線器具の異臭・異常発熱時は直ちに中止する条件を確認。部品故障の確定診断やPC本体の全危険兆候を裏付ける資料としては扱わない。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "pc-pc-hacked-signs-1",
+    "path": "/pc/pc-hacked-signs",
+    "originalPendingScope": "IPAランサムウェア/遠隔操作後の復元、Defender Offline、アカウント履歴・全端末サインアウトの制約、回復手順は未比較。",
+    "comparisons": [
+      {
+        "claim": "遠隔操作された後の復旧と調査保全",
+        "sources": [
+          "https://www.ipa.go.jp/security/anshin/attention/2024/mgdayori20241119.html",
+          "https://www.ipa.go.jp/security/anshin/attention/2023/mgdayori20230411.html"
+        ],
+        "finding": "IPAの復元・できない場合の初期化、組織の調査前には証拠を失う操作を避ける条件、正規遠隔操作ソフトが検知されない点をSTEP4/6/7と比較。全感染を否定する案内ではない。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      },
+      {
+        "claim": "Microsoft全体サインアウトの例外",
+        "sources": [
+          "https://support.microsoft.com/ja-jp/accounts-billing/manage/how-to-sign-out-of-your-microsoft-account-everywhere"
+        ],
+        "finding": "STEP2の最大24時間とXbox本体除外は公式本文と一致。実アカウントでのサインアウトはしていない。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      },
+      {
+        "claim": "アカウント履歴の成功失敗と位置推定",
+        "sources": [
+          "https://support.microsoft.com/ja-jp/accounts-billing/security/what-is-the-recent-activity-page"
+        ],
+        "finding": "Microsoft本文の日時・場所・端末・アプリの確認、携帯回線で位置が異なる場合、誤パスワードは許可されない点をSTEP2と比較。一覧が全アクティビティを示すと記事は主張していない。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "pc-second-monitor-not-detected-1",
+    "path": "/pc/second-monitor-not-detected",
+    "originalPendingScope": "ディスプレイ検出ボタン、GPUエンジン、USB-C/ドックの個別映像仕様、ロールバック不可の理由は別資料での照合が残る。",
+    "comparisons": [
+      {
+        "claim": "ディスプレイ検出ボタン",
+        "sources": [
+          "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/how-to-use-multiple-monitors-in-windows"
+        ],
+        "finding": "STEP 2の設定→システム→ディスプレイ→複数のディスプレイ→検出は公式本文に一致。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      },
+      {
+        "claim": "USB-C映像出力条件",
+        "sources": [
+          "https://support.microsoft.com/ja-jp/windows/hardware/fix-usb-c-problems-in-windows"
+        ],
+        "finding": "PC・外部表示・ケーブルの代替モード対応と対応ポート、ドック経由との差を比較。記事は機種別仕様を確認する案内であり、特定製品の互換性を断定していない。個別機器の実測は対象外。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "pc-wifi-connected-no-internet-1",
+    "path": "/pc/wifi-connected-no-internet",
+    "originalPendingScope": "169.254とIPv6条件、コマンドの限定適用、プロキシ・Edge拡張UI、Get Help検索文言は未比較。",
+    "comparisons": [
+      {
+        "claim": "プロキシ設定の入口と組織設定の留保",
+        "sources": [
+          "https://support.microsoft.com/ja-jp/windows/experience/connectivity-networking/use-a-proxy-server-in-windows"
+        ],
+        "finding": "設定→ネットワークとインターネット→プロキシ、スクリプトと手動設定の区別をSTEP6と比較。組織で必要な場合があり管理者確認を残す条件と整合。個別VPNの動作は未実測。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  },
+  {
+    "id": "pc-wifi-option-missing-1",
+    "path": "/pc/wifi-option-missing",
+    "originalPendingScope": "WLAN AutoConfigの開始/再起動、更新アイコン、デバイスエラー・ロールバック条件、無線チップ名称の識別は未比較。",
+    "comparisons": [
+      {
+        "claim": "WLAN AutoConfigの役割と状態確認",
+        "sources": [
+          "https://learn.microsoft.com/ja-jp/troubleshoot/windows-client/networking/wireless-network-connectivity-issues-troubleshooting"
+        ],
+        "finding": "STEP 3と判断表の、WlanSvc停止時にWi-Fi操作が消える、スキャン/プロファイル/接続管理を行うという役割を確認。開始/再起動の具体GUIは別確認。",
+        "status": "supported-within-scope",
+        "checkedAt": "2026-10-05"
+      }
+    ],
+    "status": "partially-compared",
+    "wholePageVerified": false,
+    "actualApplicationOperation": "not performed"
+  }
+]
