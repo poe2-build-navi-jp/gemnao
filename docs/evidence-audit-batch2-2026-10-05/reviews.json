@@ -114,7 +114,7 @@
     "status": "unverified-patch",
     "target": "weekly/2026-09-28 WARDOGS v0.1.2",
     "source": "https://steamcommunity.com/app/1867240/discussions/3/585060903246925093/",
-    "finding": "開発者本文で9月22日プレビューKB5124010との互換問題は確認。9月30日v0.1.2による修正済みという別主張は証明できない。未確認を誤りとは扱わない。",
+    "finding": "開発者本文で9月22日プレビューKB5124010との互換性の問題の可能性を開発者が調査中と確認。9月30日v0.1.2による修正済みという別主張は証明できない。未確認を誤りとは扱わない。",
     "localeScope": "ja",
     "checkedAt": "2026-10-05",
     "wholeArticleVerified": false
