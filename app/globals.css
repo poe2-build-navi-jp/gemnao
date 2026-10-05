@@ -5379,3 +5379,12 @@ a.my-games-primary {
 .language-menu > div a small { display: block; font-size: 12px; line-height: 1.5; white-space: normal; }
 
 .language-menu > div a { flex-direction: column; align-items: flex-start; justify-content: center; }
+
+/* Optional result-to-notebook prompt stays within the article flow. */
+.result-note { margin-top: 1rem; padding: 1rem; border: 1px solid var(--border); border-radius: 8px; }
+.result-note p { margin: .5rem 0; }
+.result-note label { display: block; margin-top: .75rem; }
+.result-note select { display: block; width: 100%; min-width: 0; }
+.step-actions button { white-space: normal; text-align: left; overflow-wrap: anywhere; }
+.step-actions button svg { flex-shrink: 0; }
+.step-skip { overflow-wrap: anywhere; }

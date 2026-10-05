@@ -486,6 +486,9 @@ export function InteractiveSteps({
                   articlePath={articlePath}
                   step={index + 1}
                 />
+                {!solvedStepId && index < steps.length - 1 && <p className="step-skip">
+                  <a href={`#${steps[index + 1].id}`}>対象外なら「{steps[index + 1].title}」へスキップ</a>
+                </p>}
                 <div className="step-actions">
                   <button
                     className="step-solved"
@@ -504,7 +507,7 @@ export function InteractiveSteps({
                       disabled={Boolean(sending)}
                     >
                       {index < steps.length - 1
-                        ? '直らない → 次へ'
+                        ? `直らない → 次は「${steps[index + 1].title}」を確認`
                         : '全部試したが直らない'}
                       <ChevronRight size={17} />
                     </button>
