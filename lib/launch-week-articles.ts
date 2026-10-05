@@ -584,6 +584,10 @@ export const launchWeekArticles: GameArticle[] = [
       },
       aceSources.notice,
       aceSources.official,
+      {
+        label: '公式ニュース：2026年10月2日発売',
+        url: 'https://acecombat.jp/ace8news/?p=27',
+      },
       aceSources.famitsu,
       aceSources.steam,
     ],
@@ -617,12 +621,12 @@ export const launchWeekArticles: GameArticle[] = [
       {
         label: '最低動作環境',
         value:
-          'Windows 11／GTX 1060・RX 5600 XT・Arc A380（VRAM 6GB）／メモリ16GB（1080p・30fps・「低」）',
+          'Windows 11／GTX 1060・RX 5600 XT・Arc A380（VRAM 6GB）／メモリ16GB（1080p・30fps・「低」、アップスケール使用）',
       },
       {
         label: '推奨動作環境',
         value:
-          'RTX 3060・RX 6700 XT（VRAM 8GB）／メモリ16GB（1080p・60fps・「高」）',
+          'RTX 3060（8GB）・RX 6700 XT（12GB）／メモリ16GB（1080p・60fps・「高」、アップスケール使用）',
       },
       { label: '空き容量', value: '60GB' },
       {
