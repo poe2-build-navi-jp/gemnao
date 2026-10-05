@@ -128,7 +128,7 @@ export const eldenArticles: GameArticle[] = [
           String.raw`Windows＋Rキーを押し、「%APPDATA%\EldenRing」と入力してEnterを押す`,
           '数字だけの名前のフォルダを開き、「ER0000.sl2」の更新日時が最後に遊んだ日時と合うか確認する',
         ],
-        note: '数字のフォルダが複数ある場合は、ER0000.sl2の更新日時が新しい方が普段使っているアカウントのものです。',
+        note: '更新日時だけでは使用中のアカウントを特定できません。元のパスと数字のフォルダ名、対応するSteamアカウントを記録してください。不明なら全フォルダを保全し、推測で上書きしないでください。',
       },
       {
         id: 'backup-save',
@@ -139,8 +139,8 @@ export const eldenArticles: GameArticle[] = [
         risk: 'low',
         actions: [
           '数字のフォルダを右クリックして「コピー」を選ぶ',
-          '別のドライブ、USBメモリ、クラウドストレージのいずれかへ貼り付ける',
-          'コピー先のフォルダ名に日付を付ける（例：EldenRing_2026-09-27）',
+          '別のドライブ、USBメモリ、クラウドストレージのいずれかに、日付付きの親フォルダ（例：EldenRing_2026-09-27）を作る',
+          'その親フォルダの中へ数字のフォルダを元の名前のまま貼り付ける',
         ],
         note: '同じPCの同じドライブだけに置くと、故障や初期化の時に一緒に失われます。',
       },
@@ -153,11 +153,11 @@ export const eldenArticles: GameArticle[] = [
         risk: 'medium',
         actions: [
           'Steamのライブラリで「ELDEN RING」を右クリック→「プロパティ」→「一般」で、Steamクラウドへの保存を一時的にオフにする',
-          '今ある数字のフォルダを消さずに、名前の末尾へ「_old」を付けて残す',
+          'ゲームとSteamを終了する。記録した元のパスと同じSteamアカウントであることを確認し、今ある数字のフォルダを別の保存先へコピーして残す。不明なら復元を中止する',
           String.raw`バックアップの数字のフォルダを「%APPDATA%\EldenRing」へ貼り付け、ゲームを起動してロードを確認する`,
           '問題なく遊べたら、Steamクラウドへの保存をオンに戻す',
         ],
-        note: '復元は、同じSteamアカウントのフォルダへ戻すのが前提です。',
+        note: '復元は、同じSteamアカウントのフォルダへ戻すのが前提です。クラウドの競合が出た場合は、内容を確認できるまで同期するデータを選ばず、両方の控えを保全してください。',
       },
     ],
     avoid: [
@@ -628,7 +628,7 @@ export const eldenArticles: GameArticle[] = [
     symptom:
       'HDRを有効にしたい、HDRにすると画面が白っぽい・色が薄い、ゲーム内でHDRを選べない場合の確認手順です。',
     conclusion:
-      'ELDEN RINGはHDRに対応しています。先にWindowsの「設定」→「システム」→「ディスプレイ」でHDRを有効にし、Windows HDR 調整アプリで明るさを合わせてから、ゲームを再起動してゲーム内のHDRを設定します。',
+      'ELDEN RINGはHDRに対応しています。先にWindowsの「設定」→「システム」→「ディスプレイ」でHDRを有効にし、Windows 11用のWindows HDR 調整アプリで明るさを合わせてから、ゲームを再起動してゲーム内のHDRを設定します。',
     description:
       'HDRの見え方はモニターの性能とWindows側の設定で大きく変わります。ゲームより先にWindows側を整えるのが近道です。',
     causes: [
@@ -642,7 +642,7 @@ export const eldenArticles: GameArticle[] = [
         label: '先に行う設定',
         value: 'Windowsの「設定」→「システム」→「ディスプレイ」→「HDR」',
       },
-      { label: '明るさの調整', value: 'Microsoftの「Windows HDR 調整」アプリ' },
+      { label: '明るさの調整', value: 'Windows 11用のMicrosoft「Windows HDR 調整」アプリ' },
       {
         label: '直らない時の選択肢',
         value: 'HDRをオフにしてSDRで遊ぶ（見やすい方を選んでよい）',
@@ -675,17 +675,17 @@ export const eldenArticles: GameArticle[] = [
         actions: [
           'ゲームを終了する',
           '「設定」→「システム」→「ディスプレイ」を開き、ゲームを表示するモニターを選ぶ',
-          '「HDRを使用する」をオンにする。項目がない場合は、そのモニターまたは接続方法がHDRに対応していない',
+          '「HDRを使用する」をオンにする。項目がない場合は、モニターのHDR対応・接続方法・表示モード・ドライバーを確認する。項目がないだけでは原因を特定できない',
         ],
       },
       {
         id: 'calibrate-hdr',
-        title: 'Windows HDR 調整アプリで明るさを合わせる',
+        title: 'Windows 11用のWindows HDR 調整アプリで明るさを合わせる',
         summary: 'モニターが表示できる明るさを、Windowsに正しく伝えます。',
         time: '約5分',
         risk: 'low',
         actions: [
-          'Microsoft Storeから「Windows HDR 調整」アプリを入手する',
+          'Windows 11の場合だけ、Microsoft Storeから「Windows HDR 調整」アプリを入手する。Windows 10ではこのアプリの手順を飛ばし、ゲーム内とモニター本体の明るさを調整する',
           '画面の案内に沿って、暗い部分・明るい部分・色の濃さを調整する',
           '作成したプロファイルを保存し、有効になっていることを確認する',
         ],
@@ -738,13 +738,13 @@ export const eldenArticles: GameArticle[] = [
       {
         question: 'HDR対応モニターか分かりません。',
         answer:
-          'Windowsの「設定」→「システム」→「ディスプレイ」で、そのモニターに「HDRを使用する」の項目があるか確認してください。項目がない場合は、モニターかケーブル・接続端子がHDRに対応していません。',
+          'Windowsの「設定」→「システム」→「ディスプレイ」で、そのモニターに「HDRを使用する」の項目があるか確認してください。項目がない場合は、モニターのHDR対応に加え、ケーブル・端子・表示モード・ドライバーを確認してください。項目がないだけでは非対応と断定できません。',
       },
     ],
     sources: [sources.pcgw, sources.msHdr, sources.msHdrCalibration],
     related: ['fps', 'ultrawide', 'not-launching', 'mod'],
     metaDescription:
-      'エルデンリングPC版のHDRを正しく設定する手順。Windows側のHDR有効化とWindows HDR 調整アプリでの明るさ合わせ、白っぽい・色が薄い時の見直し方、HDRを選べない時の確認まで解説。',
+      'エルデンリングPC版のHDRを正しく設定する手順。Windows側のHDR有効化とWindows 11用のWindows HDR 調整アプリでの明るさ合わせ、白っぽい・色が薄い時の見直し方、HDRを選べない時の確認まで解説。',
   }),
   make({
     slug: 'mod',

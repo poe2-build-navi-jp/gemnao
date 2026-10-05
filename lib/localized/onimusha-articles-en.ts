@@ -709,6 +709,13 @@ export const onimushaArticlesEn: LocalizedArticle[] = [
       {
         id: 'step-1',
         title: 'Try to restore a visible game window',
+        guideLink: {
+          href: '#step-3',
+          label:
+            'Still black or shortcut not applicable → check capture tools and extra displays (step 3)',
+          description:
+            'Only if the menu is visible, use step 2 below to compare display settings.',
+        },
         summary: 'A visible picture lets you change settings deliberately.',
         time: 'About 1 minute',
         risk: 'low',

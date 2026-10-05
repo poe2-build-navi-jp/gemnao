@@ -1,0 +1,33 @@
+{
+  "checked": 168,
+  "detailsChecks": 712,
+  "results": [
+    {
+      "width": 375,
+      "pages": 42,
+      "backForward": true,
+      "pageErrors": 0
+    },
+    {
+      "width": 390,
+      "pages": 42,
+      "backForward": true,
+      "pageErrors": 0
+    },
+    {
+      "width": 430,
+      "pages": 42,
+      "backForward": true,
+      "pageErrors": 0
+    },
+    {
+      "width": 1440,
+      "pages": 42,
+      "backForward": true,
+      "pageErrors": 0
+    }
+  ],
+  "externalRequests": "blocked",
+  "apis": "mocked",
+  "realRecordsAccessed": false
+}

@@ -1,0 +1,605 @@
+[
+  {
+    "path": "/games/aniimo/black-screen",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://aniimo.com/ja/newslist/detail/100091",
+      "https://aniimo.com/ja/newslist/detail/100139",
+      "https://aniimo.com/newslist/detail/100117"
+    ],
+    "compared": "ゲームだけ/Windows全体の分岐、修復入口、v1.1の部分黒画面・赤画面修正、問い合わせ先。Alt+Enter後は見える場合だけ設定。Microsoftの共通空白画面手順はbatch6参照。",
+    "change": "なし",
+    "uncompared": "Alt+EnterがAniimoで成功することは実機未検証。",
+    "holdReason": "hardware-only",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/aniimo/launcher-display",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://aniimo.com/ja/newslist/detail/100091"
+    ],
+    "compared": "公式FAQの1080p・125%と、通常の推奨値を戻す比較手順。画面外ウィンドウ移動は表示される場合のみ。",
+    "change": "なし",
+    "uncompared": "",
+    "holdReason": null,
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/aniimo/login-error",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://aniimo.com/ja/newslist/detail/100091",
+      "https://aniimo.com/ja/newslist/detail/100113",
+      "https://aniimo.com/ja/newslist/detail/100149",
+      "https://aniimo.com/newslist/detail/100117"
+    ],
+    "compared": "CBTのメール直接ログイン、別キャラ作成済みはサポート、同アカウント・同サーバーの共有、ランチャーの非ASCIIパス、テストデータリセット。",
+    "change": "なし",
+    "uncompared": "",
+    "holdReason": null,
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/aniimo/not-launching",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://aniimo.com/ja/newslist/detail/100091",
+      "https://store.steampowered.com/app/4126040/Aniimo/",
+      "https://aniimo.com/ja/newslist/detail/100139"
+    ],
+    "compared": "Win10 x64・RAM8GB・DX11・40GB、il2cpp検知と修復、インストール先再指定、v1.1更新。公式の旧DirectXリンクを一律導入させないことを確認。",
+    "change": "なし",
+    "uncompared": "",
+    "holdReason": null,
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/aniimo/video-memory-error",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://aniimo.com/ja/newslist/detail/100102",
+      "https://community.intel.com/t5/Mobile-and-Desktop-Processors/Intel-Core-13th-and-14th-Gen-Desktop-Instability-Root-Cause/td-p/1633442",
+      "https://aniimo.com/ja/newslist/detail/100139"
+    ],
+    "compared": "公式対象CPUとBIOS対策、電圧/倍率を一律変更しない、専用/共有GPUメモリの区別（batch6）、v1.1のメモリ改善。",
+    "change": "なし",
+    "uncompared": "最新BIOSの機種別適用・実際のVRAM不足原因は実機未検証。",
+    "holdReason": "hardware-only",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/castlevania-belmonts-curse/not-launching",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://www.konami.com/games/castlevania/belmonts_curse/us/en-us/"
+    ],
+    "compared": "公開本文で発売日10/15・2D探索・開発体制・対応プラットフォームを比較。",
+    "change": "なし",
+    "uncompared": "Steam4231820は年齢確認。最低GTX1650/i5-6400/8GB/10GB、Midnight内容・予約特典、GPU比較の詳細は本文未取得。公式ページの生年月日UIは操作せず公開本文のみ。",
+    "holdReason": "source-blocked",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/dragons-dogma-2/performance",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://prtimes.jp/main/html/rd/p/000006004.000013450.html"
+    ],
+    "compared": "カプコン発表でTU3.2のFPS改善・セーブ枠拡張・要件更新、Dark Arisen発売日と本編必要を比較。",
+    "change": "なし",
+    "uncompared": "公式updateページ取得エラー、Steam2054970/2593290年齢確認。NPC/CPU負荷・個別画質項目・セーブ枠3・DLC追加不具合対処までは比較できない。",
+    "holdReason": "source-blocked",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/elden-ring/fps",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://www.fromsoftware.jp/jp/faq-games.html"
+    ],
+    "compared": "公式FAQのGPU接続・ドライバー・整合性確認、低FPS比較手順。",
+    "change": "なし",
+    "uncompared": "Steam1245620年齢確認、PCGamingWiki403。60fps上限、初回シェーダーが原因との説明、60Hz切替の固有効果を未比較。",
+    "holdReason": "source-blocked",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/elden-ring/hdr",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/calibrate-your-hdr-display-using-the-windows-hdr-calibration-app",
+      "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/hdr-settings-in-windows"
+    ],
+    "compared": "調整アプリのOS要件とHDR項目欠落の複数原因を比較。",
+    "change": "Windows 11専用とWindows 10スキップ先を追加。項目欠落だけで非対応と断定しない。",
+    "uncompared": "ゲーム固有HDR/MOD/EAC詳細はPCGamingWiki403、Steam年齢確認。",
+    "holdReason": "source-blocked",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/elden-ring/mod",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://www.fromsoftware.jp/jp/faq-games.html"
+    ],
+    "compared": "不適切動作の公式整合性案内と、バックアップ・オフライン・更新後にMODを外す順序を比較。",
+    "change": "なし",
+    "uncompared": "特定MODとEAC無効化・オンライン制限の根拠PCGamingWiki403。個々のMOD更新対応は未比較。",
+    "holdReason": "source-blocked",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/elden-ring/not-launching",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://www.fromsoftware.jp/jp/faq-games.html"
+    ],
+    "compared": "GPU接続、ドライバー、整合性、起動不能の公式FAQを比較。",
+    "change": "なし",
+    "uncompared": "Steam要件とPCGamingWikiの固有EAC/白画面条件は年齢確認/403。",
+    "holdReason": "source-blocked",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/elden-ring/save-data",
+    "locales": [
+      "ja"
+    ],
+    "sources": [],
+    "compared": "バックアップのコピー元・保存名・復元元の整合を本文内で比較。",
+    "change": "更新日時だけでアカウントを断定しない。日付は親フォルダに付ける。Steam終了・現状退避・競合時中止を明記。",
+    "uncompared": "ER0000.sl2保存場所・Steam Cloud仕様はPCGamingWiki403/Steam年齢確認で再比較不可。",
+    "holdReason": "source-blocked",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/elden-ring/ultrawide",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://www.fromsoftware.jp/jp/faq-games.html"
+    ],
+    "compared": "FromSoftware FAQがウルトラワイド非対応と明記。",
+    "change": "なし",
+    "uncompared": "非公式解除MOD・EAC・オンライン条件、個別解像度はPCGamingWiki403。",
+    "holdReason": "source-blocked",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/minecraft-dungeons-2/multiplayer",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://www.minecraft.net/en-us/article/minecraft-dungeons-ii-gameplay-systems",
+      "https://store.steampowered.com/app/1912410/",
+      "https://steamcommunity.com/app/1912410/allnews/",
+      "https://www.minecraft.net/en-us/about-dungeons-ii"
+    ],
+    "compared": "最大4人・ローカル/オンライン/混在・クロスプレイ・コード/マッチング、Hero Cape同アカウントと遅延、Steam DeckはPlayable段階・画面キーボード制限、Windows要件。",
+    "change": "なし",
+    "uncompared": "PC Game Passに含まれる断定は取得した商品/FAQ本文から確認できない（Cape資格の記載は加入権利の証明ではない）。",
+    "holdReason": "primary-claim-not-found",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/monster-hunter-wilds/config-file",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://steamcommunity.com/app/2246340/discussions/0/596267902352499417/"
+    ],
+    "compared": "公式config.iniの位置・提出対象、退避/復元するファイルを限定する順序。",
+    "change": "なし",
+    "uncompared": "退避後の自動再生成の詳細はPCGamingWiki取得失敗。",
+    "holdReason": "source-blocked",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/monster-hunter-wilds/controller",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://store.steampowered.com/app/2246340/"
+    ],
+    "compared": "Steam配布元とコントローラー確認手順の条件分岐を確認。",
+    "change": "なし",
+    "uncompared": "Steam Input必須・Bluetooth時の振動・キーボード表示・4プリセット・ジャイロの根拠PCGamingWiki取得失敗。ストア本文は入力方式を証明しない。",
+    "holdReason": "source-blocked",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/monster-hunter-wilds/fps",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://steamcommunity.com/app/2246340/discussions/0/596267902352499417/",
+      "https://store.steampowered.com/app/2246340/"
+    ],
+    "compared": "最低/推奨の30/60fps条件、低プリセット・HAGSとフレーム生成・テクスチャVRAM条件を比較。",
+    "change": "なし",
+    "uncompared": "1.042.00.02の性能更新本文はSteamニュース取得失敗。",
+    "holdReason": "source-blocked",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/monster-hunter-wilds/hdr",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://steamcommunity.com/app/2246340/discussions/0/596267902352499417/",
+      "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/calibrate-your-hdr-display-using-the-windows-hdr-calibration-app",
+      "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/hdr-settings-in-windows"
+    ],
+    "compared": "公式のHDR出力・垂直同期・周波数、Windows調整アプリと複製表示を比較。",
+    "change": "Windows 11専用とWindows 10の代替調整を明記。",
+    "uncompared": "",
+    "holdReason": null,
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/monster-hunter-wilds/mod",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://steamcommunity.com/app/2246340/discussions/0/596267902352499417/"
+    ],
+    "compared": "公式の第三者ツール干渉、整合性とローカルファイル例外、config.iniの位置を比較。",
+    "change": "なし",
+    "uncompared": "個別MOD互換性/オンライン最新要件のPCGamingWiki側本文は取得失敗。",
+    "holdReason": "source-blocked",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/monster-hunter-wilds/not-launching",
+    "locales": [
+      "ja",
+      "en"
+    ],
+    "sources": [
+      "https://steamcommunity.com/app/2246340/discussions/0/596267902352499417/",
+      "https://steamcommunity.com/app/2246340/discussions/0/596267902352499612/",
+      "https://store.steampowered.com/app/2246340/"
+    ],
+    "compared": "日英14STEP・FAQの条件と断定度を比較。DLC16GB、shader.cache/cache2、N/KN動画、GPU保証範囲、記録と原因を区別。Steam拡張は単一申告事例で因果実験でないという既存batch3〜6の出典区分を維持。",
+    "change": "なし",
+    "uncompared": "config.ini再生成のPCGamingWikiは取得失敗。症状改善の実機再現はしていない。Steam拡張の事例を新規実測として数えない。",
+    "holdReason": "source-blocked",
+    "translationComparison": "既存英語と日本語を同じSTEP・FAQ・出典条件で比較。英語の方が条件付きで、実機確認・原因・成功を強める追加断定なし。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/monster-hunter-wilds/save-data",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://store.steampowered.com/app/2246340/"
+    ],
+    "compared": "Steam Cloud表示、Prologue Demo引継ぎ可/本編セーブが既にある場合不可、コピーと復元の名前対応。",
+    "change": "アカウントを更新日時だけで特定しない。日付付き親フォルダに元の名前で保存。終了・退避・競合時中止を明記。",
+    "uncompared": "win64_saveの正確な場所はPCGamingWiki取得失敗。1.042日付のニュース本文取得失敗。",
+    "holdReason": "source-blocked",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/monster-hunter-wilds/system-requirements",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://store.steampowered.com/app/2246340/",
+      "https://steamcommunity.com/app/2246340/discussions/0/596267902352499417/"
+    ],
+    "compared": "CPU・GPU・16GB RAM・DX12・75GB SSD、最低720→1080p30/最低設定、推奨1080p60/中/フレーム生成、テクスチャ16GBを比較。",
+    "change": "なし",
+    "uncompared": "",
+    "holdReason": null,
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/monster-hunter-wilds/ultrawide",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://steamcommunity.com/app/2246340/discussions/0/596267902352499417/"
+    ],
+    "compared": "画面表示を変更する際の周波数/VSync/HDRを公式案内と比較。",
+    "change": "なし",
+    "uncompared": "21:9の帯・3440幅・32:9非対応・MOD対応はPCGamingWiki取得失敗。",
+    "holdReason": "source-blocked",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword/black-screen",
+    "locales": [
+      "ja",
+      "en"
+    ],
+    "sources": [
+      "https://steamcommunity.com/app/2638890/discussions/0/589562598193771782/",
+      "https://steamcommunity.com/app/2638890/discussions/0/589562598193771781/"
+    ],
+    "compared": "表示方式/解像度/VSync/HDR、外部ツール、ゲームが見える前提と次STEP。",
+    "change": "画面が見えなければSTEP2を飛ばす。画面モードと解像度を別々に比較。見えないゲームメニューを操作させない。",
+    "uncompared": "Alt+Enter・表示方式のゲーム内での成功は実機未検証。",
+    "holdReason": "hardware-only",
+    "translationComparison": "既存英語と日本語を同じSTEP・FAQ・出典条件で比較。英語の方が条件付きで、実機確認・原因・成功を強める追加断定なし。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword/crash-report",
+    "locales": [
+      "ja",
+      "en"
+    ],
+    "sources": [
+      "https://steamcommunity.com/app/2638890/discussions/0/589562598193771782/",
+      "https://steamcommunity.com/app/2638890/discussions/0/589562598193771781/"
+    ],
+    "compared": "CrashReport.zip・番号・config.ini・dxdiag・スクリーンショット、ログの個人情報取扱い。",
+    "change": "なし",
+    "uncompared": "",
+    "holdReason": null,
+    "translationComparison": "既存英語と日本語を同じSTEP・FAQ・出典条件で比較。英語の方が条件付きで、実機確認・原因・成功を強める追加断定なし。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword/gpu-driver-version",
+    "locales": [
+      "ja",
+      "en"
+    ],
+    "sources": [
+      "https://steamcommunity.com/app/2638890/discussions/0/589562598193771782/",
+      "https://steamcommunity.com/app/2638890/discussions/0/589562598193771781/",
+      "https://www.nvidia.com/en-gb/drivers/drivers-faq/"
+    ],
+    "compared": "596.49/26.5.1の公式案内を最新絶対値にしない、NVIDIAのWindows番号末尾5桁、再起動と対象版照合。",
+    "change": "なし",
+    "uncompared": "",
+    "holdReason": null,
+    "translationComparison": "既存英語と日本語を同じSTEP・FAQ・出典条件で比較。英語の方が条件付きで、実機確認・原因・成功を強める追加断定なし。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword/hdr",
+    "locales": [
+      "ja",
+      "en"
+    ],
+    "sources": [
+      "https://steamcommunity.com/app/2638890/discussions/0/589562598193771782/",
+      "https://steamcommunity.com/app/2638890/discussions/0/589562598193771781/",
+      "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/calibrate-your-hdr-display-using-the-windows-hdr-calibration-app",
+      "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/hdr-settings-in-windows"
+    ],
+    "compared": "HDR出力とWindows HDR調整の前提、日英の条件。",
+    "change": "JAにWindows 11専用・Win10スキップを追加。HDR項目欠落だけで非対応と断定しない（ENは既に条件付き）。",
+    "uncompared": "ゲーム固有輝度/UI彩度項目はPCGamingWiki取得失敗。",
+    "holdReason": "source-blocked",
+    "translationComparison": "既存英語と日本語を同じSTEP・FAQ・出典条件で比較。英語の方が条件付きで、実機確認・原因・成功を強める追加断定なし。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword/low-fps",
+    "locales": [
+      "ja",
+      "en"
+    ],
+    "sources": [
+      "https://steamcommunity.com/app/2638890/discussions/0/589562598193771782/",
+      "https://steamcommunity.com/app/2638890/discussions/0/589562598193771781/"
+    ],
+    "compared": "GPU指定・電源・低プリセット・公式の日英ラベル差（最低/Low）を比較。",
+    "change": "なし",
+    "uncompared": "最低/推奨GPUと30/60fps、30〜360上限、専用フルスクリーンはSteam年齢確認/PCGamingWiki取得失敗。",
+    "holdReason": "source-blocked",
+    "translationComparison": "既存英語と日本語を同じSTEP・FAQ・出典条件で比較。英語の方が条件付きで、実機確認・原因・成功を強める追加断定なし。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword/shader-cache",
+    "locales": [
+      "ja",
+      "en"
+    ],
+    "sources": [
+      "https://steamcommunity.com/app/2638890/discussions/0/589562598193771782/",
+      "https://steamcommunity.com/app/2638890/discussions/0/589562598193771781/"
+    ],
+    "compared": "公式指定shader.cache/cache2・無ければスキップ、再起動・待機、DxDiag記録。",
+    "change": "なし",
+    "uncompared": "",
+    "holdReason": null,
+    "translationComparison": "既存英語と日本語を同じSTEP・FAQ・出典条件で比較。英語の方が条件付きで、実機確認・原因・成功を強める追加断定なし。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/phantom-blade-zero/not-launching",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://store.steampowered.com/app/4115450/",
+      "https://steamcommunity.com/app/4115450/allnews/"
+    ],
+    "compared": "公式10/29とSteam地域表示10/28、Denuvo、JA字幕/音声なし、DX12/SSD、最低1080p30/推奨1440p60アップスケール、RT有無を比較。",
+    "change": "なし",
+    "uncompared": "DualShock/DualSense完全対応は取得ストア本文に項目がなく未比較。",
+    "holdReason": "primary-claim-not-found",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/silent-hill-townfall/stutter",
+    "locales": [
+      "ja"
+    ],
+    "sources": [],
+    "compared": "本文のパッチ/要件/保存先/HDR/DLCの主張を抽出し取得を試みた。",
+    "change": "なし",
+    "uncompared": "Steam1636440ストア年齢確認、allnews本文なし、PCGamingWiki取得エラー。1.3.1/v1.4.153829・動作環境・保存先・HDR・DLC解消は意味比較未完了。取得済み扱いにしない。",
+    "holdReason": "source-blocked",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/the-blood-of-dawnwalker/controller-sprint",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://dawnwalkergame.com/us/en/news/hotfix-102",
+      "https://www.reddit.com/r/DawnwalkerOfficial/comments/1w7fcbx/hotfix_103/",
+      "https://dawnwalkergame.com/us/en/news/hotfix-104",
+      "https://www.reddit.com/r/DawnwalkerOfficial/comments/1w615p8/known_issues_fixes_workarounds_03092026/"
+    ],
+    "compared": "PC走行入力調整・DualSense Steam/GOG・古いGameInput条件・公式回避策のプラットフォームを比較。",
+    "change": "コンソールの0.8設定をPC向け公式対処と断定しない。該当項目だけ確認し未改善は報告。",
+    "uncompared": "標準/代替プリセット・振動の細部はPCGamingWiki403。",
+    "holdReason": "source-blocked",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/the-blood-of-dawnwalker/shader-compilation-crash",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://dawnwalkergame.com/us/en/news/hotfix-102",
+      "https://dawnwalkergame.com/us/en/news/hotfix-104",
+      "https://www.reddit.com/r/DawnwalkerOfficial/comments/1wcu57e/hotfix_105/",
+      "https://www.reddit.com/r/DawnwalkerOfficial/comments/1w615p8/known_issues_fixes_workarounds_03092026/",
+      "https://www.radgametools.com/oodleintel.htm",
+      "https://community.intel.com/t5/Mobile-and-Desktop-Processors/Intel-Core-13th-and-14th-Gen-Desktop-Instability-Root-Cause/td-p/1633442"
+    ],
+    "compared": "BIOS案内、Intelの対象はデスクトップでモバイル除外、劣化の予防と修復の区別、1.0.5は一部利用者の改善可能性。",
+    "change": "対象モデルをメーカーで確認。対象外はSTEP4へ。複数ソフトのクラッシュだけでCPU原因と推定しない。",
+    "uncompared": "1.0.5の9/10日付は取得Reddit本文に絶対日付がなく再照合できない。",
+    "holdReason": "primary-claim-not-found",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/the-blood-of-dawnwalker/stutter-windowed",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://www.reddit.com/r/DawnwalkerOfficial/comments/1w615p8/known_issues_fixes_workarounds_03092026/",
+      "https://dawnwalkergame.com/us/en/news/hotfix-104",
+      "https://www.reddit.com/r/DawnwalkerOfficial/comments/1wcu57e/hotfix_105/"
+    ],
+    "compared": "フルスクリーン回避、1.0.5の限定的改善、FSR/VSyncとGameInput修正条件を比較。",
+    "change": "1.0.4のコントローラーFPS修正にSteamの古いGameInput条件を追加。",
+    "uncompared": "30fpsムービー・上限範囲・Experimental表記はPCGamingWiki403。",
+    "holdReason": "source-blocked",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  },
+  {
+    "path": "/games/wardogs/server-connection",
+    "locales": [
+      "ja"
+    ],
+    "sources": [
+      "https://steamcommunity.com/app/1867240/allnews/",
+      "https://store.steampowered.com/app/1867240/"
+    ],
+    "compared": "Launch HotfixとPatch0.11の再起動/更新・参加待ち・公式/コミュニティ別・検索/空満席・保存ID、現行0.1.2のDEPLOY追加と動作環境。",
+    "change": "なし",
+    "uncompared": "PCGamingWiki取得エラー。9/18ファミリー共有無効化の理由・Valve待機列/CEO発言・Season1のkickmsgをBAN限定とする主張は一次本文未特定（外部報道を公式扱いしない）。",
+    "holdReason": "source-blocked-and-primary-claim-not-found",
+    "translationComparison": "既存の英中西記事なし。架空の翻訳URLを追加しない。",
+    "hardwareValidation": "実機未検証（Windows・ゲーム・GPU・コントローラーなし）",
+    "wholePageVerified": false
+  }
+]

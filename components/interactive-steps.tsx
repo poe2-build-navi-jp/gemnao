@@ -24,6 +24,7 @@ import {
 } from '@/lib/solution-ranking';
 
 type Step = {
+  nextStepId?: string;
   id: string;
   title: string;
   summary?: string;
@@ -323,18 +324,25 @@ export function InteractiveSteps({
     }
   }
 
+  function nextIndex(step: Step, index: number) {
+    const target = steps.findIndex(
+      (candidate) => candidate.id === step.nextStepId,
+    );
+    return target > index ? target : Math.min(index + 1, steps.length - 1);
+  }
+
   async function notSolved(step: Step, index: number) {
     if (solvedStepId) return;
     const nextCompleted = [...new Set([...completedIds, step.id])];
     updateSession({
-      currentStep: Math.min(index + 1, steps.length - 1),
+      currentStep: nextIndex(step, index),
       completedIds: nextCompleted,
       showResume: false,
       message: '',
       outcome: {
         step,
         resolved: false,
-        nextId: steps[index + 1]?.id || step.id,
+        nextId: steps[nextIndex(step, index)].id,
         at: new Date().toISOString(),
       },
     });
@@ -586,7 +594,7 @@ export function InteractiveSteps({
                 {step.note ? (
                   <p className="procedure-note">{step.note}</p>
                 ) : null}
-                {step.guideLink ? (
+                {step.guideLink && (!step.nextStepId || !solvedStepId) ? (
                   <p className="procedure-note">
                     {step.guideLink.description}{' '}
                     <a href={step.guideLink.href}>{step.guideLink.label} →</a>
@@ -601,8 +609,18 @@ export function InteractiveSteps({
                   !step.advanceCheck &&
                   index < steps.length - 1 && (
                     <p className="step-skip">
-                      <a href={`#${steps[index + 1].id}`}>
-                        対象外なら「{steps[index + 1].title}」へスキップ
+                      <a
+                        href={`#${steps[nextIndex(step, index)].id}`}
+                        onClick={() =>
+                          updateSession({
+                            currentStep: nextIndex(step, index),
+                            showResume: false,
+                            outcome: null,
+                          })
+                        }
+                      >
+                        対象外なら「{steps[nextIndex(step, index)].title}
+                        」へスキップ
                       </a>
                     </p>
                   )}
@@ -679,7 +697,7 @@ export function InteractiveSteps({
                           onClick={() => void notSolved(step, index)}
                         >
                           {index < steps.length - 1
-                            ? `直らない → 次は「${steps[index + 1].title}」を確認`
+                            ? `直らない → 次は「${steps[nextIndex(step, index)].title}」を確認`
                             : '全部試したが直らない'}
                           <ChevronRight size={17} />
                         </button>
