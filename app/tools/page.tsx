@@ -40,7 +40,7 @@ const tools = [
   {
     href: '/tools/refresh-rate',
     title: 'リフレッシュレート（Hz）確認ツール',
-    body: '144Hzのはずが60Hzになっていないか、ブラウザで測れます。',
+    body: 'ブラウザの描画頻度の目安を測り、Windowsに表示されたHzと比較できます。モニターの設定HzやゲームのFPSを直接測るものではありません。',
   },
   {
     href: '/new-releases/2026-10',

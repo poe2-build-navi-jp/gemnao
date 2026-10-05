@@ -1,0 +1,1 @@
+PASS: 285 real local Pages HTML routes; HEAD/query/RSC/non-GET/privacy separation; missing route/internal asset 404; invalid contact 400; robots/ads/sitemap and 3 byte-identical native ZIPs retained; no D1 bound

@@ -1,0 +1,4 @@
+PASS 375px: JA safe skip/result/save/resume/solved; EN route/result/cancel; keyboard/history; local fixtures only
+PASS 390px: JA safe skip/result/save/resume/solved; EN route/result/cancel; keyboard/history; local fixtures only
+PASS 430px: JA safe skip/result/save/resume/solved; EN route/result/cancel; keyboard/history; local fixtures only
+PASS 1440px: JA safe skip/result/save/resume/solved; EN route/result/cancel; keyboard/history; local fixtures only

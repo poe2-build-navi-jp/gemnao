@@ -94,7 +94,7 @@ export const pcGamingArticles: PcArticle[] = [
         resultRows: [
           {
             state: 'DRRをオフにしたらゲームも高いHzになった',
-            meaning: 'DRRがそのゲームの最大Hzを制限していた',
+            meaning: 'DRRによる最大Hzの制限が関係した可能性がある',
             next: 'ゲーム中はDRRをオフのまま使う。',
           },
           {
@@ -105,7 +105,7 @@ export const pcGamingArticles: PcArticle[] = [
         ],
         expected: 'ゲーム中もWindowsで選んだHzに近い滑らかさで動く。',
         unexpected:
-          'fps自体が低い（GPUの性能不足）場合は、Hzを上げても滑らかにならない。fpsとHzは別の数値として確認する。',
+          'fps自体が低い場合は、Hzを上げても滑らかにならない。fpsとHzは別の数値として確認する。',
         revert: '「動的リフレッシュレート」を元の状態に戻す。',
       },
       {
@@ -349,7 +349,7 @@ export const pcGamingArticles: PcArticle[] = [
         actions: [
           'ゲーム中にAlt＋Enterを1回押し、表示モードが変わるか確認する。ゲームによってはこの操作でフルスクリーンとウィンドウが切り替わる。',
           'MicrosoftのDirectX（DXGI）の資料には、アプリ側がAlt＋Enterへの応答を止める設定が用意されている。そのため、ゲームによっては効かない、または別の操作が割り当てられている。',
-          '効かない場合は、ゲーム内の「表示」や「グラフィック」の設定で表示モードを切り替える（項目名はゲームごとに異なる）。',
+          '効かず、ゲーム画面が見える場合だけ、ゲーム内の「表示」や「グラフィック」の設定で表示モードを切り替える。黒いままなら見えないメニューを操作せず、STEP 1の電源・接続確認へ戻る（項目名はゲームごとに異なる）。',
         ],
         expected: 'フルスクリーンとウィンドウ表示が切り替わる。',
         unexpected:
@@ -394,7 +394,7 @@ export const pcGamingArticles: PcArticle[] = [
       {
         question: 'Alt＋Enterを押しても何も起きません。',
         answer:
-          'ゲーム側がAlt＋Enterの切り替えを使わない設定にしている場合があります。ゲーム内の表示設定で、フルスクリーン・ウィンドウ・ボーダーレスなどを選んでください。',
+          'ゲーム側がAlt＋Enterの切り替えを使わない設定にしている場合があります。画面が見える場合だけゲーム内の表示設定で比較してください。黒いままなら見えないメニューを操作せず、STEP 1で電源・接続を確認します。',
       },
       {
         question: 'Windowsキー＋Alt＋BでHDRが切り替わりません。',
