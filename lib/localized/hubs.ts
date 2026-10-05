@@ -238,9 +238,9 @@ export const localizedHubs: Record<string, LocalizedHub> = {
       es: 'Ubicación de la partida, requisitos oficiales y los pasos de CD PROJEKT RED para fallos de inicio y cierres.',
     },
     intro: {
-      en: 'Cyberpunk 2077 stores saves under Saved Games\\CD Projekt Red, outside the game installation folder. Back up your saves before reinstalling. If the game will not start or keeps crashing, test it without mods first, then follow the official order: GPU driver clean install, Visual C++ redistributables, file verification and overlays.',
-      zh: '《赛博朋克 2077》的存档保存在“保存的游戏\\CD Projekt Red”中，与游戏文件夹分开，因此重新安装不会删除存档。无法启动或频繁崩溃时，先在不加载 MOD 的状态下测试，再按官方顺序检查：显卡驱动全新安装、Visual C++ 运行库、文件验证和叠加层。',
-      es: 'Cyberpunk 2077 guarda las partidas en Saved Games\\CD Projekt Red, fuera de la carpeta del juego, así que reinstalar no las borra. Si no inicia o se cierra, pruébalo primero sin mods y después sigue el orden oficial: instalación limpia del controlador, paquetes de Visual C++, verificación de archivos y superposiciones.',
+      en: 'Cyberpunk 2077 stores saves under Saved Games\\CD Projekt Red, outside the game installation folder. Back up your saves before reinstalling: the official clean-install procedure also deletes the save folder. If the game will not start or keeps crashing, test it without mods first, then follow the official order: GPU driver clean install, Visual C++ redistributables, file verification and overlays.',
+      zh: '《赛博朋克 2077》的存档保存在“保存的游戏\\CD Projekt Red”中，与游戏安装文件夹分开。重新安装前请先备份存档；官方的彻底重装步骤还会删除存档文件夹。无法启动或频繁崩溃时，先在不加载 MOD 的状态下测试，再按官方顺序检查：显卡驱动全新安装、Visual C++ 运行库、文件验证和叠加层。',
+      es: 'Cyberpunk 2077 guarda las partidas en Saved Games\\CD Projekt Red, fuera de la carpeta de instalación. Haz una copia de seguridad antes de reinstalar: el procedimiento oficial de instalación limpia también elimina la carpeta de partidas. Si no inicia o se cierra, pruébalo primero sin mods y después sigue el orden oficial: instalación limpia del controlador, paquetes de Visual C++, verificación de archivos y superposiciones.',
     },
     sources: [
       {
@@ -250,6 +250,14 @@ export const localizedHubs: Record<string, LocalizedHub> = {
           es: 'Soporte de CD PROJEKT RED: el juego no se inicia',
         },
         url: 'https://support.cdprojektred.com/en/cyberpunk/pc/sp-technical/issue/1568/game-is-not-launching',
+      },
+      {
+        label: {
+          en: 'CD PROJEKT RED Support: Back up saves before a clean install',
+          zh: 'CD PROJEKT RED 客服：彻底重装前备份存档',
+          es: 'Soporte de CD PROJEKT RED: copia de seguridad antes de una instalación limpia',
+        },
+        url: 'https://support.cdprojektred.com/en/cyberpunk/pc/sp-technical/issue/2233/how-do-i-perform-a-clean-install-of-the-game',
       },
       store('1091500'),
     ],
