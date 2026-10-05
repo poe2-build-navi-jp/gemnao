@@ -218,3 +218,26 @@ for (const source of [
 console.log(
   'My Games real-handler checks passed for article, legacy dashboard, and all four focused-page languages: add/remove/re-add, repeated callbacks, duplicates, stale storage, read/write failures, corrupt data, cap, unavailable GA, server snapshots, and existing selections.',
 );
+
+// Synthetic schedules only: the dashboard must distinguish each active state.
+function nodeText(node: unknown): string {
+  if (Array.isArray(node)) return node.map(nodeText).join('');
+  if (node && typeof node === 'object') return nodeText((node as Node).props?.children);
+  return typeof node === 'string' || typeof node === 'number' ? String(node) : '';
+}
+for (const [state, label] of [
+  ['upcoming', '予定'], ['scheduled-window', '予定時間内'],
+  ['ongoing', '実施中'], ['unconfirmed', '終了未確認'],
+] as const) {
+  reset([game.slug]);
+  const tree = MyDashboard({ games: [{ ...game, maintenance: [{
+    title: 'fixture maintenance', start: '2026-10-05T05:00:00Z',
+    end: '2026-10-05T13:00:00Z', url: 'https://example.com/official-fixture', state,
+  }] }] });
+  assert.ok(nodeText(tree).includes(`メンテ（${label}）`));
+  assert.ok(nodeText(tree).includes('予定：'));
+  assert.equal(calls.length, 0, 'maintenance rendering does not track personal data');
+}
+reset([game.slug]);
+assert.ok(!nodeText(MyDashboard({ games: [game] })).includes('メンテ（'));
+console.log('PASS: dashboard maintenance labels, planned times, empty schedule, no new analytics');

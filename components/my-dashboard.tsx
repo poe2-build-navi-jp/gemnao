@@ -10,13 +10,14 @@ import { SolutionNotebook } from '@/components/solution-notebook';
 import { useMyGames, useMyPc } from '@/components/use-my-pc';
 import { jstDate, usePreviousVisit } from '@/components/use-last-visit';
 import { gpus, MY_GAMES_KEY, type MinSpec, type MyPc } from '@/lib/my-pc';
+import { maintenanceLabels, type MaintenanceState } from '@/lib/status/policy';
 import { trackMyGameAdded } from '@/lib/analytics';
 
 export type DashboardGame = {
   slug: string;
   name: string;
   articles: { href: string; label: string }[];
-  maintenance: { title: string; start: string; end: string; url: string }[];
+  maintenance: { title: string; start: string; end: string; url: string; state: MaintenanceState }[];
   spec?: MinSpec;
   hasNews: boolean;
   /** 記事の確認・週刊まとめ（30日以内、新しい順。dateはYYYY-MM-DD）。 */
@@ -274,7 +275,7 @@ export function MyDashboard({ games }: { games: DashboardGame[] }) {
                   ) : null}
                   {game.maintenance.map((item) => (
                     <p className="my-game-maintenance" key={item.start}>
-                      <b>メンテ</b> {time.format(new Date(item.start))}〜
+                      <b>メンテ（{maintenanceLabels[item.state]}）</b> 予定：{time.format(new Date(item.start))}〜
                       {time.format(new Date(item.end))}：{item.title}{' '}
                       <a href={item.url} target="_blank" rel="noreferrer">
                         公式 <ExternalLink size={12} />

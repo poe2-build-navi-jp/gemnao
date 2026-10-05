@@ -11,6 +11,13 @@ export function isActiveOfficialStatus(status: string): boolean {
   ].includes(status.toLowerCase());
 }
 
+export const maintenanceLabels = {
+  upcoming: '予定',
+  'scheduled-window': '予定時間内',
+  ongoing: '実施中',
+  unconfirmed: '終了未確認',
+};
+
 export type MaintenanceState =
   | 'upcoming'
   | 'scheduled-window'

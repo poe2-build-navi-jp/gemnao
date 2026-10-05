@@ -1,0 +1,4 @@
+PASS 375px: first visit empty, AION2 local selection fixture, elapsed schedule remains unconfirmed, planned-time label, keyboard official link, revisit/back/forward, deletion empty, no overflow/errors; no external API
+PASS 390px: first visit empty, AION2 local selection fixture, elapsed schedule remains unconfirmed, planned-time label, keyboard official link, revisit/back/forward, deletion empty, no overflow/errors; no external API
+PASS 430px: first visit empty, AION2 local selection fixture, elapsed schedule remains unconfirmed, planned-time label, keyboard official link, revisit/back/forward, deletion empty, no overflow/errors; no external API
+PASS 1440px: first visit empty, AION2 local selection fixture, elapsed schedule remains unconfirmed, planned-time label, keyboard official link, revisit/back/forward, deletion empty, no overflow/errors; no external API

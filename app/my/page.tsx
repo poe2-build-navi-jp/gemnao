@@ -4,6 +4,7 @@ import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { articlesForGame } from '@/lib/game-articles';
 import { games } from '@/lib/games';
 import { releaseRoundups } from '@/lib/release-roundups';
+import { currentMaintenance } from '@/lib/status/policy';
 import { maintenanceSchedule, steamAppIds } from '@/lib/status/sources';
 import { weeklyKindLabels, weeklyReports } from '@/lib/weekly-reports';
 
@@ -75,15 +76,14 @@ function dashboardGames(now: number): DashboardGame[] {
         href: `/games/${game.slug}/${article.slug}`,
         label: article.shortTitle,
       })),
-    maintenance: maintenanceSchedule
-      .filter(
-        (item) => item.gameSlug === game.slug && Date.parse(item.end) > now,
-      )
+    maintenance: currentMaintenance(maintenanceSchedule, now)
+      .filter((item) => item.gameSlug === game.slug)
       .map((item) => ({
         title: item.title,
         start: item.start,
         end: item.end,
         url: item.source.url,
+        state: item.state,
       })),
     spec: specFor(game.slug),
     updates: updatesFor(game.slug, now),
