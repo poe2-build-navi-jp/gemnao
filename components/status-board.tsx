@@ -1,4 +1,5 @@
 'use client';
+import { maintenanceLabels } from '@/lib/status/policy';
 
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import {
@@ -27,12 +28,6 @@ const time = new Intl.DateTimeFormat('ja-JP', {
 });
 const fmt = (iso: string) => time.format(new Date(iso));
 const refreshMs = 10 * 60 * 1000;
-const maintenanceLabels = {
-  upcoming: '予定',
-  'scheduled-window': '予定時間内',
-  ongoing: '実施中',
-  unconfirmed: '終了未確認',
-};
 const discordMaintenanceLabels: Record<string, string> = {
   scheduled: 'メンテ予定',
   in_progress: 'メンテ実施中',
