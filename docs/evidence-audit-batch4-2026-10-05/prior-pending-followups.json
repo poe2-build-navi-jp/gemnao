@@ -1,0 +1,40 @@
+[
+  {
+    "id": "usb-device-codes",
+    "status": "supported-within-scope",
+    "claim": "コード28/43の意味とメーカー配布ドライバー確認",
+    "source": "https://support.microsoft.com/ja-jp/windows/hardware/drivers/error-codes-in-device-manager-in-windows",
+    "location": "lib/pc-articles.ts USB-C STEP 2とFAQ",
+    "finding": "28=ドライバー未導入、43=ドライバーが問題をOSに通知した停止状態。本文のケーブル故障をコードだけで断定しない限定に一致。",
+    "remaining": "USB-C個別機能・更新での改善は別。",
+    "actualApplicationOperation": "not performed",
+    "wholePageVerified": false
+  },
+  {
+    "id": "secure-boot-firmware-safety",
+    "status": "supported-within-scope",
+    "claim": "MBR2GPTのUEFI確認・BitLocker対応・変換後起動設定",
+    "source": "https://learn.microsoft.com/ja-jp/windows/deployment/mbr-to-gpt",
+    "location": "lib/requirement-guides.ts STEP 3",
+    "finding": "変換前UEFI対応確認、変換後UEFI起動、BitLocker保護の中断/再構成と不可逆段階を確認。記事は自己判断で変換させずメーカーと前提確認する。",
+    "remaining": "機種別BIOS/CSM操作、ディスク管理GUI、回復キー取得手順は未比較。",
+    "actualApplicationOperation": "not performed",
+    "wholePageVerified": false
+  },
+  {
+    "id": "current-steam-input-ui",
+    "status": "comparison-pending",
+    "claim": "現行Steam入力テスト名とゲーム別設定",
+    "reason": "旧UI資料しか比較できておらず現行UIを証明しない。",
+    "actualApplicationOperation": "not performed",
+    "wholePageVerified": false
+  },
+  {
+    "id": "discord-acceleration-reverse",
+    "status": "comparison-pending",
+    "claim": "アクセラレーション逆方向と黒画面の改善",
+    "reason": "公式の遅延時on→offと独立した編集上の比較提案。実機改善効果は未測定。",
+    "actualApplicationOperation": "not performed",
+    "wholePageVerified": false
+  }
+]

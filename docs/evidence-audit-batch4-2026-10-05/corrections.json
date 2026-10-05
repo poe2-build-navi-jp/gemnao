@@ -1,0 +1,16 @@
+[
+  {
+    "path": "/discord/notifications-not-working",
+    "file": "lib/discord-p0-articles.ts",
+    "location": "STEP 2 DM許可",
+    "reason": "Official article contains both old and new labels; do not assert one Japanese label as current.",
+    "source": "https://support.discord.com/hc/en-us/articles/7924992471191-Message-Requests"
+  },
+  {
+    "path": "/discord/[slug] status notice",
+    "file": "app/discord/[slug]/page.tsx",
+    "location": "status-check",
+    "reason": "lib/status/data.ts fetches official Discord summary and components/status-board.tsx refreshes it; remove false site-wide denial of automatic retrieval. Explain that this article is not live status.",
+    "source": "repository implementation at 8f03f0b"
+  }
+]

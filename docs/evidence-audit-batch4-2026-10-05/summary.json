@@ -1,0 +1,28 @@
+{
+  "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+  "date": "2026-10-05",
+  "definition": "A comparison group is the explicit claim field in manual-comparisons-30.json; not a count of all factual claims, paragraphs, or regex matches. Pending scope groups may contain multiple related claims.",
+  "pageFamilies": 30,
+  "documentComparisonGroups": 74,
+  "comparisonOutcomes": {
+    "supported-within-scope": 72,
+    "scope-limitation": 1,
+    "corrected": 1
+  },
+  "pendingDocumentScopeGroups": 27,
+  "editorialOrApplicationLimitGroups": 11,
+  "distinctComparedSourceUrls": 54,
+  "sourceUnavailableGroups": 8,
+  "priorPendingFollowups": {
+    "scopedDocumentSupport": 2,
+    "comparisonPending": 2,
+    "limitsRemainEvenForSupportedGroups": true
+  },
+  "sourceScopeDescriptionsCorrected": 3,
+  "productCopyCorrections": 2,
+  "wholePagesVerified": 0,
+  "actualWindowsDiscordSteamGameExecutions": 0,
+  "publicProductionVerification": false,
+  "all212AuditComplete": false,
+  "note": "Unavailable source scopes overlap page pending scopes; do not add these counts. All 30 pages retain incomplete whole-page audit status. Batch3 snapshots remain historical."
+}

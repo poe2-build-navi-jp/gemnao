@@ -1,0 +1,985 @@
+[
+  {
+    "path": "/discord/bot-add",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "追加権限・追加先の区別",
+        "source": "https://support.discord.com/hc/en-us/articles/21334461140375-Using-Apps-on-Discord",
+        "finding": "所有者/サーバー管理権限、サーバーとアカウントへの追加先を区別するSTEP1と一致",
+        "id": "discord-bot-add-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "PC/ブラウザApp Directory→承認→追加先の一覧",
+        "source": "https://support.discord.com/hc/en-us/articles/21334461140375-Using-Apps-on-Discord",
+        "finding": "STEP2/3の設定経路・要求権限確認・メンバー/連携一覧と一致",
+        "id": "discord-bot-add-2",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "スラッシュ呼出しとBot提供者サポート",
+        "source": "https://support.discord.com/hc/en-us/articles/21334461140375-Using-Apps-on-Discord",
+        "finding": "STEP3の候補表示確認と相談先に一致",
+        "id": "discord-bot-add-3",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "スマホ招待リンクの個別アプリ対応・要求権限の妥当性は提供者別。Bot実行は行わない。"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": []
+  },
+  {
+    "path": "/discord/bot-not-responding",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "追加先/スラッシュ呼出し",
+        "source": "https://support.discord.com/hc/en-us/articles/21334461140375-Using-Apps-on-Discord",
+        "finding": "STEP1は文書と一致。/help一律断定はなく提供者に照合",
+        "id": "discord-bot-not-responding-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "コマンド個別上書きと管理者例外",
+        "source": "https://support.discord.com/hc/en-us/articles/10952702911639-Command-Permissions-Lockout",
+        "finding": "STEP4の一般メンバーでの再確認と権限範囲に一致",
+        "id": "discord-bot-not-responding-2",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "コマンド利用権限とBot操作権限",
+        "source": "https://support-apps.discord.com/hc/en-us/articles/26501864012951-Moderating-Apps-on-Discord",
+        "finding": "STEP4の区別・連携でロール/チャンネル/個別コマンドを確認する説明に一致",
+        "id": "discord-bot-not-responding-3",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "応答期限とinteraction固有権限は開発者資料比較が残る"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": [
+      "各Botのコマンド仕様/障害は提供者別。比較例は編集上の切分けで成功実績ではない"
+    ]
+  },
+  {
+    "path": "/discord/bot-remove",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "サーバー追加と個人追加は別",
+        "source": "https://support.discord.com/hc/en-us/articles/21334461140375-Using-Apps-on-Discord",
+        "finding": "STEP2のキックと別の追加先の照合に一致",
+        "id": "discord-bot-remove-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "連携一覧から削除",
+        "source": "https://support-apps.discord.com/hc/en-us/articles/26501864012951-Moderating-Apps-on-Discord",
+        "finding": "STEP2の代替経路に一致",
+        "id": "discord-bot-remove-2",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "外部アプリ公開返信制限と本人だけの返信",
+        "source": "https://support-apps.discord.com/hc/en-us/articles/26501864012951-Moderating-Apps-on-Discord",
+        "finding": "STEP5のUse External Appsをオフにしても本人向け返信が残る条件に一致",
+        "id": "discord-bot-remove-3",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "Webhookとチャンネルフォローの管理・削除後URL、Kickロール階層、個人アプリ認証解除UIは追加文書比較が必要"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": [
+      "削除前の設定保全は編集上の予防策、復元保証なし。実際の削除は行わない"
+    ]
+  },
+  {
+    "path": "/discord/login-error",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "登録メール確認とサポート制限",
+        "source": "https://support.discord.com/hc/en-us/articles/32557375603479-Discord-Login-Email-Troubleshooting-Guide",
+        "finding": "STEP1とFAQのログイン済み端末/過去メール/電話ログイン、開示・変更不可に一致",
+        "id": "discord-login-error-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "24時間の対象エラー",
+        "source": "https://support.discord.com/hc/en-us/articles/32557375603479-Discord-Login-Email-Troubleshooting-Guide",
+        "finding": "STEP6とFAQはメール追加/変更エラーに限定しており一致",
+        "id": "discord-login-error-2",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "MFA復旧手段とサポート制約",
+        "source": "https://support.discord.com/hc/en-us/articles/115001221072-How-to-Recover-Your-Discord-Account-When-Locked-Out-of-Multi-Factor-Authentication-MFA",
+        "finding": "STEP4の未使用コード、事前設定SMS、表示時パスワード、MFA解除/コード再発行不可に一致",
+        "id": "discord-login-error-3",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "メール変更の復旧期限・副作用",
+        "source": "https://support.discord.com/hc/en-us/articles/27299669812375-My-Discord-Email-was-Changed-and-I-Want-to-Undo-It",
+        "finding": "STEP6の48時間、wasntme URL、全端末ログアウト/電話・MFA解除、期限後再発行不可に一致",
+        "id": "discord-login-error-4",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "パスワード再設定とMFA",
+        "source": "https://support.discord.com/hc/en-us/articles/218410947-How-to-Reset-or-Change-Your-Forgotten-Password-on-Discord",
+        "finding": "STEP2の登録メール→Forgot password→メール指示、MFAが残る条件に一致",
+        "id": "discord-login-error-5",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": [
+      "ブラウザ比較・受信ルール/容量確認は編集上の切分け。利用者の認証成功やメール配送は未検証"
+    ]
+  },
+  {
+    "path": "/discord/phone-verification-error",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "携帯番号形式・1アカウント",
+        "source": "https://support.discord.com/hc/en-us/articles/26680694104215-How-to-Fix-Phone-Errors-on-Discord",
+        "finding": "STEP1/2は携帯番号、固定/VoIP不可、1番号の複数同時登録不可に一致",
+        "id": "discord-phone-verification-error-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "使い捨て不可とレート制限待機",
+        "source": "https://support.discord.com/hc/en-us/articles/6181726888215-How-to-Verify-Your-Discord-Account",
+        "finding": "STEP1/3およびFAQは24〜48時間をRate Limit/Recently Usedに限定し一致",
+        "id": "discord-phone-verification-error-2",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "番号削除経路とメール不明時のサポート制限",
+        "source": "https://support.discord.com/hc/en-us/articles/4413460214807-How-to-Remove-a-Phone-Number-From-a-Discord-Account",
+        "finding": "STEP2のPC/モバイル経路と、登録メール不明時に開示/解除不可は一致。先頭注記で削除後の再利用待機も確認",
+        "id": "discord-phone-verification-error-3",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": [
+      "SMS受信比較は編集上の切分け。回線別配送時間は保証していない"
+    ]
+  },
+  {
+    "path": "/discord/echo-double-voice",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "Windows聴く・ハード/ソフトの二重モニター",
+        "source": "https://support.focusrite.com/hc/de/articles/206849219-Latency-while-using-Direct-Monitor",
+        "finding": "STEP3/4の別々のモニター経路を比較する説明と一致。公式はScarlett/Saffire対象",
+        "id": "discord-echo-double-voice-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "Discordマイクテストの再生",
+        "source": "https://support.discord.com/hc/en-us/articles/360020641332-Mic-Testing",
+        "finding": "前バッチで読んだ公式本文とFAQが一致。テスト終了後に通話比較する構成",
+        "id": "discord-echo-double-voice-2",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "ヘッドセット固有のサイドトーン項目・mmsys.cplの現行経路、各仮想ミキサーの配線は別文書"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": [
+      "相手ミュート/イヤホンによる切分けは編集上の比較提案。全機種での効果実証ではない"
+    ]
+  },
+  {
+    "path": "/discord/slow-performance",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "Discordの複数プロセス",
+        "source": "https://support.discord.com/hc/en-us/articles/225733808-Why-does-Discord-have-multiple-processes",
+        "finding": "STEP1は複数というだけで異常でないとの説明に一致。GPUプロセス数を根拠に故障断定しない",
+        "id": "discord-slow-performance-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "配信アクセラレーションとGUI描画設定を区別",
+        "source": "https://support.discord.com/hc/en-us/articles/33030151293079-Discord-Voice-Video-Streaming-Guide",
+        "finding": "配信のVideo設定資料をGUIのAdvanced設定へ流用しない。次の比較群でOS requirementsのHow to Fix Lag本文とSTEP 4を別途照合済み。",
+        "id": "discord-slow-performance-2",
+        "status": "scope-limitation"
+      },
+      {
+        "claim": "GUIの遅延対処候補",
+        "source": "https://support.discord.com/hc/en-us/articles/213491697-What-are-the-OS-system-requirements-for-Discord",
+        "finding": "How to Fix Lag本文でAccessibilityのGIF/絵文字停止、AdvancedのGPUオフ、配信品質低下、更新/ブラウザ比較を確認。STEP4/5/6の該当操作と一致。GPUオンへの逆方向比較は編集上の比較提案",
+        "id": "discord-slow-performance-3",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "タスクマネージャー各指標・PC負荷・キャッシュ対処の文書照合"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": [
+      "負荷例は例示であり実測ではない。症状別比較は編集上の提案"
+    ]
+  },
+  {
+    "path": "/discord/voice-client-outdated",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "暗号化開始日と最低版",
+        "source": "https://support.discord.com/hc/en-us/articles/38025123604631-Minimum-Client-Version-Requirements-for-Voice-Chat",
+        "finding": "2026-03-02、Windows1.0.9164、Firefox142、Chrome/Edge86は文書と一致。最低条件と現行推奨版を分けるSTEP1/FAQは妥当",
+        "id": "discord-voice-client-outdated-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "バージョン確認とBot側DAVE",
+        "source": "https://support.discord.com/hc/en-us/articles/38025123604631-Minimum-Client-Version-Requirements-for-Voice-Chat",
+        "finding": "設定最下部の版確認、BotもDAVE必要というSTEP1/4と一致",
+        "id": "discord-voice-client-outdated-2",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "Chrome/Firefox/Edgeの更新操作の文書比較"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": [
+      "OS要件と通話最低版は別。起動先の比較・通話結果は編集上の切分けで実測ではない"
+    ]
+  },
+  {
+    "path": "/discord/game-not-detected",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "検出と公開範囲の区別",
+        "source": "https://support.discord.com/hc/en-us/articles/7931156448919-Activity-Sharing-on-Discord-FAQ",
+        "finding": "STEP2/3の全体/ゲーム別/サーバー別の共有と、他共通サーバー/友人なら見える可能性に一致",
+        "id": "discord-game-not-detected-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "招待・観戦のゲーム対応条件",
+        "source": "https://support.discord.com/hc/en-us/articles/115001557452-Game-Invites",
+        "finding": "STEP5の機能追加後に一度起動、ゲーム側対応と参加可能状態が必要という条件に一致",
+        "id": "discord-game-not-detected-2",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "ゲームの手動追加",
+        "source": "https://support.discord.com/hc/en-us/articles/360040816151-Go-Live-and-Screen-Share",
+        "finding": "Go Live本文のGame Activity→Add itをSTEP 1と照合。手動追加の機能は一致。Activity Sharing資料の新しいRegistered Games表示との版差を残し、現行日本語ラベルは実機未確認。",
+        "id": "discord-game-not-detected-3",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": [
+      "特定ゲームの現在のRich Presence実装はゲーム別。比較例は実機結果ではない"
+    ]
+  },
+  {
+    "path": "/discord/notifications-not-working",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "サーバー/チャンネル上書き/メンション抑制",
+        "source": "https://support.discord.com/hc/en-us/articles/215253258-Notifications-Settings-101",
+        "finding": "STEP3の区別とサーバーミュート時@everyone例外は現行公式本文に一致",
+        "id": "discord-notifications-not-working-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "無視と配信モード",
+        "source": "https://support.discord.com/hc/ja/articles/28084948873623",
+        "finding": "STEP1の無視による通知抑制と管理先が一致。配信モードは218485407でも通知遮断を確認",
+        "id": "discord-notifications-not-working-2",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "取り込み中の通知遮断",
+        "source": "https://support.discord.com/hc/en-us/articles/227779547-Changing-Online-Status",
+        "finding": "STEP4はデスクトップ通知抑制の説明に一致",
+        "id": "discord-notifications-not-working-3",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "Windows通知バナー/応答不可",
+        "source": "https://support.microsoft.com/ja-jp/windows/experience/notifications-and-do-not-disturb-in-windows",
+        "finding": "STEP5の設定経路、アプリ別バナー、全画面時の自動抑制に一致",
+        "id": "discord-notifications-not-working-4",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "リクエスト/スパム",
+        "source": "https://support.discord.com/hc/en-us/articles/7924992471191-Message-Requests",
+        "finding": "非フレンドの別受信箱・Spamタブに一致。同じ公式本文にContent & SocialとMessaging Permissionsが混在。STEP 2を設定の意味と両表記で案内するよう修正。現行日本語UIの実機確認とは区別。",
+        "status": "corrected",
+        "id": "discord-notifications-not-working-5"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "DMミュート資料223657667は本文取得不能"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": [
+      "PCで表示中の会話との比較は提案であり、モバイル仕様からPCの仕様を推定していない"
+    ]
+  },
+  {
+    "path": "/discord/screen-share-black-screen",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "共有対象/視聴/プレビュー",
+        "source": "https://support.discord.com/hc/en-us/articles/360040816151-Go-Live-and-Screen-Share",
+        "finding": "STEP1/2の共有対象・視聴・プレビュー非表示に加え、ゲームにフォーカスするとPiPが自動停止する公式本文を確認し該当段落と一致。配信先が黒いこととは区別。",
+        "id": "discord-screen-share-black-screen-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "全画面専有とボーダーレス",
+        "source": "https://support.discord.com/hc/en-us/articles/9410427556375--Windows-Capturing-Application-Window-for-Screen-Share-and-Go-Live",
+        "finding": "STEP4の特定アプリだけで比較する案内は公式のWindows Graphics Capture/FSE制約と一致",
+        "id": "discord-screen-share-black-screen-2",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "保護コンテンツ",
+        "source": "https://learn.microsoft.com/en-us/windows-hardware/drivers/display/desktop-duplication-api",
+        "finding": "STEP4の保護映像取得制限は文書に根拠あり。全黒画面が保護由来とは断定していない",
+        "id": "discord-screen-share-black-screen-3",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": [
+      "ハードウェアアクセラレーションのオン→オフは配信遅延の公式候補。黒画面の効果は実証していない"
+    ]
+  },
+  {
+    "path": "/discord/recommended-bots",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "導入権限/一般メンバーの利用",
+        "source": "https://support.discord.com/hc/en-us/articles/21334461140375-Using-Apps-on-Discord",
+        "finding": "共通の導入案内は所有者/サーバー管理と利用者を区別し文書と一致",
+        "id": "discord-recommended-bots-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "seshイベント/参加/日時/通知",
+        "source": "https://sesh.fyi/manual/",
+        "finding": "/createとdatetime、サーバー時刻、RSVPと任意DM、/poll、歯車編集/削除は公開マニュアルと一致",
+        "id": "discord-recommended-bots-2",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "Carl通常ロールとunique",
+        "source": "https://github.com/botlabs-gg/carlbot-docs/blob/master/docs/roles.md",
+        "finding": "絵文字ロール対応、通常/unique/verifyの違いを比較。複数選択にuniqueを使わない説明に一致",
+        "id": "discord-recommended-bots-3",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "Ticket Tool設定者権限/パネル",
+        "source": "https://docs.tickettool.xyz/general/setup",
+        "finding": "管理者前提、Support Team role、Manage→Panel Configs→Create/Sendは記事と一致",
+        "id": "discord-recommended-bots-4",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "パネル削除",
+        "source": "https://docs.tickettool.xyz/dashboard/panel-configs",
+        "finding": "Delete節のirreversible、および最後の1パネル削除前に別パネル作成が必要な注記を読み、記事の取消不可の注意と照合して一致。実際の削除はしていない。",
+        "id": "discord-recommended-bots-5",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "Dyno AutomodはCopied to clipboardのみで本文取得不能。機能/料金比較は未確認",
+      "Carl Dashboardの現行UI・Premium上限、sesh Premium境界、Ticket Toolの役割/カテゴリ権限の詳細文書"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": [
+      "人気順位や実測比較を捏造せず、用途選択と期待結果は編集判断として区別。Bot導入/稼働は行わない"
+    ]
+  },
+  {
+    "path": "/guide/gpu-driver-update",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "NVIDIA Appの更新・再インストール",
+        "source": "https://www.nvidia.com/en-us/geforce/news/gfecnt/202411/nvidia-app-download-and-features/",
+        "finding": "メーカー別表のDrivers入口、以前の導入版のReinstallと一致。実際の対象GPUは未操作",
+        "id": "guide-gpu-driver-update-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "AMDの更新入口とFactory Reset",
+        "source": "https://www.amd.com/en/resources/support-articles/faqs/rsx2-install.html",
+        "finding": "更新時の初期化を初手にしない説明と整合。公式はFactory Resetで旧版ロールバック不可と説明",
+        "id": "guide-gpu-driver-update-2",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "IntelのOEM優先と版確認",
+        "source": "https://www.intel.com/content/www/us/en/support/articles/000005629/graphics/processor-graphics.html",
+        "finding": "メーカー別表のOEM適合版確認、デバイスマネージャーの版確認に一致",
+        "id": "guide-gpu-driver-update-3",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "dxdiag経路、個別OEM配布物の対応、GPUごとの再導入結果は文書照合の対象外。"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": []
+  },
+  {
+    "path": "/guide/pc-game-crash",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "信頼性履歴の開き方と時刻の照合",
+        "source": "https://www.dell.com/support/kbdoc/en-us/000178177/how-to-use-windows-reliability-monitor-to-identify-software-issues",
+        "finding": "perfmon /rel、日付の重大イベントと詳細を見る本文に一致。原因確定ではないという本文の限定を維持",
+        "id": "guide-pc-game-crash-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "Application Error 1000とWER 1001",
+        "source": "https://learn.microsoft.com/en-us/troubleshoot/windows-server/performance/troubleshoot-application-service-crashing-behavior",
+        "finding": "停止履歴のイベント番号は公式例と一致。Windows Server資料であり全Windowsゲームのログ出現を保証しない",
+        "id": "guide-pc-game-crash-2",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "KERNELBASE名だけでは根因でないことの具体説明、ゲーム別MOD/セーブ依存、既存の個別報告の来歴、診断ツール動作は未比較。Steam整合性FAQ本文は取得不能。"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": []
+  },
+  {
+    "path": "/guide/pc-game-freezes",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "コミット上限とRAM・ページファイル",
+        "source": "https://learn.microsoft.com/en-us/troubleshoot/windows-client/performance/introduction-to-the-page-file",
+        "finding": "メモリ欄のコミット値を上限と比較し、ページファイル無効化を避ける説明に一致。例示値を一律閾値にしていない",
+        "id": "guide-pc-game-freezes-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "温度上限はCPU型番で異なる",
+        "source": "https://www.intel.com/content/www/us/en/support/articles/000005597/processors.html",
+        "finding": "温度だけで故障を決めず型番別仕様・症状を照合する本文と一致",
+        "id": "guide-pc-game-freezes-2",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "AMD Metricsのキー・HWiNFOのSensors-only UI・Task ManagerのGPU温度対応範囲は資料比較が残る。強制電源断は機種別手順。Steam整合性FAQ本文は取得不能。"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": []
+  },
+  {
+    "path": "/guide/ray-tracing-gpu",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "RX 6600のレイアクセラレータ",
+        "source": "https://www.amd.com/ja/products/graphics/desktops/radeon/6000-series/amd-radeon-rx-6600.html",
+        "finding": "STEP 2の具体例に一致。仕様欄は28基。これだけでAMD全世代を検証済みにしない",
+        "id": "guide-ray-tracing-gpu-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "ACE COMBAT 8の必須ハードウェアRT",
+        "source": "https://enso-order.acecombat.jp/",
+        "finding": "システム要件のSSD・hardware RT・DX12 Shader Model 6.6要件を本文と比較。RT必須の例として一致",
+        "id": "guide-ray-tracing-gpu-2",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "NVIDIA/AMD各世代全体の機能範囲、GPUエンジン列と高パフォーマンス指定UI、2026年10月発売の断定は未比較。Gears Steamページは年齢確認画面で要件本文を読めず保留。"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": []
+  },
+  {
+    "path": "/guide/remove-mods-safely",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "Vortex Deploy/Purgeの違い",
+        "source": "https://github.com/Nexus-Mods/Vortex/wiki/MODDINGWIKI-Users-FAQ",
+        "finding": "STEP 2とFAQの、無効化後の配置反映・Purgeは配置リンク解除・Deployで戻せるという説明と一致",
+        "id": "guide-remove-mods-safely-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "Workshop購読・解除・ダウンロード",
+        "source": "https://partner.steamgames.com/doc/features/workshop/implementation",
+        "finding": "購読解除はゲーム終了後の削除、購読中項目の更新/ダウンロードという公式説明と、終了・更新待ち・別導入経路を分ける本文が整合",
+        "id": "guide-remove-mods-safely-2",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "MO2の仮想配置・プロファイルとゲームごとのセーブ依存は未比較。Steam修復が手動追加物を全削除しない範囲はFAQ本文取得不能のため保留。"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": []
+  },
+  {
+    "path": "/guide/reshade-uninstall",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "v6.8.0検出後の選択肢と初期選択",
+        "source": "https://github.com/crosire/reshade/blob/v6.8.0/setup/Pages/SelectOperationPage.xaml",
+        "finding": "UpdateButtonにIsChecked=True、Uninstall ReShade and effectsの別選択肢を確認。記事の明示的にアンインストールを選ぶ説明と一致",
+        "id": "guide-reshade-uninstall-1",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "MainWindowの識別・削除対象、Vulkan/OpenXR共有レイヤー、プリセット復元と手動DLL退避の全条件は未比較。"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": []
+  },
+  {
+    "path": "/guide/shader-cache-delete",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "NVIDIA手動削除の順序と対象パス",
+        "source": "https://nvidia.custhelp.com/app/answers/detail/a_id/5735/~/deleting-nvidia-shader-cache-files",
+        "finding": "AppでOff→再起動→DXCache/GLCache/NV_Cacheの中身削除→Driver Default→再起動は本文と一致。DDU導入は強制していない",
+        "id": "guide-shader-cache-delete-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "更新後の再コンパイルとカクつき",
+        "source": "https://www.nvidia.com/content/Control-Panel-Help/vLatest/en-us/mergedProjects/nv3d/Manage_3D_Settings_(reference).htm",
+        "finding": "キャッシュの役割・新ドライバー導入後の初回カクつきという本文の限定に一致",
+        "id": "guide-shader-cache-delete-2",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "Windowsの削除UI、AMD Reset Shader Cache、Intel個別報告、Activision/Epicのゲーム内構築手順は未比較。"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": []
+  },
+  {
+    "path": "/guide/steam-disk-write-error",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "chkdskの検査と修復・長時間処理の区別",
+        "source": "https://learn.microsoft.com/ja-jp/windows-server/administration/windows-commands/chkdsk",
+        "finding": "末尾の/f・/rを反復しない説明と、オプションによる修復/全面走査の違いを比較。物理故障なしを保証しない本文を維持",
+        "id": "guide-steam-disk-write-error-1",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "Steamライブラリ修復・整合性確認のFAQ本文は取得不能。WindowsエラーチェックGUI、展開一時領域、隔離履歴、空き容量表示は未比較。"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": []
+  },
+  {
+    "path": "/guide/steam-game-not-launching",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "Steam購入でもEA appが必要な条件",
+        "source": "https://help.ea.com/en/articles/platforms/download-and-play-ea-app-games/",
+        "finding": "外部ランチャー補足・FAQの、対象ストアの第三者DRM条件確認とlink2ea公式案内への誘導に一致",
+        "id": "guide-steam-game-not-launching-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "起動直後に閉じた際の信頼性履歴",
+        "source": "https://www.dell.com/support/kbdoc/en-us/000178177/how-to-use-windows-reliability-monitor-to-identify-software-issues",
+        "finding": "本文のperfmon /rel、時刻とアプリ名を比較する操作に一致。ログが出ない時の原因否定には用いていない",
+        "id": "guide-steam-game-not-launching-2",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "Steam起動準備・.NET・競合ソフト・実行中/実行ファイル不明FAQは取得不能または未比較。保護履歴UIと個別ランチャー認証は未比較。"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": []
+  },
+  {
+    "path": "/guide/stutter-fix",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "NVIDIA最大フレームレート",
+        "source": "https://www.nvidia.com/content/Control-Panel-Help/vLatest/en-us/mergedProjects/nv3d/Manage_3D_Settings_(reference).htm",
+        "finding": "オン・値指定・OK、およびバックグラウンド上限とは別の機能という本文の説明に一致",
+        "id": "guide-stutter-fix-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "AMD FRTCの対象表示モード",
+        "source": "https://www.amd.com/en/products/software/adrenalin/frtc.html",
+        "finding": "公式はfull-screen exclusive mode。本文の全画面向け・表示条件が異なる限定は整合。日本語UI配置まではこの資料で証明しない",
+        "id": "guide-stutter-fix-2",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "ドライバー更新後のシェーダー再構築",
+        "source": "https://www.nvidia.com/content/Control-Panel-Help/vLatest/en-us/mergedProjects/nv3d/Manage_3D_Settings_(reference).htm",
+        "finding": "初回と再訪の比較を分ける説明と整合。60/90/120fps表と60秒ルートは編集上の仮例で実測値ではない",
+        "id": "guide-stutter-fix-3",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "Fortnite・Steamオーバーレイの現行UI、AMD設定画面経路、Hz/VRRの全条件は未比較。個別ゲームの改善効果は未実測。"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": []
+  },
+  {
+    "path": "/guide/verify-steam-files",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "整合性確認でWorkshop項目がダウンロード",
+        "source": "https://partner.steamgames.com/doc/features/workshop/implementation",
+        "finding": "Item Installationの明記と、早見表・MOD影響表・STEP 1/2・FAQの購読中項目の再取得説明を比較して一致",
+        "id": "guide-verify-steam-files-1",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "Steam整合性FAQ本文は取得不能のため現行操作UIと照合対象の完全な範囲は保留。ゲームごとのセーブ/MOD影響・隔離履歴も未比較。"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": []
+  },
+  {
+    "path": "/pc/bluetooth-option-missing",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "消失時のShiftシャットダウン・1分待ち",
+        "source": "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/fix-bluetooth-disappeared-in-windows",
+        "finding": "STEP 3と公式の完全電源断操作が一致。強制電源断と区別",
+        "id": "pc-bluetooth-option-missing-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "機内モード・アダプター更新・メーカー相談",
+        "source": "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/fix-bluetooth-disappeared-in-windows",
+        "finding": "STEP 1/2/4の入口と一致。BIOS更新を一括実行せず機種別にする限定を維持",
+        "id": "pc-bluetooth-option-missing-2",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "コード22と45の意味",
+        "source": "https://support.microsoft.com/ja-jp/windows/hardware/drivers/error-codes-in-device-manager-in-windows",
+        "finding": "STEP 2表の22=無効化、45=現在未接続を公式本文と照合して一致。コードのみで故障確定としない。",
+        "id": "pc-bluetooth-option-missing-3",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "非表示機器、ペアリング検出設定、ロールバック不可条件、切断時の電源管理は別資料の比較が残る。"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": []
+  },
+  {
+    "path": "/pc/disk-usage-100",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "Windowsドライブ正常性の対象と重大警告",
+        "source": "https://support.microsoft.com/ja-jp/windows/experience/storage-filemanagement/what-to-do-about-a-critical-warning-for-a-storage-device",
+        "finding": "NVMe SSDのみでSATA/HDD対象外、設定経路、重大警告時は保全を優先する本文と一致。警告なしで正常確定としない",
+        "id": "pc-disk-usage-100-1",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "100%アクティブ時間とMB/s、リソースモニター、検索索引、イベント153、SteamPipe展開、SysMainの扱いは未比較。"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": []
+  },
+  {
+    "path": "/pc/pc-broken",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "スタートアップ修復とBitLocker",
+        "source": "https://support.microsoft.com/ja-jp/windows/experience/startup-boot/startup-repair",
+        "finding": "STEP 4のWinRE→トラブルシューティング→詳細オプション→スタートアップ修復と、回復キーの準備が一致。電源故障修理とは扱っていない",
+        "id": "pc-pc-broken-1",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "Dellの無通電/POST/映像区別、NITE危険兆候、黒画面・BSOD・回復オプションの全条件は未比較。"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": []
+  },
+  {
+    "path": "/pc/pc-hacked-signs",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "偽警告の意味とブラウザ終了",
+        "source": "https://www.npa.go.jp/bureau/cyber/countermeasures/support-fraud.html",
+        "finding": "表示だけで感染と断定しない本文、電話/導入指示に従わずブラウザを終了するSTEP 3と一致",
+        "id": "pc-pc-hacked-signs-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "導入済み・支払い済みの場合の対応",
+        "source": "https://www.npa.go.jp/bureau/cyber/countermeasures/support-fraud.html",
+        "finding": "切断・導入物記録・決済会社/警察相談・証拠保全の本文と一致。復旧完了の判定には用いない",
+        "id": "pc-pc-hacked-signs-2",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "IPAランサムウェア/遠隔操作後の復元、Defender Offline、アカウント履歴・全端末サインアウトの制約、回復手順は未比較。"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": []
+  },
+  {
+    "path": "/pc/second-monitor-not-detected",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "Win+P拡張・直結・別ケーブル比較",
+        "source": "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/troubleshoot-external-monitor-connections-in-windows",
+        "finding": "STEP 1/2の拡張、ドックを外す、ケーブル/別PC比較が公式に一致",
+        "id": "pc-second-monitor-not-detected-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "更新後のドライバーロールバック",
+        "source": "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/troubleshoot-external-monitor-connections-in-windows",
+        "finding": "STEP 3のデバイスマネージャー→プロパティ→ドライバーの経路・更新後に限定する説明と一致",
+        "id": "pc-second-monitor-not-detected-2",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "ディスプレイ検出ボタン、GPUエンジン、USB-C/ドックの個別映像仕様、ロールバック不可の理由は別資料での照合が残る。"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": []
+  },
+  {
+    "path": "/pc/wifi-connected-no-internet",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "同一Wi-Fi別端末とルーター再起動",
+        "source": "https://support.microsoft.com/ja-jp/windows/experience/connectivity-networking/fix-wi-fi-connection-issues-in-windows",
+        "finding": "STEP 1/2の比較、全利用者が切断される注意、30秒待ち・モデム先復帰は公式と一致",
+        "id": "pc-wifi-connected-no-internet-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "ネットワークリセットは最後・VPN再設定",
+        "source": "https://support.microsoft.com/ja-jp/windows/experience/connectivity-networking/fix-wi-fi-connection-issues-in-windows",
+        "finding": "STEP 6のWindows 11設定経路とVPN/仮想スイッチへの影響は公式と一致。実行結果は未検証",
+        "id": "pc-wifi-connected-no-internet-2",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "169.254とIPv6条件、コマンドの限定適用、プロキシ・Edge拡張UI、Get Help検索文言は未比較。"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": []
+  },
+  {
+    "path": "/pc/wifi-option-missing",
+    "baseline": "8f03f0bca9fab3e75cfb388a08b80b011f5a4c5d",
+    "review": "Manual comparison of the named claims/paragraphs in local rendered main text with primary-source body; not a full-page verification.",
+    "productionRead": false,
+    "documentComparisons": [
+      {
+        "claim": "機内モード・別端末・周波数帯比較",
+        "source": "https://support.microsoft.com/ja-jp/windows/experience/connectivity-networking/fix-wi-fi-connection-issues-in-windows",
+        "finding": "STEP 1/3のオン/オフ・同じネットワークの別機器・2.4/5GHz比較と一致",
+        "id": "pc-wifi-option-missing-1",
+        "status": "supported-within-scope"
+      },
+      {
+        "claim": "適合ドライバーの事前確保とネットワークリセットの影響",
+        "source": "https://support.microsoft.com/ja-jp/windows/experience/connectivity-networking/fix-wi-fi-connection-issues-in-windows",
+        "finding": "STEP 4/相談文の、別PCでOEMドライバーを保存しリセットを初手にしない説明と整合",
+        "id": "pc-wifi-option-missing-2",
+        "status": "supported-within-scope"
+      }
+    ],
+    "remainingDocumentClaims": [
+      "WLAN AutoConfigの開始/再起動、更新アイコン、デバイスエラー・ロールバック条件、無線チップ名称の識別は未比較。"
+    ],
+    "actualApplicationOperation": "not performed; independent from document support",
+    "wholePageVerified": false,
+    "checkedAt": "2026-10-05",
+    "editorialOrApplicationLimits": []
+  }
+]

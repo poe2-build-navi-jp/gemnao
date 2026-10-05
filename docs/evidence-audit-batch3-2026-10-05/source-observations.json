@@ -193,21 +193,21 @@
     "url": "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows",
     "state": "body-read",
     "checkedAt": "2026-10-05",
-    "scopeRead": "Body retrieved; mixer/app output details pending comparison"
+    "scopeRead": "Body compared: Windows 11 solutions 1–2 support app-specific mixer volume and output selection; checked cant-hear-voice STEP 2 Windows 11 action. Other occurrences and Windows 10 output path remain outside this comparison."
   },
   {
     "id": "permission",
     "url": "https://support.microsoft.com/ja-jp/windows/privacy/turn-on-app-permissions-for-your-microphone-in-windows",
     "state": "body-read",
     "checkedAt": "2026-10-05",
-    "scopeRead": "Body retrieved; desktop-vs-store permission scope pending comparison"
+    "scopeRead": "Body compared: Windows 11 permissions steps 1–3 support desktop-app microphone access; checked microphone-after-update STEP 2 permission action. Separate per-app listing/browser permission claims not established by this scoped comparison."
   },
   {
     "id": "ducking",
     "url": "https://learn.microsoft.com/en-us/windows/win32/coreaudio/stream-attenuation",
     "state": "body-read",
     "checkedAt": "2026-10-05",
-    "scopeRead": "Body retrieved; communications attenuation settings pending comparison"
+    "scopeRead": "Body compared: default stream attenuation and Communications-tab disable option support call-starts-audio-disappears STEP 1 and game-volume-lowers Windows attenuation explanation. Does not verify Discord attenuation UI or Bluetooth behavior."
   },
   {
     "id": "blank",
