@@ -24,6 +24,7 @@ import {
   searchArticles,
   normalizeSearchQuery,
 } from '@/lib/site-search';
+import { ContinueNotes } from './continue-notes';
 import { RecentTroubles } from './recent-troubles';
 import { MyShortcut } from './my-shortcut';
 import { HomeBookmarkHelp } from './home-bookmark-help';
@@ -249,6 +250,7 @@ export function WikiHome({
         </section>
       )}
 
+      {!isSearching ? <ContinueNotes /> : null}
       {!isSearching ? (
         <div className="content home-my-shortcut">
           <MyShortcut />

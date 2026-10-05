@@ -11,9 +11,11 @@ import {
 function subscribe(callback: () => void) {
   window.addEventListener(MY_DATA_EVENT, callback);
   window.addEventListener('storage', callback);
+  window.addEventListener('pageshow', callback);
   return () => {
     window.removeEventListener(MY_DATA_EVENT, callback);
     window.removeEventListener('storage', callback);
+    window.removeEventListener('pageshow', callback);
   };
 }
 export function announceMyData() {

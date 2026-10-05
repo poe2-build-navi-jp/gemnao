@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import { emptySupport, type Attempt } from '@/lib/support-record';
 import { supportCopy, type SupportLocale } from '@/lib/support-copy';
 import { games } from '@/lib/games';
 import {
@@ -17,6 +18,7 @@ import { announceMyData } from '@/components/use-saved-solutions';
 export function SolutionForm({
   initial,
   id,
+  attempt,
   onSaved,
   onCancel,
   locale = 'ja',
@@ -24,6 +26,7 @@ export function SolutionForm({
   locale?: SupportLocale;
   initial: SolutionDraft;
   id?: string;
+  attempt?: Attempt;
   onSaved: (item: SavedSolution) => void;
   onCancel: () => void;
 }) {
@@ -58,6 +61,19 @@ export function SolutionForm({
             createdAt: previous?.createdAt || now,
             updatedAt: now,
           };
+          if (id && !previous) throw new Error('missing-record');
+          if (attempt) {
+            const support = previous?.support || emptySupport();
+            item.support = {
+              ...support,
+              attempts: [
+                ...support.attempts.filter(
+                  (a) => a.path !== attempt.path || a.stepId !== attempt.stepId,
+                ),
+                attempt,
+              ],
+            };
+          }
           upsertSolution(localStorage, item);
           announceMyData();
           onSaved(item);
