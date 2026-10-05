@@ -1,3 +1,4 @@
+import { ContinueNotes } from './continue-notes';
 import { EnglishHomeSearch } from './english-home-search';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { ArrowRight, ChevronRight, Wrench } from 'lucide-react';
@@ -50,6 +51,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
         ...gearGuidesEn.map(guide => ({href: `/en/gear/${guide.slug}`, title: guide.title, label: 'Before you buy', body: guide.description || ''})),
         {href: '/en/tools/windows-diagnosis', title: 'Windows game diagnosis: instructions and download', label: 'Windows prototype', body: 'Game launch, crash, black screen, freeze, low FPS and stutter. Windows 11 x64.'},
       ]} />}
+      <ContinueNotes locale={locale} />
       <div className="content home-my-shortcut">
         <MyGamesHomeEntry locale={locale} />
       </div>
