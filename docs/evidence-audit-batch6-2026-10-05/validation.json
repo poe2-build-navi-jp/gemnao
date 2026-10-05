@@ -1,0 +1,80 @@
+{
+  "baseline": "33d78198cd261e8a7906177535d926a3f08ab7c5",
+  "preservedDocumentationCommit": "f9822b6e3ae2903ddb4b70f957e3ecf20102402f",
+  "lint": "PASS",
+  "types": "PASS: pnpm exec tsc --noEmit",
+  "localized": "PASS: 79 translated pages",
+  "build": {
+    "status": "PASS",
+    "snapshots": 285,
+    "sitemapUrls": 272,
+    "ogPages": 204
+  },
+  "regression": [
+    "check-editorial-safety.mjs PASS",
+    "check-editorial-snapshots.mjs PASS",
+    "check-safe-step-navigation.mjs PASS",
+    "check-english-articles.mjs PASS",
+    "check-static-pages-http.mjs PASS: 285 local Pages routes; no D1 binding; assets/robots/ads/sitemap/3 native ZIPs retained"
+  ],
+  "changedRoutesBrowser": {
+    "checked": 100,
+    "detailsChecks": 444,
+    "results": [
+      {
+        "width": 375,
+        "pages": 25,
+        "backForward": true,
+        "pageErrors": 0
+      },
+      {
+        "width": 390,
+        "pages": 25,
+        "backForward": true,
+        "pageErrors": 0
+      },
+      {
+        "width": 430,
+        "pages": 25,
+        "backForward": true,
+        "pageErrors": 0
+      },
+      {
+        "width": 1440,
+        "pages": 25,
+        "backForward": true,
+        "pageErrors": 0
+      }
+    ],
+    "externalRequests": "blocked",
+    "apis": "mocked",
+    "realRecordsAccessed": false
+  },
+  "existingWorkflowBrowser": {
+    "widths": [
+      375,
+      390,
+      430,
+      1440
+    ],
+    "status": "PASS",
+    "checks": [
+      "keyboard branches",
+      "result buttons",
+      "optional prompt close",
+      "save cancel",
+      "save",
+      "reload/revisit",
+      "back/forward",
+      "notes A/B switching",
+      "feedback deduplication",
+      "4-language article layout"
+    ],
+    "fixtureOnly": true,
+    "externalRequests": "blocked"
+  },
+  "testHarnessCorrection": "First custom browser run used non-existent /discord/not-launching. Corrected test URL to existing /discord/not-opening; all 100 route/width combinations then passed. No product URL change.",
+  "realDeviceTests": false,
+  "productionDeploy": false,
+  "notesOrPersonalDataSent": false
+}

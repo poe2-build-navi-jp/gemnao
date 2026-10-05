@@ -79,7 +79,7 @@ export const discordBotArticles: DiscordArticle[] = [
       {
         question: 'スマホからDiscord Botを追加できますか？',
         answer:
-          '招待リンクなどから追加できる場合がありますが、Discord公式のApp Directoryはデスクトップ版・ブラウザ版で利用します。権限内容を確認しやすいため、管理作業はPC版を推奨します。',
+          'この記事の追加手順はPC向けです。Discord公式のApp Directoryはデスクトップ版・ブラウザ版で利用します。スマホでの追加経路はアプリ提供元の案内を確認し、PCを使える場合は権限内容を確認しやすいPC版で管理してください。',
       },
       {
         question: 'BotとDiscordアプリは違いますか？',

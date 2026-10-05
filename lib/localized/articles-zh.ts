@@ -701,8 +701,8 @@ export const articlesZh: LocalizedArticle[] = [
         time: '约 5 分钟',
         actions: [
           '先把存档文件夹复制到其他位置。',
-          '不使用 SKSE 加载器，直接从 Steam 正常启动“The Elder Scrolls V: Skyrim Special Edition”。',
-          '如果无法启动：' +
+          '不使用 SKSE 加载器，按所购版本的正常方式启动“The Elder Scrolls V: Skyrim Special Edition”：Steam 版从 Steam 启动，GOG 版按 GOG 版的正常方式启动。',
+          '如果 Steam 版无法启动：' +
             verify('The Elder Scrolls V: Skyrim Special Edition'),
         ],
         note: '验证文件也会还原被 MOD 替换的游戏文件。使用 MOD 管理器时，也请参照管理器的说明。',
@@ -711,7 +711,7 @@ export const articlesZh: LocalizedArticle[] = [
         id: 'check-version',
         title: '安装与游戏版本对应的 SKSE',
         summary:
-          'SKSE 只支持 Steam 上的最新游戏版本，每个版本都对应特定的游戏版本。',
+          'Steam 版和 GOG 版使用不同的 SKSE 构建版本，各自对应特定的游戏版本。请同时核对商店和游戏版本。',
         time: '约 10 分钟',
         actions: [
           '在游戏文件夹中（Steam：右键 →“管理”→“浏览本地文件”）右键点击“SkyrimSE.exe”→“属性”→“详细信息”，记下“文件版本”。',
@@ -719,12 +719,12 @@ export const articlesZh: LocalizedArticle[] = [
           '按照网站说明重新安装 SKSE。',
           '如果还没有对应你游戏版本的 SKSE，请等待 SKSE 更新。',
         ],
-        note: 'SKSE 团队提醒不要使用 Windows 应用商店里的工具解压，请按网站说明使用 Steam 安装、安装程序或 7-Zip。',
+        note: '请使用官方网站所选 SE/AE 构建版本对应的下载页面和随附说明。7z 文件可用 7-Zip 解压。不要把 classic 版的“Install via Steam”或安装程序当作 SE/AE 的安装方式。',
       },
       {
         id: 'plugins-off',
         title: '移走 SKSE 插件，再加回已更新的 MOD',
-        summary: '游戏更新后，使用 SKSE 插件的 MOD 几乎都需要一起更新。',
+        summary: '游戏更新后，使用 SKSE 插件的 MOD 也可能需要更新。',
         time: '约 10 分钟',
         actions: [
           String.raw`把游戏文件夹中“Data\SKSE\Plugins”的内容移到其他位置（使用 MOD 管理器时，禁用包含插件的 MOD）。`,

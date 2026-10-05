@@ -111,7 +111,7 @@ export const articlesEn: LocalizedArticle[] = [
           'On GOG GALAXY or Epic Games, use the launcher’s verify/repair option.',
           'Turn off overlays (Discord, Ubisoft Connect, GOG GALAXY and similar) and close unneeded hardware-monitoring or other non-security apps one at a time. Keep antivirus and firewall protection enabled.',
           'Run the launcher (Steam, GOG GALAXY or Epic) as administrator, then start the game.',
-          'If your CPU or GPU is overclocked or undervolted, return it to stock settings (official advice).',
+          'If your CPU or GPU is overclocked or underclocked, return it to stock clock settings (official advice).',
         ],
         note: 'If protection history identifies an official game file, confirm the file’s source and the detected issue with the security provider or game support before changing security settings. Do not restore a quarantined file or add an exclusion just to make the game start.',
       },
@@ -741,8 +741,8 @@ export const articlesEn: LocalizedArticle[] = [
         time: 'About 5 min',
         actions: [
           'Copy your save folder somewhere else first.',
-          'Start “The Elder Scrolls V: Skyrim Special Edition” normally from Steam, without the SKSE loader.',
-          'If it does not start: ' +
+          'Start “The Elder Scrolls V: Skyrim Special Edition” normally through your purchased edition: Steam for the Steam edition or the normal GOG launch for the GOG edition, without the SKSE loader.',
+          'If the Steam edition does not start: ' +
             verify('The Elder Scrolls V: Skyrim Special Edition'),
         ],
         note: 'Verifying files also restores game files that mods replaced. If you use a mod manager, check its instructions too.',
@@ -759,13 +759,13 @@ export const articlesEn: LocalizedArticle[] = [
           'Reinstall SKSE following the site’s instructions.',
           'If there is no build for your version yet, wait for an SKSE update.',
         ],
-        note: 'The SKSE team warns not to use anything from the Windows app store to extract the archive; use the Steam install, the installer or 7-Zip as described on the site.',
+        note: 'Follow the download destination and included instructions for the SE/AE build you selected on the official site. You can extract 7z files with 7-Zip. Do not mistake the classic build’s “Install via Steam” or installer for an SE/AE installation method.',
       },
       {
         id: 'plugins-off',
         title: 'Remove SKSE plugins, then add back updated mods',
         summary:
-          'After a game update, mods that use SKSE plugins almost always need updating as well.',
+          'After a game update, mods that use SKSE plugins may need updating as well.',
         time: 'About 10 min',
         actions: [
           String.raw`Move the contents of “Data\SKSE\Plugins” in the game folder somewhere else (with a mod manager, disable the mods that include plugins).`,
