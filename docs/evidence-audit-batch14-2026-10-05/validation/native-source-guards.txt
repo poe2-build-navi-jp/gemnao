@@ -1,0 +1,4 @@
+PASS source guardrails: no network/repair/registry-write APIs; bounded read-only metadata; consent, retest safety, preview export, asInvoker
+PASS 0.4 guards: scoped Steam process metadata, separate consents, own-user protected history, disabled web intake, x64
+PASS 0.5 guards: arbitrary local EXE, fixed symptom plans, Wilds-only additional parsing, distinct local history binding, generic feedback disabled
+PASS 0.6 guards: 695 bilingual embedded resources, invariant unknowns, idle-only language switch, preserved consent/evidence/history, raw names untouched

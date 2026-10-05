@@ -1,8 +1,11 @@
 import assert from 'node:assert/strict';
 import { build } from 'esbuild';
 
-const result = await build({ stdin: { contents: "export {classicGameArticles} from './lib/classic-game-articles'; export {codMw4Articles} from './lib/cod-mw4-articles'; export {tpmSecureBootGuide} from './lib/requirement-guides';", resolveDir: process.cwd() }, bundle: true, write: false, platform: 'node', format: 'esm' });
-const { classicGameArticles, codMw4Articles, tpmSecureBootGuide } = await import(`data:text/javascript;base64,${Buffer.from(result.outputFiles[0].text).toString('base64')}`);
+const result = await build({ stdin: { contents: "export {troubleHubs} from './lib/trouble-hubs'; export {classicGameArticles} from './lib/classic-game-articles'; export {codMw4Articles} from './lib/cod-mw4-articles'; export {tpmSecureBootGuide} from './lib/requirement-guides';", resolveDir: process.cwd() }, bundle: true, write: false, platform: 'node', format: 'esm' });
+const { troubleHubs, classicGameArticles, codMw4Articles, tpmSecureBootGuide } = await import(`data:text/javascript;base64,${Buffer.from(result.outputFiles[0].text).toString('base64')}`);
+const saveHub = troubleHubs.find((hub) => hub.slug === 'save');
+assert.match(saveHub.quickChecks[0], /消失・破損.*新規保存・同期のやり直しより先.*ローカルデータ.*退避/);
+assert.match(saveHub.quickChecks[1], /正常に遊べている時のバックアップだけ.*同期完了/);
 const save = classicGameArticles.find((a) => a.gameSlug === 'stardew-valley' && a.slug === 'save-restore');
 assert.ok(save);
 const undo = save.steps.find((s) => s.id === 'undo-save');
