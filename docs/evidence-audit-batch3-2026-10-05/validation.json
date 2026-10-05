@@ -1,0 +1,51 @@
+{
+  "base": "67e6838bd0f12b598d017eca22ed4c34305ff7a6",
+  "checks": [
+    {
+      "command": "pnpm lint",
+      "exitCode": 0,
+      "log": "/tmp/batch3-lint.log",
+      "tail": "$ oxlint\n"
+    },
+    {
+      "command": "pnpm exec tsc --noEmit",
+      "exitCode": 0,
+      "log": "/tmp/batch3-types.log",
+      "tail": ""
+    },
+    {
+      "command": "pnpm check:localized",
+      "exitCode": 0,
+      "log": "/tmp/batch3-localized.log",
+      "tail": "$ node scripts/run-localized-check.mjs\nPASS: 79 translated pages\n"
+    },
+    {
+      "command": "pnpm build",
+      "exitCode": 0,
+      "log": "/tmp/batch3-build.log",
+      "tail": "pc                              \n  ├ ƒ /pc/:slug                        \n  ├ ○ /privacy                         \n  ├ ○ /status                          \n  ├ ○ /terms                           \n  ├ ○ /tools                           \n  ├ ○ /tools/refresh-rate              \n  ├ ○ /tools/save-locations            \n  ├ ○ /tools/windows-diagnosis         \n  ├ ƒ /trouble/:slug                   \n  ├ ○ /weekly                          \n  └ ƒ /weekly/:slug                    \n\n  λ API  ƒ Dynamic  ○ Static  ? Unknown\n\n  ? Some routes could not be classified. vinext currently uses static analysis\n    and cannot detect dynamic API usage (headers(), cookies(), etc.) at build time.\n    Automatic classification will be improved in a future release.\n\n  ○ Routes marked static were confirmed by speculative prerender (attempted render\n    succeeded without dynamic API usage).\n\n  Build complete. Run `vinext start` to start the production server.\n\nPrepared editorial HTML snapshots: 285 (dynamic routes excluded)\nGenerated sitemap: 272 URLs\nGenerated image sitemap: 21 pages\nOG cards up to date: 204 pages\n"
+    },
+    {
+      "command": "python3 scripts/build-batch3-audit.py",
+      "exitCode": 0,
+      "log": "/tmp/batch3-ledger.log",
+      "tail": "{\n  \"pageFamilies\": 212,\n  \"batchPageFamilies\": 85,\n  \"kinds\": {\n    \"discord-article\": 38,\n    \"common-guide\": 28,\n    \"pc-article\": 19\n  },\n  \"scopedSharedClaims\": 33,\n  \"candidateLocationsNotVerifiedParagraphs\": 859,\n  \"sourceObservations\": {\n    \"body-read\": 30,\n    \"body-retrieved-not-compared\": 5,\n    \"body-unavailable\": 5,\n    \"initial-url-unavailable-resolved\": 4\n  },\n  \"sourceReferenceQueue\": {\n    \"not-attempted-this-batch\": 252,\n    \"body-read\": 27,\n    \"initial-url-unavailable-resolved\": 3,\n    \"body-unavailable\": 5,\n    \"body-retrieved-not-compared\": 5\n  },\n  \"articleStates\": {\n    \"partial-scoped-claims\": 52,\n    \"not-started-semantic-review\": 33\n  },\n  \"wholePagesVerified\": 0,\n  \"confirmedContentCorrections\": 0,\n  \"supplementFilesPending\": 27\n}\n"
+    }
+  ],
+  "ledgerRegression": {
+    "exitCode": 0,
+    "checks": [
+      "deterministic regeneration",
+      "all JSON/gzip parse",
+      "212 total /85 batch families",
+      "all scoped claims have readable source IDs",
+      "every scoped claim has local occurrence references"
+    ]
+  },
+  "scope": "Documentation and audit queue generation only; no production code/content changes. Existing UI browser tests were not rerun for this documentation-only diff. Prior PR60 browser tests are not represented as new runs. No real Windows/Steam/Discord application operation performed.",
+  "limits": [
+    "Full-site and whole-article audit incomplete",
+    "No production writes/D1/notes accessed",
+    "No login/CAPTCHA/proxy bypass"
+  ]
+}

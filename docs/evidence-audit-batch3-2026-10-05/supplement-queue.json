@@ -1,0 +1,384 @@
+[
+  {
+    "file": "components/audio-details.tsx",
+    "sha256": "2c9bf01070f2e7a4f3e21cec2e9def24270d51c72f557024f1ca7387c430eb7e",
+    "headings": [
+      "最初に分ける：Windows全体？ ゲームだけ？",
+      "① Windowsの「出力」を確認する",
+      "② ゲームだけ無音なら、音量ミキサーでゲーム名を確認",
+      "③ ゲーム内のマスター音量・個別音量を確認",
+      "3か所とも正常だった場合、結果で次を選ぶ"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/black-screen-details.tsx",
+    "sha256": "088b7af4b4a9ac23e9e0785bb1c60a6bec02c94d4a107aabbd3651722becba68",
+    "headings": [
+      "黒いのはどこ？ 症状で最初の操作を選ぶ",
+      "デスクトップも映らない：接続とWindowsの表示を確認",
+      "Windowsは映る：画面モード・解像度・HDRを戻す",
+      "1．Alt＋Enterで映るか試す",
+      "2．解像度・リフレッシュレートを変更前へ戻す",
+      "3．HDRを変えた直後なら、その設定だけ比較する",
+      "設定画面を開けない時の具体例：対象ファイルだけを扱う",
+      "エルデンリングで設定を退避・復元する手順",
+      "FortniteがDX12で黒くなる場合の公式対処例",
+      "まだ映らない時：比較結果から次を選ぶ",
+      "相談時に役立つ「黒画面の5項目メモ」"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/bsod-details.tsx",
+    "sha256": "884cca4d18c8fcef2ea344d158b2be3dab5ff0b343d147ffb8d4c7f4964c90b4",
+    "headings": [
+      "最初に確認する3点：コード・時刻・直前の変更",
+      "停止コード別：次に確認する場所",
+      "Windows メモリ診断：起動から結果の確認まで",
+      "ミニダンプはどこ？ 何を渡す？",
+      "相談時に渡す情報：そのまま使えるメモ"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/controller-double-input-details.tsx",
+    "sha256": "2d38fcb85c599df0dfe9b64ec359a2af34f590b57f4a89635496f32d05c1ab96",
+    "headings": [
+      "最初の30秒：本当に「1回で2回」動くか",
+      "実機と仮想パッドの見分け方：名前より「消える方」を見る",
+      "判断表：同じボタンを1回押した結果で次を決める",
+      "外部ツールが必要な場合：入力経路を1つにする",
+      "外部ツールを使わないのに二重なら"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/crash-details.tsx",
+    "sha256": "02d68b264da6e17b61bea86ac2d2277d8116ad93d69420bf78865c62d5f2138a",
+    "headings": [
+      "まず「ゲームだけ落ちた」かを確認",
+      "起動直後／ロード中／長時間後：最初の確認先",
+      "エラー表示がない時：Windowsの履歴を見る",
+      "改善報告：ゲームのMODがなくてもSteam本体の拡張を確認",
+      "試した対処が効いたか、同じ条件で比べる"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/directx-details.tsx",
+    "sha256": "378999e03c89716b8e9092118c293727aa0f55afc53215990db3b7b5c1eee47d",
+    "headings": [
+      "エラーの英数字で入口を選ぶ",
+      "DirectX 12と「機能レベル12_0」の違い",
+      "「DLLがない」なら、ファイル名で対処を分ける",
+      "GPUエラーなら、ドライバーと落ちる場面を比べる",
+      "Windows標準DLLや原因不明の初期化エラー"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/freeze-details.tsx",
+    "sha256": "945df50b4a5fbfc849142b170b07243dbab54fdefe3525d0f990293ca4dbd1d2",
+    "headings": [
+      "最初に分ける：ゲームだけ停止？ PC全体が停止？",
+      "メモリを確認する画面と、数値の読み方",
+      "温度を確認する方法：GPUとCPUを分けて見る",
+      "GPU：まずタスクマネージャーを見る",
+      "CPU：センサー画面でプレイ中の温度を確認する",
+      "何℃なら異常？ 温度と症状を組み合わせて判断する",
+      "復旧後は「信頼性履歴」で停止時刻を確認",
+      "改善したかを比べる手順と記録メモ",
+      "コピーして使う相談用メモ"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/gpu-driver-details.tsx",
+    "sha256": "f728110d96d8386432ae06ece5864c3bd7143795d4e928de3dd47c8da266b964",
+    "headings": [
+      "更新前に残す：GPU名・版・症状の3点",
+      "メーカー別：どの画面から更新する？",
+      "NVIDIA：NVIDIAアプリの「ドライバー」から",
+      "AMD：AMD Softwareの「システム設定」から",
+      "Intel：Driver &amp; Support Assistantで対象を確認",
+      "更新後の確認：「版が変わった」と「症状が直った」を分ける",
+      "悪化したら：Windowsから以前の版へ戻す",
+      "更新前後を比べる記録メモ"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/low-fps-details.tsx",
+    "sha256": "60fe41ec9484dcc0eede92fb48da7a6a680f9b1e502687dd3c9c247ee526885c",
+    "headings": [
+      "最初に測る：FPS、上限、GPUの「3D」、CPU",
+      "原因別の分岐：まず何を変える？",
+      "① 設定上限に達していたら、上限とV-Syncを確認",
+      "② レンダリング解像度だけ変えて同じ場面を比較",
+      "読み方の例（すべて説明用の仮の数値で、実機検証結果ではありません）",
+      "③ 比較結果に合う設定だけ試す"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/low-gpu-usage-details.tsx",
+    "sha256": "8391b4330c1271acdb72061968aaa2791b55d99c010500ec08d7b9c8889d3448",
+    "headings": [
+      "まず結論：目標FPSを維持しているなら低使用率は正常",
+      "FPS・CPU・使用GPUを、同じプレイ場面で確認する",
+      "判断表：FPS・CPU・実際の使用GPUを組み合わせる",
+      "CPU側が候補なら、GPU使用率を上げる前に比較する",
+      "内蔵GPUで動いている場合だけ、ゲームのGPUを選ぶ",
+      "両方の使用率が低く、FPSも低いままなら"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/power-shutdown-details.tsx",
+    "sha256": "b3af8201344ca817007df8e50f3c03a4a3359253fbb164d8066d1337200dd2ce",
+    "headings": [
+      "まず症状を分ける：何が消え、どう戻った？",
+      "履歴の見方：41を見つけた後に何を見る？",
+      "温度はどの画面で見て、どう判断する？",
+      "自分で確認できる範囲と比較の仕方",
+      "いつ点検を依頼する？"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/remove-mods-details.tsx",
+    "sha256": "26cc851faf4744a795b81ef723bd0fe66f95db7b6f4c8e104cc34b0441cf3090",
+    "headings": [
+      "まず導入経路を確認：外す場所が違う",
+      "最初にコピーするもの：セーブと導入記録",
+      "外した後の残存確認：画面と元パスの両方を比べる",
+      "元に戻す時は、外した時と同じ入口から"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/reset-config-details.tsx",
+    "sha256": "7442f719d15618634b6d2fe86e0165e049a49862e86bb7de13b7527969336896",
+    "headings": [
+      "ゲーム別：設定ファイルの保存先3例",
+      "この症状なら初期化を試す？",
+      "初期化後の結果で次の行動を選ぶ",
+      "相談・共有に使える確認メモ"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/reshade-details.tsx",
+    "sha256": "abc41955d728cd8c6ebffffb3ae0f151bfaae53970f9e11358d3a610dec85390",
+    "headings": [
+      "導入方法で解除手順を選ぶ",
+      "どのファイルを外す？ 名前と役割の早見表",
+      "DLLを見分ける3つの確認",
+      "外せない・まだ表示される場合",
+      "元に戻したい場合",
+      "相談・共有用：解除後の確認メモ"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/save-backup-details.tsx",
+    "sha256": "da30df5ee002ecbd15376a75a0c29a9725ff4147b4d904188397c991c51a210a",
+    "headings": [
+      "ゲーム別の保存先・コピー対象3例",
+      "「バックアップを検証する」とは？ 3段階で確認",
+      "追加確認：PowerShellで1ファイルの内容を比べる",
+      "バックアップから復元する手順",
+      "1. 現在の状態と同期設定を保全する",
+      "2. 現在の対象フォルダーを退避して、元の名前で戻す",
+      "3. ロードと進行状況を確認する",
+      "4. 確認後に同期を戻す",
+      "コピー・復元でつまずいた時の確認表",
+      "次回の自分にも伝わるバックアップ記録"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/shader-cache-details.tsx",
+    "sha256": "0b28d432d7a3712472b15d13d2ac8876714292c5cca5ec99172cdf39656c8e5e",
+    "headings": [
+      "どのキャッシュを操作する？ 4つの入口",
+      "Windows：DirectXシェーダーキャッシュの削除",
+      "NVIDIA：削除後はキャッシュ設定を戻す",
+      "AMD：Reset Shader Cacheを実行",
+      "ゲーム内：削除と事前構築を区別する",
+      "Black Ops 6：メインメニューで待つ",
+      "Fortnite：削除後の初回マッチはまだカクつく場合がある",
+      "再構築中の挙動：待つ時・別の対策へ進む時",
+      "比較・相談に使える確認メモ"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/steam-cloud-details.tsx",
+    "sha256": "f22886aa7e434a59eef30f336c443352a9a03bcde6ca201d024537386c2ff178",
+    "headings": [
+      "競合が出たら：選択前の保全を先に",
+      "1台／複数PC：確認する順番",
+      "「進行状況」は選択前にどう照合する？",
+      "ローカル？ クラウド？ 選択の具体例",
+      "選択した後、何を見れば成功？",
+      "競合ではなく「同期できません」の場合"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/steam-disk-write-details.tsx",
+    "sha256": "97564ab052ca676f16ab48746203a4b66facc8e780ef377dbc447f0f6f49ca92",
+    "headings": [
+      "最初に、どのドライブへ書き込めないか特定する",
+      "「十分な空き」はどう確かめる？",
+      "ライブラリ修復の後は、同じ更新の完了まで確かめる",
+      "確認結果で次にすることを選ぶ",
+      "Windowsのドライブ点検へ進む条件と、結果の読み方"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/steam-input-details.tsx",
+    "sha256": "78dcc16310fb2797baede7ea52422f0b2132e09330182d0a0f03f1f6869f0658",
+    "headings": [
+      "どこまで認識される？ 最初に進む場所を決める",
+      "Steamが認識しない場合：機器名とボタンの両方を見る",
+      "Steamで認識する場合：ゲーム別設定は1回ずつ試す",
+      "設定を変えた後の期待結果と、次に調べる場所",
+      "部分的に動く・二重に動く場合の分岐"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/steam-launch-details.tsx",
+    "sha256": "3479e3e12f3981ff4639f2b0adc3245bf1f243309971fa208cbe1d7405e07340",
+    "headings": [
+      "「プレイ」を押した後、どの状態になる？",
+      "別ランチャーが開いた後にログイン・認証で止まる場合",
+      "本当に起動していない？ タスクマネージャーで見る",
+      "一瞬で閉じる・エラーなし：起動の痕跡を探す",
+      "確認結果から次に進む場所"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/stutter-details.tsx",
+    "sha256": "8137688a2a07a4ce47b6a902e7ac7f4557ab75e5fe670ab1ae59613d92d954c4",
+    "headings": [
+      "症状から切り分ける：全部を「重い」でまとめない",
+      "FPS上限はどこで設定する？",
+      "ゲーム内の例：Fortnite",
+      "NVIDIA：ゲームごとの「最大フレームレート」",
+      "AMD：FRTCが表示される環境",
+      "60・90・120fps：数値の決め方と設定例",
+      "同じ場面で「変更前→変更後→元に戻す」を比較",
+      "1. 測るルートと表示を決める",
+      "2. 最初の読み込みを分けて記録する",
+      "3. 上限だけを変えて、同じルートを2回",
+      "4. 元の値へ戻して再確認する",
+      "比較結果を残すメモ",
+      "改善しなかった時は、症状に合わせて次へ"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/uninstall-save-details.tsx",
+    "sha256": "92534368c160ffdec31293e9922134fad7c03c093b84789607bd67bcbe19a47f",
+    "headings": [
+      "30秒で判断：どの削除をする予定ですか？",
+      "ゲーム別：残る条件と、消してはいけない場所",
+      "具体例：Cyberpunk 2077の「クリーンインストール」は別工程",
+      "セーブを残して通常アンインストールする",
+      "Steamの場合",
+      "Epic Games Launcherの場合",
+      "再インストール後：残っているのに見えない場合もある",
+      "削除前に残す3行メモ"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/verify-steam-details.tsx",
+    "sha256": "109036c0cd0ad1ed92c5d430aa518b351022d845228e758fb319369594c712eb",
+    "headings": [
+      "整合性確認で分かること・分からないこと",
+      "結果別の早見表：ダウンロード完了後に判定",
+      "MOD・ワークショップ・セーブへの影響",
+      "翌日また再発したら：直前に変わったものを見る",
+      "相談するときに伝える確認メモ"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/visual-c-details.tsx",
+    "sha256": "2928aa94c17eeeda7dbc62d1313fabc4324bba54f33e708c749148f920d85035",
+    "headings": [
+      "エラー表示から、調べる系列を選ぶ",
+      "x86とx64の選び方：Windowsではなくゲームを見る",
+      "Windowsの導入済み一覧を確認する",
+      "修復・インストールが失敗した場合の判断表",
+      "問い合わせ前に残す5項目"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/vram-details.tsx",
+    "sha256": "ac576a351cdacd2b1744b950480bd664ab6388544843e18cc3267e7ed350312b",
+    "headings": [
+      "専用・共有GPUメモリ：まず表示の意味を分ける",
+      "症状と数値を同じタイミングで確認する",
+      "テクスチャを1段階下げて、変更前後を比べる",
+      "記録例（説明のための仮の数値・実機測定ではありません）",
+      "結果別の次の行動"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "app/guide/[slug]/page.tsx",
+    "sha256": "b48e2308246d2d63cac5cf6e4aca0c2e1c1218ab518750b85a1c7bc807cfea25",
+    "headings": [
+      "原因候補",
+      "よくある質問",
+      "まだ直りませんか？ 次に試す記事",
+      "ゲーム別の対処法",
+      "参考情報・出典"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  },
+  {
+    "file": "components/english-crash-guide.tsx",
+    "sha256": "e229b5500c3120cf950216a9ecd1b38ddf431ee20187c36f1d25ac69c7974c98",
+    "headings": [
+      "{section.title}"
+    ],
+    "status": "not-reviewed-in-full",
+    "required": "Compare all prose/table cells with primary sources, including cautions, limits, and differences from data records. Keyword screening is not completion."
+  }
+]

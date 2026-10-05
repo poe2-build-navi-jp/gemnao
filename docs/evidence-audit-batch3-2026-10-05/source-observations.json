@@ -1,0 +1,310 @@
+[
+  {
+    "id": "voice",
+    "url": "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Essential Settings; Voice Settings; PC/browser; Reset Debugging; hardware acceleration"
+  },
+  {
+    "id": "codes",
+    "url": "https://support.discord.com/hc/en-us/articles/30952914470807-Discord-Audio-and-Video-Error-Codes-Troubleshooting-Guide",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "1001/1002/1003/2008-2009 definitions and actions"
+  },
+  {
+    "id": "krisp",
+    "url": "https://support.discord.com/hc/en-us/articles/360040843952-Krisp-FAQ",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Own microphone filtering; quiet environment; high CPU auto-off"
+  },
+  {
+    "id": "overlay",
+    "url": "https://support.discord.com/hc/en-us/articles/217659737-Game-Overlay-101",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Windows only; enable; message suppression; per-game disable"
+  },
+  {
+    "id": "helper",
+    "url": "https://support.discord.com/hc/en-us/articles/34853435033367-Discord-System-Helper",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Elevated games; experimental subset; install prompts; optional; uninstall"
+  },
+  {
+    "id": "install",
+    "url": "https://support.discord.com/hc/en-us/articles/209099387--Windows-Installer-Errors",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Terminate processes; two Discord subfolders; restart and official reinstall"
+  },
+  {
+    "id": "corrupt",
+    "url": "https://support.discord.com/hc/en-us/articles/115004307527--Windows-Corrupt-Installation",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Same two subfolders and closed processes; not entire AppData"
+  },
+  {
+    "id": "general",
+    "url": "https://support.discord.com/hc/en-us/articles/31623498041623-Discord-Troubleshooting-Guide",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Cache location; complete exit; browser comparison; backup before install repair"
+  },
+  {
+    "id": "connection",
+    "url": "https://support.discord.com/hc/en-us/articles/115001310031-Voice-Connection-Errors",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "No Route/RTC; UDP VPN requirement; region; network administrator"
+  },
+  {
+    "id": "upload",
+    "url": "https://support.discord.com/hc/en-us/articles/25444343291031-File-Attachments-FAQ",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "2026-09-30: free20MB Basic50MB Nitro1GB; experiments; before compression"
+  },
+  {
+    "id": "old-upload",
+    "url": "https://support.discord.com/hc/en-us/articles/211866427-How-do-I-upload-images-and-GIFs",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Older image guide still says10MB; no inference that20MB applies to every account"
+  },
+  {
+    "id": "mic",
+    "url": "https://support.discord.com/hc/en-us/articles/360020641332-Mic-Testing",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Desktop/browser; playback; auto mute/deafen until test stops"
+  },
+  {
+    "id": "streaming",
+    "url": "https://support.discord.com/hc/en-us/articles/33030151293079-Discord-Voice-Video-Streaming-Guide",
+    "state": "body-retrieved-not-compared",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Body retrieved; detailed platform/quality claims not yet compared"
+  },
+  {
+    "id": "sfc",
+    "url": "https://support.microsoft.com/ja-jp/windows/experience/backup-recovery/use-the-system-file-checker-tool-to-repair-missing-or-corrupted-system-files",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Admin DISM RestoreHealth before sfc /scannow; completion messages"
+  },
+  {
+    "id": "repair",
+    "url": "https://support.microsoft.com/ja-jp/windows/deployment/install-upgrade/fix-issues-by-reinstalling-the-current-version-of-windows",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Same Windows version; preserves apps/files/settings; power/internet; managed PC limits"
+  },
+  {
+    "id": "vc",
+    "url": "https://learn.microsoft.com/ja-jp/cpp/windows/latest-supported-vc-redist",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "App target architecture; separate older versions; current v14; no installer execution"
+  },
+  {
+    "id": "dxlegacy",
+    "url": "https://www.microsoft.com/ja-jp/download/details.aspx?id=8109",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Legacy D3DX/XInput libraries do not upgrade installed DirectX version"
+  },
+  {
+    "id": "feature",
+    "url": "https://learn.microsoft.com/ja-jp/windows/win32/direct3d12/hardware-feature-levels",
+    "state": "body-retrieved-not-compared",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Hardware feature levels and Direct3D feature support"
+  },
+  {
+    "id": "dxgi",
+    "url": "https://learn.microsoft.com/ja-jp/windows/win32/direct3ddxgi/dxgi-error",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "DEVICE_REMOVED/HUNG/RESET meanings; not a root-cause diagnosis"
+  },
+  {
+    "id": "power",
+    "url": "https://learn.microsoft.com/ja-jp/windows-hardware/design/device-experiences/powercfg-command-line-options",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "/lastwake /waketimers /devicequery wake_armed /a /sleepstudy"
+  },
+  {
+    "id": "tpm",
+    "url": "https://support.microsoft.com/ja-jp/windows/security/devicesecurity/enable-tpm-2-0-on-your-pc",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "tpm.msc specification2.0; may be disabled; manufacturer-specific UEFI"
+  },
+  {
+    "id": "secure",
+    "url": "https://support.microsoft.com/ja-jp/windows/security/devicesecurity/windows-11-and-secure-boot",
+    "state": "body-retrieved-not-compared",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Body retrieved; firmware switching/BitLocker claims not yet compared"
+  },
+  {
+    "id": "le",
+    "url": "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/configuring-bluetooth-le-audio-quality-settings-on-windows-11",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "24H2+ supported hardware/drivers; active mic mono/stereo; absent control"
+  },
+  {
+    "id": "event41",
+    "url": "https://learn.microsoft.com/ja-jp/troubleshoot/windows-client/performance/event-id-41-restart",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Unclean shutdown result; BugcheckCode0 alone cannot establish cause"
+  },
+  {
+    "id": "memory",
+    "url": "https://devblogs.microsoft.com/directx/gpus-in-the-task-manager/",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Dedicated/shared meaning; busiest engine; process vs total metrics"
+  },
+  {
+    "id": "bound",
+    "url": "https://devblogs.microsoft.com/directx/cpu-and-gpu-boundedness/",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Scene and settings vary CPU/GPU load; resolution vs draw distance"
+  },
+  {
+    "id": "refresh",
+    "url": "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/change-the-refresh-rate-on-your-monitor-in-windows",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Advanced display; asterisk changes resolution; DRR conditions and lower game refresh"
+  },
+  {
+    "id": "app-audio",
+    "url": "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Body retrieved; mixer/app output details pending comparison"
+  },
+  {
+    "id": "permission",
+    "url": "https://support.microsoft.com/ja-jp/windows/privacy/turn-on-app-permissions-for-your-microphone-in-windows",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Body retrieved; desktop-vs-store permission scope pending comparison"
+  },
+  {
+    "id": "ducking",
+    "url": "https://learn.microsoft.com/en-us/windows/win32/coreaudio/stream-attenuation",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Body retrieved; communications attenuation settings pending comparison"
+  },
+  {
+    "id": "blank",
+    "url": "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/troubleshooting-blank-screens-in-windows",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "WinCtrlShiftB reset; CtrlShiftEsc Explorer restart; explorer.exe"
+  },
+  {
+    "id": "disk",
+    "url": "https://learn.microsoft.com/ja-jp/windows-server/storage/disk-management/initialize-new-disks",
+    "state": "body-retrieved-not-compared",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Body retrieved; destructive initialization conditions pending comparison"
+  },
+  {
+    "id": "cloud",
+    "url": "https://partner.steamgames.com/doc/features/cloud",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Per-game/global opt-out; sync before/after session; not user conflict dialog"
+  },
+  {
+    "id": "input",
+    "url": "https://partner.steamgames.com/doc/features/steam_controller/legacy_mode",
+    "state": "body-read",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Legacy input emulates mouse/keyboard/XInput; keyboard scancodes"
+  },
+  {
+    "id": "input-start",
+    "url": "https://partner.steamgames.com/doc/features/steam_controller/getting_started_for_players",
+    "state": "body-retrieved-not-compared",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Body retrieved; current client settings UI not yet compared"
+  },
+  {
+    "id": "verify",
+    "url": "https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB",
+    "state": "body-unavailable",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Title/image only or tool inaccessible; no usable body. No bypass attempted."
+  },
+  {
+    "id": "cloud-help",
+    "url": "https://help.steampowered.com/ja/faqs/view/68D2-35AB-09A9-7678",
+    "state": "body-unavailable",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Title/image only or tool inaccessible; no usable body. No bypass attempted."
+  },
+  {
+    "id": "disk-help",
+    "url": "https://help.steampowered.com/ja/faqs/view/21F5-8D5D-0141-7A5E",
+    "state": "body-unavailable",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Title/image only or tool inaccessible; no usable body. No bypass attempted."
+  },
+  {
+    "id": "launch-help",
+    "url": "https://help.steampowered.com/ja/faqs/view/5814-D9A3-BE42-62DF",
+    "state": "body-unavailable",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Title/image only or tool inaccessible; no usable body. No bypass attempted."
+  },
+  {
+    "id": "attenuation",
+    "url": "https://support.discord.com/hc/en-us/articles/206342888-How-do-I-stop-Discord-from-lowering-my-app-volume-when-someone-else-is-talking",
+    "state": "body-unavailable",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Title/image only or tool inaccessible; no usable body. No bypass attempted."
+  },
+  {
+    "id": "codes-initial",
+    "url": "https://support.discord.com/hc/ja/articles/30952914470807",
+    "state": "initial-url-unavailable-resolved",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Initial URL unavailable; official page link led to readable canonical English article: codes"
+  },
+  {
+    "id": "install-initial",
+    "url": "https://support.discord.com/hc/ja/articles/209099387",
+    "state": "initial-url-unavailable-resolved",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Initial URL unavailable; official page link led to readable canonical English article: install"
+  },
+  {
+    "id": "corrupt-initial",
+    "url": "https://support.discord.com/hc/ja/articles/115004307527",
+    "state": "initial-url-unavailable-resolved",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Initial URL unavailable; official page link led to readable canonical English article: corrupt"
+  },
+  {
+    "id": "helper-initial",
+    "url": "https://support.discord.com/hc/en-us/articles/34853435033367",
+    "state": "initial-url-unavailable-resolved",
+    "checkedAt": "2026-10-05",
+    "scopeRead": "Initial URL unavailable; official page link led to readable canonical English article: helper"
+  }
+]
