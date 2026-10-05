@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-05",
+  "environment": "Linux Chromium; local built routes http://127.0.0.1:3001; external requests blocked and API responses mocked",
+  "checks": {
+    "pnpm lint": "passed",
+    "pnpm exec tsc --noEmit": "passed",
+    "pnpm check:localized": "passed: 79 pages",
+    "pnpm build": "passed: 285 snapshots, 272 sitemap URLs, 204 OG cards",
+    "ledger": "passed: exact original 30 queued paths, 74 explicit comparison groups, wholePageVerified false for every page",
+    "correctedRoutes": "passed: notifications-not-working + screen-share-black-screen × widths 375,390,430,1440; details Enter/Space open-close; new copy; no overflow or pageerror",
+    "safeNavigation": "passed: scripts/check-safe-step-navigation-browser.mjs; four widths; keyboard, result clicks, cancel/save/reload, no recognition votes/writes, A→B→A, four languages",
+    "supportBrowser": "passed: scripts/check-support-browser.mjs copied to /tmp with localhost:3000 replaced by 127.0.0.1:3001 and networkidle awaited after goBack/goForward. Create/reload, cross-article, history, repeated clicks, restore states, preview/copy/fallback, quota, keyboard, ja/en/zh/es at 375/390/430, fresh-context resume, privacy."
+  },
+  "initialFailure": "Unmodified history timing reached reload before navigation settled and returned net::ERR_ABORTED; rerun with navigation completion waits passed. No production code change for this test timing issue.",
+  "notTested": [
+    "Windows/Discord/Steam/game application operation and repair effectiveness",
+    "Production HTML/CSS/JS/API availability",
+    "Real D1 or real user notes",
+    "PV or resolution-rate effects"
+  ],
+  "protectedScope": "No URL, STEP id, data format, MyGames cap, SEO, AdSense, D1, analytics payload or Bot change."
+}

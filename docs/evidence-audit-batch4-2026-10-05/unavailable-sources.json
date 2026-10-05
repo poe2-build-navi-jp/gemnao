@@ -1,0 +1,50 @@
+[
+  {
+    "id": "blocked-verify",
+    "claim": "Steamファイル整合性確認の操作と注意",
+    "url": "https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB",
+    "scope": "carried forward from batch3; no bypass or new successful body retrieval"
+  },
+  {
+    "id": "blocked-cloud-help",
+    "claim": "Steam Cloud競合時の選択・復旧",
+    "url": "https://help.steampowered.com/ja/faqs/view/68D2-35AB-09A9-7678",
+    "scope": "carried forward from batch3; no bypass or new successful body retrieval"
+  },
+  {
+    "id": "blocked-disk-help",
+    "claim": "Steam更新・ディスク書込み障害の手順",
+    "url": "https://help.steampowered.com/ja/faqs/view/21F5-8D5D-0141-7A5E",
+    "scope": "carried forward from batch3; no bypass or new successful body retrieval"
+  },
+  {
+    "id": "blocked-launch-help",
+    "claim": "Steam起動準備中の対処",
+    "url": "https://help.steampowered.com/ja/faqs/view/5814-D9A3-BE42-62DF",
+    "scope": "carried forward from batch3; no bypass or new successful body retrieval"
+  },
+  {
+    "id": "blocked-attenuation",
+    "claim": "Discord音量減衰の設定条件",
+    "url": "https://support.discord.com/hc/en-us/articles/206342888-How-do-I-stop-Discord-from-lowering-my-app-volume-when-someone-else-is-talking",
+    "scope": "carried forward from batch3; no bypass or new successful body retrieval"
+  },
+  {
+    "id": "dyno-automod",
+    "claim": "Dyno Automod本文・機能条件",
+    "url": "https://docs.dyno.gg/en/modules/automod",
+    "scope": "Copied to clipboard only; usable body not retrieved"
+  },
+  {
+    "id": "gears-requirements",
+    "claim": "Gears of War E-Day動作環境",
+    "url": "https://store.steampowered.com/app/3010850/",
+    "scope": "Age-check page only; no system requirements body"
+  },
+  {
+    "id": "discord-dm-mute",
+    "claim": "DMミュート通知仕様",
+    "url": "https://support.discord.com/hc/ja/articles/223657667",
+    "scope": "Usable body not retrieved"
+  }
+]
