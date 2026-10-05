@@ -1,0 +1,1656 @@
+[
+  {
+    "id": "discord-bot-add-1",
+    "path": "/discord/bot-add",
+    "originalPendingScope": "スマホ招待リンクの個別アプリ対応・要求権限の妥当性は提供者別。Bot実行は行わない。",
+    "claims": [
+      {
+        "id": "discord-bot-add-1-c1",
+        "claim": "スマホで招待リンクを使える場合がある",
+        "quote": "招待リンクなどから追加できる場合がありますが、Discord公式のApp Directoryはデスクトップ版・ブラウザ版で利用します。権限内容を確認しやすいため、管理作業はPC版を推奨します。",
+        "renderedLine": 131,
+        "needle": "招待リンクなどから",
+        "status": "M",
+        "source": "https://support.discord.com/hc/en-us/articles/21334461140375-Using-Apps-on-Discord",
+        "reason": "公式資料のモバイル実行と招待を混同しない。招待経路の個別例を裏付ける資料が必要。",
+        "sourceRelation": "retrieved-source-insufficient-for-exact-claim"
+      },
+      {
+        "id": "discord-bot-add-1-c2",
+        "claim": "個別Botの要求権限を利用者が確認する",
+        "quote": "1. サーバー管理権限と追加先を確認する",
+        "renderedLine": 46,
+        "needle": "権限",
+        "status": "E",
+        "source": "https://support.discord.com/hc/en-us/articles/21334461140375-Using-Apps-on-Discord",
+        "reason": "特定Botの全権限が正当だとは本文は主張していない。提供者別の実行成功を残件にしない。",
+        "sourceRelation": "editorial-or-applicability-not-document-blocker"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 2,
+    "statusCounts": {
+      "M": 1,
+      "E": 1
+    },
+    "documentOpenCount": 1,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "discord-bot-not-responding-1",
+    "path": "/discord/bot-not-responding",
+    "originalPendingScope": "応答期限とinteraction固有権限は開発者資料比較が残る",
+    "claims": [
+      {
+        "id": "discord-bot-not-responding-1-c1",
+        "claim": "応答エラーは権限不足のみを意味しない",
+        "quote": "「アプリケーションが応答しませんでした」などは、必要な応答が得られなかった表示で、権限不足だけを意味しない。STEP 2の比較と提供者の稼働情報を確認する。",
+        "renderedLine": 122,
+        "needle": "必要な応答が得られなかった",
+        "status": "P",
+        "source": "https://docs.discord.com/developers/interactions/receiving-and-responding",
+        "reason": "3秒以内の初回応答という別条件がある。本文は秒数を断定しておらず期限全体を残す必要なし。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "discord-bot-not-responding-1-c2",
+        "claim": "interaction応答と通常投稿で条件が異なる",
+        "quote": "スラッシュコマンドへの応答と通常のメッセージ投稿では動作条件が異なるため、送信権限を付ければすべて直るとは考えない。Bot独自の許可チャンネル設定もあれば確認する。",
+        "renderedLine": 137,
+        "needle": "スラッシュコマンドへの応答と通常",
+        "status": "M",
+        "source": "https://docs.discord.com/developers/interactions/receiving-and-responding",
+        "reason": "callback方式は確認済みだが、具体的な権限差の文書対応はまだ不足。通常SEND_MESSAGESの資料だけで完了にしない。",
+        "sourceRelation": "retrieved-source-insufficient-for-exact-claim"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 2,
+    "statusCounts": {
+      "P": 1,
+      "M": 1
+    },
+    "documentOpenCount": 1,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "discord-bot-remove-1",
+    "path": "/discord/bot-remove",
+    "originalPendingScope": "Webhookとチャンネルフォローの管理・削除後URL、Kickロール階層、個人アプリ認証解除UIは追加文書比較が必要",
+    "claims": [
+      {
+        "id": "discord-bot-remove-1-c1",
+        "claim": "Webhook一覧で作成者・投稿先を確認する",
+        "quote": "「サーバー設定」→「連携サービス」→Webhookの一覧を開く。投稿先チャンネル、作成者、作成日時を照合し、同じ名前だけで削除対象を決めない。",
+        "renderedLine": 134,
+        "needle": "Webhookの一覧",
+        "status": "P",
+        "source": "https://support.discord.com/hc/en-us/articles/360045093012-Server-Integrations-Page",
+        "reason": "前バッチで本文比較済み。再計上しない。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "discord-bot-remove-1-c2",
+        "claim": "チャンネルフォローも別の投稿経路",
+        "quote": "最初にBotの担当機能と必要な設定を保存し、追加先を確認します。サーバーのBotはキックまたは連携サービスから削除、自分のアプリはユーザー設定の認証済みアプリから解除します。削除後の新しい投稿は、Webhook・チャンネルフォロー・他の利用者のアプリも確認してください。",
+        "renderedLine": 58,
+        "needle": "チャンネルフォロー",
+        "status": "P",
+        "source": "https://support.discord.com/hc/en-us/articles/360045093012-Server-Integrations-Page",
+        "reason": "既に編集・削除可能な別経路として照合済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "discord-bot-remove-1-c3",
+        "claim": "削除したWebhookは新規URLを通知元へ設定し直す",
+        "quote": "外部サービスの通知と一致したら、その送信設定を止める。不要と確認できたWebhookは対象だけ削除する。再作成時は新しいURLを外部サービス側へ設定し直す必要がある。",
+        "renderedLine": 135,
+        "needle": "再作成時は新しいURL",
+        "status": "N",
+        "source": "https://docs.discord.com/developers/resources/webhook",
+        "reason": "Createは新規オブジェクト、Deleteはpermanently。再作成を旧URLの復元としない案内に整合。",
+        "sourceRelation": "new-comparison-recorded"
+      },
+      {
+        "id": "discord-bot-remove-1-c4",
+        "claim": "キックは権限とロール階層も必要",
+        "quote": "削除項目がない場合はサーバー所有者へ依頼する。アプリ管理の権限に加え、メンバーのキックでは権限とロールの上下関係も確認対象になる。",
+        "renderedLine": 106,
+        "needle": "ロールの上下関係",
+        "status": "P",
+        "source": "https://docs.discord.com/developers/topics/permissions",
+        "reason": "前バッチで同位・上位をキックできない条件を照合済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "discord-bot-remove-1-c5",
+        "claim": "個人追加アプリは認証済みアプリから解除",
+        "quote": "歯車アイコンからユーザー設定を開き、「認証済みアプリ／Authorized Apps」で対象アプリを選び、認証解除を実行します。表示名は言語やバージョンにより異なる場合があります。",
+        "renderedLine": 118,
+        "needle": "Authorized Apps",
+        "status": "P",
+        "source": "https://support.discord.com/hc/en-us/articles/24160905919511-My-Discord-Account-was-Hacked-or-Compromised",
+        "reason": "前バッチのDiscord侵害対応資料でPC・モバイル解除を比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 5,
+    "statusCounts": {
+      "P": 4,
+      "N": 1
+    },
+    "documentOpenCount": 0,
+    "residualScopeClosed": true
+  },
+  {
+    "id": "discord-echo-double-voice-1",
+    "path": "/discord/echo-double-voice",
+    "originalPendingScope": "ヘッドセット固有のサイドトーン項目・mmsys.cplの現行経路、各仮想ミキサーの配線は別文書",
+    "claims": [
+      {
+        "id": "discord-echo-double-voice-1-c1",
+        "claim": "Runからmmsys.cplで録音プロパティを開く",
+        "quote": "Windows＋Rを押し「mmsys.cpl」と入力してサウンド画面を開く。「録音」タブ → 使用中のマイク →「プロパティ」を開く",
+        "renderedLine": 117,
+        "needle": "mmsys.cpl",
+        "status": "M",
+        "source": "https://support.focusrite.com/hc/de/articles/206849219-Latency-while-using-Direct-Monitor",
+        "reason": "Focusriteは別入口で聴くタブまで案内。コマンド入口自体の根拠をまだ対応付けていない。",
+        "sourceRelation": "retrieved-source-insufficient-for-exact-claim"
+      },
+      {
+        "id": "discord-echo-double-voice-1-c2",
+        "claim": "機種の説明書に沿って監視機能を比較する",
+        "quote": "項目がない、または変化しない場合は、ヘッドセットの専用アプリやオーディオインターフェースの「サイドトーン」「Direct Monitor」などを確認する。機器の説明書に沿って一時的にオフにし比較する",
+        "renderedLine": 119,
+        "needle": "サイドトーン",
+        "status": "E",
+        "source": "https://support.focusrite.com/hc/de/articles/206849219-Latency-while-using-Direct-Monitor",
+        "reason": "特定ヘッドセットの項目名・操作成功の断定はない。機種全部の資料収集は不要。",
+        "sourceRelation": "editorial-or-applicability-not-document-blocker"
+      },
+      {
+        "id": "discord-echo-double-voice-1-c3",
+        "claim": "仮想入力を外して物理マイクと比較する",
+        "quote": "AさんはDiscordの「音声・ビデオ」で現在の入力デバイス名を控え、仮想ケーブルやミキサーではなく物理マイクを直接選ぶ。OBS・ボイスチェンジャーなども終了し、同じ言葉で再比較する",
+        "renderedLine": 135,
+        "needle": "仮想ケーブルやミキサーではなく",
+        "status": "E",
+        "source": null,
+        "reason": "仮想ミキサー個別配線の断定はなく、一条件ずつ比べる編集手順。実アプリ配線を文書残件にしない。",
+        "sourceRelation": "editorial-or-applicability-not-document-blocker"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 3,
+    "statusCounts": {
+      "M": 1,
+      "E": 2
+    },
+    "documentOpenCount": 1,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "discord-slow-performance-1",
+    "path": "/discord/slow-performance",
+    "originalPendingScope": "タスクマネージャー各指標・PC負荷・キャッシュ対処の文書照合",
+    "claims": [
+      {
+        "id": "discord-slow-performance-1-c1",
+        "claim": "タスクマネージャーでCPU等を確認する",
+        "quote": "2. CPU・メモリ・GPU・ディスクの結果から次の操作を選ぶ",
+        "renderedLine": 47,
+        "needle": "CPU",
+        "status": "P",
+        "source": "https://support.microsoft.com/ja-jp/windows/experience/performance-optimization/tips-to-improve-pc-performance-in-windows",
+        "reason": "既に比較済み。全PC負荷の再現は実機枠へ。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "discord-slow-performance-1-c2",
+        "claim": "リンク先のキャッシュ退避手順で比較する",
+        "quote": "アプリだけ重い状態が続くなら、関連記事「Discordが起動しない」のキャッシュ退避手順を使って比較する。再インストールはその後にし、メール・パスワード・二要素認証を確認してから行う",
+        "renderedLine": 174,
+        "needle": "キャッシュ退避手順",
+        "status": "U",
+        "source": null,
+        "reason": "このページは退避対象を直接断定しない。リンク先Discord起動不良記事の対象フォルダー・戻し方が未比較。",
+        "sourceRelation": "comparison-incomplete-see-reason"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 2,
+    "statusCounts": {
+      "P": 1,
+      "U": 1
+    },
+    "documentOpenCount": 1,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "discord-notifications-not-working-1",
+    "path": "/discord/notifications-not-working",
+    "originalPendingScope": "DMミュート資料223657667は本文取得不能",
+    "claims": [
+      {
+        "id": "discord-notifications-not-working-1-c1",
+        "claim": "DMミュートの解除操作",
+        "quote": "1. DMだけ届かないなら、会話ごとのミュートと「無視」を調べる",
+        "renderedLine": 46,
+        "needle": "ミュート",
+        "status": "B",
+        "source": "https://support.discord.com/hc/en-us/articles/223657667",
+        "reason": "公式223657667本文取得不能を維持。DM/グループDMの適用差も未解決。",
+        "sourceRelation": "body-unavailable"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 1,
+    "statusCounts": {
+      "B": 1
+    },
+    "documentOpenCount": 1,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "discord-recommended-bots-1",
+    "path": "/discord/recommended-bots",
+    "originalPendingScope": "Dyno AutomodはCopied to clipboardのみで本文取得不能。機能/料金比較は未確認",
+    "claims": [
+      {
+        "id": "discord-recommended-bots-1-c1",
+        "claim": "DynoのModulesからAutomodを開く",
+        "quote": "Dynoを追加し、dyno.gg/accountで対象サーバーを選ぶ。「Modules」→「Automod」の設定を開く。使わない管理機能は一度に有効にしない。",
+        "renderedLine": 169,
+        "needle": "Modules",
+        "status": "B",
+        "source": "https://docs.dyno.gg/en/modules/automod",
+        "reason": "本文取得不能。画面経路を確認できていない。",
+        "sourceRelation": "body-unavailable"
+      },
+      {
+        "id": "discord-recommended-bots-1-c2",
+        "claim": "Dyno完全一致の禁止語とWarn処理",
+        "quote": "最初はBanned Words（exact／完全一致）でテスト語「gemnao_test_123」を設定し、Warnなど警告の処理から試す。自動BAN・キック・長時間のタイムアウトをテストには選ばない。",
+        "renderedLine": 171,
+        "needle": "Banned Words",
+        "status": "B",
+        "source": "https://docs.dyno.gg/en/modules/automod",
+        "reason": "本文取得不能。exactとWarnの組合せが未比較。",
+        "sourceRelation": "body-unavailable"
+      },
+      {
+        "id": "discord-recommended-bots-1-c3",
+        "claim": "Dynoの免除ロール・チャンネル",
+        "quote": "一般メンバーにテスト語を1回投稿してもらい、警告やログを確認する。免除ロール・免除チャンネルでは検出されない場合があるため、管理者の投稿だけで合否を決めない。確認後はテスト語を外し、必要なルールを1つずつ追加する。",
+        "renderedLine": 172,
+        "needle": "免除ロール",
+        "status": "B",
+        "source": "https://docs.dyno.gg/en/modules/automod",
+        "reason": "本文取得不能。設定条件が未比較。",
+        "sourceRelation": "body-unavailable"
+      },
+      {
+        "id": "discord-recommended-bots-1-c4",
+        "claim": "Dyno無料で始められる機能範囲",
+        "quote": "無料で始める候補は、基本の日程調整ならsesh、通常のゲーム別ロール選択ならCarl-bot、管理・荒らし対策ならDynoです。定期イベントや設定上限の拡張などは有料になる場合があります。Ticket Toolは必要なパネル機能と上限を設定画面で確認してください。契約前に、使いたい機能のPremium表示を確認します。",
+        "renderedLine": 222,
+        "needle": "無料で始める候補",
+        "status": "B",
+        "source": "https://docs.dyno.gg/en/premium",
+        "reason": "今回Premium資料もCopied to clipboardのみ。Automod本文とは別URL。",
+        "sourceRelation": "body-unavailable"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 4,
+    "statusCounts": {
+      "B": 4
+    },
+    "documentOpenCount": 4,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "discord-recommended-bots-2",
+    "path": "/discord/recommended-bots",
+    "originalPendingScope": "Carl Dashboardの現行UI・Premium上限、sesh Premium境界、Ticket Toolの役割/カテゴリ権限の詳細文書",
+    "claims": [
+      {
+        "id": "discord-recommended-bots-2-c1",
+        "claim": "Carl DashboardのReaction Roles設定入口",
+        "quote": "carl.ggでログインし対象サーバーを選び、Reaction Roles（リアクションロール）の作成画面を開く。投稿先を「#ゲーム選択」にし、説明文と絵文字・ロールの組み合わせを登録する。メニュー表記が違う場合は公式マニュアルのReaction Rolesを参照する。",
+        "renderedLine": 147,
+        "needle": "Reaction Roles（",
+        "status": "M",
+        "source": "https://carl.gg/about",
+        "reason": "aboutは概説のみ。GitHubのコマンド資料だけでDashboard現行画面は確認できない。",
+        "sourceRelation": "retrieved-source-insufficient-for-exact-claim"
+      },
+      {
+        "id": "discord-recommended-bots-2-c2",
+        "claim": "Carl等の設定上限拡張の有料境界",
+        "quote": "無料で始める候補は、基本の日程調整ならsesh、通常のゲーム別ロール選択ならCarl-bot、管理・荒らし対策ならDynoです。定期イベントや設定上限の拡張などは有料になる場合があります。Ticket Toolは必要なパネル機能と上限を設定画面で確認してください。契約前に、使いたい機能のPremium表示を確認します。",
+        "renderedLine": 222,
+        "needle": "設定上限の拡張",
+        "status": "M",
+        "source": "https://carl.gg/about",
+        "reason": "本文は数値上限を挙げていない。料金境界の一次資料不足。",
+        "sourceRelation": "retrieved-source-insufficient-for-exact-claim"
+      },
+      {
+        "id": "discord-recommended-bots-2-c3",
+        "claim": "sesh繰り返し開催のPremium境界",
+        "quote": "無料で始める候補は、基本の日程調整ならsesh、通常のゲーム別ロール選択ならCarl-bot、管理・荒らし対策ならDynoです。定期イベントや設定上限の拡張などは有料になる場合があります。Ticket Toolは必要なパネル機能と上限を設定画面で確認してください。契約前に、使いたい機能のPremium表示を確認します。",
+        "renderedLine": 222,
+        "needle": "定期イベント",
+        "status": "P",
+        "source": "https://sesh.fyi/",
+        "reason": "前バッチで比較済み。契約やBot実行は別枠。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "discord-recommended-bots-2-c4",
+        "claim": "Ticket Tool担当者ロールの権限対象",
+        "quote": "Dashboardで対象サーバーの「Manage」→「Panel Configs」を開き、「Create Panel」または「＋」でパネルを作る。General OptionsのSupport Team Rolesに対応者ロールを登録し、作成先カテゴリの権限も確認する。",
+        "renderedLine": 195,
+        "needle": "Support Team Roles",
+        "status": "P",
+        "source": "https://docs.tickettool.xyz/dashboard/panel-configs/permission-options.md",
+        "reason": "前バッチでSupport Team/User/Everyoneと必要権限の条件を比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "discord-recommended-bots-2-c5",
+        "claim": "Ticket Tool作成先カテゴリの権限を確認する",
+        "quote": "Dashboardで対象サーバーの「Manage」→「Panel Configs」を開き、「Create Panel」または「＋」でパネルを作る。General OptionsのSupport Team Rolesに対応者ロールを登録し、作成先カテゴリの権限も確認する。",
+        "renderedLine": 195,
+        "needle": "作成先カテゴリ",
+        "status": "E",
+        "source": "https://docs.tickettool.xyz/dashboard/panel-configs/permission-options.md",
+        "reason": "カテゴリの具体的ボタン位置は断定していない。公開前の相談者/第三者別比較は実操作枠。",
+        "sourceRelation": "editorial-or-applicability-not-document-blocker"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 5,
+    "statusCounts": {
+      "M": 2,
+      "P": 2,
+      "E": 1
+    },
+    "documentOpenCount": 2,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "guide-gpu-driver-update-1",
+    "path": "/guide/gpu-driver-update",
+    "originalPendingScope": "dxdiag経路、個別OEM配布物の対応、GPUごとの再導入結果は文書照合の対象外。",
+    "claims": [
+      {
+        "id": "guide-gpu-driver-update-1-c1",
+        "claim": "dxdiagでGPU・ドライバー情報を確認",
+        "quote": "対象GPUを右クリック→「プロパティ」→「ドライバー」で「ドライバーのバージョン」「日付」を記録する。Windows＋R→dxdiag→「ディスプレイ」または「レンダー」も確認できるが、複数GPUでは対象名を取り違えない。",
+        "renderedLine": 122,
+        "needle": "dxdiag",
+        "status": "P",
+        "source": "https://devblogs.microsoft.com/directx/gpus-in-the-task-manager/",
+        "reason": "資料にDisplayタブの情報あり。Win+R入口/Renderタブは下の別検査項目。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "guide-gpu-driver-update-1-c2",
+        "claim": "複数GPUのRenderタブ表示",
+        "quote": "対象GPUを右クリック→「プロパティ」→「ドライバー」で「ドライバーのバージョン」「日付」を記録する。Windows＋R→dxdiag→「ディスプレイ」または「レンダー」も確認できるが、複数GPUでは対象名を取り違えない。",
+        "renderedLine": 122,
+        "needle": "「レンダー」",
+        "status": "M",
+        "source": "https://devblogs.microsoft.com/directx/gpus-in-the-task-manager/",
+        "reason": "現在の参照資料はDisplayのみ。Render名の根拠を未対応付け。",
+        "sourceRelation": "retrieved-source-insufficient-for-exact-claim"
+      },
+      {
+        "id": "guide-gpu-driver-update-1-c3",
+        "claim": "OEM適合版と再導入結果を確認する",
+        "quote": "メーカー別の入口",
+        "renderedLine": 44,
+        "needle": "メーカー",
+        "status": "E",
+        "source": null,
+        "reason": "各OEM製品の対応成功を断定せず製造元確認へ誘導。機種別実測を文書残件にしない。",
+        "sourceRelation": "editorial-or-applicability-not-document-blocker"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 3,
+    "statusCounts": {
+      "P": 1,
+      "M": 1,
+      "E": 1
+    },
+    "documentOpenCount": 1,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "guide-pc-game-crash-1",
+    "path": "/guide/pc-game-crash",
+    "originalPendingScope": "KERNELBASE名だけでは根因でないことの具体説明、ゲーム別MOD/セーブ依存、既存の個別報告の来歴、診断ツール動作は未比較。Steam整合性FAQ本文は取得不能。",
+    "claims": [
+      {
+        "id": "guide-pc-game-crash-1-c1",
+        "claim": "障害モジュール名だけでは根因を確定できない",
+        "quote": "例：同時刻にGame.exeの停止が記録され、ゲームだけ閉じたなら、そのゲームの更新・MOD・保存データを優先して調べます。KERNELBASE.dllなどのモジュール名は原因の確定やDLL交換の指示ではありません。複数ゲームが落ちる、Windowsも停止する場合はPC側も調べます。",
+        "renderedLine": 122,
+        "needle": "KERNELBASE.dll",
+        "status": "P",
+        "source": "https://learn.microsoft.com/en-us/troubleshoot/windows-server/performance/troubleshoot-application-service-crashing-behavior",
+        "reason": "既にkernelbaseが他の破損の被害側となる説明と照合済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "guide-pc-game-crash-1-c2",
+        "claim": "10月3日のSteam拡張停止でプレイできた1件の来歴",
+        "quote": "2026年10月3日（日本時間）、Steam版モンハンワイルズがタイトル前に落ちる環境で、 Steamクライアントの外部拡張を一時停止した後に「プレイできた」との報告が1件ありました。 OBS終了・SteamオーバーレイOFF・ゲームの整合性確認・管理者実行OFFの確認・GPUドライバー更新と再起動だけでは改善せず、 SteamプロセスにSteam直下の追加DLLが読み込まれていることを確認してから切り分けています。",
+        "renderedLine": 126,
+        "needle": "報告が1件",
+        "status": "I",
+        "source": null,
+        "reason": "既存本文以外の一次の報告記録を今回参照できていない。公開資料で内部報告の真偽は証明できない。実ユーザー記録はアクセスしない。",
+        "sourceRelation": "original-report-provenance-unavailable"
+      },
+      {
+        "id": "guide-pc-game-crash-1-c3",
+        "claim": "ゲーム固有のMODやセーブ条件",
+        "quote": "まず「ゲームだけ閉じた／PCが再起動した」を分け、落ちた時刻とタイミングを記録します。起動直後はMOD・オーバーレイ、ロード中はセーブを保全してファイルと特定場面、長時間後はメモリ・VRAM・温度の変化を優先して確認。エラー表示がなくても信頼性履歴とイベントビューアーで同時刻のゲーム名を照合し、変更は1項目ずつ試してください。",
+        "renderedLine": 56,
+        "needle": "MOD",
+        "status": "E",
+        "source": null,
+        "reason": "個別ゲームの互換性成功は断定していない。問題に応じて確認する分岐を全ゲーム検証に膨らませない。",
+        "sourceRelation": "editorial-or-applicability-not-document-blocker"
+      },
+      {
+        "id": "guide-pc-game-crash-1-c4",
+        "claim": "Steam整合性の手順",
+        "quote": "セーブ・エリアのロード中\t特定のセーブ・場面だけか、別スロットや新規ゲームでも起きるか\tセーブをコピー。別スロットも落ちるならSteamの整合性確認。特定データだけなら消さずにゲームのサポートへ",
+        "renderedLine": 79,
+        "needle": "整合性",
+        "status": "B",
+        "source": "https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB",
+        "reason": "前バッチから本文取得不能。",
+        "sourceRelation": "body-unavailable"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 4,
+    "statusCounts": {
+      "P": 1,
+      "I": 1,
+      "E": 1,
+      "B": 1
+    },
+    "documentOpenCount": 2,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "guide-pc-game-freezes-1",
+    "path": "/guide/pc-game-freezes",
+    "originalPendingScope": "AMD Metricsのキー・HWiNFOのSensors-only UI・Task ManagerのGPU温度対応範囲は資料比較が残る。強制電源断は機種別手順。Steam整合性FAQ本文は取得不能。",
+    "claims": [
+      {
+        "id": "guide-pc-game-freezes-1-c1",
+        "claim": "AMD Metrics記録ショートカットと温度欄",
+        "quote": "対応環境のAMD Softwareでも、アプリ内検索で「Metrics」→「Performance Metrics」を開き、CPU TemperatureやGPU Current Temperatureを確認できます。初期設定ではCtrl＋Shift＋Lで記録の開始・終了ができます。項目が出ない環境では利用できません。GPU Junction Temperatureは別の測定点なので、通常のGPU温度と同列に比べません。",
+        "renderedLine": 109,
+        "needle": "Ctrl＋Shift＋L",
+        "status": "P",
+        "source": "https://www.amd.com/en/resources/support-articles/faqs/DH3-038.html",
+        "reason": "前バッチ比較済み。キー変更可能性は実機でなく資料条件。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "guide-pc-game-freezes-1-c2",
+        "claim": "HWiNFOのSensors-only→Start/Run",
+        "quote": "メーカー付属の監視ソフトがあるなら先に使います。ない場合はHWiNFO公式から入手し、起動時に「Sensors-only」を選んで「Start」または「Run」でセンサー画面を開きます。版によって表示名は異なります。",
+        "renderedLine": 103,
+        "needle": "Sensors-only",
+        "status": "M",
+        "source": "https://www.hwinfo.com/about-software/",
+        "reason": "aboutに監視機能はあるが具体的な起動UIの裏付けなし。別公式操作資料が必要。",
+        "sourceRelation": "retrieved-source-insufficient-for-exact-claim"
+      },
+      {
+        "id": "guide-pc-game-freezes-1-c3",
+        "claim": "HWiNFOのCPU Package/Tctl/Tdie欄",
+        "quote": "CPUの欄で「CPU Package」や「CPU (Tctl/Tdie)」などの温度項目を探します。表示されるセンサー名はCPUによって異なります。",
+        "renderedLine": 105,
+        "needle": "CPU Package",
+        "status": "M",
+        "source": "https://www.hwinfo.com/about-software/",
+        "reason": "監視できることと特定センサー表示名は別。対応資料未確保。",
+        "sourceRelation": "retrieved-source-insufficient-for-exact-claim"
+      },
+      {
+        "id": "guide-pc-game-freezes-1-c4",
+        "claim": "Task ManagerではCPU温度を調べられない",
+        "quote": "「パフォーマンス」→使用中の「GPU」で温度表示を確認します。対応するGPU・ドライバーでのみ表示されます。温度がないこと自体は故障ではありません。また、ここでCPU温度を調べることはできません。",
+        "renderedLine": 99,
+        "needle": "ここでCPU温度",
+        "status": "M",
+        "source": "https://blogs.windows.com/windows-insider/2019/08/16/announcing-windows-10-insider-preview-build-18963/",
+        "reason": "公式GPU温度追加資料はCPU温度非対応を明示していない。否定の根拠が不足。",
+        "sourceRelation": "retrieved-source-insufficient-for-exact-claim"
+      },
+      {
+        "id": "guide-pc-game-freezes-1-c5",
+        "claim": "Task Manager温度は対応GPU/ドライバー依存",
+        "quote": "「パフォーマンス」→使用中の「GPU」で温度表示を確認します。対応するGPU・ドライバーでのみ表示されます。温度がないこと自体は故障ではありません。また、ここでCPU温度を調べることはできません。",
+        "renderedLine": 99,
+        "needle": "対応するGPU",
+        "status": "P",
+        "source": "https://blogs.windows.com/windows-insider/2019/08/16/announcing-windows-10-insider-preview-build-18963/",
+        "reason": "既に専用GPUとWDDM条件を比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "guide-pc-game-freezes-1-c6",
+        "claim": "強制電源断を機種別手順に委ねる",
+        "quote": "マウスも操作できず、Ctrl＋Alt＋Deleteにも反応しない\tPC全体・画面表示・入力機器の問題が候補\t通常操作で復旧しない場合は機種の手順で終了。再起動後に履歴を確認し、繰り返すならメーカー診断",
+        "renderedLine": 76,
+        "needle": "機種の手順で終了",
+        "status": "E",
+        "source": null,
+        "reason": "一律の長押し秒数を断定していない。実機で強制断しないことは文書残件ではない。",
+        "sourceRelation": "editorial-or-applicability-not-document-blocker"
+      },
+      {
+        "id": "guide-pc-game-freezes-1-c7",
+        "claim": "Steam整合性手順",
+        "quote": "Alt＋Tabで他アプリに切り替えられ、操作もできる\tゲーム側の停止を優先して調べる\t進捗を確認し、戻らなければ対象ゲームだけ終了。整合性・MOD・メモリを比較",
+        "renderedLine": 74,
+        "needle": "整合性",
+        "status": "B",
+        "source": "https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB",
+        "reason": "既存の本文取得不能。",
+        "sourceRelation": "body-unavailable"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 7,
+    "statusCounts": {
+      "P": 2,
+      "M": 3,
+      "E": 1,
+      "B": 1
+    },
+    "documentOpenCount": 4,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "guide-ray-tracing-gpu-1",
+    "path": "/guide/ray-tracing-gpu",
+    "originalPendingScope": "NVIDIA/AMD各世代全体の機能範囲、GPUエンジン列と高パフォーマンス指定UI、2026年10月発売の断定は未比較。Gears Steamページは年齢確認画面で要件本文を読めず保留。",
+    "claims": [
+      {
+        "id": "guide-ray-tracing-gpu-1-c1",
+        "claim": "RTX各世代の専用RT機能",
+        "quote": "NVIDIA：GeForce RTX（RTX 20・30・40・50シリーズ）は対応。GeForce GTX（GTX 10・16シリーズなど）は非対応",
+        "renderedLine": 85,
+        "needle": "RTX 20・30・40・50",
+        "status": "M",
+        "source": "https://www.nvidia.com/en-us/geforce/news/geforce-gtx-dxr-ray-tracing-available-now/",
+        "reason": "20/30の文書比較は済み。40/50まで一つの古い記事で証明しない。追加一次仕様が必要。",
+        "sourceRelation": "retrieved-source-insufficient-for-exact-claim"
+      },
+      {
+        "id": "guide-ray-tracing-gpu-1-c2",
+        "claim": "RX5000以前がハードウェアRT非対応",
+        "quote": "タスクマネージャーの「パフォーマンス」→「GPU」でGPU名を確認します。NVIDIAはGeForce RTXシリーズ（RTX 20シリーズ以降）、AMDはRadeon RX 6000シリーズ以降が、ハードウェアのレイトレーシング機能を備えています。GTX 10／16シリーズやRadeon RX 5000シリーズ以前は非対応で、ゲーム側の設定では解決できません。",
+        "renderedLine": 53,
+        "needle": "RX 5000シリーズ以前",
+        "status": "M",
+        "source": "https://www.amd.com/en/products/graphics/desktops/radeon/6000-series.html",
+        "reason": "RX6000の加速機能は確認済み。過去全世代の否定を同じページで証明しない。",
+        "sourceRelation": "retrieved-source-insufficient-for-exact-claim"
+      },
+      {
+        "id": "guide-ray-tracing-gpu-1-c3",
+        "claim": "GPUエンジン列で実行GPUを確認",
+        "quote": "ゲームを起動したままタスクマネージャーの「プロセス」タブで、「GPUエンジン」列にどのGPUが使われているか見る（列がなければ見出しを右クリックして追加）",
+        "renderedLine": 95,
+        "needle": "GPUエンジン",
+        "status": "P",
+        "source": "https://devblogs.microsoft.com/directx/gpus-in-the-task-manager/",
+        "reason": "最も使用するGPU/エンジン列の意味は比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "guide-ray-tracing-gpu-1-c4",
+        "claim": "GPU列を見出し右クリックから追加",
+        "quote": "ゲームを起動したままタスクマネージャーの「プロセス」タブで、「GPUエンジン」列にどのGPUが使われているか見る（列がなければ見出しを右クリックして追加）",
+        "renderedLine": 95,
+        "needle": "見出しを右クリック",
+        "status": "U",
+        "source": "https://devblogs.microsoft.com/directx/gpus-in-the-task-manager/",
+        "reason": "表示の意味と現行追加操作は別。記事の現行UI資料照合が残る。",
+        "sourceRelation": "comparison-incomplete-see-reason"
+      },
+      {
+        "id": "guide-ray-tracing-gpu-1-c5",
+        "claim": "Windowsのゲーム別GPU指定操作",
+        "quote": "Windowsの「設定」→「システム」→「ディスプレイ」→「グラフィック」で、ゲームを「高パフォーマンス」のGPUに設定する",
+        "renderedLine": 96,
+        "needle": "「高パフォーマンス」",
+        "status": "N",
+        "source": "https://support.microsoft.com/en-us/windows/hardware/display-graphics/optimizations-for-windowed-games-in-windows-11",
+        "reason": "Microsoft公式143–161行のSystem→Display→Graphics→Options→High performanceをSTEP3と比較。一致。",
+        "sourceRelation": "new-comparison-recorded"
+      },
+      {
+        "id": "guide-ray-tracing-gpu-1-c6",
+        "claim": "エースコンバット8の10月発売",
+        "quote": "エースコンバット8とGears of War: E-Dayです。一覧は「2026年10月発売の新作PCゲーム 動作環境まとめ」で確認できます。",
+        "renderedLine": 123,
+        "needle": "エースコンバット8とGears",
+        "status": "P",
+        "source": "https://acecombat.jp/ace8news/?p=27",
+        "reason": "第2バッチace-releaseで10月2日告知本文を比較済み。第5バッチの未確認への逆戻りは台帳の誤り。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "guide-ray-tracing-gpu-1-c7",
+        "claim": "Gears E-Dayの10月発売・RT必須",
+        "quote": "エースコンバット8とGears of War: E-Dayです。一覧は「2026年10月発売の新作PCゲーム 動作環境まとめ」で確認できます。",
+        "renderedLine": 123,
+        "needle": "エースコンバット8とGears",
+        "status": "B",
+        "source": "https://store.steampowered.com/app/3010850/",
+        "reason": "Steam年齢確認で本文未取得。発売日と要件は別属性だが同じ取得不能に依存。",
+        "sourceRelation": "body-unavailable"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 7,
+    "statusCounts": {
+      "M": 2,
+      "P": 2,
+      "U": 1,
+      "N": 1,
+      "B": 1
+    },
+    "documentOpenCount": 4,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "guide-remove-mods-safely-1",
+    "path": "/guide/remove-mods-safely",
+    "originalPendingScope": "MO2の仮想配置・プロファイルとゲームごとのセーブ依存は未比較。Steam修復が手動追加物を全削除しない範囲はFAQ本文取得不能のため保留。",
+    "claims": [
+      {
+        "id": "guide-remove-mods-safely-1-c1",
+        "claim": "MO2の仮想配置と起動経路の区別",
+        "quote": "Vortex等の管理ツールなら対象ゲームの管理画面で疑わしいMODを無効化し、必要に応じ「Deploy Mods」等の反映を完了。Vortexの「Purge Mods」を使う場合はツールが配置したリンクをまとめて外す操作であり、手動導入分は対象外。MOD一覧を削除する操作とは区別する。MO2など仮想配置のツールでは対象プロファイルのMODを無効化し、そのツール経由で起動して比較する。",
+        "renderedLine": 102,
+        "needle": "仮想配置",
+        "status": "P",
+        "source": "https://github.com/ModOrganizer2/usvfs",
+        "reason": "USVFSの対象プロセス限定を前バッチ比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "guide-remove-mods-safely-1-c2",
+        "claim": "MO2で対象プロファイルのMODを無効化",
+        "quote": "Vortex等の管理ツールなら対象ゲームの管理画面で疑わしいMODを無効化し、必要に応じ「Deploy Mods」等の反映を完了。Vortexの「Purge Mods」を使う場合はツールが配置したリンクをまとめて外す操作であり、手動導入分は対象外。MOD一覧を削除する操作とは区別する。MO2など仮想配置のツールでは対象プロファイルのMODを無効化し、そのツール経由で起動して比較する。",
+        "renderedLine": 102,
+        "needle": "対象プロファイル",
+        "status": "U",
+        "source": null,
+        "reason": "Profiles wiki URLは本文ではなく新規ページ作成フォームだった。書き込みはしていない。別の公式手順・ソースコードの対応箇所は未特定。",
+        "sourceRelation": "comparison-incomplete-see-reason"
+      },
+      {
+        "id": "guide-remove-mods-safely-1-c3",
+        "claim": "MOD必須の既存セーブを上書きしない",
+        "quote": "普段と同じ方法でゲームを起動し、タイトル画面まで進むか記録する。セーブがMOD必須の場合は既存セーブを開いて上書きせず、必要ならゲームの許可する新規データで試す。外す前に比べて変化がなければ、追加物が残っていないか導入記録と照合する。",
+        "renderedLine": 113,
+        "needle": "セーブがMOD必須",
+        "status": "E",
+        "source": null,
+        "reason": "ゲームごとの互換保証ではなく保全上の条件。全MOD実測は文書残件から除外。",
+        "sourceRelation": "editorial-or-applicability-not-document-blocker"
+      },
+      {
+        "id": "guide-remove-mods-safely-1-c4",
+        "claim": "Steam修復は追加MOD全削除の証明ではない",
+        "quote": "本体ファイルの破損が疑われる時だけ、Steam「ライブラリ」→対象ゲームを右クリック→「プロパティ」→「インストール済みファイル」→「ゲームファイルの整合性を確認」を使う。Steamの修復だけで、後から追加したMODファイルがすべて消えるとは判断しない。",
+        "renderedLine": 114,
+        "needle": "すべて消えるとは",
+        "status": "B",
+        "source": "https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB",
+        "reason": "公式FAQ本文取得不能。Steam配布物の検証範囲の裏付けをまだ確保できない。",
+        "sourceRelation": "body-unavailable"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 4,
+    "statusCounts": {
+      "P": 1,
+      "U": 1,
+      "E": 1,
+      "B": 1
+    },
+    "documentOpenCount": 2,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "guide-reshade-uninstall-1",
+    "path": "/guide/reshade-uninstall",
+    "originalPendingScope": "MainWindowの識別・削除対象、Vulkan/OpenXR共有レイヤー、プリセット復元と手動DLL退避の全条件は未比較。",
+    "claims": [
+      {
+        "id": "guide-reshade-uninstall-1-c1",
+        "claim": "ReShade製品名による識別",
+        "quote": "候補を右クリック→「プロパティ」→「詳細」で製品名・説明を確認する。",
+        "renderedLine": 85,
+        "needle": "製品名",
+        "status": "P",
+        "source": "https://raw.githubusercontent.com/crosire/reshade/v6.8.0/setup/MainWindow.xaml.cs",
+        "reason": "v6.8.0のProductName識別処理を比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "guide-reshade-uninstall-1-c2",
+        "claim": "Vulkan/OpenXR共有登録をセットアップで解除",
+        "quote": "ReShadeを消したい、導入後にゲームが起動しない人向け。公式セットアップでのアンインストール、dxgi.dllなどの識別、プリセットの保全、Vulkanの注意点、削除後の確認と復元まで説明します。",
+        "renderedLine": 33,
+        "needle": "Vulkan",
+        "status": "P",
+        "source": "https://raw.githubusercontent.com/crosire/reshade/v6.8.0/setup/MainWindow.xaml.cs",
+        "reason": "共有登録と最終対象時の削除をソース比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "guide-reshade-uninstall-1-c3",
+        "claim": "設定とプリセットを先に退避",
+        "quote": "ReShadeを消したい、導入後にゲームが起動しない人向け。公式セットアップでのアンインストール、dxgi.dllなどの識別、プリセットの保全、Vulkanの注意点、削除後の確認と復元まで説明します。",
+        "renderedLine": 33,
+        "needle": "プリセット",
+        "status": "P",
+        "source": "https://raw.githubusercontent.com/crosire/reshade/v6.8.0/setup/MainWindow.xaml.cs",
+        "reason": "設定削除とPresetPath参照は比較済み。成功率の実測不要。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "guide-reshade-uninstall-1-c4",
+        "claim": "復元前に所有元を確認し上書きしない",
+        "quote": "手動退避した場合：ゲームを終了し、同名の新しいファイルがないか確認してから、退避したReShadeファイルを元のフォルダーへ戻します。同名のファイルがあれば上書きせず、所有元を確かめます。",
+        "renderedLine": 136,
+        "needle": "同名の新しいファイル",
+        "status": "E",
+        "source": null,
+        "reason": "復元成功の保証ではなく編集上の保全手順。全DLL配置を実測しないことは文書残件にしない。",
+        "sourceRelation": "editorial-or-applicability-not-document-blocker"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 4,
+    "statusCounts": {
+      "P": 3,
+      "E": 1
+    },
+    "documentOpenCount": 0,
+    "residualScopeClosed": true
+  },
+  {
+    "id": "guide-shader-cache-delete-1",
+    "path": "/guide/shader-cache-delete",
+    "originalPendingScope": "Windowsの削除UI、AMD Reset Shader Cache、Intel個別報告、Activision/Epicのゲーム内構築手順は未比較。",
+    "claims": [
+      {
+        "id": "guide-shader-cache-delete-1-c1",
+        "claim": "Windows削除対象選択",
+        "quote": "3. 「削除するファイル」で他のチェックを外し、「DirectX シェーダー キャッシュ」だけを選択。「OK」→「ファイルの削除」で実行します。",
+        "renderedLine": 122,
+        "needle": "DirectX シェーダー キャッシュ",
+        "status": "P",
+        "source": "https://community.intel.com/t5/Gaming-on-Intel-Processors-with/CS2-crashed-Failure-Exception-IP-Module-igd10umt64xe-DLL/m-p/1757369",
+        "reason": "Intel担当者のC:選択とDirectX項目、Microsoftチェック対象操作を比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "guide-shader-cache-delete-1-c2",
+        "claim": "Windows11設定→一時ファイル側の削除経路",
+        "quote": "Windows 11の設定から開く場合は「設定」→「システム」→「ストレージ」→「一時ファイル」。一覧の読み込み後、同じ項目だけを選び「ファイルの削除」を押します。ダウンロードやごみ箱など、ほかの項目のチェックを必ず確認してください。",
+        "renderedLine": 124,
+        "needle": "一時ファイル",
+        "status": "U",
+        "source": "https://support.microsoft.com/en-us/windows/experience/storage-filemanagement/free-up-drive-space-in-windows",
+        "reason": "Disk Cleanup経路の比較とは別。設定アプリの同項目選択をまだ本文に対応付けていない。",
+        "sourceRelation": "comparison-incomplete-see-reason"
+      },
+      {
+        "id": "guide-shader-cache-delete-1-c3",
+        "claim": "AMDリセット機能と23.9.1適用範囲",
+        "quote": "AMD公式の説明はAdrenalin Edition 23.9.1のFull Installを基準としています。版・導入形態で画面が異なり、項目がない場合もあります。「工場出荷時にリセット」など、ソフト全体の初期化とは区別してください。",
+        "renderedLine": 154,
+        "needle": "23.9.1",
+        "status": "P",
+        "source": "https://www.amd.com/en/resources/support-articles/faqs/dh3-012.html",
+        "reason": "古い資料の版条件を本文が明記。全現行構成の成功を残件にしない。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "guide-shader-cache-delete-1-c4",
+        "claim": "BO6のメインメニューで構築を待つ",
+        "quote": "PC版を起動し、シェーダープリロードが進行中ならメインメニューから移動せず完了を待ちます。その後にプレイを開始します。Activisionは、メインメニューを離れるとプリロードが止まり、性能に影響すると説明しています。",
+        "renderedLine": 159,
+        "needle": "メインメニューから移動せず",
+        "status": "P",
+        "source": "https://support.activision.com/black-ops-6/articles/black-ops-6-pc-troubleshooting",
+        "reason": "前バッチ比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "guide-shader-cache-delete-1-c5",
+        "claim": "Fortnite初回マッチの再コンパイル",
+        "quote": "Epic Gamesは、DirectX 12でシェーダーの再コンパイルが繰り返される症状についてキャッシュ削除を案内しています。同時に、削除後の最初のマッチは新しいシェーダーのコンパイルでカクつく可能性も説明しています。初回だけで失敗と決めず、その後の変化を確認する例です。",
+        "renderedLine": 165,
+        "needle": "最初のマッチ",
+        "status": "P",
+        "source": "https://www.epicgames.com/help/c-34254770/c-38015632/a11302262",
+        "reason": "前バッチ比較済み。実FPS改善は別枠。",
+        "sourceRelation": "prior-comparison-recorded"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 5,
+    "statusCounts": {
+      "P": 4,
+      "U": 1
+    },
+    "documentOpenCount": 1,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "guide-steam-disk-write-error-1",
+    "path": "/guide/steam-disk-write-error",
+    "originalPendingScope": "Steamライブラリ修復・整合性確認のFAQ本文は取得不能。WindowsエラーチェックGUI、展開一時領域、隔離履歴、空き容量表示は未比較。",
+    "claims": [
+      {
+        "id": "guide-steam-disk-write-error-1-c1",
+        "claim": "Steamライブラリ修復操作",
+        "quote": "Steamのインストール・更新で「ディスク書き込みエラー」が出る時は、対象ゲームの保存先ドライブを先に特定。空き容量を確認し、ライブラリ修復後の再試行結果から、整合性確認・競合調査・Windowsのドライブ点検へ進む条件を解説します。",
+        "renderedLine": 33,
+        "needle": "ライブラリ",
+        "status": "B",
+        "source": "https://help.steampowered.com/en/faqs/view/21F5-8D5D-0141-7A5E",
+        "reason": "FAQ本文取得不能。Windowsの検査とは別。",
+        "sourceRelation": "body-unavailable"
+      },
+      {
+        "id": "guide-steam-disk-write-error-1-c2",
+        "claim": "Windowsドライブのツール→エラーチェック",
+        "quote": "Windowsキー＋E→「このPC」→問題のドライブを右クリック→「プロパティ」→「ツール」→「エラーチェック」の「チェック」を開き、Windowsが表示する結果と修復指示を記録。システムドライブの修復を求められたら保存中の作業を終え、指示に従う。",
+        "renderedLine": 134,
+        "needle": "「ツール」",
+        "status": "U",
+        "source": null,
+        "reason": "Windowsの空き容量資料ではこの操作を証明できない。公式GUI手順の追加照合が必要。",
+        "sourceRelation": "comparison-incomplete-see-reason"
+      },
+      {
+        "id": "guide-steam-disk-write-error-1-c3",
+        "claim": "ダウンロード量と必要ディスク領域の差",
+        "quote": "Steamのダウンロード表示のサイズは書き込みに必要な領域と同じとは限らない。展開・更新用の一時領域も考え、対象ドライブに余裕がない時は不要なファイルを自分で確認して整理するか、Steamのストレージ管理で別の空きがあるドライブを選ぶ。",
+        "renderedLine": 106,
+        "needle": "必要な領域と同じとは限らない",
+        "status": "P",
+        "source": "https://partner.steamgames.com/doc/sdk/uploading",
+        "reason": "SteamPipeの新版を旧版と並べる処理を比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "guide-steam-disk-write-error-1-c4",
+        "claim": "このPCで保存先ドライブの空きを確認",
+        "quote": "Windowsキー＋E→「このPC」で、先ほど確認したドライブ（例：D:）の空き容量を見る。新規インストールでは選択したインストール先を確認。Steam本体がC:にあってもゲームがD:ならD:の空きを優先し、必要に応じてC:も確認する。",
+        "renderedLine": 105,
+        "needle": "空き容量を見る",
+        "status": "N",
+        "source": "https://support.microsoft.com/en-us/windows/experience/storage-filemanagement/free-up-drive-space-in-windows",
+        "reason": "Microsoft公式135行のFile Explorer→This PC→Devices and drivesとSTEP1を直接比較。一致。",
+        "sourceRelation": "new-comparison-recorded"
+      },
+      {
+        "id": "guide-steam-disk-write-error-1-c5",
+        "claim": "隔離履歴を確認し無条件で許可しない",
+        "quote": "ライブラリ修復後もそのゲームだけ失敗するなら、ゲームを右クリック→「プロパティ」→「インストール済みファイル」→「ゲームファイルの整合性を確認」を試し、再び更新・起動を確認する。隔離履歴がある場合は原因を確認し、保護機能をむやみに無効化しない。",
+        "renderedLine": 125,
+        "needle": "隔離履歴がある場合",
+        "status": "P",
+        "source": "https://support.microsoft.com/ja-jp/windows/security/windows-security/protection-history-in-the-windows-security-app",
+        "reason": "前バッチ比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 5,
+    "statusCounts": {
+      "B": 1,
+      "U": 1,
+      "P": 2,
+      "N": 1
+    },
+    "documentOpenCount": 2,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "guide-steam-game-not-launching-1",
+    "path": "/guide/steam-game-not-launching",
+    "originalPendingScope": "Steam起動準備・.NET・競合ソフト・実行中/実行ファイル不明FAQは取得不能または未比較。保護履歴UIと個別ランチャー認証は未比較。",
+    "claims": [
+      {
+        "id": "guide-steam-game-not-launching-1-c1",
+        "claim": "起動準備後のSteam公式対処順",
+        "quote": "Steamゲームが起動しない時の対処法｜プレイを押しても起動しない・「起動準備を行っています」で止まる",
+        "renderedLine": 31,
+        "needle": "「起動準備を行っています」",
+        "status": "B",
+        "source": "https://help.steampowered.com/ja/faqs/view/5814-D9A3-BE42-62DF",
+        "reason": "本文取得不能。FAQへの帰属が未確認。",
+        "sourceRelation": "body-unavailable"
+      },
+      {
+        "id": "guide-steam-game-not-launching-1-c2",
+        "claim": "Radeonや一部ゲームの.NET更新要件",
+        "quote": "Windows Updateでは、追加の更新プログラムに出てくる.NET Frameworkも入れる。Steam公式によると、AMD Radeonのドライバーや一部のゲームは.NET Frameworkのインストールと最新の状態を必要とする。",
+        "renderedLine": 121,
+        "needle": ".NET Frameworkも",
+        "status": "B",
+        "source": "https://help.steampowered.com/ja/faqs/view/5814-D9A3-BE42-62DF",
+        "reason": "FAQ本文取得不能。現在の全Radeonへ拡張しない必要があるが編集は保留。",
+        "sourceRelation": "body-unavailable"
+      },
+      {
+        "id": "guide-steam-game-not-launching-1-c3",
+        "claim": "Steamと競合するソフトの対処",
+        "quote": "「起動準備を行っています」と出たあと何も起きない場合、Steam公式は、PCを再起動してから「Windowsを最新にする」「ドライバーを最新にする」「ゲームファイルの整合性を確認する」「Steamを妨害するソフトを止める」「システム要件を確認する」の順に試すよう案内している。",
+        "renderedLine": 120,
+        "needle": "妨害するソフト",
+        "status": "B",
+        "source": "https://help.steampowered.com/ja/faqs/view/1F39-DCB4-FF28-5748",
+        "reason": "今回該当FAQも画像1行のみと判明。",
+        "sourceRelation": "body-unavailable"
+      },
+      {
+        "id": "guide-steam-game-not-launching-1-c4",
+        "claim": "実行ファイル不明時の整合性操作",
+        "quote": "「実行ファイルが見つかりません」\t不足ファイル、Windowsセキュリティの保護履歴\tゲームファイルの整合性を確認し、同時刻の隔離も確認",
+        "renderedLine": 79,
+        "needle": "「実行ファイルが見つかりません」",
+        "status": "B",
+        "source": "https://help.steampowered.com/ja/faqs/view/3A2A-BF2D-15FF-7963",
+        "reason": "今回該当FAQも画像1行のみ。",
+        "sourceRelation": "body-unavailable"
+      },
+      {
+        "id": "guide-steam-game-not-launching-1-c5",
+        "claim": "既に実行中のエラー対処",
+        "quote": "一瞬「停止／実行中」になり「プレイ」に戻る\tゲームのプロセスと同時刻のWindows停止履歴\t信頼性の履歴でゲームやランチャーの名前を照合",
+        "renderedLine": 78,
+        "needle": "実行中",
+        "status": "B",
+        "source": "https://help.steampowered.com/ja/faqs/view/7CFE-6339-CEA8-DC13",
+        "reason": "今回該当FAQも画像1行のみ。",
+        "sourceRelation": "body-unavailable"
+      },
+      {
+        "id": "guide-steam-game-not-launching-1-c6",
+        "claim": "Steam購入の一部EAゲームにもEA appが必要",
+        "quote": "一部のEAゲームはSteam版でもEA appが必要です。対象ゲームのSteamストアの第三者DRM・外部アプリの条件を確認してください。ログインや認証で止まる場合は、そのランチャー名とエラー文を控えて公式ヘルプへ進み、原因が分からないままアカウント連携を解除しないでください。",
+        "renderedLine": 171,
+        "needle": "一部のEAゲーム",
+        "status": "N",
+        "source": "https://help.ea.com/en/articles/platforms/download-and-play-ea-app-games/",
+        "reason": "公式How to play EA app games on Steamで外部DRM表示により判断する説明とFAQを比較。一致。",
+        "sourceRelation": "new-comparison-recorded"
+      },
+      {
+        "id": "guide-steam-game-not-launching-1-c7",
+        "claim": "隔離履歴の確認",
+        "quote": "「実行ファイルが見つかりません」や隔離の疑いがある場合は「Windows セキュリティ」→「ウイルスと脅威の防止」→「保護の履歴」で同時刻の項目を確認します。ファイル名と配布元を確かめずに復元・許可しないでください。",
+        "renderedLine": 150,
+        "needle": "保護の履歴",
+        "status": "P",
+        "source": "https://support.microsoft.com/ja-jp/windows/security/windows-security/protection-history-in-the-windows-security-app",
+        "reason": "前バッチ比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 7,
+    "statusCounts": {
+      "B": 5,
+      "N": 1,
+      "P": 1
+    },
+    "documentOpenCount": 5,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "guide-stutter-fix-1",
+    "path": "/guide/stutter-fix",
+    "originalPendingScope": "Fortnite・Steamオーバーレイの現行UI、AMD設定画面経路、Hz/VRRの全条件は未比較。個別ゲームの改善効果は未実測。",
+    "claims": [
+      {
+        "id": "guide-stutter-fix-1-c1",
+        "claim": "Fortniteフレーム上限の設定経路",
+        "quote": "ロビー右上のプレイヤープロフィール→歯車の「設定」→映像の「フレームレート制限（Frame Rate Limit）」で値を選び、「適用」。ロビーには別のFPS制限があるため、効果はプレイ中に確認します。",
+        "renderedLine": 89,
+        "needle": "Frame Rate Limit",
+        "status": "N",
+        "source": "https://www.epicgames.com/help/c-34254770/c-38015632/a17266354",
+        "reason": "Epicのプロフィール→設定→DisplayのV-Sync/Frame Rate Limit→Applyと比較。V-Sync制限とロビー判定の留保も一致。",
+        "sourceRelation": "new-comparison-recorded"
+      },
+      {
+        "id": "guide-stutter-fix-1-c2",
+        "claim": "Steam性能モニターの現行UI",
+        "quote": "同じセーブ・練習場・同じカメラ方向を使い、約60秒で通れるルートを決めます。Steamでは「設定」→「ゲーム中（In Game）」のパフォーマンスオーバーレイから表示を設定できます。ゲーム内のFPS表示でも構いません。計測表示は1つにし、全比較で同じ表示を使います。",
+        "renderedLine": 162,
+        "needle": "Steam",
+        "status": "B",
+        "source": "https://help.steampowered.com/en/faqs/view/3462-CD4C-36BD-5767",
+        "reason": "第5バッチの画像1行のみを維持。",
+        "sourceRelation": "body-unavailable"
+      },
+      {
+        "id": "guide-stutter-fix-1-c3",
+        "claim": "AMD FRTCと全画面条件",
+        "quote": "AMD：FRTCが表示される環境",
+        "renderedLine": 99,
+        "needle": "FRTC",
+        "status": "P",
+        "source": "https://www.amd.com/en/resources/support-articles/faqs/dh3-012.html",
+        "reason": "前バッチで版範囲と機能を比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "guide-stutter-fix-1-c4",
+        "claim": "WindowsのHz確認",
+        "quote": "数値は設定の考え方を示す仮例で、実測結果・全ゲーム共通の推奨値ではありません。90fpsが選べなければ利用できる近い低めの値で比較します。固定リフレッシュレートでは上限との組み合わせで動きが不均等になる場合があり、VRRも動作範囲内での確認が必要です。",
+        "renderedLine": 119,
+        "needle": "リフレッシュ",
+        "status": "P",
+        "source": "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/change-the-refresh-rate-on-your-monitor-in-windows",
+        "reason": "前バッチ比較済み。個別ゲームの効果測定は文書残件にしない。",
+        "sourceRelation": "prior-comparison-recorded"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 4,
+    "statusCounts": {
+      "N": 1,
+      "B": 1,
+      "P": 2
+    },
+    "documentOpenCount": 1,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "guide-verify-steam-files-1",
+    "path": "/guide/verify-steam-files",
+    "originalPendingScope": "Steam整合性FAQ本文は取得不能のため現行操作UIと照合対象の完全な範囲は保留。ゲームごとのセーブ/MOD影響・隔離履歴も未比較。",
+    "claims": [
+      {
+        "id": "guide-verify-steam-files-1-c1",
+        "claim": "Steam整合性の現行UIと照合範囲",
+        "quote": "ゲームとSteamの更新を終え、必要なセーブ・MODの記録を残してから「ライブラリ→ゲームのプロパティ→インストール済みファイル→ゲームファイルの整合性を確認」を実行します。再取得された場合はダウンロード完了後に同じ症状を比較し、変化がなければ起動条件・MOD・設定など別の原因を確認します。毎回再取得される場合は更新履歴・保存先ドライブ・セキュリティソフトの履歴を照合します。",
+        "renderedLine": 58,
+        "needle": "インストール済みファイル",
+        "status": "B",
+        "source": "https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB",
+        "reason": "本文取得不能。",
+        "sourceRelation": "body-unavailable"
+      },
+      {
+        "id": "guide-verify-steam-files-1-c2",
+        "claim": "ゲーム別MOD・セーブへの影響を確認",
+        "quote": "Steam「ゲームファイルの整合性を確認」の操作と結果の読み方。再取得された／何も変わらない／毎回同じ症状が再発する場合に、ダウンロード画面と起動結果から次の対処を選びます。MOD・ワークショップ・セーブへの影響も説明します。",
+        "renderedLine": 33,
+        "needle": "MOD",
+        "status": "E",
+        "source": null,
+        "reason": "記事は全ゲームの保存保証をしていない。個別ゲーム未実測を文書残件から除外。",
+        "sourceRelation": "editorial-or-applicability-not-document-blocker"
+      },
+      {
+        "id": "guide-verify-steam-files-1-c3",
+        "claim": "保護履歴で再隔離を確認",
+        "quote": "ダウンロード失敗や書き込みエラーを伴う場合は、ゲームの保存先ドライブと空き領域・Steamのストレージ設定を確認します。セキュリティソフトがゲームファイルを隔離した履歴がないかも確認し、隔離ファイルを出所の確認なしに許可しないでください。MODを再適用した直後だけ再発するなら、そのMODの導入元・対応版を調べます。",
+        "renderedLine": 140,
+        "needle": "隔離した履歴",
+        "status": "P",
+        "source": "https://support.microsoft.com/ja-jp/windows/security/windows-security/protection-history-in-the-windows-security-app",
+        "reason": "前バッチ比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 3,
+    "statusCounts": {
+      "B": 1,
+      "E": 1,
+      "P": 1
+    },
+    "documentOpenCount": 1,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "pc-bluetooth-option-missing-1",
+    "path": "/pc/bluetooth-option-missing",
+    "originalPendingScope": "非表示機器、ペアリング検出設定、ロールバック不可条件、切断時の電源管理は別資料の比較が残る。",
+    "claims": [
+      {
+        "id": "pc-bluetooth-option-missing-1-c1",
+        "claim": "非表示デバイスと非接続機器",
+        "quote": "非表示にするとアダプターが現れる：過去に接続されていた機器の項目も含まれます。コード45なら現在接続されていない状態で、一覧に名前があるだけでは使用可能と判断できません。電源の入れ直しやUSB接続を比較します。",
+        "renderedLine": 68,
+        "needle": "非表示",
+        "status": "P",
+        "source": "https://learn.microsoft.com/en-us/windows-hardware/drivers/install/viewing-hidden-devices",
+        "reason": "前バッチ比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "pc-bluetooth-option-missing-1-c2",
+        "claim": "Bluetooth検出を詳細設定へ変更",
+        "quote": "出ない場合は設定→Bluetoothとデバイス→デバイス→デバイスの設定にある「Bluetoothデバイスの検出」を確認する。デフォルトから詳細設定へ変更できる環境では切り替えて再検索。項目がなければ、この操作は飛ばして比較結果を確認する。",
+        "renderedLine": 165,
+        "needle": "デフォルトから詳細",
+        "status": "P",
+        "source": "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/fix-bluetooth-problems-in-windows",
+        "reason": "前バッチ比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "pc-bluetooth-option-missing-1-c3",
+        "claim": "ロールバック灰色は以前の版がない等",
+        "quote": "更新後だけ悪化し、アダプターが表示される場合はプロパティ→ドライバー→ドライバーを元に戻すが使えるか確認する。戻したら再起動して、スイッチ・アダプター・機器の接続を同じ条件で比較する。灰色なら以前の版が保存されていないなどの理由があり、その操作は使えない。",
+        "renderedLine": 147,
+        "needle": "以前の版が保存されていない",
+        "status": "M",
+        "source": "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/update-bluetooth-drivers-in-windows",
+        "reason": "資料は使用可能な場合とのみ記載。灰色の具体理由の根拠は未比較。",
+        "sourceRelation": "retrieved-source-insufficient-for-exact-claim"
+      },
+      {
+        "id": "pc-bluetooth-option-missing-1-c4",
+        "claim": "切断時の電源管理比較",
+        "quote": "起動直後・スリープ復帰・更新後のどれで再発するかを記録。アダプターが表示されるが切断を繰り返す場合は、Microsoftの切断専用案内へ。サービス再起動や電源管理の比較は対象を絞り、設定欄がない機種に無理に適用しない。",
+        "renderedLine": 182,
+        "needle": "電源管理",
+        "status": "P",
+        "source": "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/bluetooth-keeps-disconnecting-in-windows",
+        "reason": "前バッチ比較済み。欄のない機種へ強制しない条件もある。",
+        "sourceRelation": "prior-comparison-recorded"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 4,
+    "statusCounts": {
+      "P": 3,
+      "M": 1
+    },
+    "documentOpenCount": 1,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "pc-disk-usage-100-1",
+    "path": "/pc/disk-usage-100",
+    "originalPendingScope": "100%アクティブ時間とMB/s、リソースモニター、検索索引、イベント153、SteamPipe展開、SysMainの扱いは未比較。",
+    "claims": [
+      {
+        "id": "pc-disk-usage-100-1-c1",
+        "claim": "100%は忙しい時間割合で転送速度と別",
+        "quote": "使用率100％＝最大の転送速度とは限らない：「アクティブな時間」は処理で忙しい時間の割合、「読み取り／書き込み速度」は1秒に転送したデータ量です。細かな読み書きや応答待ちでも、速度が小さいまま100％になることがあります。MB/sだけで故障とは判断しません。",
+        "renderedLine": 69,
+        "needle": "「アクティブな時間」は",
+        "status": "B",
+        "source": "https://techcommunity.microsoft.com/blog/askperf/windows-8--windows-server-2012-the-new-task-manager/375149",
+        "reason": "基礎定義の出典が本文0行。NECの対処ページだけでは定義を証明できない。",
+        "sourceRelation": "body-unavailable"
+      },
+      {
+        "id": "pc-disk-usage-100-1-c2",
+        "claim": "リソースモニターでディスク詳細を見る",
+        "quote": "同じ画面で「メモリ」と「CPU」も見る。上位がSystemで読み書き先が分からなければ、Windowsキー＋R→resmon→「ディスク」を開き、「ディスク活動」のイメージ名・ファイルのパス・合計（B/秒）を照合する。SystemはWindowsの処理を含むため終了しない。",
+        "renderedLine": 102,
+        "needle": "resmon",
+        "status": "M",
+        "source": "https://support.microsoft.com/ja-jp/windows/experience/system-configuration-tools-in-windows",
+        "reason": "今回取得したシステム構成ツール本文に該当操作を見つけられない。取得成功だけで支持にしない。",
+        "sourceRelation": "retrieved-source-insufficient-for-exact-claim"
+      },
+      {
+        "id": "pc-disk-usage-100-1-c3",
+        "claim": "検索対象フォルダーの除外操作",
+        "quote": "検索に使わない大量のファイルがあるフォルダーだけが対象なら、「除外フォルダーを追加する」でそのフォルダーを指定する。項目が見つからない場合は「詳細インデックス オプション」→「変更」で対象の場所を確認する。除外した場所は検索結果の範囲が変わる。作成中の高負荷だけを理由にインデックスを再構築しない。",
+        "renderedLine": 150,
+        "needle": "除外フォルダーを追加",
+        "status": "N",
+        "source": "https://learn.microsoft.com/ja-jp/troubleshoot/windows-client/shell-experience/windows-search-performance-issues",
+        "reason": "公式89–93行の除外追加/詳細設定→変更と本文STEP5を直接比較。一致。",
+        "sourceRelation": "new-comparison-recorded"
+      },
+      {
+        "id": "pc-disk-usage-100-1-c4",
+        "claim": "Disk153は再試行で故障確定ではない",
+        "quote": "Windowsキー＋R→eventvwr.msc→Windowsログ→システムを開き、固まった時刻の前後を見る。Disk・ストレージ関連のイベントがあれば、ソース・イベントID・「全般」の文言を控える。例：DiskのID 153は読み書きの再試行を示すが、単独ではSSD故障と断定できない。繰り返しと症状の時刻を照合して相談する。",
+        "renderedLine": 175,
+        "needle": "ID 153",
+        "status": "P",
+        "source": "https://jpwinsup.github.io/blog/2022/08/05/Storage/Management/Disk153/",
+        "reason": "前バッチ比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "pc-disk-usage-100-1-c5",
+        "claim": "Steam更新時のディスクI/O",
+        "quote": "Steamの場合は下部の「ダウンロード」から対象ゲームの進行とディスク使用量を見る。ネットワーク速度が下がっても、ダウンロード済みファイルの展開・適用でディスクを使う場合がある。他の作業と比較したい時はSteamの一時停止ボタンを使う。",
+        "renderedLine": 116,
+        "needle": "Steamの場合は",
+        "status": "P",
+        "source": "https://partner.steamgames.com/doc/sdk/uploading",
+        "reason": "前バッチ比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "pc-disk-usage-100-1-c6",
+        "claim": "SysMain一括停止を初手にしない",
+        "quote": "このページは公式資料を基にした確認手順です。改善率や、すべてのPCに共通する正常な速度・応答時間は示していません。Systemの強制終了、ウイルス対策の停止、SysMain・Windows Searchの一括無効化、ページファイルの削除を最初の対処にしないでください。STEP 8の数値は比較方法を説明する仮想例です。",
+        "renderedLine": 73,
+        "needle": "SysMain",
+        "status": "E",
+        "source": null,
+        "reason": "必ず直るという因果主張ではなく原因未特定時の編集方針。SysMain全機種実測は不要。",
+        "sourceRelation": "editorial-or-applicability-not-document-blocker"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 6,
+    "statusCounts": {
+      "B": 1,
+      "M": 1,
+      "N": 1,
+      "P": 2,
+      "E": 1
+    },
+    "documentOpenCount": 2,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "pc-pc-broken-1",
+    "path": "/pc/pc-broken",
+    "originalPendingScope": "Dellの無通電/POST/映像区別、NITE危険兆候、黒画面・BSOD・回復オプションの全条件は未比較。",
+    "claims": [
+      {
+        "id": "pc-pc-broken-1-c1",
+        "claim": "NoPower/POST/Boot/Videoの区別",
+        "quote": "ロゴは出るがWindowsが起動しない／自動修復を繰り返す\tWindowsの回復画面と直前の更新。BitLocker回復キーと必要データを確認\tSTEP 4",
+        "renderedLine": 88,
+        "needle": "ロゴは出るが",
+        "status": "P",
+        "source": "https://www.dell.com/support/contents/ja-jp/article/product-support/self-support-knowledgebase/fix-common-issues/no-post",
+        "reason": "前バッチ比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "pc-pc-broken-1-c2",
+        "claim": "配線器具の異臭・発熱は中止",
+        "quote": "煙・焦げ臭さ・異常な発熱・液体の侵入・本体やバッテリーの膨らみがある場合は、起動確認や充電を中止する。安全にできる範囲で電源を切り、電源供給を止める。熱い・濡れている箇所に無理に触れない。",
+        "renderedLine": 99,
+        "needle": "異常な発熱",
+        "status": "P",
+        "source": "https://www.nite.go.jp/jiko/chuikanki/press/2024fy/prs241128.html",
+        "reason": "前バッチ比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "pc-pc-broken-1-c3",
+        "claim": "膨張・液体侵入時の中止",
+        "quote": "膨張したバッテリーを押す・穴を開ける・無理に外すことはしない。電源ユニットやACアダプターも分解しない。発煙・火災など差し迫る危険がある場合は避難と消防への連絡を優先する。",
+        "renderedLine": 100,
+        "needle": "膨張したバッテリー",
+        "status": "M",
+        "source": "https://www.dell.com/support/kbdoc/ja-jp/000124389/",
+        "reason": "Dell電源資料の本文取得済み。膨張バッテリーは修理・交換前の使用再開不可と対応するが、液体侵入時の具体的初動までこの資料で完了にしない。複合項目の一部支持。",
+        "sourceRelation": "retrieved-source-insufficient-for-exact-claim"
+      },
+      {
+        "id": "pc-pc-broken-1-c4",
+        "claim": "停止コードを記録し再発と変更を比べる",
+        "quote": "Windowsは使えるが、突然落ちる・停止コードが出る\tPC全体かアプリだけか、停止コード・日時・新しい機器・更新を記録\tSTEP 5",
+        "renderedLine": 89,
+        "needle": "停止コード",
+        "status": "N",
+        "source": "https://support.microsoft.com/ja-jp/windows/experience/performance-optimization/troubleshooting-windows-unexpected-restarts-and-stop-code-errors",
+        "reason": "ハードウェア・ドライバー・ソフトの可能性とコード表示を本文と比較。部品故障の断定なし。",
+        "sourceRelation": "new-comparison-recorded"
+      },
+      {
+        "id": "pc-pc-broken-1-c5",
+        "claim": "回復前のデータ保全とBitLockerキー",
+        "quote": "4. Windowsが起動しない場合は、データと回復キーを先に確認する",
+        "renderedLine": 48,
+        "needle": "回復キー",
+        "status": "N",
+        "source": "https://support.microsoft.com/ja-jp/windows/experience/backup-recovery/recovery-options-in-windows",
+        "reason": "公式127/169行のデータ喪失可能性とWinREのキー条件をSTEP4と比較。",
+        "sourceRelation": "new-comparison-recorded"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 5,
+    "statusCounts": {
+      "P": 2,
+      "M": 1,
+      "N": 2
+    },
+    "documentOpenCount": 1,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "pc-pc-hacked-signs-1",
+    "path": "/pc/pc-hacked-signs",
+    "originalPendingScope": "IPAランサムウェア/遠隔操作後の復元、Defender Offline、アカウント履歴・全端末サインアウトの制約、回復手順は未比較。",
+    "claims": [
+      {
+        "id": "pc-pc-hacked-signs-1-c1",
+        "claim": "遠隔操作後の復元と組織調査の留保",
+        "quote": "IPAはサポート詐欺で遠隔操作された場合にシステムの復元、実行できない場合に初期化を案内している。復元や初期化はデータ・アプリ・証拠に影響するため、公式手順とメーカーで方法を確認し、会社PCは調査前に実施しない。",
+        "renderedLine": 186,
+        "needle": "IPAはサポート詐欺",
+        "status": "P",
+        "source": "https://www.ipa.go.jp/security/anshin/attention/2024/mgdayori20241119.html",
+        "reason": "前バッチ比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "pc-pc-hacked-signs-1-c2",
+        "claim": "全体サインアウトの時間とXbox除外",
+        "quote": "サービスが提供する全端末からのサインアウト／セッション解除も行う。Microsoftの全体サインアウトは反映まで最大24時間で、Xbox本体は対象外。ログインできない場合は公式のアカウント回復窓口を使う。",
+        "renderedLine": 120,
+        "needle": "最大24時間",
+        "status": "P",
+        "source": "https://support.microsoft.com/ja-jp/accounts-billing/manage/how-to-sign-out-of-your-microsoft-account-everywhere",
+        "reason": "前バッチ比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "pc-pc-hacked-signs-1-c3",
+        "claim": "履歴の位置だけで不正と確定しない",
+        "quote": "Microsoftアカウントは公式アカウント画面→セキュリティ→サインインのアクティビティを確認。日時・成功か失敗か・端末・操作内容を自分の利用と照合する。場所の表示だけで不正と確定しない。",
+        "renderedLine": 118,
+        "needle": "場所の表示だけ",
+        "status": "P",
+        "source": "https://support.microsoft.com/ja-jp/accounts-billing/security/what-is-the-recent-activity-page",
+        "reason": "前バッチ比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "pc-pc-hacked-signs-1-c4",
+        "claim": "Offlineの画面操作・再起動・履歴",
+        "quote": "必要に応じて「Microsoft Defender オフライン スキャン」を選択する。再起動するため作業を保存し、BitLockerを使う場合は回復キーの入手方法を事前に確認する。再起動後、Windows セキュリティ→保護の履歴で結果を確認する。",
+        "renderedLine": 170,
+        "needle": "「Microsoft Defender",
+        "status": "N",
+        "source": "https://learn.microsoft.com/ja-jp/defender-endpoint/microsoft-defender-offline",
+        "reason": "公式131–151/218行をSTEP6と比較。操作と結果確認は支持。",
+        "sourceRelation": "new-comparison-recorded"
+      },
+      {
+        "id": "pc-pc-hacked-signs-1-c5",
+        "claim": "Offline前のBitLocker条件",
+        "quote": "必要に応じて「Microsoft Defender オフライン スキャン」を選択する。再起動するため作業を保存し、BitLockerを使う場合は回復キーの入手方法を事前に確認する。再起動後、Windows セキュリティ→保護の履歴で結果を確認する。",
+        "renderedLine": 170,
+        "needle": "回復キーの入手方法",
+        "status": "G",
+        "source": "https://learn.microsoft.com/ja-jp/defender-endpoint/microsoft-defender-offline",
+        "reason": "公式70行は保護の一時停止も案内。本文はキー入手確認のみで条件説明が不十分。修正候補として保留、未編集。",
+        "sourceRelation": "source-condition-gap"
+      },
+      {
+        "id": "pc-pc-hacked-signs-1-c6",
+        "claim": "復旧先・転送・接続アプリを確認",
+        "quote": "身に覚えのない成功したログイン・変更・送信がある場合は、サービスの公式復旧手順に従い、使い回していないパスワードへ変更。復旧メール・電話番号・多要素認証の設定も確認する。メールの転送設定や接続アプリに知らないものがないか確認する。",
+        "renderedLine": 119,
+        "needle": "メールの転送設定",
+        "status": "N",
+        "source": "https://support.microsoft.com/en-us/accounts-billing/manage/how-to-recover-a-hacked-or-compromised-microsoft-account",
+        "reason": "公式復旧案内のパスワード再設定と転送/接続確認をSTEP2と比較。本文は安全な別端末を使う限定あり。",
+        "sourceRelation": "new-comparison-recorded"
+      },
+      {
+        "id": "pc-pc-hacked-signs-1-c7",
+        "claim": "身代金・暗号化ファイル・外部機器の初動",
+        "quote": "暗号化や身代金要求がある場合は外付け保存機器も切り離す。復元可能なバックアップを保護し、身代金の支払い・暗号化ファイルの削除・復号ツールの実行を自己判断で急がない。警察・専門窓口へ状況を伝える。",
+        "renderedLine": 188,
+        "needle": "身代金の支払い",
+        "status": "M",
+        "source": "https://www.ipa.go.jp/security/anshin/measures/ransom_tokusetsu.html",
+        "reason": "特設トップは入口資料。具体行動を支えるリンク先資料を未比較。取得成功を実質照合としない。",
+        "sourceRelation": "retrieved-source-insufficient-for-exact-claim"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 7,
+    "statusCounts": {
+      "P": 3,
+      "N": 2,
+      "G": 1,
+      "M": 1
+    },
+    "documentOpenCount": 2,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "pc-second-monitor-not-detected-1",
+    "path": "/pc/second-monitor-not-detected",
+    "originalPendingScope": "ディスプレイ検出ボタン、GPUエンジン、USB-C/ドックの個別映像仕様、ロールバック不可の理由は別資料での照合が残る。",
+    "claims": [
+      {
+        "id": "pc-second-monitor-not-detected-1-c1",
+        "claim": "ディスプレイの検出ボタン",
+        "quote": "Windowsが2台目を検出しない場合と、検出しているのにモニターが黒い場合で最初の操作が変わります。PC本体の画面が操作できる状態を対象にします。",
+        "renderedLine": 33,
+        "needle": "検出",
+        "status": "P",
+        "source": "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/how-to-use-multiple-monitors-in-windows",
+        "reason": "前バッチ比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "pc-second-monitor-not-detected-1-c2",
+        "claim": "GPU確認とドライバー更新の分岐",
+        "quote": "スタートで「デバイス マネージャー」を検索→「ディスプレイ アダプター」→使っているGPUを右クリック→プロパティ→「ドライバー」。版と日付を控える。",
+        "renderedLine": 95,
+        "needle": "GPU",
+        "status": "P",
+        "source": "https://devblogs.microsoft.com/directx/gpus-in-the-task-manager/",
+        "reason": "表示の意味は比較済み。全GPUの成功は別枠。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "pc-second-monitor-not-detected-1-c3",
+        "claim": "USB-Cの製品仕様による映像対応確認",
+        "quote": "可能ならモニターを別PCにつないで表示を比較。USB-C経由ならPCポート・ケーブル・ドックが映像出力に対応するか製品仕様を確認する。",
+        "renderedLine": 87,
+        "needle": "USB-C経由なら",
+        "status": "P",
+        "source": "https://support.microsoft.com/ja-jp/windows/hardware/fix-usb-c-problems-in-windows",
+        "reason": "機器・ケーブル・ポート全体の対応条件を比較済み。具体機種の互換性保証はない。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "pc-second-monitor-not-detected-1-c4",
+        "claim": "以前の版がある時だけロールバック",
+        "quote": "更新直後の不具合で以前の版が残っている時だけ「ドライバーを元に戻す」を検討し、再起動後に設定→ディスプレイで1・2があるか確認する。",
+        "renderedLine": 96,
+        "needle": "以前の版が残っている",
+        "status": "M",
+        "source": "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/update-bluetooth-drivers-in-windows",
+        "reason": "別デバイス資料の使用可能条件だけではGPU保存条件を証明できない。GPU一次資料に対応付け必要。",
+        "sourceRelation": "retrieved-source-insufficient-for-exact-claim"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 4,
+    "statusCounts": {
+      "P": 3,
+      "M": 1
+    },
+    "documentOpenCount": 1,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "pc-wifi-connected-no-internet-1",
+    "path": "/pc/wifi-connected-no-internet",
+    "originalPendingScope": "169.254とIPv6条件、コマンドの限定適用、プロキシ・Edge拡張UI、Get Help検索文言は未比較。",
+    "claims": [
+      {
+        "id": "pc-wifi-connected-no-internet-1-c1",
+        "claim": "169.254とDHCP取得失敗",
+        "quote": "PCだけ「インターネットなし」、IPアドレスが169.254で始まる\tWi-Fi接続先、IPv4のアドレスと既定のゲートウェイ\tSTEP 5",
+        "renderedLine": 71,
+        "needle": "169.254",
+        "status": "P",
+        "source": "https://support.microsoft.com/en-us/windows/experience/connectivity-networking/fix-wi-fi-connection-issues-in-windows",
+        "reason": "前バッチ比較済み。IPv6だけの通信成功を否定しない限定あり。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "pc-wifi-connected-no-internet-1-c2",
+        "claim": "ipconfigの限定適用とDNSキャッシュ",
+        "quote": "IPv4とゲートウェイはあるが、このPCだけサイト名の解決エラーが出る時に限り「ipconfig /flushdns」を実行し、同じURLを再読み込みする。DNSサーバーが空欄・再取得に失敗・別のアプリもすべて開けない場合は、表示を控えてSTEP 6へ。手動で適当なDNSアドレスを入力しない。",
+        "renderedLine": 144,
+        "needle": "ipconfig /flushdns",
+        "status": "P",
+        "source": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/ipconfig",
+        "reason": "前バッチ比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "pc-wifi-connected-no-internet-1-c3",
+        "claim": "プロキシ入口と組織設定の留保",
+        "quote": "スタート→設定→ネットワークとインターネット→プロキシを開く。「セットアップ スクリプトを使用する」「プロキシ サーバーを使用する」の有無と元の状態を控える。自分で設定した不要なプロキシがオンなら一時的にオフにして同じ2サイトを再比較。職場・学校が指定した設定には触れず管理者に確認する。",
+        "renderedLine": 158,
+        "needle": "プロキシを開く",
+        "status": "P",
+        "source": "https://support.microsoft.com/ja-jp/windows/experience/connectivity-networking/use-a-proxy-server-in-windows",
+        "reason": "前バッチ比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "pc-wifi-connected-no-internet-1-c4",
+        "claim": "Edge拡張のトグル操作",
+        "quote": "PCのEdgeだけ失敗し、別ブラウザーは開けるなら、Edge右上「…」→「拡張機能」→「拡張機能の管理」で最近追加した拡張機能を1つだけオフ→同じURLを再読み込み。直らなければ元に戻す。ログイン画面や証明書の警告が出る場合は、警告を無視して進まずサイト運営者の案内を確認する。",
+        "renderedLine": 128,
+        "needle": "拡張機能の管理",
+        "status": "P",
+        "source": "https://support.microsoft.com/ja-jp/edge/add-turn-off-or-remove-extensions-in-microsoft-edge",
+        "reason": "前バッチ比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "pc-wifi-connected-no-internet-1-c5",
+        "claim": "Get Helpの公式英語検索語",
+        "quote": "まだPCだけ開けなければ、スタートで「ヘルプを表示」を開き、検索欄に「ネットワーク」と入力して「ネットワーク診断の実行」を探す。見つからなければ公式ページに記載の「connect to network and internet」で検索する。提案と結果を控え、同じサイトを開く。IP・DNS関連の指摘が出たらSTEP 5へ。Wi-Fiボタン自体がない場合は関連記事の専用記事へ。",
+        "renderedLine": 113,
+        "needle": "connect to network and internet",
+        "status": "P",
+        "source": "https://support.microsoft.com/ja-jp/support/get-help/windows-troubleshooters",
+        "reason": "前バッチ比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "pc-wifi-connected-no-internet-1-c6",
+        "claim": "Get Help日本語の結果名",
+        "quote": "まだPCだけ開けなければ、スタートで「ヘルプを表示」を開き、検索欄に「ネットワーク」と入力して「ネットワーク診断の実行」を探す。見つからなければ公式ページに記載の「connect to network and internet」で検索する。提案と結果を控え、同じサイトを開く。IP・DNS関連の指摘が出たらSTEP 5へ。Wi-Fiボタン自体がない場合は関連記事の専用記事へ。",
+        "renderedLine": 113,
+        "needle": "ネットワーク診断の実行",
+        "status": "M",
+        "source": "https://support.microsoft.com/ja-jp/support/get-help/windows-troubleshooters",
+        "reason": "公式は英語検索語を示す。日本語検索の結果名は現資料にない。画面確認または断定しない編集が必要。",
+        "sourceRelation": "retrieved-source-insufficient-for-exact-claim"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 6,
+    "statusCounts": {
+      "P": 5,
+      "M": 1
+    },
+    "documentOpenCount": 1,
+    "residualScopeClosed": false
+  },
+  {
+    "id": "pc-wifi-option-missing-1",
+    "path": "/pc/wifi-option-missing",
+    "originalPendingScope": "WLAN AutoConfigの開始/再起動、更新アイコン、デバイスエラー・ロールバック条件、無線チップ名称の識別は未比較。",
+    "claims": [
+      {
+        "id": "pc-wifi-option-missing-1-c1",
+        "claim": "WLAN AutoConfigの再起動",
+        "quote": "スマホには見えるがPCには1件も出ない時は、Windowsキー＋R→services.msc→「WLAN AutoConfig」を開いて「状態」を確認。実行中なら右クリック→「再起動」、停止中なら「開始」を選び、接続先一覧をもう一度開く。開始に失敗したら表示されたエラーを控え、ほかのサービスを推測で変更しない。",
+        "renderedLine": 103,
+        "needle": "実行中なら右クリック",
+        "status": "P",
+        "source": "https://support.microsoft.com/en-us/windows/experience/connectivity-networking/fix-wi-fi-connection-issues-in-windows",
+        "reason": "前バッチ比較済み。",
+        "sourceRelation": "prior-comparison-recorded"
+      },
+      {
+        "id": "pc-wifi-option-missing-1-c2",
+        "claim": "停止WlanSvcの開始操作",
+        "quote": "スマホには見えるがPCには1件も出ない時は、Windowsキー＋R→services.msc→「WLAN AutoConfig」を開いて「状態」を確認。実行中なら右クリック→「再起動」、停止中なら「開始」を選び、接続先一覧をもう一度開く。開始に失敗したら表示されたエラーを控え、ほかのサービスを推測で変更しない。",
+        "renderedLine": 103,
+        "needle": "停止中なら「開始」",
+        "status": "M",
+        "source": "https://learn.microsoft.com/ja-jp/troubleshoot/windows-client/networking/wireless-network-connectivity-issues-troubleshooting",
+        "reason": "起動が必要という状態条件は資料あり。services.mscの開始ボタン経路は未比較。",
+        "sourceRelation": "retrieved-source-insufficient-for-exact-claim"
+      },
+      {
+        "id": "pc-wifi-option-missing-1-c3",
+        "claim": "ロールバック不可なら実行しない",
+        "quote": "無線アダプターが表示されており、更新直後から不調で「プロパティ→ドライバー→ドライバーを元に戻す」が押せる場合だけ、日付と版を控えて以前の版へ戻し、再起動して比べる。押せない、または機器自体がない場合は実行できない。機器が全く検出されなければ、適合ドライバーの確認結果をPCメーカーに伝え機器の点検を相談する。",
+        "renderedLine": 114,
+        "needle": "押せない",
+        "status": "E",
+        "source": null,
+        "reason": "不可時に別の復旧先へ進む編集分岐。必ず復旧するという断定なし。",
+        "sourceRelation": "editorial-or-applicability-not-document-blocker"
+      },
+      {
+        "id": "pc-wifi-option-missing-1-c4",
+        "claim": "無線チップ名と機種適合ドライバー",
+        "quote": "更新後から消えた、または警告がある場合は、PCのメーカー・型番とWindows 11対応状況を確認する。別端末や有線LANでPC／無線子機メーカー公式サイトから適合する無線LANドライバーを入手し、PCに保管してメーカーの導入手順に従う。導入後に再起動してSTEP 2の表示を再確認する。管理PCなら先に管理者へ確認する。",
+        "renderedLine": 113,
+        "needle": "無線LANドライバー",
+        "status": "E",
+        "source": null,
+        "reason": "特定チップ名の互換保証はない。ユーザー機種の識別を全機種の文書確認に膨らませない。",
+        "sourceRelation": "editorial-or-applicability-not-document-blocker"
+      }
+    ],
+    "actualOperation": "未実施。文書残件には計上しない。",
+    "claimCount": 4,
+    "statusCounts": {
+      "P": 1,
+      "M": 1,
+      "E": 2
+    },
+    "documentOpenCount": 1,
+    "residualScopeClosed": false
+  }
+]

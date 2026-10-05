@@ -1,0 +1,29 @@
+{
+  "baseline": "33d78198cd261e8a7906177535d926a3f08ab7c5",
+  "groups": 26,
+  "inspectionItems": 113,
+  "documentOpen": 43,
+  "coverageRows": 212,
+  "uniqueIds": true,
+  "quoteNeedlesPresent": true,
+  "needlesFoundInCurrentSourceWhitespaceNormalized": true,
+  "httpsSourceUrls": true,
+  "productTestsRerun": false,
+  "reason": "Documentation only; no product changes.",
+  "statusCounts": {
+    "M": 18,
+    "E": 13,
+    "P": 47,
+    "N": 10,
+    "U": 5,
+    "B": 18,
+    "I": 1,
+    "G": 1
+  },
+  "coverageCounts": {
+    "inventory-only-no-semantic-review-record": 88,
+    "candidate-screening-only": 49,
+    "scoped-comparison-recorded": 58,
+    "prior-game-review-location-unresolved": 17
+  }
+}

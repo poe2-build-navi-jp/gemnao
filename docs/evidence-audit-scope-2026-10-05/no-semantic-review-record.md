@@ -1,0 +1,163 @@
+# 本文の意味比較記録がないページ系統
+
+全件のインベントリ抽出は実施済み。「一度も点検していない」はここでは本文の主張と根拠を対応させた記録がない意味。共通語の候補抽出は意味比較に数えない。既存台帳がゲーム単位で位置不明のものは別枠に除外した。
+
+- / — inventory-only-no-semantic-review-record
+- /about — inventory-only-no-semantic-review-record
+- /contact — inventory-only-no-semantic-review-record
+- /discord — inventory-only-no-semantic-review-record
+- /discord-servers — inventory-only-no-semantic-review-record
+- /discord-servers/guidelines — inventory-only-no-semantic-review-record
+- /discord-servers/submit — inventory-only-no-semantic-review-record
+- /discord/audio-input-not-found — candidate-screening-only
+- /discord/bluetooth-audio-problem — candidate-screening-only
+- /discord/call-disconnects — candidate-screening-only
+- /discord/camera-not-working — candidate-screening-only
+- /discord/cant-hear-voice — candidate-screening-only
+- /discord/crashing — candidate-screening-only
+- /discord/error-1001 — candidate-screening-only
+- /discord/error-1002 — candidate-screening-only
+- /discord/error-1003 — candidate-screening-only
+- /discord/game-volume-lowers — candidate-screening-only
+- /discord/installation-failed — candidate-screening-only
+- /discord/loading-stuck — candidate-screening-only
+- /discord/mic-not-working — candidate-screening-only
+- /discord/mic-volume-low — candidate-screening-only
+- /discord/no-route — candidate-screening-only
+- /discord/not-opening — candidate-screening-only
+- /discord/overlay-not-showing — candidate-screening-only
+- /discord/rtc-connecting — candidate-screening-only
+- /discord/stream-no-audio — candidate-screening-only
+- /discord/system-helper — candidate-screening-only
+- /discord/update-failed — candidate-screening-only
+- /discord/upload-failed — candidate-screening-only
+- /discord/user-volume-low — candidate-screening-only
+- /discord/voice-cutting-out — candidate-screening-only
+- /games/aion2 — inventory-only-no-semantic-review-record
+- /games/aniimo — inventory-only-no-semantic-review-record
+- /games/aniimo/black-screen — inventory-only-no-semantic-review-record
+- /games/aniimo/launcher-display — inventory-only-no-semantic-review-record
+- /games/aniimo/login-error — inventory-only-no-semantic-review-record
+- /games/aniimo/not-launching — inventory-only-no-semantic-review-record
+- /games/aniimo/video-memory-error — inventory-only-no-semantic-review-record
+- /games/baldurs-gate-3 — inventory-only-no-semantic-review-record
+- /games/call-of-duty-modern-warfare-4 — inventory-only-no-semantic-review-record
+- /games/castlevania-belmonts-curse — inventory-only-no-semantic-review-record
+- /games/castlevania-belmonts-curse/not-launching — inventory-only-no-semantic-review-record
+- /games/cyberpunk-2077/not-launching — inventory-only-no-semantic-review-record
+- /games/dragons-dogma-2 — inventory-only-no-semantic-review-record
+- /games/dragons-dogma-2/performance — inventory-only-no-semantic-review-record
+- /games/elden-ring — inventory-only-no-semantic-review-record
+- /games/elden-ring/fps — inventory-only-no-semantic-review-record
+- /games/elden-ring/hdr — inventory-only-no-semantic-review-record
+- /games/elden-ring/mod — inventory-only-no-semantic-review-record
+- /games/elden-ring/not-launching — inventory-only-no-semantic-review-record
+- /games/elden-ring/save-data — inventory-only-no-semantic-review-record
+- /games/elden-ring/ultrawide — inventory-only-no-semantic-review-record
+- /games/gears-of-war-e-day — inventory-only-no-semantic-review-record
+- /games/gta-v-enhanced — inventory-only-no-semantic-review-record
+- /games/gta-v-enhanced/story-save-migration — inventory-only-no-semantic-review-record
+- /games/helldivers-2 — inventory-only-no-semantic-review-record
+- /games/minecraft-dungeons-2 — inventory-only-no-semantic-review-record
+- /games/minecraft-dungeons-2/multiplayer — inventory-only-no-semantic-review-record
+- /games/monster-hunter-wilds — inventory-only-no-semantic-review-record
+- /games/monster-hunter-wilds/config-file — inventory-only-no-semantic-review-record
+- /games/monster-hunter-wilds/controller — inventory-only-no-semantic-review-record
+- /games/monster-hunter-wilds/fps — inventory-only-no-semantic-review-record
+- /games/monster-hunter-wilds/hdr — inventory-only-no-semantic-review-record
+- /games/monster-hunter-wilds/mod — inventory-only-no-semantic-review-record
+- /games/monster-hunter-wilds/not-launching — inventory-only-no-semantic-review-record
+- /games/monster-hunter-wilds/save-data — inventory-only-no-semantic-review-record
+- /games/monster-hunter-wilds/system-requirements — inventory-only-no-semantic-review-record
+- /games/monster-hunter-wilds/ultrawide — inventory-only-no-semantic-review-record
+- /games/onimusha-way-of-the-sword — inventory-only-no-semantic-review-record
+- /games/onimusha-way-of-the-sword/black-screen — inventory-only-no-semantic-review-record
+- /games/onimusha-way-of-the-sword/crash-report — inventory-only-no-semantic-review-record
+- /games/onimusha-way-of-the-sword/gpu-driver-version — inventory-only-no-semantic-review-record
+- /games/onimusha-way-of-the-sword/hdr — inventory-only-no-semantic-review-record
+- /games/onimusha-way-of-the-sword/low-fps — inventory-only-no-semantic-review-record
+- /games/onimusha-way-of-the-sword/shader-cache — inventory-only-no-semantic-review-record
+- /games/phantom-blade-zero — inventory-only-no-semantic-review-record
+- /games/phantom-blade-zero/not-launching — inventory-only-no-semantic-review-record
+- /games/rocket-league — inventory-only-no-semantic-review-record
+- /games/rocket-league/dualsense-not-working — inventory-only-no-semantic-review-record
+- /games/silent-hill-townfall — inventory-only-no-semantic-review-record
+- /games/silent-hill-townfall/stutter — inventory-only-no-semantic-review-record
+- /games/skyrim-special-edition — inventory-only-no-semantic-review-record
+- /games/skyrim-special-edition/skse-after-update — inventory-only-no-semantic-review-record
+- /games/the-blood-of-dawnwalker — inventory-only-no-semantic-review-record
+- /games/the-blood-of-dawnwalker/controller-sprint — inventory-only-no-semantic-review-record
+- /games/the-blood-of-dawnwalker/shader-compilation-crash — inventory-only-no-semantic-review-record
+- /games/the-blood-of-dawnwalker/stutter-windowed — inventory-only-no-semantic-review-record
+- /games/wardogs — inventory-only-no-semantic-review-record
+- /games/wardogs/server-connection — inventory-only-no-semantic-review-record
+- /gear — inventory-only-no-semantic-review-record
+- /gear/discord-microphone-guide — inventory-only-no-semantic-review-record
+- /gear/save-backup-storage-guide — inventory-only-no-semantic-review-record
+- /gear/stream-deck-plus-xl — inventory-only-no-semantic-review-record
+- /guide — inventory-only-no-semantic-review-record
+- /guide/black-screen — candidate-screening-only
+- /guide/bsod-while-gaming — candidate-screening-only
+- /guide/controller-double-input — candidate-screening-only
+- /guide/low-fps — candidate-screening-only
+- /guide/low-gpu-usage — candidate-screening-only
+- /guide/no-game-audio — candidate-screening-only
+- /guide/pc-shuts-down-while-gaming — candidate-screening-only
+- /guide/reset-config-file — candidate-screening-only
+- /guide/save-data-backup — candidate-screening-only
+- /guide/steam-cloud-sync-error — candidate-screening-only
+- /guide/uninstall-save-data — candidate-screening-only
+- /guide/visual-c-runtime-error — candidate-screening-only
+- /guide/vram-shortage — candidate-screening-only
+- /guide/windows-11-required — candidate-screening-only
+- /my — inventory-only-no-semantic-review-record
+- /my-games — inventory-only-no-semantic-review-record
+- /pc — inventory-only-no-semantic-review-record
+- /pc/audio-after-update — candidate-screening-only
+- /pc/black-screen-after-sign-in — candidate-screening-only
+- /pc/bluetooth-connected-no-sound — candidate-screening-only
+- /pc/call-starts-audio-disappears — candidate-screening-only
+- /pc/file-explorer-freezes-on-right-click — candidate-screening-only
+- /pc/gaming-shortcut-keys — candidate-screening-only
+- /pc/microphone-after-update — candidate-screening-only
+- /pc/refresh-rate-stuck-60hz — candidate-screening-only
+- /pc/sleep-wakes-up-by-itself — candidate-screening-only
+- /pc/windows-update-0x800f081f — candidate-screening-only
+- /pc/windows-update-stuck — candidate-screening-only
+- /privacy — inventory-only-no-semantic-review-record
+- /status — inventory-only-no-semantic-review-record
+- /terms — inventory-only-no-semantic-review-record
+- /tools — inventory-only-no-semantic-review-record
+- /tools/refresh-rate — inventory-only-no-semantic-review-record
+- /tools/save-locations — inventory-only-no-semantic-review-record
+- /tools/windows-diagnosis — inventory-only-no-semantic-review-record
+- /trouble/controller — inventory-only-no-semantic-review-record
+- /trouble/crash — inventory-only-no-semantic-review-record
+- /trouble/fps — inventory-only-no-semantic-review-record
+- /trouble/mod — inventory-only-no-semantic-review-record
+- /trouble/not-launching — inventory-only-no-semantic-review-record
+- /trouble/save — inventory-only-no-semantic-review-record
+- /trouble/server — inventory-only-no-semantic-review-record
+- /weekly — inventory-only-no-semantic-review-record
+
+## 既比較記録の出現ページ対応が不明な17系統
+
+未点検137件には含めない。ゲーム属性の比較記録だけでは各ページ本文の比較を証明できない。
+
+- /games/ace-combat-8/error-st-3100001
+- /games/control-resonant/crash-performance
+- /games/palworld/dedicated-server-backup
+- /games/palworld/dedicated-server-port
+- /games/palworld/dedicated-server-settings
+- /games/palworld/not-launching
+- /games/palworld/save-data
+- /games/palworld/system-requirements
+- /games/shin-sangoku-musou-2-remastered/not-launching
+- /games/star-wars-zero-company/black-screen
+- /games/star-wars-zero-company/gtx10-rtx20-low-fps
+- /games/star-wars-zero-company/not-launching
+- /games/star-wars-zero-company/save-progress
+- /games/stardew-valley/save-restore
+- /games/tales-of-eternia-remastered/not-launching
+- /new-releases/2026-10
+- /new-releases/2026-11
