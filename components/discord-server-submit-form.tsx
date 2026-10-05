@@ -15,8 +15,10 @@ export function DiscordServerSubmitForm() {
 
   async function submit(event: React.SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (state === 'sending') return;
+    const formElement = event.currentTarget;
     setState('sending');
-    const form = new FormData(event.currentTarget);
+    const form = new FormData(formElement);
     if (!form.getAll('purpose').length || !form.getAll('activeTime').length) {
       setState('error');
       return;
@@ -44,8 +46,8 @@ export function DiscordServerSubmitForm() {
         website: value('website'),
       }),
     }).catch(() => null);
+    if (response?.ok) formElement.reset();
     setState(response?.ok ? 'sent' : 'error');
-    if (response?.ok) event.currentTarget.reset();
   }
 
   if (state === 'sent') {

@@ -9,7 +9,7 @@ import { ogImageFor } from '@/lib/og-images';
 export const metadata: Metadata = {
   title: 'Discordサーバー募集を探す｜PCゲーム・日本語コミュニティ',
   description:
-    'PCゲーム向けのDiscordサーバー募集をゲーム名・活動時間・VC条件で探す。掲載がない時の公式「サーバー発見」の使い方、参加前の確認、運営者向け無料掲載も案内。',
+    'PCゲーム向けのDiscordサーバー募集をゲーム名・活動時間・VC条件で探す。掲載がない時の公式「発見」機能の使い方、参加前の確認、運営者向け無料掲載も案内。',
   alternates: { canonical: '/discord-servers' },
   openGraph: {
     title: 'Discordサーバー募集を探す｜PCゲーム・日本語コミュニティ',
@@ -34,7 +34,7 @@ const faq = [
   {
     question: 'ディスコードサーバーはどうやって探しますか？',
     answer:
-      'このページの掲載募集をゲーム・目的・活動時間・VC条件で絞り込みます。掲載がない場合はDiscordアプリのサーバー一覧下部にあるコンパス形の「発見」から、ゲーム名やカテゴリで公開コミュニティを探してください。発見に出ないサーバーは招待リンクが必要です。',
+      'このページの掲載募集をゲーム・目的・活動時間・VC条件で絞り込みます。掲載がない場合はDiscordの「発見」→「サーバー」で公開コミュニティを探せます。公式は一部ユーザー向けの実験として案内しており、検索はデスクトップ版が対象です。項目がなければ、このページの公式Web一覧や運営者が公開した招待リンクを確認してください。',
   },
   {
     question: 'ディスコードサーバーに参加するには？',
@@ -168,7 +168,7 @@ export default async function DiscordServersPage() {
             <p className="page-kicker">DISCORD SERVER BASICS</p>
             <h2 id="server-intro-title">ディスコードサーバーとは？</h2>
             <p>
-              Discordサーバー募集は、ゲーム仲間や攻略情報を共有するコミュニティへの参加者募集です。まず下の掲載欄でゲーム名と活動時間を選び、募集目的・VC条件・参加条件を確認します。掲載がない場合はDiscord公式の「サーバー発見」でも公開コミュニティを探せます。招待リンクだけで参加できる非公開サーバーは、発見には表示されません。
+              Discordサーバー募集は、ゲーム仲間や攻略情報を共有するコミュニティへの参加者募集です。まず下の掲載欄でゲーム名と活動時間を選び、募集目的・VC条件・参加条件を確認します。掲載がない場合はDiscord公式のWeb一覧や、利用できる場合はアプリの「発見」→「サーバー」でも公開コミュニティを探せます。非公開サーバーは運営者が公開した招待リンクを確認してください。
             </p>
             <a
               className="server-source"
@@ -213,7 +213,7 @@ export default async function DiscordServersPage() {
             <article>
               <h3>サーバーを探す</h3>
               <p>
-                上の募集欄でゲームと活動時間を選びます。掲載がない場合は、Discordアプリ左側のサーバー一覧下部にあるコンパス形の「発見」を開き、ゲーム名で検索するか「ゲーミング」を選びます。発見に出ないコミュニティは招待リンクが必要です。
+                上の募集欄でゲームと活動時間を選びます。掲載がない場合は、デスクトップ版では左側のサーバー一覧下部、モバイル版ではアプリ下部の「発見」から「サーバー」を開きます。公式は一部ユーザー向けの実験として案内しており、ゲーム名の検索はデスクトップ版が対象です。モバイル版はカテゴリで探し、項目がない場合は下の公式Web一覧を使うか、運営者が公開した招待リンクを確認してください。
               </p>
               <a
                 href="https://discord.com/servers/gaming"
@@ -223,11 +223,11 @@ export default async function DiscordServersPage() {
                 Discord公式のゲームサーバー一覧 <ArrowRight size={15} />
               </a>
               <a
-                href="https://support.discord.com/hc/ja/articles/360023968311"
+                href="https://support.discord.com/hc/en-us/articles/25323248535319-Discover-Tab"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                出典：Discord公式「サーバー発見」 <ArrowRight size={15} />
+                出典：Discord公式「Discover Tab」（英語） <ArrowRight size={15} />
               </a>
             </article>
             <article>
