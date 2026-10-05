@@ -108,6 +108,30 @@ export const monsterHunterArticles: GameArticle[] = [
     ],
     diagnosis: [
       {
+        symptom: '起動直後・同じロードで落ちる',
+        cause:
+          '整合性確認で不足ファイルを修復。再取得なし・改善なしならドライバーと履歴を確認',
+        stepId: 'verify-files',
+      },
+      {
+        symptom: '狩猟中に落ちる／GPU・DirectX関連の表示',
+        cause:
+          'ドライバーの変更前後を比較。新しい版でも必ず安定するとは限らない',
+        stepId: 'update-driver',
+      },
+      {
+        symptom: 'シェーダー準備中に落ちる',
+        cause:
+          'キャッシュが存在する場合だけ再生成。VRAM不足を繰り返す場合はメーカー相談も検討',
+        stepId: 'shader-crash',
+      },
+      {
+        symptom: '更新・MOD導入後から落ちる',
+        cause:
+          'まずMODと描画に介入するツールを外して比較。改善しなければファイル確認へ',
+        stepId: 'remove-mods',
+      },
+      {
         symptom: 'カットシーンだけ映らない・再生できない／Windows N・KN',
         cause:
           'Windowsのエディションとメディア機能の有無を確認。通常版や導入済みならスキップ',
@@ -121,24 +145,6 @@ export const monsterHunterArticles: GameArticle[] = [
         stepId: 'steam-client-check',
       },
       {
-        symptom: '更新・MOD導入後から落ちる',
-        cause:
-          'まずMODと描画に介入するツールを外して比較。改善しなければファイル確認へ',
-        stepId: 'remove-mods',
-      },
-      {
-        symptom: '起動直後・同じロードで落ちる',
-        cause:
-          '整合性確認で不足ファイルを修復。再取得なし・改善なしならドライバーと履歴を確認',
-        stepId: 'verify-files',
-      },
-      {
-        symptom: '狩猟中に落ちる／GPU・DirectX関連の表示',
-        cause:
-          'ドライバーの変更前後を比較。新しい版でも必ず安定するとは限らない',
-        stepId: 'update-driver',
-      },
-      {
         symptom: '高解像度テクスチャ導入後／ビデオメモリ不足',
         cause: '専用GPUメモリ容量とDLCを確認。共有メモリを足して16GBと数えない',
         stepId: 'check-vram',
@@ -147,12 +153,6 @@ export const monsterHunterArticles: GameArticle[] = [
         symptom: '画質や表示設定を変えた後から落ちる',
         cause: 'config.iniを退避し、新しい設定で起動できるか比較',
         stepId: 'reset-config',
-      },
-      {
-        symptom: 'シェーダー準備中に落ちる',
-        cause:
-          'キャッシュが存在する場合だけ再生成。VRAM不足を繰り返す場合はメーカー相談も検討',
-        stepId: 'shader-crash',
       },
       {
         symptom: '長時間の狩猟後に落ちる',

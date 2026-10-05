@@ -194,6 +194,7 @@ export function LocalizedArticle({
           </section>
           <section className="diagnosis-table" id="diagnosis">
             <h2>{t.diagnosis}</h2>
+            <p>{{ en: 'Start with your symptom. Skip steps that do not apply to your setup.', zh: '从符合你的症状开始。不适用于你的设备或情况的步骤可以跳过。', es: 'Empieza por tu síntoma. Omite los pasos que no correspondan a tu equipo o situación.' }[locale]}</p>
             <table>
               <thead>
                 <tr>

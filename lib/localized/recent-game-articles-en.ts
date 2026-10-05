@@ -40,6 +40,30 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
     ],
     diagnosis: [
       {
+        symptom: 'Closes at launch or during the same loading screen',
+        cause:
+          'Verify files; if no replacement or no improvement, check drivers and crash history',
+        stepId: 'verify-files',
+      },
+      {
+        symptom: 'Crashes while hunting, or shows a GPU/DirectX error',
+        cause:
+          'Compare driver versions; a newer driver is not always more stable',
+        stepId: 'update-driver',
+      },
+      {
+        symptom: 'Crashes during shader preparation',
+        cause:
+          'Regenerate only the specified caches that exist; persistent VRAM errors may need manufacturer support',
+        stepId: 'shader-crash',
+      },
+      {
+        symptom: 'Crashes began after an update or mod installation',
+        cause:
+          'Compare without mods and tools that hook rendering; then check files if unchanged',
+        stepId: 'remove-mods',
+      },
+      {
         symptom: 'Cutscenes alone fail to play on Windows N/KN',
         cause:
           'Check the edition and installed media features; skip installation on non-N editions or if already installed',
@@ -53,24 +77,6 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
         stepId: 'steam-client-check',
       },
       {
-        symptom: 'Crashes began after an update or mod installation',
-        cause:
-          'Compare without mods and tools that hook rendering; then check files if unchanged',
-        stepId: 'remove-mods',
-      },
-      {
-        symptom: 'Closes at launch or during the same loading screen',
-        cause:
-          'Verify files; if no replacement or no improvement, check drivers and crash history',
-        stepId: 'verify-files',
-      },
-      {
-        symptom: 'Crashes while hunting, or shows a GPU/DirectX error',
-        cause:
-          'Compare driver versions; a newer driver is not always more stable',
-        stepId: 'update-driver',
-      },
-      {
         symptom:
           'Crashes after installing high-resolution textures, or reports video-memory shortage',
         cause:
@@ -82,12 +88,6 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
         cause:
           'Back up and move config.ini, then compare with newly generated settings',
         stepId: 'reset-config',
-      },
-      {
-        symptom: 'Crashes during shader preparation',
-        cause:
-          'Regenerate only the specified caches that exist; persistent VRAM errors may need manufacturer support',
-        stepId: 'shader-crash',
       },
       {
         symptom: 'Crashes after a long hunt',

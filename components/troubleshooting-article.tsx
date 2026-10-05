@@ -229,7 +229,7 @@ export function TroubleshootingArticle({
               aria-labelledby="diagnosis-title"
             >
               <h2 id="diagnosis-title">症状別の早見表</h2>
-              <p>当てはまる症状から、試すSTEPへ移動できます。</p>
+              <p>当てはまる症状から、試すSTEPへ移動できます。対象外の手順は飛ばして構いません。</p>
               <table>
                 <thead>
                   <tr>
