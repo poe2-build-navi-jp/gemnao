@@ -5372,3 +5372,10 @@ a.my-games-primary {
 .article-hero .save-game-benefit {
   color: #dfe8eb;
 }
+
+.english-home-search { margin-top: 28px; margin-bottom: 28px; }
+.english-home-search .search-box { max-width: none; margin-top: 10px; }
+.english-home-search .search-result-list strong { display: block; }
+.language-menu > div a small { display: block; font-size: 12px; line-height: 1.5; white-space: normal; }
+
+.language-menu > div a { flex-direction: column; align-items: flex-start; justify-content: center; }

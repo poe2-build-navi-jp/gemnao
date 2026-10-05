@@ -1,12 +1,11 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { WikiHeader } from '../components/wiki-header';
+import { WikiHeader, languageFallbackLabels } from '../components/wiki-header';
 import { hasTranslation, localizedArticles } from '../lib/localized/index';
 import { localeNames } from '../lib/i18n';
 
 const locales = ['ja', 'en', 'zh', 'es'] as const;
-const homeLabels = { ja: 'ホーム', en: 'home', zh: '首页', es: 'inicio' };
 const paths = [
   '',
   '/pc/microphone-after-update',
@@ -48,7 +47,7 @@ for (const locale of locales) {
       assert.equal(links[index][1], expected);
       assert.equal(
         links[index][2],
-        localeNames[item] + (fallback ? ` (${homeLabels[locale]})` : ''),
+        localeNames[item] + (fallback ? `<small lang="${item}">${languageFallbackLabels[item]}</small>` : ''),
       );
     }
     assert.equal(

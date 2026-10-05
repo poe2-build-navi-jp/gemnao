@@ -79,7 +79,7 @@ export const categoryLabels: Record<ArticleCategory, string> = {
   launch: '起動しない',
   display: 'FPS',
   settings: '画面・設定',
-  server: '専用サーバー',
+  server: 'サーバー・接続',
   controller: 'コントローラー',
   mods: 'MOD',
   specs: '推奨スペック',
@@ -1003,4 +1003,10 @@ export function articleBySlug(gameSlug: string, articleSlug: string) {
   return gameArticles.find(
     (article) => article.gameSlug === gameSlug && article.slug === articleSlug,
   );
+}
+
+export function articleCategoryLabel(article: Pick<GameArticle, 'category' | 'slug'>) {
+  return article.category === 'server' && article.slug.startsWith('dedicated-server-')
+    ? '専用サーバー'
+    : categoryLabels[article.category];
 }

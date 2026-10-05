@@ -1,3 +1,4 @@
+Object.defineProperty(globalThis, 'window', { configurable: true, value: { location: { href: 'https://gemnao.pages.dev/' }, history: { state: null, replaceState() {} } } });
 import assert from 'node:assert/strict';
 import { WikiHome } from '../components/wiki-home';
 import { RecentTroubles } from '../components/recent-troubles';

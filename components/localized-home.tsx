@@ -1,3 +1,4 @@
+import { EnglishHomeSearch } from './english-home-search';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { ArrowRight, ChevronRight, Wrench } from 'lucide-react';
 import { gearGuidesEn } from '@/lib/localized/gear-guides-en';
@@ -37,6 +38,18 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
           <p>{t.homeNote}</p>
         </div>
       </section>
+      {locale === 'en' && <EnglishHomeSearch entries={[
+        ...articles.map(article => ({
+          href: article.gameSlug === 'discord' ? `/en/discord/${article.slug}` : `/en/games/${article.gameSlug}/${article.slug}`,
+          title: article.title,
+          label: article.gameSlug === 'discord' ? 'Discord' : article.gameName || gameFacts[article.gameSlug].names.en,
+          body: `${article.lead} ${article.summary} ${article.diagnosis.map(row => `${row.symptom} ${row.cause}`).join(' ')}`,
+        })),
+        ...translatedGames.map(game => ({href: `/en/games/${game.slug}`, title: localizedHubs[game.slug].names?.en || gameFacts[game.slug].names.en, label: 'Game troubleshooting', body: localizedHubs[game.slug].lead.en || ''})),
+        {href: `/en${crashGuideEn.path}`, title: crashGuideEn.title, label: 'PC troubleshooting', body: crashGuideEn.description || ''},
+        ...gearGuidesEn.map(guide => ({href: `/en/gear/${guide.slug}`, title: guide.title, label: 'Before you buy', body: guide.description || ''})),
+        {href: '/en/tools/windows-diagnosis', title: 'Windows game diagnosis: instructions and download', label: 'Windows prototype', body: 'Game launch, crash, black screen, freeze, low FPS and stutter. Windows 11 x64.'},
+      ]} />}
       <div className="content home-my-shortcut">
         <MyGamesHomeEntry locale={locale} />
       </div>
