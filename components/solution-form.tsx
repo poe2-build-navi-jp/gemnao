@@ -64,10 +64,15 @@ export function SolutionForm({
           if (id && !previous) throw new Error('missing-record');
           if (attempt) {
             const support = previous?.support || emptySupport();
-            item.support = { ...support, attempts: [
-              ...support.attempts.filter(a => a.path !== attempt.path || a.stepId !== attempt.stepId),
-              attempt,
-            ] };
+            item.support = {
+              ...support,
+              attempts: [
+                ...support.attempts.filter(
+                  (a) => a.path !== attempt.path || a.stepId !== attempt.stepId,
+                ),
+                attempt,
+              ],
+            };
           }
           upsertSolution(localStorage, item);
           announceMyData();

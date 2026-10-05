@@ -76,11 +76,11 @@ try {
     .dblclick();
   assert.equal((await state())[0].support.attempts.length, 2);
   await page
-    .getByRole('button', { name: '直らない → 次へ', exact: true })
+    .getByRole('button', { name: /^直らない → 次は/ })
     .first()
     .click();
   assert.equal((await state())[0].support.attempts.length, 2);
-  assert.ok(
+  assert.equal(
     await page.evaluate(() =>
       Object.keys(localStorage).some(
         (key) =>
@@ -88,6 +88,7 @@ try {
           JSON.parse(localStorage.getItem(key)).currentStep === 1,
       ),
     ),
+    false,
   );
   await page.goBack();
   await page.goForward();

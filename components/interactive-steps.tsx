@@ -10,6 +10,8 @@ import {
   Share2,
 } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
+import { useSavedSolutions } from '@/components/use-saved-solutions';
+import { useActiveCase } from '@/components/support-workspace';
 import { ResultNote } from '@/components/result-note';
 import { SaveSolution } from '@/components/save-solution';
 import { trackEvent } from '@/lib/analytics';
@@ -72,11 +74,27 @@ export function InteractiveSteps({
   const voteKey = `gemnao-feedback:${contextSlug}:${topic}`;
   const [currentStep, setCurrentStep] = useState(0);
   const [completedIds, setCompletedIds] = useState<string[]>([]);
-  const [solvedStepId, setSolvedStepId] = useState('');
+  const [reportedSolvedStepId, setSolvedStepId] = useState('');
+  const activeCase = useActiveCase();
+  const { items: savedNotes } = useSavedSolutions();
+  const activeNote = savedNotes.find(
+    (item) => item.id === activeCase && item.articlePath === articlePath,
+  );
+  const solvedStepId =
+    reportedSolvedStepId ||
+    (activeNote?.status === 'resolved' &&
+    steps.some((step) => step.id === activeNote.stepId)
+      ? activeNote.stepId
+      : '');
   const [showResume, setShowResume] = useState(false);
   const [sending, setSending] = useState('');
   const [message, setMessage] = useState('');
-  const [outcome, setOutcome] = useState<{ step: Step; resolved: boolean; nextId: string; at: string } | null>(null);
+  const [outcome, setOutcome] = useState<{
+    step: Step;
+    resolved: boolean;
+    nextId: string;
+    at: string;
+  } | null>(null);
   const [alreadyVoted, setAlreadyVoted] = useState(false);
   const [rows, setRows] = useState<Row[]>([]);
   const [methods, setMethods] = useState<Method[]>([]);
@@ -148,6 +166,16 @@ export function InteractiveSteps({
     return () => controller.abort();
   }, [articlePath, articleTitle, contextSlug, steps, storageKey, voteKey]);
 
+  // Explicitly saved notebook progress takes priority over legacy article progress.
+  useEffect(() => {
+    if (!activeNote) return;
+    const index = steps.findIndex((step) => step.id === activeNote.stepId);
+    queueMicrotask(() => {
+      if (index >= 0) setCurrentStep(index);
+      setShowResume(activeNote.status !== 'resolved' && index >= 0);
+    });
+  }, [activeNote, steps]);
+
   function hasVote(kind: string) {
     try {
       return Boolean(localStorage.getItem(`${voteKey}:${kind}`));
@@ -189,8 +217,12 @@ export function InteractiveSteps({
 
   async function solved(step: Step) {
     if (sending || alreadyVoted || hasVote('resolved')) return;
-
-    setOutcome({ step, resolved: true, nextId: step.id, at: new Date().toISOString() });
+    setOutcome({
+      step,
+      resolved: true,
+      nextId: step.id,
+      at: new Date().toISOString(),
+    });
     setSending(step.id);
     setMessage('');
     try {
@@ -221,7 +253,6 @@ export function InteractiveSteps({
       setCompletedIds((value) => [...new Set([...value, step.id])]);
       markVote('resolved');
       setAlreadyVoted(true);
-
     } catch {
       setMessage(
         '回答を保存できませんでした。通信状態を確認して、もう一度お試しください。',
@@ -233,7 +264,12 @@ export function InteractiveSteps({
 
   async function notSolved(step: Step, index: number) {
     if (sending || solvedStepId) return;
-    setOutcome({ step, resolved: false, nextId: steps[index + 1]?.id || step.id, at: new Date().toISOString() });
+    setOutcome({
+      step,
+      resolved: false,
+      nextId: steps[index + 1]?.id || step.id,
+      at: new Date().toISOString(),
+    });
     const nextCompleted = [...new Set([...completedIds, step.id])];
     setCompletedIds(nextCompleted);
     if (index < steps.length - 1) {
@@ -486,9 +522,13 @@ export function InteractiveSteps({
                   articlePath={articlePath}
                   step={index + 1}
                 />
-                {!solvedStepId && index < steps.length - 1 && <p className="step-skip">
-                  <a href={`#${steps[index + 1].id}`}>対象外なら「{steps[index + 1].title}」へスキップ</a>
-                </p>}
+                {!solvedStepId && index < steps.length - 1 && (
+                  <p className="step-skip">
+                    <a href={`#${steps[index + 1].id}`}>
+                      対象外なら「{steps[index + 1].title}」へスキップ
+                    </a>
+                  </p>
+                )}
                 <div className="step-actions">
                   <button
                     className="step-solved"
@@ -513,11 +553,32 @@ export function InteractiveSteps({
                     </button>
                   ) : null}
                 </div>
-                {outcome?.step.id === step.id && <ResultNote key={outcome.at} onClose={() => setOutcome(null)}
-                  attempt={{ path: articlePath, stepId: step.id, label: step.title, result: outcome.resolved ? 'resolved' : 'unresolved', at: outcome.at }}
-                  draft={{ title: articleTitle, gameSlug: articlePath.match(/^\/games\/([a-z0-9-]+)\//)?.[1] || '',
-                    status: outcome.resolved ? 'resolved' : 'unresolved', diagnosis: '', settings: '', notes: '', articlePath,
-                    stepId: outcome.nextId, completedSteps: [step.title] }} />}
+                {outcome?.step.id === step.id && (
+                  <ResultNote
+                    key={outcome.at}
+                    onClose={() => setOutcome(null)}
+                    attempt={{
+                      path: articlePath,
+                      stepId: step.id,
+                      label: step.title,
+                      result: outcome.resolved ? 'resolved' : 'unresolved',
+                      at: outcome.at,
+                    }}
+                    draft={{
+                      title: articleTitle,
+                      gameSlug:
+                        articlePath.match(/^\/games\/([a-z0-9-]+)\//)?.[1] ||
+                        '',
+                      status: outcome.resolved ? 'resolved' : 'unresolved',
+                      diagnosis: '',
+                      settings: '',
+                      notes: '',
+                      articlePath,
+                      stepId: outcome.nextId,
+                      completedSteps: [step.title],
+                    }}
+                  />
+                )}
               </section>
             );
           })}
