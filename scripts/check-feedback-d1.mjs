@@ -405,7 +405,7 @@ try {
     .run();
   const capBodies = [submission(), submission()];
   const capResponses = await Promise.all(capBodies.map(post));
-  assert.deepEqual(capResponses.map((r) => r.status).sort(), [200, 429]);
+  assert.deepEqual(capResponses.map((r) => r.status).sort((a, b) => a - b), [200, 429]);
   assert.equal(
     (await db.prepare('SELECT COUNT(*) AS n FROM step_result_receipts').first())
       .n,

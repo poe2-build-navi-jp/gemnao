@@ -1,6 +1,6 @@
 # Symptom + method + result collection
 
-Status: prepared for review. No production migration, test votes, or deployment performed for this feature.
+Migration 0004 completed on 2026-10-06 through the reviewed GitHub workflow ([run 37535266119](https://github.com/poe2-build-navi-jp/gemnao/actions/runs/37535266119)). Its strict metadata readback passed. Feature publication and live capability are verified separately from that migration; no production test votes were submitted.
 
 ## Scope and semantics
 
@@ -28,24 +28,15 @@ Review `.openai/drizzle/0004_step_result_reports.sql` and its generated Drizzle 
 
 The code capability check requires the counter type/default, receipt column types/NOT NULL/sole primary key, known CHECK constraints, and the expected timestamp index definition. Until ready, GET returns `stepResultsAvailable: false`; the UI says method-level unsuccessful collection is unavailable and retains the old flow. A direct new-kind POST returns 503 before any result write. Old GET/POST contracts remain compatible with additive response fields. Loading/failed capability requests never fall through to legacy writes or analytics; local note/navigation actions stay usable. A browser-level pending-answer prompt recovers original submissions after reload or creating/saving a private note.
 
-## Authorized operator handoff (not executed)
+## Migration completion and publication checks
 
-Do not log into Cloudflare through a browser. Do not create credentials or select a different database. Use an already authorized official execution route, or stop and request one.
+The approved forward-only baseline preserved all four existing migration-history id/name pairs and appended exactly one 0004 record. The registry structure stayed unchanged; the new method column, receipt table and indexes passed the complete post-migration checks. Existing answers were not compared row by row: preservation is supported by the additive SQL (no answer UPDATE/DELETE), isolated data-preservation fixtures and live structural/history readback.
 
-1. Independently verify the actual production Pages project, current D1 binding `DB`, account, and database identity. Repository config historically names `gemnao-db`; this is not proof that the current production binding matches. Stop on any mismatch.
-2. Read the metadata-only `docs/feedback/schema-preflight.sql` against that verified database. Verify the current schema has the historical columns, and whether any of migration 0004 is already present. Do not replay an uncertain migration: partial/already-applied states need reconciliation.
-3. In the same authorized environment, list D1 migrations. Apply only after confirming the historical migrations are recorded and `0004_step_result_reports.sql` is the only pending migration. If any other migration is pending, stop for review. Take note of the provider's available restore point before applying; do not export private tables into the repository.
-4. After explicit review/approval, use the official D1 migration operation for this verified binding. No test report POSTs to production.
-5. Rerun the same metadata-only preflight SQL as readback. Expected: the old method columns remain, `not_resolved_count` is NOT NULL/default zero, all seven receipt columns exist, and `step_result_receipts_requested_at` is present. Verify the migration registry reports 0004 applied.
-6. Only after publication approval, deploy the reviewed commit through the existing site pipeline. Verify the exact remote commit and required CI. Read-only GET of a real existing article should return the new capability flag. Check real HTML/CSS/JS and mobile/desktop UI without clicking reporting buttons. Do not infer launch from source alone.
+The unidentified historical migration was not renamed, replayed or treated as proof that 0003 ran. Do not apply the historical migration directory blindly or rerun 0004. Any future database operation must follow the current guarded procedure and fixed-baseline rules in `ops/d1/README.md`, not the earlier manual handoff. The restore checkpoint remains in the authorized run record; no private database export is committed.
 
-Example official CLI reads, to be run only after independently verifying the target and existing authorization:
+Publish only the reviewed feature commit after integrating current production configuration. Future previews have no D1 binding; historical preview URLs may retain old bindings and must not receive test votes. Read-only production GET must confirm the new capability, and real HTML/CSS/JS and language controls must be checked without submitting reports. Do not infer feature launch from migration success alone.
 
-    wrangler d1 info gemnao-db
-    wrangler d1 migrations list gemnao-db --remote
-    wrangler d1 execute gemnao-db --remote --file docs/feedback/schema-preflight.sql
-
-The reviewed migration application is consequential and intentionally not automated by this change. Use the verified target's normal migration workflow only after approval. If the application must roll back, restore the prior application commit while leaving additive data/schema intact; do not drop receipt/counter data.
+If application rollback is needed, restore prior application code while retaining the additive schema/data. Do not drop receipts or counters as part of code rollback.
 
 ## Verification
 
