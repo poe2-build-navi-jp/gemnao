@@ -19,7 +19,7 @@ const indexes = {
   d1_migrations: { name: 'sqlite_autoindex_d1_migrations_1', origin: 'u', columns: ['name'] },
 };
 export const inventoryQueries = Object.freeze({
-  objects: "SELECT type, name, tbl_name, sql FROM sqlite_schema WHERE tbl_name COLLATE NOCASE IN ('solution_method_feedback','d1_migrations') OR name COLLATE NOCASE IN ('step_result_receipts','step_result_receipts_requested_at') ORDER BY type, name",
+  objects: "SELECT type, name, tbl_name, sql FROM sqlite_schema WHERE tbl_name COLLATE NOCASE IN ('solution_method_feedback','d1_migrations','step_result_receipts') OR name COLLATE NOCASE IN ('step_result_receipts','step_result_receipts_requested_at') ORDER BY type, name",
   methodColumns: 'PRAGMA table_xinfo(solution_method_feedback)',
   registryColumns: 'PRAGMA table_xinfo(d1_migrations)',
   methodForeignKeys: 'PRAGMA foreign_key_list(solution_method_feedback)',
@@ -28,6 +28,11 @@ export const inventoryQueries = Object.freeze({
   registryIndexes: 'PRAGMA index_list(d1_migrations)',
   methodIndexColumns: 'PRAGMA index_xinfo(sqlite_autoindex_solution_method_feedback_1)',
   registryIndexColumns: 'PRAGMA index_xinfo(sqlite_autoindex_d1_migrations_1)',
+  receiptColumns: 'PRAGMA table_xinfo(step_result_receipts)',
+  receiptForeignKeys: 'PRAGMA foreign_key_list(step_result_receipts)',
+  receiptIndexes: 'PRAGMA index_list(step_result_receipts)',
+  receiptPrimaryIndexColumns: 'PRAGMA index_xinfo(sqlite_autoindex_step_result_receipts_1)',
+  receiptTimeIndexColumns: 'PRAGMA index_xinfo(step_result_receipts_requested_at)',
   history: 'SELECT id, name FROM d1_migrations ORDER BY id',
 });
 

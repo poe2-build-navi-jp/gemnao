@@ -1,3 +1,4 @@
+import { reviewedForwardState } from './reviewed-baseline.mjs';
 import { inventoryQueries, forwardInventory } from './inventory.mjs';
 // Fixed, operator-triggered D1 control. Never imported by the website.
 import { createHash } from 'node:crypto';
@@ -185,6 +186,21 @@ export function classify(snapshot) {
     ) && snapshot.registry.some((c) => c.name === 'id' && c.pk === 1),
     'MIGRATION_REGISTRY_MISSING_OR_UNRECOGNIZED',
   );
+  const reviewed = reviewedForwardState(snapshot.rawInventory);
+  if (reviewed?.state === 'blocked') throw new Blocked(reviewed.code);
+  if (reviewed) {
+    const migrated = reviewed.state === 'already_applied';
+    const rawReceiptSQL = snapshot.rawInventory.objects.find((o) => o.type === 'table' && o.name === 'step_result_receipts')?.sql || '';
+    requireThat(
+      matches(snapshot.method, migrated ? { ...expectedMethod, not_resolved_count: ['INTEGER', 0, '0'] } : expectedMethod) &&
+        (migrated ? matches(snapshot.receipt, expectedReceipt) && snapshot.index.length === 1 && snapshot.index[0].name === 'requested_at' : snapshot.receipt.length === 0 && snapshot.index.length === 0) &&
+        snapshot.receiptSQL === rawReceiptSQL &&
+        digest([...snapshot.names].sort((a, b) => a.localeCompare(b))) === digest(snapshot.rawInventory.history.map((r) => r.name).sort((a, b) => a.localeCompare(b))),
+      'REVIEWED_FORWARD_SNAPSHOT_MISMATCH',
+    );
+    snapshot.reviewedForward = reviewed;
+    return reviewed.state;
+  }
   requireThat(
     snapshot.names.every(
       (name) => history.includes(name) || name === target.migration,
@@ -305,7 +321,8 @@ export function reportFor(pages, snapshot) {
     },
     pages,
     state,
-    migrations: [...snapshot.names].sort((a, b) => a.localeCompare(b)),
+    migrations: snapshot.names.map((name) => history.includes(name) || name === target.migration ? name : `sha256:${digest(JSON.stringify(name))}`).sort((a, b) => a.localeCompare(b)),
+    ...(snapshot.reviewedForward ? { reviewedForward: snapshot.reviewedForward } : {}),
     schema: {
       issue: columns(snapshot.issue),
       method: columns(snapshot.method),
@@ -467,13 +484,12 @@ export async function collect(api, { diagnostic = false } = {}) {
         "SELECT sql FROM sqlite_master WHERE type='table' AND name='step_result_receipts'",
       )
     )[0]?.sql || '';
-  if (diagnostic) {
-    const rawInventory = {};
-    for (const [key, sql] of Object.entries(inventoryQueries)) {
-      rawInventory[key] = key === 'history' && !snapshot.historyReadable ? null : await query(sql);
-    }
-    snapshot.forwardInventory = forwardInventory(rawInventory);
+  const rawInventory = {};
+  for (const [key, sql] of Object.entries(inventoryQueries)) {
+    rawInventory[key] = key === 'history' && !snapshot.historyReadable ? null : await query(sql);
   }
+  snapshot.rawInventory = rawInventory;
+  snapshot.forwardInventory = forwardInventory(rawInventory);
   try {
     return reportFor(pages, snapshot);
   } catch (error) {
@@ -565,6 +581,15 @@ export async function applyOnce(
     await rm(temporary, { recursive: true, force: true });
   }
 }
+export function assertReviewedContinuity(before, after) {
+  if (!before.reviewedForward) return;
+  requireThat(
+    after.state === 'already_applied' &&
+      after.reviewedForward?.baseline === before.reviewedForward.baseline &&
+      after.reviewedForward?.oldHistorySHA256 === before.reviewedForward.inventory.history.idNameSHA256,
+    'REVIEWED_FORWARD_HISTORY_NOT_PRESERVED',
+  );
+}
 export async function execute(
   env,
   { api, apply, verify = verifyMigration, checkpoint = async () => {} } = {},
@@ -613,6 +638,7 @@ export async function execute(
   });
   await (apply || (() => applyOnce(token)))();
   const after = await collect(client);
+  assertReviewedContinuity(before, after);
   requireThat(
     after.state === 'already_applied',
     'READBACK_INCOMPLETE_RUN_PREFLIGHT',
