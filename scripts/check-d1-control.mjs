@@ -1,3 +1,4 @@
+import { assessForwardBaseline, reviewedBaseline, reviewedForwardState } from '../ops/d1/reviewed-baseline.mjs';
 import { inventoryQueries, forwardInventory } from '../ops/d1/inventory.mjs';
 import './check-d1-connection.mjs';
 import assert from 'node:assert/strict';
@@ -7,13 +8,17 @@ import {
   mkdtemp,
   mkdir,
   copyFile,
+  writeFile,
   rm,
 } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
 import {
   target,
+  digest,
+  assertReviewedContinuity,
   history,
   Blocked,
   execute,
@@ -191,6 +196,56 @@ try {
       .bind(target.migration),
   ]);
   const ready = await snapshot();
+  const beforeForward = structuredClone(inventoryFixture);
+  beforeForward.history[3].name = 'opaque_fixture_history.sql';
+  const beforeEvidence = forwardInventory(beforeForward);
+  const fixturePin = {
+    id: 'isolated-fixture-only',
+    inventorySHA256: beforeEvidence.inventorySHA256,
+    historySHA256: beforeEvidence.history.idNameSHA256,
+    methodSHA256: beforeEvidence.tables.solution_method_feedback.structureSHA256,
+    registrySHA256: beforeEvidence.tables.d1_migrations.structureSHA256,
+    unknownNameSHA256: digest(JSON.stringify('opaque_fixture_history.sql')),
+  };
+  assert.equal(assessForwardBaseline(beforeForward, fixturePin).state, 'ready_for_0004');
+  assert.equal(reviewedForwardState(beforeForward), null, 'synthetic pin is never accepted by production wrapper');
+  assert.equal(Object.isFrozen(reviewedBaseline), true);
+  const afterForward = Object.fromEntries(Object.entries(inventoryQueries).map(([key, sql]) => [key, ready[sql].results]));
+  afterForward.history = structuredClone(afterForward.history);
+  afterForward.history[3].name = 'opaque_fixture_history.sql';
+  assert.equal(assessForwardBaseline(afterForward, fixturePin).state, 'already_applied');
+  assert.equal(assessForwardBaseline(afterForward, fixturePin).oldHistorySHA256, fixturePin.historySHA256);
+  const reviewedBeforeReport = { state: 'ready_for_0004', reviewedForward: assessForwardBaseline(beforeForward, fixturePin) };
+  const reviewedAfterReport = { state: 'already_applied', reviewedForward: assessForwardBaseline(afterForward, fixturePin) };
+  assert.doesNotThrow(() => assertReviewedContinuity(reviewedBeforeReport, reviewedAfterReport));
+  assert.throws(() => assertReviewedContinuity(reviewedBeforeReport, { state: 'already_applied' }), /HISTORY_NOT_PRESERVED/, 'reviewed baseline cannot fall back to canonical history after write');
+  assert.throws(() => assertReviewedContinuity(reviewedBeforeReport, { ...reviewedAfterReport, reviewedForward: { ...reviewedAfterReport.reviewedForward, oldHistorySHA256: 'changed' } }), /HISTORY_NOT_PRESERVED/);
+  assert.throws(() => assertReviewedContinuity(reviewedBeforeReport, { ...reviewedAfterReport, state: 'ready_for_0004' }), /HISTORY_NOT_PRESERVED/);
+
+  for (const corrupt of [
+    (r) => { r.history[0].id += 10; },
+    (r) => { r.history[0].name = 'different_history.sql'; },
+    (r) => { r.history.push({ id: 100, name: 'unexpected.sql' }); },
+    (r) => { r.history.push({ id: 100, name: target.migration }); },
+    (r) => { r.methodColumns[0].notnull = 0; },
+    (r) => { r.objects.find((o) => o.name === 'solution_method_feedback').sql += ' CHECK(1)'; },
+    (r) => { r.objects.push({ type: 'trigger', name: 'fixture_trigger', tbl_name: 'd1_migrations', sql: 'fixture' }); },
+    (r) => { r.objects.find((o) => o.name === 'step_result_receipts').sql = r.objects.find((o) => o.name === 'step_result_receipts').sql.replace("'resolved'", "'RESOLVED'"); },
+    (r) => { r.objects.find((o) => o.name === 'step_result_receipts').sql = r.objects.find((o) => o.name === 'step_result_receipts').sql.replace("'not-resolved'", "'not - resolved'"); },
+    (r) => { r.objects.find((o) => o.name === 'step_result_receipts').sql = r.objects.find((o) => o.name === 'step_result_receipts').sql.replace('"step_result_receipts"."outcome"', '"step_result_receipts.outcome"'); },
+    (r) => { r.receiptIndexes.pop(); },
+    (r) => { r.receiptForeignKeys.push({ table: 'fixture' }); },
+    (r) => { r.receiptColumns[0].hidden = 1; },
+    (r) => { r.objects.push({ type: 'trigger', name: 'fixture_trigger', tbl_name: 'step_result_receipts', sql: 'fixture' }); },
+  ]) {
+    const changed = structuredClone(afterForward);
+    corrupt(changed);
+    assert.notEqual(assessForwardBaseline(changed, fixturePin)?.state, 'already_applied');
+  }
+  const changedBefore = structuredClone(beforeForward);
+  changedBefore.methodColumns[0].notnull = 0;
+  assert.equal(assessForwardBaseline(changedBefore, fixturePin).state, 'blocked');
+
   assert.deepEqual(
     await db
       .prepare(
@@ -272,6 +327,51 @@ try {
     /PREFLIGHT_CHANGED/,
   );
   assert.equal(applies, 0);
+  // Isolated module copy substitutes synthetic pins only in the test tempdir.
+  // Production source and the dispatch interface cannot choose a baseline.
+  const fixtureRoot = await mkdtemp(join(tmpdir(), 'd1-reviewed-fixture-'));
+  try {
+    for (const file of ['control.mjs', 'inventory.mjs']) await copyFile('ops/d1/' + file, join(fixtureRoot, file));
+    const baselineSource = await readFile('ops/d1/reviewed-baseline.mjs', 'utf8');
+    await writeFile(join(fixtureRoot, 'reviewed-baseline.mjs'), baselineSource.replace(/export const reviewedBaseline = Object\.freeze\(\{[\s\S]*?\}\);/, `export const reviewedBaseline = Object.freeze(${JSON.stringify(fixturePin)});`));
+    const fixtureController = await import(pathToFileURL(join(fixtureRoot, 'control.mjs')).href);
+    const reviewedOld = structuredClone(old), reviewedNew = structuredClone(ready);
+    for (const fixture of [reviewedOld, reviewedNew]) {
+      fixture['SELECT name FROM d1_migrations ORDER BY id'].results[3].name = 'opaque_fixture_history.sql';
+      fixture[inventoryQueries.history].results[3].name = 'opaque_fixture_history.sql';
+    }
+    state = reviewedOld;
+    const reviewedPreflight = await fixtureController.execute(env, { api });
+    assert.equal(reviewedPreflight.reviewedForward.baseline, fixturePin.id);
+    assert.ok(!JSON.stringify(reviewedPreflight).includes('opaque_fixture_history.sql'));
+    const reviewedApply = { ...applyEnv, D1_PREFLIGHT_SHA256: reviewedPreflight.preflightSHA256 };
+    state = structuredClone(reviewedOld);
+    state['PRAGMA table_info(solution_method_feedback)'].results[0].type = 'PRIVATE_SENTINEL_EARLY_METADATA';
+    await assert.rejects(fixtureController.execute(env, { api }), (error) => {
+      assert.ok(!JSON.stringify(error.diagnostic).includes('PRIVATE_SENTINEL'));
+      return error.code === 'REVIEWED_FORWARD_SNAPSHOT_MISMATCH';
+    });
+    state = reviewedOld;
+
+    let writes = 0;
+    await assert.rejects(fixtureController.execute(reviewedApply, { api, checkpoint: async () => { throw new Error('fixture_checkpoint_unavailable'); }, apply: async () => { writes++; } }), /checkpoint_unavailable/);
+    assert.equal(writes, 0);
+    const reviewedResult = await fixtureController.execute(reviewedApply, { api, apply: async () => { writes++; state = reviewedNew; } });
+    assert.equal(reviewedResult.result, 'applied_and_read_back');
+    assert.equal(reviewedResult.reviewedForward.oldHistorySHA256, fixturePin.historySHA256);
+    assert.equal(writes, 1);
+    assert.equal((await fixtureController.execute(reviewedApply, { api, apply: async () => { writes++; } })).result, 'already_applied_no_write');
+    assert.equal(writes, 1);
+    state = reviewedOld;
+    await assert.rejects(fixtureController.execute(reviewedApply, { api, apply: async () => { state = ready; } }), /HISTORY_NOT_PRESERVED/);
+    state = reviewedOld;
+    await assert.rejects(fixtureController.execute(reviewedApply, { api, apply: async () => { state = reviewedNew; throw new fixtureController.Blocked('APPLY_OUTCOME_UNCONFIRMED_RUN_PREFLIGHT'); } }), /OUTCOME_UNCONFIRMED/);
+    assert.equal((await fixtureController.execute(reviewedApply, { api, apply: async () => { writes++; } })).result, 'already_applied_no_write');
+    assert.equal(writes, 1);
+  } finally {
+    state = old;
+    await rm(fixtureRoot, { recursive: true, force: true });
+  }
   const after = await execute(applyEnv, {
     api,
     apply: async () => {
