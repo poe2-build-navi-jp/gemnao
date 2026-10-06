@@ -33,9 +33,10 @@ export const history = [
   '0003_empty_jackpot.sql',
 ];
 export class Blocked extends Error {
-  constructor(code) {
+  constructor(code, stage) {
     super(code);
     this.code = code;
+    if (stage) this.stage = stage;
   }
 }
 const requireThat = (value, code) => {
@@ -254,12 +255,85 @@ export function reportFor(pages, snapshot) {
   return { ...metadata, preflightSHA256: digest(metadata) };
 }
 
+// Only fixed categories may leave this boundary. Never retain the original error,
+// its message/stack/cause, or credential values (including length/fragments).
+export function validateCredential(token) {
+  requireThat(
+    typeof token === 'string' && token.length > 0,
+    'CLOUDFLARE_CREDENTIAL_NOT_CONFIGURED',
+  );
+  requireThat(!/\s/u.test(token), 'CLOUDFLARE_CREDENTIAL_WHITESPACE');
+  requireThat(
+    [...token].every((character) => character.charCodeAt(0) <= 127),
+    'CLOUDFLARE_CREDENTIAL_NON_ASCII',
+  );
+  requireThat(
+    [...token].every(
+      (character) =>
+        character.charCodeAt(0) >= 32 && character.charCodeAt(0) !== 127,
+    ),
+    'CLOUDFLARE_CREDENTIAL_INVALID_HEADER',
+  );
+}
+const requestStages = new Map([
+  [
+    `/accounts/${target.account}/pages/projects/${target.project}`,
+    'pagesproject',
+  ],
+  [`/accounts/${target.account}/d1/database/${target.database}`, 'd1identity'],
+  [
+    `/accounts/${target.account}/d1/database/${target.database}/query`,
+    'd1schema',
+  ],
+  [
+    `/accounts/${target.account}/d1/database/${target.database}/time_travel/bookmark`,
+    'restorebookmark',
+  ],
+]);
+const failureCodes = new Map([
+  ['ETIMEDOUT', 'TIMEOUT'],
+  ['UND_ERR_CONNECT_TIMEOUT', 'TIMEOUT'],
+  ['UND_ERR_HEADERS_TIMEOUT', 'TIMEOUT'],
+  ['UND_ERR_BODY_TIMEOUT', 'TIMEOUT'],
+  ['ENOTFOUND', 'DNS'],
+  ['EAI_AGAIN', 'DNS'],
+  ['ECONNREFUSED', 'CONNECT'],
+  ['ECONNRESET', 'CONNECT'],
+  ['ENETUNREACH', 'CONNECT'],
+  ['EHOSTUNREACH', 'CONNECT'],
+  ['UND_ERR_SOCKET', 'CONNECT'],
+  ['CERT_HAS_EXPIRED', 'TLS'],
+  ['CERT_NOT_YET_VALID', 'TLS'],
+  ['DEPTH_ZERO_SELF_SIGNED_CERT', 'TLS'],
+  ['SELF_SIGNED_CERT_IN_CHAIN', 'TLS'],
+  ['UNABLE_TO_VERIFY_LEAF_SIGNATURE', 'TLS'],
+  ['UNABLE_TO_GET_ISSUER_CERT_LOCALLY', 'TLS'],
+  ['ERR_TLS_CERT_ALTNAME_INVALID', 'TLS'],
+  ['ERR_SSL_WRONG_VERSION_NUMBER', 'TLS'],
+  ['ERR_INVALID_HTTP_TOKEN', 'INVALID_HEADER'],
+  ['ERR_HTTP_INVALID_HEADER_VALUE', 'INVALID_HEADER'],
+  ['ERR_INVALID_CHAR', 'INVALID_HEADER'],
+]);
+function requestFailure(error) {
+  const pending = [error];
+  // Bound traversal even for cyclic or unusually large AggregateError causes.
+  for (let i = 0; i < 8 && i < pending.length; i++) {
+    const item = pending[i];
+    if (!item || typeof item !== 'object') continue;
+    if (item.name === 'TimeoutError' || item.name === 'AbortError')
+      return 'TIMEOUT';
+    const category = failureCodes.get(item.code);
+    if (category) return category;
+    if (item.cause) pending.push(item.cause);
+    if (Array.isArray(item.errors)) pending.push(...item.errors.slice(0, 8));
+  }
+  return 'OTHER';
+}
 export function cloudflareClient(token, fetcher = fetch) {
+  validateCredential(token);
   return async function api(path, sql) {
-    requireThat(
-      path.startsWith(`/accounts/${target.account}/`),
-      'UNEXPECTED_API_TARGET',
-    );
+    const stage = requestStages.get(path);
+    requireThat(stage, 'UNEXPECTED_API_TARGET');
     let response;
     try {
       response = await fetcher(`https://api.cloudflare.com/client/v4${path}`, {
@@ -272,17 +346,19 @@ export function cloudflareClient(token, fetcher = fetch) {
         signal: AbortSignal.timeout(30000),
         redirect: 'error',
       });
-    } catch {
-      throw new Blocked('CLOUDFLARE_REQUEST_FAILED');
+    } catch (error) {
+      throw new Blocked(`CLOUDFLARE_REQUEST_${requestFailure(error)}`, stage);
     }
-    requireThat(response.ok, `CLOUDFLARE_HTTP_${response.status}`);
+    if (!response.ok)
+      throw new Blocked(`CLOUDFLARE_HTTP_${response.status}`, stage);
     let data;
     try {
       data = await response.json();
     } catch {
-      throw new Blocked('CLOUDFLARE_RESPONSE_INVALID');
+      throw new Blocked('CLOUDFLARE_RESPONSE_INVALID', stage);
     }
-    requireThat(data?.success === true, 'CLOUDFLARE_OPERATION_FAILED');
+    if (data?.success !== true)
+      throw new Blocked('CLOUDFLARE_OPERATION_FAILED', stage);
     return data.result;
   };
 }
@@ -432,10 +508,7 @@ export async function execute(
       credentialConfigured: Boolean(token),
       noCloudflareRequests: true,
     };
-  requireThat(
-    typeof token === 'string' && token.length > 0,
-    'CLOUDFLARE_CREDENTIAL_NOT_CONFIGURED',
-  );
+  validateCredential(token);
   const client = api || cloudflareClient(token);
   const before = await collect(client);
   if (operation === 'preflight') return { ...before, operation };
@@ -495,6 +568,10 @@ async function main() {
     console.error(
       JSON.stringify({
         status: 'blocked',
+        ...(error instanceof Blocked &&
+        [...requestStages.values()].includes(error.stage)
+          ? { stage: error.stage }
+          : {}),
         code:
           error instanceof Blocked
             ? error.code
