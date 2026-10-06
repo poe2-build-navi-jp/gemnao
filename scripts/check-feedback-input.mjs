@@ -22,7 +22,7 @@ const result = await build({
           contents:
             path === 'response'
               ? 'export const NextResponse = {json: (body, options) => Response.json(body, options)};'
-              : 'const fail=()=>{throw new Error("Invalid input reached database")}; export const incrementFeedback=fail,incrementSolutionMethod=fail,readSolutionMethods=fail,readFeedback=fail,recordStepSolved=fail,recordFeedbackEvent=fail;',
+              : 'const fail=()=>{throw new Error("Invalid input reached database")}; export const incrementFeedback=fail,incrementSolutionMethod=fail,readSolutionMethods=fail,readFeedback=fail,recordStepSolved=fail,recordFeedbackEvent=fail,recordStepResult=fail,stepResultsAvailable=fail;',
           loader: 'js',
         }));
       },
@@ -33,6 +33,13 @@ const { POST } = await import(
   `data:text/javascript;base64,${Buffer.from(result.outputFiles[0].text).toString('base64')}`
 );
 const invalid = [
+  {
+    game: 'guide-low-fps',
+    topic: 'display',
+    kind: 'step-result',
+    method: 'step-1',
+    outcome: 'bad',
+  },
   null,
   [],
   { game: 123, topic: 'launch', kind: 'method' },
@@ -53,7 +60,19 @@ const invalid = [
   },
 ];
 for (const body of invalid)
-  assert.equal((await POST({ json: async () => body })).status, 400);
+  assert.equal(
+    (
+      await POST({
+        json: async () => body,
+        headers: new Headers({
+          Origin: 'http://test',
+          'Content-Type': 'application/json',
+        }),
+        url: 'http://test/api/feedback',
+      })
+    ).status,
+    400,
+  );
 assert.equal(
   (
     await POST({

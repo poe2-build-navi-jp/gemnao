@@ -1,3 +1,8 @@
+import {
+  StepResultCollection,
+  StepResultButtons,
+} from '@/components/step-result-collection';
+import { articleFeedbackTopic } from '@/lib/article-step-data';
 import { ArticleToc } from '@/components/article-toc';
 import { ArticleDiagnosisEntry } from '@/components/article-diagnosis-entry';
 import { SupportWorkspace } from '@/components/support-workspace';
@@ -44,6 +49,10 @@ export function LocalizedArticle({
   const hubPath = `${translatedHub ? `/${locale}` : ''}${originalHubPath}`;
   const hubLabel = `${name}${translatedHub ? '' : t.inJapanese}`;
   const path = `/${locale}${originalPath}`;
+  const contextSlug = isDiscord
+    ? `discord-${article.slug}`
+    : `game-${game!.slug}-${article.slug}`;
+  const feedbackTopic = articleFeedbackTopic(contextSlug);
   const editorialLabel = {
     en: 'Edited by Gemnao Editorial Team',
     zh: '编辑：Gemnao 编辑团队',
@@ -194,7 +203,15 @@ export function LocalizedArticle({
           </section>
           <section className="diagnosis-table" id="diagnosis">
             <h2>{t.diagnosis}</h2>
-            <p>{{ en: 'Start with your symptom. Skip steps that do not apply to your setup.', zh: '从符合你的症状开始。不适用于你的设备或情况的步骤可以跳过。', es: 'Empieza por tu síntoma. Omite los pasos que no correspondan a tu equipo o situación.' }[locale]}</p>
+            <p>
+              {
+                {
+                  en: 'Start with your symptom. Skip steps that do not apply to your setup.',
+                  zh: '从符合你的症状开始。不适用于你的设备或情况的步骤可以跳过。',
+                  es: 'Empieza por tu síntoma. Omite los pasos que no correspondan a tu equipo o situación.',
+                }[locale]
+              }
+            </p>
             <table>
               <thead>
                 <tr>
@@ -213,7 +230,10 @@ export function LocalizedArticle({
                       <td data-label={t.symptom}>{row.symptom}</td>
                       <td data-label={t.cause}>{row.cause}</td>
                       <td data-label={t.step}>
-                        <a className="diagnosis-step-link" href={`#${row.stepId}`}>
+                        <a
+                          className="diagnosis-step-link"
+                          href={`#${row.stepId}`}
+                        >
                           {t.stepLabel} {index + 1}
                         </a>
                       </td>
@@ -240,32 +260,41 @@ export function LocalizedArticle({
                 completedSteps: [],
               }}
             />
-            {article.steps.map((step, index) => (
-              <section className="pc-step" id={step.id} key={step.id}>
-                <h3>
-                  {t.stepLabel} {index + 1}｜{step.title}
-                </h3>
-                <p>{step.summary}</p>
-                <p className="step-badges">
-                  {t.time}: {step.time}
-                  {step.risk ? ` · ${riskLabel}: ${risks[step.risk]}` : ''}
-                </p>
-                <ol>
-                  {step.actions.map((action) => (
-                    <li key={action}>{action}</li>
-                  ))}
-                </ol>
-                {step.note ? <p className="tip">{step.note}</p> : null}
-                {step.guideLink ? (
-                  <p>
-                    <a href={step.guideLink.href}>{step.guideLink.label}</a>
-                    {step.guideLink.description
-                      ? ` — ${step.guideLink.description}`
-                      : ''}
+            <StepResultCollection
+              key={`${contextSlug}:${locale}`}
+              contextSlug={contextSlug}
+              topic={feedbackTopic || ''}
+              locale={locale}
+              steps={article.steps.map(({ id, title }) => ({ id, title }))}
+            >
+              {article.steps.map((step, index) => (
+                <section className="pc-step" id={step.id} key={step.id}>
+                  <h3>
+                    {t.stepLabel} {index + 1}｜{step.title}
+                  </h3>
+                  <p>{step.summary}</p>
+                  <p className="step-badges">
+                    {t.time}: {step.time}
+                    {step.risk ? ` · ${riskLabel}: ${risks[step.risk]}` : ''}
                   </p>
-                ) : null}
-              </section>
-            ))}
+                  <ol>
+                    {step.actions.map((action) => (
+                      <li key={action}>{action}</li>
+                    ))}
+                  </ol>
+                  {step.note ? <p className="tip">{step.note}</p> : null}
+                  {step.guideLink ? (
+                    <p>
+                      <a href={step.guideLink.href}>{step.guideLink.label}</a>
+                      {step.guideLink.description
+                        ? ` — ${step.guideLink.description}`
+                        : ''}
+                    </p>
+                  ) : null}
+                  {feedbackTopic && <StepResultButtons method={step.id} />}
+                </section>
+              ))}
+            </StepResultCollection>
           </section>
           <section className="avoid-block">
             <h2>

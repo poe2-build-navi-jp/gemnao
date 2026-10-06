@@ -29,6 +29,13 @@
       "when": 1789722892893,
       "tag": "0003_empty_jackpot",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1791275764477,
+      "tag": "0004_step_result_reports",
+      "breakpoints": true
     }
   ]
 }
