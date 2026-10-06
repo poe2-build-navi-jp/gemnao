@@ -1,3 +1,4 @@
+import { inventoryQueries, forwardInventory } from '../ops/d1/inventory.mjs';
 import './check-d1-connection.mjs';
 import assert from 'node:assert/strict';
 import {
@@ -88,6 +89,7 @@ const policies = {
   branch_policies: [{ name: target.branch, type: 'branch' }],
 };
 const sqls = [
+  ...Object.values(inventoryQueries),
   'PRAGMA table_info(issue_feedback)',
   'PRAGMA table_info(solution_method_feedback)',
   'PRAGMA table_info(step_result_receipts)',
@@ -108,7 +110,7 @@ try {
       await db.prepare(sql).run();
   await db
     .prepare(
-      'CREATE TABLE d1_migrations(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT UNIQUE,applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)',
+      'CREATE TABLE d1_migrations(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT UNIQUE,applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL)',
     )
     .run();
   for (const name of history)
@@ -133,6 +135,47 @@ try {
       ),
     );
   const old = await snapshot();
+  const inventoryFixture = Object.fromEntries(Object.entries(inventoryQueries).map(([key, sql]) => [key, old[sql].results]));
+  const baselineInventory = forwardInventory(inventoryFixture);
+  assert.equal(baselineInventory.structuralPreconditionsSatisfied, true);
+  assert.equal(baselineInventory.applyAllowed, false);
+  assert.ok(!JSON.stringify(baselineInventory).includes('preflightSHA256'));
+  for (const mutateInventory of [
+    (r) => { r.registryColumns.push({ name: 'PRIVATE_SENTINEL', hidden: 1 }); },
+    (r) => { r.methodColumns[0].hidden = 2; },
+    (r) => { r.registryColumns[2].dflt_value = 'PRIVATE_SENTINEL'; },
+    (r) => { r.objects.find((o) => o.name === 'd1_migrations').sql += ' CHECK(PRIVATE_SENTINEL)'; },
+    (r) => { r.objects.push({ name: 'PRIVATE_SENTINEL', tbl_name: 'd1_migrations', type: 'trigger', sql: 'PRIVATE_SENTINEL' }); },
+    (r) => { r.registryForeignKeys.push({ table: 'PRIVATE_SENTINEL' }); },
+    (r) => { r.methodIndexes.push({ name: 'PRIVATE_SENTINEL', unique: 1 }); },
+    (r) => { r.registryIndexColumns[0].coll = 'NOCASE'; },
+    (r) => { r.objects.push({ name: 'step_result_receipts', type: 'view', tbl_name: 'step_result_receipts', sql: 'PRIVATE_SENTINEL' }); },
+    (r) => { r.objects.push({ name: 'step_result_receipts_requested_at', type: 'trigger', tbl_name: 'unrelated', sql: 'PRIVATE_SENTINEL' }); },
+    (r) => { r.objects.push({ name: 'STEP_RESULT_RECEIPTS', type: 'view', tbl_name: 'STEP_RESULT_RECEIPTS', sql: 'PRIVATE_SENTINEL' }); },
+    (r) => { r.objects.push({ name: 'Step_Result_Receipts_Requested_At', type: 'index', tbl_name: 'unrelated', sql: 'PRIVATE_SENTINEL' }); },
+    (r) => { r.history[0].id = -1; },
+  ]) {
+    const altered = structuredClone(inventoryFixture);
+    mutateInventory(altered);
+    const result = forwardInventory(altered);
+    assert.equal(result.structuralPreconditionsSatisfied, false);
+    assert.ok(!JSON.stringify(result).includes('PRIVATE_SENTINEL'));
+    assert.equal(result.applyAllowed, false);
+  }
+  await db.prepare('CREATE VIEW STEP_RESULT_RECEIPTS AS SELECT 1 AS fixture').run();
+  const uppercaseObjects = await db.prepare(inventoryQueries.objects).all();
+  assert.ok(uppercaseObjects.results.some((o) => o.name === 'STEP_RESULT_RECEIPTS'));
+  assert.equal(forwardInventory({ ...inventoryFixture, objects: uppercaseObjects.results }).plannedNamesAvailableAcrossObjectTypes, false);
+  await db.prepare('DROP VIEW STEP_RESULT_RECEIPTS').run();
+  await db.prepare('CREATE INDEX Step_Result_Receipts_Requested_At ON contact_submissions(category)').run();
+  const mixedCaseObjects = await db.prepare(inventoryQueries.objects).all();
+  assert.ok(mixedCaseObjects.results.some((o) => o.name === 'Step_Result_Receipts_Requested_At'));
+  assert.equal(forwardInventory({ ...inventoryFixture, objects: mixedCaseObjects.results }).plannedNamesAvailableAcrossObjectTypes, false);
+  await db.prepare('DROP INDEX Step_Result_Receipts_Requested_At').run();
+  const changedHistory = structuredClone(inventoryFixture);
+  changedHistory.history[0].id += 100;
+  assert.notEqual(forwardInventory(changedHistory).history.idNameSHA256, baselineInventory.history.idNameSHA256);
+  assert.equal(forwardInventory({ ...inventoryFixture, history: null }).history.readable, false);
   const fixedSQL = await readFile(
     'ops/d1/migrations/' + target.migration,
     'utf8',
