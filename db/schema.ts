@@ -1,5 +1,8 @@
+import { sql } from 'drizzle-orm';
 import {
   integer,
+  index,
+  check,
   primaryKey,
   sqliteTable,
   text,
@@ -25,6 +28,7 @@ export const solutionMethodFeedback = sqliteTable(
     methodId: text('method_id').notNull(),
     methodLabel: text('method_label').notNull(),
     responseCount: integer('response_count').notNull().default(0),
+    notResolvedCount: integer('not_resolved_count').notNull().default(0),
     updatedAt: text('updated_at').notNull().default(''),
   },
   (table) => [
@@ -66,4 +70,29 @@ export const discordServerSubmissions = sqliteTable(
     reviewedAt: text('reviewed_at'),
     lastVerifiedAt: text('last_verified_at'),
   },
+);
+
+// One token identifies one explicit submission, never a person or device.
+export const stepResultReceipts = sqliteTable(
+  'step_result_receipts',
+  {
+    requestId: text('request_id').primaryKey(),
+    requestedAt: text('requested_at').notNull(),
+    contextSlug: text('context_slug').notNull(),
+    topic: text('topic').notNull(),
+    methodId: text('method_id').notNull(),
+    outcome: text('outcome').notNull(),
+    reportStruggling: integer('report_struggling').notNull(),
+  },
+  (table) => [
+    index('step_result_receipts_requested_at').on(table.requestedAt),
+    check(
+      'step_result_receipts_outcome',
+      sql`${table.outcome} IN ('resolved', 'not-resolved')`,
+    ),
+    check(
+      'step_result_receipts_struggling',
+      sql`${table.reportStruggling} IN (0, 1)`,
+    ),
+  ],
 );

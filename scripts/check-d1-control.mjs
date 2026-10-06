@@ -106,7 +106,7 @@ const sqls = [
 try {
   const db = await mf.getD1Database('DB');
   for (const file of (await readdir('.openai/drizzle'))
-    .filter((f) => f.endsWith('.sql'))
+    .filter((f) => history.includes(f))
     .sort())
     for (const sql of (await readFile('.openai/drizzle/' + file, 'utf8'))
       .split(';')

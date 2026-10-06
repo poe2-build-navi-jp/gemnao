@@ -10,6 +10,13 @@ import {
   Share2,
 } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import {
+  sendStepResult,
+  StepResultError,
+  readPendingStepResults,
+  hasFeedbackVote,
+  markFeedbackVote,
+} from '@/lib/step-result-client';
 import type { AdvanceCheck } from '@/lib/step-navigation';
 import { useSavedSolutions } from '@/components/use-saved-solutions';
 import { useActiveCase } from '@/components/support-workspace';
@@ -42,7 +49,12 @@ const riskLabels = {
   high: '影響：大（ファイルを入れ替える）',
 };
 type Row = { topic: string; struggling: number; resolved: number };
-type Method = { methodId: string; methodLabel: string; responses: number };
+type Method = {
+  methodId: string;
+  methodLabel: string;
+  responses: number;
+  notResolved?: number;
+};
 type NextLink = { href: string; label: string };
 type Progress = {
   currentStep: number;
@@ -86,6 +98,17 @@ export function InteractiveSteps({
     solvedStepId: string;
     showResume: boolean;
     message: string;
+    reports: Record<
+      string,
+      {
+        step: Step;
+        resolved: boolean;
+        final: boolean;
+        status: 'sending' | 'sent' | 'already' | 'error';
+        error?: string;
+        retryable?: boolean;
+      }
+    >;
     outcome: {
       step: Step;
       resolved: boolean;
@@ -129,6 +152,7 @@ export function InteractiveSteps({
       ? activeNote.status !== 'resolved' && noteIndex >= 0
       : Boolean(legacy && legacy.currentStep > 0 && !legacy.solved),
     message: '',
+    reports: {},
     outcome: null,
   };
   const firstCheck = steps.findIndex((step) => step.advanceCheck);
@@ -161,6 +185,62 @@ export function InteractiveSteps({
   const [alreadyVoted, setAlreadyVoted] = useState(false);
   const [rows, setRows] = useState<Row[]>([]);
   const [methods, setMethods] = useState<Method[]>([]);
+  const [collection, setCollection] = useState<{
+    context: string;
+    status: 'loading' | 'unavailable' | 'available';
+    legacyAvailable: boolean;
+  }>({ context: '', status: 'loading', legacyAvailable: false });
+  const canCollectResults =
+    collection.context === contextSlug && collection.status === 'available';
+  const canCollectLegacy =
+    collection.context === contextSlug && collection.legacyAvailable;
+  const collectionLoading =
+    collection.context !== contextSlug || collection.status === 'loading';
+  // Anonymous submission status survives saves of the same private note.
+  // Private outcome/note drafts above remain revision-scoped.
+  const reportScope = JSON.stringify([articlePath, activeCase]);
+  const [submissionReports, setSubmissionReports] = useState<
+    Record<string, Session['reports']>
+  >({});
+  const reports = submissionReports[reportScope] || {};
+  const [pendingRecovery, setPendingRecovery] = useState<{
+    context: string;
+    values: ReturnType<typeof readPendingStepResults>;
+  }>({ context: '', values: [] });
+  function refreshPendingRecovery() {
+    setPendingRecovery({
+      context: contextSlug,
+      values: readPendingStepResults(
+        contextSlug,
+        topic,
+        steps.map((step) => step.id),
+      ),
+    });
+  }
+  useEffect(() => {
+    let active = true;
+    queueMicrotask(() => {
+      if (active)
+        setPendingRecovery({
+          context: contextSlug,
+          values: readPendingStepResults(
+            contextSlug,
+            topic,
+            steps.map((step) => step.id),
+          ),
+        });
+    });
+    return () => {
+      active = false;
+    };
+  }, [contextSlug, topic, scope, steps]);
+  const visibleContext = useRef(contextSlug);
+  useEffect(() => {
+    visibleContext.current = contextSlug;
+    return () => {
+      visibleContext.current = '';
+    };
+  }, [contextSlug]);
 
   useEffect(() => {
     let saved: string | null = null;
@@ -214,14 +294,33 @@ export function InteractiveSteps({
           `/api/feedback?game=${encodeURIComponent(contextSlug)}`,
           { signal: controller.signal },
         );
-        if (!response.ok) return;
+        if (!response.ok) throw new Error('unavailable');
         const data = (await response.json()) as {
           rows?: Row[];
           methods?: Method[];
+          stepResultsAvailable?: boolean;
         };
+        if (controller.signal.aborted) return;
+        if (
+          !Array.isArray(data.rows) ||
+          !Array.isArray(data.methods) ||
+          typeof data.stepResultsAvailable !== 'boolean'
+        )
+          throw new Error('invalid capability response');
         setRows(data.rows || []);
         setMethods(data.methods || []);
+        setCollection({
+          context: contextSlug,
+          status: data.stepResultsAvailable ? 'available' : 'unavailable',
+          legacyAvailable: true,
+        });
       } catch {
+        if (!controller.signal.aborted)
+          setCollection({
+            context: contextSlug,
+            status: 'unavailable',
+            legacyAvailable: false,
+          });
         return;
       }
     }
@@ -230,18 +329,67 @@ export function InteractiveSteps({
   }, [articlePath, articleTitle, contextSlug, steps, storageKey, voteKey]);
 
   function hasVote(kind: string) {
-    try {
-      return Boolean(localStorage.getItem(`${voteKey}:${kind}`));
-    } catch {
-      return false;
-    }
+    return hasFeedbackVote(`${voteKey}:${kind}`);
+  }
+  function markVote(kind: string) {
+    markFeedbackVote(`${voteKey}:${kind}`);
   }
 
-  function markVote(kind: string) {
+  function updateReport(report: Session['reports'][string]) {
+    setSubmissionReports((previous) => ({
+      ...previous,
+      [reportScope]: {
+        ...previous[reportScope],
+        [`${report.step.id}:${report.resolved}`]: report,
+      },
+    }));
+  }
+  async function reportResult(step: Step, resolved: boolean, final: boolean) {
+    if (!canCollectResults) return;
+    updateReport({ step, resolved, final, status: 'sending' });
     try {
-      localStorage.setItem(`${voteKey}:${kind}`, '1');
-    } catch {
-      // A successful server response must not become a false failure message.
+      const result = await sendStepResult({
+        game: contextSlug,
+        topic,
+        method: step.id,
+        outcome: resolved ? 'resolved' : 'not-resolved',
+        reportStruggling: !resolved && final && !hasVote('struggling'),
+      });
+      updateReport({ step, resolved, final, status: result });
+      if (visibleContext.current === contextSlug) refreshPendingRecovery();
+      // This response belongs to the captured article/saved-case scope.
+      // Aggregate refresh is best effort and must never undo an acknowledgement.
+      if (visibleContext.current !== contextSlug) return;
+      try {
+        const response = await fetch(
+          `/api/feedback?game=${encodeURIComponent(contextSlug)}`,
+        );
+        if (!response.ok) return;
+        const data = (await response.json()) as {
+          rows?: Row[];
+          methods?: Method[];
+        };
+        if (visibleContext.current === contextSlug) {
+          setRows(data.rows || []);
+          setMethods(data.methods || []);
+        }
+      } catch {
+        /* The vote is saved even if the fresh totals are unavailable. */
+      }
+    } catch (error) {
+      if (visibleContext.current === contextSlug) refreshPendingRecovery();
+      // Keep acknowledgement intact when only the aggregate refresh failed.
+      updateReport({
+        step,
+        resolved,
+        final,
+        status: 'error',
+        retryable: !(error instanceof StepResultError) || error.retryable,
+        error:
+          error instanceof Error
+            ? error.message
+            : '送信完了を確認できませんでした。同じ回答を再送できます。',
+      });
     }
   }
 
@@ -282,6 +430,22 @@ export function InteractiveSteps({
         at: new Date().toISOString(),
       },
     });
+    if (canCollectResults) {
+      await reportResult(step, true, false);
+      return;
+    }
+    if (!canCollectLegacy) {
+      updateReport({
+        step,
+        resolved: true,
+        final: false,
+        status: 'error',
+        error:
+          '匿名集計への接続を確認できていないため、回答は送信していません。ノートは別に保存できます。',
+        retryable: true,
+      });
+      return;
+    }
     if (
       alreadyVoted ||
       hasVote('resolved') ||
@@ -346,6 +510,22 @@ export function InteractiveSteps({
         at: new Date().toISOString(),
       },
     });
+    if (canCollectResults) {
+      await reportResult(step, false, index === steps.length - 1);
+      return;
+    }
+    if (!canCollectLegacy) {
+      updateReport({
+        step,
+        resolved: false,
+        final: index === steps.length - 1,
+        status: 'error',
+        error:
+          '匿名集計への接続を確認できていないため、回答は送信していません。ノートは別に保存できます。',
+        retryable: true,
+      });
+      return;
+    }
     if (
       index < steps.length - 1 ||
       hasVote('struggling') ||
@@ -436,7 +616,7 @@ export function InteractiveSteps({
           </div>
           {row.resolved >= threshold && rankedMethods.length ? (
             <div className="method-ranking">
-              <strong>実際に直った方法</strong>
+              <strong>「直った」と回答された方法</strong>
               <p>現在、解決報告が多い順に表示しています。</p>
               <ol>
                 {rankedMethods.slice(0, 3).map((method) => (
@@ -536,6 +716,57 @@ export function InteractiveSteps({
             completedSteps: [],
           }}
         />
+        <p className="procedure-note">
+          {canCollectResults
+            ? '実際に試した結果を教えてください。「これで直った」「試したが直らない」を押すと、この記事の症状・STEP・結果を匿名の回答数として集計します。ノートの内容は送信しません。'
+            : collectionLoading
+              ? '匿名集計への接続を確認中です。手順やノートは利用できます。接続確認前の結果は送信されません。'
+              : '実際に試した結果を選んで、次の手順やノートに進めます。方法別の「直らなかった」の集計は、現在このページでは利用できません。'}
+        </p>
+        {canCollectResults && (
+          <p className="procedure-note">
+            「直らなかった」は新機能開始後の回答だけです。以前の未解決回答には方法の記録がありません。過去の解決回答も含む匿名集計のため、同じ人の回答や動作確認の回答を区別できません。回答数は人数や成功率ではなく、効果を保証するものではありません。
+          </p>
+        )}
+        {canCollectResults &&
+          pendingRecovery.context === contextSlug &&
+          pendingRecovery.values.length > 0 && (
+            <aside className="procedure-note" aria-label="未確認の匿名回答">
+              <p>
+                このブラウザで、送信完了を確認できていない匿名回答があります。ノートとは別に、元のSTEP・結果のまま確認できます。
+              </p>
+              {pendingRecovery.values.map((pending) => {
+                const step = steps.find((item) => item.id === pending.method);
+                return (
+                  step && (
+                    <p key={`${pending.method}:${pending.outcome}`}>
+                      「{step.title}」：
+                      {pending.outcome === 'resolved'
+                        ? '直った'
+                        : '試したが直らなかった'}
+                      {pending.retryable ? (
+                        <button
+                          type="button"
+                          className="step-next"
+                          onClick={() =>
+                            void reportResult(
+                              step,
+                              pending.outcome === 'resolved',
+                              pending.reportStruggling,
+                            )
+                          }
+                        >
+                          元の回答の送信を確認
+                        </button>
+                      ) : (
+                        '（送信番号が期限切れ、または確認できないため再送できません）'
+                      )}
+                    </p>
+                  )
+                );
+              })}
+            </aside>
+          )}
         <div className="procedure-list">
           {steps.map((step, index) => {
             const prerequisite =
@@ -584,6 +815,23 @@ export function InteractiveSteps({
                         件
                       </p>
                     ) : null}
+                    {canCollectResults &&
+                      methods.some(
+                        (method) =>
+                          method.methodId === step.id &&
+                          Number.isSafeInteger(method.notResolved) &&
+                          (method.notResolved || 0) > 0,
+                      ) && (
+                        <p>
+                          このSTEPで直らなかった回答：
+                          {
+                            methods.find(
+                              (method) => method.methodId === step.id,
+                            )?.notResolved
+                          }
+                          件（新機能開始後）
+                        </p>
+                      )}
                   </div>
                 </header>
                 <ol>
@@ -697,14 +945,51 @@ export function InteractiveSteps({
                           onClick={() => void notSolved(step, index)}
                         >
                           {index < steps.length - 1
-                            ? `直らない → 次は「${steps[nextIndex(step, index)].title}」を確認`
-                            : '全部試したが直らない'}
+                            ? `試したが直らない → 次は「${steps[nextIndex(step, index)].title}」を確認`
+                            : '試したが直らない'}
                           <ChevronRight size={17} />
                         </button>
                       ) : null}
                     </div>
                   </>
                 )}
+                {Object.values(reports)
+                  .filter((report) => report.step.id === step.id)
+                  .map((report) => (
+                    <output
+                      className="procedure-note"
+                      key={`${report.step.id}:${report.resolved}`}
+                      aria-live="polite"
+                    >
+                      {report.status === 'sending'
+                        ? '匿名回答を送信中…'
+                        : report.status === 'sent'
+                          ? 'この症状・方法・結果の匿名回答を記録しました。'
+                          : report.status === 'already'
+                            ? report.resolved
+                              ? 'この記事の解決回答はこのブラウザから送信済みです。方法別の追加送信は行いません。ノートは別に保存できます。'
+                              : 'このSTEPの未解決回答はこのブラウザから送信済みです。ノートは別に保存できます。'
+                            : report.error ||
+                              '匿名回答の送信完了を確認できませんでした。'}
+                      {report.status === 'error' &&
+                        report.retryable !== false &&
+                        canCollectResults && (
+                          <button
+                            type="button"
+                            className="step-next"
+                            onClick={() =>
+                              void reportResult(
+                                report.step,
+                                report.resolved,
+                                report.final,
+                              )
+                            }
+                          >
+                            同じ回答を再送
+                          </button>
+                        )}
+                    </output>
+                  ))}
                 {outcome?.step.id === step.id && (
                   <ResultNote
                     key={`${scope}:${outcome.at}`}

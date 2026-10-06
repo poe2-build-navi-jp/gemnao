@@ -24,6 +24,9 @@ export function articleSteps(context: string) {
   return guide?.steps.map((step, i) => ({
     id: `step-${i + 1}`,
     title: step.title,
+    // Recognition/next links are navigation; only an explicit actual fix may
+    // count as solved. This STEP has no tried-but-not-fixed report button.
+    notResolvedReportable: !step.advanceCheck,
   }));
 }
 
