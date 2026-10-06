@@ -5398,3 +5398,7 @@ a.my-games-primary {
 .step-result-controls > output, .interactive-step > output.procedure-note { display: block; }
 .step-result-controls > output { margin: 8px 0; }
 .procedure-note button.step-next { min-height: 42px; max-width: 100%; margin: 6px 0; padding: 8px 12px; white-space: normal; overflow-wrap: anywhere; }
+
+/* Public report totals remain readable inside narrow step cards. */
+.step-outcome-counts { overflow-wrap: anywhere; }
+.step-outcome-counts small { display: block; font-size: inherit; color: var(--muted-foreground); }

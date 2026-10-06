@@ -17,6 +17,10 @@ import {
   hasFeedbackVote,
   markFeedbackVote,
 } from '@/lib/step-result-client';
+import {
+  stepOutcomeCounts,
+  validMethodSnapshot,
+} from '@/lib/step-outcome-counts';
 import type { AdvanceCheck } from '@/lib/step-navigation';
 import { useSavedSolutions } from '@/components/use-saved-solutions';
 import { useActiveCase } from '@/components/support-workspace';
@@ -303,7 +307,10 @@ export function InteractiveSteps({
         if (controller.signal.aborted) return;
         if (
           !Array.isArray(data.rows) ||
-          !Array.isArray(data.methods) ||
+          !validMethodSnapshot(
+            data.methods,
+            data.stepResultsAvailable === true,
+          ) ||
           typeof data.stepResultsAvailable !== 'boolean'
         )
           throw new Error('invalid capability response');
@@ -364,16 +371,33 @@ export function InteractiveSteps({
         const response = await fetch(
           `/api/feedback?game=${encodeURIComponent(contextSlug)}`,
         );
-        if (!response.ok) return;
+        if (!response.ok) throw new Error('unavailable');
         const data = (await response.json()) as {
           rows?: Row[];
           methods?: Method[];
+          stepResultsAvailable?: boolean;
         };
-        if (visibleContext.current === contextSlug) {
-          setRows(data.rows || []);
-          setMethods(data.methods || []);
-        }
+        if (visibleContext.current !== contextSlug) return;
+        if (
+          !Array.isArray(data.rows) ||
+          typeof data.stepResultsAvailable !== 'boolean' ||
+          !validMethodSnapshot(data.methods, data.stepResultsAvailable === true)
+        )
+          throw new Error('invalid snapshot');
+        setRows(data.rows);
+        setMethods(data.methods);
+        setCollection({
+          context: contextSlug,
+          status: data.stepResultsAvailable ? 'available' : 'unavailable',
+          legacyAvailable: true,
+        });
       } catch {
+        if (visibleContext.current === contextSlug)
+          setCollection({
+            context: contextSlug,
+            status: 'unavailable',
+            legacyAvailable: false,
+          });
         /* The vote is saved even if the fresh totals are unavailable. */
       }
     } catch (error) {
@@ -778,6 +802,11 @@ export function InteractiveSteps({
                     prior.advanceCheck &&
                     !session.confirmedStepIds.includes(prior.id),
                 );
+            const counts = stepOutcomeCounts(
+              methods,
+              step.id,
+              canCollectResults,
+            );
             const completed = completedIds.includes(step.id);
             const solvedHere = solvedStepId === step.id;
             return (
@@ -802,9 +831,19 @@ export function InteractiveSteps({
                       </p>
                     ) : null}
                     {step.summary ? <p>{step.summary}</p> : null}
-                    {stepReports.find(
-                      (method) => method.methodId === step.id,
-                    ) ? (
+                    {counts ? (
+                      <p className="step-outcome-counts">
+                        みんなの報告：直った {counts.resolved}件 ／ 直らなかった{' '}
+                        {counts.notResolved}件
+                        {counts.total < 10 && (
+                          <small>報告が少ないため参考情報です。</small>
+                        )}
+                      </p>
+                    ) : !canCollectResults &&
+                      canCollectLegacy &&
+                      stepReports.find(
+                        (method) => method.methodId === step.id,
+                      ) ? (
                       <p>
                         このSTEPの解決報告：
                         {
@@ -815,23 +854,6 @@ export function InteractiveSteps({
                         件
                       </p>
                     ) : null}
-                    {canCollectResults &&
-                      methods.some(
-                        (method) =>
-                          method.methodId === step.id &&
-                          Number.isSafeInteger(method.notResolved) &&
-                          (method.notResolved || 0) > 0,
-                      ) && (
-                        <p>
-                          このSTEPで直らなかった回答：
-                          {
-                            methods.find(
-                              (method) => method.methodId === step.id,
-                            )?.notResolved
-                          }
-                          件（新機能開始後）
-                        </p>
-                      )}
                   </div>
                 </header>
                 <ol>

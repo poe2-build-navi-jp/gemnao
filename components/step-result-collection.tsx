@@ -7,6 +7,10 @@ import {
   useState,
   type ReactNode,
 } from 'react';
+import {
+  stepOutcomeCounts,
+  validMethodSnapshot,
+} from '@/lib/step-outcome-counts';
 import type { Locale } from '@/lib/i18n';
 import {
   sendStepResult,
@@ -41,7 +45,8 @@ const copy = {
     pending:
       'This browser has an unconfirmed answer. Recover the original step and result without changing your private notes.',
     recover: 'Check original submission',
-    counts: 'Reported answers',
+    counts: 'Community reports',
+    smallSample: 'Few reports so far; treat these as a reference.',
     fixedCount: 'fixed',
     failedCount: 'not fixed (since this feature began)',
   },
@@ -66,7 +71,8 @@ const copy = {
     pending:
       '此浏览器有一条尚未确认的回答。可以按原步骤和结果确认发送，不会更改私人笔记。',
     recover: '确认原回答',
-    counts: '回答次数',
+    counts: '大家的反馈次数',
+    smallSample: '目前反馈较少，仅供参考。',
     fixedCount: '已解决',
     failedCount: '未解决（此功能启用后）',
   },
@@ -95,7 +101,8 @@ const copy = {
     pending:
       'Hay una respuesta sin confirmar en este navegador. Recupera el paso y resultado originales sin cambiar tus notas privadas.',
     recover: 'Comprobar envío original',
-    counts: 'Respuestas recibidas',
+    counts: 'Informes de la comunidad',
+    smallSample: 'Hay pocos informes; sirven solo como referencia.',
     fixedCount: 'resuelto',
     failedCount: 'sin resolver (desde el inicio de esta función)',
   },
@@ -164,7 +171,10 @@ export function StepResultCollection({
           stepResultsAvailable?: boolean;
         };
         if (controller.signal.aborted) return;
-        if (!Array.isArray(data.methods) || data.stepResultsAvailable !== true)
+        if (
+          !validMethodSnapshot(data.methods, true) ||
+          data.stepResultsAvailable !== true
+        )
           throw new Error('unavailable');
         setMethods(data.methods);
         setAvailability('available');
@@ -275,7 +285,7 @@ export function StepResultButtons({ method }: { method: string }) {
   const context = useContext(Context);
   if (!context) return null;
   const { ready, t, methods, reports, send } = context;
-  const counts = methods.find((item) => item.methodId === method);
+  const counts = stepOutcomeCounts(methods, method, ready);
   return (
     <div className="step-result-controls">
       <div className="step-actions">
@@ -293,16 +303,13 @@ export function StepResultButtons({ method }: { method: string }) {
           </button>
         ))}
       </div>
-      {counts &&
-        Number.isSafeInteger(counts.responses) &&
-        Number.isSafeInteger(counts.notResolved) &&
-        counts.responses >= 0 &&
-        (counts.notResolved || 0) >= 0 && (
-          <p>
-            {t.counts}: {t.fixedCount} {counts.responses} · {t.failedCount}{' '}
-            {counts.notResolved}
-          </p>
-        )}
+      {counts && (
+        <p className="step-outcome-counts">
+          {t.counts}: {t.fixedCount} {counts.resolved} · {t.failedCount}{' '}
+          {counts.notResolved}
+          {counts.total < 10 && <small>{t.smallSample}</small>}
+        </p>
+      )}
       {(['resolved', 'not-resolved'] as const).map((outcome) => {
         const report = reports[`${method}:${outcome}`];
         return (

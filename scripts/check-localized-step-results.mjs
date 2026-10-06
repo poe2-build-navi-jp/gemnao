@@ -54,8 +54,8 @@ const text = (n) =>
     ? n.map(text).join('')
     : n && typeof n === 'object'
       ? text(n.props?.children)
-      : typeof n === 'string'
-        ? n
+      : typeof n === 'string' || typeof n === 'number'
+        ? String(n)
         : '';
 const nodes = (n, p, out = []) => {
   if (Array.isArray(n)) n.forEach((x) => nodes(x, p, out));
@@ -111,6 +111,20 @@ try {
     await flush();
     tree = render();
     assert.equal(h.context.ready, true);
+    controls = StepResultButtons({ method: 'one' });
+    assert.ok(
+      text(controls).includes(' 0 · '),
+      'successful empty snapshot displays zeros',
+    );
+    assert.ok(text(controls).includes(h.context.t.smallSample));
+    h.context.methods = [{ methodId: 'one', responses: 2, notResolved: 1 }];
+    controls = StepResultButtons({ method: 'one' });
+    assert.ok(text(controls).includes(' 2 · '));
+    assert.ok(text(controls).includes(' 1'));
+    h.context.ready = false;
+    controls = StepResultButtons({ method: 'one' });
+    assert.ok(!text(controls).includes(h.context.t.counts));
+    h.context.ready = true;
     fail = true;
     controls = StepResultButtons({ method: 'one' });
     nodes(controls, (n) => n.type === 'button')[0].props.onClick();

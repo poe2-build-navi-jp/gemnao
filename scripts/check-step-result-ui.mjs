@@ -132,6 +132,35 @@ try {
   };
   reset();
   let tree = render();
+  assert.ok(!text(tree).includes('みんなの報告：'), 'loading is not zero');
+  await flush();
+  tree = render();
+  assert.ok(text(tree).includes('直った 0件 ／ 直らなかった 0件'));
+  assert.ok(text(tree).includes('報告が少ない'));
+  getHandler = async () =>
+    Response.json({
+      rows: [{ topic: 'display', resolved: 2, struggling: 0 }],
+      methods: [{ methodId: 'one', responses: 2, notResolved: 1 }],
+      stepResultsAvailable: true,
+    });
+  reset();
+  tree = render();
+  await flush();
+  tree = render();
+  assert.ok(text(tree).includes('直った 2件 ／ 直らなかった 1件'));
+  assert.equal(posts.length, 0, 'counts are public before any report');
+  getHandler = async () => {
+    throw Error('offline');
+  };
+  reset();
+  tree = render();
+  await flush();
+  tree = render();
+  assert.ok(!text(tree).includes('みんなの報告：'), 'failed GET is not zero');
+  getHandler = async () =>
+    Response.json({ rows: [], methods: [], stepResultsAvailable: capability });
+  reset();
+  tree = render();
   await flush();
   tree = render();
   assert.ok(text(tree).includes('症状・STEP・結果を匿名'));
@@ -383,6 +412,55 @@ try {
   assert.equal(posts.length, 0);
   assert.equal(h.analytics.length, 0);
   assert.ok(!button(tree, '同じ回答を再送'));
+  // Malformed snapshots never crash legacy ranking or manufacture zero totals.
+  for (const methods of [
+    [null],
+    [{}],
+    [{ methodId: 'one', responses: 1, notResolved: -1 }],
+    [
+      { methodId: 'one', responses: 1, notResolved: 0 },
+      { methodId: 'one', responses: 2, notResolved: 0 },
+    ],
+  ]) {
+    reset();
+    getHandler = async () =>
+      Response.json({ rows: [], methods, stepResultsAvailable: true });
+    tree = render();
+    await flush();
+    tree = render();
+    assert.ok(!text(tree).includes('みんなの報告：'));
+  }
+  for (const capability of [false, undefined]) {
+    reset();
+    values.clear();
+    getHandler = async () =>
+      Response.json({ rows: [], methods: [], stepResultsAvailable: true });
+    const refreshedProps = {
+      ...props,
+      contextSlug: `guide-refresh-${String(capability)}`,
+      articlePath: `/guide/refresh-${String(capability)}`,
+    };
+    tree = render(refreshedProps);
+    await flush();
+    tree = render(refreshedProps);
+    getHandler = async () =>
+      Response.json({
+        rows: [],
+        methods: [],
+        stepResultsAvailable: capability,
+      });
+    button(tree, '試したが直らない').props.onClick();
+    await flush();
+    tree = render(refreshedProps);
+    assert.ok(
+      text(tree).includes('匿名回答を記録しました'),
+      'saved acknowledgement survives count refresh',
+    );
+    assert.ok(
+      !text(tree).includes('みんなの報告：'),
+      'refresh capability downgrade is not zero',
+    );
+  }
   console.log(
     'PASS: capability disclosure, intermediate result/note separation, repeat-click dedupe, solved failure/retry, captured-case completion isolation, no new GA events, old-schema no-new-write, prerequisite navigation; saved-revision retry; original-request recovery across reload/cases; loading/error no legacy fallback. Shallow JSX/hook tests only.',
   );
