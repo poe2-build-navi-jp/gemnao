@@ -1,0 +1,11 @@
+PASS generated HTML /games/helldivers-2
+PASS generated HTML /games/wardogs
+PASS generated HTML /games/wardogs/server-connection
+PASS generated HTML /games/call-of-duty-modern-warfare-4
+PASS generated HTML /games/call-of-duty-modern-warfare-4/tpm-secure-boot
+PASS generated HTML /trouble/mod
+PASS generated HTML /trouble/save
+PASS generated HTML /en/games/helldivers-2
+PASS generated HTML /zh/games/helldivers-2
+PASS generated HTML /es/games/helldivers-2
+Focused WARDOGS/CoD hub launch guidance is in FAQ JSON-LD, not newly exposed UI; WARDOGS Japanese fact corrected in shared data only.

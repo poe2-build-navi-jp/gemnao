@@ -1,0 +1,1 @@
+PASS: save backup/rollback, no live save deletion, stable feedback IDs, encryption distinction and disk-format stop before BIOS changes

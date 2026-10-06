@@ -99,9 +99,9 @@ export const troubleHubs: TroubleHub[] = [
     description:
       'MOD導入後やゲーム更新後に起動しない、クラッシュする時に、安全に元へ戻す方法を探せます。',
     quickChecks: [
-      'セーブと導入ファイルの記録を残す',
-      'MODを削除せずゲームフォルダ外へ退避する',
-      '本体だけの状態で整合性確認と起動を試す',
+      'ゲームを終了し、セーブのコピーとMODの導入記録を残す',
+      '管理ツール・手動・ワークショップの導入方法に従って無効化する。手動退避は、自分で追加したと確認できたファイルだけを対象にする',
+      'MODなしの確認はまずタイトル画面まで。MODに依存する既存セーブを開いて上書きしない。本体の破損が疑われる場合だけ整合性を確認する',
     ],
     guideSlugs: ['remove-mods-safely', 'reshade-uninstall', 'save-data-backup'],
     relatedSlugs: ['not-launching', 'crash', 'save'],

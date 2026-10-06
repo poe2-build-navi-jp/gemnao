@@ -52,7 +52,7 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
     symptom:
       'PC版でセキュリティ要件を満たしていないという通知が出る、オンラインモードに入れない、TPM 2.0を有効にしたのに何度も確認が出る、電話番号を求められる場合の確認手順です。',
     conclusion:
-      'PC版のModern Warfare 4は、TPM 2.0とセキュアブートの両方が必須です。ベータ版では、どちらかが無効だとオンラインモードを一切遊べませんでした。まずWindowsの「tpm.msc」と「msinfo32」で状態を確認し、無効ならBIOS（UEFI）で有効にします。Steam版は、Steamアカウントに携帯電話番号の登録も必要です。',
+      'PC版のModern Warfare 4は、TPM 2.0とセキュアブートの両方が必須です。ベータ版では、どちらかが無効だとオンラインモードを一切遊べませんでした。まずWindowsの「tpm.msc」と「msinfo32」で状態を確認し、無効ならBIOS（UEFI）で有効にします。Activision公式では、Activisionアカウントに携帯電話番号の登録が必要な場合があると案内しています。利用ストアとゲーム画面で対象アカウントを確認してください。',
     description:
       'Windows 11の要件はセキュアブートに対応していることで、有効になっているとは限りません。Windowsの版だけで判断せず、現在の状態を確認してください。Windows 10のPCや、自作PCでBIOSの設定を変えたことがある場合は特に確認が必要です。BIOSの操作を誤るとPCが起動しなくなることがあるため、マザーボードやPCメーカーの公式手順も必ず確認してください。',
     causes: [
@@ -61,7 +61,7 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
       'Windowsが入ったディスクがMBR形式（セキュアブートにはGPT形式が必要）',
       '初回起動時のユーザーアカウント制御（UAC）の確認で「いいえ」を選んだ',
       'マザーボードのファームウェアが古い（AMDの一部バージョンなど）',
-      'Steamアカウントに携帯電話番号が登録されていない',
+      '画面で求められたアカウントの携帯電話番号認証が完了していない',
     ],
     quickFacts: [
       {
@@ -71,7 +71,11 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
       { label: 'TPMの確認', value: 'tpm.msc', copy: true },
       { label: 'セキュアブートの確認', value: 'msinfo32', copy: true },
       { label: '対応OS', value: 'Windows 10（22H2以降）またはWindows 11' },
-      { label: 'Steam版', value: 'Steamアカウントに携帯電話番号の登録が必要' },
+      {
+        label: '電話番号',
+        value:
+          'Activisionアカウントへの登録が必要な場合あり。利用ストアと画面の条件も確認',
+      },
       {
         label: '発売日',
         value:
@@ -179,7 +183,7 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
         time: '約20分',
         risk: 'medium',
         actions: [
-          '初回起動時に「CODBrokerInstaller.exe」や「enrollaik.exe」のUACの確認が出たら「はい」を選ぶ（「いいえ」を選ぶと遊べない）',
+          '公式ランチャーから通常起動した時の「CODBrokerInstaller.exe」または「enrollaik.exe」のUACは、発行元と公式案内を確認してから許可する。不明な実行ファイルや突然の要求は許可しない',
           'UACの画面が出ずに「authorization declined」と表示される場合は、「ユーザーアカウント制御設定の変更」で通知のスライダーを既定の位置以上にしてからゲームを再起動する',
           'tpm.msc の製造元の情報（Manufacturer Version）でバージョンを確認する。AMDで「3.＊.0.＊」の形のバージョンは非対応で、マザーボードのファームウェア（BIOS）の更新が必要',
           '「TCG Event Log」の失敗と表示される場合は、Windows Updateで最新にしてからPCを再起動する',
@@ -188,14 +192,14 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
       },
       {
         id: 'step-6',
-        title: 'Steamアカウントに携帯電話番号を登録する',
+        title: '電話番号を求められたアカウントを確認する',
         summary:
-          'Steamストアには、プレイにはSteamアカウントに携帯電話番号がリンクされている必要があると記載されています。Activisionアカウントへの電話番号の登録を求められる場合もあります。',
+          'Activision公式は、PC版でActivisionアカウントに携帯電話番号の登録が必要な場合があると案内しています。Steamなど利用ストア側の条件も現在の表示で確認し、別のアカウントへ登録しただけで完了とは判断しないでください。',
         time: '約5分',
         risk: 'low',
         actions: [
-          'Steamの右上のアカウント名→「アカウント詳細」を開き、電話番号を追加する',
-          'ゲームで求められた場合は、Activisionアカウントにも携帯電話番号を登録する',
+          'ゲームの案内でActivisionアカウントの認証を求められた場合は、公式アカウント管理画面で携帯電話番号を登録・確認する',
+          'Steam側の電話番号認証も求められる場合は、Steamのアカウント詳細で対象アカウントを確認し、表示される手順に従う',
         ],
       },
     ],
@@ -249,7 +253,7 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
     ],
     related: [],
     metaDescription:
-      'CoD MW4（Modern Warfare 4）がPCで起動しない・遊べない時の対処法。必須のTPM 2.0とセキュアブートの確認（tpm.msc・msinfo32）とBIOSでの有効化、MBR形式の場合、UACの確認、Steamの電話番号登録までActivision公式の案内をもとに解説。',
+      'CoD MW4（Modern Warfare 4）がPCで起動しない・遊べない時の対処法。必須のTPM 2.0とセキュアブートの確認（tpm.msc・msinfo32）とBIOSでの有効化、MBR形式の場合、UACの確認、Activisionなど対象アカウントの電話番号認証まで公式の案内をもとに解説。',
   },
 ];
 
