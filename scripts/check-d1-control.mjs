@@ -1,3 +1,4 @@
+import './check-d1-connection.mjs';
 import assert from 'node:assert/strict';
 import {
   readFile,
