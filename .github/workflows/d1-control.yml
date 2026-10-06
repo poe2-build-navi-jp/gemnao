@@ -1,0 +1,87 @@
+name: Gemnao D1 controlled migration
+run-name: D1 ${{ inputs.operation }} — manual production control
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Settings check, metadata-only preflight, or approved 0004 apply
+        required: true
+        type: choice
+        options: [settings, preflight, apply]
+        default: settings
+      preflight_sha256:
+        description: For apply only — fingerprint from the reviewed preflight report
+        required: false
+        type: string
+      confirmation:
+        description: For apply only — type APPLY_0004_TO_GEMNAO
+        required: false
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: gemnao-production-d1-migration
+  cancel-in-progress: false
+jobs:
+  gate:
+    if: github.repository == 'poe2-build-navi-jp/gemnao' && github.ref == 'refs/heads/gemunao'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: read
+    outputs:
+      environment: ${{ steps.verify.outputs.environment }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - id: verify
+        name: Verify existing Environment protection without creating settings
+        env:
+          GH_TOKEN: ${{ github.token }}
+          D1_OPERATION: ${{ inputs.operation }}
+          D1_PREFLIGHT_SHA256: ${{ inputs.preflight_sha256 }}
+          D1_CONFIRMATION: ${{ inputs.confirmation }}
+        run: node ops/d1/github-gate.mjs
+  control:
+    needs: gate
+    if: needs.gate.outputs.environment == 'gemnao-d1-production'
+    environment: ${{ needs.gate.outputs.environment }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - id: credential
+        name: Check credential presence only — never print or retrieve its value
+        env:
+          TOKEN_PRESENT: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}
+        shell: bash
+        run: |
+          if [ "$TOKEN_PRESENT" != "true" ]; then
+            echo 'Blocked: CLOUDFLARE_API_TOKEN is not configured for this approved job. No Cloudflare request made.'
+            exit 1
+          fi
+          echo 'Cloudflare credential is configured; its scope has not yet been verified.'
+      - name: Install pinned repository dependencies without lifecycle scripts
+        if: inputs.operation == 'apply'
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile --ignore-scripts --ignore-pnpmfile
+      - name: Fixed metadata preflight or approved migration 0004
+        if: inputs.operation != 'settings'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          D1_PROTECTED_ENVIRONMENT: gemnao-d1-production
+          D1_OPERATION: ${{ inputs.operation }}
+          D1_PREFLIGHT_SHA256: ${{ inputs.preflight_sha256 }}
+          D1_CONFIRMATION: ${{ inputs.confirmation }}
+        run: node ops/d1/control.mjs
