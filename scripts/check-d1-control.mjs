@@ -322,6 +322,44 @@ try {
   await badSnapshot((s) => {
     s['PRAGMA table_info(solution_method_feedback)'].results[0].type = 'BLOB';
   });
+  // One blocked preflight reports all fixed metadata without disclosing any
+  // arbitrary names, SQL defaults, provider values, or granting apply approval.
+  state = structuredClone(old);
+  state['SELECT name FROM d1_migrations ORDER BY id'].results = [
+    { name: history[0] }, { name: history[0] }, { name: 'PRIVATE_SENTINEL_UNKNOWN_NAME' },
+  ];
+  state['PRAGMA table_info(solution_method_feedback)'].results[0].type = 'PRIVATE_SENTINEL_TYPE';
+  state['PRAGMA table_info(solution_method_feedback)'].results.push({ name: 'PRIVATE_SENTINEL_COLUMN', type: 'TEXT' });
+  state["SELECT sql FROM sqlite_master WHERE type='table' AND name='step_result_receipts'"].results = [{ sql: 'PRIVATE_SENTINEL_SQL' }];
+  let diagnosticError;
+  await assert.rejects(execute(env, { api }), (error) => {
+    diagnosticError = error;
+    return error.code === 'MIGRATION_HISTORY_MISMATCH';
+  });
+  const diagnostic = diagnosticError.diagnostic;
+  assert.equal(diagnostic.applyAllowed, false);
+  assert.equal(diagnostic.history.expected[0].count, 2);
+  assert.equal(diagnostic.history.expected[1].count, 0);
+  assert.equal(diagnostic.history.unknownCount, 1);
+  assert.equal(diagnostic.history.duplicateCount, 1);
+  assert.match(diagnostic.history.unknownFingerprints[0], /^[a-f0-9]{64}$/);
+  assert.equal(diagnostic.schema.methodLegacy.matches, false);
+  assert.equal(diagnostic.schema.methodLegacy.unexpectedCount, 1);
+  assert.equal(diagnostic.schema.receiptChecks.definitionPresent, true);
+  assert.equal(diagnostic.schema.receiptChecks.outcome, false);
+  assert.ok(!JSON.stringify(diagnostic).includes('PRIVATE_SENTINEL'));
+  assert.ok(!JSON.stringify(diagnostic).includes('preflightSHA256'));
+  let forbiddenApply = 0;
+  await assert.rejects(execute(applyEnv, { api, apply: async () => { forbiddenApply++; } }), /MIGRATION_HISTORY_MISMATCH/);
+  assert.equal(forbiddenApply, 0);
+  state['PRAGMA table_info(d1_migrations)'].results = [];
+  await assert.rejects(execute(env, { api }), (error) => {
+    assert.equal(error.diagnostic.history.readable, false);
+    assert.equal(error.diagnostic.schema.registry.present, false);
+    assert.equal(error.diagnostic.schema.methodLegacy.unexpectedCount, 1);
+    return error.code === 'MIGRATION_REGISTRY_MISSING_OR_UNRECOGNIZED';
+  });
+  state = old;
   const tmp = await mkdtemp(join(tmpdir(), 'd1-control-fixture-'));
   try {
     await mkdir(join(tmp, 'ops/d1/migrations'), { recursive: true });

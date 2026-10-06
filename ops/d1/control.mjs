@@ -217,6 +217,67 @@ export function classify(snapshot) {
     return 'ready_for_0004';
   throw new Blocked('PARTIAL_OR_UNRECOGNIZED_SCHEMA_STOP');
 }
+// Only fixed expected identifiers, booleans, counts and hashes may leave this
+// diagnostic. Unknown provider identifiers/defaults/SQL never reach logs.
+export function metadataDiagnostic(pages, snapshot) {
+  const knownNames = [...history, target.migration];
+  const names = snapshot.names || [];
+  const unknown = names.filter((name) => !knownNames.includes(name));
+  const columnChecks = (rows, expected) => ({
+    matches: matches(rows, expected),
+    missing: Object.keys(expected).filter((name) => !rows.some((c) => c.name === name)),
+    unexpectedCount: rows.filter((c) => !Object.hasOwn(expected, c.name)).length,
+    columns: Object.entries(expected).map(([name, [type, pk, defaultValue]]) => {
+      const actual = rows.find((c) => c.name === name);
+      return {
+        name,
+        present: Boolean(actual),
+        typeMatches: Boolean(actual && String(actual.type).toUpperCase() === type),
+        primaryKeyMatches: Boolean(actual && actual.pk === pk),
+        notNullMatches: Boolean(actual && actual.notnull === 1),
+        defaultMatches: Boolean(actual && (defaultValue === undefined || String(actual.dflt_value) === defaultValue)),
+      };
+    }),
+  });
+  return {
+    diagnosticVersion: 1,
+    applyAllowed: false,
+    binding: {
+      identityChecksPassed: true,
+      previewBindingCount: pages.previewDBs.length,
+      previewSharesProduction: pages.previewDBs.includes(target.database),
+    },
+    history: {
+      readable: snapshot.historyReadable !== false,
+      expected: knownNames.map((name) => ({ name, count: names.filter((item) => item === name).length })),
+      unknownCount: unknown.length,
+      unknownFingerprints: [...new Set(unknown.map((name) => digest(JSON.stringify(name))))].sort((a, b) => a.localeCompare(b)).slice(0, 20),
+      unknownSetSHA256: digest([...new Set(unknown.map((name) => digest(JSON.stringify(name))))].sort((a, b) => a.localeCompare(b))),
+      duplicateCount: names.length - new Set(names).size,
+    },
+    schema: {
+      issue: columnChecks(snapshot.issue, expectedIssue),
+      methodLegacy: columnChecks(snapshot.method, expectedMethod),
+      methodMigrated: columnChecks(snapshot.method, { ...expectedMethod, not_resolved_count: ['INTEGER', 0, '0'] }),
+      receipt: columnChecks(snapshot.receipt, expectedReceipt),
+      registry: {
+        present: snapshot.registry.length > 0,
+        nameText: snapshot.registry.some((c) => c.name === 'name' && String(c.type).toUpperCase() === 'TEXT'),
+        idPrimaryKey: snapshot.registry.some((c) => c.name === 'id' && c.pk === 1),
+      },
+      receiptIndex: {
+        columnCount: snapshot.index.length,
+        expectedRequestedAtOnly: snapshot.index.length === 1 && snapshot.index[0].name === 'requested_at',
+      },
+      receiptChecks: {
+        definitionPresent: Boolean(snapshot.receiptSQL),
+        outcome: cleanSQL(snapshot.receiptSQL).includes("check(outcomein('resolved','not-resolved'))"),
+        reportStruggling: cleanSQL(snapshot.receiptSQL).includes('check(report_strugglingin(0,1))'),
+        definitionSHA256: digest(snapshot.receiptSQL || ''),
+      },
+    },
+  };
+}
 export function reportFor(pages, snapshot) {
   const state = classify(snapshot);
   // Keep only schema identities/types/keys and known numeric/empty defaults.
@@ -362,7 +423,7 @@ export function cloudflareClient(token, fetcher = fetch) {
     return data.result;
   };
 }
-export async function collect(api) {
+export async function collect(api, { diagnostic = false } = {}) {
   const pages = pagesProjection(
     await api(`/accounts/${target.account}/pages/projects/${target.project}`),
   );
@@ -392,21 +453,26 @@ export async function collect(api) {
     index: await query('PRAGMA index_info(step_result_receipts_requested_at)'),
     registry: await query('PRAGMA table_info(d1_migrations)'),
   };
-  requireThat(
-    snapshot.registry.some((c) => c.name === 'name') &&
-      snapshot.registry.some((c) => c.name === 'id'),
-    'MIGRATION_REGISTRY_MISSING_OR_UNRECOGNIZED',
-  );
-  snapshot.names = (
-    await query('SELECT name FROM d1_migrations ORDER BY id')
-  ).map((row) => row.name);
+  snapshot.historyReadable = snapshot.registry.some((c) => c.name === 'name') &&
+    snapshot.registry.some((c) => c.name === 'id');
+  if (!diagnostic) requireThat(snapshot.historyReadable, 'MIGRATION_REGISTRY_MISSING_OR_UNRECOGNIZED');
+  snapshot.names = snapshot.historyReadable
+    ? (await query('SELECT name FROM d1_migrations ORDER BY id')).map((row) => row.name)
+    : [];
   snapshot.receiptSQL =
     (
       await query(
         "SELECT sql FROM sqlite_master WHERE type='table' AND name='step_result_receipts'",
       )
     )[0]?.sql || '';
-  return reportFor(pages, snapshot);
+  try {
+    return reportFor(pages, snapshot);
+  } catch (error) {
+    if (diagnostic && error instanceof Blocked) {
+      error.diagnostic = metadataDiagnostic(pages, snapshot);
+    }
+    throw error;
+  }
 }
 export async function verifyMigration(root = process.cwd()) {
   const files = await readdir(resolve(root, 'ops/d1/migrations'));
@@ -510,7 +576,7 @@ export async function execute(
     };
   validateCredential(token);
   const client = api || cloudflareClient(token);
-  const before = await collect(client);
+  const before = await collect(client, { diagnostic: operation === 'preflight' });
   if (operation === 'preflight') return { ...before, operation };
   requireThat(operation === 'apply', 'SETTINGS_MODE_HAS_NO_DB_ACTION');
   if (before.state === 'already_applied')
@@ -568,6 +634,7 @@ async function main() {
     console.error(
       JSON.stringify({
         status: 'blocked',
+        ...(error instanceof Blocked && error.diagnostic ? { diagnostic: error.diagnostic } : {}),
         ...(error instanceof Blocked &&
         [...requestStages.values()].includes(error.stage)
           ? { stage: error.stage }
