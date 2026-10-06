@@ -1,0 +1,22 @@
+{
+  "baseCommit": "2e6407701cf2ee64fcfee7f7f85f63e73140fc7b",
+  "workingTreeDiff": "final correction files listed in README; this report does not claim the published preview contains them",
+  "observedAtUtc": "2026-10-06T08:00:00Z",
+  "commands": {
+    "node_modules/.bin/tsc --noEmit": 0,
+    "node_modules/.bin/oxlint": 0,
+    "node scripts/run-my-pc-variants-check.mjs": 0,
+    "node scripts/check-editorial-safety.mjs": 0,
+    "node scripts/run-saved-solutions-check.mjs": 0,
+    "node scripts/run-localized-check.mjs": 0,
+    "node scripts/check-audit-final-corrections.mjs": 0,
+    "npm run build (final combined content and updated OG manifest)": 0,
+    "node scripts/check-editorial-snapshots.mjs": 0,
+    "inline assertions on 10 generated HTML routes": 0,
+    "pnpm build (initial invocation, before the build script ran)": 1
+  },
+  "emptyLogs": "Successful tsc and oxlint emit no output. Exit values were captured immediately in the terminal orchestration.",
+  "initialPnpmFailure": "pnpm dependency-status preflight tried creating missing /home/agent/.local/share/pnpm and exited ENOENT. No dependency or security settings changed. npm run build then ran the identical package.json build script using copied existing dependencies.",
+  "dependencyReuse": "Copied node_modules from existing Gemnao checkout; exact declared pinned direct versions matched package.json. No packages downloaded; source package.json and pnpm-lock.yaml unchanged.",
+  "browser": "Current Chromium launch was not retried. Existing GPU four-width fixtures inherited by unchanged source proof; final corrected text layout not newly exercised."
+}

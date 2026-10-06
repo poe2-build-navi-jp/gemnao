@@ -292,9 +292,9 @@ export const localizedHubs: Record<string, LocalizedHub> = {
       es: 'Ubicación de la partida, requisitos oficiales y la solución de Arrowhead para el error 114 de GameGuard.',
     },
     intro: {
-      en: 'HELLDIVERS 2 uses the nProtect GameGuard anti-cheat system. For error 114, Arrowhead lists checks involving launch permissions and compatibility, reinstalling GameGuard, utility conflicts and security software. Keep protection enabled and review any detection with the security provider or Arrowhead before changing exclusions.',
-      zh: '《绝地潜兵2》使用 nProtect GameGuard 反作弊程序。出现错误 114 时，本指南参考 Arrowhead 的说明，检查以下项目：以管理员身份运行游戏（Windows 11 还需开启 Windows 8 兼容模式），从游戏的 tools 文件夹重新安装 GameGuard，关闭工具类程序，并检查防护历史。保持防护开启，先向安全软件提供商或 Arrowhead 确认检测内容，不要自动添加排除项。',
-      es: 'HELLDIVERS 2 usa el antitrampas nProtect GameGuard. Ante el error 114, esta guía se basa en las recomendaciones de Arrowhead: ejecutar el juego como administrador (con compatibilidad con Windows 8 en Windows 11), reinstalar GameGuard desde la carpeta tools, cerrar utilidades y revisar las alertas de seguridad. Mantén activa la protección y consulta las detecciones con el proveedor de seguridad o Arrowhead antes de considerar una exclusión.',
+      en: 'HELLDIVERS 2 uses the nProtect GameGuard anti-cheat system. For error 114, Arrowhead lists checks involving launch permissions and compatibility, reinstalling GameGuard, utility conflicts and security software. Keep protection enabled and review any detection with the security provider or Arrowhead before changing exclusions. Storage listings differ: Steam shows 135 GB minimum and 40 GB recommended, while PlayStation lists 100 GB. Check the current Steam installation or update screen for the space needed; these figures do not establish one universal requirement.',
+      zh: '《绝地潜兵2》使用 nProtect GameGuard 反作弊程序。出现错误 114 时，本指南参考 Arrowhead 的说明，检查以下项目：以管理员身份运行游戏（Windows 11 还需开启 Windows 8 兼容模式），从游戏的 tools 文件夹重新安装 GameGuard，关闭工具类程序，并检查防护历史。保持防护开启，先向安全软件提供商或 Arrowhead 确认检测内容，不要自动添加排除项。 存储空间的官方标注存在差异：Steam 最低配置列出 135 GB、推荐配置列出 40 GB，而 PlayStation 列出 100 GB。请查看当前 Steam 安装或更新界面所需的空间，不要把其中一个数值当作统一要求。',
+      es: 'HELLDIVERS 2 usa el antitrampas nProtect GameGuard. Ante el error 114, esta guía se basa en las recomendaciones de Arrowhead: ejecutar el juego como administrador (con compatibilidad con Windows 8 en Windows 11), reinstalar GameGuard desde la carpeta tools, cerrar utilidades y revisar las alertas de seguridad. Mantén activa la protección y consulta las detecciones con el proveedor de seguridad o Arrowhead antes de considerar una exclusión. Las cifras oficiales de almacenamiento difieren: Steam indica 135 GB como mínimo y 40 GB recomendados, mientras PlayStation indica 100 GB. Comprueba el espacio solicitado en la pantalla actual de instalación o actualización de Steam; ninguna de estas cifras establece un requisito universal.',
     },
     sources: [
       {
@@ -306,6 +306,14 @@ export const localizedHubs: Record<string, LocalizedHub> = {
         url: 'https://arrowhead.zendesk.com/hc/en-us/articles/14732747845020-I-receive-Error-114-when-attempting-to-launch-HELLDIVERS-2',
       },
       store('553850'),
+      {
+        label: {
+          en: 'PlayStation: PC requirements',
+          zh: 'PlayStation：PC 配置需求',
+          es: 'PlayStation: requisitos de PC',
+        },
+        url: 'https://www.playstation.com/ja-jp/games/helldivers-2/pc/',
+      },
     ],
   },
   'hogwarts-legacy': {

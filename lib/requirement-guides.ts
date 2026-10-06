@@ -21,7 +21,8 @@ const activisionTpm = {
   url: 'https://support.activision.com/articles/trusted-platform-module-and-secure-boot',
 };
 const msMbr2gpt = {
-  label: 'Microsoft公式：MBR2GPTの前提条件・BitLocker・変換後の注意（安全上の注意：2026-10-03確認）',
+  label:
+    'Microsoft公式：MBR2GPTの前提条件・BitLocker・変換後の注意（安全上の注意：2026-10-03確認）',
   url: 'https://learn.microsoft.com/ja-jp/windows/deployment/mbr-to-gpt',
 };
 const roundup = {
@@ -83,7 +84,7 @@ export const tpmSecureBootGuide: CommonGuide = {
     {
       title: '有効にしたのにゲームで要件を満たさないと出る場合',
       actions: [
-        'ゲームの初回起動時に出るユーザーアカウント制御（UAC）の確認で「はい」を選ぶ（CoDでは「いいえ」を選ぶと遊べない）',
+        'CoDでは、公式ランチャーから通常起動した時の「CODBrokerInstaller.exe」または「enrollaik.exe」のUACは、発行元と公式案内を確認してから許可する。不明な実行ファイルや突然の要求は許可しない',
         'Windows Updateで最新の状態にしてから再起動する',
         'マザーボードのファームウェア（BIOS）が古いと認識されないことがある。Activisionは、AMDの一部のファームウェア（バージョン3.＊.0.＊）は非対応で更新が必要と案内している。更新はPC・マザーボードメーカーの手順に従う',
       ],

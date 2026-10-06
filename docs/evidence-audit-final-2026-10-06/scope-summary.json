@@ -1,0 +1,35 @@
+{
+  "baseline": "2e6407701cf2ee64fcfee7f7f85f63e73140fc7b",
+  "date": "2026-10-06",
+  "inheritedResearch": "15 previously read-not-compared groups, limited primary-source comparison completed before this implementation",
+  "counts": {
+    "partial-with-corrections": 22,
+    "partial": 49,
+    "compared": 19,
+    "compared-with-holds": 7
+  },
+  "wholePageVerifiedCount": 0,
+  "changedGroups": [
+    "/games/helldivers-2",
+    "/games/call-of-duty-modern-warfare-4",
+    "/games/wardogs",
+    "/trouble/mod"
+  ],
+  "remainingScopes": {
+    "/games/helldivers-2": "保存/設定パス、HDR、FPS、コントローラーの全主張、実機動作。容量差異の正しい単一値は未確定。",
+    "/games/gta-v-enhanced": "保存/設定パス、140FPS、HDR、コントローラーの詳細。",
+    "/games/dragons-dogma-2": "公式更新ページおよびSteam API取得エラー。設定名・PC要件は保留。",
+    "/games/call-of-duty-modern-warfare-4": "発売時の全PC要件、Steam現在の追加電話番号条件（年齢確認未提出）。全記事/全主張の比較ではない。",
+    "/games/wardogs": "9月18日Family Sharing停止の一次資料は未取得。保存/設定パス、FPS/HDR、全記事は未比較。focusedハブの日本語欄は本文非表示であり、共有データ訂正と表示訂正を区別。",
+    "/games/gears-of-war-e-day": "発売/早期アクセス日時、ドライバーバージョン等。",
+    "/games/minecraft-dungeons-2": "Microsoftアカウント必須の全適用条件、一律VPN停止助言等。",
+    "/games/phantom-blade-zero": "コントローラー詳細、RTオフ助言、公式10月29日との日付関係。",
+    "/games/castlevania-belmonts-curse": "Steam年齢確認/APIエラーのためPC要件とコントローラーは保留。年齢確認未提出。",
+    "/games/silent-hill-townfall": "PC要件、パス、HDR、その他本文。",
+    "/weekly": "他ゲーム・過去の週刊全号。",
+    "/discord": "カード全件、図版、リンク先全本文。",
+    "/trouble/fps": "VRAM/シェーダーの全条件、図版、関連個別記事全体。",
+    "/trouble/server": "一律の再認証/別ネットワーク切替の効果、リンク先の全主張。",
+    "/trouble/mod": "関連ガイド/図版全体、各ゲームやMOD固有の動作。Bethesda固有挙動を全ゲームへ一般化しない。"
+  }
+}

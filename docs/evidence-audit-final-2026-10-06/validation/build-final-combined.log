@@ -1,0 +1,134 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> sites-project@0.1.0 build
+> vinext build --prerender-all --prerender-concurrency 1 && node scripts/prepare-pages.mjs && node scripts/generate-og-cards.mjs --check
+
+
+  vinext build  (Vite 8.0.13)
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[1/5] analyze client references...
+[2Ktransforming...✓ 501 modules transformed.
+rendering chunks...
+✓ built in 1.52s
+[2/5] analyze server references...
+[2Ktransforming...✓ 264 modules transformed.
+rendering chunks...
+✓ built in 392ms
+[3/5] build rsc environment...
+[2Ktransforming...✓ 498 modules transformed.
+rendering chunks...
+computing gzip size...
+✓ built in 1.50s
+[4/5] build client environment...
+[2Ktransforming...✓ 2044 modules transformed.
+rendering chunks...
+computing gzip size...
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 1.82s
+[5/5] build ssr environment...
+[2Ktransforming...✓ 270 modules transformed.
+rendering chunks...
+computing gzip size...
+✓ built in 996ms
+[0m  Pre-rendering all routes...
+[vinext] Production server for prerendering running at http://127.0.0.1:45591
+[vinext] Server error: Error [ERR_UNSUPPORTED_ESM_URL_SCHEME]: Only URLs with a scheme in: file, data, and node are supported by the default ESM loader. Received protocol 'cloudflare:'
+    at throwIfUnsupportedURLScheme (node:internal/modules/esm/load:193:11)
+    at defaultLoad (node:internal/modules/esm/load:82:3)
+    at nextLoad (node:internal/modules/esm/hooks:785:28)
+    at AsyncLoaderHooksOnLoaderHookWorker.load (node:internal/modules/esm/hooks:410:26)
+    at MessagePort.handleMessage (node:internal/modules/esm/worker:251:24)
+    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:856:20)
+    at MessagePort.<anonymous> (node:internal/per_context/messageport:23:28) {
+  code: 'ERR_UNSUPPORTED_ESM_URL_SCHEME'
+}
+  Prerendered 297 routes (18 skipped).
+[vinext] Seeded 297 pre-rendered routes into memory cache
+[vinext] Production server for prerendering running at http://127.0.0.1:45487
+  Discovered 299 CDN warmup path(s).
+[0m
+  Route (app)
+  ┌ ? /                                
+  ├ ƒ /:locale                         
+  ├ ƒ /:locale/discord/:slug           
+  ├ ƒ /:locale/games/:slug             
+  ├ ƒ /:locale/games/:slug/:article    
+  ├ ƒ /:locale/gear/:slug              
+  ├ ƒ /:locale/guide/:slug             
+  ├ ƒ /:locale/my-games                
+  ├ ƒ /:locale/tools                   
+  ├ ƒ /:locale/tools/windows-diagnosis 
+  ├ ○ /about                           
+  ├ ○ /admin/contacts                  
+  ├ ○ /admin/discord-servers           
+  ├ ○ /admin/search-demand             
+  ├ λ /api/admin/contacts              
+  ├ λ /api/admin/contacts/:id          
+  ├ λ /api/admin/discord-servers       
+  ├ λ /api/admin/discord-servers/:id   
+  ├ λ /api/admin/discord-servers/login 
+  ├ λ /api/admin/discord-servers/logout
+  ├ λ /api/admin/search-demand         
+  ├ λ /api/contact                     
+  ├ λ /api/discord-servers             
+  ├ λ /api/feedback                    
+  ├ λ /api/game-news                   
+  ├ λ /api/search-demand               
+  ├ λ /api/solution-image              
+  ├ λ /api/status                      
+  ├ ? /contact                         
+  ├ ○ /discord                         
+  ├ ? /discord-servers                 
+  ├ ○ /discord-servers/guidelines      
+  ├ ○ /discord-servers/submit          
+  ├ ƒ /discord/:slug                   
+  ├ λ /feed.xml                        
+  ├ ƒ /games/:slug                     
+  ├ ƒ /games/:slug/:article            
+  ├ ○ /gear                            
+  ├ ƒ /gear/:slug                      
+  ├ ○ /guide                           
+  ├ ƒ /guide/:slug                     
+  ├ ○ /my                              
+  ├ ○ /my-games                        
+  ├ ƒ /new-releases/:slug              
+  ├ ○ /pc                              
+  ├ ƒ /pc/:slug                        
+  ├ ○ /privacy                         
+  ├ ○ /status                          
+  ├ ○ /terms                           
+  ├ ○ /tools                           
+  ├ ○ /tools/refresh-rate              
+  ├ ○ /tools/save-locations            
+  ├ ○ /tools/windows-diagnosis         
+  ├ ƒ /trouble/:slug                   
+  ├ ○ /weekly                          
+  └ ƒ /weekly/:slug                    
+
+  λ API  ƒ Dynamic  ○ Static  ? Unknown
+
+  ? Some routes could not be classified. vinext currently uses static analysis
+    and cannot detect dynamic API usage (headers(), cookies(), etc.) at build time.
+    Automatic classification will be improved in a future release.
+
+  ○ Routes marked static were confirmed by speculative prerender (attempted render
+    succeeded without dynamic API usage).
+
+  Build complete. Run `vinext start` to start the production server.
+
+Prepared editorial HTML snapshots: 285 (dynamic routes excluded)
+Generated sitemap: 272 URLs
+Generated image sitemap: 21 pages
+OG cards up to date: 204 pages
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

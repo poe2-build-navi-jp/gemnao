@@ -1,0 +1,38 @@
+[
+  {
+    "path": "app/my/page.tsx",
+    "testedPremerge": "5cb3bc15ecc303279671968f1dd06f39f1d644bb",
+    "PR74Head": "5cb3bc15ecc303279671968f1dd06f39f1d644bb",
+    "finalWorkingTree": "5cb3bc15ecc303279671968f1dd06f39f1d644bb"
+  },
+  {
+    "path": "components/my-dashboard.tsx",
+    "testedPremerge": "ca94b935fbf46ed4c9cb89984526d31879e1fbb3",
+    "PR74Head": "ca94b935fbf46ed4c9cb89984526d31879e1fbb3",
+    "finalWorkingTree": "ca94b935fbf46ed4c9cb89984526d31879e1fbb3"
+  },
+  {
+    "path": "lib/my-pc.ts",
+    "testedPremerge": "b48edaf4822bf2a8e2eb90074fff582d052680b7",
+    "PR74Head": "b48edaf4822bf2a8e2eb90074fff582d052680b7",
+    "finalWorkingTree": "b48edaf4822bf2a8e2eb90074fff582d052680b7"
+  },
+  {
+    "path": "package.json",
+    "testedPremerge": "c1f0f69399ea25cebccc82d295b2c8592cdb9e80",
+    "PR74Head": "c1f0f69399ea25cebccc82d295b2c8592cdb9e80",
+    "finalWorkingTree": "c1f0f69399ea25cebccc82d295b2c8592cdb9e80"
+  },
+  {
+    "path": "pnpm-lock.yaml",
+    "testedPremerge": "4d617bc455374e214839f8d7ec057cc02479ac92",
+    "PR74Head": "4d617bc455374e214839f8d7ec057cc02479ac92",
+    "finalWorkingTree": "4d617bc455374e214839f8d7ec057cc02479ac92"
+  },
+  {
+    "path": "vite.config.ts",
+    "testedPremerge": "f98ec0d495d33d96bac14dfa0a2d1a8f71a97a29",
+    "PR74Head": "f98ec0d495d33d96bac14dfa0a2d1a8f71a97a29",
+    "finalWorkingTree": "f98ec0d495d33d96bac14dfa0a2d1a8f71a97a29"
+  }
+]

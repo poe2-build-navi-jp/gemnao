@@ -547,8 +547,8 @@ export const games: GameGuide[] = [
     launchFixes: [
       'TPM 2.0とセキュアブートが有効か確認（tpm.msc・msinfo32）',
       'Secure Attestation Wizardで要件を満たしているか確認',
-      '初回起動時のユーザーアカウント制御（UAC）の確認で「はい」を選ぶ',
-      'Steamアカウントに携帯電話番号を登録',
+      '公式ランチャーから通常起動した時の「CODBrokerInstaller.exe」または「enrollaik.exe」のUACは、発行元と公式案内を確認してから許可する。不明な実行ファイルや突然の要求は許可しない',
+      'Activisionアカウントに携帯電話番号の登録が必要な場合がある。利用ストアやゲーム画面で求められるアカウントを確認する',
     ],
     mod: '',
     japanese: '日本語の音声・テキスト・字幕に対応（Activision公式）。',
@@ -569,6 +569,10 @@ export const games: GameGuide[] = [
         url: 'https://www.callofduty.com/blog/2026/08/call-of-duty-modern-warfare-4-next-early-intel-pc-specs',
       },
       { label: 'Steamストア', url: steam('4435490') },
+      {
+        label: 'Activision公式：エディションとPC版の注意事項',
+        url: 'https://support.activision.com/modern-warfare-4/articles/modern-warfare-4-editions',
+      },
     ],
   },
   {
@@ -846,13 +850,12 @@ export const games: GameGuide[] = [
     controller: '',
     launchFixes: [
       'Steamのニュースで障害・メンテナンスを確認',
-      'ログイン待ちの列は抜けずに待つ',
+      '通常の混雑時は列を抜けずに待つ。公式が更新・再起動を案内している場合は、その手順を優先する',
       '更新を適用してSteamとPCを再起動',
       'ファミリーシェアリングではなく自分のアカウントで購入（9月18日に無効化）',
     ],
     mod: '',
-    japanese:
-      '日本語のインターフェース・字幕に対応（音声は非対応。Steamストアの表記）。',
+    japanese: 'Steamの掲載では日本語インターフェースに対応。',
     specs: {
       minimum:
         'Windows 10／GTX 1660・RX 590／メモリ16GB（1080p・低・アップスケールで60fps）',
@@ -862,6 +865,10 @@ export const games: GameGuide[] = [
     },
     sources: [
       { label: 'Steamストア', url: steam('1867240') },
+      {
+        label: 'WARDOGS公式：Steamニュース・更新案内',
+        url: 'https://steamcommunity.com/app/1867240/allnews/',
+      },
       {
         label: '発売日のサーバー障害報道',
         url: 'https://www.pcgamer.com/games/fps/wardogs-servers-go-down-as-over-300-000-people-rush-to-play-on-launch-day/',
@@ -1098,7 +1105,7 @@ export const games: GameGuide[] = [
       'Xbox系・DualSense対応。DualSenseのハプティクとアダプティブトリガーはUSB有線接続を推奨。',
     launchFixes: [
       'PCとSteamを再起動し、サーバー障害でないか確認',
-      'GameGuardフォルダを削除して再生成',
+      'まずSteamで整合性を確認。GameGuardの再インストールが必要な場合は、該当エラーのArrowhead公式手順に従う。未特定のファイルやフォルダーを削除しない',
       'ファイル整合性とセキュリティソフトの隔離履歴を確認',
       'フルスクリーンで固まる場合はボーダーレスに変更',
     ],
@@ -1107,11 +1114,20 @@ export const games: GameGuide[] = [
     specs: {
       minimum: 'GTX 1050 Ti / RX 470、メモリ8GB',
       recommended: 'RTX 2060 / RX 6600 XT、メモリ16GB',
-      storage: '100GB',
+      storage:
+        '公式掲載に差異あり：Steamは最低135GB・推奨40GB、PlayStationのPC案内は100GB。必要容量を1つに断定せず、現在のSteamインストール・更新画面で必要な空きを確認。',
     },
     sources: [
       { label: 'PCGamingWiki', url: pcgw('Helldivers_2') },
       { label: 'Steamストア', url: steam('553850') },
+      {
+        label: 'Arrowhead公式：GameGuard エラー114の対処',
+        url: 'https://arrowhead.zendesk.com/hc/en-us/articles/14732747845020-I-receive-Error-114-when-attempting-to-launch-HELLDIVERS-2',
+      },
+      {
+        label: 'PlayStation公式：PC版の動作環境',
+        url: 'https://www.playstation.com/ja-jp/games/helldivers-2/pc/',
+      },
     ],
   },
   {
