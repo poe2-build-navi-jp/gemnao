@@ -58,3 +58,9 @@ Fixtures use ephemeral Miniflare D1 and mocked GitHub/Cloudflare responses. They
 - [D1 current restore bookmark](https://developers.cloudflare.com/api/resources/d1/subresources/database/subresources/time_travel/methods/get_bookmark/)
 - [GitHub deployment protection and secret gating](https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments)
 - [GitHub secret names can be listed without values, with separate Secrets read permission](https://docs.github.com/en/rest/actions/secrets#list-repository-secrets)
+
+## Blocked preflight diagnostics
+
+A preflight stopped by schema/history validation emits a bounded diagnostic with `applyAllowed: false` and no approval fingerprint. It reports known migration-name counts, unknown-name fingerprints (at most 20, plus a full-set hash), duplicates, and matches/missing fields for the fixed expected columns, keys, defaults, index and CHECK expressions. Arbitrary migration/column names, SQL text, default values and provider responses are not logged. The diagnostic does not authorize baselining, replaying migrations or repairing history.
+
+Target/binding/read-only response checks still stop unsafe collection. When the migration registry lacks the fixed columns needed to read its history, preflight skips that query but collects the remaining fixed schema metadata. Apply retains the original strict checks and cannot use a diagnostic as approval.
