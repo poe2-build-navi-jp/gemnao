@@ -1,3 +1,4 @@
+import { inventoryQueries, forwardInventory } from './inventory.mjs';
 // Fixed, operator-triggered D1 control. Never imported by the website.
 import { createHash } from 'node:crypto';
 import {
@@ -241,6 +242,7 @@ export function metadataDiagnostic(pages, snapshot) {
   });
   return {
     diagnosticVersion: 1,
+    ...(snapshot.forwardInventory ? { forwardInventory: snapshot.forwardInventory } : {}),
     applyAllowed: false,
     binding: {
       identityChecksPassed: true,
@@ -465,6 +467,13 @@ export async function collect(api, { diagnostic = false } = {}) {
         "SELECT sql FROM sqlite_master WHERE type='table' AND name='step_result_receipts'",
       )
     )[0]?.sql || '';
+  if (diagnostic) {
+    const rawInventory = {};
+    for (const [key, sql] of Object.entries(inventoryQueries)) {
+      rawInventory[key] = key === 'history' && !snapshot.historyReadable ? null : await query(sql);
+    }
+    snapshot.forwardInventory = forwardInventory(rawInventory);
+  }
   try {
     return reportFor(pages, snapshot);
   } catch (error) {
