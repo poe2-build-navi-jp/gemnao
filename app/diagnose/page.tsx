@@ -5,7 +5,7 @@ import { DiagnosisWizard } from '@/components/diagnosis-wizard';
 import { games } from '@/lib/games';
 import './diagnosis.css';
 export const metadata: Metadata = {
-  robots: process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED === 'true' ? undefined : { index: false, follow: false },
+  robots: { index: false, follow: false },
   title: 'PCゲーム無料トラブル診断 β',
   description:
     'PCゲームが起動しない、クラッシュ、黒い画面、フリーズ、低FPS、カクつきを回答から切り分け。確認する順番と安全な手順を整理します。登録・インストール不要。',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
 };
 export default function DiagnosePage() {
-  if (process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED !== 'true') return <main><p>診断は現在準備中です。既存の記事をご利用ください。</p><a href="/">ホームへ</a></main>;
+  if (process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED !== 'true' && process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA !== 'true') return <main><p>診断は現在準備中です。既存の記事をご利用ください。</p><a href="/">ホームへ</a></main>;
   return (
     <main>
       <WikiHeader pagePath="/diagnose" />
@@ -68,7 +68,7 @@ export default function DiagnosePage() {
           </p>
           <h3>記録と共有について</h3>
           <p>
-            回答は端末内に保存します。共有は内容を確認して確定したときだけ作成し、リンクを知っている人が閲覧できます。自由入力のゲーム名は共有しません。共有ページは作成から30日で閲覧できなくなり、本人の管理画面から失効・削除できます。
+            回答と対処の記録は、このブラウザの端末内にだけ保存します。現在のβ版では、診断内容のサーバー送信・結果の共有・診断イベントの計測は行いません。端末内の記録は自分で消せます。
             <a href="/diagnose/privacy">詳しい保存・削除の説明</a>
           </p>
         </section>

@@ -8,7 +8,7 @@ assert.ok(productionMigrations.includes('0004_step_result_reports.sql'));
 assert.ok(!productionMigrations.some((p) => p.includes('diagnosis')));
 assert.match(read('migrations/diagnosis/0001_diagnosis.sql'), /CREATE TABLE IF NOT EXISTS diagnosis_shared/);
 const config = JSON.parse(read('wrangler.json'));
-assert.ok(!Object.keys(config.vars || {}).some((k) => k.startsWith('DIAGNOSIS_')));
+assert.ok(!Object.keys(config.vars || {}).some((k) => k.startsWith('DIAGNOSIS_') && k !== 'DIAGNOSIS_LOCAL_BETA'));
 assert.deepEqual(config.env.preview.d1_databases, []);
 assert.match(read('scripts/test-diagnosis-browser.sh'), /d1 execute gemnao-diagnosis-local --local[^\n]+--file migrations\/diagnosis\/0001_diagnosis.sql/);
 for (const path of ['/diagnose', '/diagnosis/' + 'a'.repeat(32), '/diagnosis/manage/' + 'a'.repeat(32), '/api/diagnosis/config']) {
@@ -23,11 +23,11 @@ assert.match(read('cloudflare/worker-source.mjs'), /env\.DIAGNOSIS_STORAGE_ENABL
 console.log('PASS: staged schema, production and preview gates, live-only private routes, native navigation and unchanged control scope');
 assert.match(read('lib/diagnosis/server.ts'), /env\.DIAGNOSIS_ENABLED === 'true'/);
 assert.match(read('cloudflare/worker-source.mjs'), /env\.DIAGNOSIS_ENABLED !== 'true'/);
-assert.match(read('components/diagnosis-cta.tsx'), /NEXT_PUBLIC_DIAGNOSIS_ENABLED !== 'true'\) return/);
+assert.match(read('components/diagnosis-cta.tsx'), /NEXT_PUBLIC_DIAGNOSIS_ENABLED !== 'true' && process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA !== 'true'\) return/);
 assert.match(read('components/diagnosis-cta.tsx'), /setVisible\(d.enabled === true\)/);
 assert.match(read('components/diagnosis-wizard.tsx'), /enabled: false/);
-assert.match(read('components/diagnosis-wizard.tsx'), /NEXT_PUBLIC_DIAGNOSIS_ENABLED === 'true' && next.enabled === true/);
-assert.match(read('app/diagnose/page.tsx'), /NEXT_PUBLIC_DIAGNOSIS_ENABLED !== 'true'\) return/);
+assert.match(read('components/diagnosis-wizard.tsx'), /NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA === 'true'\) && next.enabled === true/);
+assert.match(read('app/diagnose/page.tsx'), /NEXT_PUBLIC_DIAGNOSIS_ENABLED !== 'true' && process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA !== 'true'\) return/);
 assert.match(read('app/sitemap.ts'), /NEXT_PUBLIC_DIAGNOSIS_ENABLED === 'true' \? \[\{ path: '\/diagnose'/);
 
 await build({
@@ -52,3 +52,35 @@ for (const flag of [undefined, 'false', '', 'TRUE']) {
   }
 }
 console.log('PASS: actual worker rejects dormant diagnosis routes without reading DB or public snapshots');
+const betaEnv = { DIAGNOSIS_LOCAL_BETA: 'true', DB: { prepare() { throw new Error('local beta cannot read diagnosis data'); } } };
+for (const path of ['/diagnose', '/diagnose/privacy']) {
+  const response = await worker.fetch(new Request('https://gemnao.test' + path), betaEnv, {});
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get('X-Robots-Tag'), /noindex/);
+  assert.match(response.headers.get('Cache-Control'), /no-store/);
+}
+assert.equal((await worker.fetch(new Request('https://gemnao.test/diagnosis/' + 'a'.repeat(32)), betaEnv, {})).status, 503);
+assert.equal(config.vars.DIAGNOSIS_LOCAL_BETA, 'true');
+assert.equal(config.env.preview.vars.DIAGNOSIS_LOCAL_BETA, 'true');
+assert.match(read('package.json'), /NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=true/);
+assert.match(read('components/diagnosis-wizard.tsx'), /NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA !== 'true' && <DiagnosisShare/);
+assert.match(read('app/diagnose/page.tsx'), /robots: \{ index: false, follow: false \}/);
+console.log('PASS: local beta renders noindex/private pages without DB and cannot serve shared results');
+await build({ entryPoints: ['app/sitemap.ts'], outfile: '.wrangler/diagnosis-tests/sitemap-beta.mjs', bundle: true, format: 'esm', platform: 'node', packages: 'external' });
+const { default: sitemap } = await import('../.wrangler/diagnosis-tests/sitemap-beta.mjs');
+const oldBeta = process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA;
+const oldEnabled = process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED;
+try {
+  for (const enabled of ['true', 'false']) {
+    process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA = 'true';
+    process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED = enabled;
+    assert.ok(!sitemap().some((entry) => entry.url.endsWith('/diagnose')));
+  }
+} finally {
+  if (oldBeta === undefined) delete process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA;
+  else process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA = oldBeta;
+  if (oldEnabled === undefined) delete process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED;
+  else process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED = oldEnabled;
+}
+assert.match(read('package.json'), /NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=true node scripts\/prepare-pages.mjs/);
+console.log('PASS: conflicting old build flag cannot add local beta to sitemap, Pages preparation receives beta flag');
