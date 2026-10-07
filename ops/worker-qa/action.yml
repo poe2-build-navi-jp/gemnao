@@ -1,0 +1,5 @@
+name: Deploy one reviewed QA Worker
+description: Exact-run owner approval and pinned official Wrangler, with intake disabled
+runs:
+  using: node24
+  main: deploy.mjs
