@@ -123,11 +123,16 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
         const json = JSON.parse(Buffer.concat(chunks).toString('utf8'));
         if (service === 'cloudflare') {
           const envelope = providerEnvelopeSummary(json); onEnvelope(envelope);
-          // The official Workers.list SDK pagination client does not require errors.
-          // Limit that compatibility to this GET; all mutation envelopes stay strict.
-          const workersList = method === 'GET' && path.split('?')[0] === `${ACCOUNT}/workers/workers`;
+          // Official beta Workers SDK methods unwrap result without requiring errors.
+          // Match only this controller's list/create/get/version endpoints; never D1/Cron.
+          const workerPath = path.startsWith(ACCOUNT + '/') ? path.split('?')[0].slice(ACCOUNT.length) : '';
+          const workersEnvelope = (['GET', 'POST'].includes(method) && workerPath === '/workers/workers')
+            || (method === 'GET' && /^\/workers\/workers\/[a-f0-9]{32}$/.test(workerPath))
+            || (method === 'GET' && FEATURES.some(f => workerPath === `/workers/workers/${f.worker}`))
+            || (method === 'POST' && /^\/workers\/workers\/[a-f0-9]{32}\/versions$/.test(workerPath))
+            || (method === 'GET' && /^\/workers\/workers\/[a-f0-9]{32}\/versions\/[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/.test(workerPath));
           const noErrors = envelope.errors === 'empty'
-            || (workersList && ['absent', 'null'].includes(envelope.errors));
+            || (workersEnvelope && ['absent', 'null'].includes(envelope.errors));
           need(envelope.success === 'true' && noErrors, 'PROVIDER_RESULT');
         }
         return json;
