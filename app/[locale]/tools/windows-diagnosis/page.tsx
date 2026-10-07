@@ -574,6 +574,14 @@ export default async function EnglishWindowsDiagnosis({
               the game executable.
             </p>
             <p>
+              The optional Steam-client check also works in the general profile
+              when Steam is selected. It requires separate consent and the
+              Steam executable you select. It checks the presence and Hidden attribute of six fixed
+              filenames under that installation, plus the locations of five
+              known DLL names in matching Steam processes. It does not read those files’ contents, process memory
+              or account data; unavailable results remain unknown.
+            </p>
+            <p>
               Limited CrashReport ZIP analysis temporarily decompresses dump
               data into memory. That data may contain personal information.
               Memory contents, registers, stacks and instructions are not

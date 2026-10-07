@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import { build } from 'esbuild';
+const bundled = await build({entryPoints:['lib/game-articles.ts'], bundle:true,write:false,format:'esm',platform:'node'});
+const { gameArticles } = await import(`data:text/javascript;base64,${Buffer.from(bundled.outputFiles[0].text).toString('base64')}`);
+const local=gameArticles.find(a=>a.gameSlug==='palworld'&&a.slug==='save-data');
+const server=gameArticles.find(a=>a.gameSlug==='palworld'&&a.slug==='dedicated-server-backup');
+assert.deepEqual(local.steps.map(s=>s.id),['open-save','identify-world','backup-world','verify-backup','restore-world','check-restored']);
+assert.deepEqual(server.steps.map(s=>s.id),['locate-world','enable-backup','save-and-stop','copy-world']);
+assert.match(local.description,/ワールドフォルダ全体.*ゲーム内.*別の方法.*復元前/);
+assert.match(local.steps.find(s=>s.id==='restore-world').note,/local・world.*取り違えない.*上書き/);
+assert.ok(local.sources.some(s=>s.label.includes('公式Q&A')));
+assert.match(server.steps.find(s=>s.id==='locate-world').actions.join(' '),/目安.*特定できなければ.*SaveGames全体.*推測/);
+assert.match(server.steps.find(s=>s.id==='enable-backup').actions.join(' '),/WindowsServer.*LinuxServer.*DefaultPalWorldSettings.ini/);
+assert.match(server.steps.find(s=>s.id==='save-and-stop').actions.join(' '),/停止中.*AdminPassword.*起動.*\/Save.*\/Shutdown.*完全に停止/);
+console.log('PASS: Palworld manual/in-game distinction, preservation, uncertain world selection, effective config and stable STEP IDs');

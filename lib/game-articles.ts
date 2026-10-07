@@ -102,7 +102,7 @@ const originalGameArticles: GameArticle[] = [
       'Steam版パルワールドのワールドをバックアップしたい、コピーが完了したか確かめたい、保存したワールドを元に戻したい人向けです。自分で作ったワールドが対象で、専用サーバーの管理データには適用しません。',
     conclusion: `保存先は「${palworld.savePath}」の下にあるワールド別フォルダです。ゲームとSteamを終了してフォルダを丸ごと別の場所へコピーし、ファイル名・サイズ・ファイル数を元と照合します。復元時は現在のデータを退避し、元と同じID・階層へフォルダごと戻します。`,
     description:
-      'SaveGames内はユーザーIDとワールドIDで分かれます。バックアップを置く親フォルダに日付を付け、IDでできたワールドフォルダ名は変えずに保存すると、復元先を間違えにくくなります。',
+      'この記事は、自分で保存したワールドフォルダ全体のコピーと復元を扱います。ゲーム内の「バックアップデータから復元」は別の方法です。どちらも復元前のデータを別の場所へ保全してください。SaveGames内のユーザーID・ワールドIDは変えず、日付は保管先の親フォルダに付けます。',
     checkedAt: '2026-09-28',
     targetVersion: 'WindowsのSteam版・自分のPCに保存されるワールド',
     quickFacts: [
@@ -231,7 +231,7 @@ const originalGameArticles: GameArticle[] = [
           '保存しておいたバックアップのワールドIDフォルダを、元と同じSaveGames／ユーザーIDの下へコピーする。フォルダ名は元のワールドIDのままにし、階層が二重になっていないか確認する',
           'Steamを起動し、クラウド同期はまだオフのままPalworldを開いて、次のSTEPで復元結果を調べる',
         ],
-        note: 'SaveGames全体を保管していた場合も、まず対応するユーザーIDと対象のワールドIDを確認してから、そのワールドフォルダだけを戻します。',
+        note: 'ここで戻すのは自分で保管したワールドフォルダ全体です。内蔵backup内のlocal・worldをこの手順のワールドフォルダと取り違えないでください。ゲーム内の復元機能を使う場合は公式Q&Aの5-1を確認し、選択中のデータが上書きされることに注意します。SaveGames全体を保管していた場合も、対応するユーザーIDと対象ワールドを確認してから戻します。',
       },
       {
         id: 'check-restored',
@@ -278,6 +278,10 @@ const originalGameArticles: GameArticle[] = [
       },
     ],
     sources: [
+      {
+        label: 'Palworld公式Q&A（5-1：ゲーム内復元、5-2：旧手動復元）',
+        url: 'https://docs.google.com/document/d/e/2PACX-1vTm43IoZ--_EGVCd2_tZGJNf7HzjgJmYTRkfNk8rpKWxDQgMY5Cq8_w5x6xJBpx-c7_7TIqDYSw6WRp/pub',
+      },
       {
         label: 'PCGamingWiki（Steam版保存場所）',
         url: 'https://www.pcgamingwiki.com/wiki/Palworld',
@@ -442,7 +446,7 @@ const originalGameArticles: GameArticle[] = [
         actions: [
           String.raw`PalServer\Pal\Saved\SaveGames\0を開く`,
           'ランダムな文字列のWorldIDフォルダを確認する',
-          '複数ある場合はサーバー停止後の更新日時で使用中フォルダを判別する',
+          '更新日時は候補を絞る目安にとどめる。使用中のWorldIDを特定できなければ、停止後にSaveGames全体を保全し、推測でフォルダを上書きしない',
           'フォルダ内のPlayersとワールド関連ファイルを確認する',
         ],
       },
@@ -452,8 +456,8 @@ const originalGameArticles: GameArticle[] = [
         summary: 'PalWorldSettings.iniのバックアップ設定をONにします。',
         actions: [
           '専用サーバーを停止する',
-          'PalWorldSettings.iniをコピーして保全する',
-          'bIsUseBackupSaveData=Trueに設定する',
+          String.raw`使用中のPalServer配下のPal\Saved\Config\WindowsServer\PalWorldSettings.ini（LinuxではPal/Saved/Config/LinuxServer/PalWorldSettings.ini）をコピーして保全する`,
+          'その実設定内でbIsUseBackupSaveData=Trueに設定する。DefaultPalWorldSettings.iniだけを編集しても反映されない',
           '保存してサーバーを起動する',
           'セーブデータ内にbackupフォルダが作成されるか確認する',
         ],
@@ -464,7 +468,7 @@ const originalGameArticles: GameArticle[] = [
         title: '更新前に/Saveして正常終了する',
         summary: 'コピー中にサーバーが書き込まない状態を作ります。',
         actions: [
-          'PalWorldSettings.iniでAdminPasswordを設定する',
+          '事前に停止中のサーバーの実設定でAdminPasswordを設定し、設定を反映して起動しておく',
           'ゲーム内で/AdminPassword <パスワード>を実行する',
           '/Saveを実行する',
           '/Shutdown [秒] [メッセージ]で参加者へ告知して終了する',
