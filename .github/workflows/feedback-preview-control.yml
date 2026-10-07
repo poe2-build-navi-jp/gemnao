@@ -1,0 +1,58 @@
+name: Gemnao preview data (manual protected control)
+run-name: Preview data exact-run approval required
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: gemnao-preview-data
+  cancel-in-progress: false
+jobs:
+  gate:
+    if: github.repository == 'poe2-build-navi-jp/gemnao' && github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/prepare/feedback-preview-controller-20261007'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      environment: ${{ steps.settings.outputs.environment }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22.19.0'
+      - name: Test fixed controller and injected mocks
+        run: node --test tests/feedback-preview/control.test.mjs tests/feedback-preview/adapter.test.mjs
+      - id: settings
+        name: Verify existing exact Environment before referencing it
+        env:
+          PREVIEW_GITHUB_TOKEN: ${{ github.token }}
+          PREVIEW_OUTSIDE_RECORD_PRESENT: ${{ vars.GEMNAO_PREVIEW_APPROVAL_RECORD != '' }}
+          PREVIEW_OUTSIDE_DIGEST_PRESENT: ${{ vars.GEMNAO_PREVIEW_APPROVAL_SHA256 != '' }}
+        run: node ops/feedback-preview/live.mjs gate
+  provision:
+    needs: gate
+    if: needs.gate.outputs.environment == 'gemnao-preview-data'
+    environment: ${{ needs.gate.outputs.environment }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22.19.0'
+      - name: Install locked official Artifact SDK without lifecycle scripts
+        run: npm ci --ignore-scripts --no-audit --no-fund --prefix ops/feedback-preview/runtime --registry=https://registry.npmjs.org
+      - name: Verify live integration with synthetic inputs only
+        run: node --test tests/feedback-preview/live.test.mjs
+      - name: Execute exact approved run with one Environment-scoped credential
+        uses: ./ops/feedback-preview
+        env:
+          PREVIEW_PROTECTED_ENVIRONMENT: gemnao-preview-data
+          PREVIEW_GITHUB_TOKEN: ${{ github.token }}
+          PREVIEW_APPROVAL_RECORD: ${{ vars.GEMNAO_PREVIEW_APPROVAL_RECORD }}
+          PREVIEW_APPROVAL_SHA256: ${{ vars.GEMNAO_PREVIEW_APPROVAL_SHA256 }}
+          GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN: ${{ secrets.GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN }}
