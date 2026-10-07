@@ -5402,3 +5402,28 @@ a.my-games-primary {
 /* Public report totals remain readable inside narrow step cards. */
 .step-outcome-counts { overflow-wrap: anywhere; }
 .step-outcome-counts small { display: block; font-size: inherit; color: var(--muted-foreground); }
+/* Additive diagnosis CTA: existing article typography and contents are unchanged. */
+.diagnosis-cta { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:18px; border:1px solid #bfd7c9; border-left:4px solid #08794e; background:#f0f8f3; border-radius:12px; margin:28px 0; padding:24px; }
+.diagnosis-cta-home { max-width:1180px; margin:24px auto; }
+.diagnosis-cta .diagnosis-cta-eyebrow { font-size:12px; font-weight:800; color:#08794e; margin:0 0 7px; letter-spacing:.07em; }
+.diagnosis-cta h2 { font-size:20px; line-height:1.5; margin:0 0 8px; }
+.diagnosis-cta p { margin:6px 0; font-size:14px; }
+.diagnosis-cta small { color:#53655c; font-size:12px; }
+.diagnosis-cta>a { display:inline-flex; justify-content:center; align-items:center; min-height:48px; border-radius:8px; padding:13px 20px; color:white; background:#08794e; font-weight:700; text-decoration:none; font-size:14px; }
+.diagnosis-cta>a:focus-visible { outline:3px solid #164734; outline-offset:4px; }
+@media(max-width:640px){.diagnosis-cta {padding:20px 16px}.diagnosis-cta-home{margin:20px 16px}.diagnosis-cta>a{width:100%}.diagnosis-cta h2{font-size:19px}}
+/* Private editorial requests are separate from the browser-local collection. */
+.game-request { margin-top: 32px; padding: clamp(16px, 3vw, 24px); border: 1px solid var(--line); border-radius: 12px; background: white; overflow-wrap: anywhere; }
+.game-request h2 { font-size: clamp(21px, 3vw, 27px); line-height: 1.4; }
+.game-request form { display: grid; gap: 10px; min-width: 0; }
+.game-request-privacy { color: var(--muted); font-size: 14px; line-height: 1.7; }
+.game-request label { font-weight: 700; }
+.game-request input { box-sizing: border-box; width: 100%; min-width: 0; min-height: 48px; padding: 11px 14px; border: 1px solid #a7b5bf; border-radius: 8px; background: white; color: inherit; font: inherit; }
+.game-request button { justify-self: start; max-width: 100%; min-height: 48px; padding: 12px 16px; border: 0; border-radius: 8px; background: #08789f; color: white; font: inherit; font-weight: 700; cursor: pointer; overflow-wrap: anywhere; }
+.game-request button:disabled { opacity: .65; cursor: wait; }
+.game-request input:focus-visible, .game-request button:focus-visible { outline: 3px solid #117ca3; outline-offset: 3px; }
+.game-request input[aria-invalid="true"] { border-color: #a82929; }
+.game-request-count { justify-self: end; color: var(--muted); font-size: 14px; }
+.game-request-message { display: block; min-height: 24px; font-size: 14px; line-height: 1.7; }
+
+.game-request-policy { display: inline-flex; align-items: center; min-height: 48px; }

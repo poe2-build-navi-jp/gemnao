@@ -1,0 +1,24 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "gemnao-diagnosis-local",
+  "pages_build_output_dir": "./dist/client",
+  "compatibility_date": "2026-05-22",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "vars": {
+    "DIAGNOSIS_SHARING_ENABLED": "true",
+    "DIAGNOSIS_METRICS_ENABLED": "true",
+    "DIAGNOSIS_STORAGE_ENABLED": "true",
+    "DIAGNOSIS_ENABLED": "true"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "gemnao-diagnosis-local",
+      "database_id": "00000000-0000-4000-8000-000000000004",
+      "migrations_dir": ".openai/drizzle",
+      "migrations_table": "d1_migrations"
+    }
+  ]
+}

@@ -25,6 +25,7 @@ import {
   normalizeSearchQuery,
 } from '@/lib/site-search';
 import { ContinueNotes } from './continue-notes';
+import { DiagnosisCta } from './diagnosis-cta';
 import { RecentTroubles } from './recent-troubles';
 import { MyShortcut } from './my-shortcut';
 import { HomeBookmarkHelp } from './home-bookmark-help';
@@ -212,6 +213,7 @@ export function WikiHome({
           </output>
         ) : null}
       </section>
+      {!isSearching ? <DiagnosisCta home /> : null}
 
       {!isSearching && (
         <section
