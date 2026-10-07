@@ -122,6 +122,22 @@ GitHub configuration/review endpoints use Actions:read; ref reads use Contents:r
 No real approval record is populated in code. Empty, stale or mismatched values
 stop before Cloudflare credential use. New runs require new exact records.
 
+For a failed run with an unresolved outcome, a new owner-approved exact-run record
+may explicitly use `mode: read-only-preflight`. Its expiry and all run/ref/owner
+checks still apply. This path exposes only metadata preflight, rejects non-GET and
+non-preflight endpoints before transport, and never loads the Artifact SDK,
+creates a claim or calls provisioning. It may inspect inventory despite unresolved
+prior runs or a target-name collision. Inventory metadata remains internal; public
+success output is only the fixed read-only completion/intake-disabled marker.
+Provisioning still requires independently reviewed no-write reconciliation for all
+prior runs, no collisions, and its original creation mode. A diagnostic result is
+not permission to retry creation.
+
+Public failure diagnostics contain only allowlisted local stage/error codes and
+the last request's service, method, static endpoint class and numeric HTTP status.
+No URLs, resource IDs, headers, response bodies, record values or arbitrary error
+text are included. An unrecognized failure becomes `UNCLASSIFIED_FAILURE`.
+
 The record binds account, both fixed resource pairs, `PLAN_HASH` (including artifact
 hashes/settings), exact branch/commit, one GitHub run ID, single-Environment reviewer policy, cleanup,
 chosen notification destination with deliveryStatus=pending and accepted residual Cron naming risk. The execution record
