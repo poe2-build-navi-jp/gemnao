@@ -7,6 +7,7 @@ import {
   cleanupDiagnosis,
   type DiagnosisEnv,
 } from '../../lib/diagnosis/server';
+import cleanupWorker from '../../cloudflare/diagnosis-cleanup';
 import { actions } from '../../lib/diagnosis/rules';
 import { RULE_VERSION, answerLabel } from '../../lib/diagnosis/model';
 import { buildSnapshot, type Snapshot } from '../../lib/diagnosis/validation';
@@ -108,7 +109,7 @@ function req(
 async function setup() {
   const { db, sql } = database();
   const env: DiagnosisEnv = {
-    DB: db,
+    DIAGNOSIS_DB: db,
     DIAGNOSIS_ENABLED: 'true',
     DIAGNOSIS_STORAGE_ENABLED: 'true',
     DIAGNOSIS_SHARING_ENABLED: 'true',
@@ -485,7 +486,7 @@ void test('database outage returns generic failure, never false success', async 
   } as unknown as D1Database;
   const r = await handleDiagnosis(
     req('/session', {}),
-    { DB: broken, DIAGNOSIS_SHARING_ENABLED: 'true' },
+    { DIAGNOSIS_DB: broken, DIAGNOSIS_ENABLED: 'true', DIAGNOSIS_STORAGE_ENABLED: 'true', DIAGNOSIS_SHARING_ENABLED: 'true' },
     now,
   );
   assert.equal(r.status, 503);
@@ -558,7 +559,7 @@ void test('unverified preview storage gate never touches D1 even for owner APIs'
     },
   } as unknown as D1Database;
   const env: DiagnosisEnv = {
-    DB: db,
+    DIAGNOSIS_DB: db,
     DIAGNOSIS_SHARING_ENABLED: 'true',
     DIAGNOSIS_METRICS_ENABLED: 'true',
   };
@@ -639,10 +640,10 @@ void test('every storage route stays closed when storage permission is absent, e
     prepare() { throw new Error('unapproved D1 access'); },
     batch() { throw new Error('unapproved D1 access'); },
   } as unknown as D1Database;
-  const env: DiagnosisEnv = { DB: db, DIAGNOSIS_SHARING_ENABLED: 'true', DIAGNOSIS_METRICS_ENABLED: 'true' };
+  const env: DiagnosisEnv = { DIAGNOSIS_DB: db, DIAGNOSIS_ENABLED: 'true', DIAGNOSIS_SHARING_ENABLED: 'true', DIAGNOSIS_WRITES_ENABLED: 'true', DIAGNOSIS_METRICS_ENABLED: 'true' };
   const id = 'b'.repeat(32);
   for (const [path, method] of [
-    ['/session', 'POST'], ['/share', 'POST'], ['/metrics', 'POST'],
+    ['/session', 'POST'], ['', 'POST'], ['/events', 'POST'],
     [`/${id}`, 'GET'], [`/${id}`, 'PATCH'], [`/${id}`, 'DELETE'],
     [`/${id}/owner`, 'GET'], [`/${id}/recover`, 'POST'], [`/${id}/revoke`, 'POST'],
   ]) {
@@ -673,7 +674,7 @@ void test('entire diagnosis intake needs explicit runtime activation while owner
 void test('local-only beta advertises no collection and rejects public storage even with stale runtime flags', async () => {
   let touched = false;
   const db = { prepare() { touched = true; throw new Error('no beta DB access'); } } as unknown as D1Database;
-  const env: DiagnosisEnv = { DB: db, DIAGNOSIS_LOCAL_BETA: 'true', DIAGNOSIS_ENABLED: 'true', DIAGNOSIS_STORAGE_ENABLED: 'true', DIAGNOSIS_SHARING_ENABLED: 'true', DIAGNOSIS_METRICS_ENABLED: 'true' };
+  const env: DiagnosisEnv = { DIAGNOSIS_DB: db, DIAGNOSIS_LOCAL_BETA: 'true', DIAGNOSIS_ENABLED: 'true', DIAGNOSIS_STORAGE_ENABLED: 'true', DIAGNOSIS_SHARING_ENABLED: 'true', DIAGNOSIS_METRICS_ENABLED: 'true' };
   const config = await (await handleDiagnosis(req('/config'), env, now)).json();
   assert.equal(config.enabled, true);
   assert.equal(config.sharing, false);
@@ -688,6 +689,95 @@ void test('local beta keeps pre-existing owner deletion behind its separate stor
   const { env, cookie, sql } = await setup();
   const { data } = await create(env, cookie);
   const beta = { ...env, DIAGNOSIS_LOCAL_BETA: 'true', DIAGNOSIS_ENABLED: undefined };
+  assert.equal((await handleDiagnosis(req('/' + data.id, {}, cookie, 'DELETE'), { ...beta, DIAGNOSIS_STORAGE_ENABLED: undefined }, now)).status, 503);
+  assert.equal(sql.prepare('SELECT COUNT(*) AS n FROM diagnosis_shared').get()?.n, 1);
   assert.equal((await handleDiagnosis(req('/' + data.id, {}, cookie, 'DELETE'), beta, now)).status, 200);
   assert.equal(sql.prepare('SELECT COUNT(*) AS n FROM diagnosis_shared').get()?.n, 0);
+});
+
+void test('ordinary site DB never substitutes for missing DIAGNOSIS_DB with every diagnosis flag enabled', async () => {
+  let touched = false;
+  const ordinary = {
+    prepare() { touched = true; throw new Error('ordinary DB must not be used'); },
+    batch() { touched = true; throw new Error('ordinary DB must not be used'); },
+  } as unknown as D1Database;
+  const env: DiagnosisEnv & { DB: D1Database } = {
+    DB: ordinary,
+    DIAGNOSIS_ENABLED: 'true',
+    DIAGNOSIS_STORAGE_ENABLED: 'true',
+    DIAGNOSIS_SHARING_ENABLED: 'true',
+    DIAGNOSIS_WRITES_ENABLED: 'true',
+    DIAGNOSIS_METRICS_ENABLED: 'true',
+  };
+  const id = 'b'.repeat(32);
+  for (const [path, method] of [
+    ['/session', 'POST'], ['', 'POST'], ['/events', 'POST'],
+    [`/${id}`, 'GET'], [`/${id}`, 'PATCH'], [`/${id}`, 'DELETE'],
+    [`/${id}/owner`, 'GET'], [`/${id}/recover`, 'POST'], [`/${id}/revoke`, 'POST'],
+  ]) {
+    const response = await handleDiagnosis(req(path, method === 'GET' ? undefined : {}, '', method), env, now);
+    assert.equal(response.status, 503, `${method} ${path}`);
+  }
+  const config = await (await handleDiagnosis(req('/config'), env, now)).json();
+  assert.equal(config.sharing, false);
+  assert.equal(config.metrics, false);
+  assert.equal(touched, false);
+});
+
+void test('local beta config does not even resolve a stale storage binding', async () => {
+  const env: DiagnosisEnv = {
+    DIAGNOSIS_LOCAL_BETA: 'true',
+    DIAGNOSIS_ENABLED: 'true',
+    DIAGNOSIS_STORAGE_ENABLED: 'true',
+    DIAGNOSIS_SHARING_ENABLED: 'true',
+    DIAGNOSIS_METRICS_ENABLED: 'true',
+    get DIAGNOSIS_DB(): D1Database { throw new Error('local config cannot access storage'); },
+  };
+  const config = await (await handleDiagnosis(req('/config'), env, now)).json();
+  assert.deepEqual(config, { enabled: true, sharing: false, metrics: false, localOnly: true });
+});
+
+void test('scheduled cleanup fails closed without DIAGNOSIS_DB and never falls back to ordinary DB', async () => {
+  let touched = false;
+  const env: { DIAGNOSIS_DB?: D1Database; DB: D1Database } = {
+    DB: {
+      prepare() { touched = true; throw new Error('ordinary DB must not be cleaned'); },
+      batch() { touched = true; throw new Error('ordinary DB must not be cleaned'); },
+    } as unknown as D1Database,
+  };
+  await assert.rejects(
+    cleanupWorker.scheduled({} as ScheduledController, env, {} as ExecutionContext),
+    /DIAGNOSIS_DB binding is required/,
+  );
+  assert.equal(touched, false);
+});
+
+void test('API and scheduled cleanup use dedicated diagnosis storage when ordinary DB is also present', async () => {
+  const { env, cookie, sql } = await setup();
+  let ordinaryTouched = false;
+  const isolated = {
+    ...env,
+    DB: {
+      prepare() { ordinaryTouched = true; throw new Error('ordinary DB must not be used'); },
+      batch() { ordinaryTouched = true; throw new Error('ordinary DB must not be used'); },
+    } as unknown as D1Database,
+  };
+  const { data } = await create(isolated, cookie);
+  assert.equal((await handleDiagnosis(req('/' + data.id), isolated, now)).status, 200);
+  sql.prepare('UPDATE diagnosis_shared SET expires_at=1 WHERE id=?').run(data.id);
+  await cleanupWorker.scheduled({} as ScheduledController, isolated, {} as ExecutionContext);
+  assert.equal(sql.prepare('SELECT COUNT(*) n FROM diagnosis_shared').get()?.n, 0);
+  assert.ok(Number(sql.prepare("SELECT value FROM diagnosis_operations WHERE key='cleanup_success'").get()?.value) > 0);
+  assert.equal(ordinaryTouched, false);
+});
+
+void test('cleanup failure rolls back deletions and cannot refresh the last successful heartbeat', async () => {
+  const { env, cookie, db, sql } = await setup();
+  const { data } = await create(env, cookie);
+  sql.prepare('UPDATE diagnosis_shared SET expires_at=1 WHERE id=?').run(data.id);
+  // Force the second operation in the deletion batch to fail after the first ran.
+  sql.exec('DROP TABLE diagnosis_rate_limits');
+  await assert.rejects(cleanupDiagnosis(db, now + 3600000), /no such table/);
+  assert.equal(sql.prepare('SELECT COUNT(*) n FROM diagnosis_shared').get()?.n, 1);
+  assert.equal(sql.prepare("SELECT value FROM diagnosis_operations WHERE key='cleanup_success'").get()?.value, String(now));
 });
