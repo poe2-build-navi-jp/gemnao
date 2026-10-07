@@ -178,13 +178,14 @@ await test('CLI never reads/logs synthetic credentials or unexpected arguments',
     assert.ok(!(result.stdout + result.stderr).includes(marker));
   }
 });
-await test('workflow stays manual-only, zero secrets, literal disabled protected job', async () => {
+await test('workflow stays manual-only with verified Environment gate and protected-only secret', async () => {
   const workflow = await readFile('.github/workflows/feedback-preview-control.yml', 'utf8');
   assert.match(workflow, /on:\n  workflow_dispatch:\npermissions:/);
-  assert.doesNotMatch(workflow, /inputs:|secrets\.|schedule:|pull_request:|push:|workflow_call:|id-token:|write/);
-  assert.match(workflow, /if: \$\{\{ false \}\}/);
-  assert.match(workflow, /environment: gemnao-preview-data/);
-  assert.doesNotMatch(workflow.split('  provision:')[0], /environment:/);
+  assert.doesNotMatch(workflow, /inputs:|schedule:|pull_request:|push:|workflow_call:|id-token:/);
+  assert.match(workflow, /if: needs\.gate\.outputs\.environment == 'gemnao-preview-data'/);
+  assert.match(workflow, /environment: \$\{\{ needs\.gate\.outputs\.environment \}\}/);
+  assert.doesNotMatch(workflow.split('  provision:')[0], /secrets\./);
+  assert.match(workflow.split('  provision:')[1], /secrets\.GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN/);
   const controller = await readFile('ops/feedback-preview/controller.mjs', 'utf8');
   assert.doesNotMatch(controller, /process\.env|fetch\(|https?:\/\/|node:(?:https?|child_process)|wrangler/);
 });

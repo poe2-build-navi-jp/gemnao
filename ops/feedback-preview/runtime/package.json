@@ -1,0 +1,7 @@
+{
+  "name": "gemnao-preview-data-runtime",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": { "@actions/artifact": "2.3.2" }
+}

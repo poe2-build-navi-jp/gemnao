@@ -1,10 +1,11 @@
 # Isolated feedback and diagnosis-sharing preview controller
 
-**Preparation only. Execution remains hard-disabled.** No credentials, account
-API calls, workflow runs, settings changes, provisioning or paid charges occurred
-while preparing this code. CLI `preflight`/`provision` and `createApprovedAdapter()`
-unconditionally deny. `APPROVED_RECORD_HASH` is null. No live transport or secure
-credential integration is wired. Scope approval is not evidence that setup is done.
+**Default-deny, manually approved execution.** The protected local JavaScript
+action now has a concrete scoped transport and locked official SDK. It is runnable
+only after the existing exact Environment, owner review, secret and exact run-bound
+record/digest are present. No real credential, account call, artifact upload or
+workflow run was used in preparing/testing this integration. The legacy offline
+CLI and createApprovedAdapter() still deny; the sole live entry is action.yml.
 
 Production base: `35e931b3163b85394b7ac7e44ddde9e54f3e6e87`. Changes are isolated
 under this directory, focused tests and a new manual-only workflow. Existing
@@ -53,16 +54,30 @@ bundle=true, format=esm, platform=neutral, output
 `.wrangler/diagnosis-tests/cleanup-worker.mjs`. Tests reproduce the exact bytes and
 verify exactly two inputs. No application server or other transitive code is copied.
 
-## Implemented adapter, still disconnected
+## Runnable protected integration
 
-`adapter.mjs` implements actual request construction, bounded response parsing,
-read-only preflight and the sequential five-write flow for each fixed pair.
-`createPreparedAdapter` accepts an injected transport and independently trusted
-approval-record digest for tests and a future reviewed integration. There is no
-fetch default, token reader, arbitrary URL input or account-discovery operation.
-The current CLI never calls it. The workflow is manual-only and runs mock/local
-checks; its provisioning job has literal `if: ${{ false }}` plus CLI denial.
-Runnable jobs reference no Environment or secret, preventing implicit setup.
+`adapter.mjs` implements bounded preflight and five Cloudflare writes per pair.
+`live.mjs` confines token injection to the reviewed JavaScript action in the
+protected job. `runtime/package-lock.json` pins the official Artifact SDK and every
+transitive dependency; npm ci --ignore-scripts verifies integrity without lifecycle
+scripts. The JavaScript action receives GitHub's ephemeral artifact runtime token
+through the supported action runtime. A shell step is not assumed to expose it.
+
+Execution ref is fixed to `refs/heads/prepare/feedback-preview-controller-20261007`.
+The dispatcher must first be registered on the default branch, then dispatched
+with this selected ref. Registration is not permission to execute on default.
+The existing Environment is pinned by name AND ID23658815122. Before any job
+references it, a read-only gate verifies owner poe2-build-navi-jp as the single
+reviewer, self-approval allowed, no administrator bypass, and the exact branch.
+Missing/mismatched settings stop without implicitly creating an Environment.
+
+The protected action requires GitHub-hosted/manual/attempt1 context, checkout SHA
+and workflow SHA matching the exact record. It verifies current owner approval via
+GitHub API, then performs authenticated Cloudflare read preflight before mutations.
+Only the final protected action step receives the Cloudflare secret. Token value,
+scope and expiry are never printed; successful account reads are not represented
+as proof of minimal token scope/expiry. Secure setup review remains authoritative
+for those properties. Scope failures do not request broader permissions.
 
 The transport contract is fetch-compatible `(url, options) -> Response` and must
 honor AbortSignal. Only the two fixed provider origins and internally constructed
@@ -78,18 +93,32 @@ authenticated evidence. Even their result always says executionAllowed=false.
 
 ## Approval and cost evidence
 
-A future reviewed launcher must obtain an exact trusted record digest from
-independently approved protected setup, then pass record bytes matching that
-hash. Never derive the trusted digest from dispatch input or the submitted record.
-Use one short-lived account-scoped credential in this one Environment; do not
-duplicate it into separate feature Environments. The digest and record must be approved after the execution commit/run are known;
-embedding a record's own execution commit into that same commit is circular.
-The integration/secure loader remains a separately reviewed enablement change.
-No example fixture record is authority, and no real record is populated here.
+Minimal record flow, with no commit/run circularity:
+
+1. Publish the reviewed code and dispatch the fixed branch with no inputs. The
+   gate emits safe exact run ID/head SHA/ref/plan hash/reviewer ID and the protected
+   job waits for owner approval.
+2. Prepare the independently reviewed non-sensitive record for that existing run.
+   Store its exact JSON in Environment variable `GEMNAO_PREVIEW_APPROVAL_RECORD`
+   and its SHA-256 in `GEMNAO_PREVIEW_APPROVAL_SHA256`, ONLY under gemnao-preview-data.
+   No real screenshots, credentials or private raw usage images go into the repo.
+3. Owner approves that exact waiting job. Its step receives Environment variables
+   after review, checks the independent digest and run/head/ref/owner metadata,
+   then performs the fixed preflight, durable claim and creation sequence.
+
+The unprotected gate rejects any same-named repository/organization variable,
+preventing configured fallback authorization. Setup must keep those names absent
+outside the Environment and must not change scope during the run. Environment
+variable REST reads require Environments:read; this workflow does not add a PAT or
+claim GITHUB_TOKEN has that grant. It consumes the protected job's variables and
+independently validates record/hash against authenticated run/protection metadata.
+GitHub configuration/review endpoints use Actions:read; ref reads use Contents:read.
+No real approval record is populated in code. Empty, stale or mismatched values
+stop before Cloudflare credential use. New runs require new exact records.
 
 The record binds account, both fixed resource pairs, `PLAN_HASH` (including artifact
 hashes/settings), exact branch/commit, one GitHub run ID, single-Environment reviewer policy, cleanup,
-alert-choice/delivery evidence and accepted residual Cron naming risk. The execution record
+chosen notification destination with deliveryStatus=pending and accepted residual Cron naming risk. The execution record
 expires after one hour. Its owner-UI cost evidence may remain valid for the same
 explicit UTC quota day, ending no later than the evidenced 00:00 UTC daily reset. Freshness
 is checked again before each write. Thresholds/reservations must be explicitly
@@ -204,8 +233,8 @@ The wrapper pins official `@actions/artifact` 2.3.2 and the integrity recorded i
 returned ID/digest, current-run metadata and a downloaded exact payload. No findBy
 or cross-run/repository token scope. The SDK uses the runner's existing runtime
 artifact token and introduces no persistent credential grant. The package client
-is injected; it is NOT installed/loaded or wired here. A future reviewed loader
-must enforce the package integrity and locked dependencies, preserve normal
+is loaded only by the protected action after record/protection checks. The reviewed loader
+checks the official SDK pin and npm ci enforces locked dependency integrity, preserve normal
 repository artifact access and keep claims/runs intact until reconciliation.
 Only the live claim SDK integration test after approval can establish actual
 provider behavior; current tests use mocks plus reviewed official semantics.
@@ -227,8 +256,7 @@ and outcomes; no credentials, reports or raw provider responses.
   and exact IDs. Create/verify only the single protected Environment `gemnao-preview-data` after
   approval, with no admin bypass and matching branch/manual-review rules.
 - Supply and independently review still-missing account-wide owner-UI plan/quota
-  evidence, explicit capacity reservations, cleanup approval and alert destination
-  plus tested-delivery evidence. Alerts contain operational status only, no reports,
+  evidence, explicit capacity reservations, cleanup approval and accepted notification destination with deliveryStatus=pending for empty preview creation. Alerts contain operational status only, no reports,
   raw IPs, salts, keys or receipt identifiers. No destination is assumed/configured.
 - At action time, securely create/configure a dedicated short-lived Cloudflare
   credential restricted to this account with D1 Write and Workers Scripts Write.
@@ -240,7 +268,7 @@ and outcomes; no credentials, reports or raw provider responses.
 - Review the live transport/secure-record loader and pinned Artifact SDK wiring,
   verify its actual conflict/readback behavior and unchanged artifact access,
   and complete exact protected setup.
-  Neither CLI, workflow nor production factory currently allows execution. The
+  The offline CLI/factory remain denied; only the protected JavaScript action can execute after all exact setup checks. The
   adapter's injected trusted-hash argument is an integration boundary, not a user
   approval bypass. No arbitrary dispatch record, secret or authorization flag.
 - Sharing application isolation remains a separate prerequisite. Before switching
@@ -271,7 +299,7 @@ expiry. This PR does not change an application feature flag or deploy Pages.
 - Repository full lint, TypeScript and beta build/Pages/OG checks
 
 All adapter requests in tests use synthetic injected transports. Miniflare tests
-use disposable local DBs. The workflow never runs live preflight/provisioning.
+use disposable local DBs. No workflow was run during this preparation. After owner approval the protected action can run live preflight/provisioning.
 
 - [Create a new Worker](https://developers.cloudflare.com/api/resources/workers/subresources/beta/subresources/workers/methods/create/)
 - [Read Worker version modules](https://developers.cloudflare.com/api/resources/workers/subresources/beta/subresources/workers/subresources/versions/methods/get/)
@@ -290,3 +318,14 @@ use disposable local DBs. The workflow never runs live preflight/provisioning.
 - [Account-scoped permissions](https://developers.cloudflare.com/fundamentals/api/reference/permissions/)
 - [GitHub run/review metadata](https://docs.github.com/en/rest/actions/workflow-runs)
 - [GitHub Environment protections](https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments)
+
+### Empty preview versus feature readiness
+
+This record authorizes only mode=create-empty-preview-pairs. An accepted existing
+notification destination can be recorded with deliveryStatus=pending; no fake
+delivery hash is required or accepted as proof. Receipts explicitly return
+alertDeliveryVerified=false, actualHeartbeatVerified=false and intakeEnabled=false.
+No application binding, intake/share flag or real data collection is changed.
+Actual scheduled retention and alert delivery must be proven before real data,
+sharing activation or production promotion. Existing GitHub email preferences
+alone do not monitor Cloudflare Cron health.

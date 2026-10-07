@@ -39,7 +39,7 @@ export function validateRecord(recordBytes, trustedRecordHash, now) {
   need(HASH.test(trustedRecordHash ?? '') && sha256(recordBytes) === trustedRecordHash, 'APPROVAL_RECORD_PIN');
   let r;
   try { r = JSON.parse(recordBytes); } catch { throw new Error('BLOCKED:APPROVAL_RECORD_JSON'); }
-  need(r.operation === 'create-two-preview-pairs-20261007' && r.planHash === PLAN_HASH
+  need(r.mode === 'create-empty-preview-pairs' && r.operation === 'create-two-preview-pairs-20261007' && r.planHash === PLAN_HASH
     && r.accountId === TARGET.accountId, 'RECORD_SCOPE');
   need(/^refs\/heads\/[A-Za-z0-9][A-Za-z0-9._/-]*$/.test(r.ref ?? '')
     && !r.ref.includes('..') && !r.ref.includes('//') && !r.ref.endsWith('/')
@@ -75,7 +75,7 @@ export function validateRecord(recordBytes, trustedRecordHash, now) {
     && r.claimArtifact.access === 'existing-repository'
     && HASH.test(r.claimArtifact.storageBudgetReviewSha256 ?? ''), 'CLAIM_ARTIFACT_BUDGET');
   need(r.cleanupApproval === 'both-pinned-hourly-crons' && HASH.test(r.alert?.destinationChoiceSha256 ?? '')
-    && HASH.test(r.alert?.deliveryEvidenceSha256 ?? '') && fresh(r.alert?.reviewedAt, now, 86_400_000), 'CLEANUP_ALERT_APPROVAL');
+    && r.alert?.deliveryStatus === 'pending' && fresh(r.alert?.reviewedAt, now, 86_400_000), 'CLEANUP_ALERT_APPROVAL');
   need(r.cronTargeting === 'name-after-id-recheck-residual-rename-risk-accepted', 'CRON_RENAME_RISK');
   need(Array.isArray(r.reconciledNoWriteRuns), 'DURABLE_RUN_RECONCILIATION');
   for (const safe of r.reconciledNoWriteRuns) need(Number.isSafeInteger(safe.id) && safe.id !== r.runId
@@ -288,7 +288,7 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
       inventory.databases.push({ id: db.uuid, name: f.database });
       inventory.workers.push({ id: worker.id, name: f.worker });
     }
-    return { receipts, journal: structuredClone(journal), actualHeartbeatVerified: false, intakeEnabled: false };
+    return { receipts, journal: structuredClone(journal), actualHeartbeatVerified: false, alertDeliveryVerified: false, intakeEnabled: false };
   }
   return Object.freeze({ preflight: async () => { need(!started, 'ATTEMPT_ALREADY_STARTED'); return inspect(); },
     provision, journal: () => structuredClone(journal) });
