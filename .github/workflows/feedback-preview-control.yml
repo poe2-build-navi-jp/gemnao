@@ -1,0 +1,40 @@
+name: Gemnao feedback preview (provisioning DISABLED)
+run-name: Feedback preview offline plan only
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: gemnao-preview-data
+  cancel-in-progress: false
+jobs:
+  offline-plan:
+    if: github.repository == 'poe2-build-navi-jp/gemnao' && github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22.19.0'
+      - name: Test the offline controller and fixed artifacts
+        run: node --test tests/feedback-preview/control.test.mjs tests/feedback-preview/adapter.test.mjs
+      - name: Print unapproved fixed-scope plan (no Cloudflare access)
+        run: node ops/feedback-preview/controller.mjs plan
+  provision:
+    # Hard literal, not an input, repository variable or environment variable.
+    # Even editing this one line cannot enable the controller: it always denies.
+    # No runnable job references an Environment, so missing settings are not created.
+    if: ${{ false }}
+    needs: offline-plan
+    environment: gemnao-preview-data
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Refuse unsupported provisioning
+        run: node ops/feedback-preview/controller.mjs provision
