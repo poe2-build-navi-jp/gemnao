@@ -207,8 +207,8 @@ await test('request budget reserves both pairs before writes, including prior re
   assert.ok(repeated.calls.every(c => c.method === 'GET'));
 });
 
-await test('every mutation still requires an explicit empty errors array', async () => {
-  for (let failure = 1; failure <= 10; failure++) {
+await test('D1/schema and legacy Cron mutations still require an explicit empty errors array', async () => {
+  for (const failure of [1, 2, 5, 6, 7, 10]) {
     let writes = 0;
     const { adapter, calls } = await prepare(fixtureRecord(), (c,v) => {
       if (c.method !== 'GET' && ++writes === failure) delete v.errors;
@@ -218,5 +218,39 @@ await test('every mutation still requires an explicit empty errors array', async
     assert.equal(calls.filter(c => c.method !== 'GET').length, failure);
     const count = calls.length; await assert.rejects(adapter.provision(), /ALREADY_STARTED/);
     assert.equal(calls.length, count);
+  }
+});
+
+await test('beta Workers create/get/version envelopes accept missing/null errors only with true success and exact readbacks', async () => {
+  for (const errors of [undefined, null]) {
+    const { adapter, calls } = await prepare(fixtureRecord(), (c,v) => {
+      if (c.path === account + '/workers/workers' || c.path.startsWith(account + '/workers/workers/')) {
+        if (errors === undefined) delete v.errors; else v.errors = errors;
+      }
+    });
+    const result = await adapter.provision();
+    assert.equal(result.receipts.length, 2); assert.equal(result.journal.length, 10);
+    assert.ok(result.journal.every(e => e.outcome === 'confirmed'));
+    assert.equal(calls.filter(c => c.method !== 'GET').length, 10);
+  }
+});
+await test('beta Workers absent errors never relax success, identity, bindings or module readback', async () => {
+  for (const mutate of [
+    (c,v) => { if (c.method === 'POST' && c.path.endsWith('/workers/workers')) v.success = false; },
+    (c,v) => { if (c.method === 'POST' && c.path.endsWith('/workers/workers')) delete v.success; },
+    (c,v) => { if (c.method === 'POST' && c.path.endsWith('/workers/workers')) v.errors = [{ message: 'SYNTHETIC_PRIVATE' }]; },
+    (c,v) => { if (c.method === 'POST' && c.path.endsWith('/workers/workers')) v.errors = {}; },
+    (c,v) => { if (c.method === 'POST' && c.path.endsWith('/workers/workers')) v.result.id = 'invalid'; },
+    (c,v) => { if (c.method === 'GET' && c.path.endsWith(`/workers/workers/${workerIds[0]}`)) v.result.name = 'other'; },
+    (c,v) => { if (c.method === 'POST' && c.path.endsWith('/versions')) v.result.bindings[0].database_id = dbIds[1]; },
+    (c,v) => { if (c.method === 'GET' && c.path.includes('/versions/')) v.result.modules[0].content_base64 = 'invalid'; },
+  ]) {
+    const { adapter, calls } = await prepare(fixtureRecord(), (c,v) => {
+      if (c.path === account + '/workers/workers' || c.path.startsWith(account + '/workers/workers/')) delete v.errors;
+      mutate(c,v);
+    });
+    await assert.rejects(adapter.provision(), /BLOCKED/);
+    const count = calls.length; await assert.rejects(adapter.provision(), /ALREADY_STARTED/);
+    assert.equal(calls.length, count); assert.ok(calls.every(c => c.method !== 'DELETE'));
   }
 });

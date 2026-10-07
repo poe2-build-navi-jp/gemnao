@@ -140,15 +140,19 @@ For parsed Cloudflare envelopes, two safe enums also describe `success`
 No URLs, resource IDs, headers, response bodies, record values or arbitrary error
 text are included. An unrecognized failure becomes `UNCLASSIFIED_FAILURE`.
 
-Only Workers inventory GET accepts absent/null `errors`, and only with explicit
+Only the fixed beta Workers list/create/get and version create/get endpoints
+accept absent/null `errors`, and only with explicit
 `success:true` plus the existing strict result/pagination/identity checks. The
 [official Workers list SDK](https://github.com/cloudflare/cloudflare-typescript/blob/main/src/resources/workers/beta/workers/workers.ts)
 uses [V4PagePaginationArray](https://github.com/cloudflare/cloudflare-typescript/blob/main/src/core/pagination.ts),
-which reads result/result_info and does not require errors. This is SDK compatibility;
+which reads result/result_info and does not require errors. Worker create/get and
+[version create/get](https://github.com/cloudflare/cloudflare-typescript/blob/main/src/resources/workers/beta/workers/versions.ts)
+also unwrap result without requiring errors. This is SDK compatibility;
 the [HTTP reference](https://developers.cloudflare.com/api/resources/workers/subresources/beta/subresources/workers/methods/list/)
 still describes errors as an array and does not explicitly promise null. False or
 missing success, nonempty/malformed errors, and invalid result/pagination still
-block. Other endpoints and all writes still require an empty errors array. The
+block. Exact Worker identity, bindings, module bytes and readbacks remain required.
+D1/account and legacy Cron endpoints still require an empty errors array. The
 previous failure's exact envelope shape remains unproven until safe diagnostics
 observe it; HTTP 200 alone never establishes success.
 
