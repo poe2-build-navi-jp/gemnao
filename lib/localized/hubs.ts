@@ -47,10 +47,10 @@ export const localizedHubs: Record<string, LocalizedHub> = {
   'rocket-league': { ...rocketLeagueLocalizedHub, noindex: true },
   'onimusha-way-of-the-sword': {
     lead: {
-      en: 'Seven PC troubleshooting guides for launch crashes, CrashReport, GPU drivers, shader caches, black screens, HDR and low FPS.',
+      en: 'How to save at a Spirit Mirror, plus seven PC troubleshooting guides for launch crashes, CrashReport, GPU drivers, shader caches, black screens, HDR and low FPS.',
     },
     intro: {
-      en: 'Choose the symptom that matches your Steam version of Onimusha: Way of the Sword. These guides summarize Capcom’s English troubleshooting instructions and current Steam requirements, with one change and one comparison at a time. They do not claim hands-on verification of every fix. Keep security protection enabled and check diagnostic files for private information before sharing them with support.',
+      en: 'Start with the sourced saving answer below, or choose the symptom that matches your Steam version of Onimusha: Way of the Sword. These guides summarize Capcom’s English troubleshooting instructions and current Steam requirements, with one change and one comparison at a time. They do not claim hands-on verification of every fix. Keep security protection enabled and check diagnostic files for private information before sharing them with support.',
     },
     fileLocations: {
       saveNote:

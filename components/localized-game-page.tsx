@@ -1,3 +1,4 @@
+import { OnimushaSaveAnswer } from '@/components/onimusha-save-answer';
 import { ArticleToc } from '@/components/article-toc';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import {
@@ -117,6 +118,9 @@ export function LocalizedGamePage({
       </div>
       <div className="article-layout">
         <ArticleToc title={t.contents}>
+          {game.slug === 'onimusha-way-of-the-sword' && locale === 'en' ? (
+            <a href="#save-method">How to save</a>
+          ) : null}
           {articles.length ? <a href="#guides">{t.guides}</a> : null}
           {hub.checklist?.[locale] ? (
             <a href="#checklist">{t.checklist}</a>
@@ -132,6 +136,9 @@ export function LocalizedGamePage({
         </ArticleToc>
         <article className="guide-article">
           <p className="article-introduction">{hub.intro[locale]}</p>
+          {game.slug === 'onimusha-way-of-the-sword' && locale === 'en' ? (
+            <OnimushaSaveAnswer english />
+          ) : null}
           {articles.length ? (
             <section className="related-section" id="guides">
               <h2>{t.guides}</h2>

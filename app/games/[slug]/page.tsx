@@ -1,4 +1,5 @@
 import { ArticleToc } from '@/components/article-toc';
+import { OnimushaSaveAnswer } from '@/components/onimusha-save-answer';
 import type { Metadata } from 'next';
 import { AniimoTroubleshootingHub } from '@/components/aniimo-troubleshooting-hub';
 import {
@@ -235,6 +236,9 @@ export default async function GamePage({
         <ArticleToc title={'このページの内容'}>
           {game.focused ? (
             <>
+              {game.slug === 'onimusha-way-of-the-sword' ? (
+                <a href="#save-method">セーブ方法</a>
+              ) : null}
               {game.slug === 'aniimo' ? (
                 <>
                   <a href="#aniimo-first">最初に確認すること</a>
@@ -274,6 +278,9 @@ export default async function GamePage({
           ) : null}
 
           {game.slug === 'aniimo' ? <AniimoTroubleshootingHub /> : null}
+          {game.slug === 'onimusha-way-of-the-sword' ? (
+            <OnimushaSaveAnswer />
+          ) : null}
           <GameArticleLinks game={game} />
 
           {feedbackTopics.length ? (
