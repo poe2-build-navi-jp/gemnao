@@ -11,17 +11,23 @@ export const HEALTH_TARGETS = Object.freeze([
     sql: "SELECT value,expires_at FROM diagnosis_operations WHERE key='cleanup_success' LIMIT 1;",
     sqlSha256: '687966446eb2e3911382151bcea3619338452f5313127718f9d7a31bb3de1876' }),
 ]);
+export const QA_DISCOVERY = Object.freeze({ method: 'GET', path: `/accounts/${TARGET.accountId}/workers/subdomain`,
+  plannedWorkerName: 'gemnao-diagnostic-qa', maximumRequests: 1 });
 export const HEALTH_PLAN_HASH = sha256(JSON.stringify({ operation: 'observe-preview-cleanup-heartbeats',
   accountId: TARGET.accountId, creationRunId: 37640786041,
   creationReceiptSha256: 'a60571f40ecd9a37db31a42e98841ad2ba2f993de0ec016488fc688d599e43d0',
-  targets: HEALTH_TARGETS, maximumQueries: 2, maximumRowsPerQuery: 1, maximumAgeMs: 7_200_000 }));
+  targets: HEALTH_TARGETS, discovery: QA_DISCOVERY, maximumQueries: 2, maximumRowsPerQuery: 1, maximumAgeMs: 7_200_000 }));
 function need(ok, code) { if (!ok) throw new Error(`BLOCKED:${code}`); }
 export function healthTransport(transport) {
   const reads = readOnlyTransport(transport);
   const accountUrl = `https://api.cloudflare.com/client/v4/accounts/${TARGET.accountId}`;
-  const queried = new Set();
+  const queried = new Set(); let discoveryAttempted = false;
   return (url, options) => {
     if (url.startsWith('https://api.github.com/')) return reads(url, options);
+    if (url === `https://api.cloudflare.com/client/v4${QA_DISCOVERY.path}` && options?.method === 'GET') {
+      need(!discoveryAttempted, 'HEALTH_DISCOVERY_ONCE'); discoveryAttempted = true;
+      return transport(url, options);
+    }
     const target = HEALTH_TARGETS.find(t => url === `${accountUrl}/d1/database/${t.databaseId}`
       || url === `${accountUrl}/d1/database/${t.databaseId}/query`);
     if (options?.method === 'GET' && (url === accountUrl
@@ -56,4 +62,11 @@ export function heartbeatStatus(feature, result, now) {
     && stamp <= now && now - stamp <= 7_200_000
     && (feature === 'feedback' || row.expires_at > now);
   return { healthy, pending: !healthy };
+}
+
+export function plannedQaOrigin(result) {
+  const label = result?.subdomain;
+  if (typeof label !== 'string' || !/^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/.test(label))
+    return { known: false, label: null, plannedOrigin: null, deployed: false };
+  return { known: true, label, plannedOrigin: `https://${QA_DISCOVERY.plannedWorkerName}.${label}.workers.dev`, deployed: false };
 }

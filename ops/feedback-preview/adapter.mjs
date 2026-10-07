@@ -3,7 +3,7 @@
 import { readFile } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
 import { boundedFailure, readOnlyTransport, providerEnvelopeSummary } from './diagnostics.mjs';
-import { HEALTH_TARGETS, HEALTH_PLAN_HASH, healthTransport, heartbeatStatus } from './health.mjs';
+import { HEALTH_TARGETS, HEALTH_PLAN_HASH, healthTransport, heartbeatStatus, QA_DISCOVERY, plannedQaOrigin } from './health.mjs';
 import { TARGET, SHARING, ARTIFACTS, sha256, checkArtifact, denyExecution } from './controller.mjs';
 
 const ACCOUNT = `/accounts/${TARGET.accountId}`;
@@ -243,13 +243,17 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
     await githubGate();
     onStage('account-preflight');
     need((await cf('')).result?.id === TARGET.accountId, 'ACCOUNT');
+    onStage('health-subdomain');
+    let qaOrigin = plannedQaOrigin(null);
+    try { qaOrigin = plannedQaOrigin((await request('cloudflare', 'GET', QA_DISCOVERY.path)).result); }
+    catch { /* Discovery remains explicitly unknown; heartbeat checks are independent. */ }
     onStage('health-identities');
     for (const target of HEALTH_TARGETS) {
       const database = (await cf(`/d1/database/${target.databaseId}`)).result;
       need(database?.uuid === target.databaseId && database.name === target.databaseName, 'HEALTH_DATABASE_IDENTITY');
     }
     onStage('health-heartbeats');
-    const result = { mode: 'cleanup-health', intakeEnabled: false };
+    const result = { mode: 'cleanup-health', qaOrigin, intakeEnabled: false };
     for (const target of HEALTH_TARGETS) {
       validateRecord(approvedBytes, trustedRecordHash, now());
       const response = await request('cloudflare', 'POST', `${ACCOUNT}/d1/database/${target.databaseId}/query`, { sql: target.sql });

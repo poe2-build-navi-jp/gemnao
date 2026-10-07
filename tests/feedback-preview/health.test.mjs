@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import { test } from 'node:test';
-import { HEALTH_TARGETS, HEALTH_PLAN_HASH, healthTransport, heartbeatStatus } from '../../ops/feedback-preview/health.mjs';
+import { HEALTH_TARGETS, HEALTH_PLAN_HASH, healthTransport, heartbeatStatus, QA_DISCOVERY, plannedQaOrigin } from '../../ops/feedback-preview/health.mjs';
 import { createHealthAdapter, createPreparedAdapter } from '../../ops/feedback-preview/adapter.mjs';
 import { runProtected, publicRunResult, SETUP } from '../../ops/feedback-preview/live.mjs';
 import { TARGET, sha256 } from '../../ops/feedback-preview/controller.mjs';
@@ -14,7 +14,7 @@ function response(url, result) {
   const r = new Response(JSON.stringify({ success: true, errors: [], result }), { status: 200, headers: { 'content-type': 'application/json' } });
   Object.defineProperty(r, 'url', { value: url }); return r;
 }
-function setup(change = () => {}) {
+function setup(change = () => {}, discovery = { subdomain: 'synthetic-account' }) {
   const record = fixtureRecord(); record.mode = 'cleanup-health'; record.healthPlanHash = HEALTH_PLAN_HASH;
   record.approvedAt = now; record.ref = SETUP.ref;
   const network = mock(record, (c,v) => {
@@ -26,6 +26,10 @@ function setup(change = () => {}) {
   const calls = [];
   const transport = async (url, options) => {
     calls.push({ url, options });
+    if (url === `${account}/workers/subdomain`) {
+      if (discovery instanceof Error) throw discovery;
+      return response(url, discovery);
+    }
     const target = HEALTH_TARGETS.find(t => url.startsWith(`${account}/d1/database/${t.databaseId}`));
     if (!target) return network.transport(url, options);
     let result;
@@ -52,12 +56,14 @@ await test('protected health verifies both exact identities before two SELECTs, 
   const f = setup();
   const result = await runProtected({ env: f.env(), checkoutSha: f.record.commit, transport: f.transport,
     loadClient: () => assert.fail('health cannot load SDK'), now: () => now });
-  assert.deepEqual(publicRunResult(result), { feedback: { healthy: true, pending: false }, sharing: { healthy: true, pending: false }, intakeEnabled: false });
+  assert.deepEqual(publicRunResult(result), { feedback: { healthy: true, pending: false }, sharing: { healthy: true, pending: false }, qaOrigin: { known: true, label: 'synthetic-account',
+    plannedOrigin: 'https://gemnao-diagnostic-qa.synthetic-account.workers.dev', deployed: false }, intakeEnabled: false });
   const cf = f.calls.filter(c => c.url.startsWith(account));
-  assert.deepEqual(cf.map(c => c.options.method), ['GET', 'GET', 'GET', 'POST', 'POST']);
+  assert.deepEqual(cf.map(c => c.options.method), ['GET', 'GET', 'GET', 'GET', 'POST', 'POST']);
   assert.ok(cf.filter(c => c.options.method === 'POST').every(c => HEALTH_TARGETS.some(t =>
     c.url === `${account}/d1/database/${t.databaseId}/query` && c.options.body === JSON.stringify({ sql: t.sql }))));
-  assert.ok(!f.calls.some(c => /workers|artifacts/.test(c.url)));
+  assert.ok(!f.calls.some(c => /artifacts|workers\/workers/.test(c.url)));
+  assert.equal(f.calls.filter(c => c.url === `${account}/workers/subdomain`).length, 1);
 });
 await test('health transport allows only exact new DB heartbeat SQL once and leaves old GET-only mode unchanged', () => {
   let calls = 0; const transport = healthTransport(() => { calls++; });
@@ -123,4 +129,35 @@ for schema,target in zip(x['schemas'],x['targets']):
 `;
   const run = spawnSync('python3', ['-c', code], { input: JSON.stringify({ schemas, targets: HEALTH_TARGETS }), encoding: 'utf8' });
   assert.equal(run.status, 0, run.stderr); assert.equal(run.stdout.trim().split('\n').length, 2);
+});
+
+await test('subdomain discovery accepts only a DNS label and never treats a planned origin as deployed', () => {
+  assert.equal(QA_DISCOVERY.plannedWorkerName, 'gemnao-diagnostic-qa');
+  assert.equal(QA_DISCOVERY.method, 'GET');
+  for (const subdomain of ['', 'a.b', 'x/y', '-bad', 'bad-', 'UPPER', 'a'.repeat(64), 'secret\nvalue', null]) {
+    const result = plannedQaOrigin({ subdomain });
+    assert.deepEqual(result, { known: false, label: null, plannedOrigin: null, deployed: false });
+  }
+  let calls = 0; const transport = healthTransport(() => { calls++; });
+  const url = `https://api.cloudflare.com/client/v4${QA_DISCOVERY.path}`;
+  for (const method of ['PUT', 'POST', 'DELETE']) assert.throws(() => transport(url, { method }), /HEALTH_REQUEST_SCOPE/);
+  assert.throws(() => readOnlyTransport(() => assert.fail())(url, { method: 'GET' }), /READ_ONLY_ENDPOINT/);
+  transport(url, { method: 'GET' }); assert.equal(calls, 1);
+  assert.throws(() => transport(url, { method: 'GET' }), /HEALTH_DISCOVERY_ONCE/);
+});
+await test('failed or unknown origin discovery stays explicit while both heartbeat queries still run', async () => {
+  for (const discovery of [{}, { subdomain: 'invalid.example' }, new Error('SYNTHETIC_PRIVATE_PROVIDER_ERROR')]) {
+    const f = setup(() => {}, discovery);
+    const result = await runProtected({ env: f.env(), checkoutSha: f.record.commit, transport: f.transport,
+      loadClient: () => assert.fail(), now: () => now });
+    assert.equal(result.feedback.healthy, true); assert.equal(result.sharing.healthy, true);
+    const output = publicRunResult(result);
+    assert.deepEqual(output.qaOrigin, { known: false, label: null, plannedOrigin: null, deployed: false });
+    assert.ok(!JSON.stringify(output).includes('SYNTHETIC_PRIVATE'));
+    assert.equal(f.calls.filter(c => c.options.method === 'POST').length, 2);
+  }
+  const f = setup(); f.record.healthPlanHash = 'e7cdf1f16f974d5ad5967aee76aa4bb1305461857621fb754e3a31d8b262382f';
+  await assert.rejects(runProtected({ env: f.env(), checkoutSha: f.record.commit, transport: f.transport,
+    loadClient: () => assert.fail(), now: () => now }), /HEALTH_PLAN_PIN/);
+  assert.equal(f.calls.length, 0);
 });

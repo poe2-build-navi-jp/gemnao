@@ -128,7 +128,8 @@ export async function runProtected({ env, checkoutSha, transport, loadClient = l
 export function publicRunResult(result) {
   if (result.mode === 'cleanup-health')
     return { feedback: { healthy: result.feedback.healthy, pending: result.feedback.pending },
-      sharing: { healthy: result.sharing.healthy, pending: result.sharing.pending }, intakeEnabled: false };
+      sharing: { healthy: result.sharing.healthy, pending: result.sharing.pending },
+      qaOrigin: { known: result.qaOrigin.known, label: result.qaOrigin.label, plannedOrigin: result.qaOrigin.plannedOrigin, deployed: false }, intakeEnabled: false };
   if (result.mode === 'read-only-preflight')
     return { mode: 'read-only-preflight', completed: true, readOnly: true, intakeEnabled: false };
   return result;

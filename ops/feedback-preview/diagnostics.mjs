@@ -8,7 +8,7 @@ CONFIGURED_BRANCH CONFIGURED_PROTECTIONS CREDENTIAL_MISSING CRON_INVENTORY CRON_
 DATABASE_READBACK DURABLE_CLAIM_READBACK DURABLE_CLAIM_RECEIPT DURABLE_CLAIM_REQUIRES_READ_ONLY_RECONCILIATION
 DURABLE_CLAIM_UNCONFIGURED DURABLE_RUN_RECONCILIATION ENVIRONMENT ENVIRONMENT_RECORD_MISSING_OR_MISMATCHED
 ENVIRONMENT_REF ENVIRONMENT_REVIEWERS EXACT_OWNER_RECORD EXACT_RUN_RECORD GITHUB_METADATA_UNAVAILABLE
-HEALTH_DATABASE_IDENTITY HEALTH_HEARTBEAT_SHAPE HEALTH_MODE HEALTH_PLAN_PIN HEALTH_QUERY_ONCE
+HEALTH_DATABASE_IDENTITY HEALTH_DISCOVERY_ONCE HEALTH_HEARTBEAT_SHAPE HEALTH_MODE HEALTH_PLAN_PIN HEALTH_QUERY_ONCE
 HEALTH_QUERY_RESULT HEALTH_REQUEST_SCOPE HEALTH_SQL_PIN GITHUB_RESPONSE GITHUB_RESPONSE_SIZE INITIATOR_POLICY_UNCHOSEN INVENTORY_CHANGED INVENTORY_COMPLETENESS
 INVENTORY_DUPLICATE INVENTORY_ID INVENTORY_PAGE_BOUND INVENTORY_TRUNCATED INVOCATION JOB_CONTEXT NEW_DATABASE
 NEW_WORKER_IDENTITY NEW_WORKER_TIMESTAMP NO_TRANSPORT OWNER_INITIATOR OWNER_REVIEWER OWNER_UI_COST_EVIDENCE
@@ -20,7 +20,7 @@ RUN_ENVIRONMENT_APPROVAL RUN_HISTORY_INCOMPLETE RUN_IDENTITY RUN_REVIEWS SCHEMA_
 TRANSPORT_METHOD TRANSPORT_SCOPE TWO_PAIR_FREE_RESERVATION UNPROTECTED_RECORD_SECRET VERSION_READBACK
 VERSION_RESPONSE WORKFLOW_CONTEXT WRITE_BOUND WRITE_REQUIRES_READ_ONLY_RECONCILIATION
 `.trim().split(/\s+/));
-const STAGES = new Set(['context', 'record', 'environment', 'artifact-sdk', 'github-preflight', 'account-preflight', 'inventory-preflight', 'health-identities', 'health-heartbeats', 'claim', 'write-database', 'write-schema', 'write-worker', 'write-version', 'write-cron', 'complete']);
+const STAGES = new Set(['context', 'record', 'environment', 'artifact-sdk', 'github-preflight', 'account-preflight', 'inventory-preflight', 'health-subdomain', 'health-identities', 'health-heartbeats', 'claim', 'write-database', 'write-schema', 'write-worker', 'write-version', 'write-cron', 'complete']);
 export function safeCode(error) {
   const message = typeof error?.message === 'string' ? error.message : '';
   const code = message.startsWith('BLOCKED:') ? message.slice(8) : '';
@@ -55,6 +55,7 @@ function requestClass(url, method) {
       else if (path === '/d1/database') info.endpoint = 'd1-databases';
       else if (/^\/d1\/database\/[^/]+\/query$/.test(path)) info.endpoint = 'd1-query';
       else if (/^\/d1\/database\/[^/]+$/.test(path)) info.endpoint = 'd1-metadata';
+      else if (path === '/workers/subdomain') info.endpoint = 'workers-subdomain';
       else if (path === '/workers/workers') info.endpoint = 'workers';
       else if (/^\/workers\/workers\/[^/]+\/versions(?:\/[^/]+)?$/.test(path)) info.endpoint = 'worker-versions';
       else if (/^\/workers\/workers\/[^/]+$/.test(path)) info.endpoint = 'worker-metadata';
