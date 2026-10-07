@@ -33,7 +33,7 @@ export function canTrackAnalytics() {
 }
 
 /** Paths that must never be counted (the admin screens). */
-export const untrackedPath = (path: string) => /^\/admin(?:\/|$)/.test(path);
+export const untrackedPath = (path: string) => /^\/(?:admin|diagnostic-feedback|diagnose|diagnosis)(?:\/|$)/.test(path);
 
 export function trackEvent(
   name: AnalyticsEvent,

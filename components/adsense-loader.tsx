@@ -6,7 +6,7 @@ import { afterPageLoad } from '@/components/deferred-load';
 // AdSense may only run on screens with substantial publisher content.
 // Forms, legal pages, the partial translations and error pages stay ad-free.
 const adFreePath =
-  /^\/(?:en|zh|es|admin|contact|privacy|terms|about)(?:\/|$)|^\/discord-servers\/submit(?:\/|$)/;
+  /^\/(?:en|zh|es|admin|diagnostic-feedback|contact|privacy|terms|about|diagnose|diagnosis)(?:\/|$)|^\/discord-servers\/submit(?:\/|$)/;
 
 export function AdsenseLoader({ client }: { client: string }) {
   useEffect(() => {

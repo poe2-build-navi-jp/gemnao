@@ -3,6 +3,7 @@ import { ArticleDiagnosisEntry } from '@/components/article-diagnosis-entry';
 import { EditorialByline } from '@/components/editorial-byline';
 import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
 import { SaveArticle } from '@/components/save-article';
+import { DiagnosisCta } from '@/components/diagnosis-cta';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import {
   AlertTriangle,
@@ -331,6 +332,7 @@ export function TroubleshootingArticle({
               </ul>
             </section>
           ) : null}
+          {['launch', 'settings', 'mods', 'specs'].includes(article.category) ? <DiagnosisCta /> : null}
           <section className="caution-block">
             <h2>
               <AlertTriangle size={22} />
