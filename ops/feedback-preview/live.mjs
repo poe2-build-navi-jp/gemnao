@@ -11,7 +11,7 @@ export const SETUP = Object.freeze({
   ref: 'refs/heads/prepare/feedback-preview-controller-20261007',
   environment: 'gemnao-preview-data', environmentId: 23658815122,
   reviewerLogin: 'poe2-build-navi-jp',
-  recordVariable: 'GEMNAO_PREVIEW_APPROVAL_RECORD', digestVariable: 'GEMNAO_PREVIEW_APPROVAL_SHA256',
+  recordSecret: 'GEMNAO_PREVIEW_APPROVAL_RECORD', digestSecret: 'GEMNAO_PREVIEW_APPROVAL_SHA256',
   secret: 'GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN',
 });
 const repoPath = `/repos/${TARGET.repository}`;
@@ -77,9 +77,9 @@ export async function verifyConfiguredEnvironment(transport) {
 }
 export async function runGate({ env, checkoutSha, transport }) {
   validateContext(env, checkoutSha, false);
-  // This job has no Environment. Nonempty values here are repo/org fallbacks;
-  // never let those silently become trusted authorization in the protected job.
-  need(env.PREVIEW_OUTSIDE_RECORD_PRESENT === 'false' && env.PREVIEW_OUTSIDE_DIGEST_PRESENT === 'false', 'UNPROTECTED_RECORD_VARIABLE');
+  // This job has no Environment and receives only secret-presence booleans.
+  // Reject repo/org fallbacks before they can become trusted authorization.
+  need(env.PREVIEW_OUTSIDE_RECORD_PRESENT === 'false' && env.PREVIEW_OUTSIDE_DIGEST_PRESENT === 'false', 'UNPROTECTED_RECORD_SECRET');
   const reviewerId = await verifyConfiguredEnvironment(transport);
   return { environment: SETUP.environment, runId: Number(env.GITHUB_RUN_ID), commit: env.GITHUB_SHA,
     ref: SETUP.ref, reviewerId, planHash: PLAN_HASH };

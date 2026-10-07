@@ -43,13 +43,14 @@ await test('live action rejects non-GitHub, wrong ref/job/SHA/attempt/debug befo
     GITHUB_JOB: 'gate', GITHUB_SHA: 'b'.repeat(40), GITHUB_RUN_ATTEMPT: '2', RUNNER_DEBUG: '1' }))
     assert.throws(() => validateContext({ ...env, [key]: value }, record.commit, true), /BLOCKED/);
 });
-await test('unprotected gate rejects repo/org authorization fallback and verifies exact existing Environment', async () => {
+await test('unprotected gate rejects repo/org secret fallback and verifies exact existing Environment', async () => {
   const f = setup(); const env = context(f.record, 'gate');
   const gate = await runGate({ env, checkoutSha: f.record.commit, transport: f.transport });
   assert.equal(gate.environment, SETUP.environment); assert.equal(gate.reviewerId, 123);
   assert.ok(f.calls.every(c => c.method === 'GET' && c.url.startsWith('https://api.github.com')));
   const prior = f.calls.length;
-  await assert.rejects(runGate({ env: { ...env, PREVIEW_OUTSIDE_RECORD_PRESENT: 'true' }, checkoutSha: f.record.commit, transport: f.transport }), /UNPROTECTED/);
+  for (const key of ['PREVIEW_OUTSIDE_RECORD_PRESENT', 'PREVIEW_OUTSIDE_DIGEST_PRESENT'])
+    await assert.rejects(runGate({ env: { ...env, [key]: 'true' }, checkoutSha: f.record.commit, transport: f.transport }), /UNPROTECTED_RECORD_SECRET/);
   assert.equal(f.calls.length, prior);
 });
 await test('protected action defaults to deny missing/mismatched record without transport or SDK', async () => {
@@ -59,6 +60,13 @@ await test('protected action defaults to deny missing/mismatched record without 
       transport: f.transport, loadClient: () => assert.fail('SDK cannot load'), now: () => now }), /RECORD/);
     assert.equal(f.calls.length, 0);
   }
+});
+await test('expired exact record fails before any API, SDK or durable claim', async () => {
+  const f = setup();
+  await assert.rejects(runProtected({ env: f.env, checkoutSha: f.record.commit,
+    transport: f.transport, loadClient: () => assert.fail('SDK cannot load'),
+    now: () => f.record.approvedAt + 3_600_001 }), /BLOCKED:REVIEWED_RUN/);
+  assert.equal(f.calls.length, 0);
 });
 await test('protected exact owner-approved run reaches bounded adapter with concrete Artifact wrapper, no live calls', async () => {
   const f = setup();
