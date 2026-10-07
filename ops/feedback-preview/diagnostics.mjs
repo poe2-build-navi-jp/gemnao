@@ -62,17 +62,31 @@ function requestClass(url, method) {
   } catch { /* Never return URL text or parsing error. */ }
   return info;
 }
+export function providerEnvelopeSummary(value) {
+  const object = value !== null && typeof value === 'object' && !Array.isArray(value);
+  if (!object) return { success: 'invalid', errors: 'invalid' };
+  const success = !Object.hasOwn(value, 'success') ? 'missing'
+    : value.success === true ? 'true' : value.success === false ? 'false' : 'invalid';
+  const errors = !Object.hasOwn(value, 'errors') ? 'absent' : value.errors === null ? 'null'
+    : Array.isArray(value.errors) ? (value.errors.length === 0 ? 'empty' : 'nonempty') : 'invalid';
+  return { success, errors };
+}
 export function createDiagnostics(emit = () => {}) {
-  let stage = 'context'; let request = null;
+  let stage = 'context'; let request = null; let envelope = null;
   return Object.freeze({
     stage(value) { stage = STAGES.has(value) ? value : 'context'; emit({ stage }); },
+    envelope(value) {
+      envelope = { success: ['true', 'false', 'missing', 'invalid'].includes(value?.success) ? value.success : 'invalid',
+        errors: ['absent', 'null', 'empty', 'nonempty', 'invalid'].includes(value?.errors) ? value.errors : 'invalid' };
+    },
     transport(inner) { return async (url, options) => {
+      envelope = null;
       request = requestClass(url, options?.method);
       const response = await inner(url, options);
       request.status = Number.isInteger(response?.status) && response.status >= 100 && response.status <= 599 ? response.status : null;
       return response;
     }; },
-    failure(error) { return { stage, ...failureSummary(error), request }; },
+    failure(error) { return { stage, ...failureSummary(error), request, ...(envelope ? { envelope } : {}) }; },
   });
 }
 export function readOnlyTransport(transport) {

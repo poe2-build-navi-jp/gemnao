@@ -206,3 +206,17 @@ await test('request budget reserves both pairs before writes, including prior re
   await assert.rejects(repeated.adapter.provision(), /REQUEST_BUDGET_BEFORE_WRITES/);
   assert.ok(repeated.calls.every(c => c.method === 'GET'));
 });
+
+await test('every mutation still requires an explicit empty errors array', async () => {
+  for (let failure = 1; failure <= 10; failure++) {
+    let writes = 0;
+    const { adapter, calls } = await prepare(fixtureRecord(), (c,v) => {
+      if (c.method !== 'GET' && ++writes === failure) delete v.errors;
+    });
+    await assert.rejects(adapter.provision(), /WRITE_REQUIRES_READ_ONLY_RECONCILIATION/);
+    assert.equal(adapter.journal().at(-1).outcome, 'uncertain');
+    assert.equal(calls.filter(c => c.method !== 'GET').length, failure);
+    const count = calls.length; await assert.rejects(adapter.provision(), /ALREADY_STARTED/);
+    assert.equal(calls.length, count);
+  }
+});

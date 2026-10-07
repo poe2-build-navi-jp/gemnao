@@ -2,7 +2,7 @@
 // There is intentionally no fetch default, credential reader or CLI entry point.
 import { readFile } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
-import { boundedFailure, readOnlyTransport } from './diagnostics.mjs';
+import { boundedFailure, readOnlyTransport, providerEnvelopeSummary } from './diagnostics.mjs';
 import { TARGET, SHARING, ARTIFACTS, sha256, checkArtifact, denyExecution } from './controller.mjs';
 
 const ACCOUNT = `/accounts/${TARGET.accountId}`;
@@ -85,7 +85,7 @@ export function validateRecord(recordBytes, trustedRecordHash, now) {
   return r;
 }
 
-export async function createPreparedAdapter({ transport, durableClaims, recordBytes, trustedRecordHash, now = Date.now, onStage = () => {} }) {
+export async function createPreparedAdapter({ transport, durableClaims, recordBytes, trustedRecordHash, now = Date.now, onStage = () => {}, onEnvelope = () => {} }) {
   need(typeof transport === 'function', 'NO_TRANSPORT');
   const approvedBytes = String(recordBytes);
   const record = validateRecord(approvedBytes, trustedRecordHash, now());
@@ -121,7 +121,15 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
           size += value.byteLength; need(size <= 1_048_576, 'RESPONSE_SIZE'); chunks.push(Buffer.from(value));
         } } finally { reader.releaseLock(); }
         const json = JSON.parse(Buffer.concat(chunks).toString('utf8'));
-        if (service === 'cloudflare') need(json.success === true && Array.isArray(json.errors) && json.errors.length === 0, 'PROVIDER_RESULT');
+        if (service === 'cloudflare') {
+          const envelope = providerEnvelopeSummary(json); onEnvelope(envelope);
+          // The official Workers.list SDK pagination client does not require errors.
+          // Limit that compatibility to this GET; all mutation envelopes stay strict.
+          const workersList = method === 'GET' && path.split('?')[0] === `${ACCOUNT}/workers/workers`;
+          const noErrors = envelope.errors === 'empty'
+            || (workersList && ['absent', 'null'].includes(envelope.errors));
+          need(envelope.success === 'true' && noErrors, 'PROVIDER_RESULT');
+        }
         return json;
       })();
       return await Promise.race([operation, timeout]);
@@ -307,8 +315,8 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
 
 // This capability exposes no provision method, accepts no claim client, and its
 // transport rejects all mutations even if a future preflight change attempts one.
-export async function createReadOnlyAdapter({ transport, recordBytes, trustedRecordHash, now = Date.now, onStage }) {
+export async function createReadOnlyAdapter({ transport, recordBytes, trustedRecordHash, now = Date.now, onStage, onEnvelope }) {
   need(validateRecord(recordBytes, trustedRecordHash, now()).mode === 'read-only-preflight', 'READ_ONLY_MODE');
-  const adapter = await createPreparedAdapter({ transport: readOnlyTransport(transport), recordBytes, trustedRecordHash, now, onStage });
+  const adapter = await createPreparedAdapter({ transport: readOnlyTransport(transport), recordBytes, trustedRecordHash, now, onStage, onEnvelope });
   return Object.freeze({ preflight: adapter.preflight });
 }

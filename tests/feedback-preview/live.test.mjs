@@ -5,7 +5,7 @@ import { spawnSync } from 'node:child_process';
 import { test } from 'node:test';
 import { SETUP, validateContext, credentialTransport, runGate, runProtected, publicRunResult } from '../../ops/feedback-preview/live.mjs';
 import { TARGET, sha256 } from '../../ops/feedback-preview/controller.mjs';
-import { createDiagnostics, boundedFailure, failureSummary, readOnlyTransport } from '../../ops/feedback-preview/diagnostics.mjs';
+import { createDiagnostics, boundedFailure, failureSummary, readOnlyTransport, providerEnvelopeSummary } from '../../ops/feedback-preview/diagnostics.mjs';
 import { createReadOnlyAdapter, createPreparedAdapter } from '../../ops/feedback-preview/adapter.mjs';
 import { fixtureRecord, mock, now, workflow, account, dbIds } from './fixtures.mjs';
 function context(record, job = 'provision') {
@@ -185,4 +185,77 @@ await test('failed metadata response retains safe status/cause and never provide
   catch (error) { failure = diagnostics.failure(error); }
   assert.deepEqual(failure, { stage: 'account-preflight', code: 'REQUEST_UNCERTAIN_OR_INVALID',
     causeCode: 'RESPONSE_IDENTITY_STATUS', request: { service: 'cloudflare', method: 'GET', endpoint: 'account', status: 403 } });
+});
+
+await test('Cloudflare envelope diagnostics emit only fixed enums, never provider contents', () => {
+  const marker = 'SYNTHETIC_PRIVATE_PROVIDER_VALUE';
+  const variants = [
+    [null, { success: 'invalid', errors: 'invalid' }],
+    [{}, { success: 'missing', errors: 'absent' }],
+    [{ success: true, errors: null }, { success: 'true', errors: 'null' }],
+    [{ success: true, errors: [] }, { success: 'true', errors: 'empty' }],
+    [{ success: false, errors: [{ message: marker }] }, { success: 'false', errors: 'nonempty' }],
+    [{ success: marker, errors: marker }, { success: 'invalid', errors: 'invalid' }],
+  ];
+  for (const [body, expected] of variants) {
+    assert.deepEqual(providerEnvelopeSummary(body), expected);
+    const diagnostics = createDiagnostics(); diagnostics.envelope(providerEnvelopeSummary(body));
+    assert.deepEqual(diagnostics.failure(new Error('BLOCKED:PROVIDER_RESULT')).envelope, expected);
+    assert.ok(!JSON.stringify(diagnostics.failure(new Error(marker))).includes(marker));
+  }
+  const diagnostics = createDiagnostics(); diagnostics.envelope({ success: marker, errors: marker, extra: marker });
+  assert.deepEqual(diagnostics.failure(new Error(marker)).envelope, { success: 'invalid', errors: 'invalid' });
+});
+await test('Workers list alone tolerates missing/null errors with true success and complete strict inventory', async () => {
+  for (const errors of [undefined, null, []]) {
+    const record = fixtureRecord(); record.mode = 'read-only-preflight';
+    const network = mock(record, (c,v) => {
+      if (c.path === account + '/workers/workers' && c.method === 'GET') {
+        if (errors === undefined) delete v.errors; else v.errors = errors;
+      }
+    });
+    const bytes = JSON.stringify(record);
+    const adapter = await createReadOnlyAdapter({ transport: network.transport, recordBytes: bytes, trustedRecordHash: sha256(bytes), now: () => now });
+    assert.equal((await adapter.preflight()).executionEnabled, false);
+    assert.ok(network.calls.every(c => c.method === 'GET'));
+  }
+});
+await test('Workers malformed envelopes/schema remain denied and other endpoints keep strict errors arrays', async () => {
+  const variants = [
+    v => { delete v.success; }, v => { v.success = false; }, v => { v.success = 'true'; },
+    v => { v.errors = [{ message: 'SYNTHETIC_PRIVATE_PROVIDER_VALUE' }]; }, v => { v.errors = {}; },
+    v => { v.errors = ''; }, v => { v.errors = null; v.result = {}; },
+    v => { delete v.errors; delete v.result_info.total_count; },
+    v => { delete v.errors; v.result = [{ id: 'invalid', name: 'invalid' }]; v.result_info.total_count = 1; },
+  ];
+  for (const mutate of variants) {
+    const record = fixtureRecord(); record.mode = 'read-only-preflight';
+    const network = mock(record, (c,v) => { if (c.path === account + '/workers/workers') mutate(v); });
+    const bytes = JSON.stringify(record);
+    const adapter = await createReadOnlyAdapter({ transport: network.transport, recordBytes: bytes, trustedRecordHash: sha256(bytes), now: () => now });
+    await assert.rejects(adapter.preflight(), /BLOCKED/); assert.ok(network.calls.every(c => c.method === 'GET'));
+  }
+  for (const target of [account, account + '/d1/database']) {
+    const record = fixtureRecord(); const network = mock(record, (c,v) => { if (c.path === target) delete v.errors; });
+    const bytes = JSON.stringify(record);
+    const adapter = await createPreparedAdapter({ transport: network.transport, recordBytes: bytes, trustedRecordHash: sha256(bytes), now: () => now });
+    await assert.rejects(adapter.preflight(), /REQUEST_UNCERTAIN_OR_INVALID/);
+  }
+});
+await test('Workers rejection reports safe envelope enums beside static request metadata', async () => {
+  const f = setup(); f.record.mode = 'read-only-preflight'; const diagnostics = createDiagnostics();
+  const transport = diagnostics.transport(async (url, options) => {
+    const response = await f.transport(url, options);
+    if (!url.includes('/workers/workers')) return response;
+    const body = await response.json(); body.success = false; body.errors = null;
+    const changed = new Response(JSON.stringify(body), { status: 200, headers: { 'content-type': 'application/json' } });
+    Object.defineProperty(changed, 'url', { value: url }); return changed;
+  });
+  let failure;
+  try { await runProtected({ env: context(f.record), checkoutSha: f.record.commit, transport,
+    loadClient: () => assert.fail('SDK cannot load'), now: () => now,
+    onStage: diagnostics.stage, onEnvelope: diagnostics.envelope }); }
+  catch (error) { failure = diagnostics.failure(error); }
+  assert.deepEqual(failure, { stage: 'inventory-preflight', code: 'REQUEST_UNCERTAIN_OR_INVALID', causeCode: 'PROVIDER_RESULT',
+    request: { service: 'cloudflare', method: 'GET', endpoint: 'workers', status: 200 }, envelope: { success: 'false', errors: 'null' } });
 });
