@@ -369,3 +369,30 @@ No application binding, intake/share flag or real data collection is changed.
 Actual scheduled retention and alert delivery must be proven before real data,
 sharing activation or production promotion. Existing GitHub email preferences
 alone do not monitor Cloudflare Cron health.
+
+## Observe the created preview cleanup heartbeats
+
+The separately approved `cleanup-health` record mode binds `HEALTH_PLAN_HASH` to
+creation run 37640786041 and only its two new database IDs. After the existing
+exact-run/ref/Environment/owner approval checks, it verifies account identity and
+both database UUID/name pairs, then issues one fixed SELECT per feature through
+D1's POST query endpoint. The transport permits only those exact SQL bytes/hashes
+and URLs, denies other mutations, and never initializes the Artifact SDK or claim.
+It does not weaken the original GET-only diagnostic mode or provisioning checks.
+After account verification it also reads the existing account Workers subdomain
+once via the [fixed GET endpoint](https://developers.cloudflare.com/api/typescript/resources/workers/subresources/subdomains/methods/get/).
+The health-plan hash binds that GET and planned Worker name `gemnao-diagnostic-qa`.
+Only a validated lowercase DNS label is used to derive the planned workers.dev
+origin, always marked deployed=false. Missing/invalid metadata or lookup failure
+returns known=false and no origin; both heartbeat checks still run independently.
+This does not verify a deployed QA Worker or configure/create a subdomain.
+No Worker execution, Cron changes, report-row reads or existing database access
+are included. A repeated probe requires a new exact-run approval record.
+
+The SELECTs read only the feedback singleton cleanup timestamp and the sharing
+`cleanup_success` timestamp/expiry. Heartbeats must postdate creation, not be in
+the future, and be at most two hours old. Missing/stale values return pending.
+Public output contains per-feature healthy/pending booleans, the explicitly planned
+QA origin discovery result, and intake=false;
+metadata rows and quota usage are never printed. This confirms heartbeat freshness,
+not a seeded expiry/deletion experiment, alert delivery or production readiness.
