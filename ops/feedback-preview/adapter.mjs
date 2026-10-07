@@ -220,8 +220,8 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
     need(targetsAbsent || record.mode === 'read-only-preflight', 'COLLISION');
     let cronCount = 0;
     for (const worker of workers) {
-      const schedules = (await cf(`/workers/scripts/${encodeURIComponent(worker.name)}/schedules`)).result;
-      need(Array.isArray(schedules) && schedules.every(s => typeof s.cron === 'string'), 'CRON_INVENTORY');
+      const schedules = (await cf(`/workers/scripts/${encodeURIComponent(worker.name)}/schedules`)).result?.schedules;
+      need(Array.isArray(schedules) && schedules.every(s => typeof s?.cron === 'string'), 'CRON_INVENTORY');
       cronCount += schedules.length;
     }
     const evidence = record.costEvidence;
@@ -249,6 +249,14 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
       && !inventory.workers.some(w => w.id === worker.id) && worker.logpush === false
       && worker.observability?.enabled === false && worker.subdomain?.enabled === false
       && worker.subdomain.previews_enabled === false, 'NEW_WORKER_IDENTITY');
+  }
+  function matchesD1Binding(bindings, expected) {
+    if (!Array.isArray(bindings) || bindings.length !== 1) return false;
+    const binding = bindings[0];
+    if (!binding || typeof binding !== 'object' || Array.isArray(binding)) return false;
+    return Object.keys(binding).every(key => ['type', 'name', 'database_id', 'id'].includes(key))
+      && binding.type === expected.type && binding.name === expected.name && binding.database_id === expected.database_id
+      && (!Object.hasOwn(binding, 'id') || binding.id === expected.database_id);
   }
   async function provision() {
     need(record.mode === 'create-empty-preview-pairs', 'READ_ONLY_MODE');
@@ -292,18 +300,19 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
         modules: [{ name: 'cleanup.mjs', content_type: 'application/javascript+module', content_base64: artifacts[f.module].toString('base64') }] };
       const version = await write(f, 'version', `/workers/workers/${worker.id}/versions?deploy=true`, versionBody, v => {
         need(UUID.test(v?.id ?? '') && v.main_module === versionBody.main_module
-          && canonical(v.bindings) === canonical(versionBody.bindings), 'VERSION_RESPONSE');
+          && matchesD1Binding(v.bindings, versionBody.bindings[0]), 'VERSION_RESPONSE');
       });
       const versionReadback = (await cf(`/workers/workers/${worker.id}/versions/${version.id}?include=modules`)).result;
       need(versionReadback?.id === version.id && versionReadback.main_module === versionBody.main_module
-        && canonical(versionReadback.bindings) === canonical(versionBody.bindings)
+        && matchesD1Binding(versionReadback.bindings, versionBody.bindings[0])
         && canonical(versionReadback.modules) === canonical(versionBody.modules), 'VERSION_READBACK');
       // Name-targeted Cron has a residual concurrent-rename race. Two-way identity
       // readback detects prior changes, not an atomic conditional write guarantee.
       workerIdentity((await cf(`/workers/workers/${worker.id}`)).result, f, worker.id);
       workerIdentity((await cf(`/workers/workers/${f.worker}`)).result, f, worker.id);
-      await write(f, 'cron', `/workers/scripts/${f.worker}/schedules`, [{ cron: f.cron }], schedules => {
-        need(Array.isArray(schedules) && schedules.length === 1 && schedules[0].cron === f.cron, 'CRON_RESPONSE');
+      await write(f, 'cron', `/workers/scripts/${f.worker}/schedules`, [{ cron: f.cron }], result => {
+        const schedules = result?.schedules;
+        need(Array.isArray(schedules) && schedules.length === 1 && schedules[0]?.cron === f.cron, 'CRON_RESPONSE');
       });
       workerIdentity((await cf(`/workers/workers/${worker.id}`)).result, f, worker.id);
       receipts.push({ feature: f.key, accountId: TARGET.accountId, databaseName: f.database, databaseId: db.uuid,

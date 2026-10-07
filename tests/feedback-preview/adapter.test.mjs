@@ -151,7 +151,7 @@ await test('official Artifact client integration attempts upload per process and
     async getArtifact(name) { return { artifact: rows.get(name) }; },
     async downloadArtifact(id, options) {
       downloads++; assert.equal(id, 777); assert.deepEqual(Object.keys(options).sort(), ['expectedHash', 'path']);
-      const row = [...rows.values()][0]; assert.equal(options.expectedHash, row.digest);
+      const row = [...rows.values()][0]; assert.equal(options.expectedHash, `sha256:${row.digest}`);
       await writeFile(join(options.path, 'claim.json'), row.text);
       return { downloadPath: options.path, digestMismatch: false };
     },
@@ -182,7 +182,7 @@ await test('authenticated inventory counts existing Cron triggers; Worker/DB cou
     if (c.path.endsWith('/workers/workers') && c.method === 'GET') {
       v.result.push({ id: 'f'.repeat(32), name: 'existing-metadata-only' }); v.result_info.total_count++;
     }
-    if (c.path.endsWith('/existing-metadata-only/schedules')) v.result = Array.from({ length: 4 }, () => ({ cron: '0 * * * *' }));
+    if (c.path.endsWith('/existing-metadata-only/schedules')) v.result = { schedules: Array.from({ length: 4 }, () => ({ cron: '0 * * * *' })) };
   });
   await assert.rejects(adapter.provision(), /RESOURCE_SLOTS/);
   assert.ok(calls.some(c => c.path.endsWith('/existing-metadata-only/schedules')));
@@ -252,5 +252,56 @@ await test('beta Workers absent errors never relax success, identity, bindings o
     await assert.rejects(adapter.provision(), /BLOCKED/);
     const count = calls.length; await assert.rejects(adapter.provision(), /ALREADY_STARTED/);
     assert.equal(calls.length, count); assert.ok(calls.every(c => c.method !== 'DELETE'));
+  }
+});
+
+await test('Cron GET/PUT require documented result.schedules and reject the old bare-array fixture', async () => {
+  // Official SDK: workers/scripts/schedules.ts ScheduleGetResponse/UpdateResponse.
+  for (const malformed of [[], null, {}, { schedules: null }, { schedules: [null] }]) {
+    const { adapter, calls } = await prepare(fixtureRecord(), (c,v) => {
+      if (c.path.endsWith('/workers/workers') && c.method === 'GET') {
+        v.result.push({ id: 'f'.repeat(32), name: 'existing-metadata-only' }); v.result_info.total_count++;
+      }
+      if (c.path.endsWith('/existing-metadata-only/schedules')) v.result = malformed;
+    });
+    await assert.rejects(adapter.preflight(), /CRON_INVENTORY/);
+    assert.ok(calls.every(c => c.method === 'GET'));
+  }
+  for (const malformed of [[], null, {}, { schedules: [] }, { schedules: [{ cron: 'wrong' }] },
+    { schedules: [{ cron: '0 * * * *' }, { cron: '0 * * * *' }] }]) {
+    const { adapter, calls } = await prepare(fixtureRecord(), (c,v) => {
+      if (c.path.endsWith('/schedules') && c.method === 'PUT') v.result = malformed;
+    });
+    await assert.rejects(adapter.provision(), /WRITE_REQUIRES_READ_ONLY_RECONCILIATION/);
+    assert.equal(calls.filter(c => c.method !== 'GET').length, 5);
+    assert.equal(adapter.journal().at(-1).step, 'cron');
+    assert.equal(adapter.journal().at(-1).outcome, 'uncertain');
+    const count = calls.length; await assert.rejects(adapter.provision(), /ALREADY_STARTED/);
+    assert.equal(calls.length, count);
+  }
+});
+
+await test('version readback permits only the documented matching deprecated D1 id alias', async () => {
+  // Official beta versions.ts WorkersBindingKindD1 permits id alongside database_id.
+  const addAlias = (c,v) => {
+    if (c.path.includes('/versions')) v.result.bindings[0].id = v.result.bindings[0].database_id;
+  };
+  const good = await prepare(fixtureRecord(), addAlias);
+  assert.equal((await good.adapter.provision()).receipts.length, 2);
+  for (const mutate of [
+    binding => { binding.id = dbIds[1]; }, binding => { binding.id = null; },
+    binding => { delete binding.database_id; }, binding => { binding.extra = true; },
+    binding => { binding.name = 'OTHER_DB'; }, binding => { binding.type = 'kv_namespace'; },
+  ]) {
+    for (const method of ['POST', 'GET']) {
+      const { adapter, calls } = await prepare(fixtureRecord(), (c,v) => {
+        addAlias(c,v);
+        if (c.method === method && c.path.includes('/versions')) mutate(v.result.bindings[0]);
+      });
+      await assert.rejects(adapter.provision(), /BLOCKED/);
+      assert.equal(calls.filter(c => c.method !== 'GET').length, 4);
+      const count = calls.length; await assert.rejects(adapter.provision(), /ALREADY_STARTED/);
+      assert.equal(calls.length, count);
+    }
   }
 });

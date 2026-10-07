@@ -259,3 +259,10 @@ await test('Workers rejection reports safe envelope enums beside static request 
   assert.deepEqual(failure, { stage: 'inventory-preflight', code: 'REQUEST_UNCERTAIN_OR_INVALID', causeCode: 'PROVIDER_RESULT',
     request: { service: 'cloudflare', method: 'GET', endpoint: 'workers', status: 200 }, envelope: { success: 'false', errors: 'null' } });
 });
+
+await test('pinned Artifact SDK real upload/download implementation validates digest format and durable readback offline', () => {
+  const result = spawnSync(process.execPath, ['tests/feedback-preview/artifact-sdk-fixture.mjs'],
+    { encoding: 'utf8', env: { PATH: process.env.PATH } });
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /No network calls/);
+});

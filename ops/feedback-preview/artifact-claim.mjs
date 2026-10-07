@@ -49,7 +49,7 @@ export function createArtifactClaims({ client, clientVersion, runId }) {
         // Default client scope is this run only. No findBy/token/other-run lookup.
         const { artifact } = await client.getArtifact(name);
         need(artifact?.id === Number(id) && artifact.name === name && artifact.size <= 8192);
-        const result = await client.downloadArtifact(Number(id), { path: dir, expectedHash: receipt.digest });
+        const result = await client.downloadArtifact(Number(id), { path: dir, expectedHash: `sha256:${receipt.digest}` });
         need(result?.digestMismatch === false && resolve(result.downloadPath) === resolve(dir));
         const entries = await readdir(dir); need(entries.length === 1 && entries[0] === 'claim.json');
         const path = join(dir, 'claim.json'); const stat = await lstat(path);
