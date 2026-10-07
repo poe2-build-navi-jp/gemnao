@@ -98,7 +98,7 @@ export async function loadPinnedArtifactClient() {
   const { DefaultArtifactClient } = require('@actions/artifact');
   return new DefaultArtifactClient();
 }
-export async function runProtected({ env, checkoutSha, transport, loadClient = loadPinnedArtifactClient, now = Date.now, onStage = () => {} }) {
+export async function runProtected({ env, checkoutSha, transport, loadClient = loadPinnedArtifactClient, now = Date.now, onStage = () => {}, onEnvelope = () => {} }) {
   validateContext(env, checkoutSha, true);
   onStage('record');
   const bytes = env.PREVIEW_APPROVAL_RECORD;
@@ -112,13 +112,13 @@ export async function runProtected({ env, checkoutSha, transport, loadClient = l
   const reviewerId = await verifyConfiguredEnvironment(transport);
   need(record.reviewers.length === 1 && record.reviewers[0] === reviewerId, 'EXACT_OWNER_RECORD');
   if (record.mode === 'read-only-preflight') {
-    const adapter = await createReadOnlyAdapter({ transport, recordBytes: bytes, trustedRecordHash: digest, now, onStage });
+    const adapter = await createReadOnlyAdapter({ transport, recordBytes: bytes, trustedRecordHash: digest, now, onStage, onEnvelope });
     return { mode: 'read-only-preflight', ...(await adapter.preflight()), intakeEnabled: false };
   }
   onStage('artifact-sdk');
   const client = await loadClient();
   const durableClaims = createArtifactClaims({ client, clientVersion: ARTIFACT_CLIENT_PIN.version, runId: record.runId });
-  const adapter = await createPreparedAdapter({ transport, durableClaims, recordBytes: bytes, trustedRecordHash: digest, now, onStage });
+  const adapter = await createPreparedAdapter({ transport, durableClaims, recordBytes: bytes, trustedRecordHash: digest, now, onStage, onEnvelope });
   return adapter.provision();
 }
 export function publicRunResult(result) {
@@ -136,7 +136,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     validateContext(env, checkoutSha, protectedJob);
     const transport = diagnostics.transport(credentialTransport({ githubToken: () => env.PREVIEW_GITHUB_TOKEN,
       cloudflareToken: () => { need(protectedJob, 'CLOUDFLARE_IN_GATE'); return env.GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN; } }));
-    if (protectedJob) console.log(JSON.stringify(publicRunResult(await runProtected({ env, checkoutSha, transport, onStage: diagnostics.stage }))));
+    if (protectedJob) console.log(JSON.stringify(publicRunResult(await runProtected({ env, checkoutSha, transport, onStage: diagnostics.stage, onEnvelope: diagnostics.envelope }))));
     else {
       const gate = await runGate({ env, checkoutSha, transport });
       await appendFile(env.GITHUB_OUTPUT, `environment=${gate.environment}\n`);
