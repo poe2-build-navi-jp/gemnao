@@ -4,7 +4,8 @@ import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { TARGET, sha256 } from './controller.mjs';
-import { PLAN_HASH, validateRecord, createPreparedAdapter } from './adapter.mjs';
+import { PLAN_HASH, validateRecord, createPreparedAdapter, createReadOnlyAdapter } from './adapter.mjs';
+import { boundedFailure, createDiagnostics } from './diagnostics.mjs';
 import { ARTIFACT_CLIENT_PIN, createArtifactClaims } from './artifact-claim.mjs';
 
 export const SETUP = Object.freeze({
@@ -58,7 +59,7 @@ async function boundedGitHubGet(transport, path) {
     const chunks = []; let bytes = 0;
     for await (const chunk of response.body) { bytes += chunk.byteLength; need(bytes <= 1_048_576, 'GITHUB_RESPONSE_SIZE'); chunks.push(Buffer.from(chunk)); }
     return JSON.parse(Buffer.concat(chunks).toString('utf8'));
-  } catch { throw new Error('BLOCKED:GITHUB_METADATA_UNAVAILABLE'); }
+  } catch (error) { throw boundedFailure('GITHUB_METADATA_UNAVAILABLE', error); }
 }
 export async function verifyConfiguredEnvironment(transport) {
   const e = await boundedGitHubGet(transport, `/environments/${SETUP.environment}`);
@@ -97,8 +98,9 @@ export async function loadPinnedArtifactClient() {
   const { DefaultArtifactClient } = require('@actions/artifact');
   return new DefaultArtifactClient();
 }
-export async function runProtected({ env, checkoutSha, transport, loadClient = loadPinnedArtifactClient, now = Date.now }) {
+export async function runProtected({ env, checkoutSha, transport, loadClient = loadPinnedArtifactClient, now = Date.now, onStage = () => {} }) {
   validateContext(env, checkoutSha, true);
+  onStage('record');
   const bytes = env.PREVIEW_APPROVAL_RECORD;
   const digest = env.PREVIEW_APPROVAL_SHA256;
   need(typeof bytes === 'string' && bytes.length > 0 && typeof digest === 'string'
@@ -106,30 +108,44 @@ export async function runProtected({ env, checkoutSha, transport, loadClient = l
   const record = validateRecord(bytes, digest, now());
   need(record.ref === SETUP.ref && record.commit === env.GITHUB_SHA && record.runId === Number(env.GITHUB_RUN_ID)
     && record.reviewerPolicy === 'owner-manual' && record.requireOwnerInitiator === false, 'EXACT_RUN_RECORD');
+  onStage('environment');
   const reviewerId = await verifyConfiguredEnvironment(transport);
   need(record.reviewers.length === 1 && record.reviewers[0] === reviewerId, 'EXACT_OWNER_RECORD');
+  if (record.mode === 'read-only-preflight') {
+    const adapter = await createReadOnlyAdapter({ transport, recordBytes: bytes, trustedRecordHash: digest, now, onStage });
+    return { mode: 'read-only-preflight', ...(await adapter.preflight()), intakeEnabled: false };
+  }
+  onStage('artifact-sdk');
   const client = await loadClient();
   const durableClaims = createArtifactClaims({ client, clientVersion: ARTIFACT_CLIENT_PIN.version, runId: record.runId });
-  const adapter = await createPreparedAdapter({ transport, durableClaims, recordBytes: bytes, trustedRecordHash: digest, now });
+  const adapter = await createPreparedAdapter({ transport, durableClaims, recordBytes: bytes, trustedRecordHash: digest, now, onStage });
   return adapter.provision();
 }
+export function publicRunResult(result) {
+  if (result.mode === 'read-only-preflight')
+    return { mode: 'read-only-preflight', completed: true, readOnly: true, intakeEnabled: false };
+  return result;
+}
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const diagnostics = createDiagnostics(entry => console.log(JSON.stringify(entry)));
   try {
     const env = process.env;
     const protectedJob = process.argv[2] !== 'gate';
     need(process.argv.length === (protectedJob ? 2 : 3), 'INVOCATION');
     const checkoutSha = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
     validateContext(env, checkoutSha, protectedJob);
-    const transport = credentialTransport({ githubToken: () => env.PREVIEW_GITHUB_TOKEN,
-      cloudflareToken: () => { need(protectedJob, 'CLOUDFLARE_IN_GATE'); return env.GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN; } });
-    if (protectedJob) console.log(JSON.stringify(await runProtected({ env, checkoutSha, transport })));
+    const transport = diagnostics.transport(credentialTransport({ githubToken: () => env.PREVIEW_GITHUB_TOKEN,
+      cloudflareToken: () => { need(protectedJob, 'CLOUDFLARE_IN_GATE'); return env.GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN; } }));
+    if (protectedJob) console.log(JSON.stringify(publicRunResult(await runProtected({ env, checkoutSha, transport, onStage: diagnostics.stage }))));
     else {
       const gate = await runGate({ env, checkoutSha, transport });
       await appendFile(env.GITHUB_OUTPUT, `environment=${gate.environment}\n`);
       console.log(JSON.stringify(gate));
     }
-  } catch {
-    console.error('BLOCKED: exact protected setup, approval record or verified operation failed. Do not rerun; reconcile read-only.');
+    diagnostics.stage('complete');
+  } catch (error) {
+    console.error(JSON.stringify(diagnostics.failure(error)));
+    console.error('BLOCKED: Do not rerun; reconcile read-only.');
     process.exitCode = 1;
   }
 }

@@ -3,9 +3,11 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { test } from 'node:test';
-import { SETUP, validateContext, credentialTransport, runGate, runProtected } from '../../ops/feedback-preview/live.mjs';
+import { SETUP, validateContext, credentialTransport, runGate, runProtected, publicRunResult } from '../../ops/feedback-preview/live.mjs';
 import { TARGET, sha256 } from '../../ops/feedback-preview/controller.mjs';
-import { fixtureRecord, mock, now } from './fixtures.mjs';
+import { createDiagnostics, boundedFailure, failureSummary, readOnlyTransport } from '../../ops/feedback-preview/diagnostics.mjs';
+import { createReadOnlyAdapter, createPreparedAdapter } from '../../ops/feedback-preview/adapter.mjs';
+import { fixtureRecord, mock, now, workflow, account, dbIds } from './fixtures.mjs';
 function context(record, job = 'provision') {
   return { GITHUB_ACTIONS: 'true', GITHUB_REPOSITORY: TARGET.repository, GITHUB_EVENT_NAME: 'workflow_dispatch',
     GITHUB_REF: SETUP.ref, GITHUB_RUN_ATTEMPT: '1', GITHUB_RUN_ID: String(record.runId),
@@ -92,4 +94,95 @@ await test('installed SDK matches exact lock and loads with no runtime token or 
     "import {loadPinnedArtifactClient} from './ops/feedback-preview/live.mjs'; globalThis.fetch=()=>{throw Error('network forbidden')}; const client=await loadPinnedArtifactClient(); if(typeof client.uploadArtifact!=='function') process.exit(1);"],
   { encoding: 'utf8', env: { PATH: process.env.PATH } });
   assert.equal(result.status, 0, result.stderr);
+});
+
+await test('diagnostics expose only known stage/codes and static request classes/status', async () => {
+  const marker = 'SYNTHETIC_PRIVATE_DO_NOT_LOG';
+  const events = [];
+  const diagnostics = createDiagnostics(event => events.push(event));
+  diagnostics.stage(marker);
+  const transport = diagnostics.transport(async () => new Response(marker, { status: 403, headers: { authorization: marker } }));
+  await transport(`https://api.cloudflare.com/client/v4/accounts/${TARGET.accountId}/d1/database?private=${marker}`, { method: 'GET', headers: { authorization: marker } });
+  const safe = diagnostics.failure(boundedFailure('REQUEST_UNCERTAIN_OR_INVALID', new Error(`BLOCKED:RESPONSE_IDENTITY_STATUS ${marker}`)));
+  assert.deepEqual(safe, { stage: 'context', code: 'REQUEST_UNCERTAIN_OR_INVALID',
+    request: { service: 'cloudflare', method: 'GET', endpoint: 'd1-databases', status: 403 } });
+  const output = JSON.stringify({ events, safe });
+  assert.ok(!output.includes(marker) && !output.includes(TARGET.accountId) && !output.includes('https:'));
+  assert.deepEqual(failureSummary(boundedFailure('REQUEST_UNCERTAIN_OR_INVALID', new Error('BLOCKED:RESPONSE_TYPE'))),
+    { code: 'REQUEST_UNCERTAIN_OR_INVALID', causeCode: 'RESPONSE_TYPE' });
+  assert.deepEqual(failureSummary(new Error(marker)), { code: 'UNCLASSIFIED_FAILURE' });
+});
+await test('read-only capability rejects every mutation and non-preflight endpoint before transport', async () => {
+  let calls = 0; const transport = readOnlyTransport(() => { calls++; });
+  for (const method of ['POST', 'PUT', 'PATCH', 'DELETE', undefined])
+    assert.throws(() => transport(`https://api.cloudflare.com/client/v4${account}/d1/database`, { method }), /READ_ONLY_METHOD/);
+  for (const path of ['/d1/database/existing/query', '/workers/workers/existing/versions', '/subscriptions'])
+    assert.throws(() => transport(`https://api.cloudflare.com/client/v4${account}${path}`, { method: 'GET' }), /READ_ONLY_ENDPOINT/);
+  assert.equal(calls, 0);
+});
+await test('protected read-only reconciliation permits unresolved runs and collisions, never initializes SDK or writes', async () => {
+  const f = setup(); f.record.mode = 'read-only-preflight';
+  const network = mock(f.record, (c,v) => {
+    if (c.path.endsWith(`/environments/${SETUP.environment}`)) {
+      v.id = SETUP.environmentId; v.protection_rules[0].reviewers[0].reviewer.login = SETUP.reviewerLogin;
+    }
+    if (c.path.endsWith('/approvals')) v[0].environments[0].id = SETUP.environmentId;
+    if (c.path.endsWith(`/${workflow}/runs`)) {
+      v.workflow_runs.push({ id: 777, workflow_id: 88, path: `.github/workflows/${workflow}`, status: 'completed', head_sha: 'b'.repeat(40), run_attempt: 1 }); v.total_count++;
+    }
+    if (c.path.endsWith('/d1/database')) {
+      v.result.push({ uuid: dbIds[0], name: TARGET.database }); v.result_info.total_count++;
+    }
+  });
+  const stages = [];
+  const result = await runProtected({ env: context(f.record), checkoutSha: f.record.commit,
+    transport: network.transport, loadClient: () => assert.fail('read-only must never initialize SDK'), now: () => now,
+    onStage: stage => stages.push(stage) });
+  assert.equal(result.mode, 'read-only-preflight'); assert.equal(result.unreconciledPriorRunCount, 1);
+  assert.equal(result.targetsAbsent, false); assert.equal(result.intakeEnabled, false); assert.equal(result.executionEnabled, false);
+  assert.deepEqual(publicRunResult(result), { mode: 'read-only-preflight', completed: true, readOnly: true, intakeEnabled: false });
+  assert.ok(network.calls.every(c => c.method === 'GET'));
+  assert.ok(!stages.includes('artifact-sdk') && !stages.includes('claim'));
+  const bytes = JSON.stringify(f.record);
+  const adapter = await createReadOnlyAdapter({ transport: network.transport, recordBytes: bytes, trustedRecordHash: sha256(bytes), now: () => now });
+  assert.deepEqual(Object.keys(adapter), ['preflight']);
+  const ordinary = await createPreparedAdapter({ transport: network.transport, recordBytes: bytes, trustedRecordHash: sha256(bytes), now: () => now });
+  const count = network.calls.length;
+  await assert.rejects(ordinary.provision(), /READ_ONLY_MODE/); assert.equal(network.calls.length, count);
+});
+await test('read-only still requires a fresh exact-run record and actual owner approval', async () => {
+  for (const mutate of [r => { r.approvedAt = now - 3_600_001; }, r => { r.runId++; }, r => { r.commit = 'b'.repeat(40); }]) {
+    const f = setup(); f.record.mode = 'read-only-preflight'; const env = context(f.record); mutate(f.record);
+    const bytes = JSON.stringify(f.record); env.PREVIEW_APPROVAL_RECORD = bytes; env.PREVIEW_APPROVAL_SHA256 = sha256(bytes);
+    await assert.rejects(runProtected({ env, checkoutSha: env.GITHUB_SHA, transport: f.transport,
+      loadClient: () => assert.fail('SDK cannot load'), now: () => now }), /BLOCKED/);
+    assert.equal(f.calls.length, 0);
+  }
+  const f = setup(); f.record.mode = 'read-only-preflight';
+  const network = mock(f.record, (c,v) => {
+    if (c.path.endsWith(`/environments/${SETUP.environment}`)) {
+      v.id = SETUP.environmentId; v.protection_rules[0].reviewers[0].reviewer.login = SETUP.reviewerLogin;
+    }
+    if (c.path.endsWith('/approvals')) v.splice(0);
+  });
+  await assert.rejects(runProtected({ env: context(f.record), checkoutSha: f.record.commit, transport: network.transport,
+    loadClient: () => assert.fail('SDK cannot load'), now: () => now }), /RUN_ENVIRONMENT_APPROVAL/);
+  assert.ok(network.calls.every(c => c.url.startsWith('https://api.github.com')));
+});
+await test('failed metadata response retains safe status/cause and never provider text', async () => {
+  const f = setup(); const diagnostics = createDiagnostics();
+  const transport = diagnostics.transport(async (url, options) => {
+    if (url.startsWith('https://api.cloudflare.com')) {
+      const response = new Response('SYNTHETIC_PRIVATE_PROVIDER_BODY', { status: 403, headers: { 'content-type': 'application/json' } });
+      Object.defineProperty(response, 'url', { value: url }); return response;
+    }
+    return f.transport(url, options);
+  });
+  f.record.mode = 'read-only-preflight';
+  let failure;
+  try { await runProtected({ env: context(f.record), checkoutSha: f.record.commit, transport,
+    loadClient: () => assert.fail('SDK cannot load'), now: () => now, onStage: diagnostics.stage }); }
+  catch (error) { failure = diagnostics.failure(error); }
+  assert.deepEqual(failure, { stage: 'account-preflight', code: 'REQUEST_UNCERTAIN_OR_INVALID',
+    causeCode: 'RESPONSE_IDENTITY_STATUS', request: { service: 'cloudflare', method: 'GET', endpoint: 'account', status: 403 } });
 });

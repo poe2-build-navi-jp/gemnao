@@ -2,6 +2,7 @@
 // There is intentionally no fetch default, credential reader or CLI entry point.
 import { readFile } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
+import { boundedFailure, readOnlyTransport } from './diagnostics.mjs';
 import { TARGET, SHARING, ARTIFACTS, sha256, checkArtifact, denyExecution } from './controller.mjs';
 
 const ACCOUNT = `/accounts/${TARGET.accountId}`;
@@ -39,7 +40,7 @@ export function validateRecord(recordBytes, trustedRecordHash, now) {
   need(HASH.test(trustedRecordHash ?? '') && sha256(recordBytes) === trustedRecordHash, 'APPROVAL_RECORD_PIN');
   let r;
   try { r = JSON.parse(recordBytes); } catch { throw new Error('BLOCKED:APPROVAL_RECORD_JSON'); }
-  need(r.mode === 'create-empty-preview-pairs' && r.operation === 'create-two-preview-pairs-20261007' && r.planHash === PLAN_HASH
+  need(['create-empty-preview-pairs', 'read-only-preflight'].includes(r.mode) && r.operation === 'create-two-preview-pairs-20261007' && r.planHash === PLAN_HASH
     && r.accountId === TARGET.accountId, 'RECORD_SCOPE');
   need(/^refs\/heads\/[A-Za-z0-9][A-Za-z0-9._/-]*$/.test(r.ref ?? '')
     && !r.ref.includes('..') && !r.ref.includes('//') && !r.ref.endsWith('/')
@@ -84,7 +85,7 @@ export function validateRecord(recordBytes, trustedRecordHash, now) {
   return r;
 }
 
-export async function createPreparedAdapter({ transport, durableClaims, recordBytes, trustedRecordHash, now = Date.now }) {
+export async function createPreparedAdapter({ transport, durableClaims, recordBytes, trustedRecordHash, now = Date.now, onStage = () => {} }) {
   need(typeof transport === 'function', 'NO_TRANSPORT');
   const approvedBytes = String(recordBytes);
   const record = validateRecord(approvedBytes, trustedRecordHash, now());
@@ -124,7 +125,7 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
         return json;
       })();
       return await Promise.race([operation, timeout]);
-    } catch { controller.abort(); throw new Error('BLOCKED:REQUEST_UNCERTAIN_OR_INVALID'); }
+    } catch (error) { controller.abort(); throw boundedFailure('REQUEST_UNCERTAIN_OR_INVALID', error); }
     finally { clearTimeout(timer); }
   }
   const gh = path => request('github', 'GET', REPO + path);
@@ -148,6 +149,7 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
     throw new Error('BLOCKED:INVENTORY_PAGE_BOUND');
   }
   async function githubGate() {
+    onStage('github-preflight');
     const run = await gh(`/actions/runs/${record.runId}`);
     need(run.id === record.runId && run.run_attempt === 1 && run.event === 'workflow_dispatch'
       && run.head_sha === record.commit && `refs/heads/${run.head_branch}` === record.ref
@@ -161,11 +163,13 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
       && history.total_count <= 100 && new Set(history.workflow_runs.map(r => r.id)).size === history.total_count
       && history.workflow_runs.every(r => Number.isSafeInteger(r.id) && r.workflow_id === run.workflow_id && r.path === run.path)
       && history.workflow_runs.some(r => r.id === record.runId && r.head_sha === record.commit && r.run_attempt === 1), 'RUN_HISTORY_INCOMPLETE');
+    let unreconciledPriorRunCount = 0;
     for (const prior of history.workflow_runs) {
       if (prior.id === record.runId) continue;
       const safe = record.reconciledNoWriteRuns.find(r => r.id === prior.id);
-      need(safe && safe.headSha === prior.head_sha && prior.status === 'completed' && prior.run_attempt === 1,
-        'PRIOR_RUN_REQUIRES_READ_ONLY_RECONCILIATION');
+      const reconciled = safe && safe.headSha === prior.head_sha && prior.status === 'completed' && prior.run_attempt === 1;
+      if (!reconciled) unreconciledPriorRunCount++;
+      need(reconciled || record.mode === 'read-only-preflight', 'PRIOR_RUN_REQUIRES_READ_ONLY_RECONCILIATION');
     }
     const reviews = await gh(`/actions/runs/${record.runId}/approvals`);
     need(Array.isArray(reviews), 'RUN_REVIEWS');
@@ -189,15 +193,18 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
       if (record.reviewerPolicy === 'owner-manual' && record.requireOwnerInitiator)
         need(run.actor?.id === record.reviewers[0] && run.triggering_actor?.id === record.reviewers[0], 'OWNER_INITIATOR');
     }
-    return run;
+    return { unreconciledPriorRunCount };
   }
   async function inspect() {
     validateRecord(approvedBytes, trustedRecordHash, now());
-    await githubGate();
+    const { unreconciledPriorRunCount } = await githubGate();
+    onStage('account-preflight');
     const account = await cf(''); need(account.result?.id === TARGET.accountId, 'ACCOUNT');
+    onStage('inventory-preflight');
     const databases = await listResources('/d1/database', 'uuid');
     const workers = await listResources('/workers/workers', 'id');
-    need(FEATURES.every(f => !databases.some(d => d.name === f.database) && !workers.some(w => w.name === f.worker)), 'COLLISION');
+    const targetsAbsent = FEATURES.every(f => !databases.some(d => d.name === f.database) && !workers.some(w => w.name === f.worker));
+    need(targetsAbsent || record.mode === 'read-only-preflight', 'COLLISION');
     let cronCount = 0;
     for (const worker of workers) {
       const schedules = (await cf(`/workers/scripts/${encodeURIComponent(worker.name)}/schedules`)).result;
@@ -205,22 +212,24 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
       cronCount += schedules.length;
     }
     const evidence = record.costEvidence;
-    need(evidence.databaseLimit - databases.length >= evidence.reserve.databaseSlots
+    const capacityAvailable = evidence.databaseLimit - databases.length >= evidence.reserve.databaseSlots
       && evidence.workerLimit - workers.length >= evidence.reserve.workerSlots
-      && evidence.cronLimit - cronCount >= evidence.reserve.cronSlots, 'RESOURCE_SLOTS');
+      && evidence.cronLimit - cronCount >= evidence.reserve.cronSlots;
+    need(capacityAvailable || record.mode === 'read-only-preflight', 'RESOURCE_SLOTS');
     inventory = { databases, workers }; preflightAt = now();
     return { accountId: TARGET.accountId, planHash: PLAN_HASH, databaseCount: databases.length,
-      workerCount: workers.length, cronCount, costProvenance: 'owner-ui-reviewed; not authenticated billing/quota API evidence',
+      workerCount: workers.length, cronCount, unreconciledPriorRunCount, targetsAbsent, capacityAvailable, costProvenance: 'owner-ui-reviewed; not authenticated billing/quota API evidence',
       observedAt: preflightAt, executionEnabled: false };
   }
   async function write(f, step, path, body, validate) {
     need(journal.length < 10 && !journal.some(x => x.feature === f.key && x.step === step), 'WRITE_BOUND');
     validateRecord(approvedBytes, trustedRecordHash, now());
+    onStage(`write-${step}`);
     const entry = { feature: f.key, step, startedAt: now(), outcome: 'in-progress', requestHash: sha256(canonical(body)) };
     journal.push(entry); // Set BEFORE transport; any exception permanently poisons this instance.
     try { const response = await request('cloudflare', step === 'cron' ? 'PUT' : 'POST', ACCOUNT + path, body);
       validate(response.result); entry.outcome = 'confirmed'; entry.confirmedAt = now(); return response.result;
-    } catch { entry.outcome = 'uncertain'; throw new Error('BLOCKED:WRITE_REQUIRES_READ_ONLY_RECONCILIATION'); }
+    } catch (error) { entry.outcome = 'uncertain'; throw boundedFailure('WRITE_REQUIRES_READ_ONLY_RECONCILIATION', error); }
   }
   function workerIdentity(worker, f, id) {
     need(WORKER_ID.test(worker?.id ?? '') && worker.name === f.worker && (!id || worker.id === id)
@@ -229,6 +238,7 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
       && worker.subdomain.previews_enabled === false, 'NEW_WORKER_IDENTITY');
   }
   async function provision() {
+    need(record.mode === 'create-empty-preview-pairs', 'READ_ONLY_MODE');
     need(!started, 'ATTEMPT_ALREADY_STARTED');
     started = true; // Poison even a failed preflight; prohibit concurrent/repeated attempts.
     await inspect(); // Never use a caller-provided preflight receipt.
@@ -238,6 +248,7 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
     // artifact-claim.mjs supplies the pinned official client wrapper; no SDK is
     // installed/wired by default. An ephemeral Map/file is only a test fake.
     need(typeof durableClaims?.createExclusive === 'function' && typeof durableClaims?.read === 'function', 'DURABLE_CLAIM_UNCONFIGURED');
+    onStage('claim');
     const claimName = `gemnao-preview-data-claim-${record.runId}-${PLAN_HASH}`;
     const claim = { runId: record.runId, repository: TARGET.repository, planHash: PLAN_HASH,
       recordHash: trustedRecordHash, nonce: randomUUID() };
@@ -246,7 +257,7 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
       need(typeof receipt?.id === 'string' && receipt.id.length > 0, 'DURABLE_CLAIM_RECEIPT');
       const persisted = await durableClaims.read(receipt.id);
       need(persisted?.name === claimName && canonical(persisted.payload) === canonical(claim), 'DURABLE_CLAIM_READBACK');
-    } catch { throw new Error('BLOCKED:DURABLE_CLAIM_REQUIRES_READ_ONLY_RECONCILIATION'); }
+    } catch (error) { throw boundedFailure('DURABLE_CLAIM_REQUIRES_READ_ONLY_RECONCILIATION', error); }
     const receipts = [];
     for (const f of FEATURES) {
       const db = await write(f, 'database', '/d1/database', { name: f.database }, d => {
@@ -292,4 +303,12 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
   }
   return Object.freeze({ preflight: async () => { need(!started, 'ATTEMPT_ALREADY_STARTED'); return inspect(); },
     provision, journal: () => structuredClone(journal) });
+}
+
+// This capability exposes no provision method, accepts no claim client, and its
+// transport rejects all mutations even if a future preflight change attempts one.
+export async function createReadOnlyAdapter({ transport, recordBytes, trustedRecordHash, now = Date.now, onStage }) {
+  need(validateRecord(recordBytes, trustedRecordHash, now()).mode === 'read-only-preflight', 'READ_ONLY_MODE');
+  const adapter = await createPreparedAdapter({ transport: readOnlyTransport(transport), recordBytes, trustedRecordHash, now, onStage });
+  return Object.freeze({ preflight: adapter.preflight });
 }
