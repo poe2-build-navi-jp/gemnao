@@ -75,9 +75,9 @@ export function mock(record, mutate = () => {}, failureWrite = 0) {
         assert.equal(body.modules.length, 1); assert.equal(sha256(Buffer.from(body.modules[0].content_base64, 'base64')), ARTIFACTS[FEATURES[i].module]);
         result = { ...body, id: versionIds[i] }; versions.set(versionIds[i], result);
       } else if (path.includes('/versions/')) { assert.equal(query, '?include=modules'); result = versions.get(path.split('/').at(-1)); }
-      else if (path.endsWith('/schedules') && options.method === 'GET') result = [];
+      else if (path.endsWith('/schedules') && options.method === 'GET') result = { schedules: [] };
       else if (path.endsWith('/schedules')) {
-        const f = FEATURES.find(f => path.includes(f.worker)); assert.ok(f); assert.deepEqual(body, [{ cron: f.cron }]); result = body;
+        const f = FEATURES.find(f => path.includes(f.worker)); assert.ok(f); assert.deepEqual(body, [{ cron: f.cron }]); result = { schedules: body };
       } else result = workers.find(w => path.endsWith(w.id) || path.endsWith(w.name));
       assert.notEqual(result, undefined, path);
       value = { success: true, errors: [], result: structuredClone(result) };
