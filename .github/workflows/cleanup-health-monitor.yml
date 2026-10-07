@@ -1,0 +1,36 @@
+name: Gemnao cleanup readiness (manual, no live targets yet)
+run-name: Cleanup readiness manual check
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Self-test is offline; live targets require reviewed committed configuration
+        required: true
+        type: choice
+        options: [self-test, preview, production]
+        default: self-test
+# No schedule, external notification service, Cloudflare credential or Environment.
+permissions:
+  contents: read
+concurrency:
+  group: gemnao-cleanup-readiness
+  cancel-in-progress: false
+jobs:
+  check:
+    if: github.repository == 'poe2-build-navi-jp/gemnao' && github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/gemunao'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22.19.0'
+      - name: Test only synthetic responses (no network or dependencies)
+        run: node --test tests/cleanup-health-monitor/monitor.test.mjs
+      - name: Read reviewed public capabilities only
+        if: inputs.target != 'self-test'
+        env:
+          MONITOR_TARGET: ${{ inputs.target }}
+        run: node ops/cleanup-health-monitor/monitor.mjs "$MONITOR_TARGET"

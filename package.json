@@ -17,7 +17,7 @@
     "visuals:keys": "node scripts/generate-key-visuals.mjs",
     "check:localized": "node scripts/run-localized-check.mjs",
     "ping:index": "node scripts/ping-index.mjs",
-    "test:diagnosis": "node scripts/test-diagnosis.mjs tests/diagnosis/rules.test.ts tests/diagnosis/api.test.ts",
+    "test:diagnosis": "node scripts/test-diagnosis.mjs tests/diagnosis/rules.test.ts tests/diagnosis/api.test.ts tests/diagnosis/preview-client.test.ts",
     "test:diagnosis:rules": "node scripts/test-diagnosis.mjs",
     "typecheck": "tsc --noEmit",
     "test:diagnosis:browser": "bash scripts/test-diagnosis-browser.sh"

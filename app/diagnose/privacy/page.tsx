@@ -1,78 +1,11 @@
 /* oxlint-disable next/no-html-link-for-pages -- Full document navigation isolates diagnostic pages from third-party scripts. */
 import type { Metadata } from 'next';
-import { WikiHeader, WikiFooter } from '@/components/wiki-header';
+import { DiagnosisPrivacyContent } from '@/components/diagnosis-privacy-content';
 import '../diagnosis.css';
 export const metadata: Metadata = {
   title: '診断データの保存・共有・削除',
   robots: { index: false, follow: true },
 };
 export default function DiagnosisPrivacy() {
-  if (process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA === 'true') return (
-    <main><WikiHeader /><article className="diag">
-      <h1>診断βの端末内記録について</h1>
-      <p>このβ版の回答・任意のゲーム名・試した対処・結果は、このブラウザのlocalStorageにだけ保存します。診断内容をサーバーへ送信する機能、結果の共有、診断イベントの計測は停止しています。</p>
-      <p>記録は同じブラウザで再開するために使います。最後の操作から30日を過ぎた記録は、次に診断を開いたときに削除します。ブラウザを閉じている間には削除処理を実行できません。</p>
-      <p>「端末内の記録を消す」またはブラウザのサイトデータ削除で記録を消せます。共有端末では他の利用者が記録を見られる場合があります。ブラウザの保存設定によっては記録を保持できず、別の端末やブラウザには同期されません。</p>
-      <p>ページを表示するための通常の通信はCloudflareに届きます。診断内容の送信とは別です。診断ページでは広告・Google Analyticsを読み込みません。</p>
-      <a href="/diagnose">診断へ戻る →</a> · <a href="/privacy">サイト全体のプライバシー</a>
-    </article><WikiFooter /></main>
-  );
-  return (
-    <main>
-      <WikiHeader />
-      <article className="diag">
-        <h1>診断データの保存・共有・削除</h1>
-        <p>
-          対象：ゲムなおのWeb診断β版。共有機能が停止中の場合、共有データは作成されません。
-        </p>
-        <h2>端末内の回答</h2>
-        <p>
-          診断回答・任意のゲーム名・実施結果はこのブラウザのlocalStorageに保存します。再開や比較のための記録です。最後の操作から30日を過ぎた記録は再開に使いません。ブラウザを閉じている間には自動処理できないため、再訪時に期限切れを消去します。「端末内の記録を消す」またはブラウザのサイトデータ削除で消せます。
-        </p>
-        <h2>任意の共有</h2>
-        <p>
-          内容と公開範囲を確認して確定した場合に限り、選択式の症状・PC情報・エラー分類・試した対処と結果・診断ルール版・推奨内容をCloudflare
-          D1に保存します。自由入力のゲーム名、エラー全文、ログ、画像、Windowsユーザー名、Steam
-          ID、メールアドレスは共有データに含めません。
-        </p>
-        <p>
-          リンクを知っている人が閲覧できます。検索には載せない設定ですが、閲覧制限の代わりにはなりません。SNSや掲示板に貼ると不特定多数が閲覧・転載する可能性があります。
-        </p>
-        <h2>30日の期限と削除</h2>
-        <p>
-          共有は作成から30日で閲覧不可になります。更新しても期限は延びません。本人は管理画面から即時失効、または稼働DBから削除できます。定期処理は1時間ごとに期限切れ・失効済みのデータを削除し、期限到達から24時間以内の削除を目標とします。定期処理の確認が2時間以上途絶えると、新しい共有・更新を止めます。
-        </p>
-        <p>
-          管理には作成時のブラウザのCookie（Secure・HttpOnly・SameSite=Strict、有効期間30日）または一度だけ表示する復元用管理キーを使用します。サーバーには秘密情報のハッシュだけを保存します。両方を失うと本人確認ができず、期限前に管理できません。キーは共有相手に渡さないでください。
-        </p>
-        <h2>バックアップ・基盤ログ・転載</h2>
-        <p>
-          稼働DBからの削除は、すべてのコピーの即時消去を意味しません。Cloudflare
-          D1の復旧用バックアップはプランにより最長7日または30日残る場合があります。基盤の通信ログにはIP等が含まれる場合があります。基盤のログ・追加バックアップの保存設定は運営環境の確認が必要で、保持期間を一律には保証しません。第三者による転載は取り消せません。
-        </p>
-        <h2>利用計測と改善報告</h2>
-        <p>
-          有効な場合は、開始・完了・質問段階への到達・記事への移動・実施結果・共有作成・URLコピーを自サイトで最小限に集計します。共有URL全文・管理キー・ゲーム名・回答全文は外部解析サービスに送りません。共有画面と診断画面には広告・外部解析・セッション録画を読み込みません。
-        </p>
-        <p>
-          集計データの稼働DBでの保存は30日です。「改善した」は自己申告であり、未回答を失敗として数えません。改善の記録だけで診断順位は自動変更しません。コピー数は共有先の人数ではなく操作回数です。
-        </p>
-        <h2>不正利用の制限</h2>
-        <p>
-          保存量を制限するため、短い時間枠に区切った、秘密のランダム値によるネットワークアドレスのHMAC値を保存します。元のIPは診断DBへ保存しません。回数制限の記録は最長約48時間、日ごとのランダム値も最長約48時間を基準に定期削除します。日をまたぐ追跡や広告用途には使いません。
-        </p>
-        <p>
-          <a
-            href="https://developers.cloudflare.com/d1/reference/time-travel/"
-            rel="noreferrer"
-          >
-            Cloudflare D1の復旧機能について
-          </a>{' '}
-          · <a href="/privacy">サイト全体のプライバシーポリシー</a>
-        </p>
-        <a href="/diagnose">診断へ戻る →</a>
-      </article>
-      <WikiFooter />
-    </main>
-  );
+  return <DiagnosisPrivacyContent />;
 }
