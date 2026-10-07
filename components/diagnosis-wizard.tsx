@@ -76,9 +76,9 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
       metrics: boolean;
     }>('/config')
       .then((next) => setConfig({
-        enabled: process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED === 'true' && next.enabled === true,
-        sharing: process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED === 'true' && next.enabled === true && next.sharing === true,
-        metrics: process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED === 'true' && next.enabled === true && next.metrics === true,
+        enabled: (process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED === 'true' || process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA === 'true') && next.enabled === true,
+        sharing: process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA !== 'true' && process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED === 'true' && next.enabled === true && next.sharing === true,
+        metrics: process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA !== 'true' && process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED === 'true' && next.enabled === true && next.metrics === true,
       }))
       .catch(() => {});
   }, []);
@@ -187,7 +187,7 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
     setResume(null);
     setStarted(false);
     setNotice(
-      'このブラウザの診断を消去しました。発行済みの共有ページは管理画面で削除してください。',
+      process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA === 'true' ? 'このブラウザの診断を消去しました。' : 'このブラウザの診断を消去しました。発行済みの共有ページは管理画面で削除してください。',
     );
   };
   if (!ready)
@@ -233,7 +233,7 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
             </div>
           )}
           <p className="diag-small">
-            回答とゲーム名はこのブラウザ内で保持します。任意の共有を確定する前に回答全文を送信することはありません。保存期間は最後の操作から30日が目安です。共用PCでは使い終わったら記録を消してください。
+            {process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA === 'true' ? '回答とゲーム名はこのブラウザ内だけに保存します。このβ版は診断内容をサーバーへ送信せず、結果の共有や診断イベントの計測も行いません。最後の操作から30日を過ぎた記録は再訪時に消します。共用PCでは使い終わったら記録を消してください。' : '回答とゲーム名はこのブラウザ内で保持します。任意の共有を確定する前に回答全文を送信することはありません。保存期間は最後の操作から30日が目安です。共用PCでは使い終わったら記録を消してください。'}
           </p>
         </section>
       ) : data.complete ? (
@@ -264,7 +264,7 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
                 results: { ...d.results, [id]: status },
               }));
               setNotice(
-                '実施結果をこの端末に記録しました。共有ページは自動更新しません。',
+                process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA === 'true' ? '実施結果をこのブラウザ内に記録しました。サーバーへは送信していません。' : '実施結果をこの端末に記録しました。共有ページは自動更新しません。',
               );
               track('record', 'none', id, status);
             }}
@@ -285,7 +285,7 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
             <summary>回答のまとめ</summary>
             <DiagnosisSummary answers={data.answers} />
           </details>
-          <DiagnosisShare
+          {process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA !== 'true' && <DiagnosisShare
             answers={data.answers}
             tried={data.tried}
             results={data.results}
@@ -293,7 +293,7 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
             enabled={config.sharing}
             onCreated={(id) => setData((d) => ({ ...d, shareId: id }))}
             onMetric={(event) => track(event)}
-          />
+          />}
           <button className="diag-secondary" onClick={start}>
             別の症状を診断する
           </button>

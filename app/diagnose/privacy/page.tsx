@@ -7,6 +7,16 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 export default function DiagnosisPrivacy() {
+  if (process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA === 'true') return (
+    <main><WikiHeader /><article className="diag">
+      <h1>診断βの端末内記録について</h1>
+      <p>このβ版の回答・任意のゲーム名・試した対処・結果は、このブラウザのlocalStorageにだけ保存します。診断内容をサーバーへ送信する機能、結果の共有、診断イベントの計測は停止しています。</p>
+      <p>記録は同じブラウザで再開するために使います。最後の操作から30日を過ぎた記録は、次に診断を開いたときに削除します。ブラウザを閉じている間には削除処理を実行できません。</p>
+      <p>「端末内の記録を消す」またはブラウザのサイトデータ削除で記録を消せます。共有端末では他の利用者が記録を見られる場合があります。ブラウザの保存設定によっては記録を保持できず、別の端末やブラウザには同期されません。</p>
+      <p>ページを表示するための通常の通信はCloudflareに届きます。診断内容の送信とは別です。診断ページでは広告・Google Analyticsを読み込みません。</p>
+      <a href="/diagnose">診断へ戻る →</a> · <a href="/privacy">サイト全体のプライバシー</a>
+    </article><WikiFooter /></main>
+  );
   return (
     <main>
       <WikiHeader />

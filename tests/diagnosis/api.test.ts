@@ -669,3 +669,25 @@ void test('entire diagnosis intake needs explicit runtime activation while owner
   assert.equal((await handleDiagnosis(req('/' + data.id, {}, cookie, 'DELETE'), { ...env, DIAGNOSIS_ENABLED: undefined }, now)).status, 200);
   assert.equal(sql.prepare('SELECT COUNT(*) AS n FROM diagnosis_shared').get()?.n, 0);
 });
+
+void test('local-only beta advertises no collection and rejects public storage even with stale runtime flags', async () => {
+  let touched = false;
+  const db = { prepare() { touched = true; throw new Error('no beta DB access'); } } as unknown as D1Database;
+  const env: DiagnosisEnv = { DB: db, DIAGNOSIS_LOCAL_BETA: 'true', DIAGNOSIS_ENABLED: 'true', DIAGNOSIS_STORAGE_ENABLED: 'true', DIAGNOSIS_SHARING_ENABLED: 'true', DIAGNOSIS_METRICS_ENABLED: 'true' };
+  const config = await (await handleDiagnosis(req('/config'), env, now)).json();
+  assert.equal(config.enabled, true);
+  assert.equal(config.sharing, false);
+  assert.equal(config.metrics, false);
+  for (const [path, method] of [['/session', 'POST'], ['', 'POST'], ['/events', 'POST'], ['/' + 'a'.repeat(32), 'GET'], ['/' + 'a'.repeat(32), 'PATCH']]) {
+    assert.equal((await handleDiagnosis(req(path, method === 'GET' ? undefined : {}, '', method), env, now)).status, 503);
+  }
+  assert.equal(touched, false);
+});
+
+void test('local beta keeps pre-existing owner deletion behind its separate storage permission', async () => {
+  const { env, cookie, sql } = await setup();
+  const { data } = await create(env, cookie);
+  const beta = { ...env, DIAGNOSIS_LOCAL_BETA: 'true', DIAGNOSIS_ENABLED: undefined };
+  assert.equal((await handleDiagnosis(req('/' + data.id, {}, cookie, 'DELETE'), beta, now)).status, 200);
+  assert.equal(sql.prepare('SELECT COUNT(*) AS n FROM diagnosis_shared').get()?.n, 0);
+});

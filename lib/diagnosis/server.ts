@@ -10,6 +10,7 @@ import {
 export type DiagnosisEnv = {
   DB?: D1Database;
   DIAGNOSIS_ENABLED?: string;
+  DIAGNOSIS_LOCAL_BETA?: string;
   DIAGNOSIS_STORAGE_ENABLED?: string;
   DIAGNOSIS_SHARING_ENABLED?: string;
   DIAGNOSIS_WRITES_ENABLED?: string;
@@ -231,6 +232,7 @@ export async function handleDiagnosis(
   const db = env.DIAGNOSIS_STORAGE_ENABLED === 'true' ? env.DB : undefined;
   try {
     if (path === '/config' && request.method === 'GET') {
+      if (env.DIAGNOSIS_LOCAL_BETA === 'true') return reply({ enabled: true, sharing: false, metrics: false, localOnly: true });
       let ready = false;
       if (
         db &&
@@ -251,7 +253,7 @@ export async function handleDiagnosis(
     const administrative =
       (match && ['owner', 'recover', 'revoke'].includes(match[2])) ||
       (!!match && request.method === 'DELETE');
-    if (!administrative && !enabled(env))
+    if (!administrative && (env.DIAGNOSIS_LOCAL_BETA === 'true' || !enabled(env)))
       return fail(503, '診断機能は現在停止しています。');
     if (request.method === 'GET') {
       if (!match) return fail(404, '見つかりません。');
