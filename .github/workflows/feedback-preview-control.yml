@@ -28,8 +28,8 @@ jobs:
         name: Verify existing exact Environment before referencing it
         env:
           PREVIEW_GITHUB_TOKEN: ${{ github.token }}
-          PREVIEW_OUTSIDE_RECORD_PRESENT: ${{ vars.GEMNAO_PREVIEW_APPROVAL_RECORD != '' }}
-          PREVIEW_OUTSIDE_DIGEST_PRESENT: ${{ vars.GEMNAO_PREVIEW_APPROVAL_SHA256 != '' }}
+          PREVIEW_OUTSIDE_RECORD_PRESENT: ${{ secrets.GEMNAO_PREVIEW_APPROVAL_RECORD != '' }}
+          PREVIEW_OUTSIDE_DIGEST_PRESENT: ${{ secrets.GEMNAO_PREVIEW_APPROVAL_SHA256 != '' }}
         run: node ops/feedback-preview/live.mjs gate
   provision:
     needs: gate
@@ -53,6 +53,6 @@ jobs:
         env:
           PREVIEW_PROTECTED_ENVIRONMENT: gemnao-preview-data
           PREVIEW_GITHUB_TOKEN: ${{ github.token }}
-          PREVIEW_APPROVAL_RECORD: ${{ vars.GEMNAO_PREVIEW_APPROVAL_RECORD }}
-          PREVIEW_APPROVAL_SHA256: ${{ vars.GEMNAO_PREVIEW_APPROVAL_SHA256 }}
+          PREVIEW_APPROVAL_RECORD: ${{ secrets.GEMNAO_PREVIEW_APPROVAL_RECORD }}
+          PREVIEW_APPROVAL_SHA256: ${{ secrets.GEMNAO_PREVIEW_APPROVAL_SHA256 }}
           GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN: ${{ secrets.GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN }}

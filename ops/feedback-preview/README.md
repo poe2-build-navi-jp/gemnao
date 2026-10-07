@@ -99,18 +99,24 @@ Minimal record flow, with no commit/run circularity:
    gate emits safe exact run ID/head SHA/ref/plan hash/reviewer ID and the protected
    job waits for owner approval.
 2. Prepare the independently reviewed non-sensitive record for that existing run.
-   Store its exact JSON in Environment variable `GEMNAO_PREVIEW_APPROVAL_RECORD`
-   and its SHA-256 in `GEMNAO_PREVIEW_APPROVAL_SHA256`, ONLY under gemnao-preview-data.
+   Store its exact JSON in Environment secret `GEMNAO_PREVIEW_APPROVAL_RECORD`
+   and its SHA-256 in Environment secret `GEMNAO_PREVIEW_APPROVAL_SHA256`, ONLY under gemnao-preview-data.
    No real screenshots, credentials or private raw usage images go into the repo.
-3. Owner approves that exact waiting job. Its step receives Environment variables
+3. Owner approves that exact waiting job. Its step receives those Environment secrets
    after review, checks the independent digest and run/head/ref/owner metadata,
    then performs the fixed preflight, durable claim and creation sequence.
 
-The unprotected gate rejects any same-named repository/organization variable,
-preventing configured fallback authorization. Setup must keep those names absent
-outside the Environment and must not change scope during the run. Environment
-variable REST reads require Environments:read; this workflow does not add a PAT or
-claim GITHUB_TOKEN has that grant. It consumes the protected job's variables and
+The record and digest are noncredential configuration stored as secrets so GitHub
+masks their exact values before rendering the action's environment in job logs.
+The workflow never reads approval configuration from `vars`; old expired variables
+are unused. Do not print, transform or dump the record: masking is not a substitute
+for avoiding output, especially for structured values.
+
+The unprotected gate receives only booleans indicating whether same-named repo/org
+secrets exist and rejects either one, preventing configured fallback authorization.
+Setup must keep those secret names absent outside the Environment and must not
+change scope during the run. The workflow does not read secret/variable values
+through REST or add a PAT/grant. It consumes the protected job's secrets and
 independently validates record/hash against authenticated run/protection metadata.
 GitHub configuration/review endpoints use Actions:read; ref reads use Contents:read.
 No real approval record is populated in code. Empty, stale or mismatched values
@@ -261,7 +267,7 @@ and outcomes; no credentials, reports or raw provider responses.
 - At action time, securely create/configure a dedicated short-lived Cloudflare
   credential restricted to this account with D1 Write and Workers Scripts Write.
   Proposed secret name: `GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN`, stored only in
-  `gemnao-preview-data`; no such secret is created or referenced by runnable code.
+  `gemnao-preview-data`; only the final protected action references its value.
   These are account-level permissions, NOT per-database provider isolation. No
   Billing/Pages/Zone/global/role/notification writes. No existing step-result token
   reuse. User enters/stores credentials through secure setup, never chat/logs/repo.
