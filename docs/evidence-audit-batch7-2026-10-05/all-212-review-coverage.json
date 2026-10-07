@@ -1519,11 +1519,11 @@
   {
     "path": "/games/palworld/dedicated-server-backup",
     "kind": "game-article",
-    "status": "prior-game-review-location-unresolved",
-    "evidence": [],
-    "unresolvedPriorMapping": [
-      "batch2:palworld-spec; exact occurrence not recorded"
+    "status": "scoped-source-compared-2026-10-07",
+    "evidence": [
+      "docs/evidence-audit-backup-diagnosis-2026-10-07.md"
     ],
+    "unresolvedPriorMapping": [],
     "wholePageVerified": false,
     "locales": [
       "ja"
@@ -1571,11 +1571,11 @@
   {
     "path": "/games/palworld/save-data",
     "kind": "game-article",
-    "status": "prior-game-review-location-unresolved",
-    "evidence": [],
-    "unresolvedPriorMapping": [
-      "batch2:palworld-spec; exact occurrence not recorded"
+    "status": "scoped-source-compared-2026-10-07",
+    "evidence": [
+      "docs/evidence-audit-backup-diagnosis-2026-10-07.md"
     ],
+    "unresolvedPriorMapping": [],
     "wholePageVerified": false,
     "locales": [
       "ja"
@@ -2821,15 +2821,17 @@
   {
     "path": "/tools/windows-diagnosis",
     "kind": "navigation-tool-policy-or-other",
-    "status": "classified-not-semantically-compared-in-batch7",
-    "evidence": [],
+    "status": "scoped-source-compared-2026-10-07",
+    "evidence": [
+      "docs/evidence-audit-backup-diagnosis-2026-10-07.md"
+    ],
     "unresolvedPriorMapping": [],
     "wholePageVerified": false,
     "locales": [
       "en",
       "ja"
     ],
-    "classificationOnly": true,
+    "classificationOnly": false,
     "factAuditExcluded": false,
     "reason": "取得情報・権限・中止方法・ZIP配布の仕様"
   },

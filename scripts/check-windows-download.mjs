@@ -85,3 +85,13 @@ assert.ok(!page.includes('/guide/game-freeze'));
 console.log(
   `General diagnosis guide, artifact identity and routing passed; release ${release?.version ?? 'not yet published'}`,
 );
+
+const englishPage = readFileSync('app/[locale]/tools/windows-diagnosis/page.tsx', 'utf8');
+assert.ok(page.includes('Steamを選んだ一般コースでも'));
+assert.ok(page.includes('固定6ファイルの存在・非表示属性'));
+assert.ok(page.includes('既知5種類のDLL名・場所'));
+assert.ok(englishPage.includes('also works in the general profile'));
+assert.ok(englishPage.includes('requires separate consent'));
+assert.ok(englishPage.includes('Hidden attribute of six fixed'));
+assert.ok(englishPage.includes('known DLL names in matching Steam processes'));
+console.log('PASS: JA/EN privacy descriptions disclose optional general-profile Steam checks');
