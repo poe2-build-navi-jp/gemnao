@@ -1,6 +1,7 @@
 /* oxlint-disable next/no-html-link-for-pages -- Full document navigation isolates diagnostic pages from third-party scripts. */
 import type { Metadata } from 'next';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
+import { DiagnosisStorageNotice } from '@/components/diagnosis-storage-notice';
 import { DiagnosisWizard } from '@/components/diagnosis-wizard';
 import { games } from '@/lib/games';
 import './diagnosis.css';
@@ -68,7 +69,7 @@ export default function DiagnosePage() {
           </p>
           <h3>記録と共有について</h3>
           <p>
-            回答と対処の記録は、このブラウザの端末内にだけ保存します。現在のβ版では、診断内容のサーバー送信・結果の共有・診断イベントの計測は行いません。端末内の記録は自分で消せます。
+            <DiagnosisStorageNotice />
             <a href="/diagnose/privacy">詳しい保存・削除の説明</a>
           </p>
         </section>

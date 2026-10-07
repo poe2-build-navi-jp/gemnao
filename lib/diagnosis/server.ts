@@ -1,3 +1,4 @@
+import { previewRequestAllowed } from '../preview/origin';
 import { RULE_VERSION, statuses } from './model';
 import { actions } from './rules';
 import {
@@ -8,14 +9,23 @@ import {
   type Snapshot,
 } from './validation';
 export type DiagnosisEnv = {
-  DB?: D1Database;
+  // Diagnosis data must never use the ordinary site DB binding.
+  DIAGNOSIS_DB?: D1Database;
   DIAGNOSIS_ENABLED?: string;
   DIAGNOSIS_LOCAL_BETA?: string;
+  DIAGNOSIS_PREVIEW_SHARING_ENABLED?: string;
+  DIAGNOSIS_PREVIEW_ORIGIN?: string;
   DIAGNOSIS_STORAGE_ENABLED?: string;
   DIAGNOSIS_SHARING_ENABLED?: string;
   DIAGNOSIS_WRITES_ENABLED?: string;
   DIAGNOSIS_METRICS_ENABLED?: string;
 };
+export const previewSharingAllowed = (request: Request, env: DiagnosisEnv) =>
+  previewRequestAllowed(request, env.DIAGNOSIS_PREVIEW_SHARING_ENABLED, env.DIAGNOSIS_PREVIEW_ORIGIN);
+
+export const diagnosisCollectionAllowed = (request: Request, env: DiagnosisEnv) =>
+  (env.DIAGNOSIS_LOCAL_BETA !== 'true' && env.DIAGNOSIS_PREVIEW_SHARING_ENABLED === undefined && env.DIAGNOSIS_PREVIEW_ORIGIN === undefined) || previewSharingAllowed(request, env);
+
 const TTL = 30 * 86400000;
 const COOKIE = '__Host-gemnao-diagnosis';
 const ID = /^[a-f0-9]{32}$/;
@@ -229,22 +239,33 @@ export async function handleDiagnosis(
   now = Date.now(),
 ): Promise<Response> {
   const path = new URL(request.url).pathname.replace(/^\/api\/diagnosis/, '');
-  const db = env.DIAGNOSIS_STORAGE_ENABLED === 'true' ? env.DB : undefined;
+  const previewSharing = previewSharingAllowed(request, env);
+  const collectionAllowed = diagnosisCollectionAllowed(request, env);
+  const writesEnabled = writes(env) && (!previewSharing || env.DIAGNOSIS_WRITES_ENABLED === 'true');
+  const localOnly = env.DIAGNOSIS_LOCAL_BETA === 'true' && !previewSharing;
+  // Preview QA never records events, even if an old metrics flag is present.
+  const metricsEnabled = !previewSharing && env.DIAGNOSIS_METRICS_ENABLED === 'true';
+  // Production/local config stays storage-free under conflicting stale flags.
+  if (path === '/config' && request.method === 'GET' && localOnly)
+    return reply({ enabled: true, sharing: false, metrics: false, localOnly: true });
+  if (path === '/config' && request.method === 'GET' && !collectionAllowed)
+    return reply({ enabled: enabled(env), sharing: false, metrics: false });
+  const db = env.DIAGNOSIS_STORAGE_ENABLED === 'true' ? env.DIAGNOSIS_DB : undefined;
   try {
     if (path === '/config' && request.method === 'GET') {
-      if (env.DIAGNOSIS_LOCAL_BETA === 'true') return reply({ enabled: true, sharing: false, metrics: false, localOnly: true });
       let ready = false;
       if (
         db &&
         enabled(env) &&
-        (writes(env) || env.DIAGNOSIS_METRICS_ENABLED === 'true')
+        (writesEnabled || metricsEnabled)
       )
         ready = await cleanupReady(db, now).catch(() => false);
       return reply({
         enabled: enabled(env),
-        sharing: writes(env) && ready,
+        sharing: writesEnabled && ready,
         metrics:
-          ready && enabled(env) && env.DIAGNOSIS_METRICS_ENABLED === 'true',
+          ready && enabled(env) && metricsEnabled,
+        ...(previewSharing ? { localOnly: false, previewSharing: true } : {}),
       });
     }
     if (!db)
@@ -253,7 +274,7 @@ export async function handleDiagnosis(
     const administrative =
       (match && ['owner', 'recover', 'revoke'].includes(match[2])) ||
       (!!match && request.method === 'DELETE');
-    if (!administrative && (env.DIAGNOSIS_LOCAL_BETA === 'true' || !enabled(env)))
+    if (!administrative && (!collectionAllowed || !enabled(env)))
       return fail(503, '診断機能は現在停止しています。');
     if (request.method === 'GET') {
       if (!match) return fail(404, '見つかりません。');
@@ -298,7 +319,7 @@ export async function handleDiagnosis(
     }
     if (!record(input)) return fail(400, '入力が正しくありません。');
     if (path === '/events' && request.method === 'POST') {
-      if (env.DIAGNOSIS_METRICS_ENABLED !== 'true')
+      if (!metricsEnabled)
         return reply({ ok: true, recorded: false });
       if (
         !exactKeys(input, ['event', 'step', 'action', 'status']) ||
@@ -342,7 +363,7 @@ export async function handleDiagnosis(
       );
       return reply({ ok: true });
     }
-    if (!administrative && !writes(env))
+    if (!administrative && !writesEnabled)
       return fail(503, '共有の作成・更新は現在停止しています。');
     if (
       (path === '' || path === '/session' || request.method === 'PATCH') &&
@@ -410,7 +431,7 @@ export async function handleDiagnosis(
           now + TTL,
         )
         .run();
-      if (env.DIAGNOSIS_METRICS_ENABLED === 'true')
+      if (metricsEnabled)
         await count(db, 'create', 'none', 'none', 'none', now).catch(() => {});
       return reply(
         {
@@ -526,32 +547,5 @@ export async function handleDiagnosis(
     );
   }
 }
-/** Hourly scheduled operation; touches diagnosis tables only. */
-export async function cleanupDiagnosis(db: D1Database, now = Date.now()) {
-  await db.batch([
-    db
-      .prepare(
-        'DELETE FROM diagnosis_shared WHERE expires_at <= ? OR revoked_at IS NOT NULL',
-      )
-      .bind(now),
-    db
-      .prepare('DELETE FROM diagnosis_rate_limits WHERE expires_at <= ?')
-      .bind(now),
-    db
-      .prepare(
-        "DELETE FROM diagnosis_operations WHERE key LIKE 'salt:%' AND expires_at <= ?",
-      )
-      .bind(now),
-    db
-      .prepare('DELETE FROM diagnosis_metrics WHERE day <= ?')
-      .bind(new Date(now - TTL).toISOString().slice(0, 10)),
-  ]);
-  // Mark success only after deletion committed. Never refresh on a failed cleanup.
-  await db
-    .prepare(
-      "INSERT INTO diagnosis_operations (key,value,expires_at) VALUES ('cleanup_success',?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value, expires_at=excluded.expires_at",
-    )
-    .bind(String(now), now + 2 * 3600000)
-    .run();
-}
+export { cleanupDiagnosis } from './cleanup';
 export const isShareActive = active;
