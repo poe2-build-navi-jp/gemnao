@@ -3,6 +3,7 @@
 import { readFile } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
 import { boundedFailure, readOnlyTransport, providerEnvelopeSummary } from './diagnostics.mjs';
+import { HEALTH_TARGETS, HEALTH_PLAN_HASH, healthTransport, heartbeatStatus } from './health.mjs';
 import { TARGET, SHARING, ARTIFACTS, sha256, checkArtifact, denyExecution } from './controller.mjs';
 
 const ACCOUNT = `/accounts/${TARGET.accountId}`;
@@ -40,8 +41,9 @@ export function validateRecord(recordBytes, trustedRecordHash, now) {
   need(HASH.test(trustedRecordHash ?? '') && sha256(recordBytes) === trustedRecordHash, 'APPROVAL_RECORD_PIN');
   let r;
   try { r = JSON.parse(recordBytes); } catch { throw new Error('BLOCKED:APPROVAL_RECORD_JSON'); }
-  need(['create-empty-preview-pairs', 'read-only-preflight'].includes(r.mode) && r.operation === 'create-two-preview-pairs-20261007' && r.planHash === PLAN_HASH
+  need(['create-empty-preview-pairs', 'read-only-preflight', 'cleanup-health'].includes(r.mode) && r.operation === 'create-two-preview-pairs-20261007' && r.planHash === PLAN_HASH
     && r.accountId === TARGET.accountId, 'RECORD_SCOPE');
+  need(r.mode !== 'cleanup-health' || r.healthPlanHash === HEALTH_PLAN_HASH, 'HEALTH_PLAN_PIN');
   need(/^refs\/heads\/[A-Za-z0-9][A-Za-z0-9._/-]*$/.test(r.ref ?? '')
     && !r.ref.includes('..') && !r.ref.includes('//') && !r.ref.endsWith('/')
     && /^[a-f0-9]{40}$/.test(r.commit ?? ''), 'REVIEWED_REF');
@@ -182,7 +184,7 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
       const safe = record.reconciledNoWriteRuns.find(r => r.id === prior.id);
       const reconciled = safe && safe.headSha === prior.head_sha && prior.status === 'completed' && prior.run_attempt === 1;
       if (!reconciled) unreconciledPriorRunCount++;
-      need(reconciled || record.mode === 'read-only-preflight', 'PRIOR_RUN_REQUIRES_READ_ONLY_RECONCILIATION');
+      need(reconciled || ['read-only-preflight', 'cleanup-health'].includes(record.mode), 'PRIOR_RUN_REQUIRES_READ_ONLY_RECONCILIATION');
     }
     const reviews = await gh(`/actions/runs/${record.runId}/approvals`);
     need(Array.isArray(reviews), 'RUN_REVIEWS');
@@ -233,6 +235,27 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
     return { accountId: TARGET.accountId, planHash: PLAN_HASH, databaseCount: databases.length,
       workerCount: workers.length, cronCount, unreconciledPriorRunCount, targetsAbsent, capacityAvailable, costProvenance: 'owner-ui-reviewed; not authenticated billing/quota API evidence',
       observedAt: preflightAt, executionEnabled: false };
+  }
+  async function health() {
+    need(record.mode === 'cleanup-health', 'HEALTH_MODE');
+    need(!started, 'ATTEMPT_ALREADY_STARTED'); started = true;
+    validateRecord(approvedBytes, trustedRecordHash, now());
+    await githubGate();
+    onStage('account-preflight');
+    need((await cf('')).result?.id === TARGET.accountId, 'ACCOUNT');
+    onStage('health-identities');
+    for (const target of HEALTH_TARGETS) {
+      const database = (await cf(`/d1/database/${target.databaseId}`)).result;
+      need(database?.uuid === target.databaseId && database.name === target.databaseName, 'HEALTH_DATABASE_IDENTITY');
+    }
+    onStage('health-heartbeats');
+    const result = { mode: 'cleanup-health', intakeEnabled: false };
+    for (const target of HEALTH_TARGETS) {
+      validateRecord(approvedBytes, trustedRecordHash, now());
+      const response = await request('cloudflare', 'POST', `${ACCOUNT}/d1/database/${target.databaseId}/query`, { sql: target.sql });
+      result[target.feature] = heartbeatStatus(target.feature, response.result, now());
+    }
+    return result;
   }
   async function write(f, step, path, body, validate) {
     need(journal.length < 10 && !journal.some(x => x.feature === f.key && x.step === step), 'WRITE_BOUND');
@@ -324,7 +347,7 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
     return { receipts, journal: structuredClone(journal), actualHeartbeatVerified: false, alertDeliveryVerified: false, intakeEnabled: false };
   }
   return Object.freeze({ preflight: async () => { need(!started, 'ATTEMPT_ALREADY_STARTED'); return inspect(); },
-    provision, journal: () => structuredClone(journal) });
+    provision, health, journal: () => structuredClone(journal) });
 }
 
 // This capability exposes no provision method, accepts no claim client, and its
@@ -333,4 +356,10 @@ export async function createReadOnlyAdapter({ transport, recordBytes, trustedRec
   need(validateRecord(recordBytes, trustedRecordHash, now()).mode === 'read-only-preflight', 'READ_ONLY_MODE');
   const adapter = await createPreparedAdapter({ transport: readOnlyTransport(transport), recordBytes, trustedRecordHash, now, onStage, onEnvelope });
   return Object.freeze({ preflight: adapter.preflight });
+}
+
+export async function createHealthAdapter({ transport, recordBytes, trustedRecordHash, now = Date.now, onStage, onEnvelope }) {
+  need(validateRecord(recordBytes, trustedRecordHash, now()).mode === 'cleanup-health', 'HEALTH_MODE');
+  const adapter = await createPreparedAdapter({ transport: healthTransport(transport), recordBytes, trustedRecordHash, now, onStage, onEnvelope });
+  return Object.freeze({ health: adapter.health });
 }

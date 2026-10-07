@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: '22.19.0'
       - name: Test fixed controller and injected mocks
-        run: node --test tests/feedback-preview/control.test.mjs tests/feedback-preview/adapter.test.mjs
+        run: node --test tests/feedback-preview/control.test.mjs tests/feedback-preview/adapter.test.mjs tests/feedback-preview/health.test.mjs
       - id: settings
         name: Verify existing exact Environment before referencing it
         env:

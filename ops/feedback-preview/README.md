@@ -369,3 +369,22 @@ No application binding, intake/share flag or real data collection is changed.
 Actual scheduled retention and alert delivery must be proven before real data,
 sharing activation or production promotion. Existing GitHub email preferences
 alone do not monitor Cloudflare Cron health.
+
+## Observe the created preview cleanup heartbeats
+
+The separately approved `cleanup-health` record mode binds `HEALTH_PLAN_HASH` to
+creation run 37640786041 and only its two new database IDs. After the existing
+exact-run/ref/Environment/owner approval checks, it verifies account identity and
+both database UUID/name pairs, then issues one fixed SELECT per feature through
+D1's POST query endpoint. The transport permits only those exact SQL bytes/hashes
+and URLs, denies other mutations, and never initializes the Artifact SDK or claim.
+It does not weaken the original GET-only diagnostic mode or provisioning checks.
+No Worker execution, Cron changes, report-row reads or existing database access
+are included. A repeated probe requires a new exact-run approval record.
+
+The SELECTs read only the feedback singleton cleanup timestamp and the sharing
+`cleanup_success` timestamp/expiry. Heartbeats must postdate creation, not be in
+the future, and be at most two hours old. Missing/stale values return pending.
+Public output contains only per-feature healthy/pending booleans and intake=false;
+metadata rows and quota usage are never printed. This confirms heartbeat freshness,
+not a seeded expiry/deletion experiment, alert delivery or production readiness.

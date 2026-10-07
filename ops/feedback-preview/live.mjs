@@ -4,7 +4,7 @@ import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { TARGET, sha256 } from './controller.mjs';
-import { PLAN_HASH, validateRecord, createPreparedAdapter, createReadOnlyAdapter } from './adapter.mjs';
+import { PLAN_HASH, validateRecord, createPreparedAdapter, createReadOnlyAdapter, createHealthAdapter } from './adapter.mjs';
 import { boundedFailure, createDiagnostics } from './diagnostics.mjs';
 import { ARTIFACT_CLIENT_PIN, createArtifactClaims } from './artifact-claim.mjs';
 
@@ -111,6 +111,10 @@ export async function runProtected({ env, checkoutSha, transport, loadClient = l
   onStage('environment');
   const reviewerId = await verifyConfiguredEnvironment(transport);
   need(record.reviewers.length === 1 && record.reviewers[0] === reviewerId, 'EXACT_OWNER_RECORD');
+  if (record.mode === 'cleanup-health') {
+    const adapter = await createHealthAdapter({ transport, recordBytes: bytes, trustedRecordHash: digest, now, onStage, onEnvelope });
+    return adapter.health();
+  }
   if (record.mode === 'read-only-preflight') {
     const adapter = await createReadOnlyAdapter({ transport, recordBytes: bytes, trustedRecordHash: digest, now, onStage, onEnvelope });
     return { mode: 'read-only-preflight', ...(await adapter.preflight()), intakeEnabled: false };
@@ -122,6 +126,9 @@ export async function runProtected({ env, checkoutSha, transport, loadClient = l
   return adapter.provision();
 }
 export function publicRunResult(result) {
+  if (result.mode === 'cleanup-health')
+    return { feedback: { healthy: result.feedback.healthy, pending: result.feedback.pending },
+      sharing: { healthy: result.sharing.healthy, pending: result.sharing.pending }, intakeEnabled: false };
   if (result.mode === 'read-only-preflight')
     return { mode: 'read-only-preflight', completed: true, readOnly: true, intakeEnabled: false };
   return result;
