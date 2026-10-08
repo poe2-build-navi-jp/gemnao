@@ -23,7 +23,7 @@ export function OnimushaSaveAnswer({ english = false }: { english?: boolean }) {
       <ol>
         <li>{english ? 'Find a Spirit Mirror in the area.' : 'エリア内の破魔鏡を探す。'}</li>
         <li>{english ? 'Approach it and use the controls shown on your own screen.' : '近づいて、自分の画面に出る操作案内で開く。'}</li>
-        <li>{english ? 'Check which save will be overwritten before confirming.' : '上書きする保存先を確認してから確定する。'}</li>
+        <li>{english ? 'If a save destination or overwrite prompt appears, check it before continuing.' : '保存先や上書き確認が表示された場合は、内容を確認して進む。'}</li>
         <li>{english ? 'Wait until saving finishes before closing the game.' : '保存処理が終わるまで待ってからゲームを終了する。'}</li>
       </ol>
       <p>
