@@ -93,6 +93,15 @@ export function SharePreview({
     </div>
   );
 }
+type ShareAttempt = {
+  requestId: string;
+  snapshot: {
+    answers: Answers;
+    tried: Record<string, ActionStatus>;
+    results: Record<string, ActionStatus>;
+    version: string;
+  };
+};
 export function DiagnosisShare({
   answers,
   tried,
@@ -116,25 +125,46 @@ export function DiagnosisShare({
     [error, setError] = useState(''),
     [key, setKey] = useState<string | null>(null),
     [expires, setExpires] = useState<number | null>(null);
-  const nonce = useRef(''),
-    locked = useRef(false);
+  const content = JSON.stringify({ answers, tried, results, version: RULE_VERSION });
+  const [reviewedContent, setReviewedContent] = useState(content);
+  const [attempt, setAttempt] = useState<ShareAttempt | null>(null);
+  const locked = useRef(false);
+  // Invalidate consent before committing a render of changed local content.
+  // Returning to an earlier answer must not revive an earlier confirmation.
+  if (reviewedContent !== content) {
+    setReviewedContent(content);
+    setConfirmed(false);
+  }
+  const previewSnapshot = attempt?.snapshot || { answers, tried, results };
   async function create() {
-    if (locked.current || !confirmed) return;
+    if (locked.current || !preview || !enabled || shareId || !confirmed || reviewedContent !== content) return;
     locked.current = true;
     setBusy(true);
     setError('');
+    // Capture both before the session await. An uncertain save must never reuse
+    // its request ID with different content, including after cancel/reopen.
+    const submission = attempt || {
+      requestId: crypto.randomUUID().replaceAll('-', ''),
+      snapshot: JSON.parse(content) as ShareAttempt['snapshot'],
+    };
+    setAttempt(submission);
     try {
       await diagnosisRequest('/session', {});
-      nonce.current ||= crypto.randomUUID().replaceAll('-', '');
       const d = await diagnosisRequest<{
         id: string;
         recoveryKey: string | null;
         expiresAt: number;
         repeated?: boolean;
       }>('', {
-        snapshot: { answers, tried, results, version: RULE_VERSION },
-        requestId: nonce.current,
+        snapshot: submission.snapshot,
+        requestId: submission.requestId,
       });
+      if (
+        typeof d.id !== 'string' || !/^[a-f0-9]{32}$/.test(d.id) ||
+        (d.recoveryKey !== null &&
+          (typeof d.recoveryKey !== 'string' || !/^[a-f0-9]{64}$/.test(d.recoveryKey))) ||
+        typeof d.expiresAt !== 'number' || !Number.isFinite(d.expiresAt)
+      ) throw new Error('保存を確認できませんでした。同じ内容で再試行してください。');
       onCreated(d.id);
       setKey(d.recoveryKey);
       setExpires(d.expiresAt);
@@ -200,7 +230,12 @@ export function DiagnosisShare({
             </button>
           ) : (
             <>
-              <SharePreview answers={answers} tried={tried} results={results} />
+              <SharePreview {...previewSnapshot} />
+              {attempt && (
+                <p className="diag-notice">
+                  保存の再試行は、最初に送信を確認した上の内容と同じ受付情報を使います。その後の端末内の変更は送信しません。
+                </p>
+              )}
               <p className="diag-warning">
                 このリンクを知っている人は、共有内容を閲覧できます。SNSや公開掲示板に貼ると、不特定多数の人に見られる可能性があります。
               </p>
@@ -213,6 +248,7 @@ export function DiagnosisShare({
                 <input
                   type="checkbox"
                   checked={confirmed}
+                  disabled={busy}
                   onChange={(e) => setConfirmed(e.target.checked)}
                 />
                 <span>
