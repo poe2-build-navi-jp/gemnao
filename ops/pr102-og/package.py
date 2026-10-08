@@ -10,7 +10,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 from PIL import Image
 
-SOURCE = "512c9dd1abf8e699418e01bb8c907143319617e8"
+SOURCE = "2e54fabc46a879277a0e9420e4c0731874e81423"
 BRANCH = "content/three-game-guides-20261008"
 BASE = "https://gemnao.pages.dev"
 GAMES = {

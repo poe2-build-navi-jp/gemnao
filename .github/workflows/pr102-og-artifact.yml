@@ -23,7 +23,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          test "$(gh api repos/poe2-build-navi-jp/gemnao/git/ref/heads/content/three-game-guides-20261008 --jq .object.sha)" = 512c9dd1abf8e699418e01bb8c907143319617e8
+          test "$(gh api repos/poe2-build-navi-jp/gemnao/git/ref/heads/content/three-game-guides-20261008 --jq .object.sha)" = 2e54fabc46a879277a0e9420e4c0731874e81423
       - name: Check out reviewed workflow helper
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
@@ -33,7 +33,7 @@ jobs:
       - name: Check out exact article source
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: 512c9dd1abf8e699418e01bb8c907143319617e8
+          ref: 2e54fabc46a879277a0e9420e4c0731874e81423
           path: application
           persist-credentials: false
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
@@ -42,7 +42,7 @@ jobs:
       - name: Install locked tools without lifecycle scripts
         working-directory: application
         run: |
-          test "$(git rev-parse HEAD)" = 512c9dd1abf8e699418e01bb8c907143319617e8
+          test "$(git rev-parse HEAD)" = 2e54fabc46a879277a0e9420e4c0731874e81423
           mkdir -p ../artifact/reports
           npm install --global --ignore-scripts --no-audit --no-fund pnpm@11.19.0
           pnpm install --frozen-lockfile --ignore-scripts
@@ -68,6 +68,11 @@ jobs:
         if: ${{ !cancelled() && steps.generate.outcome == 'success' }}
         working-directory: application
         run: pnpm typecheck 2>&1 | tee ../artifact/reports/typecheck.log
+      - name: Worker QA regression tests with real node:test runner
+        id: worker_tests
+        if: ${{ !cancelled() && steps.generate.outcome == 'success' }}
+        working-directory: application
+        run: node --test tests/worker-qa/*.test.mjs 2>&1 | tee ../artifact/reports/worker-tests.log
       - name: Full build and static preparation
         id: build
         if: ${{ !cancelled() && steps.generate.outcome == 'success' }}
@@ -76,12 +81,14 @@ jobs:
       - name: Verify exact generated allowlist and all 36 static pages
         id: package
         working-directory: application
-        run: python3 ../control/ops/pr102-og/package.py 2>&1 | tee ../artifact/reports/package.log
+        run: |
+          node ops/worker-qa/restore-placeholder.mjs .
+          python3 ../control/ops/pr102-og/package.py 2>&1 | tee ../artifact/reports/package.log
       - name: Recheck source branch before releasing artifact
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          test "$(gh api repos/poe2-build-navi-jp/gemnao/git/ref/heads/content/three-game-guides-20261008 --jq .object.sha)" = 512c9dd1abf8e699418e01bb8c907143319617e8
+          test "$(gh api repos/poe2-build-navi-jp/gemnao/git/ref/heads/content/three-game-guides-20261008 --jq .object.sha)" = 2e54fabc46a879277a0e9420e4c0731874e81423
           printf '%s\n' 'All checks passed. Artifact ready for review; no commit or deployment performed.' > artifact/reports/READY.txt
       - name: Record check outcomes
         if: ${{ always() }}

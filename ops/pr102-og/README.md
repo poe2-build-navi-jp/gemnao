@@ -1,7 +1,7 @@
 # PR 102 manual OG artifact workflow
 
 This is a one-purpose, manually dispatched, read-only workflow for source
-`512c9dd1abf8e699418e01bb8c907143319617e8` on
+`2e54fabc46a879277a0e9420e4c0731874e81423` on
 `content/three-game-guides-20261008`. It does not commit, push, merge, deploy,
 modify a protected environment, or access Cloudflare secrets.
 
@@ -55,3 +55,13 @@ hand-edit the manifest. Source changes require a separately reviewed pin update.
 After generated assets are committed, recheck the exact content commit's normal
 Pages preview, desktop/mobile rendering and HTML/CSS/JS HTTP delivery. Artifact
 checks do not replace visual review or authorize production publication.
+
+## Node test registration regression
+The pinned source explicitly discards only top-level node:test registration
+promises using void; test callbacks and assertions are unchanged. The workflow
+runs node --test tests/worker-qa/*.test.mjs before packaging, in addition to all
+original mandatory checks. It restores only the repository's known empty tracked
+dist/client/.gitkeep using the existing identity-checking restore-placeholder
+helper after build; the exact generated-file allowlist remains unchanged.
+Node 22.19 documents top-level registration promises as safe to discard:
+https://nodejs.org/download/release/v22.19.0/docs/api/test.html#testname-options-fn
