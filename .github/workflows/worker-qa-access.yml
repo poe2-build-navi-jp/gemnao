@@ -1,0 +1,122 @@
+name: Install temporary access on existing QA Worker (manual protected)
+run-name: Existing QA Worker access gate exact-run owner approval required
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: gemnao-preview-data
+  cancel-in-progress: false
+jobs:
+  gate:
+    if: github.repository == 'poe2-build-navi-jp/gemnao' && github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/prepare/feedback-preview-controller-20261007'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    outputs:
+      environment: ${{ steps.settings.outputs.environment }}
+      source: ${{ steps.settings.outputs.source }}
+      artifact-id: ${{ steps.artifact.outputs.artifact-id }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: f53724eefe8aa60cc2522e12adbc97f821e6f122
+          path: reviewed-controller
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22.19.0'
+      - run: node --test tests/qa-access/*.test.mjs
+      - id: settings
+        name: Verify unchanged protected environment before credentials
+        env:
+          PREVIEW_GITHUB_TOKEN: ${{ github.token }}
+          PREVIEW_OUTSIDE_RECORD_PRESENT: ${{ secrets.GEMNAO_PREVIEW_APPROVAL_RECORD != '' }}
+          PREVIEW_OUTSIDE_DIGEST_PRESENT: ${{ secrets.GEMNAO_PREVIEW_APPROVAL_SHA256 != '' }}
+          PREVIEW_OUTSIDE_TOKEN_PRESENT: ${{ secrets.GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN != '' }}
+          QA_OUTSIDE_ACCESS_PRESENT: ${{ secrets.GEMNAO_QA_ACCESS_PASSPHRASE != '' }}
+        run: node ops/worker-qa-access/update.mjs gate
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ steps.settings.outputs.source }}
+          path: application
+          persist-credentials: false
+      - name: Install pinned app dependencies without lifecycle scripts
+        run: |
+          npm install --global --ignore-scripts --no-audit --no-fund pnpm@11.19.0
+          cd application
+          pnpm install --frozen-lockfile --ignore-scripts
+      - name: Build gated source once without secrets
+        working-directory: application
+        env:
+          WRANGLER_SEND_METRICS: 'false'
+          CI: 'true'
+        run: |
+          pnpm build
+          node ../reviewed-controller/ops/worker-qa/restore-placeholder.mjs .
+          node scripts/prepare-worker-preview.mjs
+          node scripts/verify-worker-preview-artifact.mjs
+          pnpm exec wrangler deploy --config wrangler.worker-preview.json --dry-run --outdir .wrangler/worker-preview-dry-run
+      - name: Package secret-free exact source and byte hashes
+        run: node ops/worker-qa-access/package.mjs
+      - id: artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: gemnao-qa-access-${{ github.run_id }}-${{ github.sha }}
+          path: qa-artifact/
+          include-hidden-files: true
+          if-no-files-found: error
+          overwrite: false
+          retention-days: 1
+  update:
+    needs: gate
+    if: needs.gate.outputs.environment == 'gemnao-preview-data'
+    environment: ${{ needs.gate.outputs.environment }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: f53724eefe8aa60cc2522e12adbc97f821e6f122
+          path: reviewed-controller
+          persist-credentials: false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ needs.gate.outputs.source }}
+          path: application
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22.19.0'
+      - name: Install locked tools before credentials
+        run: |
+          npm install --global --ignore-scripts --no-audit --no-fund pnpm@11.19.0
+          npm ci --ignore-scripts --no-audit --no-fund --prefix reviewed-controller/ops/feedback-preview/runtime --registry=https://registry.npmjs.org
+          cd application
+          pnpm install --frozen-lockfile --ignore-scripts
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          artifact-ids: ${{ needs.gate.outputs.artifact-id }}
+          path: application
+          merge-multiple: true
+      - name: Verify exact source and record before credential injection
+        env:
+          QA_ARTIFACT_ID: ${{ needs.gate.outputs.artifact-id }}
+          PREVIEW_APPROVAL_RECORD: ${{ secrets.GEMNAO_PREVIEW_APPROVAL_RECORD }}
+          PREVIEW_APPROVAL_SHA256: ${{ secrets.GEMNAO_PREVIEW_APPROVAL_SHA256 }}
+        run: node ops/worker-qa-access/update.mjs verify
+      - name: One owner-approved existing-identity update with intake OFF
+        uses: ./ops/worker-qa-access
+        env:
+          QA_ARTIFACT_ID: ${{ needs.gate.outputs.artifact-id }}
+          PREVIEW_GITHUB_TOKEN: ${{ github.token }}
+          PREVIEW_APPROVAL_RECORD: ${{ secrets.GEMNAO_PREVIEW_APPROVAL_RECORD }}
+          PREVIEW_APPROVAL_SHA256: ${{ secrets.GEMNAO_PREVIEW_APPROVAL_SHA256 }}
+          GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN: ${{ secrets.GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN }}
+          GEMNAO_QA_ACCESS_PASSPHRASE: ${{ secrets.GEMNAO_QA_ACCESS_PASSPHRASE }}
