@@ -1,4 +1,5 @@
 import test from 'node:test';
+// Node tracks top-level tests; explicitly discard registration promises without changing scheduling.
 import assert from 'node:assert/strict';
 import {mkdtemp,mkdir,writeFile,readFile,unlink,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
@@ -13,7 +14,7 @@ async function fixture(content='') {
   git(['add','.']);git(['-c','user.name=Synthetic Test','-c','user.email=synthetic@example.invalid','commit','-m','Synthetic fixture']);
   return {root,git};
 }
-test('restores only known tracked empty placeholder after build deletion',async()=>{
+void test('restores only known tracked empty placeholder after build deletion',async()=>{
   const {root,git}=await fixture();try {
     await unlink(join(root,'dist/client/.gitkeep'));assert.match(git(['diff','--name-status','HEAD']),/^D\s+dist\/client\/\.gitkeep$/);
     await restoreBuildPlaceholder(root);assert.equal(git(['diff','--name-only','HEAD']),'');
@@ -22,7 +23,7 @@ test('restores only known tracked empty placeholder after build deletion',async(
     assert.equal(await readFile(join(root,'source.txt'),'utf8'),'unreviewed change');
   } finally {await rm(root,{recursive:true,force:true});}
 });
-test('nonempty tracked placeholder is not silently restored',async()=>{
+void test('nonempty tracked placeholder is not silently restored',async()=>{
   const {root}=await fixture('not the reviewed blob');try {
     await unlink(join(root,'dist/client/.gitkeep'));await assert.rejects(restoreBuildPlaceholder(root),/PLACEHOLDER_IDENTITY/);
   } finally {await rm(root,{recursive:true,force:true});}
