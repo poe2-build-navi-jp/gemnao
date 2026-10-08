@@ -64,6 +64,7 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
     }),
     [started, setStarted] = useState(false);
   const [notice, setNotice] = useState('');
+  const [shareBusy, setShareBusy] = useState(false);
   const title = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
     queueMicrotask(() => {
@@ -174,6 +175,7 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
     setNotice('');
   };
   const start = () => {
+    if (shareBusy) return;
     const d = freshLocal();
     setData(d);
     setResume(null);
@@ -182,6 +184,7 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
     track('step', 'symptom');
   };
   const reset = () => {
+    if (shareBusy) return;
     clearLocal();
     setData(freshLocal());
     setResume(null);
@@ -229,7 +232,7 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
               >
                 続きから再開する
               </button>
-              <button onClick={reset}>端末内の記録を消す</button>
+              <button disabled={shareBusy} onClick={reset}>端末内の記録を消す</button>
             </div>
           )}
           <p className="diag-small">
@@ -240,13 +243,14 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
         <>
           <div className="diag-toolbar">
             <button
+              disabled={shareBusy}
               onClick={() =>
                 setData((d) => ({ ...d, complete: false, step: steps.at(-1)! }))
               }
             >
               ← 回答に戻る
             </button>
-            <button onClick={reset}>端末内の記録を消す</button>
+            <button disabled={shareBusy} onClick={reset}>端末内の記録を消す</button>
           </div>
           <h2 ref={title} tabIndex={-1} className="diag-visually-hidden">
             診断結果
@@ -293,8 +297,9 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
             enabled={config.sharing}
             onCreated={(id) => setData((d) => ({ ...d, shareId: id }))}
             onMetric={(event) => track(event)}
+            onBusyChange={setShareBusy}
           />}
-          <button className="diag-secondary" onClick={start}>
+          <button className="diag-secondary" disabled={shareBusy} onClick={start}>
             別の症状を診断する
           </button>
         </>

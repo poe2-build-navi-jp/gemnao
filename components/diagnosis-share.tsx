@@ -110,6 +110,7 @@ export function DiagnosisShare({
   enabled,
   onCreated,
   onMetric,
+  onBusyChange,
 }: {
   answers: Answers;
   tried: Record<string, ActionStatus>;
@@ -118,6 +119,7 @@ export function DiagnosisShare({
   enabled: boolean;
   onCreated: (id: string) => void;
   onMetric: (event: string) => void;
+  onBusyChange?: (busy: boolean) => void;
 }) {
   const [preview, setPreview] = useState(false),
     [confirmed, setConfirmed] = useState(false),
@@ -145,6 +147,7 @@ export function DiagnosisShare({
     if (!mounted.current || locked.current || !preview || !enabled || shareId || !confirmed || reviewedContent !== content) return;
     locked.current = true;
     setBusy(true);
+    onBusyChange?.(true);
     setError('');
     // Capture both before the session await. An uncertain save must never reuse
     // its request ID with different content, including after cancel/reopen.
@@ -184,7 +187,10 @@ export function DiagnosisShare({
       if (mounted.current) setError(e instanceof Error ? e.message : '保存できませんでした。');
     } finally {
       locked.current = false;
-      if (mounted.current) setBusy(false);
+      if (mounted.current) {
+        setBusy(false);
+        onBusyChange?.(false);
+      }
     }
   }
   return (

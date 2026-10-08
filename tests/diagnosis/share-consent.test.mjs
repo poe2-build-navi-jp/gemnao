@@ -33,13 +33,15 @@ const bundle = await build({
         const [results, setResults] = useState({});
         const [enabled, setEnabled] = useState(true);
         const [shareId, setShareId] = useState();
+        const [generation, setGeneration] = useState(0);
         return <main>
+          <button onClick={() => { setShareId(undefined); setGeneration(generation + 1); }}>replace diagnosis</button>
           <button onClick={() => setAnswers({ ...initialAnswers, scope: 'game' })}>change answers</button>
           <button onClick={() => setTried({ inspect: 'tried' })}>change tried</button>
           <button onClick={() => setResults({ inspect: 'improved' })}>change results</button>
           <button onClick={() => setResults({})}>restore results</button>
           <button onClick={() => setEnabled(false)}>disable sharing</button>
-          <DiagnosisShare answers={answers} tried={tried} results={results}
+          <DiagnosisShare key={generation} answers={answers} tried={tried} results={results}
             enabled={enabled} shareId={shareId} onCreated={setShareId} onMetric={() => {}} />
         </main>;
       }
@@ -78,6 +80,7 @@ await test('sharing consent is tied to content and immutable retry payloads', as
       if (url.pathname === '/api/diagnosis/config') return route.fulfill({ contentType: 'application/json', body: '{"enabled":true,"sharing":true,"metrics":false}' });
       if (url.pathname === '/api/diagnosis/session') {
         if (sessionWait) await sessionWait;
+        if (mode === 'session-fail') return route.fulfill({ status: 503, contentType: 'application/json', body: '{"error":"synthetic session failure"}' });
         return route.fulfill({ contentType: 'application/json', body: '{"ok":true}' });
       }
       if (url.pathname === '/api/diagnosis') {
@@ -89,7 +92,7 @@ await test('sharing consent is tied to content and immutable retry payloads', as
           status: mode === 'fail' ? 503 : 201,
           contentType: 'application/json',
           body: mode === 'malformed' ? '{' : JSON.stringify(mode === 'fail' ? { error: 'synthetic uncertain save' } : {
-            id: 'a'.repeat(32), recoveryKey: 'b'.repeat(64), expiresAt: Date.now() + 86400000,
+            id: 'a'.repeat(32), recoveryKey: mode === 'repeated' ? null : 'b'.repeat(64), repeated: mode === 'repeated', expiresAt: Date.now() + 86400000,
           }),
         });
       }
@@ -135,6 +138,7 @@ await test('sharing consent is tied to content and immutable retry payloads', as
             await expect(f.checkbox).not.toBeChecked();
             await expect(f.submit).toBeDisabled();
           }
+          if (kind === 'results') await f.page.getByRole('button', { name: 'change results', exact: true }).click();
           await f.checkbox.check();
           f.succeed();
           await f.submit.click();
@@ -142,6 +146,7 @@ await test('sharing consent is tied to content and immutable retry payloads', as
           assert.equal(f.posts.length, 1);
           if (kind === 'answers') assert.equal(f.posts[0].snapshot.answers.scope, 'game');
           if (kind === 'tried') assert.equal(f.posts[0].snapshot.tried.inspect, 'tried');
+          if (kind === 'results') assert.equal(f.posts[0].snapshot.results.inspect, 'improved');
         } finally { await f.close(); }
       });
     }
@@ -218,43 +223,49 @@ await test('sharing consent is tied to content and immutable retry payloads', as
       } finally { release?.(); await f.close(); }
     });
     for (const stage of ['session', 'create']) {
-      for (const navigation of ['back', 'reset', 'restart']) {
-        await t.test(navigation + ' during ' + stage + ' cannot attach an old share to a new diagnosis', async () => {
-          const f = await fixture(true);
-          let release;
-          try {
-            release = stage === 'session' ? f.holdSession() : f.holdCreate();
-            f.succeed();
-            await f.checkbox.check();
-            await f.submit.click();
-            if (stage === 'create') await expect.poll(() => f.posts.length).toBe(1);
-            else await expect(f.page.getByRole('button', { name: '保存しています…' })).toBeDisabled();
-            if (navigation === 'back') {
-              await f.page.getByRole('button', { name: '回答に戻る', exact: false }).click();
-              await f.page.getByRole('button', { name: '確認する順番を見る' }).click();
-            } else {
-              if (navigation === 'reset') {
-                await f.page.getByRole('button', { name: '端末内の記録を消す', exact: true }).click();
-                await f.page.getByRole('button', { name: '症状を選んで診断をはじめる', exact: false }).click();
-              } else await f.page.getByRole('button', { name: '別の症状を診断する' }).click();
-              await f.page.getByRole('button', { name: 'ゲームが起動しない', exact: false }).click();
-              await f.page.getByRole('button', { name: '次へ', exact: false }).click();
-              await f.page.getByRole('button', { name: 'PCの電源が落ちる', exact: true }).click();
-              await f.page.getByRole('button', { name: '確認する順番を見る' }).click();
-            }
-            await expect(f.page.getByRole('heading', { name: 'あなたの診断結果' })).toBeVisible();
-            const responsePromise = f.page.waitForResponse((r) => new URL(r.url()).pathname === (stage === 'session' ? '/api/diagnosis/session' : '/api/diagnosis'));
-            release();
-            await (await responsePromise).finished();
-            await f.page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
-            await expect(f.page.locator('.diag-share-url')).toHaveCount(0);
-            assert.equal(await f.page.evaluate(() => JSON.parse(localStorage.getItem('gemnao-diagnosis-v1')).shareId), undefined);
-            assert.equal(f.posts.length, stage === 'session' ? 0 : 1);
-            await f.open.click();
-            await expect(f.checkbox).not.toBeChecked();
-          } finally { release?.(); await f.close(); }
-        });
-      }
+      await t.test('actual wizard prevents Back/reset/restart during ' + stage + ' and keeps the created key', async () => {
+        const f = await fixture(true);
+        let release;
+        try {
+          release = stage === 'session' ? f.holdSession() : f.holdCreate();
+          f.succeed();
+          await f.checkbox.check();
+          await f.submit.click();
+          if (stage === 'create') await expect.poll(() => f.posts.length).toBe(1);
+          const back = f.page.getByRole('button', { name: '回答に戻る', exact: false });
+          const reset = f.page.getByRole('button', { name: '端末内の記録を消す', exact: true });
+          const restart = f.page.getByRole('button', { name: '別の症状を診断する' });
+          for (const control of [back, reset, restart]) await expect(control).toBeDisabled();
+          release();
+          await expect(f.page.locator('.diag-share-url')).toBeVisible();
+          await expect(f.page.locator('.diag-key')).toHaveText('b'.repeat(64));
+          for (const control of [back, reset, restart]) await expect(control).toBeEnabled();
+          assert.equal(f.posts.length, 1);
+          await reset.click();
+          await expect(f.page.locator('.diag-share-url')).toHaveCount(0);
+        } finally { release?.(); await f.close(); }
+      });
+      await t.test('forced unmount during ' + stage + ' ignores the abandoned callback', async () => {
+        const f = await fixture();
+        let release;
+        try {
+          release = stage === 'session' ? f.holdSession() : f.holdCreate();
+          f.succeed();
+          await f.checkbox.check();
+          await f.submit.click();
+          if (stage === 'create') await expect.poll(() => f.posts.length).toBe(1);
+          else await expect(f.page.getByRole('button', { name: '保存しています…' })).toBeDisabled();
+          await f.page.getByRole('button', { name: 'replace diagnosis', exact: true }).click();
+          const responsePromise = f.page.waitForResponse((r) => new URL(r.url()).pathname === (stage === 'session' ? '/api/diagnosis/session' : '/api/diagnosis'));
+          release();
+          await (await responsePromise).finished();
+          await f.page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+          await expect(f.page.locator('.diag-share-url')).toHaveCount(0);
+          assert.equal(f.posts.length, stage === 'session' ? 0 : 1);
+          await f.open.click();
+          await expect(f.checkbox).not.toBeChecked();
+        } finally { release?.(); await f.close(); }
+      });
     }
     await t.test('rapid duplicate activation admits one in-flight create', async () => {
       const f = await fixture();
@@ -267,6 +278,24 @@ await test('sharing consent is tied to content and immutable retry payloads', as
         await expect(f.page.getByRole('alert')).toContainText('synthetic uncertain save');
         assert.equal(f.posts.length, 1);
       } finally { release?.(); await f.close(); }
+    });
+    await t.test('session failure unlocks controls and repeated success preserves the existing key warning', async () => {
+      const f = await fixture(true);
+      try {
+        f.failure('session-fail');
+        await f.checkbox.check();
+        await f.submit.click();
+        await expect(f.page.getByRole('alert')).toContainText('synthetic session failure');
+        await expect(f.submit).toBeEnabled();
+        await expect(f.page.getByRole('button', { name: '端末内の記録を消す', exact: true })).toBeEnabled();
+        assert.equal(f.posts.length, 0);
+        f.failure('repeated');
+        await f.submit.click();
+        await expect(f.page.locator('.diag-share-url')).toBeVisible();
+        await expect(f.page.locator('.diag-key')).toHaveCount(0);
+        await expect(f.page.getByRole('alert')).toContainText('管理キーは再表示できません');
+        assert.equal(f.posts.length, 1);
+      } finally { await f.close(); }
     });
     await t.test('synchronous request ID failure unlocks the form for retry', async () => {
       const f = await fixture();
