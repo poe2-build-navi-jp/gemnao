@@ -20,7 +20,7 @@ const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
 const canonical = x => Array.isArray(x) ? '['+x.map(canonical).join(',')+']' :
   x && typeof x==='object' ? '{'+Object.keys(x).sort().map(k=>JSON.stringify(k)+':'+canonical(x[k])).join(',')+'}' : JSON.stringify(x);
 export function validateUpdateRecord(bytes,digest,env,pins,now=Date.now()) {
-  need(typeof bytes==='string' && sha256(bytes)===digest,'RECORD_DIGEST');
+  need(typeof bytes==='string' && bytes.length>0 && bytes.length<=16384 && sha256(bytes)===digest,'RECORD_DIGEST');
   const r=JSON.parse(bytes);
   need(r.operation==='install-existing-qa-gate-intake-off' && r.workerId===TARGET.workerId &&
     r.expectedState==='existing-public-qa-intake-off-without-access-gate' &&

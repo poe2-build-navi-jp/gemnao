@@ -290,3 +290,13 @@ void test('preflight rejects protection, owner, workflow, branch, history and ar
     const f = preflightHarness(change); await assert.rejects(f.run(), /BLOCKED:/); assert.equal(f.cfCalls(), 0);
   }
 });
+
+void test('access-token derivation rejects formatting errors and oversized approval input', () => {
+  for(const value of [token+'\n', token+'\r', 'x'.repeat(42), 'x'.repeat(129), undefined, 123])
+    assert.throws(()=>accessVars(value,record()),/QA_ACCESS_SECRET_FORMAT/);
+  const vars=accessVars(token,record());
+  assert.equal(vars.QA_ACCESS_SHA256,createHash('sha256').update(token).digest('hex'));
+  assert.ok(!Object.values(vars).includes(token));
+  const bytes=' '.repeat(16385);
+  assert.throws(()=>validateUpdateRecord(bytes,createHash('sha256').update(bytes).digest('hex'),{},{}),/RECORD_DIGEST/);
+});
