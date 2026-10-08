@@ -1,11 +1,12 @@
+import { previewRequestAllowed } from '../preview/origin';
 import { parseEnvelope } from './contract';
 import { strictJson } from './json';
+import { takeFeedbackQuota } from './rate-limit';
 export type FeedbackEnv = {
   FEEDBACK_ENABLED?: string;
+  FEEDBACK_PREVIEW_ENABLED?: string;
+  FEEDBACK_PREVIEW_ORIGIN?: string;
   FEEDBACK_DB?: D1Database;
-  FEEDBACK_RATE_LIMIT?: {
-    limit(input: { key: string }): Promise<{ success: boolean }>;
-  };
 };
 const headers = {
   'Cache-Control': 'private, no-store',
@@ -24,12 +25,7 @@ const hash = async (s: string) =>
     .map((v) => v.toString(16).padStart(2, '0'))
     .join('');
 export async function healthy(env: FeedbackEnv, now: number) {
-  if (
-    env.FEEDBACK_ENABLED !== 'true' ||
-    !env.FEEDBACK_DB ||
-    !env.FEEDBACK_RATE_LIMIT
-  )
-    return false;
+  if (env.FEEDBACK_ENABLED !== 'true' || !env.FEEDBACK_DB) return false;
   const row = await env.FEEDBACK_DB.prepare(
     'SELECT last_cleanup FROM diagnostic_retention_health WHERE singleton=1',
   ).first<{ last_cleanup: number }>();
@@ -86,34 +82,29 @@ export async function handleFeedback(
         request.headers.get('sec-fetch-site') !== 'same-origin')
     )
       return reply({ error: 'origin' }, 403);
-    if (!env.FEEDBACK_DB || !env.FEEDBACK_RATE_LIMIT)
+    if (!env.FEEDBACK_DB)
       return request.method === 'GET'
         ? reply({ enabled: false, canDelete: false })
         : reply({ error: '受付は準備中です' }, 503);
+    // Either preview setting scopes intake; a partial/invalid setup stays closed.
+    const previewScoped = env.FEEDBACK_PREVIEW_ENABLED !== undefined || env.FEEDBACK_PREVIEW_ORIGIN !== undefined;
+    const intakeEnabled = env.FEEDBACK_ENABLED === 'true' && (!previewScoped ||
+      previewRequestAllowed(request, env.FEEDBACK_PREVIEW_ENABLED, env.FEEDBACK_PREVIEW_ORIGIN));
     // A verified isolated binding permits owner deletion even while intake is stopped.
-    if (env.FEEDBACK_ENABLED !== 'true') {
+    if (!intakeEnabled) {
       if (request.method === 'GET')
         return reply({ enabled: false, canDelete: true });
       if (request.method === 'POST')
         return reply({ error: '受付は準備中です' }, 503);
     }
-    // CF supplies this header. Do not persist, hash, log or forward it; limiter only.
-    const ip = request.headers.get('cf-connecting-ip');
+    // Only an edge-supplied address is used transiently; D1 stores a daily HMAC.
+    // GET/POST share intake quota; neither can consume DELETE quota.
     if (
-      !ip ||
-      !(
-        await env.FEEDBACK_RATE_LIMIT.limit({
-          key: request.method === 'DELETE' ? `delete:${ip}` : ip,
-        })
-      ).success ||
-      !(
-        await env.FEEDBACK_RATE_LIMIT.limit({
-          key:
-            request.method === 'DELETE'
-              ? 'global-feedback-delete'
-              : 'global-feedback-intake',
-        })
-      ).success
+      !(await takeFeedbackQuota(
+        env.FEEDBACK_DB,
+        request.method === 'DELETE' ? 'delete' : 'intake',
+        request.headers.get('cf-connecting-ip'),
+      ))
     )
       return reply(
         {
@@ -224,7 +215,7 @@ export async function handleFeedback(
         400,
       );
     // A single SQLite statement enforces the global daily stored-report ceiling,
-    // even with concurrent requests. Limiter also bounds failed/repeated attempts.
+    // even with concurrent requests. Quota also bounds failed/repeated attempts.
     const result = await db
       .prepare(
         `INSERT OR IGNORE INTO diagnostic_reports(receipt_id,delete_hash,report_json,consent_version,created_at,expires_at) SELECT ?,?,?,1,?,? WHERE (SELECT count(*) FROM diagnostic_reports WHERE created_at>=?)<200 AND NOT EXISTS(SELECT 1 FROM diagnostic_report_tombstones WHERE receipt_id=?)`,

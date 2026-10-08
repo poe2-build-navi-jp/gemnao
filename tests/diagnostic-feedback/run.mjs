@@ -9,6 +9,7 @@ await build({
     'lib/diagnostic-feedback/service.ts',
     'lib/diagnostic-feedback/contract.ts',
     'lib/diagnostic-feedback/json.ts',
+    'lib/diagnostic-feedback/rate-limit.ts',
     'cloudflare/diagnostic-feedback-cleanup.ts',
   ],
   outdir: '.tmp-feedback-test',
@@ -26,6 +27,8 @@ const cleanup = (
   await import('../../.tmp-feedback-test/cloudflare/diagnostic-feedback-cleanup.js')
 ).default;
 const sql = new DatabaseSync(':memory:');
+let rateNow = Math.floor(Date.now() / 1000);
+sql.function('unixepoch', () => rateNow);
 sql.exec(readFileSync('migrations/diagnostic-feedback/0001.sql', 'utf8'));
 const db = {
   prepare(query) {
@@ -60,6 +63,10 @@ const db = {
 const now = Math.floor(Date.now() / 1000);
 let tests = 0;
 const test = async (name, fn) => {
+  sql.exec(
+    'DELETE FROM diagnostic_rate_attempts; DELETE FROM diagnostic_rate_salt',
+  );
+  rateNow = now;
   await fn();
   tests++;
   console.log('PASS', name);
@@ -94,11 +101,6 @@ const envelope = () => {
 const env = {
   FEEDBACK_ENABLED: 'true',
   FEEDBACK_DB: db,
-  FEEDBACK_RATE_LIMIT: {
-    async limit() {
-      return { success: true };
-    },
-  },
 };
 const req = (data, method = 'POST', extra = {}) =>
   new Request('https://test.invalid/api/diagnostic-feedback', {
@@ -212,19 +214,13 @@ await test('new expired receipt rejected', async () => {
     400,
   );
 });
-await test('rate limiter denial stops writes', async () => {
+await test('D1 quota denial stops writes', async () => {
+  for (let i = 0; i < 10; i++)
+    assert.equal((await handleFeedback(req('invalid'), env)).status, 400);
+  assert.equal((await handleFeedback(req(envelope()), env)).status, 429);
   assert.equal(
-    (
-      await handleFeedback(req(envelope()), {
-        ...env,
-        FEEDBACK_RATE_LIMIT: {
-          async limit() {
-            return { success: false };
-          },
-        },
-      })
-    ).status,
-    429,
+    sql.prepare('SELECT count(*) AS n FROM diagnostic_rate_attempts').get().n,
+    10,
   );
 });
 await test('database failure never claims success', async () => {
@@ -244,8 +240,12 @@ await test('database failure never claims success', async () => {
 });
 await test('daily global cap enforced by SQL', async () => {
   sql.exec('DELETE FROM diagnostic_reports');
-  for (let i = 0; i < 200; i++)
+  for (let i = 0; i < 200; i++) {
+    // Advance only the quota clock to exercise the separate retained-row cap.
+    rateNow += 61;
     assert.equal((await handleFeedback(req(envelope()), env)).status, 201);
+  }
+  rateNow += 61;
   assert.equal((await handleFeedback(req(envelope()), env)).status, 429);
   assert.equal(
     sql.prepare('SELECT count(*) AS n FROM diagnostic_reports').get().n,
@@ -273,7 +273,7 @@ await test('scheduled cleanup deletes expired rows and records health', async ()
   );
 });
 
-await test('disabled GET never reads D1 and enabled GET is rate limited before D1', async () => {
+await test('disabled GET avoids D1; enabled status shares intake quota and preserves deletion capability', async () => {
   const broken = {
     prepare() {
       throw Error('must not read');
@@ -285,19 +285,12 @@ await test('disabled GET never reads D1 and enabled GET is rate limited before D
   );
   assert.equal(result.status, 200);
   assert.equal((await result.json()).enabled, false);
+  for (let i = 0; i < 10; i++) await handleFeedback(req('invalid'), env);
   result = await handleFeedback(
     new Request('https://test.invalid/api/diagnostic-feedback', {
       headers: { 'cf-connecting-ip': '192.0.2.1' },
     }),
-    {
-      ...env,
-      FEEDBACK_DB: broken,
-      FEEDBACK_RATE_LIMIT: {
-        async limit() {
-          return { success: false };
-        },
-      },
-    },
+    env,
   );
   assert.equal(result.status, 429);
   assert.equal((await result.json()).canDelete, true);
@@ -377,7 +370,6 @@ await test('ordinary production DB binding can never substitute for isolated fee
   const wrongBinding = {
     FEEDBACK_ENABLED: 'true',
     DB: forbidden,
-    FEEDBACK_RATE_LIMIT: env.FEEDBACK_RATE_LIMIT,
   };
   const response = await handleFeedback(
     new Request('https://gemnao.test/api/diagnostic-feedback'),
@@ -392,6 +384,7 @@ await test('ordinary production DB binding can never substitute for isolated fee
 });
 await test('owner deletion survives intake stop and stale cleanup without bypassing safeguards', async () => {
   for (const stopped of [{ ...env, FEEDBACK_ENABLED: 'false' }, env]) {
+    sql.exec('DELETE FROM diagnostic_rate_attempts');
     const body = envelope();
     assert.equal((await handleFeedback(req(body), env, now)).status, 201);
     const at = stopped.FEEDBACK_ENABLED === 'false' ? now : now + 7201;
@@ -428,21 +421,17 @@ await test('owner deletion survives intake stop and stale cleanup without bypass
       ).status,
       409,
     );
-    assert.equal(
-      (
-        await handleFeedback(
-          req(cancel, 'DELETE'),
-          {
-            ...stopped,
-            FEEDBACK_RATE_LIMIT: {
-              async limit() {
-                return { success: false };
-              },
-            },
-          },
-          at,
+    // Fill only the independent DELETE bucket, then verify a genuine denial.
+    while (
+      sql
+        .prepare(
+          "SELECT count(*) AS n FROM diagnostic_rate_attempts WHERE bucket='delete'",
         )
-      ).status,
+        .get().n < 10
+    )
+      await handleFeedback(req('invalid', 'DELETE'), stopped, at);
+    assert.equal(
+      (await handleFeedback(req(cancel, 'DELETE'), stopped, at)).status,
       429,
     );
     assert.equal(
@@ -455,26 +444,19 @@ await test('owner deletion survives intake stop and stale cleanup without bypass
       ).status,
       503,
     );
-    const buckets = [];
+    rateNow += 61;
     assert.equal(
-      (
-        await handleFeedback(
-          req(cancel, 'DELETE'),
-          {
-            ...stopped,
-            FEEDBACK_RATE_LIMIT: {
-              async limit({ key }) {
-                buckets.push(key);
-                return { success: true };
-              },
-            },
-          },
-          at,
-        )
-      ).status,
+      (await handleFeedback(req(cancel, 'DELETE'), stopped, at)).status,
       200,
     );
-    assert.deepEqual(buckets, ['delete:192.0.2.1', 'global-feedback-delete']);
+    assert.equal(
+      sql
+        .prepare(
+          "SELECT count(*) AS n FROM diagnostic_rate_attempts WHERE bucket='delete'",
+        )
+        .get().n,
+      1,
+    );
     assert.equal(
       sql
         .prepare(
@@ -485,6 +467,124 @@ await test('owner deletion survives intake stop and stale cleanup without bypass
     );
     assert.equal((await handleFeedback(req(body), env, now)).status, 409);
   }
+});
+await test('network validation/canonicalization, rolling boundary and UTC-day salt rotation', async () => {
+  const { feedbackNetwork, takeFeedbackQuota } =
+    await import('../../.tmp-feedback-test/lib/diagnostic-feedback/rate-limit.js');
+  assert.equal(
+    feedbackNetwork('192.0.2.1'),
+    feedbackNetwork('::ffff:192.0.2.1'),
+  );
+  assert.equal(
+    feedbackNetwork('2001:0db8:1234:5678:0:0:0:1'),
+    feedbackNetwork('2001:db8:1234:5678::ffff'),
+  );
+  assert.notEqual(
+    feedbackNetwork('2001:db8:1234:5678::1'),
+    feedbackNetwork('2001:db8:1234:5679::1'),
+  );
+  for (const ip of [
+    null,
+    '',
+    'invalid',
+    '1.2.3.4, 5.6.7.8',
+    '127.1',
+    '192.000.2.1',
+    'fe80::1%eth0',
+    '[::1]',
+    '1.2.3.4:80',
+  ])
+    assert.equal(feedbackNetwork(ip), null, ip);
+  rateNow = Math.floor(now / 86400) * 86400 + 86399;
+  const initial = rateNow;
+  for (let i = 0; i < 10; i++)
+    assert.equal(await takeFeedbackQuota(db, 'intake', '192.0.2.1'), true);
+  const salt = sql.prepare('SELECT salt FROM diagnostic_rate_salt').get().salt;
+  rateNow++;
+  assert.equal(
+    await takeFeedbackQuota(db, 'intake', '192.0.2.2'),
+    false,
+    'midnight cannot reset global cap',
+  );
+  assert.notEqual(
+    sql.prepare('SELECT salt FROM diagnostic_rate_salt').get().salt,
+    salt,
+  );
+  assert.equal(
+    sql.prepare('SELECT count(*) AS n FROM diagnostic_rate_salt').get().n,
+    1,
+  );
+  rateNow = initial + 60;
+  assert.equal(
+    await takeFeedbackQuota(db, 'intake', '192.0.2.1'),
+    false,
+    'exact 60-second boundary is retained',
+  );
+  rateNow++;
+  assert.equal(await takeFeedbackQuota(db, 'intake', '192.0.2.1'), true);
+  assert.equal(
+    sql.prepare('SELECT count(*) AS n FROM diagnostic_rate_attempts').get().n,
+    1,
+  );
+  assert.ok(
+    !JSON.stringify(
+      sql.prepare('SELECT * FROM diagnostic_rate_attempts').all(),
+    ).includes('192.0.2.1'),
+  );
+  rateNow += 86400;
+  await cleanup.scheduled({}, env);
+  assert.equal(
+    sql.prepare('SELECT count(*) AS n FROM diagnostic_rate_salt').get().n,
+    0,
+  );
+  assert.equal(
+    sql.prepare('SELECT count(*) AS n FROM diagnostic_rate_attempts').get().n,
+    0,
+  );
+});
+await test('salt rollover during an in-flight quota request denies conservatively', async () => {
+  const { takeFeedbackQuota } =
+    await import('../../.tmp-feedback-test/lib/diagnostic-feedback/rate-limit.js');
+  rateNow = (Math.floor(now / 86400) + 1) * 86400 - 1;
+  const midnightDuringHash = {
+    ...db,
+    batch(statements) {
+      rateNow++;
+      return db.batch(statements);
+    },
+  };
+  assert.equal(
+    await takeFeedbackQuota(midnightDuringHash, 'intake', '192.0.2.1'),
+    false,
+  );
+  assert.equal(
+    sql.prepare('SELECT count(*) AS n FROM diagnostic_rate_attempts').get().n,
+    0,
+  );
+  assert.equal(await takeFeedbackQuota(db, 'intake', '192.0.2.1'), true);
+  assert.equal(
+    sql.prepare('SELECT count(*) AS n FROM diagnostic_rate_salt').get().n,
+    1,
+  );
+});
+await test('preview intake needs exact approved origin and complete explicit scope; deletion stays available', async () => {
+  const origin = 'https://qa-isolated.gemnao.pages.dev';
+  const scoped = { ...env, FEEDBACK_PREVIEW_ENABLED: 'true', FEEDBACK_PREVIEW_ORIGIN: origin };
+  const request = (value, method = 'POST', target = origin) => new Request(target + '/api/diagnostic-feedback', { method, headers: { origin: target, 'content-type': 'application/json', 'cf-connecting-ip': '192.0.2.99' }, ...(value === undefined ? {} : { body: JSON.stringify(value) }) });
+  await cleanup.scheduled({}, env);
+  for (const target of ['https://gemnao.pages.dev', 'https://other.gemnao.pages.dev', 'http://qa-isolated.gemnao.pages.dev', 'https://qa-isolated.gemnao.pages.dev.evil.test']) {
+    assert.deepEqual(await (await handleFeedback(request(undefined, 'GET', target), scoped)).json(), { enabled: false, canDelete: true });
+    assert.equal((await handleFeedback(request(envelope(), 'POST', target), scoped)).status, 503);
+  }
+  for (const partial of [{ ...scoped, FEEDBACK_PREVIEW_ENABLED: undefined }, { ...scoped, FEEDBACK_PREVIEW_ORIGIN: undefined }, { ...scoped, FEEDBACK_PREVIEW_ENABLED: 'TRUE' }, { ...scoped, FEEDBACK_PREVIEW_ORIGIN: 'https://gemnao.pages.dev' }]) {
+    assert.equal((await handleFeedback(request(envelope()), partial)).status, 503);
+  }
+  assert.deepEqual(await (await handleFeedback(request(undefined, 'GET'), scoped)).json(), { enabled: true, canDelete: true });
+  const item = envelope();
+  assert.equal((await handleFeedback(request(item), scoped)).status, 201);
+  const stopped = { ...scoped, FEEDBACK_ENABLED: 'false', FEEDBACK_PREVIEW_ENABLED: 'false' };
+  assert.equal((await handleFeedback(request({ receipt_id: item.receipt_id, delete_key: item.delete_key }, 'DELETE'), stopped)).status, 200);
+  assert.equal(sql.prepare('SELECT COUNT(*) n FROM diagnostic_reports WHERE receipt_id=?').get(item.receipt_id).n, 0);
 });
 console.log(`${tests} groups passed`);
 sql.close();
