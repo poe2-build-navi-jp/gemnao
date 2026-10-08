@@ -82,6 +82,13 @@ export function saveLocal(value: LocalDiagnosis): boolean {
 }
 export async function clearLocal() {
   try {
+    // Preserve ordinary local-only diagnosis erasure on browsers where sharing
+    // is unavailable. Existing pending shares still require coordinated erase.
+    if (typeof navigator === 'undefined' || !navigator.locks) {
+      if (pendingShares().length) return false;
+      localStorage.removeItem(LOCAL_KEY);
+      return localStorage.getItem(LOCAL_KEY) === null;
+    }
     return await withPendingShareLock(() => {
     localStorage.removeItem(LOCAL_KEY);
     clearPendingShares();

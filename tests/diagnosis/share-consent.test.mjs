@@ -524,6 +524,17 @@ await test('sharing consent is tied to content and immutable retry payloads', as
         assert.equal(f.posts.length, 1);
       } finally { await f.close(); }
     });
+    await t.test('local-only records can still be erased without Web Locks when no share is pending', async () => {
+      const f = await fixture(true);
+      try {
+        await f.page.evaluate(() => Object.defineProperty(navigator, 'locks', { value: undefined }));
+        await f.page.getByRole('button', { name: '端末内の記録を消す', exact: true }).click();
+        await expect(f.page.getByRole('button', { name: '症状を選んで診断をはじめる', exact: false })).toBeVisible();
+        assert.equal(await f.page.evaluate(() => localStorage.getItem('gemnao-diagnosis-v1')), null);
+        assert.equal(f.posts.length, 0);
+        assert.equal(f.sessions.length, 0);
+      } finally { await f.close(); }
+    });
     await t.test('cancel before submission clears confirmation and a disabled capability cannot send', async () => {
       const f = await fixture();
       try {
