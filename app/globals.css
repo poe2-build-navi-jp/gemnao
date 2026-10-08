@@ -5409,9 +5409,13 @@ a.my-games-primary {
 .diagnosis-cta h2 { font-size:20px; line-height:1.5; margin:0 0 8px; }
 .diagnosis-cta p { margin:6px 0; font-size:14px; }
 .diagnosis-cta small { color:#53655c; font-size:12px; }
-.diagnosis-cta>a { display:inline-flex; justify-content:center; align-items:center; min-height:48px; border-radius:8px; padding:13px 20px; color:white; background:#08794e; font-weight:700; text-decoration:none; font-size:14px; }
+.diagnosis-cta>a, .diagnosis-cta>.diagnosis-cta-action { display:inline-flex; justify-content:center; align-items:center; min-height:48px; border-radius:8px; padding:13px 20px; color:white; background:#08794e; font-weight:700; text-decoration:none; font-size:14px; }
 .diagnosis-cta>a:focus-visible { outline:3px solid #164734; outline-offset:4px; }
-@media(max-width:640px){.diagnosis-cta {padding:20px 16px}.diagnosis-cta-home{margin:20px 16px}.diagnosis-cta>a{width:100%}.diagnosis-cta h2{font-size:19px}}
+@media(max-width:640px){.diagnosis-cta {padding:20px 16px}.diagnosis-cta-home{margin:20px 16px}.diagnosis-cta>a,.diagnosis-cta>.diagnosis-cta-action{width:100%}.diagnosis-cta h2{font-size:19px}}
+/* Keep the home runtime gate from moving the symptoms below it. */
+.diagnosis-cta-home-slot { display:grid; grid-template-columns:minmax(0,1fr); max-width:1180px; margin:24px auto; }
+.diagnosis-cta-home-slot>.diagnosis-cta-home { grid-area:1 / 1; min-width:0; width:100%; margin:0; }
+@media(max-width:640px){.diagnosis-cta-home-slot{margin:20px 16px}}
 /* Private editorial requests are separate from the browser-local collection. */
 .game-request { margin-top: 32px; padding: clamp(16px, 3vw, 24px); border: 1px solid var(--line); border-radius: 12px; background: white; overflow-wrap: anywhere; }
 .game-request h2 { font-size: clamp(21px, 3vw, 27px); line-height: 1.4; }
