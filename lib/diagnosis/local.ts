@@ -1,3 +1,4 @@
+import { clearPendingShares, pendingShares } from './pending-share';
 import {
   RULE_VERSION,
   questionFor,
@@ -82,8 +83,10 @@ export function saveLocal(value: LocalDiagnosis): boolean {
 export function clearLocal() {
   try {
     localStorage.removeItem(LOCAL_KEY);
+    clearPendingShares();
+    return localStorage.getItem(LOCAL_KEY) === null && pendingShares().length === 0;
   } catch {
-    /* Disabled storage does not block the UI. */
+    return false;
   }
 }
 export async function diagnosisRequest<T = Record<string, unknown>>(

@@ -46,6 +46,8 @@ const hash = async (value: string) =>
     ),
     (b) => b.toString(16).padStart(2, '0'),
   ).join('');
+const attemptBinding = (token: string, requestId: string) =>
+  hash('gemnao-diagnosis-pending-v1:' + token + ':' + requestId);
 const owner = (request: Request) =>
   request.headers
     .get('Cookie')
@@ -353,17 +355,27 @@ export async function handleDiagnosis(
         '保存期間を守るため、共有の作成・更新を一時停止しています。',
       );
     if (path === '/session' && request.method === 'POST') {
-      if (!exactKeys(input, [])) return fail(400, '入力が正しくありません。');
+      if (!exactKeys(input, ['requestId', 'resume']) ||
+        (input.requestId !== undefined && (typeof input.requestId !== 'string' || !ID.test(input.requestId))) ||
+        (input.resume !== undefined && input.resume !== true) ||
+        (input.resume === true && input.requestId === undefined))
+        return fail(400, '入力が正しくありません。');
+      const current = owner(request);
+      if (input.resume === true && !SECRET.test(current))
+        return fail(403, '元の管理用Cookieがありません。この送信を別のCookieで再作成することはできません。');
       if (!(await rate(db, request, 'session', 10, now))) return rateFail();
-      const current = owner(request),
-        token = SECRET.test(current) ? current : random(32);
-      return reply({ ok: true }, 200, { 'Set-Cookie': setCookie(token) });
+      const token = SECRET.test(current) ? current : random(32);
+      return reply({
+        ok: true,
+        ...(typeof input.requestId === 'string' ? { ownerBinding: await attemptBinding(token, input.requestId) } : {}),
+      }, 200, { 'Set-Cookie': setCookie(token) });
     }
     if (path === '' && request.method === 'POST') {
       if (
-        !exactKeys(input, ['snapshot', 'requestId']) ||
+        !exactKeys(input, ['snapshot', 'requestId', 'ownerBinding', 'resume']) ||
         typeof input.requestId !== 'string' ||
-        !ID.test(input.requestId)
+        !ID.test(input.requestId) ||
+        (input.resume !== undefined && (input.resume !== true || typeof input.ownerBinding !== 'string'))
       )
         return fail(400, '入力が正しくありません。');
       const snapshot = buildSnapshot(input.snapshot);
@@ -372,6 +384,12 @@ export async function handleDiagnosis(
       const token = owner(request);
       if (!SECRET.test(token))
         return fail(403, '管理用セッションを準備してから再試行してください。');
+      // The binding is only a consistency check. The HttpOnly cookie is still
+      // required; a binding never grants access or substitutes for a credential.
+      if (input.ownerBinding !== undefined &&
+        (typeof input.ownerBinding !== 'string' || !SECRET.test(input.ownerBinding) ||
+          input.ownerBinding !== await attemptBinding(token, input.requestId)))
+        return fail(403, '元の管理用Cookieと一致しません。この送信は再試行できません。');
       const ownerHash = await hash(token);
       const previous = await db
         .prepare(
@@ -379,6 +397,10 @@ export async function handleDiagnosis(
         )
         .bind(ownerHash, input.requestId)
         .first<ShareRow>();
+      // Recovery is lookup-only: do not resurrect a deleted share or duplicate
+      // one whose ownership moved to another browser through recovery.
+      if (input.resume === true && !previous)
+        return fail(409, 'このCookieで回復できる共有はありません。未保存・削除済み・別の所有者へ復元済みの可能性があります。新しい共有は作成していません。');
       if (previous) {
         if (!active(previous, now))
           return fail(

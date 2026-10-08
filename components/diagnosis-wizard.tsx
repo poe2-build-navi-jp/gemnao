@@ -25,6 +25,7 @@ import {
 } from '@/lib/diagnosis/local';
 import { DiagnosisResultView, DiagnosisSummary } from './diagnosis-result';
 import { DiagnosisShare } from './diagnosis-share';
+import { readPendingShare, type PendingShare } from '@/lib/diagnosis/pending-share';
 function TriedActionField({
   action,
   current,
@@ -65,6 +66,8 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
     [started, setStarted] = useState(false);
   const [notice, setNotice] = useState('');
   const [shareBusy, setShareBusy] = useState(false);
+  const [recovery, setRecovery] = useState<PendingShare | null>(null);
+  const [recoveredId, setRecoveredId] = useState<string | undefined>();
   const title = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
     queueMicrotask(() => {
@@ -123,6 +126,13 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
   ) => {
     if (config.metrics) metric(event, step, action, status);
   };
+  useEffect(() => {
+    if (!data.complete || !started) {
+      let pending: PendingShare | null = null;
+      try { pending = readPendingShare(); } catch { /* Sending checks storage again before POST. */ }
+      queueMicrotask(() => { setRecovery(pending); setRecoveredId(undefined); });
+    }
+  }, [data.complete, started]);
   const steps = stepsFor(data.answers);
   const stepIndex = steps.indexOf(data.step);
   const index = stepIndex < 0 ? 0 : stepIndex;
@@ -185,7 +195,15 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
   };
   const reset = () => {
     if (shareBusy) return;
-    clearLocal();
+    try {
+      if (readPendingShare() && !window.confirm('未確認の共有送信を回復する情報も、この端末から消します。すでに作成された共有ページは削除されず、URLを受け取っていない場合は管理へ戻れなくなることがあります。端末内の記録を消しますか？')) return;
+    } catch { /* clearLocal still attempts the user's requested removal. */ }
+    if (!clearLocal()) {
+      setNotice('端末内の記録を消去できたか確認できません。ブラウザのサイトデータ設定を確認してください。');
+      return;
+    }
+    setRecovery(null);
+    setRecoveredId(undefined);
     setData(freshLocal());
     setResume(null);
     setStarted(false);
@@ -209,6 +227,30 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
         <p role="alert" className="diag-warning">
           このブラウザには保存できません。診断は続けられますが、再読み込みすると回答が失われます。
         </p>
+      )}
+      {recovery && (
+        <div className="diag-pending-recovery">
+          <h2>前回の未確認送信を回復</h2>
+          <p>保存済みの確認内容だけを再表示します。現在の回答とは混ぜず、自動送信しません。元の管理用Cookieが必要です。</p>
+          <DiagnosisShare
+            key={recovery.requestId}
+            answers={recovery.snapshot.answers}
+            tried={recovery.snapshot.tried}
+            results={recovery.snapshot.results}
+            initialAttempt={recovery}
+            shareId={recoveredId}
+            enabled={config.sharing}
+            onCreated={setRecoveredId}
+            onMetric={() => {}}
+            onBusyChange={setShareBusy}
+          />
+          {recoveredId && <button onClick={() => {
+            let next: PendingShare | null = null;
+            try { next = readPendingShare(); } catch { /* The saved URL remains visible until dismissal. */ }
+            setRecovery(next);
+            setRecoveredId(undefined);
+          }}>回復したURLを控えて診断へ戻る</button>}
+        </div>
       )}
       {!started ? (
         <section className="diag-start">
@@ -289,7 +331,7 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
             <summary>回答のまとめ</summary>
             <DiagnosisSummary answers={data.answers} />
           </details>
-          {process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA !== 'true' && <DiagnosisShare
+          {!recovery && process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA !== 'true' && <DiagnosisShare
             answers={data.answers}
             tried={data.tried}
             results={data.results}

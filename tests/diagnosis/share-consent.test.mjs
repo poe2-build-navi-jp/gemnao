@@ -57,6 +57,7 @@ const bundle = await build({
   define: { 'process.env.NODE_ENV': '"production"', 'process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED': '"true"', 'process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA': '"false"' },
 });
 const script = bundle.outputFiles[0].text;
+const stablePayload = ({ snapshot, requestId, ownerBinding }) => ({ snapshot, requestId, ownerBinding });
 
 await test('sharing consent is tied to content and immutable retry payloads', async (t) => {
   const browser = await chromium.launch({ headless: true });
@@ -64,12 +65,13 @@ await test('sharing consent is tied to content and immutable retry payloads', as
     const context = await browser.newContext();
     const page = await context.newPage();
     const posts = [];
+    const sessions = [];
     const errors = [];
     let mode = 'fail';
     let sessionWait = null;
     let createWait = null;
     page.on('pageerror', (error) => errors.push(error.message));
-    await page.route('**/*', async (route) => {
+    await context.route('**/*', async (route) => {
       const request = route.request();
       const url = new URL(request.url());
       assert.equal(url.origin, origin, 'no external requests');
@@ -79,9 +81,11 @@ await test('sharing consent is tied to content and immutable retry payloads', as
       if (url.pathname === '/bundle.js') return route.fulfill({ contentType: 'application/javascript', body: script });
       if (url.pathname === '/api/diagnosis/config') return route.fulfill({ contentType: 'application/json', body: '{"enabled":true,"sharing":true,"metrics":false}' });
       if (url.pathname === '/api/diagnosis/session') {
+        sessions.push(request.postDataJSON());
         if (sessionWait) await sessionWait;
+        if (mode === 'missing-cookie') return route.fulfill({ status: 403, contentType: 'application/json', body: '{"error":"original cookie missing"}' });
         if (mode === 'session-fail') return route.fulfill({ status: 503, contentType: 'application/json', body: '{"error":"synthetic session failure"}' });
-        return route.fulfill({ contentType: 'application/json', body: '{"ok":true}' });
+        return route.fulfill({ contentType: 'application/json', body: JSON.stringify({ ok: true, ownerBinding: mode === 'wrong-cookie' ? 'd'.repeat(64) : 'c'.repeat(64) }) });
       }
       if (url.pathname === '/api/diagnosis') {
         posts.push(request.postDataJSON());
@@ -105,7 +109,7 @@ await test('sharing consent is tied to content and immutable retry payloads', as
     const submit = page.getByRole('button', { name: '確認した内容でURLを発行' });
     await open.click();
     return {
-      page, posts, checkbox, submit, open,
+      page, posts, sessions, checkbox, submit, open,
       succeed() { mode = 'success'; },
       failure(next) { mode = next; },
       holdCreate() {
@@ -159,7 +163,7 @@ await test('sharing consent is tied to content and immutable retry payloads', as
         await expect(f.checkbox).toBeChecked();
         await f.submit.click();
         await expect.poll(() => f.posts.length).toBe(2);
-        assert.deepEqual(f.posts[1], f.posts[0]);
+        assert.deepEqual(stablePayload(f.posts[1]), stablePayload(f.posts[0]));
         await expect(f.submit).toBeEnabled();
         await f.page.getByRole('button', { name: 'change results', exact: true }).click();
         await expect(f.checkbox).not.toBeChecked();
@@ -174,7 +178,7 @@ await test('sharing consent is tied to content and immutable retry payloads', as
         await f.submit.click();
         await expect(f.page.locator('.diag-share-url')).toBeVisible();
         assert.equal(f.posts.length, 3);
-        assert.deepEqual(f.posts[2], f.posts[0]);
+        assert.deepEqual(stablePayload(f.posts[2]), stablePayload(f.posts[0]));
         assert.deepEqual(f.posts[2].snapshot.results, {});
       } finally { await f.close(); }
     });
@@ -195,7 +199,7 @@ await test('sharing consent is tied to content and immutable retry payloads', as
           await f.submit.click();
           await expect(f.page.locator('.diag-share-url')).toBeVisible();
           assert.equal(f.posts.length, 2);
-          assert.deepEqual(f.posts[1], f.posts[0]);
+          assert.deepEqual(stablePayload(f.posts[1]), stablePayload(f.posts[0]));
         } finally { await f.close(); }
       });
     }
@@ -219,7 +223,7 @@ await test('sharing consent is tied to content and immutable retry payloads', as
         f.succeed();
         await f.submit.click();
         await expect(f.page.locator('.diag-share-url')).toBeVisible();
-        assert.deepEqual(f.posts[1], f.posts[0]);
+        assert.deepEqual(stablePayload(f.posts[1]), stablePayload(f.posts[0]));
       } finally { release?.(); await f.close(); }
     });
     for (const stage of ['session', 'create']) {
@@ -315,6 +319,125 @@ await test('sharing consent is tied to content and immutable retry payloads', as
         assert.equal(f.posts.length, 1);
       } finally { await f.close(); }
     });
+    const pendingKeys = () => Object.keys(localStorage).filter((key) => key.startsWith('gemnao-diagnosis-pending-v1:'));
+    for (const revisit of ['reload', 'new-tab', 'back']) {
+      await t.test(revisit + ' recovers only the saved snapshot after explicit confirmation', async () => {
+        const f = await fixture(true);
+        try {
+          await f.checkbox.check();
+          await f.submit.click();
+          await expect(f.page.getByRole('alert')).toContainText('synthetic uncertain save');
+          const original = f.posts[0];
+          assert.equal((await f.page.evaluate(pendingKeys)).length, 1);
+          let page = f.page;
+          if (revisit === 'new-tab') {
+            page = await f.page.context().newPage();
+            await f.page.close();
+            await page.goto(origin + '/#wizard');
+          } else if (revisit === 'reload') await page.reload();
+          else await page.getByRole('button', { name: '回答に戻る', exact: false }).click();
+          await expect(page.getByRole('heading', { name: '前回の未確認送信を回復' })).toBeVisible();
+          assert.equal(f.posts.length, 1);
+          assert.equal(f.sessions.length, 1, 'revisit never auto-sends or starts a session');
+          await page.getByRole('button', { name: '前回の送信内容を確認する' }).click();
+          const checkbox = page.getByRole('checkbox', { name: '上の内容と公開範囲' });
+          await expect(checkbox).not.toBeChecked();
+          f.succeed();
+          await checkbox.check();
+          await page.getByRole('button', { name: '確認した内容でURLを発行' }).click();
+          await expect(page.locator('.diag-share-url')).toBeVisible();
+          assert.equal(f.posts.length, 2);
+          assert.deepEqual(stablePayload(f.posts[1]), stablePayload(original));
+          assert.equal(f.posts[1].resume, true);
+          assert.equal(f.sessions[1].resume, true);
+          assert.equal((await page.evaluate(pendingKeys)).length, 0);
+          assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('gemnao-diagnosis-v1')).shareId), undefined, 'old result never attaches to current diagnosis');
+          const storage = await page.evaluate(() => JSON.stringify(localStorage));
+          assert.ok(!storage.includes('b'.repeat(64)), 'recovery key never persists');
+        } finally { await f.close(); }
+      });
+    }
+    for (const failure of ['missing-cookie', 'wrong-cookie']) {
+      await t.test(failure + ' blocks recovered snapshot POST', async () => {
+        const f = await fixture(true);
+        try {
+          await f.checkbox.check();
+          await f.submit.click();
+          await expect(f.page.getByRole('alert')).toContainText('synthetic uncertain save');
+          await f.page.reload();
+          await f.page.getByRole('button', { name: '前回の送信内容を確認する' }).click();
+          f.failure(failure);
+          await f.checkbox.check();
+          await f.submit.click();
+          await expect(f.page.getByRole('alert')).toBeVisible();
+          await expect(f.submit).toBeEnabled();
+          assert.equal(f.posts.length, 1);
+          assert.equal((await f.page.evaluate(pendingKeys)).length, 1);
+        } finally { await f.close(); }
+      });
+    }
+    for (const storageFailure of ['quota', 'denied']) {
+      await t.test(storageFailure + ' local storage failure prevents any submission', async () => {
+        const f = await fixture();
+        try {
+          await f.page.evaluate((mode) => {
+            if (mode === 'denied') Object.defineProperty(window, 'localStorage', { get() { throw new Error('storage denied'); } });
+            else {
+              const original = Storage.prototype.setItem;
+              Storage.prototype.setItem = function(key, value) {
+                if (key.startsWith('gemnao-diagnosis-pending-v1:')) throw new DOMException('full', 'QuotaExceededError');
+                return original.call(this, key, value);
+              };
+            }
+          }, storageFailure);
+          await f.checkbox.check();
+          await f.submit.click();
+          await expect(f.page.getByRole('alert')).toContainText('共有内容は送信していません');
+          assert.equal(f.sessions.length, 0);
+          assert.equal(f.posts.length, 0);
+        } finally { await f.close(); }
+      });
+    }
+    await t.test('explicit local erase clears pending only after warning; it never deletes the remote share', async () => {
+      const f = await fixture(true);
+      try {
+        await f.checkbox.check();
+        await f.submit.click();
+        await expect(f.page.getByRole('alert')).toContainText('synthetic uncertain save');
+        f.page.once('dialog', (dialog) => dialog.dismiss());
+        await f.page.getByRole('button', { name: '端末内の記録を消す', exact: true }).click();
+        assert.equal((await f.page.evaluate(pendingKeys)).length, 1);
+        f.page.once('dialog', (dialog) => dialog.accept());
+        await f.page.getByRole('button', { name: '端末内の記録を消す', exact: true }).click();
+        assert.equal((await f.page.evaluate(pendingKeys)).length, 0);
+        assert.equal(f.posts.length, 1);
+        await f.page.reload();
+        await expect(f.page.getByRole('heading', { name: '前回の未確認送信を回復' })).toHaveCount(0);
+      } finally { await f.close(); }
+    });
+    for (const invalid of ['expired', 'version']) {
+      await t.test(invalid + ' pending data is removed without network replay', async () => {
+        const f = await fixture(true);
+        try {
+          await f.checkbox.check();
+          await f.submit.click();
+          await expect(f.page.getByRole('alert')).toContainText('synthetic uncertain save');
+          await f.page.evaluate((reason) => {
+            const key = Object.keys(localStorage).find((key) => key.startsWith('gemnao-diagnosis-pending-v1:'));
+            const value = JSON.parse(localStorage.getItem(key));
+            if (reason === 'expired') value.createdAt = Date.now() - 30 * 86400000;
+            else value.snapshot.version = 'old-version';
+            localStorage.setItem(key, JSON.stringify(value));
+          }, invalid);
+          await f.page.reload();
+          await expect(f.page.getByRole('button', { name: '続きから再開する' })).toBeVisible();
+          await expect(f.page.getByRole('heading', { name: '前回の未確認送信を回復' })).toHaveCount(0);
+          assert.equal((await f.page.evaluate(pendingKeys)).length, 0);
+          assert.equal(f.posts.length, 1);
+          assert.equal(f.sessions.length, 1);
+        } finally { await f.close(); }
+      });
+    }
     await t.test('cancel before submission clears confirmation and a disabled capability cannot send', async () => {
       const f = await fixture();
       try {

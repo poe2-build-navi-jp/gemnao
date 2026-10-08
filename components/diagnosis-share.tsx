@@ -10,6 +10,7 @@ import {
 import { diagnose, actions } from '@/lib/diagnosis/rules';
 import { DiagnosisSummary } from './diagnosis-result';
 import { diagnosisRequest } from '@/lib/diagnosis/local';
+import { readPendingShare, savePendingShare, removePendingShare, type PendingShare } from '@/lib/diagnosis/pending-share';
 export function ShareControls({
   id,
   onCopy,
@@ -93,15 +94,7 @@ export function SharePreview({
     </div>
   );
 }
-type ShareAttempt = {
-  requestId: string;
-  snapshot: {
-    answers: Answers;
-    tried: Record<string, ActionStatus>;
-    results: Record<string, ActionStatus>;
-    version: string;
-  };
-};
+type ShareAttempt = PendingShare;
 export function DiagnosisShare({
   answers,
   tried,
@@ -111,6 +104,7 @@ export function DiagnosisShare({
   onCreated,
   onMetric,
   onBusyChange,
+  initialAttempt,
 }: {
   answers: Answers;
   tried: Record<string, ActionStatus>;
@@ -120,6 +114,7 @@ export function DiagnosisShare({
   onCreated: (id: string) => void;
   onMetric: (event: string) => void;
   onBusyChange?: (busy: boolean) => void;
+  initialAttempt?: ShareAttempt;
 }) {
   const [preview, setPreview] = useState(false),
     [confirmed, setConfirmed] = useState(false),
@@ -129,7 +124,7 @@ export function DiagnosisShare({
     [expires, setExpires] = useState<number | null>(null);
   const content = JSON.stringify({ answers, tried, results, version: RULE_VERSION });
   const [reviewedContent, setReviewedContent] = useState(content);
-  const [attempt, setAttempt] = useState<ShareAttempt | null>(null);
+  const [attempt, setAttempt] = useState<ShareAttempt | null>(initialAttempt || null);
   const locked = useRef(false);
   const mounted = useRef(false);
   useEffect(() => {
@@ -152,13 +147,35 @@ export function DiagnosisShare({
     // Capture both before the session await. An uncertain save must never reuse
     // its request ID with different content, including after cancel/reopen.
     try {
-      const submission = attempt || {
+      let submission: ShareAttempt = attempt || {
+        version: 1,
+        createdAt: Date.now(),
+        ownerBinding: null,
         requestId: crypto.randomUUID().replaceAll('-', ''),
         snapshot: JSON.parse(content) as ShareAttempt['snapshot'],
       };
+      try {
+        if (!attempt && readPendingShare())
+          throw new Error('前回の未確認送信が残っています。回答に戻るか再読み込みして回復してください。');
+        savePendingShare(submission);
+      } catch (e) {
+        throw new Error('再試行情報を端末内に保存できないため、共有内容は送信していません。' +
+          (e instanceof Error ? e.message : 'ブラウザの保存設定や空き容量を確認してください。'));
+      }
       setAttempt(submission);
-      await diagnosisRequest('/session', {});
+      const resuming = submission.ownerBinding !== null;
+      const session = await diagnosisRequest<{ ownerBinding: string }>('/session', {
+        requestId: submission.requestId,
+        ...(submission.ownerBinding ? { resume: true } : {}),
+      });
       if (!mounted.current) return;
+      if (typeof session.ownerBinding !== 'string' || !/^[a-f0-9]{64}$/.test(session.ownerBinding) ||
+        (submission.ownerBinding && submission.ownerBinding !== session.ownerBinding))
+        throw new Error('元の管理用Cookieを確認できません。この送信を別のCookieで再作成することはできません。');
+      submission = { ...submission, ownerBinding: session.ownerBinding };
+      try { savePendingShare(submission); }
+      catch { throw new Error('再試行情報を端末内に保存できないため、共有内容は送信していません。保存設定や空き容量を確認してください。'); }
+      setAttempt(submission);
       const d = await diagnosisRequest<{
         id: string;
         recoveryKey: string | null;
@@ -167,6 +184,8 @@ export function DiagnosisShare({
       }>('', {
         snapshot: submission.snapshot,
         requestId: submission.requestId,
+        ownerBinding: submission.ownerBinding,
+        ...(resuming ? { resume: true } : {}),
       });
       if (
         typeof d.id !== 'string' || !/^[a-f0-9]{32}$/.test(d.id) ||
@@ -175,7 +194,10 @@ export function DiagnosisShare({
         typeof d.expiresAt !== 'number' || !Number.isFinite(d.expiresAt)
       ) throw new Error('保存を確認できませんでした。同じ内容で再試行してください。');
       if (!mounted.current) return;
+      let cleanupFailed = false;
+      try { removePendingShare(submission.requestId); } catch { cleanupFailed = true; }
       onCreated(d.id);
+      if (cleanupFailed) setError('共有は保存されましたが、端末内の再試行情報を消せませんでした。URLと管理キーを先に控えてください。');
       setKey(d.recoveryKey);
       setExpires(d.expiresAt);
       if (d.repeated && !d.recoveryKey)
@@ -239,14 +261,14 @@ export function DiagnosisShare({
                 setConfirmed(false);
               }}
             >
-              共有用ページを作る
+              {initialAttempt ? '前回の送信内容を確認する' : '共有用ページを作る'}
             </button>
           ) : (
             <>
               <SharePreview {...previewSnapshot} />
               {attempt && (
                 <p className="diag-notice">
-                  保存の再試行は、最初に送信を確認した上の内容と同じ受付情報を使います。その後の端末内の変更は送信しません。
+                  保存の再試行は、最初に送信を確認した上の内容と同じ受付情報を使います。その後の端末内の変更は送信しません。確認済みの内容・受付情報・同じCookieか確認する秘密ではない指紋を、このブラウザに最初の操作から最大30日保存します。自動送信はしません。
                 </p>
               )}
               <p className="diag-warning">
