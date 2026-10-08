@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { WikiHome } from '../components/wiki-home';
 import { LocalizedHome } from '../components/localized-home';
+import { DiagnosisCta } from '../components/diagnosis-cta';
 import { HomeBookmarkHelp } from '../components/home-bookmark-help';
 import { searchArticles } from '../lib/site-search';
 
@@ -64,3 +65,30 @@ assert.match(
 console.log(
   'PASS: home order, saved shortcut, real tools/examples, 4 localized native bookmark disclosures, CSS safeguards',
 );
+
+const previousEnabled = process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED;
+const previousBeta = process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA;
+try {
+  for (const [enabled, beta] of [['false', 'false'], ['true', 'false'], ['false', 'true']]) {
+    process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED = enabled;
+    process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA = beta;
+    const cta = renderToStaticMarkup(<DiagnosisCta home />);
+    assert.equal(renderToStaticMarkup(<DiagnosisCta />), '', 'article CTA still waits for runtime config');
+    if (enabled === 'false' && beta === 'false') {
+      assert.equal(cta, '', 'both build flags off must not add a slot');
+      continue;
+    }
+    assert.match(cta, /class="diagnosis-cta-home-slot"/);
+    assert.match(cta, /href="#symptoms"/, 'SSR and no-JS readers have a working article fallback');
+    assert.ok(!cta.includes('href="/diagnose"'), 'runtime gate remains closed in SSR');
+    assert.match(cta, /aria-hidden="true" inert="" style="visibility:hidden"/);
+    assert.match(cta, /<span class="diagnosis-cta-action">/);
+    assert.equal((cta.match(/<aside /g) || []).length, 2, 'both intrinsic sizes are reserved');
+  }
+} finally {
+  if (previousEnabled === undefined) delete process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED;
+  else process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED = previousEnabled;
+  if (previousBeta === undefined) delete process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA;
+  else process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA = previousBeta;
+}
+console.log('PASS: home SSR fallback, inert noninteractive measurement, build gates and unchanged article initial state');
