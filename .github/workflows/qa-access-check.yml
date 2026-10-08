@@ -5,6 +5,13 @@ on:
     paths:
       - cloudflare/worker-preview-policy.mjs
       - cloudflare/worker-preview.mjs
+      - wrangler.worker-preview.json
+      - lib/preview/worker-origin.ts
+      - scripts/prepare-worker-preview.mjs
+      - scripts/verify-worker-preview-artifact.mjs
+      - tests/worker-preview/**
+      - package.json
+      - pnpm-lock.yaml
       - tests/qa-access/**
       - ops/worker-qa-access/**
       - .github/workflows/qa-access-check.yml
