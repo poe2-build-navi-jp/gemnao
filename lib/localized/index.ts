@@ -1,3 +1,6 @@
+import { arcRaidersLocalizedArticles } from '@/lib/localized/arc-raiders';
+import { nightreignLocalizedArticles } from '@/lib/localized/nightreign';
+import { marvelRivalsLocalizedArticles } from '@/lib/localized/marvel-rivals';
 import { aceCombatLaunchArticles } from '@/lib/localized/ace-combat-launch-articles';
 import { recentGameArticlesEn } from '@/lib/localized/recent-game-articles-en';
 import { rocketLeagueLocalizedArticles } from '@/lib/localized/rocket-league-articles';
@@ -13,6 +16,9 @@ import { onimushaArticlesEn } from '@/lib/localized/onimusha-articles-en';
 import type { LocalizedArticle } from '@/lib/localized/types';
 
 export const localizedArticles: LocalizedArticle[] = [
+  ...arcRaidersLocalizedArticles,
+  ...nightreignLocalizedArticles,
+  ...marvelRivalsLocalizedArticles,
   ...aceCombatLaunchArticles,
   ...articlesEn,
   ...recentGameArticlesEn,

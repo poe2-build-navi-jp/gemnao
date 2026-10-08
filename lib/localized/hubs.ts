@@ -1,3 +1,6 @@
+import { arcRaidersLocalizedHub } from '@/lib/arc-raiders-hub';
+import { nightreignLocalizedHub } from '@/lib/localized/nightreign';
+import { marvelRivalsLocalizedHub } from '@/lib/localized/marvel-rivals';
 import type { Locale } from '@/lib/i18n';
 import { rocketLeagueLocalizedHub } from '@/lib/rocket-league-guide';
 
@@ -44,6 +47,9 @@ const store = (appId: string): LocalizedHub['sources'][number] => ({
 });
 
 export const localizedHubs: Record<string, LocalizedHub> = {
+  'arc-raiders': arcRaidersLocalizedHub,
+  'elden-ring-nightreign': nightreignLocalizedHub,
+  'marvel-rivals': marvelRivalsLocalizedHub,
   'rocket-league': { ...rocketLeagueLocalizedHub, noindex: true },
   'onimusha-way-of-the-sword': {
     lead: {
