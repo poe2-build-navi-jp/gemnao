@@ -766,9 +766,12 @@ void test('local pending records are bounded, isolated, fixed-expiry and never r
       snapshot: structuredClone(input),
     };
     savePendingShare(pending, now);
+    assert.throws(() => savePendingShare({ ...pending, ownerBinding: null }, now, true), /別の画面/);
+    assert.throws(() => savePendingShare({ ...pending, createdAt: now + 1 }, now, true), /別の画面/);
     savePendingShare({ ...pending, requestId: '3'.repeat(32) }, now);
     assert.equal(pendingShares(now).length, 2);
     removePendingShare(pending.requestId);
+    assert.throws(() => savePendingShare(pending, now, true), /削除または期限切れ/);
     assert.equal(pendingShares(now).length, 1, 'completion removes only matching attempt');
     const remaining = pendingShares(now)[0];
     savePendingShare(remaining, now + 1000);

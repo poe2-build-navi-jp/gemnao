@@ -409,7 +409,7 @@ await test('sharing consent is tied to content and immutable retry payloads', as
         assert.equal((await f.page.evaluate(pendingKeys)).length, 1);
         f.page.once('dialog', (dialog) => dialog.accept());
         await f.page.getByRole('button', { name: '端末内の記録を消す', exact: true }).click();
-        assert.equal((await f.page.evaluate(pendingKeys)).length, 0);
+        await expect.poll(async () => (await f.page.evaluate(pendingKeys)).length).toBe(0);
         assert.equal(f.posts.length, 1);
         await f.page.reload();
         await expect(f.page.getByRole('heading', { name: '前回の未確認送信を回復' })).toHaveCount(0);
@@ -438,6 +438,75 @@ await test('sharing consent is tied to content and immutable retry payloads', as
         } finally { await f.close(); }
       });
     }
+    await t.test('two tabs cannot start competing sessions for the same unbound attempt', async () => {
+      const f = await fixture(true);
+      let release;
+      try {
+        release = f.holdSession();
+        await f.checkbox.check();
+        await f.submit.click();
+        await expect.poll(() => f.sessions.length).toBe(1);
+        const other = await f.page.context().newPage();
+        await other.goto(origin + '/#wizard');
+        await other.getByRole('button', { name: '前回の送信内容を確認する' }).click();
+        await other.getByRole('checkbox', { name: '上の内容と公開範囲' }).check();
+        await other.getByRole('button', { name: '確認した内容でURLを発行' }).click();
+        await expect(other.getByRole('alert')).toContainText('別の画面で共有の処理中');
+        assert.equal(f.sessions.length, 1);
+        release();
+        await expect(f.page.getByRole('alert')).toContainText('synthetic uncertain save');
+        await other.getByRole('button', { name: '確認した内容でURLを発行' }).click();
+        await expect(other.getByRole('alert')).toContainText('別の画面で変わりました');
+        assert.equal(f.sessions.length, 1, 'stale unbound attempt cannot overwrite binding or open a new session');
+        await other.reload();
+        await other.getByRole('button', { name: '前回の送信内容を確認する' }).click();
+        await other.getByRole('checkbox', { name: '上の内容と公開範囲' }).check();
+        f.succeed();
+        await other.getByRole('button', { name: '確認した内容でURLを発行' }).click();
+        await expect(other.locator('.diag-share-url')).toBeVisible();
+        assert.equal(f.posts.length, 2);
+        assert.equal(f.posts[1].resume, true);
+        assert.deepEqual(stablePayload(f.posts[1]), stablePayload(f.posts[0]));
+      } finally { release?.(); await f.close(); }
+    });
+    await t.test('other-tab erase refuses while sending, then stale retries cannot resurrect erased local data', async () => {
+      const f = await fixture(true);
+      let release;
+      try {
+        release = f.holdSession();
+        await f.checkbox.check();
+        await f.submit.click();
+        await expect.poll(() => f.sessions.length).toBe(1);
+        const other = await f.page.context().newPage();
+        await other.goto(origin + '/#wizard');
+        await expect(other.getByRole('heading', { name: '前回の未確認送信を回復' })).toBeVisible();
+        other.once('dialog', (dialog) => dialog.accept());
+        await other.getByRole('button', { name: '端末内の記録を消す', exact: true }).click();
+        await expect(other.getByText('別の画面の共有処理が終わってから', { exact: false })).toBeVisible();
+        assert.equal((await other.evaluate(pendingKeys)).length, 1);
+        release();
+        await expect(f.page.getByRole('alert')).toContainText('synthetic uncertain save');
+        other.once('dialog', (dialog) => dialog.accept());
+        await other.getByRole('button', { name: '端末内の記録を消す', exact: true }).click();
+        await expect.poll(async () => (await other.evaluate(pendingKeys)).length).toBe(0);
+        await f.submit.click();
+        await expect(f.page.getByRole('alert')).toContainText('削除または期限切れ');
+        assert.equal(f.sessions.length, 1);
+        assert.equal(f.posts.length, 1);
+        assert.equal((await other.evaluate(pendingKeys)).length, 0);
+      } finally { release?.(); await f.close(); }
+    });
+    await t.test('unsupported cross-tab locks fail before session or snapshot POST', async () => {
+      const f = await fixture();
+      try {
+        await f.page.evaluate(() => Object.defineProperty(navigator, 'locks', { value: undefined }));
+        await f.checkbox.check();
+        await f.submit.click();
+        await expect(f.page.getByRole('alert')).toContainText('安全な再試行を準備できません');
+        assert.equal(f.sessions.length, 0);
+        assert.equal(f.posts.length, 0);
+      } finally { await f.close(); }
+    });
     await t.test('cancel before submission clears confirmation and a disabled capability cannot send', async () => {
       const f = await fixture();
       try {

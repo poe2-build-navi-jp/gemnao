@@ -1,4 +1,4 @@
-import { clearPendingShares, pendingShares } from './pending-share';
+import { clearPendingShares, pendingShares, withPendingShareLock } from './pending-share';
 import {
   RULE_VERSION,
   questionFor,
@@ -80,11 +80,13 @@ export function saveLocal(value: LocalDiagnosis): boolean {
     return false;
   }
 }
-export function clearLocal() {
+export async function clearLocal() {
   try {
+    return await withPendingShareLock(() => {
     localStorage.removeItem(LOCAL_KEY);
     clearPendingShares();
     return localStorage.getItem(LOCAL_KEY) === null && pendingShares().length === 0;
+    });
   } catch {
     return false;
   }

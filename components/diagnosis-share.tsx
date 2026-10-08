@@ -10,7 +10,7 @@ import {
 import { diagnose, actions } from '@/lib/diagnosis/rules';
 import { DiagnosisSummary } from './diagnosis-result';
 import { diagnosisRequest } from '@/lib/diagnosis/local';
-import { readPendingShare, savePendingShare, removePendingShare, type PendingShare } from '@/lib/diagnosis/pending-share';
+import { readPendingShare, savePendingShare, removePendingShare, withPendingShareLock, type PendingShare } from '@/lib/diagnosis/pending-share';
 export function ShareControls({
   id,
   onCopy,
@@ -147,6 +147,7 @@ export function DiagnosisShare({
     // Capture both before the session await. An uncertain save must never reuse
     // its request ID with different content, including after cancel/reopen.
     try {
+      await withPendingShareLock(async () => {
       let submission: ShareAttempt = attempt || {
         version: 1,
         createdAt: Date.now(),
@@ -157,7 +158,7 @@ export function DiagnosisShare({
       try {
         if (!attempt && readPendingShare())
           throw new Error('前回の未確認送信が残っています。回答に戻るか再読み込みして回復してください。');
-        savePendingShare(submission);
+        savePendingShare(submission, Date.now(), attempt !== null);
       } catch (e) {
         throw new Error('再試行情報を端末内に保存できないため、共有内容は送信していません。' +
           (e instanceof Error ? e.message : 'ブラウザの保存設定や空き容量を確認してください。'));
@@ -173,7 +174,7 @@ export function DiagnosisShare({
         (submission.ownerBinding && submission.ownerBinding !== session.ownerBinding))
         throw new Error('元の管理用Cookieを確認できません。この送信を別のCookieで再作成することはできません。');
       submission = { ...submission, ownerBinding: session.ownerBinding };
-      try { savePendingShare(submission); }
+      try { savePendingShare(submission, Date.now(), true); }
       catch { throw new Error('再試行情報を端末内に保存できないため、共有内容は送信していません。保存設定や空き容量を確認してください。'); }
       setAttempt(submission);
       const d = await diagnosisRequest<{
@@ -205,6 +206,7 @@ export function DiagnosisShare({
           '前の保存が完了していたため、同じURLを表示しています。管理キーは再表示できません。このブラウザから管理できますが、別の端末へ復元できるキーを控えていない場合は、必要に応じてこの共有を削除して作り直してください。',
         );
       setPreview(false);
+      });
     } catch (e) {
       if (mounted.current) setError(e instanceof Error ? e.message : '保存できませんでした。');
     } finally {

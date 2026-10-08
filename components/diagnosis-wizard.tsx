@@ -193,13 +193,13 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
     track('start');
     track('step', 'symptom');
   };
-  const reset = () => {
+  const reset = async () => {
     if (shareBusy) return;
     try {
       if (readPendingShare() && !window.confirm('未確認の共有送信を回復する情報も、この端末から消します。すでに作成された共有ページは削除されず、URLを受け取っていない場合は管理へ戻れなくなることがあります。端末内の記録を消しますか？')) return;
     } catch { /* clearLocal still attempts the user's requested removal. */ }
-    if (!clearLocal()) {
-      setNotice('端末内の記録を消去できたか確認できません。ブラウザのサイトデータ設定を確認してください。');
+    if (!(await clearLocal())) {
+      setNotice('端末内の記録を消去できたか確認できません。別の画面の共有処理が終わってから再試行し、ブラウザの保存設定も確認してください。');
       return;
     }
     setRecovery(null);
