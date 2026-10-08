@@ -49,7 +49,7 @@ function harness(overrides = {}) {
   return { options, calls, counts: () => ({ cliCalls, claims, reverifies }) };
 }
 
-test('missing initial immutable ID and mismatched name refuse before claim or CLI', async () => {
+void test('missing initial immutable ID and mismatched name refuse before claim or CLI', async () => {
   for (const api of [
     path => { if (path.endsWith(TARGET.workerId)) throw new Error('MOCK_NOT_FOUND'); },
     path => path.endsWith(TARGET.workerId) ? { result: null } : undefined,
@@ -62,7 +62,7 @@ test('missing initial immutable ID and mismatched name refuse before claim or CL
   }
 });
 
-test('existing settings, binding types, exact D1 and variables reject drift', async () => {
+void test('existing settings, binding types, exact D1 and variables reject drift', async () => {
   for (const change of [
     s => { s.bindings.find(x => x.type === 'd1').id = 'not-approved-database'; },
     s => { s.bindings.push({ type: 'service', name: 'EXTRA', service: 'other' }); },
@@ -84,13 +84,13 @@ test('existing settings, binding types, exact D1 and variables reject drift', as
   await assert.rejects(verifyExistingSettings(h.options.api, base));
 });
 
-test('claim error prevents CLI and is not retried', async () => {
+void test('claim error prevents CLI and is not retried', async () => {
   const h = harness({ claim: () => { throw new Error('MOCK_CLAIM_AMBIGUOUS'); } });
   await assert.rejects(updateExistingOnce(h.options), /MOCK_CLAIM_AMBIGUOUS/);
   assert.deepEqual(h.counts(), { cliCalls: 0, claims: 1, reverifies: 1 });
 });
 
-test('identity or exact binding drift after claim still blocks the final CLI', async () => {
+void test('identity or exact binding drift after claim still blocks the final CLI', async () => {
   for (const drift of ['identity', 'bindings']) {
     let claimed = false;
     const h = harness({ claim: () => { claimed = true; }, api: path => {
@@ -106,7 +106,7 @@ test('identity or exact binding drift after claim still blocks the final CLI', a
   }
 });
 
-test('expired approval, cost review or access window fails before CLI', async () => {
+void test('expired approval, cost review or access window fails before CLI', async () => {
   for (const mutate of [r => { r.expiresAt = time; }, r => { r.costReview.validUntil = time; },
     r => { r.access.expiresAt = time; }, r => { r.access.notBefore = time + 1; }]) {
     const r = record(); mutate(r);
@@ -120,14 +120,14 @@ test('expired approval, cost review or access window fails before CLI', async ()
   assert.equal(h.counts().cliCalls, 0); assert.equal(h.counts().claims, 1);
 });
 
-test('ambiguous CLI failure invokes once and never retries or reports success', async () => {
+void test('ambiguous CLI failure invokes once and never retries or reports success', async () => {
   const h = harness({ cli: () => { throw new Error('BLOCKED:WRANGLER_OUTCOME_UNKNOWN_NO_RERUN'); } });
   await assert.rejects(updateExistingOnce(h.options), /OUTCOME_UNKNOWN_NO_RERUN/);
   assert.deepEqual(h.counts(), { cliCalls: 1, claims: 1, reverifies: 2 });
   assert.equal(h.calls.filter(([, p]) => p.endsWith('/settings')).length, 2);
 });
 
-test('successful update invokes once, preserves OFF flags and reads back identity/settings', async () => {
+void test('successful update invokes once, preserves OFF flags and reads back identity/settings', async () => {
   const h = harness({ cli: config => {
     assert.equal(config.name, TARGET.worker);
     assert.deepEqual(config.d1_databases, base.d1_databases);
@@ -143,14 +143,14 @@ test('successful update invokes once, preserves OFF flags and reads back identit
   assert.equal(h.calls.filter(([, p]) => p === '/workers/workers/' + TARGET.workerId).length, 3);
 });
 
-test('post-write identity/settings failure does not retry an already invoked CLI', async () => {
+void test('post-write identity/settings failure does not retry an already invoked CLI', async () => {
   let written = false;
   const h = harness({ cli: () => { written = true; }, api: path =>
     written && path.endsWith(TARGET.workerId) ? { result: { ...identity(), id: 'changed-id' } } : undefined });
   await assert.rejects(updateExistingOnce(h.options)); assert.equal(h.counts().cliCalls, 1);
 });
 
-test('update record rejects bypass scope, missing race disclosure and digest tampering', () => {
+void test('update record rejects bypass scope, missing race disclosure and digest tampering', () => {
   const validScope = { ...record(), approvedAt: time, workerId: TARGET.workerId,
     operation: 'install-existing-qa-gate-intake-off', expectedState: 'existing-public-qa-intake-off-without-access-gate',
     residualUpdateRace: 'exists-before-call-not-atomic-against-external-delete-rename-accepted',
@@ -167,7 +167,7 @@ test('update record rejects bypass scope, missing race disclosure and digest tam
   assert.throws(() => validateUpdateRecord(JSON.stringify(validScope), '0'.repeat(64), {}, {}, time), /RECORD_DIGEST/);
 });
 
-test('exact workflow context rejects wrong repository, ref, event, attempt, SHA, job and debug', () => {
+void test('exact workflow context rejects wrong repository, ref, event, attempt, SHA, job and debug', () => {
   const sha = 'a'.repeat(40);
   const env = { GITHUB_ACTIONS: 'true', GITHUB_REPOSITORY: 'poe2-build-navi-jp/gemnao',
     GITHUB_EVENT_NAME: 'workflow_dispatch', GITHUB_REF: SETUP.ref, GITHUB_RUN_ATTEMPT: '1',
@@ -214,10 +214,10 @@ function completeRecord() {
 function checkComplete(r, env = recordEnv, p = pins) {
   const bytes = JSON.stringify(r); return validateUpdateRecord(bytes, digest(bytes), env, p, time);
 }
-test('complete exact-run update record validates without changing its operation', () => {
+void test('complete exact-run update record validates without changing its operation', () => {
   const r = completeRecord(); assert.deepEqual(checkComplete(r), r);
 });
-test('inherited owner, token, cost, artifact and exact-run schema cannot be bypassed', () => {
+void test('inherited owner, token, cost, artifact and exact-run schema cannot be bypassed', () => {
   for (const mutate of [r => { r.ownerId++; }, r => { r.runId++; }, r => { r.commit = 'd'.repeat(40); },
     r => { r.tokenReview.scopeKnown = false; }, r => { r.tokenReview.noExpansion = false; },
     r => { delete r.wranglerRetries; }, r => { delete r.nameTargeting; },
@@ -269,10 +269,10 @@ function preflightHarness(change = () => {}) {
   };
   return { run: () => preflightUpdate({ api, transport, record: r, baseConfig: base }), cfCalls: () => cfCalls };
 }
-test('mocked full owner approval, artifact provenance and exact provider identity preflight succeeds with GETs only', async () => {
+void test('mocked full owner approval, artifact provenance and exact provider identity preflight succeeds with GETs only', async () => {
   const f = preflightHarness(); await f.run(); assert.ok(f.cfCalls() > 0);
 });
-test('preflight rejects protection, owner, workflow, branch, history and artifact drift before CF access', async () => {
+void test('preflight rejects protection, owner, workflow, branch, history and artifact drift before CF access', async () => {
   for (const change of [
     f => { f.environment.can_admins_bypass = true; },
     f => { f.environment.protection_rules[0].reviewers[0].reviewer.id++; },
