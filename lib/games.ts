@@ -1,3 +1,6 @@
+import { arcRaidersGuide } from '@/lib/arc-raiders';
+import { nightreignGuide } from '@/lib/nightreign';
+import { marvelRivalsGuide } from '@/lib/marvel-rivals';
 import { aniimoHubTitle, aniimoHubAnswer } from '@/lib/aniimo-troubleshooting';
 import { rocketLeagueGuide } from '@/lib/rocket-league-guide';
 
@@ -30,6 +33,9 @@ const pcgw = (path: string) => `https://www.pcgamingwiki.com/wiki/${path}`;
 const steam = (id: string) => `https://store.steampowered.com/app/${id}`;
 
 export const games: GameGuide[] = [
+  arcRaidersGuide,
+  nightreignGuide,
+  marvelRivalsGuide,
   rocketLeagueGuide,
   {
     slug: 'aniimo',

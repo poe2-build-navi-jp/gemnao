@@ -1,3 +1,6 @@
+import { arcRaidersLocalizedArticles } from '@/lib/localized/arc-raiders';
+import { nightreignLocalizedArticles } from '@/lib/localized/nightreign';
+import { marvelRivalsLocalizedArticles } from '@/lib/localized/marvel-rivals';
 import { aceCombatLaunchArticles } from '@/lib/localized/ace-combat-launch-articles';
 import { onimushaArticlesEn } from '@/lib/localized/onimusha-articles-en';
 import { rocketLeagueLocalizedArticles } from '@/lib/localized/rocket-league-articles';
@@ -197,6 +200,9 @@ export function ogCardSpecs(): OgCardSpec[] {
     ...pcCards,
     ...gearCards,
     ...[
+      ...arcRaidersLocalizedArticles,
+      ...nightreignLocalizedArticles,
+      ...marvelRivalsLocalizedArticles,
       ...aceCombatLaunchArticles,
       ...rocketLeagueLocalizedArticles,
       ...localizedDiscordUploadArticles,
@@ -219,6 +225,29 @@ export function ogCardSpecs(): OgCardSpec[] {
       }[article.locale],
       items: article.steps.slice(0, 4).map((step) => step.title),
     })),
+    ...['arc-raiders', 'elden-ring-nightreign', 'marvel-rivals'].flatMap(
+      (gameSlug) => (['en', 'zh', 'es'] as const).map((locale) => ({
+        path: `/${locale}/games/${gameSlug}`,
+        locale,
+        eyebrow: {
+          en: 'PC troubleshooting guides',
+          zh: 'PC 版问题排查',
+          es: 'Guías para resolver problemas en PC',
+        }[locale],
+        title: localizedHubs[gameSlug].title![locale]!,
+        itemsLabel: {
+          en: 'Choose your symptom',
+          zh: '选择你的症状',
+          es: 'Elige el síntoma',
+        }[locale],
+        items: [
+          ...arcRaidersLocalizedArticles,
+          ...nightreignLocalizedArticles,
+          ...marvelRivalsLocalizedArticles,
+        ].filter((article) => article.gameSlug === gameSlug && article.locale === locale)
+          .map((article) => article.shortTitle),
+      })),
+    ),
     ...(['en', 'zh', 'es'] as const).map((locale) => ({
       path: `/${locale}/games/rocket-league`,
       locale,

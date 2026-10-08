@@ -1,3 +1,5 @@
+import { gameArticles, hubIndexable } from '../lib/game-articles';
+import { ogCardSpecs } from '../lib/og-cards';
 // Renders every translated page and fails if Japanese text leaks into it,
 // if a page lacks hreflang alternates, or if an article and its Japanese
 // original drift apart (different step ids). Run: pnpm check:localized
@@ -326,4 +328,44 @@ assert.ok(
     'reinstalling does not remove them',
   ),
 );
-console.log(`PASS: ${pages} translated pages`);
+
+
+// New game expansion: four-language parity and registry-backed navigation.
+const expansionGames = ['arc-raiders', 'elden-ring-nightreign', 'marvel-rivals'];
+const expansionCards = ogCardSpecs();
+for (const gameSlug of expansionGames) {
+  const game = gameBySlug(gameSlug);
+  assert(game?.focused, `${gameSlug}: expected a source-scoped hub`);
+  const originals = gameArticles.filter((article) => article.gameSlug === gameSlug);
+  assert.equal(originals.length, 2, `${gameSlug}: two distinct symptom guides`);
+  assert(hubIndexable(game), `${gameSlug}: two-article hub is indexable`);
+  const hub = localizedHubs[gameSlug];
+  assert(hub.focused && !hub.noindex && hub.checkedAt, `${gameSlug}: complete focused hub`);
+  for (const locale of locales) {
+    assert(hub.names?.[locale] && hub.title?.[locale], `${gameSlug}: localized hub identity`);
+    assert.equal(languageAlternates(`/games/${gameSlug}`)[locale === 'zh' ? 'zh-Hans' : locale], `/${locale}/games/${gameSlug}`);
+  }
+  for (const original of originals) {
+    const path = `/games/${gameSlug}/${original.slug}`;
+    for (const related of original.related)
+      assert(originals.some((article) => article.slug === related), `${path}: related guide exists`);
+    for (const locale of locales) {
+      const translations = localizedArticles.filter((article) => article.gameSlug === gameSlug && article.slug === original.slug && article.locale === locale);
+      assert.equal(translations.length, 1, `${path}: exactly one ${locale} translation`);
+      const translation = translations[0];
+      assert(translation.gameName, `${path}: no unsupported game-facts fallback`);
+      assert.deepEqual(translation.sources.map((source) => source.url), original.sources!.map((source) => source.url), `${path}: source parity`);
+      assert.equal(translation.faqs.length, original.faqs!.length, `${path}: FAQ parity`);
+      assert.equal(translation.avoid.length, original.avoid!.length, `${path}: safety parity`);
+      assert.equal(translation.cautions.length, original.cautions.length, `${path}: caution parity`);
+      assert.equal(languageAlternates(path)[locale === 'zh' ? 'zh-Hans' : locale], `/${locale}${path}`);
+    }
+  }
+  for (const prefix of ['', '/en', '/zh', '/es']) {
+    const paths = [`${prefix}/games/${gameSlug}`, ...originals.map((article) => `${prefix}/games/${gameSlug}/${article.slug}`)];
+    for (const path of paths)
+      assert.equal(expansionCards.filter((card) => card.path === path).length, 1, `${path}: exactly one OG specification`);
+  }
+}
+
+console.log(`PASS: ${pages} translated pages and three-game expansion parity`);

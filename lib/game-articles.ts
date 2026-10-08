@@ -1,3 +1,6 @@
+import { arcRaidersArticles } from '@/lib/arc-raiders';
+import { nightreignArticles } from '@/lib/nightreign';
+import { marvelRivalsArticles } from '@/lib/marvel-rivals';
 import { verifiedReleaseArticles } from './verified-release-articles';
 import { rocketLeagueArticles } from './rocket-league-articles';
 import { gameBySlug } from '@/lib/games';
@@ -964,6 +967,9 @@ const originalGameArticles: GameArticle[] = [
 ];
 
 export const gameArticles: GameArticle[] = [
+  ...arcRaidersArticles,
+  ...nightreignArticles,
+  ...marvelRivalsArticles,
   ...rocketLeagueArticles,
   ...aniimoArticles,
   ...monsterHunterArticles,

@@ -1,4 +1,5 @@
 import test from 'node:test';
+// Node tracks top-level tests; explicitly discard registration promises without changing scheduling.
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {FIXED,validatePins,validateContext,validateRecord,deploymentConfig,createApi,deployOnce,preflight} from '../../ops/worker-qa/deploy.mjs';
@@ -21,14 +22,14 @@ function config(){return {$schema:'./node_modules/wrangler/config-schema.json',n
  main:'./cloudflare/worker-preview.mjs',compatibility_date:'2026-05-22',compatibility_flags:['nodejs_compat'],workers_dev:true,
  preview_urls:false,send_metrics:false,upload_source_maps:false,assets:{directory:'./dist/worker-preview/assets',binding:'ASSETS',run_worker_first:true,html_handling:'none',not_found_handling:'none'},
  vars:{QA_PREVIEW_ORIGIN:pins.origin,DIAGNOSIS_LOCAL_BETA:'true',DIAGNOSIS_ENABLED:'false',DIAGNOSIS_STORAGE_ENABLED:'false',DIAGNOSIS_SHARING_ENABLED:'false',DIAGNOSIS_WRITES_ENABLED:'false',DIAGNOSIS_METRICS_ENABLED:'false',DIAGNOSIS_PREVIEW_SHARING_ENABLED:'false',DIAGNOSIS_PREVIEW_ORIGIN:pins.origin,FEEDBACK_ENABLED:'false',FEEDBACK_PREVIEW_ENABLED:'false',FEEDBACK_PREVIEW_ORIGIN:pins.origin},d1_databases:structuredClone(FIXED.databases)};}
-test('reviewed committed pins validate; disabled or incomplete pins fail before provider action',async()=>{
+void test('reviewed committed pins validate; disabled or incomplete pins fail before provider action',async()=>{
  const p=JSON.parse(await readFile(new URL('../../ops/worker-qa/pins.json',import.meta.url),'utf8'));
  assert.equal(validatePins(p),p);
  assert.throws(()=>validatePins({...p,executionReviewed:false}),/UNREVIEWED_PINS/);
  for(const field of ['sourceCommit','sourceTree','origin','sourceLockSha256'])
   assert.throws(()=>validatePins({...p,[field]:null}),/UNREVIEWED_PINS/);
 });
-test('only a complete exact-run synthetic record validates',()=>assert.equal(check(record()).runId,1234));
+void test('only a complete exact-run synthetic record validates',()=>assert.equal(check(record()).runId,1234));
 for(const [label,mutate] of Object.entries({
  'unknown token scope':r=>r.tokenReview.scopeKnown=false,
  'unknown free plan':r=>r.costReview.workersPlan='unknown',
@@ -39,12 +40,12 @@ for(const [label,mutate] of Object.entries({
  'insufficient traffic headroom':r=>r.costReview.budgets.workerRequests.remaining=0,
  'intake activation':r=>r.intakeEnabled=true,
  'wrong D1 receipt':r=>r.creationReceiptSha256='d'.repeat(64),
-})) test(label+' blocks',()=>{const r=record();mutate(r);assert.throws(()=>check(r),/BLOCKED/);});
-test('workflow is exact manual, controller branch, first attempt and hosted',()=>{
+})) void test(label+' blocks',()=>{const r=record();mutate(r);assert.throws(()=>check(r),/BLOCKED/);});
+void test('workflow is exact manual, controller branch, first attempt and hosted',()=>{
  const e={...env,GITHUB_ACTIONS:'true',GITHUB_REPOSITORY:TARGET.repository,GITHUB_EVENT_NAME:'workflow_dispatch',GITHUB_REF:SETUP.ref,GITHUB_RUN_ATTEMPT:'1',GITHUB_WORKFLOW_SHA:sha,GITHUB_WORKFLOW_REF:`${TARGET.repository}/${FIXED.workflow}@${SETUP.ref}`,RUNNER_ENVIRONMENT:'github-hosted',GITHUB_JOB:'deploy'};
  validateContext(e,sha,'deploy');for(const key of ['GITHUB_RUN_ATTEMPT','GITHUB_REF','GITHUB_JOB','GITHUB_WORKFLOW_SHA'])assert.throws(()=>validateContext({...e,[key]:'wrong'},sha,'deploy'));
 });
-test('derivative config disables rebundling and keeps only two exact D1s plus assets',()=>{
+void test('derivative config disables rebundling and keeps only two exact D1s plus assets',()=>{
  const d=deploymentConfig(config(),pins.origin);assert.equal(d.no_bundle,true);assert.equal(d.observability.enabled,false);assert.equal(d.logpush,false);assert.deepEqual(d.d1_databases,FIXED.databases);
 });
 for(const [label,mutate] of Object.entries({
@@ -52,7 +53,7 @@ for(const [label,mutate] of Object.entries({
  'Cron':c=>c.triggers={crons:['* * * * *']},'build hook':c=>c.build={command:'evil'},
  'custom route':c=>c.routes=['example.com/*'],'GA variable':c=>c.vars.GA_ID='G-FAKE',
  'enabled intake':c=>c.vars.FEEDBACK_ENABLED='true','wrong hostname':c=>c.vars.QA_PREVIEW_ORIGIN='https://example.com',
-}))test(label+' config blocks',()=>{const c=config();mutate(c);assert.throws(()=>deploymentConfig(c,pins.origin));});
+}))void test(label+' config blocks',()=>{const c=config();mutate(c);assert.throws(()=>deploymentConfig(c,pins.origin));});
 function fakeDeployment(options={}) {
  const calls=[],id='d'.repeat(32),r=record(),vars=config().vars;let deployed=false;
  const api=async(service,path,method='GET',body)=>{
@@ -67,21 +68,21 @@ function fakeDeployment(options={}) {
  claim:async()=>{claims++;if(options.claimError)throw Error('claim conflict');},reverify:async()=>{verifies++;},
  runWrangler:async()=>{deploys++;if(options.deployError)throw Error('uncertain');deployed=true;}})};
 }
-test('one fresh identity, rechecks, one Wrangler invocation, exact readbacks',async()=>{
+void test('one fresh identity, rechecks, one Wrangler invocation, exact readbacks',async()=>{
  const f=fakeDeployment();const got=await f.run();assert.equal(got.intakeEnabled,false);assert.equal(got.actualQaVerified,false);assert.equal(got.origin,pins.origin);
  assert.deepEqual(f.counts(),{claims:1,deploys:1,verifies:2});assert.equal(f.calls.filter(x=>x.method!=='GET').length,1);
  assert.ok(!f.calls.some(x=>x.method==='DELETE'||x.path.includes('/query')));
 });
-for(const option of ['claimError','createError','deployError','identityDrift','bindingDrift'])test(option+' stops without retry or deletion',async()=>{
+for(const option of ['claimError','createError','deployError','identityDrift','bindingDrift'])void test(option+' stops without retry or deletion',async()=>{
  const f=fakeDeployment({[option]:true});await assert.rejects(f.run());assert.ok(f.counts().deploys<=1);assert.ok(f.calls.filter(x=>x.method==='POST').length<=1);assert.ok(!f.calls.some(x=>x.method==='DELETE'));
 });
-test('a returned pre-existing immutable ID is rejected',async()=>{const f=fakeDeployment({existingIds:['d'.repeat(32)]});await assert.rejects(f.run(),/CREATE_OUTCOME_UNKNOWN/);assert.equal(f.counts().deploys,0);});
-test('bounded API rejects mutation outside create and malformed provider response',async()=>{
+void test('a returned pre-existing immutable ID is rejected',async()=>{const f=fakeDeployment({existingIds:['d'.repeat(32)]});await assert.rejects(f.run(),/CREATE_OUTCOME_UNKNOWN/);assert.equal(f.counts().deploys,0);});
+void test('bounded API rejects mutation outside create and malformed provider response',async()=>{
  let sent=0;const api=createApi(async(url)=>{sent++;const r=new Response(JSON.stringify({success:false,result:{},errors:[]} ),{headers:{'content-type':'application/json'}});Object.defineProperty(r,'url',{value:url});return r;});
  await assert.rejects(api('cf','/workers/scripts/anything','DELETE'),/REQUEST_SCOPE/);assert.equal(sent,0);
  await assert.rejects(api('cf',''),/CF_ENVELOPE/);assert.equal(sent,1);
 });
-test('workflow only injects Cloudflare credential in final action; artifact is immutable',async()=>{
+void test('workflow only injects Cloudflare credential in final action; artifact is immutable',async()=>{
  const y=await readFile(new URL('../../.github/workflows/worker-qa-deploy.yml',import.meta.url),'utf8');
  assert.equal((y.match(/GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN: \$\{\{/g)||[]).length,1);
  assert.match(y,/overwrite: false/);assert.match(y,/retention-days: 1/);assert.match(y,/artifact-ids:/);
@@ -109,7 +110,7 @@ function preflightFixture(change=()=>{}) {
  };
  return {calls,run:()=>preflight({api,transport,record:r,pins})};
 }
-test('preflight authenticates exact owner, run, artifact, account, origin and receipt DBs using reads only',async()=>{
+void test('preflight authenticates exact owner, run, artifact, account, origin and receipt DBs using reads only',async()=>{
  const f=preflightFixture();assert.equal((await f.run()).length,1);assert.ok(f.calls.every(x=>!x.includes('/query')));
 });
 for(const [label,edit] of Object.entries({
@@ -121,8 +122,8 @@ for(const [label,edit] of Object.entries({
  'wrong D1':d=>d[`/d1/database/${FIXED.databases[0].database_id}`].result.uuid='wrong',
  'missing owner approval':d=>d['/actions/runs/1234/approvals']=[],
  'unreconciled prior run':d=>{const h=d['/actions/workflows/worker-qa-deploy.yml/runs?per_page=100&page=1'];h.total_count=2;h.workflow_runs.push({id:1233,head_sha:sha,run_attempt:1,status:'completed'});},
-}))test(label+' preflight fails without a mutation',async()=>await assert.rejects(preflightFixture(edit).run(),/BLOCKED/));
-test('documented Cron result.schedules is required; arrays and malformed objects fail',async()=>{
+}))void test(label+' preflight fails without a mutation',async()=>await assert.rejects(preflightFixture(edit).run(),/BLOCKED/));
+void test('documented Cron result.schedules is required; arrays and malformed objects fail',async()=>{
  for(const cronResult of [[],{},null,{schedules:null},{schedules:[null]},{schedules:[{cron:'* * * * *'}]}]) {
   // null is provided directly by a transport fixture because undefined means default.
   const f=fakeDeployment({cronResult:cronResult===null?{schedules:null}:cronResult});
@@ -133,14 +134,14 @@ function envelopeApi(json) {return createApi(async url=>{
  const response=new Response(JSON.stringify(json),{headers:{'content-type':'application/json'}});
  Object.defineProperty(response,'url',{value:url});return response;
 });}
-test('beta Worker create/get/version and list accept absent/null errors with explicit success only',async()=>{
+void test('beta Worker create/get/version and list accept absent/null errors with explicit success only',async()=>{
  for(const errors of [undefined,null])for(const [method,path] of [
   ['POST','/workers/workers'],['GET','/workers/workers?per_page=100&page=1'],
   ['GET',`/workers/workers/${'a'.repeat(32)}`],['GET',`/workers/workers/${FIXED.worker}`],
   ['GET',`/workers/workers/${'a'.repeat(32)}/versions/11111111-1111-1111-1111-111111111111?include=modules`],
  ]) await envelopeApi({success:true,errors,result:{}})('cf',path,method);
 });
-test('envelope compatibility never relaxes explicit success, errors or other endpoint families',async()=>{
+void test('envelope compatibility never relaxes explicit success, errors or other endpoint families',async()=>{
  for(const json of [{result:{}},{success:false,result:{}},{success:'true',result:{}},
   {success:true,errors:{},result:{}},{success:true,errors:[{message:'synthetic'}],result:{}}])
   await assert.rejects(envelopeApi(json)('cf','/workers/workers','POST'),/CF_ENVELOPE/);
@@ -150,7 +151,7 @@ test('envelope compatibility never relaxes explicit success, errors or other end
  // Version writes remain unsupported by the wrapper; official Wrangler owns them.
  await assert.rejects(envelopeApi({success:true,result:{}})('cf',`/workers/workers/${'a'.repeat(32)}/versions`,'POST'),/REQUEST_SCOPE/);
 });
-test('explicit user-configured token scope with fixed authenticated receipt preserves unverified restrictions/expiry',()=>{
+void test('explicit user-configured token scope with fixed authenticated receipt preserves unverified restrictions/expiry',()=>{
  const r=record();r.tokenReview={kind:'user-configured-scope-plus-authenticated-target-receipt',secretName:SETUP.secret,
   accountId:TARGET.accountId,noExpansion:true,evidenceSha256:hash,creationRunId:37640786041,
   creationReceiptSha256:FIXED.receiptSha256,accountRestriction:'unverified',expiry:'unverified'};
