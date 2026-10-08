@@ -21,7 +21,8 @@ const settings = config => ({ bindings: [
   ...Object.entries(config.vars).map(([name, text]) => ({ type: 'plain_text', name, text })),
 ] });
 function harness(overrides = {}) {
-  let current = structuredClone(base), calls = [], cliCalls = 0, claims = 0, reverifies = 0;
+  const calls = [];
+  let current = structuredClone(base), cliCalls = 0, claims = 0, reverifies = 0;
   const api = async (provider, path) => {
     calls.push([provider, path]);
     assert.equal(provider, 'cf');
