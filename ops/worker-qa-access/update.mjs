@@ -1,3 +1,4 @@
+import { classifyQaAccessSecret } from './secret-format.mjs';
 // Reuses pinned, reviewed verification. No provider request/credential on import.
 import { createHash } from 'node:crypto';
 import { readFile, writeFile, appendFile, mkdtemp, rm } from 'node:fs/promises';
@@ -48,7 +49,7 @@ export function verifyUpdateContext(env,checkoutSha,job) {
     'WORKFLOW_CONTEXT');
 }
 export function accessVars(secret,record) {
-  need(typeof secret==='string' && /^[\x21-\x7e]{43,128}(?![\s\S])/.test(secret),'QA_ACCESS_SECRET_FORMAT');
+  need(classifyQaAccessSecret(secret)==='valid','QA_ACCESS_SECRET_FORMAT');
   return {QA_ACCESS_SHA256:sha256(secret),QA_ACCESS_NOT_BEFORE:String(record.access.notBefore),
     QA_ACCESS_EXPIRES_AT:String(record.access.expiresAt)};
 }
@@ -179,3 +180,4 @@ if(process.argv[1]===fileURLToPath(import.meta.url)) {
     console.error('Do not rerun. Reconcile the existing Worker read-only.');process.exitCode=1;
   }
 }
+
