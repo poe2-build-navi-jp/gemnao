@@ -3,14 +3,14 @@ import { test } from 'node:test';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { TARGET, existingIdentity, verifyExistingSettings, updateExistingOnce,
-  validateUpdateRecord, verifyUpdateContext, accessVars, preflightUpdate } from '../../ops/worker-qa-access/update.mjs';
+  validateUpdateRecord, verifyUpdateContext, accessVars, preflightUpdate, transitionConfigs, OPERATIONS, SYNTHETIC_FLAGS } from '../../ops/worker-qa-access/update.mjs';
 import { FIXED } from '../../reviewed-controller/ops/worker-qa/deploy.mjs';
 import { SETUP } from '../../reviewed-controller/ops/feedback-preview/live.mjs';
 
 const time = 1791471600000;
 const base = JSON.parse(readFileSync('wrangler.worker-preview.json', 'utf8'));
 const token = 'SYNTHETIC_TEST_FIXTURE_NOT_A_REAL_PASSWORD_0001';
-const record = () => ({ expiresAt: time + 60000, costReview: { validUntil: time + 60000 },
+const record = () => ({ operation: 'install-existing-qa-gate-intake-off', expiresAt: time + 60000, costReview: { validUntil: time + 60000 },
   access: { notBefore: time, expiresAt: time + 3600000 } });
 const identity = () => ({ id: TARGET.workerId, name: TARGET.worker,
   subdomain: { enabled: true, previews_enabled: false }, logpush: false,
@@ -22,7 +22,7 @@ const settings = config => ({ bindings: [
 ] });
 function harness(overrides = {}) {
   const calls = [];
-  let current = structuredClone(base), cliCalls = 0, claims = 0, reverifies = 0;
+  let current = structuredClone(overrides.initialConfig ?? base), cliCalls = 0, claims = 0, reverifies = 0;
   const api = async (provider, path) => {
     calls.push([provider, path]);
     assert.equal(provider, 'cf');
@@ -215,6 +215,64 @@ function completeRecord() {
 function checkComplete(r, env = recordEnv, p = pins) {
   const bytes = JSON.stringify(r); return validateUpdateRecord(bytes, digest(bytes), env, p, time);
 }
+
+function transitionRecord(on=true) {
+  const r=completeRecord();
+  r.operation=on?OPERATIONS.on:OPERATIONS.off;r.intakeEnabled=on;
+  r.expectedState=on?'existing-gated-qa-intake-off':'existing-gated-qa-synthetic-on';
+  r.syntheticPlanSha256=hash;
+  r.costReview.validUntil=time+3600000;
+  r.priorDeployment={runId:1233,commit,receiptSha256:hash,intakeEnabled:!on,
+    access:{notBefore:time-3600000,expiresAt:time-1}};
+  r.reconciledWriteRuns=[{id:1233,headSha:commit,evidenceSha256:hash}];
+  if(!on)r.access={...r.access,...r.priorDeployment.access};
+  return r;
+}
+void test('bounded ON and expired unchanged-gate OFF records validate',()=>{
+  for(const on of [true,false])assert.deepEqual(checkComplete(transitionRecord(on)),transitionRecord(on));
+});
+void test('ON requires exact OFF baseline, successful receipt and synthetic scope',()=>{
+  for(const mutate of [r=>{r.expectedState='anything'},r=>{r.priorDeployment.intakeEnabled=true},
+    r=>{delete r.priorDeployment},r=>{r.reconciledWriteRuns=[]},r=>{r.syntheticPlanSha256='bad'},
+    r=>{r.syntheticOnly=false},r=>{r.intakeEnabled=false},r=>{r.access.expiresAt=time},
+    r=>{r.access.expiresAt=time+3600001},r=>{r.costReview.validUntil=r.access.expiresAt-1}]){
+    const r=transitionRecord();mutate(r);assert.throws(()=>checkComplete(r),/BLOCKED:/);
+  }
+});
+void test('OFF cannot extend, replace or reopen the preserved gate',()=>{
+  for(const mutate of [r=>{r.access.expiresAt++},r=>{r.access.notBefore++},
+    r=>{r.priorDeployment.intakeEnabled=false},r=>{r.intakeEnabled=true}]){
+    const r=transitionRecord(false);mutate(r);assert.throws(()=>checkComplete(r),/BLOCKED:/);
+  }
+});
+void test('transition configs change only seven synthetic flags and approved gate times',()=>{
+  const r=transitionRecord(),v=accessVars(token,r),c=transitionConfigs(base,r,v);
+  for(const key of SYNTHETIC_FLAGS){assert.equal(c.expected.vars[key],'false');assert.equal(c.desired.vars[key],'true')}
+  for(const config of [c.expected,c.desired]){
+    assert.equal(config.vars.DIAGNOSIS_LOCAL_BETA,'true');assert.equal(config.vars.DIAGNOSIS_METRICS_ENABLED,'false');
+    assert.deepEqual(config.d1_databases,base.d1_databases);assert.equal(config.vars.QA_PREVIEW_ORIGIN,TARGET.origin);
+    assert.equal(config.vars.QA_ACCESS_SHA256,v.QA_ACCESS_SHA256);
+  }
+  assert.equal(c.expected.vars.QA_ACCESS_EXPIRES_AT,String(r.priorDeployment.access.expiresAt));
+  assert.equal(c.desired.vars.QA_ACCESS_EXPIRES_AT,String(r.access.expiresAt));
+});
+void test('ON/OFF use same one-shot identity checked path, including OFF after expiry',async()=>{
+  for(const on of [true,false]){
+    const r=transitionRecord(on),vars=accessVars(token,r),c=transitionConfigs(base,r,vars);
+    const h=harness({initialConfig:c.expected,options:{record:r,vars}});
+    const result=await updateExistingOnce(h.options);
+    assert.equal(result.intakeEnabled,on);assert.equal(result.actualQaVerified,false);
+    assert.deepEqual(h.counts(),{cliCalls:1,claims:1,reverifies:2});
+  }
+});
+void test('gated transitions reject changed verifier or unexpectedly ungated baseline before claim',async()=>{
+  const r=transitionRecord(),vars=accessVars(token,r),c=transitionConfigs(base,r,vars);
+  for(const initialConfig of [base,{...c.expected,vars:{...c.expected.vars,QA_ACCESS_SHA256:'0'.repeat(64)}}]){
+    const h=harness({initialConfig,options:{record:r,vars}});
+    await assert.rejects(updateExistingOnce(h.options),/EXACT_RUNTIME_VARS/);
+    assert.equal(h.counts().claims,0);assert.equal(h.counts().cliCalls,0);
+  }
+});
 void test('complete exact-run update record validates without changing its operation', () => {
   const r = completeRecord(); assert.deepEqual(checkComplete(r), r);
 });
@@ -273,6 +331,30 @@ function preflightHarness(change = () => {}) {
 void test('mocked full owner approval, artifact provenance and exact provider identity preflight succeeds with GETs only', async () => {
   const f = preflightHarness(); await f.run(); assert.ok(f.cfCalls() > 0);
 });
+
+void test('history distinguishes confirmed writes from no-write regardless of failed conclusion',async()=>{
+  for(const conclusion of ['success','failure','cancelled']){
+    const h=preflightHarness(({data,record:r})=>{
+      const history=data['/actions/workflows/worker-qa-access.yml/runs?per_page=100&page=1'];
+      history.total_count=2;history.workflow_runs.push({id:1200,head_sha:commit,status:'completed',run_attempt:1,conclusion});
+      r.reconciledWriteRuns=[{id:1200,headSha:commit,evidenceSha256:hash}];
+    });
+    await assert.doesNotReject(h.run());
+  }
+});
+void test('successful history cannot be mislabeled no-write and duplicate or missing evidence blocks',async()=>{
+  for(const kind of ['success-as-no-write','both','missing']){
+    const h=preflightHarness(({data,record:r})=>{
+      const history=data['/actions/workflows/worker-qa-access.yml/runs?per_page=100&page=1'];
+      history.total_count=2;history.workflow_runs.push({id:1200,head_sha:commit,status:'completed',run_attempt:1,conclusion:'success'});
+      const evidence={id:1200,headSha:commit,evidenceSha256:hash};
+      if(kind!=='missing')r.reconciledNoWriteRuns=[evidence];
+      if(kind==='both')r.reconciledWriteRuns=[evidence];
+    });
+    await assert.rejects(h.run(),/UNRECONCILED_RUN/);
+    assert.equal(h.cfCalls(),0);
+  }
+});
 void test('preflight rejects protection, owner, workflow, branch, history and artifact drift before CF access', async () => {
   for (const change of [
     f => { f.environment.can_admins_bypass = true; },
@@ -300,3 +382,4 @@ void test('access-token derivation rejects formatting errors and oversized appro
   const bytes=' '.repeat(16385);
   assert.throws(()=>validateUpdateRecord(bytes,createHash('sha256').update(bytes).digest('hex'),{},{}),/RECORD_DIGEST/);
 });
+

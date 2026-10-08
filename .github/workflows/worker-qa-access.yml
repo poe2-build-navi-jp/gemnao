@@ -1,4 +1,4 @@
-name: Install temporary access on existing QA Worker (manual protected)
+name: Controlled existing QA Worker access (manual protected)
 run-name: Existing QA Worker access gate exact-run owner approval required
 on:
   workflow_dispatch:
@@ -111,7 +111,7 @@ jobs:
           PREVIEW_APPROVAL_RECORD: ${{ secrets.GEMNAO_PREVIEW_APPROVAL_RECORD }}
           PREVIEW_APPROVAL_SHA256: ${{ secrets.GEMNAO_PREVIEW_APPROVAL_SHA256 }}
         run: node ops/worker-qa-access/update.mjs verify
-      - name: One owner-approved existing-identity update with intake OFF
+      - name: One owner-approved existing-identity update
         uses: ./ops/worker-qa-access
         env:
           QA_ARTIFACT_ID: ${{ needs.gate.outputs.artifact-id }}

@@ -20,24 +20,57 @@ export const TARGET = Object.freeze({
 const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
 const canonical = x => Array.isArray(x) ? '['+x.map(canonical).join(',')+']' :
   x && typeof x==='object' ? '{'+Object.keys(x).sort().map(k=>JSON.stringify(k)+':'+canonical(x[k])).join(',')+'}' : JSON.stringify(x);
+export const OPERATIONS = Object.freeze({
+  install:'install-existing-qa-gate-intake-off',
+  on:'enable-existing-gated-qa-synthetic', off:'disable-existing-gated-qa-intake',
+});
+export const SYNTHETIC_FLAGS = Object.freeze(['DIAGNOSIS_ENABLED','DIAGNOSIS_STORAGE_ENABLED',
+  'DIAGNOSIS_SHARING_ENABLED','DIAGNOSIS_WRITES_ENABLED','DIAGNOSIS_PREVIEW_SHARING_ENABLED',
+  'FEEDBACK_ENABLED','FEEDBACK_PREVIEW_ENABLED']);
+const HASH = /^[a-f0-9]{64}$/;
+const windowShape = a => Number.isSafeInteger(a?.notBefore) && Number.isSafeInteger(a?.expiresAt) &&
+  a.notBefore > 0 && a.expiresAt > a.notBefore && a.expiresAt-a.notBefore <= 3600000;
+export function validateTransition(r,now=Date.now()) {
+  const install=r.operation===OPERATIONS.install, on=r.operation===OPERATIONS.on, off=r.operation===OPERATIONS.off;
+  need((install||on||off) && r.workerId===TARGET.workerId &&
+    r.access?.secretName==='GEMNAO_QA_ACCESS_PASSPHRASE' &&
+    r.access.entropyReview==='owner-generated-unique-random-token-at-least-128-bits' && windowShape(r.access) &&
+    r.access.notBefore<=now && r.residualUpdateRace==='exists-before-call-not-atomic-against-external-delete-rename-accepted', 'UPDATE_SCOPE');
+  if(install) need(r.intakeEnabled===false && r.expectedState==='existing-public-qa-intake-off-without-access-gate' &&
+    r.access.expiresAt>r.expiresAt && r.access.notBefore>=r.approvedAt, 'UPDATE_SCOPE');
+  else {
+    const prior=r.priorDeployment;
+    need(windowShape(prior?.access) && Number.isSafeInteger(prior.runId) && prior.runId!==r.runId &&
+      /^[a-f0-9]{40}$/.test(prior.commit??'') && HASH.test(prior.receiptSha256??'') &&
+      prior.intakeEnabled===off && r.expectedState===(on?'existing-gated-qa-intake-off':'existing-gated-qa-synthetic-on') &&
+      Array.isArray(r.reconciledWriteRuns) && r.reconciledWriteRuns.some(x=>x.id===prior.runId &&
+        x.headSha===prior.commit && x.evidenceSha256===prior.receiptSha256), 'PRIOR_DEPLOYMENT');
+    if(on) need(r.intakeEnabled===true && r.syntheticOnly===true && HASH.test(r.syntheticPlanSha256??'') &&
+      r.access.notBefore>=r.approvedAt && r.access.expiresAt>r.expiresAt &&
+      r.costReview?.validUntil>=r.access.expiresAt, 'SYNTHETIC_SCOPE');
+    // OFF remains available after access expiry and MUST NOT extend the gate.
+    if(off) need(r.intakeEnabled===false && canonical(r.access.notBefore)===canonical(prior.access.notBefore) &&
+      r.access.expiresAt===prior.access.expiresAt, 'OFF_GATE_PRESERVATION');
+  }
+  need(Array.isArray(r.reconciledWriteRuns??[]) && (r.reconciledWriteRuns??[]).every(x=>
+    Number.isSafeInteger(x.id) && /^[a-f0-9]{40}$/.test(x.headSha??'') && HASH.test(x.evidenceSha256??'')), 'WRITE_RECONCILIATION');
+}
 export function validateUpdateRecord(bytes,digest,env,pins,now=Date.now()) {
   need(typeof bytes==='string' && bytes.length>0 && bytes.length<=16384 && sha256(bytes)===digest,'RECORD_DIGEST');
-  const r=JSON.parse(bytes);
-  need(r.operation==='install-existing-qa-gate-intake-off' && r.workerId===TARGET.workerId &&
-    r.expectedState==='existing-public-qa-intake-off-without-access-gate' &&
-    r.access?.secretName==='GEMNAO_QA_ACCESS_PASSPHRASE' &&
-    r.access.entropyReview==='owner-generated-unique-random-token-at-least-128-bits' &&
-    Number.isSafeInteger(r.access.notBefore) && r.access.notBefore<=now &&
-    Number.isSafeInteger(r.access.expiresAt) && r.access.expiresAt>r.expiresAt &&
-    r.access.expiresAt-r.access.notBefore<=3600000 &&
-    r.access.expiresAt>now && r.access.notBefore>=r.approvedAt &&
-    r.residualUpdateRace==='exists-before-call-not-atomic-against-external-delete-rename-accepted',
-    'UPDATE_SCOPE');
-  // Reuse the reviewed common exact-run/artifact/cost/token checks. The original
-  // operation is checked above; this normalized copy is NEVER a provider action.
-  const normalized=JSON.stringify({...r,operation:'create-public-qa-worker-disabled-intake'});
+  const r=JSON.parse(bytes); validateTransition(r,now);
+  // The common helper validates exact run/artifact/cost/token data. Transition
+  // scope above is authoritative; this normalized copy is never sent to a provider.
+  const normalized=JSON.stringify({...r,operation:'create-public-qa-worker-disabled-intake',intakeEnabled:false});
   validateBaseRecord(normalized,sha256(normalized),env,pins,now);
   return r;
+}
+export function transitionConfigs(base,record,vars) {
+  const withState=(enabled,access)=>({...base,vars:{...base.vars,...Object.fromEntries(SYNTHETIC_FLAGS.map(k=>[k,String(enabled)])),...access}});
+  if(record.operation===OPERATIONS.install) return {expected:base,desired:withState(false,vars)};
+  need([OPERATIONS.on,OPERATIONS.off].includes(record.operation),'UPDATE_SCOPE');
+  const prior=record.priorDeployment;
+  const expectedAccess={...vars,QA_ACCESS_NOT_BEFORE:String(prior.access.notBefore),QA_ACCESS_EXPIRES_AT:String(prior.access.expiresAt)};
+  return {expected:withState(prior.intakeEnabled,expectedAccess),desired:withState(record.operation===OPERATIONS.on,vars)};
 }
 export function verifyUpdateContext(env,checkoutSha,job) {
   need(env.GITHUB_ACTIONS==='true' && env.GITHUB_REPOSITORY==='poe2-build-navi-jp/gemnao' &&
@@ -75,7 +108,7 @@ export async function verifyExistingSettings(api,config) {
   const schedules=(await api('cf','/workers/scripts/'+TARGET.worker+'/schedules')).result?.schedules;
   need(Array.isArray(schedules) && schedules.length===0,'UNEXPECTED_CRON');
 }
-export async function preflightUpdate({api,transport,record,baseConfig}) {
+export async function preflightUpdate({api,transport,record,baseConfig,expectedConfig=baseConfig}) {
   need(await verifyConfiguredEnvironment(transport)===TARGET.owner,'OWNER_PROTECTION');
   const run=await api('gh','/actions/runs/'+record.runId);
   need(run.status==='in_progress' && run.run_attempt===1 && run.id===record.runId &&
@@ -90,9 +123,19 @@ export async function preflightUpdate({api,transport,record,baseConfig}) {
   need(history.total_count<=100 && history.total_count===history.workflow_runs?.length &&
     new Set(history.workflow_runs.map(x=>x.id)).size===history.total_count &&
     history.workflow_runs.some(x=>x.id===record.runId),'HISTORY_INCOMPLETE');
-  for(const old of history.workflow_runs) if(old.id!==record.runId)
-    need(old.status==='completed' && old.run_attempt===1 &&
-      record.reconciledNoWriteRuns.some(x=>x.id===old.id && x.headSha===old.head_sha),'UNRECONCILED_RUN');
+  for(const old of history.workflow_runs) if(old.id!==record.runId) {
+    const noWrite=record.reconciledNoWriteRuns.filter(x=>x.id===old.id && x.headSha===old.head_sha);
+    const written=(record.reconciledWriteRuns??[]).filter(x=>x.id===old.id && x.headSha===old.head_sha);
+    // A failed post-write readback may be reconciled by explicit confirmed-write
+    // evidence. Never relabel it no-write merely because the run failed.
+    need(old.status==='completed' && old.run_attempt===1 && noWrite.length+written.length===1 &&
+      (old.conclusion!=='success' || written.length===1),'UNRECONCILED_RUN');
+  }
+  if(record.operation!==OPERATIONS.install)
+    need(history.workflow_runs.some(x=>x.id===record.priorDeployment.runId &&
+      x.head_sha===record.priorDeployment.commit && x.status==='completed'),'PRIOR_RUN');
+  // Current exact gated settings below, not run creation-time ordering, establish
+  // that the receipt's baseline still matches the target immediately before use.
   const artifact=await api('gh','/actions/artifacts/'+record.artifact.id);
   need(artifact.expired===false && artifact.id===record.artifact.id && artifact.workflow_run?.id===record.runId &&
     artifact.workflow_run.head_sha===record.commit && artifact.digest==='sha256:'+record.artifact.archiveSha256 &&
@@ -100,7 +143,7 @@ export async function preflightUpdate({api,transport,record,baseConfig}) {
   need((await api('cf','')).result?.id===TARGET.accountId,'ACCOUNT_ID');
   need('https://'+TARGET.worker+'.'+(await api('cf','/workers/subdomain')).result?.subdomain+'.workers.dev'===TARGET.origin,'SUBDOMAIN');
   await existingIdentity(api);
-  await verifyExistingSettings(api,baseConfig);
+  await verifyExistingSettings(api,expectedConfig);
   for(const db of baseConfig.d1_databases) {
     const got=(await api('cf','/d1/database/'+db.database_id)).result;
     need(got?.uuid===db.database_id && got.name===db.database_name,'D1_IDENTITY');
@@ -108,18 +151,19 @@ export async function preflightUpdate({api,transport,record,baseConfig}) {
 }
 export async function updateExistingOnce({api,record,baseConfig,vars,claim,runWrangler,reverify,now=Date.now,journal=()=>{}}) {
   const fresh=()=>need(now()<record.expiresAt && now()<record.costReview.validUntil &&
-    now()>=record.access.notBefore && now()<record.access.expiresAt,'APPROVAL_EXPIRED');
-  const config={...baseConfig,vars:{...baseConfig.vars,...vars}};
-  fresh(); await reverify(); await existingIdentity(api); await verifyExistingSettings(api,baseConfig);
+    now()>=record.access.notBefore && (record.operation===OPERATIONS.off || now()<record.access.expiresAt),'APPROVAL_EXPIRED');
+  const {expected,desired:config}=transitionConfigs(baseConfig,record,vars);
+  fresh(); await reverify(); await existingIdentity(api); await verifyExistingSettings(api,expected);
   await claim(); fresh(); await reverify();
   // Final existence checks occur immediately before the one name-targeted CLI.
   // This is NOT a provider-atomic condition; an external actor can race it.
-  await existingIdentity(api); await verifyExistingSettings(api,baseConfig); fresh();
+  await existingIdentity(api); await verifyExistingSettings(api,expected); fresh();
   journal({stage:'existing-worker-update',workerId:TARGET.workerId,outcome:'in-progress'});
   await runWrangler(config); // One invocation; official internal retries disclosed.
   await existingIdentity(api); await verifyExistingSettings(api,config);
   return {workerId:TARGET.workerId,worker:TARGET.worker,origin:TARGET.origin,
-    gateInstalled:true,accessExpiresAt:record.access.expiresAt,intakeEnabled:false,actualQaVerified:false};
+    gateInstalled:true,accessNotBefore:record.access.notBefore,accessExpiresAt:record.access.expiresAt,
+    operation:record.operation,intakeEnabled:record.operation===OPERATIONS.on,syntheticOnly:true,actualQaVerified:false};
 }
 async function runPinnedWrangler(artifact,config,token,expiresAt) {
   const home=await mkdtemp(join(tmpdir(),'gemnao-qa-access-'));
@@ -156,13 +200,15 @@ if(process.argv[1]===fileURLToPath(import.meta.url)) {
       console.log(JSON.stringify({runId:env.GITHUB_RUN_ID,pinsSha256:sha256(canonical(pins)),intakeEnabled:false}));
     } else {
       const record=validateUpdateRecord(env.PREVIEW_APPROVAL_RECORD,env.PREVIEW_APPROVAL_SHA256,env,pins);
-      const artifactPins={...pins,...record.artifact};
+      const artifactPins={...pins,manifestSha256:record.artifact.manifestSha256,bundleSha256:record.artifact.bundleSha256,
+        deploymentConfigSha256:record.artifact.deploymentConfigSha256};
       const artifact=await verifyArtifact(artifactPins,resolve('application'));
       const baseConfig=deploymentConfig(JSON.parse(await readFile('application/wrangler.worker-preview.json','utf8')),TARGET.origin);
       if(mode==='verify') console.log('Verified exact gated source and secret-free deployment artifact.');
       else {
         const vars=accessVars(env.GEMNAO_QA_ACCESS_PASSPHRASE,record);
-        const api=createApi(transport);await preflightUpdate({api,transport,record,baseConfig});
+        const expectedConfig=transitionConfigs(baseConfig,record,vars).expected;
+        const api=createApi(transport);await preflightUpdate({api,transport,record,baseConfig,expectedConfig});
         const claims=createArtifactClaims({client:await loadPinnedArtifactClient(),clientVersion:ARTIFACT_CLIENT_PIN.version,runId:record.runId});
         const claim=async()=>{
           const payload={runId:record.runId,planHash:PLAN_HASH,workerId:TARGET.workerId,recordSha256:env.PREVIEW_APPROVAL_SHA256};
@@ -180,4 +226,5 @@ if(process.argv[1]===fileURLToPath(import.meta.url)) {
     console.error('Do not rerun. Reconcile the existing Worker read-only.');process.exitCode=1;
   }
 }
+
 
