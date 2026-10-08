@@ -16,7 +16,7 @@ const request = (path='/diagnose', value=token, options={}) => new Request(origi
   ...options, headers: { ...(value === null ? {} : { Authorization: auth(value) }), ...options.headers },
 });
 
-test('missing, malformed, future, reversed, oversized and expired windows fail closed', async () => {
+void test('missing, malformed, future, reversed, oversized and expired windows fail closed', async () => {
   let calls = 0;
   const worker = wrapQaAccess({ fetch() { calls++; return new Response('SECRET'); } }, origin, () => time);
   for (const changes of [
@@ -32,7 +32,7 @@ test('missing, malformed, future, reversed, oversized and expired windows fail c
   assert.equal(qaAccessWindow(env,time+3599999),true); assert.equal(qaAccessWindow(env,time+3600000),false);
 });
 
-test('origin pin and runtime origin cannot be replaced by a client Origin header', async () => {
+void test('origin pin and runtime origin cannot be replaced by a client Origin header', async () => {
   let calls=0; const worker=wrapQaAccess({fetch(){calls++;return new Response('secret');}},origin,()=>time);
   for(const url of ['https://gemnao.pages.dev/diagnose','http://gemnao-diagnostic-qa.synthetic-test.workers.dev/diagnose',
     'https://gemnao-diagnostic-qa.synthetic-test.workers.dev:444/diagnose','https://gemnao-diagnostic-qa.other.workers.dev/diagnose']){
@@ -43,7 +43,7 @@ test('origin pin and runtime origin cannot be replaced by a client Origin header
   assert.equal(calls,0);
 });
 
-test('all routes including assets, root redirects, APIs, HEAD and OPTIONS authenticate first', async () => {
+void test('all routes including assets, root redirects, APIs, HEAD and OPTIONS authenticate first', async () => {
   let calls=0;const worker=wrapQaAccess({fetch(){calls++;return new Response('protected');}},origin,()=>time);
   for(const path of ['/','/diagnose','/diagnose/privacy','/_next/static/a.js','/images/a.png','/robots.txt',
     '/api/diagnosis/config','/api/diagnostic-feedback','/diagnosis/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa']){
@@ -59,7 +59,7 @@ test('all routes including assets, root redirects, APIs, HEAD and OPTIONS authen
   assert.equal(calls,0);
 });
 
-test('malformed, wrong-user, wrong-password and oversized auth is rejected without app calls', async () => {
+void test('malformed, wrong-user, wrong-password and oversized auth is rejected without app calls', async () => {
   let calls=0;const worker=wrapQaAccess({fetch(){calls++;return new Response('protected');}},origin,()=>time);
   for(const authorization of ['Bearer '+token,'Basic '+btoa('other:'+token),auth(other),'Basic %%%',
     'Basic '+btoa('qa:short'),'Basic '+btoa('qa:'+token+'\n'),'Basic '+btoa('qa:'+'x'.repeat(129)),
@@ -70,7 +70,7 @@ test('malformed, wrong-user, wrong-password and oversized auth is rejected witho
   assert.equal(calls,0);
 });
 
-test('approved credentials never reach application env or forwarded request', async () => {
+void test('approved credentials never reach application env or forwarded request', async () => {
   let calls=0;const worker=wrapQaAccess({fetch(req,appEnv){
     calls++;assert.equal(req.headers.get('Authorization'),null);assert.equal(req.headers.get('Cookie'),'existing=owner');
     for(const key of ['QA_ACCESS_SHA256','QA_ACCESS_NOT_BEFORE','QA_ACCESS_EXPIRES_AT']) assert.equal(appEnv[key],undefined);
@@ -82,7 +82,7 @@ test('approved credentials never reach application env or forwarded request', as
   assert.equal((await worker.fetch(request('/diagnose',null),env,{})).status,401);assert.equal(calls,1);
 });
 
-test('Basic authentication does not bypass independent same-origin mutation checks', async () => {
+void test('Basic authentication does not bypass independent same-origin mutation checks', async () => {
   let calls=0;const worker=wrapQaAccess({fetch(){calls++;return new Response('OK');}},origin,()=>time);
   for(const method of ['POST','PATCH','DELETE','OPTIONS']){
     for(const headers of [{},{Origin:'https://other.example'},{Origin:origin,'Sec-Fetch-Site':'cross-site'}])
@@ -92,7 +92,7 @@ test('Basic authentication does not bypass independent same-origin mutation chec
   assert.equal(calls,4);
 });
 
-test('expiry never reopens access and late responses/errors disclose no app data', async () => {
+void test('expiry never reopens access and late responses/errors disclose no app data', async () => {
   let now=time,calls=0;
   const worker=wrapQaAccess({fetch(){calls++;now=time+3600000;return new Response('protected');}},origin,()=>now);
   const r=await worker.fetch(request(),env,{});assert.equal(r.status,503);assert.doesNotMatch(await r.text(),/protected/);
@@ -101,7 +101,7 @@ test('expiry never reopens access and late responses/errors disclose no app data
   const response=await failed.fetch(request(),env,{});assert.equal(response.status,503);assert.doesNotMatch(await response.text(),/PRIVATE/);
 });
 
-test('outer gate covers inner preview redirects and assets with no ungated export', async () => {
+void test('outer gate covers inner preview redirects and assets with no ungated export', async () => {
   const worker=wrapQaAccess(wrapPreviewApplication({fetch(){return new Response('asset');}},origin),origin,()=>time);
   assert.equal((await worker.fetch(request('/',null),env,{})).status,401);
   const allowed=await worker.fetch(request('/'),env,{});assert.equal(allowed.status,302);assert.equal(allowed.headers.get('Location'),'/diagnose');
@@ -115,7 +115,7 @@ test('outer gate covers inner preview redirects and assets with no ungated expor
   assert.equal(config.vars.QA_ACCESS_SHA256,undefined);
 });
 
-test('configuration and token validation reject coercion, final newline and bad boundaries', async () => {
+void test('configuration and token validation reject coercion, final newline and bad boundaries', async () => {
   for(const key of ['QA_ACCESS_SHA256','QA_ACCESS_NOT_BEFORE','QA_ACCESS_EXPIRES_AT']){
     for(const value of [env[key]+'\n', env[key]+'\r\n', Number(env[key]), {}, null, true]){
       assert.equal(qaAccessWindow({...env,[key]:value},time),false,key);
@@ -128,7 +128,7 @@ test('configuration and token validation reject coercion, final newline and bad 
   assert.match(await qaAccessVerifier('x'.repeat(128)),/^[a-f0-9]{64}$/);
 });
 
-test('successful HEAD, valid origin-only mutations, and hostile fetch-site values', async () => {
+void test('successful HEAD, valid origin-only mutations, and hostile fetch-site values', async () => {
   let calls=0; const worker=wrapQaAccess({fetch(){calls++;return new Response(null,{status:204});}},origin,()=>time);
   assert.equal((await worker.fetch(request('/diagnose',token,{method:'HEAD'}),env,{})).status,204);
   assert.equal((await worker.fetch(request('/api/diagnosis',token,{method:'POST',headers:{Origin:origin}}),env,{})).status,204);
