@@ -17,13 +17,24 @@ export function OnimushaSaveAnswer({ english = false }: { english?: boolean }) {
       </p>
       <p>
         {english
-          ? 'Approach the mirror and follow the controls shown in your game. Check the selected save before confirming an overwrite, and wait for saving to finish before closing the game. We have not verified PC-specific buttons or automatic-save timing, so do not assume that touching the mirror alone saved your progress.'
-          : '破魔鏡に近づき、ゲーム画面に表示される操作案内に従ってください。上書き前に保存先を確認し、保存処理が終わってからゲームを終了します。PC版の操作キーやオートセーブの発生条件は未検証のため、「触れただけで保存済み」とは判断しないでください。'}
+          ? 'We have not verified PC-specific buttons or automatic-save timing. Use the controls shown on your own screen rather than assuming that touching the mirror alone saved your progress.'
+          : 'PC版の操作キーやオートセーブの発生条件は未検証です。「触れただけで保存済み」とは判断せず、自分の画面に表示される操作案内で確認してください。'}
+      </p>
+      <ol>
+        <li>{english ? 'Find a Spirit Mirror in the area.' : 'エリア内の破魔鏡を探す。'}</li>
+        <li>{english ? 'Approach it and use the controls shown on your own screen.' : '近づいて、自分の画面に出る操作案内で開く。'}</li>
+        <li>{english ? 'Check which save will be overwritten before confirming.' : '上書きする保存先を確認してから確定する。'}</li>
+        <li>{english ? 'Wait until saving finishes before closing the game.' : '保存処理が終わるまで待ってからゲームを終了する。'}</li>
+      </ol>
+      <p>
+        {english
+          ? 'Saving in the game and copying PC save files as a backup are different tasks. A file backup is a precaution before changing settings or files; it is not a substitute for saving your current progress in the game.'
+          : 'ゲーム内で進行状況を保存する操作と、PCのセーブファイルを別の場所へコピーするバックアップは別です。ファイルのバックアップは設定やデータを変更する前の保全であり、ゲーム内セーブの代わりにはなりません。'}
       </p>
       <p className="article-meta">
         {english
-          ? 'Source checked October 7, 2026: '
-          : '出典確認：2026年10月7日。'}
+          ? 'Source checked October 8, 2026: '
+          : '出典確認：2026年10月8日。'}
         <a href={walkthrough} target="_blank" rel="noreferrer">
           {english
             ? 'Game8’s illustrated walkthrough (Japanese; story spoilers)'
