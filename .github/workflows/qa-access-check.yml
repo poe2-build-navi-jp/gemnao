@@ -1,0 +1,44 @@
+name: QA access gate checks (read-only)
+on:
+  pull_request:
+    branches: [prepare/dedicated-worker-qa-20261007]
+    paths:
+      - cloudflare/worker-preview-policy.mjs
+      - cloudflare/worker-preview.mjs
+      - tests/qa-access/**
+      - ops/worker-qa-access/**
+      - .github/workflows/qa-access-check.yml
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22.19.0'
+      - name: Gate, preview policy and artifact synthetic tests
+        run: node --test tests/qa-access/*.test.mjs tests/worker-preview/*.test.mjs
+      - name: Install fixed dependencies without lifecycle scripts
+        run: |
+          npm install --global --ignore-scripts --no-audit --no-fund pnpm@11.19.0
+          pnpm install --frozen-lockfile --ignore-scripts
+      - name: Local Workerd authentication smoke test
+        run: node tests/qa-access/runtime-smoke.mjs
+      - name: Typecheck and lint
+        run: |
+          pnpm exec tsc --noEmit
+          pnpm lint
+      - name: Build and verify secret-free preview assets
+        env:
+          WRANGLER_SEND_METRICS: 'false'
+          CI: 'true'
+        run: |
+          pnpm build
+          node scripts/prepare-worker-preview.mjs
+          node scripts/verify-worker-preview-artifact.mjs
+          pnpm exec wrangler deploy --config wrangler.worker-preview.json --dry-run --outdir .wrangler/qa-access-dry-run
