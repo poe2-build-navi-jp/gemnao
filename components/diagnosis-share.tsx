@@ -1,6 +1,6 @@
 'use client';
 /* oxlint-disable next/no-html-link-for-pages -- Deliberate document navigation for privacy. */
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   RULE_VERSION,
   statuses,
@@ -129,6 +129,11 @@ export function DiagnosisShare({
   const [reviewedContent, setReviewedContent] = useState(content);
   const [attempt, setAttempt] = useState<ShareAttempt | null>(null);
   const locked = useRef(false);
+  const mounted = useRef(false);
+  useEffect(() => {
+    mounted.current = true;
+    return () => { mounted.current = false; };
+  }, []);
   // Invalidate consent before committing a render of changed local content.
   // Returning to an earlier answer must not revive an earlier confirmation.
   if (reviewedContent !== content) {
@@ -137,19 +142,20 @@ export function DiagnosisShare({
   }
   const previewSnapshot = attempt?.snapshot || { answers, tried, results };
   async function create() {
-    if (locked.current || !preview || !enabled || shareId || !confirmed || reviewedContent !== content) return;
+    if (!mounted.current || locked.current || !preview || !enabled || shareId || !confirmed || reviewedContent !== content) return;
     locked.current = true;
     setBusy(true);
     setError('');
     // Capture both before the session await. An uncertain save must never reuse
     // its request ID with different content, including after cancel/reopen.
-    const submission = attempt || {
-      requestId: crypto.randomUUID().replaceAll('-', ''),
-      snapshot: JSON.parse(content) as ShareAttempt['snapshot'],
-    };
-    setAttempt(submission);
     try {
+      const submission = attempt || {
+        requestId: crypto.randomUUID().replaceAll('-', ''),
+        snapshot: JSON.parse(content) as ShareAttempt['snapshot'],
+      };
+      setAttempt(submission);
       await diagnosisRequest('/session', {});
+      if (!mounted.current) return;
       const d = await diagnosisRequest<{
         id: string;
         recoveryKey: string | null;
@@ -165,6 +171,7 @@ export function DiagnosisShare({
           (typeof d.recoveryKey !== 'string' || !/^[a-f0-9]{64}$/.test(d.recoveryKey))) ||
         typeof d.expiresAt !== 'number' || !Number.isFinite(d.expiresAt)
       ) throw new Error('保存を確認できませんでした。同じ内容で再試行してください。');
+      if (!mounted.current) return;
       onCreated(d.id);
       setKey(d.recoveryKey);
       setExpires(d.expiresAt);
@@ -174,10 +181,10 @@ export function DiagnosisShare({
         );
       setPreview(false);
     } catch (e) {
-      setError(e instanceof Error ? e.message : '保存できませんでした。');
+      if (mounted.current) setError(e instanceof Error ? e.message : '保存できませんでした。');
     } finally {
       locked.current = false;
-      setBusy(false);
+      if (mounted.current) setBusy(false);
     }
   }
   return (
