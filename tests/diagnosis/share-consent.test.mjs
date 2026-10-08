@@ -383,10 +383,10 @@ await test('sharing consent is tied to content and immutable retry payloads', as
           await f.page.evaluate((mode) => {
             if (mode === 'denied') Object.defineProperty(window, 'localStorage', { get() { throw new Error('storage denied'); } });
             else {
-              const original = Storage.prototype.setItem;
+              const original = Storage.prototype.setItem.bind(localStorage);
               Storage.prototype.setItem = function(key, value) {
                 if (key.startsWith('gemnao-diagnosis-pending-v1:')) throw new DOMException('full', 'QuotaExceededError');
-                return original.call(this, key, value);
+                return original(key, value);
               };
             }
           }, storageFailure);
