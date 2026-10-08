@@ -1,0 +1,102 @@
+name: PR 102 OG cards and checks (manual, read-only)
+run-name: PR 102 pinned source — OG artifact only
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: gemnao-pr102-og-artifact
+  cancel-in-progress: false
+jobs:
+  generate:
+    if: github.repository == 'poe2-build-navi-jp/gemnao' && github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/gemunao'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      CI: 'true'
+      WRANGLER_SEND_METRICS: 'false'
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check fixed content branch has not moved
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          test "$(gh api repos/poe2-build-navi-jp/gemnao/git/ref/heads/content/three-game-guides-20261008 --jq .object.sha)" = 512c9dd1abf8e699418e01bb8c907143319617e8
+      - name: Check out reviewed workflow helper
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.sha }}
+          path: control
+          persist-credentials: false
+      - name: Check out exact article source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: 512c9dd1abf8e699418e01bb8c907143319617e8
+          path: application
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22.19.0'
+      - name: Install locked tools without lifecycle scripts
+        working-directory: application
+        run: |
+          test "$(git rev-parse HEAD)" = 512c9dd1abf8e699418e01bb8c907143319617e8
+          mkdir -p ../artifact/reports
+          npm install --global --ignore-scripts --no-audit --no-fund pnpm@11.19.0
+          pnpm install --frozen-lockfile --ignore-scripts
+          python3 -m venv "$RUNNER_TEMP/og-python"
+          "$RUNNER_TEMP/og-python/bin/python" -m pip install --only-binary=:all: PyMuPDF==1.26.4 Pillow==11.3.0
+          echo "$RUNNER_TEMP/og-python/bin" >> "$GITHUB_PATH"
+      - name: Generate through the repository's unmodified OG command
+        id: generate
+        working-directory: application
+        run: pnpm og:cards 2>&1 | tee ../artifact/reports/generate.log
+      - name: All localized pages and expansion parity
+        id: localized
+        if: ${{ !cancelled() && steps.generate.outcome == 'success' }}
+        working-directory: application
+        run: pnpm check:localized 2>&1 | tee ../artifact/reports/localized.log
+      - name: Repository lint
+        id: lint
+        if: ${{ !cancelled() && steps.generate.outcome == 'success' }}
+        working-directory: application
+        run: pnpm lint 2>&1 | tee ../artifact/reports/lint.log
+      - name: Typecheck
+        id: typecheck
+        if: ${{ !cancelled() && steps.generate.outcome == 'success' }}
+        working-directory: application
+        run: pnpm typecheck 2>&1 | tee ../artifact/reports/typecheck.log
+      - name: Full build and static preparation
+        id: build
+        if: ${{ !cancelled() && steps.generate.outcome == 'success' }}
+        working-directory: application
+        run: pnpm build 2>&1 | tee ../artifact/reports/build.log
+      - name: Verify exact generated allowlist and all 36 static pages
+        id: package
+        working-directory: application
+        run: python3 ../control/ops/pr102-og/package.py 2>&1 | tee ../artifact/reports/package.log
+      - name: Recheck source branch before releasing artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          test "$(gh api repos/poe2-build-navi-jp/gemnao/git/ref/heads/content/three-game-guides-20261008 --jq .object.sha)" = 512c9dd1abf8e699418e01bb8c907143319617e8
+          printf '%s\n' 'All checks passed. Artifact ready for review; no commit or deployment performed.' > artifact/reports/READY.txt
+      - name: Record check outcomes
+        if: ${{ always() }}
+        env:
+          OUTCOMES: ${{ toJSON(steps) }}
+        run: |
+          mkdir -p artifact/reports
+          printf '%s\n' "$OUTCOMES" > artifact/reports/outcomes.json
+          echo 'PR 102 OG artifact run. A successful run and reports/READY.txt are both required before using commit-files.' >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload output and diagnostic logs
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: pr102-og-${{ github.run_id }}-${{ github.run_attempt }}
+          path: artifact/
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 6
