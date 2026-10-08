@@ -244,6 +244,9 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
             onMetric={() => {}}
             onBusyChange={setShareBusy}
           />
+          {!resume && !started && !recoveredId && (
+            <button disabled={shareBusy} onClick={reset}>端末内の診断と回復情報を消す</button>
+          )}
           {recoveredId && <button onClick={() => {
             let next: PendingShare | null = null;
             try { next = readPendingShare(); } catch { /* The saved URL remains visible until dismissal. */ }

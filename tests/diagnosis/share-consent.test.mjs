@@ -24,7 +24,7 @@ const bundle = await build({
       import { DiagnosisWizard } from './components/diagnosis-wizard';
       import { freshLocal } from './lib/diagnosis/local';
       const initialAnswers = ${JSON.stringify(validAnswers)};
-      if (location.hash === '#wizard') localStorage.setItem('gemnao-diagnosis-v1', JSON.stringify({
+      if (location.hash === '#wizard' && !location.search) localStorage.setItem('gemnao-diagnosis-v1', JSON.stringify({
         ...freshLocal(), answers: initialAnswers, complete: true, step: 'tried',
       }));
       function Harness() {
@@ -505,6 +505,23 @@ await test('sharing consent is tied to content and immutable retry payloads', as
         await expect(f.page.getByRole('alert')).toContainText('安全な再試行を準備できません');
         assert.equal(f.sessions.length, 0);
         assert.equal(f.posts.length, 0);
+      } finally { await f.close(); }
+    });
+    await t.test('pending recovery can be explicitly erased without a resumable diagnosis', async () => {
+      const f = await fixture(true);
+      try {
+        await f.checkbox.check();
+        await f.submit.click();
+        await expect(f.page.getByRole('alert')).toContainText('synthetic uncertain save');
+        await f.page.evaluate(() => localStorage.removeItem('gemnao-diagnosis-v1'));
+        await f.page.goto(origin + '/?empty=1#wizard');
+        await expect(f.page.getByRole('heading', { name: '前回の未確認送信を回復' })).toBeVisible();
+        await expect(f.page.getByRole('button', { name: '続きから再開する' })).toHaveCount(0);
+        f.page.once('dialog', (dialog) => dialog.accept());
+        await f.page.getByRole('button', { name: '端末内の診断と回復情報を消す' }).click();
+        await expect.poll(async () => (await f.page.evaluate(pendingKeys)).length).toBe(0);
+        await expect(f.page.getByRole('heading', { name: '前回の未確認送信を回復' })).toHaveCount(0);
+        assert.equal(f.posts.length, 1);
       } finally { await f.close(); }
     });
     await t.test('cancel before submission clears confirmation and a disabled capability cannot send', async () => {
