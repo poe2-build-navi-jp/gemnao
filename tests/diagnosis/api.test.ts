@@ -71,7 +71,7 @@ function database() {
   return { db, sql };
 }
 const now = Date.UTC(2026, 9, 2, 4);
-const input = {
+const input: PendingShare['snapshot'] = {
   answers: {
     symptom: 'not-launching',
     scope: 'game',
