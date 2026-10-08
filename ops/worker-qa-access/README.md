@@ -3,11 +3,11 @@
 ## Scope and current state
 
 This draft adds only an outer HTTP Basic access gate to the isolated QA wrapper,
-local synthetic regression tests, and a secretless PR check. It does not deploy,
+local synthetic regression tests, a secretless PR check, and a separate protected existing-ID update controller. It does not deploy,
 enable collection, provision a credential, change GitHub protection, or alter
 production. The source is based on PR 98 / a2f963b; the separate sharing-consent and
 pending-recovery changes from PR 105 must be reviewed and integrated before hosted
-data QA. Do not merge PR 90 and PR 98 as independent duplicate implementations.
+data QA. PR 105's reviewed consent/recovery head is 8244ca4cf709f7e1cd4c8d9a29787d23d5db82f8. Future integration must preserve the PR 98 DIAGNOSIS_DB isolation and runtime-configured privacy component while incorporating the new retention/recovery wording. Never merge it straight over this isolated source without rechecking those differences. Do not merge PR 90 and PR 98 as independent duplicate implementations.
 
 Fixed future deployment target:
 - Account: 6a09a32cba1288cccce5912015086a35
@@ -83,13 +83,13 @@ In-flight work admitted before expiry may finish after the boundary; a late
 response is withheld. Expiry is not an automatic delete, resource teardown or
 forced cancellation of already-running writes, and cannot revoke downloaded data.
 
-## Bounded existing-ID update plan (not an executable deployment workflow yet)
+## Bounded existing-ID installation controller
 
 The old worker-qa-deploy.yml / deploy.mjs is NEW-resource-only and all-OFF-only.
 Do not rerun it, weaken collision checks, change its accepted configuration, or
 pretend it can update this existing Worker.
 
-A separate reviewed owner-gated update implementation is still required:
+The new manual worker-qa-access.yml / update.mjs implements initial gate installation with every intake flag OFF. It reuses verification and the exclusive claim SDK from the exact f53724e reviewed-controller checkout. It does not implement synthetic intake enablement or an access renewal. Its executable context accepts only the already protected controller branch, not this PR branch. Publication there and dispatcher registration require separate approval before execution:
 1. Pin the integrated application/controller commit, source tree, lockfile,
    compiled bundle, five existing manifest inputs, assets, and exact config.
    The gate is inside worker-preview-policy.mjs, already covered by the manifest.
@@ -103,14 +103,15 @@ A separate reviewed owner-gated update implementation is still required:
    zero-charge budget, one-shot behavior and the disclosed name-targeted
    Wrangler race/internal retries. Owner alone clicks Approve and deploy.
 4. Only inside the protected job, read the dedicated access secret and derive
-   its verifier in memory. Do not print the secret/verifier, place either in
-   command arguments, workflow outputs, artifacts, logs or persistent files.
+   its verifier in memory. Do not print the secret/verifier or put either in command arguments, workflow outputs, artifacts or persistent files. The raw passphrase stays in the protected process environment/memory. Official Wrangler receives only the verifier in a mode-0600 config inside a unique private temporary directory, deleted in finally; Wrangler logs are redirected to /dev/null and child output is captured/discarded. A hard runner crash relies on GitHub-hosted runner disposal, not an application deletion guarantee.
    Masking is defense in depth, not permission to log.
 5. Authenticate the existing Cloudflare credential normally and GET the exact
    Worker by immutable ID before any write; require the exact name and account,
    exact subdomain and existing two D1 identities. Reject drift, missing
    resources, ordinary DB bindings, routes, extra services or unreviewed config.
-6. The initial installation keeps every collection/storage/sharing/feedback/
+6. The controller performs no new-Worker creation POST. It checks the fixed ID and name lookup in both directions, and exact bindings/settings initially and again after the exclusive claim immediately before invoking the pinned official Wrangler exactly once. Missing identity always fails the observed precondition. These checks are not atomic: an external actor deleting/renaming after the last check can still cause name-targeted Wrangler to create/update a different identity. The exact-run record must explicitly accept this residual race; if absolute no-create-under-race is required, this implementation is blocked. Repository job concurrency does not constrain outside actors.
+
+   The initial installation keeps every collection/storage/sharing/feedback/
    metrics flag OFF. Preserve the access gate on every later update.
    Use official supported deployment APIs with freshly checked name/ID, then
    read back ID, bindings, flags, access expiry, no logs/observability, no Cron,
@@ -123,8 +124,7 @@ A separate reviewed owner-gated update implementation is still required:
    retaining the access gate. On failures or expiry, deny new access/collection;
    do not fall back to a publicly accessible site.
 
-This PR does not claim those future write controls have been implemented or
-remotely tested. Secret storage, new access grant and the exact existing-Worker
+The controller is covered by synthetic mock tests and secretless build checks, not remote execution. It refuses an already gated or otherwise changed runtime state; do not reuse it for renewal or synthetic ON. Secret storage, new access grant and the exact existing-Worker
 update require the owner's disclosed action-time approval. No paid plan, budget
 increase, new Cloudflare API token or permission expansion is included.
 
@@ -162,7 +162,7 @@ Cloudflare Workers Free limits immediately before any future authorized live run
 Public unauthorized requests still reach Cloudflare and can consume free quota,
 even when the gate denies them. There is no provider reservation guarantee.
 
-Local regression tests use obvious synthetic tokens. The PR workflow has read-only
+Local regression tests use obvious synthetic tokens. The separate PR-check workflow has read-only
 contents permission, no Environment/secret access, no upload artifact, no deployment
 and no D1 calls. Run gate/wrapper/artifact tests, typecheck, lint and build. Passing
 these checks does not establish remote authentication, actual expiry deletion,

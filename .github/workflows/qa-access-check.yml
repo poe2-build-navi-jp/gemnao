@@ -14,6 +14,7 @@ on:
       - pnpm-lock.yaml
       - tests/qa-access/**
       - ops/worker-qa-access/**
+      - .github/workflows/worker-qa-access.yml
       - .github/workflows/qa-access-check.yml
 permissions:
   contents: read
@@ -28,14 +29,10 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: '22.19.0'
-      - name: Gate, preview policy and artifact synthetic tests
-        run: node --test tests/qa-access/*.test.mjs tests/worker-preview/*.test.mjs
       - name: Install fixed dependencies without lifecycle scripts
         run: |
           npm install --global --ignore-scripts --no-audit --no-fund pnpm@11.19.0
           pnpm install --frozen-lockfile --ignore-scripts
-      - name: Local Workerd authentication smoke test
-        run: node tests/qa-access/runtime-smoke.mjs
       - name: Typecheck and lint
         run: |
           pnpm exec tsc --noEmit
@@ -49,3 +46,13 @@ jobs:
           node scripts/prepare-worker-preview.mjs
           node scripts/verify-worker-preview-artifact.mjs
           pnpm exec wrangler deploy --config wrangler.worker-preview.json --dry-run --outdir .wrangler/qa-access-dry-run
+      - name: Checkout exact reviewed verification dependency after application checks
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: f53724eefe8aa60cc2522e12adbc97f821e6f122
+          path: reviewed-controller
+          persist-credentials: false
+      - name: Gate, existing-ID controller, preview and artifact synthetic tests
+        run: node --test tests/qa-access/*.test.mjs tests/worker-preview/*.test.mjs
+      - name: Local Workerd authentication smoke test
+        run: node tests/qa-access/runtime-smoke.mjs
