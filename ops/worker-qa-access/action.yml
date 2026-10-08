@@ -1,0 +1,5 @@
+name: Install fixed QA access gate
+description: Owner-approved existing Worker update, all intake off
+runs:
+  using: node24
+  main: update.mjs
