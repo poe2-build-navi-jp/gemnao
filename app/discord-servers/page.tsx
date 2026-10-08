@@ -155,18 +155,12 @@ export default async function DiscordServersPage() {
             <span>PCゲーム・日本語で探す</span>
           </h1>
           <p>
-            {initialLoadFailed
-              ? '現在、募集情報を読み込めません。件数は判断せず、下の再読み込み案内かDiscord公式の公開サーバー一覧を確認してください。'
-              : initialServers.length === 0
-                ? '現在、ゲムなおに掲載中の審査済み募集は0件です。下のDiscord公式のゲームサーバー一覧と参加前の確認方法をご利用ください。管理者の無料掲載申請も受け付けています。'
-                : 'PCゲーム向けのディスコード（Discord）サーバー募集を、ゲーム・目的・活動時間・VC条件で探せます。参加前の確認方法と、運営者向けの無料掲載手順も案内します。'}
+            PCゲーム向けのDiscordサーバー募集と掲載状況を、下の募集欄で確認できます。掲載がある場合はゲーム・目的・活動時間・VC条件を比較してください。掲載がない場合はDiscord公式のゲーム一覧も利用できます。参加前の確認方法と管理者向けの無料掲載手順も案内します。
           </p>
           <div className="server-hero-actions">
-            {initialLoadFailed || initialServers.length === 0 ? (
-              <a href="https://discord.com/servers/gaming" target="_blank" rel="noopener noreferrer">
-                Discord公式のゲーム一覧
-              </a>
-            ) : null}
+            <a href="https://discord.com/servers/gaming" target="_blank" rel="noopener noreferrer">
+              Discord公式のゲーム一覧
+            </a>
             <a href="#server-search-title">
               募集を探す <ArrowRight size={17} />
             </a>
