@@ -74,7 +74,9 @@ export function DiagnosticFeedbackForm() {
   useEffect(() => {
     fetch('/api/diagnostic-feedback', {
       cache: 'no-store',
-      credentials: 'omit',
+      credentials: 'same-origin',
+      mode: 'same-origin',
+      redirect: 'error',
     })
       .then(
         (r) => r.json() as Promise<{ enabled?: boolean; canDelete?: boolean }>,
@@ -145,7 +147,9 @@ export function DiagnosticFeedbackForm() {
       setDeleteKey(pending.current.delete_key);
       const response = await fetch('/api/diagnostic-feedback', {
         method: 'POST',
-        credentials: 'omit',
+        credentials: 'same-origin',
+        mode: 'same-origin',
+        redirect: 'error',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...pending.current, consent_version: 1 }),
       });
@@ -171,7 +175,9 @@ export function DiagnosticFeedbackForm() {
     try {
       const response = await fetch('/api/diagnostic-feedback', {
         method: 'DELETE',
-        credentials: 'omit',
+        credentials: 'same-origin',
+        mode: 'same-origin',
+        redirect: 'error',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           receipt_id: deleteId.trim(),

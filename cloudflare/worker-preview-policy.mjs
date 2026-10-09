@@ -122,6 +122,10 @@ export function wrapQaAccess(application, approvedOrigin, clock = Date.now) {
         return accessDenied(403);
       // Do not forward the QA credential or its verifier to application code.
       const headers = new Headers(request.headers); headers.delete('Authorization');
+      // Feedback uses independent receipt/key ownership, never diagnosis cookies.
+      // Keep browser-managed Basic auth at the outer gate without forwarding
+      // ambient cookies to this API; diagnosis routes still need their owner cookie.
+      if (url.pathname === '/api/diagnostic-feedback') headers.delete('Cookie');
       const cleanRequest = new Request(request, { headers });
       const { QA_ACCESS_SHA256: _verifier, QA_ACCESS_NOT_BEFORE: _start,
         QA_ACCESS_EXPIRES_AT: _expiry, ...applicationEnv } = env;
