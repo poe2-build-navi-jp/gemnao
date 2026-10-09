@@ -23,6 +23,7 @@ const canonical = x => Array.isArray(x) ? '['+x.map(canonical).join(',')+']' :
 export const OPERATIONS = Object.freeze({
   install:'install-existing-qa-gate-intake-off',
   on:'enable-existing-gated-qa-synthetic', off:'disable-existing-gated-qa-intake',
+  updateOff:'update-existing-gated-qa-code-intake-off',
 });
 export const SYNTHETIC_FLAGS = Object.freeze(['DIAGNOSIS_ENABLED','DIAGNOSIS_STORAGE_ENABLED',
   'DIAGNOSIS_SHARING_ENABLED','DIAGNOSIS_WRITES_ENABLED','DIAGNOSIS_PREVIEW_SHARING_ENABLED',
@@ -31,8 +32,8 @@ const HASH = /^[a-f0-9]{64}$/;
 const windowShape = a => Number.isSafeInteger(a?.notBefore) && Number.isSafeInteger(a?.expiresAt) &&
   a.notBefore > 0 && a.expiresAt > a.notBefore && a.expiresAt-a.notBefore <= 3600000;
 export function validateTransition(r,now=Date.now()) {
-  const install=r.operation===OPERATIONS.install, on=r.operation===OPERATIONS.on, off=r.operation===OPERATIONS.off;
-  need((install||on||off) && r.workerId===TARGET.workerId &&
+  const install=r.operation===OPERATIONS.install, on=r.operation===OPERATIONS.on, off=r.operation===OPERATIONS.off, updateOff=r.operation===OPERATIONS.updateOff;
+  need((install||on||off||updateOff) && r.workerId===TARGET.workerId &&
     r.access?.secretName==='GEMNAO_QA_ACCESS_PASSPHRASE' &&
     r.access.entropyReview==='owner-generated-unique-random-token-at-least-128-bits' && windowShape(r.access) &&
     r.access.notBefore<=now && r.residualUpdateRace==='exists-before-call-not-atomic-against-external-delete-rename-accepted', 'UPDATE_SCOPE');
@@ -42,14 +43,14 @@ export function validateTransition(r,now=Date.now()) {
     const prior=r.priorDeployment;
     need(windowShape(prior?.access) && Number.isSafeInteger(prior.runId) && prior.runId!==r.runId &&
       /^[a-f0-9]{40}$/.test(prior.commit??'') && HASH.test(prior.receiptSha256??'') &&
-      prior.intakeEnabled===off && r.expectedState===(on?'existing-gated-qa-intake-off':'existing-gated-qa-synthetic-on') &&
+      prior.intakeEnabled===off && r.expectedState===(off?'existing-gated-qa-synthetic-on':'existing-gated-qa-intake-off') &&
       Array.isArray(r.reconciledWriteRuns) && r.reconciledWriteRuns.some(x=>x.id===prior.runId &&
         x.headSha===prior.commit && x.evidenceSha256===prior.receiptSha256), 'PRIOR_DEPLOYMENT');
     if(on) need(r.intakeEnabled===true && r.syntheticOnly===true && HASH.test(r.syntheticPlanSha256??'') &&
       r.access.notBefore>=r.approvedAt && r.access.expiresAt>r.expiresAt &&
       r.costReview?.validUntil>=r.access.expiresAt, 'SYNTHETIC_SCOPE');
     // OFF remains available after access expiry and MUST NOT extend the gate.
-    if(off) need(r.intakeEnabled===false && canonical(r.access.notBefore)===canonical(prior.access.notBefore) &&
+    if(off||updateOff) need(r.intakeEnabled===false && canonical(r.access.notBefore)===canonical(prior.access.notBefore) &&
       r.access.expiresAt===prior.access.expiresAt, 'OFF_GATE_PRESERVATION');
   }
   need(Array.isArray(r.reconciledWriteRuns??[]) && (r.reconciledWriteRuns??[]).every(x=>
@@ -67,7 +68,7 @@ export function validateUpdateRecord(bytes,digest,env,pins,now=Date.now()) {
 export function transitionConfigs(base,record,vars) {
   const withState=(enabled,access)=>({...base,vars:{...base.vars,...Object.fromEntries(SYNTHETIC_FLAGS.map(k=>[k,String(enabled)])),...access}});
   if(record.operation===OPERATIONS.install) return {expected:base,desired:withState(false,vars)};
-  need([OPERATIONS.on,OPERATIONS.off].includes(record.operation),'UPDATE_SCOPE');
+  need([OPERATIONS.on,OPERATIONS.off,OPERATIONS.updateOff].includes(record.operation),'UPDATE_SCOPE');
   const prior=record.priorDeployment;
   const expectedAccess={...vars,QA_ACCESS_NOT_BEFORE:String(prior.access.notBefore),QA_ACCESS_EXPIRES_AT:String(prior.access.expiresAt)};
   return {expected:withState(prior.intakeEnabled,expectedAccess),desired:withState(record.operation===OPERATIONS.on,vars)};
@@ -151,7 +152,7 @@ export async function preflightUpdate({api,transport,record,baseConfig,expectedC
 }
 export async function updateExistingOnce({api,record,baseConfig,vars,claim,runWrangler,reverify,now=Date.now,journal=()=>{}}) {
   const fresh=()=>need(now()<record.expiresAt && now()<record.costReview.validUntil &&
-    now()>=record.access.notBefore && (record.operation===OPERATIONS.off || now()<record.access.expiresAt),'APPROVAL_EXPIRED');
+    now()>=record.access.notBefore && ([OPERATIONS.off,OPERATIONS.updateOff].includes(record.operation) || now()<record.access.expiresAt),'APPROVAL_EXPIRED');
   const {expected,desired:config}=transitionConfigs(baseConfig,record,vars);
   fresh(); await reverify(); await existingIdentity(api); await verifyExistingSettings(api,expected);
   await claim(); fresh(); await reverify();

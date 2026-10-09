@@ -383,3 +383,59 @@ void test('access-token derivation rejects formatting errors and oversized appro
   assert.throws(()=>validateUpdateRecord(bytes,createHash('sha256').update(bytes).digest('hex'),{},{}),/RECORD_DIGEST/);
 });
 
+
+function offCodeRecord() {
+  const r=transitionRecord(false);
+  r.operation=OPERATIONS.updateOff;
+  r.expectedState='existing-gated-qa-intake-off';
+  r.priorDeployment.intakeEnabled=false;
+  return r;
+}
+void test('OFF code update accepts expired preserved gate and retains exact-run validation',()=>{
+  const r=offCodeRecord();assert.deepEqual(checkComplete(r),r);
+  for(const mutate of [r=>{r.priorDeployment.intakeEnabled=true},r=>{r.intakeEnabled=true},
+    r=>{r.access.notBefore++},r=>{r.access.expiresAt++},r=>{r.reconciledWriteRuns=[]},
+    r=>{r.expectedState='existing-gated-qa-synthetic-on'},r=>{r.runId++},
+    r=>{r.commit='d'.repeat(40)},r=>{r.artifact.id++},r=>{r.pinsSha256='d'.repeat(64)},
+    r=>{r.ownerId++},r=>{r.costReview.maximumChargeUSD=1},r=>{r.tokenReview.noExpansion=false}]) {
+    const altered=offCodeRecord();mutate(altered);assert.throws(()=>checkComplete(altered),/BLOCKED:/);
+  }
+});
+void test('OFF code update keeps every runtime setting and calls the official path once after expiry',async()=>{
+  const r=offCodeRecord(),vars=accessVars(token,r),c=transitionConfigs(base,r,vars);
+  assert.deepEqual(c.desired,c.expected);
+  for(const key of SYNTHETIC_FLAGS)assert.equal(c.desired.vars[key],'false');
+  assert.deepEqual(c.desired.d1_databases,base.d1_databases);
+  const h=harness({initialConfig:c.expected,options:{record:r,vars}});
+  const result=await updateExistingOnce(h.options);
+  assert.equal(result.intakeEnabled,false);assert.equal(result.operation,OPERATIONS.updateOff);
+  assert.equal(result.accessNotBefore,r.priorDeployment.access.notBefore);
+  assert.equal(result.accessExpiresAt,r.priorDeployment.access.expiresAt);
+  assert.deepEqual(h.counts(),{cliCalls:1,claims:1,reverifies:2});
+  assert.equal(h.calls.filter(([,p])=>p.endsWith('/settings')).length,3);
+});
+void test('OFF code update rejects each flag, gate or DB drift before claim',async()=>{
+  const r=offCodeRecord(),vars=accessVars(token,r),c=transitionConfigs(base,r,vars);
+  for(const mutate of [...SYNTHETIC_FLAGS.map(key=>config=>{config.vars[key]='true'}),
+    config=>{config.vars.QA_ACCESS_NOT_BEFORE='1'},config=>{config.vars.QA_ACCESS_EXPIRES_AT='2'},
+    config=>{config.vars.QA_ACCESS_SHA256='0'.repeat(64)},config=>{config.d1_databases[0].database_id='other'}]) {
+    const initialConfig=structuredClone(c.expected);mutate(initialConfig);
+    const h=harness({initialConfig,options:{record:r,vars}});
+    await assert.rejects(updateExistingOnce(h.options),/BLOCKED:/);
+    assert.equal(h.counts().claims,0);assert.equal(h.counts().cliCalls,0);
+  }
+});
+void test('OFF code update still requires fresh approval and cost evidence, and does not retry failures',async()=>{
+  for(const failure of ['approval','cost','claim','cli','readback']) {
+    const r=offCodeRecord(),vars=accessVars(token,r),c=transitionConfigs(base,r,vars);
+    if(failure==='approval')r.expiresAt=time;
+    if(failure==='cost')r.costReview.validUntil=time;
+    let written=false;
+    const h=harness({initialConfig:c.expected,options:{record:r,vars},
+      claim:()=>{if(failure==='claim')throw new Error('MOCK_CLAIM')},
+      cli:()=>{written=true;if(failure==='cli')throw new Error('MOCK_CLI')},
+      api:path=>written&&failure==='readback'&&path.endsWith(TARGET.workerId)?{result:null}:undefined});
+    await assert.rejects(updateExistingOnce(h.options));
+    assert.equal(h.counts().cliCalls,['cli','readback'].includes(failure)?1:0);
+  }
+});

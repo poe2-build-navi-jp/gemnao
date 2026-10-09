@@ -89,7 +89,7 @@ The old worker-qa-deploy.yml / deploy.mjs is NEW-resource-only and all-OFF-only.
 Do not rerun it, weaken collision checks, change its accepted configuration, or
 pretend it can update this existing Worker.
 
-The new manual worker-qa-access.yml / update.mjs implements initial gate installation with every intake flag OFF. It reuses verification and the exclusive claim SDK from the exact f53724e reviewed-controller checkout. It does not implement synthetic intake enablement or an access renewal. Its executable context accepts only the already protected controller branch, not this PR branch. Publication there and dispatcher registration require separate approval before execution:
+The new manual worker-qa-access.yml / update.mjs implements initial gate installation with every intake flag OFF. It reuses verification and the exclusive claim SDK from the exact f53724e reviewed-controller checkout. Separate explicit operations implement bounded synthetic ON, ON→OFF, and gated OFF→OFF code updates as described below. Its executable context accepts only the already protected controller branch, not this PR branch. Publication there and dispatcher registration require separate approval before execution:
 1. Pin the integrated application/controller commit, source tree, lockfile,
    compiled bundle, five existing manifest inputs, assets, and exact config.
    The gate is inside worker-preview-policy.mjs, already covered by the manifest.
@@ -124,7 +124,7 @@ The new manual worker-qa-access.yml / update.mjs implements initial gate install
    retaining the access gate. On failures or expiry, deny new access/collection;
    do not fall back to a publicly accessible site.
 
-The controller is covered by synthetic mock tests and secretless build checks, not remote execution. It refuses an already gated or otherwise changed runtime state; do not reuse it for renewal or synthetic ON. Secret storage, new access grant and the exact existing-Worker
+The controller is covered by synthetic mock tests and secretless build checks, not remote execution. Initial installation refuses an already gated runtime state; use only the matching explicit transition operation for later updates. Gate expiry denies access but does not automatically turn the seven intake flags OFF. Secret storage, new access grant and the exact existing-Worker
 update require the owner's disclosed action-time approval. No paid plan, budget
 increase, new Cloudflare API token or permission expansion is included.
 
@@ -167,3 +167,22 @@ contents permission, no Environment/secret access, no upload artifact, no deploy
 and no D1 calls. Run gate/wrapper/artifact tests, typecheck, lint and build. Passing
 these checks does not establish remote authentication, actual expiry deletion,
 notification delivery, production readiness or an authorized deployment.
+
+## Code-only update while intake remains OFF
+
+`update-existing-gated-qa-code-intake-off` is a separate OFF→OFF operation.
+It requires an exact prior gated-OFF receipt and reconciled run, and preserves
+both gate timestamps and all seven synthetic flags as false. An expired gate
+stays expired; this operation cannot renew access or enable collection.
+The existing install, ON and OFF preconditions are unchanged: initial install
+cannot update a gated Worker, and OFF still requires a prior ON state.
+
+Use a fresh run, source/tree pins, secret-free artifact and exact-run approval
+record with current zero-charge evidence. The owner must personally approve
+that run in the unchanged protected Environment. Existing credentials are reused
+without retrieval or rotation. Immutable Worker identity, both DB bindings,
+exact runtime settings, artifact checks, exclusive claim, one official Wrangler
+invocation and post-write readback remain mandatory. Approval and cost evidence
+must be fresh even though the preserved access window may have expired.
+No DB mutation, test-row deletion or synthetic QA is part of this operation.
+Do not reuse a previous run's artifact or bypass uncertain-write reconciliation.
