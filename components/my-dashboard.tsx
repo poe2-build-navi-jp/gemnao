@@ -9,9 +9,8 @@ import { RecentTroubles } from '@/components/recent-troubles';
 import { SolutionNotebook } from '@/components/solution-notebook';
 import { useMyGames, useMyPc } from '@/components/use-my-pc';
 import { jstDate, usePreviousVisit } from '@/components/use-last-visit';
-import { gpus, MY_GAMES_KEY, type MinSpec, type MyPc } from '@/lib/my-pc';
+import { gpus, type MinSpec, type MyPc } from '@/lib/my-pc';
 import { maintenanceLabels, type MaintenanceState } from '@/lib/status/policy';
-import { trackMyGameAdded } from '@/lib/analytics';
 
 export type DashboardGame = {
   slug: string;
@@ -175,8 +174,7 @@ type News = Record<string, { title: string; date: string; url: string }[]>;
 
 export function MyDashboard({ games }: { games: DashboardGame[] }) {
   const [pc, savePc, pcReady] = useMyPc();
-  const [myGames, saveGames, gamesReady] = useMyGames();
-  const [gameMessage, setGameMessage] = useState('');
+  const [myGames, , gamesReady] = useMyGames();
   const [news, setNews] = useState<News>({});
   const previous = usePreviousVisit();
   const previousDate = previous ? jstDate(previous) : '';
@@ -205,38 +203,6 @@ export function MyDashboard({ games }: { games: DashboardGame[] }) {
       .catch(() => undefined);
     return () => controller.abort();
   }, [newsKey]);
-
-  function toggle(slug: string) {
-    try {
-      const value: unknown = JSON.parse(
-        localStorage.getItem(MY_GAMES_KEY) || '[]',
-      );
-      if (
-        !Array.isArray(value) ||
-        !value.every((item) => typeof item === 'string')
-      )
-        throw new Error('保存データを読み取れないため、変更していません。');
-      const current = [...new Set(value as string[])];
-      const removing = current.includes(slug);
-      if (!removing && current.length >= 10) {
-        setGameMessage('最大10本です。選択を減らしてから追加してください。');
-        return;
-      }
-      const success = saveGames(
-        removing ? current.filter((item) => item !== slug) : [...current, slug],
-      );
-      if (success && !removing) trackMyGameAdded();
-      setGameMessage(
-        success
-          ? 'マイゲームをこのブラウザに保存しました。'
-          : '保存できませんでした。ブラウザの保存設定を確認してください。',
-      );
-    } catch (error) {
-      setGameMessage(
-        error instanceof Error ? error.message : '保存できませんでした。',
-      );
-    }
-  }
 
   return (
     <div className="my-dashboard">
@@ -350,30 +316,17 @@ export function MyDashboard({ games }: { games: DashboardGame[] }) {
         )}
       </section>
       <section id="my-games" aria-labelledby="my-games-title">
-        <p>
-          <a href="/my-games">ゲーム名で探して、解決記事をすぐ開く →</a>
-        </p>
         <h2 id="my-games-title">
           <Gamepad2 size={21} /> マイゲーム
         </h2>
         <p>
-          遊んでいるゲームを選ぶと、公式のお知らせ・メンテナンス・解決記事がここにまとまります（最大10本）。
+          ゲーム名で検索して、遊んでいるゲームを登録・解除できます（最大10本）。登録済みのゲームはそのまま引き継がれます。
         </p>
-        {gamesReady ? (
-          <div className="my-game-picker">
-            {games.map((game) => (
-              <label key={game.slug}>
-                <input
-                  type="checkbox"
-                  checked={myGames.includes(game.slug)}
-                  onChange={() => toggle(game.slug)}
-                />{' '}
-                {game.name}
-              </label>
-            ))}
-          </div>
-        ) : null}
-        <output className="solution-message">{gameMessage}</output>
+        <p>
+          <a className="my-games-primary" href="/my-games#my-games">
+            ゲームを検索・登録する <ArrowRight size={16} aria-hidden="true" />
+          </a>
+        </p>
       </section>
 
       <SolutionNotebook />

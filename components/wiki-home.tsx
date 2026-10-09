@@ -130,8 +130,11 @@ export function WikiHome({
   return (
     <main>
       <WikiHeader />
-      <section className="hero" id="site-search">
-        <div className="hero-copy">
+      <section
+        className={`hero${isSearching ? ' hero-searching' : ''}`}
+        id="site-search"
+      >
+        <div className="hero-copy" hidden={isSearching}>
           <p className="kicker">
             <Wrench size={15} /> WINDOWS PC TROUBLESHOOTING
           </p>
@@ -146,6 +149,9 @@ export function WikiHome({
             PCゲームのトラブルを症状から探せます。
           </p>
         </div>
+        {isSearching ? (
+          <h1 className="search-heading">ゲーム・症状から検索</h1>
+        ) : null}
         <div className="search-box">
           <Search size={20} aria-hidden="true" />
           <input
@@ -171,6 +177,7 @@ export function WikiHome({
         </div>
         <div
           className="search-examples home-search-examples"
+          hidden={isSearching}
           aria-label="検索例"
         >
           <span>検索例：</span>

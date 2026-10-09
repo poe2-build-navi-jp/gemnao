@@ -5431,3 +5431,23 @@ a.my-games-primary {
 .game-request-message { display: block; min-height: 24px; font-size: 14px; line-height: 1.7; }
 
 .game-request-policy { display: inline-flex; align-items: center; min-height: 48px; }
+
+/* Keep active search results close to the input at desktop and mobile widths. */
+.hero.hero-searching {
+  padding-top: 24px;
+  padding-bottom: 20px;
+}
+.hero-searching .search-heading {
+  font-size: 24px;
+  line-height: 1.4;
+  letter-spacing: normal;
+}
+.hero-searching .search-box {
+  margin-top: 14px;
+}
+.hero-searching [hidden] {
+  display: none;
+}
+.hero-searching ~ .content {
+  padding-top: 24px;
+}

@@ -16,6 +16,7 @@ import {
 import { PathCopy } from '@/components/path-copy';
 import { SaveGame } from '@/components/save-game';
 import { ogImageFor } from '@/lib/og-images';
+import { stepsWithEndpoints } from '@/lib/article-step-endpoints';
 import { InteractiveSteps } from '@/components/interactive-steps';
 import { ShareButtons } from '@/components/share-buttons';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
@@ -290,7 +291,7 @@ export function TroubleshootingArticle({
             articleTitle={article.title}
             articlePath={`/games/${game.slug}/${article.slug}`}
             shareHashtag={game.title.split('/')[0].trim()}
-            steps={article.steps}
+            steps={stepsWithEndpoints(article)}
             nextLinks={[
               ...article.related
                 .map((slug) => articleBySlug(game.slug, slug))

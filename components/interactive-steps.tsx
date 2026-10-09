@@ -21,7 +21,8 @@ import {
   stepOutcomeCounts,
   validMethodSnapshot,
 } from '@/lib/step-outcome-counts';
-import type { AdvanceCheck } from '@/lib/step-navigation';
+import { nextStepIndex, type AdvanceCheck } from '@/lib/step-navigation';
+import type { StepEndpoint } from '@/lib/article-step-endpoints';
 import { useSavedSolutions } from '@/components/use-saved-solutions';
 import { useActiveCase } from '@/components/support-workspace';
 import { ResultNote } from '@/components/result-note';
@@ -35,6 +36,7 @@ import {
 } from '@/lib/solution-ranking';
 
 type Step = {
+  endpoint?: StepEndpoint;
   nextStepId?: string;
   id: string;
   title: string;
@@ -513,10 +515,7 @@ export function InteractiveSteps({
   }
 
   function nextIndex(step: Step, index: number) {
-    const target = steps.findIndex(
-      (candidate) => candidate.id === step.nextStepId,
-    );
-    return target > index ? target : Math.min(index + 1, steps.length - 1);
+    return nextStepIndex(steps, step, index);
   }
 
   async function notSolved(step: Step, index: number) {
@@ -877,6 +876,7 @@ export function InteractiveSteps({
                 {!solvedStepId &&
                   !prerequisite &&
                   !step.advanceCheck &&
+                  !step.endpoint &&
                   index < steps.length - 1 && (
                     <p className="step-skip">
                       <a
@@ -966,9 +966,11 @@ export function InteractiveSteps({
                           type="button"
                           onClick={() => void notSolved(step, index)}
                         >
-                          {index < steps.length - 1
-                            ? `試したが直らない → 次は「${steps[nextIndex(step, index)].title}」を確認`
-                            : '試したが直らない'}
+                          {step.endpoint
+                            ? '試したが直らない → 結果を整理して次の相談先を確認'
+                            : index < steps.length - 1
+                              ? `試したが直らない → 次は「${steps[nextIndex(step, index)].title}」を確認`
+                              : '試したが直らない'}
                           <ChevronRight size={17} />
                         </button>
                       ) : null}
@@ -1013,30 +1015,57 @@ export function InteractiveSteps({
                     </output>
                   ))}
                 {outcome?.step.id === step.id && (
-                  <ResultNote
-                    key={`${scope}:${outcome.at}`}
-                    onClose={() => updateSession({ outcome: null })}
-                    attempt={{
-                      path: articlePath,
-                      stepId: step.id,
-                      label: step.title,
-                      result: outcome.resolved ? 'resolved' : 'unresolved',
-                      at: outcome.at,
-                    }}
-                    draft={{
-                      title: articleTitle,
-                      gameSlug:
-                        articlePath.match(/^\/games\/([a-z0-9-]+)\//)?.[1] ||
-                        '',
-                      status: outcome.resolved ? 'resolved' : 'unresolved',
-                      diagnosis: '',
-                      settings: '',
-                      notes: '',
-                      articlePath,
-                      stepId: outcome.nextId,
-                      completedSteps: [step.title],
-                    }}
-                  />
+                  <>
+                    {!outcome.resolved && step.endpoint && (
+                      <aside
+                        className="procedure-note step-endpoint"
+                        aria-label="この症状の次の行動"
+                      >
+                        <strong>
+                          「{step.endpoint.symptom}」の確認はここまでです。
+                        </strong>
+                        <p>
+                          試した手順と結果、エラー表示、発生した場面、PCの構成を下のノートに整理できます。改善しなければ、公式情報の問い合わせ先を確認し、必要な情報だけを添えて相談してください。
+                        </p>
+                        {step.endpoint.href && (
+                          <p>
+                            <a href={step.endpoint.href}>
+                              {step.endpoint.label} →
+                            </a>
+                          </p>
+                        )}
+                        <p>
+                          <a href="#references">
+                            この記事の公式情報・サポート案内を確認 →
+                          </a>
+                        </p>
+                      </aside>
+                    )}
+                    <ResultNote
+                      key={`${scope}:${outcome.at}`}
+                      onClose={() => updateSession({ outcome: null })}
+                      attempt={{
+                        path: articlePath,
+                        stepId: step.id,
+                        label: step.title,
+                        result: outcome.resolved ? 'resolved' : 'unresolved',
+                        at: outcome.at,
+                      }}
+                      draft={{
+                        title: articleTitle,
+                        gameSlug:
+                          articlePath.match(/^\/games\/([a-z0-9-]+)\//)?.[1] ||
+                          '',
+                        status: outcome.resolved ? 'resolved' : 'unresolved',
+                        diagnosis: '',
+                        settings: '',
+                        notes: '',
+                        articlePath,
+                        stepId: outcome.nextId,
+                        completedSteps: [step.title],
+                      }}
+                    />
+                  </>
                 )}
               </section>
             );
