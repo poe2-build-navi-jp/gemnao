@@ -1,3 +1,4 @@
+import { clearPendingShares, pendingShares, withPendingShareLock } from './pending-share';
 import {
   RULE_VERSION,
   questionFor,
@@ -79,11 +80,22 @@ export function saveLocal(value: LocalDiagnosis): boolean {
     return false;
   }
 }
-export function clearLocal() {
+export async function clearLocal() {
   try {
+    // Preserve ordinary local-only diagnosis erasure on browsers where sharing
+    // is unavailable. Existing pending shares still require coordinated erase.
+    if (typeof navigator === 'undefined' || !navigator.locks) {
+      if (pendingShares().length) return false;
+      localStorage.removeItem(LOCAL_KEY);
+      return localStorage.getItem(LOCAL_KEY) === null;
+    }
+    return await withPendingShareLock(() => {
     localStorage.removeItem(LOCAL_KEY);
+    clearPendingShares();
+    return localStorage.getItem(LOCAL_KEY) === null && pendingShares().length === 0;
+    });
   } catch {
-    /* Disabled storage does not block the UI. */
+    return false;
   }
 }
 export async function diagnosisRequest<T = Record<string, unknown>>(

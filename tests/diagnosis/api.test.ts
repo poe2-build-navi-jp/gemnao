@@ -8,9 +8,11 @@ import {
   type DiagnosisEnv,
 } from '../../lib/diagnosis/server';
 import { actions } from '../../lib/diagnosis/rules';
+import { pendingShares, savePendingShare, removePendingShare, clearPendingShares, PENDING_TTL, type PendingShare } from '../../lib/diagnosis/pending-share';
 import { RULE_VERSION, answerLabel } from '../../lib/diagnosis/model';
 import { buildSnapshot, type Snapshot } from '../../lib/diagnosis/validation';
 type TestDTO = {
+  ownerBinding: string;
   id: string;
   recoveryKey: string;
   expiresAt: number;
@@ -69,7 +71,7 @@ function database() {
   return { db, sql };
 }
 const now = Date.UTC(2026, 9, 2, 4);
-const input = {
+const input: PendingShare['snapshot'] = {
   answers: {
     symptom: 'not-launching',
     scope: 'game',
@@ -690,4 +692,100 @@ void test('local beta keeps pre-existing owner deletion behind its separate stor
   const beta = { ...env, DIAGNOSIS_LOCAL_BETA: 'true', DIAGNOSIS_ENABLED: undefined };
   assert.equal((await handleDiagnosis(req('/' + data.id, {}, cookie, 'DELETE'), beta, now)).status, 200);
   assert.equal(sql.prepare('SELECT COUNT(*) AS n FROM diagnosis_shared').get()?.n, 0);
+});
+
+void test('durable retry binding requires the same real cookie at session and create time', async () => {
+  const { env, cookie, sql } = await setup();
+  const requestId = 'e'.repeat(32);
+  const session = await handleDiagnosis(req('/session', { requestId }, cookie), env, now);
+  const sessionText = await session.clone().text();
+  const { ownerBinding } = await session.json();
+  assert.match(ownerBinding, /^[a-f0-9]{64}$/);
+  assert.ok(!sessionText.includes(cookie.split('=')[1]));
+  const otherId = await handleDiagnosis(req('/session', { requestId: 'f'.repeat(32) }, cookie), env, now);
+  assert.notEqual((await otherId.json()).ownerBinding, ownerBinding);
+  const missing = await handleDiagnosis(req('/session', { requestId, resume: true }), env, now);
+  assert.equal(missing.status, 403);
+  assert.equal(missing.headers.get('set-cookie'), null);
+  const body = { snapshot: input, requestId, ownerBinding };
+  assert.equal((await handleDiagnosis(req('', body), env, now)).status, 403);
+  const otherCookie = '__Host-gemnao-diagnosis=' + '9'.repeat(64);
+  assert.equal((await handleDiagnosis(req('', body, otherCookie), env, now)).status, 403);
+  assert.equal(sql.prepare('SELECT count(*) n FROM diagnosis_shared').get()?.n, 0);
+  const created = await handleDiagnosis(req('', body, cookie), env, now);
+  assert.equal(created.status, 201);
+  const original = await created.json();
+  const resumed = await handleDiagnosis(req('', { ...body, resume: true }, cookie), env, now);
+  assert.equal(resumed.status, 200);
+  const recovered = await resumed.json();
+  assert.equal(recovered.id, original.id);
+  assert.equal(recovered.recoveryKey, null);
+  assert.equal(recovered.repeated, true);
+  assert.match(resumed.headers.get('cache-control') || '', /no-store/);
+  assert.equal(sql.prepare('SELECT count(*) n FROM diagnosis_shared').get()?.n, 1);
+});
+void test('lookup-only recovery never recreates absent, deleted, expired, revoked or reassigned shares', async () => {
+  for (const state of ['absent', 'deleted', 'expired', 'revoked', 'reassigned']) {
+    const { env, cookie, sql } = await setup();
+    const requestId = crypto.randomUUID().replaceAll('-', '');
+    const session = await handleDiagnosis(req('/session', { requestId }, cookie), env, now);
+    const { ownerBinding } = await session.json();
+    const body = { snapshot: input, requestId, ownerBinding };
+    let id = '';
+    if (state !== 'absent') {
+      const created = await handleDiagnosis(req('', body, cookie), env, now);
+      assert.equal(created.status, 201);
+      id = (await created.json()).id;
+    }
+    if (state === 'deleted') sql.prepare('DELETE FROM diagnosis_shared WHERE id=?').run(id);
+    if (state === 'expired') sql.prepare('UPDATE diagnosis_shared SET expires_at=? WHERE id=?').run(now, id);
+    if (state === 'revoked') sql.prepare('UPDATE diagnosis_shared SET revoked_at=? WHERE id=?').run(now, id);
+    if (state === 'reassigned') sql.prepare('UPDATE diagnosis_shared SET owner_hash=? WHERE id=?').run('other-owner', id);
+    const before = sql.prepare('SELECT * FROM diagnosis_shared').all();
+    const response = await handleDiagnosis(req('', { ...body, resume: true }, cookie), env, now);
+    assert.equal(response.status, 409, state);
+    assert.deepEqual(sql.prepare('SELECT * FROM diagnosis_shared').all(), before, state);
+    sql.close();
+  }
+});
+
+void test('local pending records are bounded, isolated, fixed-expiry and never retain unknown secret fields', () => {
+  const values = new Map<string, string>();
+  const storage = {
+    get length() { return values.size; },
+    key(index: number) { return [...values.keys()][index] || null; },
+    getItem(key: string) { return values.get(key) ?? null; },
+    setItem(key: string, value: string) { values.set(key, value); },
+    removeItem(key: string) { values.delete(key); },
+    clear() { values.clear(); },
+  };
+  Object.defineProperty(globalThis, 'localStorage', { value: storage, configurable: true });
+  try {
+    const pending: PendingShare = {
+      version: 1, requestId: '1'.repeat(32), createdAt: now, ownerBinding: '2'.repeat(64),
+      snapshot: structuredClone(input),
+    };
+    savePendingShare(pending, now);
+    assert.throws(() => savePendingShare({ ...pending, ownerBinding: null }, now, true), /別の画面/);
+    assert.throws(() => savePendingShare({ ...pending, createdAt: now + 1 }, now, true), /別の画面/);
+    savePendingShare({ ...pending, requestId: '3'.repeat(32) }, now);
+    assert.equal(pendingShares(now).length, 2);
+    removePendingShare(pending.requestId);
+    assert.throws(() => savePendingShare(pending, now, true), /削除または期限切れ/);
+    assert.equal(pendingShares(now).length, 1, 'completion removes only matching attempt');
+    const remaining = pendingShares(now)[0];
+    savePendingShare(remaining, now + 1000);
+    assert.equal(pendingShares(now + 1000)[0].createdAt, now, 'retry never extends retention');
+    assert.equal(pendingShares(now + PENDING_TTL).length, 0);
+    savePendingShare(pending, now);
+    const key = 'gemnao-diagnosis-pending-v1:' + pending.requestId;
+    values.set(key, JSON.stringify({ ...pending, recoveryKey: 'secret' }));
+    assert.equal(pendingShares(now).length, 0);
+    assert.equal(values.has(key), false);
+    savePendingShare(pending, now);
+    values.set('ordinary-site-data', 'keep');
+    clearPendingShares();
+    assert.equal(values.get('ordinary-site-data'), 'keep');
+    assert.equal(pendingShares(now).length, 0);
+  } finally { Reflect.deleteProperty(globalThis, 'localStorage'); }
 });
