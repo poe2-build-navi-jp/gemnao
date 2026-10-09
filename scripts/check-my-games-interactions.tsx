@@ -85,7 +85,6 @@ const game = {
 };
 for (const source of [
   'game-page',
-  'my-page',
   'focused-ja',
   'focused-en',
   'focused-zh',
@@ -94,29 +93,21 @@ for (const source of [
   const render = () =>
     source === 'game-page'
       ? SaveGame({ slug: game.slug })
-      : source === 'my-page'
-        ? MyDashboard({ games: [game] })
-        : MyGamesPanel({
-            games: [
-              {
-                ...game,
-                searchNames: game.name,
-                hub: '/games/elden-ring',
-                hubJapanese: false,
-              },
-            ],
-            locale: source.slice(-2) as 'ja' | 'en' | 'zh' | 'es',
-          });
+      : MyGamesPanel({
+          games: [
+            {
+              ...game,
+              searchNames: game.name,
+              hub: '/games/elden-ring',
+              hubJapanese: false,
+            },
+          ],
+          locale: source.slice(-2) as 'ja' | 'en' | 'zh' | 'es',
+        });
   const handler = () => {
-    const control = find(render(), (node) =>
-      source !== 'my-page'
-        ? node.type === 'button'
-        : node.type === 'input' && node.props?.type === 'checkbox',
-    );
+    const control = find(render(), (node) => node.type === 'button');
     assert.ok(control, source);
-    return control.props![
-      source !== 'my-page' ? 'onClick' : 'onChange'
-    ] as () => void;
+    return control.props!.onClick as () => void;
   };
   reset();
   render();
@@ -216,7 +207,7 @@ for (const source of [
   );
 }
 console.log(
-  'My Games real-handler checks passed for article, legacy dashboard, and all four focused-page languages: add/remove/re-add, repeated callbacks, duplicates, stale storage, read/write failures, corrupt data, cap, unavailable GA, server snapshots, and existing selections.',
+  'My Games real-handler checks passed for article and all four focused-page languages: add/remove/re-add, repeated callbacks, duplicates, stale storage, read/write failures, corrupt data, cap, unavailable GA, server snapshots, and existing selections.',
 );
 
 // Synthetic schedules only: the dashboard must distinguish each active state.
@@ -241,3 +232,15 @@ for (const [state, label] of [
 reset([game.slug]);
 assert.ok(!nodeText(MyDashboard({ games: [game] })).includes('メンテ（'));
 console.log('PASS: dashboard maintenance labels, planned times, empty schedule, no new analytics');
+
+// The legacy anchor now opens the same editor; rendering it never rewrites data.
+reset([game.slug, 'previously-saved-game']);
+const dashboardStorage = values.get(MY_GAMES_KEY);
+const dashboard = MyDashboard({ games: [game] });
+assert.ok(find(dashboard, (node) => node.props?.id === 'my-games'));
+assert.ok(find(dashboard, (node) => node.type === 'a' && node.props?.href === '/my-games#my-games'));
+assert.ok(!find(dashboard, (node) => node.type === 'input' && node.props?.type === 'checkbox'));
+assert.equal(values.get(MY_GAMES_KEY), dashboardStorage);
+assert.equal(calls.length, 0);
+assert.equal(notifications, 0);
+console.log('PASS: legacy My Games anchor routes to the shared search editor and preserves existing saved data.');
