@@ -1,8 +1,12 @@
 name: QA access gate checks (read-only)
 on:
   pull_request:
-    branches: [prepare/dedicated-worker-qa-20261007]
+    branches: [prepare/dedicated-worker-qa-20261007, prepare/diagnostic-qa-access-20261009]
     paths:
+      - components/diagnostic-feedback-form.tsx
+      - lib/diagnostic-feedback/**
+      - tests/diagnostic-feedback/**
+      - tests/diagnosis/**
       - cloudflare/worker-preview-policy.mjs
       - cloudflare/worker-preview.mjs
       - wrangler.worker-preview.json
@@ -56,3 +60,13 @@ jobs:
         run: node --test tests/qa-access/*.test.mjs tests/worker-preview/*.test.mjs
       - name: Local Workerd authentication smoke test
         run: node tests/qa-access/runtime-smoke.mjs
+      - name: Feedback and diagnosis service regressions (local SQLite only)
+        run: |
+          node tests/diagnostic-feedback/run.mjs
+          node scripts/test-diagnosis.mjs tests/diagnosis/rules.test.ts tests/diagnosis/api.test.ts tests/diagnosis/preview-client.test.ts
+      - name: Install Chromium for synthetic local browser regressions
+        run: pnpm exec playwright install --with-deps chromium --only-shell
+      - name: Feedback Basic gate and diagnosis consent browser regressions
+        run: |
+          node tests/qa-access/feedback-browser.mjs
+          node --test tests/diagnosis/share-consent.test.mjs

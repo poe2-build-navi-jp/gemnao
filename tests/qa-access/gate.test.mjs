@@ -139,3 +139,19 @@ void test('successful HEAD, valid origin-only mutations, and hostile fetch-site 
   assert.equal((await worker.fetch(new Request(origin+'/diagnose',{headers}),env,{})).status,401);
   assert.equal(calls,2);
 });
+
+void test('feedback drops ambient cookies after authentication; diagnosis retains owner cookie', async () => {
+  const calls = [];
+  const worker = wrapQaAccess({ fetch(req) {
+    calls.push({path:new URL(req.url).pathname, cookie:req.headers.get('Cookie'), auth:req.headers.get('Authorization')});
+    return new Response('ok');
+  } }, origin, () => time);
+  for (const method of ['GET', 'POST', 'DELETE']) {
+    const r = await worker.fetch(request('/api/diagnostic-feedback', token, {method,
+      headers:{Cookie:'synthetic-owner=existing',Origin:origin,'Sec-Fetch-Site':'same-origin'}}),env,{});
+    assert.equal(r.status,200);
+  }
+  assert(calls.every(x=>x.cookie===null && x.auth===null));
+  const r=await worker.fetch(request('/api/diagnosis/config',token,{headers:{Cookie:'synthetic-owner=existing'}}),env,{});
+  assert.equal(r.status,200);assert.equal(calls.at(-1).cookie,'synthetic-owner=existing');assert.equal(calls.at(-1).auth,null);
+});

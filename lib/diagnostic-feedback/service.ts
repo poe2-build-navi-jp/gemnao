@@ -73,7 +73,8 @@ export async function handleFeedback(
   try {
     if (!['GET', 'POST', 'DELETE'].includes(request.method))
       return reply({ error: 'method' }, 405);
-    // Browser same-origin only. No CORS, no URL payload, and no cookie credentials.
+    // Browser same-origin only. No CORS or URL payload; cookies never authorize
+    // feedback. The QA wrapper removes them after its outer Basic authentication.
     if (
       new URL(request.url).search ||
       (request.method !== 'GET' &&
