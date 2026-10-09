@@ -10,13 +10,21 @@
     "DIAGNOSIS_SHARING_ENABLED": "true",
     "DIAGNOSIS_METRICS_ENABLED": "true",
     "DIAGNOSIS_STORAGE_ENABLED": "true",
-    "DIAGNOSIS_ENABLED": "true"
+    "DIAGNOSIS_ENABLED": "true",
+    "DIAGNOSIS_LOCAL_BETA": "false"
   },
   "d1_databases": [
     {
-      "binding": "DB",
+      "binding": "DIAGNOSIS_DB",
       "database_name": "gemnao-diagnosis-local",
       "database_id": "00000000-0000-4000-8000-000000000004",
+      "migrations_dir": "migrations/diagnosis",
+      "migrations_table": "d1_migrations"
+    },
+    {
+      "binding": "DB",
+      "database_name": "gemnao-diagnosis-site-local",
+      "database_id": "00000000-0000-4000-8000-000000000005",
       "migrations_dir": ".openai/drizzle",
       "migrations_table": "d1_migrations"
     }
