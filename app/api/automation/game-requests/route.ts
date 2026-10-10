@@ -1,5 +1,8 @@
 import { isGameRequestConsumer } from '@/lib/game-request-consumer-auth';
-import { admitGameRequestConsumerCall } from '@/lib/game-request-db';
+import {
+  admitGameRequestConsumerCall,
+  automaticGameRequestConsumerAllowed,
+} from '@/lib/game-request-db';
 import {
   getQueueResponse,
   patchQueueResponse,
@@ -8,6 +11,8 @@ import {
 async function authorize(request: Request) {
   if (!(await isGameRequestConsumer(request)))
     return queueReply({ error: 'unauthorized' }, 401);
+  if (!automaticGameRequestConsumerAllowed())
+    return queueReply({ error: 'unavailable' }, 503);
   try {
     if (!(await admitGameRequestConsumerCall()))
       return Response.json(
