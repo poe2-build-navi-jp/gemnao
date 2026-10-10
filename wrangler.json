@@ -6,7 +6,10 @@
   "compatibility_flags": ["nodejs_compat"],
   "vars": {
     "DISCORD_ADMIN_TOKEN_HASH": "0c4479af1efa03b26dde9060d78581cd856a7683807ca61475cf59dedbc6d4c5",
-    "DIAGNOSIS_LOCAL_BETA": "true"
+    "DIAGNOSIS_LOCAL_BETA": "true",
+    "GAME_REQUEST_REVIEW_MODE": "manual",
+    "GAME_REQUEST_MANUAL_REVIEW_READY": "true",
+    "GAME_REQUESTS_ENABLED": "true"
   },
   "d1_databases": [
     {
