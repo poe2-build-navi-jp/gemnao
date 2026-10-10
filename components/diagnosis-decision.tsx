@@ -28,7 +28,7 @@ export function DiagnosisDecision({ decision, answers }: { decision: RepairDecis
         <RepairCostTable categories={[category as RepairCategory]} />
       </div> : <p className="diag-small">費用を絞って見たい場合は、回答に戻って「費用を確認したい作業」を選べます。分からない部品を選ぶ必要はありません。</p>}
     </>}
-    <a href="/pc/repair-or-replace" className="diag-link">修理・パーツ交換の費用目安と、総額の比べ方 →</a>
+    <a href="/pc/repair-or-replace#step-4" className="diag-link">修理する？部品を替える？買い替える？費用と違いを見る →</a>
     <p className="diag-small">この診断は正常・故障の証明ではありません。年数、低FPS、GPU使用率、「分からない」だけで買い替えを勧めません。</p>
   </section>;
 }

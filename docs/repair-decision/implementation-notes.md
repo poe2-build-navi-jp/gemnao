@@ -8,14 +8,14 @@
 - Shop handoff is a local text preview, copy and save flow. It is not sent to a shop or server and cannot remove the need for professional examination.
 - Existing Windows 0.6 archive was inspected separately: OS/CPU/GPU/RAM/disk capacity and selected Windows events are limited observations, not temperature, SMART, FPS, voltage, physical-damage or memory-hardware tests. The archive, release metadata and hashes are unchanged. New Web answers do not claim to be machine-collected facts.
 - Existing diagnosis QA workers, D1 data, migrations, credentials, pending runs and deployment settings are out of scope.
-- No production deployment or merge is authorized by this draft.
+- Initial delivery was Draft-only. On 2026-10-10 the user subsequently authorized normal publication after the requested display changes and final checks, provided no material issue remains.
 
 ## Verification
 
 - Production build succeeded: 325 editorial snapshots, 312 sitemap URLs, 244 up-to-date OG cards.
 - TypeScript and repository lint passed.
 - 109 translated-page/content-parity checks passed.
-- 52 deterministic diagnosis, API and SSR/privacy tests passed. New tests cover dangerous symptoms overriding other answers, critical storage, unknown states, manufacturer errors, candidate-only pricing, record migration and local report boundaries.
+- 53 deterministic diagnosis, API and SSR/privacy tests passed. New tests cover dangerous symptoms overriding other answers, critical storage, unknown states, manufacturer errors, candidate-only pricing, record migration and local report boundaries.
 - Four generated article HTML files checked for head metadata, self-canonical, all language alternates, schema, step anchors, price tables, sitemap entries and existing referenced CSS/JS assets.
 - Diagnosis integration gates, noindex/sitemap exclusion, D1 non-access, legacy sharing rejection for new context, and Windows archive identity checks passed.
 - Four generated OG cards visually inspected; Spanish summary was shortened to avoid truncation.
@@ -40,3 +40,9 @@ For this sandbox, the existing `scripts/diagnosis-test-bootstrap.mjs` was used f
 A static review found that liquid intrusion/recent wetting was missing from the new danger-choice wording. It now joins the existing stop-use branch before any ordinary troubleshooting, with matching Japanese/English/Chinese/Spanish guidance and a regression assertion. No new data field or collection was added.
 
 The final price list also includes PC Koubou's optional JPY 500 basic diagnostic menu (tax included), making 27 published examples. It is not a comprehensive diagnosis, included repair, universally mandatory charge or a promise that the local handoff removes the shop's inspection. Sources: https://www.pc-koubou.jp/faq/faq_detail.html?id=10569 and https://www.pc-koubou.jp/contents/iiyamapc_support.php?pre=sgi_sup (tax), checked 2026-10-10.
+
+## Price clarity and shorter reading flow
+
+Each of the 27 prices now has a bold adjacent parts-scope label in all four languages, also used by filtered diagnosis prices. Labor is parts-extra; the specified SSD/migration example includes its stated SSD; manufacturer estimates without explicit inclusion are marked for quote confirmation. Diagnostic/setup services, cleaning consumables, backup media and recovery delivery media are distinguished. Official NEC and Dospara sources were rechecked on 2026-10-10.
+
+The full price list is collapsed initially in articles; filtered diagnosis prices start expanded. The major safety caution stays outside the disclosure. Native summaries remain keyboard-operable and the cost anchor leads to a visible heading and toggle. Mobile visual checks remain pending.

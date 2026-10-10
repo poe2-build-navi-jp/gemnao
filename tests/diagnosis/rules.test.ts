@@ -317,7 +317,7 @@ void test('decision SSR shows urgent warnings before any cost examples and unkno
     const decision = repairDecision(answers);
     const html = renderToStaticMarkup(createElement(DiagnosisDecision, { answers, decision }));
     assert.ok(!html.includes('メモリ取付・交換'));
-    assert.match(html, /修理・パーツ交換の費用目安/);
+    assert.match(html, /費用と違いを見る/);
     if (decision.urgency !== 'normal') assert.match(html, /diag-warning/);
   }
 });
@@ -338,4 +338,23 @@ void test('liquid intrusion is visibly part of the existing stop-use safety gate
   assert.equal(result.decision?.urgency, 'stop');
   assert.match(result.decision?.evidence.join(' ') || '', /液体侵入|水濡れ/);
   assert.equal(result.recommendations.length, 0);
+});
+
+
+void test('all localized price rows expose parts scope beside the price', () => {
+  for (const locale of ['ja', 'en', 'zh', 'es'] as const) {
+    const html = renderToStaticMarkup(
+      createElement(RepairCostTable, { locale }),
+    );
+    assert.equal((html.match(/data-parts-cost=/g) || []).length, 27);
+    assert.match(html, /data-parts-cost="extra"/);
+    assert.match(html, /data-parts-cost="included"/);
+    assert.match(html, /data-parts-cost="confirm"/);
+    const selected = renderToStaticMarkup(
+      createElement(RepairCostTable, { locale, categories: ['memory'] }),
+    );
+    assert.equal((selected.match(/data-parts-cost=/g) || []).length, 2);
+    assert.match(selected, /<details open="" class="repair-price-details">/);
+    assert.match(html, /<details class="repair-price-details">/);
+  }
 });

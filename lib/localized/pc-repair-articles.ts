@@ -148,41 +148,39 @@ export const localizedPcRepairArticles: LocalizedPcArticle[] = [
           'Getting a quote requires no hardware change. Ask about restoring the previous setup and return eligibility before ordering.',
       },
       {
-        title: 'Compare repair, upgrade and replacement on equal terms',
+        title: 'Compare three options: repair, upgrade or a new PC',
         actions: [
-          'Repair: diagnosis + parts + labor + shipping + necessary data work − warranty coverage. Upgrade: compatible parts + installation + necessary migration and setup + supporting components. Check what each quote includes.',
-          'For replacement, include the PC, compatibility with required software and peripherals, migration and setup, disposal of the old PC and the time without a usable computer. Compare whether repair and replacement would meet the same needs and performance targets.',
-          'Check the post-repair warranty, availability of parts and service, turnaround, and support for the OS and necessary software. Age is a reason to check these points, not an expiry date by itself.',
-          'Before agreeing, check diagnosis and return-shipping fees if you decline the quote, data-erasure policies, consent for extra work and the quote’s expiry date. Do not assume replacement is always required when repair exceeds half the price of a new PC.',
+          'Write down one thing the PC needs to do, such as playing your current game at the same settings. Compare the options below that can meet that need. If settings changes are enough, keeping the PC is also an option.',
+          'Here, repair means fixing a fault; an upgrade means adding performance or capacity. Replacing a broken part is also a repair. Check your model to find out which parts can be replaced.',
+          'Compare the amount you pay after warranty coverage, including tax and shipping. Add only necessary costs that are missing from the quote; do not count included items twice. Leave unknown fees marked for confirmation, not as zero.',
+          'Alongside the price, check the warranty after repair or purchase, when the PC will be usable, and support for the OS and required software. Ask separately about data recovery: it differs from ordinary migration in cost and feasibility.',
         ],
         resultRows: [
           {
-            state: 'Warranty repair would meet your needs',
-            meaning: 'There is a reason to consider repair first',
-            next: 'Confirm coverage, turnaround and data handling with the provider.',
+            state: 'Repair: fix a fault in your current PC',
+            meaning:
+              'Aims to restore what the PC could already do. Fixing the fault does not necessarily improve performance that was already insufficient.',
+            next: 'Diagnosis + repair parts + labor + shipping + required migration and setup. Confirm the amount you pay after warranty coverage.',
           },
           {
-            state: 'Replacing one component would meet your needs',
-            meaning: 'There is a reason to compare an upgrade',
-            next: 'Confirm compatibility, the full cost and the warranty after the work.',
+            state: 'Upgrade: improve your current PC',
+            meaning:
+              'Addresses a known shortfall, such as RAM or storage capacity. Check compatibility. An SSD does not boost CPU or GPU performance, and an upgrade may not fix an unexplained fault.',
+            next: 'Compatible parts + installation + required supporting components + shipping + migration and setup. Add diagnosis if charged separately.',
           },
           {
-            state: 'The repaired PC still would not meet your needs',
-            meaning: 'Include replacement in the comparison',
-            next: 'Compare suitable models and total costs including migration.',
-          },
-          {
-            state: 'The fault and quote are both unknown',
-            meaning: 'There is not enough information to buy',
-            next: 'Return to symptom checks, inspection and quotes.',
+            state: 'Replace: buy a different PC',
+            meaning:
+              'Lets you choose a PC with the performance you need. Check software and peripheral compatibility. It is not a guaranteed fix for a game or software problem.',
+            next: 'PC + shipping + required software and peripherals + migration and setup + disposal of the old PC.',
           },
         ],
         expected:
-          'You can decide using cost, your needs, data, downtime and warranty together.',
+          'You can compare options that meet the same need by total cost, warranty and days without a usable PC.',
         unexpected:
-          'If the repair scope or extra charges are unclear, confirm a fixed price or limit and how you will approve extra work before deciding.',
+          'If details are missing, wait before buying. Confirm what the repair covers, the extra-charge limit and approval process, and whether data will be erased.',
         revert:
-          'Comparing options makes no changes. Check the provider’s terms first because ordering or cancelling may incur fees.',
+          'Comparing makes no changes. Before ordering, check diagnosis and return-shipping fees if you decline or cancel, and when the quote expires.',
       },
     ],
     escalation:
@@ -370,40 +368,39 @@ export const localizedPcRepairArticles: LocalizedPcArticle[] = [
           '询价阶段无需更改硬件。下单前向商家确认能否恢复原配置，以及退货条件。',
       },
       {
-        title: '在相同条件下比较维修、升级与换新的总费用',
+        title: '比较三个方案：修好、升级、换电脑',
         actions: [
-          '维修费用按“检测费＋配件＋工时＋运费＋必要的数据处理－保修承担部分”核对。升级按“兼容配件＋安装工时＋必要的迁移和设置＋相关配件”核对，确认报价包含哪些项目。',
-          '换新不仅包括主机价格，还需考虑所需软件和外设的兼容性、数据迁移和设置、旧电脑处理，以及无法使用电脑的时间。比较修复后和换新后是否都能满足相同用途与性能目标。',
-          '同时核对维修后的保修、配件供应和维修受理情况、交付时间，以及系统和必要软件的支持状态。使用年数只是开始核对这些事项的线索，不能单独作为寿命判定。',
-          '委托前确认拒绝报价时的检测费和退回运费、数据清除政策、追加作业的事先同意方式，以及报价有效期。不要采用“超过新机一半价格就必须换新”的统一规则。',
+          '先写下电脑必须完成的一件事，例如以相同画质玩现在的游戏。再从下面三个方案中比较能满足这一需求的选项。如果调整设置已经够用，也可以继续使用。',
+          '这里的“维修”指修复故障，“升级配件”指补足性能或容量。更换损坏配件也属于维修。哪些配件能换，要按具体机型确认。',
+          '比较含税、含运费、保修承担后实际自付的总额。只加上报价未包含的必要费用，不要重复计算。未知费用应标为待确认，不能按零计算。',
+          '除价格外，还要确认维修或购买后的保修、何时能用上电脑，以及系统和必要软件的支持情况。数据恢复与普通迁移不同，应单独询问价格和可行性。',
         ],
         resultRows: [
           {
-            state: '保修维修后可以满足用途',
-            meaning: '有理由优先比较维修方案',
-            next: '向服务方确认保修范围、耗时和数据处理。',
+            state: '维修：修好现有电脑的故障',
+            meaning:
+              '目标是恢复原本能完成的用途。故障修好了，也不代表原来不足的性能会提高。',
+            next: '检测费＋维修配件＋工时＋运费＋必要的迁移和设置费。确认保修承担后实际自付的金额。',
           },
           {
-            state: '更换单个配件就可以满足用途',
-            meaning: '有理由比较升级方案',
-            next: '确认兼容性、总费用和施工后的保修。',
+            state: '升级：提高现有电脑的性能',
+            meaning:
+              '补足已确认的内存或存储容量等短板，需确认兼容性。换 SSD 不会提升 CPU 或 GPU 性能，也不能保证解决原因不明的故障。',
+            next: '兼容配件＋安装工时＋必要的配套部件＋运费＋迁移和设置费。检测费如单独收取，也要加上。',
           },
           {
-            state: '修复后仍不能满足用途',
-            meaning: '需要把换新纳入比较',
-            next: '比较符合需求的机型及包含迁移的总费用。',
-          },
-          {
-            state: '故障和报价都不明确',
-            meaning: '尚无足够信息决定购买',
-            next: '返回症状排查、检测和询价。',
+            state: '换新：更换整台电脑',
+            meaning:
+              '选择性能满足需求的电脑。需确认软件和外设的兼容性，不能保证解决游戏或软件本身的问题。',
+            next: '电脑价格＋运费＋必要的软件和外设＋迁移和设置费＋旧电脑处理费。',
           },
         ],
-        expected: '结合费用、用途、数据、停用时间和保修，按自己的条件做决定。',
+        expected:
+          '按总费用、保修和无法使用电脑的天数，比较能满足同一用途的方案。',
         unexpected:
-          '维修范围或追加费用尚未确定时，先确认固定价格或上限，以及追加作业的批准方式。',
+          '信息不清楚时暂缓购买。先确认维修能解决什么、追加费用上限和批准方式，以及是否会清除数据。',
         revert:
-          '单纯比较方案无需改变设置。下单和取消可能产生费用，应事先确认服务方条件。',
+          '比较方案无需改动电脑。委托前确认拒绝报价或取消时的检测费、退回运费，以及报价有效期。',
       },
     ],
     escalation:
@@ -596,42 +593,39 @@ export const localizedPcRepairArticles: LocalizedPcArticle[] = [
           'Pedir presupuesto no requiere cambiar el hardware. Antes de comprar, pregunta por la restauración de la configuración anterior y las condiciones de devolución.',
       },
       {
-        title:
-          'Compara reparación, ampliación y sustitución en igualdad de condiciones',
+        title: 'Compara tres opciones: reparar, ampliar o cambiar de PC',
         actions: [
-          'Reparación: diagnóstico + piezas + mano de obra + envío + trabajo necesario con los datos − cobertura de garantía. Ampliación: piezas compatibles + instalación + migración y configuración necesarias + componentes auxiliares. Comprueba qué incluye cada presupuesto.',
-          'Al cambiar de PC, cuenta también la compatibilidad con programas y periféricos necesarios, el traslado de datos, la configuración, la retirada del equipo antiguo y el tiempo sin ordenador. Comprueba si reparar o comprar permitiría cubrir las mismas tareas y requisitos.',
-          'Revisa la garantía tras reparar, la disponibilidad de piezas y servicio, el plazo y el soporte del sistema operativo y los programas necesarios. Los años de uso son una razón para revisar estos puntos, no una fecha de caducidad por sí solos.',
-          'Antes de encargar el trabajo, confirma los gastos de diagnóstico y devolución si rechazas el presupuesto, la política de borrado de datos, la autorización previa de trabajos extra y la validez de la oferta. No apliques la regla universal de cambiar de PC si reparar supera la mitad del precio de uno nuevo.',
+          'Anota una tarea que el PC debe poder hacer, como jugar a tu juego actual con los mismos ajustes. Compara las opciones de abajo que cumplan ese objetivo. Si basta con cambiar ajustes, también puedes conservarlo.',
+          'Aquí, reparar significa arreglar una avería; ampliar, mejorar el rendimiento o la capacidad. Cambiar una pieza averiada también es una reparación. Consulta qué piezas se pueden sustituir en tu modelo.',
+          'Compara lo que pagarás tras aplicar la garantía, con impuestos y envío. Suma solo los gastos necesarios que falten en el presupuesto; no cuentes dos veces los incluidos. Marca los importes desconocidos como pendientes, no como cero.',
+          'Además del precio, revisa la garantía tras reparar o comprar, cuándo podrás usar el PC y el soporte del sistema y los programas necesarios. Pregunta aparte por la recuperación de datos: su precio y viabilidad difieren del traslado normal.',
         ],
         resultRows: [
           {
-            state: 'Una reparación en garantía cubriría tus necesidades',
-            meaning: 'Hay motivos para considerar primero la reparación',
-            next: 'Confirma cobertura, plazo y tratamiento de datos con el servicio.',
+            state: 'Reparar: arreglar tu PC actual',
+            meaning:
+              'Busca recuperar lo que ya podía hacer. Resolver la avería no implica mejorar un rendimiento que ya era insuficiente.',
+            next: 'Diagnóstico + piezas de reparación + mano de obra + envío + traslado de datos y configuración necesarios. Confirma cuánto pagarás tras aplicar la garantía.',
           },
           {
-            state: 'Cambiar un componente cubriría tus necesidades',
-            meaning: 'Hay motivos para comparar una ampliación',
-            next: 'Confirma compatibilidad, coste total y garantía posterior.',
+            state: 'Ampliar: mejorar tu PC actual',
+            meaning:
+              'Cubre una carencia identificada, como RAM o almacenamiento. Requiere compatibilidad. Un SSD no mejora la CPU ni la GPU; ampliar tampoco garantiza resolver una avería de causa desconocida.',
+            next: 'Piezas compatibles + instalación + componentes auxiliares necesarios + envío + traslado de datos y configuración. Añade el diagnóstico si se cobra aparte.',
           },
           {
-            state: 'El PC reparado seguiría sin cubrir tus necesidades',
-            meaning: 'Incluye un equipo nuevo en la comparación',
-            next: 'Compara modelos adecuados y costes totales con la migración.',
-          },
-          {
-            state: 'No conoces la avería ni el presupuesto',
-            meaning: 'Faltan datos para decidir una compra',
-            next: 'Vuelve a comprobar los síntomas y pide una inspección y presupuesto.',
+            state: 'Cambiar: comprar otro PC',
+            meaning:
+              'Permite elegir un PC con el rendimiento necesario. Comprueba programas y periféricos compatibles. No garantiza resolver problemas del propio juego o software.',
+            next: 'PC + envío + programas y periféricos necesarios + traslado de datos y configuración + retirada del equipo antiguo.',
           },
         ],
         expected:
-          'Puedes decidir según el coste, tus tareas, los datos, el tiempo sin equipo y la garantía.',
+          'Puedes comparar opciones para la misma tarea por coste total, garantía y días sin un PC utilizable.',
         unexpected:
-          'Si el alcance o los cargos adicionales no están claros, confirma un precio fijo o límite y cómo aprobarás trabajos extra antes de decidir.',
+          'Si faltan datos, espera antes de comprar. Confirma qué cubre la reparación, el límite y la aprobación de cargos extra, y si se borrarán los datos.',
         revert:
-          'Comparar no cambia nada. Revisa primero las condiciones del servicio, ya que encargar o cancelar puede generar gastos.',
+          'Comparar no cambia nada. Antes de encargar, consulta los gastos de diagnóstico y devolución si rechazas o cancelas, y cuándo caduca el presupuesto.',
       },
     ],
     escalation:

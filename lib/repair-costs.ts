@@ -25,6 +25,14 @@ export type RepairCostExample = {
   label: string;
   price: string;
   basis: 'labor' | 'repair' | 'service' | 'example' | 'quote';
+  parts:
+    | 'extra'
+    | 'included'
+    | 'confirm'
+    | 'not-applicable'
+    | 'consumables'
+    | 'media-extra'
+    | 'recovery-media';
   conditions: string;
   source: string;
 };
@@ -41,6 +49,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: 'ワンコイン簡易診断',
     price: '500円',
     basis: 'service',
+    parts: 'not-applicable',
     conditions:
       '任意の簡易診断メニュー。全故障の特定・分解・修理・部品交換込みではない。詳細な総合診断や修理は別途確認。全機種の必須初回費用とは扱わない。',
     source: 'https://www.pc-koubou.jp/faq/faq_detail.html?id=10569',
@@ -52,6 +61,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: 'メモリ取付・交換',
     price: '3,500円',
     basis: 'labor',
+    parts: 'extra',
     conditions: '部品代別。対応規格・空きスロット・最大容量を確認。',
     source: kobo('985076'),
   },
@@ -62,6 +72,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: 'SSD・HDD取付・交換',
     price: '4,000円',
     basis: 'labor',
+    parts: 'extra',
     conditions: '部品代・データ移行別。接続規格と取り付け場所を確認。',
     source: kobo('984992'),
   },
@@ -72,6 +83,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: '500GB SATA SSDへの交換・移行例',
     price: '28,500円',
     basis: 'example',
+    parts: 'included',
     conditions:
       '工賃16,500円＋SSD12,000円の公式計算例（掲載基準2026年6月）。故障データ復旧は含まない。',
     source: 'https://www.dospara.co.jp/service/srv_ssd-upgrade-service.html',
@@ -83,6 +95,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: 'グラフィックボード交換',
     price: '4,500円',
     basis: 'labor',
+    parts: 'extra',
     conditions:
       'GPU部品代別。交換対応デスクトップ向け。電源・寸法・端子を確認。',
     source: kobo('985012'),
@@ -94,6 +107,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: 'グラフィックボード交換',
     price: '11,000円',
     basis: 'labor',
+    parts: 'extra',
     conditions: 'GPU部品代別。ノートの直付けGPUには適用しない。',
     source: 'https://www.dospara.co.jp/service/srv_graphics_card.html',
   },
@@ -104,6 +118,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: 'CPU交換',
     price: '5,000円',
     basis: 'labor',
+    parts: 'extra',
     conditions: 'CPU部品代別。デスクトップの対応ソケット・構成を確認。',
     source: kobo('980625'),
   },
@@ -114,6 +129,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: 'CPU冷却ファン交換',
     price: '11,000円',
     basis: 'labor',
+    parts: 'extra',
     conditions:
       'デスクトップ対象。部品代・清掃別。ノートファン・水冷・ケースファンへ一律適用しない。',
     source: 'https://www.dospara.co.jp/service/srv_silent_fan.html',
@@ -125,6 +141,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: '内部クリーニング',
     price: '4,000 / 6,500 / 9,500円',
     basis: 'service',
+    parts: 'consumables',
     conditions:
       '基本／まんぞく／forゲームの作業料。消耗品別の場合あり。故障修理や発熱改善の保証ではない。',
     source: 'https://www.dospara.co.jp/service/srv-pc-upgrade.html',
@@ -136,6 +153,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: '電源ユニット交換',
     price: '8,000円',
     basis: 'labor',
+    parts: 'extra',
     conditions:
       '部品代別。デスクトップ専用でメーカー製PC・ノート対象外。内部の分解は利用者に案内しない。',
     source: kobo('985081'),
@@ -147,6 +165,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: 'マザーボード交換',
     price: '10,000円',
     basis: 'labor',
+    parts: 'extra',
     conditions:
       '部品代別。構成・OSライセンス・交換可否は要確認。故障部品を問診だけで確定しない。',
     source: kobo('985075'),
@@ -158,6 +177,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: 'バッテリー修理',
     price: '29,480〜32,780円',
     basis: 'repair',
+    parts: 'confirm',
     conditions: 'メーカー修理概算。膨張時は使用・充電を止め、自己交換しない。',
     source: nec,
   },
@@ -168,6 +188,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: '電源ユニット修理',
     price: '41,580〜44,880円',
     basis: 'repair',
+    parts: 'confirm',
     conditions: 'メーカー修理概算。工賃と部品の個別内訳は公表されていない。',
     source: nec,
   },
@@ -178,6 +199,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: 'SSD修理',
     price: '48,950円〜',
     basis: 'repair',
+    parts: 'confirm',
     conditions:
       'OSインストール込み。個別見積もり。データ移行・復旧込みとは扱わない。',
     source: nec,
@@ -189,6 +211,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: 'HDD修理',
     price: '59,840〜63,140円',
     basis: 'repair',
+    parts: 'confirm',
     conditions: 'OSインストール込み。データ復旧は含まない。',
     source: nec,
   },
@@ -199,6 +222,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: 'メモリ修理',
     price: '57,860〜61,160円',
     basis: 'repair',
+    parts: 'confirm',
     conditions: 'メーカー修理概算。メモリ部品の単品価格ではない。',
     source: nec,
   },
@@ -209,6 +233,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: 'メインボード修理',
     price: '61,160〜71,830円',
     basis: 'repair',
+    parts: 'confirm',
     conditions: 'CPUセット型を含む区分。機種や追加作業で別見積もり。',
     source: nec,
   },
@@ -219,6 +244,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: '液晶修理（12〜16型未満／16〜19型未満）',
     price: '69,410〜72,710 / 90,860〜94,160円',
     basis: 'repair',
+    parts: 'confirm',
     conditions:
       '12型未満・19型以上・タッチ・IGZO・4K等は個別見積もり。外付けモニターとは別。',
     source: nec,
@@ -230,6 +256,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: 'ノートPCキーボード修理',
     price: '17,930〜21,230円',
     basis: 'repair',
+    parts: 'confirm',
     conditions:
       'タッチパッド等カバー一体ユニットは38,060円〜、一部は個別見積もり。外付けキーボードとは別。',
     source: nec,
@@ -241,6 +268,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: 'ACアダプター修理',
     price: '20,790〜24,090円',
     basis: 'repair',
+    parts: 'confirm',
     conditions:
       'メーカー修理料金。店頭のアダプター単品価格とは異なる。指定仕様の適合を確認。',
     source: nec,
@@ -252,6 +280,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: 'LAN・無線LANボード修理',
     price: '39,930〜43,230円',
     basis: 'repair',
+    parts: 'confirm',
     conditions:
       '接続不良だけではボード故障と断定しない。設定・回線との切り分けが必要。',
     source: nec,
@@ -263,6 +292,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: 'スピーカー修理',
     price: '27,720〜39,050円',
     basis: 'repair',
+    parts: 'confirm',
     conditions: '出力先・ミュートなどの設定確認後に相談。',
     source: nec,
   },
@@ -273,6 +303,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: 'DVD／Blu-rayドライブ修理',
     price: '51,590〜54,890 / 70,400〜73,700円',
     basis: 'repair',
+    parts: 'confirm',
     conditions: '搭載機種と対応部品を確認。外付け製品の購入価格ではない。',
     source: nec,
   },
@@ -283,6 +314,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: 'OS再セットアップ／調整で回復する作業',
     price: '18,810円',
     basis: 'service',
+    parts: 'not-applicable',
     conditions:
       '各作業の料金。部品交換は別見積もり。初期化前に必要データと回復キーの保全を確認。',
     source: nec,
@@ -294,6 +326,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: 'データ丸ごとバックアップ',
     price: '13,800円＋保存先媒体',
     basis: 'service',
+    parts: 'media-extra',
     conditions:
       '同容量以上の媒体へのクローン。故障媒体・破損データは対象外になり得る。新PCのアプリ再設定やデータ復旧とは別。',
     source: 'https://www.dospara.co.jp/service/srv_all_bkup.html',
@@ -305,6 +338,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: 'HDD・SSDデータ復旧',
     price: '見積5,980円＋38,500 / 77,000 / 154,000円',
     basis: 'service',
+    parts: 'recovery-media',
     conditions:
       '見積料は復旧有無によらず発生。復旧は軽度／中度／重度の区分例で、問診では区分を判定しない。深刻な障害は個別見積もり。2TB超の納品媒体別、一部媒体の着手金あり。',
     source: 'https://www.dospara.co.jp/service/srv_datarescue.html',
@@ -316,6 +350,7 @@ export const repairCostExamples: RepairCostExample[] = [
     label: '充電端子・ヒンジ・筐体・ノート直付け部品・水冷等',
     price: '個別見積もり',
     basis: 'quote',
+    parts: 'confirm',
     conditions:
       '機種・障害によって異なるため、一律料金の裏付けなし。0円ではない。',
     source: nec,

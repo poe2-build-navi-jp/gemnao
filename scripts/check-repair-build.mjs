@@ -24,6 +24,12 @@ for (const path of paths) {
   for (let i = 1; i <= 4; i++)
     assert.ok(html.includes(`id="step-${i}"`), `${path} step${i}`);
   assert.ok(html.includes('id="repair-costs"'));
+  assert.equal((html.match(/data-parts-cost=/g) || []).length, 27);
+  assert.match(html, /<details class="repair-price-details">/);
+  assert.match(html, /repair-article-toc/);
+  assert.match(html, /<summary id="step-4">/);
+  assert.match(html, /data-parts-cost="included"/);
+  assert.match(html, /data-parts-cost="confirm"/);
   assert.ok(
     html.includes('FAQPage') &&
       html.includes('TechArticle') &&

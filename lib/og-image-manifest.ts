@@ -63,7 +63,7 @@ export const ogImageManifest: Record<string, string> = {
   "/en/gear/discord-microphone-guide": "19bdf0d0",
   "/en/gear/save-backup-storage-guide": "f628e734",
   "/en/guide/pc-game-crash": "949cced2",
-  "/en/pc/repair-or-replace": "90ac6194",
+  "/en/pc/repair-or-replace": "454eb5ad",
   "/en/tools": "0a29e39e",
   "/en/tools/windows-diagnosis": "81999518",
   "/es/discord/upload-failed": "cdcfb7b5",
@@ -219,7 +219,7 @@ export const ogImageManifest: Record<string, string> = {
   "/pc/pc-broken": "74da2d38",
   "/pc/pc-hacked-signs": "c7760be5",
   "/pc/refresh-rate-stuck-60hz": "71691165",
-  "/pc/repair-or-replace": "9de3e6c3",
+  "/pc/repair-or-replace": "2ba0a4ad",
   "/pc/second-monitor-not-detected": "95cad41e",
   "/pc/sleep-wakes-up-by-itself": "a56ed766",
   "/pc/usb-c-device-not-recognized": "c3fbb206",
@@ -244,5 +244,5 @@ export const ogImageManifest: Record<string, string> = {
   "/zh/games/marvel-rivals/login-error": "fbbcc05b",
   "/zh/games/rocket-league": "4307697e",
   "/zh/games/rocket-league/dualsense-not-working": "e60ca766",
-  "/zh/pc/repair-or-replace": "529adcc6"
+  "/zh/pc/repair-or-replace": "061d3279"
 };

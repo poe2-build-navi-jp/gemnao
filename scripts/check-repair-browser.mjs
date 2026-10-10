@@ -46,6 +46,19 @@ try {
       );
       if (path.endsWith('/pc/repair-or-replace')) {
         assert.ok(await page.locator('#repair-costs').count());
+        const prices = page.locator('.repair-price-details');
+        assert.equal(await prices.getAttribute('open'), null);
+        await prices.locator(':scope > summary').press('Enter');
+        assert.notEqual(await prices.getAttribute('open'), null);
+        assert.equal(await prices.locator('[data-parts-cost]').count(), 27);
+        await prices.locator(':scope > summary').press('Space');
+        assert.equal(await prices.getAttribute('open'), null);
+        await page.locator('.repair-article-toc a[href="#step-4"]').click();
+        assert.equal(new URL(page.url()).hash, '#step-4');
+        assert.ok(await page.locator('#step-4').isVisible());
+        await page.goBack();
+        assert.notEqual(new URL(page.url()).hash, '#step-4');
+
         assert.equal(
           await page.locator('link[rel=canonical]').getAttribute('href'),
           'https://gemnao.pages.dev' + path,

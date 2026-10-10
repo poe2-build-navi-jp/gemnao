@@ -27,7 +27,9 @@ for (const row of a.diagnosis)
 assert.equal(new Set(costs.map((c) => c.id)).size, costs.length);
 assert.ok(costs.length >= 26);
 for (const c of costs) {
-  assert.ok(c.label && c.price && c.conditions);
+  assert.ok(c.label && c.price && c.conditions && c.parts);
+  if (c.basis === 'labor') assert.equal(c.parts, 'extra');
+  if (c.parts === 'included') assert.equal(c.id, 'ssd-migration');
   assert.match(c.source, /^https:\/\//);
   assert.ok(
     ['labor', 'repair', 'service', 'example', 'quote'].includes(c.basis),

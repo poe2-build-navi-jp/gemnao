@@ -9,6 +9,16 @@ import { localizedRepairCosts } from '@/lib/localized/repair-costs';
 type Locale = 'ja' | 'en' | 'zh' | 'es';
 const copy = {
   ja: {
+    expand: '料金の詳細を開く・閉じる（27例）',
+    parts: {
+      extra: '部品代：別（工賃のみ）',
+      included: '部品代：込み（記載のSSD構成例）',
+      confirm: '部品代：扱い要確認（見積もりで確認）',
+      'not-applicable': '部品交換：対象外（診断・設定作業）',
+      consumables: '部品交換：対象外／消耗品は別料金の場合あり',
+      'media-extra': '保存先媒体代：別',
+      'recovery-media': '交換部品：対象外／2TB超の納品媒体代は別',
+    },
     title: '部品交換・修理費用の公式掲載例（税込）',
     intro:
       '以下は平均価格やあなたのPCの見積額ではありません。2026年10月10日に確認した日本国内の公式料金例です。同じ部品でも機種・作業範囲が違うため、店や方式をまたいだ最安〜最高の相場にはしていません。',
@@ -32,6 +42,19 @@ const copy = {
     japanese: '',
   },
   en: {
+    expand: 'Show/hide detailed prices (27 examples)',
+    parts: {
+      extra: 'Parts: extra (labor only)',
+      included: 'Parts: included (specified SSD example)',
+      confirm: 'Parts: confirm inclusion in the quote',
+      'not-applicable':
+        'Parts replacement: not included in this diagnostic/setup service',
+      consumables:
+        'Parts replacement: not included; consumables may cost extra',
+      'media-extra': 'Destination media: extra',
+      'recovery-media':
+        'Replacement parts: not included; delivery media over 2 TB costs extra',
+    },
     title:
       'Official repair and parts-replacement price examples (tax included)',
     intro:
@@ -60,6 +83,16 @@ const copy = {
     japanese: ' (Japanese)',
   },
   zh: {
+    expand: '展开／收起详细价格（27例）',
+    parts: {
+      extra: '零部件费：另计（仅人工）',
+      included: '零部件费：包含（所列SSD配置示例）',
+      confirm: '零部件费：须在报价中确认是否包含',
+      'not-applicable': '零部件更换：不属于此诊断／设置服务',
+      consumables: '零部件更换：不属于清洁服务；耗材可能另计',
+      'media-extra': '目标存储介质费：另计',
+      'recovery-media': '更换零部件：不属于数据恢复服务；超过2TB的交付介质另计',
+    },
     title: '零部件更换与维修的官方报价示例（含税）',
     intro:
       '以下为2026年10月10日核实的日本境内官方服务价格示例，不是平均价格，也不是您的电脑报价。机型和服务范围不同，不将不同商家的金额拼成市场价格区间。',
@@ -83,6 +116,19 @@ const copy = {
     japanese: '（日语）',
   },
   es: {
+    expand: 'Mostrar/ocultar precios detallados (27 ejemplos)',
+    parts: {
+      extra: 'Piezas: aparte (solo mano de obra)',
+      included: 'Piezas: incluidas (ejemplo del SSD indicado)',
+      confirm: 'Piezas: confirmar inclusión en el presupuesto',
+      'not-applicable':
+        'Cambio de piezas: fuera del servicio de diagnóstico/configuración',
+      consumables:
+        'Cambio de piezas: fuera de la limpieza; consumibles posiblemente aparte',
+      'media-extra': 'Soporte de destino: aparte',
+      'recovery-media':
+        'Piezas de recambio: fuera de la recuperación; soporte de entrega de más de 2 TB aparte',
+    },
     title:
       'Ejemplos oficiales de reparación y cambio de piezas (impuestos incluidos)',
     intro:
@@ -129,118 +175,189 @@ export function RepairCostTable({
       id="repair-costs"
       aria-labelledby="repair-costs-title"
     >
+      <style>{`/* Repair comparison: visible navigation and native, no-JavaScript disclosures. */
+.repair-price-details > summary { min-height: 44px; padding: 12px 0; cursor: pointer; font-weight: 700; overflow-wrap: anywhere; }
+.repair-price-details > summary:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+[data-parts-cost] { display: inline-block; margin-block: 6px; }
+.repair-article-details {
+  min-width: 0;
+  margin-block: 24px;
+  padding: 0;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.repair-article-details[open] {
+  padding: 0 18px 18px;
+}
+.repair-article-details > summary {
+  min-height: 44px;
+  padding: 16px 18px;
+  cursor: pointer;
+  scroll-margin-top: 24px;
+  overflow-wrap: anywhere;
+  line-height: 1.5;
+}
+.repair-article-details[open] > summary {
+  margin: 0 -18px 16px;
+  border-bottom: 1px solid var(--line);
+}
+.repair-article-details > summary::marker {
+  color: var(--blue);
+}
+.repair-article-details > summary > h2,
+.repair-article-details > summary > h3 {
+  display: inline;
+  margin: 0;
+  font-size: 19px;
+  letter-spacing: normal;
+}
+.repair-article-details > summary:focus-visible,
+.repair-article-details > summary:target {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+.repair-article-details-hint {
+  color: var(--muted);
+  line-height: 1.7;
+}
+@media (max-width: 760px) {
+  .article-toc.repair-article-toc .toc-title { display: block; }
+  .article-toc.repair-article-toc .toc-toggle { display: none; }
+  .article-toc.repair-article-toc .toc-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2px 6px;
+  }
+  .repair-article-toc .toc-links a {
+    display: flex;
+    align-items: center;
+    overflow-wrap: anywhere;
+  }
+}`}</style>
       <h2 id="repair-costs-title">{t.title}</h2>
       <p>{t.intro}</p>
       <p>
         {t.checked}: {repairCostCheckedAt}
       </p>
-      <div className="diagnosis-table">
-        <table>
-          <thead>
-            <tr>
-              {t.headings.map((h) => (
-                <th scope="col" key={h}>
-                  {h}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row) => {
-              const translated =
-                locale === 'ja' ? row : localizedRepairCosts[locale][row.id];
-              return (
-                <tr key={row.id}>
-                  <td data-label={t.headings[0]}>
-                    <strong>{translated.label}</strong>
-                    <br />
-                    {translated.provider}
-                  </td>
-                  <td data-label={t.headings[1]}>
-                    <strong>
-                      {locale === 'ja'
-                        ? row.price
-                        : row.basis === 'quote'
-                          ? t.basis.quote
-                          : row.price
-                              .replaceAll('円', ' JPY')
-                              .replace('見積', '')
-                              .replace(
-                                '＋保存先媒体',
-                                {
-                                  en: ' + destination media',
-                                  zh: ' + 目标存储介质',
-                                  es: ' + soporte de destino',
-                                }[locale],
-                              )
-                              .replaceAll('〜', '–')}
-                    </strong>
-                    <br />
-                    {t.basis[row.basis]}
-                  </td>
-                  <td data-label={t.headings[2]}>
-                    {translated.conditions}
-                    <br />
-                    <a
-                      href={row.source}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                    >
-                      {t.source}
-                      {t.japanese}
-                    </a>
-                    {row.id === 'quick-diagnosis' && (
-                      <>
-                        <br />
-                        <a
-                          href="https://www.pc-koubou.jp/contents/iiyamapc_support.php?pre=sgi_sup"
-                          target="_blank"
-                          rel="noreferrer noopener"
-                        >
-                          {
-                            {
-                              ja: '税込料金の明記',
-                              en: 'Tax-inclusive price confirmation',
-                              zh: '含税价格说明',
-                              es: 'Confirmación del precio con impuestos',
-                            }[locale]
-                          }
-                          {t.japanese}
-                        </a>
-                      </>
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-      <details>
-        <summary>{t.policy}</summary>
-        <p>
-          {t.kobo}{' '}
-          <a
-            href="https://www.pc-koubou.jp/faq/faq_detail.html?category=&id=10522&page=1"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            FAQ{t.japanese}
-          </a>
-        </p>
-        <p>
-          {t.nec}{' '}
-          <a
-            href="https://support.nec-lavie.jp/navigate/support/repair/guide/check/index.html"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            NEC{t.japanese}
-          </a>
-        </p>
-        <p>{t.dospara}</p>
-      </details>
       <p className="source-policy">{t.caution}</p>
+      <details
+        open={categories ? true : undefined}
+        className="repair-price-details"
+      >
+        <summary>{categories ? t.title : t.expand}</summary>
+        <div className="diagnosis-table">
+          <table>
+            <thead>
+              <tr>
+                {t.headings.map((h) => (
+                  <th scope="col" key={h}>
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row) => {
+                const translated =
+                  locale === 'ja' ? row : localizedRepairCosts[locale][row.id];
+                return (
+                  <tr key={row.id}>
+                    <td data-label={t.headings[0]}>
+                      <strong>{translated.label}</strong>
+                      <br />
+                      {translated.provider}
+                    </td>
+                    <td data-label={t.headings[1]}>
+                      <strong>
+                        {locale === 'ja'
+                          ? row.price
+                          : row.basis === 'quote'
+                            ? t.basis.quote
+                            : row.price
+                                .replaceAll('円', ' JPY')
+                                .replace('見積', '')
+                                .replace(
+                                  '＋保存先媒体',
+                                  {
+                                    en: ' + destination media',
+                                    zh: ' + 目标存储介质',
+                                    es: ' + soporte de destino',
+                                  }[locale],
+                                )
+                                .replaceAll('〜', '–')}
+                      </strong>
+                      <br />
+                      <strong data-parts-cost={row.parts}>
+                        {t.parts[row.parts]}
+                      </strong>
+                      <br />
+                      {t.basis[row.basis]}
+                    </td>
+                    <td data-label={t.headings[2]}>
+                      {translated.conditions}
+                      <br />
+                      <a
+                        href={row.source}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                      >
+                        {t.source}
+                        {t.japanese}
+                      </a>
+                      {row.id === 'quick-diagnosis' && (
+                        <>
+                          <br />
+                          <a
+                            href="https://www.pc-koubou.jp/contents/iiyamapc_support.php?pre=sgi_sup"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                          >
+                            {
+                              {
+                                ja: '税込料金の明記',
+                                en: 'Tax-inclusive price confirmation',
+                                zh: '含税价格说明',
+                                es: 'Confirmación del precio con impuestos',
+                              }[locale]
+                            }
+                            {t.japanese}
+                          </a>
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        <details>
+          <summary>{t.policy}</summary>
+          <p>
+            {t.kobo}{' '}
+            <a
+              href="https://www.pc-koubou.jp/faq/faq_detail.html?category=&id=10522&page=1"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              FAQ{t.japanese}
+            </a>
+          </p>
+          <p>
+            {t.nec}{' '}
+            <a
+              href="https://support.nec-lavie.jp/navigate/support/repair/guide/check/index.html"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              NEC{t.japanese}
+            </a>
+          </p>
+          <p>{t.dospara}</p>
+        </details>
+      </details>
     </section>
   );
 }

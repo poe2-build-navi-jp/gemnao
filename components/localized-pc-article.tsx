@@ -25,7 +25,17 @@ const copy = {
       'Start with the row that matches your situation. Change one setting at a time so you can tell what helped.',
     compare: 'What to compare',
     steps: 'Check in this order',
+    stepLinks: [
+      'Safety and warranty',
+      'Performance and settings',
+      'Part upgrades',
+      'Compare full costs',
+    ],
+    detailsHint:
+      'Read the safety check first, then open the steps you need from STEP 2 onward.',
     results: 'What the result means and what to do next',
+    compareOptions: 'Repair, upgrade and replacement compared',
+    comparisonColumns: ['Option', 'What it can do and limits', 'Total to compare'],
     state: 'Situation',
     meaning: 'What it tells you',
     next: 'Next action',
@@ -49,7 +59,11 @@ const copy = {
       '从符合当前情况的一行开始。每次只调整一项设置，便于判断哪个变化有效。',
     compare: '需要比较的内容',
     steps: '按顺序核对',
+    stepLinks: ['安全与保修', '性能与设置', '更换部件', '比较总费用'],
+    detailsHint: '请先阅读安全检查，再展开第 2 步起需要的项目。',
     results: '结果含义与下一步',
+    compareOptions: '维修、更换部件与换新的比较',
+    comparisonColumns: ['选择', '可改善的方面与限制', '比较的总费用'],
     state: '当前情况',
     meaning: '能说明什么',
     next: '下一步',
@@ -73,7 +87,21 @@ const copy = {
       'Empieza por la fila que coincida con tu situación. Cambia un ajuste cada vez para saber qué ha ayudado.',
     compare: 'Qué comparar',
     steps: 'Comprueba en este orden',
+    stepLinks: [
+      'Seguridad y garantía',
+      'Rendimiento y ajustes',
+      'Cambio de piezas',
+      'Comparar costes',
+    ],
+    detailsHint:
+      'Lee primero las comprobaciones de seguridad y abre los pasos que necesites a partir del PASO 2.',
     results: 'Qué significa el resultado y qué hacer después',
+    compareOptions: 'Comparación de reparación, mejora y sustitución',
+    comparisonColumns: [
+      'Opción',
+      'Qué puede resolver y límites',
+      'Coste total a comparar',
+    ],
     state: 'Situación',
     meaning: 'Qué indica',
     next: 'Siguiente acción',
@@ -93,6 +121,8 @@ export function LocalizedPcArticle({ article }: { article: Article }) {
   const { locale, slug } = article;
   const t = ui[locale];
   const labels = copy[locale];
+  const isRepairGuide = slug === 'repair-or-replace';
+  const SupplementarySection = isRepairGuide ? 'details' : 'section';
   const originalPath = `/pc/${slug}`;
   const path = `/${locale}${originalPath}`;
   const canonical = `${site}${path}`;
@@ -198,7 +228,10 @@ export function LocalizedPcArticle({ article }: { article: Article }) {
         </div>
       </header>
       <div className="article-layout issue-layout">
-        <ArticleToc title={t.contents} className="issue-toc">
+        <ArticleToc
+          title={t.contents}
+          className={`issue-toc${isRepairGuide ? ' repair-article-toc' : ''}`}
+        >
           <a href="#answer">{t.summary}</a>
           {article.evidenceSummary && (
             <a href="#signs">
@@ -209,7 +242,7 @@ export function LocalizedPcArticle({ article }: { article: Article }) {
           <a href="#diagnosis">{labels.diagnosis}</a>
           {article.steps.map((step, index) => (
             <a href={`#step-${index + 1}`} key={step.title}>
-              {index + 1}. {step.title}
+              {index + 1}. {isRepairGuide ? labels.stepLinks[index] : step.title}
             </a>
           ))}
           {slug === 'repair-or-replace' && (
@@ -233,12 +266,18 @@ export function LocalizedPcArticle({ article }: { article: Article }) {
             </ol>
           </section>
           {article.evidenceSummary && (
-            <section
-              className="guide-section"
-              id="signs"
+            <SupplementarySection
+              className={`guide-section${isRepairGuide ? ' repair-article-details' : ''}`}
+              id={isRepairGuide ? undefined : 'signs'}
               aria-labelledby="signs-title"
             >
-              <h2 id="signs-title">{article.evidenceSummary.title}</h2>
+              {isRepairGuide ? (
+                <summary id="signs">
+                  <h2 id="signs-title">{article.evidenceSummary.title}</h2>
+                </summary>
+              ) : (
+                <h2 id="signs-title">{article.evidenceSummary.title}</h2>
+              )}
               <p>{article.evidenceSummary.intro}</p>
               <ol>
                 {article.evidenceSummary.items.map((item) => (
@@ -259,7 +298,7 @@ export function LocalizedPcArticle({ article }: { article: Article }) {
                   </li>
                 ))}
               </ul>
-            </section>
+            </SupplementarySection>
           )}
           <section
             className="diagnosis-table"
@@ -293,6 +332,9 @@ export function LocalizedPcArticle({ article }: { article: Article }) {
           </section>
           <section className="pc-steps" aria-label={labels.steps}>
             <h2>{labels.steps}</h2>
+            {isRepairGuide && (
+              <p className="repair-article-details-hint">{labels.detailsHint}</p>
+            )}
             <SupportWorkspace
               locale={locale}
               steps={article.steps.map((step, index) => ({
@@ -311,59 +353,77 @@ export function LocalizedPcArticle({ article }: { article: Article }) {
                 completedSteps: [],
               }}
             />
-            {article.steps.map((step, index) => (
-              <section
-                className="pc-step"
-                id={`step-${index + 1}`}
-                key={step.title}
-              >
-                <h3>
-                  {t.stepLabel} {index + 1}: {step.title}
-                </h3>
-                <ol>
-                  {step.actions.map((action) => (
-                    <li key={action}>{action}</li>
-                  ))}
-                </ol>
-                {step.resultRows && (
-                  <div className="diagnosis-table pc-result-guide">
-                    <h4 id={`step-${index + 1}-results`}>{labels.results}</h4>
-                    <table aria-labelledby={`step-${index + 1}-results`}>
-                      <thead>
-                        <tr>
-                          <th scope="col">{labels.state}</th>
-                          <th scope="col">{labels.meaning}</th>
-                          <th scope="col">{labels.next}</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {step.resultRows.map((row) => (
-                          <tr key={row.state}>
-                            <td data-label={labels.state}>{row.state}</td>
-                            <td data-label={labels.meaning}>{row.meaning}</td>
-                            <td data-label={labels.next}>{row.next}</td>
+            {article.steps.map((step, index) => {
+              const collapsible = isRepairGuide && index > 0;
+              const StepSection = collapsible ? 'details' : 'section';
+              const comparison = isRepairGuide && index === 3;
+              const resultLabels = comparison
+                ? labels.comparisonColumns
+                : [labels.state, labels.meaning, labels.next];
+              return (
+                <StepSection
+                  className={`pc-step${collapsible ? ' repair-article-details' : ''}`}
+                  id={collapsible ? undefined : `step-${index + 1}`}
+                  key={step.title}
+                >
+                  {collapsible ? (
+                    <summary id={`step-${index + 1}`}>
+                      <h3>
+                        {t.stepLabel} {index + 1}: {step.title}
+                      </h3>
+                    </summary>
+                  ) : (
+                    <h3>
+                      {t.stepLabel} {index + 1}: {step.title}
+                    </h3>
+                  )}
+                  <ol>
+                    {step.actions.map((action) => (
+                      <li key={action}>{action}</li>
+                    ))}
+                  </ol>
+                  {step.resultRows && (
+                    <div className="diagnosis-table pc-result-guide">
+                      <h4 id={`step-${index + 1}-results`}>
+                        {comparison ? labels.compareOptions : labels.results}
+                      </h4>
+                      <table aria-labelledby={`step-${index + 1}-results`}>
+                        <thead>
+                          <tr>
+                            <th scope="col">{resultLabels[0]}</th>
+                            <th scope="col">{resultLabels[1]}</th>
+                            <th scope="col">{resultLabels[2]}</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                <dl className="pc-step-results">
-                  <div>
-                    <dt>{labels.expected}</dt>
-                    <dd>{step.expected}</dd>
-                  </div>
-                  <div>
-                    <dt>{labels.unexpected}</dt>
-                    <dd>{step.unexpected}</dd>
-                  </div>
-                  <div>
-                    <dt>{labels.revert}</dt>
-                    <dd>{step.revert}</dd>
-                  </div>
-                </dl>
-              </section>
-            ))}
+                        </thead>
+                        <tbody>
+                          {step.resultRows.map((row) => (
+                            <tr key={row.state}>
+                              <td data-label={resultLabels[0]}>{row.state}</td>
+                              <td data-label={resultLabels[1]}>{row.meaning}</td>
+                              <td data-label={resultLabels[2]}>{row.next}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                  <dl className="pc-step-results">
+                    <div>
+                      <dt>{labels.expected}</dt>
+                      <dd>{step.expected}</dd>
+                    </div>
+                    <div>
+                      <dt>{labels.unexpected}</dt>
+                      <dd>{step.unexpected}</dd>
+                    </div>
+                    <div>
+                      <dt>{labels.revert}</dt>
+                      <dd>{step.revert}</dd>
+                    </div>
+                  </dl>
+                </StepSection>
+              );
+            })}
           </section>
           {slug === 'repair-or-replace' && <RepairCostTable locale={locale} />}
           <section className="caution-block" id="escalation">
@@ -416,8 +476,17 @@ export function LocalizedPcArticle({ article }: { article: Article }) {
               {t.inJapanese}
             </a>
           </p>
-          <section className="sources" id="references">
-            <h2>{t.references}</h2>
+          <SupplementarySection
+            className={`sources${isRepairGuide ? ' repair-article-details' : ''}`}
+            id={isRepairGuide ? undefined : 'references'}
+          >
+            {isRepairGuide ? (
+              <summary id="references">
+                <h2>{t.references}</h2>
+              </summary>
+            ) : (
+              <h2>{t.references}</h2>
+            )}
             <p className="source-policy">{article.sourcePolicy}</p>
             {article.sources.map((source) => (
               <a
@@ -430,7 +499,7 @@ export function LocalizedPcArticle({ article }: { article: Article }) {
                 <ExternalLink size={15} />
               </a>
             ))}
-          </section>
+          </SupplementarySection>
         </article>
       </div>
       <WikiFooter locale={locale} />
