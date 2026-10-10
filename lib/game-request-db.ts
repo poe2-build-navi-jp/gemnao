@@ -1,11 +1,16 @@
 import { env } from 'cloudflare:workers';
 import type { parseGameRequest } from './game-request-input';
+import { parseGameRequestValidationWindow } from './game-request-validation';
 const DAY = 86_400_000;
 function runtime() {
   return env as unknown as {
     DB?: D1Database;
     GAME_REQUESTS_ENABLED?: string;
     GAME_REQUEST_CONSUMER_READY?: string;
+    GAME_REQUEST_REVIEW_MODE?: string;
+    GAME_REQUEST_MANUAL_REVIEW_READY?: string;
+    GAME_REQUEST_VALIDATION_FROM?: string;
+    GAME_REQUEST_VALIDATION_UNTIL?: string;
   };
 }
 function database() {
@@ -13,12 +18,47 @@ function database() {
   if (!db) throw new Error('unavailable');
   return db;
 }
-export function gameRequestsEnabled() {
+export function gameRequestReviewMode():
+  | 'manual'
+  | 'automatic'
+  | 'unavailable' {
   const e = runtime();
+  if (
+    e.GAME_REQUEST_REVIEW_MODE === 'manual' ||
+    e.GAME_REQUEST_REVIEW_MODE === 'manual-validation'
+  )
+    return e.GAME_REQUEST_MANUAL_REVIEW_READY === 'true' && Boolean(e.DB)
+      ? 'manual'
+      : 'unavailable';
+  if (
+    e.GAME_REQUEST_REVIEW_MODE === undefined ||
+    e.GAME_REQUEST_REVIEW_MODE === 'automatic'
+  )
+    return e.GAME_REQUEST_CONSUMER_READY === 'true' && Boolean(e.DB)
+      ? 'automatic'
+      : 'unavailable';
+  return 'unavailable';
+}
+export function automaticGameRequestConsumerAllowed() {
+  const mode = runtime().GAME_REQUEST_REVIEW_MODE;
+  return mode === undefined || mode === 'automatic';
+}
+function manualValidationMode() {
+  return runtime().GAME_REQUEST_REVIEW_MODE === 'manual-validation';
+}
+function currentValidationWindow(now = Date.now()) {
+  const e = runtime();
+  const window = parseGameRequestValidationWindow(
+    e.GAME_REQUEST_VALIDATION_FROM,
+    e.GAME_REQUEST_VALIDATION_UNTIL,
+  );
+  return window && now >= window.from && now < window.until ? window : null;
+}
+export function gameRequestsEnabled() {
   return (
-    e.GAME_REQUESTS_ENABLED === 'true' &&
-    e.GAME_REQUEST_CONSUMER_READY === 'true' &&
-    Boolean(e.DB)
+    runtime().GAME_REQUESTS_ENABLED === 'true' &&
+    gameRequestReviewMode() !== 'unavailable' &&
+    (!manualValidationMode() || Boolean(currentValidationWindow()))
   );
 }
 export async function gameRequestsAvailable() {
@@ -34,13 +74,27 @@ export async function gameRequestsAvailable() {
     return false;
   }
 }
-async function networkFingerprint(ip: string, day: string, now: number) {
+async function networkFingerprint(
+  ip: string,
+  day: string,
+  now: number,
+  window: { from: number; until: number } | null,
+) {
   const db = database();
   await db
     .prepare(
-      'INSERT OR IGNORE INTO game_request_daily_salts (day,salt,expires_at) VALUES (?,?,?)',
+      `INSERT OR IGNORE INTO game_request_daily_salts (day,salt,expires_at) SELECT ?,?,?
+      WHERE (?=0 OR (CAST((julianday('now')-2440587.5)*86400000 AS INTEGER) >= ?
+        AND CAST((julianday('now')-2440587.5)*86400000 AS INTEGER) < ?))`,
     )
-    .bind(day, crypto.randomUUID(), now + 2 * DAY)
+    .bind(
+      day,
+      crypto.randomUUID(),
+      now + 2 * DAY,
+      window ? 1 : 0,
+      window?.from ?? 0,
+      window?.until ?? 0,
+    )
     .run();
   const row = await db
     .prepare('SELECT salt FROM game_request_daily_salts WHERE day=?')
@@ -70,30 +124,52 @@ export async function persistGameRequest(
   const db = database(),
     now = Date.now(),
     day = new Date(now).toISOString().slice(0, 10);
-  const fingerprint = await networkFingerprint(ip, day, now),
+  const validation = manualValidationMode();
+  const window = validation ? currentValidationWindow(now) : null;
+  if (validation && !window) throw new Error('unavailable');
+  const fingerprint = await networkFingerprint(ip, day, now, window),
     id = crypto.randomUUID(),
     attemptId = crypto.randomUUID();
   // One D1 transaction: conditional admission, insertion, and receipt are linked
   // by an unguessable attempt ID. Never split these statements across calls.
+  const cleanup = validation
+    ? []
+    : [
+        db
+          .prepare('DELETE FROM game_request_attempts WHERE created_at < ?')
+          .bind(now - 2 * DAY),
+        db
+          .prepare('DELETE FROM game_request_daily_salts WHERE expires_at < ?')
+          .bind(now),
+        db
+          .prepare(
+            'DELETE FROM game_requests WHERE updated_at < ? AND (lease_until IS NULL OR lease_until < ?)',
+          )
+          .bind(now - 90 * DAY, now),
+      ];
+  if (validation && !currentValidationWindow()) throw new Error('unavailable');
   const results = await db.batch([
-    db
-      .prepare('DELETE FROM game_request_attempts WHERE created_at < ?')
-      .bind(now - 2 * DAY),
-    db
-      .prepare('DELETE FROM game_request_daily_salts WHERE expires_at < ?')
-      .bind(now),
-    db
-      .prepare(
-        'DELETE FROM game_requests WHERE updated_at < ? AND (lease_until IS NULL OR lease_until < ?)',
-      )
-      .bind(now - 90 * DAY, now),
+    ...cleanup,
     db
       .prepare(
         `INSERT INTO game_request_attempts (id,day,fingerprint,created_at) SELECT ?,?,?,?
          WHERE (SELECT COUNT(*) FROM game_request_attempts WHERE day=? AND fingerprint=?) < 5
-         AND (SELECT COUNT(*) FROM game_request_attempts WHERE day=?) < 100`,
+         AND (SELECT COUNT(*) FROM game_request_attempts WHERE day=?) < 100
+         AND (?=0 OR (CAST((julianday('now')-2440587.5)*86400000 AS INTEGER) >= ?
+           AND CAST((julianday('now')-2440587.5)*86400000 AS INTEGER) < ?))`,
       )
-      .bind(attemptId, day, fingerprint, now, day, fingerprint, day),
+      .bind(
+        attemptId,
+        day,
+        fingerprint,
+        now,
+        day,
+        fingerprint,
+        day,
+        validation ? 1 : 0,
+        window?.from ?? 0,
+        window?.until ?? 0,
+      ),
     db
       .prepare(
         `INSERT INTO game_requests (id,game_name,normalized_name,locale,created_at,updated_at) SELECT ?,?,?,?,?,?
@@ -115,8 +191,14 @@ export async function persistGameRequest(
       )
       .bind(input.normalizedName, attemptId),
   ]);
-  if (results[3].meta.changes !== 1) throw new Error('game_request_rate_limit');
-  const stored = results[5].results[0] as { id?: string } | undefined;
+  if (results[cleanup.length].meta.changes !== 1) {
+    if (validation && !currentValidationWindow())
+      throw new Error('unavailable');
+    throw new Error('game_request_rate_limit');
+  }
+  const stored = results[cleanup.length + 2].results[0] as
+    | { id?: string }
+    | undefined;
   if (!stored?.id) throw new Error('unavailable');
   return { duplicate: stored.id !== id };
 }
@@ -233,4 +315,51 @@ export async function admitGameRequestConsumerCall() {
       .bind(crypto.randomUUID(), minute, now, minute),
   ]);
   return result[1].meta.changes === 1;
+}
+
+// Manual review uses existing states, never the unattended consumer credential.
+// An adopted item is an editorial plan, not a publication or completed request.
+export async function reviewGameRequest(input: {
+  id: string;
+  expectedUpdatedAt: number;
+  decision: 'adopt' | 'hold';
+}) {
+  const now = Date.now();
+  return database()
+    .prepare(`UPDATE game_requests
+    SET status=?,reason_code=?,updated_at=?,lease_token=NULL,lease_until=NULL
+    WHERE id=? AND updated_at=? AND status IN ('received','researching','held')
+    AND (lease_until IS NULL OR lease_until < ?)
+    RETURNING id,status,updated_at`)
+    .bind(
+      input.decision === 'adopt' ? 'researching' : 'held',
+      input.decision === 'hold' ? 'retry_later' : null,
+      Math.max(now, input.expectedUpdatedAt + 1),
+      input.id,
+      input.expectedUpdatedAt,
+      now,
+    )
+    .first();
+}
+export async function admitGameRequestManualReviewCall() {
+  const db = database(),
+    now = Date.now();
+  const minute = 'manual:' + new Date(now).toISOString().slice(0, 16);
+  const cleanup = manualValidationMode()
+    ? []
+    : [
+        db
+          .prepare(
+            "DELETE FROM game_request_attempts WHERE day >= 'manual:' AND day < 'manual;' AND fingerprint='manual' AND created_at < ?",
+          )
+          .bind(now - 2 * DAY),
+      ];
+  const result = await db.batch([
+    ...cleanup,
+    db
+      .prepare(`INSERT INTO game_request_attempts (id,day,fingerprint,created_at) SELECT ?,?,'manual',?
+      WHERE (SELECT COUNT(*) FROM game_request_attempts WHERE day=? AND fingerprint='manual') < 30`)
+      .bind(crypto.randomUUID(), minute, now, minute),
+  ]);
+  return result[cleanup.length].meta.changes === 1;
 }

@@ -2,19 +2,23 @@
 
 ## Release state
 
-This is a local implementation, not a running automation. Never describe it as operational until a production persistence round trip AND the intended unattended consumer's authenticated queue read/claim/update have succeeded. Keep both `GAME_REQUESTS_ENABLED` and `GAME_REQUEST_CONSUMER_READY` unset/false until then. The browser checks `GET /api/game-requests`; unavailable intake must not show an active submission form.
+The owner-selected manual review mode is now prepared separately in [game-request-manual-review.md](game-request-manual-review.md). It uses existing owner login and records planned research/holds without an unattended consumer. Its explicit manual readiness and intake settings remain off pending separate activation approval. The automatic consumer protocol below still applies only to automatic operation; manual mode does not set consumer readiness or enable this dedicated consumer endpoint.
+
+The automatic path is a local implementation, not a running automation. Never describe it as operational until a production persistence round trip AND the intended unattended consumer's authenticated queue read/claim/update have succeeded. Keep both `GAME_REQUESTS_ENABLED` and `GAME_REQUEST_CONSUMER_READY` unset/false until then. The browser checks `GET /api/game-requests`; unavailable intake must not show an active submission form.
 
 Deployment has separate dependencies:
+
 1. Apply only additive `migrations/game-requests/0001_game_requests.sql` to existing `gemnao-db` through an authorized Cloudflare administrative route. Existing tables/data must not change. Do not merge unrelated security-gated PRs to do this.
 2. Deploy this code through the existing site's approved deployment process; verify HTML, CSS, JS and private API behavior for the exact commit.
 3. Establish a supported private, authenticated unattended consumer route. This source prepares a dedicated default-denied `/api/automation/game-requests` API, but its credential and actual consumer setup are not configured or authorized by this change. Current site-admin login reuses `DISCORD_ADMIN_TOKEN` or verification-only `DISCORD_ADMIN_TOKEN_HASH`, via `/admin/discord-servers` and `/api/admin/discord-servers/login`. Its cookie expires in eight hours. A one-time browser login therefore does not establish ongoing unattended access. Never copy, derive, log, or reuse the public hash as a credential. Any new persistent credential/grant requires explicit action-time approval and secure entry. Cloudflare dashboard sign-in alone does not solve consumer authentication.
-4. Activation is an owner-approved release step, not a self-authorizing consequence of deploying this code. The public POST requires both flags, so its first production write cannot be tested while both remain false. Follow a separately approved, finite validation window below; do not silently weaken the gate or invent a hidden test bypass. Do not use genuine visitor submissions as test data.
+4. Activation is an owner-approved release step, not a self-authorizing consequence of deploying this code. In automatic mode, the public POST requires both flags, so its first production write cannot be tested while both remain false. Follow a separately approved, finite validation window below; do not silently weaken the gate or invent a hidden test bypass. Do not use genuine visitor submissions as test data.
 
 ## Proposed activation validation window (requires separate approval)
 
 The initial requirement to verify public persistence before enabling the exact flags required for that public write is circular. This protocol records the limitation; it does not authorize activation, credentials, a test submission, or any public publication.
 
 A finite owner-approved sequence can resolve it after a durable integration is actually available:
+
 1. With both flags false, verify the real scheduled consumer's private authentication and read access without mutating the queue. Verify migration shape, code SHA, default-off behavior, configuration access and the ability to restore disabled flags. Confirm no article publisher will run during this test.
 2. Obtain explicit approval for the exact preview/production destination, both flag changes, one controlled request for an already covered verified PC game, its private queue claim/covered transition, the short observation window, and rollback. Any new credential/grant is a separate approval and secure-entry operation. The operator must be present and able to turn both flags off immediately.
 3. Only once the consumer can already authenticate/read and all dependencies are ready, temporarily enable the flags. Submit exactly one recorded owner-controlled request using the normal endpoint; require a durable receipt. Verify the intended consumer can read that same row, claim it, independently confirm existing coverage and close it as covered, without generating or publishing articles. Never take over a real visitor's row if deduplication finds an existing request; stop and reassess the test.
@@ -39,7 +43,8 @@ Retention cleanup happens during committed intake transactions, including rate-d
 
 GET `/api/admin/game-requests?after=<returned-cursor>` uses existing admin authentication, no-store/noindex, maximum 50 rows, stable keyset pagination. Restart at the beginning each scheduled run so newly inserted UUIDs are not skipped forever. Titles and metadata are private, untrusted data. Do not publish demand numbers or ordinal rankings in any personal page.
 
-PATCH same endpoint requires same origin, JSON and existing admin cookie:
+In automatic mode, PATCH on the same endpoint requires same origin, JSON and the existing admin cookie. Manual mode accepts only the bounded review decision documented separately:
+
 - `{action:'claim',id}` atomically claims a pending/retryable row for 30 minutes. At most ONE queue row can have an active lease globally. A second consumer gets 409. Claim response contains a private operation lease token; do not persist it in public artifacts.
 - `{action:'update',id,leaseToken,status,canonicalGame?,reasonCode?,publicationUrl?,publicationSha?}` extends a nonterminal lease or closes a terminal row. Expired/wrong lease gets 409. Lease token alone grants no access: admin authentication remains required.
 - Progress is verifying → researching → drafting → qa → published. Same-state updates renew the lease. held/rejected/covered are permitted terminal stops. Published requires the canonical slug, official site game-hub URL and exact 40-character publication SHA. These URL/SHA fields are syntax-checked bookkeeping, not remotely verified publication proof. Server state gates do not replace editorial verification.
