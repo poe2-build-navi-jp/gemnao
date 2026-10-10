@@ -1,3 +1,4 @@
+import { pcRepairArticles } from '@/lib/pc-repair-articles';
 import { pcHardwareArticles } from '@/lib/pc-hardware-articles';
 import { pcBluetoothArticles } from '@/lib/pc-bluetooth-articles';
 import { pcUpdateStuckArticles } from '@/lib/pc-update-stuck-articles';
@@ -53,6 +54,7 @@ const ms = (path: string, title: string) => ({
 });
 
 export const pcArticles: PcArticle[] = [
+  ...pcRepairArticles,
   ...pcDiskArticles,
   ...pcUpdateStuckArticles,
   ...pcBluetoothArticles,

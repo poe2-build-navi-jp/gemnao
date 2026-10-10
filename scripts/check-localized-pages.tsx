@@ -1,3 +1,10 @@
+import { LocalizedPcArticle } from '../components/localized-pc-article';
+import { localizedPcArticles } from '../lib/localized/index';
+import { pcArticleBySlug } from '../lib/pc-articles';
+import { localizedRepairCosts } from '../lib/localized/repair-costs';
+import { repairCostExamples } from '../lib/repair-costs';
+import sitemap from '../app/sitemap';
+import { isEditorialSnapshotPath } from '../cloudflare/prerender-policy.mjs';
 import { gameArticles, hubIndexable } from '../lib/game-articles';
 import { ogCardSpecs } from '../lib/og-cards';
 // Renders every translated page and fails if Japanese text leaks into it,
@@ -329,7 +336,6 @@ assert.ok(
   ),
 );
 
-
 // New game expansion: four-language parity and registry-backed navigation.
 const expansionGames = ['arc-raiders', 'elden-ring-nightreign', 'marvel-rivals'];
 const expansionCards = ogCardSpecs();
@@ -367,5 +373,160 @@ for (const gameSlug of expansionGames) {
       assert.equal(expansionCards.filter((card) => card.path === path).length, 1, `${path}: exactly one OG specification`);
   }
 }
+
+// Repair decision: real localized routes with the same safety and source scope.
+const repairCards = ogCardSpecs();
+const sitemapPaths = new Set(
+  sitemap().map((entry) => new URL(entry.url).pathname),
+);
+for (const article of localizedPcArticles) {
+  const original = pcArticleBySlug(article.slug);
+  const originalPath = `/pc/${article.slug}`;
+  const path = `/${article.locale}${originalPath}`;
+  assert(original, `${path}: Japanese original missing`);
+  assert.equal(article.steps.length, 4, `${path}: exactly four decision steps`);
+  assert.equal(
+    article.steps.length,
+    original.steps.length,
+    `${path}: step parity`,
+  );
+  assert.deepEqual(
+    article.diagnosis.map((row) => row.next),
+    original.diagnosis.map((row) => row.next),
+    `${path}: diagnosis parity`,
+  );
+  assert.equal(
+    article.quickChecks.length,
+    original.quickChecks.length,
+    `${path}: safety-check parity`,
+  );
+  assert.equal(
+    article.faqs.length,
+    original.faqs.length,
+    `${path}: FAQ parity`,
+  );
+  assert.equal(
+    article.checkedAt,
+    original.checkedAt,
+    `${path}: verification-date parity`,
+  );
+  assert.deepEqual(
+    article.sources.map((source) => source.url),
+    original.sources.map((source) => source.url),
+    `${path}: official-source parity`,
+  );
+  assert.deepEqual(
+    article.evidenceSummary?.sources.map((source) => source.url),
+    original.evidenceSummary?.sources.map((source) => source.url),
+    `${path}: decision-source parity`,
+  );
+  assert.equal(
+    article.evidenceSummary?.items.length,
+    original.evidenceSummary?.items.length,
+    `${path}: four-way decision parity`,
+  );
+  article.steps.forEach((step, index) => {
+    assert.equal(
+      step.actions.length,
+      original.steps[index].actions.length,
+      `${path}: step-${index + 1} action parity`,
+    );
+    assert.equal(
+      step.resultRows?.length,
+      original.steps[index].resultRows?.length,
+      `${path}: step-${index + 1} outcome parity`,
+    );
+    assert(
+      step.expected && step.unexpected && step.revert,
+      `${path}: result and safety copy`,
+    );
+  });
+  const liquidWarning = { en: /liquid/i, zh: /液体/u, es: /líquido/iu }[article.locale];
+  for (const warning of [article.quickChecks[0], article.diagnosis[0].symptom, article.steps[0].actions[0]])
+    assert(liquidWarning.test(warning), `${path}: liquid exposure must retain its immediate-stop warning`);
+  const html = renderToStaticMarkup(<LocalizedPcArticle article={article} />);
+  check(path, article.locale, html);
+  for (const id of ['step-1', 'step-2', 'step-3', 'step-4']) {
+    assert.equal(
+      (html.match(new RegExp(`id="${id}"`, 'g')) ?? []).length,
+      1,
+      `${path}: unique ${id}`,
+    );
+    assert(html.includes(`href="#${id}"`), `${path}: valid step link ${id}`);
+  }
+  assert(
+    html.includes('TechArticle') &&
+      html.includes('FAQPage') &&
+      html.includes('BreadcrumbList'),
+    `${path}: structured data`,
+  );
+  assert(
+    html.includes(`"mainEntityOfPage":"https://gemnao.pages.dev${path}"`),
+    `${path}: schema self URL`,
+  );
+  assert(
+    !html.includes(`href="/${article.locale}/pc"`),
+    `${path}: no invented translated PC hub`,
+  );
+  assert.equal(
+    languageAlternates(originalPath)[
+      article.locale === 'zh' ? 'zh-Hans' : article.locale
+    ],
+    path,
+  );
+  assert.equal(languageAlternates(originalPath).ja, originalPath);
+  assert.equal(languageAlternates(originalPath)['x-default'], originalPath);
+  assert(sitemapPaths.has(path), `${path}: present in sitemap`);
+  assert(
+    isEditorialSnapshotPath(path),
+    `${path}: public HTML snapshot allowed`,
+  );
+  assert.equal(
+    repairCards.filter((card) => card.path === path).length,
+    1,
+    `${path}: one localized OG specification`,
+  );
+  assert.deepEqual(
+    Object.keys(localizedRepairCosts[article.locale]).sort(),
+    repairCostExamples.map((item) => item.id).sort(),
+    `${path}: every cost example translated`,
+  );
+  for (const item of repairCostExamples) {
+    const translation = localizedRepairCosts[article.locale][item.id];
+    assert(
+      translation.label && translation.conditions && translation.provider,
+      `${path}: complete cost copy for ${item.id}`,
+    );
+    assert(
+      html.includes(item.source.replaceAll('&', '&amp;')),
+      `${path}: cost source ${item.id}`,
+    );
+  }
+  pages++;
+}
+for (const locale of locales) {
+  assert.equal(hasTranslation(locale, '/pc/repair-or-replace'), true);
+  assert.equal(
+    hasTranslation(locale, '/pc'),
+    false,
+    'Do not invent a translated PC hub',
+  );
+  assert.equal(
+    hasTranslation(locale, '/pc/pc-broken'),
+    false,
+    'Do not invent other PC translations',
+  );
+  assert.equal(hasTranslation(locale, '/pc/repair-or-replace/extra'), false);
+  assert.equal(
+    isEditorialSnapshotPath(`/${locale}/diagnose`),
+    false,
+    'Diagnosis stays outside public snapshots',
+  );
+}
+assert.equal(
+  isEditorialSnapshotPath('/diagnose'),
+  false,
+  'Diagnosis stays outside public snapshots',
+);
 
 console.log(`PASS: ${pages} translated pages and three-game expansion parity`);

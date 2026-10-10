@@ -1,11 +1,12 @@
 import {
   RULE_VERSION,
+  PREVIOUS_RULE_VERSION,
   questionFor,
   stepsFor,
   type Answers,
   type ActionStatus,
 } from './model';
-import { record, validateAnswers, validateStatuses } from './validation';
+import { record, validateAnswers, validateStatuses, validateAnswerChoices } from './validation';
 export const LOCAL_KEY = 'gemnao-diagnosis-v1';
 export type LocalDiagnosis = {
   version: string;
@@ -24,7 +25,7 @@ export const freshLocal = (): LocalDiagnosis => ({
   game: '',
   tried: {},
   results: {},
-  step: 'symptom',
+  step: 'safety',
   complete: false,
   savedAt: Date.now(),
 });
@@ -35,8 +36,10 @@ export function readLocal(): LocalDiagnosis | null {
     const d: unknown = JSON.parse(raw);
     if (
       !record(d) ||
-      d.version !== RULE_VERSION ||
+      ![RULE_VERSION, PREVIOUS_RULE_VERSION].includes(String(d.version)) ||
       typeof d.savedAt !== 'number' ||
+      !Number.isFinite(d.savedAt) ||
+      d.savedAt > Date.now() + 60000 ||
       Date.now() - d.savedAt > 30 * 86400000 ||
       typeof d.game !== 'string' ||
       d.game.length > 80 ||
@@ -49,19 +52,27 @@ export function readLocal(): LocalDiagnosis | null {
       localStorage.removeItem(LOCAL_KEY);
       return null;
     }
-    const answers = d.answers as Answers;
+    const answers = validateAnswerChoices(d.answers);
+    if (!answers) {
+      localStorage.removeItem(LOCAL_KEY);
+      return null;
+    }
     if (
       Object.entries(answers).some(
         ([id, value]) =>
           !questionFor(id, answers)?.options.some((o) => o.value === value),
       ) ||
       !stepsFor(answers).includes(d.step) ||
-      (d.complete && !validateAnswers(answers)) ||
+      (d.complete && (!validateAnswers(answers) || (d.version === RULE_VERSION && !answers.safety))) ||
       (d.shareId !== undefined &&
         (typeof d.shareId !== 'string' || !/^[a-f0-9]{32}$/.test(d.shareId)))
     ) {
       localStorage.removeItem(LOCAL_KEY);
       return null;
+    }
+    if (d.version === PREVIOUS_RULE_VERSION) {
+      // Keep prior answers and records; the new safety questions must be answered afresh.
+      return { ...(d as LocalDiagnosis), version: RULE_VERSION, answers, complete: false, step: 'safety', shareId: undefined };
     }
     return d as LocalDiagnosis;
   } catch {

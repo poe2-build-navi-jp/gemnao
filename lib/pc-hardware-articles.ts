@@ -311,6 +311,10 @@ export const pcHardwareArticles: PcArticle[] = [
     ],
     related: [
       {
+        href: '/pc/repair-or-replace',
+        label: '修理・部品交換・買い替えの費用と見積もりを比較する',
+      },
+      {
         href: '/pc/black-screen-after-sign-in',
         label: 'サインイン後、カーソルだけの黒い画面になる',
       },

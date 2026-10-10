@@ -1,3 +1,4 @@
+import { repairDecision } from './decision';
 import {
   CHECKED_AT,
   RULE_VERSION,
@@ -282,7 +283,7 @@ export const actions: Record<string, Action> = {
     'pc-shuts-down-while-gaming',
     [
       '電源断・再起動・PC全体の停止は、通常のゲーム設定の切り分けから外れます。無理な再現テストや負荷テストを中止してください。',
-      '異臭・煙・異常な熱などがあれば使用を中止し、安全を確保してメーカーへ相談します。PCの内部や電源装置を開けず、対応記事で確認事項を整理します。',
+      '異臭・煙・異常な熱・液体侵入や水濡れ直後などがあれば使用を中止し、安全を確保してメーカーへ相談します。PCの内部や電源装置を開けず、対応記事で確認事項を整理します。',
     ],
     [source.tools],
     {
@@ -461,7 +462,22 @@ export function diagnose(
   tried: Record<string, ActionStatus> = {},
   candidates: Rule[] = rules,
 ): DiagnosisResult {
-  const base = { version: RULE_VERSION, checkedAt: CHECKED_AT };
+  const decision = repairDecision(a, tried);
+  const base = { version: RULE_VERSION, checkedAt: CHECKED_AT, decision };
+  if (decision.urgency !== 'normal') return {
+    ...base,
+    scope: 'pc',
+    summary: decision.urgency === 'stop'
+      ? '安全を優先し、ここで通常の診断を止めます。バックアップのための起動も行わないでください。'
+      : 'データ保全を優先し、ゲームの対処や負荷テストは進めません。',
+    missing: [],
+    recommendations: [],
+  };
+  if (a.manufacturerTest === 'error') return {
+    ...base, scope: 'pc',
+    summary: '既存のメーカー診断結果を相談先へ伝えることを優先します。故障箇所の確定や追加の負荷テストは、このWeb診断では行いません。',
+    missing: [], recommendations: [],
+  };
   if (isPcIssue(a))
     return {
       ...base,
@@ -486,6 +502,13 @@ export function diagnose(
         },
       ],
     };
+  if (a.safety === 'unknown' || a.storage === 'unknown') return {
+    ...base,
+    scope: 'insufficient',
+    summary: '現在の回答だけでは、優先する原因候補を絞れません。安全や保存データの確認ができるまで、負荷のかかる対処は保留します。',
+    missing: ['safety', 'storage'].filter((key) => a[key as keyof Answers] === 'unknown').map((key) => questions[key].title),
+    recommendations: [],
+  };
   const missing = ['scope', 'observation', 'change', 'launcher'].filter(
     (k) => !a[k as keyof Answers] || a[k as keyof Answers] === 'unknown',
   );

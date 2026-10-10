@@ -32,6 +32,12 @@ export const pcHubSources = [
 
 export const pcHubRows = [
   {
+    symptom: '修理か買い替えか迷う／部品交換の費用を知りたい',
+    check: '保証・交換可否・必要な用途・データ移行を含む総額を比較',
+    href: '/pc/repair-or-replace',
+    label: '修理・部品交換・買い替えの判断と公式料金例',
+  },
+  {
     symptom: 'ディスク使用率100％／起動後や何もしていない時も重い',
     check:
       '上位プロセス・対象ディスク・メモリと、更新やコピー終了後の操作を比較',

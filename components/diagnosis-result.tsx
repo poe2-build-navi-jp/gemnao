@@ -6,7 +6,9 @@ import {
   type DiagnosisResult,
   type Answers,
   answerLabel,
+  questions,
 } from '@/lib/diagnosis/model';
+import { DiagnosisDecision } from './diagnosis-decision';
 export function DiagnosisSummary({
   answers,
   snapshotLabels,
@@ -29,7 +31,7 @@ export function DiagnosisSummary({
     <dl className="diag-summary">
       {Object.entries(answers).map(([k, v]) => (
         <div key={k}>
-          <dt>{labels[k]}</dt>
+          <dt>{labels[k] || questions[k]?.title || k}</dt>
           <dd>{snapshotLabels?.[k] || answerLabel(k, v!, answers.symptom)}</dd>
         </div>
       ))}
@@ -41,8 +43,10 @@ export function DiagnosisResultView({
   records,
   onRecord,
   onArticle,
+  answers,
 }: {
   result: DiagnosisResult;
+  answers?: Answers;
   records: Record<string, ActionStatus>;
   onRecord?: (id: string, status: ActionStatus) => void;
   onArticle?: (id: string) => void;
@@ -60,13 +64,14 @@ export function DiagnosisResultView({
           。「分からない」は「問題なし」と判定していません。
         </p>
       )}
-      <h3>
+      {result.decision && <DiagnosisDecision decision={result.decision} answers={answers} />}
+      {result.recommendations.length > 0 && <h3>
         {result.scope === 'insufficient'
           ? '追加で確認すること'
           : result.scope === 'pc'
             ? '安全のために確認すること'
             : 'まず確認すること'}
-      </h3>
+      </h3>}
       <ol className="diag-actions">
         {result.recommendations.map(({ action: a, reason, ruleId }, index) => (
           <li key={ruleId} className="diag-card">

@@ -1,3 +1,4 @@
+import { localizedPcRepairArticles } from '@/lib/localized/pc-repair-articles';
 import { arcRaidersLocalizedArticles } from '@/lib/localized/arc-raiders';
 import { nightreignLocalizedArticles } from '@/lib/localized/nightreign';
 import { marvelRivalsLocalizedArticles } from '@/lib/localized/marvel-rivals';
@@ -198,6 +199,29 @@ export function ogCardSpecs(): OgCardSpec[] {
     ...roundupCards,
     ...weeklyCards,
     ...pcCards,
+    ...localizedPcRepairArticles.map((article) => ({
+      path: `/${article.locale}/pc/${article.slug}`,
+      locale: article.locale,
+      eyebrow: {
+        en: 'PC repair and replacement',
+        zh: '电脑维修与换新',
+        es: 'Reparar o cambiar de PC',
+      }[article.locale],
+      title: article.title,
+      itemsLabel: {
+        en: 'Compare before buying',
+        zh: '购买前先比较',
+        es: 'Compara antes de comprar',
+      }[article.locale],
+      items: article.locale === 'es'
+        ? [
+            'Revisa seguridad, datos y garantía',
+            'Distingue ajustes y falta de rendimiento',
+            'Confirma si una ampliación basta',
+            'Compara costes y condiciones',
+          ]
+        : article.steps.map((step) => step.title),
+    })),
     ...gearCards,
     ...[
       ...arcRaidersLocalizedArticles,

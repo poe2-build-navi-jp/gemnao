@@ -13,6 +13,11 @@ export const metadata: Metadata = {
 
 const tools = [
   {
+    href: '/pc/repair-or-replace',
+    title: '修理・部品交換・買い替えの判断と費用比較',
+    body: '端末内の無料問診で確認順と修理相談メモを整理。公式料金例と、保証・用途・移行を含む総額を比較します。',
+  },
+  {
     href: '/tools/windows-diagnosis',
     title: 'PCゲーム診断（Windows用・試作版）',
     body: 'ゲーム本体と6つの症状を選んで、記録と次の確認を整理。共通診断とゲーム固有チェックを分けた試作版です。',

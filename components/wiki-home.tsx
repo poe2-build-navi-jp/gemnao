@@ -283,6 +283,14 @@ export function WikiHome({
             <a href="/tools">便利ツール一覧 →</a>
           </div>
           <div className="home-tool-grid">
+            <a href="/pc/repair-or-replace">
+              <Wrench size={20} aria-hidden="true" />
+              <strong>修理・部品交換・買い替えを比べる</strong>
+              <span>
+                重い・不調が続く時に。無料問診と公式料金例で、次に確認することを整理。
+              </span>
+              <b>判断と費用の比較を見る →</b>
+            </a>
             <a href="/tools/save-locations">
               <Save size={20} aria-hidden="true" />
               <strong>セーブの保存場所を調べる</strong>

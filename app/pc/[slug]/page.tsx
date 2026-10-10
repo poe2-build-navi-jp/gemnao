@@ -1,3 +1,7 @@
+import { repairCostExamples } from '@/lib/repair-costs';
+import { RepairCostTable } from '@/components/repair-cost-table';
+import { DiagnosisCta } from '@/components/diagnosis-cta';
+import { languageAlternates } from '@/lib/localized/index';
 import { ArticleToc } from '@/components/article-toc';
 import { SupportWorkspace } from '@/components/support-workspace';
 import { EditorialByline } from '@/components/editorial-byline';
@@ -37,7 +41,7 @@ export async function generateMetadata({
   return {
     title: article.seoTitle,
     description: article.description,
-    alternates: { canonical: path },
+    alternates: { canonical: path, languages: languageAlternates(path) },
     openGraph: {
       type: 'article',
       locale: 'ja_JP',
@@ -99,8 +103,18 @@ export default async function PcArticlePage({
       inLanguage: 'ja-JP',
       author: editorialAuthor,
       publisher: editorialPublisher,
-      citation: article.sources.map((source) => source.url),
-      about: 'Windows 11',
+      citation: [
+        ...new Set([
+          ...article.sources.map((source) => source.url),
+          ...(slug === 'repair-or-replace'
+            ? repairCostExamples.map((row) => row.source)
+            : []),
+        ]),
+      ],
+      about:
+        slug === 'repair-or-replace'
+          ? 'PC repair and replacement decisions'
+          : 'Windows 11',
       ...(article.evidenceSummary
         ? {
             hasPart: {
@@ -121,6 +135,7 @@ export default async function PcArticlePage({
     [
       'pc-hacked-signs',
       'pc-broken',
+      'repair-or-replace',
       'bluetooth-option-missing',
       'windows-update-stuck',
       'disk-usage-100',
@@ -152,14 +167,24 @@ export default async function PcArticlePage({
             <span>›</span>
             <b>{article.shortTitle}</b>
           </nav>
-          <p className="article-label">PC・Windowsの不具合｜Windows 11</p>
+          <p className="article-label">
+            PC・Windowsの不具合｜
+            {slug === 'repair-or-replace'
+              ? '修理・買い替えの比較'
+              : 'Windows 11'}
+          </p>
           <h1>{article.title}</h1>
           <p className="article-lead">{article.lead}</p>
           <div className="article-meta">
             <span>
               公式情報の確認：{article.checkedAt.replaceAll('-', '.')}
             </span>
-            <span>対象：Windows 11</span>
+            <span>
+              対象：
+              {slug === 'repair-or-replace'
+                ? '個人向けWindows PC'
+                : 'Windows 11'}
+            </span>
             <EditorialByline />
           </div>
           <SaveArticle path={`/pc/${article.slug}`} title={article.title} />
@@ -175,6 +200,9 @@ export default async function PcArticlePage({
             <a href="#signs">
               {article.evidenceSummary.tocLabel ?? '乗っ取りを疑う兆候'}
             </a>
+          )}
+          {slug === 'repair-or-replace' && (
+            <a href="#repair-costs">修理・部品交換の料金例</a>
           )}
           <a href="#diagnosis">症状別の判断表</a>
           {article.steps.map((step, i) => (
@@ -261,6 +289,12 @@ export default async function PcArticlePage({
                 </tbody>
               </table>
             </section>
+          )}
+          {slug === 'repair-or-replace' && (
+            <>
+              <DiagnosisCta />
+              <RepairCostTable />
+            </>
           )}
           <section className="diagnosis-table" id="diagnosis">
             <h2>症状別の判断表</h2>
@@ -382,7 +416,10 @@ export default async function PcArticlePage({
             </div>
           </section>
           {slug === 'refresh-rate-stuck-60hz' ? (
-            <aside className="diagnosis-article-entry" aria-labelledby="refresh-check-title">
+            <aside
+              className="diagnosis-article-entry"
+              aria-labelledby="refresh-check-title"
+            >
               <h2 id="refresh-check-title">手順のあとも、60Hzのままですか？</h2>
               <p>
                 Windowsの設定値を確認したら、同じモニター・同じ電源条件でブラウザーの描画頻度の目安を比較できます。ダウンロードは不要です。調べたいPCのモニター上で開いてください。
@@ -434,7 +471,9 @@ export default async function PcArticlePage({
           <section className="sources" id="references">
             <h2>参考情報・公式出典</h2>
             <p className="source-policy">
-              Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。
+              {slug === 'repair-or-replace'
+                ? 'メーカー・修理事業者の公式資料と料金表を確認し、比較方法をゲムなおで整理しました。掲載料金は確認日の公式例で、平均や個別見積もりではありません。判断例は全機器での実機検証結果ではありません。'
+                : 'Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。'}
             </p>
             {article.sources.map((source) => (
               <a
