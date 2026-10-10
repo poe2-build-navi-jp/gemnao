@@ -4,6 +4,8 @@ export const gameRequestCopy = {
   ja: {
     title: 'このゲームを追加してほしい',
     intro: '一覧にないゲームの追加をリクエストできます。',
+    capacity:
+      '先着500件まで受け付けます（保存される要望の合計）。受付済み分を含み、同じゲーム名の重複は1件として数えます。',
     privacy:
       'ゲーム名だけを入力してください。氏名・メールアドレス・連絡先は入力しないでください。ゲーム名と言語を送信します。内容は公開されず、編集担当者が確認します。追加や公開時期はお約束できません。',
     security:
@@ -28,6 +30,8 @@ export const gameRequestCopy = {
   en: {
     title: 'Request a game',
     intro: 'Suggest a game that is missing from the list.',
+    capacity:
+      'First come, first served, up to 500 stored requests in total. Existing requests count toward the limit; duplicate game titles count as one.',
     privacy:
       'Enter only the game title. Do not include your name, email address, or contact details. The game title and page language are sent privately for review by the editorial team. We cannot promise that a game will be added or when it will be published.',
     security:
@@ -52,6 +56,8 @@ export const gameRequestCopy = {
   zh: {
     title: '申请添加游戏',
     intro: '可以申请添加列表中没有的游戏。',
+    capacity:
+      '按先到先得的顺序受理，最多保存500条申请。已受理的申请计入总数，相同游戏名称的重复申请只计为一条。',
     privacy:
       '请仅填写游戏名称，不要填写姓名、电子邮箱或其他联系方式。游戏名称及页面语言将发送给编辑人员审核，内容不会公开。无法保证一定添加该游戏或确定上线时间。',
     security:
@@ -73,6 +79,8 @@ export const gameRequestCopy = {
   es: {
     title: 'Solicitar un juego',
     intro: 'Sugiere un juego que no aparezca en la lista.',
+    capacity:
+      'Se aceptan por orden de llegada, hasta un total de 500 solicitudes guardadas. Las ya recibidas cuentan para el límite; los títulos duplicados cuentan como una sola solicitud.',
     privacy:
       'Introduce solo el título del juego. No incluyas tu nombre, correo electrónico ni datos de contacto. Se envían el título del juego y el idioma de la página de forma privada para que el equipo editorial los revise. No podemos garantizar que se añada el juego ni cuándo se publicará.',
     security:
