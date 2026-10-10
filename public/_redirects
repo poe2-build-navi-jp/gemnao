@@ -1,0 +1,4 @@
+# Preserve Vinext's trailing-slash normalization for the three static routes.
+/sitemap.xml/ /sitemap.xml 308
+/image-sitemap.xml/ /image-sitemap.xml 308
+/robots.txt/ /robots.txt 308
