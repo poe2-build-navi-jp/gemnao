@@ -1,4 +1,4 @@
-# Manual game request review (prepared, intake remains off)
+# Manual game request review and retained intake
 
 This prepares the owner's selected manual workflow: a visitor submits a game title privately, an editor reviews it in the existing administrator screen, and the editor records adoption or a hold. Adoption means **planned research**, not publication, a promise to add the game, or completed coverage. It starts no article generator or unattended consumer.
 
@@ -11,7 +11,7 @@ Public intake requires all of:
 - `GAME_REQUESTS_ENABLED=true`
 - Existing DB binding and all three request tables
 
-The new settings remain absent from committed production and preview configuration. `GAME_REQUEST_CONSUMER_READY` is not used to pretend that an automatic consumer exists. Unknown modes and manual mode without readiness fail closed. The old automatic mode remains available only under its prior consumer-readiness requirements; absent mode preserves that compatibility.
+Production explicitly enables these three settings following the owner-approved finite test and retention decision. Preview retains its original overrides and no DB binding; it remains unavailable. `GAME_REQUEST_CONSUMER_READY` is not used to pretend that an automatic consumer exists. Unknown modes and manual mode without readiness fail closed. The old automatic mode remains available only under its prior consumer-readiness requirements; absent mode preserves that compatibility.
 
 In manual mode the dedicated automation endpoint is unavailable even with a valid future consumer token. Owner manual PATCH accepts only the bounded `review` action; automated claims and publication status mutations are not accepted through that mode. Existing cookie login, its eight-hour browser lifetime, permissions and authentication configuration are unchanged.
 
@@ -30,7 +30,7 @@ Manual decisions reuse existing schema:
 - Only `received`, `held`, and `researching` rows without an active lease may change. Published/covered/rejected or other pipeline stages cannot be overwritten.
 - PATCH contains request ID, selected decision and expected update timestamp only. No title or free-text note is sent.
 - The update uses an atomic timestamp comparison. A concurrent/replayed/old-tab decision or live lease returns 409; refresh before deciding again. Timestamps advance even within the same millisecond.
-- Thirty authenticated review attempts per minute are admitted atomically. The constant manual namespace is separate from visitor daily quotas and automatic consumer accounting. No schema or migration-history changes are required. Existing intake retention behavior is unchanged: normal submissions may clean up expired attempt/salt records and requests inactive for 90 days without a live lease.
+- Thirty authenticated review attempts per minute are admitted atomically. The constant manual namespace is separate from visitor daily quotas and automatic consumer accounting. No schema or migration-history changes are required. Ongoing manual intake preserves requests without automatic deletion. Existing rows count toward a fixed 500-request capacity; admission checks it atomically and returns unavailable (503) when full. Adoption/hold does not free storage; owner review remains available while public intake is full. Existing attempt/salt cleanup after 48 hours stays unchanged, including manual review-rate accounting cleanup. No new stored fields are introduced. Automatic mode retains its legacy 90-day request cleanup.
 
 ## Verification
 
@@ -48,11 +48,11 @@ The tests use synthetic local Miniflare/D1 data. They do not prove live owner lo
 
 ## Proposed finite activation test — requires separate owner approval
 
-No part of this section authorizes a production change or submission. The separate `manual-validation` mode is prepared specifically to avoid any existing retention deletion during the test.
+The finite test was completed on 2026-10-10 and its temporary settings were restored before ongoing manual intake. No part of this procedure authorizes another production submission. The separate `manual-validation` mode is prepared specifically to avoid any existing retention deletion during the test.
 
 This mode uses the same public route, input rules, origin/IP checks, durable receipt, deduplication, visitor quotas and owner authentication. It is not a hidden endpoint or an authentication bypass. It additionally requires `GAME_REQUEST_VALIDATION_FROM` and `GAME_REQUEST_VALIDATION_UNTIL` as canonical UTC strings (`YYYY-MM-DDTHH:mm:ss.sssZ`), with a positive interval of at most five minutes. Missing, malformed, future, expired or overlong windows fail closed. Both the application and the atomic D1 admission statement check the time. Once the deadline passes, new requests are refused even if a rollback deployment is slow. An operation already admitted during the window may finish afterward.
 
-In `manual-validation`, neither public intake nor manual review-rate accounting includes DELETE statements. Expired existing requests, attempts and salts remain untouched. The test can create its necessary new request, salted daily identifier and accounting records, and update only the exact approved test row through the existing owner screen. Readiness and authentication still gate owner actions after intake expires. Normal `manual` and `automatic` retention behavior is unchanged; a later sustained-intake decision must separately resolve retention expectations.
+In `manual-validation`, neither public intake nor manual review-rate accounting includes DELETE statements. Expired existing requests, attempts and salts remain untouched. The test can create its necessary new request, salted daily identifier and accounting records, and update only the exact approved test row through the existing owner screen. Readiness and authentication still gate owner actions after intake expires. Ongoing `manual` mode retains requests subject to the 500-row cap, with existing 48-hour ancillary cleanup; `automatic` mode keeps legacy retention.
 
 1. Verify the exact deployed commit, existing owner login and private queue read, and current schema compatibility. Select a supported configuration path preserving unrelated production settings and preview isolation; a reviewed Wrangler configuration change uses the existing Git-integrated deployment without visiting the Cloudflare dashboard. No new credential, permission change, DB, or unrelated QA workflow is included.
 2. Ask the owner to approve the exact destination (`https://gemnao.pages.dev` / existing `gemnao-db`), `GAME_REQUEST_REVIEW_MODE=manual-validation`, `GAME_REQUEST_MANUAL_REVIEW_READY=true`, `GAME_REQUESTS_ENABLED=true`, explicit UTC start/end within five minutes, one normal request for an already covered confirmed game, and adopt/hold decisions for that exact new row. Disclose that real visitors might submit during the public window; those rows remain private and are not processed by the test. No deletion is authorized or performed in this mode.

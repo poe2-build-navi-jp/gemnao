@@ -2,6 +2,10 @@ import { env } from 'cloudflare:workers';
 import type { parseGameRequest } from './game-request-input';
 import { parseGameRequestValidationWindow } from './game-request-validation';
 const DAY = 86_400_000;
+const MANUAL_REQUEST_LIMIT = 500;
+function retainedManualMode() {
+  return runtime().GAME_REQUEST_REVIEW_MODE === 'manual';
+}
 function runtime() {
   return env as unknown as {
     DB?: D1Database;
@@ -69,7 +73,12 @@ export async function gameRequestsAvailable() {
         "SELECT COUNT(*) AS n FROM sqlite_master WHERE type='table' AND name IN ('game_requests','game_request_daily_salts','game_request_attempts')",
       )
       .first<{ n: number }>();
-    return schema?.n === 3;
+    if (schema?.n !== 3) return false;
+    if (!retainedManualMode()) return true;
+    const capacity = await database()
+      .prepare('SELECT COUNT(*) AS n FROM game_requests')
+      .first<{ n: number }>();
+    return !!capacity && capacity.n < MANUAL_REQUEST_LIMIT;
   } catch {
     return false;
   }
@@ -141,11 +150,15 @@ export async function persistGameRequest(
         db
           .prepare('DELETE FROM game_request_daily_salts WHERE expires_at < ?')
           .bind(now),
-        db
-          .prepare(
-            'DELETE FROM game_requests WHERE updated_at < ? AND (lease_until IS NULL OR lease_until < ?)',
-          )
-          .bind(now - 90 * DAY, now),
+        ...(retainedManualMode()
+          ? []
+          : [
+              db
+                .prepare(
+                  'DELETE FROM game_requests WHERE updated_at < ? AND (lease_until IS NULL OR lease_until < ?)',
+                )
+                .bind(now - 90 * DAY, now),
+            ]),
       ];
   if (validation && !currentValidationWindow()) throw new Error('unavailable');
   const results = await db.batch([
@@ -155,6 +168,7 @@ export async function persistGameRequest(
         `INSERT INTO game_request_attempts (id,day,fingerprint,created_at) SELECT ?,?,?,?
          WHERE (SELECT COUNT(*) FROM game_request_attempts WHERE day=? AND fingerprint=?) < 5
          AND (SELECT COUNT(*) FROM game_request_attempts WHERE day=?) < 100
+         AND (?=0 OR (SELECT COUNT(*) FROM game_requests) < ?)
          AND (?=0 OR (CAST((julianday('now')-2440587.5)*86400000 AS INTEGER) >= ?
            AND CAST((julianday('now')-2440587.5)*86400000 AS INTEGER) < ?))`,
       )
@@ -166,6 +180,8 @@ export async function persistGameRequest(
         day,
         fingerprint,
         day,
+        retainedManualMode() ? 1 : 0,
+        MANUAL_REQUEST_LIMIT,
         validation ? 1 : 0,
         window?.from ?? 0,
         window?.until ?? 0,
@@ -192,7 +208,10 @@ export async function persistGameRequest(
       .bind(input.normalizedName, attemptId),
   ]);
   if (results[cleanup.length].meta.changes !== 1) {
-    if (validation && !currentValidationWindow())
+    if (
+      (validation && !currentValidationWindow()) ||
+      (retainedManualMode() && !(await gameRequestsAvailable()))
+    )
       throw new Error('unavailable');
     throw new Error('game_request_rate_limit');
   }
