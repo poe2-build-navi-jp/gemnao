@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "vinext dev",
-    "build": "NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=true vinext build --prerender-all --prerender-concurrency 1 && NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=true node scripts/prepare-pages.mjs && NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=true node scripts/generate-og-cards.mjs --check",
+    "build": "NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=true vinext build --prerender-all --prerender-concurrency 1 && NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=true node scripts/prepare-pages.mjs && node scripts/check-static-search-assets.mjs && NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=true node scripts/generate-og-cards.mjs --check",
     "build:pages": "pnpm build",
     "start": "wrangler dev --config dist/server/wrangler.json",
     "content:freshness": "node scripts/run-freshness-report.mjs",
