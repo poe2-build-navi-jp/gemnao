@@ -13,6 +13,8 @@ for (const locale of ['ja', 'en', 'zh', 'es'] as const) {
   );
   const html = renderToStaticMarkup(<GameRequestForm locale={locale} />);
   assert.ok(html.includes(gameRequestCopy[locale].title));
+  assert.match(gameRequestCopy[locale].capacity, /500/);
+  assert.ok(html.includes(gameRequestCopy[locale].capacity));
   assert.ok(
     !html.includes('<form'),
     'No public form before server availability check',

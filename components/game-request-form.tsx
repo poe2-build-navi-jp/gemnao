@@ -81,6 +81,7 @@ export function GameRequestForm({ locale }: { locale: MyGamesLocale }) {
     <section className="game-request" aria-labelledby={`${id}-heading`}>
       <h2 id={`${id}-heading`}>{t.title}</h2>
       <p>{t.intro}</p>
+      <p className="game-request-privacy">{t.capacity}</p>
       {available ? (
         <form onSubmit={submit} noValidate aria-busy={busy}>
           <p id={`${id}-privacy`} className="game-request-privacy">
