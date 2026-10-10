@@ -66,6 +66,7 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
     }),
     [started, setStarted] = useState(false);
   const [notice, setNotice] = useState('');
+  const [configError, setConfigError] = useState('');
   const title = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
     queueMicrotask(() => {
@@ -81,7 +82,7 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
         enabled: (process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED === 'true' || process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA === 'true') && next.enabled === true,
         sharing: process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA !== 'true' && process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED === 'true' && next.enabled === true && next.sharing === true,
       }))
-      .catch(() => {});
+      .catch(() => setConfigError('受付状況を確認できないため、診断を一時停止しています。保存済みの端末内データは消去していません。時間を空けて再読み込みしてください。'));
   }, []);
   useEffect(() => {
     if (ready && started) {
@@ -167,7 +168,7 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
   if (!config.enabled)
     return (
       <p className="diag-warning">
-        診断は現在停止しています。
+        {configError || '診断は現在停止しています。'}
         <a href="/guide">症状別の記事をご覧ください</a>
       </p>
     );

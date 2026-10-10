@@ -1,5 +1,6 @@
 import { RULE_VERSION, statuses } from './model';
 import { actions } from './rules';
+import { diagnosisStorageFailure, diagnosisRetryHeaders } from './availability';
 import {
   buildSnapshot,
   validateStatuses,
@@ -518,12 +519,10 @@ export async function handleDiagnosis(
       });
     }
     return fail(405, 'この操作は利用できません。');
-  } catch {
+  } catch (error) {
     // Deliberately no request bodies, cookies, IPs, keys or SQL in logs/responses.
-    return fail(
-      503,
-      '保存機能を利用できません。入力は残っています。時間を空けて再試行してください。',
-    );
+    const failure = diagnosisStorageFailure(error, now);
+    return reply(failure, 503, diagnosisRetryHeaders(failure, now));
   }
 }
 /** Hourly scheduled operation; touches diagnosis tables only. */

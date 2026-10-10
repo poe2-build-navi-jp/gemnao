@@ -1,0 +1,70 @@
+name: Diagnosis availability checks (synthetic only)
+
+on:
+  pull_request:
+    branches: [gemunao]
+    paths:
+      - '.github/workflows/diagnosis-availability-check.yml'
+      - 'lib/diagnosis/**'
+      - 'components/diagnosis-*.tsx'
+      - 'app/diagnose/**'
+      - 'cloudflare/worker-source.mjs'
+      - 'tests/diagnosis/**'
+      - 'scripts/test-diagnosis.mjs'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    if: github.repository == 'poe2-build-navi-jp/gemnao' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      CI: 'true'
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Record exact tested source before checks
+        run: |
+          mkdir -p .wrangler/diagnosis-availability-evidence
+          git rev-parse HEAD > .wrangler/diagnosis-availability-evidence/source-sha.txt
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22.19.0'
+      - name: Install locked dependencies without lifecycle scripts
+        run: |
+          npm install --global --ignore-scripts --no-audit --no-fund pnpm@11.19.0
+          pnpm install --frozen-lockfile --ignore-scripts --ignore-pnpmfile
+      - name: Typecheck, lint and local diagnosis API tests
+        run: |
+          pnpm typecheck
+          pnpm lint
+          pnpm test:diagnosis
+      - name: Install Chromium for loopback-only component checks
+        run: pnpm exec playwright install --with-deps chromium --only-shell
+      - name: Check quota failures, retained input and same-ID recheck
+        shell: bash
+        run: |
+          timeout 5m pnpm test:diagnosis:availability:browser 2>&1 | tee .wrangler/diagnosis-availability-evidence/browser.log
+      - name: Collect synthetic screenshots only
+        if: always()
+        run: |
+          mkdir -p .wrangler/diagnosis-availability-evidence
+          for image in .wrangler/diagnosis-availability-browser/paused-*.png; do
+            if [ -f "$image" ]; then cp "$image" .wrangler/diagnosis-availability-evidence/; fi
+          done
+      - name: Retain test evidence, never the fixture bundle
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: diagnosis-availability-${{ github.run_id }}-${{ github.event.pull_request.head.sha }}
+          path: .wrangler/diagnosis-availability-evidence/
+          include-hidden-files: true
+          if-no-files-found: ignore
+          retention-days: 7
