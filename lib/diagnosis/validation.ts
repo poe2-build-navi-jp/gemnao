@@ -8,6 +8,7 @@ import {
   type Answers,
   type ActionStatus,
   RULE_VERSION,
+  decisionFields,
 } from './model';
 import { actions, diagnose } from './rules';
 export function record(value: unknown): value is Record<string, unknown> {
@@ -16,51 +17,34 @@ export function record(value: unknown): value is Record<string, unknown> {
 export function exactKeys(value: Record<string, unknown>, allowed: string[]) {
   return Object.keys(value).every((k) => allowed.includes(k));
 }
-export function validateAnswers(value: unknown): Answers | null {
-  if (
-    !record(value) ||
-    !exactKeys(value, [
-      'symptom',
-      'scope',
-      'observation',
-      'error',
-      'change',
-      'launcher',
-      'os',
-      'gpu',
-      'ram',
-    ]) ||
-    !isSymptom(value.symptom)
-  )
-    return null;
+export const legacyAnswerKeys = [
+  'symptom', 'scope', 'observation', 'error', 'change', 'launcher', 'os', 'gpu', 'ram',
+];
+/** Enum-only values. New decision context stays local and never contains device identifiers. */
+export function validateAnswerChoices(value: unknown): Answers | null {
+  if (!record(value) || !exactKeys(value, [...legacyAnswerKeys, 'safety', 'storage', ...decisionFields])) return null;
   const a: Answers = {};
   for (const [key, v] of Object.entries(value)) {
-    const q =
-      key === 'observation'
-        ? observationQuestion(value as Answers)
-        : questions[key];
-    if (typeof v !== 'string' || !q?.options.some((o) => o.value === v))
-      return null;
+    const q = key === 'observation' ? observationQuestion(value as Answers) : questions[key];
+    if (typeof v !== 'string' || !q?.options.some((o) => o.value === v)) return null;
     a[key as keyof Answers] = v;
   }
   if (a.observation !== 'error' && a.error !== undefined) return null;
-  if (!a.scope) return null;
-  if (
-    !isPcIssue(a) &&
-    (!a.observation ||
-      !a.change ||
-      !a.launcher ||
-      !a.os ||
-      !a.gpu ||
-      !a.ram ||
-      (a.observation === 'error' && !a.error))
-  )
-    return null;
-  if (
-    isPcIssue(a) &&
-    Object.keys(a).some((k) => !['symptom', 'scope'].includes(k))
-  )
-    return null;
+  return a;
+}
+export function validateAnswers(value: unknown): Answers | null {
+  const a = validateAnswerChoices(value);
+  if (!a) return null;
+  const hasLocalContext = Object.keys(a).some((key) => !legacyAnswerKeys.includes(key));
+  if (hasLocalContext) {
+    if (!a.safety) return null;
+    if (a.safety === 'danger') return a;
+    if (!a.storage) return null;
+    if (a.storage === 'critical') return a;
+  }
+  if (!isSymptom(a.symptom) || !a.scope) return null;
+  if (!isPcIssue(a) && (!a.observation || !a.change || !a.launcher || !a.os || !a.gpu || !a.ram || (a.observation === 'error' && !a.error))) return null;
+  if (isPcIssue(a) && Object.keys(a).some((k) => legacyAnswerKeys.includes(k) && !['symptom', 'scope'].includes(k))) return null;
   return a;
 }
 export function validateStatuses(
@@ -91,6 +75,8 @@ export function buildSnapshot(input: unknown) {
     tried = validateStatuses(input.tried),
     results = validateStatuses(input.results);
   if (!answers || !tried || !results) return null;
+  // The existing share protocol is intentionally unchanged: repair context is local-only.
+  if (Object.keys(answers).some((key) => !legacyAnswerKeys.includes(key))) return null;
   const result = diagnose(answers, tried);
   const allowed = new Set([
     ...Object.keys(tried),

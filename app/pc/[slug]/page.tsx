@@ -1,3 +1,7 @@
+import { repairCostExamples } from '@/lib/repair-costs';
+import { RepairCostTable } from '@/components/repair-cost-table';
+import { DiagnosisCta } from '@/components/diagnosis-cta';
+import { languageAlternates } from '@/lib/localized/index';
 import { ArticleToc } from '@/components/article-toc';
 import { SupportWorkspace } from '@/components/support-workspace';
 import { EditorialByline } from '@/components/editorial-byline';
@@ -37,7 +41,7 @@ export async function generateMetadata({
   return {
     title: article.seoTitle,
     description: article.description,
-    alternates: { canonical: path },
+    alternates: { canonical: path, languages: languageAlternates(path) },
     openGraph: {
       type: 'article',
       locale: 'ja_JP',
@@ -64,6 +68,9 @@ export default async function PcArticlePage({
   const { slug } = await params;
   const article = pcArticleBySlug(slug);
   if (!article) notFound();
+  const isRepairGuide = slug === 'repair-or-replace';
+  const SupplementarySection = isRepairGuide ? 'details' : 'section';
+  const repairStepLabels = ['安全・保証', '性能と設定', '部品交換', '総額比較'];
   const canonical = `https://gemnao.pages.dev/pc/${slug}`;
   const jsonLd: Record<string, unknown>[] = [
     {
@@ -99,8 +106,18 @@ export default async function PcArticlePage({
       inLanguage: 'ja-JP',
       author: editorialAuthor,
       publisher: editorialPublisher,
-      citation: article.sources.map((source) => source.url),
-      about: 'Windows 11',
+      citation: [
+        ...new Set([
+          ...article.sources.map((source) => source.url),
+          ...(slug === 'repair-or-replace'
+            ? repairCostExamples.map((row) => row.source)
+            : []),
+        ]),
+      ],
+      about:
+        slug === 'repair-or-replace'
+          ? 'PC repair and replacement decisions'
+          : 'Windows 11',
       ...(article.evidenceSummary
         ? {
             hasPart: {
@@ -121,6 +138,7 @@ export default async function PcArticlePage({
     [
       'pc-hacked-signs',
       'pc-broken',
+      'repair-or-replace',
       'bluetooth-option-missing',
       'windows-update-stuck',
       'disk-usage-100',
@@ -152,21 +170,34 @@ export default async function PcArticlePage({
             <span>›</span>
             <b>{article.shortTitle}</b>
           </nav>
-          <p className="article-label">PC・Windowsの不具合｜Windows 11</p>
+          <p className="article-label">
+            PC・Windowsの不具合｜
+            {slug === 'repair-or-replace'
+              ? '修理・買い替えの比較'
+              : 'Windows 11'}
+          </p>
           <h1>{article.title}</h1>
           <p className="article-lead">{article.lead}</p>
           <div className="article-meta">
             <span>
               公式情報の確認：{article.checkedAt.replaceAll('-', '.')}
             </span>
-            <span>対象：Windows 11</span>
+            <span>
+              対象：
+              {slug === 'repair-or-replace'
+                ? '個人向けWindows PC'
+                : 'Windows 11'}
+            </span>
             <EditorialByline />
           </div>
           <SaveArticle path={`/pc/${article.slug}`} title={article.title} />
         </div>
       </header>
       <div className="article-layout issue-layout">
-        <ArticleToc title={'このページの内容'} className="issue-toc">
+        <ArticleToc
+          title={'このページの内容'}
+          className={`issue-toc${isRepairGuide ? ' repair-article-toc' : ''}`}
+        >
           <a href="#answer">先に結論</a>
           {article.shortcutRows && (
             <a href="#shortcut-list">ショートカット早見表</a>
@@ -176,13 +207,17 @@ export default async function PcArticlePage({
               {article.evidenceSummary.tocLabel ?? '乗っ取りを疑う兆候'}
             </a>
           )}
+          {slug === 'repair-or-replace' && (
+            <a href="#repair-costs">修理・部品交換の料金例</a>
+          )}
           <a href="#diagnosis">症状別の判断表</a>
           {article.steps.map((step, i) => (
             <a href={`#step-${i + 1}`} key={step.title}>
-              {i + 1}. {step.title}
+              {i + 1}. {isRepairGuide ? repairStepLabels[i] : step.title}
             </a>
           ))}
           <a href="#escalation">直らない場合</a>
+          {isRepairGuide && <a href="#faq">よくある質問</a>}
           <a href="#references">公式出典</a>
         </ArticleToc>
         <article className="guide-article pc-guide">
@@ -200,12 +235,18 @@ export default async function PcArticlePage({
             <KeyIllustration visual={keyCheatSheetFor(`/pc/${slug}`)} eager />
           </section>
           {article.evidenceSummary && (
-            <section
-              className="guide-section"
-              id="signs"
+            <SupplementarySection
+              className={`guide-section${isRepairGuide ? ' repair-article-details' : ''}`}
+              id={isRepairGuide ? undefined : 'signs'}
               aria-labelledby="signs-title"
             >
-              <h2 id="signs-title">{article.evidenceSummary.title}</h2>
+              {isRepairGuide ? (
+                <summary id="signs">
+                  <h2 id="signs-title">{article.evidenceSummary.title}</h2>
+                </summary>
+              ) : (
+                <h2 id="signs-title">{article.evidenceSummary.title}</h2>
+              )}
               <p>{article.evidenceSummary.intro}</p>
               <ol>
                 {article.evidenceSummary.items.map((item) => (
@@ -226,7 +267,7 @@ export default async function PcArticlePage({
                   </li>
                 ))}
               </ul>
-            </section>
+            </SupplementarySection>
           )}
           {article.shortcutRows && (
             <section className="diagnosis-table" id="shortcut-list">
@@ -262,6 +303,12 @@ export default async function PcArticlePage({
               </table>
             </section>
           )}
+          {slug === 'repair-or-replace' && (
+            <>
+              <DiagnosisCta />
+              <RepairCostTable />
+            </>
+          )}
           <section className="diagnosis-table" id="diagnosis">
             <h2>症状別の判断表</h2>
             <p>
@@ -290,6 +337,11 @@ export default async function PcArticlePage({
           </section>
           <section className="pc-steps" aria-label="確認と対処の手順">
             <h2>画面を見ながら順番に確認する</h2>
+            {isRepairGuide && (
+              <p className="repair-article-details-hint">
+                安全の確認は必ず読み、STEP 2以降は必要な項目を開いてください。
+              </p>
+            )}
             <SupportWorkspace
               steps={article.steps.map((step, i) => ({
                 id: `step-${i + 1}`,
@@ -307,64 +359,88 @@ export default async function PcArticlePage({
                 completedSteps: [],
               }}
             />
-            {article.steps.map((step, i) => (
-              <section
-                className="pc-step"
-                id={`step-${i + 1}`}
-                key={step.title}
-              >
-                <h3>
-                  STEP {i + 1}｜{step.title}
-                </h3>
-                <KeyIllustration visual={keyVisualFor(`/pc/${slug}`, i + 1)} />
-                <ol>
-                  {step.actions.map((action) => (
-                    <li key={action}>{action}</li>
-                  ))}
-                </ol>
-                {step.resultRows && (
-                  <div className="diagnosis-table pc-result-guide">
-                    <h4>表示された結果と次の行動</h4>
-                    <table>
-                      <thead>
-                        <tr>
-                          <th scope="col">表示された状態</th>
-                          <th scope="col">分かること</th>
-                          <th scope="col">次の行動</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {step.resultRows.map((row) => (
-                          <tr key={row.state}>
-                            <td data-label="状態">{row.state}</td>
-                            <td data-label="判断">{row.meaning}</td>
-                            <td data-label="次の行動">{row.next}</td>
+            {article.steps.map((step, i) => {
+              const collapsible = isRepairGuide && i > 0;
+              const StepSection = collapsible ? 'details' : 'section';
+              const comparison = isRepairGuide && i === 3;
+              const resultLabels = comparison
+                ? ['選択肢', 'できること・注意点', '比べる総額']
+                : ['表示された状態', '分かること', '次の行動'];
+              return (
+                <StepSection
+                  className={`pc-step${collapsible ? ' repair-article-details' : ''}`}
+                  id={collapsible ? undefined : `step-${i + 1}`}
+                  key={step.title}
+                >
+                  {collapsible ? (
+                    <summary id={`step-${i + 1}`}>
+                      <h3>
+                        STEP {i + 1}｜{step.title}
+                      </h3>
+                    </summary>
+                  ) : (
+                    <h3>
+                      STEP {i + 1}｜{step.title}
+                    </h3>
+                  )}
+                  <KeyIllustration visual={keyVisualFor(`/pc/${slug}`, i + 1)} />
+                  <ol>
+                    {step.actions.map((action) => (
+                      <li key={action}>{action}</li>
+                    ))}
+                  </ol>
+                  {step.resultRows && (
+                    <div className="diagnosis-table pc-result-guide">
+                      <h4>
+                        {comparison
+                          ? '修理・部品交換・買い替えの比較'
+                          : '表示された結果と次の行動'}
+                      </h4>
+                      <table>
+                        <thead>
+                          <tr>
+                            <th scope="col">{resultLabels[0]}</th>
+                            <th scope="col">{resultLabels[1]}</th>
+                            <th scope="col">{resultLabels[2]}</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                <dl className="pc-step-results">
-                  <div>
-                    <dt>正常な結果・分かったこと</dt>
-                    <dd>{step.expected}</dd>
-                  </div>
-                  <div>
-                    <dt>変わらない・異常な場合</dt>
-                    <dd>{step.unexpected}</dd>
-                  </div>
-                  <div>
-                    <dt>元に戻す方法</dt>
-                    <dd>{step.revert}</dd>
-                  </div>
-                </dl>
-                <TroubleshootingProduct
-                  articlePath={`/pc/${slug}`}
-                  step={i + 1}
-                />
-              </section>
-            ))}
+                        </thead>
+                        <tbody>
+                          {step.resultRows.map((row) => (
+                            <tr key={row.state}>
+                              <td data-label={comparison ? resultLabels[0] : '状態'}>
+                                {row.state}
+                              </td>
+                              <td data-label={comparison ? resultLabels[1] : '判断'}>
+                                {row.meaning}
+                              </td>
+                              <td data-label={resultLabels[2]}>{row.next}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                  <dl className="pc-step-results">
+                    <div>
+                      <dt>正常な結果・分かったこと</dt>
+                      <dd>{step.expected}</dd>
+                    </div>
+                    <div>
+                      <dt>変わらない・異常な場合</dt>
+                      <dd>{step.unexpected}</dd>
+                    </div>
+                    <div>
+                      <dt>元に戻す方法</dt>
+                      <dd>{step.revert}</dd>
+                    </div>
+                  </dl>
+                  <TroubleshootingProduct
+                    articlePath={`/pc/${slug}`}
+                    step={i + 1}
+                  />
+                </StepSection>
+              );
+            })}
           </section>
           <section className="caution-block" id="escalation">
             <h2>改善しなかった場合</h2>
@@ -382,7 +458,10 @@ export default async function PcArticlePage({
             </div>
           </section>
           {slug === 'refresh-rate-stuck-60hz' ? (
-            <aside className="diagnosis-article-entry" aria-labelledby="refresh-check-title">
+            <aside
+              className="diagnosis-article-entry"
+              aria-labelledby="refresh-check-title"
+            >
               <h2 id="refresh-check-title">手順のあとも、60Hzのままですか？</h2>
               <p>
                 Windowsの設定値を確認したら、同じモニター・同じ電源条件でブラウザーの描画頻度の目安を比較できます。ダウンロードは不要です。調べたいPCのモニター上で開いてください。
@@ -431,10 +510,21 @@ export default async function PcArticlePage({
             </a>
             。
           </p>
-          <section className="sources" id="references">
-            <h2>参考情報・公式出典</h2>
+          <SupplementarySection
+            className={`sources${isRepairGuide ? ' repair-article-details' : ''}`}
+            id={isRepairGuide ? undefined : 'references'}
+          >
+            {isRepairGuide ? (
+              <summary id="references">
+                <h2>参考情報・公式出典</h2>
+              </summary>
+            ) : (
+              <h2>参考情報・公式出典</h2>
+            )}
             <p className="source-policy">
-              Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。
+              {slug === 'repair-or-replace'
+                ? 'メーカー・修理事業者の公式資料と料金表を確認し、比較方法をゲムなおで整理しました。掲載料金は確認日の公式例で、平均や個別見積もりではありません。判断例は全機器での実機検証結果ではありません。'
+                : 'Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。'}
             </p>
             {article.sources.map((source) => (
               <a
@@ -447,7 +537,7 @@ export default async function PcArticlePage({
                 <ExternalLink size={15} />
               </a>
             ))}
-          </section>
+          </SupplementarySection>
         </article>
       </div>
       <WikiFooter />

@@ -1,5 +1,6 @@
 /** Versioned, deterministic triage. Never an estimated cause probability. */
-export const RULE_VERSION = '2026-10-02.1';
+export const RULE_VERSION = '2026-10-10.1';
+export const PREVIOUS_RULE_VERSION = '2026-10-02.1';
 export const CHECKED_AT = '2026-10-02';
 export const symptoms = [
   {
@@ -39,7 +40,20 @@ export type Answers = Partial<
     | 'launcher'
     | 'os'
     | 'gpu'
-    | 'ram',
+    | 'ram'
+    | 'safety'
+    | 'storage'
+    | 'pcType'
+    | 'modelKnown'
+    | 'warranty'
+    | 'goal'
+    | 'requirements'
+    | 'repairability'
+    | 'quote'
+    | 'costCategory'
+    | 'frequency'
+    | 'occurrence'
+    | 'manufacturerTest',
     string
   >
 >;
@@ -54,7 +68,90 @@ const options = (rows: string[][]): Option[] => [
   ...rows.map(([value, label]) => ({ value, label })),
   { value: 'unknown', label: '分からない' },
 ];
+export const decisionFields = [
+  'pcType', 'modelKnown', 'warranty', 'goal', 'requirements', 'repairability', 'quote', 'costCategory', 'manufacturerTest', 'frequency', 'occurrence',
+] as const;
 export const questions: Record<string, Question> = {
+  manufacturerTest: {
+    id: 'manufacturerTest', title: 'すでに実施したメーカー診断の結果（任意）',
+    help: 'メーカーの診断を以前に実施した結果がある場合だけ選びます。この質問のために検査を実行する必要はありません。正常・合格でも間欠的な故障を否定できません。',
+    options: options([['error', 'エラー・修理相談の案内が出た'], ['passed', '正常・合格と表示された'], ['not-run', '実施していない']]),
+  },
+  frequency: {
+    id: 'frequency', title: '症状が出る頻度（自己申告）',
+    help: 'これまでに起きた範囲で選んでください。確認のための再現テストは不要です。一度だけでも、異臭や膨らみ、液体侵入や水濡れ直後などの危険な兆候があれば安全を優先します。',
+    options: options([['once', '今のところ1回'], ['intermittent', 'ときどき起きる'], ['every-use', '使うたび・ほぼ毎回起きる']]),
+  },
+  occurrence: {
+    id: 'occurrence', title: '症状が出るタイミング（自己申告）',
+    help: 'すでに確認できている発生条件を選んでください。ゲーム以外の軽い作業でも起きるなら相談先に伝える手がかりです。原因や故障の確定ではありません。',
+    options: options([['game-start', 'ゲームを起動するとき'], ['during-game', 'ゲームのプレイ中'], ['outside-game', 'ゲーム以外の作業中・何もしていないとき'], ['other', 'それ以外・複数のタイミング']]),
+  },
+  costCategory: {
+    id: 'costCategory', title: '費用を確認したい作業（任意・故障確定ではありません）',
+    help: 'メーカーから案内された部品や、自分が相談したい作業だけを選びます。症状から故障部品を自動で推定するものではありません。不明ならそのまま進めます。',
+    options: options([
+      ['memory', 'メモリ'], ['storage', 'SSD・HDD'], ['gpu', 'GPU'], ['cpu', 'CPU'],
+      ['cooling', '冷却・ファン'], ['power', '電源ユニット'], ['mainboard', 'マザーボード'],
+      ['battery', 'バッテリー'], ['screen', '画面'], ['keyboard', 'キーボード'],
+      ['adapter', 'ACアダプター'], ['network', 'ネットワーク'], ['speaker', 'スピーカー'],
+      ['optical', '光学ドライブ'], ['os', 'OS・ソフトウェア'], ['backup', 'バックアップ・移行'],
+      ['recovery', 'データ復旧'], ['other', 'その他・点検相談'],
+    ]),
+  },
+  safety: {
+    id: 'safety',
+    title: '先に、危険な兆候はありませんか？',
+    help: '異臭・煙・バッテリーや本体の膨らみ・触れられないほどの異常な熱・液体が入った／水濡れ直後など、すでに気付いていることだけで回答してください。確認のために電源を入れたり、触ったり、分解したりしないでください。',
+    options: options([
+      ['danger', '異臭・煙・膨らみ・危険な熱・液体侵入や水濡れ直後がある'],
+      ['none', 'そのような兆候には気付いていない'],
+    ]),
+  },
+  storage: {
+    id: 'storage',
+    title: 'SSD・HDDの重大な警告は出ていますか？',
+    help: 'Windowsやメーカーの診断で「信頼性が低下」「読み取り専用」「故障予測」など、ドライブの重大な警告がすでに出ている場合に選びます。空き容量不足だけの通知とは分けます。再検査や負荷テストは不要です。',
+    options: options([
+      ['critical', '信頼性低下・故障予測などの重大な警告がある'],
+      ['none', '重大な警告は見ていない'],
+    ]),
+  },
+  pcType: {
+    id: 'pcType', title: 'PCの種類',
+    help: 'ノートPCでは交換できない部品もあります。種類だけで交換可否を決めず、メーカーの機種別仕様やサポートで確認します。',
+    options: options([['desktop', 'デスクトップPC'], ['laptop', 'ノートPC・一体型PC']]),
+  },
+  modelKnown: {
+    id: 'modelKnown', title: 'メーカー・正確な機種型番',
+    help: '保証書や購入履歴にある型番を手元で確認します。ここには型番・製造番号・個人情報を入力する必要はありません。分解して調べないでください。',
+    options: options([['known', '手元で確認できている'], ['not-checked', 'まだ確認していない']]),
+  },
+  warranty: {
+    id: 'warranty', title: '保証・延長保証',
+    help: '購入履歴や保証書で期間・対象を確認します。期間内でも修理内容が対象かは窓口の確認が必要です。自己分解前にメーカーへ相談してください。',
+    options: options([['covered', '保証期間内（対象かは窓口に確認）'], ['expired', '保証期間外']]),
+  },
+  goal: {
+    id: 'goal', title: 'これからの用途・希望',
+    help: '今までの用途へ戻したいのか、新しいゲームや高画質など今より高い性能が必要なのかを分けます。正常に使えているPCの買い替えを前提にしません。',
+    options: options([['restore', '今までの用途で使える状態に戻したい'], ['higher', '新しいゲーム・高画質など性能を上げたい']]),
+  },
+  requirements: {
+    id: 'requirements', title: '使いたいゲームの公式動作環境との比較',
+    help: 'CPU・GPUの正確な型番、RAM・VRAMを公式の必要要件と比べた結果です。OSへの対応は別に確認します。GPUメーカー名やRAM容量だけでは判断しません。要件内でも快適さや故障の有無は保証できません。',
+    options: options([['below', 'CPU・GPU・RAM・VRAMで必要要件を満たさない項目がある'], ['meets', 'CPU・GPU・RAM・VRAMの必要要件を満たすと確認した']]),
+  },
+  repairability: {
+    id: 'repairability', title: '必要な部品の交換・増設可否',
+    help: '機種別仕様やメーカー窓口で確認した内容だけ選びます。メモリ・SSDでも基板直付けや規格制約があり、GPUは電源・ケース・冷却も確認が必要です。',
+    options: options([['confirmed', '対象部品が交換・増設可能と確認できた'], ['limited', '基板直付けなど、交換・増設に制約がある']]),
+  },
+  quote: {
+    id: 'quote', title: '修理・交換の見積もり',
+    help: '故障箇所・部品代・作業料・診断料・送料・データ移行・税込総額と、キャンセル時の料金を確認します。見積もりがない状態で費用の有利不利を判定しません。',
+    options: options([['itemized', '内訳と総額を確認済み'], ['total-only', '総額だけで内訳は未確認'], ['none', 'まだ見積もりを取っていない']]),
+  },
   symptom: {
     id: 'symptom',
     title: '何が起きていますか？',
@@ -192,8 +289,12 @@ export function observationQuestion(a: Answers): Question {
 export const isPcIssue = (a: Answers) =>
   ['pc-freeze', 'restart', 'power-off'].includes(a.scope || '');
 export function stepsFor(a: Answers): string[] {
-  if (isPcIssue(a)) return ['symptom', 'scope'];
+  if (a.safety === 'danger') return ['safety'];
+  if (a.storage === 'critical') return ['safety', 'storage'];
+  if (isPcIssue(a)) return ['safety', 'storage', 'symptom', 'scope', 'decision'];
   return [
+    'safety',
+    'storage',
     'symptom',
     'scope',
     'observation',
@@ -203,6 +304,7 @@ export function stepsFor(a: Answers): string[] {
     'environment',
     'game',
     'tried',
+    'decision',
   ];
 }
 export function questionFor(id: string, a: Answers) {
@@ -227,7 +329,8 @@ export function changeAnswer(
     'gpu',
     'ram',
   ];
-  if (!['os', 'gpu', 'ram'].includes(id)) {
+  // Safety and purchase context are independent facts, not symptom dependencies.
+  if (dependencyOrder.includes(id) && !['os', 'gpu', 'ram'].includes(id)) {
     for (const key of dependencyOrder.slice(dependencyOrder.indexOf(id) + 1))
       delete next[key as keyof Answers];
   }
@@ -272,6 +375,14 @@ export type Rule = {
   action: string;
 };
 export type Recommendation = { ruleId: string; reason: string; action: Action };
+export type RepairDecision = {
+  category: 'settings' | 'performance' | 'repair' | 'insufficient';
+  urgency: 'stop' | 'backup' | 'normal';
+  title: string;
+  evidence: string[];
+  nextSteps: string[];
+  comparison: string[];
+};
 export type DiagnosisResult = {
   version: string;
   checkedAt: string;
@@ -279,4 +390,6 @@ export type DiagnosisResult = {
   summary: string;
   missing: string[];
   recommendations: Recommendation[];
+  /** Optional only for archived snapshots created before repair triage. */
+  decision?: RepairDecision;
 };

@@ -1,3 +1,4 @@
+import { localizedPcRepairArticles } from '@/lib/localized/pc-repair-articles';
 import { arcRaidersLocalizedArticles } from '@/lib/localized/arc-raiders';
 import { nightreignLocalizedArticles } from '@/lib/localized/nightreign';
 import { marvelRivalsLocalizedArticles } from '@/lib/localized/marvel-rivals';
@@ -27,6 +28,12 @@ export const localizedArticles: LocalizedArticle[] = [
   ...articlesEs,
   ...rocketLeagueLocalizedArticles,
 ];
+
+export const localizedPcArticles = localizedPcRepairArticles;
+export const localizedPcArticle = (locale: Locale, slug: string) =>
+  localizedPcArticles.find(
+    (article) => article.locale === locale && article.slug === slug,
+  );
 
 export const localizedDiscordArticles = localizedDiscordUploadArticles;
 export const localizedDiscordArticle = (locale: Locale, slug: string) =>
@@ -86,6 +93,8 @@ export function hasTranslation(locale: Locale, path: string) {
   if (path === '' || path === '/' || path === '/my-games') return true;
   if (locale === 'en' && englishEditorialPaths.includes(path)) return true;
   const [, section, gameSlug, slug, extra] = path.split('/');
+  if (section === 'pc' && gameSlug && !slug && !extra)
+    return Boolean(localizedPcArticle(locale, gameSlug));
   if (section === 'discord' && gameSlug && !slug && !extra)
     return Boolean(localizedDiscordArticle(locale, gameSlug));
   if (section !== 'games' || !gameSlug || extra) return false;

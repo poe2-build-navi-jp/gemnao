@@ -14,6 +14,7 @@ import { localizedHubs } from '@/lib/localized/hubs';
 import {
   localizedArticles,
   localizedDiscordArticles,
+  localizedPcArticles,
   localizedGameSlugsFor,
 } from '@/lib/localized/index';
 import { gearArticles } from '@/lib/gear-articles';
@@ -161,6 +162,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ),
     ...localizedArticles.map((article) => ({
       url: `${base}/${article.locale}/games/${article.gameSlug}/${article.slug}`,
+      lastModified: new Date(article.checkedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.75,
+    })),
+    ...localizedPcArticles.map((article) => ({
+      url: `${base}/${article.locale}/pc/${article.slug}`,
       lastModified: new Date(article.checkedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.75,

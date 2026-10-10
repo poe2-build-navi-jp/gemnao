@@ -10,6 +10,9 @@ export function isEditorialSnapshotPath(pathname) {
     ) ||
     /^\/(?:en|zh|es)\/discord\/[a-z0-9-]+$/.test(pathname) ||
     [
+      '/en/pc/repair-or-replace',
+      '/zh/pc/repair-or-replace',
+      '/es/pc/repair-or-replace',
       '/en/guide/pc-game-crash',
       '/en/gear/save-backup-storage-guide',
       '/en/gear/discord-microphone-guide',

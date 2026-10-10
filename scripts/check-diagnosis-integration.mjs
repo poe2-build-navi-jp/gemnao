@@ -63,7 +63,7 @@ assert.equal((await worker.fetch(new Request('https://gemnao.test/diagnosis/' + 
 assert.equal(config.vars.DIAGNOSIS_LOCAL_BETA, 'true');
 assert.equal(config.env.preview.vars.DIAGNOSIS_LOCAL_BETA, 'true');
 assert.match(read('package.json'), /NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=true/);
-assert.match(read('components/diagnosis-wizard.tsx'), /NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA !== 'true' && <DiagnosisShare/);
+assert.match(read('components/diagnosis-wizard.tsx'), /NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA !== 'true' && data.answers.safety === undefined && <DiagnosisShare/);
 assert.match(read('app/diagnose/page.tsx'), /robots: \{ index: false, follow: false \}/);
 console.log('PASS: local beta renders noindex/private pages without DB and cannot serve shared results');
 await build({ entryPoints: ['app/sitemap.ts'], outfile: '.wrangler/diagnosis-tests/sitemap-beta.mjs', bundle: true, format: 'esm', platform: 'node', packages: 'external' });
@@ -84,3 +84,6 @@ try {
 }
 assert.match(read('package.json'), /NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=true node scripts\/prepare-pages.mjs/);
 console.log('PASS: conflicting old build flag cannot add local beta to sitemap, Pages preparation receives beta flag');
+
+assert.match(read('lib/diagnosis/validation.ts'), /Object.keys\(answers\).some\(\(key\) => !legacyAnswerKeys.includes\(key\)\)/);
+console.log('PASS: new repair answers stay outside the legacy share protocol');

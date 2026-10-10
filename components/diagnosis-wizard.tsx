@@ -1,9 +1,10 @@
 'use client';
 /* oxlint-disable next/no-html-link-for-pages -- Private diagnostic routes always use full-document navigation. */
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   symptoms,
   questions,
+  decisionFields,
   questionFor,
   stepsFor,
   changeAnswer,
@@ -20,10 +21,12 @@ import {
   saveLocal,
   freshLocal,
   diagnosisRequest,
-  metric,
   type LocalDiagnosis,
 } from '@/lib/diagnosis/local';
 import { DiagnosisResultView, DiagnosisSummary } from './diagnosis-result';
+import { repairDecision } from '@/lib/diagnosis/decision';
+import { buildRepairReport } from '@/lib/diagnosis/report';
+import { DiagnosisRepairReport } from './diagnosis-repair-report';
 import { DiagnosisShare } from './diagnosis-share';
 function TriedActionField({
   action,
@@ -60,7 +63,6 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
   const [config, setConfig] = useState({
       enabled: false,
       sharing: false,
-      metrics: false,
     }),
     [started, setStarted] = useState(false);
   const [notice, setNotice] = useState('');
@@ -78,7 +80,6 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
       .then((next) => setConfig({
         enabled: (process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED === 'true' || process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA === 'true') && next.enabled === true,
         sharing: process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA !== 'true' && process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED === 'true' && next.enabled === true && next.sharing === true,
-        metrics: process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA !== 'true' && process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED === 'true' && next.enabled === true && next.metrics === true,
       }))
       .catch(() => {});
   }, []);
@@ -91,42 +92,17 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
   useEffect(() => {
     if (started) title.current?.focus();
   }, [data.step, data.complete, started]);
-  useEffect(() => {
-    if (!config.metrics || !started || data.complete) return;
-    const onLeave = () => {
-      void fetch('/api/diagnosis/events', {
-        method: 'POST',
-        credentials: 'same-origin',
-        keepalive: true,
-        referrerPolicy: 'no-referrer',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Diagnosis-Request': '1',
-        },
-        body: JSON.stringify({
-          event: 'leave',
-          step: data.step,
-          action: 'none',
-          status: 'none',
-        }),
-      }).catch(() => {});
-    };
-    window.addEventListener('pagehide', onLeave);
-    return () => window.removeEventListener('pagehide', onLeave);
-  }, [config.metrics, started, data.complete, data.step]);
-  const track = (
-    event: string,
-    step = 'none',
-    action = 'none',
-    status = 'none',
-  ) => {
-    if (config.metrics) metric(event, step, action, status);
-  };
+  // This local repair flow does not emit diagnostic events, even if runtime flags change.
   const steps = stepsFor(data.answers);
   const stepIndex = steps.indexOf(data.step);
   const index = stepIndex < 0 ? 0 : stepIndex;
   const q = questionFor(data.step, data.answers);
-  const result = diagnose(data.answers, data.tried);
+  const records = { ...data.tried, ...data.results };
+  const result = { ...diagnose(data.answers, data.tried), decision: repairDecision(data.answers, records) };
+  const report = useMemo(() => {
+    const currentRecords = { ...data.tried, ...data.results };
+    return buildRepairReport(data.answers, currentRecords, repairDecision(data.answers, currentRecords), new Date().toISOString());
+  }, [data.answers, data.tried, data.results]);
   const relevantActionIds = new Set(
     diagnose(data.answers, {}).recommendations.map((r) => r.action.id),
   );
@@ -147,8 +123,8 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
         : {
             ...d,
             answers: changeAnswer(d.answers, id, value),
-            tried: {},
-            results: {},
+            tried: ['safety', 'storage', ...decisionFields].includes(id) ? d.tried : {},
+            results: ['safety', 'storage', ...decisionFields].includes(id) ? d.results : {},
             complete: false,
             shareId: undefined,
           },
@@ -158,11 +134,9 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
     const current = ids.indexOf(data.step);
     if (current === ids.length - 1) {
       setData((d) => ({ ...d, complete: true }));
-      track('complete');
     } else {
       const nextStep = ids[current + 1];
       setData((d) => ({ ...d, step: nextStep }));
-      track('step', nextStep);
     }
   };
   const back = () => {
@@ -178,8 +152,6 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
     setData(d);
     setResume(null);
     setStarted(true);
-    track('start');
-    track('step', 'symptom');
   };
   const reset = () => {
     clearLocal();
@@ -254,8 +226,8 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
           {data.game && <p>対象ゲーム（この端末のみ）：{data.game}</p>}
           <DiagnosisResultView
             result={result}
-            records={{ ...data.tried, ...data.results }}
-            onArticle={(id) => track('article', 'none', id)}
+            answers={data.answers}
+            records={records}
             onRecord={(id, status) => {
               if ((data.results[id] || data.tried[id] || 'untried') === status)
                 return;
@@ -266,9 +238,9 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
               setNotice(
                 process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA === 'true' ? '実施結果をこのブラウザ内に記録しました。サーバーへは送信していません。' : '実施結果をこの端末に記録しました。共有ページは自動更新しません。',
               );
-              track('record', 'none', id, status);
             }}
           />
+          <DiagnosisRepairReport key={report} report={report} />
           {Object.keys(data.tried).length > 0 && (
             <details>
               <summary>診断前に試した対処</summary>
@@ -285,14 +257,14 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
             <summary>回答のまとめ</summary>
             <DiagnosisSummary answers={data.answers} />
           </details>
-          {process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA !== 'true' && <DiagnosisShare
+          {process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA !== 'true' && data.answers.safety === undefined && <DiagnosisShare
             answers={data.answers}
             tried={data.tried}
             results={data.results}
             shareId={data.shareId}
             enabled={config.sharing}
             onCreated={(id) => setData((d) => ({ ...d, shareId: id }))}
-            onMetric={(event) => track(event)}
+            onMetric={() => {}}
           />}
           <button className="diag-secondary" onClick={start}>
             別の症状を診断する
@@ -301,11 +273,11 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
       ) : (
         <section className="diag-question">
           <ol className="diag-progress" aria-label="進行段階">
-            {['症状', '状況', '確認', '結果'].map((s, i) => (
+            {['安全', '症状', '確認', '結果'].map((s, i) => (
               <li
                 key={s}
                 aria-current={
-                  (index === 0 ? 0 : index < 5 ? 1 : 2) === i
+                  (['safety', 'storage'].includes(data.step) ? 0 : ['symptom', 'scope', 'observation', 'error'].includes(data.step) ? 1 : 2) === i
                     ? 'step'
                     : undefined
                 }
@@ -319,7 +291,9 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
             <span>現在 {index + 1} 問目 · 回答により分岐</span>
           </div>
           <h2 ref={title} tabIndex={-1}>
-            {data.step === 'environment'
+            {data.step === 'decision'
+              ? '修理・部品交換を比べるための情報は？'
+              : data.step === 'environment'
               ? '不具合が起きているPCの情報は？'
               : data.step === 'game'
                 ? '問題が起きているゲームは？'
@@ -374,6 +348,19 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
                     <summary>確認方法を見る</summary>
                     <p>{questions[id].help}</p>
                   </details>
+                </div>
+              ))}
+            </>
+          ) : data.step === 'decision' ? (
+            <>
+              <p>分かる範囲で選んでください。すべて任意です。型番や製造番号の入力は不要で、分からない項目は未確認のまま判断します。</p>
+              {decisionFields.map((id) => (
+                <div className="diag-field" key={id}>
+                  <label htmlFor={`diag-${id}`}>{questions[id].title}</label>
+                  <select id={`diag-${id}`} aria-describedby={`diag-help-${id}`} value={data.answers[id] || 'unknown'} onChange={(e) => change(id, e.target.value)}>
+                    {questions[id].options.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
+                  </select>
+                  <p id={`diag-help-${id}`} className="diag-small">{questions[id].help}</p>
                 </div>
               ))}
             </>
@@ -453,19 +440,25 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
                   },
                   step: 'game',
                 }));
-                track('step', 'game');
+              } else if (data.step === 'decision') {
+                setData((d) => ({ ...d, answers: {
+                  ...d.answers,
+                  ...Object.fromEntries(decisionFields.map((id) => [id, d.answers[id] || 'unknown'])),
+                }, complete: true }));
               } else next();
             }}
           >
             {index === steps.length - 1 ? '確認する順番を見る →' : '次へ →'}
           </button>
+          {data.answers.safety === 'danger' && <p role="alert" className="diag-warning">使用と充電を中止し、安全を確保してメーカー・専門窓口へ相談してください。バックアップのためでも電源を入れず、分解や再現テストをしないでください。</p>}
+          {data.answers.safety !== 'danger' && data.answers.storage === 'critical' && <p role="alert" className="diag-warning">安全に操作できる場合だけ重要データの退避を優先します。再検査・負荷テスト・初期化をせず、メーカーへ相談してください。</p>}
           {isPcIssue(data.answers) && (
             <p className="diag-warning">
               PC全体の症状を選んだため、安全確認へ切り替えます。
             </p>
           )}
           <p className="diag-small">
-            戻って回答を変更すると、その後の回答と結果を見直します。
+            症状に関する回答を変更すると、それに続く回答を見直します。回答を変えた場合は対処の記録も確認し直してください。
           </p>
         </section>
       )}
