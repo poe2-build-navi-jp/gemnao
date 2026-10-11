@@ -2,6 +2,15 @@ name: Gemnao preview data (manual protected control)
 run-name: Preview data exact-run approval required
 on:
   workflow_dispatch:
+    inputs:
+      operation:
+        description: 'Fixed operation scope (production creates only two empty DBs and schemas)'
+        type: choice
+        required: true
+        default: preview
+        options:
+          - preview
+          - production-databases
 permissions:
   contents: read
   actions: read
@@ -23,10 +32,11 @@ jobs:
         with:
           node-version: '22.19.0'
       - name: Test fixed controller and injected mocks
-        run: node --test tests/feedback-preview/control.test.mjs tests/feedback-preview/adapter.test.mjs tests/feedback-preview/health.test.mjs
+        run: node --test tests/feedback-preview/control.test.mjs tests/feedback-preview/adapter.test.mjs tests/feedback-preview/health.test.mjs tests/diagnosis-production/databases.test.mjs
       - id: settings
         name: Verify existing exact Environment before referencing it
         env:
+          PREVIEW_OPERATION: ${{ inputs.operation || 'preview' }}
           PREVIEW_GITHUB_TOKEN: ${{ github.token }}
           PREVIEW_OUTSIDE_RECORD_PRESENT: ${{ secrets.GEMNAO_PREVIEW_APPROVAL_RECORD != '' }}
           PREVIEW_OUTSIDE_DIGEST_PRESENT: ${{ secrets.GEMNAO_PREVIEW_APPROVAL_SHA256 != '' }}
@@ -52,6 +62,7 @@ jobs:
         uses: ./ops/feedback-preview
         env:
           PREVIEW_PROTECTED_ENVIRONMENT: gemnao-preview-data
+          PREVIEW_OPERATION: ${{ inputs.operation || 'preview' }}
           PREVIEW_GITHUB_TOKEN: ${{ github.token }}
           PREVIEW_APPROVAL_RECORD: ${{ secrets.GEMNAO_PREVIEW_APPROVAL_RECORD }}
           PREVIEW_APPROVAL_SHA256: ${{ secrets.GEMNAO_PREVIEW_APPROVAL_SHA256 }}

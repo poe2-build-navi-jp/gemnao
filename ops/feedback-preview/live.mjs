@@ -7,6 +7,7 @@ import { TARGET, sha256 } from './controller.mjs';
 import { PLAN_HASH, validateRecord, createPreparedAdapter, createReadOnlyAdapter, createHealthAdapter } from './adapter.mjs';
 import { boundedFailure, createDiagnostics } from './diagnostics.mjs';
 import { ARTIFACT_CLIENT_PIN, createArtifactClaims } from './artifact-claim.mjs';
+import { isProductionOperation, PRODUCTION_PLAN_HASH, productionDatabaseRequestAllowed } from '../diagnosis-production/database-profile.mjs';
 
 export const SETUP = Object.freeze({
   ref: 'refs/heads/prepare/feedback-preview-controller-20261007',
@@ -27,9 +28,11 @@ export function validateContext(env, checkoutSha, protectedJob) {
     && env.GITHUB_WORKFLOW_REF === `${TARGET.repository}/${workflowPath}@${SETUP.ref}`
     && env.RUNNER_ENVIRONMENT === 'github-hosted' && env.RUNNER_DEBUG !== '1', 'WORKFLOW_CONTEXT');
   need(env.GITHUB_JOB === (protectedJob ? 'provision' : 'gate'), 'JOB_CONTEXT');
+  isProductionOperation(env.PREVIEW_OPERATION);
   if (protectedJob) need(env.PREVIEW_PROTECTED_ENVIRONMENT === SETUP.environment, 'PROTECTED_ENVIRONMENT');
 }
-export function credentialTransport({ githubToken, cloudflareToken, fetchImpl = globalThis.fetch }) {
+export function credentialTransport({ githubToken, cloudflareToken, fetchImpl = globalThis.fetch, operation = 'preview' }) {
+  const production = isProductionOperation(operation);
   // Credentials are confined to these exact origins/account. Redirects cannot
   // forward Authorization. Cloudflare credential is read lazily on its first GET.
   return async (url, options) => {
@@ -40,6 +43,7 @@ export function credentialTransport({ githubToken, cloudflareToken, fetchImpl = 
         || u.pathname.startsWith(`/client/v4/accounts/${TARGET.accountId}/d1/database`)
         || u.pathname.startsWith(`/client/v4/accounts/${TARGET.accountId}/workers/`));
     need(!u.username && !u.password && !u.hash && (github || cloudflare), 'TRANSPORT_SCOPE');
+    need(!production || github || productionDatabaseRequestAllowed(u.pathname.replace(/^\/client\/v4/, ''), options.method), 'TRANSPORT_SCOPE');
     need(github ? options.method === 'GET' : ['GET', 'POST', 'PUT'].includes(options.method), 'TRANSPORT_METHOD');
     const token = github ? githubToken() : cloudflareToken();
     need(typeof token === 'string' && token.length > 0 && !/[\r\n]/.test(token), 'CREDENTIAL_MISSING');
@@ -83,7 +87,7 @@ export async function runGate({ env, checkoutSha, transport }) {
   need(env.PREVIEW_OUTSIDE_RECORD_PRESENT === 'false' && env.PREVIEW_OUTSIDE_DIGEST_PRESENT === 'false', 'UNPROTECTED_RECORD_SECRET');
   const reviewerId = await verifyConfiguredEnvironment(transport);
   return { environment: SETUP.environment, runId: Number(env.GITHUB_RUN_ID), commit: env.GITHUB_SHA,
-    ref: SETUP.ref, reviewerId, planHash: PLAN_HASH };
+    ref: SETUP.ref, reviewerId, planHash: isProductionOperation(env.PREVIEW_OPERATION) ? PRODUCTION_PLAN_HASH : PLAN_HASH };
 }
 export async function loadPinnedArtifactClient() {
   const lock = JSON.parse(await readFile(new URL('runtime/package-lock.json', import.meta.url), 'utf8'));
@@ -105,7 +109,8 @@ export async function runProtected({ env, checkoutSha, transport, loadClient = l
   const digest = env.PREVIEW_APPROVAL_SHA256;
   need(typeof bytes === 'string' && bytes.length > 0 && typeof digest === 'string'
     && sha256(bytes) === digest, 'ENVIRONMENT_RECORD_MISSING_OR_MISMATCHED');
-  const record = validateRecord(bytes, digest, now());
+  const operation = env.PREVIEW_OPERATION ?? 'preview';
+  const record = validateRecord(bytes, digest, now(), operation);
   need(record.ref === SETUP.ref && record.commit === env.GITHUB_SHA && record.runId === Number(env.GITHUB_RUN_ID)
     && record.reviewerPolicy === 'owner-manual' && record.requireOwnerInitiator === false, 'EXACT_RUN_RECORD');
   onStage('environment');
@@ -121,8 +126,8 @@ export async function runProtected({ env, checkoutSha, transport, loadClient = l
   }
   onStage('artifact-sdk');
   const client = await loadClient();
-  const durableClaims = createArtifactClaims({ client, clientVersion: ARTIFACT_CLIENT_PIN.version, runId: record.runId });
-  const adapter = await createPreparedAdapter({ transport, durableClaims, recordBytes: bytes, trustedRecordHash: digest, now, onStage, onEnvelope });
+  const durableClaims = createArtifactClaims({ client, clientVersion: ARTIFACT_CLIENT_PIN.version, runId: record.runId, operation });
+  const adapter = await createPreparedAdapter({ transport, durableClaims, recordBytes: bytes, trustedRecordHash: digest, now, onStage, onEnvelope, operation });
   return adapter.provision();
 }
 export function publicRunResult(result) {
@@ -142,7 +147,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     need(process.argv.length === (protectedJob ? 2 : 3), 'INVOCATION');
     const checkoutSha = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
     validateContext(env, checkoutSha, protectedJob);
-    const transport = diagnostics.transport(credentialTransport({ githubToken: () => env.PREVIEW_GITHUB_TOKEN,
+    const transport = diagnostics.transport(credentialTransport({ operation: env.PREVIEW_OPERATION, githubToken: () => env.PREVIEW_GITHUB_TOKEN,
       cloudflareToken: () => { need(protectedJob, 'CLOUDFLARE_IN_GATE'); return env.GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN; } }));
     if (protectedJob) console.log(JSON.stringify(publicRunResult(await runProtected({ env, checkoutSha, transport, onStage: diagnostics.stage, onEnvelope: diagnostics.envelope }))));
     else {

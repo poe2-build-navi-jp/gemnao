@@ -180,8 +180,10 @@ await test('CLI never reads/logs synthetic credentials or unexpected arguments',
 });
 await test('workflow stays manual-only and sources approval configuration exclusively from secrets', async () => {
   const workflow = await readFile('.github/workflows/feedback-preview-control.yml', 'utf8');
-  assert.match(workflow, /on:\n  workflow_dispatch:\npermissions:/);
-  assert.doesNotMatch(workflow, /inputs:|schedule:|pull_request:|push:|workflow_call:|id-token:/);
+  assert.match(workflow, /on:\n  workflow_dispatch:\n    inputs:\n      operation:/);
+  assert.match(workflow, /type: choice\n        required: true\n        default: preview\n        options:\n          - preview\n          - production-databases\npermissions:/);
+  assert.equal((workflow.match(/inputs\.operation/g) ?? []).length, 2);
+  assert.doesNotMatch(workflow, /schedule:|pull_request:|push:|workflow_call:|id-token:/);
   assert.match(workflow, /if: needs\.gate\.outputs\.environment == 'gemnao-preview-data'/);
   assert.match(workflow, /environment: \$\{\{ needs\.gate\.outputs\.environment \}\}/);
   const [gate, provision] = workflow.split('  provision:');

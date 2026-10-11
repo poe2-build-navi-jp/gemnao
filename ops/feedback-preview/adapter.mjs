@@ -5,6 +5,7 @@ import { randomUUID } from 'node:crypto';
 import { boundedFailure, readOnlyTransport, providerEnvelopeSummary } from './diagnostics.mjs';
 import { HEALTH_TARGETS, HEALTH_PLAN_HASH, healthTransport, heartbeatStatus, QA_DISCOVERY, plannedQaOrigin } from './health.mjs';
 import { TARGET, SHARING, ARTIFACTS, sha256, checkArtifact, denyExecution } from './controller.mjs';
+import { isProductionOperation, PRODUCTION_FEATURES, PRODUCTION_ARTIFACTS, PRODUCTION_PLAN_HASH, PRODUCTION_MODE, PRODUCTION_RECORD_OPERATION, EXCLUDED_DATABASE_IDS, productionDatabaseRequestAllowed } from '../diagnosis-production/database-profile.mjs';
 
 const ACCOUNT = `/accounts/${TARGET.accountId}`;
 const REPO = `/repos/${TARGET.repository}`;
@@ -36,12 +37,15 @@ const fresh = (stamp, now, age) => Number.isSafeInteger(stamp) && stamp <= now &
 // dispatch JSON or the record itself. Tests use synthetic records and hashes.
 // Screenshots remain private: only their hashes and reviewed assessment belong
 // in a future record. A hash proves byte identity, not authenticity or plan truth.
-export function validateRecord(recordBytes, trustedRecordHash, now) {
+export function validateRecord(recordBytes, trustedRecordHash, now, operation = 'preview') {
+  const production = isProductionOperation(operation);
+  const planHash = production ? PRODUCTION_PLAN_HASH : PLAN_HASH;
   need(Buffer.byteLength(recordBytes) <= 65_536, 'APPROVAL_RECORD_SIZE');
   need(HASH.test(trustedRecordHash ?? '') && sha256(recordBytes) === trustedRecordHash, 'APPROVAL_RECORD_PIN');
   let r;
   try { r = JSON.parse(recordBytes); } catch { throw new Error('BLOCKED:APPROVAL_RECORD_JSON'); }
-  need(['create-empty-preview-pairs', 'read-only-preflight', 'cleanup-health'].includes(r.mode) && r.operation === 'create-two-preview-pairs-20261007' && r.planHash === PLAN_HASH
+  need((production ? r.mode === PRODUCTION_MODE : ['create-empty-preview-pairs', 'read-only-preflight', 'cleanup-health'].includes(r.mode))
+    && r.operation === (production ? PRODUCTION_RECORD_OPERATION : 'create-two-preview-pairs-20261007') && r.planHash === planHash
     && r.accountId === TARGET.accountId, 'RECORD_SCOPE');
   need(r.mode !== 'cleanup-health' || r.healthPlanHash === HEALTH_PLAN_HASH, 'HEALTH_PLAN_PIN');
   need(/^refs\/heads\/[A-Za-z0-9][A-Za-z0-9._/-]*$/.test(r.ref ?? '')
@@ -56,7 +60,7 @@ export function validateRecord(recordBytes, trustedRecordHash, now) {
   const e = r.costEvidence;
   const dayStart = Math.floor(now / 86_400_000) * 86_400_000;
   need(e?.kind === 'owner-ui-reviewed' && e.accountId === TARGET.accountId && e.operation === r.operation
-    && e.planHash === PLAN_HASH && e.workersPlan === 'workers-free' && e.maximumChargeUSD === 0
+    && e.planHash === planHash && e.workersPlan === 'workers-free' && e.maximumChargeUSD === 0
     && e.assessment === 'within-reviewed-zero-charge-envelope'
     && ['explicit-plan-label', 'enforced-free-cap-pattern'].includes(e.planBasis)
     && HASH.test(e.screenshotSha256 ?? '') && HASH.test(e.reviewEvidenceSha256 ?? '')
@@ -66,35 +70,51 @@ export function validateRecord(recordBytes, trustedRecordHash, now) {
     && e.quotaDateUTC === new Date(dayStart).toISOString().slice(0, 10)
     && e.resetAt === dayStart + 86_400_000 && e.validUntil > now && e.validUntil <= e.resetAt,
   'OWNER_UI_COST_EVIDENCE');
-  for (const key of DIMENSIONS) need(Number.isSafeInteger(e.reserve?.[key]) && e.reserve[key] > 0, 'QUOTA_RESERVATION');
-  for (const key of ['d1RowsRead', 'd1RowsWritten', 'storageBytes', 'workerRequests'])
-    need(Number.isSafeInteger(e.remaining?.[key]) && Number.isSafeInteger(e.interveningUsageAllowance?.[key])
-      && e.interveningUsageAllowance[key] > 0
-      && e.remaining[key] - e.interveningUsageAllowance[key] >= e.reserve[key], 'QUOTA_ASSESSMENT');
-  need(e.reserve.databaseSlots >= 2 && e.reserve.workerSlots >= 2 && e.reserve.cronSlots >= 2
-    && e.reserve.workerRequests >= 48 && e.databaseLimit === 10 && e.workerLimit === 100
-    && e.cronLimit === 5, 'TWO_PAIR_FREE_RESERVATION');
+  // Empty production schema creation relies on the reviewed Free plan's hard stop.
+  // It does not assert invented daily headroom or reserve unused Worker/Cron slots.
+  if (production) {
+    need(e.databaseLimit === 10 && e.reserve?.databaseSlots === 2, 'QUOTA_RESERVATION');
+  } else {
+    for (const key of DIMENSIONS) need(Number.isSafeInteger(e.reserve?.[key]) && e.reserve[key] > 0, 'QUOTA_RESERVATION');
+    for (const key of ['d1RowsRead', 'd1RowsWritten', 'storageBytes', 'workerRequests'])
+      need(Number.isSafeInteger(e.remaining?.[key]) && Number.isSafeInteger(e.interveningUsageAllowance?.[key])
+        && e.interveningUsageAllowance[key] > 0
+        && e.remaining[key] - e.interveningUsageAllowance[key] >= e.reserve[key], 'QUOTA_ASSESSMENT');
+    need(e.reserve.databaseSlots >= 2 && e.reserve.workerSlots >= 2 && e.reserve.cronSlots >= 2
+      && e.reserve.workerRequests >= 48 && e.databaseLimit === 10 && e.workerLimit === 100
+      && e.cronLimit === 5, 'TWO_PAIR_FREE_RESERVATION');
+  }
   need(r.claimArtifact?.archiveBytes === 8192 && r.claimArtifact.retentionDays === 1
     && r.claimArtifact.access === 'existing-repository'
     && HASH.test(r.claimArtifact.storageBudgetReviewSha256 ?? ''), 'CLAIM_ARTIFACT_BUDGET');
-  need(r.cleanupApproval === 'both-pinned-hourly-crons' && HASH.test(r.alert?.destinationChoiceSha256 ?? '')
-    && r.alert?.deliveryStatus === 'pending' && fresh(r.alert?.reviewedAt, now, 86_400_000), 'CLEANUP_ALERT_APPROVAL');
-  need(r.cronTargeting === 'name-after-id-recheck-residual-rename-risk-accepted', 'CRON_RENAME_RISK');
-  need(Array.isArray(r.reconciledNoWriteRuns), 'DURABLE_RUN_RECONCILIATION');
-  for (const safe of r.reconciledNoWriteRuns) need(Number.isSafeInteger(safe.id) && safe.id !== r.runId
+  if (!production) {
+    need(r.cleanupApproval === 'both-pinned-hourly-crons' && HASH.test(r.alert?.destinationChoiceSha256 ?? '')
+      && r.alert?.deliveryStatus === 'pending' && fresh(r.alert?.reviewedAt, now, 86_400_000), 'CLEANUP_ALERT_APPROVAL');
+    need(r.cronTargeting === 'name-after-id-recheck-residual-rename-risk-accepted', 'CRON_RENAME_RISK');
+  }
+  const reconciled = production ? r.reconciledPriorRuns : r.reconciledNoWriteRuns;
+  need(Array.isArray(reconciled), 'DURABLE_RUN_RECONCILIATION');
+  for (const safe of reconciled) need(Number.isSafeInteger(safe.id) && safe.id !== r.runId
     && /^[a-f0-9]{40}$/.test(safe.headSha ?? '') && HASH.test(safe.reviewEvidenceSha256 ?? '')
-    && safe.classification === 'independently-reviewed-no-mutations', 'RECONCILED_RUN');
+    && (safe.classification === 'independently-reviewed-no-mutations'
+      || (production && safe.classification === 'independently-reviewed-preview-only'
+        && safe.planHash === PLAN_HASH)), 'RECONCILED_RUN');
   return r;
 }
 
-export async function createPreparedAdapter({ transport, durableClaims, recordBytes, trustedRecordHash, now = Date.now, onStage = () => {}, onEnvelope = () => {} }) {
+export async function createPreparedAdapter({ transport, durableClaims, recordBytes, trustedRecordHash, now = Date.now, onStage = () => {}, onEnvelope = () => {}, operation = 'preview' }) {
+  const production = isProductionOperation(operation);
+  const features = production ? PRODUCTION_FEATURES : FEATURES;
+  const pinnedArtifacts = production ? PRODUCTION_ARTIFACTS : ARTIFACTS;
+  const planHash = production ? PRODUCTION_PLAN_HASH : PLAN_HASH;
+  const validateApproval = () => validateRecord(approvedBytes, trustedRecordHash, now(), operation);
   need(typeof transport === 'function', 'NO_TRANSPORT');
   const approvedBytes = String(recordBytes);
-  const record = validateRecord(approvedBytes, trustedRecordHash, now());
+  const record = validateApproval();
   const artifacts = {};
-  for (const f of FEATURES) for (const path of [f.schema, f.module]) {
+  for (const f of features) for (const path of (production ? [f.schema] : [f.schema, f.module])) {
     const bytes = await readFile(new URL(path, import.meta.url));
-    checkArtifact(bytes, ARTIFACTS[path]); artifacts[path] = bytes;
+    checkArtifact(bytes, pinnedArtifacts[path]); artifacts[path] = bytes;
   }
   const journal = [];
   let started = false;
@@ -102,6 +122,7 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
   let preflightAt = null;
   let inventory;
   async function request(service, method, path, body) {
+    need(!production || service === 'github' || productionDatabaseRequestAllowed(path, method), 'TRANSPORT_SCOPE');
     need(++requests <= 120, 'REQUEST_BOUND');
     const root = service === 'github' ? 'https://api.github.com' : 'https://api.cloudflare.com/client/v4';
     const url = root + path;
@@ -181,7 +202,7 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
     let unreconciledPriorRunCount = 0;
     for (const prior of history.workflow_runs) {
       if (prior.id === record.runId) continue;
-      const safe = record.reconciledNoWriteRuns.find(r => r.id === prior.id);
+      const safe = (production ? record.reconciledPriorRuns : record.reconciledNoWriteRuns).find(r => r.id === prior.id);
       const reconciled = safe && safe.headSha === prior.head_sha && prior.status === 'completed' && prior.run_attempt === 1;
       if (!reconciled) unreconciledPriorRunCount++;
       need(reconciled || ['read-only-preflight', 'cleanup-health'].includes(record.mode), 'PRIOR_RUN_REQUIRES_READ_ONLY_RECONCILIATION');
@@ -211,14 +232,16 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
     return { unreconciledPriorRunCount };
   }
   async function inspect() {
-    validateRecord(approvedBytes, trustedRecordHash, now());
+    validateApproval();
     const { unreconciledPriorRunCount } = await githubGate();
-    onStage('account-preflight');
-    const account = await cf(''); need(account.result?.id === TARGET.accountId, 'ACCOUNT');
+    if (!production) {
+      onStage('account-preflight');
+      const account = await cf(''); need(account.result?.id === TARGET.accountId, 'ACCOUNT');
+    }
     onStage('inventory-preflight');
     const databases = await listResources('/d1/database', 'uuid');
-    const workers = await listResources('/workers/workers', 'id');
-    const targetsAbsent = FEATURES.every(f => !databases.some(d => d.name === f.database) && !workers.some(w => w.name === f.worker));
+    const workers = production ? [] : await listResources('/workers/workers', 'id');
+    const targetsAbsent = features.every(f => !databases.some(d => d.name === f.database) && !workers.some(w => w.name === f.worker));
     need(targetsAbsent || record.mode === 'read-only-preflight', 'COLLISION');
     let cronCount = 0;
     for (const worker of workers) {
@@ -228,18 +251,18 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
     }
     const evidence = record.costEvidence;
     const capacityAvailable = evidence.databaseLimit - databases.length >= evidence.reserve.databaseSlots
-      && evidence.workerLimit - workers.length >= evidence.reserve.workerSlots
-      && evidence.cronLimit - cronCount >= evidence.reserve.cronSlots;
+      && (production || (evidence.workerLimit - workers.length >= evidence.reserve.workerSlots
+        && evidence.cronLimit - cronCount >= evidence.reserve.cronSlots));
     need(capacityAvailable || record.mode === 'read-only-preflight', 'RESOURCE_SLOTS');
     inventory = { databases, workers }; preflightAt = now();
-    return { accountId: TARGET.accountId, planHash: PLAN_HASH, databaseCount: databases.length,
+    return { accountId: TARGET.accountId, planHash, databaseCount: databases.length,
       workerCount: workers.length, cronCount, unreconciledPriorRunCount, targetsAbsent, capacityAvailable, costProvenance: 'owner-ui-reviewed; not authenticated billing/quota API evidence',
       observedAt: preflightAt, executionEnabled: false };
   }
   async function health() {
     need(record.mode === 'cleanup-health', 'HEALTH_MODE');
     need(!started, 'ATTEMPT_ALREADY_STARTED'); started = true;
-    validateRecord(approvedBytes, trustedRecordHash, now());
+    validateApproval();
     await githubGate();
     onStage('account-preflight');
     need((await cf('')).result?.id === TARGET.accountId, 'ACCOUNT');
@@ -255,15 +278,15 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
     onStage('health-heartbeats');
     const result = { mode: 'cleanup-health', qaOrigin, intakeEnabled: false };
     for (const target of HEALTH_TARGETS) {
-      validateRecord(approvedBytes, trustedRecordHash, now());
+      validateApproval();
       const response = await request('cloudflare', 'POST', `${ACCOUNT}/d1/database/${target.databaseId}/query`, { sql: target.sql });
       result[target.feature] = heartbeatStatus(target.feature, response.result, now());
     }
     return result;
   }
   async function write(f, step, path, body, validate) {
-    need(journal.length < 10 && !journal.some(x => x.feature === f.key && x.step === step), 'WRITE_BOUND');
-    validateRecord(approvedBytes, trustedRecordHash, now());
+    need(journal.length < (production ? 4 : 10) && !journal.some(x => x.feature === f.key && x.step === step), 'WRITE_BOUND');
+    validateApproval();
     onStage(`write-${step}`);
     const entry = { feature: f.key, step, startedAt: now(), outcome: 'in-progress', requestHash: sha256(canonical(body)) };
     journal.push(entry); // Set BEFORE transport; any exception permanently poisons this instance.
@@ -286,19 +309,19 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
       && (!Object.hasOwn(binding, 'id') || binding.id === expected.database_id);
   }
   async function provision() {
-    need(record.mode === 'create-empty-preview-pairs', 'READ_ONLY_MODE');
+    need(record.mode === (production ? PRODUCTION_MODE : 'create-empty-preview-pairs'), 'READ_ONLY_MODE');
     need(!started, 'ATTEMPT_ALREADY_STARTED');
     started = true; // Poison even a failed preflight; prohibit concurrent/repeated attempts.
     await inspect(); // Never use a caller-provided preflight receipt.
     need(fresh(preflightAt, now(), 300_000), 'PREFLIGHT_STALE');
-    need(requests + 22 <= 120, 'REQUEST_BUDGET_BEFORE_WRITES');
+    need(requests + (production ? 6 : 22) <= 120, 'REQUEST_BUDGET_BEFORE_WRITES');
     // This separate trusted integration MUST implement durable, atomic create-if-absent.
     // artifact-claim.mjs supplies the pinned official client wrapper; no SDK is
     // installed/wired by default. An ephemeral Map/file is only a test fake.
     need(typeof durableClaims?.createExclusive === 'function' && typeof durableClaims?.read === 'function', 'DURABLE_CLAIM_UNCONFIGURED');
     onStage('claim');
-    const claimName = `gemnao-preview-data-claim-${record.runId}-${PLAN_HASH}`;
-    const claim = { runId: record.runId, repository: TARGET.repository, planHash: PLAN_HASH,
+    const claimName = `${production ? 'gemnao-production-databases' : 'gemnao-preview-data'}-claim-${record.runId}-${planHash}`;
+    const claim = { runId: record.runId, repository: TARGET.repository, planHash,
       recordHash: trustedRecordHash, nonce: randomUUID() };
     try {
       const receipt = await durableClaims.createExclusive(claimName, structuredClone(claim));
@@ -307,9 +330,10 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
       need(persisted?.name === claimName && canonical(persisted.payload) === canonical(claim), 'DURABLE_CLAIM_READBACK');
     } catch (error) { throw boundedFailure('DURABLE_CLAIM_REQUIRES_READ_ONLY_RECONCILIATION', error); }
     const receipts = [];
-    for (const f of FEATURES) {
+    for (const f of features) {
       const db = await write(f, 'database', '/d1/database', { name: f.database }, d => {
         need(UUID.test(d?.uuid ?? '') && d.name === f.database && !inventory.databases.some(x => x.id === d.uuid)
+          && (!production || !EXCLUDED_DATABASE_IDS.includes(d.uuid))
           && fresh(Date.parse(d.created_at), now(), 300_000), 'NEW_DATABASE');
       });
       const readback = await cf(`/d1/database/${db.uuid}`);
@@ -317,6 +341,12 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
       await write(f, 'schema', `/d1/database/${db.uuid}/query`, { sql: artifacts[f.schema].toString('utf8') }, rows => {
         need(Array.isArray(rows) && rows.length === f.statements && rows.every(r => r.success === true), 'SCHEMA_RESULTS');
       });
+      if (production) {
+        receipts.push({ feature: f.key, accountId: TARGET.accountId, databaseName: f.database, databaseId: db.uuid,
+          schemaHash: pinnedArtifacts[f.schema], statementCount: f.statements, confirmedAt: now() });
+        inventory.databases.push({ id: db.uuid, name: f.database });
+        continue;
+      }
       const worker = await write(f, 'worker', '/workers/workers', { name: f.worker,
         subdomain: { enabled: false, previews_enabled: false }, logpush: false, observability: { enabled: false } }, w => {
         workerIdentity(w, f); need(fresh(Date.parse(w.created_on), now(), 300_000), 'NEW_WORKER_TIMESTAMP');
@@ -348,7 +378,7 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
       inventory.databases.push({ id: db.uuid, name: f.database });
       inventory.workers.push({ id: worker.id, name: f.worker });
     }
-    return { receipts, journal: structuredClone(journal), actualHeartbeatVerified: false, alertDeliveryVerified: false, intakeEnabled: false };
+    return { ...(production ? { mode: PRODUCTION_MODE } : {}), receipts, journal: structuredClone(journal), actualHeartbeatVerified: false, alertDeliveryVerified: false, intakeEnabled: false };
   }
   return Object.freeze({ preflight: async () => { need(!started, 'ATTEMPT_ALREADY_STARTED'); return inspect(); },
     provision, health, journal: () => structuredClone(journal) });

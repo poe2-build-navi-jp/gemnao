@@ -27,7 +27,7 @@ export function fixtureRecord() {
       reserve: { databaseSlots: 2, workerSlots: 2, cronSlots: 2, d1RowsRead: 1000, d1RowsWritten: 1000, storageBytes: 1_000_000, workerRequests: 48 } },
     reconciledNoWriteRuns: [] };
 }
-export function mock(record, mutate = () => {}, failureWrite = 0) {
+export function mock(record, mutate = () => {}, failureWrite = 0, scope = { features: FEATURES, artifacts: ARTIFACTS }) {
   const calls = []; const databases = []; const workers = []; const versions = new Map(); let writes = 0;
   const run = { id: record.runId, workflow_id: 88, run_attempt: 1, event: 'workflow_dispatch',
     head_sha: record.commit, head_branch: record.ref.slice('refs/heads/'.length), path: `.github/workflows/${workflow}`,
@@ -59,25 +59,25 @@ export function mock(record, mutate = () => {}, failureWrite = 0) {
       else if (path === `${account}/d1/database` && options.method === 'GET') result = databases;
       else if (path === `${account}/workers/workers` && options.method === 'GET') result = workers;
       else if (path === `${account}/d1/database`) {
-        const i = FEATURES.findIndex(f => f.database === body.name); assert.ok(i >= 0);
+        const i = scope.features.findIndex(f => f.database === body.name); assert.ok(i >= 0);
         result = { uuid: dbIds[i], name: body.name, created_at: new Date(now).toISOString() }; databases.push(result);
       } else if (path.endsWith('/query')) {
         const i = dbIds.findIndex(id => path.includes(id)); assert.ok(i >= 0);
-        assert.equal(sha256(body.sql), ARTIFACTS[FEATURES[i].schema]);
-        result = Array.from({ length: FEATURES[i].statements }, () => ({ success: true }));
+        assert.equal(sha256(body.sql), scope.artifacts[scope.features[i].schema]);
+        result = Array.from({ length: scope.features[i].statements }, () => ({ success: true }));
       } else if (path.startsWith(`${account}/d1/database/`)) result = databases.find(d => path.endsWith(d.uuid));
       else if (path === `${account}/workers/workers`) {
-        const i = FEATURES.findIndex(f => f.worker === body.name); assert.ok(i >= 0);
+        const i = scope.features.findIndex(f => f.worker === body.name); assert.ok(i >= 0);
         result = { ...body, id: workerIds[i], created_on: new Date(now).toISOString() }; workers.push(result);
       } else if (path.endsWith('/versions')) {
         const i = workerIds.findIndex(id => path.includes(id)); assert.ok(i >= 0); assert.equal(query, '?deploy=true');
-        assert.deepEqual(body.bindings, [{ name: FEATURES[i].binding, type: 'd1', database_id: dbIds[i] }]);
-        assert.equal(body.modules.length, 1); assert.equal(sha256(Buffer.from(body.modules[0].content_base64, 'base64')), ARTIFACTS[FEATURES[i].module]);
+        assert.deepEqual(body.bindings, [{ name: scope.features[i].binding, type: 'd1', database_id: dbIds[i] }]);
+        assert.equal(body.modules.length, 1); assert.equal(sha256(Buffer.from(body.modules[0].content_base64, 'base64')), scope.artifacts[scope.features[i].module]);
         result = { ...body, id: versionIds[i] }; versions.set(versionIds[i], result);
       } else if (path.includes('/versions/')) { assert.equal(query, '?include=modules'); result = versions.get(path.split('/').at(-1)); }
       else if (path.endsWith('/schedules') && options.method === 'GET') result = { schedules: [] };
       else if (path.endsWith('/schedules')) {
-        const f = FEATURES.find(f => path.includes(f.worker)); assert.ok(f); assert.deepEqual(body, [{ cron: f.cron }]); result = { schedules: body };
+        const f = scope.features.find(f => path.includes(f.worker)); assert.ok(f); assert.deepEqual(body, [{ cron: f.cron }]); result = { schedules: body };
       } else result = workers.find(w => path.endsWith(w.id) || path.endsWith(w.name));
       assert.notEqual(result, undefined, path);
       value = { success: true, errors: [], result: structuredClone(result) };

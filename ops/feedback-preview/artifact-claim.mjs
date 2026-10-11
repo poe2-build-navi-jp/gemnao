@@ -4,6 +4,7 @@ import { mkdtemp, writeFile, readFile, readdir, lstat, rm } from 'node:fs/promis
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { canonical, PLAN_HASH } from './adapter.mjs';
+import { isProductionOperation, PRODUCTION_PLAN_HASH } from '../diagnosis-production/database-profile.mjs';
 
 export const ARTIFACT_CLIENT_PIN = Object.freeze({
   name: '@actions/artifact', version: '2.3.2',
@@ -11,22 +12,24 @@ export const ARTIFACT_CLIENT_PIN = Object.freeze({
   upstream: 'https://github.com/actions/upload-artifact/tree/v4.6.2',
 });
 function need(value) { if (!value) throw new Error('BLOCKED:ARTIFACT_CLAIM'); }
-export function artifactClaimName(runId) {
+export function artifactClaimName(runId, operation = 'preview') {
+  const production = isProductionOperation(operation);
   need(Number.isSafeInteger(runId) && runId > 0);
-  return `gemnao-preview-data-claim-${runId}-${PLAN_HASH}`;
+  return `${production ? 'gemnao-production-databases' : 'gemnao-preview-data'}-claim-${runId}-${production ? PRODUCTION_PLAN_HASH : PLAN_HASH}`;
 }
-export function createArtifactClaims({ client, clientVersion, runId }) {
+export function createArtifactClaims({ client, clientVersion, runId, operation = 'preview' }) {
+  const planHash = isProductionOperation(operation) ? PRODUCTION_PLAN_HASH : PLAN_HASH;
   // Future reviewed loader must verify installed package integrity/locked deps;
   // clientVersion alone is not supply-chain proof or authorization.
   need(clientVersion === ARTIFACT_CLIENT_PIN.version && typeof client?.uploadArtifact === 'function'
     && typeof client.getArtifact === 'function' && typeof client.downloadArtifact === 'function');
-  const name = artifactClaimName(runId);
+  const name = artifactClaimName(runId, operation);
   let attempted = false;
   const receipts = new Map();
   return Object.freeze({
     async createExclusive(requestedName, payload) {
       need(!attempted); attempted = true;
-      need(requestedName === name && payload.runId === runId && payload.planHash === PLAN_HASH);
+      need(requestedName === name && payload.runId === runId && payload.planHash === planHash);
       const text = canonical({ name, payload }); need(Buffer.byteLength(text) <= 4096);
       const dir = await mkdtemp(join(tmpdir(), 'gemnao-claim-upload-'));
       try {
