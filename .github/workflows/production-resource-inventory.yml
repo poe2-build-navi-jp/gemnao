@@ -1,0 +1,55 @@
+name: Gemnao production resource inventory
+run-name: Production account, Pages and DB metadata — manual read-only inventory
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: gemnao-production-d1-migration
+  cancel-in-progress: false
+jobs:
+  gate:
+    if: github.repository == 'poe2-build-navi-jp/gemnao' && github.ref == 'refs/heads/gemunao' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: read
+    outputs:
+      environment: ${{ steps.verify.outputs.environment }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Verify fixed GET boundary with synthetic inputs
+        run: node --test tests/production-resource-inventory/control.test.mjs
+      - id: verify
+        name: Verify existing Environment without changing protection
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node ops/production-resource-inventory/control.mjs gate
+  inventory:
+    needs: gate
+    if: needs.gate.outputs.environment == 'gemnao-d1-production'
+    environment: ${{ needs.gate.outputs.environment }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Fixed account, Pages and paginated DB metadata GETs only
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          INVENTORY_PROTECTED_ENVIRONMENT: gemnao-d1-production
+        run: node ops/production-resource-inventory/control.mjs inventory
