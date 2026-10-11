@@ -231,6 +231,7 @@ export const ogImageManifest: Record<string, string> = {
   "/trouble/mod": "bcf86c6d",
   "/trouble/server": "c6d1a835",
   "/weekly/2026-09-28": "4104553c",
+  "/weekly/2026-10-05": "26796505",
   "/zh/discord/upload-failed": "83328097",
   "/zh/games/ace-combat-8/not-launching": "71683a1b",
   "/zh/games/arc-raiders": "7500f2bc",

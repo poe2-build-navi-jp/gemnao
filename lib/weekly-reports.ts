@@ -44,6 +44,238 @@ const steamNews = (appId: string) =>
 
 export const weeklyReports: WeeklyReport[] = [
   {
+    slug: '2026-10-05',
+    title:
+      '今週のPCゲーム不具合まとめ（10月5日〜10月11日）｜AION2正式サービス・エスコン8・CONTROL Resonantほか',
+    shortTitle: '10月5日〜10月11日',
+    period: '2026年10月5日〜10月11日',
+    publishedAt: '2026-10-12',
+    description:
+      '10月5日〜10月11日に出たPCゲームの公式パッチ・障害・お知らせをまとめました。AION2の正式サービス開始・ヨーロッパの障害・サーバー移動の日程、エースコンバット8のオンラインのマッチング問題とアップデート予告、CONTROL Resonant・Minecraft Dungeons IIの修正など。',
+    lead: '今週出た公式のパッチ・障害・エラー情報を、ゲームごとに1行で確認できます。詳しい直し方は各記事へ。',
+    highlights: [
+      'エースコンバット8：オンラインのマッチングが成立しにくい問題を公式が調査中。Windows 11とSSDで遊ぶよう案内。不具合修正のアップデートも準備中',
+      'AION2：10/5に正式サービス開始。サーバー移動は10/14から受付（アジア地域は日本時間12:00〜16:00・18:00〜22:00）',
+      'CONTROL Resonant（1.4.2）・Minecraft Dungeons II（1.1.2.0）で、進行不能やクラッシュの修正',
+    ],
+    items: [
+      {
+        date: '10/9',
+        game: 'エースコンバット8',
+        gameSlug: 'ace-combat-8',
+        kind: 'notice',
+        title:
+          '不具合修正を含むアップデートを準備中。オンラインのマッチングが成立しにくい問題も調査',
+        summary:
+          'アップデートの配信日と内容は決まりしだい案内。ACE COMBAT ONLINEでマッチングが成立しにくい要因の1つは、動作環境を満たさない環境からの接続の可能性があるとして、公式はWindows 11で遊ぶこと、SSDにインストールすることを求めている。',
+        article: {
+          href: '/games/ace-combat-8/not-launching',
+          label: '起動しない・落ちる時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('2288340') },
+      },
+      {
+        date: '10/7',
+        game: 'Gears of War: E-Day',
+        gameSlug: 'gears-of-war-e-day',
+        kind: 'release',
+        title: '正式発売（Steam・XBOX on PC・Game Pass）',
+        summary:
+          '早期アクセスに続き、全世界で発売。障害は公式のサービス状況ページ（status.gearsofwar.com）で確認できる。',
+        article: {
+          href: '/games/gears-of-war-e-day/not-launching',
+          label: '起動しない・落ちる時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('3010850') },
+      },
+      {
+        date: '10/6',
+        game: 'ドラゴンズドグマ2',
+        gameSlug: 'dragons-dogma-2',
+        kind: 'notice',
+        title: '本編のアップデートを予告（ハードモードの追加など）',
+        summary:
+          'ダークアリズンの発売に合わせ、本編にもハードモードなどを追加するアップデートを予定。配信日は公式のお知らせで案内される。',
+        article: {
+          href: '/games/dragons-dogma-2/performance',
+          label: '重い・カクつく時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('2054970') },
+      },
+      {
+        date: '10/9',
+        game: 'ドラゴンズドグマ2',
+        gameSlug: 'dragons-dogma-2',
+        kind: 'release',
+        title: 'ダークアリズン発売',
+        summary:
+          '北の新地域「ノルガン」と新しいストーリーなどを追加する拡張コンテンツ。',
+        article: {
+          href: '/games/dragons-dogma-2/performance',
+          label: '重い・カクつく時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('2054970') },
+      },
+      {
+        date: '10/8',
+        game: 'CONTROL Resonant',
+        gameSlug: 'control-resonant',
+        kind: 'patch',
+        title: 'Hotfix 1.4.2：1.4.0で起きたクエストの進行不能を修正',
+        summary:
+          'クエスト「The House in Distress」でZoeがいなくなり進めない問題、Artist Resonantを倒した直後にメインメニューへ戻るとGapから出られない問題などを修正。「Every Dog Has Her Day」の報酬が出ない問題は、New Game+に入っていなければ後から受け取れる。',
+        article: {
+          href: '/games/control-resonant/crash-performance',
+          label: '落ちる・重い時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('3669870') },
+      },
+      {
+        date: '10/8',
+        game: 'SILENT HILL: Townfall',
+        gameSlug: 'silent-hill-townfall',
+        kind: 'patch',
+        title: 'Patch 1.4.0：The Weightの行動と敵の反応を調整',
+        summary:
+          'ストーリー・ノーマル難易度では、The Weightのつかみ攻撃が即死ではなく大ダメージに。銃声や走る音への敵の反応も弱まった。適用後はメインメニュー右下が「v1.5.154194」になっているか確認する。',
+        article: {
+          href: '/games/silent-hill-townfall/stutter',
+          label: '重い・カクつく時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('1636440') },
+      },
+      {
+        date: '10/9',
+        game: 'Minecraft Dungeons II',
+        gameSlug: 'minecraft-dungeons-2',
+        kind: 'patch',
+        title:
+          'Hotfix 1.1.2.0：プレイ中やオンラインから抜ける時のクラッシュを修正',
+        summary:
+          'クライアント・サーバーのさまざまなクラッシュ、オンラインのゲームから抜ける時のクラッシュ、グラフィック品質「Ultra」で画面がぼやける問題を修正。',
+        article: {
+          href: '/games/minecraft-dungeons-2/multiplayer',
+          label: '友達と遊べない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('1912410') },
+      },
+      {
+        date: '10/5',
+        game: 'AION2',
+        gameSlug: 'aion2',
+        kind: 'release',
+        title: '正式サービスが予定どおり22:00に開始',
+        summary:
+          'アーリーアクセス終了後のメンテナンスを経て、全世界で正式サービスを開始。',
+        article: {
+          href: '/games/aion2/login-error',
+          label: 'ログイン・接続できない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('3393110') },
+      },
+      {
+        date: '10/7',
+        game: 'AION2',
+        gameSlug: 'aion2',
+        kind: 'outage',
+        title:
+          '定期メンテナンス（15:30から約3時間30分。アジアのサーバーは約5時間30分）',
+        summary:
+          'ファウンダーズパックのスキン・称号などを、別のキャラクター・別のサーバーでも使えるように変更。購入時にエラーが出る場合は、クライアントを閉じてやり直すよう案内。',
+        article: {
+          href: '/games/aion2/login-error',
+          label: 'ログイン・接続できない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('3393110') },
+      },
+      {
+        date: '10/9',
+        game: 'AION2',
+        gameSlug: 'aion2',
+        kind: 'outage',
+        title:
+          'ヨーロッパのサーバーでクラウドサービスの障害。臨時メンテナンスと補償',
+        summary:
+          '10/8にヨーロッパの一部サーバーで障害（解決済み）。10/9 15:30から約1時間30分の臨時メンテナンスを行い、「Special Daeva Supply chest」を配布（受け取り期限は7日）。',
+        article: {
+          href: '/games/aion2/login-error',
+          label: 'ログイン・接続できない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('3393110') },
+      },
+      {
+        date: '10/10',
+        game: 'AION2',
+        gameSlug: 'aion2',
+        kind: 'notice',
+        title: 'サーバー移動のQ&Aを公開。10/14から受付',
+        summary:
+          'アーリーアクセスのサーバーからの移動は10/14〜10/21、正式サービスのサーバーからは10/21〜10/28（いずれも定期メンテナンス後から）。アジア地域の受付時間は日本時間12:00〜16:00と18:00〜22:00。受付時間外や、移動元・移動先が上限に達している場合は申し込めない。',
+        article: {
+          href: '/games/aion2/login-error',
+          label: 'ログイン・接続できない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('3393110') },
+      },
+      {
+        date: '10/11',
+        game: 'AION2',
+        gameSlug: 'aion2',
+        kind: 'notice',
+        title:
+          '不正利用でアカウントを制限。不審な接続には一時的なセキュリティロックも',
+        summary:
+          'ボット・RMTなどの規約違反のアカウントを制限。これとは別に、乗っ取りなどの危険がある端末・接続からのアクセスを検知すると、アカウントが一時的にロックされることがある（処罰ではない）。ログインできない場合は公式サポート（help.plaync.com）に問い合わせる。',
+        article: {
+          href: '/games/aion2/login-error',
+          label: 'ログイン・接続できない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('3393110') },
+      },
+      {
+        date: '10/6',
+        game: 'HELLDIVERS 2',
+        gameSlug: 'helldivers-2',
+        kind: 'outage',
+        title: 'Galactic Networkのメンテナンス（17:00から約2時間）',
+        summary:
+          'メンテナンス開始時に出撃中だと、報酬が失われる場合があると公式が注意。',
+        source: { label: 'Steamニュース（公式）', url: steamNews('553850') },
+      },
+    ],
+    upcoming: [
+      {
+        date: '10/14',
+        game: 'AION2',
+        note: 'サーバー移動の受付開始（アーリーアクセスのサーバーから。10/21からは正式サービスのサーバーから）',
+        href: '/games/aion2/login-error',
+      },
+      {
+        date: '10/15',
+        game: 'Castlevania: Belmont’s Curse',
+        note: '発売（KONAMIの発表）',
+        href: '/games/castlevania-belmonts-curse/not-launching',
+      },
+      {
+        date: '10/16',
+        game: 'テイルズ オブ エターニア リマスター',
+        note: '7時発売',
+        href: '/games/tales-of-eternia-remastered/not-launching',
+      },
+      {
+        date: '10/23',
+        game: 'Call of Duty: Modern Warfare 4・ファイナルファンタジー レゾナンス',
+        note: '発売',
+      },
+      {
+        date: '10/28',
+        game: 'Phantom Blade Zero',
+        note: '発売（Steamストアの表記）',
+        href: '/games/phantom-blade-zero/not-launching',
+      },
+    ],
+  },
+  {
     slug: '2026-09-28',
     title:
       '今週のPCゲーム不具合まとめ（9月28日〜10月4日）｜エスコン8・AION2・CONTROL Resonantほか',
