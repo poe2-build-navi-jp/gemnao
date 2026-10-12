@@ -5,7 +5,7 @@ import { randomUUID } from 'node:crypto';
 import { boundedFailure, readOnlyTransport, providerEnvelopeSummary } from './diagnostics.mjs';
 import { HEALTH_TARGETS, HEALTH_PLAN_HASH, healthTransport, heartbeatStatus, QA_DISCOVERY, plannedQaOrigin } from './health.mjs';
 import { TARGET, SHARING, ARTIFACTS, sha256, checkArtifact, denyExecution } from './controller.mjs';
-import { isProductionOperation, PRODUCTION_FEATURES, PRODUCTION_ARTIFACTS, PRODUCTION_PLAN_HASH, PRODUCTION_MODE, PRODUCTION_RECORD_OPERATION, EXCLUDED_DATABASE_IDS, productionDatabaseRequestAllowed } from '../diagnosis-production/database-profile.mjs';
+import { isProductionOperation, PRODUCTION_FEATURES, PRODUCTION_ARTIFACTS, PRODUCTION_PLAN_HASH, PRODUCTION_MODE, PRODUCTION_RECORD_OPERATION, PRODUCTION_COST_POLICY, EXCLUDED_DATABASE_IDS, productionDatabaseRequestAllowed } from '../diagnosis-production/database-profile.mjs';
 
 const ACCOUNT = `/accounts/${TARGET.accountId}`;
 const REPO = `/repos/${TARGET.repository}`;
@@ -58,23 +58,32 @@ export function validateRecord(recordBytes, trustedRecordHash, now, operation = 
   need(r.reviewerPolicy !== 'owner-manual' || r.reviewers.length === 1, 'OWNER_REVIEWER');
   need(typeof r.requireOwnerInitiator === 'boolean', 'INITIATOR_POLICY_UNCHOSEN');
   const e = r.costEvidence;
-  const dayStart = Math.floor(now / 86_400_000) * 86_400_000;
-  need(e?.kind === 'owner-ui-reviewed' && e.accountId === TARGET.accountId && e.operation === r.operation
-    && e.planHash === planHash && e.workersPlan === 'workers-free' && e.maximumChargeUSD === 0
-    && e.assessment === 'within-reviewed-zero-charge-envelope'
-    && ['explicit-plan-label', 'enforced-free-cap-pattern'].includes(e.planBasis)
-    && HASH.test(e.screenshotSha256 ?? '') && HASH.test(e.reviewEvidenceSha256 ?? '')
-    && HASH.test(e.unchangedPlanReviewSha256 ?? '')
-    && fresh(e.capturedAt, now, 86_400_000) && e.capturedAt >= dayStart
-    && fresh(e.reviewedAt, now, 86_400_000) && e.reviewedAt >= e.capturedAt
-    && e.quotaDateUTC === new Date(dayStart).toISOString().slice(0, 10)
-    && e.resetAt === dayStart + 86_400_000 && e.validUntil > now && e.validUntil <= e.resetAt,
-  'OWNER_UI_COST_EVIDENCE');
-  // Empty production schema creation relies on the reviewed Free plan's hard stop.
-  // It does not assert invented daily headroom or reserve unused Worker/Cron slots.
   if (production) {
+    // This hash identifies the actual current owner confirmation and its account
+    // context, not an image or an API verification. It proves identity, not truth.
+    // It must be prepared only after that reply is received and reviewed.
+    const fields = ['kind', 'accountId', 'operation', 'planHash', 'workersPlan', 'maximumChargeUSD',
+      'quotaPolicy', 'usageHeadroom', 'confirmedAt', 'confirmationEvidenceSha256', 'databaseLimit', 'reserve'];
+    need(e?.kind === PRODUCTION_COST_POLICY.kind && Object.keys(e).every(key => fields.includes(key))
+      && e.accountId === TARGET.accountId && e.operation === r.operation && e.planHash === planHash
+      && e.workersPlan === 'workers-free' && e.maximumChargeUSD === 0
+      && e.quotaPolicy === 'provider-enforced-free-stop' && e.usageHeadroom === PRODUCTION_COST_POLICY.usageHeadroom
+      && fresh(e.confirmedAt, now, PRODUCTION_COST_POLICY.maximumConfirmationAgeMs)
+      && HASH.test(e.confirmationEvidenceSha256 ?? ''), 'CURRENT_FREE_PLAN_EVIDENCE');
     need(e.databaseLimit === 10 && e.reserve?.databaseSlots === 2, 'QUOTA_RESERVATION');
   } else {
+    const dayStart = Math.floor(now / 86_400_000) * 86_400_000;
+    need(e?.kind === 'owner-ui-reviewed' && e.accountId === TARGET.accountId && e.operation === r.operation
+      && e.planHash === planHash && e.workersPlan === 'workers-free' && e.maximumChargeUSD === 0
+      && e.assessment === 'within-reviewed-zero-charge-envelope'
+      && ['explicit-plan-label', 'enforced-free-cap-pattern'].includes(e.planBasis)
+      && HASH.test(e.screenshotSha256 ?? '') && HASH.test(e.reviewEvidenceSha256 ?? '')
+      && HASH.test(e.unchangedPlanReviewSha256 ?? '')
+      && fresh(e.capturedAt, now, 86_400_000) && e.capturedAt >= dayStart
+      && fresh(e.reviewedAt, now, 86_400_000) && e.reviewedAt >= e.capturedAt
+      && e.quotaDateUTC === new Date(dayStart).toISOString().slice(0, 10)
+      && e.resetAt === dayStart + 86_400_000 && e.validUntil > now && e.validUntil <= e.resetAt,
+    'OWNER_UI_COST_EVIDENCE');
     for (const key of DIMENSIONS) need(Number.isSafeInteger(e.reserve?.[key]) && e.reserve[key] > 0, 'QUOTA_RESERVATION');
     for (const key of ['d1RowsRead', 'd1RowsWritten', 'storageBytes', 'workerRequests'])
       need(Number.isSafeInteger(e.remaining?.[key]) && Number.isSafeInteger(e.interveningUsageAllowance?.[key])
@@ -256,7 +265,9 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
     need(capacityAvailable || record.mode === 'read-only-preflight', 'RESOURCE_SLOTS');
     inventory = { databases, workers }; preflightAt = now();
     return { accountId: TARGET.accountId, planHash, databaseCount: databases.length,
-      workerCount: workers.length, cronCount, unreconciledPriorRunCount, targetsAbsent, capacityAvailable, costProvenance: 'owner-ui-reviewed; not authenticated billing/quota API evidence',
+      workerCount: workers.length, cronCount, unreconciledPriorRunCount, targetsAbsent, capacityAvailable, costProvenance: production
+        ? 'owner-current-free-plan-confirmation; usage headroom not measured; not authenticated plan/quota API evidence'
+        : 'owner-ui-reviewed; not authenticated billing/quota API evidence',
       observedAt: preflightAt, executionEnabled: false };
   }
   async function health() {

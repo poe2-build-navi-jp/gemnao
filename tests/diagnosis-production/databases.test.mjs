@@ -15,8 +15,11 @@ function recordFixture() {
   const r = fixtureRecord();
   Object.assign(r, { mode: PRODUCTION_MODE, operation: PRODUCTION_RECORD_OPERATION,
     planHash: PRODUCTION_PLAN_HASH, ref: SETUP.ref, reconciledPriorRuns: [] });
-  Object.assign(r.costEvidence, { operation: r.operation, planHash: r.planHash, reserve: { databaseSlots: 2 } });
-  for (const key of ['remaining', 'interveningUsageAllowance', 'workerLimit', 'cronLimit']) delete r.costEvidence[key];
+  r.costEvidence = { kind: 'owner-current-free-plan-confirmation', accountId: TARGET.accountId,
+    operation: r.operation, planHash: r.planHash, workersPlan: 'workers-free', maximumChargeUSD: 0,
+    quotaPolicy: 'provider-enforced-free-stop', usageHeadroom: 'not-measured', confirmedAt: now,
+    confirmationEvidenceSha256: sha256('SYNTHETIC owner reply confirming current Workers Free for ' + TARGET.accountId),
+    databaseLimit: 10, reserve: { databaseSlots: 2 } };
   for (const key of ['cleanupApproval', 'cronTargeting', 'alert', 'reconciledNoWriteRuns']) delete r[key];
   return r;
 }
@@ -73,6 +76,7 @@ await test('production performs only create/schema twice on fresh IDs; no accoun
   const { adapter, calls } = await prepare(); const result = await adapter.provision();
   assert.equal(result.mode, PRODUCTION_MODE); assert.equal(result.intakeEnabled, false);
   assert.equal(result.receipts.length, 2); assert.equal(result.journal.length, 4);
+  assert.deepEqual(result.receipts.map(r => r.databaseName), ['gemnao-diagnosis-production', 'gemnao-diagnostic-feedback-production']);
   assert.ok(result.journal.every(e => e.outcome === 'confirmed'));
   const cf = calls.filter(c => c.url.startsWith('https://api.cloudflare.com/'));
   assert.ok(cf.every(c => c.path.startsWith(account + '/d1/database')));
@@ -96,7 +100,10 @@ await test('profile, record and protected digest must agree; old QA approvals ca
 await test('reviewed Free plan and two available slots remain required, unused Worker budgets do not', async () => {
   for (const change of [r => { r.costEvidence.workersPlan = 'workers-paid'; },
     r => { r.costEvidence.reserve.databaseSlots = 1; }, r => { r.costEvidence.maximumChargeUSD = 1; },
-    r => { r.costEvidence.screenshotSha256 = ''; }, r => { r.costEvidence.validUntil = now; }]) {
+    r => { r.costEvidence.confirmationEvidenceSha256 = ''; }, r => { r.costEvidence.confirmedAt = now - 3_600_001; },
+    r => { r.costEvidence.confirmedAt = now + 1; }, r => { r.costEvidence.accountId = 'other'; },
+    r => { r.costEvidence.workersPlan = 'unknown'; }, r => { r.costEvidence.usageHeadroom = 'sufficient'; },
+    r => { r.costEvidence.kind = 'authenticated-plan'; }, r => { r.costEvidence.confirmedAt = null; }]) {
     const r = recordFixture(); change(r); await assert.rejects(prepare(r), /BLOCKED/);
   }
   const { adapter, calls } = await prepare(recordFixture(), (c, v) => {
@@ -194,4 +201,45 @@ await test('production credential transport cannot send its token to Workers or 
   assert.equal(reads, 0);
   await transport('https://api.cloudflare.com/client/v4' + account + '/d1/database?page=1&per_page=100', { method: 'GET' });
   assert.equal(reads, 1);
+});
+
+await test('current owner confirmation needs no screenshot or daily usage assertion, including UTC midnight', async () => {
+  const r = recordFixture();
+  assert.equal(Object.hasOwn(r.costEvidence, 'screenshotSha256'), false);
+  const { adapter } = await prepare(r);
+  const preflight = await adapter.preflight();
+  assert.match(preflight.costProvenance, /owner-current-free-plan-confirmation/);
+  assert.match(preflight.costProvenance, /headroom not measured/);
+  const afterMidnight = Date.parse('2026-10-08T00:01:00Z');
+  r.approvedAt = afterMidnight - 120_000; r.costEvidence.confirmedAt = r.approvedAt;
+  const bytes = JSON.stringify(r);
+  assert.deepEqual(validateRecord(bytes, sha256(bytes), afterMidnight, operation), r);
+});
+await test('old image evidence cannot become current proof by replacing its dates or its kind', async () => {
+  const r = recordFixture();
+  r.costEvidence = { ...fixtureRecord().costEvidence, operation: r.operation, planHash: r.planHash,
+    capturedAt: now, reviewedAt: now, reserve: { databaseSlots: 2 } };
+  await assert.rejects(prepare(r), /CURRENT_FREE_PLAN_EVIDENCE/);
+  Object.assign(r.costEvidence, recordFixture().costEvidence);
+  await assert.rejects(prepare(r), /CURRENT_FREE_PLAN_EVIDENCE/);
+  const oldPlan = recordFixture(); oldPlan.planHash = '117b01d88f15a6f1a5f31401e6be9b1dddcf4f76d5a8815383b7b3892538bc08';
+  await assert.rejects(prepare(oldPlan), /RECORD_SCOPE/);
+});
+await test('expired operation approval still blocks even when the Free-plan confirmation is fresh', async () => {
+  const r = recordFixture(); r.approvedAt = now - 3_600_001;
+  await assert.rejects(prepare(r), /REVIEWED_RUN/);
+});
+await test('Free-plan confirmation is checked again before each mutation, stopping an expired partial attempt', async () => {
+  const r = recordFixture(); r.costEvidence.confirmedAt = now - 50 * 60_000;
+  let clock = now;
+  const n = network(r, c => {
+    if (c.method === 'GET' && c.path === account + '/d1/database/' + dbIds[0]) clock += 20 * 60_000;
+  });
+  const recordBytes = JSON.stringify(r);
+  const adapter = await createPreparedAdapter({ ...n, operation, recordBytes, trustedRecordHash: sha256(recordBytes),
+    now: () => clock, durableClaims: claimStore() });
+  await assert.rejects(adapter.provision(), /CURRENT_FREE_PLAN_EVIDENCE/);
+  assert.equal(n.calls.filter(c => c.method !== 'GET').length, 1);
+  assert.ok(n.calls.every(c => !c.path.endsWith('/query')));
+  const before = n.calls.length; await assert.rejects(adapter.provision(), /ALREADY_STARTED/); assert.equal(n.calls.length, before);
 });

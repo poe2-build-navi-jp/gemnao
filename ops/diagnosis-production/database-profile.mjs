@@ -18,11 +18,20 @@ export const EXCLUDED_DATABASE_IDS = Object.freeze([
   '72c728f5-1656-4e26-bc11-7c508ae155c3',
   '3a714aee-e602-4590-afd0-3c2ddd9aea8f',
 ]);
+// The actual owner reply and its context stay with the reviewer. This policy
+// records a current plan confirmation, never measured usage or a renewed image.
+export const PRODUCTION_COST_POLICY = Object.freeze({
+  version: 2,
+  kind: 'owner-current-free-plan-confirmation',
+  maximumConfirmationAgeMs: 3_600_000,
+  usageHeadroom: 'not-measured',
+  screenshotRequired: false,
+});
 export const PRODUCTION_PLAN_HASH = sha256(JSON.stringify({
   operation: PRODUCTION_RECORD_OPERATION, accountId: TARGET.accountId, environment: TARGET.environment,
   features: PRODUCTION_FEATURES, artifacts: PRODUCTION_ARTIFACTS, excludedDatabaseIds: EXCLUDED_DATABASE_IDS,
   writes: ['D1_CREATE', 'SCHEMA'], maxCloudflareWrites: 4, paidUSD: 0,
-  quotaPolicy: 'provider-enforced-free-stop', intakeEnabled: false,
+  quotaPolicy: 'provider-enforced-free-stop', costEvidencePolicy: PRODUCTION_COST_POLICY, intakeEnabled: false,
   claim: { backend: 'github-artifact-v4', uploads: 1, archiveBytes: 8192, retentionDays: 1,
     access: 'existing-repository', overwrite: false },
 }));
