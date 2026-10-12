@@ -1,3 +1,5 @@
+import { collectDiagnosisReadiness } from '../d1/diagnosis-readiness.mjs';
+import { READINESS_OPERATION, READINESS_MODE, READINESS_PLAN_HASH, READINESS_PAGES_PATH, READINESS_DATABASE_PATH, validateReadinessContext, readinessRequestAllowed, readinessTransport } from '../diagnosis-production/readiness-profile.mjs';
 // Fixed-scope request implementation, exercised only with injected mock transport.
 // There is intentionally no fetch default, credential reader or CLI entry point.
 import { readFile } from 'node:fs/promises';
@@ -44,7 +46,7 @@ const fresh = (stamp, now, age) => Number.isSafeInteger(stamp) && stamp <= now &
 // Screenshots remain private: only their hashes and reviewed assessment belong
 // in a future record. A hash proves byte identity, not authenticity or plan truth.
 export function validateRecord(recordBytes, trustedRecordHash, now, operation = 'preview') {
-  need(operation !== PRODUCTION_HEALTH_OPERATION, 'HEALTH_MODE');
+  need(![PRODUCTION_HEALTH_OPERATION, READINESS_OPERATION].includes(operation), 'HEALTH_MODE');
   if (operation === PUBLIC_HEALTH_OPERATION) return validatePublicHealthRecord(recordBytes, trustedRecordHash, now);
   const production = isProductionOperation(operation);
   const cleanup = operation === CLEANUP_OPERATION;
@@ -134,13 +136,15 @@ export function validateRecord(recordBytes, trustedRecordHash, now, operation = 
 async function createAdapter({ transport, durableClaims, recordBytes, trustedRecordHash, readContext, now = Date.now, onStage = () => {}, onEnvelope = () => {}, onReceipt = () => {}, operation = 'preview' }) {
   const production = isProductionOperation(operation);
   const productionHealth = operation === PRODUCTION_HEALTH_OPERATION;
+  const readiness = operation === READINESS_OPERATION;
+  const observation = productionHealth || readiness;
   const publicHealth = operation === PUBLIC_HEALTH_OPERATION;
   const cleanup = operation === CLEANUP_OPERATION;
-  const features = productionHealth ? [] : publicHealth ? [PUBLIC_HEALTH_FEATURE] : cleanup ? CLEANUP_FEATURES : production ? PRODUCTION_FEATURES : FEATURES;
+  const features = observation ? [] : publicHealth ? [PUBLIC_HEALTH_FEATURE] : cleanup ? CLEANUP_FEATURES : production ? PRODUCTION_FEATURES : FEATURES;
   const pinnedArtifacts = publicHealth ? PUBLIC_HEALTH_ARTIFACTS : cleanup ? CLEANUP_ARTIFACTS : production ? PRODUCTION_ARTIFACTS : ARTIFACTS;
-  const planHash = publicHealth ? PUBLIC_HEALTH_PLAN_HASH : productionHealth ? PRODUCTION_HEALTH_PLAN_HASH : cleanup ? CLEANUP_PLAN_HASH : production ? PRODUCTION_PLAN_HASH : PLAN_HASH;
-  const readSnapshot = productionHealth ? Object.freeze(structuredClone(readContext)) : null;
-  const validateApproval = () => productionHealth ? validateProductionHealthContext(readSnapshot)
+  const planHash = readiness ? READINESS_PLAN_HASH : publicHealth ? PUBLIC_HEALTH_PLAN_HASH : productionHealth ? PRODUCTION_HEALTH_PLAN_HASH : cleanup ? CLEANUP_PLAN_HASH : production ? PRODUCTION_PLAN_HASH : PLAN_HASH;
+  const readSnapshot = observation ? Object.freeze(structuredClone(readContext)) : null;
+  const validateApproval = () => readiness ? validateReadinessContext(readSnapshot) : productionHealth ? validateProductionHealthContext(readSnapshot)
     : validateRecord(approvedBytes, trustedRecordHash, now(), operation);
   need(typeof transport === 'function', 'NO_TRANSPORT');
   const approvedBytes = String(recordBytes);
@@ -156,7 +160,7 @@ async function createAdapter({ transport, durableClaims, recordBytes, trustedRec
   let preflightAt = null;
   let inventory;
   async function request(service, method, path, body) {
-    need(!production || service === 'github' || (productionHealth ? productionHealthRequestAllowed(path, method, body === undefined ? undefined : JSON.stringify(body))
+    need(!production || service === 'github' || (readiness ? readinessRequestAllowed(path, method, body === undefined ? undefined : JSON.stringify(body)) : productionHealth ? productionHealthRequestAllowed(path, method, body === undefined ? undefined : JSON.stringify(body))
       : (publicHealth ? publicHealthRequestAllowed : cleanup ? cleanupRequestAllowed : productionDatabaseRequestAllowed)(path, method)), 'TRANSPORT_SCOPE');
     need(++requests <= 120, 'REQUEST_BOUND');
     const root = service === 'github' ? 'https://api.github.com' : 'https://api.cloudflare.com/client/v4';
@@ -240,7 +244,7 @@ async function createAdapter({ transport, durableClaims, recordBytes, trustedRec
       const safe = (production ? record.reconciledPriorRuns : record.reconciledNoWriteRuns).find(r => r.id === prior.id);
       const reconciled = safe && safe.headSha === prior.head_sha && prior.status === 'completed' && prior.run_attempt === 1;
       if (!reconciled) unreconciledPriorRunCount++;
-      need(reconciled || ['read-only-preflight', 'cleanup-health', PRODUCTION_HEALTH_MODE].includes(record.mode), 'PRIOR_RUN_REQUIRES_READ_ONLY_RECONCILIATION');
+      need(reconciled || ['read-only-preflight', 'cleanup-health', PRODUCTION_HEALTH_MODE, READINESS_MODE].includes(record.mode), 'PRIOR_RUN_REQUIRES_READ_ONLY_RECONCILIATION');
     }
     const reviews = await gh(`/actions/runs/${record.runId}/approvals`);
     need(Array.isArray(reviews), 'RUN_REVIEWS');
@@ -319,6 +323,16 @@ async function createAdapter({ transport, durableClaims, recordBytes, trustedRec
         ? 'owner-current-free-plan-confirmation; usage headroom not measured; not authenticated plan/quota API evidence'
         : 'owner-ui-reviewed; not authenticated billing/quota API evidence',
       observedAt: preflightAt, executionEnabled: false };
+  }
+  async function readinessInventory() {
+    need(readiness && record.mode === READINESS_MODE, 'READ_ONLY_MODE');
+    need(!started, 'ATTEMPT_ALREADY_STARTED'); started = true;
+    validateApproval(); await githubGate();
+    const result = await collectDiagnosisReadiness(async (path, sql) => {
+      onStage(path === READINESS_PAGES_PATH ? 'pagesproject' : path === READINESS_DATABASE_PATH ? 'd1identity' : 'd1schema');
+      return (await request('cloudflare', sql === undefined ? 'GET' : 'POST', path, sql === undefined ? undefined : { sql })).result;
+    });
+    return { ...result, mode: READINESS_MODE, planHash, readOnly: true, intakeEnabled: false, observedAt: new Date(now()).toISOString() };
   }
   async function health() {
     need(record.mode === (productionHealth ? PRODUCTION_HEALTH_MODE : 'cleanup-health'), 'HEALTH_MODE');
@@ -481,12 +495,12 @@ async function createAdapter({ transport, durableClaims, recordBytes, trustedRec
     return { ...(production ? { mode: cleanup ? CLEANUP_MODE : PRODUCTION_MODE } : {}), receipts, ...(cleanup ? { installationPreflight: { observedAt: inspected.observedAt, databaseCount: inspected.databaseCount, workerCount: inspected.workerCount, cronCount: inspected.cronCount, usageHeadroom: 'not-measured' } } : {}), journal: structuredClone(journal), actualHeartbeatVerified: false, alertDeliveryVerified: false, intakeEnabled: false };
   }
   return Object.freeze({ preflight: async () => { need(!started, 'ATTEMPT_ALREADY_STARTED'); return inspect(); },
-    provision, health, journal: () => structuredClone(journal) });
+    provision, health, readinessInventory, journal: () => structuredClone(journal) });
 }
 
 // Write/legacy factories cannot accept the record-free production-health scope.
 export async function createPreparedAdapter(options) {
-  need(options.operation !== PRODUCTION_HEALTH_OPERATION, 'HEALTH_MODE');
+  need(![PRODUCTION_HEALTH_OPERATION, READINESS_OPERATION].includes(options.operation), 'HEALTH_MODE');
   return createAdapter(options);
 }
 
@@ -509,4 +523,11 @@ export async function createProductionHealthAdapter({ transport, context, now = 
   const adapter = await createAdapter({ transport: productionHealthTransport(transport), readContext: context,
     now, onStage, onEnvelope, operation: PRODUCTION_HEALTH_OPERATION });
   return Object.freeze({ health: adapter.health });
+}
+
+export async function createDiagnosisReadinessAdapter({ transport, context, now = Date.now, onStage, onEnvelope }) {
+  validateReadinessContext(context);
+  const adapter = await createAdapter({ transport: readinessTransport(transport), readContext: context,
+    now, onStage, onEnvelope, operation: READINESS_OPERATION });
+  return Object.freeze({ readiness: adapter.readinessInventory });
 }

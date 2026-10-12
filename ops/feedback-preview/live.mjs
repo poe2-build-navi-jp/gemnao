@@ -1,3 +1,4 @@
+import { READINESS_OPERATION, READINESS_PLAN_HASH, readinessRequestAllowed } from '../diagnosis-production/readiness-profile.mjs';
 import { CLEANUP_OPERATION, CLEANUP_PLAN_HASH, cleanupRequestAllowed } from '../diagnosis-production/cleanup-profile.mjs';
 // Runs only as the reviewed local JavaScript action in the protected job.
 import { readFile, appendFile } from 'node:fs/promises';
@@ -5,7 +6,7 @@ import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { TARGET, sha256 } from './controller.mjs';
-import { PLAN_HASH, validateRecord, createPreparedAdapter, createReadOnlyAdapter, createHealthAdapter, createProductionHealthAdapter } from './adapter.mjs';
+import { PLAN_HASH, validateRecord, createPreparedAdapter, createReadOnlyAdapter, createHealthAdapter, createProductionHealthAdapter, createDiagnosisReadinessAdapter } from './adapter.mjs';
 import { PRODUCTION_HEALTH_OPERATION, PRODUCTION_HEALTH_PLAN_HASH, productionHealthRequestAllowed } from '../diagnosis-production/cleanup-health.mjs';
 import { PUBLIC_HEALTH_OPERATION, PUBLIC_HEALTH_PLAN_HASH, publicHealthRequestAllowed } from '../diagnosis-production/public-health-profile.mjs';
 import { boundedFailure, createDiagnostics } from './diagnostics.mjs';
@@ -44,9 +45,11 @@ export function credentialTransport({ githubToken, cloudflareToken, fetchImpl = 
     const cloudflare = u.origin === 'https://api.cloudflare.com'
       && (u.pathname === `/client/v4/accounts/${TARGET.accountId}`
         || u.pathname.startsWith(`/client/v4/accounts/${TARGET.accountId}/d1/database`)
-        || u.pathname.startsWith(`/client/v4/accounts/${TARGET.accountId}/workers/`));
+        || u.pathname.startsWith(`/client/v4/accounts/${TARGET.accountId}/workers/`)
+        || (operation === READINESS_OPERATION && u.pathname === `/client/v4/accounts/${TARGET.accountId}/pages/projects/gemnao`));
     need(!u.username && !u.password && !u.hash && (github || cloudflare), 'TRANSPORT_SCOPE');
-    need(!production || github || (operation === PRODUCTION_HEALTH_OPERATION
+    need(!production || github || (operation === READINESS_OPERATION ? !u.search && readinessRequestAllowed(u.pathname.replace(/^\/client\/v4/, ''), options.method, options.body)
+      : operation === PRODUCTION_HEALTH_OPERATION
       ? !u.search && productionHealthRequestAllowed(u.pathname.replace(/^\/client\/v4/, ''), options.method, options.body)
       : operation === PUBLIC_HEALTH_OPERATION ? publicHealthRequestAllowed(u.pathname.replace(/^\/client\/v4/, '') + u.search, options.method)
       : (operation === CLEANUP_OPERATION ? cleanupRequestAllowed : productionDatabaseRequestAllowed)(u.pathname.replace(/^\/client\/v4/, ''), options.method)), 'TRANSPORT_SCOPE');
@@ -93,7 +96,7 @@ export async function runGate({ env, checkoutSha, transport }) {
   need(env.PREVIEW_OUTSIDE_RECORD_PRESENT === 'false' && env.PREVIEW_OUTSIDE_DIGEST_PRESENT === 'false', 'UNPROTECTED_RECORD_SECRET');
   const reviewerId = await verifyConfiguredEnvironment(transport);
   return { environment: SETUP.environment, runId: Number(env.GITHUB_RUN_ID), commit: env.GITHUB_SHA,
-    ref: SETUP.ref, reviewerId, planHash: env.PREVIEW_OPERATION === PUBLIC_HEALTH_OPERATION ? PUBLIC_HEALTH_PLAN_HASH : env.PREVIEW_OPERATION === PRODUCTION_HEALTH_OPERATION ? PRODUCTION_HEALTH_PLAN_HASH
+    ref: SETUP.ref, reviewerId, planHash: env.PREVIEW_OPERATION === READINESS_OPERATION ? READINESS_PLAN_HASH : env.PREVIEW_OPERATION === PUBLIC_HEALTH_OPERATION ? PUBLIC_HEALTH_PLAN_HASH : env.PREVIEW_OPERATION === PRODUCTION_HEALTH_OPERATION ? PRODUCTION_HEALTH_PLAN_HASH
       : env.PREVIEW_OPERATION === CLEANUP_OPERATION ? CLEANUP_PLAN_HASH : isProductionOperation(env.PREVIEW_OPERATION) ? PRODUCTION_PLAN_HASH : PLAN_HASH };
 }
 export async function loadPinnedArtifactClient() {
@@ -112,13 +115,13 @@ export async function loadPinnedArtifactClient() {
 export async function runProtected({ env, checkoutSha, transport, loadClient = loadPinnedArtifactClient, now = Date.now, onStage = () => {}, onEnvelope = () => {}, onReceipt = () => {} }) {
   validateContext(env, checkoutSha, true);
   const operation = env.PREVIEW_OPERATION ?? 'preview';
-  if (operation === PRODUCTION_HEALTH_OPERATION) {
+  if ([PRODUCTION_HEALTH_OPERATION, READINESS_OPERATION].includes(operation)) {
     onStage('environment');
     const reviewerId = await verifyConfiguredEnvironment(transport);
     const context = { repository: env.GITHUB_REPOSITORY, ref: env.GITHUB_REF,
       commit: env.GITHUB_SHA, runId: Number(env.GITHUB_RUN_ID), reviewerId };
-    const adapter = await createProductionHealthAdapter({ transport, context, now, onStage, onEnvelope });
-    return adapter.health();
+    const adapter = await (operation === READINESS_OPERATION ? createDiagnosisReadinessAdapter : createProductionHealthAdapter)({ transport, context, now, onStage, onEnvelope });
+    return operation === READINESS_OPERATION ? adapter.readiness() : adapter.health();
   }
   onStage('record');
   const bytes = env.PREVIEW_APPROVAL_RECORD;
