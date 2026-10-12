@@ -1,3 +1,4 @@
+import { CLEANUP_OPERATION, CLEANUP_PLAN_HASH, cleanupRequestAllowed } from '../diagnosis-production/cleanup-profile.mjs';
 // Runs only as the reviewed local JavaScript action in the protected job.
 import { readFile, appendFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
@@ -43,7 +44,7 @@ export function credentialTransport({ githubToken, cloudflareToken, fetchImpl = 
         || u.pathname.startsWith(`/client/v4/accounts/${TARGET.accountId}/d1/database`)
         || u.pathname.startsWith(`/client/v4/accounts/${TARGET.accountId}/workers/`));
     need(!u.username && !u.password && !u.hash && (github || cloudflare), 'TRANSPORT_SCOPE');
-    need(!production || github || productionDatabaseRequestAllowed(u.pathname.replace(/^\/client\/v4/, ''), options.method), 'TRANSPORT_SCOPE');
+    need(!production || github || (operation === CLEANUP_OPERATION ? cleanupRequestAllowed : productionDatabaseRequestAllowed)(u.pathname.replace(/^\/client\/v4/, ''), options.method), 'TRANSPORT_SCOPE');
     need(github ? options.method === 'GET' : ['GET', 'POST', 'PUT'].includes(options.method), 'TRANSPORT_METHOD');
     const token = github ? githubToken() : cloudflareToken();
     need(typeof token === 'string' && token.length > 0 && !/[\r\n]/.test(token), 'CREDENTIAL_MISSING');
@@ -87,7 +88,7 @@ export async function runGate({ env, checkoutSha, transport }) {
   need(env.PREVIEW_OUTSIDE_RECORD_PRESENT === 'false' && env.PREVIEW_OUTSIDE_DIGEST_PRESENT === 'false', 'UNPROTECTED_RECORD_SECRET');
   const reviewerId = await verifyConfiguredEnvironment(transport);
   return { environment: SETUP.environment, runId: Number(env.GITHUB_RUN_ID), commit: env.GITHUB_SHA,
-    ref: SETUP.ref, reviewerId, planHash: isProductionOperation(env.PREVIEW_OPERATION) ? PRODUCTION_PLAN_HASH : PLAN_HASH };
+    ref: SETUP.ref, reviewerId, planHash: env.PREVIEW_OPERATION === CLEANUP_OPERATION ? CLEANUP_PLAN_HASH : isProductionOperation(env.PREVIEW_OPERATION) ? PRODUCTION_PLAN_HASH : PLAN_HASH };
 }
 export async function loadPinnedArtifactClient() {
   const lock = JSON.parse(await readFile(new URL('runtime/package-lock.json', import.meta.url), 'utf8'));
@@ -102,7 +103,7 @@ export async function loadPinnedArtifactClient() {
   const { DefaultArtifactClient } = require('@actions/artifact');
   return new DefaultArtifactClient();
 }
-export async function runProtected({ env, checkoutSha, transport, loadClient = loadPinnedArtifactClient, now = Date.now, onStage = () => {}, onEnvelope = () => {} }) {
+export async function runProtected({ env, checkoutSha, transport, loadClient = loadPinnedArtifactClient, now = Date.now, onStage = () => {}, onEnvelope = () => {}, onReceipt = () => {} }) {
   validateContext(env, checkoutSha, true);
   onStage('record');
   const bytes = env.PREVIEW_APPROVAL_RECORD;
@@ -127,7 +128,7 @@ export async function runProtected({ env, checkoutSha, transport, loadClient = l
   onStage('artifact-sdk');
   const client = await loadClient();
   const durableClaims = createArtifactClaims({ client, clientVersion: ARTIFACT_CLIENT_PIN.version, runId: record.runId, operation });
-  const adapter = await createPreparedAdapter({ transport, durableClaims, recordBytes: bytes, trustedRecordHash: digest, now, onStage, onEnvelope, operation });
+  const adapter = await createPreparedAdapter({ transport, durableClaims, recordBytes: bytes, trustedRecordHash: digest, now, onStage, onEnvelope, onReceipt, operation });
   return adapter.provision();
 }
 export function publicRunResult(result) {
@@ -149,7 +150,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     validateContext(env, checkoutSha, protectedJob);
     const transport = diagnostics.transport(credentialTransport({ operation: env.PREVIEW_OPERATION, githubToken: () => env.PREVIEW_GITHUB_TOKEN,
       cloudflareToken: () => { need(protectedJob, 'CLOUDFLARE_IN_GATE'); return env.GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN; } }));
-    if (protectedJob) console.log(JSON.stringify(publicRunResult(await runProtected({ env, checkoutSha, transport, onStage: diagnostics.stage, onEnvelope: diagnostics.envelope }))));
+    if (protectedJob) console.log(JSON.stringify(publicRunResult(await runProtected({ env, checkoutSha, transport, onStage: diagnostics.stage, onEnvelope: diagnostics.envelope, onReceipt: receipt => console.log(JSON.stringify({ cleanupInstallationReceipt: receipt })) }))));
     else {
       const gate = await runGate({ env, checkoutSha, transport });
       await appendFile(env.GITHUB_OUTPUT, `environment=${gate.environment}\n`);

@@ -7,6 +7,8 @@ import { HEALTH_TARGETS, HEALTH_PLAN_HASH, healthTransport, heartbeatStatus, QA_
 import { TARGET, SHARING, ARTIFACTS, sha256, checkArtifact, denyExecution } from './controller.mjs';
 import { isProductionOperation, PRODUCTION_FEATURES, PRODUCTION_ARTIFACTS, PRODUCTION_PLAN_HASH, PRODUCTION_MODE, PRODUCTION_RECORD_OPERATION, PRODUCTION_COST_POLICY, EXCLUDED_DATABASE_IDS, productionDatabaseRequestAllowed } from '../diagnosis-production/database-profile.mjs';
 
+import { CLEANUP_OPERATION, CLEANUP_MODE, CLEANUP_RECORD_OPERATION, CLEANUP_FEATURES, CLEANUP_ARTIFACTS, CLEANUP_PLAN_HASH, RETENTION_SCOPE, RETENTION_SCOPE_HASH, CLEANUP_SETUP_RUN, cleanupRequestAllowed } from '../diagnosis-production/cleanup-profile.mjs';
+
 const ACCOUNT = `/accounts/${TARGET.accountId}`;
 const REPO = `/repos/${TARGET.repository}`;
 const WORKFLOW = 'feedback-preview-control.yml';
@@ -39,13 +41,14 @@ const fresh = (stamp, now, age) => Number.isSafeInteger(stamp) && stamp <= now &
 // in a future record. A hash proves byte identity, not authenticity or plan truth.
 export function validateRecord(recordBytes, trustedRecordHash, now, operation = 'preview') {
   const production = isProductionOperation(operation);
-  const planHash = production ? PRODUCTION_PLAN_HASH : PLAN_HASH;
+  const cleanup = operation === CLEANUP_OPERATION;
+  const planHash = cleanup ? CLEANUP_PLAN_HASH : production ? PRODUCTION_PLAN_HASH : PLAN_HASH;
   need(Buffer.byteLength(recordBytes) <= 65_536, 'APPROVAL_RECORD_SIZE');
   need(HASH.test(trustedRecordHash ?? '') && sha256(recordBytes) === trustedRecordHash, 'APPROVAL_RECORD_PIN');
   let r;
   try { r = JSON.parse(recordBytes); } catch { throw new Error('BLOCKED:APPROVAL_RECORD_JSON'); }
-  need((production ? r.mode === PRODUCTION_MODE : ['create-empty-preview-pairs', 'read-only-preflight', 'cleanup-health'].includes(r.mode))
-    && r.operation === (production ? PRODUCTION_RECORD_OPERATION : 'create-two-preview-pairs-20261007') && r.planHash === planHash
+  need((production ? r.mode === (cleanup ? CLEANUP_MODE : PRODUCTION_MODE) : ['create-empty-preview-pairs', 'read-only-preflight', 'cleanup-health'].includes(r.mode))
+    && r.operation === (cleanup ? CLEANUP_RECORD_OPERATION : production ? PRODUCTION_RECORD_OPERATION : 'create-two-preview-pairs-20261007') && r.planHash === planHash
     && r.accountId === TARGET.accountId, 'RECORD_SCOPE');
   need(r.mode !== 'cleanup-health' || r.healthPlanHash === HEALTH_PLAN_HASH, 'HEALTH_PLAN_PIN');
   need(/^refs\/heads\/[A-Za-z0-9][A-Za-z0-9._/-]*$/.test(r.ref ?? '')
@@ -63,14 +66,15 @@ export function validateRecord(recordBytes, trustedRecordHash, now, operation = 
     // context, not an image or an API verification. It proves identity, not truth.
     // It must be prepared only after that reply is received and reviewed.
     const fields = ['kind', 'accountId', 'operation', 'planHash', 'workersPlan', 'maximumChargeUSD',
-      'quotaPolicy', 'usageHeadroom', 'confirmedAt', 'confirmationEvidenceSha256', 'databaseLimit', 'reserve'];
+      'quotaPolicy', 'usageHeadroom', 'confirmedAt', 'confirmationEvidenceSha256', 'databaseLimit', 'reserve', ...(cleanup ? ['workerLimit', 'cronLimit'] : [])];
     need(e?.kind === PRODUCTION_COST_POLICY.kind && Object.keys(e).every(key => fields.includes(key))
       && e.accountId === TARGET.accountId && e.operation === r.operation && e.planHash === planHash
       && e.workersPlan === 'workers-free' && e.maximumChargeUSD === 0
       && e.quotaPolicy === 'provider-enforced-free-stop' && e.usageHeadroom === PRODUCTION_COST_POLICY.usageHeadroom
       && fresh(e.confirmedAt, now, PRODUCTION_COST_POLICY.maximumConfirmationAgeMs)
       && HASH.test(e.confirmationEvidenceSha256 ?? ''), 'CURRENT_FREE_PLAN_EVIDENCE');
-    need(e.databaseLimit === 10 && e.reserve?.databaseSlots === 2, 'QUOTA_RESERVATION');
+    need(e.databaseLimit === 10 && e.reserve?.databaseSlots === (cleanup ? 0 : 2), 'QUOTA_RESERVATION');
+    if (cleanup) need(e.workerLimit === 100 && e.cronLimit === 5 && e.reserve.workerSlots === 2 && e.reserve.cronSlots === 2, 'QUOTA_RESERVATION');
   } else {
     const dayStart = Math.floor(now / 86_400_000) * 86_400_000;
     need(e?.kind === 'owner-ui-reviewed' && e.accountId === TARGET.accountId && e.operation === r.operation
@@ -101,27 +105,38 @@ export function validateRecord(recordBytes, trustedRecordHash, now, operation = 
       && r.alert?.deliveryStatus === 'pending' && fresh(r.alert?.reviewedAt, now, 86_400_000), 'CLEANUP_ALERT_APPROVAL');
     need(r.cronTargeting === 'name-after-id-recheck-residual-rename-risk-accepted', 'CRON_RENAME_RISK');
   }
+  if (cleanup) {
+    need(r.cleanupApproval === 'both-pinned-production-hourly-crons'
+      && r.retentionScopeHash === RETENTION_SCOPE_HASH && r.persistentBindingAndCron === true
+      && r.notificationStatus === 'parent-conversation-approved-not-connected'
+      && HASH.test(r.cleanupApprovalEvidenceSha256 ?? ''), 'CLEANUP_ALERT_APPROVAL');
+    need(r.cronTargeting === 'name-after-id-recheck-residual-rename-risk-accepted', 'CRON_RENAME_RISK');
+  }
   const reconciled = production ? r.reconciledPriorRuns : r.reconciledNoWriteRuns;
   need(Array.isArray(reconciled), 'DURABLE_RUN_RECONCILIATION');
   for (const safe of reconciled) need(Number.isSafeInteger(safe.id) && safe.id !== r.runId
     && /^[a-f0-9]{40}$/.test(safe.headSha ?? '') && HASH.test(safe.reviewEvidenceSha256 ?? '')
     && (safe.classification === 'independently-reviewed-no-mutations'
       || (production && safe.classification === 'independently-reviewed-preview-only'
-        && safe.planHash === PLAN_HASH)), 'RECONCILED_RUN');
+        && safe.planHash === PLAN_HASH)
+      || (cleanup && safe.classification === 'independently-reviewed-production-databases-only'
+        && safe.id === CLEANUP_SETUP_RUN.id && safe.headSha === CLEANUP_SETUP_RUN.headSha
+        && safe.planHash === CLEANUP_SETUP_RUN.planHash)), 'RECONCILED_RUN');
   return r;
 }
 
-export async function createPreparedAdapter({ transport, durableClaims, recordBytes, trustedRecordHash, now = Date.now, onStage = () => {}, onEnvelope = () => {}, operation = 'preview' }) {
+export async function createPreparedAdapter({ transport, durableClaims, recordBytes, trustedRecordHash, now = Date.now, onStage = () => {}, onEnvelope = () => {}, onReceipt = () => {}, operation = 'preview' }) {
   const production = isProductionOperation(operation);
-  const features = production ? PRODUCTION_FEATURES : FEATURES;
-  const pinnedArtifacts = production ? PRODUCTION_ARTIFACTS : ARTIFACTS;
-  const planHash = production ? PRODUCTION_PLAN_HASH : PLAN_HASH;
+  const cleanup = operation === CLEANUP_OPERATION;
+  const features = cleanup ? CLEANUP_FEATURES : production ? PRODUCTION_FEATURES : FEATURES;
+  const pinnedArtifacts = cleanup ? CLEANUP_ARTIFACTS : production ? PRODUCTION_ARTIFACTS : ARTIFACTS;
+  const planHash = cleanup ? CLEANUP_PLAN_HASH : production ? PRODUCTION_PLAN_HASH : PLAN_HASH;
   const validateApproval = () => validateRecord(approvedBytes, trustedRecordHash, now(), operation);
   need(typeof transport === 'function', 'NO_TRANSPORT');
   const approvedBytes = String(recordBytes);
   const record = validateApproval();
   const artifacts = {};
-  for (const f of features) for (const path of (production ? [f.schema] : [f.schema, f.module])) {
+  for (const f of features) for (const path of (cleanup ? [f.module] : production ? [f.schema] : [f.schema, f.module])) {
     const bytes = await readFile(new URL(path, import.meta.url));
     checkArtifact(bytes, pinnedArtifacts[path]); artifacts[path] = bytes;
   }
@@ -131,7 +146,7 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
   let preflightAt = null;
   let inventory;
   async function request(service, method, path, body) {
-    need(!production || service === 'github' || productionDatabaseRequestAllowed(path, method), 'TRANSPORT_SCOPE');
+    need(!production || service === 'github' || (cleanup ? cleanupRequestAllowed : productionDatabaseRequestAllowed)(path, method), 'TRANSPORT_SCOPE');
     need(++requests <= 120, 'REQUEST_BOUND');
     const root = service === 'github' ? 'https://api.github.com' : 'https://api.cloudflare.com/client/v4';
     const url = root + path;
@@ -160,7 +175,7 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
           const workerPath = path.startsWith(ACCOUNT + '/') ? path.split('?')[0].slice(ACCOUNT.length) : '';
           const workersEnvelope = (['GET', 'POST'].includes(method) && workerPath === '/workers/workers')
             || (method === 'GET' && /^\/workers\/workers\/[a-f0-9]{32}$/.test(workerPath))
-            || (method === 'GET' && FEATURES.some(f => workerPath === `/workers/workers/${f.worker}`))
+            || (method === 'GET' && features.some(f => workerPath === `/workers/workers/${f.worker}`))
             || (method === 'POST' && /^\/workers\/workers\/[a-f0-9]{32}\/versions$/.test(workerPath))
             || (method === 'GET' && /^\/workers\/workers\/[a-f0-9]{32}\/versions\/[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/.test(workerPath));
           const noErrors = envelope.errors === 'empty'
@@ -249,8 +264,16 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
     }
     onStage('inventory-preflight');
     const databases = await listResources('/d1/database', 'uuid');
-    const workers = production ? [] : await listResources('/workers/workers', 'id');
-    const targetsAbsent = features.every(f => !databases.some(d => d.name === f.database) && !workers.some(w => w.name === f.worker));
+    const workers = production && !cleanup ? [] : await listResources('/workers/workers', 'id');
+    const targetsAbsent = features.every(f => (cleanup || !databases.some(d => d.name === f.database)) && !workers.some(w => w.name === f.worker));
+    if (cleanup) {
+      for (const f of features) {
+        need(databases.filter(d => d.id === f.databaseId && d.name === f.database).length === 1
+          && databases.filter(d => d.name === f.database).length === 1, 'DATABASE_READBACK');
+        const d = (await cf(`/d1/database/${f.databaseId}`)).result;
+        need(d?.uuid === f.databaseId && d.name === f.database, 'DATABASE_READBACK');
+      }
+    }
     need(targetsAbsent || record.mode === 'read-only-preflight', 'COLLISION');
     let cronCount = 0;
     for (const worker of workers) {
@@ -260,7 +283,7 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
     }
     const evidence = record.costEvidence;
     const capacityAvailable = evidence.databaseLimit - databases.length >= evidence.reserve.databaseSlots
-      && (production || (evidence.workerLimit - workers.length >= evidence.reserve.workerSlots
+      && ((production && !cleanup) || (evidence.workerLimit - workers.length >= evidence.reserve.workerSlots
         && evidence.cronLimit - cronCount >= evidence.reserve.cronSlots));
     need(capacityAvailable || record.mode === 'read-only-preflight', 'RESOURCE_SLOTS');
     inventory = { databases, workers }; preflightAt = now();
@@ -296,7 +319,7 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
     return result;
   }
   async function write(f, step, path, body, validate) {
-    need(journal.length < (production ? 4 : 10) && !journal.some(x => x.feature === f.key && x.step === step), 'WRITE_BOUND');
+    need(journal.length < (cleanup ? 6 : production ? 4 : 10) && !journal.some(x => x.feature === f.key && x.step === step), 'WRITE_BOUND');
     validateApproval();
     onStage(`write-${step}`);
     const entry = { feature: f.key, step, startedAt: now(), outcome: 'in-progress', requestHash: sha256(canonical(body)) };
@@ -320,18 +343,18 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
       && (!Object.hasOwn(binding, 'id') || binding.id === expected.database_id);
   }
   async function provision() {
-    need(record.mode === (production ? PRODUCTION_MODE : 'create-empty-preview-pairs'), 'READ_ONLY_MODE');
+    need(record.mode === (cleanup ? CLEANUP_MODE : production ? PRODUCTION_MODE : 'create-empty-preview-pairs'), 'READ_ONLY_MODE');
     need(!started, 'ATTEMPT_ALREADY_STARTED');
     started = true; // Poison even a failed preflight; prohibit concurrent/repeated attempts.
-    await inspect(); // Never use a caller-provided preflight receipt.
+    const inspected = await inspect(); // Never use a caller-provided preflight receipt.
     need(fresh(preflightAt, now(), 300_000), 'PREFLIGHT_STALE');
-    need(requests + (production ? 6 : 22) <= 120, 'REQUEST_BUDGET_BEFORE_WRITES');
+    need(requests + (cleanup ? 18 : production ? 6 : 22) <= 120, 'REQUEST_BUDGET_BEFORE_WRITES');
     // This separate trusted integration MUST implement durable, atomic create-if-absent.
     // artifact-claim.mjs supplies the pinned official client wrapper; no SDK is
     // installed/wired by default. An ephemeral Map/file is only a test fake.
     need(typeof durableClaims?.createExclusive === 'function' && typeof durableClaims?.read === 'function', 'DURABLE_CLAIM_UNCONFIGURED');
     onStage('claim');
-    const claimName = `${production ? 'gemnao-production-databases' : 'gemnao-preview-data'}-claim-${record.runId}-${planHash}`;
+    const claimName = `${cleanup ? 'gemnao-production-cleanup' : production ? 'gemnao-production-databases' : 'gemnao-preview-data'}-claim-${record.runId}-${planHash}`;
     const claim = { runId: record.runId, repository: TARGET.repository, planHash,
       recordHash: trustedRecordHash, nonce: randomUUID() };
     try {
@@ -342,27 +365,34 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
     } catch (error) { throw boundedFailure('DURABLE_CLAIM_REQUIRES_READ_ONLY_RECONCILIATION', error); }
     const receipts = [];
     for (const f of features) {
-      const db = await write(f, 'database', '/d1/database', { name: f.database }, d => {
-        need(UUID.test(d?.uuid ?? '') && d.name === f.database && !inventory.databases.some(x => x.id === d.uuid)
-          && (!production || !EXCLUDED_DATABASE_IDS.includes(d.uuid))
-          && fresh(Date.parse(d.created_at), now(), 300_000), 'NEW_DATABASE');
-      });
-      const readback = await cf(`/d1/database/${db.uuid}`);
-      need(readback.result?.uuid === db.uuid && readback.result.name === f.database, 'DATABASE_READBACK');
-      await write(f, 'schema', `/d1/database/${db.uuid}/query`, { sql: artifacts[f.schema].toString('utf8') }, rows => {
-        need(Array.isArray(rows) && rows.length === f.statements && rows.every(r => r.success === true), 'SCHEMA_RESULTS');
-      });
-      if (production) {
-        receipts.push({ feature: f.key, accountId: TARGET.accountId, databaseName: f.database, databaseId: db.uuid,
-          schemaHash: pinnedArtifacts[f.schema], statementCount: f.statements, confirmedAt: now() });
-        inventory.databases.push({ id: db.uuid, name: f.database });
-        continue;
+      let db;
+      if (cleanup) {
+        db = (await cf(`/d1/database/${f.databaseId}`)).result;
+        need(db?.uuid === f.databaseId && db.name === f.database, 'DATABASE_READBACK');
+      } else {
+        db = await write(f, 'database', '/d1/database', { name: f.database }, d => {
+          need(UUID.test(d?.uuid ?? '') && d.name === f.database && !inventory.databases.some(x => x.id === d.uuid)
+            && (!production || !EXCLUDED_DATABASE_IDS.includes(d.uuid))
+            && fresh(Date.parse(d.created_at), now(), 300_000), 'NEW_DATABASE');
+        });
+        const readback = await cf(`/d1/database/${db.uuid}`);
+        need(readback.result?.uuid === db.uuid && readback.result.name === f.database, 'DATABASE_READBACK');
+        await write(f, 'schema', `/d1/database/${db.uuid}/query`, { sql: artifacts[f.schema].toString('utf8') }, rows => {
+          need(Array.isArray(rows) && rows.length === f.statements && rows.every(r => r.success === true), 'SCHEMA_RESULTS');
+        });
+        if (production) {
+          receipts.push({ feature: f.key, accountId: TARGET.accountId, databaseName: f.database, databaseId: db.uuid,
+            schemaHash: pinnedArtifacts[f.schema], statementCount: f.statements, confirmedAt: now() });
+          inventory.databases.push({ id: db.uuid, name: f.database });
+          continue;
+        }
       }
       const worker = await write(f, 'worker', '/workers/workers', { name: f.worker,
         subdomain: { enabled: false, previews_enabled: false }, logpush: false, observability: { enabled: false } }, w => {
         workerIdentity(w, f); need(fresh(Date.parse(w.created_on), now(), 300_000), 'NEW_WORKER_TIMESTAMP');
       });
       workerIdentity((await cf(`/workers/workers/${worker.id}`)).result, f, worker.id);
+      if (cleanup) onReceipt({ step: 'worker-created', accountId: TARGET.accountId, workerName: f.worker, workerId: worker.id, confirmedAt: now() });
       const versionBody = { compatibility_date: '2026-05-22', main_module: 'cleanup.mjs',
         bindings: [{ type: 'd1', name: f.binding, database_id: db.uuid }],
         modules: [{ name: 'cleanup.mjs', content_type: 'application/javascript+module', content_base64: artifacts[f.module].toString('base64') }] };
@@ -374,6 +404,7 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
       need(versionReadback?.id === version.id && versionReadback.main_module === versionBody.main_module
         && matchesD1Binding(versionReadback.bindings, versionBody.bindings[0])
         && canonical(versionReadback.modules) === canonical(versionBody.modules), 'VERSION_READBACK');
+      if (cleanup) onReceipt({ step: 'version-deployed', accountId: TARGET.accountId, workerName: f.worker, workerId: worker.id, versionId: version.id, databaseId: f.databaseId, binding: f.binding, moduleHash: pinnedArtifacts[f.module], confirmedAt: now() });
       // Name-targeted Cron has a residual concurrent-rename race. Two-way identity
       // readback detects prior changes, not an atomic conditional write guarantee.
       workerIdentity((await cf(`/workers/workers/${worker.id}`)).result, f, worker.id);
@@ -384,12 +415,14 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
       });
       workerIdentity((await cf(`/workers/workers/${worker.id}`)).result, f, worker.id);
       receipts.push({ feature: f.key, accountId: TARGET.accountId, databaseName: f.database, databaseId: db.uuid,
-        workerName: f.worker, workerId: worker.id, versionId: version.id, schemaHash: ARTIFACTS[f.schema],
-        moduleHash: ARTIFACTS[f.module], confirmedAt: now() });
-      inventory.databases.push({ id: db.uuid, name: f.database });
+        workerName: f.worker, workerId: worker.id, versionId: version.id,
+        ...(cleanup ? { cron: f.cron, persistentBindingAndCron: true, retentionScopeHash: RETENTION_SCOPE_HASH, scheduledDeletionScope: RETENTION_SCOPE[f.key], scheduledDeletionMayStartAfterCronRegistration: true } : { schemaHash: ARTIFACTS[f.schema] }),
+        moduleHash: pinnedArtifacts[f.module], confirmedAt: now() });
+      if (cleanup) onReceipt({ step: 'cron-registered', ...receipts.at(-1) });
+      if (!cleanup) inventory.databases.push({ id: db.uuid, name: f.database });
       inventory.workers.push({ id: worker.id, name: f.worker });
     }
-    return { ...(production ? { mode: PRODUCTION_MODE } : {}), receipts, journal: structuredClone(journal), actualHeartbeatVerified: false, alertDeliveryVerified: false, intakeEnabled: false };
+    return { ...(production ? { mode: cleanup ? CLEANUP_MODE : PRODUCTION_MODE } : {}), receipts, ...(cleanup ? { installationPreflight: { observedAt: inspected.observedAt, databaseCount: inspected.databaseCount, workerCount: inspected.workerCount, cronCount: inspected.cronCount, usageHeadroom: 'not-measured' } } : {}), journal: structuredClone(journal), actualHeartbeatVerified: false, alertDeliveryVerified: false, intakeEnabled: false };
   }
   return Object.freeze({ preflight: async () => { need(!started, 'ATTEMPT_ALREADY_STARTED'); return inspect(); },
     provision, health, journal: () => structuredClone(journal) });

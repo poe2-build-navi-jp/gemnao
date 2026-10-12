@@ -1,0 +1,118 @@
+{
+  "mode": "install-production-cleanup",
+  "operation": "install-two-production-cleanups-20261012",
+  "planHash": "3b8d0e7b0e59a88abb0bbefd51f75d1a169b6b511e057f283914c72dc249d25f",
+  "accountId": "6a09a32cba1288cccce5912015086a35",
+  "ref": "refs/heads/prepare/feedback-preview-controller-20261007",
+  "commit": "REPLACE_WITH_NEW_CONTROLLER_SOURCE_SHA",
+  "runId": null,
+  "approvedAt": 1791781769000,
+  "reviewerPolicy": "owner-manual",
+  "reviewers": [
+    325773421
+  ],
+  "requireOwnerInitiator": false,
+  "claimArtifact": {
+    "archiveBytes": 8192,
+    "retentionDays": 1,
+    "access": "existing-repository",
+    "storageBudgetReviewSha256": "c08885194c8eb3dc8863eb042cfadffa72da50bd312b78885be0efe8bddbb7c1"
+  },
+  "costEvidence": {
+    "kind": "owner-current-free-plan-confirmation",
+    "accountId": "6a09a32cba1288cccce5912015086a35",
+    "operation": "install-two-production-cleanups-20261012",
+    "planHash": "3b8d0e7b0e59a88abb0bbefd51f75d1a169b6b511e057f283914c72dc249d25f",
+    "workersPlan": "workers-free",
+    "maximumChargeUSD": 0,
+    "quotaPolicy": "provider-enforced-free-stop",
+    "usageHeadroom": "not-measured",
+    "confirmedAt": 1791779343000,
+    "confirmationEvidenceSha256": "5ef4f037e3e25c74d13304ed1154378df930bf2419b18046a589f56da5706550",
+    "databaseLimit": 10,
+    "reserve": {
+      "databaseSlots": 0,
+      "workerSlots": 2,
+      "cronSlots": 2
+    },
+    "workerLimit": 100,
+    "cronLimit": 5
+  },
+  "reconciledPriorRuns": [
+    {
+      "id": 37648312766,
+      "headSha": "2e037bbffe6f8b0076060d7880f45778e886a8f4",
+      "classification": "independently-reviewed-preview-only",
+      "reviewEvidenceSha256": "c669fe763040c71c99253b3656308e1705e7c97d37eb4fec9ffdeec31bbeb809",
+      "planHash": "1f8493cbbe703be117e4e14037a5d3e36cbf3df2e6b9f9c0263f7f4cef1b2978"
+    },
+    {
+      "id": 37640786041,
+      "headSha": "46dd697a147a7b21e2124ee3bcee5d4df4775ed5",
+      "classification": "independently-reviewed-preview-only",
+      "reviewEvidenceSha256": "baacb6cbb7558df3b1dc7fd79747694c97d48f91408c02b665a9781c8c2cf526",
+      "planHash": "1f8493cbbe703be117e4e14037a5d3e36cbf3df2e6b9f9c0263f7f4cef1b2978"
+    },
+    {
+      "id": 37636762355,
+      "headSha": "27e9104b013bc5a9a4a7ad5db4f2209796298daa",
+      "classification": "independently-reviewed-preview-only",
+      "reviewEvidenceSha256": "a5e6713d64395a07d9c020ec67152dbc2919a4fd3a8562b7f8724e21a15768f5",
+      "planHash": "1f8493cbbe703be117e4e14037a5d3e36cbf3df2e6b9f9c0263f7f4cef1b2978"
+    },
+    {
+      "id": 37634015928,
+      "headSha": "5111fbd931c66318daef841d0b76ee20d27b32d4",
+      "classification": "independently-reviewed-preview-only",
+      "reviewEvidenceSha256": "8720f8529adfddacecc0755e0805ed2bdefb18f87b84ee5d07f4d01224aaab48",
+      "planHash": "1f8493cbbe703be117e4e14037a5d3e36cbf3df2e6b9f9c0263f7f4cef1b2978"
+    },
+    {
+      "id": 37627039393,
+      "headSha": "580ab9cb6a0f4089edeb330f3def34326cf0dde2",
+      "classification": "independently-reviewed-preview-only",
+      "reviewEvidenceSha256": "c07925351fdc8fd4c78948d06565b6c5e9adee8354eb27974edb8710f3d50471",
+      "planHash": "1f8493cbbe703be117e4e14037a5d3e36cbf3df2e6b9f9c0263f7f4cef1b2978"
+    },
+    {
+      "id": 37619071366,
+      "headSha": "580ab9cb6a0f4089edeb330f3def34326cf0dde2",
+      "classification": "independently-reviewed-preview-only",
+      "reviewEvidenceSha256": "7bfb92c12d957690ed04fc68776511176f74cbfdbd43aed08868409f23b295c3",
+      "planHash": "1f8493cbbe703be117e4e14037a5d3e36cbf3df2e6b9f9c0263f7f4cef1b2978"
+    },
+    {
+      "id": 37613999939,
+      "headSha": "32eeacb305d9771621bb9f1f55e62eeda5dc4138",
+      "classification": "independently-reviewed-preview-only",
+      "reviewEvidenceSha256": "1475ed78cfb8196f51138ef750981b236dd1108ca78152828d60f18c12583368",
+      "planHash": "1f8493cbbe703be117e4e14037a5d3e36cbf3df2e6b9f9c0263f7f4cef1b2978"
+    },
+    {
+      "id": 37591443236,
+      "headSha": "e4c959b8bae708b84a7b2e83bba3c07ac59ff97d",
+      "classification": "independently-reviewed-preview-only",
+      "reviewEvidenceSha256": "bd5d2560cf094948634cd86010a2c5b2dc32d512d9f724f4dd2546349d08b582",
+      "planHash": "1f8493cbbe703be117e4e14037a5d3e36cbf3df2e6b9f9c0263f7f4cef1b2978"
+    },
+    {
+      "id": 38157005229,
+      "headSha": "302c534256075eb87bf60bedcfb6fcf9eb4d5a5e",
+      "classification": "independently-reviewed-no-mutations",
+      "reviewEvidenceSha256": "6c5c566f34b843457bfcd6b611d9fe1789071bf4a65d06f23e22cec0ecab663a"
+    },
+    {
+      "id": 38204547053,
+      "headSha": "d3420e65281692ba8518d1ca995607802d046a06",
+      "planHash": "44ef66446ead162f4f18aa60b3b6481c9e04d1e2f1b38276638c1d400985138b",
+      "classification": "independently-reviewed-production-databases-only",
+      "reviewEvidenceSha256": "d495cf3768dfaf24802270b109fbcaecf4a2591417c9df218833ae9e5ff495ff"
+    }
+  ],
+  "cleanupApproval": "both-pinned-production-hourly-crons",
+  "cleanupApprovalEvidenceSha256": "658e01dce3bc1192c4ecd7660e67506fe365718bff000d10ddd62c3a97f6c286",
+  "retentionScopeHash": "f189bf9c54d5d823fee0e78b13aeade59f5195665515ab5af3c693ce629093de",
+  "persistentBindingAndCron": true,
+  "notificationStatus": "parent-conversation-approved-not-connected",
+  "cronTargeting": "name-after-id-recheck-residual-rename-risk-accepted"
+}

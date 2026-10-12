@@ -28,7 +28,8 @@ export function fixtureRecord() {
     reconciledNoWriteRuns: [] };
 }
 export function mock(record, mutate = () => {}, failureWrite = 0, scope = { features: FEATURES, artifacts: ARTIFACTS }) {
-  const calls = []; const databases = []; const workers = []; const versions = new Map(); let writes = 0;
+  const calls = []; const databases = structuredClone(scope.existingDatabases ?? []);
+  const scopedDbIds = scope.databaseIds ?? dbIds; const workers = []; const versions = new Map(); let writes = 0;
   const run = { id: record.runId, workflow_id: 88, run_attempt: 1, event: 'workflow_dispatch',
     head_sha: record.commit, head_branch: record.ref.slice('refs/heads/'.length), path: `.github/workflows/${workflow}`,
     repository: { full_name: TARGET.repository }, status: 'in_progress', actor: { id: 456 }, triggering_actor: { id: 456 } };
@@ -60,7 +61,7 @@ export function mock(record, mutate = () => {}, failureWrite = 0, scope = { feat
       else if (path === `${account}/workers/workers` && options.method === 'GET') result = workers;
       else if (path === `${account}/d1/database`) {
         const i = scope.features.findIndex(f => f.database === body.name); assert.ok(i >= 0);
-        result = { uuid: dbIds[i], name: body.name, created_at: new Date(now).toISOString() }; databases.push(result);
+        result = { uuid: scopedDbIds[i], name: body.name, created_at: new Date(now).toISOString() }; databases.push(result);
       } else if (path.endsWith('/query')) {
         const i = dbIds.findIndex(id => path.includes(id)); assert.ok(i >= 0);
         assert.equal(sha256(body.sql), scope.artifacts[scope.features[i].schema]);
@@ -71,7 +72,7 @@ export function mock(record, mutate = () => {}, failureWrite = 0, scope = { feat
         result = { ...body, id: workerIds[i], created_on: new Date(now).toISOString() }; workers.push(result);
       } else if (path.endsWith('/versions')) {
         const i = workerIds.findIndex(id => path.includes(id)); assert.ok(i >= 0); assert.equal(query, '?deploy=true');
-        assert.deepEqual(body.bindings, [{ name: scope.features[i].binding, type: 'd1', database_id: dbIds[i] }]);
+        assert.deepEqual(body.bindings, [{ name: scope.features[i].binding, type: 'd1', database_id: scopedDbIds[i] }]);
         assert.equal(body.modules.length, 1); assert.equal(sha256(Buffer.from(body.modules[0].content_base64, 'base64')), scope.artifacts[scope.features[i].module]);
         result = { ...body, id: versionIds[i] }; versions.set(versionIds[i], result);
       } else if (path.includes('/versions/')) { assert.equal(query, '?include=modules'); result = versions.get(path.split('/').at(-1)); }

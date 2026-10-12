@@ -36,8 +36,8 @@ export const PRODUCTION_PLAN_HASH = sha256(JSON.stringify({
     access: 'existing-repository', overwrite: false },
 }));
 export function isProductionOperation(operation = 'preview') {
-  if (!['preview', PRODUCTION_OPERATION].includes(operation)) throw new Error('BLOCKED:RECORD_SCOPE');
-  return operation === PRODUCTION_OPERATION;
+  if (!['preview', PRODUCTION_OPERATION, 'production-cleanup'].includes(operation)) throw new Error('BLOCKED:RECORD_SCOPE');
+  return operation !== 'preview';
 }
 
 export function productionDatabaseRequestAllowed(path, method) {

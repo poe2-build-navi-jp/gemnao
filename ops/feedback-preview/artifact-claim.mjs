@@ -1,3 +1,4 @@
+import { CLEANUP_OPERATION, CLEANUP_PLAN_HASH } from '../diagnosis-production/cleanup-profile.mjs';
 // Concrete GitHub Artifact v4 claim integration. The official client is injected;
 // this module does not load an SDK, read runtime tokens, or upload on import.
 import { mkdtemp, writeFile, readFile, readdir, lstat, rm } from 'node:fs/promises';
@@ -15,10 +16,10 @@ function need(value) { if (!value) throw new Error('BLOCKED:ARTIFACT_CLAIM'); }
 export function artifactClaimName(runId, operation = 'preview') {
   const production = isProductionOperation(operation);
   need(Number.isSafeInteger(runId) && runId > 0);
-  return `${production ? 'gemnao-production-databases' : 'gemnao-preview-data'}-claim-${runId}-${production ? PRODUCTION_PLAN_HASH : PLAN_HASH}`;
+  return `${operation === CLEANUP_OPERATION ? 'gemnao-production-cleanup' : production ? 'gemnao-production-databases' : 'gemnao-preview-data'}-claim-${runId}-${operation === CLEANUP_OPERATION ? CLEANUP_PLAN_HASH : production ? PRODUCTION_PLAN_HASH : PLAN_HASH}`;
 }
 export function createArtifactClaims({ client, clientVersion, runId, operation = 'preview' }) {
-  const planHash = isProductionOperation(operation) ? PRODUCTION_PLAN_HASH : PLAN_HASH;
+  const planHash = operation === CLEANUP_OPERATION ? CLEANUP_PLAN_HASH : isProductionOperation(operation) ? PRODUCTION_PLAN_HASH : PLAN_HASH;
   // Future reviewed loader must verify installed package integrity/locked deps;
   // clientVersion alone is not supply-chain proof or authorization.
   need(clientVersion === ARTIFACT_CLIENT_PIN.version && typeof client?.uploadArtifact === 'function'
