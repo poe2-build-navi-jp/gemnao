@@ -1,11 +1,13 @@
-import { cleanupDiagnosis } from '../lib/diagnosis/server';
+import { cleanupDiagnosis } from '../lib/diagnosis/cleanup';
 const cleanupWorker = {
   async scheduled(
     _controller: ScheduledController,
-    env: { DB: D1Database },
+    env: { DIAGNOSIS_DB?: D1Database },
     _ctx: ExecutionContext,
   ) {
-    await cleanupDiagnosis(env.DB);
+    // Missing binding is a failed cleanup, never a fallback to the site database.
+    if (!env.DIAGNOSIS_DB) throw new Error('DIAGNOSIS_DB binding is required');
+    await cleanupDiagnosis(env.DIAGNOSIS_DB);
     console.log('diagnosis_cleanup_success');
   },
   fetch() {

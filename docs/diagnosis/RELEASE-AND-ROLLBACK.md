@@ -14,7 +14,7 @@ The candidate schema is staged only at `migrations/diagnosis/0001_diagnosis.sql`
 
 ## 初期状態
 
-診断DBへのアクセス、新規共有、計測は既定で無効。`DIAGNOSIS_STORAGE_ENABLED=true`を明示した環境でだけ診断DBへアクセスする。既存wrangler.json/Cloudflare設定やD1接続情報は変更していない。migrationはファイル追加のみで、アプリ起動時に勝手にテーブルを作らない。安全なfeature previewでは共有と計測を無効のままにし、本番と分離されたD1が確認できるまで有効化しない。
+診断DBへのアクセス、新規共有、計測は既定で無効。`DIAGNOSIS_STORAGE_ENABLED=true`と専用`DIAGNOSIS_DB` bindingの両方を明示した環境でだけ診断DBへアクセスする。通常のサイト用`DB`にはフォールバックしない。既存wrangler.json/Cloudflare設定やD1接続情報は変更していない。migrationはファイル追加のみで、アプリ起動時に勝手にテーブルを作らない。安全なfeature previewでは共有と計測を無効のままにし、本番と分離されたD1が確認できるまで有効化しない。
 
 ## 開発/検証
 
@@ -22,17 +22,17 @@ The candidate schema is staged only at `migrations/diagnosis/0001_diagnosis.sql`
 2. `pnpm typecheck && pnpm lint && pnpm test:diagnosis && pnpm build`
 3. `pnpm test:diagnosis:browser`（既存Chromiumが`/usr/bin/chromium`以外ならCHROMIUM_PATHを指定）
 
-ブラウザスクリプトは識別済みの偽ID `00000000-0000-4000-8000-000000000004` のローカルD1に全migrationを適用し、ローカルのPagesとcleanup Workerを起動する。`--remote`は使わない。HTTP/D1/Cron統合確認も行う。ブラウザ実行不可の環境では `DIAGNOSIS_SKIP_BROWSER=true bash scripts/test-diagnosis-browser.sh` でHTTP側のみを実行し、ブラウザ済みと扱わない。
+ブラウザスクリプトは識別済みの偽ID `00000000-0000-4000-8000-000000000004` の専用ローカル`DIAGNOSIS_DB`に診断用のstaged schemaだけを適用する。通常サイトのregression用には別の偽ID `00000000-0000-4000-8000-000000000005` のローカル`DB`へ既存migrationを適用する。両者を混在させず、ローカルのPagesと専用cleanup Workerを起動する。`--remote`は使わない。HTTP/D1/Cron統合確認も行う。ブラウザ実行不可の環境では `DIAGNOSIS_SKIP_BROWSER=true bash scripts/test-diagnosis-browser.sh` でHTTP側のみを実行し、ブラウザ済みと扱わない。
 
 このクラウド作業環境はOS interface inventoryが取得できないため、テスト専用bootstrapが失敗時だけloopbackを使用する。ChromiumのUnixソケット利用が拒否される環境では、制限を回避せず許可されたプレビュー用ブラウザで確認する。
 
 ## 本番共有を有効にする前
 
 1. Pages project、production branch/build command/output、現行commit、production DB bindingを確認
-2. previewに別DBを設定。既存テーブルのschemaとmigration履歴を読み、バックアップ/復旧窓・追加exports・基盤ログを確認
+2. preview用とproduction用の専用`DIAGNOSIS_DB`をそれぞれ通常のサイト`DB`から分離する計画を確認。新規binding/恒久的アクセスの設定は実行時の個別承認を得る。切り替え前に過去のpreview/liveすべての診断schema・行・migration履歴を棚卸しし、下記の継続性ゲート、バックアップ/復旧窓・追加exports・基盤ログを確認
 3. 承認済みの個別手順で検証DBへ `migrations/diagnosis/0001_diagnosis.sql` の追加schemaを適用。既存migrationは履歴に従い、不用意に再適用/初期化しない
-4. 別のcleanup Worker用の `cloudflare/wrangler.diagnosis-cleanup.json` のプレースホルダーを検証済みDB名/IDに置換。新しい恒久的DBアクセスを与える場合は運営者の承認を得る
-5. cleanup Workerを同じ検証DBへ公開し、毎時17分UTCのCronを登録。手動検証、失敗時ログと通知/担当、heartbeatの更新、期限切れ削除を確認
+4. 専用`DIAGNOSIS_DB`だけを参照する別のcleanup Worker用の `cloudflare/wrangler.diagnosis-cleanup.json` のプレースホルダーを検証済みDB名/IDに置換。新しい恒久的DBアクセスを与える場合は運営者の承認を得る
+5. cleanup WorkerをPages側の`DIAGNOSIS_DB`と同じ検証DBへ公開し、毎時17分UTCのCronを登録。手動検証、失敗時ログと通知/担当、heartbeatの更新、期限切れ削除を確認
 6. 本番も同じ順で追加migration、cleanup Worker/Cronを準備。実績が確認できてからPagesの `DIAGNOSIS_STORAGE_ENABLED=true` と `DIAGNOSIS_SHARING_ENABLED=true`。必要なら `DIAGNOSIS_METRICS_ENABLED=true`。実行には既存の認証済み公式環境を使い、トークンをコードへ入れない
 7. このfeatureのテスト済みcommitをproductionへ反映。Pages checkが当該commitで成功したことを確認
 8. 公開URLで診断→結果→共有作成→別セッション閲覧→他人の変更拒否→所有者更新→失効→削除。検証データは最後に削除
@@ -51,7 +51,7 @@ The candidate schema is staged only at `migrations/diagnosis/0001_diagnosis.sql`
 
 ## 個別停止
 
-`DIAGNOSIS_STORAGE_ENABLED`は接続許可の初期ゲート。公開後は所有者の削除を維持するため通常trueのままにする。未確認のpreview環境ではfalseのままにし、他のフラグだけで保存を有効にしない。
+`DIAGNOSIS_STORAGE_ENABLED`は専用`DIAGNOSIS_DB`への接続許可の初期ゲート。bindingがない場合は、通常の`DB`があっても読み書き・所有者管理を拒否する。公開後は所有者の削除を維持するため通常trueのままにする。未確認のpreview環境ではfalseのままにし、他のフラグだけで保存を有効にしない。
 
 - `DIAGNOSIS_WRITES_ENABLED=false`: 新規共有/更新を止める。既存の閲覧と本人の失効/削除は可能
 - `DIAGNOSIS_SHARING_ENABLED=false`: 共有の閲覧/作成/更新を止める。本人の失効/削除/復元は可能
@@ -73,3 +73,22 @@ The candidate schema is staged only at `migrations/diagnosis/0001_diagnosis.sql`
 ## Dormant integration gate (2026-10-07 review correction)
 
 The entire web diagnosis surface now defaults off: runtime `DIAGNOSIS_ENABLED` and build-time `NEXT_PUBLIC_DIAGNOSIS_ENABLED` both require the exact string `true`. Missing, false or malformed values do not activate it. CTA starts hidden and cannot be enabled by runtime configuration when the build gate is off. The wizard starts disabled pending configuration; the default build contains only a preparation message at `/diagnose`, marks it noindex and omits it from sitemap. The worker returns a no-store 503 while runtime activation is absent. Future publication requires separately reviewed activation, an explicitly enabled build, runtime flags and browser QA; none is performed here. Owner management/deletion remains available under its separate verified storage permission even when diagnosis intake is switched off.
+
+## Dedicated binding prerequisite and existing-data continuity (2026-10-07)
+
+See [the dedicated-storage validation record](DEDICATED-STORAGE-PREREQUISITE.md) for exact scope and verification limits.
+
+This local prerequisite changes only diagnosis source, synthetic local fixtures/tests and this release plan. The Pages API, shared-page reader and scheduled cleanup require `DIAGNOSIS_DB`; there is no ordinary `DB` fallback, runtime DDL, credential, production binding or activation change. The cleanup template remains placeholders and uses the same dedicated binding name as its source. The cleanup Worker imports only `lib/diagnosis/cleanup.ts`, a dependency-free extraction of the existing batch/expiry/heartbeat function; the API module re-exports it for compatibility. The candidate schema is still staged outside `.openai/drizzle` and is not applied remotely.
+
+Local-beta precedence is unchanged: `/config` returns its local-only capability before resolving any D1 binding. Public create/session/read/update/events remain denied even with stale sharing/storage/metrics flags. Existing owner recovery/revocation/deletion remains gated by its separate `DIAGNOSIS_STORAGE_ENABLED=true` permission and an explicitly verified `DIAGNOSIS_DB`. Cleanup is independent of intake flags, so a future intake shutdown must not stop retention cleanup.
+
+No remote diagnosis schema or records have been verified. Historical preview or live records may exist in a database formerly reached through `DB`. Changing the binding without inventory could orphan their owner deletion, recovery and retention cleanup. An empty new database, missing history in this checkout, or the feature being off now does not prove that older records do not exist.
+
+Before switching any environment to this source/binding:
+
+1. Read-only inventory all relevant historical preview/live diagnosis storage and schema/rows, bindings, cleanup jobs and migration history with authorized access. Confirm owners and retention deadlines without exposing tokens or snapshots in logs.
+2. If records exist or inventory is inconclusive, stop the switch. Review and explicitly approve a migration or limited legacy deletion/retention-continuity plan that preserves issued IDs, owner/recovery hashes and expiration semantics. Do not restore public intake as a side effect.
+3. Keep the old deletion and cleanup path available until the verified records are migrated or expired/deleted under the approved plan. Do not copy records, delete records or repoint an existing binding automatically. This prerequisite deliberately adds no legacy fallback or migration endpoint.
+4. Verify the approved continuity result and separate preview/production targets before requesting action-time approval for new persistent access and the eventual activation. Preserve owner deletion and cleanup during rollback too; reverting source alone must not silently route dedicated records back to ordinary `DB`.
+
+Remote inventory, exact migration/continuity approval, isolated binding setup, cleanup deployment/heartbeat and browser/manual sharing QA remain launch gates. Local unit and HTTP verification do not satisfy them.

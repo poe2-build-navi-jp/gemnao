@@ -8,7 +8,8 @@ import {
   type Snapshot,
 } from './validation';
 export type DiagnosisEnv = {
-  DB?: D1Database;
+  // Diagnosis data must never use the ordinary site DB binding.
+  DIAGNOSIS_DB?: D1Database;
   DIAGNOSIS_ENABLED?: string;
   DIAGNOSIS_LOCAL_BETA?: string;
   DIAGNOSIS_STORAGE_ENABLED?: string;
@@ -229,10 +230,12 @@ export async function handleDiagnosis(
   now = Date.now(),
 ): Promise<Response> {
   const path = new URL(request.url).pathname.replace(/^\/api\/diagnosis/, '');
-  const db = env.DIAGNOSIS_STORAGE_ENABLED === 'true' ? env.DB : undefined;
+  // Local config is entirely storage-free, even with conflicting stale flags.
+  if (path === '/config' && request.method === 'GET' && env.DIAGNOSIS_LOCAL_BETA === 'true')
+    return reply({ enabled: true, sharing: false, metrics: false, localOnly: true });
+  const db = env.DIAGNOSIS_STORAGE_ENABLED === 'true' ? env.DIAGNOSIS_DB : undefined;
   try {
     if (path === '/config' && request.method === 'GET') {
-      if (env.DIAGNOSIS_LOCAL_BETA === 'true') return reply({ enabled: true, sharing: false, metrics: false, localOnly: true });
       let ready = false;
       if (
         db &&
@@ -526,32 +529,5 @@ export async function handleDiagnosis(
     );
   }
 }
-/** Hourly scheduled operation; touches diagnosis tables only. */
-export async function cleanupDiagnosis(db: D1Database, now = Date.now()) {
-  await db.batch([
-    db
-      .prepare(
-        'DELETE FROM diagnosis_shared WHERE expires_at <= ? OR revoked_at IS NOT NULL',
-      )
-      .bind(now),
-    db
-      .prepare('DELETE FROM diagnosis_rate_limits WHERE expires_at <= ?')
-      .bind(now),
-    db
-      .prepare(
-        "DELETE FROM diagnosis_operations WHERE key LIKE 'salt:%' AND expires_at <= ?",
-      )
-      .bind(now),
-    db
-      .prepare('DELETE FROM diagnosis_metrics WHERE day <= ?')
-      .bind(new Date(now - TTL).toISOString().slice(0, 10)),
-  ]);
-  // Mark success only after deletion committed. Never refresh on a failed cleanup.
-  await db
-    .prepare(
-      "INSERT INTO diagnosis_operations (key,value,expires_at) VALUES ('cleanup_success',?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value, expires_at=excluded.expires_at",
-    )
-    .bind(String(now), now + 2 * 3600000)
-    .run();
-}
+export { cleanupDiagnosis } from './cleanup';
 export const isShareActive = active;

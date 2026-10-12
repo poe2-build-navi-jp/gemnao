@@ -18,11 +18,26 @@ const json = async (
     },
     ...(body === undefined ? {} : { body: JSON.stringify(body) }),
   });
+// These queries target only the fixed dummy local bindings from the test config.
+const localRows = (binding, sql) => {
+  const result = spawnSync('node_modules/.bin/wrangler', [
+    'd1', 'execute', binding, '--local', '--config', 'wrangler.diagnosis-local.json',
+    '--persist-to', process.env.DIAGNOSIS_LOCAL_STATE || '.wrangler/diagnosis-state',
+    '--json', '--command', sql,
+  ], { encoding: 'utf8', timeout: 60000 });
+  assert.equal(result.status, 0, result.stderr);
+  return JSON.parse(result.stdout)[0].results;
+};
 const reports = [];
 const pass = (name) => {
   reports.push(name);
   console.log('PASS ' + name);
 };
+const diagnosisTables = localRows('DIAGNOSIS_DB', "SELECT name FROM sqlite_master WHERE type='table' AND (name LIKE 'diagnosis_%' OR name='issue_feedback') ORDER BY name").map((row) => row.name);
+assert.deepEqual(diagnosisTables, ['diagnosis_metrics', 'diagnosis_operations', 'diagnosis_rate_limits', 'diagnosis_shared']);
+const siteTables = localRows('DB', "SELECT name FROM sqlite_master WHERE type='table' AND (name LIKE 'diagnosis_%' OR name='issue_feedback') ORDER BY name").map((row) => row.name);
+assert.deepEqual(siteTables, ['issue_feedback']);
+pass('dedicated local DIAGNOSIS_DB has only diagnosis tables; ordinary local DB has no diagnosis tables');
 const cfg = await (await json('/api/diagnosis/config')).json();
 assert.equal(cfg.sharing, true);
 pass('actual local D1 + executed scheduled cleanup enables shares');
@@ -203,7 +218,7 @@ writeFileSync(
     {
       passed: reports,
       date: new Date().toISOString(),
-      database: 'isolated local fake ID, no remote',
+      database: 'DIAGNOSIS_DB fixed local fake ID ...0004; ordinary DB separate local fake ID ...0005; no remote',
     },
     null,
     2,
