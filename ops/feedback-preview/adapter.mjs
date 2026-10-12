@@ -9,7 +9,7 @@ import { isProductionOperation, PRODUCTION_FEATURES, PRODUCTION_ARTIFACTS, PRODU
 
 import { CLEANUP_OPERATION, CLEANUP_MODE, CLEANUP_RECORD_OPERATION, CLEANUP_FEATURES, CLEANUP_ARTIFACTS, CLEANUP_PLAN_HASH, RETENTION_SCOPE, RETENTION_SCOPE_HASH, CLEANUP_SETUP_RUN, cleanupRequestAllowed } from '../diagnosis-production/cleanup-profile.mjs';
 import { PRODUCTION_HEALTH_OPERATION, PRODUCTION_HEALTH_MODE, PRODUCTION_HEALTH_PLAN_HASH, PRODUCTION_HEALTH_TARGETS,
-  validateProductionHealthRecord, productionHealthRequestAllowed, productionHealthTransport, productionHeartbeatStatus } from '../diagnosis-production/cleanup-health.mjs';
+  validateProductionHealthContext, productionHealthRequestAllowed, productionHealthTransport, productionHeartbeatStatus } from '../diagnosis-production/cleanup-health.mjs';
 
 const ACCOUNT = `/accounts/${TARGET.accountId}`;
 const REPO = `/repos/${TARGET.repository}`;
@@ -42,7 +42,7 @@ const fresh = (stamp, now, age) => Number.isSafeInteger(stamp) && stamp <= now &
 // Screenshots remain private: only their hashes and reviewed assessment belong
 // in a future record. A hash proves byte identity, not authenticity or plan truth.
 export function validateRecord(recordBytes, trustedRecordHash, now, operation = 'preview') {
-  if (operation === PRODUCTION_HEALTH_OPERATION) return validateProductionHealthRecord(recordBytes, trustedRecordHash, now);
+  need(operation !== PRODUCTION_HEALTH_OPERATION, 'HEALTH_MODE');
   const production = isProductionOperation(operation);
   const cleanup = operation === CLEANUP_OPERATION;
   const planHash = cleanup ? CLEANUP_PLAN_HASH : production ? PRODUCTION_PLAN_HASH : PLAN_HASH;
@@ -128,14 +128,16 @@ export function validateRecord(recordBytes, trustedRecordHash, now, operation = 
   return r;
 }
 
-export async function createPreparedAdapter({ transport, durableClaims, recordBytes, trustedRecordHash, now = Date.now, onStage = () => {}, onEnvelope = () => {}, onReceipt = () => {}, operation = 'preview' }) {
+async function createAdapter({ transport, durableClaims, recordBytes, trustedRecordHash, readContext, now = Date.now, onStage = () => {}, onEnvelope = () => {}, onReceipt = () => {}, operation = 'preview' }) {
   const production = isProductionOperation(operation);
   const productionHealth = operation === PRODUCTION_HEALTH_OPERATION;
   const cleanup = operation === CLEANUP_OPERATION;
   const features = productionHealth ? [] : cleanup ? CLEANUP_FEATURES : production ? PRODUCTION_FEATURES : FEATURES;
   const pinnedArtifacts = cleanup ? CLEANUP_ARTIFACTS : production ? PRODUCTION_ARTIFACTS : ARTIFACTS;
   const planHash = productionHealth ? PRODUCTION_HEALTH_PLAN_HASH : cleanup ? CLEANUP_PLAN_HASH : production ? PRODUCTION_PLAN_HASH : PLAN_HASH;
-  const validateApproval = () => validateRecord(approvedBytes, trustedRecordHash, now(), operation);
+  const readSnapshot = productionHealth ? Object.freeze(structuredClone(readContext)) : null;
+  const validateApproval = () => productionHealth ? validateProductionHealthContext(readSnapshot)
+    : validateRecord(approvedBytes, trustedRecordHash, now(), operation);
   need(typeof transport === 'function', 'NO_TRANSPORT');
   const approvedBytes = String(recordBytes);
   const record = validateApproval();
@@ -438,6 +440,12 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
     provision, health, journal: () => structuredClone(journal) });
 }
 
+// Write/legacy factories cannot accept the record-free production-health scope.
+export async function createPreparedAdapter(options) {
+  need(options.operation !== PRODUCTION_HEALTH_OPERATION, 'HEALTH_MODE');
+  return createAdapter(options);
+}
+
 // This capability exposes no provision method, accepts no claim client, and its
 // transport rejects all mutations even if a future preflight change attempts one.
 export async function createReadOnlyAdapter({ transport, recordBytes, trustedRecordHash, now = Date.now, onStage, onEnvelope }) {
@@ -452,9 +460,9 @@ export async function createHealthAdapter({ transport, recordBytes, trustedRecor
   return Object.freeze({ health: adapter.health });
 }
 
-export async function createProductionHealthAdapter({ transport, recordBytes, trustedRecordHash, now = Date.now, onStage, onEnvelope }) {
-  validateRecord(recordBytes, trustedRecordHash, now(), PRODUCTION_HEALTH_OPERATION);
-  const adapter = await createPreparedAdapter({ transport: productionHealthTransport(transport), recordBytes,
-    trustedRecordHash, now, onStage, onEnvelope, operation: PRODUCTION_HEALTH_OPERATION });
+export async function createProductionHealthAdapter({ transport, context, now = Date.now, onStage, onEnvelope }) {
+  validateProductionHealthContext(context);
+  const adapter = await createAdapter({ transport: productionHealthTransport(transport), readContext: context,
+    now, onStage, onEnvelope, operation: PRODUCTION_HEALTH_OPERATION });
   return Object.freeze({ health: adapter.health });
 }

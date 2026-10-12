@@ -1,10 +1,12 @@
 // Two fixed heartbeat SELECTs only. No credentials, caller SQL, or network on import.
 import { TARGET, sha256 } from '../feedback-preview/controller.mjs';
 import { readOnlyTransport } from '../feedback-preview/diagnostics.mjs';
-import { PRODUCTION_COST_POLICY } from './database-profile.mjs';
 
 export const PRODUCTION_HEALTH_OPERATION = 'production-cleanup-health';
 export const PRODUCTION_HEALTH_MODE = 'observe-production-cleanup-heartbeats';
+export const PRODUCTION_HEALTH_AUTHORIZATION = Object.freeze({ kind: 'github-environment-owner-review',
+  repository: TARGET.repository, environment: TARGET.environment, environmentId: 23658815122,
+  ref: 'refs/heads/prepare/feedback-preview-controller-20261007', reviewerId: 325773421, runAttempt: 1 });
 export const CLEANUP_INSTALLATION = Object.freeze({ runId: 38207736391,
   sourceSha: 'a7a0c08dcf89e9c2f99ca19863a5ea545ffb70c4', jobId: 114674925272,
   receiptSha256: '4136e7743345a54c063ce9b4279bc1d90d701973d3d794273a7e28c78e000cfc' });
@@ -25,38 +27,29 @@ export const PRODUCTION_HEALTH_TARGETS = Object.freeze([
 export const PRODUCTION_HEALTH_PLAN_HASH = sha256(JSON.stringify({ operation: PRODUCTION_HEALTH_MODE,
   accountId: TARGET.accountId, installation: CLEANUP_INSTALLATION, targets: PRODUCTION_HEALTH_TARGETS,
   maximumQueries: 2, maximumRowsPerQuery: 1, maximumAgeMs: 7_200_000,
-  cloudflareWrites: 0, artifacts: 0, costEvidencePolicy: PRODUCTION_COST_POLICY }));
+  cloudflareWrites: 0, artifacts: 0, authorization: PRODUCTION_HEALTH_AUTHORIZATION }));
 const ACCOUNT = `/accounts/${TARGET.accountId}`;
-const HASH = /^[a-f0-9]{64}$/;
 function need(ok, code) { if (!ok) throw new Error(`BLOCKED:${code}`); }
-const fresh = (stamp, now, age) => Number.isSafeInteger(stamp) && stamp <= now && now - stamp <= age;
 
-export function validateProductionHealthRecord(bytes, digest, now) {
-  need(typeof bytes === 'string' && Buffer.byteLength(bytes) <= 65_536, 'APPROVAL_RECORD_SIZE');
-  need(HASH.test(digest ?? '') && sha256(bytes) === digest, 'APPROVAL_RECORD_PIN');
-  let r; try { r = JSON.parse(bytes); } catch { throw new Error('BLOCKED:APPROVAL_RECORD_JSON'); }
-  need(r?.mode === PRODUCTION_HEALTH_MODE && r.operation === PRODUCTION_HEALTH_MODE
-    && r.planHash === PRODUCTION_HEALTH_PLAN_HASH && r.accountId === TARGET.accountId, 'RECORD_SCOPE');
-  need(r.ref === 'refs/heads/prepare/feedback-preview-controller-20261007'
-    && /^[a-f0-9]{40}$/.test(r.commit ?? ''), 'REVIEWED_REF');
-  need(Number.isSafeInteger(r.runId) && r.runId > 0 && r.runId !== CLEANUP_INSTALLATION.runId
-    && fresh(r.approvedAt, now, 3_600_000), 'REVIEWED_RUN');
-  need(r.reviewerPolicy === 'owner-manual' && r.requireOwnerInitiator === false
-    && Array.isArray(r.reviewers) && r.reviewers.length === 1
-    && Number.isSafeInteger(r.reviewers[0]) && r.reviewers[0] > 0, 'REVIEWER_POLICY');
-  need(r.installationRunId === CLEANUP_INSTALLATION.runId
-    && r.installationReceiptSha256 === CLEANUP_INSTALLATION.receiptSha256
-    && Array.isArray(r.reconciledPriorRuns) && r.reconciledPriorRuns.length === 0, 'HEALTH_PLAN_PIN');
-  const e = r.costEvidence;
-  const fields = ['kind','accountId','operation','planHash','workersPlan','maximumChargeUSD',
-    'quotaPolicy','usageHeadroom','confirmedAt','confirmationEvidenceSha256'];
-  need(e?.kind === PRODUCTION_COST_POLICY.kind && Object.keys(e).every(k => fields.includes(k))
-    && e.accountId === TARGET.accountId && e.operation === r.operation && e.planHash === r.planHash
-    && e.workersPlan === 'workers-free' && e.maximumChargeUSD === 0
-    && e.quotaPolicy === 'provider-enforced-free-stop' && e.usageHeadroom === 'not-measured'
-    && fresh(e.confirmedAt, now, PRODUCTION_COST_POLICY.maximumConfirmationAgeMs)
-    && HASH.test(e.confirmationEvidenceSha256 ?? ''), 'CURRENT_FREE_PLAN_EVIDENCE');
-  return r;
+// Context identifies the run; it is not approval evidence. Before any Cloudflare
+// request the shared GitHub gate independently verifies this exact run/head,
+// current protected Environment and its actual owner approval through the API.
+// No approval timestamp, old record, cost attestation or self-signed digest exists.
+export function validateProductionHealthContext(context) {
+  const keys = ['repository', 'ref', 'commit', 'runId', 'reviewerId'];
+  need(context && typeof context === 'object' && !Array.isArray(context)
+    && Object.keys(context).length === keys.length && Object.keys(context).every(k => keys.includes(k))
+    && context.repository === TARGET.repository, 'WORKFLOW_CONTEXT');
+  need(context.ref === PRODUCTION_HEALTH_AUTHORIZATION.ref
+    && /^[a-f0-9]{40}$/.test(context.commit ?? ''), 'REVIEWED_REF');
+  need(Number.isSafeInteger(context.runId) && context.runId > 0
+    && context.runId !== CLEANUP_INSTALLATION.runId, 'REVIEWED_RUN');
+  need(context.reviewerId === PRODUCTION_HEALTH_AUTHORIZATION.reviewerId, 'EXACT_OWNER_RECORD');
+  return Object.freeze({ mode: PRODUCTION_HEALTH_MODE, operation: PRODUCTION_HEALTH_MODE,
+    planHash: PRODUCTION_HEALTH_PLAN_HASH, accountId: TARGET.accountId, ref: context.ref,
+    commit: context.commit, runId: context.runId, reviewerPolicy: 'owner-manual',
+    reviewers: Object.freeze([context.reviewerId]), requireOwnerInitiator: false,
+    reconciledPriorRuns: Object.freeze([]) });
 }
 
 export function productionHealthRequestAllowed(path, method, body) {

@@ -66,6 +66,6 @@ jobs:
           PREVIEW_PROTECTED_ENVIRONMENT: gemnao-preview-data
           PREVIEW_OPERATION: ${{ inputs.operation || 'preview' }}
           PREVIEW_GITHUB_TOKEN: ${{ github.token }}
-          PREVIEW_APPROVAL_RECORD: ${{ secrets.GEMNAO_PREVIEW_APPROVAL_RECORD }}
-          PREVIEW_APPROVAL_SHA256: ${{ secrets.GEMNAO_PREVIEW_APPROVAL_SHA256 }}
+          PREVIEW_APPROVAL_RECORD: ${{ inputs.operation != 'production-cleanup-health' && secrets.GEMNAO_PREVIEW_APPROVAL_RECORD || '' }}
+          PREVIEW_APPROVAL_SHA256: ${{ inputs.operation != 'production-cleanup-health' && secrets.GEMNAO_PREVIEW_APPROVAL_SHA256 || '' }}
           GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN: ${{ secrets.GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN }}

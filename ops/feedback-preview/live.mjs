@@ -6,7 +6,7 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { TARGET, sha256 } from './controller.mjs';
 import { PLAN_HASH, validateRecord, createPreparedAdapter, createReadOnlyAdapter, createHealthAdapter, createProductionHealthAdapter } from './adapter.mjs';
-import { PRODUCTION_HEALTH_OPERATION, PRODUCTION_HEALTH_MODE, PRODUCTION_HEALTH_PLAN_HASH, productionHealthRequestAllowed } from '../diagnosis-production/cleanup-health.mjs';
+import { PRODUCTION_HEALTH_OPERATION, PRODUCTION_HEALTH_PLAN_HASH, productionHealthRequestAllowed } from '../diagnosis-production/cleanup-health.mjs';
 import { boundedFailure, createDiagnostics } from './diagnostics.mjs';
 import { ARTIFACT_CLIENT_PIN, createArtifactClaims } from './artifact-claim.mjs';
 import { isProductionOperation, PRODUCTION_PLAN_HASH, productionDatabaseRequestAllowed } from '../diagnosis-production/database-profile.mjs';
@@ -109,22 +109,26 @@ export async function loadPinnedArtifactClient() {
 }
 export async function runProtected({ env, checkoutSha, transport, loadClient = loadPinnedArtifactClient, now = Date.now, onStage = () => {}, onEnvelope = () => {}, onReceipt = () => {} }) {
   validateContext(env, checkoutSha, true);
+  const operation = env.PREVIEW_OPERATION ?? 'preview';
+  if (operation === PRODUCTION_HEALTH_OPERATION) {
+    onStage('environment');
+    const reviewerId = await verifyConfiguredEnvironment(transport);
+    const context = { repository: env.GITHUB_REPOSITORY, ref: env.GITHUB_REF,
+      commit: env.GITHUB_SHA, runId: Number(env.GITHUB_RUN_ID), reviewerId };
+    const adapter = await createProductionHealthAdapter({ transport, context, now, onStage, onEnvelope });
+    return adapter.health();
+  }
   onStage('record');
   const bytes = env.PREVIEW_APPROVAL_RECORD;
   const digest = env.PREVIEW_APPROVAL_SHA256;
   need(typeof bytes === 'string' && bytes.length > 0 && typeof digest === 'string'
     && sha256(bytes) === digest, 'ENVIRONMENT_RECORD_MISSING_OR_MISMATCHED');
-  const operation = env.PREVIEW_OPERATION ?? 'preview';
   const record = validateRecord(bytes, digest, now(), operation);
   need(record.ref === SETUP.ref && record.commit === env.GITHUB_SHA && record.runId === Number(env.GITHUB_RUN_ID)
     && record.reviewerPolicy === 'owner-manual' && record.requireOwnerInitiator === false, 'EXACT_RUN_RECORD');
   onStage('environment');
   const reviewerId = await verifyConfiguredEnvironment(transport);
   need(record.reviewers.length === 1 && record.reviewers[0] === reviewerId, 'EXACT_OWNER_RECORD');
-  if (record.mode === PRODUCTION_HEALTH_MODE) {
-    const adapter = await createProductionHealthAdapter({ transport, recordBytes: bytes, trustedRecordHash: digest, now, onStage, onEnvelope });
-    return adapter.health();
-  }
   if (record.mode === 'cleanup-health') {
     const adapter = await createHealthAdapter({ transport, recordBytes: bytes, trustedRecordHash: digest, now, onStage, onEnvelope });
     return adapter.health();

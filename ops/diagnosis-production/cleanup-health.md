@@ -23,11 +23,11 @@ Cloudflareリクエストは最大4回、SELECT最大2回、結果最大各1行�
 ## 最小実行手順
 
 1. 許可済み `prepare/feedback-preview-controller-20261007` の新headを確認し、既存 workflow `feedback-preview-control.yml` を operation=`production-cleanup-health` で **新runを1回**開始する。設置runのrerunはしない。
-2. gate成功後、`cleanup-health-record.template.json` の commit/runId と実際の読取り承認時刻をそのrunへ固定する。Free確認の時刻・証拠hashは実回答に基づく値を入れる。旧設置recordは流用しない。
-3. 記録をオフライン検証し、最小化したUTF-8 bytesのSHA-256と対にして、既存Environmentの `GEMNAO_PREVIEW_APPROVAL_RECORD` と `GEMNAO_PREVIEW_APPROVAL_SHA256` に設定する。既存Cloudflare資格情報の値は取得・変更しない。
-4. **07:43 UTC（16:43 JST）以後**に既存Environmentの本人Approveを行い、両方の次cron後の値を1runで確認する。実行の遅延を考慮して数分後の確認が適切。早すぎる場合のpendingは故障の断定ではない。
-5. `lastSuccessAt`、`healthy`、`pending` を親の会話へ報告する。欠落やエラーなら自動再試行せず、別の読取りrunとして再準備する。通知配送は未接続のまま。
+2. gate成功後、**07:43 UTC（16:43 JST）以後**に既存Environmentの本人Approveを行い、両方の次cron後の値を1runで確認する。実行の遅延を考慮して数分後の確認が適切。早すぎる場合のpendingは故障の断定ではない。
+3. `lastSuccessAt`、`healthy`、`pending` を親の会話へ報告する。欠落やエラーなら自動再試行せず、別の読取りrunとして開始する。通知配送は未接続のまま。
 
-既存の本人review、管理者bypass禁止、固定branch、exact run/head、attempt 1、record 60分有効を維持する。Free確認も既存policyの60分以内を各SELECT直前に再確認する。
-06:00:33の設置承認は07:00:33に期限切れ、06:29:58のFree確認は07:29:58に期限切れになるため、07:43以後の読取りには使えない。時刻の書換えで更新しない。
-この変更は読取り経路の準備だけで、workflow dispatch、Environment更新、本人Approve、DB照会を自動実行しない。
+このoperationだけは、現在runのGitHub Environment本人reviewを承認元にする。実際のapproved状態・本人ID・Environment IDをAPIから確認し、固定branch、run/headとcheckoutの一致、attempt 1、管理者bypass禁止を引き続き強制する。
+実行コンテキストはrunを識別する情報であり承認証拠ではない。Cloudflareへの最初の要求より前にGitHubの実reviewを照合する。承認時刻は生成しない。
+この固定読取りでは、チャットでの追加作業承認、Free再確認、スクショ、record/SHA secret更新は不要。旧recordは読まず、workflowもhealth時にrecord/SHAを渡さない。
+既存Cloudflare資格情報とアクセス範囲を使い、契約プランを再検証したとは主張しない。書込みoperationのrecord・60分期限・Free条件・保護は変更しない。
+経路の準備だけではworkflow dispatch、Environment更新、本人Approve、DB照会を自動実行しない。

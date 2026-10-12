@@ -7,7 +7,7 @@ import { validateRecord, createProductionHealthAdapter, createPreparedAdapter } 
 import { runProtected, runGate, credentialTransport, publicRunResult, SETUP } from '../../ops/feedback-preview/live.mjs';
 import { PRODUCTION_HEALTH_OPERATION as operation, PRODUCTION_HEALTH_MODE as mode, PRODUCTION_HEALTH_PLAN_HASH as planHash,
   PRODUCTION_HEALTH_TARGETS as targets, CLEANUP_INSTALLATION, productionHealthTransport,
-  productionHeartbeatStatus } from '../../ops/diagnosis-production/cleanup-health.mjs';
+  productionHeartbeatStatus, PRODUCTION_HEALTH_AUTHORIZATION, validateProductionHealthContext } from '../../ops/diagnosis-production/cleanup-health.mjs';
 import { PRODUCTION_PLAN_HASH } from '../../ops/diagnosis-production/database-profile.mjs';
 import { CLEANUP_PLAN_HASH } from '../../ops/diagnosis-production/cleanup-profile.mjs';
 import { fixtureRecord, mock, workflow } from '../feedback-preview/fixtures.mjs';
@@ -15,18 +15,13 @@ const now = Date.parse('2026-10-12T07:45:00Z');
 const account = `https://api.cloudflare.com/client/v4/accounts/${TARGET.accountId}`;
 function setup(mutate = () => {}) {
   const base = fixtureRecord();
-  const r = { mode, operation: mode, planHash, accountId: TARGET.accountId, ref: SETUP.ref,
-    commit: base.commit, runId: base.runId, approvedAt: now, reviewerPolicy: 'owner-manual',
-    reviewers: base.reviewers, requireOwnerInitiator: false, reconciledPriorRuns: [],
-    installationRunId: CLEANUP_INSTALLATION.runId, installationReceiptSha256: CLEANUP_INSTALLATION.receiptSha256,
-    costEvidence: { kind: 'owner-current-free-plan-confirmation', accountId: TARGET.accountId, operation: mode, planHash,
-      workersPlan: 'workers-free', maximumChargeUSD: 0, quotaPolicy: 'provider-enforced-free-stop',
-      usageHeadroom: 'not-measured', confirmedAt: now, confirmationEvidenceSha256: sha256('SYNTHETIC confirmation') } };
+  const r = { ...base, ref: SETUP.ref, reviewers: [PRODUCTION_HEALTH_AUTHORIZATION.reviewerId] };
   const network = mock(r, (c,v) => {
     if (c.path.endsWith(`/environments/${SETUP.environment}`)) {
       v.id = SETUP.environmentId; v.protection_rules[0].reviewers[0].reviewer.login = SETUP.reviewerLogin;
+      v.protection_rules[0].reviewers[0].reviewer.id = r.reviewers[0];
     }
-    if (c.path.endsWith('/approvals')) v[0].environments[0].id = SETUP.environmentId;
+    if (c.path.endsWith('/approvals')) { v[0].environments[0].id = SETUP.environmentId; v[0].user.id = r.reviewers[0]; }
     mutate(c,v);
   });
   const calls = [];
@@ -45,15 +40,15 @@ function setup(mutate = () => {}) {
     const response = new Response(JSON.stringify(value),{status:200,headers:{'content-type':'application/json'}});
     Object.defineProperty(response,'url',{value:url}); return response;
   };
-  const bytes = () => JSON.stringify(r);
   const env = (job = 'provision') => ({ GITHUB_ACTIONS:'true', GITHUB_REPOSITORY:TARGET.repository,
     GITHUB_EVENT_NAME:'workflow_dispatch', GITHUB_REF:SETUP.ref, GITHUB_RUN_ATTEMPT:'1', GITHUB_RUN_ID:String(r.runId),
     GITHUB_SHA:r.commit, GITHUB_WORKFLOW_SHA:r.commit, GITHUB_WORKFLOW_REF:`${TARGET.repository}/.github/workflows/${workflow}@${SETUP.ref}`,
     RUNNER_ENVIRONMENT:'github-hosted', GITHUB_JOB:job, PREVIEW_PROTECTED_ENVIRONMENT:SETUP.environment,
-    PREVIEW_OPERATION:operation, PREVIEW_APPROVAL_RECORD:bytes(), PREVIEW_APPROVAL_SHA256:sha256(bytes()),
+    PREVIEW_OPERATION:operation,
     PREVIEW_OUTSIDE_RECORD_PRESENT:'false', PREVIEW_OUTSIDE_DIGEST_PRESENT:'false' });
-  const options = () => ({transport, recordBytes:bytes(), trustedRecordHash:sha256(bytes()), now:()=>now});
-  return {r,calls,transport,bytes,env,options};
+  const context = () => ({repository:TARGET.repository,ref:r.ref,commit:r.commit,runId:r.runId,reviewerId:r.reviewers[0]});
+  const options = () => ({transport, context:context(), now:()=>now});
+  return {r,calls,transport,context,env,options};
 }
 await test('protected production heartbeat path uses exactly two identity GETs and two pinned SELECTs, no SDK',async()=>{
   const f=setup();
@@ -83,22 +78,44 @@ await test('transport and credential boundary reject other DBs, changed SQL, par
   assert.equal(calls,0);transport(url,{method:'POST',body:JSON.stringify({sql:t.sql})});
   assert.throws(()=>transport(url,{method:'POST',body:JSON.stringify({sql:t.sql})}),/HEALTH_QUERY_ONCE/);assert.equal(calls,1);
 });
-await test('record, run and protection failures stop before any Cloudflare request',async()=>{
-  for(const mutate of [r=>{r.approvedAt-=3_600_001;},r=>{r.costEvidence.confirmedAt-=3_600_001;},
-    r=>{r.installationReceiptSha256='0'.repeat(64);},r=>{r.mode='install-production-cleanup';},
-    r=>{r.costEvidence.workersPlan='workers-paid';}]){
-    const f=setup();mutate(f.r);
-    await assert.rejects(runProtected({env:f.env(),checkoutSha:f.r.commit,transport:f.transport,now:()=>now}),/BLOCKED/);
-    assert.equal(f.calls.length,0);
-  }
+await test('actual owner review, exact run/head, Environment and bypass protections precede every Cloudflare request',async()=>{
   for(const mutate of [(c,v)=>{if(c.path.endsWith('/approvals'))v.splice(0);},
+    (c,v)=>{if(c.path.endsWith('/approvals'))v[0].state='rejected';},
+    (c,v)=>{if(c.path.endsWith('/approvals'))v[0].user.id=123;},
+    (c,v)=>{if(c.path.endsWith('/approvals'))v[0].environments[0].id=123;},
     (c,v)=>{if(c.path.includes('/git/ref/'))v.object.sha='b'.repeat(40);},
-    (c,v)=>{if(c.path.endsWith(`/environments/${SETUP.environment}`))v.can_admins_bypass=true;}]){
+    (c,v)=>{if(c.path.endsWith('/actions/runs/12345'))v.head_sha='b'.repeat(40);},
+    (c,v)=>{if(c.path.endsWith('/actions/runs/12345'))v.id=99999;},
+    (c,v)=>{if(c.path.endsWith('/actions/runs/12345'))v.run_attempt=2;},
+    (c,v)=>{if(c.path.endsWith(`/environments/${SETUP.environment}`))v.can_admins_bypass=true;},
+    (c,v)=>{if(c.path.endsWith(`/environments/${SETUP.environment}`))v.id=123;},
+    (c,v)=>{if(c.path.endsWith('/deployment-branch-policies'))v.branch_policies[0].name='*';}]){
     const f=setup(mutate);await assert.rejects(runProtected({env:f.env(),checkoutSha:f.r.commit,transport:f.transport,now:()=>now}),/BLOCKED/);
     assert.ok(f.calls.every(c=>!c.url.startsWith(account)));
   }
-  const f=setup();const e=f.env();e.GITHUB_RUN_ID='99999';
-  await assert.rejects(runProtected({env:e,checkoutSha:f.r.commit,transport:f.transport,now:()=>now}),/EXACT_RUN_RECORD/);assert.equal(f.calls.length,0);
+  for(const mutate of [e=>{e.GITHUB_RUN_ATTEMPT='2';},e=>{e.GITHUB_REF='refs/heads/main';},
+    e=>{e.GITHUB_SHA='b'.repeat(40);},e=>{e.GITHUB_WORKFLOW_SHA='b'.repeat(40);}]){
+    const f=setup(),e=f.env();mutate(e);
+    await assert.rejects(runProtected({env:e,checkoutSha:f.r.commit,transport:f.transport,now:()=>now}),/WORKFLOW_CONTEXT/);assert.equal(f.calls.length,0);
+  }
+});
+await test('health never accesses approval-record secrets or invents approval time and rejects old record inputs',async()=>{
+  const f=setup(),e=f.env();
+  for(const key of ['PREVIEW_APPROVAL_RECORD','PREVIEW_APPROVAL_SHA256'])Object.defineProperty(e,key,{get(){return assert.fail('health must not read old approval records');}});
+  const result=await runProtected({env:e,checkoutSha:f.r.commit,transport:f.transport,now:()=>now,loadClient:()=>assert.fail()});
+  assert.equal(result.actualHeartbeatVerified,true);
+  const context=validateProductionHealthContext(f.context());
+  assert.ok(!('approvedAt' in context));assert.ok(!('costEvidence' in context));assert.ok(!('trustedRecordHash' in context));
+  assert.throws(()=>validateProductionHealthContext({...f.context(),approvedAt:now}),/WORKFLOW_CONTEXT/);
+  assert.throws(()=>validateProductionHealthContext({...f.context(),reviewerId:123}),/EXACT_OWNER_RECORD/);
+  const oldBytes=JSON.stringify(f.r);assert.throws(()=>validateRecord(oldBytes,sha256(oldBytes),now,operation),/HEALTH_MODE/);
+});
+await test('record-free health context cannot authorize any write operation',async()=>{
+  for(const writeOperation of ['preview','production-databases','production-cleanup']){
+    const f=setup(),e=f.env();e.PREVIEW_OPERATION=writeOperation;
+    await assert.rejects(runProtected({env:e,checkoutSha:f.r.commit,transport:f.transport,now:()=>now}),/ENVIRONMENT_RECORD_MISSING_OR_MISMATCHED/);
+    assert.equal(f.calls.length,0);
+  }
 });
 await test('identity mismatch precedes SELECTs; health capability cannot provision or retry uncertain responses',async()=>{
   const bad=setup((c,v)=>{if(c.target?.feature==='feedback'&&c.method==='GET')v.result.uuid=targets[0].databaseId;});
@@ -108,8 +125,7 @@ await test('identity mismatch precedes SELECTs; health capability cannot provisi
   const adapter=await createProductionHealthAdapter(f.options());assert.deepEqual(Object.keys(adapter),['health']);
   await assert.rejects(adapter.health(),/REQUEST_UNCERTAIN_OR_INVALID/);const count=f.calls.length;
   await assert.rejects(adapter.health(),/ATTEMPT_ALREADY_STARTED/);assert.equal(f.calls.length,count);
-  const internal=await createPreparedAdapter({...f.options(),operation});
-  await assert.rejects(internal.provision(),/READ_ONLY_MODE/);assert.equal(f.calls.length,count);
+  await assert.rejects(createPreparedAdapter({...f.options(),operation}),/HEALTH_MODE/);assert.equal(f.calls.length,count);
 });
 await test('only post-installation scheduled, recent heartbeat stamps verify; malformed/private/write-marked rows fail closed',()=>{
   const result=rows=>[{success:true,results:rows,meta:{rows_written:0,changed_db:false}}];
@@ -129,7 +145,7 @@ await test('receipt identity and existing installation/database plan hashes rema
     for(const key of ['databaseId','databaseName','workerId','versionId','confirmedAt'])assert.equal(t[key],r[key]);assert.equal(sha256(t.sql),t.sqlSha256);}
   assert.equal(PRODUCTION_PLAN_HASH,'44ef66446ead162f4f18aa60b3b6481c9e04d1e2f1b38276638c1d400985138b');
   assert.equal(CLEANUP_PLAN_HASH,'3b8d0e7b0e59a88abb0bbefd51f75d1a169b6b511e057f283914c72dc249d25f');
-  const f=setup();assert.equal(validateRecord(f.bytes(),sha256(f.bytes()),now,operation).planHash,planHash);
+  const f=setup();assert.equal(validateProductionHealthContext(f.context()).planHash,planHash);
 });
 await test('production SQL runs with only heartbeat-column reads authorized by SQLite',async()=>{
   const schemas=await Promise.all(['ops/feedback-preview/reviewed/diagnosis/0001.sql','ops/feedback-preview/reviewed/0001.sql'].map(p=>readFile(p,'utf8')));
