@@ -238,7 +238,13 @@ export async function handleQa(
   if (!sameSite(r) || !['GET', 'POST'].includes(r.method)) return denied();
   if (!(await auth(r, e)))
     return denied('既存の管理キーでログインしてください。', 401);
-  if (!configuredWindow(w) || !offBindings(e))
+  // Retirement disables all intake/shared-read exceptions, while keeping only
+  // the already authorized owner cleanup path for the fixed ledger grace period.
+  if (
+    typeof w.enabled !== 'boolean' ||
+    !configuredWindow({ ...w, enabled: true }) ||
+    !offBindings(e)
+  )
     return json(
       {
         active: false,

@@ -97,7 +97,7 @@ try {
     s = h.setup(); const { context, page } = await open();
     await page.getByRole('button', { name: '1. 架空4件を保存', exact: true }).click();
     await expect(page.locator('output')).toContainText('4件を保存しました');
-    s.clock.now = s.window.expiresAt;
+    s.clock.now = s.window.expiresAt; s.window.enabled = false; // Prepared retirement must preserve the old tab's cleanup.
     await page.getByRole('button', { name: '状態を確認', exact: true }).click(); await expect(page.locator('output')).toContainText('停止中');
     await page.getByRole('button', { name: '中止・未削除分を削除', exact: true }).click();
     await expect(page.locator('output')).toContainText('試験データを削除しました'); assert.deepEqual(counts(), { diagnosis: 0, feedback: 0 });
@@ -107,7 +107,7 @@ try {
     s = h.setup(); dropSaveResponse = true; const { context, page } = await open();
     await page.getByRole('button', { name: '1. 架空4件を保存', exact: true }).click();
     await expect(page.locator('output')).toContainText('診断A保存を確認できません'); assert.deepEqual(counts(), { diagnosis: 1, feedback: 0 });
-    s.clock.now = s.window.expiresAt;
+    s.clock.now = s.window.expiresAt; s.window.enabled = false; // Prepared retirement must preserve the old tab's cleanup.
     await page.getByRole('button', { name: '中止・未削除分を削除', exact: true }).click();
     await expect(page.locator('output')).toContainText('試験データを削除しました'); assert.deepEqual(counts(), { diagnosis: 0, feedback: 0 });
     await context.close(); console.log('PASS browser: predeclared diagnosis IDs permit owner deletion after lost response and expiry');

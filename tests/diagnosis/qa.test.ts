@@ -639,3 +639,63 @@ void test('QA cleanup fails when ordinary ownership has moved, even for an authe
   );
   assert.equal(count(s, 'diagnosis'), 1);
 });
+
+void test('retired window permanently rejects intake/shared reads but retains scoped owner cleanup', async () => {
+  const s = setup(),
+    { cookie, planned } = await session(s);
+  await qa(s, { op: 'create', slot: 'diagnosis-a' }, cookie);
+  const creds = feedbackCredentials(s.clock.now);
+  await qa(s, { op: 'create', slot: 'feedback-a', ...creds }, cookie);
+  s.window.enabled = false;
+  const before = s.diagnosis.control.calls + s.feedback.control.calls;
+  const status = (await (await qa(s, undefined, cookie)).json()) as {
+    active: boolean;
+    records: unknown[];
+  };
+  assert.equal(status.active, false);
+  assert.deepEqual(status.records, []);
+  for (const body of [
+    { op: 'session', slot: 'diagnosis-a' },
+    { op: 'create', slot: 'diagnosis-b' },
+    {
+      op: 'create',
+      slot: 'feedback-b',
+      ...feedbackCredentials(s.clock.now, 'e'.repeat(64)),
+    },
+    { op: 'duplicate', slot: 'feedback-a', ...creds },
+  ])
+    assert.equal((await qa(s, body, cookie)).status, 403);
+  assert.equal(
+    await qaShareAllowed(
+      request(undefined, cookie, '/diagnosis/' + planned['diagnosis-a']),
+      s.env,
+      planned['diagnosis-a'],
+      s.window,
+      s.clock.now,
+    ),
+    false,
+  );
+  assert.equal(s.diagnosis.control.calls + s.feedback.control.calls, before);
+  s.clock.now = s.window.expiresAt;
+  assert.equal((await qa(s, { op: 'close' }, cookie)).status, 200);
+  assert.equal(
+    (await qa(s, { op: 'delete', slot: 'diagnosis-a' }, adminCookie)).status,
+    403,
+  );
+  assert.equal(
+    (await qa(s, { op: 'delete', slot: 'diagnosis-a' }, cookie)).status,
+    200,
+  );
+  assert.equal(
+    (await qa(s, { op: 'delete', slot: 'feedback-a', ...creds }, cookie))
+      .status,
+    200,
+  );
+  assert.equal(count(s, 'diagnosis') + count(s, 'feedback'), 0);
+  s.clock.now = s.window.expiresAt + 86400000;
+  assert.equal(
+    (await qa(s, { op: 'delete', slot: 'feedback-a', ...creds }, cookie))
+      .status,
+    403,
+  );
+});
