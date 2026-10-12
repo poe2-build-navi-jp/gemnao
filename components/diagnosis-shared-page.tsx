@@ -169,6 +169,7 @@ export function DiagnosisSharedPage({
               />
               <DiagnosisResultView
                 result={data.snapshot.result}
+                answers={data.snapshot.answers}
                 records={{
                   ...data.snapshot.tried,
                   ...(manage ? draft : data.snapshot.results),

@@ -1,5 +1,6 @@
 import { RULE_VERSION, statuses } from './model';
 import { actions } from './rules';
+import { diagnosisStorageFailure, diagnosisRetryHeaders } from './availability';
 import {
   buildSnapshot,
   validateStatuses,
@@ -8,7 +9,8 @@ import {
   type Snapshot,
 } from './validation';
 export type DiagnosisEnv = {
-  DB?: D1Database;
+  // Diagnosis data must never use the ordinary site DB binding.
+  DIAGNOSIS_DB?: D1Database;
   DIAGNOSIS_ENABLED?: string;
   DIAGNOSIS_LOCAL_BETA?: string;
   DIAGNOSIS_STORAGE_ENABLED?: string;
@@ -46,6 +48,8 @@ const hash = async (value: string) =>
     ),
     (b) => b.toString(16).padStart(2, '0'),
   ).join('');
+const attemptBinding = (token: string, requestId: string) =>
+  hash('gemnao-diagnosis-pending-v1:' + token + ':' + requestId);
 const owner = (request: Request) =>
   request.headers
     .get('Cookie')
@@ -229,10 +233,12 @@ export async function handleDiagnosis(
   now = Date.now(),
 ): Promise<Response> {
   const path = new URL(request.url).pathname.replace(/^\/api\/diagnosis/, '');
-  const db = env.DIAGNOSIS_STORAGE_ENABLED === 'true' ? env.DB : undefined;
+  // Local config is entirely storage-free, even with conflicting stale flags.
+  if (path === '/config' && request.method === 'GET' && env.DIAGNOSIS_LOCAL_BETA === 'true')
+    return reply({ enabled: true, sharing: false, metrics: false, localOnly: true });
+  const db = env.DIAGNOSIS_STORAGE_ENABLED === 'true' ? env.DIAGNOSIS_DB : undefined;
   try {
     if (path === '/config' && request.method === 'GET') {
-      if (env.DIAGNOSIS_LOCAL_BETA === 'true') return reply({ enabled: true, sharing: false, metrics: false, localOnly: true });
       let ready = false;
       if (
         db &&
@@ -353,17 +359,27 @@ export async function handleDiagnosis(
         '保存期間を守るため、共有の作成・更新を一時停止しています。',
       );
     if (path === '/session' && request.method === 'POST') {
-      if (!exactKeys(input, [])) return fail(400, '入力が正しくありません。');
+      if (!exactKeys(input, ['requestId', 'resume']) ||
+        (input.requestId !== undefined && (typeof input.requestId !== 'string' || !ID.test(input.requestId))) ||
+        (input.resume !== undefined && input.resume !== true) ||
+        (input.resume === true && input.requestId === undefined))
+        return fail(400, '入力が正しくありません。');
+      const current = owner(request);
+      if (input.resume === true && !SECRET.test(current))
+        return fail(403, '元の管理用Cookieがありません。この送信を別のCookieで再作成することはできません。');
       if (!(await rate(db, request, 'session', 10, now))) return rateFail();
-      const current = owner(request),
-        token = SECRET.test(current) ? current : random(32);
-      return reply({ ok: true }, 200, { 'Set-Cookie': setCookie(token) });
+      const token = SECRET.test(current) ? current : random(32);
+      return reply({
+        ok: true,
+        ...(typeof input.requestId === 'string' ? { ownerBinding: await attemptBinding(token, input.requestId) } : {}),
+      }, 200, { 'Set-Cookie': setCookie(token) });
     }
     if (path === '' && request.method === 'POST') {
       if (
-        !exactKeys(input, ['snapshot', 'requestId']) ||
+        !exactKeys(input, ['snapshot', 'requestId', 'ownerBinding', 'resume']) ||
         typeof input.requestId !== 'string' ||
-        !ID.test(input.requestId)
+        !ID.test(input.requestId) ||
+        (input.resume !== undefined && (input.resume !== true || typeof input.ownerBinding !== 'string'))
       )
         return fail(400, '入力が正しくありません。');
       const snapshot = buildSnapshot(input.snapshot);
@@ -372,6 +388,12 @@ export async function handleDiagnosis(
       const token = owner(request);
       if (!SECRET.test(token))
         return fail(403, '管理用セッションを準備してから再試行してください。');
+      // The binding is only a consistency check. The HttpOnly cookie is still
+      // required; a binding never grants access or substitutes for a credential.
+      if (input.ownerBinding !== undefined &&
+        (typeof input.ownerBinding !== 'string' || !SECRET.test(input.ownerBinding) ||
+          input.ownerBinding !== await attemptBinding(token, input.requestId)))
+        return fail(403, '元の管理用Cookieと一致しません。この送信は再試行できません。');
       const ownerHash = await hash(token);
       const previous = await db
         .prepare(
@@ -379,6 +401,10 @@ export async function handleDiagnosis(
         )
         .bind(ownerHash, input.requestId)
         .first<ShareRow>();
+      // Recovery is lookup-only: do not resurrect a deleted share or duplicate
+      // one whose ownership moved to another browser through recovery.
+      if (input.resume === true && !previous)
+        return fail(409, 'このCookieで回復できる共有はありません。未保存・削除済み・別の所有者へ復元済みの可能性があります。新しい共有は作成していません。');
       if (previous) {
         if (!active(previous, now))
           return fail(
@@ -518,40 +544,11 @@ export async function handleDiagnosis(
       });
     }
     return fail(405, 'この操作は利用できません。');
-  } catch {
+  } catch (error) {
     // Deliberately no request bodies, cookies, IPs, keys or SQL in logs/responses.
-    return fail(
-      503,
-      '保存機能を利用できません。入力は残っています。時間を空けて再試行してください。',
-    );
+    const failure = diagnosisStorageFailure(error, now);
+    return reply(failure, 503, diagnosisRetryHeaders(failure, now));
   }
 }
-/** Hourly scheduled operation; touches diagnosis tables only. */
-export async function cleanupDiagnosis(db: D1Database, now = Date.now()) {
-  await db.batch([
-    db
-      .prepare(
-        'DELETE FROM diagnosis_shared WHERE expires_at <= ? OR revoked_at IS NOT NULL',
-      )
-      .bind(now),
-    db
-      .prepare('DELETE FROM diagnosis_rate_limits WHERE expires_at <= ?')
-      .bind(now),
-    db
-      .prepare(
-        "DELETE FROM diagnosis_operations WHERE key LIKE 'salt:%' AND expires_at <= ?",
-      )
-      .bind(now),
-    db
-      .prepare('DELETE FROM diagnosis_metrics WHERE day <= ?')
-      .bind(new Date(now - TTL).toISOString().slice(0, 10)),
-  ]);
-  // Mark success only after deletion committed. Never refresh on a failed cleanup.
-  await db
-    .prepare(
-      "INSERT INTO diagnosis_operations (key,value,expires_at) VALUES ('cleanup_success',?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value, expires_at=excluded.expires_at",
-    )
-    .bind(String(now), now + 2 * 3600000)
-    .run();
-}
+export { cleanupDiagnosis } from './cleanup';
 export const isShareActive = active;

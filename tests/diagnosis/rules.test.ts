@@ -239,8 +239,16 @@ void test('new enum validation supports short safety branches and rejects arbitr
   assert.ok(validateAnswers(safe));
   for (const answers of [{ ...safe, safety: 'fine' }, { ...safe, modelKnown: 'PRIVATE MODEL' }, { ...safe, costCategory: '<script>' }, { ...safe, serial: 'SECRET' }, { safety: 'none' }, { storage: 'critical' }]) assert.equal(validateAnswers(answers), null);
 });
-void test('new repair context cannot enter the legacy sharing protocol', () => {
-  assert.equal(buildSnapshot({ version: RULE_VERSION, answers: safe, tried: {}, results: {} }), null);
+void test('shared safety and repair snapshots accept enums, preserve stop guidance and reject private text', () => {
+  const snapshot = buildSnapshot({ version: RULE_VERSION, answers: safe, tried: {}, results: {} });
+  assert.deepEqual(snapshot?.answers, safe);
+  assert.ok(snapshot?.result.decision);
+  const danger = buildSnapshot({ version: RULE_VERSION, answers: { safety: 'danger' }, tried: {}, results: {} });
+  assert.equal(danger?.result.decision?.urgency, 'stop');
+  assert.deepEqual(danger?.result.recommendations, []);
+  for (const answers of [{ ...safe, game: 'PRIVATE' }, { ...safe, serial: 'PRIVATE' }, { ...safe, modelKnown: 'PRIVATE' }]) {
+    assert.equal(buildSnapshot({ version: RULE_VERSION, answers, tried: {}, results: {} }), null);
+  }
   const legacy = { ...safe };
   delete legacy.safety; delete legacy.storage;
   assert.ok(buildSnapshot({ version: RULE_VERSION, answers: legacy, tried: {}, results: {} }));

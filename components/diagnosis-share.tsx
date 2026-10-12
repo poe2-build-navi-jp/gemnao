@@ -1,6 +1,6 @@
 'use client';
 /* oxlint-disable next/no-html-link-for-pages -- Deliberate document navigation for privacy. */
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   RULE_VERSION,
   statuses,
@@ -8,8 +8,9 @@ import {
   type ActionStatus,
 } from '@/lib/diagnosis/model';
 import { diagnose, actions } from '@/lib/diagnosis/rules';
-import { DiagnosisSummary } from './diagnosis-result';
-import { diagnosisRequest } from '@/lib/diagnosis/local';
+import { DiagnosisSummary, DiagnosisResultView } from './diagnosis-result';
+import { diagnosisRequest, DiagnosisRequestError } from '@/lib/diagnosis/local';
+import { readPendingShare, savePendingShare, removePendingShare, withPendingShareLock, type PendingShare } from '@/lib/diagnosis/pending-share';
 export function ShareControls({
   id,
   onCopy,
@@ -75,10 +76,8 @@ export function SharePreview({
     <div className="diag-preview">
       <h3>公開する内容の確認</h3>
       <DiagnosisSummary answers={answers} />
-      <p>
-        優先確認：{result.recommendations.map((r) => r.action.title).join('、')}
-      </p>
-      <ul>
+      <DiagnosisResultView result={result} answers={answers} records={{ ...tried, ...results }} headingId="diag-share-preview-result-title" />
+      <ul className="diag-share-reviewed-records">
         {Object.entries({ ...tried, ...results })
           .filter(([, status]) => status !== 'untried')
           .map(([id, status]) => (
@@ -93,6 +92,7 @@ export function SharePreview({
     </div>
   );
 }
+type ShareAttempt = PendingShare;
 export function DiagnosisShare({
   answers,
   tried,
@@ -101,6 +101,8 @@ export function DiagnosisShare({
   enabled,
   onCreated,
   onMetric,
+  onBusyChange,
+  initialAttempt,
 }: {
   answers: Answers;
   tried: Record<string, ActionStatus>;
@@ -109,6 +111,8 @@ export function DiagnosisShare({
   enabled: boolean;
   onCreated: (id: string) => void;
   onMetric: (event: string) => void;
+  onBusyChange?: (busy: boolean) => void;
+  initialAttempt?: ShareAttempt;
 }) {
   const [preview, setPreview] = useState(false),
     [confirmed, setConfirmed] = useState(false),
@@ -116,26 +120,85 @@ export function DiagnosisShare({
     [error, setError] = useState(''),
     [key, setKey] = useState<string | null>(null),
     [expires, setExpires] = useState<number | null>(null);
-  const nonce = useRef(''),
-    locked = useRef(false);
-  async function create() {
-    if (locked.current || !confirmed) return;
+  const [paused, setPaused] = useState(false);
+  const content = JSON.stringify({ answers, tried, results, version: RULE_VERSION });
+  const [reviewedContent, setReviewedContent] = useState(content);
+  const [attempt, setAttempt] = useState<ShareAttempt | null>(initialAttempt || null);
+  const locked = useRef(false);
+  const mounted = useRef(false);
+  useEffect(() => {
+    mounted.current = true;
+    return () => { mounted.current = false; };
+  }, []);
+  // Invalidate consent before committing a render of changed local content.
+  // Returning to an earlier answer must not revive an earlier confirmation.
+  if (reviewedContent !== content) {
+    setReviewedContent(content);
+    setConfirmed(false);
+  }
+  const previewSnapshot = attempt?.snapshot || { answers, tried, results };
+  async function create(recheck = false) {
+    if (!mounted.current || locked.current || (paused && !recheck) || !preview || !enabled || shareId || !confirmed || reviewedContent !== content) return;
     locked.current = true;
     setBusy(true);
+    onBusyChange?.(true);
     setError('');
+    // Capture both before the session await. An uncertain save must never reuse
+    // its request ID with different content, including after cancel/reopen.
     try {
-      await diagnosisRequest('/session', {});
-      nonce.current ||= crypto.randomUUID().replaceAll('-', '');
+      await withPendingShareLock(async () => {
+      let submission: ShareAttempt = attempt || {
+        version: 1,
+        createdAt: Date.now(),
+        ownerBinding: null,
+        requestId: crypto.randomUUID().replaceAll('-', ''),
+        snapshot: JSON.parse(content) as ShareAttempt['snapshot'],
+      };
+      try {
+        if (!attempt && readPendingShare())
+          throw new Error('前回の未確認送信が残っています。回答に戻るか再読み込みして回復してください。');
+        savePendingShare(submission, Date.now(), attempt !== null);
+      } catch (e) {
+        throw new Error('再試行情報を端末内に保存できないため、共有内容は送信していません。' +
+          (e instanceof Error ? e.message : 'ブラウザの保存設定や空き容量を確認してください。'));
+      }
+      setAttempt(submission);
+      const resuming = submission.ownerBinding !== null;
+      const session = await diagnosisRequest<{ ownerBinding: string }>('/session', {
+        requestId: submission.requestId,
+        ...(submission.ownerBinding ? { resume: true } : {}),
+      });
+      if (!mounted.current) return;
+      if (typeof session.ownerBinding !== 'string' || !/^[a-f0-9]{64}$/.test(session.ownerBinding) ||
+        (submission.ownerBinding && submission.ownerBinding !== session.ownerBinding))
+        throw new Error('元の管理用Cookieを確認できません。この送信を別のCookieで再作成することはできません。');
+      submission = { ...submission, ownerBinding: session.ownerBinding };
+      try { savePendingShare(submission, Date.now(), true); }
+      catch { throw new Error('再試行情報を端末内に保存できないため、共有内容は送信していません。保存設定や空き容量を確認してください。'); }
+      setAttempt(submission);
       const d = await diagnosisRequest<{
         id: string;
         recoveryKey: string | null;
         expiresAt: number;
         repeated?: boolean;
       }>('', {
-        snapshot: { answers, tried, results, version: RULE_VERSION },
-        requestId: nonce.current,
+        snapshot: submission.snapshot,
+        requestId: submission.requestId,
+        ownerBinding: submission.ownerBinding,
+        ...(resuming ? { resume: true } : {}),
       });
+      if (
+        typeof d.id !== 'string' || !/^[a-f0-9]{32}$/.test(d.id) ||
+        (d.recoveryKey !== null &&
+          (typeof d.recoveryKey !== 'string' || !/^[a-f0-9]{64}$/.test(d.recoveryKey))) ||
+        typeof d.expiresAt !== 'number' || !Number.isFinite(d.expiresAt)
+      ) throw new Error('保存を確認できませんでした。同じ内容で再試行してください。');
+      if (!mounted.current) return;
+      let cleanupFailed = false;
+      try { removePendingShare(submission.requestId); } catch { cleanupFailed = true; }
       onCreated(d.id);
+      setPaused(false);
+      if (cleanupFailed) setError('共有は保存されましたが、端末内の再試行情報を消せませんでした。URLと管理キーを先に控えてください。');
       setKey(d.recoveryKey);
       setExpires(d.expiresAt);
       if (d.repeated && !d.recoveryKey)
@@ -143,11 +206,18 @@ export function DiagnosisShare({
           '前の保存が完了していたため、同じURLを表示しています。管理キーは再表示できません。このブラウザから管理できますが、別の端末へ復元できるキーを控えていない場合は、必要に応じてこの共有を削除して作り直してください。',
         );
       setPreview(false);
+      });
     } catch (e) {
-      setError(e instanceof Error ? e.message : '保存できませんでした。');
+      if (mounted.current) {
+        setError(e instanceof Error ? e.message : '保存できませんでした。');
+        if (!(e instanceof DiagnosisRequestError) || e.unavailable || paused) setPaused(true);
+      }
     } finally {
       locked.current = false;
-      setBusy(false);
+      if (mounted.current) {
+        setBusy(false);
+        onBusyChange?.(false);
+      }
     }
   }
   return (
@@ -196,11 +266,20 @@ export function DiagnosisShare({
                 setConfirmed(false);
               }}
             >
-              共有用ページを作る
+              {paused ? '保存内容を再確認する' : initialAttempt ? '前回の送信内容を確認する' : '共有用ページを作る'}
             </button>
           ) : (
             <>
-              <SharePreview answers={answers} tried={tried} results={results} />
+              <SharePreview {...previewSnapshot} />
+              {paused && <p className="diag-notice">
+                保存・共有の受付を一時停止しています。入力は消去していません。
+                時間を空けて、最初に確認した同じ内容の保存結果を再確認できます。新しい共有を自動で作り直すことはありません。
+              </p>}
+              {attempt && (
+                <p className="diag-notice">
+                  保存の再試行は、最初に送信を確認した上の内容と同じ受付情報を使います。その後の端末内の変更は送信しません。確認済みの内容・受付情報・同じCookieか確認する秘密ではない指紋を、このブラウザに最初の操作から最大30日保存します。自動送信はしません。
+                </p>
+              )}
               <p className="diag-warning">
                 このリンクを知っている人は、共有内容を閲覧できます。SNSや公開掲示板に貼ると、不特定多数の人に見られる可能性があります。
               </p>
@@ -213,6 +292,7 @@ export function DiagnosisShare({
                 <input
                   type="checkbox"
                   checked={confirmed}
+                  disabled={busy}
                   onChange={(e) => setConfirmed(e.target.checked)}
                 />
                 <span>
@@ -222,9 +302,9 @@ export function DiagnosisShare({
               <button
                 className="diag-primary"
                 disabled={!confirmed || busy}
-                onClick={create}
+                onClick={() => void create(paused)}
               >
-                {busy ? '保存しています…' : '確認した内容でURLを発行'}
+                {busy ? '保存しています…' : paused ? '同じ保存操作を再確認' : '確認した内容でURLを発行'}
               </button>
               <button disabled={busy} onClick={() => setPreview(false)}>
                 キャンセル
@@ -233,9 +313,9 @@ export function DiagnosisShare({
           )}
         </>
       ) : (
-        <p className="diag-notice">
-          共有機能は現在準備中、または一時停止中です。診断と端末内の実施結果の記録は利用できます。
-        </p>
+        <div className="diag-notice">
+          <p>共有の受付は現在準備中、または一時停止中です。診断と端末内の実施結果の記録は利用できます。</p>
+        </div>
       )}
     </section>
   );

@@ -1,0 +1,47 @@
+name: Diagnosis share consent checks
+on:
+  pull_request:
+    branches: [gemunao]
+    paths:
+      - components/diagnosis-share.tsx
+      - components/diagnosis-wizard.tsx
+      - lib/diagnosis/**
+      - tests/diagnosis/**
+      - .github/workflows/diagnosis-share-consent.yml
+permissions:
+  contents: read
+concurrency:
+  group: diagnosis-share-consent-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  test:
+    if: github.repository == 'poe2-build-navi-jp/gemnao' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      CI: 'true'
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22.19.0'
+      - name: Install locked dependencies without lifecycle scripts
+        run: |
+          npm install --global --ignore-scripts --no-audit --no-fund pnpm@11.19.0
+          pnpm install --frozen-lockfile --ignore-scripts
+      - name: Install Chromium for synthetic component tests
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Consent and immutable retry browser regressions
+        run: node --test tests/diagnosis/share-consent.test.mjs
+      - name: Existing diagnosis rule and API tests
+        run: pnpm test:diagnosis
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Lint
+        run: pnpm lint
+      - name: Full build and existing static checks
+        run: pnpm build

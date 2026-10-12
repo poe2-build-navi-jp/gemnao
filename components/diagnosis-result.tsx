@@ -44,17 +44,19 @@ export function DiagnosisResultView({
   onRecord,
   onArticle,
   answers,
+  headingId = 'diag-result-title',
 }: {
   result: DiagnosisResult;
   answers?: Answers;
+  headingId?: string;
   records: Record<string, ActionStatus>;
   onRecord?: (id: string, status: ActionStatus) => void;
   onArticle?: (id: string) => void;
 }) {
   return (
-    <section aria-labelledby="diag-result-title">
+    <section aria-labelledby={headingId}>
       <p className="diag-kicker">回答から整理した確認の順番</p>
-      <h2 id="diag-result-title">あなたの診断結果</h2>
+      <h2 id={headingId}>あなたの診断結果</h2>
       <p className={result.scope === 'pc' ? 'diag-warning' : 'diag-lead'}>
         {result.summary}
       </p>

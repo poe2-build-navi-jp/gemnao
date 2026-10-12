@@ -18,17 +18,35 @@ const json = async (
     },
     ...(body === undefined ? {} : { body: JSON.stringify(body) }),
   });
+// These queries target only the fixed dummy local bindings from the test config.
+const localRows = (binding, sql) => {
+  const result = spawnSync('node_modules/.bin/wrangler', [
+    'd1', 'execute', binding, '--local', '--config', 'wrangler.diagnosis-local.json',
+    '--persist-to', process.env.DIAGNOSIS_LOCAL_STATE || '.wrangler/diagnosis-state',
+    '--json', '--command', sql,
+  ], { encoding: 'utf8', timeout: 60000 });
+  assert.equal(result.status, 0, result.stderr);
+  return JSON.parse(result.stdout)[0].results;
+};
 const reports = [];
 const pass = (name) => {
   reports.push(name);
   console.log('PASS ' + name);
 };
+const diagnosisTables = localRows('DIAGNOSIS_DB', "SELECT name FROM sqlite_master WHERE type='table' AND (name LIKE 'diagnosis_%' OR name='issue_feedback') ORDER BY name").map((row) => row.name);
+assert.deepEqual(diagnosisTables, ['diagnosis_metrics', 'diagnosis_operations', 'diagnosis_rate_limits', 'diagnosis_shared']);
+const siteTables = localRows('DB', "SELECT name FROM sqlite_master WHERE type='table' AND (name LIKE 'diagnosis_%' OR name='issue_feedback') ORDER BY name").map((row) => row.name);
+assert.deepEqual(siteTables, ['issue_feedback']);
+pass('dedicated local DIAGNOSIS_DB has only diagnosis tables; ordinary local DB has no diagnosis tables');
 const cfg = await (await json('/api/diagnosis/config')).json();
 assert.equal(cfg.sharing, true);
 pass('actual local D1 + executed scheduled cleanup enables shares');
-const sess = await json('/api/diagnosis/session', {});
+const requestId = crypto.randomUUID().replaceAll('-', '');
+const sess = await json('/api/diagnosis/session', { requestId });
 assert.equal(sess.status, 200);
 const cookie = sess.headers.get('set-cookie').split(';')[0];
+const { ownerBinding } = await sess.json();
+assert.match(ownerBinding, /^[a-f0-9]{64}$/);
 const input = {
   answers: {
     symptom: 'black-screen',
@@ -42,17 +60,32 @@ const input = {
   },
   tried: {},
   results: { inspect: 'tried' },
-  version: '2026-10-02.1',
+  version: '2026-10-10.1',
 };
 const create = await json(
   '/api/diagnosis',
-  { snapshot: input, requestId: crypto.randomUUID().replaceAll('-', '') },
+  { snapshot: input, requestId, ownerBinding },
   cookie,
 );
 assert.equal(create.status, 201, await create.clone().text());
 const data = await create.json();
 assert.match(data.id, /^[a-f0-9]{32}$/);
 pass('actual D1 create + high-entropy ID');
+const resumedSession = await json('/api/diagnosis/session', { requestId, resume: true }, cookie);
+assert.equal(resumedSession.status, 200);
+assert.equal((await resumedSession.json()).ownerBinding, ownerBinding);
+assert.equal((await json('/api/diagnosis/session', { requestId, resume: true })).status, 403);
+const resumed = await json('/api/diagnosis', { snapshot: input, requestId, ownerBinding, resume: true }, cookie);
+assert.equal(resumed.status, 200);
+const { snapshot: recoveredSnapshot, ...recoveredMetadata } = await resumed.json();
+assert.deepEqual(recoveredMetadata, { ...data, recoveryKey: null, repeated: true });
+assert.deepEqual(recoveredSnapshot.answers, input.answers);
+const missingRequest = crypto.randomUUID().replaceAll('-', '');
+const missingSession = await json('/api/diagnosis/session', { requestId: missingRequest, resume: true }, cookie);
+const missingBinding = (await missingSession.json()).ownerBinding;
+assert.equal((await json('/api/diagnosis', { snapshot: input, requestId: missingRequest, ownerBinding: missingBinding, resume: true }, cookie)).status, 409);
+assert.equal(localRows('DIAGNOSIS_DB', 'SELECT COUNT(*) AS n FROM diagnosis_shared')[0].n, 1);
+pass('owner-bound HTTP recovery returns the original share; missing cookie or missing row cannot recreate it');
 const view = await json('/api/diagnosis/' + data.id);
 assert.equal(view.status, 200);
 const text = await view.text();
@@ -203,7 +236,7 @@ writeFileSync(
     {
       passed: reports,
       date: new Date().toISOString(),
-      database: 'isolated local fake ID, no remote',
+      database: 'DIAGNOSIS_DB fixed local fake ID ...0004; ordinary DB separate local fake ID ...0005; no remote',
     },
     null,
     2,

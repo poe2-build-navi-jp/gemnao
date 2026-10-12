@@ -20,7 +20,7 @@ export function exactKeys(value: Record<string, unknown>, allowed: string[]) {
 export const legacyAnswerKeys = [
   'symptom', 'scope', 'observation', 'error', 'change', 'launcher', 'os', 'gpu', 'ram',
 ];
-/** Enum-only values. New decision context stays local and never contains device identifiers. */
+/** Enum-only values; free text and device identifiers are never accepted. */
 export function validateAnswerChoices(value: unknown): Answers | null {
   if (!record(value) || !exactKeys(value, [...legacyAnswerKeys, 'safety', 'storage', ...decisionFields])) return null;
   const a: Answers = {};
@@ -75,8 +75,8 @@ export function buildSnapshot(input: unknown) {
     tried = validateStatuses(input.tried),
     results = validateStatuses(input.results);
   if (!answers || !tried || !results) return null;
-  // The existing share protocol is intentionally unchanged: repair context is local-only.
-  if (Object.keys(answers).some((key) => !legacyAnswerKeys.includes(key))) return null;
+  // The same enum-only contract covers safety/repair answers. Public creation
+  // still requires the existing reviewed-content consent and storage gates.
   const result = diagnose(answers, tried);
   const allowed = new Set([
     ...Object.keys(tried),

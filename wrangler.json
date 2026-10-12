@@ -7,6 +7,12 @@
   "vars": {
     "DISCORD_ADMIN_TOKEN_HASH": "0c4479af1efa03b26dde9060d78581cd856a7683807ca61475cf59dedbc6d4c5",
     "DIAGNOSIS_LOCAL_BETA": "true",
+    "DIAGNOSIS_ENABLED": "false",
+    "DIAGNOSIS_STORAGE_ENABLED": "true",
+    "DIAGNOSIS_SHARING_ENABLED": "false",
+    "DIAGNOSIS_WRITES_ENABLED": "false",
+    "DIAGNOSIS_METRICS_ENABLED": "false",
+    "FEEDBACK_ENABLED": "false",
     "GAME_REQUEST_REVIEW_MODE": "manual",
     "GAME_REQUEST_MANUAL_REVIEW_READY": "true",
     "GAME_REQUESTS_ENABLED": "true"
@@ -18,6 +24,16 @@
       "database_id": "385a194f-5119-4bbe-9afe-2e6ce4ceb341",
       "migrations_dir": ".openai/drizzle",
       "migrations_table": "d1_migrations"
+    },
+    {
+      "binding": "DIAGNOSIS_DB",
+      "database_name": "gemnao-diagnosis-production",
+      "database_id": "1ef1f798-7518-4b1a-a5a6-4f6f7dddfcfe"
+    },
+    {
+      "binding": "FEEDBACK_DB",
+      "database_name": "gemnao-diagnostic-feedback-production",
+      "database_id": "f3379342-bb5e-461c-bad3-1175be8836c5"
     }
   ],
   "env": {

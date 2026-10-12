@@ -4,8 +4,11 @@ import { build } from 'esbuild';
 import { isEditorialSnapshotPath } from '../cloudflare/prerender-policy.mjs';
 const read = (path) => readFileSync(path, 'utf8');
 const config = JSON.parse(read('wrangler.json'));
-assert.ok(!Object.keys(config.vars || {}).some((key) => key.startsWith('FEEDBACK_')));
-assert.ok(!config.d1_databases.some((entry) => entry.binding === 'FEEDBACK_DB'));
+assert.equal(config.vars.FEEDBACK_ENABLED, 'false');
+assert.deepEqual(config.d1_databases.find((entry) => entry.binding === 'FEEDBACK_DB'), {
+  binding: 'FEEDBACK_DB', database_name: 'gemnao-diagnostic-feedback-production',
+  database_id: 'f3379342-bb5e-461c-bad3-1175be8836c5',
+});
 assert.deepEqual(config.env.preview.d1_databases, []);
 assert.ok(!readdirSync('.openai/drizzle').some((path) => path.includes('diagnostic')));
 assert.ok(!read('lib/diagnostic-feedback/service.ts').includes('env.DB'));

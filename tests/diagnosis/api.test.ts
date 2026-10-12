@@ -7,10 +7,13 @@ import {
   cleanupDiagnosis,
   type DiagnosisEnv,
 } from '../../lib/diagnosis/server';
+import cleanupWorker from '../../cloudflare/diagnosis-cleanup';
 import { actions } from '../../lib/diagnosis/rules';
+import { pendingShares, savePendingShare, removePendingShare, clearPendingShares, PENDING_TTL, type PendingShare } from '../../lib/diagnosis/pending-share';
 import { RULE_VERSION, answerLabel } from '../../lib/diagnosis/model';
 import { buildSnapshot, type Snapshot } from '../../lib/diagnosis/validation';
 type TestDTO = {
+  ownerBinding: string;
   id: string;
   recoveryKey: string;
   expiresAt: number;
@@ -69,7 +72,7 @@ function database() {
   return { db, sql };
 }
 const now = Date.UTC(2026, 9, 2, 4);
-const input = {
+const input: PendingShare['snapshot'] = {
   answers: {
     symptom: 'not-launching',
     scope: 'game',
@@ -108,7 +111,7 @@ function req(
 async function setup() {
   const { db, sql } = database();
   const env: DiagnosisEnv = {
-    DB: db,
+    DIAGNOSIS_DB: db,
     DIAGNOSIS_ENABLED: 'true',
     DIAGNOSIS_STORAGE_ENABLED: 'true',
     DIAGNOSIS_SHARING_ENABLED: 'true',
@@ -485,11 +488,96 @@ void test('database outage returns generic failure, never false success', async 
   } as unknown as D1Database;
   const r = await handleDiagnosis(
     req('/session', {}),
-    { DB: broken, DIAGNOSIS_SHARING_ENABLED: 'true' },
+    { DIAGNOSIS_DB: broken, DIAGNOSIS_ENABLED: 'true', DIAGNOSIS_STORAGE_ENABLED: 'true', DIAGNOSIS_SHARING_ENABLED: 'true' },
     now,
   );
   assert.equal(r.status, 503);
   assert.ok(!(await r.text()).includes('PRIVATE'));
+});
+void test('provider daily quotas and capacity fail closed without retrying or leaking provider errors', async () => {
+  const { env, sql } = await setup();
+  for (const [message, code, reset] of [
+    ["D1_ERROR: Your account has exceeded D1's free tier daily row read limit. PRIVATE SQL", 'daily_limit', true],
+    ["D1_ERROR: Your account has exceeded D1's free tier daily row write limit. PRIVATE SQL", 'daily_limit', true],
+    ['D1_ERROR: Exceeded maximum DB size. PRIVATE SQL', 'storage_limit', false],
+    ['PRIVATE SQL AND TOKEN', 'unavailable', false],
+  ] as const) {
+    let queries = 0;
+    const broken = { prepare() { queries++; throw new Error(message); } } as unknown as D1Database;
+    const response = await handleDiagnosis(req('/session', {}), { ...env, DIAGNOSIS_DB: broken }, now);
+    assert.equal(response.status, 503);
+    const data = await response.clone().json() as unknown as { code: string; retryAt?: number };
+    assert.equal(data.code, code);
+    assert.equal(response.headers.has('retry-after'), reset);
+    assert.ok(!(await response.text()).includes('PRIVATE'));
+    assert.equal(queries, 1);
+    assert.equal(sql.prepare('SELECT COUNT(*) n FROM diagnosis_shared').get()?.n, 0);
+  }
+});
+
+void test('existing daily create admission remains atomic at its boundary', async () => {
+  const { env, cookie, sql } = await setup();
+  const day = Math.floor(now / 86400000);
+  sql.prepare('INSERT INTO diagnosis_rate_limits (key,count,expires_at) VALUES (?,199,?)').run(`global:create:${day}`, (day + 2) * 86400000);
+  const responses = await Promise.all(Array.from({ length: 12 }, (_, i) => handleDiagnosis(req('', { snapshot: input, requestId: i.toString(16).padStart(32, '0') }, cookie), env, now)));
+  assert.equal(responses.filter((response) => response.status === 201).length, 1);
+  assert.equal(responses.filter((response) => response.status === 429).length, 11);
+  assert.equal(sql.prepare('SELECT count FROM diagnosis_rate_limits WHERE key=?').get(`global:create:${day}`)?.count, 200);
+  assert.equal(sql.prepare('SELECT COUNT(*) n FROM diagnosis_shared').get()?.n, 1);
+});
+
+void test('quota failures at actual create and management writes never report success or change the shared row', async () => {
+  for (const operation of ['create', 'update', 'revoke', 'delete', 'recover']) {
+    const { env, db, cookie, sql } = await setup();
+    const { data } = await create(env, cookie);
+    const before = sql.prepare('SELECT * FROM diagnosis_shared').get();
+    const marker = operation === 'create' ? 'INSERT INTO diagnosis_shared (' :
+      operation === 'delete' ? 'DELETE FROM diagnosis_shared WHERE id' :
+      operation === 'revoke' ? 'UPDATE diagnosis_shared SET revoked_at' :
+      operation === 'recover' ? 'UPDATE diagnosis_shared SET owner_hash' : 'UPDATE diagnosis_shared SET snapshot';
+    let failures = 0;
+    const blocked = {
+      batch: db.batch.bind(db),
+      prepare(statement: string) {
+        assert.equal(failures, 0, 'no extra query or retry after a quota error');
+        if (!statement.includes(marker)) return db.prepare(statement);
+        const reject = () => { failures++; throw new Error("D1_ERROR: Your account has exceeded D1's free tier daily row write limit."); };
+        const statementStub = { bind() { return statementStub; }, run: reject, first: reject };
+        return statementStub;
+      },
+    } as unknown as D1Database;
+    const request = operation === 'create' ? req('', { snapshot: input, requestId: 'd'.repeat(32) }, cookie) :
+      operation === 'update' ? req(`/${data.id}`, { results: { dx: 'improved' }, revision: 1 }, cookie, 'PATCH') :
+      operation === 'revoke' ? req(`/${data.id}/revoke`, {}, cookie) :
+      operation === 'recover' ? req(`/${data.id}/recover`, { key: data.recoveryKey }) : req(`/${data.id}`, {}, cookie, 'DELETE');
+    const response = await handleDiagnosis(request, { ...env, DIAGNOSIS_DB: blocked }, now);
+    assert.equal(response.status, 503, operation);
+    assert.equal(failures, 1, operation);
+    assert.deepEqual(sql.prepare('SELECT * FROM diagnosis_shared').get(), before);
+    assert.equal(sql.prepare('SELECT COUNT(*) n FROM diagnosis_shared').get()?.n, 1);
+  }
+});
+
+void test('ambiguous post-commit failure is recovered by the same request ID without a duplicate share', async () => {
+  const { env, db, cookie, sql } = await setup();
+  const requestId = 'e'.repeat(32);
+  const lost = {
+    batch: db.batch.bind(db),
+    prepare(statement: string) {
+      const prepared = db.prepare(statement);
+      if (!statement.startsWith('INSERT INTO diagnosis_shared (')) return prepared;
+      return { bind(...values: unknown[]) {
+        const bound = prepared.bind(...values);
+        return { async run() { await bound.run(); throw new Error('Network connection lost.'); } };
+      } };
+    },
+  } as unknown as D1Database;
+  const first = await handleDiagnosis(req('', { snapshot: input, requestId }, cookie), { ...env, DIAGNOSIS_DB: lost }, now);
+  assert.equal(first.status, 503);
+  const retried = await handleDiagnosis(req('', { snapshot: input, requestId }, cookie), env, now);
+  assert.equal(retried.status, 200);
+  assert.equal((await retried.json()).repeated, true);
+  assert.equal(sql.prepare('SELECT COUNT(*) n FROM diagnosis_shared').get()?.n, 1);
 });
 void test('minimal metrics reject URLs/free input; no missing answer assumed failure', async () => {
   const { env, sql } = await setup();
@@ -558,7 +646,7 @@ void test('unverified preview storage gate never touches D1 even for owner APIs'
     },
   } as unknown as D1Database;
   const env: DiagnosisEnv = {
-    DB: db,
+    DIAGNOSIS_DB: db,
     DIAGNOSIS_SHARING_ENABLED: 'true',
     DIAGNOSIS_METRICS_ENABLED: 'true',
   };
@@ -639,10 +727,10 @@ void test('every storage route stays closed when storage permission is absent, e
     prepare() { throw new Error('unapproved D1 access'); },
     batch() { throw new Error('unapproved D1 access'); },
   } as unknown as D1Database;
-  const env: DiagnosisEnv = { DB: db, DIAGNOSIS_SHARING_ENABLED: 'true', DIAGNOSIS_METRICS_ENABLED: 'true' };
+  const env: DiagnosisEnv = { DIAGNOSIS_DB: db, DIAGNOSIS_ENABLED: 'true', DIAGNOSIS_SHARING_ENABLED: 'true', DIAGNOSIS_WRITES_ENABLED: 'true', DIAGNOSIS_METRICS_ENABLED: 'true' };
   const id = 'b'.repeat(32);
   for (const [path, method] of [
-    ['/session', 'POST'], ['/share', 'POST'], ['/metrics', 'POST'],
+    ['/session', 'POST'], ['', 'POST'], ['/events', 'POST'],
     [`/${id}`, 'GET'], [`/${id}`, 'PATCH'], [`/${id}`, 'DELETE'],
     [`/${id}/owner`, 'GET'], [`/${id}/recover`, 'POST'], [`/${id}/revoke`, 'POST'],
   ]) {
@@ -673,7 +761,7 @@ void test('entire diagnosis intake needs explicit runtime activation while owner
 void test('local-only beta advertises no collection and rejects public storage even with stale runtime flags', async () => {
   let touched = false;
   const db = { prepare() { touched = true; throw new Error('no beta DB access'); } } as unknown as D1Database;
-  const env: DiagnosisEnv = { DB: db, DIAGNOSIS_LOCAL_BETA: 'true', DIAGNOSIS_ENABLED: 'true', DIAGNOSIS_STORAGE_ENABLED: 'true', DIAGNOSIS_SHARING_ENABLED: 'true', DIAGNOSIS_METRICS_ENABLED: 'true' };
+  const env: DiagnosisEnv = { DIAGNOSIS_DB: db, DIAGNOSIS_LOCAL_BETA: 'true', DIAGNOSIS_ENABLED: 'true', DIAGNOSIS_STORAGE_ENABLED: 'true', DIAGNOSIS_SHARING_ENABLED: 'true', DIAGNOSIS_METRICS_ENABLED: 'true' };
   const config = await (await handleDiagnosis(req('/config'), env, now)).json();
   assert.equal(config.enabled, true);
   assert.equal(config.sharing, false);
@@ -688,6 +776,191 @@ void test('local beta keeps pre-existing owner deletion behind its separate stor
   const { env, cookie, sql } = await setup();
   const { data } = await create(env, cookie);
   const beta = { ...env, DIAGNOSIS_LOCAL_BETA: 'true', DIAGNOSIS_ENABLED: undefined };
+  assert.equal((await handleDiagnosis(req('/' + data.id, {}, cookie, 'DELETE'), { ...beta, DIAGNOSIS_STORAGE_ENABLED: undefined }, now)).status, 503);
+  assert.equal(sql.prepare('SELECT COUNT(*) AS n FROM diagnosis_shared').get()?.n, 1);
   assert.equal((await handleDiagnosis(req('/' + data.id, {}, cookie, 'DELETE'), beta, now)).status, 200);
   assert.equal(sql.prepare('SELECT COUNT(*) AS n FROM diagnosis_shared').get()?.n, 0);
+});
+
+void test('ordinary site DB never substitutes for missing DIAGNOSIS_DB with every diagnosis flag enabled', async () => {
+  let touched = false;
+  const ordinary = {
+    prepare() { touched = true; throw new Error('ordinary DB must not be used'); },
+    batch() { touched = true; throw new Error('ordinary DB must not be used'); },
+  } as unknown as D1Database;
+  const env: DiagnosisEnv & { DB: D1Database } = {
+    DB: ordinary,
+    DIAGNOSIS_ENABLED: 'true',
+    DIAGNOSIS_STORAGE_ENABLED: 'true',
+    DIAGNOSIS_SHARING_ENABLED: 'true',
+    DIAGNOSIS_WRITES_ENABLED: 'true',
+    DIAGNOSIS_METRICS_ENABLED: 'true',
+  };
+  const id = 'b'.repeat(32);
+  for (const [path, method] of [
+    ['/session', 'POST'], ['', 'POST'], ['/events', 'POST'],
+    [`/${id}`, 'GET'], [`/${id}`, 'PATCH'], [`/${id}`, 'DELETE'],
+    [`/${id}/owner`, 'GET'], [`/${id}/recover`, 'POST'], [`/${id}/revoke`, 'POST'],
+  ]) {
+    const response = await handleDiagnosis(req(path, method === 'GET' ? undefined : {}, '', method), env, now);
+    assert.equal(response.status, 503, `${method} ${path}`);
+  }
+  const config = await (await handleDiagnosis(req('/config'), env, now)).json();
+  assert.equal(config.sharing, false);
+  assert.equal(config.metrics, false);
+  assert.equal(touched, false);
+});
+
+void test('local beta config does not even resolve a stale storage binding', async () => {
+  const env: DiagnosisEnv = {
+    DIAGNOSIS_LOCAL_BETA: 'true',
+    DIAGNOSIS_ENABLED: 'true',
+    DIAGNOSIS_STORAGE_ENABLED: 'true',
+    DIAGNOSIS_SHARING_ENABLED: 'true',
+    DIAGNOSIS_METRICS_ENABLED: 'true',
+    get DIAGNOSIS_DB(): D1Database { throw new Error('local config cannot access storage'); },
+  };
+  const config = await (await handleDiagnosis(req('/config'), env, now)).json();
+  assert.deepEqual(config, { enabled: true, sharing: false, metrics: false, localOnly: true });
+});
+
+void test('scheduled cleanup fails closed without DIAGNOSIS_DB and never falls back to ordinary DB', async () => {
+  let touched = false;
+  const env: { DIAGNOSIS_DB?: D1Database; DB: D1Database } = {
+    DB: {
+      prepare() { touched = true; throw new Error('ordinary DB must not be cleaned'); },
+      batch() { touched = true; throw new Error('ordinary DB must not be cleaned'); },
+    } as unknown as D1Database,
+  };
+  await assert.rejects(
+    cleanupWorker.scheduled({} as ScheduledController, env, {} as ExecutionContext),
+    /DIAGNOSIS_DB binding is required/,
+  );
+  assert.equal(touched, false);
+});
+
+void test('API and scheduled cleanup use dedicated diagnosis storage when ordinary DB is also present', async () => {
+  const { env, cookie, sql } = await setup();
+  let ordinaryTouched = false;
+  const isolated = {
+    ...env,
+    DB: {
+      prepare() { ordinaryTouched = true; throw new Error('ordinary DB must not be used'); },
+      batch() { ordinaryTouched = true; throw new Error('ordinary DB must not be used'); },
+    } as unknown as D1Database,
+  };
+  const { data } = await create(isolated, cookie);
+  assert.equal((await handleDiagnosis(req('/' + data.id), isolated, now)).status, 200);
+  sql.prepare('UPDATE diagnosis_shared SET expires_at=1 WHERE id=?').run(data.id);
+  await cleanupWorker.scheduled({} as ScheduledController, isolated, {} as ExecutionContext);
+  assert.equal(sql.prepare('SELECT COUNT(*) n FROM diagnosis_shared').get()?.n, 0);
+  assert.ok(Number(sql.prepare("SELECT value FROM diagnosis_operations WHERE key='cleanup_success'").get()?.value) > 0);
+  assert.equal(ordinaryTouched, false);
+});
+
+void test('cleanup failure rolls back deletions and cannot refresh the last successful heartbeat', async () => {
+  const { env, cookie, db, sql } = await setup();
+  const { data } = await create(env, cookie);
+  sql.prepare('UPDATE diagnosis_shared SET expires_at=1 WHERE id=?').run(data.id);
+  // Force the second operation in the deletion batch to fail after the first ran.
+  sql.exec('DROP TABLE diagnosis_rate_limits');
+  await assert.rejects(cleanupDiagnosis(db, now + 3600000), /no such table/);
+  assert.equal(sql.prepare('SELECT COUNT(*) n FROM diagnosis_shared').get()?.n, 1);
+  assert.equal(sql.prepare("SELECT value FROM diagnosis_operations WHERE key='cleanup_success'").get()?.value, String(now));
+});
+
+void test('durable retry binding requires the same real cookie at session and create time', async () => {
+  const { env, cookie, sql } = await setup();
+  const requestId = 'e'.repeat(32);
+  const session = await handleDiagnosis(req('/session', { requestId }, cookie), env, now);
+  const sessionText = await session.clone().text();
+  const { ownerBinding } = await session.json();
+  assert.match(ownerBinding, /^[a-f0-9]{64}$/);
+  assert.ok(!sessionText.includes(cookie.split('=')[1]));
+  const otherId = await handleDiagnosis(req('/session', { requestId: 'f'.repeat(32) }, cookie), env, now);
+  assert.notEqual((await otherId.json()).ownerBinding, ownerBinding);
+  const missing = await handleDiagnosis(req('/session', { requestId, resume: true }), env, now);
+  assert.equal(missing.status, 403);
+  assert.equal(missing.headers.get('set-cookie'), null);
+  const body = { snapshot: input, requestId, ownerBinding };
+  assert.equal((await handleDiagnosis(req('', body), env, now)).status, 403);
+  const otherCookie = '__Host-gemnao-diagnosis=' + '9'.repeat(64);
+  assert.equal((await handleDiagnosis(req('', body, otherCookie), env, now)).status, 403);
+  assert.equal(sql.prepare('SELECT count(*) n FROM diagnosis_shared').get()?.n, 0);
+  const created = await handleDiagnosis(req('', body, cookie), env, now);
+  assert.equal(created.status, 201);
+  const original = await created.json();
+  const resumed = await handleDiagnosis(req('', { ...body, resume: true }, cookie), env, now);
+  assert.equal(resumed.status, 200);
+  const recovered = await resumed.json();
+  assert.equal(recovered.id, original.id);
+  assert.equal(recovered.recoveryKey, null);
+  assert.equal(recovered.repeated, true);
+  assert.match(resumed.headers.get('cache-control') || '', /no-store/);
+  assert.equal(sql.prepare('SELECT count(*) n FROM diagnosis_shared').get()?.n, 1);
+});
+void test('lookup-only recovery never recreates absent, deleted, expired, revoked or reassigned shares', async () => {
+  for (const state of ['absent', 'deleted', 'expired', 'revoked', 'reassigned']) {
+    const { env, cookie, sql } = await setup();
+    const requestId = crypto.randomUUID().replaceAll('-', '');
+    const session = await handleDiagnosis(req('/session', { requestId }, cookie), env, now);
+    const { ownerBinding } = await session.json();
+    const body = { snapshot: input, requestId, ownerBinding };
+    let id = '';
+    if (state !== 'absent') {
+      const created = await handleDiagnosis(req('', body, cookie), env, now);
+      assert.equal(created.status, 201);
+      id = (await created.json()).id;
+    }
+    if (state === 'deleted') sql.prepare('DELETE FROM diagnosis_shared WHERE id=?').run(id);
+    if (state === 'expired') sql.prepare('UPDATE diagnosis_shared SET expires_at=? WHERE id=?').run(now, id);
+    if (state === 'revoked') sql.prepare('UPDATE diagnosis_shared SET revoked_at=? WHERE id=?').run(now, id);
+    if (state === 'reassigned') sql.prepare('UPDATE diagnosis_shared SET owner_hash=? WHERE id=?').run('other-owner', id);
+    const before = sql.prepare('SELECT * FROM diagnosis_shared').all();
+    const response = await handleDiagnosis(req('', { ...body, resume: true }, cookie), env, now);
+    assert.equal(response.status, 409, state);
+    assert.deepEqual(sql.prepare('SELECT * FROM diagnosis_shared').all(), before, state);
+    sql.close();
+  }
+});
+
+void test('local pending records are bounded, isolated, fixed-expiry and never retain unknown secret fields', () => {
+  const values = new Map<string, string>();
+  const storage = {
+    get length() { return values.size; },
+    key(index: number) { return [...values.keys()][index] || null; },
+    getItem(key: string) { return values.get(key) ?? null; },
+    setItem(key: string, value: string) { values.set(key, value); },
+    removeItem(key: string) { values.delete(key); },
+    clear() { values.clear(); },
+  };
+  Object.defineProperty(globalThis, 'localStorage', { value: storage, configurable: true });
+  try {
+    const pending: PendingShare = {
+      version: 1, requestId: '1'.repeat(32), createdAt: now, ownerBinding: '2'.repeat(64),
+      snapshot: structuredClone(input),
+    };
+    savePendingShare(pending, now);
+    assert.throws(() => savePendingShare({ ...pending, ownerBinding: null }, now, true), /別の画面/);
+    assert.throws(() => savePendingShare({ ...pending, createdAt: now + 1 }, now, true), /別の画面/);
+    savePendingShare({ ...pending, requestId: '3'.repeat(32) }, now);
+    assert.equal(pendingShares(now).length, 2);
+    removePendingShare(pending.requestId);
+    assert.throws(() => savePendingShare(pending, now, true), /削除または期限切れ/);
+    assert.equal(pendingShares(now).length, 1, 'completion removes only matching attempt');
+    const remaining = pendingShares(now)[0];
+    savePendingShare(remaining, now + 1000);
+    assert.equal(pendingShares(now + 1000)[0].createdAt, now, 'retry never extends retention');
+    assert.equal(pendingShares(now + PENDING_TTL).length, 0);
+    savePendingShare(pending, now);
+    const key = 'gemnao-diagnosis-pending-v1:' + pending.requestId;
+    values.set(key, JSON.stringify({ ...pending, recoveryKey: 'secret' }));
+    assert.equal(pendingShares(now).length, 0);
+    assert.equal(values.has(key), false);
+    savePendingShare(pending, now);
+    values.set('ordinary-site-data', 'keep');
+    clearPendingShares();
+    assert.equal(values.get('ordinary-site-data'), 'keep');
+    assert.equal(pendingShares(now).length, 0);
+  } finally { Reflect.deleteProperty(globalThis, 'localStorage'); }
 });
