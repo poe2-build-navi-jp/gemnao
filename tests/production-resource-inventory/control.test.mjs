@@ -322,7 +322,8 @@ await test('workflow has only manual trigger, existing protected Environment and
     '.github/workflows/production-resource-inventory.yml',
     'utf8',
   );
-  assert.match(source, /on:\n  workflow_dispatch:\npermissions:/);
+  assert.match(source, /on:\n  workflow_dispatch:\n    inputs:\n      deployment_log:/);
+  assert.doesNotMatch(source, /\n  (push|pull_request|schedule|workflow_run|repository_dispatch):/);
   assert.match(
     source,
     /environment: \$\{\{ needs.gate.outputs.environment \}\}/,

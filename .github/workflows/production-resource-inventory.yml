@@ -2,6 +2,12 @@ name: Gemnao production resource inventory
 run-name: Production account, Pages and DB metadata — manual read-only inventory
 on:
   workflow_dispatch:
+    inputs:
+      deployment_log:
+        description: Read only the failed public activation deployment log
+        type: boolean
+        required: false
+        default: false
 permissions:
   contents: read
 concurrency:
@@ -25,7 +31,7 @@ jobs:
         with:
           node-version: '22'
       - name: Verify fixed GET boundary with synthetic inputs
-        run: node --test tests/production-resource-inventory/control.test.mjs
+        run: node --test tests/production-resource-inventory/control.test.mjs tests/production-resource-inventory/pages-deployment-log.test.mjs
       - id: verify
         name: Verify existing Environment without changing protection
         env:
@@ -48,8 +54,16 @@ jobs:
         with:
           node-version: '22'
       - name: Fixed account, Pages and paginated DB metadata GETs only
+        if: inputs.deployment_log != true
         env:
           GH_TOKEN: ${{ github.token }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           INVENTORY_PROTECTED_ENVIRONMENT: gemnao-d1-production
         run: node ops/production-resource-inventory/control.mjs inventory
+      - name: Read the single failed Pages deployment log with existing Pages Read access
+        if: inputs.deployment_log == true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          INVENTORY_PROTECTED_ENVIRONMENT: gemnao-d1-production
+        run: node ops/production-resource-inventory/pages-deployment-log.mjs
