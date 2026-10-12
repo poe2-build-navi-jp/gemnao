@@ -491,6 +491,91 @@ void test('database outage returns generic failure, never false success', async 
   assert.equal(r.status, 503);
   assert.ok(!(await r.text()).includes('PRIVATE'));
 });
+void test('provider daily quotas and capacity fail closed without retrying or leaking provider errors', async () => {
+  const { env, sql } = await setup();
+  for (const [message, code, reset] of [
+    ["D1_ERROR: Your account has exceeded D1's free tier daily row read limit. PRIVATE SQL", 'daily_limit', true],
+    ["D1_ERROR: Your account has exceeded D1's free tier daily row write limit. PRIVATE SQL", 'daily_limit', true],
+    ['D1_ERROR: Exceeded maximum DB size. PRIVATE SQL', 'storage_limit', false],
+    ['PRIVATE SQL AND TOKEN', 'unavailable', false],
+  ] as const) {
+    let queries = 0;
+    const broken = { prepare() { queries++; throw new Error(message); } } as unknown as D1Database;
+    const response = await handleDiagnosis(req('/session', {}), { ...env, DB: broken }, now);
+    assert.equal(response.status, 503);
+    const data = await response.clone().json() as unknown as { code: string; retryAt?: number };
+    assert.equal(data.code, code);
+    assert.equal(response.headers.has('retry-after'), reset);
+    assert.ok(!(await response.text()).includes('PRIVATE'));
+    assert.equal(queries, 1);
+    assert.equal(sql.prepare('SELECT COUNT(*) n FROM diagnosis_shared').get()?.n, 0);
+  }
+});
+
+void test('existing daily create admission remains atomic at its boundary', async () => {
+  const { env, cookie, sql } = await setup();
+  const day = Math.floor(now / 86400000);
+  sql.prepare('INSERT INTO diagnosis_rate_limits (key,count,expires_at) VALUES (?,199,?)').run(`global:create:${day}`, (day + 2) * 86400000);
+  const responses = await Promise.all(Array.from({ length: 12 }, (_, i) => handleDiagnosis(req('', { snapshot: input, requestId: i.toString(16).padStart(32, '0') }, cookie), env, now)));
+  assert.equal(responses.filter((response) => response.status === 201).length, 1);
+  assert.equal(responses.filter((response) => response.status === 429).length, 11);
+  assert.equal(sql.prepare('SELECT count FROM diagnosis_rate_limits WHERE key=?').get(`global:create:${day}`)?.count, 200);
+  assert.equal(sql.prepare('SELECT COUNT(*) n FROM diagnosis_shared').get()?.n, 1);
+});
+
+void test('quota failures at actual create and management writes never report success or change the shared row', async () => {
+  for (const operation of ['create', 'update', 'revoke', 'delete', 'recover']) {
+    const { env, db, cookie, sql } = await setup();
+    const { data } = await create(env, cookie);
+    const before = sql.prepare('SELECT * FROM diagnosis_shared').get();
+    const marker = operation === 'create' ? 'INSERT INTO diagnosis_shared (' :
+      operation === 'delete' ? 'DELETE FROM diagnosis_shared WHERE id' :
+      operation === 'revoke' ? 'UPDATE diagnosis_shared SET revoked_at' :
+      operation === 'recover' ? 'UPDATE diagnosis_shared SET owner_hash' : 'UPDATE diagnosis_shared SET snapshot';
+    let failures = 0;
+    const blocked = {
+      batch: db.batch.bind(db),
+      prepare(statement: string) {
+        assert.equal(failures, 0, 'no extra query or retry after a quota error');
+        if (!statement.includes(marker)) return db.prepare(statement);
+        const reject = () => { failures++; throw new Error("D1_ERROR: Your account has exceeded D1's free tier daily row write limit."); };
+        const statementStub = { bind() { return statementStub; }, run: reject, first: reject };
+        return statementStub;
+      },
+    } as unknown as D1Database;
+    const request = operation === 'create' ? req('', { snapshot: input, requestId: 'd'.repeat(32) }, cookie) :
+      operation === 'update' ? req(`/${data.id}`, { results: { dx: 'improved' }, revision: 1 }, cookie, 'PATCH') :
+      operation === 'revoke' ? req(`/${data.id}/revoke`, {}, cookie) :
+      operation === 'recover' ? req(`/${data.id}/recover`, { key: data.recoveryKey }) : req(`/${data.id}`, {}, cookie, 'DELETE');
+    const response = await handleDiagnosis(request, { ...env, DB: blocked }, now);
+    assert.equal(response.status, 503, operation);
+    assert.equal(failures, 1, operation);
+    assert.deepEqual(sql.prepare('SELECT * FROM diagnosis_shared').get(), before);
+    assert.equal(sql.prepare('SELECT COUNT(*) n FROM diagnosis_shared').get()?.n, 1);
+  }
+});
+
+void test('ambiguous post-commit failure is recovered by the same request ID without a duplicate share', async () => {
+  const { env, db, cookie, sql } = await setup();
+  const requestId = 'e'.repeat(32);
+  const lost = {
+    batch: db.batch.bind(db),
+    prepare(statement: string) {
+      const prepared = db.prepare(statement);
+      if (!statement.startsWith('INSERT INTO diagnosis_shared (')) return prepared;
+      return { bind(...values: unknown[]) {
+        const bound = prepared.bind(...values);
+        return { async run() { await bound.run(); throw new Error('Network connection lost.'); } };
+      } };
+    },
+  } as unknown as D1Database;
+  const first = await handleDiagnosis(req('', { snapshot: input, requestId }, cookie), { ...env, DB: lost }, now);
+  assert.equal(first.status, 503);
+  const retried = await handleDiagnosis(req('', { snapshot: input, requestId }, cookie), env, now);
+  assert.equal(retried.status, 200);
+  assert.equal((await retried.json()).repeated, true);
+  assert.equal(sql.prepare('SELECT COUNT(*) n FROM diagnosis_shared').get()?.n, 1);
+});
 void test('minimal metrics reject URLs/free input; no missing answer assumed failure', async () => {
   const { env, sql } = await setup();
   assert.equal(

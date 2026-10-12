@@ -2,6 +2,7 @@ import application from '../dist/server/index.js';
 import editorialSnapshots from '../dist/editorial-snapshots.json';
 import { snapshotAssetFor } from './prerender-policy.mjs';
 import { handleDiagnosis, privateHeaders, readShare, isShareActive } from '../lib/diagnosis/server';
+import { diagnosisStorageFailure, diagnosisRetryHeaders } from '../lib/diagnosis/availability';
 
 const staticFiles = new Set([
   '/ads.txt',
@@ -90,7 +91,11 @@ const worker = {
       if (env.DIAGNOSIS_LOCAL_BETA === 'true' || env.DIAGNOSIS_STORAGE_ENABLED !== 'true' || env.DIAGNOSIS_ENABLED !== 'true' || env.DIAGNOSIS_SHARING_ENABLED !== 'true') return new Response('共有は現在停止しています。', { status: 503, headers: { ...privateHeaders, 'Content-Type': 'text/plain; charset=utf-8' } });
       try {
         if (!env.DB || !isShareActive(await readShare(env.DB, sharedId), Date.now())) return new Response('共有ページは見つからないか、期限切れ・失効・削除されています。', { status: 404, headers: { ...privateHeaders, 'Content-Type': 'text/plain; charset=utf-8' } });
-      } catch { return new Response('共有結果を確認できません。', { status: 503, headers: privateHeaders }); }
+      } catch (error) {
+        const now = Date.now();
+        const failure = diagnosisStorageFailure(error, now);
+        return new Response(failure.error, { status: 503, headers: { ...privateHeaders, ...diagnosisRetryHeaders(failure, now), 'Content-Type': 'text/plain; charset=utf-8' } });
+      }
     }
 
     // Internal asset URLs are not alternate public article URLs.

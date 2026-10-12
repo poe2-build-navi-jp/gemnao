@@ -3,10 +3,17 @@ import {
   PREVIOUS_RULE_VERSION,
   questionFor,
   stepsFor,
+  statuses,
   type Answers,
   type ActionStatus,
 } from './model';
-import { record, validateAnswers, validateStatuses, validateAnswerChoices } from './validation';
+import {
+  record,
+  validateAnswers,
+  validateStatuses,
+  validateAnswerChoices,
+} from './validation';
+import { DIAGNOSIS_UNAVAILABLE } from './availability';
 export const LOCAL_KEY = 'gemnao-diagnosis-v1';
 export type LocalDiagnosis = {
   version: string;
@@ -63,7 +70,9 @@ export function readLocal(): LocalDiagnosis | null {
           !questionFor(id, answers)?.options.some((o) => o.value === value),
       ) ||
       !stepsFor(answers).includes(d.step) ||
-      (d.complete && (!validateAnswers(answers) || (d.version === RULE_VERSION && !answers.safety))) ||
+      (d.complete &&
+        (!validateAnswers(answers) ||
+          (d.version === RULE_VERSION && !answers.safety))) ||
       (d.shareId !== undefined &&
         (typeof d.shareId !== 'string' || !/^[a-f0-9]{32}$/.test(d.shareId)))
     ) {
@@ -72,7 +81,14 @@ export function readLocal(): LocalDiagnosis | null {
     }
     if (d.version === PREVIOUS_RULE_VERSION) {
       // Keep prior answers and records; the new safety questions must be answered afresh.
-      return { ...(d as LocalDiagnosis), version: RULE_VERSION, answers, complete: false, step: 'safety', shareId: undefined };
+      return {
+        ...(d as LocalDiagnosis),
+        version: RULE_VERSION,
+        answers,
+        complete: false,
+        step: 'safety',
+        shareId: undefined,
+      };
     }
     return d as LocalDiagnosis;
   } catch {
@@ -97,31 +113,196 @@ export function clearLocal() {
     /* Disabled storage does not block the UI. */
   }
 }
+export class DiagnosisRequestError extends Error {
+  constructor(
+    message: string,
+    readonly unavailable = false,
+  ) {
+    super(message);
+    this.name = 'DiagnosisRequestError';
+  }
+}
+
+const stringArray = (value: unknown) =>
+  Array.isArray(value) && value.every((item) => typeof item === 'string');
+const stringMap = (value: unknown) =>
+  record(value) &&
+  Object.keys(value).every(
+    (key) => !['__proto__', 'prototype', 'constructor'].includes(key),
+  ) &&
+  Object.values(value).every((item) => typeof item === 'string');
+const statusMap = (value: unknown) =>
+  stringMap(value) &&
+  Object.values(value as Record<string, string>).every((item) =>
+    Object.hasOwn(statuses, item),
+  );
+
+/** Check rendering structure, without recomputing an archived rule version. */
+function validSharedSnapshot(value: unknown): boolean {
+  if (
+    !record(value) ||
+    !stringMap(value.answers) ||
+    !statusMap(value.tried) ||
+    !statusMap(value.results) ||
+    (value.answerLabels !== undefined && !stringMap(value.answerLabels)) ||
+    (value.actionLabels !== undefined && !stringMap(value.actionLabels)) ||
+    !record(value.result)
+  )
+    return false;
+  const result = value.result;
+  if (
+    !['version', 'checkedAt', 'scope', 'summary'].every(
+      (key) => typeof result[key] === 'string',
+    ) ||
+    !stringArray(result.missing) ||
+    !Array.isArray(result.recommendations)
+  )
+    return false;
+  if (
+    !result.recommendations.every((recommendation) => {
+      if (
+        !record(recommendation) ||
+        typeof recommendation.ruleId !== 'string' ||
+        typeof recommendation.reason !== 'string' ||
+        !record(recommendation.action)
+      )
+        return false;
+      const action = recommendation.action;
+      return (
+        [
+          'id',
+          'title',
+          'time',
+          'risk',
+          'reversible',
+          'warning',
+          'improved',
+          'unchanged',
+          'article',
+        ].every((key) => typeof action[key] === 'string') &&
+        stringArray(action.steps) &&
+        Array.isArray(action.sources) &&
+        action.sources.every(
+          (source) =>
+            record(source) &&
+            typeof source.label === 'string' &&
+            typeof source.url === 'string',
+        )
+      );
+    })
+  )
+    return false;
+  if (result.decision !== undefined) {
+    const decision = result.decision;
+    if (
+      !record(decision) ||
+      !['category', 'urgency', 'title'].every(
+        (key) => typeof decision[key] === 'string',
+      ) ||
+      !['evidence', 'nextSteps', 'comparison'].every((key) =>
+        stringArray(decision[key]),
+      )
+    )
+      return false;
+  }
+  return true;
+}
+
+function validResponse(path: string, method: string, value: unknown): boolean {
+  if (!record(value) || Object.hasOwn(value, 'error')) return false;
+  if (path === '/config')
+    return ['enabled', 'sharing', 'metrics'].every(
+      (key) => typeof value[key] === 'boolean',
+    );
+  const timestamp = (key: string) =>
+    typeof value[key] === 'number' && Number.isFinite(value[key]);
+  if (path === '' && method === 'POST')
+    return (
+      typeof value.id === 'string' &&
+      /^[a-f0-9]{32}$/.test(value.id) &&
+      timestamp('expiresAt') &&
+      timestamp('createdAt') &&
+      Number.isInteger(value.revision) &&
+      ((typeof value.recoveryKey === 'string' &&
+        /^[a-f0-9]{64}$/.test(value.recoveryKey)) ||
+        (value.repeated === true && value.recoveryKey === null))
+    );
+  if (method === 'GET')
+    return (
+      typeof value.id === 'string' &&
+      /^[a-f0-9]{32}$/.test(value.id) &&
+      timestamp('expiresAt') &&
+      (value.inactive === true ||
+        (timestamp('createdAt') &&
+          timestamp('updatedAt') &&
+          Number.isInteger(value.revision) &&
+          validSharedSnapshot(value.snapshot)))
+    );
+  if (method === 'PATCH')
+    return (
+      value.ok === true &&
+      Number.isInteger(value.revision) &&
+      timestamp('updatedAt') &&
+      timestamp('expiresAt')
+    );
+  return value.ok === true;
+}
+
 export async function diagnosisRequest<T = Record<string, unknown>>(
   path: string,
   body?: unknown,
   method = 'POST',
 ): Promise<T> {
-  const response = await fetch(`/api/diagnosis${path}`, {
-    method: body === undefined && method === 'POST' ? 'GET' : method,
-    credentials: 'same-origin',
-    cache: 'no-store',
-    referrerPolicy: 'no-referrer',
-    headers:
-      body !== undefined
-        ? { 'Content-Type': 'application/json', 'X-Diagnosis-Request': '1' }
-        : undefined,
-    body: body !== undefined ? JSON.stringify(body) : undefined,
-  });
-  const data = (await response
-    .json()
-    .catch(() => ({ error: '応答を確認できませんでした' }))) as {
-    error?: string;
-  };
-  if (!response.ok)
-    throw new Error(
-      data.error || '通信できませんでした。入力を残したまま再試行できます。',
+  const requestMethod =
+    body === undefined && method === 'POST' ? 'GET' : method;
+  let response: Response;
+  try {
+    response = await fetch(`/api/diagnosis${path}`, {
+      method: requestMethod,
+      credentials: 'same-origin',
+      cache: 'no-store',
+      referrerPolicy: 'no-referrer',
+      headers:
+        body !== undefined
+          ? { 'Content-Type': 'application/json', 'X-Diagnosis-Request': '1' }
+          : undefined,
+      body: body !== undefined ? JSON.stringify(body) : undefined,
+    });
+  } catch {
+    throw new DiagnosisRequestError(DIAGNOSIS_UNAVAILABLE, true);
+  }
+  // Cloudflare can return an HTML error page before the Worker runs. A 200
+  // static fallback is not a successful save either. Never retry automatically.
+  if (
+    response.headers.get('Content-Type')?.split(';')[0].trim().toLowerCase() !==
+    'application/json'
+  )
+    throw new DiagnosisRequestError(DIAGNOSIS_UNAVAILABLE, true);
+  let data: unknown;
+  try {
+    data = await response.json();
+  } catch {
+    throw new DiagnosisRequestError(DIAGNOSIS_UNAVAILABLE, true);
+  }
+  if (!response.ok) {
+    const knownFailure =
+      record(data) &&
+      ['daily_limit', 'storage_limit', 'unavailable'].includes(
+        String(data.code),
+      );
+    const message =
+      record(data) &&
+      typeof data.error === 'string' &&
+      (response.status < 500 || knownFailure)
+        ? data.error
+        : DIAGNOSIS_UNAVAILABLE;
+    throw new DiagnosisRequestError(
+      message,
+      response.status >= 500 || knownFailure,
     );
+  }
+  if (!validResponse(path, requestMethod, data))
+    throw new DiagnosisRequestError(DIAGNOSIS_UNAVAILABLE, true);
   return data as T;
 }
 export function metric(

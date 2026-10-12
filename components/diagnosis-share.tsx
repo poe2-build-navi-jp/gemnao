@@ -9,7 +9,7 @@ import {
 } from '@/lib/diagnosis/model';
 import { diagnose, actions } from '@/lib/diagnosis/rules';
 import { DiagnosisSummary } from './diagnosis-result';
-import { diagnosisRequest } from '@/lib/diagnosis/local';
+import { diagnosisRequest, DiagnosisRequestError } from '@/lib/diagnosis/local';
 export function ShareControls({
   id,
   onCopy,
@@ -115,27 +115,36 @@ export function DiagnosisShare({
     [busy, setBusy] = useState(false),
     [error, setError] = useState(''),
     [key, setKey] = useState<string | null>(null),
-    [expires, setExpires] = useState<number | null>(null);
+    [expires, setExpires] = useState<number | null>(null),
+    [paused, setPaused] = useState(false);
   const nonce = useRef(''),
     locked = useRef(false);
-  async function create() {
-    if (locked.current || !confirmed) return;
+  const pendingSnapshot = useRef<{
+    answers: Answers; tried: Record<string, ActionStatus>;
+    results: Record<string, ActionStatus>; version: string;
+  } | null>(null);
+  async function create(recheck = false) {
+    if (!enabled || locked.current || !confirmed || (paused && !recheck)) return;
     locked.current = true;
     setBusy(true);
     setError('');
     try {
       await diagnosisRequest('/session', {});
       nonce.current ||= crypto.randomUUID().replaceAll('-', '');
+      pendingSnapshot.current ||= {
+        answers: { ...answers }, tried: { ...tried }, results: { ...results }, version: RULE_VERSION,
+      };
       const d = await diagnosisRequest<{
         id: string;
         recoveryKey: string | null;
         expiresAt: number;
         repeated?: boolean;
       }>('', {
-        snapshot: { answers, tried, results, version: RULE_VERSION },
+        snapshot: pendingSnapshot.current,
         requestId: nonce.current,
       });
       onCreated(d.id);
+      setPaused(false);
       setKey(d.recoveryKey);
       setExpires(d.expiresAt);
       if (d.repeated && !d.recoveryKey)
@@ -145,6 +154,12 @@ export function DiagnosisShare({
       setPreview(false);
     } catch (e) {
       setError(e instanceof Error ? e.message : '保存できませんでした。');
+      if (!(e instanceof DiagnosisRequestError) || e.unavailable || paused) setPaused(true);
+      else {
+        nonce.current = '';
+        pendingSnapshot.current = null;
+        setPaused(false);
+      }
     } finally {
       locked.current = false;
       setBusy(false);
@@ -187,7 +202,7 @@ export function DiagnosisShare({
             共有内容を更新・失効・削除する →
           </a>
         </>
-      ) : enabled ? (
+      ) : enabled && !paused ? (
         <>
           {!preview ? (
             <button
@@ -222,7 +237,7 @@ export function DiagnosisShare({
               <button
                 className="diag-primary"
                 disabled={!confirmed || busy}
-                onClick={create}
+                onClick={() => void create()}
               >
                 {busy ? '保存しています…' : '確認した内容でURLを発行'}
               </button>
@@ -233,9 +248,15 @@ export function DiagnosisShare({
           )}
         </>
       ) : (
-        <p className="diag-notice">
-          共有機能は現在準備中、または一時停止中です。診断と端末内の実施結果の記録は利用できます。
-        </p>
+        <div className="diag-notice">
+          <p>共有の受付は現在準備中、または一時停止中です。診断と端末内の実施結果の記録は利用できます。</p>
+          {paused && <>
+            <p>保存結果が不明な場合に重複を作らないため、この画面を再読み込みせず、時間を空けて同じ保存操作を再確認してください。再確認では最初に送信した内容を使います。</p>
+            <button disabled={busy} onClick={() => void create(true)}>
+              {busy ? '確認しています…' : '同じ保存操作を再確認'}
+            </button>
+          </>}
+        </div>
       )}
     </section>
   );
