@@ -1,0 +1,95 @@
+{
+  "status": "PUBLICATION_APPROVED_CONTROLLER_PREPARED_NOT_DEPLOYED",
+  "destination": "parent ChatGPT conversation",
+  "sourceThreadId": "01a10db8-2b45-7705-b8cc-a627082330e9",
+  "publicChecks": [
+    {
+      "feature": "production-cleanup-heartbeats",
+      "url": "https://gemnao-retention-health.soykururu143.workers.dev/health",
+      "method": "GET",
+      "published": false,
+      "dbWritePossible": false,
+      "independentOfIntake": true
+    }
+  ],
+  "previousPublicApiChecks": "removed: diagnosis config does not prove heartbeat while intake is OFF; feedback GET may mutate rate-limit state",
+  "publicSchema": {
+    "sharing": {
+      "lastSuccessAt": "UTC ISO string or null",
+      "status": [
+        "ok",
+        "delayed",
+        "stale",
+        "unknown"
+      ]
+    },
+    "feedback": {
+      "lastSuccessAt": "UTC ISO string or null",
+      "status": [
+        "ok",
+        "delayed",
+        "stale",
+        "unknown"
+      ]
+    }
+  },
+  "readLimits": {
+    "fixedSelectsPerRefresh": 2,
+    "maximumReturnedRowsPerSelect": 1,
+    "cacheSeconds": 300,
+    "fixedCacheKey": true,
+    "rateLimit": {
+      "limit": 1,
+      "periodSeconds": 60,
+      "scope": "Cloudflare location; eventually consistent; not a strict global cap"
+    },
+    "noRetry": true,
+    "noDatabaseWrites": true
+  },
+  "delivery": {
+    "proposedCadence": "hourly; not scheduled",
+    "timeoutMs": 10000,
+    "maxResponseBytes": 1024,
+    "followRedirects": false,
+    "credentials": "none",
+    "includeOnly": [
+      "fixed feature name",
+      "last successful cleanup timestamp",
+      "status"
+    ],
+    "notifyOn": [
+      "delayed",
+      "stale",
+      "unknown",
+      "recovery"
+    ],
+    "warningAtMinutes": 90,
+    "staleAtMinutes": 120,
+    "automaticFlagMutation": false,
+    "deliveryTestCompleted": false
+  },
+  "connection": {
+    "workerPublished": false,
+    "automationCreated": false,
+    "credentialsDuplicated": false,
+    "newTokenRequired": false,
+    "additionalCron": false,
+    "additionalDatabase": false,
+    "liveFetchRequirement": "Verify the actual direct JSON endpoint after publication. Recompute status from lastSuccessAt and the current time; cached search snippets are not a live observation.",
+    "remaining": [
+      "publish the dedicated Worker through the existing protected deployment path with its fixed D1 and rate-limit bindings",
+      "read the live endpoint and compare timestamps against the protected read-only health run",
+      "create one hourly condition-watch task delivering to the parent conversation and verify delivery"
+    ]
+  },
+  "prompt": "専用health URLへ認証情報やCookieを付けずGETを1回行い、診断共有とfeedbackのcleanup最終成功時刻・状態を確認する。既存の診断config APIやfeedback APIにはアクセスしない。返却JSONはsharing/feedback各lastSuccessAt/statusだけを受け入れ、現在時刻から最終成功の経過を再計算する。90分以上は遅延、120分以上は停止疑い、取得失敗・欠落・不正な値は確認不能として扱う。遅延・停止疑い・確認不能の発生、状態変化、復旧時に、この会話へ固定の機能名・最終成功時刻・状態だけを通知する。正常が続く場合は通知しない。本文・共有URL・ID・IP・秘密・SQL・providerエラーは取得・出力しない。再試行、DB書込み、受付flag変更はしない。",
+  "approval": {
+    "answeredAt": "2026-10-12T07:29:52Z",
+    "answerMessageId": "Sentinel_be979cbdde80819195dc3b83ac83f51e",
+    "scope": [
+      "dedicated-public-health-url",
+      "hourly-abnormal-notification-to-parent-conversation"
+    ],
+    "evidenceSha256": "280935a45fc16b00df610a7dba4b9c7653d1f800b1c7c7d3eac9b373070b4ead"
+  }
+}

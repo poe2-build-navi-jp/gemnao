@@ -111,7 +111,7 @@ await test('health never accesses approval-record secrets or invents approval ti
   const oldBytes=JSON.stringify(f.r);assert.throws(()=>validateRecord(oldBytes,sha256(oldBytes),now,operation),/HEALTH_MODE/);
 });
 await test('record-free health context cannot authorize any write operation',async()=>{
-  for(const writeOperation of ['preview','production-databases','production-cleanup']){
+  for(const writeOperation of ['preview','production-databases','production-cleanup','production-health-publish']){
     const f=setup(),e=f.env();e.PREVIEW_OPERATION=writeOperation;
     await assert.rejects(runProtected({env:e,checkoutSha:f.r.commit,transport:f.transport,now:()=>now}),/ENVIRONMENT_RECORD_MISSING_OR_MISMATCHED/);
     assert.equal(f.calls.length,0);

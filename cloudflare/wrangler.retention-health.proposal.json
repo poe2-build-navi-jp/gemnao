@@ -1,0 +1,30 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "gemnao-retention-health",
+  "account_id": "6a09a32cba1288cccce5912015086a35",
+  "main": "retention-health.mjs",
+  "compatibility_date": "2026-05-22",
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": { "enabled": false },
+  "logpush": false,
+  "d1_databases": [
+    {
+      "binding": "DIAGNOSIS_DB",
+      "database_name": "gemnao-diagnosis-production",
+      "database_id": "1ef1f798-7518-4b1a-a5a6-4f6f7dddfcfe"
+    },
+    {
+      "binding": "FEEDBACK_DB",
+      "database_name": "gemnao-diagnostic-feedback-production",
+      "database_id": "f3379342-bb5e-461c-bad3-1175be8836c5"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "HEALTH_READ_LIMIT",
+      "namespace_id": "2026101201",
+      "simple": { "limit": 1, "period": 60 }
+    }
+  ]
+}

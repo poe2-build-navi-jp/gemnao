@@ -10,6 +10,8 @@ import { isProductionOperation, PRODUCTION_FEATURES, PRODUCTION_ARTIFACTS, PRODU
 import { CLEANUP_OPERATION, CLEANUP_MODE, CLEANUP_RECORD_OPERATION, CLEANUP_FEATURES, CLEANUP_ARTIFACTS, CLEANUP_PLAN_HASH, RETENTION_SCOPE, RETENTION_SCOPE_HASH, CLEANUP_SETUP_RUN, cleanupRequestAllowed } from '../diagnosis-production/cleanup-profile.mjs';
 import { PRODUCTION_HEALTH_OPERATION, PRODUCTION_HEALTH_MODE, PRODUCTION_HEALTH_PLAN_HASH, PRODUCTION_HEALTH_TARGETS,
   validateProductionHealthContext, productionHealthRequestAllowed, productionHealthTransport, productionHeartbeatStatus } from '../diagnosis-production/cleanup-health.mjs';
+import { PUBLIC_HEALTH_OPERATION, PUBLIC_HEALTH_MODE, PUBLIC_HEALTH_PLAN_HASH, PUBLIC_HEALTH_FEATURE, PUBLIC_HEALTH_ARTIFACTS,
+  PUBLIC_HEALTH_BINDINGS, PUBLIC_HEALTH_URL, validatePublicHealthRecord, publicHealthRequestAllowed, matchesPublicHealthBindings } from '../diagnosis-production/public-health-profile.mjs';
 
 const ACCOUNT = `/accounts/${TARGET.accountId}`;
 const REPO = `/repos/${TARGET.repository}`;
@@ -43,6 +45,7 @@ const fresh = (stamp, now, age) => Number.isSafeInteger(stamp) && stamp <= now &
 // in a future record. A hash proves byte identity, not authenticity or plan truth.
 export function validateRecord(recordBytes, trustedRecordHash, now, operation = 'preview') {
   need(operation !== PRODUCTION_HEALTH_OPERATION, 'HEALTH_MODE');
+  if (operation === PUBLIC_HEALTH_OPERATION) return validatePublicHealthRecord(recordBytes, trustedRecordHash, now);
   const production = isProductionOperation(operation);
   const cleanup = operation === CLEANUP_OPERATION;
   const planHash = cleanup ? CLEANUP_PLAN_HASH : production ? PRODUCTION_PLAN_HASH : PLAN_HASH;
@@ -131,10 +134,11 @@ export function validateRecord(recordBytes, trustedRecordHash, now, operation = 
 async function createAdapter({ transport, durableClaims, recordBytes, trustedRecordHash, readContext, now = Date.now, onStage = () => {}, onEnvelope = () => {}, onReceipt = () => {}, operation = 'preview' }) {
   const production = isProductionOperation(operation);
   const productionHealth = operation === PRODUCTION_HEALTH_OPERATION;
+  const publicHealth = operation === PUBLIC_HEALTH_OPERATION;
   const cleanup = operation === CLEANUP_OPERATION;
-  const features = productionHealth ? [] : cleanup ? CLEANUP_FEATURES : production ? PRODUCTION_FEATURES : FEATURES;
-  const pinnedArtifacts = cleanup ? CLEANUP_ARTIFACTS : production ? PRODUCTION_ARTIFACTS : ARTIFACTS;
-  const planHash = productionHealth ? PRODUCTION_HEALTH_PLAN_HASH : cleanup ? CLEANUP_PLAN_HASH : production ? PRODUCTION_PLAN_HASH : PLAN_HASH;
+  const features = productionHealth ? [] : publicHealth ? [PUBLIC_HEALTH_FEATURE] : cleanup ? CLEANUP_FEATURES : production ? PRODUCTION_FEATURES : FEATURES;
+  const pinnedArtifacts = publicHealth ? PUBLIC_HEALTH_ARTIFACTS : cleanup ? CLEANUP_ARTIFACTS : production ? PRODUCTION_ARTIFACTS : ARTIFACTS;
+  const planHash = publicHealth ? PUBLIC_HEALTH_PLAN_HASH : productionHealth ? PRODUCTION_HEALTH_PLAN_HASH : cleanup ? CLEANUP_PLAN_HASH : production ? PRODUCTION_PLAN_HASH : PLAN_HASH;
   const readSnapshot = productionHealth ? Object.freeze(structuredClone(readContext)) : null;
   const validateApproval = () => productionHealth ? validateProductionHealthContext(readSnapshot)
     : validateRecord(approvedBytes, trustedRecordHash, now(), operation);
@@ -142,7 +146,7 @@ async function createAdapter({ transport, durableClaims, recordBytes, trustedRec
   const approvedBytes = String(recordBytes);
   const record = validateApproval();
   const artifacts = {};
-  for (const f of features) for (const path of (cleanup ? [f.module] : production ? [f.schema] : [f.schema, f.module])) {
+  for (const f of features) for (const path of (publicHealth || cleanup ? [f.module] : production ? [f.schema] : [f.schema, f.module])) {
     const bytes = await readFile(new URL(path, import.meta.url));
     checkArtifact(bytes, pinnedArtifacts[path]); artifacts[path] = bytes;
   }
@@ -153,7 +157,7 @@ async function createAdapter({ transport, durableClaims, recordBytes, trustedRec
   let inventory;
   async function request(service, method, path, body) {
     need(!production || service === 'github' || (productionHealth ? productionHealthRequestAllowed(path, method, body === undefined ? undefined : JSON.stringify(body))
-      : (cleanup ? cleanupRequestAllowed : productionDatabaseRequestAllowed)(path, method)), 'TRANSPORT_SCOPE');
+      : (publicHealth ? publicHealthRequestAllowed : cleanup ? cleanupRequestAllowed : productionDatabaseRequestAllowed)(path, method)), 'TRANSPORT_SCOPE');
     need(++requests <= 120, 'REQUEST_BOUND');
     const root = service === 'github' ? 'https://api.github.com' : 'https://api.cloudflare.com/client/v4';
     const url = root + path;
@@ -265,6 +269,22 @@ async function createAdapter({ transport, durableClaims, recordBytes, trustedRec
   async function inspect() {
     validateApproval();
     const { unreconciledPriorRunCount } = await githubGate();
+    if (publicHealth) {
+      onStage('inventory-preflight');
+      const workers = await listResources('/workers/workers', 'id');
+      need(!workers.some(w => w.name === PUBLIC_HEALTH_FEATURE.worker), 'COLLISION');
+      need(workers.length + 1 <= 100, 'RESOURCE_SLOTS');
+      need((await cf('/workers/subdomain')).result?.subdomain === 'soykururu143', 'ACCOUNT');
+      for (const t of PRODUCTION_HEALTH_TARGETS) {
+        const d = (await cf(`/d1/database/${t.databaseId}`)).result;
+        need(d?.uuid === t.databaseId && d.name === t.databaseName, 'DATABASE_READBACK');
+      }
+      inventory = { workers, databases: PRODUCTION_HEALTH_TARGETS.map(t => ({ id: t.databaseId, name: t.databaseName })) };
+      preflightAt = now();
+      return { accountId: TARGET.accountId, planHash, workerCount: workers.length, targetsAbsent: true,
+        capacityAvailable: true, unreconciledPriorRunCount, observedAt: preflightAt,
+        costProvenance: 'historical-owner-declaration; no current-plan API verification; no billing/plan changes' };
+    }
     if (!production) {
       onStage('account-preflight');
       const account = await cf(''); need(account.result?.id === TARGET.accountId, 'ACCOUNT');
@@ -331,7 +351,7 @@ async function createAdapter({ transport, durableClaims, recordBytes, trustedRec
     return result;
   }
   async function write(f, step, path, body, validate) {
-    need(journal.length < (cleanup ? 6 : production ? 4 : 10) && !journal.some(x => x.feature === f.key && x.step === step), 'WRITE_BOUND');
+    need(journal.length < (publicHealth ? 2 : cleanup ? 6 : production ? 4 : 10) && !journal.some(x => x.feature === f.key && x.step === step), 'WRITE_BOUND');
     validateApproval();
     onStage(`write-${step}`);
     const entry = { feature: f.key, step, startedAt: now(), outcome: 'in-progress', requestHash: sha256(canonical(body)) };
@@ -343,7 +363,7 @@ async function createAdapter({ transport, durableClaims, recordBytes, trustedRec
   function workerIdentity(worker, f, id) {
     need(WORKER_ID.test(worker?.id ?? '') && worker.name === f.worker && (!id || worker.id === id)
       && !inventory.workers.some(w => w.id === worker.id) && worker.logpush === false
-      && worker.observability?.enabled === false && worker.subdomain?.enabled === false
+      && worker.observability?.enabled === false && worker.subdomain?.enabled === publicHealth
       && worker.subdomain.previews_enabled === false, 'NEW_WORKER_IDENTITY');
   }
   function matchesD1Binding(bindings, expected) {
@@ -355,7 +375,7 @@ async function createAdapter({ transport, durableClaims, recordBytes, trustedRec
       && (!Object.hasOwn(binding, 'id') || binding.id === expected.database_id);
   }
   async function provision() {
-    need(record.mode === (cleanup ? CLEANUP_MODE : production ? PRODUCTION_MODE : 'create-empty-preview-pairs'), 'READ_ONLY_MODE');
+    need(record.mode === (publicHealth ? PUBLIC_HEALTH_MODE : cleanup ? CLEANUP_MODE : production ? PRODUCTION_MODE : 'create-empty-preview-pairs'), 'READ_ONLY_MODE');
     need(!started, 'ATTEMPT_ALREADY_STARTED');
     started = true; // Poison even a failed preflight; prohibit concurrent/repeated attempts.
     const inspected = await inspect(); // Never use a caller-provided preflight receipt.
@@ -366,7 +386,7 @@ async function createAdapter({ transport, durableClaims, recordBytes, trustedRec
     // installed/wired by default. An ephemeral Map/file is only a test fake.
     need(typeof durableClaims?.createExclusive === 'function' && typeof durableClaims?.read === 'function', 'DURABLE_CLAIM_UNCONFIGURED');
     onStage('claim');
-    const claimName = `${cleanup ? 'gemnao-production-cleanup' : production ? 'gemnao-production-databases' : 'gemnao-preview-data'}-claim-${record.runId}-${planHash}`;
+    const claimName = `${publicHealth ? 'gemnao-production-public-health' : cleanup ? 'gemnao-production-cleanup' : production ? 'gemnao-production-databases' : 'gemnao-preview-data'}-claim-${record.runId}-${planHash}`;
     const claim = { runId: record.runId, repository: TARGET.repository, planHash,
       recordHash: trustedRecordHash, nonce: randomUUID() };
     try {
@@ -375,6 +395,30 @@ async function createAdapter({ transport, durableClaims, recordBytes, trustedRec
       const persisted = await durableClaims.read(receipt.id);
       need(persisted?.name === claimName && canonical(persisted.payload) === canonical(claim), 'DURABLE_CLAIM_READBACK');
     } catch (error) { throw boundedFailure('DURABLE_CLAIM_REQUIRES_READ_ONLY_RECONCILIATION', error); }
+    if (publicHealth) {
+      const f = PUBLIC_HEALTH_FEATURE;
+      const worker = await write(f, 'worker', '/workers/workers', { name: f.worker,
+        subdomain: { enabled: true, previews_enabled: false }, logpush: false, observability: { enabled: false } }, w => {
+        workerIdentity(w, f); need(fresh(Date.parse(w.created_on), now(), 300_000), 'NEW_WORKER_TIMESTAMP');
+      });
+      workerIdentity((await cf(`/workers/workers/${worker.id}`)).result, f, worker.id);
+      onReceipt({ step: 'worker-created', workerName: f.worker, workerId: worker.id, publicSubdomain: true, confirmedAt: now() });
+      const body = { compatibility_date: '2026-05-22', main_module: 'health.mjs', bindings: PUBLIC_HEALTH_BINDINGS,
+        modules: [{ name: 'health.mjs', content_type: 'application/javascript+module', content_base64: artifacts[f.module].toString('base64') }] };
+      const version = await write(f, 'version', `/workers/workers/${worker.id}/versions?deploy=true`, body, v => {
+        need(UUID.test(v?.id ?? '') && v.main_module === body.main_module && matchesPublicHealthBindings(v.bindings), 'VERSION_RESPONSE');
+      });
+      const readback = (await cf(`/workers/workers/${worker.id}/versions/${version.id}?include=modules`)).result;
+      need(readback?.id === version.id && readback.main_module === body.main_module
+        && matchesPublicHealthBindings(readback.bindings) && canonical(readback.modules) === canonical(body.modules), 'VERSION_READBACK');
+      workerIdentity((await cf(`/workers/workers/${worker.id}`)).result, f, worker.id);
+      const receipt = { workerName: f.worker, workerId: worker.id, versionId: version.id, publicUrl: PUBLIC_HEALTH_URL,
+        databaseIds: PRODUCTION_HEALTH_TARGETS.map(t => t.databaseId), persistentBindings: true,
+        moduleHash: pinnedArtifacts[f.module], cacheSeconds: 300, rateLimit: { limit: 1, period: 60, scope: 'per-location-best-effort' }, confirmedAt: now() };
+      onReceipt({ step: 'version-deployed', ...receipt });
+      return { mode: PUBLIC_HEALTH_MODE, receipts: [receipt], journal: structuredClone(journal),
+        publicEndpointVerified: false, alertDeliveryVerified: false, intakeEnabled: false };
+    }
     const receipts = [];
     for (const f of features) {
       let db;

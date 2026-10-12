@@ -1,0 +1,28 @@
+{
+  "repository": "poe2-build-navi-jp/gemnao",
+  "runId": 38216143650,
+  "sourceSha": "c452158a04ceeb0508634fbbe4ada5862a0cee4e",
+  "runAttempt": 1,
+  "jobId": 114701303235,
+  "classification": "independently-reviewed-no-mutations",
+  "conclusion": "success",
+  "evidenceUrl": "https://github.com/poe2-build-navi-jp/gemnao/actions/runs/38216143650/job/114701303235",
+  "receipt": {
+    "mode": "observe-production-cleanup-heartbeats",
+    "readOnly": true,
+    "intakeEnabled": false,
+    "alertDeliveryVerified": false,
+    "sharing": {
+      "lastSuccessAt": "2026-10-12T07:17:31.669Z",
+      "healthy": true,
+      "pending": false
+    },
+    "feedback": {
+      "lastSuccessAt": "2026-10-12T07:43:31.000Z",
+      "healthy": true,
+      "pending": false
+    },
+    "observedAt": "2026-10-12T08:05:31.099Z",
+    "actualHeartbeatVerified": true
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "mode": "publish-production-health",
+  "operation": "publish-production-health-20261012",
+  "planHash": "2eb190587fc184bf26860ec8303f92cf09a73eebd3e1292f9fbf243d717c2608",
+  "accountId": "6a09a32cba1288cccce5912015086a35",
+  "ref": "refs/heads/prepare/feedback-preview-controller-20261007",
+  "commit": "REPLACE_WITH_NEW_CONTROLLER_SOURCE_SHA",
+  "runId": null,
+  "approvedAt": 1791790192000,
+  "reviewerPolicy": "owner-manual",
+  "reviewers": [
+    325773421
+  ],
+  "requireOwnerInitiator": false,
+  "claimArtifact": {
+    "archiveBytes": 8192,
+    "retentionDays": 1,
+    "access": "existing-repository",
+    "storageBudgetReviewSha256": "c08885194c8eb3dc8863eb042cfadffa72da50bd312b78885be0efe8bddbb7c1"
+  },
+  "publicationApprovalEvidenceSha256": "280935a45fc16b00df610a7dba4b9c7653d1f800b1c7c7d3eac9b373070b4ead",
+  "publicUrl": "https://gemnao-retention-health.soykururu143.workers.dev/health",
+  "persistentBindings": true,
+  "notificationDestination": "parent-conversation",
+  "costBasis": {
+    "kind": "historical-owner-free-plan-declaration",
+    "confirmedAt": 1791786598000,
+    "confirmationEvidenceSha256": "16c98a232509d5eb7a79d0f0b54f9ae8b9d16c76e9007f17ac9298093fdcd117",
+    "originalScope": "cleanup-installation",
+    "currentPlanApiVerified": false,
+    "usageHeadroom": "not-measured",
+    "planChangesAllowed": false,
+    "paidUpgradeAllowed": false
+  },
+  "reconciledPriorRuns": [
+    {
+      "id": 37648312766,
+      "headSha": "2e037bbffe6f8b0076060d7880f45778e886a8f4",
+      "classification": "independently-reviewed-preview-only",
+      "reviewEvidenceSha256": "c669fe763040c71c99253b3656308e1705e7c97d37eb4fec9ffdeec31bbeb809",
+      "planHash": "1f8493cbbe703be117e4e14037a5d3e36cbf3df2e6b9f9c0263f7f4cef1b2978"
+    },
+    {
+      "id": 37640786041,
+      "headSha": "46dd697a147a7b21e2124ee3bcee5d4df4775ed5",
+      "classification": "independently-reviewed-preview-only",
+      "reviewEvidenceSha256": "baacb6cbb7558df3b1dc7fd79747694c97d48f91408c02b665a9781c8c2cf526",
+      "planHash": "1f8493cbbe703be117e4e14037a5d3e36cbf3df2e6b9f9c0263f7f4cef1b2978"
+    },
+    {
+      "id": 37636762355,
+      "headSha": "27e9104b013bc5a9a4a7ad5db4f2209796298daa",
+      "classification": "independently-reviewed-preview-only",
+      "reviewEvidenceSha256": "a5e6713d64395a07d9c020ec67152dbc2919a4fd3a8562b7f8724e21a15768f5",
+      "planHash": "1f8493cbbe703be117e4e14037a5d3e36cbf3df2e6b9f9c0263f7f4cef1b2978"
+    },
+    {
+      "id": 37634015928,
+      "headSha": "5111fbd931c66318daef841d0b76ee20d27b32d4",
+      "classification": "independently-reviewed-preview-only",
+      "reviewEvidenceSha256": "8720f8529adfddacecc0755e0805ed2bdefb18f87b84ee5d07f4d01224aaab48",
+      "planHash": "1f8493cbbe703be117e4e14037a5d3e36cbf3df2e6b9f9c0263f7f4cef1b2978"
+    },
+    {
+      "id": 37627039393,
+      "headSha": "580ab9cb6a0f4089edeb330f3def34326cf0dde2",
+      "classification": "independently-reviewed-preview-only",
+      "reviewEvidenceSha256": "c07925351fdc8fd4c78948d06565b6c5e9adee8354eb27974edb8710f3d50471",
+      "planHash": "1f8493cbbe703be117e4e14037a5d3e36cbf3df2e6b9f9c0263f7f4cef1b2978"
+    },
+    {
+      "id": 37619071366,
+      "headSha": "580ab9cb6a0f4089edeb330f3def34326cf0dde2",
+      "classification": "independently-reviewed-preview-only",
+      "reviewEvidenceSha256": "7bfb92c12d957690ed04fc68776511176f74cbfdbd43aed08868409f23b295c3",
+      "planHash": "1f8493cbbe703be117e4e14037a5d3e36cbf3df2e6b9f9c0263f7f4cef1b2978"
+    },
+    {
+      "id": 37613999939,
+      "headSha": "32eeacb305d9771621bb9f1f55e62eeda5dc4138",
+      "classification": "independently-reviewed-preview-only",
+      "reviewEvidenceSha256": "1475ed78cfb8196f51138ef750981b236dd1108ca78152828d60f18c12583368",
+      "planHash": "1f8493cbbe703be117e4e14037a5d3e36cbf3df2e6b9f9c0263f7f4cef1b2978"
+    },
+    {
+      "id": 37591443236,
+      "headSha": "e4c959b8bae708b84a7b2e83bba3c07ac59ff97d",
+      "classification": "independently-reviewed-preview-only",
+      "reviewEvidenceSha256": "bd5d2560cf094948634cd86010a2c5b2dc32d512d9f724f4dd2546349d08b582",
+      "planHash": "1f8493cbbe703be117e4e14037a5d3e36cbf3df2e6b9f9c0263f7f4cef1b2978"
+    },
+    {
+      "id": 38157005229,
+      "headSha": "302c534256075eb87bf60bedcfb6fcf9eb4d5a5e",
+      "classification": "independently-reviewed-no-mutations",
+      "reviewEvidenceSha256": "6c5c566f34b843457bfcd6b611d9fe1789071bf4a65d06f23e22cec0ecab663a"
+    },
+    {
+      "id": 38204547053,
+      "headSha": "d3420e65281692ba8518d1ca995607802d046a06",
+      "planHash": "44ef66446ead162f4f18aa60b3b6481c9e04d1e2f1b38276638c1d400985138b",
+      "classification": "independently-reviewed-production-databases-only",
+      "reviewEvidenceSha256": "d495cf3768dfaf24802270b109fbcaecf4a2591417c9df218833ae9e5ff495ff"
+    },
+    {
+      "id": 38207736391,
+      "headSha": "a7a0c08dcf89e9c2f99ca19863a5ea545ffb70c4",
+      "classification": "independently-reviewed-production-cleanup-only",
+      "reviewEvidenceSha256": "4136e7743345a54c063ce9b4279bc1d90d701973d3d794273a7e28c78e000cfc"
+    },
+    {
+      "id": 38216143650,
+      "headSha": "c452158a04ceeb0508634fbbe4ada5862a0cee4e",
+      "classification": "independently-reviewed-no-mutations",
+      "reviewEvidenceSha256": "fc35ec1856bc4b0709004278052033014bd8359c6a0e473f839473b511d51f4e"
+    }
+  ]
+}

@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { TARGET, sha256 } from './controller.mjs';
 import { PLAN_HASH, validateRecord, createPreparedAdapter, createReadOnlyAdapter, createHealthAdapter, createProductionHealthAdapter } from './adapter.mjs';
 import { PRODUCTION_HEALTH_OPERATION, PRODUCTION_HEALTH_PLAN_HASH, productionHealthRequestAllowed } from '../diagnosis-production/cleanup-health.mjs';
+import { PUBLIC_HEALTH_OPERATION, PUBLIC_HEALTH_PLAN_HASH, publicHealthRequestAllowed } from '../diagnosis-production/public-health-profile.mjs';
 import { boundedFailure, createDiagnostics } from './diagnostics.mjs';
 import { ARTIFACT_CLIENT_PIN, createArtifactClaims } from './artifact-claim.mjs';
 import { isProductionOperation, PRODUCTION_PLAN_HASH, productionDatabaseRequestAllowed } from '../diagnosis-production/database-profile.mjs';
@@ -47,6 +48,7 @@ export function credentialTransport({ githubToken, cloudflareToken, fetchImpl = 
     need(!u.username && !u.password && !u.hash && (github || cloudflare), 'TRANSPORT_SCOPE');
     need(!production || github || (operation === PRODUCTION_HEALTH_OPERATION
       ? !u.search && productionHealthRequestAllowed(u.pathname.replace(/^\/client\/v4/, ''), options.method, options.body)
+      : operation === PUBLIC_HEALTH_OPERATION ? publicHealthRequestAllowed(u.pathname.replace(/^\/client\/v4/, '') + u.search, options.method)
       : (operation === CLEANUP_OPERATION ? cleanupRequestAllowed : productionDatabaseRequestAllowed)(u.pathname.replace(/^\/client\/v4/, ''), options.method)), 'TRANSPORT_SCOPE');
     need(github ? options.method === 'GET' : ['GET', 'POST', 'PUT'].includes(options.method), 'TRANSPORT_METHOD');
     const token = github ? githubToken() : cloudflareToken();
@@ -91,7 +93,7 @@ export async function runGate({ env, checkoutSha, transport }) {
   need(env.PREVIEW_OUTSIDE_RECORD_PRESENT === 'false' && env.PREVIEW_OUTSIDE_DIGEST_PRESENT === 'false', 'UNPROTECTED_RECORD_SECRET');
   const reviewerId = await verifyConfiguredEnvironment(transport);
   return { environment: SETUP.environment, runId: Number(env.GITHUB_RUN_ID), commit: env.GITHUB_SHA,
-    ref: SETUP.ref, reviewerId, planHash: env.PREVIEW_OPERATION === PRODUCTION_HEALTH_OPERATION ? PRODUCTION_HEALTH_PLAN_HASH
+    ref: SETUP.ref, reviewerId, planHash: env.PREVIEW_OPERATION === PUBLIC_HEALTH_OPERATION ? PUBLIC_HEALTH_PLAN_HASH : env.PREVIEW_OPERATION === PRODUCTION_HEALTH_OPERATION ? PRODUCTION_HEALTH_PLAN_HASH
       : env.PREVIEW_OPERATION === CLEANUP_OPERATION ? CLEANUP_PLAN_HASH : isProductionOperation(env.PREVIEW_OPERATION) ? PRODUCTION_PLAN_HASH : PLAN_HASH };
 }
 export async function loadPinnedArtifactClient() {
@@ -162,7 +164,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     validateContext(env, checkoutSha, protectedJob);
     const transport = diagnostics.transport(credentialTransport({ operation: env.PREVIEW_OPERATION, githubToken: () => env.PREVIEW_GITHUB_TOKEN,
       cloudflareToken: () => { need(protectedJob, 'CLOUDFLARE_IN_GATE'); return env.GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN; } }));
-    if (protectedJob) console.log(JSON.stringify(publicRunResult(await runProtected({ env, checkoutSha, transport, onStage: diagnostics.stage, onEnvelope: diagnostics.envelope, onReceipt: receipt => console.log(JSON.stringify({ cleanupInstallationReceipt: receipt })) }))));
+    if (protectedJob) console.log(JSON.stringify(publicRunResult(await runProtected({ env, checkoutSha, transport, onStage: diagnostics.stage, onEnvelope: diagnostics.envelope, onReceipt: receipt => console.log(JSON.stringify({ [env.PREVIEW_OPERATION === PUBLIC_HEALTH_OPERATION ? 'publicHealthInstallationReceipt' : 'cleanupInstallationReceipt']: receipt })) }))));
     else {
       const gate = await runGate({ env, checkoutSha, transport });
       await appendFile(env.GITHUB_OUTPUT, `environment=${gate.environment}\n`);

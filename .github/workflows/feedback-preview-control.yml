@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       operation:
-        description: 'Fixed scope: preview, production DBs, cleanup installation, or read-only cleanup heartbeats'
+        description: 'Fixed scope: preview, production DBs, cleanup installation, heartbeat read, or dedicated public health publication'
         type: choice
         required: true
         default: preview
@@ -13,6 +13,7 @@ on:
           - production-databases
           - production-cleanup
           - production-cleanup-health
+          - production-health-publish
 permissions:
   contents: read
   actions: read
@@ -34,7 +35,7 @@ jobs:
         with:
           node-version: '22.19.0'
       - name: Test fixed controller and injected mocks
-        run: node --test tests/feedback-preview/control.test.mjs tests/feedback-preview/adapter.test.mjs tests/feedback-preview/health.test.mjs tests/diagnosis-production/databases.test.mjs tests/diagnosis-production/cleanup-controller.test.mjs tests/diagnosis-production/cleanup-health.test.mjs
+        run: node --test tests/feedback-preview/control.test.mjs tests/feedback-preview/adapter.test.mjs tests/feedback-preview/health.test.mjs tests/diagnosis-production/databases.test.mjs tests/diagnosis-production/cleanup-controller.test.mjs tests/diagnosis-production/cleanup-health.test.mjs tests/diagnosis-production/public-health.test.mjs tests/diagnosis-production/public-health-controller.test.mjs
       - id: settings
         name: Verify existing exact Environment before referencing it
         env:
