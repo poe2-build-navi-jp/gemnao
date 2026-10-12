@@ -2,6 +2,7 @@
 import type { Metadata } from 'next';
 import { WikiHeader, WikiFooter } from '@/components/wiki-header';
 import '../diagnosis.css';
+import { admissionLimitCopy, admissionRetentionCopy } from '@/lib/diagnosis/admission-copy';
 export const metadata: Metadata = {
   title: '診断データの保存・共有・削除',
   robots: { index: false, follow: true },
@@ -60,6 +61,8 @@ export default function DiagnosisPrivacy() {
           集計データの稼働DBでの保存は30日です。「改善した」は自己申告であり、未回答を失敗として数えません。改善の記録だけで診断順位は自動変更しません。コピー数は共有先の人数ではなく操作回数です。
         </p>
         <h2>不正利用の制限</h2>
+        <p>{admissionLimitCopy}</p>
+        <p>{admissionRetentionCopy}</p>
         <p>
           保存量を制限するため、短い時間枠に区切った、秘密のランダム値によるネットワークアドレスのHMAC値を保存します。元のIPは診断DBへ保存しません。回数制限の記録は最長約48時間、日ごとのランダム値も最長約48時間を基準に定期削除します。日をまたぐ追跡や広告用途には使いません。
         </p>

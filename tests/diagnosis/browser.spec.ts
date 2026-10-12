@@ -156,7 +156,7 @@ for (const width of [375, 390, 430, 1280]) test(`responsive ${width}px: focus, d
   await page.screenshot({ path: `test-results/diagnosis-repair-${width}.png`, fullPage: true });
 });
 
-test('local beta retains no GA, native article navigation, noindex and sitemap exclusion', async ({ page, request }) => {
+test('diagnosis retains no GA, native article navigation, noindex and sitemap exclusion', async ({ page, request }) => {
   await page.goto('/diagnose');
   expect(await page.locator('link[rel="canonical"]').getAttribute('href')).toBe('https://gemnao.pages.dev/diagnose');
   expect(await page.locator('meta[name="robots"]').getAttribute('content')).toContain('noindex');
@@ -166,6 +166,13 @@ test('local beta retains no GA, native article navigation, noindex and sitemap e
   const sitemap = await (await request.get('/sitemap.xml')).text();
   expect(sitemap).not.toContain('/diagnose</loc>');
   expect(sitemap).not.toContain('/diagnosis/');
+  await page.goto('/diagnose/privacy');
+  await expect(page.getByRole('heading', { name: '診断データの保存・共有・削除', exact: true })).toBeVisible();
+  await expect(page.getByText('今回の公開受付は、診断の共有保存と任意報告を合わせて先着500枠です。', { exact: false })).toBeVisible();
+  await expect(page.getByText('同じ送信の二重計上を防ぐため、', { exact: false })).toBeVisible();
+  await page.goto('/diagnostic-feedback');
+  await expect(page.getByText('今回の公開受付は、診断の共有保存と任意報告を合わせて先着500枠です。', { exact: false })).toBeVisible();
+  expect(await page.locator('script[src*="googletagmanager"],script[src*="adsbygoogle"]').count()).toBe(0);
 });
 
 test('changing optional cost context keeps tried actions and reset really clears local history', async ({ page }) => {

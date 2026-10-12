@@ -53,10 +53,15 @@ async function make({ enabled = 'true', migrate = true } = {}) {
     script: compiled.outputFiles[0].text,
     compatibilityDate: '2026-05-22',
     compatibilityFlags: ['nodejs_compat'],
-    d1Databases: ['FEEDBACK_DB'],
+    d1Databases: ['FEEDBACK_DB', 'DIAGNOSIS_DB'],
     bindings: { FEEDBACK_ENABLED: enabled },
   });
   const db = await mf.getD1Database('FEEDBACK_DB');
+  const diagnosisDb = await mf.getD1Database('DIAGNOSIS_DB');
+  const diagnosisMigration = await readFile('migrations/diagnosis/0001_diagnosis.sql', 'utf8');
+  await diagnosisDb.exec(diagnosisMigration.replace(/--[^\n]*/g, '').replace(/\n/g, ' '));
+  await diagnosisDb.prepare("INSERT INTO diagnosis_operations VALUES('cleanup_success',?,?)")
+    .bind(String(now * 1000), (now + 7200) * 1000).run();
   if (migrate) {
     await db.exec(migration.replace(/--[^\n]*/g, '').replace(/\n/g, ' '));
     await db

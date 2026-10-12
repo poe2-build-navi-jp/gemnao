@@ -558,6 +558,47 @@ void test('quota failures at actual create and management writes never report su
   }
 });
 
+for (const outcome of ['failed', 'unchanged'] as const) {
+  for (const operation of ['create', 'revoke', 'delete', 'recover'] as const) {
+    void test(`${operation} refuses an unconfirmed D1 write (${outcome})`, async () => {
+      const { env, db, cookie, sql } = await setup();
+      const { data } = await create(env, cookie);
+      const before = sql.prepare('SELECT * FROM diagnosis_shared').get();
+      const marker = operation === 'create' ? 'INSERT INTO diagnosis_shared (' :
+        operation === 'delete' ? 'DELETE FROM diagnosis_shared WHERE id' :
+        operation === 'revoke' ? 'UPDATE diagnosis_shared SET revoked_at' :
+        'UPDATE diagnosis_shared SET owner_hash';
+      let attempts = 0;
+      const blocked = {
+        batch: db.batch.bind(db),
+        prepare(statement: string) {
+          assert.equal(attempts, 0, 'no query or retry after an unconfirmed write');
+          if (!statement.includes(marker)) return db.prepare(statement);
+          const statementStub = {
+            bind() { return statementStub; },
+            async run() {
+              attempts++;
+              return { success: outcome !== 'failed', meta: { changes: 0 }, error: 'PRIVATE PROVIDER DETAIL' };
+            },
+          };
+          return statementStub;
+        },
+      } as unknown as D1Database;
+      const request = operation === 'create' ? req('', { snapshot: input, requestId: 'd'.repeat(32) }, cookie) :
+        operation === 'revoke' ? req(`/${data.id}/revoke`, {}, cookie) :
+        operation === 'recover' ? req(`/${data.id}/recover`, { key: data.recoveryKey }) :
+        req(`/${data.id}`, {}, cookie, 'DELETE');
+      const response = await handleDiagnosis(request, { ...env, DIAGNOSIS_DB: blocked }, now);
+      assert.equal(response.status, 503);
+      assert.equal(response.headers.get('set-cookie'), null);
+      assert.doesNotMatch(await response.text(), /PRIVATE|recoveryKey/);
+      assert.equal(attempts, 1);
+      assert.deepEqual(sql.prepare('SELECT * FROM diagnosis_shared').get(), before);
+      assert.equal(sql.prepare('SELECT COUNT(*) n FROM diagnosis_shared').get()?.n, 1);
+    });
+  }
+}
+
 void test('ambiguous post-commit failure is recovered by the same request ID without a duplicate share', async () => {
   const { env, db, cookie, sql } = await setup();
   const requestId = 'e'.repeat(32);

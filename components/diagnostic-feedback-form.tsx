@@ -1,4 +1,5 @@
 'use client';
+import { admissionLimitCopy, admissionRetentionCopy } from '@/lib/diagnosis/admission-copy';
 import { useEffect, useRef, useState } from 'react';
 import {
   actionIds,
@@ -200,6 +201,7 @@ export function DiagnosticFeedbackForm() {
       >
         {status}
       </output>
+      <p>{admissionLimitCopy}</p>
       <section className="space-y-3">
         <h2 className="text-xl font-bold">1. 端末内で内容を準備</h2>
         <p>
@@ -308,6 +310,7 @@ export function DiagnosticFeedbackForm() {
           <p>
             連続送信の制限のため、Cloudflareが受け取るIPアドレスを一時的に使います。アプリには生のIPを保存せず、日ごとに変わる鍵付きハッシュと受付時刻のみを回答と分けて短期間保持します。IPv6は同じネットワーク内でまとめます。通常は次の通信または毎時の削除処理で期限切れ分を消去し、障害時は消去が遅れる場合があります。同じ回線の利用者間で制限を共有するため、時間を空けた再試行が必要になることがあります。
           </p>
+          <p>{admissionRetentionCopy}</p>
           <label className="flex gap-3">
             <input
               type="checkbox"

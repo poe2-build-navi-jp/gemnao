@@ -2,6 +2,7 @@ import { RULE_VERSION, statuses } from './model';
 import { actions } from './rules';
 import { diagnosisStorageFailure, diagnosisRetryHeaders } from './availability';
 import { diagnosisQaCondition, type QaWriteGuard } from './qa-guard';
+import { admissionOpen, reserveAdmission } from './admission';
 import {
   buildSnapshot,
   validateStatuses,
@@ -38,6 +39,10 @@ const reply = (
 ) => Response.json(body, { status, headers: { ...headers, ...extra } });
 const fail = (status: number, message: string) =>
   reply({ error: message }, status);
+function requireConfirmedWrite(result: D1Result) {
+  if (!result.success || result.meta.changes !== 1)
+    throw new Error('Diagnosis storage unavailable');
+}
 const random = (bytes: number) =>
   Array.from(crypto.getRandomValues(new Uint8Array(bytes)), (b) =>
     b.toString(16).padStart(2, '0'),
@@ -250,7 +255,7 @@ export async function handleDiagnosis(
         ready = await cleanupReady(db, now).catch(() => false);
       return reply({
         enabled: enabled(env),
-        sharing: writes(env) && ready,
+        sharing: writes(env) && ready && !!db && await admissionOpen(db),
         metrics:
           ready && enabled(env) && env.DIAGNOSIS_METRICS_ENABLED === 'true',
       });
@@ -420,6 +425,17 @@ export async function handleDiagnosis(
         });
       }
       if (!(await rate(db, request, 'create', 5, now))) return rateFail();
+      if (!qaGuard) {
+        const admission = await reserveAdmission(db, 'diagnosis', `${ownerHash}:${input.requestId}`, now);
+        if (admission === 'full') return fail(429, '診断の共有保存と任意報告の合計受付枠（500枠）に達しました。新しい保存は停止しています。');
+        if (admission === 'used') {
+          const saved = await db.prepare('SELECT * FROM diagnosis_shared WHERE owner_hash = ? AND request_id = ?')
+            .bind(ownerHash, input.requestId).first<ShareRow>();
+          if (saved && active(saved, now)) return reply({ ...publicShare(saved), recoveryKey: null, repeated: true });
+          // Never recreate an absent/deleted payload using an already-consumed slot.
+          return fail(503, 'この受付の保存を確認できません。新しい保存や受付枠の再計上はしていません。');
+        }
+      }
       const id = qaGuard?.recordId || random(16),
         recovery = random(32);
       const values = [
@@ -440,6 +456,7 @@ export async function handleDiagnosis(
       const inserted = await db.prepare(statement).bind(...values).run();
       if (qaGuard && (!inserted.success || inserted.meta.changes !== 1))
         return fail(409, '限定テストは停止または期限切れです。追加保存はしていません。');
+      requireConfirmedWrite(inserted);
       if (env.DIAGNOSIS_METRICS_ENABLED === 'true')
         await count(db, 'create', 'none', 'none', 'none', now).catch(() => {});
       return reply(
@@ -477,10 +494,11 @@ export async function handleDiagnosis(
         return fail(403, '管理キーを確認してください。');
       const current = owner(request),
         token = SECRET.test(current) ? current : random(32);
-      await db
+      const recovered = await db
         .prepare('UPDATE diagnosis_shared SET owner_hash = ? WHERE id = ?')
         .bind(await hash(token), row.id)
         .run();
+      requireConfirmedWrite(recovered);
       return reply({ ok: true }, 200, { 'Set-Cookie': setCookie(token) });
     }
     const token = owner(request);
@@ -488,21 +506,23 @@ export async function handleDiagnosis(
       return fail(403, 'このブラウザには管理権限がありません。');
     if (request.method === 'DELETE' && !match[2]) {
       if (!exactKeys(input, [])) return fail(400, '入力が正しくありません。');
-      await db
+      const deleted = await db
         .prepare('DELETE FROM diagnosis_shared WHERE id = ? AND owner_hash = ?')
         .bind(row.id, row.owner_hash)
         .run();
+      requireConfirmedWrite(deleted);
       return reply({ ok: true });
     }
     if (match[2] === 'revoke' && request.method === 'POST') {
       if (!exactKeys(input, [])) return fail(400, '入力が正しくありません。');
       // Immediate access revocation; discard the snapshot to minimize retained data.
-      await db
+      const revoked = await db
         .prepare(
           "UPDATE diagnosis_shared SET revoked_at = ?, snapshot = '{}', updated_at = ?, revision = revision + 1 WHERE id = ? AND owner_hash = ?",
         )
         .bind(now, now, row.id, row.owner_hash)
         .run();
+      requireConfirmedWrite(revoked);
       return reply({ ok: true });
     }
     if (request.method === 'PATCH' && !match[2]) {

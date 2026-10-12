@@ -1,4 +1,5 @@
 'use client';
+import { admissionLimitCopy, admissionRetentionCopy } from '@/lib/diagnosis/admission-copy';
 /* oxlint-disable next/no-html-link-for-pages -- Deliberate document navigation for privacy. */
 import { useEffect, useRef, useState } from 'react';
 import {
@@ -223,6 +224,7 @@ export function DiagnosisShare({
   return (
     <section className="diag-share" aria-labelledby="diag-share-title">
       <h2 id="diag-share-title">相談するときに、結果を共有</h2>
+      <p>{admissionLimitCopy}</p>
       <p>
         Discordなどで「症状は？」「何を試した？」を伝えるためのページを作れます。共有せずに診断を使うこともできます。
       </p>
@@ -288,6 +290,7 @@ export function DiagnosisShare({
                 <a href="/diagnose/privacy">保存・削除の説明</a>
                 をご確認ください。
               </p>
+              <p>{admissionRetentionCopy}</p>
               <label className="diag-confirm">
                 <input
                   type="checkbox"

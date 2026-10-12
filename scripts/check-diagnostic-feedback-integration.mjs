@@ -4,7 +4,12 @@ import { build } from 'esbuild';
 import { isEditorialSnapshotPath } from '../cloudflare/prerender-policy.mjs';
 const read = (path) => readFileSync(path, 'utf8');
 const config = JSON.parse(read('wrangler.json'));
-assert.equal(config.vars.FEEDBACK_ENABLED, 'false');
+assert.equal(config.vars.FEEDBACK_ENABLED, 'true');
+for (const key of ['DIAGNOSIS_ENABLED', 'DIAGNOSIS_STORAGE_ENABLED', 'DIAGNOSIS_SHARING_ENABLED', 'DIAGNOSIS_WRITES_ENABLED']) assert.equal(config.vars[key], 'true');
+assert.equal(config.vars.DIAGNOSIS_LOCAL_BETA, 'false');
+assert.equal(config.vars.DIAGNOSIS_METRICS_ENABLED, 'false');
+assert.equal(JSON.parse(read('lib/diagnosis/qa-window.json')).enabled, false);
+assert.match(JSON.parse(read('package.json')).scripts.build, /NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=false NEXT_PUBLIC_DIAGNOSIS_ENABLED=true/);
 assert.deepEqual(config.d1_databases.find((entry) => entry.binding === 'FEEDBACK_DB'), {
   binding: 'FEEDBACK_DB', database_name: 'gemnao-diagnostic-feedback-production',
   database_id: 'f3379342-bb5e-461c-bad3-1175be8836c5',
@@ -34,4 +39,4 @@ assert.match(response.headers.get('X-Robots-Tag'), /noindex/);
 assert.equal(response.headers.get('Referrer-Policy'), 'no-referrer');
 assert.match(response.headers.get('Content-Security-Policy'), /connect-src 'self'/);
 assert.match(response.headers.get('Content-Security-Policy'), /frame-src 'none'/);
-console.log('PASS: isolated binding, staged schema, default-off configuration, origin-scoped analytics and private worker response');
+console.log('PASS: isolated bindings, public frontend/runtime alignment, metrics OFF, QA disabled, origin-scoped analytics and private worker response');

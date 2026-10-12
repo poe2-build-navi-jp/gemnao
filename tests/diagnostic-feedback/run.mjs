@@ -30,6 +30,7 @@ const sql = new DatabaseSync(':memory:');
 let rateNow = Math.floor(Date.now() / 1000);
 sql.function('unixepoch', () => rateNow);
 sql.exec(readFileSync('migrations/diagnostic-feedback/0001.sql', 'utf8'));
+sql.exec(readFileSync('migrations/diagnosis/0001_diagnosis.sql', 'utf8'));
 const db = {
   prepare(query) {
     let args = [];
@@ -61,6 +62,7 @@ const db = {
   },
 };
 const now = Math.floor(Date.now() / 1000);
+sql.prepare("INSERT INTO diagnosis_operations VALUES('cleanup_success',?,?)").run(String(now * 1000), (now + 7200) * 1000);
 let tests = 0;
 const test = async (name, fn) => {
   sql.exec(
@@ -101,6 +103,7 @@ const envelope = () => {
 const env = {
   FEEDBACK_ENABLED: 'true',
   FEEDBACK_DB: db,
+  DIAGNOSIS_DB: db,
 };
 const req = (data, method = 'POST', extra = {}) =>
   new Request('https://test.invalid/api/diagnostic-feedback', {

@@ -2,9 +2,11 @@ import { parseEnvelope } from './contract';
 import { strictJson } from './json';
 import { takeFeedbackQuota } from './rate-limit';
 import { feedbackQaCondition, type QaWriteGuard } from '../diagnosis/qa-guard';
+import { admissionCleanupReady, admissionOpen, reserveAdmission } from '../diagnosis/admission';
 export type FeedbackEnv = {
   FEEDBACK_ENABLED?: string;
   FEEDBACK_DB?: D1Database;
+  DIAGNOSIS_DB?: D1Database;
 };
 const headers = {
   'Cache-Control': 'private, no-store',
@@ -22,12 +24,13 @@ const hash = async (s: string) =>
   )
     .map((v) => v.toString(16).padStart(2, '0'))
     .join('');
-export async function healthy(env: FeedbackEnv, now: number) {
+export async function healthy(env: FeedbackEnv, now: number, publicIntake = true) {
   if (env.FEEDBACK_ENABLED !== 'true' || !env.FEEDBACK_DB) return false;
   const row = await env.FEEDBACK_DB.prepare(
     'SELECT last_cleanup FROM diagnostic_retention_health WHERE singleton=1',
   ).first<{ last_cleanup: number }>();
-  return !!row && row.last_cleanup <= now && row.last_cleanup >= now - 7200;
+  return !!row && row.last_cleanup <= now && row.last_cleanup >= now - 7200 &&
+    (!publicIntake || (!!env.DIAGNOSIS_DB && await admissionCleanupReady(env.DIAGNOSIS_DB, now * 1000)));
 }
 async function body(request: Request) {
   if (
@@ -112,9 +115,9 @@ export async function handleFeedback(
       );
     // Cleanup failure must stop collection, not the owner's removal request.
     if (request.method !== 'DELETE') {
-      const ready = await healthy(env, now).catch(() => false);
+      const ready = await healthy(env, now, !qaGuard).catch(() => false);
       if (request.method === 'GET')
-        return reply({ enabled: ready, canDelete: true });
+        return reply({ enabled: ready && (!!qaGuard || (!!env.DIAGNOSIS_DB && await admissionOpen(env.DIAGNOSIS_DB))), canDelete: true });
       if (!ready) return reply({ error: '受付は準備中です' }, 503);
     }
     let input;
@@ -167,7 +170,7 @@ export async function handleFeedback(
           )
           .bind(input.receipt_id, keyHash),
       ]);
-      if (results.some((r) => !r.success)) throw new Error('storage');
+      if (results.length !== 2 || results.some((r) => !r.success)) throw new Error('storage');
       return reply({ ok: true }); // Does not disclose whether an unrelated ID exists.
     }
     if (
@@ -209,6 +212,18 @@ export async function handleFeedback(
         },
         400,
       );
+    if (!qaGuard) {
+      if (!env.DIAGNOSIS_DB) throw new Error('admission unavailable');
+      const admission = await reserveAdmission(env.DIAGNOSIS_DB, 'feedback', input.receipt_id, now * 1000);
+      if (admission === 'full') return reply({ error: '診断の共有保存と任意報告の合計受付枠（500枠）に達しました。新しい保存は停止しています。' }, 429);
+      if (admission === 'used') {
+        const saved = await db.prepare('SELECT delete_hash,report_json,expires_at FROM diagnostic_reports WHERE receipt_id=? AND expires_at>?')
+          .bind(input.receipt_id, now).first<{ delete_hash: string; report_json: string; expires_at: number }>();
+        if (saved?.delete_hash === keyHash && saved.report_json === json)
+          return reply({ ok: true, receipt_id: input.receipt_id, expires_at: saved.expires_at });
+        return reply({ error: 'この受付の保存を確認できません。新しい保存や受付枠の再計上はしていません。' }, 503);
+      }
+    }
     // A single SQLite statement enforces the global daily stored-report ceiling,
     // even with concurrent requests. Quota also bounds failed/repeated attempts.
     const values: (string | number)[] = [
