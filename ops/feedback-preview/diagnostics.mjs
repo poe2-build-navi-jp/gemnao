@@ -1,7 +1,7 @@
 // Only fixed local codes and endpoint classes may enter public diagnostics.
 import { TARGET } from './controller.mjs';
 const CODES = new Set(`
-PAGES_BINDING_METADATA_INVALID PAGES_PROJECT_OR_SOURCE_MISMATCH CURRENT_PRODUCTION_BINDING_MISMATCH
+PAGES_LOG_SHAPE_INVALID PAGES_BINDING_METADATA_INVALID PAGES_PROJECT_OR_SOURCE_MISMATCH CURRENT_PRODUCTION_BINDING_MISMATCH
 CURRENT_PRODUCTION_DEPLOYMENT_UNVERIFIED D1_IDENTITY_MISMATCH PREVIEW_SHARES_PRODUCTION_DB_REVIEW_REQUIRED
 DIAGNOSIS_INVENTORY_RESPONSE_NOT_READ_ONLY DIAGNOSIS_TABLE_IDENTITY_UNRECOGNIZED DIAGNOSIS_ROW_EXISTENCE_UNVERIFIED
 ACCOUNT APPROVAL_RECORD_JSON APPROVAL_RECORD_PIN APPROVAL_RECORD_SIZE ARTIFACT_CLAIM
@@ -23,7 +23,7 @@ RUN_ENVIRONMENT_APPROVAL RUN_HISTORY_INCOMPLETE RUN_IDENTITY RUN_REVIEWS SCHEMA_
 TRANSPORT_METHOD TRANSPORT_SCOPE TWO_PAIR_FREE_RESERVATION UNPROTECTED_RECORD_SECRET VERSION_READBACK
 VERSION_RESPONSE WORKFLOW_CONTEXT WRITE_BOUND WRITE_REQUIRES_READ_ONLY_RECONCILIATION
 `.trim().split(/\s+/));
-const STAGES = new Set(['context', 'record', 'environment', 'artifact-sdk', 'github-preflight', 'account-preflight', 'inventory-preflight', 'health-subdomain', 'health-identities', 'health-heartbeats', 'pagesproject', 'd1identity', 'd1schema', 'claim', 'write-database', 'write-schema', 'write-worker', 'write-version', 'write-cron', 'complete']);
+const STAGES = new Set(['context', 'record', 'environment', 'artifact-sdk', 'github-preflight', 'account-preflight', 'inventory-preflight', 'health-subdomain', 'health-identities', 'health-heartbeats', 'pagesproject', 'pageslog', 'd1identity', 'd1schema', 'claim', 'write-database', 'write-schema', 'write-worker', 'write-version', 'write-cron', 'complete']);
 export function safeCode(error) {
   const message = typeof error?.message === 'string' ? error.message : '';
   const code = message.startsWith('BLOCKED:') ? message.slice(8) : '';
@@ -55,6 +55,7 @@ function requestClass(url, method) {
     } else if (u.origin === 'https://api.cloudflare.com' && (u.pathname === account || u.pathname.startsWith(account + '/'))) {
       info.service = 'cloudflare'; path = u.pathname.slice(account.length);
       if (path === '') info.endpoint = 'account';
+      else if (path === '/pages/projects/gemnao/deployments/fb3a8300-71e2-44ff-b5ef-d260a44eb0ed/history/logs') info.endpoint = 'pages-deployment-log';
       else if (path === '/pages/projects/gemnao') info.endpoint = 'pages-project';
       else if (path === '/d1/database') info.endpoint = 'd1-databases';
       else if (/^\/d1\/database\/[^/]+\/query$/.test(path)) info.endpoint = 'd1-query';
