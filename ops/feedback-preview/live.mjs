@@ -1,4 +1,4 @@
-import { PAGES_LOG_OPERATION, PAGES_LOG_PLAN_HASH, pagesLogRequestAllowed } from '../diagnosis-production/pages-deployment-log.mjs';
+import { PAGES_LOG_OPERATION, PAGES_LOG_MODE, PAGES_LOG_PLAN_HASH, pagesLogRequestAllowed } from '../diagnosis-production/pages-deployment-log.mjs';
 import { READINESS_OPERATION, READINESS_PLAN_HASH, readinessRequestAllowed } from '../diagnosis-production/readiness-profile.mjs';
 import { CLEANUP_OPERATION, CLEANUP_PLAN_HASH, cleanupRequestAllowed } from '../diagnosis-production/cleanup-profile.mjs';
 // Runs only as the reviewed local JavaScript action in the protected job.
@@ -170,7 +170,11 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     validateContext(env, checkoutSha, protectedJob);
     const transport = diagnostics.transport(credentialTransport({ operation: env.PREVIEW_OPERATION, githubToken: () => env.PREVIEW_GITHUB_TOKEN,
       cloudflareToken: () => { need(protectedJob, 'CLOUDFLARE_IN_GATE'); return env.GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN; } }));
-    if (protectedJob) console.log(JSON.stringify(publicRunResult(await runProtected({ env, checkoutSha, transport, logSecrets: env.PREVIEW_OPERATION === PAGES_LOG_OPERATION ? [env.PREVIEW_GITHUB_TOKEN, env.GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN] : [], onStage: diagnostics.stage, onEnvelope: diagnostics.envelope, onReceipt: receipt => console.log(JSON.stringify({ [env.PREVIEW_OPERATION === PAGES_LOG_OPERATION ? 'pagesDeploymentLogReceipt' : env.PREVIEW_OPERATION === PUBLIC_HEALTH_OPERATION ? 'publicHealthInstallationReceipt' : 'cleanupInstallationReceipt']: receipt })) }))));
+    if (protectedJob) {
+      const result = await runProtected({ env, checkoutSha, transport, logSecrets: env.PREVIEW_OPERATION === PAGES_LOG_OPERATION ? [env.PREVIEW_GITHUB_TOKEN, env.GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN] : [], onStage: diagnostics.stage, onEnvelope: diagnostics.envelope, onReceipt: receipt => console.log(JSON.stringify({ [env.PREVIEW_OPERATION === PAGES_LOG_OPERATION ? 'pagesDeploymentLogReceipt' : env.PREVIEW_OPERATION === PUBLIC_HEALTH_OPERATION ? 'publicHealthInstallationReceipt' : 'cleanupInstallationReceipt']: receipt })) });
+      console.log(JSON.stringify(publicRunResult(result)));
+      if (result.mode === PAGES_LOG_MODE && result.completed === false) process.exitCode = 1;
+    }
     else {
       const gate = await runGate({ env, checkoutSha, transport });
       await appendFile(env.GITHUB_OUTPUT, `environment=${gate.environment}\n`);

@@ -17,7 +17,7 @@ INVENTORY_DUPLICATE INVENTORY_ID INVENTORY_PAGE_BOUND INVENTORY_TRUNCATED INVOCA
 NEW_WORKER_IDENTITY NEW_WORKER_TIMESTAMP NO_TRANSPORT OWNER_INITIATOR OWNER_REVIEWER OWNER_UI_COST_EVIDENCE
 PREFLIGHT_STALE PRIOR_RUN_REQUIRES_READ_ONLY_RECONCILIATION PROTECTED_ENVIRONMENT PROVIDER_RESULT
 QUOTA_ASSESSMENT QUOTA_RESERVATION READ_ONLY_ENDPOINT READ_ONLY_METHOD READ_ONLY_MODE RECONCILED_RUN
-RECORD_SCOPE REQUEST_BOUND REQUEST_BUDGET_BEFORE_WRITES REQUEST_UNCERTAIN_OR_INVALID RESOURCE_SLOTS
+RECORD_SCOPE REQUEST_BOUND REQUEST_BUDGET_BEFORE_WRITES REQUEST_UNCERTAIN_OR_INVALID REQUEST_DEADLINE_EXCEEDED RESOURCE_SLOTS
 RESPONSE_BODY RESPONSE_IDENTITY_STATUS RESPONSE_SIZE RESPONSE_TYPE REVIEWED_REF REVIEWED_RUN REVIEWER_POLICY
 RUN_ENVIRONMENT_APPROVAL RUN_HISTORY_INCOMPLETE RUN_IDENTITY RUN_REVIEWS SCHEMA_RESULTS SELF_REVIEW
 TRANSPORT_METHOD TRANSPORT_SCOPE TWO_PAIR_FREE_RESERVATION UNPROTECTED_RECORD_SECRET VERSION_READBACK
@@ -36,6 +36,24 @@ export function boundedFailure(code, cause) {
 }
 export function failureSummary(error) {
   return { code: safeCode(error), ...(CODES.has(error?.safeCauseCode) ? { causeCode: error.safeCauseCode } : {}) };
+}
+// Fixed enums only: no raw Error.message/cause/stack, URL, headers or provider text.
+export function classifyReadFailure(error, observation) {
+  const status = Number.isInteger(observation.status) && observation.status >= 100 && observation.status <= 599 ? observation.status : null;
+  const codes = ['ENOTFOUND', 'EAI_AGAIN', 'ECONNRESET', 'ECONNREFUSED', 'ETIMEDOUT',
+    'UND_ERR_CONNECT_TIMEOUT', 'UND_ERR_HEADERS_TIMEOUT', 'UND_ERR_BODY_TIMEOUT', 'UND_ERR_SOCKET'];
+  const transportCode = [error?.code, error?.cause?.code].find(code => codes.includes(code)) ?? null;
+  const deadlineExceeded = observation.deadlineExpired === true;
+  const phase = ['awaiting-response', 'response-validation', 'reading-body', 'parsing-body', 'provider-validation'].includes(observation.phase) ? observation.phase : 'unknown';
+  const classification = [401, 403].includes(status) ? 'http-access-denied'
+    : status !== null && status >= 400 ? 'http-error'
+    : deadlineExceeded ? 'deadline-exceeded'
+    : status === null ? 'transport-error'
+    : phase === 'reading-body' ? 'body-read-failed' : 'response-invalid';
+  return Object.freeze({ classification, status, httpResponseReceived: status !== null,
+    deadlineExceeded, phase, transportCode,
+    timeoutMs: [10_000, 30_000].includes(observation.timeoutMs) ? observation.timeoutMs : null,
+    elapsedMs: Number.isSafeInteger(observation.elapsedMs) && observation.elapsedMs >= 0 && observation.elapsedMs <= 600_000 ? observation.elapsedMs : null });
 }
 function requestClass(url, method) {
   const info = { service: 'unknown', method: ['GET', 'POST', 'PUT', 'DELETE'].includes(method) ? method : 'unknown', endpoint: 'unknown', status: null };
@@ -88,9 +106,10 @@ export function createDiagnostics(emit = () => {}) {
     },
     transport(inner) { return async (url, options) => {
       envelope = null;
-      request = requestClass(url, options?.method);
+      const observed = requestClass(url, options?.method);
+      request = observed;
       const response = await inner(url, options);
-      request.status = Number.isInteger(response?.status) && response.status >= 100 && response.status <= 599 ? response.status : null;
+      observed.status = Number.isInteger(response?.status) && response.status >= 100 && response.status <= 599 ? response.status : null;
       return response;
     }; },
     failure(error) { return { stage, ...failureSummary(error), request, ...(envelope ? { envelope } : {}) }; },

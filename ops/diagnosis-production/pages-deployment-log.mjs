@@ -15,7 +15,8 @@ const FLAGS = Object.freeze(['DIAGNOSIS_LOCAL_BETA', 'DIAGNOSIS_ENABLED',
 export const PAGES_LOG_PLAN_HASH = sha256(JSON.stringify({ operation: PAGES_LOG_MODE,
   paths: [PAGES_LOG_PATH, PAGES_PROJECT_PATH], failedCommit: COMMIT,
   maximumCloudflareRequests: 2, cloudflareWrites: 0, databaseQueries: 0,
-  artifacts: 0, retries: 0, rawLogsStored: false, maximumErrorLines: 100,
+  artifacts: 0, retries: 0, logTimeoutMs: 30_000, projectTimeoutMs: 10_000,
+  independentObservations: true, rawLogsStored: false, maximumErrorLines: 100,
   flags: FLAGS, authorization: PRODUCTION_HEALTH_AUTHORIZATION }));
 function need(ok, code) { if (!ok) throw new Error(`BLOCKED:${code}`); }
 export function validatePagesLogContext(context) {

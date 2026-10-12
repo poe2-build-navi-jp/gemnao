@@ -5,7 +5,7 @@ import { READINESS_OPERATION, READINESS_MODE, READINESS_PLAN_HASH, READINESS_PAG
 // There is intentionally no fetch default, credential reader or CLI entry point.
 import { readFile } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
-import { boundedFailure, readOnlyTransport, providerEnvelopeSummary } from './diagnostics.mjs';
+import { boundedFailure, readOnlyTransport, providerEnvelopeSummary, failureSummary, classifyReadFailure } from './diagnostics.mjs';
 import { HEALTH_TARGETS, HEALTH_PLAN_HASH, healthTransport, heartbeatStatus, QA_DISCOVERY, plannedQaOrigin } from './health.mjs';
 import { TARGET, SHARING, ARTIFACTS, sha256, checkArtifact, denyExecution } from './controller.mjs';
 import { isProductionOperation, PRODUCTION_FEATURES, PRODUCTION_ARTIFACTS, PRODUCTION_PLAN_HASH, PRODUCTION_MODE, PRODUCTION_RECORD_OPERATION, PRODUCTION_COST_POLICY, EXCLUDED_DATABASE_IDS, productionDatabaseRequestAllowed } from '../diagnosis-production/database-profile.mjs';
@@ -168,23 +168,33 @@ async function createAdapter({ transport, durableClaims, recordBytes, trustedRec
     const root = service === 'github' ? 'https://api.github.com' : 'https://api.cloudflare.com/client/v4';
     const url = root + path;
     const controller = new AbortController();
-    let timer;
+    const observedRead = pagesLog && service === 'cloudflare';
+    const timeoutMs = observedRead && path === PAGES_LOG_PATH ? 30_000 : 10_000;
+    const requestedAt = performance.now();
+    let timer, deadlineExpired = false, responseStatus = null, phase = 'awaiting-response';
     try {
       const timeout = new Promise((_, reject) => { timer = setTimeout(() => {
-        controller.abort(); reject(new Error('timeout'));
-      }, 10_000); });
+        deadlineExpired = true; controller.abort(); reject(new Error('BLOCKED:REQUEST_DEADLINE_EXCEEDED'));
+      }, timeoutMs); });
       const operation = (async () => {
         const response = await transport(url, { method, redirect: 'error', signal: controller.signal,
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           ...(body === undefined ? {} : { body: JSON.stringify(body) }) });
+        need(!deadlineExpired, 'REQUEST_DEADLINE_EXCEEDED');
+        responseStatus = Number.isInteger(response.status) && response.status >= 100 && response.status <= 599 ? response.status : null;
+        phase = 'response-validation';
         need(response.url === url && response.redirected === false && [200, 201].includes(response.status), 'RESPONSE_IDENTITY_STATUS');
         need(response.headers.get('content-type')?.includes('application/json'), 'RESPONSE_TYPE');
+        phase = 'reading-body';
         const reader = response.body?.getReader(); need(reader, 'RESPONSE_BODY');
         const chunks = []; let size = 0;
         try { while (true) { const { done, value } = await reader.read(); if (done) break;
           size += value.byteLength; need(size <= 1_048_576, 'RESPONSE_SIZE'); chunks.push(Buffer.from(value));
         } } finally { reader.releaseLock(); }
+        need(!deadlineExpired, 'REQUEST_DEADLINE_EXCEEDED');
+        phase = 'parsing-body';
         const json = JSON.parse(Buffer.concat(chunks).toString('utf8'));
+        phase = 'provider-validation';
         if (service === 'cloudflare') {
           const envelope = providerEnvelopeSummary(json); onEnvelope(envelope);
           // Official beta Workers SDK methods unwrap result without requiring errors.
@@ -202,7 +212,14 @@ async function createAdapter({ transport, durableClaims, recordBytes, trustedRec
         return json;
       })();
       return await Promise.race([operation, timeout]);
-    } catch (error) { controller.abort(); throw boundedFailure('REQUEST_UNCERTAIN_OR_INVALID', error); }
+    } catch (error) {
+      controller.abort();
+      const failure = boundedFailure('REQUEST_UNCERTAIN_OR_INVALID', error);
+      if (observedRead) failure.readFailure = classifyReadFailure(error, {
+        deadlineExpired, timeoutMs, elapsedMs: Math.round(performance.now() - requestedAt),
+        status: responseStatus, phase });
+      throw failure;
+    }
     finally { clearTimeout(timer); }
   }
   const gh = path => request('github', 'GET', REPO + path);
@@ -330,13 +347,25 @@ async function createAdapter({ transport, durableClaims, recordBytes, trustedRec
     need(pagesLog && record.mode === PAGES_LOG_MODE, 'READ_ONLY_MODE');
     need(!started, 'ATTEMPT_ALREADY_STARTED'); started = true;
     validateApproval(); await githubGate();
-    onStage('pageslog');
-    const logs = projectLogs((await request('cloudflare', 'GET', PAGES_LOG_PATH)).result, logSecrets);
-    // Keep the sanitized log receipt available if the subsequent metadata read fails.
-    onReceipt({ mode: PAGES_LOG_MODE, logs });
-    onStage('pagesproject');
-    const pages = projectPagesState((await request('cloudflare', 'GET', PAGES_PROJECT_PATH)).result);
-    return { mode: PAGES_LOG_MODE, planHash, readOnly: true, logs, pages,
+    const observations = { logs: null, pages: null }, failures = {};
+    // These are independently authorized GETs. Failure of either never retries it
+    // or suppresses the other; actual HTTP refusals stay explicit in the report.
+    for (const [key, stage, endpoint, path, project] of [
+      ['logs', 'pageslog', 'pages-deployment-log', PAGES_LOG_PATH, value => projectLogs(value, logSecrets)],
+      ['pages', 'pagesproject', 'pages-project', PAGES_PROJECT_PATH, projectPagesState],
+    ]) {
+      onStage(stage);
+      try {
+        observations[key] = project((await request('cloudflare', 'GET', path)).result);
+        onReceipt({ mode: PAGES_LOG_MODE, observation: key, result: observations[key] });
+      } catch (error) {
+        failures[key] = { endpoint, ...failureSummary(error),
+          ...(error.readFailure ? { request: error.readFailure } : { classification: 'projection-invalid' }) };
+        onReceipt({ mode: PAGES_LOG_MODE, observation: key, failure: failures[key] });
+      }
+    }
+    return { mode: PAGES_LOG_MODE, planHash, readOnly: true, ...observations, failures,
+      completed: Object.keys(failures).length === 0, cloudflareReadsAttempted: 2,
       cloudflareWrites: 0, databaseQueries: 0, liveIntakeVerified: false,
       observedAt: new Date(now()).toISOString() };
   }

@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { TARGET, sha256 } from '../../ops/feedback-preview/controller.mjs';
 import { runGate, runProtected, credentialTransport, SETUP } from '../../ops/feedback-preview/live.mjs';
 import { createPagesDeploymentLogAdapter, createPreparedAdapter, validateRecord } from '../../ops/feedback-preview/adapter.mjs';
-import { createDiagnostics } from '../../ops/feedback-preview/diagnostics.mjs';
+import { createDiagnostics, classifyReadFailure } from '../../ops/feedback-preview/diagnostics.mjs';
 import { PAGES_LOG_OPERATION as operation, PAGES_LOG_MODE as mode, PAGES_LOG_PLAN_HASH as planHash,
   PAGES_LOG_PATH as logPath, PAGES_PROJECT_PATH as projectPath, DEPLOYMENT,
   pagesLogTransport, projectLogs, projectPagesState } from '../../ops/diagnosis-production/pages-deployment-log.mjs';
@@ -70,7 +70,8 @@ test('existing owner gate authorizes one fixed log GET and one Pages GET without
   assert.equal(result.logs.deployment, DEPLOYMENT);
   assert.equal(result.logs.errors.length, 1);
   assert.equal(JSON.stringify([result, receipts]).includes(marker), false);
-  assert.equal(receipts.length, 1);
+  assert.equal(receipts.length, 2);
+  assert.equal(result.completed, true);
   assert.deepEqual(f.calls.filter(c => c.url.startsWith(root)).map(c => c.url), [root + logPath, root + projectPath]);
   assert.equal(result.pages.canonicalDeployment.flags.DIAGNOSIS_ENABLED, 'false');
   assert.equal(result.pages.projectConfigurationFlags.DIAGNOSIS_ENABLED, 'true');
@@ -93,18 +94,18 @@ test('owner approval, exact run/head, branch and existing Environment checks pre
     assert.ok(f.calls.every(c => !c.url.startsWith(root)));
   }
 });
-for(let n=1;n<=2;n++) test(`403 at GET ${n} stops with endpoint class and no retry; log receipt survives metadata failure`, async () => {
+for(let n=1;n<=2;n++) test(`403 at GET ${n} is recorded independently with no retry`, async () => {
   const f = setup(() => {}, n), d = createDiagnostics(), receipts=[];
-  await assert.rejects(runProtected({ env: f.env(), checkoutSha: f.r.commit, transport: d.transport(f.transport),
-    onStage: d.stage, onEnvelope: d.envelope, onReceipt: r => receipts.push(r) }), error => {
-    const report = d.failure(error);
-    assert.equal(report.request.status, 403);
-    assert.equal(report.request.endpoint, n===1 ? 'pages-deployment-log' : 'pages-project');
-    assert.equal(report.stage, n===1 ? 'pageslog' : 'pagesproject');
-    return true;
-  });
-  assert.equal(f.calls.filter(c => c.url.startsWith(root)).length, n);
-  assert.equal(receipts.length, n-1);
+  const result = await runProtected({ env: f.env(), checkoutSha: f.r.commit, transport: d.transport(f.transport),
+    onStage: d.stage, onEnvelope: d.envelope, onReceipt: r => receipts.push(r) });
+  const key = n===1 ? 'logs' : 'pages', other = n===1 ? 'pages' : 'logs';
+  assert.equal(result.completed,false); assert.equal(result[key],null); assert.ok(result[other]);
+  assert.equal(result.failures[key].request.status,403);
+  assert.equal(result.failures[key].request.classification,'http-access-denied');
+  assert.equal(result.failures[key].request.httpResponseReceived,true);
+  assert.equal(result.failures[key].endpoint,n===1 ? 'pages-deployment-log' : 'pages-project');
+  assert.deepEqual(f.calls.filter(c => c.url.startsWith(root)).map(c=>c.url),[root+logPath,root+projectPath]);
+  assert.equal(receipts.length,2);
 });
 test('both transport boundaries reject mutations, SQL, other deployments, parameters and repeat reads', async () => {
   let count=0;
@@ -173,4 +174,95 @@ test('workflow uses existing Environment/secret, with no SDK, record or schedule
   assert.match(f,/GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN: \$\{\{ secrets.GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN \}\}/);
   assert.equal((f.match(/inputs.operation != 'pages-deployment-log'/g)||[]).length,4);
   assert.doesNotMatch(f,/\n  (?:push|schedule|pull_request):/);
+});
+
+test('log request may take 15 seconds and still succeeds; response wait is 30 seconds', async t => {
+  t.mock.timers.enable({apis:['setTimeout']});
+  const f=setup();
+  const transport=async (url,options)=>{
+    if(url===root+logPath) {
+      t.mock.timers.tick(15_000);
+      assert.equal(options.signal.aborted,false);
+    }
+    return f.transport(url,options);
+  };
+  const result=await runProtected({env:f.env(),checkoutSha:f.r.commit,transport});
+  assert.equal(result.completed,true);
+  assert.equal(f.calls.filter(c=>c.url===root+logPath).length,1);
+});
+test('exact 30 second pre-response deadline is classified and canonical read still runs once',async t=>{
+  t.mock.timers.enable({apis:['setTimeout']});
+  const f=setup(),calls=[];
+  const transport=async(url,options)=>{
+    calls.push(url);
+    if(url!==root+logPath) return f.transport(url,options);
+    const pending=new Promise((resolve,reject)=>options.signal.addEventListener('abort',()=>reject(new Error(marker))));
+    t.mock.timers.tick(10_000);assert.equal(options.signal.aborted,false);
+    t.mock.timers.tick(19_999);assert.equal(options.signal.aborted,false);
+    t.mock.timers.tick(1);assert.equal(options.signal.aborted,true);
+    return pending;
+  };
+  const result=await runProtected({env:f.env(),checkoutSha:f.r.commit,transport});
+  assert.equal(result.completed,false);assert.ok(result.pages);assert.equal(result.logs,null);
+  assert.deepEqual(result.failures.logs.request,{classification:'deadline-exceeded',status:null,
+    httpResponseReceived:false,deadlineExceeded:true,phase:'awaiting-response',transportCode:null,
+    timeoutMs:30_000,elapsedMs:result.failures.logs.request.elapsedMs});
+  assert.equal(JSON.stringify(result).includes(marker),false);
+  assert.deepEqual(calls.filter(u=>u.startsWith(root)),[root+logPath,root+projectPath]);
+});
+test('connect timeout without HTTP response is not reported as an access refusal',async()=>{
+  const f=setup(),calls=[];
+  const transport=async(url,options)=>{
+    calls.push(url);
+    if(url===root+logPath) throw new TypeError(marker,{cause:Object.assign(new Error(marker),{code:'UND_ERR_CONNECT_TIMEOUT'})});
+    return f.transport(url,options);
+  };
+  const result=await runProtected({env:f.env(),checkoutSha:f.r.commit,transport});
+  assert.equal(result.completed,false);assert.ok(result.pages);
+  assert.equal(result.failures.logs.request.status,null);
+  assert.equal(result.failures.logs.request.classification,'transport-error');
+  assert.equal(result.failures.logs.request.transportCode,'UND_ERR_CONNECT_TIMEOUT');
+  assert.equal(result.failures.logs.request.deadlineExceeded,false);
+  assert.equal(JSON.stringify(result).includes(marker),false);
+  assert.deepEqual(calls.filter(u=>u.startsWith(root)),[root+logPath,root+projectPath]);
+});
+test('body deadline retains observed HTTP 200 and still returns canonical metadata',async t=>{
+  t.mock.timers.enable({apis:['setTimeout']});
+  const f=setup();
+  const transport=async(url,options)=>{
+    if(url!==root+logPath) return f.transport(url,options);
+    let ticked=false;
+    const body=new ReadableStream({pull(){if(!ticked){ticked=true;queueMicrotask(()=>t.mock.timers.tick(30_000));}}});
+    const response=new Response(body,{status:200,headers:{'content-type':'application/json'}});
+    Object.defineProperty(response,'url',{value:url});return response;
+  };
+  const result=await runProtected({env:f.env(),checkoutSha:f.r.commit,transport});
+  assert.equal(result.completed,false);assert.ok(result.pages);
+  assert.equal(result.failures.logs.request.classification,'deadline-exceeded');
+  assert.equal(result.failures.logs.request.status,200);
+  assert.equal(result.failures.logs.request.httpResponseReceived,true);
+  assert.equal(result.failures.logs.request.phase,'reading-body');
+});
+test('HTTP and malformed response classifications expose no arbitrary error strings',async()=>{
+  const observation={deadlineExpired:false,timeoutMs:30_000,elapsedMs:5,phase:'response-validation'};
+  for(const status of [401,403,429,500]) {
+    const result=classifyReadFailure(new Error(marker),{...observation,status});
+    assert.equal(result.classification,[401,403].includes(status)?'http-access-denied':'http-error');
+    assert.equal(result.httpResponseReceived,true);assert.equal(JSON.stringify(result).includes(marker),false);
+  }
+  assert.equal(classifyReadFailure(Object.assign(new Error(marker),{code:marker}),{...observation,status:null}).transportCode,null);
+  const f=setup((c,v)=>{if(c.path===logPath)v.result={data:'malformed'};});
+  const result=await runProtected({env:f.env(),checkoutSha:f.r.commit,transport:f.transport});
+  assert.equal(result.completed,false);assert.ok(result.pages);
+  assert.equal(result.failures.logs.classification,'projection-invalid');
+  assert.equal(result.failures.logs.code,'PAGES_LOG_SHAPE_INVALID');
+});
+test('late completion of an aborted request cannot overwrite the current endpoint status',async()=>{
+  const d=createDiagnostics();let resolveLog;
+  const transport=d.transport(async url=>url===root+logPath?new Promise(resolve=>{resolveLog=resolve;}):{status:200});
+  const pending=transport(root+logPath,{method:'GET'});
+  await transport(root+projectPath,{method:'GET'});
+  resolveLog({status:403});await pending;
+  const result=d.failure(new Error('BLOCKED:REQUEST_UNCERTAIN_OR_INVALID'));
+  assert.equal(result.request.endpoint,'pages-project');assert.equal(result.request.status,200);
 });
