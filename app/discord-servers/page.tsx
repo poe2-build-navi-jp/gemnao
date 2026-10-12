@@ -6,6 +6,10 @@ import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { listApprovedDiscordServers } from '@/lib/discord-server-db';
 import { ogImageFor } from '@/lib/og-images';
 
+// The directory reads live D1 data through cloudflare:workers. Node's build-time
+// prerender server cannot load that binding; render this page in Workers only.
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Discordサーバー募集を探す｜PCゲーム・日本語コミュニティ',
   description:
