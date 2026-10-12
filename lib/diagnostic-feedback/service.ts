@@ -1,6 +1,7 @@
 import { parseEnvelope } from './contract';
 import { strictJson } from './json';
 import { takeFeedbackQuota } from './rate-limit';
+import { feedbackQaCondition, type QaWriteGuard } from '../diagnosis/qa-guard';
 export type FeedbackEnv = {
   FEEDBACK_ENABLED?: string;
   FEEDBACK_DB?: D1Database;
@@ -66,6 +67,7 @@ export async function handleFeedback(
   request: Request,
   env: FeedbackEnv,
   now = Math.floor(Date.now() / 1000),
+  qaGuard?: QaWriteGuard,
 ): Promise<Response> {
   try {
     if (!['GET', 'POST', 'DELETE'].includes(request.method))
@@ -209,18 +211,17 @@ export async function handleFeedback(
       );
     // A single SQLite statement enforces the global daily stored-report ceiling,
     // even with concurrent requests. Quota also bounds failed/repeated attempts.
+    const values: (string | number)[] = [
+      input.receipt_id, keyHash, json, now, now + 30 * 86400,
+      Math.floor(now / 86400) * 86400, input.receipt_id,
+    ];
+    if (qaGuard) values.push(qaGuard.stopKey, qaGuard.startsAt, qaGuard.expiresAt);
     const result = await db
       .prepare(
-        `INSERT OR IGNORE INTO diagnostic_reports(receipt_id,delete_hash,report_json,consent_version,created_at,expires_at) SELECT ?,?,?,1,?,? WHERE (SELECT count(*) FROM diagnostic_reports WHERE created_at>=?)<200 AND NOT EXISTS(SELECT 1 FROM diagnostic_report_tombstones WHERE receipt_id=?)`,
+        `INSERT OR IGNORE INTO diagnostic_reports(receipt_id,delete_hash,report_json,consent_version,created_at,expires_at) SELECT ?,?,?,1,?,? WHERE (SELECT count(*) FROM diagnostic_reports WHERE created_at>=?)<200 AND NOT EXISTS(SELECT 1 FROM diagnostic_report_tombstones WHERE receipt_id=?)` + (qaGuard ? feedbackQaCondition : ''),
       )
       .bind(
-        input.receipt_id,
-        keyHash,
-        json,
-        now,
-        now + 30 * 86400,
-        Math.floor(now / 86400) * 86400,
-        input.receipt_id,
+        ...values,
       )
       .run();
     if (!result.success) throw new Error('storage');

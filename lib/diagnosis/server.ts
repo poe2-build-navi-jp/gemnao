@@ -1,6 +1,7 @@
 import { RULE_VERSION, statuses } from './model';
 import { actions } from './rules';
 import { diagnosisStorageFailure, diagnosisRetryHeaders } from './availability';
+import { diagnosisQaCondition, type QaWriteGuard } from './qa-guard';
 import {
   buildSnapshot,
   validateStatuses,
@@ -231,6 +232,7 @@ export async function handleDiagnosis(
   request: Request,
   env: DiagnosisEnv,
   now = Date.now(),
+  qaGuard?: QaWriteGuard,
 ): Promise<Response> {
   const path = new URL(request.url).pathname.replace(/^\/api\/diagnosis/, '');
   // Local config is entirely storage-free, even with conflicting stale flags.
@@ -418,13 +420,9 @@ export async function handleDiagnosis(
         });
       }
       if (!(await rate(db, request, 'create', 5, now))) return rateFail();
-      const id = random(16),
+      const id = qaGuard?.recordId || random(16),
         recovery = random(32);
-      await db
-        .prepare(
-          'INSERT INTO diagnosis_shared (id,owner_hash,recovery_hash,request_id,snapshot,rule_version,created_at,updated_at,expires_at,revision) VALUES (?,?,?,?,?,?,?,?,?,1)',
-        )
-        .bind(
+      const values = [
           id,
           ownerHash,
           await hash(recovery),
@@ -434,8 +432,14 @@ export async function handleDiagnosis(
           now,
           now,
           now + TTL,
-        )
-        .run();
+      ];
+      const statement = qaGuard
+        ? 'INSERT INTO diagnosis_shared (id,owner_hash,recovery_hash,request_id,snapshot,rule_version,created_at,updated_at,expires_at,revision) SELECT ?,?,?,?,?,?,?,?,?,1 WHERE 1=1' + diagnosisQaCondition
+        : 'INSERT INTO diagnosis_shared (id,owner_hash,recovery_hash,request_id,snapshot,rule_version,created_at,updated_at,expires_at,revision) VALUES (?,?,?,?,?,?,?,?,?,1)';
+      if (qaGuard) values.push(qaGuard.key, qaGuard.value, qaGuard.stopKey, qaGuard.startsAt, qaGuard.expiresAt);
+      const inserted = await db.prepare(statement).bind(...values).run();
+      if (qaGuard && (!inserted.success || inserted.meta.changes !== 1))
+        return fail(409, '限定テストは停止または期限切れです。追加保存はしていません。');
       if (env.DIAGNOSIS_METRICS_ENABLED === 'true')
         await count(db, 'create', 'none', 'none', 'none', now).catch(() => {});
       return reply(

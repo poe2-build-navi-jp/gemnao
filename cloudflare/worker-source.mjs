@@ -3,6 +3,7 @@ import editorialSnapshots from '../dist/editorial-snapshots.json';
 import { snapshotAssetFor } from './prerender-policy.mjs';
 import { handleDiagnosis, privateHeaders, readShare, isShareActive } from '../lib/diagnosis/server';
 import { diagnosisStorageFailure, diagnosisRetryHeaders } from '../lib/diagnosis/availability';
+import { handleQa, qaShareAllowed, qaDiagnosisEnv } from '../lib/diagnosis/qa';
 
 const staticFiles = new Set([
   '/ads.txt',
@@ -51,7 +52,7 @@ function edgeCacheKey(request) {
 
 async function render(request, env, context, pathname) {
   const response = await application.fetch(request, env, context);
-  if (/^\/diagnos(?:e|is)(?:\/|$)/.test(pathname)) {
+  if (/^\/diagnos(?:e|is)(?:\/|$)/.test(pathname) || pathname === '/admin/diagnosis-qa') {
     const protectedResponse = new Response(response.body, response);
     protectedResponse.headers.set('Cache-Control', 'private, no-store');
     protectedResponse.headers.set('Referrer-Policy', 'no-referrer');
@@ -84,11 +85,16 @@ async function render(request, env, context, pathname) {
 const worker = {
   async fetch(request, env, context) {
     const { pathname } = new URL(request.url);
-    if (/^\/api\/diagnosis(?:\/|$)/.test(pathname)) return handleDiagnosis(request, env);
+    if (pathname === '/api/admin/diagnosis-qa') return handleQa(request, env);
+    if (/^\/api\/diagnosis(?:\/|$)/.test(pathname)) {
+      const qaId = pathname.match(/^\/api\/diagnosis\/([a-f0-9]{32})$/)?.[1];
+      if (qaId && await qaShareAllowed(request, env, qaId)) return handleDiagnosis(request, qaDiagnosisEnv(env));
+      return handleDiagnosis(request, env);
+    }
     if (/^\/diagnose(?:\/|$)/.test(pathname) && env.DIAGNOSIS_LOCAL_BETA !== 'true' && env.DIAGNOSIS_ENABLED !== 'true') return new Response('診断は現在停止しています。既存の記事をご利用ください。', { status: 503, headers: { ...privateHeaders, 'Content-Type': 'text/plain; charset=utf-8' } });
     const sharedId = pathname.match(/^\/diagnosis\/([a-f0-9]{32})\/?$/)?.[1];
     if (sharedId) {
-      if (env.DIAGNOSIS_LOCAL_BETA === 'true' || env.DIAGNOSIS_STORAGE_ENABLED !== 'true' || env.DIAGNOSIS_ENABLED !== 'true' || env.DIAGNOSIS_SHARING_ENABLED !== 'true' || !env.DIAGNOSIS_DB) return new Response('共有は現在停止しています。', { status: 503, headers: { ...privateHeaders, 'Content-Type': 'text/plain; charset=utf-8' } });
+      if ((env.DIAGNOSIS_LOCAL_BETA === 'true' || env.DIAGNOSIS_STORAGE_ENABLED !== 'true' || env.DIAGNOSIS_ENABLED !== 'true' || env.DIAGNOSIS_SHARING_ENABLED !== 'true' || !env.DIAGNOSIS_DB) && !await qaShareAllowed(request, env, sharedId)) return new Response('共有は現在停止しています。', { status: 503, headers: { ...privateHeaders, 'Content-Type': 'text/plain; charset=utf-8' } });
       try {
         if (!isShareActive(await readShare(env.DIAGNOSIS_DB, sharedId), Date.now())) return new Response('共有ページは見つからないか、期限切れ・失効・削除されています。', { status: 404, headers: { ...privateHeaders, 'Content-Type': 'text/plain; charset=utf-8' } });
       } catch (error) {

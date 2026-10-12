@@ -1,0 +1,80 @@
+{
+  "diagnosis": [
+    {
+      "label": "synthetic-diagnosis-A",
+      "requestId": "cd199da82d6046a2bd9c39c66fa1f009",
+      "snapshot": {
+        "answers": {
+          "safety": "none",
+          "storage": "none",
+          "symptom": "not-launching",
+          "scope": "game",
+          "observation": "error",
+          "error": "directx",
+          "change": "none",
+          "launcher": "steam",
+          "os": "windows11",
+          "gpu": "nvidia",
+          "ram": "32",
+          "warranty": "covered",
+          "modelKnown": "known"
+        },
+        "tried": {
+          "verify": "unchanged"
+        },
+        "results": {},
+        "version": "2026-10-10.1"
+      }
+    },
+    {
+      "label": "synthetic-diagnosis-B",
+      "requestId": "0de1c539cd7c44689185a29d2cbef683",
+      "snapshot": {
+        "answers": {
+          "safety": "danger"
+        },
+        "tried": {},
+        "results": {},
+        "version": "2026-10-10.1"
+      }
+    }
+  ],
+  "feedback": [
+    {
+      "label": "synthetic-feedback-A",
+      "report": {
+        "schema_version": 1,
+        "game_id": "monster-hunter-wilds",
+        "source": "web-manual",
+        "symptom": "launch-crash",
+        "tool_version": "0.4.0",
+        "rule_version": "0.4.0",
+        "actions": [
+          {
+            "action_id": "wilds-steam-client-review",
+            "outcome": "improved",
+            "evidence": "self-report"
+          }
+        ]
+      }
+    },
+    {
+      "label": "synthetic-feedback-B",
+      "report": {
+        "schema_version": 1,
+        "game_id": "monster-hunter-wilds",
+        "source": "web-manual",
+        "symptom": "black-screen",
+        "tool_version": "0.4.0",
+        "rule_version": "0.4.0",
+        "actions": [
+          {
+            "action_id": "wilds-driver",
+            "outcome": "unchanged",
+            "evidence": "self-report"
+          }
+        ]
+      }
+    }
+  ]
+}
