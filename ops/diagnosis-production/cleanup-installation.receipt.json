@@ -1,0 +1,115 @@
+{
+  "runId": 38207736391,
+  "sourceSha": "a7a0c08dcf89e9c2f99ca19863a5ea545ffb70c4",
+  "jobId": 114674925272,
+  "completedReceiptAt": "2026-10-12T06:44:48.6447869Z",
+  "result": {
+    "mode": "install-production-cleanup",
+    "receipts": [
+      {
+        "feature": "sharing",
+        "accountId": "6a09a32cba1288cccce5912015086a35",
+        "databaseName": "gemnao-diagnosis-production",
+        "databaseId": "1ef1f798-7518-4b1a-a5a6-4f6f7dddfcfe",
+        "workerName": "gemnao-diagnosis-cleanup-production",
+        "workerId": "7877071bb4e84f14a4b9fdfcd49a5b37",
+        "versionId": "bb186989-25ec-483b-b53b-e33f61a6f689",
+        "cron": "17 * * * *",
+        "persistentBindingAndCron": true,
+        "retentionScopeHash": "f189bf9c54d5d823fee0e78b13aeade59f5195665515ab5af3c693ce629093de",
+        "scheduledDeletionScope": {
+          "diagnosis_shared": "expires_at<=now OR revoked_at IS NOT NULL; whole rows; created+30d expiry",
+          "diagnosis_rate_limits": "expires_at<=now",
+          "diagnosis_operations": "salt:* and expires_at<=now only",
+          "diagnosis_metrics": "day<=UTC-date(now-30d)",
+          "heartbeat": "upsert cleanup_success only after successful deletion; expires now+2h"
+        },
+        "scheduledDeletionMayStartAfterCronRegistration": true,
+        "moduleHash": "b0ffa2293a185a31579d00bdc36bf751bc75f69142bac103007b7929e30d20b9",
+        "confirmedAt": 1791787485688
+      },
+      {
+        "feature": "feedback",
+        "accountId": "6a09a32cba1288cccce5912015086a35",
+        "databaseName": "gemnao-diagnostic-feedback-production",
+        "databaseId": "f3379342-bb5e-461c-bad3-1175be8836c5",
+        "workerName": "gemnao-diagnostic-feedback-cleanup-production",
+        "workerId": "0a170accbee241c797763136fbfed06f",
+        "versionId": "514bbe61-9261-466e-bc6e-7a60246defb7",
+        "cron": "43 * * * *",
+        "persistentBindingAndCron": true,
+        "retentionScopeHash": "f189bf9c54d5d823fee0e78b13aeade59f5195665515ab5af3c693ce629093de",
+        "scheduledDeletionScope": {
+          "diagnostic_reports": "expires_at<=now; whole rows; created+30d expiry",
+          "diagnostic_report_tombstones": "expires_at<=now; deletion/cancellation+30d expiry",
+          "diagnostic_rate_attempts": "created_at<unixepoch()-60",
+          "diagnostic_rate_salt": "day<current UTC day",
+          "heartbeat": "upsert diagnostic_retention_health singleton=1 in successful deletion batch"
+        },
+        "scheduledDeletionMayStartAfterCronRegistration": true,
+        "moduleHash": "766d8636297ecfde0d3c4bb12d423a33015744026b83b7b4ad22c6a8339843d9",
+        "confirmedAt": 1791787488641
+      }
+    ],
+    "installationPreflight": {
+      "observedAt": 1791787479609,
+      "databaseCount": 6,
+      "workerCount": 3,
+      "cronCount": 2,
+      "usageHeadroom": "not-measured"
+    },
+    "journal": [
+      {
+        "feature": "sharing",
+        "step": "worker",
+        "startedAt": 1791787481243,
+        "outcome": "confirmed",
+        "requestHash": "b9a792cab41e7d07b3a00966282926f9c9bb52eaa41f65658434cb4f681d4de7",
+        "confirmedAt": 1791787482112
+      },
+      {
+        "feature": "sharing",
+        "step": "version",
+        "startedAt": 1791787482375,
+        "outcome": "confirmed",
+        "requestHash": "1a16d0727f0bf25e5d4be536a57582858f94467fe20df99c4c47da77e7b925e0",
+        "confirmedAt": 1791787483943
+      },
+      {
+        "feature": "sharing",
+        "step": "cron",
+        "startedAt": 1791787485299,
+        "outcome": "confirmed",
+        "requestHash": "82a2a8c0ba408701404ade59df09c47e3c8f71e3b243ff6e1d2b53da85ab8463",
+        "confirmedAt": 1791787485508
+      },
+      {
+        "feature": "feedback",
+        "step": "worker",
+        "startedAt": 1791787485883,
+        "outcome": "confirmed",
+        "requestHash": "3976bd1006e5880cc3746b4ab1bad2c70ac560f106e46df0714de5e87d79168f",
+        "confirmedAt": 1791787486080
+      },
+      {
+        "feature": "feedback",
+        "step": "version",
+        "startedAt": 1791787486287,
+        "outcome": "confirmed",
+        "requestHash": "7366fb653c15b1fcdc9b0f1835c7d7ea2ae8c4a1d7fa8e26122d12f7d6c57fb4",
+        "confirmedAt": 1791787487082
+      },
+      {
+        "feature": "feedback",
+        "step": "cron",
+        "startedAt": 1791787488106,
+        "outcome": "confirmed",
+        "requestHash": "6f3deb803e6d37e2f00bed2fcc322cfe3f32c3cc7e195b5aae77e86944a7d1db",
+        "confirmedAt": 1791787488408
+      }
+    ],
+    "actualHeartbeatVerified": false,
+    "alertDeliveryVerified": false,
+    "intakeEnabled": false
+  }
+}

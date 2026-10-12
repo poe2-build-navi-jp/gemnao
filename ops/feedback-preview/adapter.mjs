@@ -8,6 +8,8 @@ import { TARGET, SHARING, ARTIFACTS, sha256, checkArtifact, denyExecution } from
 import { isProductionOperation, PRODUCTION_FEATURES, PRODUCTION_ARTIFACTS, PRODUCTION_PLAN_HASH, PRODUCTION_MODE, PRODUCTION_RECORD_OPERATION, PRODUCTION_COST_POLICY, EXCLUDED_DATABASE_IDS, productionDatabaseRequestAllowed } from '../diagnosis-production/database-profile.mjs';
 
 import { CLEANUP_OPERATION, CLEANUP_MODE, CLEANUP_RECORD_OPERATION, CLEANUP_FEATURES, CLEANUP_ARTIFACTS, CLEANUP_PLAN_HASH, RETENTION_SCOPE, RETENTION_SCOPE_HASH, CLEANUP_SETUP_RUN, cleanupRequestAllowed } from '../diagnosis-production/cleanup-profile.mjs';
+import { PRODUCTION_HEALTH_OPERATION, PRODUCTION_HEALTH_MODE, PRODUCTION_HEALTH_PLAN_HASH, PRODUCTION_HEALTH_TARGETS,
+  validateProductionHealthRecord, productionHealthRequestAllowed, productionHealthTransport, productionHeartbeatStatus } from '../diagnosis-production/cleanup-health.mjs';
 
 const ACCOUNT = `/accounts/${TARGET.accountId}`;
 const REPO = `/repos/${TARGET.repository}`;
@@ -40,6 +42,7 @@ const fresh = (stamp, now, age) => Number.isSafeInteger(stamp) && stamp <= now &
 // Screenshots remain private: only their hashes and reviewed assessment belong
 // in a future record. A hash proves byte identity, not authenticity or plan truth.
 export function validateRecord(recordBytes, trustedRecordHash, now, operation = 'preview') {
+  if (operation === PRODUCTION_HEALTH_OPERATION) return validateProductionHealthRecord(recordBytes, trustedRecordHash, now);
   const production = isProductionOperation(operation);
   const cleanup = operation === CLEANUP_OPERATION;
   const planHash = cleanup ? CLEANUP_PLAN_HASH : production ? PRODUCTION_PLAN_HASH : PLAN_HASH;
@@ -127,10 +130,11 @@ export function validateRecord(recordBytes, trustedRecordHash, now, operation = 
 
 export async function createPreparedAdapter({ transport, durableClaims, recordBytes, trustedRecordHash, now = Date.now, onStage = () => {}, onEnvelope = () => {}, onReceipt = () => {}, operation = 'preview' }) {
   const production = isProductionOperation(operation);
+  const productionHealth = operation === PRODUCTION_HEALTH_OPERATION;
   const cleanup = operation === CLEANUP_OPERATION;
-  const features = cleanup ? CLEANUP_FEATURES : production ? PRODUCTION_FEATURES : FEATURES;
+  const features = productionHealth ? [] : cleanup ? CLEANUP_FEATURES : production ? PRODUCTION_FEATURES : FEATURES;
   const pinnedArtifacts = cleanup ? CLEANUP_ARTIFACTS : production ? PRODUCTION_ARTIFACTS : ARTIFACTS;
-  const planHash = cleanup ? CLEANUP_PLAN_HASH : production ? PRODUCTION_PLAN_HASH : PLAN_HASH;
+  const planHash = productionHealth ? PRODUCTION_HEALTH_PLAN_HASH : cleanup ? CLEANUP_PLAN_HASH : production ? PRODUCTION_PLAN_HASH : PLAN_HASH;
   const validateApproval = () => validateRecord(approvedBytes, trustedRecordHash, now(), operation);
   need(typeof transport === 'function', 'NO_TRANSPORT');
   const approvedBytes = String(recordBytes);
@@ -146,7 +150,8 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
   let preflightAt = null;
   let inventory;
   async function request(service, method, path, body) {
-    need(!production || service === 'github' || (cleanup ? cleanupRequestAllowed : productionDatabaseRequestAllowed)(path, method), 'TRANSPORT_SCOPE');
+    need(!production || service === 'github' || (productionHealth ? productionHealthRequestAllowed(path, method, body === undefined ? undefined : JSON.stringify(body))
+      : (cleanup ? cleanupRequestAllowed : productionDatabaseRequestAllowed)(path, method)), 'TRANSPORT_SCOPE');
     need(++requests <= 120, 'REQUEST_BOUND');
     const root = service === 'github' ? 'https://api.github.com' : 'https://api.cloudflare.com/client/v4';
     const url = root + path;
@@ -229,7 +234,7 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
       const safe = (production ? record.reconciledPriorRuns : record.reconciledNoWriteRuns).find(r => r.id === prior.id);
       const reconciled = safe && safe.headSha === prior.head_sha && prior.status === 'completed' && prior.run_attempt === 1;
       if (!reconciled) unreconciledPriorRunCount++;
-      need(reconciled || ['read-only-preflight', 'cleanup-health'].includes(record.mode), 'PRIOR_RUN_REQUIRES_READ_ONLY_RECONCILIATION');
+      need(reconciled || ['read-only-preflight', 'cleanup-health', PRODUCTION_HEALTH_MODE].includes(record.mode), 'PRIOR_RUN_REQUIRES_READ_ONLY_RECONCILIATION');
     }
     const reviews = await gh(`/actions/runs/${record.runId}/approvals`);
     need(Array.isArray(reviews), 'RUN_REVIEWS');
@@ -294,28 +299,33 @@ export async function createPreparedAdapter({ transport, durableClaims, recordBy
       observedAt: preflightAt, executionEnabled: false };
   }
   async function health() {
-    need(record.mode === 'cleanup-health', 'HEALTH_MODE');
+    need(record.mode === (productionHealth ? PRODUCTION_HEALTH_MODE : 'cleanup-health'), 'HEALTH_MODE');
     need(!started, 'ATTEMPT_ALREADY_STARTED'); started = true;
     validateApproval();
     await githubGate();
-    onStage('account-preflight');
-    need((await cf('')).result?.id === TARGET.accountId, 'ACCOUNT');
-    onStage('health-subdomain');
     let qaOrigin = plannedQaOrigin(null);
-    try { qaOrigin = plannedQaOrigin((await request('cloudflare', 'GET', QA_DISCOVERY.path)).result); }
-    catch { /* Discovery remains explicitly unknown; heartbeat checks are independent. */ }
+    if (!productionHealth) {
+      onStage('account-preflight');
+      need((await cf('')).result?.id === TARGET.accountId, 'ACCOUNT');
+      onStage('health-subdomain');
+      try { qaOrigin = plannedQaOrigin((await request('cloudflare', 'GET', QA_DISCOVERY.path)).result); }
+      catch { /* Discovery remains explicitly unknown; heartbeat checks are independent. */ }
+    }
+    const targets = productionHealth ? PRODUCTION_HEALTH_TARGETS : HEALTH_TARGETS;
     onStage('health-identities');
-    for (const target of HEALTH_TARGETS) {
+    for (const target of targets) {
       const database = (await cf(`/d1/database/${target.databaseId}`)).result;
       need(database?.uuid === target.databaseId && database.name === target.databaseName, 'HEALTH_DATABASE_IDENTITY');
     }
     onStage('health-heartbeats');
-    const result = { mode: 'cleanup-health', qaOrigin, intakeEnabled: false };
-    for (const target of HEALTH_TARGETS) {
+    const result = productionHealth ? { mode: PRODUCTION_HEALTH_MODE, readOnly: true, intakeEnabled: false,
+      alertDeliveryVerified: false } : { mode: 'cleanup-health', qaOrigin, intakeEnabled: false };
+    for (const target of targets) {
       validateApproval();
       const response = await request('cloudflare', 'POST', `${ACCOUNT}/d1/database/${target.databaseId}/query`, { sql: target.sql });
-      result[target.feature] = heartbeatStatus(target.feature, response.result, now());
+      result[target.feature] = (productionHealth ? productionHeartbeatStatus : heartbeatStatus)(target.feature, response.result, now());
     }
+    if (productionHealth) { result.observedAt = new Date(now()).toISOString(); result.actualHeartbeatVerified = result.sharing.healthy && result.feedback.healthy; }
     return result;
   }
   async function write(f, step, path, body, validate) {
@@ -439,5 +449,12 @@ export async function createReadOnlyAdapter({ transport, recordBytes, trustedRec
 export async function createHealthAdapter({ transport, recordBytes, trustedRecordHash, now = Date.now, onStage, onEnvelope }) {
   need(validateRecord(recordBytes, trustedRecordHash, now()).mode === 'cleanup-health', 'HEALTH_MODE');
   const adapter = await createPreparedAdapter({ transport: healthTransport(transport), recordBytes, trustedRecordHash, now, onStage, onEnvelope });
+  return Object.freeze({ health: adapter.health });
+}
+
+export async function createProductionHealthAdapter({ transport, recordBytes, trustedRecordHash, now = Date.now, onStage, onEnvelope }) {
+  validateRecord(recordBytes, trustedRecordHash, now(), PRODUCTION_HEALTH_OPERATION);
+  const adapter = await createPreparedAdapter({ transport: productionHealthTransport(transport), recordBytes,
+    trustedRecordHash, now, onStage, onEnvelope, operation: PRODUCTION_HEALTH_OPERATION });
   return Object.freeze({ health: adapter.health });
 }
