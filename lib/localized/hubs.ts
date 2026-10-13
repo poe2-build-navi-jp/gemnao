@@ -1,3 +1,4 @@
+import { launchLocalizedHubs } from '@/lib/launch-game-hubs';
 import { arcRaidersLocalizedHub } from '@/lib/arc-raiders-hub';
 import { nightreignLocalizedHub } from '@/lib/localized/nightreign';
 import { marvelRivalsLocalizedHub } from '@/lib/localized/marvel-rivals';
@@ -47,6 +48,7 @@ const store = (appId: string): LocalizedHub['sources'][number] => ({
 });
 
 export const localizedHubs: Record<string, LocalizedHub> = {
+  ...launchLocalizedHubs,
   'arc-raiders': arcRaidersLocalizedHub,
   'elden-ring-nightreign': nightreignLocalizedHub,
   'marvel-rivals': marvelRivalsLocalizedHub,

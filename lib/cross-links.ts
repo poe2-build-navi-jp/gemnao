@@ -59,6 +59,9 @@ const text = (article: GameArticle) =>
 
 /** Windows guides worth checking from a game article. */
 export function pcLinksForGameArticle(article: GameArticle): CrossLink[] {
+  if (article.gameSlug === 'valorant' && ['van9003', 'van9001'].includes(article.slug)) {
+    return [{ href: '/guide/tpm-secure-boot', label: 'TPM・セキュアブートの状態と変更前の確認' }];
+  }
   const t = text(article);
   const links: CrossLink[] = [];
   if (article.category === 'server' || /接続|ログイン|切断|オンライン/.test(t))

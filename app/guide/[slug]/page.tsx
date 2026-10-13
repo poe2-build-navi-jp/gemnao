@@ -157,13 +157,30 @@ export default async function Page({
               item.slug.includes('shader')
             ? 'display'
             : 'launch';
-  const gameLinks = gameArticles
+  const symptomGamePaths: Record<string, string[]> = {
+    'tpm-secure-boot': ['valorant/van9003', 'valorant/van9001'],
+    'windows-11-required': ['valorant/van9003', 'valorant/van9001'],
+    'steam-game-not-launching': ['apex-legends/r5apex-exe-launch-error'],
+    'pc-game-crash': ['apex-legends/r5apex-exe-launch-error'],
+  };
+  const matchingGamePaths = symptomGamePaths[slug];
+  const defaultGameLinks = gameArticles
     .filter(
       (article) =>
         article.category === (slug === 'reshade-uninstall' ? 'mods' : topic) ||
         (topic === 'display' && article.category === 'settings'),
     )
     .slice(0, 5);
+  const gameLinks = matchingGamePaths
+    ? [
+        ...gameArticles.filter((article) =>
+          matchingGamePaths.includes(`${article.gameSlug}/${article.slug}`),
+        ),
+        ...defaultGameLinks.filter((article) =>
+          !matchingGamePaths.includes(`${article.gameSlug}/${article.slug}`),
+        ),
+      ]
+    : defaultGameLinks;
   const troubleHub = troubleHubForGuide(item);
   const schema = [
     {

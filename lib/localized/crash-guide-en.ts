@@ -38,6 +38,7 @@ export const crashGuideEn: EnglishGuideInfo = {
     },
   ],
   related: [
+    { href: '/en/games/apex-legends/r5apex-exe-launch-error', label: 'Apex r5apex.exe: launcher repair and launch-error checks' },
     {
       href: '/en/games/monster-hunter-wilds/not-launching#steam-client-check',
       label: 'Wilds launch-crash checks and the reported recovery case',

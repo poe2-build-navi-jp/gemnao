@@ -1,3 +1,4 @@
+import { launchGameGuides } from '@/lib/launch-game-hubs';
 import { arcRaidersGuide } from '@/lib/arc-raiders';
 import { nightreignGuide } from '@/lib/nightreign';
 import { marvelRivalsGuide } from '@/lib/marvel-rivals';
@@ -33,6 +34,7 @@ const pcgw = (path: string) => `https://www.pcgamingwiki.com/wiki/${path}`;
 const steam = (id: string) => `https://store.steampowered.com/app/${id}`;
 
 export const games: GameGuide[] = [
+  ...launchGameGuides,
   arcRaidersGuide,
   nightreignGuide,
   marvelRivalsGuide,

@@ -251,7 +251,7 @@ export function ogCardSpecs(): OgCardSpec[] {
       }[article.locale],
       items: article.steps.slice(0, 4).map((step) => step.title),
     })),
-    ...['arc-raiders', 'elden-ring-nightreign', 'marvel-rivals'].flatMap(
+    ...['arc-raiders', 'elden-ring-nightreign', 'marvel-rivals', 'valorant', 'apex-legends'].flatMap(
       (gameSlug) => (['en', 'zh', 'es'] as const).map((locale) => ({
         path: `/${locale}/games/${gameSlug}`,
         locale,
@@ -270,6 +270,7 @@ export function ogCardSpecs(): OgCardSpec[] {
           ...arcRaidersLocalizedArticles,
           ...nightreignLocalizedArticles,
           ...marvelRivalsLocalizedArticles,
+          ...followupLocalizedArticles,
         ].filter((article) => article.gameSlug === gameSlug && article.locale === locale)
           .map((article) => article.shortTitle),
       })),
