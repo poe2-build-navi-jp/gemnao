@@ -58,6 +58,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <head>
+        <meta name="msvalidate.01" content="8C02613CB39D96A4B791BA7BCCACC2CF" />
         <link
           rel="alternate"
           type="application/atom+xml"
