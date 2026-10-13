@@ -1,5 +1,6 @@
 import { ContinueNotes } from './continue-notes';
 import { EnglishHomeSearch } from './english-home-search';
+import { LatestArticles } from './latest-articles';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { ArrowRight, ChevronRight, Wrench } from 'lucide-react';
 import { gearGuidesEn } from '@/lib/localized/gear-guides-en';
@@ -51,6 +52,18 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
         ...gearGuidesEn.map(guide => ({href: `/en/gear/${guide.slug}`, title: guide.title, label: 'Before you buy', body: guide.description || ''})),
         {href: '/en/tools/windows-diagnosis', title: 'Windows game diagnosis: instructions and download', label: 'Windows prototype', body: 'Game launch, crash, black screen, freeze, low FPS and stutter. Windows 11 x64.'},
       ]} />}
+      <LatestArticles locale={locale} articles={[...articles]
+        .sort((a, b) => b.checkedAt.localeCompare(a.checkedAt))
+        .slice(0, 3)
+        .map(article => ({
+          href: article.gameSlug === 'discord'
+            ? `/${locale}/discord/${article.slug}`
+            : `/${locale}/games/${article.gameSlug}/${article.slug}`,
+          title: article.title,
+          checkedAt: article.checkedAt,
+          label: article.gameSlug === 'discord' ? 'Discord'
+            : article.gameName || gameFacts[article.gameSlug].names[locale],
+        }))} />
       <ContinueNotes locale={locale} />
       <div className="content home-my-shortcut">
         <MyGamesHomeEntry locale={locale} />

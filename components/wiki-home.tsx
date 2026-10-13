@@ -1,5 +1,6 @@
 'use client';
 import { useSearchQuery } from './use-search-query';
+import { LatestArticles } from './latest-articles';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 
 import { useEffect, useMemo, useRef } from 'react';
@@ -105,6 +106,7 @@ export function WikiHome({
     .filter((guide): guide is NonNullable<typeof guide> => Boolean(guide));
   const searchResultCount = displayedGames.length + displayedArticleCount;
   const noSearchResults = isSearching && searchResultCount === 0;
+  const showLatestArticles = !view && !isSearching && !isArticleFiltering;
 
   useEffect(() => {
     const normalized = normalizeSearchQuery(query);
@@ -220,6 +222,8 @@ export function WikiHome({
           </output>
         ) : null}
       </section>
+      {showLatestArticles && <LatestArticles articles={visibleArticles
+        .filter(article => article.kind === 'game').slice(0, 3)} />}
       {!isSearching ? <DiagnosisCta home /> : null}
 
       {!isSearching && (
@@ -455,7 +459,7 @@ export function WikiHome({
         </section>
       )}
 
-      {(displayedArticleCount > 0 || view === 'articles') && (
+      {!showLatestArticles && (displayedArticleCount > 0 || view === 'articles') && (
         <section
           className="content article-index"
           id="articles"

@@ -5451,3 +5451,20 @@ a.my-games-primary {
 .hero-searching ~ .content {
   padding-top: 24px;
 }
+
+.home-latest.content { padding-top: 20px; padding-bottom: 20px; }
+.home-latest-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px 20px; flex-wrap: wrap; margin-bottom: 12px; }
+.home-latest h2 { margin: 0; font-size: 18px; }
+.home-latest-heading > a { display: inline-flex; align-items: center; min-height: 44px; color: var(--blue); font-size: 14px; font-weight: 700; }
+.home-latest ol { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.home-latest li { min-width: 0; }
+.home-latest li a { display: flex; flex-direction: column; justify-content: space-between; gap: 8px; height: 100%; min-height: 44px; padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); overflow-wrap: anywhere; }
+.home-latest strong { font-size: 15px; line-height: 1.6; }
+.home-latest li span { color: var(--muted); font-size: 12px; line-height: 1.5; }
+.home-latest time { color: var(--muted); font-size: 12px; }
+.home-latest a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.home-latest a:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+@media (max-width: 760px) {
+  .home-latest ol { grid-template-columns: 1fr; gap: 8px; }
+  .home-latest li a { padding: 12px 14px; }
+}

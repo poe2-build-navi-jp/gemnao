@@ -50,8 +50,8 @@ export const releaseRoundups: ReleaseRoundup[] = [
     shortTitle: '2026年10月の新作',
     description:
       '2026年10月に発売・サービス開始する新作PCゲーム11本の動作環境を1つの表に整理。レイトレーシング対応GPU、Windows 11、TPM 2.0など「起動できない」原因になる必須条件と、GTX 1660・Windows 10で遊べるかの目安をまとめました。',
-    lead: '発売日に「起動しない」と困らないように、購入前に確認したい必須条件をまとめました。',
-    checkedAt: '2026-10-03',
+    lead: '発売日に「起動しない」と困らないように、購入前に確認したい必須条件をまとめました。10月13日はテイルズとステューピッドのOS表記を再確認しました。',
+    checkedAt: '2026-10-13',
     games: [
       {
         name: '真・三國無双２ with 猛将伝 Remastered',
@@ -183,9 +183,9 @@ export const releaseRoundups: ReleaseRoundup[] = [
         spec: { gpu: ['gtx-650-ti'], ramGb: 4, windows11: true },
         gtx1660: 'yes',
         gtx1660Note: '最低環境のGTX 650 Tiより上',
-        win10: 'partial',
+        win10: 'unknown',
         win10Note:
-          '動作環境の表記はWindows 11。DirectX 12にはWindows 10（1809以降）とVRAM 4GB以上が必要との注記あり',
+          '最低・推奨OSはWindows 11。一方、推奨欄のDX12注記はWindows 10（1809以降）とVRAM 4GB以上。表記が一致しないためWindows 10対応は未確認。購入前に販売元へ確認（10月13日確認）',
         article: {
           href: '/games/tales-of-eternia-remastered/not-launching',
           label: '起動しない・DirectX 12とVRAMの確認',
@@ -195,16 +195,16 @@ export const releaseRoundups: ReleaseRoundup[] = [
       {
         name: 'ステューピッド・ネバー・ダイズ',
         date: '10月22日',
-        os: '記載なし（推奨はWindows 11）',
+        os: 'Windows 11（最低・推奨）',
         minGpu: 'GTX 1070・RTX 3050・RX 580（8GB）',
         memory: '16GB',
-        storage: '記載なし',
-        must: ['VRAM 8GB'],
-        spec: { gpu: ['gtx-1070'], vramGb: 8, ramGb: 16 },
+        storage: '22GB',
+        must: ['VRAM 8GB', 'Windows 11'],
+        spec: { gpu: ['gtx-1070'], vramGb: 8, ramGb: 16, windows11: true },
         gtx1660: 'no',
         gtx1660Note: '最低環境のGPUはVRAM 8GBで、GTX 1660（6GB）は下回る',
-        win10: 'unknown',
-        win10Note: '最低環境のOSは記載なし',
+        win10: 'no',
+        win10Note: 'Steamの最低・推奨OSはWindows 11。Windows 10は掲載された最低OSを満たさない（10月13日確認）',
         source: steam('3486530'),
       },
       {
@@ -276,7 +276,7 @@ export const releaseRoundups: ReleaseRoundup[] = [
       {
         question: 'Windows 10で遊べる10月の新作はどれですか？',
         answer:
-          '動作環境の表記上、Windows 10で遊べるのはAION2、Gears of War: E-Day（22H2以降）、Call of Duty: Modern Warfare 4（22H2以降で、TPM 2.0とセキュアブートが必要）、Phantom Blade Zero（64bit）です。ほかの多くはWindows 11と記載されています。',
+          '最低OSにWindows 10の記載があるのはAION2、Gears of War: E-Day（22H2以降）、Call of Duty: Modern Warfare 4（22H2以降で、TPM 2.0とセキュアブートが必要）、Phantom Blade Zero（64bit）です。OS表記だけで動作を保証するものではありません。テイルズはOS欄とDX12注記が一致せず、Windows 10対応は未確認。ステューピッド・ネバー・ダイズは最低・推奨OSがWindows 11です。',
       },
       {
         question:
