@@ -187,7 +187,29 @@ export function TroubleshootingArticle({
               結論
             </h2>
             <p>{article.conclusion}</p>
-            {article.related.length ? (
+            {article.nextChecks?.links.length ? (
+              <nav aria-labelledby="next-checks-title">
+                <p id="next-checks-title">
+                  <strong>{article.nextChecks.heading}</strong>
+                </p>
+                <ul>
+                  {article.nextChecks.links.map((link) => (
+                    <li key={link.href}>
+                      <a
+                        className="summary-step-link"
+                        href={link.href}
+                        hrefLang="ja"
+                        data-related={
+                          link.href.startsWith('#') ? undefined : 'true'
+                        }
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            ) : article.related.length ? (
               <a className="article-next-jump" href="#related-guides">
                 症状が違う・まだ直らない場合の次の確認 →
               </a>

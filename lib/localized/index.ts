@@ -15,8 +15,10 @@ import { localizedHubs, hasLocalizedHub } from '@/lib/localized/hubs';
 export { localizedGameSlugsFor } from '@/lib/localized/hubs';
 import { onimushaArticlesEn } from '@/lib/localized/onimusha-articles-en';
 import type { LocalizedArticle } from '@/lib/localized/types';
+import { followupLocalizedArticles } from '@/lib/followups';
 
 export const localizedArticles: LocalizedArticle[] = [
+  ...followupLocalizedArticles,
   ...arcRaidersLocalizedArticles,
   ...nightreignLocalizedArticles,
   ...marvelRivalsLocalizedArticles,

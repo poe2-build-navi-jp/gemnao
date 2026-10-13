@@ -1,4 +1,5 @@
 import { localizedPcRepairArticles } from '@/lib/localized/pc-repair-articles';
+import { followupLocalizedArticles } from '@/lib/followups';
 import { arcRaidersLocalizedArticles } from '@/lib/localized/arc-raiders';
 import { nightreignLocalizedArticles } from '@/lib/localized/nightreign';
 import { marvelRivalsLocalizedArticles } from '@/lib/localized/marvel-rivals';
@@ -230,6 +231,7 @@ export function ogCardSpecs(): OgCardSpec[] {
       ...aceCombatLaunchArticles,
       ...rocketLeagueLocalizedArticles,
       ...localizedDiscordUploadArticles,
+      ...followupLocalizedArticles,
     ].map((article) => ({
       path:
         article.gameSlug === 'discord'

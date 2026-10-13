@@ -69,7 +69,24 @@ export const monsterHunterArticles: GameArticle[] = [
   make({
     slug: 'not-launching',
     category: 'launch',
-    checkedAt: '2026-10-04',
+    nextChecks: {
+      heading: '症状に合う次の確認',
+      links: [
+        {
+          href: '#verify-files',
+          label: '起動直後・同じロードで落ちる：整合性確認の結果を見る',
+        },
+        {
+          href: '#compare-load',
+          label: '狩猟中だけ落ちる：同じ場面と時間で比較する',
+        },
+        {
+          href: '/games/monster-hunter-wilds/crash-after-fixes',
+          label: '対処後にまた落ちた：再発の比較と相談記録へ',
+        },
+      ],
+    },
+    checkedAt: '2026-10-13',
     targetVersion:
       'PC・Steam製品版／ドライバー・動画再生の公式案内を2026年10月4日に再確認',
     title:
@@ -195,6 +212,11 @@ export const monsterHunterArticles: GameArticle[] = [
       },
       {
         id: 'verify-files',
+        guideLink: {
+          href: '/games/monster-hunter-wilds/crash-after-fixes#record-recurrence',
+          label: '修復後も再発する時の記録',
+          description: '同じロードや狩猟で再発した場合はこちらへ。',
+        },
         title: 'Steamの整合性確認後、再取得と再発を分けて判断する',
         summary:
           '不足・破損ファイルの修復と、クラッシュの改善は別々に確認します。',
@@ -268,6 +290,11 @@ export const monsterHunterArticles: GameArticle[] = [
       },
       {
         id: 'compare-load',
+        guideLink: {
+          href: '/games/monster-hunter-wilds/crash-after-fixes#compare-one-change',
+          label: '対処後の再発を1項目ずつ比較する',
+          description: '一度の成功と継続的な改善を分けます。',
+        },
         title: '長時間後のクラッシュは同じ狩猟・画質・時間で比較する',
         summary:
           '同時に複数の設定を変えると、どの変更が関係したか判断できません。',
@@ -307,6 +334,11 @@ export const monsterHunterArticles: GameArticle[] = [
       },
       {
         id: 'crash-record',
+        guideLink: {
+          href: '/games/monster-hunter-wilds/crash-after-fixes#support-record',
+          label: '再発時の相談記録を整理する',
+          description: '記録の時刻と試した変更を揃えます。',
+        },
         title: 'エラーなしで落ちる時も、履歴・CrashReportを残す',
         summary:
           '記録がある場合も、エラー名1つだけで故障部品を決めないでください。',
@@ -455,7 +487,14 @@ export const monsterHunterArticles: GameArticle[] = [
         url: 'https://www.monsterhunter.com/support/wilds/',
       },
     ],
-    related: ['save-data', 'config-file', 'system-requirements', 'fps', 'mod'],
+    related: [
+      'crash-after-fixes',
+      'save-data',
+      'config-file',
+      'system-requirements',
+      'fps',
+      'mod',
+    ],
     metaDescription:
       'モンハンワイルズがクラッシュ・落ちる時の対処を起動直後、ロード中、狩猟中、シェーダー準備別に解説。MOD退避、整合性確認、GPUドライバー、VRAMとDLC、CrashReportの場所、改善しない時の次の行動を確認できます。',
   }),

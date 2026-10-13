@@ -17,6 +17,7 @@ import { errorCodeArticles } from '@/lib/error-code-articles';
 import { aniimoArticles } from '@/lib/aniimo-articles';
 import { dawnwalkerArticles } from '@/lib/dawnwalker-articles';
 import { monsterHunterArticles } from '@/lib/monster-hunter-articles';
+import { followupGameArticles } from '@/lib/followups';
 
 export type ArticleCategory =
   | 'save'
@@ -72,6 +73,7 @@ export type GameArticle = {
   avoid?: string[];
   sources?: { label: string; url: string }[];
   related: string[];
+  nextChecks?: { heading: string; links: { href: string; label: string }[] };
   seoTitle: string;
   metaDescription: string;
   /** Compact wording for the social preview image; page title stays unchanged. */
@@ -973,6 +975,7 @@ export const gameArticles: GameArticle[] = [
   ...rocketLeagueArticles,
   ...aniimoArticles,
   ...monsterHunterArticles,
+  ...followupGameArticles,
   ...originalGameArticles,
   ...eldenArticles,
   ...currentGameArticles,

@@ -6,7 +6,27 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
     locale: 'en',
     gameSlug: 'monster-hunter-wilds',
     slug: 'not-launching',
-    checkedAt: '2026-10-04',
+    nextChecks: {
+      heading: 'Choose the next check for your symptom',
+      links: [
+        {
+          href: '#verify-files',
+          label:
+            'Closes at launch or the same load? Check verification results.',
+        },
+        {
+          href: '#compare-load',
+          label:
+            'Crashes only during hunts? Compare the same scene and duration.',
+        },
+        {
+          href: '/en/games/monster-hunter-wilds/crash-after-fixes',
+          label:
+            'Crashes returned after a fix? Compare recurrence and prepare a report.',
+        },
+      ],
+    },
+    checkedAt: '2026-10-13',
     title:
       'Monster Hunter Wilds Crashing on PC: Launch, Hunting and Shader-Preparation Checks',
     shortTitle: 'Crashing or not launching',
@@ -131,6 +151,11 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
       },
       {
         id: 'verify-files',
+        guideLink: {
+          href: '/en/games/monster-hunter-wilds/crash-after-fixes#record-recurrence',
+          label: 'Record a crash that returns after repair',
+          description: 'Continue here if the same load or hunt fails again.',
+        },
         title: 'Check file replacement and crash improvement separately',
         summary:
           'Repairing missing or damaged files does not by itself prove the crash is fixed.',
@@ -207,6 +232,12 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
       },
       {
         id: 'compare-load',
+        guideLink: {
+          href: '/en/games/monster-hunter-wilds/crash-after-fixes#compare-one-change',
+          label: 'Compare one change after a recurring crash',
+          description:
+            'Separate one successful run from continuing improvement.',
+        },
         title:
           'Compare long-session crashes with the same hunt, settings and duration',
         summary:
@@ -248,6 +279,11 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
       },
       {
         id: 'crash-record',
+        guideLink: {
+          href: '/en/games/monster-hunter-wilds/crash-after-fixes#support-record',
+          label: 'Prepare a recurrence report',
+          description: 'Match timestamps with the changes you tried.',
+        },
         title:
           'Keep Windows history and CrashReport even without an error message',
         summary:
@@ -360,6 +396,10 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
     ],
     related: [
       {
+        href: '/en/games/monster-hunter-wilds/crash-after-fixes',
+        label: 'Crashes return after fixes: comparison and support records',
+      },
+      {
         href: '/en/guide/pc-game-crash',
         label: 'PC game crash troubleshooting',
       },
@@ -442,7 +482,7 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
     gameSlug: 'ace-combat-8',
     gameName: 'ACE COMBAT 8',
     slug: 'error-st-3100001',
-    checkedAt: '2026-10-02',
+    checkedAt: '2026-10-13',
     title:
       'ACE COMBAT 8 Error ST-3100001 on PC: Check Windows Time Synchronization',
     shortTitle: 'Error ST-3100001',
@@ -455,11 +495,12 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
       heading: 'Still not fixed? Choose your next check',
       links: [
         {
-          href: '#check-offset',
-          label: 'Time sync fails or the clock drifts? Check the clock offset.',
+          href: '/en/games/ace-combat-8/time-sync-failed',
+          label:
+            'Time sync fails or the clock drifts? Check the sync result and source.',
         },
         {
-          href: '#check-status',
+          href: '/en/games/ace-combat-8/connection-after-time-sync',
           label:
             'Clock synced, but disconnecting during or after a mission? Check official notices and the connection.',
         },
@@ -508,7 +549,7 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
       },
       {
         symptom: 'Sync now fails, or the clock drifts again',
-        cause: 'Check the Windows Time service and measured offset',
+        cause: 'Read the sync status, time source and actual error',
         stepId: 'check-offset',
       },
       {
@@ -541,22 +582,34 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
       },
       {
         id: 'check-offset',
-        title: 'Measure clock offset and check the synchronization service',
+        guideLink: {
+          href: '/en/games/ace-combat-8/time-sync-failed',
+          label: 'When Windows time synchronization itself fails',
+          description:
+            'Read the error, last successful sync and time source before changing settings.',
+        },
+        title: 'Read the time-sync status and source',
         summary:
-          'Use this when Sync now fails or the issue persists. These are built-in Windows commands, not a downloaded repair tool.',
+          'Check the actual result of Sync now. On a managed PC, ask the administrator without changing time policy.',
         time: 'About 5 minutes',
         risk: 'low',
         actions: [
-          'Press Windows + X and open Terminal (Admin), accepting the Windows elevation prompt only if you intend to run these commands on your own PC.',
-          'Run w32tm /stripchart /computer:time.windows.com /samples:5 /dataonly . Values close to zero, such as +0.02s, show little measured offset; tens of seconds or minutes show a clock discrepancy. This is not a guarantee that the game will connect.',
-          'If the time is off, run w32tm /resync /force to request synchronization.',
-          'If Windows says the service has not been started, run Start-Service W32Time, then run w32tm /resync /force again.',
-          'Repeat the first command to check the offset, then restart Steam and ACE COMBAT 8.',
+          'On a PC you manage, open Command Prompt as administrator and run w32tm /query /status and w32tm /query /source separately.',
+          'Record the last successful sync, time source and actual error. A stopped service alone does not establish a fault, and an old successful timestamp does not confirm this attempt.',
+          'For an additional offset measurement, use w32tm /stripchart /computer:time.windows.com /samples:5 /dataonly. A small measured offset does not prove Windows sync or game connectivity succeeded.',
+          'If synchronization fails, use the dedicated guide below. Choose the next check from the actual error instead of changing the time server or service startup policy on speculation.',
+          'After confirming successful synchronization, restart Steam and ACE COMBAT 8. Continue to Step 3 if the connection still fails.',
         ],
-        note: 'A player in the linked Steam discussion reported an approximately 136-second offset and being able to deploy after correcting it. That is an individual player report. On a managed work or school PC, ask its administrator before changing time-service behavior.',
+        note: 'The publisher does not specify a universal acceptable offset in seconds. Individual player improvements do not establish a cause or success rate.',
       },
       {
         id: 'check-status',
+        guideLink: {
+          href: '/en/games/ace-combat-8/connection-after-time-sync',
+          label: 'Separate game, PC and connection problems after time sync',
+          description:
+            'Compare dated official notices and the scope of the failure.',
+        },
         title: 'Check official notices and compare the connection',
         summary:
           'Because this is a general connection-loss error, a correct clock does not rule out a server or connection problem.',
@@ -599,6 +652,14 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
     ],
     related: [
       {
+        href: '/en/games/ace-combat-8/time-sync-failed',
+        label: 'Windows time synchronization fails',
+      },
+      {
+        href: '/en/games/ace-combat-8/connection-after-time-sync',
+        label: 'Connections fail after successful time sync',
+      },
+      {
         href: '/en/games/ace-combat-8/not-launching',
         label: 'ACE COMBAT 8 launch troubleshooting',
       },
@@ -606,8 +667,13 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
     ],
     sources: [
       {
+        label:
+          'Microsoft Learn: W32Time trigger-start behavior and stopped status',
+        url: 'https://learn.microsoft.com/en-us/troubleshoot/windows-client/active-directory/w32time-not-start-on-workgroup',
+      },
+      {
         label: 'Official Steam news: ST-3100001, September 30, 2026',
-        url: 'https://store.steampowered.com/news/app/2288340/view/695399726270382123',
+        url: 'https://steamcommunity.com/ogg/2288340/announcements/detail/695399726270382124',
       },
       {
         label:

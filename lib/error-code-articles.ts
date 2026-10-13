@@ -23,13 +23,31 @@ export const errorCodeArticles: GameArticle[] = [
     gameSlug: 'ace-combat-8',
     slug: 'error-st-3100001',
     category: 'server',
-    checkedAt: '2026-10-02',
+    checkedAt: '2026-10-13',
     seoTitle:
       'エースコンバット8のエラーコード「ST-3100001」の意味と直し方【PC版】',
     title:
       'エースコンバット8（エスコン8）のエラーコード「ST-3100001」の意味と直し方｜Windowsの時刻同期【PC・Steam版】',
     shortTitle: 'エラーコード ST-3100001',
-    targetVersion: 'Steam版（ACE COMBAT ONLINE）・2026年10月2日時点',
+    targetVersion:
+      'Steam版（ACE COMBAT ONLINE）・時刻同期の確認手順を2026年10月13日に更新',
+    nextChecks: {
+      heading: '症状に合う次の確認',
+      links: [
+        {
+          href: '/games/ace-combat-8/time-sync-failed',
+          label: '時刻同期が失敗する：同期結果と同期元を確認する',
+        },
+        {
+          href: '/games/ace-combat-8/connection-after-time-sync',
+          label: '同期後も切断される：公式告知と接続の範囲を確認する',
+        },
+        {
+          href: '/games/ace-combat-8/not-launching',
+          label: 'ゲーム自体が起動しない：起動・クラッシュの確認へ',
+        },
+      ],
+    },
     symptom:
       'ACE COMBAT ONLINEのプレイ中や出撃のタイミングでエラーコード「ST-3100001」が表示され、プレイを続けられない場合の対処です。',
     conclusion:
@@ -39,7 +57,7 @@ export const errorCodeArticles: GameArticle[] = [
     causes: [
       'ゲームサーバーとの通信が切れた（公式の説明）',
       'Windowsの時刻がずれている（公式が確認を案内）',
-      'Windowsの時刻同期サービスが止まっていて、自動で直らない',
+      '時刻同期に失敗している可能性（サービスの停止表示だけでは判断できない）',
       '回線が不安定（Wi-Fi・VPNなど）',
     ],
     quickFacts: [
@@ -64,7 +82,7 @@ export const errorCodeArticles: GameArticle[] = [
       {
         label: 'ミッション終了後のエラー',
         value:
-          'リザルト画面に進まずエラーになる事象は公式が対応中。この事象で付いたペナルティは解除予定（9/29の公式告知）',
+          '9月29日の公式告知では対応・ペナルティ解除予定と説明。現在の状況は新しい公式告知で確認',
       },
     ],
     diagnosis: [
@@ -75,7 +93,7 @@ export const errorCodeArticles: GameArticle[] = [
       },
       {
         symptom: '「今すぐ同期」が失敗する・同期してもすぐずれる',
-        cause: 'Windowsの時刻同期サービスが止まっている',
+        cause: '同期エラーと同期元を確認。停止表示だけでは故障と判断できない',
         stepId: 'check-offset',
       },
       {
@@ -85,7 +103,7 @@ export const errorCodeArticles: GameArticle[] = [
       },
       {
         symptom: 'ミッション終了後、リザルト画面に進まずエラーになる',
-        cause: '公式が対応中の不具合（9/29告知）',
+        cause: '9月29日の告知対象と一致するか、後続の公式情報と照合',
         stepId: 'check-status',
       },
     ],
@@ -107,19 +125,24 @@ export const errorCodeArticles: GameArticle[] = [
       },
       {
         id: 'check-offset',
-        title: '時刻のずれを数値で確かめ、同期サービスを動かす',
+        title: '時刻の同期状態と同期元を確認する',
         summary:
-          '「今すぐ同期」が失敗する場合や、同期しても直らない場合の確認です。使うのはWindows標準のコマンド（w32tm）だけです。',
+          '「今すぐ同期」の実際の結果を確認します。管理PCの同期設定は変更せず、担当者へ相談してください。',
         time: '約5分',
         risk: 'low',
         actions: [
-          'Windowsキー＋Xを押し、「ターミナル（管理者）」を選んで「はい」を押す',
-          '「w32tm /stripchart /computer:time.windows.com /samples:5 /dataonly」を貼り付けてEnterを押す。表示される数値が0秒前後（例：+0.02s）なら正常、数十秒〜数分なら時刻がずれている',
-          'ずれていたら「w32tm /resync /force」を実行して同期する',
-          '「サービスが開始されていません」と表示された場合は「Start-Service W32Time」を実行してから、もう一度「w32tm /resync /force」を実行する',
-          'もう一度1つ目のコマンドで0秒前後になったことを確かめ、SteamとACE COMBAT 8を再起動する',
+          '自分で管理するPCで、コマンドプロンプトを「管理者として実行」し、w32tm /query /status と w32tm /query /source をそれぞれ実行する。',
+          '最終同期成功時刻・同期元・エラーを控える。サービスの停止表示だけでは故障と限らず、古い成功時刻も今回の同期成功とは限らない。',
+          '時差を追加で測る場合は w32tm /stripchart /computer:time.windows.com /samples:5 /dataonly を使う。小さい測定差でも、Windowsの同期処理やゲーム接続の成功は証明できない。',
+          '同期に失敗する場合は下の専用手順へ進む。時刻サーバーやサービスの起動方式を自己判断で変えず、実際のエラーから次の確認を選ぶ。',
+          '同期成功を確認したらSteamとACE COMBAT 8を再起動する。まだ切れる場合はSTEP 3へ進む。',
         ],
-        note: 'Steamの公式掲示板では、この方法で約136秒（2分強）のずれが見つかり、直した直後から出撃できたという報告があります（プレイヤーの報告）。',
+        note: '公式はすべての環境に共通する許容時差の秒数を示していません。プレイヤーの改善報告は個別例で、原因や成功率の証明ではありません。',
+        guideLink: {
+          href: '/games/ace-combat-8/time-sync-failed',
+          label: 'Windowsの時刻同期そのものが失敗する場合',
+          description: '実際のエラー、最終成功時刻、同期元を順に確認します。',
+        },
       },
       {
         id: 'check-status',
@@ -130,10 +153,16 @@ export const errorCodeArticles: GameArticle[] = [
         risk: 'low',
         actions: [
           'エースコンバット公式X（@PROJECT_ACES）とSteamのニュースで、障害・メンテナンスの告知を確認する（ゲムなおの「障害・メンテ情報」でも確認できる）',
-          'ミッション終了後にリザルト画面へ進まずエラーになる場合は、公式が対応中の不具合。解消の告知を待つ',
-          'Wi-Fiの場合は可能なら有線接続にし、VPNや通信最適化ツールを止めて比べる',
-          'ルーターを再起動してから、もう一度試す',
+          'ミッション終了後にリザルト画面へ進まずエラーになる場合は、9月29日告知の対象症状と一致するか、後続の更新・解消情報を確認する。',
+          '自分で管理する回線なら、同じPCで有線とWi-Fiを比較する。管理ネットワークの必須VPNや保護設定を変更しない。',
+          'このゲームだけか、同じ回線の別端末やほかの通信も失敗するかを記録する。ゲームだけの失敗をサーバー障害と断定せず、下の切り分け記事へ進む。',
         ],
+        guideLink: {
+          href: '/games/ace-combat-8/connection-after-time-sync',
+          label: '時刻同期後も切断される時の範囲の切り分け',
+          description:
+            '公式告知の日付、発生場面、別端末・接続方法の比較を整理します。',
+        },
       },
     ],
     avoid: [
@@ -165,9 +194,13 @@ export const errorCodeArticles: GameArticle[] = [
     ],
     sources: [
       {
+        label: 'Microsoft Learn：W32Timeのトリガー起動と停止表示（英語）',
+        url: 'https://learn.microsoft.com/en-us/troubleshoot/windows-client/active-directory/w32time-not-start-on-workgroup',
+      },
+      {
         label:
           'Steamニュース（公式）：エラーコード：ST-3100001について（2026年9月30日）',
-        url: 'https://store.steampowered.com/news/app/2288340/view/695399726270382123',
+        url: 'https://steamcommunity.com/ogg/2288340/announcements/detail/695399726270382124',
       },
       {
         label:
@@ -185,7 +218,11 @@ export const errorCodeArticles: GameArticle[] = [
         url: 'https://learn.microsoft.com/ja-jp/windows-server/networking/windows-time-service/windows-time-service-tools-and-settings',
       },
     ],
-    related: ['not-launching'],
+    related: [
+      'time-sync-failed',
+      'connection-after-time-sync',
+      'not-launching',
+    ],
     metaDescription:
       'エースコンバット8（エスコン8）のエラーコード「ST-3100001」は、公式によるとゲームサーバーとの通信が切れた時のエラー。公式の対処（Windowsの時刻同期）の手順、時刻のずれを秒単位で確かめるコマンド、ミッション終了後のエラーとペナルティ解除の公式告知を解説。',
   }),
