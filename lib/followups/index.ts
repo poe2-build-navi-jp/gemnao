@@ -1,3 +1,10 @@
+import { apexCrashGuide } from './apex-crash';
+import { apexNetworkGuide } from './apex-network';
+import { fortniteRunningGuide } from './fortnite-running';
+import { fortniteDx12Guide } from './fortnite-dx12';
+import { battlefieldJavelin94Guide } from './battlefield-javelin94';
+import { battlefieldSecureBootGuide } from './battlefield-secure-boot';
+import { valorantLaunchGuide } from './valorant-launch';
 import { valorantVan9003Guide } from './valorant-van9003';
 import { valorantVan9001Guide } from './valorant-van9001';
 import { apexLaunchGuide } from './apex-launch';
@@ -13,6 +20,13 @@ export const followupGuides = [
   valorantVan9003Guide,
   valorantVan9001Guide,
   apexLaunchGuide,
+  apexCrashGuide,
+  apexNetworkGuide,
+  fortniteRunningGuide,
+  fortniteDx12Guide,
+  battlefieldJavelin94Guide,
+  battlefieldSecureBootGuide,
+  valorantLaunchGuide,
 ];
 export const followupGameArticles = followupGuides.map(japaneseFollowup);
 export const followupLocalizedArticles =

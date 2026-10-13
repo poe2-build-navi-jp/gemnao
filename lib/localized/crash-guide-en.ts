@@ -38,7 +38,18 @@ export const crashGuideEn: EnglishGuideInfo = {
     },
   ],
   related: [
-    { href: '/en/games/apex-legends/r5apex-exe-launch-error', label: 'Apex r5apex.exe: launcher repair and launch-error checks' },
+    {
+      href: '/en/games/apex-legends/apex-crash-txt',
+      label: 'Apex_crash.txt: repair and background-app comparisons',
+    },
+    {
+      href: '/en/games/valorant/not-launching-no-van',
+      label: 'VALORANT launch failure without a VAN code',
+    },
+    {
+      href: '/en/games/apex-legends/r5apex-exe-launch-error',
+      label: 'Apex r5apex.exe: launcher repair and launch-error checks',
+    },
     {
       href: '/en/games/monster-hunter-wilds/not-launching#steam-client-check',
       label: 'Wilds launch-crash checks and the reported recovery case',

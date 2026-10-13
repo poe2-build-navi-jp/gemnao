@@ -59,8 +59,18 @@ const text = (article: GameArticle) =>
 
 /** Windows guides worth checking from a game article. */
 export function pcLinksForGameArticle(article: GameArticle): CrossLink[] {
-  if (article.gameSlug === 'valorant' && ['van9003', 'van9001'].includes(article.slug)) {
-    return [{ href: '/guide/tpm-secure-boot', label: 'TPM・セキュアブートの状態と変更前の確認' }];
+  if (
+    (article.gameSlug === 'valorant' &&
+      ['van9003', 'van9001'].includes(article.slug)) ||
+    (article.gameSlug === 'battlefield-6' &&
+      article.slug === 'secure-boot-enabled-not-launching')
+  ) {
+    return [
+      {
+        href: '/guide/tpm-secure-boot',
+        label: 'TPM・セキュアブートの状態と変更前の確認',
+      },
+    ];
   }
   const t = text(article);
   const links: CrossLink[] = [];
@@ -84,6 +94,10 @@ export function pcLinksForGameArticle(article: GameArticle): CrossLink[] {
 /** Game-side pages worth checking from a Windows guide. */
 const gameLinksByPcSlug: Record<string, CrossLink[]> = {
   'wifi-connected-no-internet': [
+    {
+      href: '/games/apex-legends/code-net-leaf',
+      label: 'Apexのcode:net・code:leafと接続比較',
+    },
     {
       href: '/trouble/server',
       label: 'ゲームのサーバーに接続できない時の対処法',

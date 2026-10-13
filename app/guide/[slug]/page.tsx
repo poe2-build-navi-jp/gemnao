@@ -20,21 +20,48 @@ import {
   SteamCloudAfterSteps,
 } from '@/components/steam-cloud-details';
 import { CrashBeforeSteps, CrashAfterSteps } from '@/components/crash-details';
-import { DirectxBeforeSteps, DirectxAfterSteps } from '@/components/directx-details';
+import {
+  DirectxBeforeSteps,
+  DirectxAfterSteps,
+} from '@/components/directx-details';
 import {
   SteamLaunchBeforeSteps,
   SteamLaunchAfterSteps,
 } from '@/components/steam-launch-details';
 import { AudioBeforeSteps, AudioAfterSteps } from '@/components/audio-details';
 import { VramBeforeSteps, VramAfterSteps } from '@/components/vram-details';
-import { LowFpsBeforeSteps, LowFpsAfterSteps } from '@/components/low-fps-details';
-import { LowGpuUsageBeforeSteps, LowGpuUsageAfterSteps } from '@/components/low-gpu-usage-details';
-import { SteamDiskWriteBeforeSteps, SteamDiskWriteAfterSteps } from '@/components/steam-disk-write-details';
-import { SteamInputBeforeSteps, SteamInputAfterSteps } from '@/components/steam-input-details';
-import { ControllerDoubleBeforeSteps, ControllerDoubleAfterSteps } from '@/components/controller-double-input-details';
-import { RemoveModsBeforeSteps, RemoveModsAfterSteps } from '@/components/remove-mods-details';
-import { VisualCBeforeSteps, VisualCAfterSteps } from '@/components/visual-c-details';
-import { VerifySteamBeforeSteps, VerifySteamAfterSteps } from '@/components/verify-steam-details';
+import {
+  LowFpsBeforeSteps,
+  LowFpsAfterSteps,
+} from '@/components/low-fps-details';
+import {
+  LowGpuUsageBeforeSteps,
+  LowGpuUsageAfterSteps,
+} from '@/components/low-gpu-usage-details';
+import {
+  SteamDiskWriteBeforeSteps,
+  SteamDiskWriteAfterSteps,
+} from '@/components/steam-disk-write-details';
+import {
+  SteamInputBeforeSteps,
+  SteamInputAfterSteps,
+} from '@/components/steam-input-details';
+import {
+  ControllerDoubleBeforeSteps,
+  ControllerDoubleAfterSteps,
+} from '@/components/controller-double-input-details';
+import {
+  RemoveModsBeforeSteps,
+  RemoveModsAfterSteps,
+} from '@/components/remove-mods-details';
+import {
+  VisualCBeforeSteps,
+  VisualCAfterSteps,
+} from '@/components/visual-c-details';
+import {
+  VerifySteamBeforeSteps,
+  VerifySteamAfterSteps,
+} from '@/components/verify-steam-details';
 import {
   BlackScreenBeforeSteps,
   BlackScreenAfterSteps,
@@ -103,7 +130,12 @@ export async function generateMetadata({
     ? {
         title: item.title,
         description: item.description,
-        alternates: { canonical: `/guide/${slug}`, ...(hasTranslation('en', `/guide/${slug}`) ? { languages: languageAlternates(`/guide/${slug}`) } : {}) },
+        alternates: {
+          canonical: `/guide/${slug}`,
+          ...(hasTranslation('en', `/guide/${slug}`)
+            ? { languages: languageAlternates(`/guide/${slug}`) }
+            : {}),
+        },
         openGraph: {
           type: 'article',
           title: item.title,
@@ -158,10 +190,23 @@ export default async function Page({
             ? 'display'
             : 'launch';
   const symptomGamePaths: Record<string, string[]> = {
-    'tpm-secure-boot': ['valorant/van9003', 'valorant/van9001'],
+    'tpm-secure-boot': [
+      'valorant/van9003',
+      'valorant/van9001',
+      'battlefield-6/secure-boot-enabled-not-launching',
+    ],
     'windows-11-required': ['valorant/van9003', 'valorant/van9001'],
-    'steam-game-not-launching': ['apex-legends/r5apex-exe-launch-error'],
-    'pc-game-crash': ['apex-legends/r5apex-exe-launch-error'],
+    'steam-game-not-launching': [
+      'apex-legends/r5apex-exe-launch-error',
+      'battlefield-6/javelin-error-94',
+    ],
+    'pc-game-crash': [
+      'apex-legends/r5apex-exe-launch-error',
+      'apex-legends/apex-crash-txt',
+      'valorant/not-launching-no-van',
+    ],
+    'black-screen': ['fortnite/dx12-black-screen'],
+    'directx-error': ['fortnite/dx12-black-screen'],
   };
   const matchingGamePaths = symptomGamePaths[slug];
   const defaultGameLinks = gameArticles
@@ -176,8 +221,9 @@ export default async function Page({
         ...gameArticles.filter((article) =>
           matchingGamePaths.includes(`${article.gameSlug}/${article.slug}`),
         ),
-        ...defaultGameLinks.filter((article) =>
-          !matchingGamePaths.includes(`${article.gameSlug}/${article.slug}`),
+        ...defaultGameLinks.filter(
+          (article) =>
+            !matchingGamePaths.includes(`${article.gameSlug}/${article.slug}`),
         ),
       ]
     : defaultGameLinks;
@@ -599,8 +645,12 @@ export default async function Page({
           {slug === 'low-fps' ? <LowFpsBeforeSteps /> : null}
           {slug === 'low-gpu-usage' ? <LowGpuUsageBeforeSteps /> : null}
           {slug === 'steam-input-controller' ? <SteamInputBeforeSteps /> : null}
-          {slug === 'controller-double-input' ? <ControllerDoubleBeforeSteps /> : null}
-          {slug === 'steam-disk-write-error' ? <SteamDiskWriteBeforeSteps /> : null}
+          {slug === 'controller-double-input' ? (
+            <ControllerDoubleBeforeSteps />
+          ) : null}
+          {slug === 'steam-disk-write-error' ? (
+            <SteamDiskWriteBeforeSteps />
+          ) : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <PowerShutdownBeforeSteps />
           ) : null}
@@ -661,8 +711,12 @@ export default async function Page({
           {slug === 'low-fps' ? <LowFpsAfterSteps /> : null}
           {slug === 'low-gpu-usage' ? <LowGpuUsageAfterSteps /> : null}
           {slug === 'steam-input-controller' ? <SteamInputAfterSteps /> : null}
-          {slug === 'controller-double-input' ? <ControllerDoubleAfterSteps /> : null}
-          {slug === 'steam-disk-write-error' ? <SteamDiskWriteAfterSteps /> : null}
+          {slug === 'controller-double-input' ? (
+            <ControllerDoubleAfterSteps />
+          ) : null}
+          {slug === 'steam-disk-write-error' ? (
+            <SteamDiskWriteAfterSteps />
+          ) : null}
           {slug === 'pc-shuts-down-while-gaming' ? (
             <PowerShutdownAfterSteps />
           ) : null}
@@ -677,54 +731,61 @@ export default async function Page({
               {slug === 'controller-double-input'
                 ? '実機やドライバーを名前だけで推測して削除・無効化しないでください。HidHideなどの表示制御があるとWindowsの一覧に実機が出ない場合もあります。Steam Inputと外部ツールは一条件ずつ変え、無反応になったら変更前の状態へ戻してください。'
                 : slug === 'steam-input-controller'
-                ? 'Steamが機器を認識しない時点でゲーム別Steam Inputを切り替えても、接続の不具合は解決しません。ゲーム側を比較する場合は、変更前の設定を控え、ゲームを終了してから一項目ずつ変えてください。変換ツールを複数同時に動かすと入力が重複する場合があります。'
-                : slug === 'low-gpu-usage'
-                ? '使用率の数字だけでGPUやCPUの故障を判断しないでください。FPS上限と実際の使用GPU名を先に確認し、比較中は一項目だけ変更します。画面切り替えで負荷が下がる場合があるため、プレイ中の同じ場面で記録したFPSも合わせて判断してください。'
-                : slug === 'steam-disk-write-error'
-                ? 'Steamやゲームのフォルダーを容量確保のために手動削除しないでください。隔離されたファイルを出所の確認前に復元したり、セキュリティ機能を無効にしたりしないでください。ドライブの異音や認識切れがある場合は修復の反復を止め、重要データの保全とメーカーへの相談を優先します。'
-                : slug === 'low-fps'
-                ? '計測中はFPS上限、V-Sync、フレーム生成、解像度を同時に変えず、ゲーム中の同じ場面で比較してください。タスクマネージャーへ画面を切り替えると負荷が変わるため、GPU・CPU使用率は傾向として読みます。平均CPU使用率やGPU使用率だけで故障を断定しないでください。'
-                : slug === 'vram-shortage'
-                ? '「共有GPUメモリ」の容量をグラフィックボードの専用VRAM容量に加算しないでください。ゲーム内の推定値とWindowsの実使用量を同じ数字として比較せず、GPU名・場面・設定をそろえて記録します。高解像度DLC・MOD以外のゲームファイルは削除しないでください。'
-                : slug === 'no-game-audio'
-                ? '出力先や音量は1項目ずつ変更して同じ場面で比較してください。別アプリまで無音なら、そのゲームのファイルを削除・再インストールする前にWindowsと出力機器を確認します。音声ドライバーやオーディオ拡張は変更前の状態を控え、結果が変わらなければ戻してください。'
-                : slug === 'steam-game-not-launching'
-                ? 'セーブ中・更新中・クラウド同期中にSteamを強制終了しないでください。MODを使うゲームでは変更前にセーブをコピーし、MODが必要な既存データを上書きしないでください。隔離された実行ファイルを確認せずに許可したり、セキュリティ機能を無効にしたりしないでください。'
-                : slug === 'verify-steam-files'
-                ? '更新・検証・クラウド同期中にSteamを強制終了しないでください。MODの上書き分やセーブは事前に記録・保全し、検証後の再取得数だけで故障と決めないでください。隔離ファイルを確認せず許可したり、ゲームフォルダーを一括削除したりしないでください。'
-                : slug === 'directx-error'
-                ? '不明な配布サイトのDLLをSystem32やゲームフォルダーにコピーしないでください。WindowsのDirectXバージョンとGPUの機能レベルは別の情報です。機能レベルが不足するGPUを旧ランタイムやWindows Updateだけで対応させることはできません。'
-                : slug === 'pc-game-crash'
-                ? 'MODのあるセーブは退避せずに上書きしないでください。障害モジュール名だけを根拠にDLLを入れ替えたり、不明なダウンロード先からファイルを入手したりしないでください。変更は1項目ずつ、セーブと設定を保全してから試します。'
-                : slug === 'steam-cloud-sync-error'
-                ? '競合画面で選択すると、別の端末やクラウド側の進行が上書きされる可能性があります。複数PCの場合は各PCでゲームを起動しないままコピーを残し、セーブの保存先を推測して削除しないでください。通信エラー中の強行起動や、新しいセーブでの上書きも避けてください。'
-                : slug === 'pc-shuts-down-while-gaming'
-                  ? '焦げた臭い・煙・火花・変形・損傷を見つけたら使用を止めてください。電源ユニットやバッテリーを分解せず、損傷した電源コードを差し直して試さないでください。症状を繰り返し再現させず、PCメーカーまたは修理窓口に相談してください。'
-                  : slug === 'bsod-while-gaming'
-                    ? '停止を繰り返すPCで無理にゲームを再起動しないでください。ダンプには作業中の情報が含まれる可能性があるため、公開せずサポートの案内に沿って提出します。停止コードやファイル名だけで部品の故障と判断せず、診断結果と時刻を合わせて確認してください。'
-                    : slug === 'gpu-driver-update'
-                      ? '対象GPUとPC型番に合う公式配布を使い、今の版を控えてから更新してください。AMDのFactory Resetは以前の版へ戻せなくなるため通常の比較では選びません。画面が映らない場合は別のPCやメーカーサポートで復旧方法を確認し、無関係なドライバーを削除しないでください。'
-                      : slug === 'black-screen'
-                        ? '設定ファイルの退避前にバックアップを作り、セーブのフォルダーや不明なDLLを丸ごと削除しないでください。強制終了は未保存の進行を失う可能性があります。モニター・PC内部の分解や、原因不明のままWindowsを初期化する操作は、この手順には含みません。'
-                        : slug === 'pc-game-freezes'
-                          ? '強制終了は未保存データを失う可能性があるため最後の手段です。原因不明のままWindowsのプロセスを終了したり、メモリ解放ソフト・ページファイル無効化・電圧変更をまとめて試したりしないでください。MODや設定を変更する前はセーブをバックアップします。'
-                          : slug === 'stutter-fix'
-                            ? '比較中にキャッシュ削除・画質変更・ドライバー更新をまとめて行わないでください。変更前の値を残し、悪化した設定は戻します。PC全体の再起動やブルースクリーンは、ゲームが一瞬カクつく症状とは分けて調べてください。'
-                            : slug === 'uninstall-save-data'
-                              ? 'AppData・Documents・Saved Games・Steamのuserdataを、残存ファイルという理由で丸ごと消さないでください。追加のクリーナーによる削除は通常アンインストールとは別操作です。バックアップは再インストール後の読み込み確認まで残します。'
-                              : slug === 'save-data-backup'
-                                ? 'ゲームや同期が動いている最中にセーブを入れ替えないでください。バックアップ原本と復元前のデータは残し、別アカウントや別ストアのデータを推測で上書きしないでください。'
-                                : slug === 'shader-cache-delete'
-                                  ? 'キャッシュ以外の項目をまとめて削除しないでください。AppDataやゲームフォルダー全体、セーブ、設定、配布されたシェーダーファイルは削除対象ではありません。対象を特定できない時は操作を止めます。'
-                                  : slug === 'reshade-uninstall'
-                                    ? '同名のDLLを一括削除したり、セキュリティ機能やアンチチートを無効にしたりしないでください。オンラインゲームでは運営の利用規約・MOD方針を確認し、起動制限の回避に使わないでください。'
-                                    : slug === 'remove-mods-safely'
-                                      ? 'ゲーム・セーブ・MODの共有フォルダーを丸ごと削除しないでください。オンラインゲームでは運営のMOD利用方針を確認し、起動制限の回避に使わないでください。'
-                                    : slug === 'visual-c-runtime-error'
-                                      ? 'DLL単体の配布サイトからファイルを入手したり、System32・SysWOW64・ゲームフォルダーへ推測でコピーしたりしないでください。別のゲームが使うVisual C++の旧版やx86版を一括削除しないでください。'
-                                    : slug === 'reset-config-file'
-                                      ? 'AppData・Documents・Saved・Steamのuserdataを丸ごと削除しないでください。レジストリ編集やWindowsの初期化は、この手順には必要ありません。公式の対象ファイルを特定できない時は操作を止めてください。'
-                                      : '変更前にセーブと設定をバックアップし、対策は1項目ずつ試してください。'}
+                  ? 'Steamが機器を認識しない時点でゲーム別Steam Inputを切り替えても、接続の不具合は解決しません。ゲーム側を比較する場合は、変更前の設定を控え、ゲームを終了してから一項目ずつ変えてください。変換ツールを複数同時に動かすと入力が重複する場合があります。'
+                  : slug === 'low-gpu-usage'
+                    ? '使用率の数字だけでGPUやCPUの故障を判断しないでください。FPS上限と実際の使用GPU名を先に確認し、比較中は一項目だけ変更します。画面切り替えで負荷が下がる場合があるため、プレイ中の同じ場面で記録したFPSも合わせて判断してください。'
+                    : slug === 'steam-disk-write-error'
+                      ? 'Steamやゲームのフォルダーを容量確保のために手動削除しないでください。隔離されたファイルを出所の確認前に復元したり、セキュリティ機能を無効にしたりしないでください。ドライブの異音や認識切れがある場合は修復の反復を止め、重要データの保全とメーカーへの相談を優先します。'
+                      : slug === 'low-fps'
+                        ? '計測中はFPS上限、V-Sync、フレーム生成、解像度を同時に変えず、ゲーム中の同じ場面で比較してください。タスクマネージャーへ画面を切り替えると負荷が変わるため、GPU・CPU使用率は傾向として読みます。平均CPU使用率やGPU使用率だけで故障を断定しないでください。'
+                        : slug === 'vram-shortage'
+                          ? '「共有GPUメモリ」の容量をグラフィックボードの専用VRAM容量に加算しないでください。ゲーム内の推定値とWindowsの実使用量を同じ数字として比較せず、GPU名・場面・設定をそろえて記録します。高解像度DLC・MOD以外のゲームファイルは削除しないでください。'
+                          : slug === 'no-game-audio'
+                            ? '出力先や音量は1項目ずつ変更して同じ場面で比較してください。別アプリまで無音なら、そのゲームのファイルを削除・再インストールする前にWindowsと出力機器を確認します。音声ドライバーやオーディオ拡張は変更前の状態を控え、結果が変わらなければ戻してください。'
+                            : slug === 'steam-game-not-launching'
+                              ? 'セーブ中・更新中・クラウド同期中にSteamを強制終了しないでください。MODを使うゲームでは変更前にセーブをコピーし、MODが必要な既存データを上書きしないでください。隔離された実行ファイルを確認せずに許可したり、セキュリティ機能を無効にしたりしないでください。'
+                              : slug === 'verify-steam-files'
+                                ? '更新・検証・クラウド同期中にSteamを強制終了しないでください。MODの上書き分やセーブは事前に記録・保全し、検証後の再取得数だけで故障と決めないでください。隔離ファイルを確認せず許可したり、ゲームフォルダーを一括削除したりしないでください。'
+                                : slug === 'directx-error'
+                                  ? '不明な配布サイトのDLLをSystem32やゲームフォルダーにコピーしないでください。WindowsのDirectXバージョンとGPUの機能レベルは別の情報です。機能レベルが不足するGPUを旧ランタイムやWindows Updateだけで対応させることはできません。'
+                                  : slug === 'pc-game-crash'
+                                    ? 'MODのあるセーブは退避せずに上書きしないでください。障害モジュール名だけを根拠にDLLを入れ替えたり、不明なダウンロード先からファイルを入手したりしないでください。変更は1項目ずつ、セーブと設定を保全してから試します。'
+                                    : slug === 'steam-cloud-sync-error'
+                                      ? '競合画面で選択すると、別の端末やクラウド側の進行が上書きされる可能性があります。複数PCの場合は各PCでゲームを起動しないままコピーを残し、セーブの保存先を推測して削除しないでください。通信エラー中の強行起動や、新しいセーブでの上書きも避けてください。'
+                                      : slug === 'pc-shuts-down-while-gaming'
+                                        ? '焦げた臭い・煙・火花・変形・損傷を見つけたら使用を止めてください。電源ユニットやバッテリーを分解せず、損傷した電源コードを差し直して試さないでください。症状を繰り返し再現させず、PCメーカーまたは修理窓口に相談してください。'
+                                        : slug === 'bsod-while-gaming'
+                                          ? '停止を繰り返すPCで無理にゲームを再起動しないでください。ダンプには作業中の情報が含まれる可能性があるため、公開せずサポートの案内に沿って提出します。停止コードやファイル名だけで部品の故障と判断せず、診断結果と時刻を合わせて確認してください。'
+                                          : slug === 'gpu-driver-update'
+                                            ? '対象GPUとPC型番に合う公式配布を使い、今の版を控えてから更新してください。AMDのFactory Resetは以前の版へ戻せなくなるため通常の比較では選びません。画面が映らない場合は別のPCやメーカーサポートで復旧方法を確認し、無関係なドライバーを削除しないでください。'
+                                            : slug === 'black-screen'
+                                              ? '設定ファイルの退避前にバックアップを作り、セーブのフォルダーや不明なDLLを丸ごと削除しないでください。強制終了は未保存の進行を失う可能性があります。モニター・PC内部の分解や、原因不明のままWindowsを初期化する操作は、この手順には含みません。'
+                                              : slug === 'pc-game-freezes'
+                                                ? '強制終了は未保存データを失う可能性があるため最後の手段です。原因不明のままWindowsのプロセスを終了したり、メモリ解放ソフト・ページファイル無効化・電圧変更をまとめて試したりしないでください。MODや設定を変更する前はセーブをバックアップします。'
+                                                : slug === 'stutter-fix'
+                                                  ? '比較中にキャッシュ削除・画質変更・ドライバー更新をまとめて行わないでください。変更前の値を残し、悪化した設定は戻します。PC全体の再起動やブルースクリーンは、ゲームが一瞬カクつく症状とは分けて調べてください。'
+                                                  : slug ===
+                                                      'uninstall-save-data'
+                                                    ? 'AppData・Documents・Saved Games・Steamのuserdataを、残存ファイルという理由で丸ごと消さないでください。追加のクリーナーによる削除は通常アンインストールとは別操作です。バックアップは再インストール後の読み込み確認まで残します。'
+                                                    : slug ===
+                                                        'save-data-backup'
+                                                      ? 'ゲームや同期が動いている最中にセーブを入れ替えないでください。バックアップ原本と復元前のデータは残し、別アカウントや別ストアのデータを推測で上書きしないでください。'
+                                                      : slug ===
+                                                          'shader-cache-delete'
+                                                        ? 'キャッシュ以外の項目をまとめて削除しないでください。AppDataやゲームフォルダー全体、セーブ、設定、配布されたシェーダーファイルは削除対象ではありません。対象を特定できない時は操作を止めます。'
+                                                        : slug ===
+                                                            'reshade-uninstall'
+                                                          ? '同名のDLLを一括削除したり、セキュリティ機能やアンチチートを無効にしたりしないでください。オンラインゲームでは運営の利用規約・MOD方針を確認し、起動制限の回避に使わないでください。'
+                                                          : slug ===
+                                                              'remove-mods-safely'
+                                                            ? 'ゲーム・セーブ・MODの共有フォルダーを丸ごと削除しないでください。オンラインゲームでは運営のMOD利用方針を確認し、起動制限の回避に使わないでください。'
+                                                            : slug ===
+                                                                'visual-c-runtime-error'
+                                                              ? 'DLL単体の配布サイトからファイルを入手したり、System32・SysWOW64・ゲームフォルダーへ推測でコピーしたりしないでください。別のゲームが使うVisual C++の旧版やx86版を一括削除しないでください。'
+                                                              : slug ===
+                                                                  'reset-config-file'
+                                                                ? 'AppData・Documents・Saved・Steamのuserdataを丸ごと削除しないでください。レジストリ編集やWindowsの初期化は、この手順には必要ありません。公式の対象ファイルを特定できない時は操作を止めてください。'
+                                                                : '変更前にセーブと設定をバックアップし、対策は1項目ずつ試してください。'}
             </p>
           </section>
           {diagnosisGuideSlugs.has(item.slug) ? <DiagnosisCta /> : null}
@@ -785,7 +846,9 @@ export default async function Page({
             <h2>参考情報・出典</h2>
             <p className="source-policy">
               公式資料を確認し、本文は独自の表現で要約しています。
-              {['steam-game-not-launching', 'steam-input-controller'].includes(slug)
+              {['steam-game-not-launching', 'steam-input-controller'].includes(
+                slug,
+              )
                 ? '本文の「期待結果」は、設定を変えた後に読者が判断する目安です。編集部が実機で改善を確認した結果ではありません。変化がなければ元の設定へ戻し、症状に合う次の確認先へ進んでください。'
                 : null}
             </p>

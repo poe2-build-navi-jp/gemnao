@@ -169,6 +169,14 @@ export const apexLaunchGuide: FollowupGuide = {
           href: '/guide/pc-game-crash',
           label: '起動後に落ちる場合のクラッシュ確認',
         },
+        {
+          href: '/games/apex-legends/apex-crash-txt',
+          label: 'Apex_crash.txt・クラッシュ',
+        },
+        {
+          href: '/games/apex-legends/code-net-leaf',
+          label: 'code:net・code:leaf',
+        },
       ],
     },
     en: {
@@ -304,6 +312,14 @@ export const apexLaunchGuide: FollowupGuide = {
           href: '/en/games/apex-legends',
           label: 'Apex Legends launch guide',
         },
+        {
+          href: '/en/games/apex-legends/apex-crash-txt',
+          label: 'Apex_crash.txt and crashes',
+        },
+        {
+          href: '/en/games/apex-legends/code-net-leaf',
+          label: 'code:net and code:leaf',
+        },
       ],
     },
     zh: {
@@ -435,6 +451,14 @@ export const apexLaunchGuide: FollowupGuide = {
         {
           href: '/zh/games/apex-legends',
           label: 'Apex Legends 启动指南',
+        },
+        {
+          href: '/zh/games/apex-legends/apex-crash-txt',
+          label: 'Apex_crash.txt 与崩溃',
+        },
+        {
+          href: '/zh/games/apex-legends/code-net-leaf',
+          label: 'code:net 与 code:leaf',
         },
       ],
     },
@@ -569,8 +593,16 @@ export const apexLaunchGuide: FollowupGuide = {
           href: '/es/games/apex-legends',
           label: 'Guía de inicio de Apex Legends',
         },
+        {
+          href: '/es/games/apex-legends/apex-crash-txt',
+          label: 'Apex_crash.txt y cierres',
+        },
+        {
+          href: '/es/games/apex-legends/code-net-leaf',
+          label: 'code:net y code:leaf',
+        },
       ],
     },
   },
-  relatedSlugs: [],
+  relatedSlugs: ['apex-crash-txt', 'code-net-leaf'],
 };

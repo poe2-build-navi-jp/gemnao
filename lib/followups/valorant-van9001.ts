@@ -175,6 +175,10 @@ export const valorantVan9001Guide: FollowupGuide = {
           href: '/guide/tpm-secure-boot',
           label: 'TPM・セキュアブートの共通確認',
         },
+        {
+          href: '/games/valorant/not-launching-no-van',
+          label: 'VAN番号なし・起動しない',
+        },
       ],
     },
     en: {
@@ -311,6 +315,10 @@ export const valorantVan9001Guide: FollowupGuide = {
           href: '/en/games/valorant',
           label: 'VALORANT error guides',
         },
+        {
+          href: '/en/games/valorant/not-launching-no-van',
+          label: 'No VAN code: launch failure',
+        },
       ],
     },
     zh: {
@@ -442,6 +450,10 @@ export const valorantVan9001Guide: FollowupGuide = {
         {
           href: '/zh/games/valorant',
           label: 'VALORANT 错误指南',
+        },
+        {
+          href: '/zh/games/valorant/not-launching-no-van',
+          label: '无 VAN 编号的启动失败',
         },
       ],
     },
@@ -578,8 +590,12 @@ export const valorantVan9001Guide: FollowupGuide = {
           href: '/es/games/valorant',
           label: 'Guías de errores de VALORANT',
         },
+        {
+          href: '/es/games/valorant/not-launching-no-van',
+          label: 'No inicia sin código VAN',
+        },
       ],
     },
   },
-  relatedSlugs: ['van9003'],
+  relatedSlugs: ['van9003', 'not-launching-no-van'],
 };
