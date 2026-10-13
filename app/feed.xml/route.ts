@@ -5,9 +5,8 @@ import { games } from '@/lib/games';
 import { pcArticles } from '@/lib/pc-articles';
 import { weeklyReports } from '@/lib/weekly-reports';
 
-// Atom feed of the most recently checked pages. Its URL is announced to
-// Google's WebSub hub after a deploy (scripts/ping-index.mjs) so new and
-// updated troubleshooting pages are discovered quickly.
+// Atom feed of the most recently checked pages. IndexNow submission is a
+// separate, explicit post-deployment operation (see docs/indexnow.md).
 const SITE = 'https://gemnao.pages.dev';
 
 const escape = (value: string) =>

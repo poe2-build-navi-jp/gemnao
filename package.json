@@ -17,6 +17,8 @@
     "visuals:keys": "node scripts/generate-key-visuals.mjs",
     "check:localized": "node scripts/run-localized-check.mjs",
     "ping:index": "node scripts/ping-index.mjs",
+    "indexnow:plan": "node scripts/indexnow-plan.mjs",
+    "test:indexnow": "node --test tests/indexnow/*.test.mjs",
     "test:diagnosis": "node scripts/test-diagnosis.mjs tests/diagnosis/rules.test.ts tests/diagnosis/api.test.ts tests/diagnosis/availability.test.ts",
     "test:diagnosis:rules": "node scripts/test-diagnosis.mjs",
     "typecheck": "tsc --noEmit",

@@ -1,43 +1,54 @@
-// Tell search engines about new and updated pages right after a deploy.
-//   node scripts/ping-index.mjs [days]   (default: pages changed in 2 days)
-// - IndexNow (Bing, Yandex, Naver, Seznam…): sends the changed URLs.
-// - WebSub: announces /feed.xml to Google's hub, which Google uses to
-//   discover feed updates quickly.
-// Google has no URL submission API for ordinary pages; for launch-day
-// pages also use Search Console's URL Inspection → Request indexing.
-const site = 'https://gemnao.pages.dev';
-const key = '8a431ad6b1d387ce80049b38cc6a027a';
-const days = Number(process.argv[2] || 2);
+// Explicit reviewed article changes only. Default dry-run makes no requests.
+import { readFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import { resolve, join } from 'node:path';
+import { KEY_FILE, requireValue } from './indexnow-content.mjs';
+import { runIndexNow } from './indexnow-submit.mjs';
 
-const sitemap = await (await fetch(`${site}/sitemap.xml`)).text();
-const since = Date.now() - days * 86_400_000;
-const urls = [
-  ...sitemap.matchAll(/<loc>([^<]+)<\/loc><lastmod>([^<]+)<\/lastmod>/g),
-]
-  .filter(([, , lastmod]) => Date.parse(lastmod) >= since)
-  .map(([, loc]) => loc);
-console.log(`${urls.length} URLs changed in the last ${days} day(s)`);
-
-if (urls.length) {
-  const response = await fetch('https://api.indexnow.org/indexnow', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json; charset=utf-8' },
-    body: JSON.stringify({
-      host: new URL(site).host,
-      key,
-      keyLocation: `${site}/${key}.txt`,
-      urlList: urls.slice(0, 10000),
-    }),
+try {
+  const args = process.argv.slice(2);
+  let mode = 'dry-run',
+    explicitMode = false,
+    file,
+    stateDir;
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i];
+    if (['--dry-run', '--verify', '--send'].includes(arg)) {
+      requireValue(!explicitMode, 'Use one mode');
+      explicitMode = true;
+      mode = arg.slice(2);
+    } else if (arg === '--urls' || arg === '--state-dir') {
+      requireValue(
+        args[i + 1] && !args[i + 1].startsWith('--'),
+        `Missing value for ${arg}`,
+      );
+      if (arg === '--urls') {
+        requireValue(!file, 'Repeated --urls');
+        file = args[++i];
+      } else {
+        requireValue(!stateDir, 'Repeated --state-dir');
+        stateDir = args[++i];
+      }
+    } else throw new Error(`Unknown argument: ${arg}`);
+  }
+  requireValue(
+    file,
+    'Use --urls reviewed-changes.json [--dry-run | --verify | --send --state-dir DURABLE_DIRECTORY]',
+  );
+  const root = fileURLToPath(new URL('..', import.meta.url));
+  const plan = JSON.parse(await readFile(resolve(file), 'utf8'));
+  const key =
+    mode === 'dry-run'
+      ? undefined
+      : (await readFile(join(root, 'public', KEY_FILE), 'utf8')).trim();
+  const result = await runIndexNow({
+    plan,
+    mode,
+    key,
+    stateDir: stateDir && resolve(stateDir),
   });
-  console.log('IndexNow:', response.status, response.statusText);
+  console.log(JSON.stringify(result, null, 2));
+} catch (error) {
+  console.error(error.message);
+  process.exitCode = 1;
 }
-
-const hub = await fetch('https://pubsubhubbub.appspot.com/', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  body: new URLSearchParams({
-    'hub.mode': 'publish',
-    'hub.url': `${site}/feed.xml`,
-  }),
-});
-console.log('WebSub (Google hub):', hub.status, hub.statusText);
