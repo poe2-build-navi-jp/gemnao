@@ -11,6 +11,11 @@ export type LocalizedArticle = {
   gameName?: string;
   sourcePolicy?: string;
   related?: { href: string; label: string }[];
+  /** Symptom-specific checks in this article's language; use existing steps or translated routes. */
+  nextChecks?: {
+    heading: string;
+    links: { href: `#${string}` | `/${Locale}/${string}`; label: string }[];
+  };
   slug: string;
   title: string;
   /** <meta name="description"> and the social preview text. */

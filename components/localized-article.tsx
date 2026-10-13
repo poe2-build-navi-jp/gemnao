@@ -176,7 +176,29 @@ export function LocalizedArticle({
               <CheckCircle2 size={23} /> {t.summary}
             </h2>
             <p>{article.summary}</p>
-            {article.related?.length ? (
+            {article.nextChecks?.links.length ? (
+              <nav aria-labelledby="next-checks-title">
+                <p id="next-checks-title">
+                  <strong>{article.nextChecks.heading}</strong>
+                </p>
+                <ul>
+                  {article.nextChecks.links.map((link) => (
+                    <li key={link.href}>
+                      <a
+                        className="summary-step-link"
+                        href={link.href}
+                        hrefLang={locale}
+                        data-related={
+                          link.href.startsWith('#') ? undefined : 'true'
+                        }
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            ) : article.related?.length ? (
               <a className="article-next-jump" href="#related-guides">
                 {nextGuideLabel}
               </a>

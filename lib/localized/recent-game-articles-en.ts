@@ -451,6 +451,25 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
     lead: 'For the Steam version of ACE COMBAT ONLINE showing ST-3100001 during play or deployment and preventing you from continuing. Guidance and notices were checked for the Japanese article on October 2, 2026.',
     summary:
       'The publisher describes ST-3100001 as a general error shown when communication with the game server is lost. Its recommended first check is whether Windows time is incorrect. Open Settings → Time & language → Date & time → Sync now, then restart Steam and the game. This error code does not identify a single cause.',
+    nextChecks: {
+      heading: 'Still not fixed? Choose your next check',
+      links: [
+        {
+          href: '#check-offset',
+          label: 'Time sync fails or the clock drifts? Check the clock offset.',
+        },
+        {
+          href: '#check-status',
+          label:
+            'Clock synced, but disconnecting during or after a mission? Check official notices and the connection.',
+        },
+        {
+          href: '/en/games/ace-combat-8/not-launching',
+          label:
+            'The game will not start? Open the launch troubleshooting guide.',
+        },
+      ],
+    },
     sourcePolicy:
       'The code meaning and first clock-sync check come from the publisher’s notice. Clock-offset examples are player reports, not official measurements or a guaranteed fix. The mission-end issue and penalty plan reflect the dated September 29 notice; check for newer official updates.',
     quickFacts: [
