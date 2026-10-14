@@ -5566,3 +5566,14 @@ a.my-games-primary {
 .settings-share { padding: 12px; border: 1px solid var(--line); border-radius: 8px; margin: 14px 0; }
 .settings-share h6 { font-size: 16px; margin: 0 0 8px; }
 .settings-share output { display: block; margin-top: 10px; }
+
+/* Management login must stay usable with a touch keyboard and native autofill. */
+.admin-login { flex-wrap: wrap; min-width: 0; }
+.admin-login label { min-width: 0; }
+.admin-login input { width: 100%; min-width: 0; font-size: 16px; }
+.admin-login :is(input,button), .admin-login-retry { min-height: 44px; font: inherit; }
+.admin-login :is(input,button):focus-visible, .admin-login-retry:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+.admin-login button:disabled { opacity: .65; cursor: wait; }
+.admin-login-status, .admin-login > .contact-error { flex-basis: 100%; width: 100%; margin: 0; overflow-wrap: anywhere; }
+.admin-login-status:empty { display: none; }
+.admin-login-retry { padding: 9px 13px; border: 1px solid var(--blue); border-radius: 6px; background: white; color: #076489; cursor: pointer; }
