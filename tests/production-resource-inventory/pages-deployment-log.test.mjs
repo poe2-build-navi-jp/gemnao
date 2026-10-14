@@ -14,14 +14,14 @@ const rows = { total: 4, includes_container_logs: true, data: [
   { line: 'Error: TOKEN=PRIVATE', ts: '2026-10-12T13:00:00Z' },
   { line: 'Failed: API_KEY=PRIVATE', ts: '2026-10-12T13:00:00Z' },
 ] };
-test('projects only bounded error lines and removes credentials', () => {
+await test('projects only bounded error lines and removes credentials', () => {
   const report = projectLogs(rows, [env.CLOUDFLARE_API_TOKEN]);
   assert.equal(report.errors.length,1); assert.equal(report.omittedSensitive,2);
   assert.match(report.errors[0].line,/cannot resolve package vinext/);
   assert.doesNotMatch(JSON.stringify(report),/PRIVATE|synthetic_cloudflare|Cloning/);
   assert.equal(report.rawLogsStored,false);
 });
-test('protected first run performs exactly one fixed Cloudflare GET with no redirects', async () => {
+await test('protected first run performs exactly one fixed Cloudflare GET with no redirects', async () => {
   const calls=[];
   const fetcher=async(url,options)=>{
     assert.equal(options.method,'GET');assert.equal(options.redirect,'error');calls.push(url);
@@ -32,7 +32,7 @@ test('protected first run performs exactly one fixed Cloudflare GET with no redi
   assert.equal((await readDeploymentLog(env,fetcher)).readOnly,true);
   assert.deepEqual(calls.filter(url=>url.startsWith('https://api.cloudflare.com/')),[LOG_URL]);
 });
-test('reruns and unprotected execution stop before Cloudflare access', async () => {
+await test('reruns and unprotected execution stop before Cloudflare access', async () => {
   for(const change of [{GITHUB_RUN_ATTEMPT:'2'},{INVENTORY_PROTECTED_ENVIRONMENT:'wrong'},{GITHUB_REF:'refs/heads/other'}])
     await assert.rejects(readDeploymentLog({...env,...change},()=>{throw Error('must not call');}));
 });

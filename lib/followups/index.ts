@@ -1,3 +1,6 @@
+import { apexJavelinGuide } from './apex-javelin';
+import { valorantRestriction5Guide } from './valorant-restriction5';
+import { valorantVan9005Guide } from './valorant-van9005';
 import { apexCrashGuide } from './apex-crash';
 import { apexNetworkGuide } from './apex-network';
 import { fortniteRunningGuide } from './fortnite-running';
@@ -14,6 +17,9 @@ import { wildsRecurrenceGuide } from './wilds-recurrence';
 import { japaneseFollowup, translatedFollowups } from './types';
 
 export const followupGuides = [
+  apexJavelinGuide,
+  valorantRestriction5Guide,
+  valorantVan9005Guide,
   timeSyncGuide,
   connectionGuide,
   wildsRecurrenceGuide,

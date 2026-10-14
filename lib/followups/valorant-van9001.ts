@@ -97,10 +97,15 @@ export const valorantVan9001Guide: FollowupGuide = {
           time: '確認に約3〜5分',
           risk: 'low',
           actions: [
+            'VAN RESTRICTION 5やVAN9005なら番号が異なるため、このSTEPのリンクと関連記事から専用の確認へ進む。',
             'エラー番号・全文・時刻・Windowsの版を記録する。VAN9003ならセキュアブートの専用記事へ進む。',
             '職場・学校のPCは管理者へ相談する。自分のPCでも、重要データのバックアップとBitLocker／デバイス暗号化の回復キーを別端末から確認できることを先に確かめる。',
             '回復キーや機種名が不明なら変更しない。キーを公開の回答欄、画像、相談文へ貼り付けない。',
           ],
+          guideLink: {
+            href: '/games/valorant/van-restriction-5',
+            label: 'VAN RESTRICTION 5：HVCIの確認',
+          },
         },
         {
           id: 'read-tpm-state',
@@ -168,6 +173,14 @@ export const valorantVan9001Guide: FollowupGuide = {
       ],
       related: [
         {
+          href: '/games/valorant/van-restriction-5',
+          label: 'VAN RESTRICTION 5：HVCIの確認',
+        },
+        {
+          href: '/games/valorant/van9005',
+          label: 'VAN9005：TPM・UEFI・メモリ整合性',
+        },
+        {
           href: '/games/valorant/van9003',
           label: 'VAN9003：セキュアブートの状態を確認する',
         },
@@ -234,10 +247,15 @@ export const valorantVan9001Guide: FollowupGuide = {
           time: 'About 3–5 minutes to check',
           risk: 'low',
           actions: [
+            'For VAN RESTRICTION 5 or VAN9005, use this step’s link and related guides for that exact number.',
             'Record the code, full message, time and Windows version. For VAN9003, use the Secure Boot article.',
             'Ask the administrator of a work or school PC. On your own PC, first back up important files and confirm you can access the BitLocker/device-encryption recovery key from another device.',
             'Stop before changes if the key or model is unknown. Do not put recovery keys in public feedback, screenshots or support descriptions.',
           ],
+          guideLink: {
+            href: '/en/games/valorant/van-restriction-5',
+            label: 'VAN RESTRICTION 5: HVCI checks',
+          },
         },
         {
           id: 'read-tpm-state',
@@ -308,6 +326,14 @@ export const valorantVan9001Guide: FollowupGuide = {
       ],
       related: [
         {
+          href: '/en/games/valorant/van-restriction-5',
+          label: 'VAN RESTRICTION 5: HVCI checks',
+        },
+        {
+          href: '/en/games/valorant/van9005',
+          label: 'VAN9005: TPM, UEFI and memory integrity',
+        },
+        {
           href: '/en/games/valorant/van9003',
           label: 'VAN9003: check Secure Boot',
         },
@@ -373,10 +399,15 @@ export const valorantVan9001Guide: FollowupGuide = {
           time: '检查约需 3–5 分钟',
           risk: 'low',
           actions: [
+            '若显示 VAN RESTRICTION 5 或 VAN9005，请通过本步骤链接及相关文章检查对应编号。',
             '记录编号、完整提示、时间及 Windows 版本；VAN9003 请看安全启动专文。',
             '工作或学校电脑先咨询管理员。个人电脑也要先备份重要文件，确认可从另一台设备取得 BitLocker／设备加密恢复密钥。',
             '密钥或机型不清楚时停止修改，不把恢复密钥放入公开反馈、截图或咨询描述。',
           ],
+          guideLink: {
+            href: '/zh/games/valorant/van-restriction-5',
+            label: 'VAN RESTRICTION 5：HVCI 检查',
+          },
         },
         {
           id: 'read-tpm-state',
@@ -444,6 +475,14 @@ export const valorantVan9001Guide: FollowupGuide = {
       ],
       related: [
         {
+          href: '/zh/games/valorant/van-restriction-5',
+          label: 'VAN RESTRICTION 5：HVCI 检查',
+        },
+        {
+          href: '/zh/games/valorant/van9005',
+          label: 'VAN9005：TPM、UEFI 与内存完整性',
+        },
+        {
           href: '/zh/games/valorant/van9003',
           label: 'VAN9003：检查安全启动',
         },
@@ -510,10 +549,15 @@ export const valorantVan9001Guide: FollowupGuide = {
           time: 'Unos 3–5 minutos para comprobar',
           risk: 'low',
           actions: [
+            'Para VAN RESTRICTION 5 o VAN9005, usa el enlace de este paso y las guías relacionadas para ese número.',
             'Anota el código, el mensaje, la hora y Windows. Si es VAN9003, consulta el artículo de arranque seguro.',
             'En un equipo de trabajo o estudios consulta al administrador. En uno propio, respalda primero los archivos y confirma el acceso a la clave de BitLocker/cifrado desde otro dispositivo.',
             'Si desconoces la clave o el modelo, no cambies nada. No publiques claves en comentarios, capturas ni descripciones de soporte.',
           ],
+          guideLink: {
+            href: '/es/games/valorant/van-restriction-5',
+            label: 'VAN RESTRICTION 5: comprobaciones de HVCI',
+          },
         },
         {
           id: 'read-tpm-state',
@@ -583,6 +627,14 @@ export const valorantVan9001Guide: FollowupGuide = {
       ],
       related: [
         {
+          href: '/es/games/valorant/van-restriction-5',
+          label: 'VAN RESTRICTION 5: comprobaciones de HVCI',
+        },
+        {
+          href: '/es/games/valorant/van9005',
+          label: 'VAN9005: TPM, UEFI e integridad de memoria',
+        },
+        {
           href: '/es/games/valorant/van9003',
           label: 'VAN9003: comprobar arranque seguro',
         },
@@ -597,5 +649,10 @@ export const valorantVan9001Guide: FollowupGuide = {
       ],
     },
   },
-  relatedSlugs: ['van9003', 'not-launching-no-van'],
+  relatedSlugs: [
+    'van-restriction-5',
+    'van9005',
+    'van9003',
+    'not-launching-no-van',
+  ],
 };

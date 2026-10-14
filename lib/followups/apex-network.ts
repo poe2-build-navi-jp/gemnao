@@ -86,6 +86,7 @@ export const apexNetworkGuide: FollowupGuide = {
           title: 'コードと公式状況を照合',
           summary: 'この記事は現在の稼働状況を表示するものではありません。',
           actions: [
+            'Javelinと表示される場合は、このSTEPの専用記事リンクで現在のエラーを確認する。',
             'エラー全文、日時とタイムゾーン、地域、プラットフォーム、マッチ参加時か試合中かを記録する。',
             'EA公式サーバー状況でApexと利用プラットフォームを確認し、告知の対象と時間が一致するか読む。',
             '該当障害がある場合は公式の復旧案内を待つ。正常表示でも個別の接続問題まで否定できないため、未確認なら次の比較へ進む。',
@@ -93,6 +94,10 @@ export const apexNetworkGuide: FollowupGuide = {
           risk: 'low',
           note: '確認だけなので戻す設定はありません。障害の有無をコード名だけで断定しません。',
           time: '確認・記録：約3〜5分',
+          guideLink: {
+            href: '/games/apex-legends/javelin-launch-error',
+            label: 'Javelinと表示される起動エラーはこちら',
+          },
         },
         {
           id: 'restart-connection',
@@ -157,6 +162,10 @@ export const apexNetworkGuide: FollowupGuide = {
       ],
       related: [
         {
+          href: '/games/apex-legends/javelin-launch-error',
+          label: 'Javelinと表示される起動エラーはこちら',
+        },
+        {
           href: '/games/apex-legends/r5apex-exe-launch-error',
           label: 'r5apex.exe・起動エラー',
         },
@@ -217,6 +226,7 @@ export const apexNetworkGuide: FollowupGuide = {
           title: 'Match the code to official status',
           summary: 'This article is not a live status display.',
           actions: [
+            'If the message names Javelin, use this step’s dedicated guide link to check the current error.',
             'Record the complete error, date/time and time zone, region, platform and whether it occurs joining a match or during play.',
             'Open EA’s official server-status page, select Apex and check your platform. Compare the incident scope and times.',
             'For a matching incident, follow official recovery updates. A normal indicator does not rule out an individual issue; otherwise continue with comparisons.',
@@ -224,6 +234,10 @@ export const apexNetworkGuide: FollowupGuide = {
           risk: 'low',
           note: 'Reading status changes no settings. Do not diagnose an outage from the code alone.',
           time: 'About 3–5 minutes to read and record',
+          guideLink: {
+            href: '/en/games/apex-legends/javelin-launch-error',
+            label: 'Launch error naming Javelin',
+          },
         },
         {
           id: 'restart-connection',
@@ -289,6 +303,10 @@ export const apexNetworkGuide: FollowupGuide = {
       ],
       related: [
         {
+          href: '/en/games/apex-legends/javelin-launch-error',
+          label: 'Launch error naming Javelin',
+        },
+        {
           href: '/en/games/apex-legends/r5apex-exe-launch-error',
           label: 'r5apex.exe launch errors',
         },
@@ -348,6 +366,7 @@ export const apexNetworkGuide: FollowupGuide = {
           title: '对照代码与官方状态',
           summary: '本文不显示实时服务器状态。',
           actions: [
+            '提示包含 Javelin 时，先使用本步骤的专用文章链接核对当前错误。',
             '记录完整提示、日期时间与时区、地区、平台，以及发生在加入比赛时还是游玩中。',
             '打开 EA 官方服务器状态页，检查 Apex 和所用平台，核对公告范围与时间。',
             '有对应故障时关注官方恢复公告。正常标记也不能排除个别问题；没有对应公告时继续比较。',
@@ -355,6 +374,10 @@ export const apexNetworkGuide: FollowupGuide = {
           risk: 'low',
           note: '读取状态不会改变设置，不凭代码名称诊断全体故障。',
           time: '检查与记录约 3–5 分钟',
+          guideLink: {
+            href: '/zh/games/apex-legends/javelin-launch-error',
+            label: '显示 Javelin 的启动错误',
+          },
         },
         {
           id: 'restart-connection',
@@ -419,6 +442,10 @@ export const apexNetworkGuide: FollowupGuide = {
       ],
       related: [
         {
+          href: '/zh/games/apex-legends/javelin-launch-error',
+          label: '显示 Javelin 的启动错误',
+        },
+        {
           href: '/zh/games/apex-legends/r5apex-exe-launch-error',
           label: 'r5apex.exe 启动错误',
         },
@@ -479,6 +506,7 @@ export const apexNetworkGuide: FollowupGuide = {
           title: 'Contrasta el código con el estado oficial',
           summary: 'Esta guía no muestra el estado en directo.',
           actions: [
+            'Si el mensaje menciona Javelin, consulta el enlace específico de este paso.',
             'Registra el error completo, fecha, hora y zona horaria, región, plataforma y si ocurre al entrar o durante una partida.',
             'Abre el estado oficial de servidores de EA, consulta Apex y tu plataforma, y compara alcance y horario del incidente.',
             'Si coincide una incidencia, sigue los avisos de recuperación. Un indicador normal no descarta problemas individuales; sin coincidencia continúa las comparaciones.',
@@ -486,6 +514,10 @@ export const apexNetworkGuide: FollowupGuide = {
           risk: 'low',
           note: 'Consultar el estado no cambia ajustes. No diagnostiques una caída solo por el código.',
           time: 'Unos 3–5 minutos para consultar y anotar',
+          guideLink: {
+            href: '/es/games/apex-legends/javelin-launch-error',
+            label: 'Error de inicio que menciona Javelin',
+          },
         },
         {
           id: 'restart-connection',
@@ -550,6 +582,10 @@ export const apexNetworkGuide: FollowupGuide = {
       ],
       related: [
         {
+          href: '/es/games/apex-legends/javelin-launch-error',
+          label: 'Error de inicio que menciona Javelin',
+        },
+        {
           href: '/es/games/apex-legends/r5apex-exe-launch-error',
           label: 'Errores de inicio de r5apex.exe',
         },
@@ -560,5 +596,9 @@ export const apexNetworkGuide: FollowupGuide = {
       ],
     },
   },
-  relatedSlugs: ['apex-crash-txt', 'r5apex-exe-launch-error'],
+  relatedSlugs: [
+    'javelin-launch-error',
+    'apex-crash-txt',
+    'r5apex-exe-launch-error',
+  ],
 };

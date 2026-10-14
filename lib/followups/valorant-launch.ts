@@ -86,6 +86,7 @@ export const valorantLaunchGuide: FollowupGuide = {
           title: 'VAN番号の有無と全文を確認',
           summary: '同じ「起動しない」でも次の確認は異なります。',
           actions: [
+            'VAN RESTRICTION 5やVAN9005なら番号が異なるため、このSTEPのリンクと関連記事から専用の確認へ進む。',
             'プレイ後に何が表示されるか、全文、時刻、Windowsの版を控える。System/Critical/Failed to Launchなどの文言は省略しない。',
             '作業を保存してPCを再起動し、Riot Clientから一度起動して比較する。更新が進行中なら完了を待つ。',
             'VAN9003はSecure Boot、VAN9001はTPMの記事へ。ほかのVAN番号も公式の番号別案内へ進み、一般手順を重ねない。',
@@ -93,6 +94,10 @@ export const valorantLaunchGuide: FollowupGuide = {
           risk: 'low',
           note: '職場・学校のPCや権限不足は管理者へ。起動失敗だけを理由にBIOSへ進みません。',
           time: '確認・記録：約3〜5分',
+          guideLink: {
+            href: '/games/valorant/van-restriction-5',
+            label: 'VAN RESTRICTION 5：HVCIの確認',
+          },
         },
         {
           id: 'repair-riot-client',
@@ -170,6 +175,14 @@ export const valorantLaunchGuide: FollowupGuide = {
       ],
       related: [
         {
+          href: '/games/valorant/van-restriction-5',
+          label: 'VAN RESTRICTION 5：HVCIの確認',
+        },
+        {
+          href: '/games/valorant/van9005',
+          label: 'VAN9005：TPM・UEFI・メモリ整合性',
+        },
+        {
           href: '/games/valorant/van9003',
           label: 'VAN9003・セキュアブート',
         },
@@ -230,6 +243,7 @@ export const valorantLaunchGuide: FollowupGuide = {
           title: 'Check the full message and VAN number',
           summary: 'Different launch failures need different checks.',
           actions: [
+            'For VAN RESTRICTION 5 or VAN9005, use this step’s link and related guides for that exact number.',
             'Record what follows Play, the complete message, time and Windows version. Keep the full System/Critical/Failed to Launch wording.',
             'Save work, restart the PC and compare one launch from Riot Client. Wait for an update if it is still progressing.',
             'Use the Secure Boot guide for VAN9003 and TPM guide for VAN9001. Other VAN numbers also go to official code-specific guidance instead of accumulating general fixes.',
@@ -237,6 +251,10 @@ export const valorantLaunchGuide: FollowupGuide = {
           risk: 'low',
           note: 'Ask the administrator on managed PCs or without access. A launch failure alone is not a reason to change BIOS.',
           time: 'About 3–5 minutes to read and record',
+          guideLink: {
+            href: '/en/games/valorant/van-restriction-5',
+            label: 'VAN RESTRICTION 5: HVCI checks',
+          },
         },
         {
           id: 'repair-riot-client',
@@ -315,6 +333,14 @@ export const valorantLaunchGuide: FollowupGuide = {
       ],
       related: [
         {
+          href: '/en/games/valorant/van-restriction-5',
+          label: 'VAN RESTRICTION 5: HVCI checks',
+        },
+        {
+          href: '/en/games/valorant/van9005',
+          label: 'VAN9005: TPM, UEFI and memory integrity',
+        },
+        {
           href: '/en/games/valorant/van9003',
           label: 'VAN9003 and Secure Boot',
         },
@@ -374,6 +400,7 @@ export const valorantLaunchGuide: FollowupGuide = {
           title: '检查完整提示与 VAN 编号',
           summary: '不同启动失败需要不同检查。',
           actions: [
+            '若显示 VAN RESTRICTION 5 或 VAN9005，请通过本步骤链接及相关文章检查对应编号。',
             '记录点击游玩后的情况、完整提示、时间和 Windows 版本，不省略 System/Critical/Failed to Launch 文本。',
             '保存工作并重启 PC，从 Riot Client 启动一次比较；更新仍在进行时先等待结束。',
             'VAN9003 查看安全启动专文，VAN9001 查看 TPM 专文；其他 VAN 编号也应查看官方对应说明，不叠加通用修复。',
@@ -381,6 +408,10 @@ export const valorantLaunchGuide: FollowupGuide = {
           risk: 'low',
           note: '受管理电脑或无权限时找管理员，不因无法启动就进入 BIOS 修改。',
           time: '检查与记录约 3–5 分钟',
+          guideLink: {
+            href: '/zh/games/valorant/van-restriction-5',
+            label: 'VAN RESTRICTION 5：HVCI 检查',
+          },
         },
         {
           id: 'repair-riot-client',
@@ -458,6 +489,14 @@ export const valorantLaunchGuide: FollowupGuide = {
       ],
       related: [
         {
+          href: '/zh/games/valorant/van-restriction-5',
+          label: 'VAN RESTRICTION 5：HVCI 检查',
+        },
+        {
+          href: '/zh/games/valorant/van9005',
+          label: 'VAN9005：TPM、UEFI 与内存完整性',
+        },
+        {
           href: '/zh/games/valorant/van9003',
           label: 'VAN9003 与安全启动',
         },
@@ -518,6 +557,7 @@ export const valorantLaunchGuide: FollowupGuide = {
           title: 'Comprueba el mensaje y número VAN',
           summary: 'Los fallos de inicio no comparten siempre la solución.',
           actions: [
+            'Para VAN RESTRICTION 5 o VAN9005, usa el enlace de este paso y las guías relacionadas para ese número.',
             'Anota qué ocurre tras Jugar, mensaje completo, hora y versión de Windows, sin omitir System/Critical/Failed to Launch.',
             'Guarda el trabajo, reinicia el PC y compara un inicio desde Riot Client. Espera si una actualización sigue avanzando.',
             'Para VAN9003 usa Secure Boot; para VAN9001, TPM. Otros números VAN también van a su ayuda oficial, sin acumular soluciones generales.',
@@ -525,6 +565,10 @@ export const valorantLaunchGuide: FollowupGuide = {
           risk: 'low',
           note: 'Consulta al administrador en equipos gestionados o sin acceso. No cambies BIOS solo porque no inicia.',
           time: 'Unos 3–5 minutos para consultar y anotar',
+          guideLink: {
+            href: '/es/games/valorant/van-restriction-5',
+            label: 'VAN RESTRICTION 5: comprobaciones de HVCI',
+          },
         },
         {
           id: 'repair-riot-client',
@@ -602,6 +646,14 @@ export const valorantLaunchGuide: FollowupGuide = {
       ],
       related: [
         {
+          href: '/es/games/valorant/van-restriction-5',
+          label: 'VAN RESTRICTION 5: comprobaciones de HVCI',
+        },
+        {
+          href: '/es/games/valorant/van9005',
+          label: 'VAN9005: TPM, UEFI e integridad de memoria',
+        },
+        {
           href: '/es/games/valorant/van9003',
           label: 'VAN9003 y arranque seguro',
         },
@@ -612,5 +664,5 @@ export const valorantLaunchGuide: FollowupGuide = {
       ],
     },
   },
-  relatedSlugs: ['van9003', 'van9001'],
+  relatedSlugs: ['van-restriction-5', 'van9005', 'van9003', 'van9001'],
 };

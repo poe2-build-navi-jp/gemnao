@@ -90,10 +90,15 @@ export const apexLaunchGuide: FollowupGuide = {
           time: '確認に約3〜5分',
           risk: 'low',
           actions: [
+            'Javelinと表示される場合は、このSTEPの専用記事リンクで現在のエラーを確認する。',
             'エラー全文、発生時刻、EA appかSteamか、プレイ前・ゲーム画面表示後のどこで止まったかを記録する。',
             'PreparingのままならEA appの読込み・インストールの公式案内へ。30005など別コードならEAのエラー一覧でその項目を確認し、この手順を一括適用しない。',
             'r5apex.exeだけでファイル破損やウイルスと断定しない。Apex_crash.txtはゲームのクラッシュ側の確認として記録し、STEP 4でも区別する。',
           ],
+          guideLink: {
+            href: '/games/apex-legends/javelin-launch-error',
+            label: 'Javelinと表示される起動エラーはこちら',
+          },
         },
         {
           id: 'repair-launcher-files',
@@ -161,6 +166,10 @@ export const apexLaunchGuide: FollowupGuide = {
         },
       ],
       related: [
+        {
+          href: '/games/apex-legends/javelin-launch-error',
+          label: 'Javelinと表示される起動エラーはこちら',
+        },
         {
           href: '/guide/steam-game-not-launching',
           label: 'Steamゲームが起動しない時の共通確認',
@@ -233,10 +242,15 @@ export const apexLaunchGuide: FollowupGuide = {
           time: 'About 3–5 minutes to check',
           risk: 'low',
           actions: [
+            'If the message names Javelin, use this step’s dedicated guide link to check the current error.',
             'Record the complete error, time, EA app or Steam, and whether it stops before play or after the game window appears.',
             'For a launcher stuck on Preparing, use EA’s loading/installation help. For 30005 or another code, find that entry in EA’s error list instead of applying all these steps indiscriminately.',
             'Do not infer corruption or malware from r5apex.exe alone. Record Apex_crash.txt as a game-crash symptom to distinguish again in Step 4.',
           ],
+          guideLink: {
+            href: '/en/games/apex-legends/javelin-launch-error',
+            label: 'Launch error naming Javelin',
+          },
         },
         {
           id: 'repair-launcher-files',
@@ -304,6 +318,10 @@ export const apexLaunchGuide: FollowupGuide = {
         },
       ],
       related: [
+        {
+          href: '/en/games/apex-legends/javelin-launch-error',
+          label: 'Launch error naming Javelin',
+        },
         {
           href: '/en/guide/pc-game-crash',
           label: 'When the game starts and then crashes',
@@ -374,10 +392,15 @@ export const apexLaunchGuide: FollowupGuide = {
           time: '检查约需 3–5 分钟',
           risk: 'low',
           actions: [
+            '提示包含 Javelin 时，先使用本步骤的专用文章链接核对当前错误。',
             '记录完整提示、时间、使用 EA app 还是 Steam，以及是在进入游戏前还是窗口出现后停止。',
             '停在 Preparing 时查看 EA 的加载／安装帮助；30005 等代码应查看错误列表对应条目，不把本流程一律套用。',
             '不要只凭 r5apex.exe 判断文件损坏或病毒。Apex_crash.txt 属于游戏崩溃线索，第 4 步也应单独区分。',
           ],
+          guideLink: {
+            href: '/zh/games/apex-legends/javelin-launch-error',
+            label: '显示 Javelin 的启动错误',
+          },
         },
         {
           id: 'repair-launcher-files',
@@ -444,6 +467,10 @@ export const apexLaunchGuide: FollowupGuide = {
         },
       ],
       related: [
+        {
+          href: '/zh/games/apex-legends/javelin-launch-error',
+          label: '显示 Javelin 的启动错误',
+        },
         {
           href: '/en/guide/pc-game-crash',
           label: '游戏启动后崩溃的检查（英语）',
@@ -515,10 +542,15 @@ export const apexLaunchGuide: FollowupGuide = {
           time: 'Unos 3–5 minutos para comprobar',
           risk: 'low',
           actions: [
+            'Si el mensaje menciona Javelin, consulta el enlace específico de este paso.',
             'Anota el error completo, la hora, EA app o Steam y si falla antes de jugar o después de aparecer la ventana.',
             'Si queda en Preparing, consulta la ayuda de carga/instalación de EA app. Para 30005 u otro código, busca su apartado en la lista oficial, sin aplicar todos estos pasos indiscriminadamente.',
             'No deduzcas corrupción o malware solo por r5apex.exe. Registra Apex_crash.txt como síntoma de cierre del juego y distínguelo de nuevo en el paso 4.',
           ],
+          guideLink: {
+            href: '/es/games/apex-legends/javelin-launch-error',
+            label: 'Error de inicio que menciona Javelin',
+          },
         },
         {
           id: 'repair-launcher-files',
@@ -586,6 +618,10 @@ export const apexLaunchGuide: FollowupGuide = {
       ],
       related: [
         {
+          href: '/es/games/apex-legends/javelin-launch-error',
+          label: 'Error de inicio que menciona Javelin',
+        },
+        {
           href: '/en/guide/pc-game-crash',
           label: 'Cuando inicia y luego se cierra (en inglés)',
         },
@@ -604,5 +640,5 @@ export const apexLaunchGuide: FollowupGuide = {
       ],
     },
   },
-  relatedSlugs: ['apex-crash-txt', 'code-net-leaf'],
+  relatedSlugs: ['javelin-launch-error', 'apex-crash-txt', 'code-net-leaf'],
 };
