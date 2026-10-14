@@ -5512,3 +5512,29 @@ a.my-games-primary {
 .experiment-reference { border-top: 1px solid var(--line); }
 .experiment-message { display: block; min-height: 24px; margin: 10px 0; }
 .experiment-notebook { display: block; padding: 10px 0; min-height: 44px; }
+
+/* Browser-local continuation records and candidate conditions. */
+.play-plan { margin-block: 1rem; padding: 1rem; border: 1px solid var(--line); border-radius: .75rem; min-width: 0; overflow-wrap: anywhere; }
+.play-plan :is(form,fieldset,label,details,dl,div) { min-width: 0; }
+.play-plan label { display: block; margin-block: .75rem; }
+.play-plan :is(input:not([type=checkbox]),textarea,select) { display: block; width: 100%; max-width: 100%; min-width: 0; min-height: 44px; border: 1px solid var(--line); border-radius: .35rem; padding: .5rem; background: var(--card); color: var(--ink); }
+.play-plan textarea { min-height: 5rem; resize: vertical; }
+.play-plan button,.play-plan summary { min-height: 44px; padding: .5rem; cursor: pointer; }
+.play-plan button { border: 1px solid var(--line); border-radius: .35rem; margin-block: .25rem; white-space: normal; max-width: 100%; }
+.play-plan button:disabled { opacity: .55; cursor: not-allowed; }
+.play-plan :is(button,input,textarea,select,summary,a):focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.play-plan fieldset { padding: .75rem; border: 1px solid var(--line); }
+.play-plan dd { margin: .25rem 0 .75rem; white-space: pre-wrap; }
+.play-plan-note { font-size: .85rem; }
+.play-plan ul { padding-inline-start: 1.25rem; }
+.play-plan input[type=checkbox] { width: 24px; height: 24px; vertical-align: middle; margin-inline-end: .5rem; }
+
+.play-plan h4 { font-size: 18px; font-weight: 700; margin: 0 0 10px; }
+.play-plan h5 { font-size: 17px; font-weight: 700; margin: 20px 0 8px; }
+.play-plan :is(h6,dt) { font-weight: 700; }
+.play-plan p { margin-block: 10px; line-height: 1.65; }
+.play-plan label { min-height: 44px; }
+.play-plan :is(input:not([type=checkbox]),textarea,select) { border-color: #8c9da6; font: inherit; }
+.play-plan button { border-color: #08789f; color: #076489; background: white; font: inherit; }
+.play-plan output { display: block; margin-block: 10px; }
+.play-plan { scroll-margin-top: 20px; }

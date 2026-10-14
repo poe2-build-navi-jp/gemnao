@@ -1,6 +1,7 @@
 'use client';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { useEffect, useState } from 'react';
+import { PlayPlanCard, TodayGames } from '@/components/play-plan';
 import { MyGameChanges } from '@/components/my-game-changes';
 import { GameSettingsSnapshots } from '@/components/game-settings-snapshots';
 import { gameChangesCopy } from '@/lib/my-game-changes-copy';
@@ -167,6 +168,7 @@ export function MyGamesPanel({
       <section id="my-feed" aria-labelledby="saved-games-title">
         <p className="page-kicker">2 / 2</p>
         <h2 id="saved-games-title">{t.savedTitle}</h2>
+        <TodayGames games={mine} locale={locale} ready={ready} />
         <p>{gameChangesCopy[locale].scope}</p>
         <p className="my-game-changes-rules">{gameChangesCopy[locale].rules}</p>
         {ready && mine.length ? (
@@ -183,6 +185,7 @@ export function MyGamesPanel({
                     {t.remove}
                   </button>
                 </div>
+                <PlayPlanCard gameSlug={game.slug} locale={locale} />
                 <MyGameChanges changes={game.officialChanges} locale={locale} />
                 <GameSettingsSnapshots gameSlug={game.slug} locale={locale} />
                 {links(game)}
