@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { MyPcFit } from '@/components/my-pc-fit';
 import { ReadingList } from '@/components/reading-list';
 import { RecentTroubles } from '@/components/recent-troubles';
+import { MyGamesBackup } from './my-games-backup';
 import { SolutionNotebook } from '@/components/solution-notebook';
 import { useMyGames, useMyPc } from '@/components/use-my-pc';
 import { jstDate, usePreviousVisit } from '@/components/use-last-visit';
@@ -329,6 +330,7 @@ export function MyDashboard({ games }: { games: DashboardGame[] }) {
         </p>
       </section>
 
+      <MyGamesBackup />
       <SolutionNotebook />
 
       <section id="my-pc" aria-labelledby="my-pc-title">

@@ -1,6 +1,7 @@
 'use client';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { Bookmark, ArrowRight } from 'lucide-react';
+import { NextGameAction } from './next-game-action';
 import { useMyGames } from '@/components/use-my-pc';
 import { useReadingList } from '@/components/use-reading-list';
 import { games } from '@/lib/games';
@@ -36,6 +37,7 @@ export function MyShortcut() {
           <ArrowRight size={18} aria-hidden="true" />
         </a>
       ) : null}
+      <NextGameAction locale="ja" />
       <div className="my-shortcut-actions">
         <a className="my-games-primary" href="/my-games">
           {gamesReady && mine.length

@@ -4,6 +4,7 @@ import {
 } from '@/components/support-workspace';
 import { WikiHeader, WikiFooter } from '@/components/wiki-header';
 import { GameRequestForm } from '@/components/game-request-form';
+import { MyGamesBackup } from '@/components/my-games-backup';
 import { MyGamesPanel } from '@/components/my-games-panel';
 import { myGamesCopy, type MyGamesLocale } from '@/lib/my-games-copy';
 import { myGamesData } from '@/lib/my-games-data';
@@ -23,6 +24,7 @@ export function MyGamesPage({ locale = 'ja' }: { locale?: MyGamesLocale }) {
         </a>
         <p className="my-games-privacy">{t.privacy}</p>
         <MyGamesPanel games={myGamesData(locale)} locale={locale} />
+        <MyGamesBackup locale={locale} />
         <SupportWorkspace locale={locale} />
         <SupportUpdates locale={locale} createHref="#issue-notebook" />
         <GameRequestForm locale={locale} />

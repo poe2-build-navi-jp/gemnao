@@ -5538,3 +5538,31 @@ a.my-games-primary {
 .play-plan button { border-color: #08789f; color: #076489; background: white; font: inherit; }
 .play-plan output { display: block; margin-block: 10px; }
 .play-plan { scroll-margin-top: 20px; }
+
+.home-next-game { margin: 14px 0; padding: 12px; border: 1px solid var(--line); border-left: 4px solid var(--blue); border-radius: 8px; background: #f6fafc; min-width: 0; overflow-wrap: anywhere; }
+.home-next-game p { margin: 6px 0; }
+.home-next-text { white-space: pre-wrap; }
+.home-next-game a { display: inline-flex; align-items: center; min-height: 44px; color: #076489; font-weight: 700; }
+.my-games-backup { margin: 24px 0; padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); overflow-wrap: anywhere; min-width: 0; }
+.my-games-backup :is(h2,h3,h4) { line-height: 1.5; }
+.my-games-backup h2 { font-size: 22px; }
+.my-games-backup h3 { font-size: 19px; }
+.my-games-backup h4 { font-size: 16px; margin: 0 0 8px; }
+.my-games-backup p { line-height: 1.65; }
+.my-games-backup .transfer-note { color: var(--muted); font-size: 14px; }
+.backup-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.my-games-backup button { min-height: 44px; max-width: 100%; white-space: normal; font: inherit; padding: 8px 12px; border: 1px solid #08789f; border-radius: 6px; color: #076489; background: white; cursor: pointer; }
+.my-games-backup button:disabled { opacity: .55; cursor: not-allowed; }
+.my-games-backup :focus-visible { outline: 3px solid #08789f; outline-offset: 3px; }
+.my-games-backup label { display: flex; gap: 8px; align-items: center; min-height: 44px; margin: 14px 0; }
+.my-games-backup input[type=checkbox] { width: 24px; height: 24px; flex-shrink: 0; }
+.my-games-backup output { display: block; margin-top: 12px; }
+.backup-counts { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(220px,100%),1fr)); gap: 12px; list-style: none; padding: 0; }
+.backup-counts li { padding: 12px; border: 1px solid var(--line); border-radius: 8px; min-width: 0; }
+.backup-counts dl { margin: 0; }
+.backup-counts dl > div { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px; padding: 4px 0; }
+.backup-counts dd { margin: 0; font-weight: 700; }
+.backup-recovery { border-left: 4px solid var(--orange); padding: 12px; margin: 12px 0; background: #fff5ed; }
+.settings-share { padding: 12px; border: 1px solid var(--line); border-radius: 8px; margin: 14px 0; }
+.settings-share h6 { font-size: 16px; margin: 0 0 8px; }
+.settings-share output { display: block; margin-top: 10px; }
