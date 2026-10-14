@@ -5468,3 +5468,47 @@ a.my-games-primary {
   .home-latest ol { grid-template-columns: 1fr; gap: 8px; }
   .home-latest li a { padding: 12px 14px; }
 }
+
+.my-game-changes-rules { color: var(--muted); font-size: 14px; }
+.my-game-change { margin: 12px 0 20px; padding: 16px; border: 1px solid var(--line); border-left: 4px solid #08789f; border-radius: 8px; background: #f6fafc; overflow-wrap: anywhere; }
+.my-game-change h5 { font-size: 18px; line-height: 1.5; margin: 0 0 8px; }
+.my-game-change-state { font-weight: 700; color: #185c45; }
+.my-game-change dl { display: flex; flex-wrap: wrap; gap: 12px 24px; font-size: 14px; }
+.my-game-change dt { font-weight: 700; }
+.my-game-change dd { margin: 2px 0 0; }
+.my-game-change button { min-height: 44px; max-width: 100%; padding: 8px 14px; border: 1px solid #08789f; border-radius: 6px; background: white; color: #076489; font: inherit; cursor: pointer; }
+.my-game-change button:disabled { opacity: .6; cursor: not-allowed; }
+.my-game-change :focus-visible { outline: 3px solid #08789f; outline-offset: 3px; }
+.my-game-changes output { display: block; font-size: 14px; }
+
+:is(.game-settings, .game-experiments) { border-top: 1px solid var(--line); padding-top: 8px; overflow-wrap: anywhere; }
+:is(.game-settings, .game-experiments) h5 { font-size: 17px; line-height: 1.5; margin: 16px 0 8px; }
+:is(.game-settings, .game-experiments) p { margin: 10px 0; }
+:is(.game-settings, .game-experiments) label { display: grid; gap: 6px; margin: 12px 0; font-weight: 600; }
+:is(.game-settings, .game-experiments) input:not([type="checkbox"]), :is(.game-settings, .game-experiments) select, :is(.game-settings, .game-experiments) textarea { width: 100%; min-width: 0; max-width: 100%; min-height: 44px; border: 1px solid #8c9da6; border-radius: 6px; padding: 8px; font: inherit; background: white; color: #173545; box-sizing: border-box; }
+:is(.game-settings, .game-experiments) textarea { resize: vertical; }
+:is(.game-settings, .game-experiments) button { min-height: 44px; max-width: 100%; padding: 8px 12px; margin: 6px 8px 6px 0; border: 1px solid #08789f; border-radius: 6px; background: white; color: #076489; font: inherit; cursor: pointer; }
+:is(.game-settings, .game-experiments) button:disabled { opacity: .6; cursor: not-allowed; }
+:is(.game-settings, .game-experiments) :focus-visible { outline: 3px solid #08789f; outline-offset: 3px; }
+:is(.game-settings, .game-experiments) .settings-comfort { display: flex; align-items: center; min-height: 44px; }
+.settings-comfort input { width: 20px; height: 20px; flex-shrink: 0; }
+.settings-record, .settings-comparison { margin: 16px 0; padding: 12px; background: #f6fafc; border: 1px solid var(--line); border-radius: 8px; }
+:is(.game-settings, .game-experiments) dl { margin: 0; }
+.settings-record dl > div { margin: 10px 0; }
+:is(.game-settings, .game-experiments) dt { font-weight: 700; }
+:is(.game-settings, .game-experiments) dd { margin: 4px 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.settings-comparison-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.settings-comparison-row dt { grid-column: 1 / -1; }
+.settings-comparison-row dd span { display: block; font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+.settings-comparison-row[data-changed="true"] dt { color: #076489; }
+.settings-legacy-text, .settings-legacy li { white-space: pre-wrap; overflow-wrap: anywhere; }
+.settings-legacy a { display: block; min-height: 44px; padding: 10px 0; }
+.settings-message { min-height: 24px; }
+@media (max-width: 400px) { .settings-comparison-row { grid-template-columns: minmax(0, 1fr); } }
+
+.experiment-record { margin: 16px 0; padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: #f6fafc; }
+.experiment-record h4 { font-size: 17px; line-height: 1.5; }
+.experiment-record dl > div { margin: 12px 0; }
+.experiment-reference { border-top: 1px solid var(--line); }
+.experiment-message { display: block; min-height: 24px; margin: 10px 0; }
+.experiment-notebook { display: block; padding: 10px 0; min-height: 44px; }

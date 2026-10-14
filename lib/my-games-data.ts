@@ -1,3 +1,4 @@
+import { changesForGame, type VisibleGameChange } from '@/lib/my-game-changes';
 import { games } from '@/lib/games';
 import { articlesForGame } from '@/lib/game-articles';
 import { gameFacts } from '@/lib/localized/game-facts';
@@ -13,6 +14,7 @@ export type SavedGameChoice = {
   hubJapanese: boolean;
   articles: { href: string; label: string; japanese: boolean }[];
   hasNews: boolean;
+  officialChanges?: VisibleGameChange[];
 };
 export function myGamesData(locale: MyGamesLocale): SavedGameChoice[] {
   return games.map((game) => {
@@ -53,6 +55,7 @@ export function myGamesData(locale: MyGamesLocale): SavedGameChoice[] {
               japanese: locale !== 'ja',
             })),
       hasNews: Boolean(steamAppIds[game.slug]),
+      officialChanges: changesForGame(game.slug, locale),
     };
   });
 }

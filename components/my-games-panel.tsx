@@ -1,6 +1,9 @@
 'use client';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { useEffect, useState } from 'react';
+import { MyGameChanges } from '@/components/my-game-changes';
+import { GameSettingsSnapshots } from '@/components/game-settings-snapshots';
+import { gameChangesCopy } from '@/lib/my-game-changes-copy';
 import { Check, Plus, Gamepad2, ArrowRight } from 'lucide-react';
 import { useMyGames } from '@/components/use-my-pc';
 import { MY_GAMES_KEY } from '@/lib/my-pc';
@@ -164,6 +167,8 @@ export function MyGamesPanel({
       <section id="my-feed" aria-labelledby="saved-games-title">
         <p className="page-kicker">2 / 2</p>
         <h2 id="saved-games-title">{t.savedTitle}</h2>
+        <p>{gameChangesCopy[locale].scope}</p>
+        <p className="my-game-changes-rules">{gameChangesCopy[locale].rules}</p>
         {ready && mine.length ? (
           <div className="my-games-results">
             {mine.map((game) => (
@@ -178,6 +183,8 @@ export function MyGamesPanel({
                     {t.remove}
                   </button>
                 </div>
+                <MyGameChanges changes={game.officialChanges} locale={locale} />
+                <GameSettingsSnapshots gameSlug={game.slug} locale={locale} />
                 {links(game)}
                 {news[game.slug]?.length ? (
                   <details>
