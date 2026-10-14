@@ -4,13 +4,17 @@ import { createRequire } from 'node:module';
 import { mkdir } from 'node:fs/promises';
 import { build } from 'esbuild';
 const compiled = await build({
-  entryPoints: ['lib/step-outcome-counts.ts'],
+  stdin: {
+    contents: `export {stepOutcomeCounts} from './lib/step-outcome-counts';import {articleSteps} from './lib/article-step-data';export const testedStepId=articleSteps('game-cyberpunk-2077-not-launching')[0].id;`,
+    resolveDir: process.cwd(),
+    loader: 'ts',
+  },
   bundle: true,
   write: false,
   platform: 'node',
   format: 'esm',
 });
-const { stepOutcomeCounts } = await import(
+const { stepOutcomeCounts, testedStepId } = await import(
   'data:text/javascript;base64,' +
     Buffer.from(compiled.outputFiles[0].text).toString('base64')
 );
@@ -106,7 +110,7 @@ try {
                   ? []
                   : [
                       {
-                        methodId: 'step-1',
+                        methodId: testedStepId,
                         methodLabel: 'Synthetic',
                         responses: 2,
                         notResolved: 1,

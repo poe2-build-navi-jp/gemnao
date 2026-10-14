@@ -2,6 +2,7 @@
 
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { useState } from 'react';
+import { useBoundedRequest } from './use-bounded-request';
 import {
   activeTimes,
   discordServerGames,
@@ -13,11 +14,15 @@ import {
 export function DiscordServerSubmitForm() {
   const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
+  const request = useBoundedRequest();
+  const [uncertain, setUncertain] = useState(false);
+
   async function submit(event: React.SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (state === 'sending') return;
+    if (request.isPending()) return;
     const formElement = event.currentTarget;
     setState('sending');
+    setUncertain(false);
     const form = new FormData(formElement);
     if (!form.getAll('purpose').length || !form.getAll('activeTime').length) {
       setState('error');
@@ -27,7 +32,7 @@ export function DiscordServerSubmitForm() {
       const entry = form.get(name);
       return typeof entry === 'string' ? entry : '';
     };
-    const response = await fetch('/api/discord-servers', {
+    const result = await request.send('/api/discord-servers', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -45,7 +50,10 @@ export function DiscordServerSubmitForm() {
         replyEmail: value('replyEmail'),
         website: value('website'),
       }),
-    }).catch(() => null);
+    });
+    if (!result) return;
+    const response = result.response;
+    setUncertain(!response);
     if (response?.ok) formElement.reset();
     setState(response?.ok ? 'sent' : 'error');
   }
@@ -61,8 +69,8 @@ export function DiscordServerSubmitForm() {
   }
 
   return (
-    <form className="contact-form server-submit-form" onSubmit={submit}>
-      <fieldset>
+    <form className="contact-form server-submit-form" onSubmit={submit} aria-busy={state === 'sending'}>
+      <fieldset disabled={state === 'sending'}>
         <legend>サーバーの基本情報</legend>
         <label>サーバー名<input name="serverName" required minLength={2} maxLength={80} /></label>
         <label>
@@ -83,7 +91,7 @@ export function DiscordServerSubmitForm() {
         </label>
       </fieldset>
 
-      <fieldset>
+      <fieldset disabled={state === 'sending'}>
         <legend>募集条件</legend>
         <div className="server-check-group">
           <strong>募集目的（1つ以上）</strong>
@@ -108,7 +116,7 @@ export function DiscordServerSubmitForm() {
         <label>禁止事項<textarea name="rules" required minLength={10} maxLength={300} rows={4} placeholder="暴言、迷惑行為、無断勧誘など" /></label>
       </fieldset>
 
-      <fieldset>
+      <fieldset disabled={state === 'sending'}>
         <legend>掲載者情報</legend>
         <label>運営者のDiscordユーザー名<input name="ownerDiscord" required maxLength={80} autoComplete="off" /><small>管理権限と募集継続の確認にだけ使用し、掲載ページには表示しません。</small></label>
         <label>返信先メールアドレス<input name="replyEmail" type="email" required maxLength={254} autoComplete="email" /><small>審査結果や再確認の連絡に使用します。</small></label>
@@ -116,11 +124,11 @@ export function DiscordServerSubmitForm() {
 
       <label className="contact-honeypot" aria-hidden="true">Website<input name="website" tabIndex={-1} autoComplete="off" /></label>
       <label className="contact-consent">
-        <input type="checkbox" required />
+        <input type="checkbox" disabled={state === 'sending'} required />
         <span><a href="/discord-servers/guidelines" target="_blank">掲載ガイドライン</a>と<a href="/privacy" target="_blank">プライバシーポリシー</a>に同意し、サーバーを管理する権限があることを確認します。</span>
       </label>
       <button type="submit" disabled={state === 'sending'}>{state === 'sending' ? '送信中…' : '無料掲載を申請する'}</button>
-      {state === 'error' ? <p className="contact-error" role="alert">送信できませんでした。入力内容を確認し、時間を置いて再度お試しください。</p> : null}
+      {state === 'error' ? <p className="contact-error" role="alert">{uncertain ? '送信完了を確認できませんでした。入力内容は残っています。すでに受け付けられた可能性があるため、再送すると重複する場合があります。' : '送信できませんでした。入力内容を確認し、時間を置いて再度お試しください。'}</p> : null}
     </form>
   );
 }

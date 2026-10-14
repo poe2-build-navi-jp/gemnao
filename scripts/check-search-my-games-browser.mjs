@@ -1,6 +1,23 @@
 // Local-only regression: synthetic saved games; no live APIs or analytics.
 import assert from 'node:assert/strict';
 import { mkdir } from 'node:fs/promises';
+import { build } from 'esbuild';
+const compiled = await build({
+  stdin: {
+    contents: `import {searchArticles} from './lib/site-search';export const count=searchArticles('Steam 起動しない').length`,
+    resolveDir: process.cwd(),
+    loader: 'ts',
+  },
+  bundle: true,
+  write: false,
+  platform: 'node',
+  format: 'esm',
+});
+const { count } = await import(
+  'data:text/javascript;base64,' +
+    Buffer.from(compiled.outputFiles[0].text).toString('base64')
+);
+assert.ok(count > 0);
 import { chromium, expect } from '@playwright/test';
 const base = process.env.TEST_BASE_URL || 'http://127.0.0.1:3000';
 const origin = new URL(base).origin;
@@ -31,7 +48,9 @@ try {
     const input = page.getByRole('searchbox', { name: 'ゲーム名や症状を検索' });
     await expect(input).toHaveValue('Steam 起動しない');
     await expect(page.locator('.hero-searching')).toBeVisible();
-    await expect(page.locator('.search-result-summary')).toContainText('19件');
+    await expect(page.locator('.search-result-summary')).toContainText(
+      `${count}件`,
+    );
     const first = page.locator('#articles .home-article-grid a').first();
     await expect(first).toBeVisible();
     assert.ok(
@@ -68,7 +87,9 @@ try {
     await input.fill('Steam');
     await input.pressSequentially(' 起動しない');
     await expect(input).toBeFocused();
-    await expect(page.locator('.search-result-summary')).toContainText('19件');
+    await expect(page.locator('.search-result-summary')).toContainText(
+      `${count}件`,
+    );
     const seed = JSON.stringify(['elden-ring']);
     await page.evaluate(
       (value) => localStorage.setItem('gemnao-my-games', value),

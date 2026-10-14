@@ -43,7 +43,9 @@ try {
       if (url.pathname.startsWith('/api/')) {
         if (r.request().method() === 'POST')
           posts.push(JSON.parse(r.request().postData()));
-        return r.fulfill({ json: { rows: [], methods: [] } });
+        return r.fulfill({
+          json: { ok: true, rows: [], methods: [], stepResultsAvailable: true },
+        });
       }
       return r.continue();
     });
@@ -172,7 +174,10 @@ try {
       (await read()).find((i) => i.id === 'A').support.attempts[0].stepId,
       'step-2',
     );
-    assert.equal(posts.length, 0);
+    assert.equal(posts.length, 1);
+    assert.equal(posts[0].outcome, 'not-resolved');
+    assert.equal(posts[0].method, 'step-2');
+    assert.equal(posts[0].reportStruggling, false);
     await page.reload({ waitUntil: 'networkidle' });
     assert.equal(
       await second.locator('button.step-next').count(),
@@ -189,15 +194,16 @@ try {
         ),
       ),
     );
-    assert.equal(posts.length, 1);
-    assert.equal(posts[0].kind, 'step-solved');
-    assert.equal(posts[0].method, 'step-2');
+    assert.equal(posts.length, 2);
+    assert.equal(posts[1].kind, 'step-result');
+    assert.equal(posts[1].outcome, 'resolved');
+    assert.equal(posts[1].method, 'step-2');
     await select.selectOption('B');
     assert.equal(await page.locator('.success-share').count(), 0);
     await confirmed.click();
     await second.locator('.step-solved').click();
     await page.locator('.success-share').waitFor();
-    assert.equal(posts.length, 1, 'anonymous dedup retained across issues');
+    assert.equal(posts.length, 2, 'anonymous dedup retained across issues');
     assert.ok(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,

@@ -15,11 +15,14 @@ for (const anchor of [
   'site-search',
   'symptoms',
   'games',
-  'articles',
   'home-tools',
 ]) {
   assert.equal(html.split(`id="${anchor}"`).length - 1, 1, anchor);
 }
+const articleView = renderToStaticMarkup(<WikiHome view="articles" />);
+assert.equal(articleView.split('id="articles"').length - 1, 1);
+assert.ok(!html.includes('id="articles"'), 'default home uses a separate article view');
+assert.ok(readFileSync('components/reading-list.tsx', 'utf8').includes('href="/?view=articles#articles"'));
 for (const route of [
   '/my#my-reading-list',
   '/tools/save-locations',

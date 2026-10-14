@@ -11,6 +11,7 @@
 }
 .diag a {
   color: #08794e;
+  text-decoration: underline;
   text-underline-offset: 3px;
 }
 .diag a:hover {

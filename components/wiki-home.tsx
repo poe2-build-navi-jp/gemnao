@@ -177,7 +177,7 @@ export function WikiHome({
             </button>
           )}
         </div>
-        <div
+        <section
           className="search-examples home-search-examples"
           hidden={isSearching}
           aria-label="検索例"
@@ -199,7 +199,7 @@ export function WikiHome({
               </button>
             ),
           )}
-        </div>
+        </section>
         {isSearching && !noSearchResults ? (
           <output className="search-result-summary" aria-live="polite">
             検索結果：{searchResultCount}件
@@ -241,7 +241,7 @@ export function WikiHome({
               保存した記事を開く →
             </a>
           </div>
-          <div className="symptom-grid" aria-label="症状から探す">
+          <div className="symptom-grid">
             {topics.map((item) => {
               const Icon = item.icon;
               return (
@@ -479,13 +479,14 @@ export function WikiHome({
             <span>{displayedArticleCount}記事</span>
           </div>
           {view === 'articles' ? (
-            <div
+            <section
               className="article-cluster-filter"
               aria-label="症状で記事を絞り込む"
             >
               <button
                 type="button"
                 className={articleCluster === 'all' ? 'active' : ''}
+                aria-pressed={articleCluster === 'all'}
                 onClick={() => setArticleCluster('all')}
               >
                 すべて
@@ -494,13 +495,14 @@ export function WikiHome({
                 <button
                   type="button"
                   className={articleCluster === topic.slug ? 'active' : ''}
+                  aria-pressed={articleCluster === topic.slug}
                   onClick={() => setArticleCluster(topic.slug)}
                   key={topic.slug}
                 >
                   {topic.label}
                 </button>
               ))}
-            </div>
+            </section>
           ) : null}
           {displayedArticleCount ? (
             <div className="home-article-grid">

@@ -7,7 +7,7 @@
   --card: #ffffff;
   --line: #d9e1e5;
   --navy: #112733;
-  --blue: #187fa0;
+  --blue: #176f8a;
   --cyan: #5fd5dc;
   --orange: #f07845;
 }
@@ -662,7 +662,7 @@ input {
 .evidence-caveat,
 .count-note {
   margin: 14px 0 0;
-  color: #748189;
+  color: #5e6d76;
   font-size: 12px;
   line-height: 1.7;
 }
@@ -2426,6 +2426,9 @@ kbd {
   font-weight: 700;
   text-underline-offset: 3px;
 }
+.server-related p {
+  color: #5e6d76;
+}
 .server-intro ul {
   display: grid;
   gap: 11px;
@@ -3382,6 +3385,7 @@ kbd {
 
 .static-page .breadcrumbs {
   margin-bottom: 24px;
+  color: #52606a;
 }
 .static-page .breadcrumbs b {
   color: var(--ink);
@@ -3752,6 +3756,13 @@ kbd {
   border-radius: 4px;
   background: #eef3f5;
   overflow-wrap: anywhere;
+}
+.crash-details code,
+.directx-details code,
+.steam-launch-details code,
+.controller-double-details code,
+.bsod-details code {
+  color: #53636f;
 }
 
 /* DirectX guide: make the error-name branches and commands readable. */
@@ -5202,8 +5213,11 @@ a.my-games-primary {
   text-decoration: none;
 }
 .weekly-banner span {
-  color: var(--orange);
+  color: #b7481f;
   font-size: 0.85rem;
+}
+.weekly-index-layout {
+  grid-template-columns: minmax(0, 1fr);
 }
 .weekly-game {
   margin: 28px 0;

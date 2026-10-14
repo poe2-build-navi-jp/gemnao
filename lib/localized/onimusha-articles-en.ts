@@ -508,10 +508,19 @@ export const onimushaArticlesEn: LocalizedArticle[] = [
         answer:
           'Capcom’s guide does not generally guarantee support for mobile or external GPUs. If you play on one, check the correct charger, the manufacturer’s power mode and the selected GPU; a similar desktop GPU name does not establish identical performance.',
       },
+      {
+        question: 'Can I check performance on my PC before buying?',
+        answer:
+          'Steam offers the free Onimusha: Way of the Sword DEMO. Compare FPS in the same scene using the method in Step 2 to help choose settings. Demo performance is a reference and does not guarantee identical performance throughout the full game.',
+      },
     ],
     sources: [
       sources.capcom,
       sources.steam,
+      {
+        label: 'Steam: Onimusha: Way of the Sword DEMO (free demo)',
+        url: 'https://store.steampowered.com/app/3974650/',
+      },
       sources.pcgw,
       {
         label: 'NVIDIA: DLSS 4 FAQ',
@@ -734,7 +743,8 @@ export const onimushaArticlesEn: LocalizedArticle[] = [
         risk: 'low',
         actions: [
           'Only if the menu is visible, open display settings and take a screenshot of the current values.',
-          'First compare borderless or windowed mode if available. Then separately compare the monitor’s native resolution.',
+          'First compare borderless or windowed mode if available.',
+          'Then separately compare the monitor’s native resolution. Restore a change that does not help.',
           'Next toggle only VSync and compare. Restore a change that does not help.',
         ],
       },

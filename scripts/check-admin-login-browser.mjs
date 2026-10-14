@@ -4,6 +4,12 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { chromium, expect } from '@playwright/test';
 const base = process.env.TEST_BASE_URL || 'http://127.0.0.1:8795';
 assert(['127.0.0.1', 'localhost'].includes(new URL(base).hostname));
+const contacts = process.argv.includes('--contacts');
+const screen = contacts ? '/admin/contacts' : '/admin/discord-servers';
+const listing = '/api' + screen;
+const emptyText = contacts ? 'お問い合わせはまだありません。' : '申請はまだありません。';
+const retryText = contacts ? '再読み込み' : '認証状態を再確認する';
+const evidence = contacts ? '.wrangler/contact-admin-review' : '.wrangler/admin-login-review';
 const dummy = 'dummy-local-admin-key'; // Never read a real credential or production cookie.
 const browser = await chromium.launch({
   executablePath: process.env.CHROMIUM_PATH || '/usr/bin/chromium',
@@ -12,7 +18,7 @@ const browser = await chromium.launch({
 const errors = [],
   badAssets = [],
   results = [];
-await mkdir('.wrangler/admin-login-review', { recursive: true });
+await mkdir(evidence, { recursive: true });
 async function setup(width = 390, height = 844) {
   const context = await browser.newContext({
     viewport: { width, height },
@@ -48,7 +54,7 @@ async function setup(width = 390, height = 844) {
       state.auth = true;
       return route.fulfill({ json: { ok: true } });
     }
-    if (url.pathname === '/api/admin/discord-servers') {
+    if (url.pathname === listing) {
       state.reads++;
       assert.equal(req.method(), 'GET');
       if (state.listMode === 'hang') {
@@ -77,7 +83,7 @@ async function setup(width = 390, height = 844) {
     if (/\.(css|js)(\?|$)/.test(r.url()) && r.status() !== 200)
       badAssets.push(r.url());
   });
-  await page.goto(base + '/admin/discord-servers');
+  await page.goto(base + screen);
   const input = page.getByLabel('管理キー', { exact: true }),
     button = page.getByRole('button', { name: '管理画面を開く', exact: true });
   await expect(button).toBeVisible();
@@ -85,12 +91,12 @@ async function setup(width = 390, height = 844) {
 }
 async function ready(p) {
   await expect(
-    p.getByText('申請はまだありません。', { exact: true }),
+    p.getByText(emptyText, { exact: true }),
   ).toBeVisible();
   await expect(p.locator('.admin-login')).toHaveCount(0);
 }
 try {
-  for (const width of [320, 360, 390, 1440])
+  for (const width of [320, 360, 390, 430, 1440])
     for (const entry of ['typed', 'paste', 'autofill', 'enter']) {
       const { page, context, state, input, button } = await setup(width);
       await expect(button).toBeEnabled();
@@ -139,7 +145,7 @@ try {
       if (width === 390 && entry === 'autofill')
         await page
           .locator('.admin-login')
-          .screenshot({ path: '.wrangler/admin-login-review/form-390.png' });
+          .screenshot({ path: evidence + '/form-390.png' });
       if (entry === 'enter') {
         await input.focus();
         await page.keyboard.press('Enter');
@@ -219,7 +225,7 @@ try {
     );
     await page
       .locator('.admin-login')
-      .screenshot({ path: '.wrangler/admin-login-review/busy-390.png' });
+      .screenshot({ path: evidence + '/busy-390.png' });
     state.auth = true;
     await state.held.fulfill({ json: { ok: true } });
     state.held = null;
@@ -266,7 +272,7 @@ try {
       await ready(page);
     } else {
       await expect(
-        page.getByRole('button', { name: '認証状態を再確認する', exact: true }),
+        page.getByRole('button', { name: retryText, exact: true }),
       ).toBeVisible();
       if (state.held) {
         await state.held.abort().catch(() => undefined);
@@ -274,7 +280,7 @@ try {
       }
       state.listMode = 'success';
       await page
-        .getByRole('button', { name: '認証状態を再確認する', exact: true })
+        .getByRole('button', { name: retryText, exact: true })
         .tap();
       await ready(page);
     }
@@ -289,7 +295,7 @@ try {
     await context.route('**/*', (r) => {
       const u = new URL(r.request().url());
       if (u.origin !== base) return r.abort();
-      if (u.pathname === '/api/admin/discord-servers') {
+      if (u.pathname === listing) {
         if (hang) return;
         return r.fulfill({ status: 401, json: {} });
       }
@@ -298,17 +304,17 @@ try {
     });
     const page = await context.newPage();
     await page.clock.install();
-    await page.goto(base + '/admin/discord-servers');
+    await page.goto(base + screen);
     await expect(
       page.getByText('認証状態を確認しています…', { exact: true }),
     ).toBeVisible();
     await page.clock.fastForward(15001);
     await expect(
-      page.getByRole('button', { name: '認証状態を再確認する', exact: true }),
+      page.getByRole('button', { name: retryText, exact: true }),
     ).toBeVisible();
     hang = false;
     await page
-      .getByRole('button', { name: '認証状態を再確認する', exact: true })
+      .getByRole('button', { name: retryText, exact: true })
       .click();
     await expect(
       page.getByRole('button', { name: '管理画面を開く', exact: true }),
@@ -318,7 +324,7 @@ try {
   assert.deepEqual(errors, []);
   assert.deepEqual(badAssets, []);
   await writeFile(
-    '.wrangler/admin-login-review/results.json',
+    evidence + '/results.json',
     JSON.stringify(
       { results, extraCases: 12, errors, badAssets, productionRequests: 0 },
       null,
@@ -326,7 +332,7 @@ try {
     ),
   );
   console.log(
-    'PASS: 16 width/input cases at 320/360/390/1440; direct DOM autofill and paste, touch/Enter, hit testing and 44px targets, short viewport; empty/wrong/network/server errors, double submit, timeouts, late response, read failure/invalid JSON/cookie expiry and retry; no JS or asset failures. Local dummy/mocks only.',
+    'PASS: 20 width/input cases at 320/360/390/430/1440; direct DOM autofill and paste, touch/Enter, hit testing and 44px targets, short viewport; empty/wrong/network/server errors, double submit, timeouts, late response, read failure/invalid JSON/cookie expiry and retry; no JS or asset failures. Local dummy/mocks only.',
   );
 } finally {
   await browser.close();

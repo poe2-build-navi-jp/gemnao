@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import { emptySupport, type Attempt } from '@/lib/support-record';
 import { supportCopy, type SupportLocale } from '@/lib/support-copy';
 import { games } from '@/lib/games';
+import { gameDisplayName } from '@/lib/game-display-name';
 import {
   readSolutions,
   solutionError,
@@ -102,7 +103,7 @@ export function SolutionForm({
             <option value="">{t.other}</option>
             {games.map((game) => (
               <option value={game.slug} key={game.slug}>
-                {game.shortTitle}
+                {gameDisplayName(game, locale)}
               </option>
             ))}
           </select>

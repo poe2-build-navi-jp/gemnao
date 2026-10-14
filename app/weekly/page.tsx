@@ -12,7 +12,13 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: '/weekly' },
-  openGraph: { title, description, url: '/weekly', locale: 'ja_JP', images: ['/og-default.png'] },
+  openGraph: {
+    title,
+    description,
+    url: '/weekly',
+    locale: 'ja_JP',
+    images: ['/og-default.png'],
+  },
 };
 
 export default function Page() {
@@ -31,7 +37,7 @@ export default function Page() {
           <p className="article-lead">{description}</p>
         </div>
       </header>
-      <div className="article-layout issue-layout">
+      <div className="article-layout issue-layout weekly-index-layout">
         <article className="guide-article">
           <section className="related-section">
             <h2>これまでの号</h2>

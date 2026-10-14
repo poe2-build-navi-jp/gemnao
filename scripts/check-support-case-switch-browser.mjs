@@ -57,7 +57,14 @@ try {
               return;
             }
           }
-          return route.fulfill({ json: { rows: [], methods: [] } });
+          return route.fulfill({
+            json: {
+              ok: true,
+              rows: [],
+              methods: [],
+              stepResultsAvailable: true,
+            },
+          });
         }
         return route.continue();
       });
@@ -145,7 +152,9 @@ try {
       );
       if (!oldSolved) {
         assert.ok(pending, 'first anonymous response is still pending');
-        await pending.fulfill({ json: { rows: [], methods: [] } });
+        await pending.fulfill({
+          json: { ok: true, rows: [], methods: [], stepResultsAvailable: true },
+        });
         pending = undefined;
       }
       // Late anonymous response must not complete or change B.
@@ -218,10 +227,12 @@ try {
         original[1],
       );
       assert.equal(
-        posts.length,
+        posts.filter((post) => post.outcome === 'resolved').length,
         oldSolved ? 0 : 1,
         'article-wide anonymous dedup across A/B and reload',
       );
+      assert.equal(posts.filter((post) => post.outcome === 'not-resolved').length, 1);
+      assert.ok(posts.filter((post) => post.outcome === 'not-resolved').every((post) => post.method === 'step-2' && post.reportStruggling === false));
       assert.equal(
         await page.evaluate((k) => localStorage.getItem(k), legacyKey),
         legacyBefore,

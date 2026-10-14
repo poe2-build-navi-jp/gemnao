@@ -11,7 +11,7 @@ import {
 } from '@/lib/play-plans';
 import { nextGameAction } from '@/lib/my-game-next';
 import { games } from '@/lib/games';
-import { gameFacts } from '@/lib/localized/game-facts';
+import { gameDisplayName } from '@/lib/game-display-name';
 import { myGamesPath, type MyGamesLocale } from '@/lib/my-games-copy';
 import { myGamesTransferCopy } from '@/lib/my-games-transfer-copy';
 export function NextGameAction({ locale }: { locale: MyGamesLocale }) {
@@ -34,10 +34,7 @@ export function NextGameAction({ locale }: { locale: MyGamesLocale }) {
   );
   if (!plan) return null;
   const game = games.find((g) => g.slug === plan.gameSlug)!;
-  const name =
-    locale === 'ja'
-      ? game.shortTitle
-      : gameFacts[game.slug]?.names[locale] || game.title;
+  const name = gameDisplayName(game, locale);
   const t = myGamesTransferCopy[locale];
   return (
     <div className="home-next-game">

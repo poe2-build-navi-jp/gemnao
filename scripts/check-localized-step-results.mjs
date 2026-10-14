@@ -180,7 +180,15 @@ const data = await import(
   'data:text/javascript;base64,' +
     Buffer.from(catalog.outputFiles[0].text).toString('base64')
 );
-assert.equal(data.rows.length, 39);
+assert.ok(
+  data.rows.length >= 114,
+  'all published translations, including new guides, must be checked',
+);
+assert.equal(
+  data.rows.length,
+  new Set(data.rows.map(({ a }) => a.locale + ':' + a.gameSlug + ':' + a.slug))
+    .size,
+);
 for (const { a, context } of data.rows) {
   assert.ok(data.articleFeedbackTopic(context));
   assert.deepEqual(
@@ -195,5 +203,5 @@ assert.deepEqual(
   data.articleSteps('guide-pc-game-crash').map((s) => s.id),
 );
 console.log(
-  'PASS: 39 translated articles plus English crash guide share exact canonical STEP IDs and article topics.',
+  `PASS: ${data.rows.length} translated articles plus English crash guide share exact canonical STEP IDs and article topics.`,
 );

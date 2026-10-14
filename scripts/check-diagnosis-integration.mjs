@@ -8,10 +8,11 @@ assert.ok(productionMigrations.includes('0004_step_result_reports.sql'));
 assert.ok(!productionMigrations.some((p) => p.includes('diagnosis')));
 assert.match(read('migrations/diagnosis/0001_diagnosis.sql'), /CREATE TABLE IF NOT EXISTS diagnosis_shared/);
 const config = JSON.parse(read('wrangler.json'));
-for (const key of ['DIAGNOSIS_ENABLED', 'DIAGNOSIS_SHARING_ENABLED', 'DIAGNOSIS_WRITES_ENABLED', 'DIAGNOSIS_METRICS_ENABLED']) {
-  assert.equal(config.vars[key], 'false', `${key} must keep public intake off`);
+for (const key of ['DIAGNOSIS_ENABLED', 'DIAGNOSIS_SHARING_ENABLED', 'DIAGNOSIS_WRITES_ENABLED']) {
+  assert.equal(config.vars[key], 'true', `${key} preserves the approved production activation`);
 }
 assert.equal(config.vars.DIAGNOSIS_STORAGE_ENABLED, 'true');
+assert.equal(config.vars.DIAGNOSIS_METRICS_ENABLED, 'false');
 assert.deepEqual(config.env.preview.d1_databases, []);
 assert.deepEqual(config.d1_databases.find((db) => db.binding === 'DIAGNOSIS_DB'), {
   binding: 'DIAGNOSIS_DB', database_name: 'gemnao-diagnosis-production',
@@ -56,7 +57,7 @@ assert.match(read('components/diagnosis-cta.tsx'), /setVisible\(d.enabled === tr
 assert.match(read('components/diagnosis-wizard.tsx'), /enabled: false/);
 assert.match(read('components/diagnosis-wizard.tsx'), /NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA === 'true'\) && next.enabled === true/);
 assert.match(read('app/diagnose/page.tsx'), /NEXT_PUBLIC_DIAGNOSIS_ENABLED !== 'true' && process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA !== 'true'\) return/);
-assert.match(read('app/sitemap.ts'), /NEXT_PUBLIC_DIAGNOSIS_ENABLED === 'true' \? \[\{ path: '\/diagnose'/);
+assert.ok(!read('app/sitemap.ts').includes("path: '/diagnose'"));
 
 const cleanupBuild = await build({
   entryPoints: ['cloudflare/diagnosis-cleanup.ts'], outfile: '.wrangler/diagnosis-tests/cleanup-worker.mjs',
@@ -113,9 +114,9 @@ assert.match(sharedResponse.headers.get('X-Robots-Tag'), /noindex/);
 assert.equal(dedicatedTouched, true);
 assert.equal(ordinaryTouched, false);
 console.log('PASS: shared-page worker requires dedicated DIAGNOSIS_DB and never falls back to ordinary DB');
-assert.equal(config.vars.DIAGNOSIS_LOCAL_BETA, 'true');
+assert.equal(config.vars.DIAGNOSIS_LOCAL_BETA, 'false');
 assert.equal(config.env.preview.vars.DIAGNOSIS_LOCAL_BETA, 'true');
-assert.match(read('package.json'), /NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=true/);
+assert.match(read('package.json'), /NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=false/);
 assert.match(read('components/diagnosis-wizard.tsx'), /!recovery && process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA !== 'true' && <DiagnosisShare/);
 assert.match(read('app/diagnose/page.tsx'), /robots: \{ index: false, follow: false \}/);
 console.log('PASS: local beta renders noindex/private pages without DB and cannot serve shared results');
@@ -135,7 +136,7 @@ try {
   if (oldEnabled === undefined) delete process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED;
   else process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED = oldEnabled;
 }
-assert.match(read('package.json'), /NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=true node scripts\/prepare-pages.mjs/);
+assert.match(read('package.json'), /NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=false NEXT_PUBLIC_DIAGNOSIS_ENABLED=true node scripts\/prepare-pages.mjs/);
 console.log('PASS: conflicting old build flag cannot add local beta to sitemap, Pages preparation receives beta flag');
 
 assert.match(read('lib/diagnosis/validation.ts'), /const answers = validateAnswers\(input.answers\)/);

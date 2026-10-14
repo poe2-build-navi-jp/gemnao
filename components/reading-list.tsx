@@ -65,7 +65,7 @@ export function ReadingList() {
           <p>
             まだ保存した記事はありません。記事の「あとで読むに保存」で追加できます。
           </p>
-          <a href="/#articles">
+          <a href="/?view=articles#articles">
             症状に合う記事を探す <ArrowRight size={16} aria-hidden="true" />
           </a>
         </div>

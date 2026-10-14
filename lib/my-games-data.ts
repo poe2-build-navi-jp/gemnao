@@ -2,6 +2,8 @@ import { changesForGame, type VisibleGameChange } from '@/lib/my-game-changes';
 import { games } from '@/lib/games';
 import { articlesForGame } from '@/lib/game-articles';
 import { gameFacts } from '@/lib/localized/game-facts';
+import { gameDisplayName } from '@/lib/game-display-name';
+import { localizedHubs } from '@/lib/localized/hubs';
 import { hasTranslation, localizedArticlesFor } from '@/lib/localized/index';
 import { steamAppIds } from '@/lib/status/sources';
 import type { MyGamesLocale } from '@/lib/my-games-copy';
@@ -22,27 +24,35 @@ export function myGamesData(locale: MyGamesLocale): SavedGameChoice[] {
       locale === 'ja' ? [] : localizedArticlesFor(locale, game.slug);
     const path = `/games/${game.slug}`;
     const localHub = locale !== 'ja' && hasTranslation(locale, path);
+    const fallbackName = gameDisplayName(game, 'en');
+    const name =
+      locale === 'ja'
+        ? game.shortTitle
+        : gameFacts[game.slug]?.names[locale] ||
+          localizedHubs[game.slug]?.names?.[locale] ||
+          translated.find((article) => article.gameName)?.gameName ||
+          fallbackName;
     return {
       slug: game.slug,
-      name:
-        locale === 'ja'
-          ? game.shortTitle
-          : gameFacts[game.slug]?.names[locale] || game.title,
+      name,
       searchNames: [
+        name,
+        fallbackName,
+        game.slug,
+        game.slug.replaceAll('-', ' '),
         game.title,
         game.shortTitle,
         ...Object.values(gameFacts[game.slug]?.names || {}),
+        ...Object.values(localizedHubs[game.slug]?.names || {}),
       ].join(' '),
       hub: localHub ? `/${locale}${path}` : path,
       hubJapanese: locale !== 'ja' && !localHub,
       articles: translated.length
-        ? translated
-            .slice(0, 4)
-            .map((article) => ({
-              href: `/${locale}${path}/${article.slug}`,
-              label: article.shortTitle,
-              japanese: false,
-            }))
+        ? translated.slice(0, 4).map((article) => ({
+            href: `/${locale}${path}/${article.slug}`,
+            label: article.shortTitle,
+            japanese: false,
+          }))
         : articlesForGame(game.slug)
             .filter(
               (article) =>

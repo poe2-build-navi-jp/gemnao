@@ -704,7 +704,7 @@ export function InteractiveSteps({
         </div>
       ) : null}
 
-      <div
+      <section
         className="step-progress"
         aria-label={`進行状況 ${Math.min(currentStep + 1, steps.length)} / ${steps.length}`}
       >
@@ -717,7 +717,7 @@ export function InteractiveSteps({
             style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
           />
         </div>
-      </div>
+      </section>
 
       <div className="procedure-section">
         <h2 id="interactive-steps-title">

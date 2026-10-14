@@ -30,7 +30,7 @@ assert.equal(launch.slug, 'steam-game-not-launching');
 assert.deepEqual(input.steps.map((step) => step.actions.length), [2, 3, 2]);
 assert.deepEqual(launch.steps.map((step) => step.actions.length), [4, 6, 3, 3]);
 assert.equal(input.checkedAt, '2026-10-03');
-assert.equal(launch.checkedAt, '2026-10-04');
+assert.equal(launch.checkedAt, '2026-10-08');
 assert.ok(input.faqs.some((faq) => faq.question.includes('Xbox 360') && faq.answer.includes('仮想')));
 assert.ok(input.faqs.some((faq) => faq.question.includes('戦闘中') && faq.answer.includes('独立')));
 assert.ok(launch.faqs.some((faq) => faq.question.includes('EA app') && faq.answer.includes('一部')));

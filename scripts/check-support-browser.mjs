@@ -22,9 +22,21 @@ page.on('request', (r) => requests.push(r.url() + ' ' + (r.postData() || '')));
 page.on('pageerror', (e) => errors.push(e.message));
 // Never exercise real feedback, D1 or external services in this UI test.
 await context.route('**/api/**', (r) =>
-  r.fulfill({ json: { rows: [], methods: [], items: [] } }),
+  r.fulfill({
+    json: {
+      ok: true,
+      rows: [],
+      methods: [],
+      items: [],
+      stepResultsAvailable: true,
+    },
+  }),
 );
-await context.route(/^https?:\/\/(?!localhost:3000)/, (r) => r.abort());
+await context.route('**/*', (r) =>
+  new URL(r.request().url()).origin === new URL(base).origin
+    ? r.fallback()
+    : r.abort(),
+);
 const state = () =>
   page.evaluate(
     () => JSON.parse(localStorage.getItem('gemnao-solutions-v1')).items,
@@ -76,7 +88,7 @@ try {
     .dblclick();
   assert.equal((await state())[0].support.attempts.length, 2);
   await page
-    .getByRole('button', { name: /^直らない → 次は/ })
+    .getByRole('button', { name: /^試したが直らない → 次は/ })
     .first()
     .click();
   assert.equal((await state())[0].support.attempts.length, 2);
@@ -91,7 +103,9 @@ try {
     false,
   );
   await page.goBack();
+  await page.waitForLoadState('networkidle');
   await page.goForward();
+  await page.waitForLoadState('networkidle');
   await page.reload();
   assert.equal((await state())[0].support.attempts.length, 2);
   await page.goto(base + '/en/my-games');
@@ -205,7 +219,15 @@ try {
   const snapshot = await context.storageState();
   const fresh = await browser.newContext({ storageState: snapshot });
   await fresh.route('**/api/**', (r) =>
-    r.fulfill({ json: { rows: [], methods: [], items: [] } }),
+    r.fulfill({
+      json: {
+        ok: true,
+        rows: [],
+        methods: [],
+        items: [],
+        stepResultsAvailable: true,
+      },
+    }),
   );
   const p2 = await fresh.newPage();
   await p2.goto(base + '/en/my-games');

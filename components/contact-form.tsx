@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useBoundedRequest } from './use-bounded-request';
 
 export function ContactForm({
   initialUrl = '',
@@ -13,18 +14,25 @@ export function ContactForm({
     'idle',
   );
 
+  const request = useBoundedRequest();
+  const [uncertain, setUncertain] = useState(false);
+
   async function submit(event: React.SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (state === 'sending') return;
+    if (request.isPending()) return;
     // React clears currentTarget after the synchronous event callback returns.
     const formElement = event.currentTarget;
     setState('sending');
+    setUncertain(false);
     const form = new FormData(formElement);
-    const response = await fetch('/api/contact', {
+    const result = await request.send('/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(Object.fromEntries(form.entries())),
-    }).catch(() => null);
+    });
+    if (!result) return;
+    const response = result.response;
+    setUncertain(!response);
     if (response?.ok) formElement.reset();
     setState(response?.ok ? 'sent' : 'error');
   }
@@ -41,10 +49,19 @@ export function ContactForm({
   }
 
   return (
-    <form className="contact-form" onSubmit={submit}>
+    <form
+      className="contact-form"
+      onSubmit={submit}
+      aria-busy={state === 'sending'}
+    >
       <label>
         お問い合わせ種別
-        <select name="category" required defaultValue={initialCategory}>
+        <select
+          name="category"
+          disabled={state === 'sending'}
+          required
+          defaultValue={initialCategory}
+        >
           <option value="correction">記事の誤り・古い情報</option>
           <option value="business">企業・メーカーの企画相談</option>
           <option value="rights">著作権・権利関係</option>
@@ -56,6 +73,7 @@ export function ContactForm({
         対象ページURL（任意）
         <input
           name="pageUrl"
+          readOnly={state === 'sending'}
           type="url"
           maxLength={500}
           defaultValue={initialUrl}
@@ -66,6 +84,7 @@ export function ContactForm({
         内容
         <textarea
           name="message"
+          readOnly={state === 'sending'}
           required
           minLength={20}
           maxLength={2000}
@@ -77,6 +96,7 @@ export function ContactForm({
         返信先メールアドレス（任意）
         <input
           name="replyEmail"
+          readOnly={state === 'sending'}
           type="email"
           maxLength={254}
           autoComplete="email"
@@ -88,7 +108,7 @@ export function ContactForm({
         <input name="website" tabIndex={-1} autoComplete="off" />
       </label>
       <label className="contact-consent">
-        <input type="checkbox" required />
+        <input type="checkbox" disabled={state === 'sending'} required />
         <span>
           <a href="/privacy" target="_blank">
             プライバシーポリシー
@@ -101,7 +121,9 @@ export function ContactForm({
       </button>
       {state === 'error' ? (
         <p className="contact-error" role="alert">
-          送信できませんでした。入力内容を確認して、時間を置いて再度お試しください。
+          {uncertain
+            ? '送信完了を確認できませんでした。入力内容は残っています。すでに受け付けられた可能性があるため、再送すると重複する場合があります。'
+            : '送信できませんでした。入力内容を確認して、時間を置いて再度お試しください。'}
         </p>
       ) : null}
     </form>

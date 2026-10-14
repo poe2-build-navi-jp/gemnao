@@ -545,13 +545,13 @@ const delayed = await build({
     },
   ],
 });
-const deadline = Date.now() + 2500;
+const deadline = Date.now() + 10_000;
 const late = await fixture(
   {
     GAME_REQUEST_REVIEW_MODE: 'manual-validation',
     GAME_REQUEST_VALIDATION_FROM: new Date(deadline - 60000).toISOString(),
     GAME_REQUEST_VALIDATION_UNTIL: new Date(deadline).toISOString(),
-    LOCAL_TEST_DELAY_SALT_MS: '2700',
+    LOCAL_TEST_DELAY_SALT_MS: '10200',
   },
   true,
   delayed.outputFiles[0].text,

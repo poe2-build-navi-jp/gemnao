@@ -3,7 +3,7 @@
 import { useMemo, useState, useSyncExternalStore } from 'react';
 import { SettingsShare } from './settings-share';
 import { games } from '@/lib/games';
-import { gameFacts } from '@/lib/localized/game-facts';
+import { gameDisplayName } from '@/lib/game-display-name';
 import { GameExperiments } from '@/components/game-experiments';
 import {
   SETTINGS_SNAPSHOTS_KEY,
@@ -174,14 +174,7 @@ export function GameSettingsSnapshots({
               key={left.id}
               snapshot={left}
               locale={locale}
-              gameName={
-                locale === 'ja'
-                  ? games.find((g) => g.slug === gameSlug)?.shortTitle ||
-                    gameSlug
-                  : gameFacts[gameSlug]?.names[locale] ||
-                    games.find((g) => g.slug === gameSlug)?.title ||
-                    gameSlug
-              }
+              gameName={gameDisplayName(games.find((g) => g.slug === gameSlug), locale) || gameSlug}
             />
             {deleteId === left.id && (
               <div className="settings-delete-confirm">

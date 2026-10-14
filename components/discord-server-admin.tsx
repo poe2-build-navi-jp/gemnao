@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useBoundedRequest } from './use-bounded-request';
 import type { AdminDiscordServerSubmission } from '@/lib/discord-server-db';
 
 type ViewState = 'loading' | 'login' | 'ready' | 'error';
@@ -21,6 +22,7 @@ export function DiscordServerAdmin() {
   const [message, setMessage] = useState('');
   const [busyId, setBusyId] = useState<number | null>(null);
 
+  const mutation = useBoundedRequest();
   const [loginBusy, setLoginBusy] = useState(false);
   const loginRequest = useRef<AbortController | null>(null);
   const mounted = useRef(false);
@@ -133,20 +135,24 @@ export function DiscordServerAdmin() {
     id: number,
     status: 'approved' | 'rejected' | 'expired' | 'closed',
   ) {
+    if (busyId !== null || mutation.isPending()) return;
     setBusyId(id);
     setMessage('');
-    const response = await fetch(`/api/admin/discord-servers/${id}`, {
+    const result = await mutation.send(`/api/admin/discord-servers/${id}`, {
       method: 'PATCH',
       credentials: 'same-origin',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status }),
-    }).catch(() => null);
-    setBusyId(null);
+    });
+    if (!result) return;
+    const response = result.response;
     if (!response?.ok) {
-      setMessage('更新できませんでした。状態を再確認してください。');
+      setBusyId(null);
+      setMessage('更新の完了を確認できませんでした。再読み込みして状態を確認してください。');
       return;
     }
     await load();
+    setBusyId(null);
   }
 
   if (view === 'loading') return <p>認証状態を確認しています…</p>;
@@ -211,7 +217,7 @@ export function DiscordServerAdmin() {
           {submissions.filter((item) => item.status === 'pending').length}
           件の審査待ち
         </strong>
-        <button type="button" onClick={() => void load()}>
+        <button type="button" disabled={busyId !== null} onClick={() => void load()}>
           再読み込み
         </button>
       </div>
@@ -288,14 +294,14 @@ export function DiscordServerAdmin() {
               <div className="admin-server-actions">
                 <button
                   type="button"
-                  disabled={busyId === item.id}
+                  disabled={busyId !== null}
                   onClick={() => void update(item.id, 'approved')}
                 >
                   承認して公開
                 </button>
                 <button
                   type="button"
-                  disabled={busyId === item.id}
+                  disabled={busyId !== null}
                   onClick={() => void update(item.id, 'rejected')}
                 >
                   却下
@@ -305,14 +311,14 @@ export function DiscordServerAdmin() {
               <div className="admin-server-actions">
                 <button
                   type="button"
-                  disabled={busyId === item.id}
+                  disabled={busyId !== null}
                   onClick={() => void update(item.id, 'closed')}
                 >
                   募集終了
                 </button>
                 <button
                   type="button"
-                  disabled={busyId === item.id}
+                  disabled={busyId !== null}
                   onClick={() => void update(item.id, 'expired')}
                 >
                   期限切れ

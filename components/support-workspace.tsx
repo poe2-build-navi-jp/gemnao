@@ -2,7 +2,7 @@
 /* oxlint-disable next/no-html-link-for-pages -- Native links preserve the site's navigation behavior. */
 import { useMemo, useState, useSyncExternalStore } from 'react';
 import { games } from '@/lib/games';
-import { gameFacts } from '@/lib/localized/game-facts';
+import { gameDisplayName } from '@/lib/game-display-name';
 import { supportCopy, type SupportLocale } from '@/lib/support-copy';
 import {
   ACTIVE_CASE_KEY,
@@ -394,11 +394,7 @@ function SupportSummary({
         item,
         fields,
         language,
-        (language !== 'ja'
-          ? gameFacts[item.gameSlug]?.names[language]
-          : undefined) ||
-          games.find((g) => g.slug === item.gameSlug)?.shortTitle ||
-          t.other,
+        gameDisplayName(games.find((g) => g.slug === item.gameSlug), language) || t.other,
         pc,
       ),
     [item, fields, language, pc, t.other],
@@ -517,7 +513,7 @@ export function SupportUpdates({ locale = 'ja', createHref }: {
           <h3>
             {item.title} — {t[update.kind]}
           </h3>
-          <p>{games.find((g) => g.slug === item.gameSlug)?.shortTitle}</p>
+          <p>{gameDisplayName(games.find((g) => g.slug === item.gameSlug), locale)}</p>
           <p>{update.text[locale]}</p>
           <p>
             {t.verified}: {update.verifiedOn}

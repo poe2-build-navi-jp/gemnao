@@ -1,6 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+
+import { useBoundedRequest } from './use-bounded-request';
 
 type Query = {
   query: string;
@@ -12,23 +14,67 @@ type Query = {
 export function SearchDemandAdmin() {
   const [queries, setQueries] = useState<Query[]>([]);
   const [state, setState] = useState('読み込み中…');
+  const { send } = useBoundedRequest();
+  const [loading, setLoading] = useState(true);
+  const load = useCallback(async () => {
+    setLoading(true);
+    setState('読み込み中…');
+    const result = await send(
+      '/api/admin/search-demand',
+      { cache: 'no-store' },
+      (response) => response.json() as Promise<unknown>,
+    );
+    if (!result) return;
+    try {
+      const response = result.response;
+      if (response?.status === 401)
+        throw new Error(
+          'Discordサーバー掲載審査の管理画面でログインしてください。',
+        );
+      if (!response?.ok) throw new Error('集計を読み込めませんでした。');
+      const data: unknown = result.data;
+      if (
+        !data ||
+        typeof data !== 'object' ||
+        !('queries' in data) ||
+        !Array.isArray(data.queries)
+      )
+        throw new Error('集計を読み込めませんでした。');
+      const rows = data.queries as Query[];
+      if (
+        rows.some(
+          (row) =>
+            !row ||
+            typeof row.query !== 'string' ||
+            typeof row.lastSearchedAt !== 'string' ||
+            !Number.isSafeInteger(row.last7Days) ||
+            !Number.isSafeInteger(row.last30Days),
+        )
+      )
+        throw new Error('集計を読み込めませんでした。');
+      setQueries(rows);
+      setState('');
+    } catch (error) {
+      setState(
+        error instanceof Error ? error.message : '集計を読み込めませんでした。',
+      );
+    }
+    setLoading(false);
+  }, [send]);
   useEffect(() => {
-    fetch('/api/admin/search-demand', { cache: 'no-store' })
-      .then(async (response) => {
-        if (response.status === 401)
-          throw new Error(
-            'Discordサーバー掲載審査の管理画面でログインしてください。',
-          );
-        if (!response.ok) throw new Error('集計を読み込めませんでした。');
-        return (await response.json()) as { queries: Query[] };
-      })
-      .then(({ queries: rows }) => {
-        setQueries(rows);
-        setState('');
-      })
-      .catch((error: Error) => setState(error.message));
-  }, []);
-  if (state) return <output>{state}</output>;
+    void Promise.resolve().then(() => load());
+  }, [load]);
+  if (state)
+    return (
+      <div>
+        <output role={loading ? 'status' : 'alert'}>{state}</output>
+        {!loading && (
+          <button type="button" onClick={() => void load()}>
+            再読み込み
+          </button>
+        )}
+      </div>
+    );
   if (!queries.length) return <p>過去30日間に検索0件の記録はありません。</p>;
   return (
     <div className="search-demand-table">

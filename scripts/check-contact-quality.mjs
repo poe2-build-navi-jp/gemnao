@@ -44,7 +44,7 @@ const { ContactForm } = await bundle('components/contact-form.tsx', [{
   name: 'isolated-form-state',
   setup(b) {
     b.onResolve({ filter: /^react(?:\/jsx-runtime)?$/ }, ({path}) => ({ path: path === 'react' ? 'hooks' : 'jsx', namespace: 'test' }));
-    b.onLoad({ filter: /.*/, namespace: 'test' }, ({path}) => ({ contents: path === 'hooks' ? 'export const useState=()=>["idle",state=>globalThis.__contactFormStates.push(state)]' : 'export const jsx=(type,props)=>({type,props}); export const jsxs=jsx;' }));
+    b.onLoad({ filter: /.*/, namespace: 'test' }, ({path}) => ({ contents: path === 'hooks' ? 'export const useState=initial=>[initial,state=>{if(typeof state==="string")globalThis.__contactFormStates.push(state)}];export const useRef=value=>({current:value});export const useEffect=effect=>{effect()};export const useCallback=fn=>fn;' : 'export const jsx=(type,props)=>({type,props}); export const jsxs=jsx;' }));
   },
 }]);
 const originalFetch = globalThis.fetch;

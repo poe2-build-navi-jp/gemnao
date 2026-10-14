@@ -52,7 +52,13 @@ for (const article of [...localizedArticles, ...localizedDiscordArticles]) {
       ? { article, section: 'discord' as const }
       : { article, game: gameBySlug(article.gameSlug)! };
   const html = renderToStaticMarkup(<LocalizedArticle {...props} />);
-  checkRelated(html, Boolean(article.related?.length));
+  checkRelated(
+    html,
+    Boolean(article.related?.length) && !article.nextChecks?.links.length,
+  );
+  if (article.nextChecks?.links.length)
+    for (const link of article.nextChecks.links)
+      assert.ok(html.includes(`href="${link.href.replaceAll('&', '&amp;')}"`));
   if (article.related?.length) assert.match(html, /data-related="true"/);
   // No empty target/shortcut is introduced when related links are absent.
   checkRelated(

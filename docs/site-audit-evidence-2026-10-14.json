@@ -1,0 +1,862 @@
+{
+  "base": "997d925010d200bd14e7de3ddc913df8f28e2f13",
+  "branch": "gemunao",
+  "remoteMatchesBase": true,
+  "checkedAt": "2026-10-14",
+  "uncommitted": true,
+  "pushed": false,
+  "published": false,
+  "productionRequests": "Public HTML attempts blocked by execution proxy; no production API writes",
+  "realCredentialsUsed": false,
+  "databaseConfigKeysGaIndexNowChanged": false,
+  "checks": {
+    "nodeGroups": 81,
+    "browserGroups": 30,
+    "diagnosisBrowserCases": 18,
+    "contactLoginCases": 32,
+    "discordLoginCases": 32,
+    "adminUpdateCases": 10,
+    "publicFormsAndAdminReadCases": 15,
+    "queueSyntheticUICases": 40,
+    "miscellaneousCases": 12,
+    "focusedWidths": [
+      320,
+      360,
+      390,
+      430,
+      1440
+    ],
+    "staticWidthCases": 2225,
+    "publicHTML200Routes": 445,
+    "editorialPagesHTTP": 426,
+    "sitemapURLs": 405,
+    "jsonldScripts": 865,
+    "localLinkReferences": 23311,
+    "localAssetReferences": 3139,
+    "images": 469,
+    "unverifiedExternalURLs": 1528,
+    "axeAllPages": 445,
+    "axeAutomaticViolations": 0,
+    "axeLastTouchedPages": 10,
+    "axeLastTouchedViolations": 0,
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "build": "PASS",
+    "diffCheck": "PASS",
+    "nativeZIPsByteIdentical": 3,
+    "latestNodeRerun": "81/81 PASS after all source edits",
+    "adminRealValidatorCases": 16,
+    "finalCompatibilityGroups": 6,
+    "staticWidthScope": "Baseline before fixes; script-stripped HTML, JavaScript disabled, 445 routes x 5 widths",
+    "hydratedAllPagesScope": "445 routes at 390px only, baseline; not all pages x 5 widths",
+    "browserGroupsScope": "Latest successful attempt per group; affected tests rerun after final product changes, not every group rerun after every edit"
+  },
+  "browserGroups": [
+    {
+      "command": [
+        "node",
+        "scripts/check-admin-login-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-article-diagnosis-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-article-fragments-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-audit-batch2-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-english-search-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-evidence-safety-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-game-experiments-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-game-settings-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-home-cls-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-my-game-changes-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-my-games-transfer-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-notebook-target-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-onimusha-black-screen-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-play-plans-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-public-forms-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-reading-audit-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-repair-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-safe-step-navigation-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-search-my-games-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-site-audit-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-support-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-support-case-switch-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-symptom-step-endpoints-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-public-outcome-counts.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-support-isolation.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "tests/diagnosis/share-consent.test.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "tests/diagnosis/availability-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "tests/diagnosis/qa-browser.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-home-return-build.mjs",
+        "http://127.0.0.1:8795"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-admin-updates-browser.mjs"
+      ],
+      "result": "PASS"
+    }
+  ],
+  "nodeGroups": [
+    {
+      "command": [
+        "node",
+        "scripts/check-admin-login-input.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-article-diagnosis.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-audit-final-corrections.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-contact-quality.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-d1-connection.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-d1-control.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-diagnosis-integration.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-diagnostic-feedback-d1.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-diagnostic-feedback-integration.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-editorial-safety.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-editorial-snapshots.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-english-articles.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-english-search.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-english-tools.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-feedback-d1.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-feedback-input.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-game-request-api.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-game-request-consumer.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-game-request-integration.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-game-request-inventory.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-game-request-manual.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-game-request-retention.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-gear-guides.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-localized-step-results.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-onimusha-english-build.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-onimusha-save-answer.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-palworld-backup-scope.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-preview-bindings.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-public-outcome-counts.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-ranked-steam-guides.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-reading-pages.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-repair-article.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-repair-build.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-safe-step-navigation.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-search-editorial.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-search-entry-guides.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-static-search-assets.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-step-result-client.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-step-result-ui.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-support-empty-states.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-support-isolation.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-symptom-step-endpoints.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/check-windows-download.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-affiliate-analytics-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-evidence-articles-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-game-experiments-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-game-request-admin-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-game-request-client-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-game-settings-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-gear-guide-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-home-return-paths-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-language-navigation-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-localized-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-mobile-navigation-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-my-game-changes-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-my-games-analytics-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-my-games-page-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-my-games-transfer-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-my-pc-variants-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-onimusha-localization-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-play-plans-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-reading-experience-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-reading-list-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-saved-solutions-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-site-search-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-status-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-support-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/run-useful-navigation-check.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "tests/diagnosis/admission.test.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "tests/diagnosis/share-consent.test.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "tests/feedback-preview/adapter.test.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "tests/feedback-preview/control.test.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "tests/feedback-preview/health.test.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "tests/feedback-preview/live.test.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "tests/indexnow/indexnow.test.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "tests/production-resource-inventory/control.test.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "tests/production-resource-inventory/pages-deployment-log.test.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "tests/worker-qa/deploy.test.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "tests/worker-qa/placeholder.test.mjs"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/test-diagnosis.mjs",
+        "tests/diagnosis/api.test.ts",
+        "tests/diagnosis/availability.test.ts",
+        "tests/diagnosis/qa.test.ts",
+        "tests/diagnosis/rules.test.ts"
+      ],
+      "result": "PASS"
+    },
+    {
+      "command": [
+        "node",
+        "tests/diagnostic-feedback/run.mjs"
+      ],
+      "result": "PASS"
+    }
+  ],
+  "evidenceDirectory": "/tmp/gemnao-audit",
+  "limitations": [
+    "Actual iPhone/Safari/Firefox and assistive technologies not tested",
+    "Production API/DB/real-key login and production memory behavior not tested",
+    "1528 external source URLs were not all re-read",
+    "All state permutations and an independently built legacy local-beta UI were not exhaustively exercised"
+  ],
+  "temporaryRuntimeDependencyLinkRemoved": true,
+  "phase": "pre-publication local review snapshot",
+  "publicationAuthorized": true
+}

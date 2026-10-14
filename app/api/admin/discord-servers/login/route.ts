@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
   const body = (await request.json().catch(() => null)) as {
     token?: string;
   } | null;
-  const token = body?.token?.trim() || '';
+  const token = typeof body?.token === 'string' ? body.token.trim() : '';
   if (!(await validateAdminToken(token))) {
     return NextResponse.json(
       { error: '管理キーが正しくありません。' },

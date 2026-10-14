@@ -10,6 +10,7 @@ const result = await build({
       export { commonGuides } from './lib/common-guides';
       export { discordArticles } from './lib/discord-articles';
       export { pcArticles } from './lib/pc-articles';
+      export { repairCostExamples } from './lib/repair-costs';
       export { editorialAuthor, editorialPublisher } from './lib/editorial-identity';
       export { renderToStaticMarkup } from 'react-dom/server';
       export { default as discordPage } from './app/discord/[slug]/page';
@@ -90,7 +91,7 @@ if (!process.argv.includes('--source-only')) {
     })),
     ...discordArticles.filter((article) => !['draft', 'thin'].includes(article.status)).map((article) => ({ path: `/discord/${article.slug}`, checkedAt: article.checkedAt, sources: article.sources })),
     ...commonGuides.filter((article) => !['draft', 'thin'].includes(article.status)).map((article) => ({ path: `/guide/${article.slug}`, checkedAt: article.checkedAt, sources: article.sources })),
-    ...pcArticles.map((article) => ({ path: `/pc/${article.slug}`, checkedAt: article.checkedAt, sources: article.sources })),
+    ...pcArticles.map((article) => ({ path: `/pc/${article.slug}`, checkedAt: article.checkedAt, sources: [...article.sources, ...(article.slug === 'repair-or-replace' ? [...new Set(data.repairCostExamples.map(row => row.source))].filter(url => !article.sources.some(source => source.url === url)).map(url => ({url})) : [])] })),
   ];
   for (const record of records) {
     let html;
