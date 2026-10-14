@@ -1,3 +1,6 @@
+import { apexVersionMismatchGuide } from './apex-version-mismatch';
+import { overwatchRenderingGuide } from './overwatch-rendering';
+import { pubgAnticheatGuide } from './pubg-anticheat';
 import { apexJavelinGuide } from './apex-javelin';
 import { valorantRestriction5Guide } from './valorant-restriction5';
 import { valorantVan9005Guide } from './valorant-van9005';
@@ -17,6 +20,9 @@ import { wildsRecurrenceGuide } from './wilds-recurrence';
 import { japaneseFollowup, translatedFollowups } from './types';
 
 export const followupGuides = [
+  apexVersionMismatchGuide,
+  overwatchRenderingGuide,
+  pubgAnticheatGuide,
   apexJavelinGuide,
   valorantRestriction5Guide,
   valorantVan9005Guide,

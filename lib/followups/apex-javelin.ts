@@ -139,6 +139,10 @@ export const apexJavelinGuide: FollowupGuide = {
       ],
       related: [
         {
+          href: '/games/apex-legends/game-version-mismatch',
+          label: 'ホストとのバージョン不一致：ゲーム更新の確認',
+        },
+        {
           href: '/games/apex-legends/r5apex-exe-launch-error',
           label: 'r5apex.exeのみの起動エラー',
         },
@@ -265,6 +269,10 @@ export const apexJavelinGuide: FollowupGuide = {
       ],
       related: [
         {
+          href: '/en/games/apex-legends/game-version-mismatch',
+          label: 'Game version does not match host: update checks',
+        },
+        {
           href: '/en/games/apex-legends/r5apex-exe-launch-error',
           label: 'r5apex.exe launch errors',
         },
@@ -388,6 +396,10 @@ export const apexJavelinGuide: FollowupGuide = {
         },
       ],
       related: [
+        {
+          href: '/zh/games/apex-legends/game-version-mismatch',
+          label: '与主机版本不匹配：检查更新',
+        },
         {
           href: '/zh/games/apex-legends/r5apex-exe-launch-error',
           label: 'r5apex.exe 启动错误',
@@ -518,6 +530,10 @@ export const apexJavelinGuide: FollowupGuide = {
       ],
       related: [
         {
+          href: '/es/games/apex-legends/game-version-mismatch',
+          label: 'Versión incompatible con el anfitrión: actualizaciones',
+        },
+        {
           href: '/es/games/apex-legends/r5apex-exe-launch-error',
           label: 'Errores de inicio r5apex.exe',
         },
@@ -532,5 +548,10 @@ export const apexJavelinGuide: FollowupGuide = {
       ],
     },
   },
-  relatedSlugs: ['r5apex-exe-launch-error', 'apex-crash-txt', 'code-net-leaf'],
+  relatedSlugs: [
+    'game-version-mismatch',
+    'r5apex-exe-launch-error',
+    'apex-crash-txt',
+    'code-net-leaf',
+  ],
 };

@@ -162,6 +162,10 @@ export const apexNetworkGuide: FollowupGuide = {
       ],
       related: [
         {
+          href: '/games/apex-legends/game-version-mismatch',
+          label: 'ホストとのバージョン不一致：ゲーム更新の確認',
+        },
+        {
           href: '/games/apex-legends/javelin-launch-error',
           label: 'Javelinと表示される起動エラーはこちら',
         },
@@ -303,6 +307,10 @@ export const apexNetworkGuide: FollowupGuide = {
       ],
       related: [
         {
+          href: '/en/games/apex-legends/game-version-mismatch',
+          label: 'Game version does not match host: update checks',
+        },
+        {
           href: '/en/games/apex-legends/javelin-launch-error',
           label: 'Launch error naming Javelin',
         },
@@ -441,6 +449,10 @@ export const apexNetworkGuide: FollowupGuide = {
         },
       ],
       related: [
+        {
+          href: '/zh/games/apex-legends/game-version-mismatch',
+          label: '与主机版本不匹配：检查更新',
+        },
         {
           href: '/zh/games/apex-legends/javelin-launch-error',
           label: '显示 Javelin 的启动错误',
@@ -582,6 +594,10 @@ export const apexNetworkGuide: FollowupGuide = {
       ],
       related: [
         {
+          href: '/es/games/apex-legends/game-version-mismatch',
+          label: 'Versión incompatible con el anfitrión: actualizaciones',
+        },
+        {
           href: '/es/games/apex-legends/javelin-launch-error',
           label: 'Error de inicio que menciona Javelin',
         },
@@ -597,6 +613,7 @@ export const apexNetworkGuide: FollowupGuide = {
     },
   },
   relatedSlugs: [
+    'game-version-mismatch',
     'javelin-launch-error',
     'apex-crash-txt',
     'r5apex-exe-launch-error',

@@ -197,15 +197,21 @@ export default async function Page({
     ],
     'windows-11-required': ['valorant/van9003', 'valorant/van9001'],
     'steam-game-not-launching': [
+      'pubg/anti-cheat-conflict-warning',
       'apex-legends/r5apex-exe-launch-error',
       'battlefield-6/javelin-error-94',
     ],
+    'gpu-driver-update': ['overwatch-2/rendering-device-lost'],
     'pc-game-crash': [
+      'overwatch-2/rendering-device-lost',
       'apex-legends/r5apex-exe-launch-error',
       'apex-legends/apex-crash-txt',
       'valorant/not-launching-no-van',
     ],
-    'black-screen': ['fortnite/dx12-black-screen'],
+    'black-screen': [
+      'overwatch-2/rendering-device-lost',
+      'fortnite/dx12-black-screen',
+    ],
     'directx-error': ['fortnite/dx12-black-screen'],
   };
   const matchingGamePaths = symptomGamePaths[slug];

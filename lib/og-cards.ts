@@ -251,7 +251,7 @@ export function ogCardSpecs(): OgCardSpec[] {
       }[article.locale],
       items: article.steps.slice(0, 4).map((step) => step.title),
     })),
-    ...['arc-raiders', 'elden-ring-nightreign', 'marvel-rivals', 'valorant', 'apex-legends', 'fortnite', 'battlefield-6'].flatMap(
+    ...['overwatch-2', 'pubg', 'arc-raiders', 'elden-ring-nightreign', 'marvel-rivals', 'valorant', 'apex-legends', 'fortnite', 'battlefield-6'].flatMap(
       (gameSlug) => (['en', 'zh', 'es'] as const).map((locale) => ({
         path: `/${locale}/games/${gameSlug}`,
         locale,

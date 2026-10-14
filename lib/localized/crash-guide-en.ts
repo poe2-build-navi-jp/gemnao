@@ -39,6 +39,10 @@ export const crashGuideEn: EnglishGuideInfo = {
   ],
   related: [
     {
+      href: '/en/games/overwatch-2/rendering-device-lost',
+      label: 'Overwatch 2: rendering device lost',
+    },
+    {
       href: '/en/games/apex-legends/apex-crash-txt',
       label: 'Apex_crash.txt: repair and background-app comparisons',
     },
