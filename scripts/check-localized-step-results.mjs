@@ -24,6 +24,9 @@ const result = await build({
 const h=globalThis.__localizedResults;
 export const createContext=()=>({Provider:'provider'});
 export const useContext=()=>h.context;
+export const useMemo=fn=>fn();
+export const useRef=current=>({current});
+export const useSyncExternalStore=(_,client,server)=>server();
 export function useState(initial){const i=h.cursor++;if(!(i in h.slots))h.slots[i]=initial;return[h.slots[i],v=>{h.slots[i]=typeof v==='function'?v(h.slots[i]):v}];}
 export function useEffect(fn,deps){const i=h.cursor++;const previous=h.slots[i];if(!previous||deps.some((v,j)=>v!==previous[j])){h.slots[i]=deps;h.effects.push(fn);}}
 `,

@@ -1,4 +1,6 @@
 'use client';
+import { GameMaintenance } from './game-maintenance';
+import { SavedGameFixes } from './saved-game-fixes';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { useEffect, useState } from 'react';
 import { PlayPlanCard, TodayGames } from '@/components/play-plan';
@@ -174,7 +176,11 @@ export function MyGamesPanel({
         {ready && mine.length ? (
           <div className="my-games-results">
             {mine.map((game) => (
-              <article className="my-game-card" key={game.slug}>
+              <article
+                className="my-game-card"
+                id={`my-game-${game.slug}`}
+                key={game.slug}
+              >
                 <div className="my-games-card-heading">
                   <h3>{game.name}</h3>
                   <button
@@ -185,7 +191,9 @@ export function MyGamesPanel({
                     {t.remove}
                   </button>
                 </div>
+                <SavedGameFixes gameSlug={game.slug} locale={locale} />
                 <PlayPlanCard gameSlug={game.slug} locale={locale} />
+                <GameMaintenance gameSlug={game.slug} locale={locale} />
                 <MyGameChanges changes={game.officialChanges} locale={locale} />
                 <GameSettingsSnapshots gameSlug={game.slug} locale={locale} />
                 {links(game)}

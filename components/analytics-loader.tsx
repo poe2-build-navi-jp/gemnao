@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { afterPageLoad } from '@/components/deferred-load';
 import {
   trackEvent,
-  trackReadingAction,
+  trackRelatedArticleOpened,
   canTrackAnalytics,
 } from '@/lib/analytics';
 
@@ -20,8 +20,9 @@ export function AnalyticsLoader({ id }: { id: string }) {
     const onClick = (event: MouseEvent) => {
       if (event.defaultPrevented || event.button !== 0) return;
       const target = event.target as Element | null;
-      if (target?.closest?.('a[data-related]') instanceof HTMLAnchorElement)
-        trackReadingAction('related_article_opened');
+      const related = target?.closest?.('a[data-related]');
+      if (related instanceof HTMLAnchorElement)
+        trackRelatedArticleOpened(related.href);
       const link = target?.closest?.('a[data-share]');
       if (!(link instanceof HTMLAnchorElement)) return;
       trackEvent('share', {

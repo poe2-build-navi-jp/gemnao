@@ -51,7 +51,7 @@ const compiled = await build({
                 : path === 'support-workspace'
                   ? 'export const useActiveCase=()=>globalThis.__stepUI.activeCase;'
                   : path === 'analytics'
-                    ? 'export const trackEvent=(...args)=>globalThis.__stepUI.analytics.push(args);'
+                    ? 'export const trackEvent=(...args)=>globalThis.__stepUI.analytics.push(args); export const trackStepResultSaved=(outcome,path)=>{if(path)globalThis.__stepUI.analytics.push(["step_result_saved",{outcome}]);};'
                     : `export const ${{ 'result-note': 'ResultNote', 'save-solution': 'SaveSolution', 'troubleshooting-product': 'TroubleshootingProduct' }[path]}=()=>null;`,
         }));
       },
@@ -178,7 +178,11 @@ try {
     all(tree, (n) => n.props.attempt?.stepId === 'one')[0].props.attempt.result,
     'unresolved',
   );
-  assert.equal(h.analytics.length, 0, 'new outcome payload never goes to GA');
+  assert.equal(
+    h.analytics.length,
+    0,
+    'no analytics without a public browser location; receipt/private data stay excluded',
+  );
   // Same anonymous negative action does not count again, but note actions remain.
   button(tree, '試したが直らない').props.onClick();
   await flush();
@@ -462,7 +466,7 @@ try {
     );
   }
   console.log(
-    'PASS: capability disclosure, intermediate result/note separation, repeat-click dedupe, solved failure/retry, captured-case completion isolation, no new GA events, old-schema no-new-write, prerequisite navigation; saved-revision retry; original-request recovery across reload/cases; loading/error no legacy fallback. Shallow JSX/hook tests only.',
+    'PASS: capability disclosure, intermediate result/note separation, repeat-click dedupe, solved failure/retry, captured-case completion isolation, no GA without a browser location, old-schema no-new-write, prerequisite navigation; saved-revision retry; original-request recovery across reload/cases; loading/error no legacy fallback. Shallow JSX/hook tests only.',
   );
 } finally {
   await unlink(output);

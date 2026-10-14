@@ -2,13 +2,13 @@
 // must remain live even if the framework's speculative render succeeds.
 export function isEditorialSnapshotPath(pathname) {
   return (
-    /^\/(?:games|guide|trouble|discord|pc|gear|new-releases|weekly|tools)(?:\/[a-z0-9-]+)*$/.test(
+    /^\/(?:games|guide|trouble|discord|pc|gear|new-releases|weekly|tools|examples)(?:\/[a-z0-9-]+)*$/.test(
       pathname,
     ) ||
     /^\/(?:en|zh|es)(?:\/games\/[a-z0-9-]+(?:\/[a-z0-9-]+)?)?$/.test(
       pathname,
     ) ||
-    /^\/(?:en|zh|es)\/discord\/[a-z0-9-]+$/.test(pathname) ||
+    /^\/(?:en|zh|es)\/(?:discord|examples)\/[a-z0-9-]+$/.test(pathname) ||
     [
       '/en/pc/repair-or-replace',
       '/zh/pc/repair-or-replace',

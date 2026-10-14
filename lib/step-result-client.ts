@@ -1,3 +1,4 @@
+import { trackStepResultSaved } from './analytics';
 // Anonymous per-action tokens are idempotency keys, not visitor identifiers.
 // Nothing from the private notebook is accepted by this transport.
 export type StepResultSubmission = {
@@ -60,7 +61,8 @@ export function sendStepResult(
             false,
           ),
         );
-  const promise = submit(input, prefix, vote);
+  const sourcePath = typeof location === 'undefined' ? '' : location.pathname;
+  const promise = submit(input, prefix, vote, sourcePath);
   running.set(vote, { method: input.method, promise });
   return promise;
 }
@@ -69,6 +71,7 @@ async function submit(
   input: StepResultSubmission,
   prefix: string,
   vote: string,
+  sourcePath: string,
 ): Promise<'sent' | 'already'> {
   // Defer until the running entry is installed, including synchronous errors.
   await Promise.resolve();
@@ -168,6 +171,7 @@ async function submit(
       throw new StepResultError(
         '匿名回答の送信完了を確認できませんでした。同じ回答を再送できます。',
       );
+    const alreadyAcknowledged = hasFeedbackVote(vote);
     markFeedbackVote(vote);
     if (request.reportStruggling) markFeedbackVote(`${prefix}:struggling`);
     requests.delete(key);
@@ -176,7 +180,8 @@ async function submit(
     } catch {
       /* Completed marker takes priority. */
     }
-    return 'sent';
+    if (!alreadyAcknowledged) trackStepResultSaved(request.outcome, sourcePath);
+    return alreadyAcknowledged ? 'already' : 'sent';
   } catch (error) {
     if (error instanceof StepResultError) throw error;
     throw new StepResultError(

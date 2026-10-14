@@ -1,3 +1,4 @@
+import { reportedCases, casePath } from '@/lib/reported-cases';
 import type { MetadataRoute } from 'next';
 import { gearGuidesEn } from '@/lib/localized/gear-guides-en';
 import { games } from '@/lib/games';
@@ -84,6 +85,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.86,
     })),
     ...articles,
+    ...reportedCases.flatMap(item => (["ja", "en", "zh", "es"] as const).map(locale => ({url: `${base}${casePath(item, locale)}`, lastModified: new Date(item.reviewedOn), changeFrequency: "monthly" as const, priority: 0.7}))),
     ...common,
     ...discord,
     {

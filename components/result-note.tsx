@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { ResolvedFixSave } from './resolved-fix-save';
 import { SolutionForm } from './solution-form';
 import { announceMyData, useSavedSolutions } from './use-saved-solutions';
 import type { SolutionDraft } from '@/lib/saved-solutions';
@@ -84,6 +85,14 @@ export function ResultNote({
           : t[draft.status === 'resolved' ? 'resolved' : 'unresolved']}
       </output>
       <p>{t.local}</p>
+      {draft.status === 'resolved' && !editing && (
+        <ResolvedFixSave
+          draft={draft}
+          attempt={attempt}
+          locale={locale}
+          onSaved={() => setSaved(true)}
+        />
+      )}
       <div className="my-pc-actions">
         {!saved && !editing && (
           <button

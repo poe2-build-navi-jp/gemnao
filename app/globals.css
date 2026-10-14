@@ -5591,3 +5591,20 @@ a.my-games-primary {
 .admin-login-status, .admin-login > .contact-error { flex-basis: 100%; width: 100%; margin: 0; overflow-wrap: anywhere; }
 .admin-login-status:empty { display: none; }
 .admin-login-retry { padding: 9px 13px; border: 1px solid var(--blue); border-radius: 6px; background: white; color: #076489; cursor: pointer; }
+
+/* Explicit case records and saved fixes reuse the editorial/card typography. */
+.reported-case section {margin: 28px 0;}
+.reported-case dl, .saved-game-fixes dl {display:grid;gap:12px;}
+.reported-case dl div, .saved-game-fixes dl div {display:grid;grid-template-columns:minmax(100px,1fr) minmax(0,2fr);gap:12px;}
+.reported-case dd, .saved-game-fixes dd {margin:0;overflow-wrap:anywhere;}
+.case-citation, .resolved-fix-save, .saved-game-fixes {margin:20px 0;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--card);}
+.case-citation a {overflow-wrap:anywhere;}
+.resolved-fix-save label {display:grid;gap:8px;margin-bottom:12px;}
+.resolved-fix-save input {min-width:0;max-width:100%;}
+.resolved-fix-save button, .case-citation button {min-height:44px;max-width:100%;white-space:normal;}
+.resolved-fix-save output {display:block;margin-top:12px;}
+.saved-game-fixes article {padding:16px 0;border-top:1px solid var(--line);overflow-wrap:anywhere;}
+.saved-fix-notes {white-space:pre-wrap;overflow-wrap:anywhere;}
+
+.game-maintenance {margin:20px 0;overflow-wrap:anywhere;}
+.game-maintenance summary, .saved-game-fixes summary {min-height:44px;padding:10px 0;cursor:pointer;}

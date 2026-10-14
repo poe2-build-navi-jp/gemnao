@@ -1,3 +1,4 @@
+import { reportedCaseBySlug } from '@/lib/reported-cases';
 import { localizedPcRepairArticles } from '@/lib/localized/pc-repair-articles';
 import { arcRaidersLocalizedArticles } from '@/lib/localized/arc-raiders';
 import { nightreignLocalizedArticles } from '@/lib/localized/nightreign';
@@ -95,6 +96,7 @@ export function hasTranslation(locale: Locale, path: string) {
   if (path === '' || path === '/' || path === '/my-games') return true;
   if (locale === 'en' && englishEditorialPaths.includes(path)) return true;
   const [, section, gameSlug, slug, extra] = path.split('/');
+  if (section === 'examples' && gameSlug && !slug && !extra) return Boolean(reportedCaseBySlug(gameSlug));
   if (section === 'pc' && gameSlug && !slug && !extra)
     return Boolean(localizedPcArticle(locale, gameSlug));
   if (section === 'discord' && gameSlug && !slug && !extra)

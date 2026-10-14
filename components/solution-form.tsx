@@ -14,6 +14,9 @@ import {
   type SolutionDraft,
   type SolutionStatus,
 } from '@/lib/saved-solutions';
+import { trackSolutionSaved } from '@/lib/analytics';
+import { articleReview, fixSnapshotNotes } from '@/lib/fix-save';
+import { fixSaveCopy } from '@/lib/fix-save-copy';
 import { announceMyData } from '@/components/use-saved-solutions';
 
 export function SolutionForm({
@@ -33,8 +36,20 @@ export function SolutionForm({
 }) {
   const t = supportCopy[locale];
   const stableId = useRef(id);
+  const submitted = useRef(false);
   const [draft, setDraft] = useState(initial);
+  const [version, setVersion] = useState('');
   const [error, setError] = useState('');
+  const snapshot =
+    !id &&
+    attempt?.result === 'resolved' &&
+    draft.status === 'resolved' &&
+    !!articleReview(draft.articlePath);
+  const notesLimit = snapshot
+    ? 4000 -
+      fixSnapshotNotes('', draft.articlePath, locale, 'x'.repeat(120)).length -
+      1
+    : 4000;
   function field<K extends keyof SolutionDraft>(
     key: K,
     value: SolutionDraft[K],
@@ -46,6 +61,7 @@ export function SolutionForm({
       className="solution-form"
       onSubmit={(event) => {
         event.preventDefault();
+        if (submitted.current) return;
         try {
           const now = new Date().toISOString();
           const previous = stableId.current
@@ -58,6 +74,15 @@ export function SolutionForm({
             ...draft,
             ...(previous?.support ? { support: previous.support } : {}),
             title: draft.title.trim(),
+            notes:
+              snapshot && !previous
+                ? fixSnapshotNotes(
+                    draft.notes,
+                    draft.articlePath,
+                    locale,
+                    version,
+                  )
+                : draft.notes,
             id: stableId.current,
             createdAt: previous?.createdAt || now,
             updatedAt: now,
@@ -76,6 +101,13 @@ export function SolutionForm({
             };
           }
           upsertSolution(localStorage, item);
+          submitted.current = true;
+          if (
+            !previous &&
+            attempt?.result === 'resolved' &&
+            item.status === 'resolved'
+          )
+            trackSolutionSaved();
           announceMyData();
           onSaved(item);
         } catch (caught) {
@@ -149,10 +181,28 @@ export function SolutionForm({
         <textarea
           rows={3}
           value={draft.notes}
-          maxLength={4000}
+          maxLength={notesLimit}
           onChange={(event) => field('notes', event.target.value)}
         />
       </label>
+      {snapshot && (
+        <p className="solution-hint">
+          {fixSaveCopy[locale].notesLimit.replace(
+            '{count}',
+            String(notesLimit),
+          )}
+        </p>
+      )}
+      {snapshot && (
+        <label>
+          {fixSaveCopy[locale].version}
+          <input
+            value={version}
+            maxLength={120}
+            onChange={(event) => setVersion(event.target.value)}
+          />
+        </label>
+      )}
       {draft.completedSteps.length ? (
         <p className="solution-hint">
           {t.completed}: {draft.completedSteps.join('／')}

@@ -1,3 +1,4 @@
+import { reportedCases, casePath } from '@/lib/reported-cases';
 import { localizedPcRepairArticles } from '@/lib/localized/pc-repair-articles';
 import { followupLocalizedArticles } from '@/lib/followups';
 import { arcRaidersLocalizedArticles } from '@/lib/localized/arc-raiders';
@@ -195,6 +196,7 @@ export function ogCardSpecs(): OgCardSpec[] {
     },
     ...gameCards,
     ...guideCards,
+    ...reportedCases.flatMap(item => (["ja", "en", "zh", "es"] as const).map(locale => ({path: casePath(item, locale), eyebrow: item.copy[locale].badge, title: item.copy[locale].title, itemsLabel: item.copy[locale].limits, items: [item.cpu, item.gpu, item.copy[locale].unknown]}))),
     ...discordCards,
     ...troubleCards,
     ...roundupCards,

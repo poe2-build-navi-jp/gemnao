@@ -6,6 +6,9 @@ import { siteConfig } from '@/lib/site-config';
 // are marked as key events.
 
 export type AnalyticsEvent =
+  | 'step_result_saved'
+  | 'solution_saved'
+  | 'solution_reused'
   | 'issue_resolved'
   | 'issue_struggling'
   | 'solution_method'
@@ -33,7 +36,8 @@ export function canTrackAnalytics() {
 }
 
 /** Paths that must never be counted (the admin screens). */
-export const untrackedPath = (path: string) => /^\/(?:admin|diagnostic-feedback|diagnose|diagnosis)(?:\/|$)/.test(path);
+export const untrackedPath = (path: string) =>
+  /^\/(?:admin|diagnostic-feedback|diagnose|diagnosis)(?:\/|$)/.test(path);
 
 export function trackEvent(
   name: AnalyticsEvent,
@@ -68,6 +72,63 @@ export function trackReadingAction(
   trackEvent(name, {
     page_location: 'https://gemnao.pages.dev/my',
     page_title: 'Reading list',
+    page_referrer: '',
+  });
+}
+
+// Only public editorial URL paths; never query strings, fragments or notebook data.
+export function editorialAnalyticsPath(path: string) {
+  return /^\/(?:en\/|zh\/|es\/)?(?:games\/[a-z0-9-]+(?:\/[a-z0-9-]+)?|(?:guide|discord|pc|gear|trouble|examples|weekly)\/[a-z0-9-]+)$/.test(
+    path,
+  )
+    ? path
+    : null;
+}
+export function trackStepResultSaved(
+  outcome: 'resolved' | 'not-resolved',
+  sourcePath: string,
+) {
+  const path = editorialAnalyticsPath(sourcePath);
+  if (!path || !['resolved', 'not-resolved'].includes(outcome)) return;
+  trackEvent('step_result_saved', {
+    outcome,
+    page_location: `${analyticsOrigin}${path}`,
+    page_title: 'Troubleshooting result',
+    page_referrer: '',
+  });
+}
+export function trackSolutionSaved() {
+  trackEvent('solution_saved', {
+    page_location: `${analyticsOrigin}/my-games`,
+    page_title: 'My Games',
+    page_referrer: '',
+  });
+}
+export function trackSolutionReused() {
+  trackEvent('solution_reused', {
+    page_location: `${analyticsOrigin}/my-games`,
+    page_title: 'My Games',
+    page_referrer: '',
+  });
+}
+export function trackRelatedArticleOpened(href: string) {
+  if (typeof location === 'undefined') return;
+  const source = editorialAnalyticsPath(location.pathname);
+  if (!source) return;
+  let target: URL;
+  try {
+    target = new URL(href, analyticsOrigin);
+  } catch {
+    return;
+  }
+  if (
+    target.origin !== analyticsOrigin ||
+    !editorialAnalyticsPath(target.pathname)
+  )
+    return;
+  trackEvent('related_article_opened', {
+    page_location: `${analyticsOrigin}${source}`,
+    page_title: 'Article navigation',
     page_referrer: '',
   });
 }

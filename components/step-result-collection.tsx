@@ -1,5 +1,7 @@
 'use client';
 
+import { ResolvedFixSave } from './resolved-fix-save';
+import { resolvedDraft } from '@/lib/fix-save';
 import {
   createContext,
   useContext,
@@ -115,6 +117,9 @@ type Report = {
 };
 type Method = { methodId: string; responses: number; notResolved?: number };
 type Collection = {
+  contextSlug: string;
+  locale: Locale;
+  steps: Step[];
   ready: boolean;
   t: typeof copy.en;
   methods: Method[];
@@ -226,7 +231,9 @@ export function StepResultCollection({
     }
   }
   return (
-    <Context.Provider value={{ ready, t, methods, reports, send }}>
+    <Context.Provider
+      value={{ contextSlug, locale, steps, ready, t, methods, reports, send }}
+    >
       <aside className="procedure-note">
         <strong>{t.heading}</strong>
         <p>{t.intro}</p>
@@ -286,8 +293,18 @@ export function StepResultButtons({ method }: { method: string }) {
   if (!context) return null;
   const { ready, t, methods, reports, send } = context;
   const counts = stepOutcomeCounts(methods, method, ready);
+  const savedDraft = resolvedDraft(
+    context.contextSlug,
+    method,
+    context.steps.find((s) => s.id === method)?.title || '',
+    context.locale,
+  );
   return (
     <div className="step-result-controls">
+      {savedDraft &&
+        ['sent', 'already', 'error'].includes(
+          reports[`${method}:resolved`]?.state || '',
+        ) && <ResolvedFixSave draft={savedDraft} locale={context.locale} />}
       <div className="step-actions">
         {(['resolved', 'not-resolved'] as const).map((outcome) => (
           <button

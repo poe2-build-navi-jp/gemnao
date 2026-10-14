@@ -1,6 +1,7 @@
 'use client';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { useEffect, useRef, useState } from 'react';
+import { trackSolutionReused } from '@/lib/analytics';
 import { NotebookPen } from 'lucide-react';
 import { games } from '@/lib/games';
 import {
@@ -267,6 +268,9 @@ export function SolutionNotebook() {
               <p>
                 <a
                   href={`${item.articlePath}${item.stepId ? `#${item.stepId}` : ''}`}
+                  onClick={() => {
+                    if (item.status === 'resolved') trackSolutionReused();
+                  }}
                 >
                   参照した記事・手順を開く →
                 </a>

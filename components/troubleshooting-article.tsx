@@ -1,3 +1,4 @@
+import { ReportedCaseLink } from '@/components/reported-case';
 import { ArticleToc } from '@/components/article-toc';
 import { ArticleDiagnosisEntry } from '@/components/article-diagnosis-entry';
 import { EditorialByline } from '@/components/editorial-byline';
@@ -307,6 +308,7 @@ export function TroubleshootingArticle({
               </ul>
             </section>
           ) : null}
+          <ReportedCaseLink articlePath={`/games/${game.slug}/${article.slug}`}/>
           <InteractiveSteps
             contextSlug={`game-${game.slug}-${article.slug}`}
             topic={feedbackTopic}
