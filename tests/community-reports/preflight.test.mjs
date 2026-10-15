@@ -369,6 +369,7 @@ await test('HTTP200 namespace errors:null accepts only complete successful lists
 });
 
 await test('namespace null-errors compatibility preserves status, success, error and completeness refusals', async () => {
+  /** @type {Array<[Record<string, unknown>, number, string]>} */
   const cases = [
     [{ success: undefined }, 200, 'NAMESPACE_LIST_METADATA_READ_FAILED'],
     [{ success: false }, 200, 'NAMESPACE_LIST_METADATA_READ_FAILED'],

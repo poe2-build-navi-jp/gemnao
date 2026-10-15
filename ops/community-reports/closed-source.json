@@ -1,0 +1,25 @@
+{
+  "hashes": {
+    "app/api/admin/reports-bootstrap/route.ts": "bac277aaf2fde93dccd7547e374c9c14ba58ea17b2e77513f4e0b94bcab94887",
+    "app/api/admin/reports-verification/route.ts": "9614779a3a38d1749880a39de06ae39169c49a303d847b20fe4f305d44a9c682",
+    "app/api/reports/health/route.ts": "ae7f3584953f1100d095bbe29604273f0b111f280c9489a63e2f6a664deceacc",
+    "cloudflare/community-reports-guard.ts": "69ebc770736d312f86c4a2131809b7bc3af09a1946e33f68c09ddd9747c686e9",
+    "cloudflare/community-reports-cleanup.ts": "b9fa220244fe6b51838f246ddb074afed43367b927c40105a46a6c0a764fb861",
+    "migrations/community-reports/0001.sql": "35bc54bf504a175c8261bf603e01a781b95ce2b97967101c218e6a4de97f8bbb",
+    "ops/community-reports/operating-plan.mjs": "834d434a0982c4496992f6d19b68e4a7e01e1cdf9f66d2ebcd7aafe9c0cf1793",
+    "lib/community-reports/verification.ts": "724178b294599ad4032c48badfe0205da9dee1253a565ac025bd10167eed7d6e",
+    "lib/community-reports/service.ts": "e93779918452060e910ece075c9a3a6a849e81c0d369f071efc17660988baa62",
+    "lib/community-reports/runtime.ts": "111e329c0bc9490d91fa47b6f224bd2da3dd82a56483cfc01191e9952a945786",
+    "lib/community-reports/retention.ts": "600d20819cd05617020496c361108b816a701ced22ef6de05a46ff0e65b0558d",
+    "lib/community-reports/model.ts": "9ce52b795cafa5d78009c1a3666099073c71bb87e8a190ccaa6f721c7f98abc2",
+    "lib/community-reports/maintenance.ts": "1abb1d15d3a1bd6e45ff251c9f7891a6f94b6b29c0e4af4ac61456063451d171",
+    "lib/community-reports/ledger.ts": "f60d6ea7de1395b2d55486430395bab572bf4675f82d70b428626bfd965a9a81",
+    "lib/community-reports/ids.ts": "afe97ec6d33cf022dfa75a173c3e47609c1a1409ba67bfbc24809799071dac3c",
+    "lib/community-reports/health.ts": "027b71e2171301e7f8b8541053da8d73feb6d80965a8186a0d03d758b4b0d2ec",
+    "lib/community-reports/guard-client.ts": "3bd910cb61460c7e4134c7e324b5db8d323c062500a9464cfad43449b51b1335",
+    "lib/community-reports/database.ts": "8cb22e87da4bf9cdc0b89f11c5bdbe08837bd9f7c274ddafffad6d4621880b98",
+    "lib/community-reports/cycle.ts": "b722866c79ce26d8f2f0a83622d70bcd38fc7d5bb883149fb006d1a2460d66db",
+    "lib/community-reports/collector.ts": "b823334272cf7e3ae60b87a098a1eb69328c189b6512ddcfe98d043d8960cbd8",
+    "lib/community-reports/bootstrap.ts": "ad4b906ba54a5c5657a9218cb8763640d9d1f0378470e62b064eece4cce2518c"
+  }
+}

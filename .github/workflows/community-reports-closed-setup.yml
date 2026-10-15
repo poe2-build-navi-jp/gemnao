@@ -1,0 +1,110 @@
+name: Community reports closed setup
+run-name: Closed reports ${{ inputs.operation }} — exact-run owner approval
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Inspect fixed targets first; setup creates dedicated resources with intake OFF
+        type: choice
+        options: [inspect, setup]
+        default: inspect
+        required: true
+      confirmation:
+        description: For setup only — SETUP_CLOSED_REPORTS_ONLY
+        type: string
+        required: false
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: gemnao-production-d1-migration
+  cancel-in-progress: false
+jobs:
+  gate:
+    if: github.repository == 'poe2-build-navi-jp/gemnao' && github.ref == 'refs/heads/gemunao' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      environment: ${{ steps.verify.outputs.environment }}
+      digest: ${{ steps.package.outputs.digest }}
+      artifact: ${{ steps.artifact.outputs.artifact-id }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22.19.0'
+      - name: Test fixed request boundaries without credentials
+        run: node --test tests/community-reports/closed-setup.test.mjs
+      - id: verify
+        name: Verify reviewed source and existing Environment protection
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node ops/community-reports/closed-setup.mjs gate
+      - name: Install locked dependencies without lifecycle scripts
+        run: |
+          npm install --global --ignore-scripts --no-audit --no-fund pnpm@11.19.0
+          pnpm install --frozen-lockfile --ignore-scripts --ignore-pnpmfile
+      - name: Build reviewed backend without Cloudflare credentials
+        env:
+          WRANGLER_SEND_METRICS: 'false'
+          CI: 'true'
+        run: pnpm build
+      - id: package
+        name: Package exact Pages and Worker bytes without credentials
+        env:
+          REPORTS_ARTIFACT_DIR: ${{ runner.temp }}/closed-reports-artifact
+        run: node ops/community-reports/closed-setup.mjs package
+      - id: artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: closed-reports-${{ github.run_id }}-${{ github.sha }}
+          path: ${{ runner.temp }}/closed-reports-artifact/
+          include-hidden-files: true
+          if-no-files-found: error
+          overwrite: false
+          retention-days: 1
+  control:
+    needs: gate
+    if: needs.gate.outputs.environment == 'gemnao-d1-production'
+    environment: ${{ needs.gate.outputs.environment }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22.19.0'
+      - name: Install locked tools before credentials
+        run: |
+          npm install --global --ignore-scripts --no-audit --no-fund pnpm@11.19.0
+          pnpm install --frozen-lockfile --ignore-scripts --ignore-pnpmfile
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          artifact-ids: ${{ needs.gate.outputs.artifact }}
+          path: ${{ runner.temp }}/closed-reports-artifact
+          merge-multiple: true
+      - name: Fixed-target readback or approved closed setup; no activation
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          REPORTS_SETUP_ENVIRONMENT: gemnao-d1-production
+          REPORTS_SETUP_OPERATION: ${{ inputs.operation }}
+          REPORTS_SETUP_CONFIRMATION: ${{ inputs.confirmation }}
+          REPORTS_ARTIFACT_DIR: ${{ runner.temp }}/closed-reports-artifact
+          REPORTS_ARTIFACT_DIGEST: ${{ needs.gate.outputs.digest }}
+          WRANGLER_SEND_METRICS: 'false'
+        run: node ops/community-reports/closed-setup.mjs run
+      - name: Preserve only the bounded non-secret result
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: closed-reports-receipt-${{ github.run_id }}
+          path: closed-setup-receipt.json
+          if-no-files-found: ignore
+          retention-days: 7
