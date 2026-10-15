@@ -14,6 +14,16 @@ import { execFileSync, execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { resolve, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import {
+  ManagedConfigFailure,
+  normalized,
+  productionAnchor,
+  validateRecord,
+  persistedConfig,
+  managedBaseline,
+  verifyManagedDeployment,
+} from './managed-config.mjs';
+const STATE_PATH = 'ops/community-reports/closed-binding-state.json';
 export const TARGET = Object.freeze({
   repository: 'poe2-build-navi-jp/gemnao',
   branch: 'gemunao',
@@ -52,7 +62,10 @@ export class SetupFailure extends Error {
 }
 export function safeFailure(error) {
   return {
-    error: error instanceof SetupFailure ? error.message : 'SETUP_FAILED',
+    error:
+      error instanceof SetupFailure || error instanceof ManagedConfigFailure
+        ? error.message
+        : 'SETUP_FAILED',
     httpStatus: error instanceof SetupFailure ? error.status : null,
   };
 }
@@ -132,7 +145,7 @@ export async function gate(env, fetcher = fetch) {
   );
   return TARGET.environment;
 }
-export function client(token, fetcher = fetch) {
+export function client(token, fetcher = fetch, persistedId = null) {
   fixed(
     typeof token === 'string' && /^[\x21-\x7e]{20,256}$/.test(token),
     'EXISTING_CLOUDFLARE_AUTH_REQUIRED',
@@ -145,6 +158,7 @@ export function client(token, fetcher = fetch) {
         /^\/d1\/database\?per_page=100&page=1$/.test(path) ||
         path === '/workers/scripts' ||
         path === '/pages/projects/gemnao' ||
+        /^\/pages\/projects\/gemnao\/deployments\/[a-f0-9-]{36}$/.test(path) ||
         /^\/d1\/database\/[a-f0-9-]{36}$/.test(path) ||
         /^\/workers\/scripts\/gemnao-community-reports-(guard|cleanup)\/(settings|subdomain|schedules)$/.test(
           path,
@@ -159,23 +173,10 @@ export function client(token, fetcher = fetch) {
       return /^\/workers\/scripts\/gemnao-community-reports-(guard|cleanup)(\/subdomain)?$/.test(
         path,
       );
-    return method === 'PATCH' && path === '/pages/projects/gemnao';
+    return false;
   };
   return async (method, path, body, label) => {
     fixed(allowed(method, path), 'REQUEST_OUTSIDE_FIXED_BOUNDARY');
-    if (method === 'PATCH') {
-      fixed(
-        body &&
-          normalized(Object.keys(body)) ===
-            normalized(['deployment_configs']) &&
-          normalized(Object.keys(body.deployment_configs || {})) ===
-            normalized(['production']) &&
-          normalized(
-            Object.keys(body.deployment_configs.production || {}).sort(),
-          ) === normalized(['d1_databases', 'services']),
-        'ONLY_PRODUCTION_BINDING_ADDITIONS_ALLOWED',
-      );
-    }
     if (method === 'PUT' && path.endsWith('/subdomain'))
       fixed(
         normalized(body) ===
@@ -193,7 +194,8 @@ export function client(token, fetcher = fetch) {
     );
     if (databasePath) {
       fixed(
-        createdId && databasePath[1] === createdId,
+        (createdId && databasePath[1] === createdId) ||
+          (method === 'GET' && persistedId && databasePath[1] === persistedId),
         'ONLY_NEW_DATABASE_ALLOWED',
       );
       if (method === 'POST')
@@ -328,8 +330,12 @@ export async function inspect(api, baseline) {
     'PAGES_READ',
   );
   checkProject(response.result, baseline);
+  const configuration = managedBaseline(response.result, baseline);
+  const recovery = await readAnchor(api, response.result);
+  recovery.productionConfigSha256 = configuration.productionConfigSha256;
   return {
     project: response.result,
+    recovery,
     existingDatabaseIds: databases.result.map((db) => db.uuid),
     receipt: {
       metadataReadable: true,
@@ -339,6 +345,8 @@ export async function inspect(api, baseline) {
       wranglerManaged:
         !!response.result.deployment_configs.production.wrangler_config_hash,
       writePermissionsVerified: false,
+      managedConfigurationAligned: true,
+      recovery,
     },
   };
 }
@@ -367,6 +375,11 @@ export async function verifySource() {
     'ops/community-reports/closed-setup.mjs',
     'ops/community-reports/closed-source.json',
     'tests/community-reports/closed-setup.test.mjs',
+    'ops/community-reports/managed-config.mjs',
+    'ops/community-reports/closed-setup.md',
+    'tests/community-reports/managed-wrangler.mjs',
+    'wrangler.json',
+    STATE_PATH,
   ];
   const changed = execFileSync(
     'git',
@@ -386,9 +399,14 @@ export async function verifySource() {
     'show',
     TARGET.base + ':wrangler.json',
   ]);
+  const record = await optionalRecord();
+  const expected = record
+    ? persistedConfig(JSON.parse(baseline), record, TARGET, FLAGS)
+    : JSON.parse(baseline);
   fixed(
-    sha(await readFile('wrangler.json')) === sha(baseline),
-    'ROOT_CONFIG_CHANGED',
+    normalized(JSON.parse(await readFile('wrangler.json', 'utf8'))) ===
+      normalized(expected),
+    'ROOT_CONFIG_OUTSIDE_PERSISTED_CLOSED_SCOPE',
   );
 }
 export async function packageArtifact(directory, sourceSha) {
@@ -463,20 +481,18 @@ export async function verifyArtifact(directory, digest, sourceSha) {
     'ARTIFACT_INCOMPLETE',
   );
 }
-const canonical = (value) =>
-  Array.isArray(value)
-    ? value.map(canonical)
-    : value && typeof value === 'object'
-      ? Object.fromEntries(
-          Object.keys(value)
-            .sort()
-            .map((key) => [key, canonical(value[key])]),
-        )
-      : value;
-const normalized = (value) => JSON.stringify(canonical(value));
-export async function setup(api, baseline, artifact, receipt, uploader) {
+export async function setup(
+  api,
+  baseline,
+  artifact,
+  receipt,
+  persist = async () => {},
+) {
   const inventory = await inspect(api, baseline);
   receipt.inspection = inventory.receipt;
+  receipt.recovery = inventory.recovery;
+  await persist();
+
   const created = await api(
     'POST',
     '/d1/database',
@@ -492,6 +508,7 @@ export async function setup(api, baseline, artifact, receipt, uploader) {
   );
   receipt.databaseId = id;
   receipt.completed.push('dedicated-d1-created');
+  await persist();
   const identity = await api(
     'GET',
     '/d1/database/' + id,
@@ -541,6 +558,7 @@ export async function setup(api, baseline, artifact, receipt, uploader) {
     'NEW_D1_TOTAL_MISMATCH',
   );
   receipt.completed.push('dedicated-schema-applied');
+  await persist();
   for (const name of [TARGET.guard, TARGET.cleanup]) {
     const guard = name === TARGET.guard;
     const bindings = guard
@@ -607,6 +625,7 @@ export async function setup(api, baseline, artifact, receipt, uploader) {
       guard ? 'GUARD_UPLOAD' : 'CLEANUP_UPLOAD',
     );
     receipt.completed.push(guard ? 'guard-uploaded' : 'cleanup-uploaded');
+    await persist();
     await api(
       'PUT',
       '/workers/scripts/' + name + '/subdomain',
@@ -654,7 +673,11 @@ export async function setup(api, baseline, artifact, receipt, uploader) {
         ),
         'GUARD_BINDING_MISMATCH',
       );
-    else
+    if (guard)
+      receipt.guardNamespaceId = actual.find(
+        (binding) => binding.name === 'GUARD',
+      ).namespace_id;
+    if (!guard)
       fixed(
         actual.some(
           (binding) =>
@@ -683,61 +706,203 @@ export async function setup(api, baseline, artifact, receipt, uploader) {
     undefined,
     'PAGES_RECHECK',
   );
-  checkProject(reread.result, baseline);
   fixed(
     normalized(reread.result.deployment_configs) ===
       normalized(inventory.project.deployment_configs),
     'PAGES_SETTINGS_CHANGED_DURING_SETUP',
   );
-  const before = reread.result.deployment_configs;
-  const additions = {
-    d1_databases: { ...before.production.d1_databases, REPORTS_DB: { id } },
-    services: {
-      ...before.production.services,
-      REPORTS_GUARD: {
-        service: TARGET.guard,
-        environment: 'production',
-        entrypoint: 'ReportsGuardService',
-      },
+  receipt.resourceRecord = validateRecord(
+    {
+      version: 1,
+      accountId: TARGET.account,
+      databaseName: TARGET.database,
+      databaseId: id,
+      guardName: TARGET.guard,
+      guardNamespaceId: receipt.guardNamespaceId,
+      cleanupName: TARGET.cleanup,
+      provisionedSourceSha: receipt.sourceSha,
+      provisionedRunId: receipt.runId,
+      recovery: inventory.recovery,
     },
-  };
-  await api(
-    'PATCH',
+    TARGET,
+  );
+  receipt.pagesChanged = false;
+  receipt.nextStep =
+    'Commit reviewed resourceRecord and deterministic wrangler additions before deploy';
+  await persist();
+}
+async function optionalRecord() {
+  try {
+    return validateRecord(
+      JSON.parse(await readFile(STATE_PATH, 'utf8')),
+      TARGET,
+    );
+  } catch (error) {
+    if (error?.code === 'ENOENT') return null;
+    throw error;
+  }
+}
+function baselineConfig() {
+  return JSON.parse(
+    execFileSync('git', ['show', TARGET.base + ':wrangler.json'], {
+      encoding: 'utf8',
+    }),
+  );
+}
+async function readAnchor(api, project) {
+  const id = project.canonical_deployment?.id;
+  fixed(UUID.test(id || ''), 'VERIFIED_PRODUCTION_ROLLBACK_ANCHOR_REQUIRED');
+  const result = await api(
+    'GET',
+    '/pages/projects/gemnao/deployments/' + id,
+    undefined,
+    'PRODUCTION_ANCHOR_READ',
+  );
+  return productionAnchor(project, result.result);
+}
+export async function deployClosed(
+  api,
+  baseline,
+  record,
+  desired,
+  receipt,
+  uploader,
+  persist = async () => {},
+) {
+  validateRecord(record, TARGET);
+  fixed(
+    normalized(desired) ===
+      normalized(persistedConfig(baseline, record, TARGET, FLAGS)),
+    'PERSISTED_WRANGLER_CONFIG_REQUIRED',
+  );
+  const response = await api(
+    'GET',
     '/pages/projects/gemnao',
-    { deployment_configs: { production: additions } },
-    'PAGES_BINDINGS_WRITE',
+    undefined,
+    'PAGES_DEPLOY_PRECHECK',
   );
-  receipt.completed.push('pages-production-bindings-added');
+  checkProject(response.result, baseline);
+  const snapshot = managedBaseline(response.result, baseline);
+  const anchor = await readAnchor(api, response.result);
+  fixed(
+    anchor.deploymentId === record.recovery.deploymentId &&
+      anchor.sourceSha === record.recovery.sourceSha &&
+      snapshot.productionConfigSha256 ===
+        record.recovery.productionConfigSha256,
+    'PRODUCTION_RECOVERY_BASELINE_CHANGED',
+  );
+  const database = await api(
+    'GET',
+    '/d1/database/' + record.databaseId,
+    undefined,
+    'PERSISTED_D1_IDENTITY',
+  );
+  fixed(
+    database.result?.uuid === record.databaseId &&
+      database.result?.name === TARGET.database,
+    'PERSISTED_D1_IDENTITY_MISMATCH',
+  );
+  for (const name of [TARGET.guard, TARGET.cleanup]) {
+    const settings = await api(
+      'GET',
+      '/workers/scripts/' + name + '/settings',
+      undefined,
+      'PERSISTED_WORKER_BINDINGS',
+    );
+    const bindings = settings.result?.bindings;
+    fixed(Array.isArray(bindings), 'PERSISTED_WORKER_BINDINGS_MISSING');
+    if (name === TARGET.guard)
+      fixed(
+        bindings.some(
+          (binding) =>
+            binding.name === 'GUARD' &&
+            binding.class_name === 'CommunityReportLedger' &&
+            binding.namespace_id === record.guardNamespaceId,
+        ),
+        'PERSISTED_GUARD_MISMATCH',
+      );
+    else
+      fixed(
+        bindings.some(
+          (binding) =>
+            binding.name === 'REPORTS_DB' && binding.id === record.databaseId,
+        ) &&
+          bindings.some(
+            (binding) =>
+              binding.name === 'REPORTS_GUARD' &&
+              binding.service === TARGET.guard &&
+              binding.entrypoint === 'ReportsGuardService',
+          ) &&
+          FLAGS.every((flag) =>
+            bindings.some(
+              (binding) =>
+                binding.name === flag &&
+                binding.type === 'plain_text' &&
+                binding.text === 'false',
+            ),
+          ),
+        'PERSISTED_CLEANUP_MISMATCH',
+      );
+    const urls = await api(
+      'GET',
+      '/workers/scripts/' + name + '/subdomain',
+      undefined,
+      'PERSISTED_WORKER_URLS',
+    );
+    fixed(
+      urls.result?.enabled === false && urls.result?.previews_enabled === false,
+      'WORKER_PUBLIC_URL_NOT_DISABLED',
+    );
+    const cron = await api(
+      'GET',
+      '/workers/scripts/' + name + '/schedules',
+      undefined,
+      'PERSISTED_CRON',
+    );
+    fixed(
+      Array.isArray(cron.result?.schedules) &&
+        cron.result.schedules.length === 0,
+      'CRON_NOT_EMPTY',
+    );
+  }
+  receipt.recovery = record.recovery;
+  receipt.nextWrite = 'closed-managed-pages-deployment';
+  await persist();
+  await uploader(desired);
+  receipt.completed.push('closed-managed-pages-upload-requested');
+  await persist();
   const after = (
-    await api('GET', '/pages/projects/gemnao', undefined, 'PAGES_BINDINGS_READ')
-  ).result.deployment_configs;
-  fixed(
-    normalized(after.preview) === normalized(before.preview),
-    'PREVIEW_SETTINGS_CHANGED',
-  );
-  fixed(
-    after.production?.d1_databases?.REPORTS_DB?.id === id &&
-      after.production.services?.REPORTS_GUARD?.entrypoint ===
-        'ReportsGuardService' &&
-      after.production.services.REPORTS_GUARD.service === TARGET.guard,
-    'PAGES_ADDED_BINDINGS_MISMATCH',
-  );
-  const rest = structuredClone(after.production);
-  delete rest.d1_databases.REPORTS_DB;
-  delete rest.services.REPORTS_GUARD;
-  if (!before.production.services) delete rest.services;
-  fixed(
-    normalized(rest) === normalized(before.production),
-    'EXISTING_PRODUCTION_SETTINGS_CHANGED',
-  );
-  await uploader();
-  receipt.completed.push('closed-backend-pages-upload-requested');
+    await api(
+      'GET',
+      '/pages/projects/gemnao',
+      undefined,
+      'PAGES_DEPLOY_READBACK',
+    )
+  ).result;
+  verifyManagedDeployment(response.result, after, desired, TARGET);
+  const deployed = await readAnchor(api, after);
+  fixed(deployed.sourceSha === receipt.sourceSha, 'DEPLOYED_SOURCE_MISMATCH');
+  receipt.deployment = deployed;
+  receipt.settingsVerified = true;
   receipt.intakeEnabled = false;
   receipt.generalReportingUiIncluded = false;
-  receipt.bootstrapInvoked = false;
-  receipt.verificationEraseInvoked = false;
+  await persist();
 }
-async function uploadPages(env, artifact) {
+export async function prepareManagedUpload(directory, artifact, desired) {
+  fixed(
+    desired.pages_build_output_dir === './dist/client',
+    'UNCHANGED_OUTPUT_DIRECTORY_REQUIRED',
+  );
+  await mkdir(join(directory, 'dist'), { recursive: true });
+  await cp(join(artifact, 'pages'), join(directory, 'dist/client'), {
+    recursive: true,
+  });
+  await writeFile(
+    join(directory, 'wrangler.json'),
+    JSON.stringify(desired, null, 2) + '\n',
+  );
+}
+async function uploadPages(env, artifact, desired) {
   fixed(
     env.RUNNER_TEMP &&
       resolve(artifact).startsWith(resolve(env.RUNNER_TEMP) + '/'),
@@ -745,7 +910,7 @@ async function uploadPages(env, artifact) {
   );
   const cli = resolve('node_modules/wrangler/bin/wrangler.js');
   const clean = await mkdtemp(join(env.RUNNER_TEMP, 'closed-pages-upload-'));
-  await cp(join(artifact, 'pages'), join(clean, 'pages'), { recursive: true });
+  await prepareManagedUpload(clean, artifact, desired);
   try {
     await promisify(execFile)(
       process.execPath,
@@ -753,7 +918,7 @@ async function uploadPages(env, artifact) {
         cli,
         'pages',
         'deploy',
-        'pages',
+        'dist/client',
         '--project-name',
         TARGET.pages,
         '--branch',
@@ -782,6 +947,29 @@ async function uploadPages(env, artifact) {
 }
 async function main(env) {
   const mode = process.argv[2];
+  if (mode === 'prepare-bindings') {
+    fixed(
+      !process.env.CLOUDFLARE_API_TOKEN && env.REPORTS_RESOURCE_RECORD,
+      'OFFLINE_REVIEWED_RECORD_REQUIRED',
+    );
+    const record = validateRecord(
+      JSON.parse(await readFile(env.REPORTS_RESOURCE_RECORD, 'utf8')),
+      TARGET,
+    );
+    fixed(!(await optionalRecord()), 'PERSISTED_RECORD_ALREADY_EXISTS');
+    fixed(
+      normalized(JSON.parse(await readFile('wrangler.json', 'utf8'))) ===
+        normalized(baselineConfig()),
+      'ROOT_CONFIG_CHANGED',
+    );
+    const config = persistedConfig(baselineConfig(), record, TARGET, FLAGS);
+    await writeFile(STATE_PATH, JSON.stringify(record, null, 2) + '\n');
+    await writeFile('wrangler.json', JSON.stringify(config, null, 2) + '\n');
+    console.log(
+      'Prepared only non-secret resource identity and deterministic closed Wrangler additions; review and commit before deploy.',
+    );
+    return;
+  }
   if (mode === 'gate') {
     await verifySource();
     const environment = await gate(env);
@@ -812,12 +1000,13 @@ async function main(env) {
   }
   fixed(
     mode === 'run' &&
-      ['inspect', 'setup'].includes(env.REPORTS_SETUP_OPERATION),
+      ['inspect', 'setup', 'deploy'].includes(env.REPORTS_SETUP_OPERATION),
     'FIXED_OPERATION_REQUIRED',
   );
   const receipt = {
     operation: env.REPORTS_SETUP_OPERATION,
     sourceSha: env.GITHUB_SHA,
+    runId: env.GITHUB_RUN_ID,
     completed: [],
     intakeEnabled: false,
     generalReportingUiIncluded: false,
@@ -834,17 +1023,50 @@ async function main(env) {
       env.REPORTS_ARTIFACT_DIGEST,
       env.GITHUB_SHA,
     );
-    const api = client(env.CLOUDFLARE_API_TOKEN),
-      baseline = JSON.parse(await readFile('wrangler.json', 'utf8'));
+    const record = await optionalRecord();
+    const api = client(env.CLOUDFLARE_API_TOKEN, fetch, record?.databaseId),
+      baseline = baselineConfig();
+    const persist = async () => {
+      await writeFile(
+        'closed-setup-receipt.json',
+        JSON.stringify(receipt, null, 2) + '\n',
+      );
+      // Bounded non-secret checkpoint reaches the run log before mutations too.
+      console.log(
+        JSON.stringify({
+          checkpoint: true,
+          recovery: receipt.recovery,
+          completed: receipt.completed,
+          databaseId: receipt.databaseId || null,
+          guardNamespaceId: receipt.guardNamespaceId || null,
+          nextWrite: receipt.nextWrite || null,
+        }),
+      );
+    };
     if (env.REPORTS_SETUP_OPERATION === 'inspect')
       receipt.inspection = (await inspect(api, baseline)).receipt;
-    else {
+    else if (env.REPORTS_SETUP_OPERATION === 'setup') {
       fixed(
-        env.REPORTS_SETUP_CONFIRMATION === 'SETUP_CLOSED_REPORTS_ONLY',
+        !record &&
+          env.REPORTS_SETUP_CONFIRMATION === 'SETUP_CLOSED_REPORTS_ONLY',
         'EXPLICIT_CLOSED_SETUP_REQUIRED',
       );
-      await setup(api, baseline, env.REPORTS_ARTIFACT_DIR, receipt, () =>
-        uploadPages(env, env.REPORTS_ARTIFACT_DIR),
+      await setup(api, baseline, env.REPORTS_ARTIFACT_DIR, receipt, persist);
+    } else {
+      fixed(
+        record &&
+          env.REPORTS_SETUP_CONFIRMATION === 'DEPLOY_CLOSED_REPORTS_ONLY',
+        'PERSISTED_CLOSED_DEPLOY_REQUIRED',
+      );
+      const desired = JSON.parse(await readFile('wrangler.json', 'utf8'));
+      await deployClosed(
+        api,
+        baseline,
+        record,
+        desired,
+        receipt,
+        (config) => uploadPages(env, env.REPORTS_ARTIFACT_DIR, config),
+        persist,
       );
     }
     receipt.ok = true;
