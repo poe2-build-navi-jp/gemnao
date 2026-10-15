@@ -334,3 +334,86 @@ await test('untrusted exceptions and forged diagnostic fields never reach failur
     return true;
   });
 });
+
+function namespaceFixture(body, status = 200) {
+  const f = fixture();
+  return {
+    calls: f.calls,
+    fetcher: (url, options) => {
+      if (!new URL(url).pathname.endsWith('/workers/durable_objects/namespaces'))
+        return f.fetcher(url, options);
+      f.calls.push({ url, method: options.method });
+      return Promise.resolve(new Response(JSON.stringify(body), { status }));
+    },
+  };
+}
+const namespaceSuccess = () => ({
+  success: true,
+  errors: null,
+  result: [{ id: 'synthetic-namespace' }],
+  result_info: { total_count: 1 },
+});
+
+await test('HTTP200 namespace errors:null accepts only complete successful lists without proving usage', async () => {
+  for (const result of [[], [{ id: 'synthetic-namespace' }]]) {
+    const f = namespaceFixture({
+      ...namespaceSuccess(), result, result_info: { total_count: result.length },
+    });
+    const report = await discover(env(), f.fetcher);
+    assert.equal(report.metadataReadable, true);
+    assert.equal(report.usageValuesVerified, false);
+    assert.equal(report.profileVerified, false);
+    assert.equal(report.productionChanged, false);
+    assert.equal(f.calls.filter(c => c.method === 'POST').length, 2);
+  }
+});
+
+await test('namespace null-errors compatibility preserves status, success, error and completeness refusals', async () => {
+  const cases = [
+    [{ success: undefined }, 200, 'NAMESPACE_LIST_METADATA_READ_FAILED'],
+    [{ success: false }, 200, 'NAMESPACE_LIST_METADATA_READ_FAILED'],
+    [{ success: 'true' }, 200, 'NAMESPACE_LIST_METADATA_READ_FAILED'],
+    [{ errors: undefined }, 200, 'NAMESPACE_LIST_METADATA_READ_FAILED'],
+    [{ errors: [{ code: 10000 }] }, 200, 'NAMESPACE_LIST_METADATA_READ_FAILED'],
+    [{ errors: {} }, 200, 'NAMESPACE_LIST_METADATA_READ_FAILED'],
+    [{ errors: 'null' }, 200, 'NAMESPACE_LIST_METADATA_READ_FAILED'],
+    [{ result: undefined }, 200, 'NAMESPACE_LIST_INCOMPLETE'],
+    [{ result: null }, 200, 'NAMESPACE_LIST_INCOMPLETE'],
+    [{ result: {} }, 200, 'NAMESPACE_LIST_INCOMPLETE'],
+    [{ result: 'synthetic' }, 200, 'NAMESPACE_LIST_INCOMPLETE'],
+    [{ result_info: undefined }, 200, 'NAMESPACE_LIST_INCOMPLETE'],
+    [{ result_info: { total_count: 2 } }, 200, 'NAMESPACE_LIST_INCOMPLETE'],
+    [{ result_info: { total_count: '1' } }, 200, 'NAMESPACE_LIST_INCOMPLETE'],
+    [{}, 201, 'NAMESPACE_LIST_METADATA_READ_FAILED'],
+    [{}, 403, 'NAMESPACE_LIST_HTTP_403'],
+    [{}, 500, 'NAMESPACE_LIST_HTTP_500'],
+  ];
+  for (const [change, status, code] of cases) {
+    const f = namespaceFixture({ ...namespaceSuccess(), ...change }, status);
+    await assert.rejects(discover(env(), f.fetcher), error => {
+      assert.equal(failureLines(error)[0], 'BLOCKED: ' + code);
+      return true;
+    });
+    assert.equal(f.calls.some(c => c.method === 'POST'), false);
+  }
+});
+
+await test('errors:null remains invalid for D1, Worker and cron metadata responses', async () => {
+  for (const [suffix, label] of [
+    ['/d1/database', 'D1_LIST'], ['/workers/scripts', 'WORKER_LIST'],
+    ['/schedules', 'CRON_LIST'],
+  ]) {
+    const f = fixture();
+    const fetcher = async (url, options) => {
+      const response = await f.fetcher(url, options);
+      if (!new URL(url).pathname.endsWith(suffix)) return response;
+      return new Response(JSON.stringify({ ...(await response.json()), errors: null }),
+        { status: 200 });
+    };
+    await assert.rejects(discover(env(), fetcher), error => {
+      assert.equal(failureLines(error)[0], `BLOCKED: ${label}_METADATA_READ_FAILED`);
+      return true;
+    });
+    assert.equal(f.calls.some(c => c.method === 'POST'), false);
+  }
+});

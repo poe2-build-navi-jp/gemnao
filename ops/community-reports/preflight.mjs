@@ -138,12 +138,17 @@ async function request(fetcher, url, token, body) {
   } catch {
     throw new PreflightFailure('READ_INVALID_JSON');
   }
-  // Same strict REST-envelope requirement as before. Diagnose failures without
-  // accepting alternate envelopes, suppressing errors or continuing to GraphQL.
+  // This endpoint returned HTTP 200, success:true, errors:null in the approved
+  // live run. Allow only that no-error variant; namespace result/pagination
+  // completeness is still checked below before GraphQL. Other REST APIs remain
+  // strict, and missing errors or any nonempty error array still fail closed.
+  const namespaceNullErrors =
+    label === 'NAMESPACE_LIST' && httpStatus === 200 && data?.errors === null;
   if (
     metadataLabels.has(label) &&
     !(data?.success === true &&
-      Array.isArray(data?.errors) && data.errors.length === 0)
+      ((Array.isArray(data?.errors) && data.errors.length === 0) ||
+        namespaceNullErrors))
   )
     throw new PreflightFailure(
       label + '_METADATA_READ_FAILED',
