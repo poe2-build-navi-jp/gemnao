@@ -9,9 +9,58 @@ export const target = Object.freeze({
   account: '6a09a32cba1288cccce5912015086a35',
   workflow: 'Community reports analytics preflight',
 });
+class PreflightFailure extends Error {
+  constructor(code, diagnostic) {
+    super(code);
+    this.diagnostic = diagnostic;
+  }
+}
 const need = (ok, code) => {
-  if (!ok) throw Error(code);
+  if (!ok) throw new PreflightFailure(code);
 };
+// Only locally constructed failures can supply log text. Provider exceptions,
+// messages, headers, keys, URLs and resource values never enter this projection.
+export function failureLines(error) {
+  if (!(error instanceof PreflightFailure)) return ['BLOCKED: READ_FAILED'];
+  return [
+    'BLOCKED: ' + error.message,
+    ...(error.diagnostic
+      ? ['DIAGNOSTIC: ' + JSON.stringify(error.diagnostic)]
+      : []),
+  ];
+}
+const metadataLabels = new Set([
+  'D1_LIST',
+  'WORKER_LIST',
+  'CRON_LIST',
+  'NAMESPACE_LIST',
+]);
+const valueType = (value) =>
+  value === null ? 'null' : Array.isArray(value) ? 'array' : typeof value;
+function responseDiagnostic(label, status, data, read = false) {
+  return {
+    endpoint: label,
+    httpStatus:
+      Number.isInteger(status) && status >= 100 && status <= 599 ? status : null,
+    envelopeType: read ? valueType(data) : 'unread',
+    ...(read
+      ? {
+          successType: valueType(data?.success),
+          success: typeof data?.success === 'boolean' ? data.success : null,
+          errorsType: valueType(data?.errors),
+          errorCodes: Array.isArray(data?.errors)
+            ? data.errors.slice(0, 8).flatMap((error) =>
+                Number.isSafeInteger(error?.code) &&
+                error.code >= 0 && error.code <= 999999
+                  ? [error.code]
+                  : [],
+              )
+            : [],
+          resultType: valueType(data?.result),
+        }
+      : {}),
+  };
+}
 export function context(env) {
   need(
     env.GITHUB_ACTIONS === 'true' &&
@@ -54,9 +103,16 @@ async function request(fetcher, url, token, body) {
       ...(body === undefined ? {} : { body: JSON.stringify(body) }),
     });
   } catch {
-    throw Error(label + '_REQUEST_FAILED');
+    throw new PreflightFailure(label + '_REQUEST_FAILED');
   }
-  need(r.ok && r.body, label + '_HTTP_' + r.status);
+  const httpStatus =
+    Number.isInteger(r.status) && r.status >= 100 && r.status <= 599
+      ? r.status : null;
+  if (!(r.ok && r.body))
+    throw new PreflightFailure(
+      label + '_HTTP_' + (httpStatus ?? 'UNKNOWN'),
+      responseDiagnostic(label, httpStatus),
+    );
   const reader = r.body.getReader(),
     chunks = [];
   let size = 0;
@@ -66,7 +122,7 @@ async function request(fetcher, url, token, body) {
     size += p.value.length;
     if (size > 4_000_000) {
       await reader.cancel();
-      throw Error('READ_TOO_LARGE');
+      throw new PreflightFailure('READ_TOO_LARGE');
     }
     chunks.push(p.value);
   }
@@ -76,11 +132,24 @@ async function request(fetcher, url, token, body) {
     b.set(c, at);
     at += c.length;
   }
+  let data;
   try {
-    return JSON.parse(new TextDecoder('utf8', { fatal: true }).decode(b));
+    data = JSON.parse(new TextDecoder('utf8', { fatal: true }).decode(b));
   } catch {
-    throw Error('READ_INVALID_JSON');
+    throw new PreflightFailure('READ_INVALID_JSON');
   }
+  // Same strict REST-envelope requirement as before. Diagnose failures without
+  // accepting alternate envelopes, suppressing errors or continuing to GraphQL.
+  if (
+    metadataLabels.has(label) &&
+    !(data?.success === true &&
+      Array.isArray(data?.errors) && data.errors.length === 0)
+  )
+    throw new PreflightFailure(
+      label + '_METADATA_READ_FAILED',
+      responseDiagnostic(label, httpStatus, data, true),
+    );
+  return data;
 }
 export async function gate(env, fetcher = fetch) {
   context(env);
@@ -126,14 +195,7 @@ export async function discover(env, fetcher = fetch) {
   );
   const token = env.CLOUDFLARE_API_TOKEN,
     base = `https://api.cloudflare.com/client/v4/accounts/${target.account}`;
-  const rest = async (suffix) => {
-    const d = await request(fetcher, base + suffix, token);
-    need(
-      d.success === true && Array.isArray(d.errors) && d.errors.length === 0,
-      'METADATA_READ_FAILED',
-    );
-    return d;
-  };
+  const rest = (suffix) => request(fetcher, base + suffix, token);
   const dbs = await rest('/d1/database?per_page=100&page=1');
   need(
     Array.isArray(dbs.result) &&
@@ -268,10 +330,7 @@ if (
       console.log(JSON.stringify(await discover(process.env), null, 2));
     }
   } catch (e) {
-    console.error(
-      'BLOCKED: ' +
-        (/^[A-Z_0-9]+$/.test(e.message) ? e.message : 'READ_FAILED'),
-    );
+    for (const line of failureLines(e)) console.error(line);
     process.exitCode = 1;
   }
 }

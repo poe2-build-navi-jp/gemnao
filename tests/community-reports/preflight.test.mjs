@@ -5,6 +5,7 @@ import {
   gate,
   discover,
   target,
+  failureLines,
 } from '../../ops/community-reports/preflight.mjs';
 const env = () => ({
   GITHUB_ACTIONS: 'true',
@@ -229,4 +230,107 @@ await test('disabled datasets are explicit and do not become a verified usage pr
     r = await discover(env(), f.fetcher);
   assert.ok(Object.values(r.enabled).every((x) => x === false));
   assert.equal(r.profileVerified, false);
+});
+
+await test('each failed metadata envelope reports only fixed stage, status, types, booleans and numeric codes', async () => {
+  const cases = [
+    ['/d1/database', 'D1_LIST'],
+    ['/workers/scripts', 'WORKER_LIST'],
+    ['/schedules', 'CRON_LIST'],
+    ['/workers/durable_objects/namespaces', 'NAMESPACE_LIST'],
+  ];
+  const poison = 'SYNTHETIC_RESOURCE_SECRET_RAW_BODY';
+  for (const [suffix, label] of cases) {
+    const f = fixture();
+    const fetcher = async (url, options) => {
+      if (!new URL(url).pathname.endsWith(suffix)) return f.fetcher(url, options);
+      f.calls.push({ url, method: options.method });
+      return new Response(JSON.stringify({
+        success: false,
+        errors: [
+          { code: 10000, message: poison, source: { pointer: poison } },
+          { code: poison }, { code: '10001' }, { code: -1 },
+          { code: 1000000 }, { code: 1.5 }, null,
+          { code: 7003 }, { code: 9999 },
+        ],
+        result: [{ name: poison, token: env().CLOUDFLARE_API_TOKEN }],
+        [poison]: env().GH_TOKEN,
+      }), { status: 200, headers: { 'X-Unsafe': poison } });
+    };
+    let error;
+    await assert.rejects(discover(env(), fetcher), (e) => { error = e; return true; });
+    const lines = failureLines(error);
+    assert.equal(lines[0], `BLOCKED: ${label}_METADATA_READ_FAILED`);
+    assert.deepEqual(JSON.parse(lines[1].slice('DIAGNOSTIC: '.length)), {
+      endpoint: label, httpStatus: 200, envelopeType: 'object',
+      successType: 'boolean', success: false, errorsType: 'array',
+      errorCodes: [10000, 7003], resultType: 'array',
+    });
+    for (const forbidden of [poison, env().GH_TOKEN, env().CLOUDFLARE_API_TOKEN,
+      target.account, 'synthetic-worker', 'Authorization', 'X-Unsafe'])
+      assert.ok(!lines.join('\n').includes(forbidden));
+    assert.equal(f.calls.at(-1).url.endsWith(suffix) ||
+      new URL(f.calls.at(-1).url).pathname.endsWith(suffix), true);
+    assert.equal(f.calls.some(c => c.method === 'POST'), false);
+  }
+});
+
+await test('non-object or missing REST envelopes stay blocked and expose no payload values', async () => {
+  for (const body of [null, [], 'SYNTHETIC_RESOURCE', 123, true,
+    { success: true, result: 'SYNTHETIC_RESOURCE' },
+    { success: 'SYNTHETIC_RESOURCE', errors: [] }]) {
+    const f = fixture();
+    const fetcher = (url, options) => new URL(url).pathname.endsWith('/d1/database')
+      ? Promise.resolve(new Response(JSON.stringify(body), { status: 200 }))
+      : f.fetcher(url, options);
+    await assert.rejects(discover(env(), fetcher), (error) => {
+      const lines = failureLines(error);
+      assert.equal(lines[0], 'BLOCKED: D1_LIST_METADATA_READ_FAILED');
+      assert.ok(!lines.join('\n').includes('SYNTHETIC_RESOURCE'));
+      assert.deepEqual(Object.keys(JSON.parse(lines[1].slice(12))), [
+        'endpoint', 'httpStatus', 'envelopeType', 'successType', 'success',
+        'errorsType', 'errorCodes', 'resultType',
+      ]);
+      return true;
+    });
+  }
+});
+
+await test('HTTP denial never reads body or headers and cannot continue past namespace refusal', async () => {
+  const f = fixture();
+  let bodyRead = false, headersRead = false;
+  const fetcher = (url, options) => {
+    if (!new URL(url).pathname.endsWith('/workers/durable_objects/namespaces'))
+      return f.fetcher(url, options);
+    f.calls.push({ url, method: options.method });
+    return Promise.resolve({ ok: false, status: 403,
+      get body() { bodyRead = true; throw Error('UNSAFE_BODY'); },
+      get headers() { headersRead = true; throw Error('UNSAFE_HEADERS'); },
+    });
+  };
+  await assert.rejects(discover(env(), fetcher), error => {
+    assert.deepEqual(failureLines(error), [
+      'BLOCKED: NAMESPACE_LIST_HTTP_403',
+      'DIAGNOSTIC: {"endpoint":"NAMESPACE_LIST","httpStatus":403,"envelopeType":"unread"}',
+    ]);
+    return true;
+  });
+  assert.equal(bodyRead, false);
+  assert.equal(headersRead, false);
+  assert.equal(f.calls.some(c => c.method === 'POST'), false);
+});
+
+await test('untrusted exceptions and forged diagnostic fields never reach failure output', async () => {
+  const poison = 'SYNTHETIC_RESOURCE_SECRET_RAW_BODY';
+  assert.deepEqual(failureLines(Object.assign(Error(poison), {
+    diagnostic: { endpoint: poison, token: env().CLOUDFLARE_API_TOKEN },
+  })), ['BLOCKED: READ_FAILED']);
+  const f = fixture();
+  await assert.rejects(discover(env(), (url, options) => {
+    if (url.startsWith('https://api.cloudflare.com/')) throw Error(poison);
+    return f.fetcher(url, options);
+  }), error => {
+    assert.deepEqual(failureLines(error), ['BLOCKED: D1_LIST_REQUEST_FAILED']);
+    return true;
+  });
 });
