@@ -31,3 +31,21 @@ durationの課金単位、providerの集計完了時刻、通知到達、cleanup
 - 手動trigger、固定Environment、既存permissions、2択modeをYAMLで確認。
 - 専用DBの識別不一致時はSQL要求0、SQLは固定SELECTのみ、期限切れ行があっても削除0、公開healthへAuthorizationを送らないことを検証。
 - これは合成HTTPの結果であり、新しい本番readiness実行の結果ではない。
+
+## 本番readiness実測（2026-10-17 04:56 JST）
+
+- run [38958360153](https://github.com/poe2-build-navi-jp/gemnao/actions/runs/38958360153)、source `52c504ae808b760e48d8c16431e1c71f41a63405`、初回attemptのgate/discoverが成功。利用者のこのrunに対する明示承認後に実行。
+- UTC 10月16日00:00〜19:51:11の要求期間で、D1行read/write・合計容量・最大DB容量、Workers request、DO request・SQLite行read/writeの8項目は返された値が80%未満。DO SQLite保存量はunknown。duration値は返されたが課金換算の検証は未完了。これは全項目の余裕・集計の完全性や鮮度を証明しない。
+- 専用DBの一致を確認。投稿、期限切れ投稿、古いrate、未完了withdrawalはいずれも存在しない。cleanup/monitor成功時刻なし。期待する15分cronなし。削除処理は実行していない。
+- 公開healthは認証なしで取得でき、503・正しいschema・no-store・`reason=not-configured`・受付/公開OFFを確認。異常時の正しい応答であり、運用正常や通知到達を意味しない。
+- 現collectorのcoverage要件は未充足。profile、VERIFIED、受付、公開を変更していない。
+
+## 公開healthの継続確認
+
+専用の `.github/workflows/community-reports-public-health.yml` を毎時17分UTC（日本時間も毎時17分）と手動実行に限定して追加。Cloudflare資格情報・本番Environment・SQL・cleanup・設定変更を使用せず、固定の公開healthを1回GETする。GitHub permissionsはcontents:readのみ。
+
+`COMMUNITY_REPORTS_HEALTH` の1行JSONに固定operation、source SHA、取得時刻と公開状態だけを記録する。監視側はjobの成功だけで正常と判定せず、`healthy`、schema、取得の鮮度を読む。503、timeout、取得不能、不正schema、古い観測・cleanup、期限切れを正常扱いしない。読取りの成功と通知配達は区別し、通知配達の確認前にMONITOR_VERIFIEDを設定しない。
+
+専用の通知タスクはGitHubのこのworkflow結果を読む方式とする。最新runの完了・時刻・operation・source一致を確認し、監視job自体の停止やログ欠落も異常とする。GitHub cronと通知タスクの実行・配達には遅延があるため即時通知とは扱わない。既存の別用途タスクは変更しない。
+
+- 合成HTTPの監視検証5件と既存25件が成功。新監視の本番実行・通知到達の結果は実行後に追記する。

@@ -208,7 +208,7 @@ function reportedMetrics(data, inventory) {
     usageHeadroomVerified: false,
   };
 }
-async function inspectHealth(fetcher, now) {
+export async function inspectHealth(fetcher, now) {
   try {
     const response = await fetcher(publicHealth, {
       method: 'GET',
@@ -278,6 +278,22 @@ async function inspectHealth(fetcher, now) {
             body.publicEnabled
         : !body.ok && reasons.includes(body.reason),
     );
+    if (response.status === 200) {
+      const observed = Date.parse(body.observedAt),
+        until = Date.parse(body.validUntil),
+        cleaned = Date.parse(body.cleanupAt);
+      need(
+        Number.isFinite(observed) &&
+          observed <= now &&
+          observed >= now - 1_800_000 &&
+          Number.isFinite(until) &&
+          until > now &&
+          until <= observed + 1_800_000 &&
+          Number.isFinite(cleaned) &&
+          cleaned <= now &&
+          cleaned >= now - 7_200_000,
+      );
+    }
     return {
       reachable: true,
       status: response.status,
