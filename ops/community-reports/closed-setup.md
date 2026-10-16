@@ -1,5 +1,136 @@
 # Community reports: closed, Wrangler-managed setup
 
+## Stage 1 bootstrap protocol: local candidate, not executed
+
+Checked 2026-10-16. Closed deployment run
+[38935034477](https://github.com/poe2-build-navi-jp/gemnao/actions/runs/38935034477)
+succeeded on source `0a703eb562d2f363615be90a442c465178bb78e6`, production
+deployment `75d4a1d8-bbc6-46d3-9813-f866518f6a81`. Dedicated resources are now
+connected; nine report flags are OFF, Worker public/preview URLs OFF and cron
+empty in that receipt. Normal-browser homepage and article acceptance was
+confirmed separately. This does not prove ledger initialization or operating
+readiness. The historic instructions below describe prior operations, not an
+instruction to repeat setup/readback/deploy against this newer production state.
+
+The source candidate remains closed: no phase-state file or root-config change
+is included by default. `bootstrap-phase.mjs` implements this separate, bounded
+protocol. Preparation below is offline; later publishing, each protected run,
+and the existing authenticated administrator POST require the separately agreed
+Stage 1 authorization. No new credential is needed for preparation/bootstrap.
+
+1. Prepare **open** locally from the closed source:
+
+   ```bash
+   node ops/community-reports/bootstrap-phase.mjs prepare-open
+   ```
+
+   Review the two-file diff: new `bootstrap-phase-state.json` pins the existing
+   D1 UUID, namespace, closed deployment/source/config fingerprint; Wrangler
+   changes only `REPORTS_BOOTSTRAP_ALLOWED` to `true`. All other eight report
+   flags stay `false`; no instance pin is invented. Publish the reviewed source
+   with `[CF-Pages-Skip]` only after authorization. Do not let an ordinary Git
+   Pages deployment bypass the protected manual operation. Dispatch a **new**
+   run on that SHA, operation `bootstrap-open`, confirmation
+   `OPEN_REPORTS_BOOTSTRAP_ONLY`; owner approval of the existing Environment is
+   still required. This changes Pages through its existing managed uploader,
+   never PATCHes project settings and never initializes the ledger.
+
+2. Only after its successful, non-secret receipt and bootstrap allowance are
+   confirmed, use the owner's **existing administrator browser session** at
+   `https://gemnao.pages.dev`. After the administrator POST is explicitly
+   authorized, it may execute:
+
+   ```js
+   const response = await fetch('/api/admin/reports-bootstrap', {
+     method: 'POST',
+     credentials: 'same-origin',
+   });
+   const result = await response.json();
+   console.log(response.status, result);
+   ```
+
+   There is no submitted body, query parameter, cookie extraction or new token.
+   The unchanged route verifies method, same origin, no body, existing admin
+   authentication, temporary allow flag, absent instance pin and an empty report
+   table. Its sole SQL is a count SELECT. The named service uses the existing
+   `community-reports-v1` object. First initialization writes one ledger key;
+   repetition returns the existing UUID without resetting totals/deletion markers.
+   CI never performs this POST or receives the browser session. Save only the
+   exact `{ "ok": true, "instanceId": "<returned UUID>" }` response, not headers
+   or credentials. The placeholder here must never enter configuration.
+
+3. Prepare **pin** offline using the actual successful opening receipt and exact
+   browser response, stored outside the repository:
+
+   ```bash
+   REPORTS_BOOTSTRAP_OPEN_RECEIPT=/tmp/open-receipt.json \
+   REPORTS_BOOTSTRAP_RESULT=/tmp/bootstrap-result.json \
+   node ops/community-reports/bootstrap-phase.mjs prepare-pin
+   ```
+
+   Review/persist the two-file diff with `[CF-Pages-Skip]`: same returned UUID in
+   the phase record and `REPORTS_GUARD_INSTANCE`, all nine flags OFF. The opening
+   receipt's deployment/SHA/config hash is the exact previous-state anchor;
+   arbitrary extra browser response fields or placeholders are rejected. This
+   offline check validates consistency of the reviewed receipt, not a digital
+   signature; compare it with the actual approved run before publishing.
+   New exact-source run: operation `bootstrap-pin`, confirmation
+   `PIN_REPORTS_INSTANCE_ONLY`, existing Environment owner approval. The operation
+   **first deploys/reads back Pages with the pin and bootstrap OFF**, then adds
+   that exact same non-secret pin to the existing cleanup Worker. Cleanup intake,
+   all other flags, URLs and cron remain OFF. The guard itself is never changed.
+
+The cleanup transport permits one multipart
+`PATCH /workers/scripts/gemnao-community-reports-cleanup/settings` only, with
+one `settings` field containing the exact fixed existing bindings plus that UUID.
+It never uploads Worker code. D1 metadata, guard namespace, cleanup bindings,
+disabled URLs, empty schedules and Pages configuration/production identity are
+read before writes and read back after them. An existing different UUID, unexpected
+binding/secret or nonempty operator version annotation stops for review. The
+annotation refusal prevents the provider's documented omission behavior from
+silently removing an operator message/tag. Server-generated version metadata may
+change with a settings update; no claim of zero provider version creation is made.
+The actual PATCH/provider behavior remains untested against production; synthetic
+transport tests and the pinned official SDK contract are local evidence only.
+
+Primary reference, checked 2026-10-16:
+https://developers.cloudflare.com/api/resources/workers/subresources/scripts/subresources/script_and_version_settings/methods/edit/
+
+### Failure, closing and replay
+
+If the POST fails or its result is uncertain, stop. Do not synthesize a UUID,
+initialize another namespace, reset/delete storage or retry automatically. After
+the agreed close authorization, `prepare-close` uses only
+`REPORTS_BOOTSTRAP_OPEN_RECEIPT` (no browser response) and generates a two-file
+closed configuration without a pin. New run: `bootstrap-close`, confirmation
+`CLOSE_REPORTS_BOOTSTRAP_ONLY`. This disables bootstrap through Pages only;
+any already initialized ledger is retained. A closed-unpinned phase cannot be
+reopened through this candidate without another reviewed recovery plan.
+
+A pin failure after the Pages upload leaves Pages pinned and bootstrap disabled;
+cleanup may remain unpinned. Check the receipt and live state. A separately
+reviewed **new run on the same exact source SHA** can finish only that same pin:
+it skips an already successful desired Pages deployment and an already matching
+cleanup pin. Local preparation of an identical pin writes nothing. Replacement
+UUIDs, reopening after pin/close, source/config/identity drift and unknown states
+are refused. A failed provider mutation consumes its one attempt; no automatic
+retry, rollback or deletion is attempted. Wrangler's previously documented
+internal Pages upload retry behavior still applies. Concurrency and fresh reads
+cannot atomically exclude another operator changing resources between reads;
+coordinate this short sequence and stop on any disagreement.
+
+Stage 1 authorization, when granted, must cover only: publishing these reviewed
+protocol/opening source changes; the protected bootstrap-open deployment; one
+authenticated bodyless administrator POST; persisting its actual non-secret UUID;
+the protected bootstrap-pin deployment and exact cleanup binding PATCH; and a
+bootstrap-close contingency if the result is uncertain. Existing Environment
+approval stays with the owner for each new run. No token creation/registration,
+usage-profile assertion, observation, collection, cron, real-data deletion test,
+general reporting UI/API publication or intake activation belongs to this stage.
+The 56-file unpublished UI candidate is separate and must remain unchanged.
+
+## Historic closed setup and recovery
+
 This workflow never opens intake, moderation or public reporting. It never invokes
 bootstrap, verification erasure, an observation, Time Travel or guard reset. The
 existing `gemnao-d1-production` Environment and owner approval remain mandatory.

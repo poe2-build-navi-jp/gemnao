@@ -4,13 +4,23 @@ on:
   workflow_dispatch:
     inputs:
       operation:
-        description: readback reads only; resume-cleanup creates only the absent cleanup; inspect requires absent names
+        description: Bootstrap phases change only temporary allow/pin/close; never execute initialization
         type: choice
-        options: [inspect, readback, resume-cleanup, setup, deploy]
+        options:
+          [
+            inspect,
+            readback,
+            resume-cleanup,
+            setup,
+            deploy,
+            bootstrap-open,
+            bootstrap-pin,
+            bootstrap-close,
+          ]
         default: inspect
         required: true
       confirmation:
-        description: CREATE_CLOSED_REPORTS_CLEANUP_ONLY, SETUP_CLOSED_REPORTS_ONLY or DEPLOY_CLOSED_REPORTS_ONLY
+        description: Exact operation confirmation from ops/community-reports/closed-setup.md
         type: string
         required: false
 permissions:
@@ -37,7 +47,7 @@ jobs:
         with:
           node-version: '22.19.0'
       - name: Test fixed request boundaries without credentials
-        run: node --test --test-concurrency=1 tests/community-reports/closed-setup.test.mjs tests/community-reports/cleanup-resume.test.mjs
+        run: node --test --test-concurrency=1 tests/community-reports/closed-setup.test.mjs tests/community-reports/cleanup-resume.test.mjs tests/community-reports/bootstrap-phase.test.mjs
       - id: verify
         name: Verify reviewed source and existing Environment protection
         env:

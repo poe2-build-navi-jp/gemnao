@@ -90,7 +90,7 @@ export function context(env) {
     'FIXED_MANUAL_CONTEXT_REQUIRED',
   );
 }
-async function jsonResponse(response, label) {
+export async function jsonResponse(response, label) {
   if (!response.ok) {
     await response.body?.cancel();
     throw new SetupFailure(label + '_HTTP', response.status);
@@ -632,6 +632,9 @@ export async function verifySource() {
     'tests/community-reports/managed-wrangler.mjs',
     'ops/community-reports/cleanup-resume.mjs',
     'tests/community-reports/cleanup-resume.test.mjs',
+    'ops/community-reports/bootstrap-phase.mjs',
+    'ops/community-reports/bootstrap-phase-state.json',
+    'tests/community-reports/bootstrap-phase.test.mjs',
     'dist/client/.gitkeep',
     'wrangler.json',
     STATE_PATH,
@@ -668,9 +671,25 @@ export async function verifySource() {
     TARGET.base + ':wrangler.json',
   ]);
   const record = await optionalRecord();
-  const expected = record
+  let expected = record
     ? persistedConfig(JSON.parse(baseline), record, TARGET, FLAGS)
     : JSON.parse(baseline);
+  let phase = null;
+  try {
+    phase = JSON.parse(
+      await readFile(
+        'ops/community-reports/bootstrap-phase-state.json',
+        'utf8',
+      ),
+    );
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+  }
+  if (phase) {
+    fixed(record, 'BOOTSTRAP_PERSISTED_RECORD_REQUIRED');
+    const { phaseConfig } = await import('./bootstrap-phase.mjs');
+    expected = phaseConfig(expected, phase, record);
+  }
   fixed(
     normalized(JSON.parse(await readFile('wrangler.json', 'utf8'))) ===
       normalized(expected),
@@ -1270,9 +1289,16 @@ export async function main(env, fetcher = fetch, mode = process.argv[2]) {
   }
   fixed(
     mode === 'run' &&
-      ['inspect', 'setup', 'deploy', 'readback', 'resume-cleanup'].includes(
-        env.REPORTS_SETUP_OPERATION,
-      ),
+      [
+        'inspect',
+        'setup',
+        'deploy',
+        'readback',
+        'resume-cleanup',
+        'bootstrap-open',
+        'bootstrap-pin',
+        'bootstrap-close',
+      ].includes(env.REPORTS_SETUP_OPERATION),
     'FIXED_OPERATION_REQUIRED',
   );
   const receipt = {
@@ -1304,6 +1330,60 @@ export async function main(env, fetcher = fetch, mode = process.argv[2]) {
         baselineConfig(),
       );
       fixed(receipt.readback.readbackComplete, 'PARTIAL_READBACK_INCOMPLETE');
+    } else if (env.REPORTS_SETUP_OPERATION.startsWith('bootstrap-')) {
+      const {
+        CONFIRMATIONS,
+        optionalPhase,
+        phaseConfig,
+        phaseClient,
+        runBootstrapStage,
+      } = await import('./bootstrap-phase.mjs');
+      fixed(
+        env.REPORTS_SETUP_CONFIRMATION ===
+          CONFIRMATIONS[env.REPORTS_SETUP_OPERATION],
+        'EXPLICIT_BOOTSTRAP_PHASE_REQUIRED',
+      );
+      await verifySource();
+      await verifyArtifact(
+        env.REPORTS_ARTIFACT_DIR,
+        env.REPORTS_ARTIFACT_DIGEST,
+        env.GITHUB_SHA,
+      );
+      const record = await optionalRecord();
+      const phase = await optionalPhase();
+      fixed(record && phase, 'REVIEWED_BOOTSTRAP_PHASE_REQUIRED');
+      const closed = persistedConfig(baselineConfig(), record, TARGET, FLAGS);
+      fixed(
+        normalized(JSON.parse(await readFile('wrangler.json', 'utf8'))) ===
+          normalized(phaseConfig(closed, phase, record)),
+        'BOOTSTRAP_SOURCE_CONFIG_MISMATCH',
+      );
+      const persist = async () => {
+        await writeFile(
+          'closed-setup-receipt.json',
+          JSON.stringify(receipt, null, 2) + '\n',
+        );
+        console.log(
+          JSON.stringify({
+            checkpoint: true,
+            operation: receipt.operation,
+            completed: receipt.completed,
+            databaseId: receipt.databaseId,
+            guardNamespaceId: receipt.guardNamespaceId,
+            instanceId: receipt.instanceId,
+            nextWrite: receipt.nextWrite,
+          }),
+        );
+      };
+      await runBootstrapStage(
+        phaseClient(env.CLOUDFLARE_API_TOKEN, phase, record, closed, fetcher),
+        closed,
+        record,
+        phase,
+        receipt,
+        (config) => uploadPages(env, env.REPORTS_ARTIFACT_DIR, config),
+        persist,
+      );
     } else if (env.REPORTS_SETUP_OPERATION === 'resume-cleanup') {
       fixed(
         env.REPORTS_SETUP_CONFIRMATION === 'CREATE_CLOSED_REPORTS_CLEANUP_ONLY',

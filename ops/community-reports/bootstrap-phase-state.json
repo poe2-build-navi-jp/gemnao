@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "phase": "open",
+  "resourceHash": "64690067d9235af1098a73cf2b02402485c7fa5f003eec88f0281d4f64467dc5",
+  "expectedPrevious": {
+    "deploymentId": "75d4a1d8-bbc6-46d3-9813-f866518f6a81",
+    "sourceSha": "0a703eb562d2f363615be90a442c465178bb78e6",
+    "configSha256": "7b91d4dc119904ed00c32f3a8eb34070fc9a0617a958cc62a5690750043c4689"
+  },
+  "instanceId": null,
+  "openProof": null,
+  "bootstrapResultSha256": null
+}
