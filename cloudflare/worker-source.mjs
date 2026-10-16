@@ -61,7 +61,7 @@ async function render(request, env, context, pathname) {
     protectedResponse.headers.set('X-Robots-Tag', 'noindex, nofollow');
     return protectedResponse;
   }
-  if (/^\/diagnostic-feedback(?:\/|$)/.test(pathname)) {
+  if (/^\/diagnostic-feedback(?:\/|$)/.test(pathname) || pathname === '/admin/reports-bootstrap') {
     const privateResponse = new Response(response.body, response);
     privateResponse.headers.set('Cache-Control', 'private, no-store');
     privateResponse.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
