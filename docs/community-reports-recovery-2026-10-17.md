@@ -34,3 +34,11 @@
 - 受付再開には、受領資料 `evidence/permissions-and-launch-gaps.json` にある実利用量の完全性・鮮度、collection/cleanupの実行証跡、外部health監視と通知到達などの未確認事項が残る。
 
 復旧差分は本番とは別のブランチで保存する。本番の設定・データはこの復旧作業で変更しない。
+
+## 公開ブランチへの統合確認
+
+- 回収commit `f6e928cb7e7548cf7f51b6846580ab33c04cbc2e` はpin commit `cbff64e530d238aa81c1c481f4ac552b2856e90c` の直接の子。競合なく統合でき、38ファイルと本記録以外の差分はない。
+- pin run `38950683052` のcontrol job `117141404439` の成功receiptを確認。Pages deployment `1ed878e3-32bb-46ab-a6d5-2a9245e55506`、Pages/cleanupともinstance `c3cdfc3f-6ba1-495e-b3fd-a377b610b25e` 固定、bootstrap OFF、受付OFF、Worker URL/preview OFF、cron空。
+- 今回は既存のビルド・型・変更箇所lint等の上記検証を再利用。統合検査、operating-plan/publication-check単体21件、21個の固定backend hash、全9報告フラグOFF、UUID一致を再確認した。
+- この環境から本番GET検査は `HTTP_UNAVAILABLE`。UI公開後のHTML/CSS/JS・4言語報告画面・health受付OFF確認は親ブラウザ側で必要。ローカル検査を本番成功と扱わない。
+- UI/APIの配信だけを対象とし、使用量profile、credential、セキュリティ設定、cleanup実行、cron、受付フラグは変更しない。実運用の開始条件は引き続き未確認。
