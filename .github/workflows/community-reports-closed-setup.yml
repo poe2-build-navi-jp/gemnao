@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       operation:
-        description: inspect reads; setup provisions only; deploy requires committed Wrangler bindings
+        description: readback reads the failed run's resources; inspect requires absent names; setup provisions; deploy requires bindings
         type: choice
-        options: [inspect, setup, deploy]
+        options: [inspect, readback, setup, deploy]
         default: inspect
         required: true
       confirmation:
@@ -42,26 +42,32 @@ jobs:
         name: Verify reviewed source and existing Environment protection
         env:
           GH_TOKEN: ${{ github.token }}
+          REPORTS_SETUP_OPERATION: ${{ inputs.operation }}
         run: node ops/community-reports/closed-setup.mjs gate
       - name: Install locked dependencies without lifecycle scripts
+        if: inputs.operation != 'readback'
         run: |
           npm install --global --ignore-scripts --no-audit --no-fund pnpm@11.19.0
           pnpm install --frozen-lockfile --ignore-scripts --ignore-pnpmfile
       - name: Verify real Wrangler managed upload against loopback synthetic API
+        if: inputs.operation != 'readback'
         env:
           WRANGLER_SEND_METRICS: 'false'
         run: node tests/community-reports/managed-wrangler.mjs
       - name: Build reviewed backend without Cloudflare credentials
+        if: inputs.operation != 'readback'
         env:
           WRANGLER_SEND_METRICS: 'false'
           CI: 'true'
         run: pnpm build
       - id: package
+        if: inputs.operation != 'readback'
         name: Package exact Pages and Worker bytes without credentials
         env:
           REPORTS_ARTIFACT_DIR: ${{ runner.temp }}/closed-reports-artifact
         run: node ops/community-reports/closed-setup.mjs package
       - id: artifact
+        if: inputs.operation != 'readback'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: closed-reports-${{ github.run_id }}-${{ github.sha }}
@@ -85,10 +91,12 @@ jobs:
         with:
           node-version: '22.19.0'
       - name: Install locked tools before credentials
+        if: inputs.operation != 'readback'
         run: |
           npm install --global --ignore-scripts --no-audit --no-fund pnpm@11.19.0
           pnpm install --frozen-lockfile --ignore-scripts --ignore-pnpmfile
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        if: inputs.operation != 'readback'
         with:
           artifact-ids: ${{ needs.gate.outputs.artifact }}
           path: ${{ runner.temp }}/closed-reports-artifact

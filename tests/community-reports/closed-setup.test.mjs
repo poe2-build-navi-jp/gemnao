@@ -17,6 +17,10 @@ import {
   verifyArtifact,
   TARGET,
   FLAGS,
+  PARTIAL_SETUP,
+  readbackPartial,
+  SetupFailure,
+  main,
 } from '../../ops/community-reports/closed-setup.mjs';
 import {
   configProjection,
@@ -94,7 +98,11 @@ function fixture(options = {}) {
   const original = structuredClone(project);
   const api = async (method, path, body, label) => {
     calls.push({ method, path, body, label });
-    if (options.failLabel === label) throw Error('SYNTHETIC_MUST_NOT_LOG');
+    if (options.failLabel === label) {
+      if (options.failStatus)
+        throw new SetupFailure(label + '_HTTP', options.failStatus);
+      throw Error('SYNTHETIC_MUST_NOT_LOG');
+    }
     if (path.startsWith('/d1/database?'))
       return {
         ...envelope(
@@ -185,7 +193,7 @@ function fixture(options = {}) {
         uploads.set(name, JSON.parse(await body.get('metadata').text()));
         return envelope({ id: name });
       }
-      if (method === 'PUT' && tail === 'subdomain') {
+      if (method === 'POST' && tail === 'subdomain') {
         assert.deepEqual(body, { enabled: false, previews_enabled: false });
         return envelope(body);
       }
@@ -309,7 +317,7 @@ await test('provider boundary rejects direct Pages PATCH, restore, existing DB S
     ],
     ['POST', '/d1/database/' + id + '/time_travel/restore', {}],
     [
-      'PUT',
+      'POST',
       '/workers/scripts/' + TARGET.guard + '/subdomain',
       { enabled: true, previews_enabled: false },
     ],
@@ -620,4 +628,399 @@ await test('managed projection rejects unrepresented bindings and failed recover
     () => verifyManagedDeployment(f.original, next, baseline, TARGET),
     /SECRET_DESCRIPTOR/,
   );
+});
+
+await test('Cloudflare subdomain contract uses POST; PUT and every enable/extra-field payload stop before fetch', async () => {
+  const calls = [];
+  const api = client('s'.repeat(30), async (url, options) => {
+    calls.push({ url, ...options });
+    assert.equal(options.method, 'POST');
+    assert.deepEqual(JSON.parse(options.body), {
+      enabled: false,
+      previews_enabled: false,
+    });
+    return Response.json(envelope({ enabled: false, previews_enabled: false }));
+  });
+  for (const name of [TARGET.guard, TARGET.cleanup]) {
+    const path = '/workers/scripts/' + name + '/subdomain';
+    for (const body of [
+      { enabled: true, previews_enabled: false },
+      { enabled: false, previews_enabled: true },
+      { enabled: false },
+      { enabled: false, previews_enabled: false, extra: true },
+    ])
+      await assert.rejects(
+        api('POST', path, body, 'URLS'),
+        /PUBLIC_URL_ENABLE_FORBIDDEN/,
+      );
+    await assert.rejects(
+      api('PUT', path, { enabled: false, previews_enabled: false }, 'URLS'),
+      /REQUEST_OUTSIDE_FIXED_BOUNDARY/,
+    );
+    await api(
+      'POST',
+      path,
+      { enabled: false, previews_enabled: false },
+      'URLS',
+    );
+  }
+  assert.equal(calls.length, 2);
+});
+
+await test('405 after guard upload preserves exact partial receipt without cleanup, cron reads or retry', async () => {
+  await withArtifacts(async (directory) => {
+    const f = fixture({ failLabel: 'PUBLIC_URL_DISABLE', failStatus: 405 });
+    const partial = receipt();
+    await assert.rejects(
+      setup(f.api, baseline, directory, partial, () => f.persist(partial)),
+      /PUBLIC_URL_DISABLE_HTTP/,
+    );
+    assert.deepEqual(partial.completed, [
+      'dedicated-d1-created',
+      'dedicated-schema-applied',
+      'guard-uploaded',
+    ]);
+    assert.equal(partial.databaseId, id);
+    assert.equal(partial.guardNamespaceId, undefined);
+    assert.equal(partial.resourceRecord, undefined);
+    assert.equal(f.calls.at(-1).method, 'POST');
+    assert.equal(
+      f.calls.filter((call) => call.label === 'PUBLIC_URL_DISABLE').length,
+      1,
+    );
+    assert.ok(
+      !f.calls.some(
+        (call) =>
+          call.path.includes(TARGET.cleanup) ||
+          call.path.endsWith('/schedules'),
+      ),
+    );
+    assert.deepEqual(f.project, f.original);
+  });
+});
+
+await test('old setup refuses partial resources before any creation or schema request', async () => {
+  await withArtifacts(async (directory) => {
+    for (const resource of ['database', 'guard']) {
+      const f = fixture({ workerExists: resource === 'guard' });
+      const calls = [],
+        partial = receipt();
+      const api = async (method, path, body, label) => {
+        calls.push({ method, path });
+        if (resource === 'database' && path.startsWith('/d1/database?')) {
+          const existing = baseline.d1_databases.map((db) => ({
+            uuid: db.database_id,
+            name: db.database_name,
+          }));
+          existing.push({
+            uuid: PARTIAL_SETUP.databaseId,
+            name: TARGET.database,
+          });
+          return {
+            ...envelope(existing),
+            result_info: { total_count: existing.length },
+          };
+        }
+        return f.api(method, path, body, label);
+      };
+      await assert.rejects(
+        setup(api, baseline, directory, partial),
+        resource === 'database'
+          ? /DATABASE_NAME_ALREADY_EXISTS/
+          : /WORKER_NAME_ALREADY_EXISTS/,
+      );
+      assert.ok(calls.every((call) => call.method === 'GET'));
+      assert.deepEqual(partial.completed, []);
+      assert.equal(partial.resourceRecord, undefined);
+    }
+  });
+});
+
+function partialFixture(options = {}) {
+  const f = fixture(options),
+    calls = [];
+  const fetcher = async (url, request) => {
+    const path = url.slice(
+      url.indexOf('/accounts/' + TARGET.account) +
+        ('/accounts/' + TARGET.account).length,
+    );
+    calls.push({ method: request.method, path, body: request.body });
+    assert.equal(request.method, 'GET');
+    assert.equal(request.body, undefined);
+    if (path === options.deniedPath)
+      return new Response('SYNTHETIC_MUST_NOT_LOG', { status: 403 });
+    if (path === '/d1/database/' + PARTIAL_SETUP.databaseId)
+      return Response.json(
+        envelope({
+          uuid: options.wrongId ? id : PARTIAL_SETUP.databaseId,
+          name: TARGET.database,
+        }),
+      );
+    if (path === '/workers/scripts')
+      return Response.json(
+        envelope([
+          ...(options.noGuard ? [] : [{ id: TARGET.guard }]),
+          ...(options.cleanup ? [{ id: TARGET.cleanup }] : []),
+        ]),
+      );
+    if (path.endsWith('/settings')) {
+      const guard = path.includes(TARGET.guard + '/');
+      return Response.json(
+        envelope({
+          bindings: guard
+            ? [
+                {
+                  type: 'durable_object_namespace',
+                  name: 'GUARD',
+                  class_name: 'CommunityReportLedger',
+                  namespace_id: options.badNamespace
+                    ? 'invalid'
+                    : 'f'.repeat(32),
+                },
+              ]
+            : [
+                {
+                  type: 'd1',
+                  name: 'REPORTS_DB',
+                  id: PARTIAL_SETUP.databaseId,
+                },
+                {
+                  type: 'service',
+                  name: 'REPORTS_GUARD',
+                  service: TARGET.guard,
+                  entrypoint: 'ReportsGuardService',
+                },
+                ...FLAGS.map((flag) => ({
+                  type: 'plain_text',
+                  name: flag,
+                  text:
+                    flag === 'REPORTS_ENABLED' && options.cleanupLive
+                      ? 'true'
+                      : 'false',
+                })),
+              ],
+        }),
+      );
+    }
+    if (path.endsWith('/subdomain'))
+      return Response.json(
+        envelope(
+          options.badUrls
+            ? { enabled: false }
+            : {
+                enabled: !!options.publicUrl,
+                previews_enabled: !!options.previewUrl,
+              },
+        ),
+      );
+    if (path.endsWith('/schedules'))
+      return Response.json(
+        envelope({ schedules: options.cron ? [{ cron: '*/15 * * * *' }] : [] }),
+      );
+    return Response.json(
+      await f.api('GET', path, undefined, 'SYNTHETIC_READBACK'),
+    );
+  };
+  return {
+    api: client('s'.repeat(30), fetcher, PARTIAL_SETUP.databaseId, true),
+    calls,
+    fetcher,
+  };
+}
+
+await test('partial readback uses pinned D1 UUID, captures namespace, URLs, preview, cron and Pages OFF without secret output', async () => {
+  const f = partialFixture({ publicUrl: true, previewUrl: true, cron: true });
+  const result = await readbackPartial(f.api, baseline);
+  assert.equal(result.readbackComplete, true);
+  assert.equal(result.database.identityMatches, true);
+  const guard = result.workers[TARGET.guard];
+  assert.equal(guard.bindings.guardNamespaceId, 'f'.repeat(32));
+  assert.deepEqual(guard.publicUrls, { enabled: true, previewsEnabled: true });
+  assert.deepEqual(guard.cron, { empty: false, expressions: ['*/15 * * * *'] });
+  assert.equal(result.workers[TARGET.cleanup].exists, false);
+  assert.equal(result.pages.intakeClosed, true);
+  assert.equal(result.readyForAutomaticResume, false);
+  assert.ok(
+    f.calls.every((call) => call.method === 'GET' && call.body === undefined),
+  );
+  assert.ok(
+    !f.calls.some(
+      (call) =>
+        call.path.includes('/query') || call.path.includes(TARGET.cleanup),
+    ),
+  );
+  assert.ok(!JSON.stringify(result).includes('SYNTHETIC_MUST_NOT_LOG'));
+  assert.equal(result.resourceRecord, undefined);
+});
+
+await test('read-only transport rejects every mutation, old SQL, unrelated DB and credential endpoints before network', async () => {
+  let calls = 0;
+  const api = client(
+    's'.repeat(30),
+    async () => {
+      calls++;
+      assert.fail('network forbidden');
+    },
+    PARTIAL_SETUP.databaseId,
+    true,
+  );
+  for (const [method, path, body] of [
+    ['POST', '/d1/database', { name: TARGET.database }],
+    [
+      'POST',
+      '/workers/scripts/' + TARGET.guard + '/subdomain',
+      { enabled: false, previews_enabled: false },
+    ],
+    ['PUT', '/workers/scripts/' + TARGET.guard, new FormData()],
+    ['DELETE', '/d1/database/' + PARTIAL_SETUP.databaseId, undefined],
+    ['PATCH', '/pages/projects/gemnao', {}],
+    [
+      'POST',
+      '/d1/database/' + PARTIAL_SETUP.databaseId + '/query',
+      { sql: 'SELECT 1', params: [] },
+    ],
+    ['GET', '/d1/database/' + PARTIAL_SETUP.databaseId, {}],
+  ])
+    await assert.rejects(
+      api(method, path, body, 'READBACK'),
+      /READ_ONLY_REQUEST_REQUIRED/,
+    );
+  await assert.rejects(
+    api('GET', '/d1/database/' + id, undefined, 'READBACK'),
+    /ONLY_NEW_DATABASE_ALLOWED/,
+  );
+  await assert.rejects(
+    api('GET', '/tokens', undefined, 'READBACK'),
+    /REQUEST_OUTSIDE_FIXED_BOUNDARY/,
+  );
+  assert.equal(calls, 0);
+});
+
+await test('partial readback keeps remaining observations on denial, missing guard, malformed responses, identity drift or open Pages flags', async () => {
+  for (const options of [
+    { deniedPath: '/workers/scripts/' + TARGET.guard + '/subdomain' },
+    { noGuard: true },
+    { badNamespace: true },
+    { wrongId: true },
+    { badUrls: true },
+    { liveFlag: true },
+  ]) {
+    const f = partialFixture(options);
+    const result = await readbackPartial(f.api, baseline);
+    assert.equal(result.readbackComplete, false);
+    assert.equal(result.readyForAutomaticResume, false);
+    assert.ok(result.pages);
+    assert.ok(result.errors.length);
+    assert.ok(!JSON.stringify(result).includes('SYNTHETIC_MUST_NOT_LOG'));
+    if (options.deniedPath) {
+      assert.equal(result.workers[TARGET.guard].publicUrls, null);
+      assert.equal(result.workers[TARGET.guard].cron.empty, true);
+      assert.equal(result.errors[0].httpStatus, 403);
+      assert.equal(
+        f.calls.filter((call) => call.path === options.deniedPath).length,
+        1,
+      );
+    }
+    if (options.liveFlag) assert.equal(result.pages.intakeClosed, false);
+    assert.ok(f.calls.every((call) => call.method === 'GET'));
+  }
+});
+
+await test('an unexpectedly existing cleanup is observed including OFF flags, never adopted or overwritten', async () => {
+  const f = partialFixture({ cleanup: true, cleanupLive: true });
+  const result = await readbackPartial(f.api, baseline);
+  assert.equal(result.workers[TARGET.cleanup].exists, true);
+  assert.equal(
+    result.workers[TARGET.cleanup].bindings.flagsOff.REPORTS_ENABLED,
+    false,
+  );
+  assert.equal(result.workers[TARGET.cleanup].bindings.databaseMatches, true);
+  assert.equal(result.readyForAutomaticResume, false);
+  assert.ok(f.calls.every((call) => call.method === 'GET'));
+});
+
+await test('protected readback entry point skips artifacts, uses GET only and refuses missing owner protection/context/credential', async () => {
+  const file = 'closed-setup-receipt.json';
+  const previous = await readFile(file).catch((error) => {
+    if (error.code === 'ENOENT') return null;
+    throw error;
+  });
+  const previousExit = process.exitCode,
+    previousLog = console.log;
+  const logs = [];
+  console.log = (value) => logs.push(value);
+  try {
+    for (const patch of [
+      {},
+      { REPORTS_SETUP_ENVIRONMENT: 'other' },
+      { GITHUB_RUN_ATTEMPT: '2' },
+      { CLOUDFLARE_API_TOKEN: '' },
+      { REPORTS_SETUP_CONFIRMATION: 'SETUP_CLOSED_REPORTS_ONLY' },
+      { syntheticMissingReviewers: true },
+    ]) {
+      process.exitCode = 0;
+      const f = partialFixture(),
+        githubCalls = [];
+      const fetcher = async (url, options) => {
+        if (url.startsWith('https://api.cloudflare.com/'))
+          return f.fetcher(url, options);
+        githubCalls.push({ url, ...options });
+        assert.equal(options.method, 'GET');
+        return Response.json(
+          url.includes('branch-policies')
+            ? {
+                total_count: 1,
+                branch_policies: [{ name: TARGET.branch, type: 'branch' }],
+              }
+            : {
+                name: TARGET.environment,
+                protection_rules: patch.syntheticMissingReviewers
+                  ? []
+                  : [{ type: 'required_reviewers', reviewers: [{}] }],
+                deployment_branch_policy: {
+                  custom_branch_policies: true,
+                  protected_branches: false,
+                },
+              },
+        );
+      };
+      await main(
+        {
+          ...env,
+          CLOUDFLARE_API_TOKEN: 's'.repeat(30),
+          REPORTS_SETUP_ENVIRONMENT: TARGET.environment,
+          REPORTS_SETUP_OPERATION: 'readback',
+          // No artifact exists: readback must never invoke build/upload helpers.
+          REPORTS_ARTIFACT_DIR: '/does-not-exist-synthetic',
+          ...patch,
+        },
+        fetcher,
+        'run',
+      );
+      const result = JSON.parse(await readFile(file, 'utf8'));
+      if (Object.keys(patch).length === 0) {
+        assert.equal(result.ok, true);
+        assert.equal(result.intakeEnabled, null);
+        assert.equal(result.readback.pages.intakeClosed, true);
+        assert.equal(
+          result.readback.database.databaseId,
+          PARTIAL_SETUP.databaseId,
+        );
+        assert.equal(result.readback.readyForAutomaticResume, false);
+        assert.ok(f.calls.length > 0);
+      } else {
+        assert.equal(result.ok, false);
+        assert.equal(f.calls.length, 0);
+        assert.equal(process.exitCode, 1);
+      }
+      assert.ok(githubCalls.every((call) => call.method === 'GET'));
+      assert.ok(f.calls.every((call) => call.method === 'GET'));
+    }
+    assert.ok(!logs.join('\n').includes('SYNTHETIC_MUST_NOT_LOG'));
+  } finally {
+    console.log = previousLog;
+    process.exitCode = previousExit;
+    if (previous) await writeFile(file, previous);
+    else await rm(file, { force: true });
+  }
 });

@@ -49,6 +49,13 @@ export const FLAGS = Object.freeze([
   'REPORTS_BOOTSTRAP_ALLOWED',
   'REPORTS_VERIFICATION_ALLOWED',
 ]);
+// Non-secret identity returned by the failed run. Never infer/adopt a database
+// from its name, and never use this partial receipt as a full resourceRecord.
+export const PARTIAL_SETUP = Object.freeze({
+  runId: '38792112604',
+  sourceSha: 'c6d411241d6b8c3d79bbb76bcb84f0f8937177d2',
+  databaseId: '3141aae6-8dc9-47e9-a8a2-7a05f642f94f',
+});
 const UUID = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/;
 const sha = (value) => createHash('sha256').update(value).digest('hex');
 const fixed = (condition, code) => {
@@ -145,7 +152,12 @@ export async function gate(env, fetcher = fetch) {
   );
   return TARGET.environment;
 }
-export function client(token, fetcher = fetch, persistedId = null) {
+export function client(
+  token,
+  fetcher = fetch,
+  persistedId = null,
+  readOnly = false,
+) {
   fixed(
     typeof token === 'string' && /^[\x21-\x7e]{20,256}$/.test(token),
     'EXISTING_CLOUDFLARE_AUTH_REQUIRED',
@@ -167,17 +179,24 @@ export function client(token, fetcher = fetch, persistedId = null) {
     if (method === 'POST')
       return (
         path === '/d1/database' ||
-        /^\/d1\/database\/[a-f0-9-]{36}\/query$/.test(path)
+        /^\/d1\/database\/[a-f0-9-]{36}\/query$/.test(path) ||
+        /^\/workers\/scripts\/gemnao-community-reports-(guard|cleanup)\/subdomain$/.test(
+          path,
+        )
       );
     if (method === 'PUT')
-      return /^\/workers\/scripts\/gemnao-community-reports-(guard|cleanup)(\/subdomain)?$/.test(
+      return /^\/workers\/scripts\/gemnao-community-reports-(guard|cleanup)$/.test(
         path,
       );
     return false;
   };
   return async (method, path, body, label) => {
+    fixed(
+      !readOnly || (method === 'GET' && body === undefined),
+      'READ_ONLY_REQUEST_REQUIRED',
+    );
     fixed(allowed(method, path), 'REQUEST_OUTSIDE_FIXED_BOUNDARY');
-    if (method === 'PUT' && path.endsWith('/subdomain'))
+    if (method === 'POST' && path.endsWith('/subdomain'))
       fixed(
         normalized(body) ===
           normalized({ enabled: false, previews_enabled: false }),
@@ -349,6 +368,224 @@ export async function inspect(api, baseline) {
       recovery,
     },
   };
+}
+// Partial-state inspection deliberately does not call inspect(): that operation
+// requires absent names and is unsafe as a recovery/retry plan. No SQL is read.
+export async function readbackPartial(api, baseline) {
+  const result = {
+    originalRunId: PARTIAL_SETUP.runId,
+    originalSourceSha: PARTIAL_SETUP.sourceSha,
+    readOnly: true,
+    errors: [],
+    database: null,
+    workers: {},
+    pages: null,
+  };
+  const get = async (path, label) => {
+    try {
+      return await api('GET', path, undefined, label);
+    } catch (error) {
+      result.errors.push({ stage: label, ...safeFailure(error) });
+      return null;
+    }
+  };
+  const database = await get(
+    '/d1/database/' + PARTIAL_SETUP.databaseId,
+    'PARTIAL_D1_IDENTITY',
+  );
+  if (database) {
+    result.database = {
+      databaseId: PARTIAL_SETUP.databaseId,
+      identityMatches:
+        database.result?.uuid === PARTIAL_SETUP.databaseId &&
+        database.result?.name === TARGET.database,
+    };
+    if (!result.database.identityMatches)
+      result.errors.push({
+        stage: 'PARTIAL_D1_IDENTITY',
+        error: 'PARTIAL_D1_IDENTITY_MISMATCH',
+      });
+  }
+  const inventory = await get('/workers/scripts', 'PARTIAL_WORKER_LIST');
+  const workers = inventory?.result;
+  const validList =
+    Array.isArray(workers) &&
+    workers.length <= 98 &&
+    workers.every((worker) => typeof worker.id === 'string') &&
+    new Set(workers.map((worker) => worker.id)).size === workers.length;
+  if (inventory && !validList)
+    result.errors.push({
+      stage: 'PARTIAL_WORKER_LIST',
+      error: 'WORKER_LIST_INCOMPLETE',
+    });
+  for (const name of [TARGET.guard, TARGET.cleanup]) {
+    const state = {
+      exists: validList ? workers.some((worker) => worker.id === name) : null,
+      publicUrls: null,
+      cron: null,
+      bindings: null,
+    };
+    result.workers[name] = state;
+    if (state.exists === false) {
+      if (name === TARGET.guard)
+        result.errors.push({
+          stage: 'PARTIAL_WORKER_LIST',
+          error: 'PARTIAL_GUARD_MISSING',
+        });
+      continue;
+    }
+    // Collect all three observations even when URL state is unsafe/unknown.
+    const settings = await get(
+      '/workers/scripts/' + name + '/settings',
+      'PARTIAL_' + (name === TARGET.guard ? 'GUARD' : 'CLEANUP') + '_SETTINGS',
+    );
+    const urls = await get(
+      '/workers/scripts/' + name + '/subdomain',
+      'PARTIAL_' + (name === TARGET.guard ? 'GUARD' : 'CLEANUP') + '_URLS',
+    );
+    const schedules = await get(
+      '/workers/scripts/' + name + '/schedules',
+      'PARTIAL_' + (name === TARGET.guard ? 'GUARD' : 'CLEANUP') + '_CRON',
+    );
+    if (urls) {
+      state.publicUrls = {
+        enabled:
+          typeof urls.result?.enabled === 'boolean'
+            ? urls.result.enabled
+            : null,
+        previewsEnabled:
+          typeof urls.result?.previews_enabled === 'boolean'
+            ? urls.result.previews_enabled
+            : null,
+      };
+      if (Object.values(state.publicUrls).some((value) => value === null))
+        result.errors.push({
+          stage: name,
+          error: 'WORKER_URL_RESPONSE_INCOMPLETE',
+        });
+    }
+    if (schedules) {
+      const entries = schedules.result?.schedules;
+      if (
+        Array.isArray(entries) &&
+        entries.length <= 100 &&
+        entries.every(
+          (item) => typeof item.cron === 'string' && item.cron.length <= 100,
+        )
+      )
+        state.cron = {
+          empty: entries.length === 0,
+          expressions: entries.map((item) => item.cron),
+        };
+      else
+        result.errors.push({
+          stage: name,
+          error: 'WORKER_CRON_RESPONSE_INCOMPLETE',
+        });
+    }
+    if (settings) {
+      const bindings = settings.result?.bindings;
+      if (!Array.isArray(bindings)) {
+        result.errors.push({
+          stage: name,
+          error: 'WORKER_BINDINGS_RESPONSE_INCOMPLETE',
+        });
+      } else if (name === TARGET.guard) {
+        const binding = bindings.find((item) => item.name === 'GUARD');
+        const matches =
+          bindings.length === 1 &&
+          binding?.type === 'durable_object_namespace' &&
+          binding.class_name === 'CommunityReportLedger' &&
+          /^[a-f0-9]{32}$/.test(binding.namespace_id || '') &&
+          (!binding.script_name || binding.script_name === TARGET.guard);
+        state.bindings = {
+          identityMatches: matches,
+          guardNamespaceId: matches ? binding.namespace_id : null,
+        };
+        if (!matches)
+          result.errors.push({
+            stage: name,
+            error: 'PARTIAL_GUARD_BINDING_MISMATCH',
+          });
+      } else {
+        const flags = Object.fromEntries(
+          FLAGS.map((flag) => [
+            flag,
+            bindings.some(
+              (item) =>
+                item.name === flag &&
+                item.type === 'plain_text' &&
+                item.text === 'false',
+            ),
+          ]),
+        );
+        state.bindings = {
+          databaseMatches: bindings.some(
+            (item) =>
+              item.name === 'REPORTS_DB' &&
+              item.type === 'd1' &&
+              item.id === PARTIAL_SETUP.databaseId,
+          ),
+          serviceMatches: bindings.some(
+            (item) =>
+              item.name === 'REPORTS_GUARD' &&
+              item.type === 'service' &&
+              item.service === TARGET.guard &&
+              item.entrypoint === 'ReportsGuardService',
+          ),
+          flagsOff: flags,
+        };
+      }
+    }
+  }
+  const pages = await get('/pages/projects/gemnao', 'PARTIAL_PAGES');
+  if (pages) {
+    const production = pages.result?.deployment_configs?.production;
+    const flags = Object.fromEntries(
+      FLAGS.map((flag) => {
+        if (!production || !production.env_vars) return [flag, null];
+        const variable = production.env_vars[flag];
+        return [
+          flag,
+          !variable ||
+            (variable.type === 'plain_text' && variable.value === 'false'),
+        ];
+      }),
+    );
+    result.pages = {
+      flagsOff: flags,
+      intakeClosed: Object.values(flags).includes(null)
+        ? null
+        : Object.values(flags).every(Boolean),
+      unchangedClosedConfiguration: false,
+      recovery: null,
+    };
+    try {
+      checkProject(pages.result, baseline);
+      const configuration = managedBaseline(pages.result, baseline);
+      result.pages.unchangedClosedConfiguration = true;
+      const anchor = await readAnchor((method, path, body, label) => {
+        fixed(
+          method === 'GET' && body === undefined,
+          'READ_ONLY_REQUEST_REQUIRED',
+        );
+        return api(method, path, body, label);
+      }, pages.result);
+      result.pages.recovery = {
+        ...anchor,
+        productionConfigSha256: configuration.productionConfigSha256,
+      };
+    } catch (error) {
+      result.errors.push({
+        stage: 'PARTIAL_PAGES_CONFIGURATION',
+        ...safeFailure(error),
+      });
+    }
+  }
+  result.readbackComplete = result.errors.length === 0;
+  // This is a status report, never an executable provisioning record/permission.
+  result.readyForAutomaticResume = false;
+  return result;
 }
 async function files(directory, prefix = '') {
   const result = [];
@@ -627,7 +864,7 @@ export async function setup(
     receipt.completed.push(guard ? 'guard-uploaded' : 'cleanup-uploaded');
     await persist();
     await api(
-      'PUT',
+      'POST',
       '/workers/scripts/' + name + '/subdomain',
       { enabled: false, previews_enabled: false },
       'PUBLIC_URL_DISABLE',
@@ -945,8 +1182,7 @@ async function uploadPages(env, artifact, desired) {
     throw new SetupFailure('PAGES_UPLOAD_FAILED_OR_UNCERTAIN');
   }
 }
-async function main(env) {
-  const mode = process.argv[2];
+export async function main(env, fetcher = fetch, mode = process.argv[2]) {
   if (mode === 'prepare-bindings') {
     fixed(
       !process.env.CLOUDFLARE_API_TOKEN && env.REPORTS_RESOURCE_RECORD,
@@ -971,8 +1207,10 @@ async function main(env) {
     return;
   }
   if (mode === 'gate') {
-    await verifySource();
-    const environment = await gate(env);
+    // The historic mutation allowlist correctly rejects later article commits.
+    // Readback has a GET-only client and does not build/upload artifact bytes.
+    if (env.REPORTS_SETUP_OPERATION !== 'readback') await verifySource();
+    const environment = await gate(env, fetcher);
     if (env.GITHUB_OUTPUT)
       await writeFile(env.GITHUB_OUTPUT, 'environment=' + environment + '\n', {
         flag: 'a',
@@ -1000,7 +1238,9 @@ async function main(env) {
   }
   fixed(
     mode === 'run' &&
-      ['inspect', 'setup', 'deploy'].includes(env.REPORTS_SETUP_OPERATION),
+      ['inspect', 'setup', 'deploy', 'readback'].includes(
+        env.REPORTS_SETUP_OPERATION,
+      ),
     'FIXED_OPERATION_REQUIRED',
   );
   const receipt = {
@@ -1008,66 +1248,83 @@ async function main(env) {
     sourceSha: env.GITHUB_SHA,
     runId: env.GITHUB_RUN_ID,
     completed: [],
-    intakeEnabled: false,
+    intakeEnabled: env.REPORTS_SETUP_OPERATION === 'readback' ? null : false,
     generalReportingUiIncluded: false,
   };
   try {
-    await gate(env);
+    await gate(env, fetcher);
     fixed(
       env.REPORTS_SETUP_ENVIRONMENT === TARGET.environment,
       'PROTECTED_ENVIRONMENT_REQUIRED',
     );
-    await verifySource();
-    await verifyArtifact(
-      env.REPORTS_ARTIFACT_DIR,
-      env.REPORTS_ARTIFACT_DIGEST,
-      env.GITHUB_SHA,
-    );
-    const record = await optionalRecord();
-    const api = client(env.CLOUDFLARE_API_TOKEN, fetch, record?.databaseId),
-      baseline = baselineConfig();
-    const persist = async () => {
-      await writeFile(
-        'closed-setup-receipt.json',
-        JSON.stringify(receipt, null, 2) + '\n',
-      );
-      // Bounded non-secret checkpoint reaches the run log before mutations too.
-      console.log(
-        JSON.stringify({
-          checkpoint: true,
-          recovery: receipt.recovery,
-          completed: receipt.completed,
-          databaseId: receipt.databaseId || null,
-          guardNamespaceId: receipt.guardNamespaceId || null,
-          nextWrite: receipt.nextWrite || null,
-        }),
-      );
-    };
-    if (env.REPORTS_SETUP_OPERATION === 'inspect')
-      receipt.inspection = (await inspect(api, baseline)).receipt;
-    else if (env.REPORTS_SETUP_OPERATION === 'setup') {
+    if (env.REPORTS_SETUP_OPERATION === 'readback') {
       fixed(
-        !record &&
-          env.REPORTS_SETUP_CONFIRMATION === 'SETUP_CLOSED_REPORTS_ONLY',
-        'EXPLICIT_CLOSED_SETUP_REQUIRED',
+        !env.REPORTS_SETUP_CONFIRMATION,
+        'READBACK_CONFIRMATION_MUST_BE_EMPTY',
       );
-      await setup(api, baseline, env.REPORTS_ARTIFACT_DIR, receipt, persist);
+      receipt.readback = await readbackPartial(
+        client(
+          env.CLOUDFLARE_API_TOKEN,
+          fetcher,
+          PARTIAL_SETUP.databaseId,
+          true,
+        ),
+        baselineConfig(),
+      );
+      fixed(receipt.readback.readbackComplete, 'PARTIAL_READBACK_INCOMPLETE');
     } else {
-      fixed(
-        record &&
-          env.REPORTS_SETUP_CONFIRMATION === 'DEPLOY_CLOSED_REPORTS_ONLY',
-        'PERSISTED_CLOSED_DEPLOY_REQUIRED',
+      await verifySource();
+      await verifyArtifact(
+        env.REPORTS_ARTIFACT_DIR,
+        env.REPORTS_ARTIFACT_DIGEST,
+        env.GITHUB_SHA,
       );
-      const desired = JSON.parse(await readFile('wrangler.json', 'utf8'));
-      await deployClosed(
-        api,
-        baseline,
-        record,
-        desired,
-        receipt,
-        (config) => uploadPages(env, env.REPORTS_ARTIFACT_DIR, config),
-        persist,
-      );
+      const record = await optionalRecord();
+      const api = client(env.CLOUDFLARE_API_TOKEN, fetcher, record?.databaseId),
+        baseline = baselineConfig();
+      const persist = async () => {
+        await writeFile(
+          'closed-setup-receipt.json',
+          JSON.stringify(receipt, null, 2) + '\n',
+        );
+        // Bounded non-secret checkpoint reaches the run log before mutations too.
+        console.log(
+          JSON.stringify({
+            checkpoint: true,
+            recovery: receipt.recovery,
+            completed: receipt.completed,
+            databaseId: receipt.databaseId || null,
+            guardNamespaceId: receipt.guardNamespaceId || null,
+            nextWrite: receipt.nextWrite || null,
+          }),
+        );
+      };
+      if (env.REPORTS_SETUP_OPERATION === 'inspect')
+        receipt.inspection = (await inspect(api, baseline)).receipt;
+      else if (env.REPORTS_SETUP_OPERATION === 'setup') {
+        fixed(
+          !record &&
+            env.REPORTS_SETUP_CONFIRMATION === 'SETUP_CLOSED_REPORTS_ONLY',
+          'EXPLICIT_CLOSED_SETUP_REQUIRED',
+        );
+        await setup(api, baseline, env.REPORTS_ARTIFACT_DIR, receipt, persist);
+      } else {
+        fixed(
+          record &&
+            env.REPORTS_SETUP_CONFIRMATION === 'DEPLOY_CLOSED_REPORTS_ONLY',
+          'PERSISTED_CLOSED_DEPLOY_REQUIRED',
+        );
+        const desired = JSON.parse(await readFile('wrangler.json', 'utf8'));
+        await deployClosed(
+          api,
+          baseline,
+          record,
+          desired,
+          receipt,
+          (config) => uploadPages(env, env.REPORTS_ARTIFACT_DIR, config),
+          persist,
+        );
+      }
     }
     receipt.ok = true;
   } catch (error) {
