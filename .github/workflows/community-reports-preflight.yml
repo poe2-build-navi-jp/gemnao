@@ -2,6 +2,13 @@ name: Community reports analytics preflight
 run-name: Community reports read-only capabilities — manual approval
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: Schema discovery or read-only usage/cleanup/health inspection; never activation
+        type: choice
+        required: true
+        default: schema
+        options: [schema, readiness]
 permissions:
   contents: read
 jobs:
@@ -22,7 +29,7 @@ jobs:
         with:
           node-version: '22'
       - name: Check read-only boundaries with synthetic credentials
-        run: node --test tests/community-reports/preflight.test.mjs
+        run: node --test tests/community-reports/preflight.test.mjs tests/community-reports/readiness-inspection.test.mjs
       - id: verify
         env:
           GH_TOKEN: ${{ github.token }}
@@ -44,8 +51,17 @@ jobs:
         with:
           node-version: '22'
       - name: Fixed metadata GETs and GraphQL schema/settings only
+        if: inputs.mode != 'readiness'
         env:
           GH_TOKEN: ${{ github.token }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           REPORTS_PREFLIGHT_ENVIRONMENT: gemnao-d1-production
         run: node ops/community-reports/preflight.mjs discover
+      - name: Fixed read-only usage, dedicated DB counts, cleanup schedules and public health; no writes
+        if: inputs.mode == 'readiness'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          REPORTS_PREFLIGHT_ENVIRONMENT: gemnao-d1-production
+          REPORTS_READINESS_INSPECTION: 'true'
+        run: node ops/community-reports/readiness-inspection.mjs inspect
