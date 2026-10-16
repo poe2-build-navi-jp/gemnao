@@ -73,3 +73,17 @@ durationの課金単位、providerの集計完了時刻、通知到達、cleanup
 - ローカルpreflight/readiness 28テスト成功。実schemaでのquery構成、DO保存量のunknown理由8種類、明示ゼロと空配列の区別、小数の拒否を含む。変更MJSのlint成功。サイトのコード・設定は未変更のため全ビルド／全テストは再実行しない。
 
 次の具体操作は、親担当による既存analytics preflightの新規run（gemunao、mode=readiness、確認文字列なし）と、そのrunに対する本人の既存Environment承認。要求範囲は従来どおり固定metadata/GraphQL/専用DBの固定SELECT/公開healthの読取りだけ。新credential確認・登録・権限拡大・collection書込み・cleanup削除・cron変更を含めない。新しいreceiptでunknown理由を確認するまでは、原因の推測修正を進めない。
+
+## readiness run #7の確定結果
+
+本人承認済みrun [38960244101](https://github.com/poe2-build-navi-jp/gemnao/actions/runs/38960244101)、source `f9dbad045d91679f7383e3f762d336706f364df9`、gate/discoverとも成功。receiptのcheckedAtは2026-10-16T20:16:17.782Z。要求期間は同日00:00〜20:11:17.782Z。
+
+- DO保存量unknownの直接原因は `unknownReasons.doStorage=empty-rows`。GraphQL全体の成功応答に対し、当該datasetの配列が空だった。403、schema query error、資源ID不一致、不正数値を原因とした結果ではない。providerが行を返さない理由（収録時刻・対象期間・その他）はこのreceiptだけでは断定できない。
+- D1/Workers/DO request・行read/writeの8指標は取得値が80%未満。durationは値あり、課金換算未検証。全体coverage未検証。過去の利用者画像による確認済み数値はそのまま保持する。
+- SQL保存量queryは実schemaに存在する `durableObjectsSqlStorageGroups` / `max.storedBytes` / `dimensions.namespaceId` / `datetime_geq,datetime_leq` を使用している。guard作成コードも `new_sqlite_classes: ['CommunityReportLedger']` を使用しており、KV backendだったと推測してdatasetを差し替える根拠はない。
+- 受付/公開OFF、health 503/not-configured。専用DBに投稿・期限切れ投稿・古いrate・未完了withdrawalなし。cleanup成功時刻なし、15分cronなし。実削除やcollectionを実行していない。
+- 今回は取得コードを推測変更していない。空応答をゼロにする、namespaceを除外する、古い期間の値を現在値とする、HTTP時刻をcoverageにする変更は不適切。実schemaに集計完了保証がない問題も未解消であり、フラグはOFFのまま。
+
+次の照合は親の既存Cloudflareブラウザで、対象accountのDO SQLite保存量表示が同じUTC期間に値を持つか、その表示の対象期間・更新時刻を読むこと。従来のWorkers/D1画像の再送やtoken確認は不要。表示にも値がなければprovider側の収録仕様の確認が必要。表示に値がある場合は、その値を取得する正式なdataset/集計期間の根拠を確認してからquery修正を行う。同じreadiness runの重複起動や、権限拡大では解決したとみなさない。
+
+監視タスクは登録済みを継承し、重複作成なし。通知到達は本人確認待ち。新credential・権限拡大・削除・cron開始の承認は今回要求せず、それらの操作も行っていない。
