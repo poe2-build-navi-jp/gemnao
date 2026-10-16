@@ -222,6 +222,8 @@ export const errorCodeArticles: GameArticle[] = [
       'time-sync-failed',
       'connection-after-time-sync',
       'not-launching',
+      'hotas-not-recognized',
+      'stutter-audio-cutting-out',
     ],
     metaDescription:
       'エースコンバット8（エスコン8）のエラーコード「ST-3100001」は、公式によるとゲームサーバーとの通信が切れた時のエラー。公式の対処（Windowsの時刻同期）の手順、時刻のずれを秒単位で確かめるコマンド、ミッション終了後のエラーとペナルティ解除の公式告知を解説。',

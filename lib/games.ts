@@ -764,7 +764,7 @@ export const games: GameGuide[] = [
     title:
       'エースコンバット8 ウイングス・オブ・シーヴ（ACE COMBAT 8: WINGS OF THEVE）',
     shortTitle: 'エースコンバット8',
-    lead: 'レイトレーシング対応GPU・SSD・Windows 11が必須。起動しない原因を動作環境から順に確認。',
+    lead: 'PC版の起動不良・ST-3100001に加え、HOTASの認識、プレイ中のカクつき・音切れを症状別に案内。公式の要件・機種別手順と利用者報告を区別し、次に確かめる場所を絞ります。',
     accent: '#2f5d73',
     demand: '2026年10月2日発売・9月29日アーリーアクセス',
     issueScale: '高い',

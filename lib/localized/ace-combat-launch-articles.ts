@@ -21,6 +21,13 @@ export const aceCombatLaunchArticles: LocalizedArticle[] = [
     title:
       'ACE COMBAT 8 Not Launching or Crashing on PC: Requirements and Official Checks',
     shortTitle: 'Not launching or crashing',
+    nextChecks: {
+      heading: 'The game starts, but controls, video or audio fail',
+      links: [
+        { href: '/en/games/ace-combat-8/hotas-not-recognized', label: 'HOTAS or flight stick not responding' },
+        { href: '/en/games/ace-combat-8/stutter-audio-cutting-out', label: 'Stutter or audio cuts during play' },
+      ],
+    },
     description:
       'Check Windows 11, hardware ray tracing, SSD space and the publisher’s driver and virtual-memory advice. Separate launch crashes from ST-3100001 online disconnections.',
     lead: 'For the PC/Steam version failing to start, closing at launch, getting stuck loading or crashing in flight. These are source-based checks, not fixes verified on our own gaming PC.',
@@ -199,6 +206,8 @@ export const aceCombatLaunchArticles: LocalizedArticle[] = [
       },
     ],
     related: [
+      { href: '/en/games/ace-combat-8/hotas-not-recognized', label: 'HOTAS and flight-stick checks' },
+      { href: '/en/games/ace-combat-8/stutter-audio-cutting-out', label: 'Stutter and audio cuts during play' },
       {
         href: '/en/games/ace-combat-8/error-st-3100001',
         label: 'Online error ST-3100001',
@@ -220,6 +229,13 @@ export const aceCombatLaunchArticles: LocalizedArticle[] = [
     locale: 'zh',
     title: 'ACE COMBAT 8 无法启动或崩溃：PC 配置与官方排查步骤',
     shortTitle: '无法启动或崩溃',
+    nextChecks: {
+      heading: '游戏能启动，但操作、画面或声音异常',
+      links: [
+        { href: '/zh/games/ace-combat-8/hotas-not-recognized', label: 'HOTAS／飞行摇杆无响应' },
+        { href: '/zh/games/ace-combat-8/stutter-audio-cutting-out', label: '游玩时卡顿或声音断续' },
+      ],
+    },
     description:
       '核对 Windows 11、硬件光线追踪、SSD 空间，以及官方建议的驱动和虚拟内存设置。区分启动崩溃与 ST-3100001 联机错误。',
     lead: '适用于 PC／Steam 版无法启动、启动后退出、加载卡住或飞行中崩溃。本文依据资料整理，并非编辑部在游戏实机上验证成功的修复记录。',
@@ -387,6 +403,8 @@ export const aceCombatLaunchArticles: LocalizedArticle[] = [
       },
     ],
     related: [
+      { href: '/zh/games/ace-combat-8/hotas-not-recognized', label: 'HOTAS／飞行摇杆排查' },
+      { href: '/zh/games/ace-combat-8/stutter-audio-cutting-out', label: '游玩时卡顿与音频断续' },
       {
         href: '/en/games/ace-combat-8/error-st-3100001',
         label: 'ST-3100001 联机错误（英语）',
@@ -409,6 +427,13 @@ export const aceCombatLaunchArticles: LocalizedArticle[] = [
     title:
       'ACE COMBAT 8 no inicia o se cierra en PC: requisitos y comprobaciones oficiales',
     shortTitle: 'No inicia o se cierra',
+    nextChecks: {
+      heading: 'El juego inicia, pero fallan los controles, la imagen o el sonido',
+      links: [
+        { href: '/es/games/ace-combat-8/hotas-not-recognized', label: 'HOTAS o joystick sin respuesta' },
+        { href: '/es/games/ace-combat-8/stutter-audio-cutting-out', label: 'Tirones o cortes de audio durante el juego' },
+      ],
+    },
     description:
       'Comprueba Windows 11, trazado de rayos por hardware, espacio SSD, controlador recomendado y memoria virtual. Distingue los cierres del error online ST-3100001.',
     lead: 'Para la versión PC/Steam que no inicia, se cierra al arrancar, se atasca al cargar o falla durante el vuelo. Son comprobaciones basadas en fuentes, no arreglos probados por nosotros en un PC de juego.',
@@ -586,6 +611,8 @@ export const aceCombatLaunchArticles: LocalizedArticle[] = [
       },
     ],
     related: [
+      { href: '/es/games/ace-combat-8/hotas-not-recognized', label: 'Comprobaciones de HOTAS y joystick' },
+      { href: '/es/games/ace-combat-8/stutter-audio-cutting-out', label: 'Tirones y cortes de audio durante el juego' },
       {
         href: '/en/games/ace-combat-8/error-st-3100001',
         label: 'Error online ST-3100001 (inglés)',

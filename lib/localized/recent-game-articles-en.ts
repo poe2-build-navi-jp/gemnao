@@ -664,6 +664,8 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
         label: 'ACE COMBAT 8 launch troubleshooting',
       },
       { href: '/status', label: 'Outage and maintenance status (Japanese)' },
+      { href: '/en/games/ace-combat-8/hotas-not-recognized', label: 'HOTAS or flight stick not responding' },
+      { href: '/en/games/ace-combat-8/stutter-audio-cutting-out', label: 'Stutter and audio cuts during play' },
     ],
     sources: [
       {

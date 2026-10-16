@@ -1,4 +1,6 @@
 import { apexVersionMismatchGuide } from './apex-version-mismatch';
+import { aceCombatHotasGuide } from './ace-combat-hotas';
+import { aceCombatPerformanceGuide } from './ace-combat-performance';
 import { overwatchRenderingGuide } from './overwatch-rendering';
 import { pubgAnticheatGuide } from './pubg-anticheat';
 import { apexJavelinGuide } from './apex-javelin';
@@ -20,6 +22,8 @@ import { wildsRecurrenceGuide } from './wilds-recurrence';
 import { japaneseFollowup, translatedFollowups } from './types';
 
 export const followupGuides = [
+  aceCombatHotasGuide,
+  aceCombatPerformanceGuide,
   apexVersionMismatchGuide,
   overwatchRenderingGuide,
   pubgAnticheatGuide,

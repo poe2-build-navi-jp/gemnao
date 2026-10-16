@@ -357,6 +357,13 @@ export const launchWeekArticles: GameArticle[] = [
     title:
       'エースコンバット8（ACE COMBAT 8）が起動しない・クラッシュする時の対処法【PC版】',
     shortTitle: '起動しない・クラッシュ',
+    nextChecks: {
+      heading: '起動はするが、操作・映像・音が不安定な場合',
+      links: [
+        { href: '/games/ace-combat-8/hotas-not-recognized', label: 'HOTAS・フライトスティックが反応しない' },
+        { href: '/games/ace-combat-8/stutter-audio-cutting-out', label: 'プレイ中に重くなる・カクつく・音が途切れる' },
+      ],
+    },
     targetVersion:
       'STEAM版・公式システム要件と2026年10月2日時点の公式のお知らせ',
     symptom:
@@ -591,7 +598,7 @@ export const launchWeekArticles: GameArticle[] = [
       aceSources.famitsu,
       aceSources.steam,
     ],
-    related: ['error-st-3100001'],
+    related: ['error-st-3100001', 'hotas-not-recognized', 'stutter-audio-cutting-out'],
     metaDescription:
       'PC版エースコンバット8（エスコン8）が起動しない・落ちる時の対処法。公式が調査中のクラッシュの確認事項（推奨ドライバー・SSDの空き16GB・仮想メモリ）、エラーST-3100001、レイトレーシング対応GPU・Windows 11・SSDが必須の動作環境まで公式情報をもとに解説。',
   }),
