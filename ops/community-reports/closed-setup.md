@@ -34,14 +34,22 @@ or empty cron. The run stopped before their GET readback, and before reading the
 actual Durable Object namespace ID. Do not supply a placeholder namespace, call
 `prepare-bindings`, or present this partial receipt as a complete resourceRecord.
 
-### Read-only candidate and current access limitation
+### Verified readback and cleanup-only candidate
 
-This local candidate adds operation **readback**, confirmation **empty**, to the
-same protected workflow. It requires the existing reviewer/branch checks and
-`gemnao-d1-production` Environment approval. It does not change those protections
-or request/export credentials. It uses the existing protected secret only in
-the approved job. It cannot run remotely until this candidate is separately
-reviewed and published; no workflow was dispatched during this investigation.
+The published **readback** mode, confirmation **empty**, succeeded in owner-approved
+run [38916688046](https://github.com/poe2-build-navi-jp/gemnao/actions/runs/38916688046),
+source `776a8a216fa3ab922817dc57d6a8b15daefb2738`, attempt 1. Its bounded receipt
+reported `ok:true`, `readOnly:true`, `readbackComplete:true`, no errors, and:
+
+- Existing D1 UUID/name identity matched the original receipt.
+- Guard namespace `54f03069afc249779996d92530e835e1` and class matched.
+- Guard `enabled:false`, `previews_enabled:false`, schedules empty.
+- Cleanup absent; Pages' nine report flags OFF, intake closed, managed config
+  unchanged. The successful production anchor remained `b75715f4-d6ec-4c8b-9569-68ad98d7cabb`,
+  article SHA `603b31de1a286880931fa8bf796aefb4533acde1`.
+
+These are observations at that run, not a lease or automatic permission to write.
+The readback still reports `readyForAutomaticResume:false`.
 
 The GET-only transport pins the failed run's D1 UUID and permits these reads:
 
@@ -59,54 +67,92 @@ fixed stage/error/status, never raw response text. Unknown URL/cron/flag state i
 null, not false. `readbackComplete` means observations were read, not that URLs
 or cron are safe. `readyForAutomaticResume` is always false. No resourceRecord is
 emitted, no artifact is built or uploaded to Cloudflare, and mutation methods
-(including SQL POST) are refused before fetch. The historical mutation source
-allowlist and artifact checks remain unchanged for inspect/setup/deploy. Only
-GET-only readback skips those build/mutation checks, since later published
-article commits correctly fall outside that older mutation allowlist.
+(including SQL POST) are refused before fetch. Only GET-only readback skips the
+build/mutation source checks. It retains existing reviewer/branch checks and the
+protected Environment; those protections and credentials are unchanged.
 
-At investigation time this execution environment has no Cloudflare API token
-and no applicable Cloudflare connector. Direct provider GETs were not attempted;
-there is no observed 401/403 to report. Current-state evidence is limited to the
-original run logs/receipt. A browser owner can alternatively perform these reads
-in the existing Cloudflare dashboard. Do not extract the GitHub Environment
-secret to this workspace or create a new credential for this investigation.
+The current local workspace has no Cloudflare credential/connector, so this
+review re-read the successful GitHub run and bounded job log, not a new direct
+provider request. Do not extract the Environment secret or create a new token.
 
-### Bounded resumption after verified readback (not implemented/executed here)
+### Cleanup-only resume: local review candidate, not executed
 
-1. Review the fresh readback, reconcile the D1 UUID and actual guard namespace
-   against this run, and pin both in a separately reviewed non-secret recovery
-   record. If identity, existing bindings, flags, cron or production baseline
-   differ, stop and review that difference. An unexpected existing cleanup must
-   be inspected; its name alone is never permission to adopt or overwrite it.
-2. Separately review a resume-only writer bound to that record. It must contain
-   **no D1 create, schema replay, guard upload, migrations, namespace reset, SQL,
-   deletion or Pages mutation**. Never dispatch old setup or use its rerun button.
-   Its absent-name precondition now intentionally fails.
-3. Re-read all pinned identities and current settings immediately before any
-   approved mutation. If needed, send only POST on the existing guard's
-   `/subdomain`, body both false, then GET and verify both false. If already
-   disabled, skip the write. Existing schedules must be empty; changing/deleting
-   a discovered schedule needs separate review and is outside this procedure.
-4. Only after confirming cleanup is still absent and reviewing explicit
-   permission to create it, upload the reviewed cleanup bytes once, with the
-   existing D1 UUID, named guard service and all report flags false. Do not upload
-   guard again or replay its migration. Disable cleanup URL/preview via the same
-   POST and GET verification; verify schedules empty and all bindings/flags.
-   Creation may briefly expose the default HTTP 404 handler until URL disable
-   succeeds; intake must remain disconnected and OFF throughout. If the response
-   is uncertain or any readback fails, stop, preserve the checkpoint and inspect
-   exact live identities; no retry, rollback or automatic cleanup creation.
-5. Re-read unchanged Pages configuration and successful current production
-   identity. Only with both workers fully verified can a full resourceRecord be
-   reviewed and deterministic closed Wrangler additions prepared offline. A
-   separately approved closed deployment is a later operation. Do not roll back
-   the published articles to the setup workflow's older source SHA.
+After separate approval to publish this candidate and create the cleanup, choose
+a **new** workflow run on the reviewed `gemunao` SHA:
 
-Before any future mutation writer runs, its reviewed source scope/base must be
-reconciled with the currently published article commits; the original historical
-`verifySource()` allowlist rejects them. Do not bypass that guard to resume.
-No resume writer, resourceRecord, binding change, cron, Pages deployment, bootstrap,
-intake activation, new credential or permission change is included here.
+- Operation: `resume-cleanup`
+- Confirmation: `CREATE_CLOSED_REPORTS_CLEANUP_ONLY`
+- Environment: existing `gemnao-d1-production`; owner approval required.
+- Never use `setup`, a rerun, or approve the Environment on the owner's behalf.
+
+`cleanup-resume.mjs` pins the real D1 UUID, namespace, original/readback provenance
+and successful Pages recovery fingerprint. Before every creation attempt it
+performs fresh D1/guard/Pages GETs, requiring the exact pinned identities, both
+guard URLs disabled, no guard cron, nine Pages flags OFF, report bindings absent
+and unchanged managed configuration/production anchor. Any drift stops before
+writing. Cleanup must be absent, checked again immediately before its upload.
+
+The only two external mutations permitted by its transport are:
+
+1. One `PUT /workers/scripts/gemnao-community-reports-cleanup`, with the exact
+   verified cleanup bundle, pinned existing D1 and named guard service bindings,
+   nine flags `false`, fixed compatibility date and observability disabled. No
+   migration, secret, schedule, inherited binding or arbitrary metadata allowed.
+2. One `POST /workers/scripts/gemnao-community-reports-cleanup/subdomain`, body
+   exactly `{ "enabled": false, "previews_enabled": false }`, after a confirmed
+   successful upload. GET readback must confirm both disabled.
+
+D1, guard and Pages are GET-only. There is no schema query/replay, guard upload or
+URL update, namespace operation, cron write/invocation, reset, delete, credential,
+permission/protection change, Pages deploy, bootstrap or intake activation. The
+artifact contains only `cleanup.mjs` and a digest-pinned manifest; no Pages bytes,
+guard bundle or schema. Compilation uses the existing reviewed cleanup source and
+all 21 existing pinned runtime/schema hashes remain unchanged. Tests run serially
+because CLI receipt tests intentionally exercise one fixed receipt filename.
+
+The workflow keeps the existing production-control concurrency group. The upload
+also sends `If-None-Match: *` as a conditional-create safeguard. Cloudflare's
+upload documentation mentions conditional ETag headers, but this candidate has
+**not** verified wildcard create-only enforcement against the real provider.
+Fresh absence checks plus workflow concurrency cannot atomically exclude another
+operator creating the same name between GET and PUT. Coordinate that no other
+operator creates/updates this cleanup during the approved run; do not claim an
+exactly-once creation guarantee. The default HTTP handler is reviewed to return
+404, but URL availability may briefly exist between upload and URL disable.
+
+Every attempted mutation is checkpointed; uncertain responses consume that
+attempt. Any failed upload/URL request or readback stops without retry, repair,
+rollback or deletion. Preserve partial resources and inspect the exact state;
+even a later new resume run refuses an already existing cleanup. It never edits
+an existing cleanup to recover a partial attempt automatically.
+
+After both writes, fresh readback must confirm the same D1/guard identities and
+unchanged Pages configuration, cleanup bindings/flags correct, both cleanup URLs
+disabled and schedules empty. Only then is a complete resourceRecord emitted.
+Persisting that record/Wrangler bindings and deploying the closed backend remain
+separate later approvals. Existing published articles remain on their current
+production deployment throughout this operation.
+
+### Source allowlist alignment
+
+The reviewed **change scope** baseline is explicitly
+`776a8a216fa3ab922817dc57d6a8b15daefb2738` in `TARGET.scopeBase` and
+`closed-source.json`; it must be an ancestor of the execution SHA. It already
+contains the later published article commits. The **configuration/schema** base
+remains `3d2f8d9d57ca41614882841062e44950e0702d63`; root Wrangler settings are still
+compared against that same baseline/persisted closed projection.
+
+No wildcard editorial allowance was added. Only fixed controller/workflow/tests
+and existing pinned backend paths are allowed to differ after the new base.
+Tracked working changes and untracked non-ignored files are checked too. The
+existing Pages build's empty `dist/client/.gitkeep` placeholder may disappear;
+nonempty contents or other output/source paths are not permitted. The original
+21 runtime/schema hashes are still checked, so moving the change-scope baseline
+does not reauthorize modified runtime code. Tests exercise real Git scope checks
+against editorial drift, untracked files, runtime hash drift and a changed base.
+
+Additional primary reference, checked 2026-10-16:
+https://developers.cloudflare.com/api/resources/workers/subresources/scripts/methods/update/
 
 ## 1. Inspect before mutations
 

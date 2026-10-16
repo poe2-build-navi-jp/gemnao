@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       operation:
-        description: readback reads the failed run's resources; inspect requires absent names; setup provisions; deploy requires bindings
+        description: readback reads only; resume-cleanup creates only the absent cleanup; inspect requires absent names
         type: choice
-        options: [inspect, readback, setup, deploy]
+        options: [inspect, readback, resume-cleanup, setup, deploy]
         default: inspect
         required: true
       confirmation:
-        description: SETUP_CLOSED_REPORTS_ONLY or DEPLOY_CLOSED_REPORTS_ONLY
+        description: CREATE_CLOSED_REPORTS_CLEANUP_ONLY, SETUP_CLOSED_REPORTS_ONLY or DEPLOY_CLOSED_REPORTS_ONLY
         type: string
         required: false
 permissions:
@@ -37,7 +37,7 @@ jobs:
         with:
           node-version: '22.19.0'
       - name: Test fixed request boundaries without credentials
-        run: node --test tests/community-reports/closed-setup.test.mjs
+        run: node --test --test-concurrency=1 tests/community-reports/closed-setup.test.mjs tests/community-reports/cleanup-resume.test.mjs
       - id: verify
         name: Verify reviewed source and existing Environment protection
         env:
@@ -50,21 +50,22 @@ jobs:
           npm install --global --ignore-scripts --no-audit --no-fund pnpm@11.19.0
           pnpm install --frozen-lockfile --ignore-scripts --ignore-pnpmfile
       - name: Verify real Wrangler managed upload against loopback synthetic API
-        if: inputs.operation != 'readback'
+        if: inputs.operation != 'readback' && inputs.operation != 'resume-cleanup'
         env:
           WRANGLER_SEND_METRICS: 'false'
         run: node tests/community-reports/managed-wrangler.mjs
       - name: Build reviewed backend without Cloudflare credentials
-        if: inputs.operation != 'readback'
+        if: inputs.operation != 'readback' && inputs.operation != 'resume-cleanup'
         env:
           WRANGLER_SEND_METRICS: 'false'
           CI: 'true'
         run: pnpm build
       - id: package
         if: inputs.operation != 'readback'
-        name: Package exact Pages and Worker bytes without credentials
+        name: Package exact operation-specific bytes without credentials
         env:
           REPORTS_ARTIFACT_DIR: ${{ runner.temp }}/closed-reports-artifact
+          REPORTS_SETUP_OPERATION: ${{ inputs.operation }}
         run: node ops/community-reports/closed-setup.mjs package
       - id: artifact
         if: inputs.operation != 'readback'
@@ -91,7 +92,7 @@ jobs:
         with:
           node-version: '22.19.0'
       - name: Install locked tools before credentials
-        if: inputs.operation != 'readback'
+        if: inputs.operation != 'readback' && inputs.operation != 'resume-cleanup'
         run: |
           npm install --global --ignore-scripts --no-audit --no-fund pnpm@11.19.0
           pnpm install --frozen-lockfile --ignore-scripts --ignore-pnpmfile

@@ -35,6 +35,7 @@ export const TARGET = Object.freeze({
   guard: 'gemnao-community-reports-guard',
   cleanup: 'gemnao-community-reports-cleanup',
   base: '3d2f8d9d57ca41614882841062e44950e0702d63',
+  scopeBase: '776a8a216fa3ab922817dc57d6a8b15daefb2738',
   schemaHash:
     '35bc54bf504a175c8261bf603e01a781b95ce2b97967101c218e6a4de97f8bbb',
 });
@@ -605,6 +606,20 @@ export async function verifySource() {
   const specification = JSON.parse(
     await readFile('ops/community-reports/closed-source.json', 'utf8'),
   );
+  fixed(
+    specification.scopeBase === TARGET.scopeBase,
+    'REVIEWED_SCOPE_BASE_REQUIRED',
+  );
+  try {
+    execFileSync('git', [
+      'merge-base',
+      '--is-ancestor',
+      TARGET.scopeBase,
+      'HEAD',
+    ]);
+  } catch {
+    throw new SetupFailure('REVIEWED_SCOPE_BASE_NOT_ANCESTOR');
+  }
   const allowed = [
     ...Object.keys(specification.hashes),
     'tests/community-reports/preflight.test.mjs',
@@ -615,13 +630,20 @@ export async function verifySource() {
     'ops/community-reports/managed-config.mjs',
     'ops/community-reports/closed-setup.md',
     'tests/community-reports/managed-wrangler.mjs',
+    'ops/community-reports/cleanup-resume.mjs',
+    'tests/community-reports/cleanup-resume.test.mjs',
+    'dist/client/.gitkeep',
     'wrangler.json',
     STATE_PATH,
   ];
-  const changed = execFileSync(
-    'git',
-    ['diff', '--name-only', TARGET.base, 'HEAD'],
-    { encoding: 'utf8' },
+  const changed = (
+    execFileSync('git', ['diff', '--name-only', TARGET.scopeBase], {
+      encoding: 'utf8',
+    }) +
+    '\n' +
+    execFileSync('git', ['ls-files', '--others', '--exclude-standard'], {
+      encoding: 'utf8',
+    })
   )
     .trim()
     .split('\n')
@@ -630,6 +652,15 @@ export async function verifySource() {
     changed.every((path) => allowed.includes(path)),
     'SOURCE_OUTSIDE_CLOSED_SCOPE',
   );
+  // Existing Pages builds remove this tracked, empty output placeholder.
+  try {
+    fixed(
+      (await readFile('dist/client/.gitkeep')).length === 0,
+      'BUILD_PLACEHOLDER_NOT_EMPTY',
+    );
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+  }
   for (const [path, hash] of Object.entries(specification.hashes))
     fixed(sha(await readFile(path)) === hash, 'REVIEWED_SOURCE_HASH_MISMATCH');
   const baseline = execFileSync('git', [
@@ -1219,10 +1250,11 @@ export async function main(env, fetcher = fetch, mode = process.argv[2]) {
   }
   if (mode === 'package') {
     context(env);
-    const digest = await packageArtifact(
-      env.REPORTS_ARTIFACT_DIR,
-      env.GITHUB_SHA,
-    );
+    const packager =
+      env.REPORTS_SETUP_OPERATION === 'resume-cleanup'
+        ? (await import('./cleanup-resume.mjs')).packageCleanupArtifact
+        : packageArtifact;
+    const digest = await packager(env.REPORTS_ARTIFACT_DIR, env.GITHUB_SHA);
     if (env.GITHUB_OUTPUT)
       await writeFile(env.GITHUB_OUTPUT, 'digest=' + digest + '\n', {
         flag: 'a',
@@ -1238,7 +1270,7 @@ export async function main(env, fetcher = fetch, mode = process.argv[2]) {
   }
   fixed(
     mode === 'run' &&
-      ['inspect', 'setup', 'deploy', 'readback'].includes(
+      ['inspect', 'setup', 'deploy', 'readback', 'resume-cleanup'].includes(
         env.REPORTS_SETUP_OPERATION,
       ),
     'FIXED_OPERATION_REQUIRED',
@@ -1272,6 +1304,42 @@ export async function main(env, fetcher = fetch, mode = process.argv[2]) {
         baselineConfig(),
       );
       fixed(receipt.readback.readbackComplete, 'PARTIAL_READBACK_INCOMPLETE');
+    } else if (env.REPORTS_SETUP_OPERATION === 'resume-cleanup') {
+      fixed(
+        env.REPORTS_SETUP_CONFIRMATION === 'CREATE_CLOSED_REPORTS_CLEANUP_ONLY',
+        'EXPLICIT_CLEANUP_RESUME_REQUIRED',
+      );
+      await verifySource();
+      const { verifyCleanupArtifact, cleanupClient, resumeCleanup } =
+        await import('./cleanup-resume.mjs');
+      const artifact = await verifyCleanupArtifact(
+        env.REPORTS_ARTIFACT_DIR,
+        env.REPORTS_ARTIFACT_DIGEST,
+        env.GITHUB_SHA,
+      );
+      const persist = async () => {
+        await writeFile(
+          'closed-setup-receipt.json',
+          JSON.stringify(receipt, null, 2) + '\n',
+        );
+        console.log(
+          JSON.stringify({
+            checkpoint: true,
+            operation: 'resume-cleanup',
+            completed: receipt.completed,
+            databaseId: receipt.databaseId || null,
+            guardNamespaceId: receipt.guardNamespaceId || null,
+            nextWrite: receipt.nextWrite || null,
+          }),
+        );
+      };
+      await resumeCleanup(
+        cleanupClient(env.CLOUDFLARE_API_TOKEN, artifact.codeSha256, fetcher),
+        baselineConfig(),
+        artifact,
+        receipt,
+        persist,
+      );
     } else {
       await verifySource();
       await verifyArtifact(
