@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ResolvedFixSave } from './resolved-fix-save';
+import { ReportEntryLink } from './report-entry-link';
 import { SolutionForm } from './solution-form';
 import { announceMyData, useSavedSolutions } from './use-saved-solutions';
 import type { SolutionDraft } from '@/lib/saved-solutions';
@@ -85,6 +86,12 @@ export function ResultNote({
           : t[draft.status === 'resolved' ? 'resolved' : 'unresolved']}
       </output>
       <p>{t.local}</p>
+      <ReportEntryLink
+        articlePath={draft.articlePath}
+        stepIds={attempt ? [attempt.stepId] : []}
+        outcome={draft.status === 'resolved' ? 'resolved' : 'unresolved'}
+        locale={locale}
+      />
       {draft.status === 'resolved' && !editing && (
         <ResolvedFixSave
           draft={draft}

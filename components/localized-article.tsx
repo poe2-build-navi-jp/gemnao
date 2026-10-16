@@ -1,4 +1,5 @@
 import { ReportedCaseLink } from '@/components/reported-case';
+import { ReportEntryLink } from '@/components/report-entry-link';
 import {
   StepResultCollection,
   StepResultButtons,
@@ -224,7 +225,10 @@ export function LocalizedArticle({
               ))}
             </dl>
           </section>
-          <ReportedCaseLink articlePath={originalPath} locale={locale}/>
+          <ReportedCaseLink articlePath={originalPath} locale={locale} />
+          {!isDiscord && (
+            <ReportEntryLink articlePath={originalPath} locale={locale} />
+          )}
           <section className="diagnosis-table" id="diagnosis">
             <h2>{t.diagnosis}</h2>
             <p>

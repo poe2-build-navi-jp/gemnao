@@ -1,8 +1,16 @@
 import application from '../dist/server/index.js';
 import editorialSnapshots from '../dist/editorial-snapshots.json';
 import { snapshotAssetFor } from './prerender-policy.mjs';
-import { handleDiagnosis, privateHeaders, readShare, isShareActive } from '../lib/diagnosis/server';
-import { diagnosisStorageFailure, diagnosisRetryHeaders } from '../lib/diagnosis/availability';
+import {
+  handleDiagnosis,
+  privateHeaders,
+  readShare,
+  isShareActive,
+} from '../lib/diagnosis/server';
+import {
+  diagnosisStorageFailure,
+  diagnosisRetryHeaders,
+} from '../lib/diagnosis/availability';
 import { handleQa, qaShareAllowed, qaDiagnosisEnv } from '../lib/diagnosis/qa';
 
 const staticFiles = new Set([
@@ -52,12 +60,46 @@ function edgeCacheKey(request) {
 
 async function render(request, env, context, pathname) {
   const response = await application.fetch(request, env, context);
-  if (/^\/diagnos(?:e|is)(?:\/|$)/.test(pathname) || pathname === '/admin/diagnosis-qa') {
+  if (
+    /^\/(?:(?:en|zh|es)\/)?reports(?:\/|$)|^\/admin\/reports(?:\/|$)/.test(
+      pathname,
+    )
+  ) {
+    const protectedResponse = new Response(response.body, response);
+    protectedResponse.headers.set('Cache-Control', 'private, no-store');
+    protectedResponse.headers.set('Referrer-Policy', 'no-referrer');
+    protectedResponse.headers.set(
+      'X-Robots-Tag',
+      'noindex, nofollow, noarchive',
+    );
+    protectedResponse.headers.set('X-Content-Type-Options', 'nosniff');
+    protectedResponse.headers.set(
+      'Content-Security-Policy',
+      "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'",
+    );
+    const language = pathname.match(/^\/(en|zh|es)\//)?.[1];
+    return language
+      ? new HTMLRewriter()
+          .on('html', {
+            element(e) {
+              e.setAttribute('lang', language === 'zh' ? 'zh-Hans' : language);
+            },
+          })
+          .transform(protectedResponse)
+      : protectedResponse;
+  }
+  if (
+    /^\/diagnos(?:e|is)(?:\/|$)/.test(pathname) ||
+    pathname === '/admin/diagnosis-qa'
+  ) {
     const protectedResponse = new Response(response.body, response);
     protectedResponse.headers.set('Cache-Control', 'private, no-store');
     protectedResponse.headers.set('Referrer-Policy', 'no-referrer');
     protectedResponse.headers.set('X-Content-Type-Options', 'nosniff');
-    protectedResponse.headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'");
+    protectedResponse.headers.set(
+      'Content-Security-Policy',
+      "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+    );
     protectedResponse.headers.set('X-Robots-Tag', 'noindex, nofollow');
     return protectedResponse;
   }
@@ -66,7 +108,10 @@ async function render(request, env, context, pathname) {
     privateResponse.headers.set('Cache-Control', 'private, no-store');
     privateResponse.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
     privateResponse.headers.set('Referrer-Policy', 'no-referrer');
-    privateResponse.headers.set('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'");
+    privateResponse.headers.set(
+      'Content-Security-Policy',
+      "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'",
+    );
     return privateResponse;
   }
   const locale = pathname.match(/^\/(en|zh|es)(?:\/|$)/)?.[1];
@@ -85,22 +130,79 @@ async function render(request, env, context, pathname) {
 const worker = {
   async fetch(request, env, context) {
     const { pathname } = new URL(request.url);
+    if (
+      /^\/(?:(?:en|zh|es)\/)?reports(?:\/|$)|^\/admin\/reports(?:\/|$)/.test(
+        pathname,
+      )
+    )
+      return render(request, env, context, pathname);
     if (pathname === '/api/admin/diagnosis-qa') return handleQa(request, env);
     if (/^\/api\/diagnosis(?:\/|$)/.test(pathname)) {
       const qaId = pathname.match(/^\/api\/diagnosis\/([a-f0-9]{32})$/)?.[1];
-      if (qaId && await qaShareAllowed(request, env, qaId)) return handleDiagnosis(request, qaDiagnosisEnv(env));
+      if (qaId && (await qaShareAllowed(request, env, qaId)))
+        return handleDiagnosis(request, qaDiagnosisEnv(env));
       return handleDiagnosis(request, env);
     }
-    if (/^\/diagnose(?:\/|$)/.test(pathname) && env.DIAGNOSIS_LOCAL_BETA !== 'true' && env.DIAGNOSIS_ENABLED !== 'true') return new Response('診断は現在停止しています。既存の記事をご利用ください。', { status: 503, headers: { ...privateHeaders, 'Content-Type': 'text/plain; charset=utf-8' } });
+    if (
+      /^\/diagnose(?:\/|$)/.test(pathname) &&
+      env.DIAGNOSIS_LOCAL_BETA !== 'true' &&
+      env.DIAGNOSIS_ENABLED !== 'true'
+    )
+      return new Response(
+        '診断は現在停止しています。既存の記事をご利用ください。',
+        {
+          status: 503,
+          headers: {
+            ...privateHeaders,
+            'Content-Type': 'text/plain; charset=utf-8',
+          },
+        },
+      );
     const sharedId = pathname.match(/^\/diagnosis\/([a-f0-9]{32})\/?$/)?.[1];
     if (sharedId) {
-      if ((env.DIAGNOSIS_LOCAL_BETA === 'true' || env.DIAGNOSIS_STORAGE_ENABLED !== 'true' || env.DIAGNOSIS_ENABLED !== 'true' || env.DIAGNOSIS_SHARING_ENABLED !== 'true' || !env.DIAGNOSIS_DB) && !await qaShareAllowed(request, env, sharedId)) return new Response('共有は現在停止しています。', { status: 503, headers: { ...privateHeaders, 'Content-Type': 'text/plain; charset=utf-8' } });
+      if (
+        (env.DIAGNOSIS_LOCAL_BETA === 'true' ||
+          env.DIAGNOSIS_STORAGE_ENABLED !== 'true' ||
+          env.DIAGNOSIS_ENABLED !== 'true' ||
+          env.DIAGNOSIS_SHARING_ENABLED !== 'true' ||
+          !env.DIAGNOSIS_DB) &&
+        !(await qaShareAllowed(request, env, sharedId))
+      )
+        return new Response('共有は現在停止しています。', {
+          status: 503,
+          headers: {
+            ...privateHeaders,
+            'Content-Type': 'text/plain; charset=utf-8',
+          },
+        });
       try {
-        if (!isShareActive(await readShare(env.DIAGNOSIS_DB, sharedId), Date.now())) return new Response('共有ページは見つからないか、期限切れ・失効・削除されています。', { status: 404, headers: { ...privateHeaders, 'Content-Type': 'text/plain; charset=utf-8' } });
+        if (
+          !isShareActive(
+            await readShare(env.DIAGNOSIS_DB, sharedId),
+            Date.now(),
+          )
+        )
+          return new Response(
+            '共有ページは見つからないか、期限切れ・失効・削除されています。',
+            {
+              status: 404,
+              headers: {
+                ...privateHeaders,
+                'Content-Type': 'text/plain; charset=utf-8',
+              },
+            },
+          );
       } catch (error) {
         const now = Date.now();
         const failure = diagnosisStorageFailure(error, now);
-        return new Response(failure.error, { status: 503, headers: { ...privateHeaders, ...diagnosisRetryHeaders(failure, now), 'Content-Type': 'text/plain; charset=utf-8' } });
+        return new Response(failure.error, {
+          status: 503,
+          headers: {
+            ...privateHeaders,
+            ...diagnosisRetryHeaders(failure, now),
+            'Content-Type': 'text/plain; charset=utf-8',
+          },
+        });
       }
     }
 

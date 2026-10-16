@@ -1,4 +1,5 @@
 'use client';
+import { ReportEntryLink } from './report-entry-link';
 
 import { ResolvedFixSave } from './resolved-fix-save';
 import { resolvedDraft } from '@/lib/fix-save';
@@ -124,6 +125,7 @@ type Collection = {
   t: typeof copy.en;
   methods: Method[];
   reports: Record<string, Report>;
+  lastChosen: Record<string, Outcome>;
   send: (method: string, outcome: Outcome) => Promise<void>;
 };
 const Context = createContext<Collection | null>(null);
@@ -149,6 +151,7 @@ export function StepResultCollection({
   const [refresh, setRefresh] = useState(0);
   const [methods, setMethods] = useState<Method[]>([]);
   const [reports, setReports] = useState<Record<string, Report>>({});
+  const [lastChosen, setLastChosen] = useState<Record<string, Outcome>>({});
   const [pending, setPending] = useState<
     ReturnType<typeof readPendingStepResults>
   >([]);
@@ -200,6 +203,7 @@ export function StepResultCollection({
   }, [contextSlug, topic, steps, refresh]);
   async function send(method: string, outcome: Outcome) {
     if (!ready || !steps.some((step) => step.id === method)) return;
+    setLastChosen((p) => ({ ...p, [`${contextSlug}:${method}`]: outcome }));
     const key = `${method}:${outcome}`;
     setReports((previous) => ({ ...previous, [key]: { state: 'sending' } }));
     try {
@@ -232,7 +236,17 @@ export function StepResultCollection({
   }
   return (
     <Context.Provider
-      value={{ contextSlug, locale, steps, ready, t, methods, reports, send }}
+      value={{
+        contextSlug,
+        locale,
+        steps,
+        ready,
+        t,
+        methods,
+        reports,
+        lastChosen,
+        send,
+      }}
     >
       <aside className="procedure-note">
         <strong>{t.heading}</strong>
@@ -305,6 +319,25 @@ export function StepResultButtons({ method }: { method: string }) {
         ['sent', 'already', 'error'].includes(
           reports[`${method}:resolved`]?.state || '',
         ) && <ResolvedFixSave draft={savedDraft} locale={context.locale} />}
+      {savedDraft &&
+        context.lastChosen[`${context.contextSlug}:${method}`] &&
+        ['resolved', 'not-resolved'].some((o) =>
+          ['sent', 'already', 'error'].includes(
+            reports[`${method}:${o}`]?.state || '',
+          ),
+        ) && (
+          <ReportEntryLink
+            articlePath={savedDraft.articlePath}
+            stepIds={[method]}
+            outcome={
+              context.lastChosen[`${context.contextSlug}:${method}`] ===
+              'resolved'
+                ? 'resolved'
+                : 'unresolved'
+            }
+            locale={context.locale}
+          />
+        )}
       <div className="step-actions">
         {(['resolved', 'not-resolved'] as const).map((outcome) => (
           <button

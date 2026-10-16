@@ -1,5 +1,64 @@
 @import 'tailwindcss';
 
+.report-workspace {
+  overflow-wrap: anywhere;
+}
+.report-workspace fieldset,
+.report-workspace article,
+.report-preview,
+.report-history {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 0.6rem;
+  min-width: 0;
+}
+.report-workspace label {
+  display: block;
+  margin: 0.75rem 0;
+}
+.report-workspace input:not([type='checkbox']),
+.report-workspace select {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 0.3rem;
+  background: var(--paper);
+  color: var(--ink);
+}
+.report-workspace button {
+  margin: 0.4rem 0.4rem 0.4rem 0;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 0.3rem;
+}
+.report-workspace button:disabled {
+  opacity: 0.55;
+}
+.report-workspace dd {
+  margin: 0 0 0.6rem;
+}
+.report-workspace dt {
+  font-weight: 600;
+}
+.report-workspace .report-step-list label,
+.report-workspace .report-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.report-workspace input[type='checkbox'] {
+  flex: 0 0 auto;
+  margin-top: 0.3rem;
+}
+.report-evidence {
+  border-left: 3px solid var(--line);
+  padding-left: 0.8rem;
+}
+
 :root {
   --ink: #16202a;
   --muted: #64717d;

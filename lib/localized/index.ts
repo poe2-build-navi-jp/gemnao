@@ -93,10 +93,17 @@ export const englishEditorialPaths = [
  * points to a missing translation.
  */
 export function hasTranslation(locale: Locale, path: string) {
-  if (path === '' || path === '/' || path === '/my-games') return true;
+  if (
+    path === '' ||
+    path === '/' ||
+    path === '/my-games' ||
+    path === '/reports'
+  )
+    return true;
   if (locale === 'en' && englishEditorialPaths.includes(path)) return true;
   const [, section, gameSlug, slug, extra] = path.split('/');
-  if (section === 'examples' && gameSlug && !slug && !extra) return Boolean(reportedCaseBySlug(gameSlug));
+  if (section === 'examples' && gameSlug && !slug && !extra)
+    return Boolean(reportedCaseBySlug(gameSlug));
   if (section === 'pc' && gameSlug && !slug && !extra)
     return Boolean(localizedPcArticle(locale, gameSlug));
   if (section === 'discord' && gameSlug && !slug && !extra)

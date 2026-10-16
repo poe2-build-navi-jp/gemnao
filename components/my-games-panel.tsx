@@ -1,4 +1,5 @@
 'use client';
+import { MyReportLinks } from './my-report-links';
 import { GameMaintenance } from './game-maintenance';
 import { SavedGameFixes } from './saved-game-fixes';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
@@ -113,6 +114,7 @@ export function MyGamesPanel({
     ) || matches[0];
   return (
     <div className="my-games-experience">
+      <MyReportLinks locale={locale} />
       <section
         id="my-games"
         aria-labelledby="choose-games-title"
