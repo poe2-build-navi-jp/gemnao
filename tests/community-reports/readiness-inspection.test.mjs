@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {
   inspectReadiness,
   inspectionQuery,
+  collectorSchemaCompatibility,
 } from '../../ops/community-reports/readiness-inspection.mjs';
 import { target } from '../../ops/community-reports/preflight.mjs';
 
@@ -220,7 +221,8 @@ function fixture(mode) {
         doPeriodic: row('sum', {
           duration: 5,
           rowsRead: 15,
-          rowsWritten: mode === 'negative' ? -1 : 10,
+          rowsWritten:
+            mode === 'negative' ? -1 : mode === 'fractional' ? 0.5 : 10,
         }),
         doStorage: row(
           'max',
@@ -228,6 +230,16 @@ function fixture(mode) {
           { namespaceId: 'ns-one' },
         ),
       };
+      if (mode === 'do-empty') account.doStorage = [];
+      if (mode === 'do-missing') delete account.doStorage;
+      if (mode === 'do-unexpected')
+        account.doStorage[0].dimensions.namespaceId = 'other-private-id';
+      if (mode === 'do-duplicate') account.doStorage.push(account.doStorage[0]);
+      if (mode === 'do-limit')
+        account.doStorage = Array(1000).fill(account.doStorage[0]);
+      if (mode === 'do-invalid') account.doStorage[0].max.storedBytes = 0.5;
+      if (mode === 'do-missing-aggregate') delete account.doStorage[0].max;
+      if (mode === 'do-zero') account.doStorage[0].max.storedBytes = 0;
       return response({ data: { viewer: { accounts: [account] } } });
     }
     assert.equal(options.method, 'GET');
@@ -242,7 +254,10 @@ function fixture(mode) {
     else if (path.endsWith('/workers/scripts'))
       result = [{ id: 'gemnao-community-reports-cleanup' }];
     else if (path.endsWith('/workers/durable_objects/namespaces'))
-      result = [{ id: 'ns-one' }];
+      result =
+        mode === 'do-uncovered'
+          ? [{ id: 'ns-one' }, { id: 'private-unused-namespace' }]
+          : [{ id: 'ns-one' }];
     else if (
       path.endsWith(
         '/workers/scripts/gemnao-community-reports-cleanup/schedules',
@@ -257,7 +272,7 @@ function fixture(mode) {
       success: true,
       errors: [],
       result,
-      result_info: { total_count: 1 },
+      result_info: { total_count: Array.isArray(result) ? result.length : 1 },
     });
   };
   return { fetcher, calls };
@@ -407,4 +422,72 @@ await test('query requires actual schema fields and same UTC day; uses fixed acc
     inspectionQuery(schemas(), Date.parse('2026-10-17T00:02:00.000Z')),
     null,
   );
+});
+
+await test('DO storage distinguishes absent, truncated and mismatched data without inventing zeros or exposing identities', async () => {
+  for (const [mode, reason] of [
+    ['do-empty', 'empty-rows'],
+    ['do-missing', 'missing-rows'],
+    ['do-unexpected', 'unexpected-resource'],
+    ['do-duplicate', 'duplicate-resource'],
+    ['do-limit', 'row-limit-reached'],
+    ['do-invalid', 'invalid-value'],
+    ['do-missing-aggregate', 'missing-aggregate'],
+    ['do-uncovered', 'inventory-coverage-incomplete'],
+  ]) {
+    const f = fixture(mode);
+    const result = await inspectReadiness(environment(), f.fetcher, now);
+    assert.equal(
+      result.usage.reportedBelow80Percent.durableObjectStorage,
+      null,
+    );
+    assert.equal(result.usage.unknownReasons.doStorage, reason);
+    assert.equal(result.usage.usageHeadroomVerified, false);
+    assert.ok(!JSON.stringify(result).includes('private-'));
+    assert.ok(!JSON.stringify(result).includes('ns-one'));
+  }
+  const f = fixture('do-zero');
+  const result = await inspectReadiness(environment(), f.fetcher, now);
+  assert.equal(result.usage.reportedBelow80Percent.durableObjectStorage, true);
+  assert.equal(result.usage.unknownReasons.doStorage, undefined);
+  assert.equal(result.authorizesActivation, false);
+});
+await test('fractional row counts cannot pass the usage threshold', async () => {
+  const f = fixture('fractional');
+  const result = await inspectReadiness(environment(), f.fetcher, now);
+  assert.equal(
+    result.usage.reportedBelow80Percent.durableObjectRowsWritten,
+    null,
+  );
+  assert.equal(result.usage.unknownReasons.doPeriodic, 'invalid-value');
+});
+await test('observed schema permits read-only metrics but cannot satisfy collector coverage contract', () => {
+  // Aggregate fields confirmed in schema run 38957022668; no synthetic watermark.
+  const observed = schemas();
+  observed.durableObjectsInvocationsAdaptiveGroups.max = [
+    'datetime',
+    'responseBodySize',
+    'wallTime',
+  ];
+  observed.durableObjectsPeriodicGroups.max = [
+    'activeWebsocketConnections',
+    'memoryUsageBytes',
+  ];
+  observed.workersInvocationsAdaptive.max = [
+    'cpuTime',
+    'duration',
+    'memoryUsageBytes',
+    'requestDuration',
+    'responseBodySize',
+    'wallTime',
+    'wasmMemoryBytes',
+  ];
+  const result = collectorSchemaCompatibility(observed);
+  assert.deepEqual(result.missingMaxAggregate, ['d1AnalyticsAdaptiveGroups']);
+  assert.equal(result.coverageSemanticsVerified, false);
+  assert.equal(result.profileGenerated, false);
+  const query = inspectionQuery(observed, now).query;
+  assert.ok(!query.includes('freshnessField'));
+  assert.ok(!query.includes('max{datetime'));
+  assert.ok(query.includes('doStorage:durableObjectsSqlStorageGroups'));
 });

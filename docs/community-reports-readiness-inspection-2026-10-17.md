@@ -61,3 +61,15 @@ durationの課金単位、providerの集計完了時刻、通知到達、cleanup
 4. 自動取得用の新しいcredentialは作成・登録していない。既存のsetup credentialをログへ取り出したりruntimeへ転用したりせず、必要となる登録は対象・権限・保存先を確定して個別承認を得る。利用者の指示に従いtoken自体の確認は実施しない。
 
 この記録で本番の受付・公開・予算・検証済みフラグは変更していない。自動削除も開始していない。
+
+## 確認済み事実の引継ぎと取得不整合の切分け
+
+- Freeプランおよび2026-10-15 12:55 JSTのWorkers 435/100000、12:56 JSTのD1 DB6/10、読取756/5000000、書込16/100000、保存446.46KB/5GBは利用者画像で確認済み。親担当の同日22:58 JSTの確認も引き継ぐ。過去時点の余力を未確認へ戻さず、現在の日次値やDO実消費量としても代用しない。画像再送は不要。
+- schema run 38745059313の成功と8dataset enabledは確認済み。より新しい38957022668の実schemaログも再読し、D1 analyticsにmax aggregateがなく、DO SQLite保存量のmaxはstoredBytesのみであることを確認した。現在のcollectorが全指標に生成する `max{freshnessField}` をこのschemaへ適用できない。これは権限不足を示す証拠ではない。
+- 読取りinspectionはこの架空fieldを要求しない別のqueryを既に使っている。今回、その違いを実schemaに基づくテストと `collectorSchema` 出力で明示。DO保存量のunknownを、空配列／応答欠落／上限到達／資源不一致／重複／一覧未網羅／不正値へ分類する `unknownReasons` を追加した。ID、値、本文、secretは出力しない。行数・バイト数の小数がしきい値検査を通る不備も拒否へ修正。
+- 旧receiptはunknownの原因を保存していないため、過去のDO保存量unknownの原因は断定できない。未使用namespaceを推測で除外したり、空配列をゼロにして通過させたりしない。
+- [Cloudflare公式metrics資料](https://developers.cloudflare.com/durable-objects/observability/metrics-and-analytics/)も照合したが、最終活動時刻を全datasetの集計完了保証とする根拠は確認できなかった。duration課金単位と全指標のcoverageは未解決。runtime collector、固定hash、profile、VERIFIED、受付フラグは変更しない。この修正は自動collectionが実行可能になったという意味ではない。
+- 外部監視タスクは利用者提供リンクを親ブラウザが確認済み（10/17 05:02 JST登録、初回予定05:27 JST）。登録の証拠を引き継ぎ、重複作成しない。初回通知の端末到達は本人確認まで未検証。監視登録を利用量の証拠と混同しない。
+- ローカルpreflight/readiness 28テスト成功。実schemaでのquery構成、DO保存量のunknown理由8種類、明示ゼロと空配列の区別、小数の拒否を含む。変更MJSのlint成功。サイトのコード・設定は未変更のため全ビルド／全テストは再実行しない。
+
+次の具体操作は、親担当による既存analytics preflightの新規run（gemunao、mode=readiness、確認文字列なし）と、そのrunに対する本人の既存Environment承認。要求範囲は従来どおり固定metadata/GraphQL/専用DBの固定SELECT/公開healthの読取りだけ。新credential確認・登録・権限拡大・collection書込み・cleanup削除・cron変更を含めない。新しいreceiptでunknown理由を確認するまでは、原因の推測修正を進めない。

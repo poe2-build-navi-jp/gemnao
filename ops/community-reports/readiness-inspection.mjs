@@ -80,6 +80,19 @@ async function boundedJson(response, maximum) {
   }
   return JSON.parse(new TextDecoder('utf8', { fatal: true }).decode(bytes));
 }
+// Read-only acquisition and runtime readiness are separate contracts. The
+// collector asks for max{freshnessField} for every metric. Do not fabricate that
+// selection when the live schema has no max, or treat an activity timestamp as
+// an aggregate-completeness guarantee. No profile/VERIFIED state is generated.
+export function collectorSchemaCompatibility(datasets) {
+  return {
+    missingMaxAggregate: metrics
+      .filter(([, dataset]) => !datasets[dataset]?.max?.length)
+      .map(([, dataset]) => dataset),
+    coverageSemanticsVerified: false,
+    profileGenerated: false,
+  };
+}
 export function inspectionQuery(datasets, now) {
   need(Number.isSafeInteger(now));
   const end = new Date(now - 300_000).toISOString();
@@ -112,11 +125,19 @@ function reportedMetrics(data, inventory) {
   const accounts = data.data?.viewer?.accounts;
   need(Array.isArray(accounts) && accounts.length === 1 && object(accounts[0]));
   const account = accounts[0],
-    values = {};
+    values = {},
+    unknownReasons = {};
   for (const [alias, , aggregate, names, dimension] of metrics) {
     const rows = account[alias];
     // No activity rows are unknown, not an invented zero or completeness proof.
-    if (!Array.isArray(rows) || !rows.length || rows.length >= 1000) continue;
+    if (!Array.isArray(rows) || !rows.length || rows.length >= 1000) {
+      unknownReasons[alias] = !Array.isArray(rows)
+        ? 'missing-rows'
+        : !rows.length
+          ? 'empty-rows'
+          : 'row-limit-reached';
+      continue;
+    }
     const expected =
       dimension === 'databaseId' ? inventory.databases : inventory.namespaces;
     const covered = new Set();
@@ -126,12 +147,16 @@ function reportedMetrics(data, inventory) {
     for (const row of rows) {
       if (!object(row?.[aggregate])) {
         valid = false;
+        unknownReasons[alias] = 'missing-aggregate';
         break;
       }
       if (dimension) {
         const id = row.dimensions?.[dimension];
         if (!expected.includes(id) || covered.has(id)) {
           valid = false;
+          unknownReasons[alias] = covered.has(id)
+            ? 'duplicate-resource'
+            : 'unexpected-resource';
           break;
         }
         covered.add(id);
@@ -141,22 +166,28 @@ function reportedMetrics(data, inventory) {
         const value = row[aggregate][name];
         if (
           !Number.isFinite(value) ||
+          (name !== 'duration' && !Number.isSafeInteger(value)) ||
           value < 0 ||
           value > Number.MAX_SAFE_INTEGER
         ) {
           valid = false;
+          unknownReasons[alias] = 'invalid-value';
           break;
         }
         totals[name] += value;
         if (
           !Number.isFinite(totals[name]) ||
           totals[name] > Number.MAX_SAFE_INTEGER
-        )
+        ) {
           valid = false;
+          unknownReasons[alias] = 'invalid-total';
+        }
       }
     }
-    if (dimension && (!expected.length || covered.size !== expected.length))
+    if (dimension && (!expected.length || covered.size !== expected.length)) {
       valid = false;
+      unknownReasons[alias] ??= 'inventory-coverage-incomplete';
+    }
     if (valid)
       values[alias] = {
         ...totals,
@@ -167,6 +198,8 @@ function reportedMetrics(data, inventory) {
     value === undefined ? null : value < limit * 0.8;
   // Account usage values and resource identifiers never enter public CI logs.
   return {
+    // Fixed reasons only: no resource IDs, counts, values or provider text.
+    unknownReasons,
     reportedBelow80Percent: {
       d1RowsRead: below(values.d1?.rowsRead, usageLimits.rowsReadToday),
       d1RowsWritten: below(
@@ -435,6 +468,7 @@ export async function inspectReadiness(env, fetcher = fetch, now = Date.now()) {
     publicHealth: await inspectHealth(fetcher, now),
     notificationDeliveryVerified: false,
     automaticCollectorCompatible: false,
+    collectorSchema: collectorSchemaCompatibility(capability.datasets),
     collectorBlocker: 'required-provider-coverage-watermark-not-verified',
     productionChanged: false,
     secretsExported: false,
