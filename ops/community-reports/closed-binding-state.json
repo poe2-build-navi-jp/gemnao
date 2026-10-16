@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "accountId": "6a09a32cba1288cccce5912015086a35",
+  "databaseName": "gemnao-community-reports-production",
+  "databaseId": "3141aae6-8dc9-47e9-a8a2-7a05f642f94f",
+  "guardName": "gemnao-community-reports-guard",
+  "guardNamespaceId": "54f03069afc249779996d92530e835e1",
+  "cleanupName": "gemnao-community-reports-cleanup",
+  "provisionedSourceSha": "699532148b8d41ed995fc750c6bfbd055817f0d5",
+  "provisionedRunId": "38930349628",
+  "recovery": {
+    "deploymentId": "b75715f4-d6ec-4c8b-9569-68ad98d7cabb",
+    "sourceSha": "603b31de1a286880931fa8bf796aefb4533acde1",
+    "productionConfigSha256": "ad3f6dbe2868417e842b3633d159325a8b01117f369d02de6fb5244540531195"
+  }
+}

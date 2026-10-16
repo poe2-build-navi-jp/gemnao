@@ -17,7 +17,16 @@
     "FEEDBACK_ENABLED": "true",
     "GAME_REQUEST_REVIEW_MODE": "manual",
     "GAME_REQUEST_MANUAL_REVIEW_READY": "true",
-    "GAME_REQUESTS_ENABLED": "true"
+    "GAME_REQUESTS_ENABLED": "true",
+    "REPORTS_ENABLED": "false",
+    "REPORTS_PUBLIC_ENABLED": "false",
+    "REPORTS_REVIEW_ENABLED": "false",
+    "REPORTS_BUDGET_VERIFIED": "false",
+    "REPORTS_AUTO_OBSERVATION_ENABLED": "false",
+    "REPORTS_USAGE_PROFILE_VERIFIED": "false",
+    "REPORTS_PUBLIC_MONITOR_VERIFIED": "false",
+    "REPORTS_BOOTSTRAP_ALLOWED": "false",
+    "REPORTS_VERIFICATION_ALLOWED": "false"
   },
   "d1_databases": [
     {
@@ -36,6 +45,11 @@
       "binding": "FEEDBACK_DB",
       "database_name": "gemnao-diagnostic-feedback-production",
       "database_id": "f3379342-bb5e-461c-bad3-1175be8836c5"
+    },
+    {
+      "binding": "REPORTS_DB",
+      "database_name": "gemnao-community-reports-production",
+      "database_id": "3141aae6-8dc9-47e9-a8a2-7a05f642f94f"
     }
   ],
   "env": {
@@ -46,5 +60,13 @@
       },
       "d1_databases": []
     }
-  }
+  },
+  "services": [
+    {
+      "binding": "REPORTS_GUARD",
+      "service": "gemnao-community-reports-guard",
+      "environment": "production",
+      "entrypoint": "ReportsGuardService"
+    }
+  ]
 }
