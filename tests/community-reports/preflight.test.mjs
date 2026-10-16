@@ -22,7 +22,22 @@ const env = () => ({
 });
 function fixture(mode) {
   const calls = [];
-  const ref = (name) => ({ name, kind: 'OBJECT' });
+  const ref = (name) => {
+    if (mode === 'unresolved-row' && name === 'Row0')
+      return { name: null, kind: 'NON_NULL' };
+    if (mode === 'unresolved-aggregate' && name === 'Sum')
+      return { name: null, kind: 'NON_NULL' };
+    if (mode === 'unresolved-filter' && name === 'Filter')
+      return { name: null, kind: 'NON_NULL' };
+    const named = { name, kind: 'OBJECT' };
+    return mode === 'wrapped'
+      ? { name: null, kind: 'NON_NULL', ofType: {
+          name: null, kind: 'LIST', ofType: {
+            name: null, kind: 'NON_NULL', ofType: named,
+          },
+        } }
+      : named;
+  };
   const roots = [
     'workersInvocationsAdaptive',
     'd1AnalyticsAdaptiveGroups',
@@ -109,6 +124,11 @@ function fixture(mode) {
         assert.ok(q.startsWith('query CommunityReports'));
         assert.ok(!q.includes('mutation'));
         assert.ok(!q.includes('SYNTHETIC_CLOUDFLARE_READ_TOKEN'));
+        if (mode === 'wrapped' && q.includes('__schema'))
+          assert.ok(
+            /ofType\s*\{\s*name kind ofType\s*\{\s*name kind ofType\s*\{/.test(q),
+            'Schema query must reach a named type below three wrappers',
+          );
         body = {
           errors: mode === 'partial' ? [{ message: 'raw-error' }] : [],
           data: q.includes('__schema')
@@ -230,6 +250,28 @@ await test('disabled datasets are explicit and do not become a verified usage pr
     r = await discover(env(), f.fetcher);
   assert.ok(Object.values(r.enabled).every((x) => x === false));
   assert.equal(r.profileVerified, false);
+});
+await test('nested non-null/list dataset types retain actual aggregate and dimension field names', async () => {
+  const f = fixture('wrapped');
+  const r = await discover(env(), f.fetcher);
+  assert.deepEqual(r.datasets.d1AnalyticsAdaptiveGroups.sum, ['syntheticSum']);
+  assert.deepEqual(r.datasets.durableObjectsStorageGroups.max, ['syntheticMax']);
+  assert.deepEqual(r.datasets.durableObjectsStorageGroups.dimensions, ['databaseId', 'namespaceId']);
+  assert.equal(r.usageValuesVerified, false);
+  assert.equal(r.profileVerified, false);
+});
+await test('unresolved schema types stop before account settings and never report successful empty discovery', async () => {
+  for (const [mode, code] of [
+    ['unresolved-row', 'ANALYTICS_ROW_TYPE_UNRESOLVED'],
+    ['unresolved-aggregate', 'ANALYTICS_AGGREGATE_TYPE_UNRESOLVED'],
+    ['unresolved-filter', 'ANALYTICS_FILTER_TYPE_UNRESOLVED'],
+  ]) {
+    const f = fixture(mode);
+    await assert.rejects(discover(env(), f.fetcher), new RegExp(code));
+    const graphql = f.calls.filter((c) => new URL(c.url).pathname.endsWith('/graphql'));
+    assert.equal(graphql.length, 1);
+    assert.ok(JSON.parse(graphql[0].body).query.includes('__schema'));
+  }
 });
 
 await test('each failed metadata envelope reports only fixed stage, status, types, booleans and numeric codes', async () => {

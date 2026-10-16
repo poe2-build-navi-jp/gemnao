@@ -185,6 +185,13 @@ export async function gate(env, fetcher = fetch) {
   return target.environment;
 }
 const unwrap = (t) => t?.name || (t?.ofType ? unwrap(t.ofType) : null);
+// GraphQL dataset rows commonly use NON_NULL -> LIST -> NON_NULL -> OBJECT.
+// Read through those wrappers rather than reporting empty metric fields as a
+// successful discovery. This remains schema-only; no usage query is submitted.
+const typeReference = Array.from({ length: 6 }).reduce(
+  (inner) => `name kind ofType { ${inner} }`,
+  'name kind',
+);
 // Only names and type structure are kept; descriptions, provider errors, account
 // values, SQL, query samples and credential payloads never enter the receipt.
 export async function discover(env, fetcher = fetch) {
@@ -227,8 +234,7 @@ export async function discover(env, fetcher = fetch) {
       namespaces.result_info?.total_count === namespaces.result.length,
     'NAMESPACE_LIST_INCOMPLETE',
   );
-  const q =
-    'query CommunityReportsSchema { __schema { types { name inputFields { name } fields { name type { name kind ofType { name kind ofType { name kind } } } args { name type { name kind ofType { name kind } } } } } } }';
+  const q = `query CommunityReportsSchema { __schema { types { name inputFields { name } fields { name type { ${typeReference} } args { name type { ${typeReference} } } } } } }`;
   const schema = await request(
     fetcher,
     'https://api.cloudflare.com/client/v4/graphql',
@@ -257,16 +263,27 @@ export async function discover(env, fetcher = fetch) {
   const selected = new Map();
   for (const root of roots) {
     const row = types.get(unwrap(root.type));
+    need(Array.isArray(row?.fields), 'ANALYTICS_ROW_TYPE_UNRESOLVED');
     const fields = {};
     for (const f of row?.fields || []) {
       if (['sum', 'max', 'dimensions'].includes(f.name)) {
-        fields[f.name] = (types.get(unwrap(f.type))?.fields || [])
+        const aggregate = types.get(unwrap(f.type));
+        need(
+          Array.isArray(aggregate?.fields),
+          'ANALYTICS_AGGREGATE_TYPE_UNRESOLVED',
+        );
+        fields[f.name] = aggregate.fields
           .map((x) => x.name)
           .filter((n) => /^[A-Za-z][A-Za-z0-9_]{0,100}$/.test(n));
       }
     }
     const filter = root.args?.find((a) => a.name === 'filter');
-    fields.filter = (types.get(unwrap(filter?.type))?.inputFields || []).map(
+    const filterType = types.get(unwrap(filter?.type));
+    need(
+      Array.isArray(filterType?.inputFields),
+      'ANALYTICS_FILTER_TYPE_UNRESOLVED',
+    );
+    fields.filter = filterType.inputFields.map(
       (x) => x.name,
     );
     selected.set(root.name, fields);
