@@ -48,4 +48,16 @@ durationの課金単位、providerの集計完了時刻、通知到達、cleanup
 
 専用の通知タスクはGitHubのこのworkflow結果を読む方式とする。最新runの完了・時刻・operation・source一致を確認し、監視job自体の停止やログ欠落も異常とする。GitHub cronと通知タスクの実行・配達には遅延があるため即時通知とは扱わない。既存の別用途タスクは変更しない。
 
-- 合成HTTPの監視検証5件と既存25件が成功。新監視の本番実行・通知到達の結果は実行後に追記する。
+- 合成HTTPの監視検証5件と既存25件が成功。ビルド成功（HTML438、sitemap417、OG357）。変更MJSのlint・構文・YAML・diff検査成功。全体lintは既存bootstrap関連4ファイルのエラーで失敗し、この変更には含めていない。
+- 初回本番run [38958978577](https://github.com/poe2-build-navi-jp/gemnao/actions/runs/38958978577)、source `f850f488bd7d015bc34c00d44dfb83a3db3cea54`、check成功。`capturedAt=2026-10-16T19:59:54.738Z`、`healthy=false`、health取得成功・503・`not-configured`・受付/公開OFF。GitHub経由でこのrun・job・ログを読めることも確認した。
+- ChatGPTタスク「ゲムなお投稿受付の異常監視」を毎時27分JSTに作成成功。毎時17分のGitHub結果を参照し、最新結果が75分超、欠落、取得不能、異常でも通知する。既存の別用途タスクは変更していない。
+- 即時実行を1回依頼したが、実行・配達は非同期。依頼成功は実行完了・端末到達の証拠ではない。通知到達確認と自然なcron実行の確認は未完了であり、MONITOR_VERIFIEDを設定していない。
+
+## 受付開始を止めている条件
+
+1. DO SQLite保存量がunknown、duration課金換算と全指標のcoverageが未確認。現collectorが要求するcoverage fieldはschemaに存在せず、実装と取得方法を整合させる必要がある。最終活動日時・HTTP時刻・query上限で偽装しない。
+2. 専用cleanupのcronと成功receiptがない。現在専用DBに削除対象行はないが、将来の期限切れや台帳による消去を伴う処理の実行・定期化には具体的な削除承認が必要。単なる読取りの承認を流用しない。
+3. 通知タスクは作成・試験依頼済みだが実配達未確認。自然な定期確認の証跡も未確認。
+4. 自動取得用の新しいcredentialは作成・登録していない。既存のsetup credentialをログへ取り出したりruntimeへ転用したりせず、必要となる登録は対象・権限・保存先を確定して個別承認を得る。利用者の指示に従いtoken自体の確認は実施しない。
+
+この記録で本番の受付・公開・予算・検証済みフラグは変更していない。自動削除も開始していない。
