@@ -11,6 +11,7 @@ export type GameGuide = {
   title: string;
   shortTitle: string;
   hubTitle?: string;
+  hubDescription?: string;
   lead: string;
   accent: string;
   demand: string;
@@ -46,7 +47,7 @@ export const games: GameGuide[] = [
     title: 'Aniimo / アニモ',
     shortTitle: 'アニモ（Aniimo）',
     hubTitle: aniimoHubTitle,
-    lead: 'アニモ（Aniimo）の不具合を、起動・ログイン・画面表示の症状から切り分けるPC版ガイドです。公式の修復方法と、結果に応じた次の行動を確認できます。',
+    lead: 'アニモ（Aniimo）が起動しない・開かない、途中で落ちる時のPC版ガイドです。ログイン・黒画面も症状別に分け、公式の修復方法と結果に応じた次の行動を確認できます。',
     accent: '#6f5bd3',
     demand: 'Windows PC版：公式ランチャー・Steam',
     issueScale: '高い',
@@ -113,7 +114,9 @@ export const games: GameGuide[] = [
     slug: 'onimusha-way-of-the-sword',
     title: '鬼武者 Way of the Sword',
     shortTitle: '鬼武者 Way of the Sword',
-    lead: '破魔鏡でのセーブ方法と、PC版の起動失敗・クラッシュ・低FPSの確認先を案内。セーブ方法は画像付き攻略、PCの不具合対処は公式情報を出典として区別しています。',
+    hubTitle: '鬼武者 Way of the Swordのセーブ方法｜PC版の不具合・エラー対処',
+    hubDescription: '鬼武者 Way of the Swordのセーブ方法を画像付き攻略から確認。PC操作キー・オートセーブ条件は未検証。起動しない・クラッシュ・低FPSなどPC版の不具合は、公式情報に基づく症状別記事へ案内します。',
+    lead: '『鬼武者 Way of the Sword』のセーブ方法は、下の「セーブ方法」で案内します。破魔鏡の画像付き攻略を出典とし、PC操作キー・オートセーブ条件は未検証です。起動失敗・クラッシュ・低FPSは、公式情報に基づく症状別記事へ進んでください。',
     accent: '#8b2f28',
     demand: '2026年9月3日発売の新作',
     issueScale: '高い',

@@ -139,9 +139,9 @@ export const discordAudioGrowthArticles: DiscordArticle[] = [
   },
   {
     slug: 'mic-volume-low', category: 'audio',
-    title: 'Discordでマイク・声が小さい時の直し方【自分と相手の設定を切り分け】',
+    title: 'Discordで自分の声・マイク音量が小さい時の直し方【PC版】',
     shortTitle: 'マイク・自分の声が小さい',
-    seoTitle: 'Discordでマイク・声が小さい原因と直し方｜100％でも小さい場合',
+    seoTitle: 'Discordで自分の声が小さい時の対処法｜マイク音量100％でも小さい場合',
     metaDescription: 'Discordで自分の声が小さいと言われる時の対処法。全員に小さいか特定の相手だけかを確認し、聞く側の個別音量、Windows録音、Discord入力音量を比較。100％でも小さい場合や音割れへの対処を解説します。',
     symptom: 'Discordで声が小さいと言われる、入力音量を上げても改善しない場合の手順です。特定の相手だけが小さく感じているのか、マイクから入る声自体が小さいのかを分けて調べます。',
     target: 'Windows 11／Windows 10のDiscordデスクトップアプリ',
@@ -150,7 +150,7 @@ export const discordAudioGrowthArticles: DiscordArticle[] = [
       href: '/discord/user-volume-low',
       label: '相手の声が小さい時の直し方',
     },
-    conclusion: 'まず別の参加者にも声の大きさを確認します。1人だけ小さいなら、その相手が自分に設定した個別音量を確認。全員に小さいなら、同じマイクでWindows録音とDiscordのマイクテストを比べ、録音から小さい場合はWindows・機器側、Discordだけ小さい場合は入力音量を調整します。',
+    conclusion: '自分の声が小さいと言われる場合は、別の参加者にも聞こえ方を確認します。1人にだけ小さく聞こえるなら、その人が自分に設定した個別音量を確認。全員に小さいなら同じマイクで録音とDiscordテストを比べ、録音も小さければWindows・機器側、Discordだけなら入力設定へ進みます。自分が聞く相手の声が小さい場合は、上の案内から出力側の記事へ進んでください。',
     quickFixes: [
       '誰に小さく聞こえるか確認し、特定の相手だけならその人の個別音量を調べる',
       '同じマイク・距離・文章でWindows録音とDiscordのマイクテストを比較する',
@@ -239,8 +239,8 @@ export const discordAudioGrowthArticles: DiscordArticle[] = [
       { label: 'Microsoft公式：マイクの音量・ブーストなどの問題を修正する（英語）', url: 'https://support.microsoft.com/en-us/windows/hardware/drivers/fix-microphone-problems' },
     ],
     related: ['user-volume-low', 'voice-cutting-out', 'mic-not-working', 'audio-input-not-found', 'cant-hear-voice'],
-    checkedAt: '2026-10-08', status: 'verified',
-    ogTitle: 'Discordでマイク・声が小さい？',
+    checkedAt: '2026-10-16', status: 'verified',
+    ogTitle: 'Discordで自分の声が小さい？',
     ogSteps: ['1人だけ？ 全員に小さい？', '相手の個別音量を確認', '録音とDiscordテストを比較', '入力音量を1項目ずつ調整'],
   },
   {

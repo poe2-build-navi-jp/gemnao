@@ -4,10 +4,10 @@ export function SteamInputBeforeSteps() {
   return (
     <div className="reset-config-details steam-input-details">
       <section className="diagnosis-table" id="input-branches">
-        <h2>どこまで認識される？ 最初に進む場所を決める</h2>
+        <h2>認識しない？ ゲームだけ動かない？ 最初の確認先</h2>
         <p>
-          まずゲームを終了し、パッドを<strong>1台だけ</strong>
-          接続します。Steamの画面をパッドで操作できることと、ゲームにボタン入力が届くことは別です。以下の順に、最後に反応した場所を確認してください。
+          <strong>Steamの入力テストまで反応するか</strong>
+          で、接続とゲーム別設定のどちらを調べるかを分けます。ゲームを終了し、パッドは1台だけ接続。Steam画面の操作だけでゲームにも入力が届くとは判断せず、下の表で最後に反応した場所を確認してください。
         </p>
         <table className="reset-examples">
           <thead>

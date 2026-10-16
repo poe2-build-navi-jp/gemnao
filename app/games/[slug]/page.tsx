@@ -53,11 +53,12 @@ export async function generateMetadata({
           `${game.shortTitle} PC版の不具合・エラー対処法`
         : `${game.shortTitle} PC版｜起動しない・セーブ場所・推奨スペック`);
   const description =
-    game.slug === 'aniimo'
+    game.hubDescription ||
+    (game.slug === 'aniimo'
       ? aniimoHubDescription
       : game.focused
         ? `${game.shortTitle} PC版の${game.tags.join('・')}を症状別に解決。${game.lead}`
-        : `${game.shortTitle}のセーブデータと設定ファイルの場所、FPS上限、ウルトラワイド、HDR、コントローラー、起動・クラッシュ対策、MOD、日本語対応を解説。`;
+        : `${game.shortTitle}のセーブデータと設定ファイルの場所、FPS上限、ウルトラワイド、HDR、コントローラー、起動・クラッシュ対策、MOD、日本語対応を解説。`);
   return {
     title,
     description,
@@ -171,15 +172,20 @@ export default async function GamePage({
       about: game.title,
       mainEntityOfPage: `https://gemnao.pages.dev/games/${game.slug}`,
     },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: faq.map((item) => ({
-        '@type': 'Question',
-        name: item.q,
-        acceptedAnswer: { '@type': 'Answer', text: item.a },
-      })),
-    },
+    // This focused hub has no visible FAQ; do not emit its fallback question.
+    ...(game.slug === 'onimusha-way-of-the-sword'
+      ? []
+      : [
+          {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: faq.map((item) => ({
+              '@type': 'Question',
+              name: item.q,
+              acceptedAnswer: { '@type': 'Answer', text: item.a },
+            })),
+          },
+        ]),
     ...(game.slug === 'aniimo'
       ? [
           {

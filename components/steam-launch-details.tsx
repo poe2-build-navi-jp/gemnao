@@ -4,10 +4,11 @@ export function SteamLaunchBeforeSteps() {
   return (
     <div className="reset-config-details steam-launch-details">
       <section className="diagnosis-table" id="steam-launch-symptoms">
-        <h2>「プレイ」を押した後、どの状態になる？</h2>
+        <h2>Steamゲームが起動しない：エラー文と「プレイ」後の状態で選ぶ</h2>
         <p>
-          下の表で<strong>Steamの表示・ゲームのウィンドウ・エラー文</strong>
-          を照らし合わせ、当てはまる行から確認を始めます。起動時に更新や初回セットアップが進んでいれば完了を待ち、ボタンを連打しないでください。
+          「このゲームの起動中にエラーが発生しました」という表示だけでは原因は決まりません。
+          <strong>続く詳細文・Steamの表示・ゲームのウィンドウ</strong>
+          を下の表と照らし合わせます。更新や初回セットアップが進んでいれば完了を待ち、ボタンを連打しないでください。
         </p>
         <table className="reset-examples">
           <thead>

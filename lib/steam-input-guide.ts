@@ -2,12 +2,12 @@ import type { CommonGuide } from './common-guides';
 
 export const steamInputGuide: CommonGuide = {
   slug: 'steam-input-controller',
-  title: 'Steam Inputでコントローラーが反応しない時の直し方｜認識場所別に確認',
+  title: 'Steamでコントローラーが反応しない時の対処法｜認識・Steam Inputを確認',
   shortTitle: 'Steam Input設定',
   description:
-    'コントローラーがWindows・Steam・ゲームのどこで反応しなくなるかを判別。Steamが認識しない場合の接続確認と、Steamでは認識するのにゲームで動かない場合のゲーム別Steam Input・レイアウト・競合の確認を、期待結果つきで説明します。',
+    'Steamでコントローラーを認識しない、Steamでは反応するのにゲームだけ動かない場合の対処法。接続・入力テスト、ゲーム別Steam Inputの有効／無効、レイアウトを順に比較し、一部のボタンだけ効かない・二重入力の場合も切り分けます。',
   conclusion:
-    'Steamの「設定」→「コントローラ」で機器名とボタン入力を確認します。Steamに出ないなら接続・Windows側を確認。Steamでは入力できるのにゲームだけ無反応なら、対象ゲームの「プロパティ」→「コントローラ」でSteam Inputを1回だけ切り替え、ゲームを再起動して同じボタンを試します。ゲーム側がパッド非対応の場合は、ゲームパッド操作のままでは動かないため、公式の対応情報とレイアウトの入力方式も確認してください。',
+    'Steamの「設定」→「コントローラ」で機器名とボタン入力を確認します。認識しないなら接続、Steamでは反応するのにゲームだけ動かないならゲーム別Steam Inputと対応状況を確認。一部だけ効かない・二重に動くならレイアウトと外部変換を調べます。変更は1項目ずつ、ゲームを再起動して同じボタンで比較してください。',
   checkedAt: '2026-10-03',
   status: 'verified',
   causes: [
