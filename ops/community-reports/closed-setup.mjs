@@ -35,7 +35,7 @@ export const TARGET = Object.freeze({
   guard: 'gemnao-community-reports-guard',
   cleanup: 'gemnao-community-reports-cleanup',
   base: '3d2f8d9d57ca41614882841062e44950e0702d63',
-  scopeBase: '776a8a216fa3ab922817dc57d6a8b15daefb2738',
+  scopeBase: '085020c9e6115c18886ea49cbcbf84ee22b17687',
   schemaHash:
     '35bc54bf504a175c8261bf603e01a781b95ce2b97967101c218e6a4de97f8bbb',
 });

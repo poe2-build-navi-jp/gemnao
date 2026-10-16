@@ -606,6 +606,7 @@ test('source verification accepts deterministic phase only; partial pair/runtime
     ]);
     for (const path of [
       'ops/community-reports/closed-setup.mjs',
+      'ops/community-reports/closed-source.json',
       'ops/community-reports/bootstrap-phase.mjs',
     ]) {
       await mkdir(dirname(join(dir, path)), { recursive: true });

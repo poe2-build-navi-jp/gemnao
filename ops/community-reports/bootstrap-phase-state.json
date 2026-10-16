@@ -1,20 +1,13 @@
 {
   "version": 1,
-  "phase": "close",
+  "phase": "open",
   "resourceHash": "64690067d9235af1098a73cf2b02402485c7fa5f003eec88f0281d4f64467dc5",
   "expectedPrevious": {
-    "deploymentId": "9624ab25-e5bc-4cef-bd92-ff934547e589",
-    "sourceSha": "2501d2758dcde9dd98184f4be265a571cbe869e1",
-    "configSha256": "3663a967eef275de1cb8fd0af70b16a15e1cf2efef985f172f6b45449969cb06"
+    "deploymentId": "0b826756-057a-4853-94b9-d1dcf9e6002c",
+    "sourceSha": "085020c9e6115c18886ea49cbcbf84ee22b17687",
+    "configSha256": "7b91d4dc119904ed00c32f3a8eb34070fc9a0617a958cc62a5690750043c4689"
   },
   "instanceId": null,
-  "openProof": {
-    "sourceSha": "2501d2758dcde9dd98184f4be265a571cbe869e1",
-    "runId": "38942924014",
-    "deploymentId": "9624ab25-e5bc-4cef-bd92-ff934547e589",
-    "configSha256": "3663a967eef275de1cb8fd0af70b16a15e1cf2efef985f172f6b45449969cb06",
-    "phaseHash": "5e1b57ad5032aeba54a882745f8a0d2fcb5c2ff7cf460095feb33ff23ef502d6",
-    "resourceHash": "64690067d9235af1098a73cf2b02402485c7fa5f003eec88f0281d4f64467dc5"
-  },
+  "openProof": null,
   "bootstrapResultSha256": null
 }

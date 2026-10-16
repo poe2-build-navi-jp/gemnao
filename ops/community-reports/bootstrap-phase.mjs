@@ -27,8 +27,8 @@ export const PHASE_PATH = 'ops/community-reports/bootstrap-phase-state.json';
 export const STAGE1 = Object.freeze({
   databaseId: '3141aae6-8dc9-47e9-a8a2-7a05f642f94f',
   guardNamespaceId: '54f03069afc249779996d92530e835e1',
-  deploymentId: '75d4a1d8-bbc6-46d3-9813-f866518f6a81',
-  sourceSha: '0a703eb562d2f363615be90a442c465178bb78e6',
+  deploymentId: '0b826756-057a-4853-94b9-d1dcf9e6002c',
+  sourceSha: '085020c9e6115c18886ea49cbcbf84ee22b17687',
 });
 export const CONFIRMATIONS = Object.freeze({
   'bootstrap-open': 'OPEN_REPORTS_BOOTSTRAP_ONLY',
