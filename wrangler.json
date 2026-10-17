@@ -18,16 +18,18 @@
     "GAME_REQUEST_REVIEW_MODE": "manual",
     "GAME_REQUEST_MANUAL_REVIEW_READY": "true",
     "GAME_REQUESTS_ENABLED": "true",
-    "REPORTS_ENABLED": "false",
-    "REPORTS_PUBLIC_ENABLED": "false",
-    "REPORTS_REVIEW_ENABLED": "false",
-    "REPORTS_BUDGET_VERIFIED": "false",
+    "REPORTS_ENABLED": "true",
+    "REPORTS_PUBLIC_ENABLED": "true",
+    "REPORTS_REVIEW_ENABLED": "true",
+    "REPORTS_BUDGET_VERIFIED": "true",
     "REPORTS_AUTO_OBSERVATION_ENABLED": "false",
     "REPORTS_USAGE_PROFILE_VERIFIED": "false",
-    "REPORTS_PUBLIC_MONITOR_VERIFIED": "false",
+    "REPORTS_PUBLIC_MONITOR_VERIFIED": "true",
     "REPORTS_BOOTSTRAP_ALLOWED": "false",
     "REPORTS_VERIFICATION_ALLOWED": "false",
-    "REPORTS_GUARD_INSTANCE": "c3cdfc3f-6ba1-495e-b3fd-a377b610b25e"
+    "REPORTS_GUARD_INSTANCE": "c3cdfc3f-6ba1-495e-b3fd-a377b610b25e",
+    "REPORTS_BUDGET_MODE": "free-small-v1",
+    "REPORTS_MONITOR_MODE": "public-status"
   },
   "d1_databases": [
     {
