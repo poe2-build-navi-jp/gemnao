@@ -117,6 +117,27 @@ export function inspectionQuery(datasets, now) {
     end,
   };
 }
+export function storageHistoryQuery(datasets, now) {
+  need(Number.isSafeInteger(now));
+  const schema = datasets.durableObjectsSqlStorageGroups;
+  need(
+    schema?.max?.includes('storedBytes') &&
+      schema.dimensions?.includes('namespaceId') &&
+      ['datetime_geq', 'datetime_leq'].every((name) =>
+        schema.filter?.includes(name),
+      ),
+  );
+  const day = Date.parse(
+    new Date(now).toISOString().slice(0, 10) + 'T00:00:00.000Z',
+  );
+  const start = new Date(day - 86_400_000).toISOString();
+  const end = new Date(day - 1).toISOString();
+  return {
+    start,
+    end,
+    query: `query CommunityReportsStorageHistory {viewer{accounts(filter:{accountTag:"${target.account}"}){doStorage:durableObjectsSqlStorageGroups(limit:1000,filter:{datetime_geq:${JSON.stringify(start)},datetime_leq:${JSON.stringify(end)}}){max{storedBytes} dimensions{namespaceId}}}}}`,
+  };
+}
 function reportedMetrics(data, inventory) {
   need(
     object(data) &&
@@ -427,7 +448,7 @@ export async function inspectReadiness(env, fetcher = fetch, now = Date.now()) {
   };
   const plan = inspectionQuery(capability.datasets, now);
   let usage = { sampleReturned: false, reason: 'utc-day-start-lag-window' };
-  if (plan) {
+  const readUsage = async (query) => {
     const response = await fetcher(api + '/graphql', {
       method: 'POST',
       redirect: 'error',
@@ -437,21 +458,45 @@ export async function inspectReadiness(env, fetcher = fetch, now = Date.now()) {
         'Content-Type': 'application/json',
         Accept: 'application/json',
       },
-      body: JSON.stringify({ query: plan.query }),
+      body: JSON.stringify({ query }),
     });
     need(response.ok);
+    return reportedMetrics(await boundedJson(response, 512_000), inventory);
+  };
+  if (plan) {
     usage = {
       sampleReturned: true,
       requestedStart: plan.start,
       requestedEnd: plan.end,
-      ...reportedMetrics(await boundedJson(response, 512_000), inventory),
+      ...(await readUsage(plan.query)),
     };
+  }
+  // One bounded diagnostic request only after a genuinely empty current-day
+  // storage response. Prior-day data never enters today's usage or guard state.
+  let storageHistory = { attempted: false, historicalOnly: true };
+  if (usage.unknownReasons?.doStorage === 'empty-rows') {
+    const history = storageHistoryQuery(capability.datasets, now);
+    storageHistory = {
+      attempted: true,
+      historicalOnly: true,
+      requestedStart: history.start,
+      requestedEnd: history.end,
+      result: 'unavailable',
+    };
+    try {
+      const old = await readUsage(history.query);
+      storageHistory.result =
+        old.unknownReasons.doStorage ?? 'rows-returned-inventory-covered';
+    } catch {
+      // No provider body/errors/identifiers, retry or substitute current value.
+    }
   }
   return {
     operation: 'read-community-reports-readiness',
     sourceSha: env.GITHUB_SHA,
     checkedAt: new Date(now).toISOString(),
     usage,
+    storageHistory,
     cleanup: {
       scheduleReadable: inventory.cleanupCron !== null,
       expectedSchedulePresent:

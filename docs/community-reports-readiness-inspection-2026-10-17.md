@@ -87,3 +87,21 @@ durationの課金単位、providerの集計完了時刻、通知到達、cleanup
 次の照合は親の既存Cloudflareブラウザで、対象accountのDO SQLite保存量表示が同じUTC期間に値を持つか、その表示の対象期間・更新時刻を読むこと。従来のWorkers/D1画像の再送やtoken確認は不要。表示にも値がなければprovider側の収録仕様の確認が必要。表示に値がある場合は、その値を取得する正式なdataset/集計期間の根拠を確認してからquery修正を行う。同じreadiness runの重複起動や、権限拡大では解決したとみなさない。
 
 監視タスクは登録済みを継承し、重複作成なし。通知到達は本人確認待ち。新credential・権限拡大・削除・cron開始の承認は今回要求せず、それらの操作も行っていない。
+
+## 2026-10-17 再開時の確認とブラウザ以外の読取り経路
+
+- remote HEAD `4cdcbe45e67c6bcc65a8ed94556aa2183d348dd1`、ローカル作業ツリーは変更前クリーン。GitHub直近10runは全てcompletedで、同範囲に実行中の重複作業なし。外部管理者の操作全体を保証するものではないため、本番設定の変更は行わない。
+- scheduled run `38990485678` / check job `117271569353` のログを再読。2026-10-17T01:21:17.421Z、同じsource SHAで公開health 503/not-configured、受付/公開OFF、cleanupReceiptPresent=false、notificationDeliveryVerified=false。約148分の監視間隔は正常な毎時実行の保証とは扱わず、75分の監視期限は延長しない。この環境から直接の公開GETはHTTP_UNAVAILABLEだった。
+- 親ブラウザのCloudflareログイン拒否（メール方式403を含む）は回避しない。既存GitHub Environmentの読取りworkflowはrun #7で成功しており、通常の許可された代替経路として利用可能。CLI workflow GET Forbiddenは再試行しない。新credentialの確認・登録は不要な読取り経路。
+- 検査のUTC当日windowだけでは、保存量datasetが前日にのみ行を持つ状態を切り分けられなかった。今回、当日のDO保存量がempty-rowsの時だけ、同じSQLite datasetへ直前のUTC暦日1日分を最大1回追加照会する。schemaにあるfieldだけ、同じaccount、limit 1000、既存timeout/応答サイズ制限を維持。出力は要求期間と固定の結果分類のみ。ID・保存量・credential・provider本文は出力しない。
+- 過去日の行は診断用のみ。現在usage、30分lease、予算判定、guard、VERIFIEDへ転用しない。前日が空／provider拒否／資源不一致ならそのまま未確認。日付範囲を自動で広げ続けたりretryしたりしない。古いD1 446.46KB確認と監視登録は引き続き確認済みとして保持。
+- preflight/readiness/public-health計35テスト成功。前日だけ値がある場合も当日unknownとactivation=false、前日の空/取得失敗、当日に行があれば追加要求0、月境界、schema不一致の拒否、秘密/数値の非出力を確認。変更MJS lintとdiff検査成功。サイトとruntimeは未変更のため全ビルドを再実行しない。
+
+### 実行可能な次操作と承認範囲
+
+1. 親GitHub UI担当が新commitのgemunaoで既存analytics preflightを新規1回起動（mode=readiness、確認文字列なし）。既存Environmentの当該run承認は本人が行う。固定SELECT/GraphQL/公開GETのみ。前日結果が返るまで当日unknownの原因を解決済みとしない。
+2. collectionは未実行。現runtimeは全指標のprovider coverage fieldを要求するが実schemaには存在せず、保存量の前日照合だけで解消しない。HTTP時刻/最終活動時刻への代用はしない。現行の保護workflowもcollection書込みや受付activationを提供しておらず、単なるフラグ変更は正常運用にならない。
+3. 後続の自動運用で必要となる限定操作は、専用cleanup Workerのみに読取りcredential（対象accountのAccount Analytics Read、Workers Metadata Read-Only、D1 Read）を登録すること、同Workerのcollectionと期限切れ/削除済み報告本文等の消去を含むmaintenanceを実行すること、同Workerへ `*/15 * * * *` を設定すること。これらは未実装・未検証条件を解決した上で別途具体承認が必要。既存setup credentialをruntimeへコピーしない。承認を先取りせず、今回は実行しない。
+4. 外部監視は既存タスクを継続。通知到達は本人が受信確認する必要がある。148分間隔という実測を踏まえ、GitHub scheduleに定刻保証があると扱わない。監視設定の追加・重複作成・75分期限の緩和はしない。
+
+本番受付フラグ、pin、bootstrap、cron、credential、保護設定は変更していない。受付開始は未達であり、この検査追加を開始完了と報告しない。

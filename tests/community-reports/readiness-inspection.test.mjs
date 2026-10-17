@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {
   inspectReadiness,
   inspectionQuery,
+  storageHistoryQuery,
   collectorSchemaCompatibility,
 } from '../../ops/community-reports/readiness-inspection.mjs';
 import { target } from '../../ops/community-reports/preflight.mjs';
@@ -197,6 +198,21 @@ function fixture(mode) {
             },
           },
         });
+      if (query.startsWith('query CommunityReportsStorageHistory')) {
+        if (mode === 'history-failed') throw Error('PRIVATE_PROVIDER_ERROR');
+        const rows =
+          mode === 'history-present'
+            ? [
+                {
+                  max: { storedBytes: 123456 },
+                  dimensions: { namespaceId: 'ns-one' },
+                },
+              ]
+            : [];
+        return response({
+          data: { viewer: { accounts: [{ doStorage: rows }] } },
+        });
+      }
       assert.ok(query.startsWith('query CommunityReportsReadinessUsage'));
       if (mode === 'provider-error')
         return response({
@@ -230,7 +246,8 @@ function fixture(mode) {
           { namespaceId: 'ns-one' },
         ),
       };
-      if (mode === 'do-empty') account.doStorage = [];
+      if (['do-empty', 'history-present', 'history-failed'].includes(mode))
+        account.doStorage = [];
       if (mode === 'do-missing') delete account.doStorage;
       if (mode === 'do-unexpected')
         account.doStorage[0].dimensions.namespaceId = 'other-private-id';
@@ -490,4 +507,60 @@ await test('observed schema permits read-only metrics but cannot satisfy collect
   assert.ok(!query.includes('freshnessField'));
   assert.ok(!query.includes('max{datetime'));
   assert.ok(query.includes('doStorage:durableObjectsSqlStorageGroups'));
+});
+
+await test('prior-day diagnostic never replaces empty current storage, even when old rows exist', async () => {
+  for (const [mode, expected] of [
+    ['do-empty', 'empty-rows'],
+    ['history-present', 'rows-returned-inventory-covered'],
+    ['history-failed', 'unavailable'],
+  ]) {
+    const f = fixture(mode);
+    const result = await inspectReadiness(environment(), f.fetcher, now);
+    assert.equal(result.storageHistory.result, expected);
+    assert.equal(result.storageHistory.historicalOnly, true);
+    assert.equal(
+      result.storageHistory.requestedStart,
+      '2026-10-15T00:00:00.000Z',
+    );
+    assert.equal(
+      result.storageHistory.requestedEnd,
+      '2026-10-15T23:59:59.999Z',
+    );
+    assert.equal(result.usage.unknownReasons.doStorage, 'empty-rows');
+    assert.equal(
+      result.usage.reportedBelow80Percent.durableObjectStorage,
+      null,
+    );
+    assert.equal(result.authorizesActivation, false);
+    assert.equal(result.automaticCollectorCompatible, false);
+    assert.equal(
+      f.calls.filter((c) =>
+        c.options.body?.includes('CommunityReportsStorageHistory'),
+      ).length,
+      1,
+    );
+    assert.ok(
+      !/123456|ns-one|PRIVATE_PROVIDER_ERROR/.test(JSON.stringify(result)),
+    );
+  }
+});
+await test('nonempty current storage does not trigger historical reads; history query is fixed and schema checked', async () => {
+  const f = fixture();
+  const result = await inspectReadiness(environment(), f.fetcher, now);
+  assert.equal(result.storageHistory.attempted, false);
+  assert.equal(
+    f.calls.filter((c) =>
+      c.options.body?.includes('CommunityReportsStorageHistory'),
+    ).length,
+    0,
+  );
+  const schema = schemas();
+  const q = storageHistoryQuery(schema, Date.parse('2026-11-01T00:01:00.000Z'));
+  assert.equal(q.start, '2026-10-31T00:00:00.000Z');
+  assert.equal(q.end, '2026-10-31T23:59:59.999Z');
+  assert.match(q.query, /limit:1000/);
+  assert.ok(!/mutation|objectId|scriptName/.test(q.query));
+  schema.durableObjectsSqlStorageGroups.filter = [];
+  assert.throws(() => storageHistoryQuery(schema, now));
 });
