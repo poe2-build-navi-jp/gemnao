@@ -1,8 +1,8 @@
 import type { GameArticle } from '@/lib/game-articles';
 
 // Call of Duty: Modern Warfare 4（PC版）の個別記事。
-// 2026-09-28にActivision公式サポート（TPM 2.0とセキュアブート・エディション）、
-// Call of Duty公式ブログ（ベータ版のPC動作環境）、Steamストアで確認した内容だけを載せています。
+// 製品版PC要件・発売日・TPM案内を2026-10-18に公式本文と再照合。
+// シェーダーの説明には従来の公式ブログを使用。
 // STEPのidは解決報告（D1）の集計キーなので、公開後は変更しないでください。
 
 const sources = {
@@ -20,6 +20,10 @@ const sources = {
     label:
       'Call of Duty公式ブログ：ベータ版のPC動作環境・シェーダーの事前読み込み（英語）',
     url: 'https://www.callofduty.com/blog/2026/08/call-of-duty-modern-warfare-4-next-early-intel-pc-specs',
+  },
+  retailSpecs: {
+    label: 'Activision公式：製品版PC動作環境（10月1日更新・10月18日確認）',
+    url: 'https://support.activision.com/modern-warfare-4/articles/pc-system-requirements-for-modern-warfare-4',
   },
   steam: {
     label:
@@ -45,14 +49,14 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
     title:
       'CoD MW4（Modern Warfare 4）がPCで起動しない・遊べない時の対処法｜TPM 2.0とセキュアブートの有効化【PC版】',
     shortTitle: 'TPM 2.0・セキュアブート',
-    checkedAt: '2026-09-28',
+    checkedAt: '2026-10-18',
     status: 'verified',
     targetVersion:
-      'Steam版・Battle.net版・XBOX on PC版（発売前）・2026年9月28日時点の公式情報',
+      'Steam版・Battle.net版・XBOX on PC版。2026年10月18日確認：通常発売は10月23日、デジタル予約特典のキャンペーン早期アクセスは10月16日（PT）開始の案内',
     symptom:
       'PC版でセキュリティ要件を満たしていないという通知が出る、オンラインモードに入れない、TPM 2.0を有効にしたのに何度も確認が出る、電話番号を求められる場合の確認手順です。',
     conclusion:
-      'PC版のModern Warfare 4は、TPM 2.0とセキュアブートの両方が必須です。ベータ版では、どちらかが無効だとオンラインモードを一切遊べませんでした。まずWindowsの「tpm.msc」と「msinfo32」で状態を確認し、無効ならBIOS（UEFI）で有効にします。Activision公式では、Activisionアカウントに携帯電話番号の登録が必要な場合があると案内しています。利用ストアとゲーム画面で対象アカウントを確認してください。',
+      'PC版のModern Warfare 4は、TPM 2.0とセキュアブートの両方が必須です。要件を満たさない場合はオンラインモードにアクセスできないと公式が案内しています。まずWindowsの「tpm.msc」と「msinfo32」で状態を確認し、無効でも直ちにBIOSを変更せず、バックアップ・暗号化の回復キー・機種別の公式手順を確認してください。Activision公式では、Activisionアカウントに携帯電話番号の登録が必要な場合があると案内しています。利用ストアとゲーム画面で対象アカウントを確認してください。',
     description:
       'Windows 11の要件はセキュアブートに対応していることで、有効になっているとは限りません。Windowsの版だけで判断せず、現在の状態を確認してください。Windows 10のPCや、自作PCでBIOSの設定を変えたことがある場合は特に確認が必要です。BIOSの操作を誤るとPCが起動しなくなることがあるため、マザーボードやPCメーカーの公式手順も必ず確認してください。',
     causes: [
@@ -132,7 +136,7 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
         id: 'step-2',
         title: 'BIOS（UEFI）でTPM 2.0を有効にする',
         summary:
-          'TPM 2.0には、Intelは第8世代以降（Intel PTT）、AMDはRyzen 2000シリーズ以降（AMD fTPM）のCPUが必要です。BIOSの画面や項目名はメーカーによって違います。',
+          'ActivisionのTPM案内はIntel PTT・AMD fTPMのCPU条件と、独立したTPMチップ（dTPM）にも言及しています。製品版の最低CPU表だけでTPM対応を判断せず、現在のTPM状態と機種別サポートを確認してください。BIOSの項目名はメーカーで異なります。',
         time: '約15分',
         risk: 'medium',
         actions: [
@@ -209,7 +213,7 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
       'TPMやセキュアブートを回避するとうたう非公式ツールを使わない（不正対策の仕組みのため、アカウントの処分につながるおそれがある）',
     ],
     cautions: [
-      'ここに載せた動作環境はベータ版のもので、製品版では変わる可能性があります（公式）。発売前に公式の最新情報も確認してください。',
+      '動作環境は10月1日更新のActivision製品版PC要件を10月18日に確認した値です。発売時点の要件で、今後変更される場合があります。SSD空き115GBに加え、必須アップデート用の追加容量が必要になる場合があります。',
       'BIOSの画面や項目名はメーカーによって違います。Activision公式サポートのページには、ASUS・MSI・GIGABYTE・ASRock・Dell・HP・Lenovoなどの公式手順へのリンクがあります。',
     ],
     faqs: [
@@ -217,7 +221,7 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
         question:
           'TPM 2.0とセキュアブートがないと、キャンペーンも遊べませんか？',
         answer:
-          'Activision公式は、PC版のModern Warfare 4ではTPM 2.0とセキュアブートの両方が必須と案内しています。ベータ版では、要件を満たさないとオンラインモードを一切遊べませんでした。',
+          'Activision公式は、PC版のModern Warfare 4ではTPM 2.0とセキュアブートの両方が必須と案内しています。要件を満たさない場合はオンラインモードにアクセスできないと案内しています。',
       },
       {
         question: 'Windows 10でも遊べますか？',
@@ -227,7 +231,7 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
       {
         question: '動作環境はどのくらいですか？',
         answer:
-          'ベータ版の最低環境は、Ryzen 5 1600・Core i5-8400、メモリ12GB、GTX 970・GTX 1060・RX 470・Arc A580（VRAM 3GB）、SSD必須です。推奨はRyzen 5 3600・Core i7-8700、メモリ16GB、RTX 3060 Ti・RX 6700 XT・Arc B580（VRAM 8GB）です。製品版では変わる可能性があります。',
+          '製品版の最低環境はRyzen 5 1400・Core i5-6600、メモリ8GB、GTX 970・GTX 1060・RX 470・Arc A580（VRAM 3GB）、SSD空き115GBです。推奨はRyzen 5 3600・Core i7-8700、メモリ16GB、RTX 3060 Ti・RX 6600 XT・Arc B580（VRAM 8GB）。推奨値はマルチプレイの高画質90fpsを対象とします。CPU要件を満たしてもTPM 2.0・セキュアブート対応は別に確認が必要です。',
       },
       {
         question: 'オフラインで遊べますか？',
@@ -243,6 +247,7 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
     sources: [
       sources.tpm,
       sources.editions,
+      sources.retailSpecs,
       sources.specs,
       sources.steam,
       sources.mbr2gpt,

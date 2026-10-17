@@ -545,7 +545,7 @@ export const games: GameGuide[] = [
     accent: '#3d4a2f',
     demand: '2026年10月23日発売・キャンペーン早期アクセスは10月16日（PT）から',
     issueScale: '非常に高い',
-    updated: '2026-09-28',
+    updated: '2026-10-18',
     tags: [
       'TPM 2.0',
       'セキュアブート',
@@ -570,10 +570,10 @@ export const games: GameGuide[] = [
     japanese: '日本語の音声・テキスト・字幕に対応（Activision公式）。',
     specs: {
       minimum:
-        'Windows 10 64bit（22H2以降）／GTX 970・GTX 1060・RX 470・Arc A580（VRAM 3GB）／メモリ12GB（ベータ版の値）',
+        'Windows 10 64bit（22H2以降・最新更新）／Ryzen 5 1400・Core i5-6600／GTX 970・GTX 1060・RX 470・Arc A580（VRAM 3GB）／メモリ8GB（製品版）',
       recommended:
-        'Windows 11 64bit／RTX 3060 Ti・RX 6700 XT・Arc B580（VRAM 8GB）／メモリ16GB（ベータ版の値）',
-      storage: 'SSD必須',
+        'Windows 11 64bit（最新更新）／Ryzen 5 3600・Core i7-8700／RTX 3060 Ti・RX 6600 XT・Arc B580（VRAM 8GB）／メモリ16GB（マルチプレイ・高画質90fps向け）',
+      storage: 'SSD空き115GB（発売時。更新で追加容量が必要になる場合あり）',
     },
     sources: [
       {
@@ -581,8 +581,8 @@ export const games: GameGuide[] = [
         url: 'https://support.activision.com/articles/trusted-platform-module-and-secure-boot',
       },
       {
-        label: 'Call of Duty公式ブログ：ベータ版のPC動作環境',
-        url: 'https://www.callofduty.com/blog/2026/08/call-of-duty-modern-warfare-4-next-early-intel-pc-specs',
+        label: 'Activision公式：製品版PC動作環境（10月1日更新）',
+        url: 'https://support.activision.com/modern-warfare-4/articles/pc-system-requirements-for-modern-warfare-4',
       },
       { label: 'Steamストア', url: steam('4435490') },
       {

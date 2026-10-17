@@ -50,8 +50,8 @@ export const releaseRoundups: ReleaseRoundup[] = [
     shortTitle: '2026年10月の新作',
     description:
       '2026年10月に発売・サービス開始する新作PCゲーム11本の動作環境を1つの表に整理。レイトレーシング対応GPU、Windows 11、TPM 2.0など「起動できない」原因になる必須条件と、GTX 1660・Windows 10で遊べるかの目安をまとめました。',
-    lead: '発売日に「起動しない」と困らないように、購入前に確認したい必須条件をまとめました。10月13日はテイルズとステューピッドのOS表記を再確認しました。',
-    checkedAt: '2026-10-13',
+    lead: '発売日に「起動しない」と困らないように、購入前に確認したい必須条件をまとめました。10月13日はテイルズとステューピッドのOS表記、10月18日はMW4の製品版要件と発売案内を再確認しました。',
+    checkedAt: '2026-10-18',
     games: [
       {
         name: '真・三國無双２ with 猛将伝 Remastered',
@@ -210,15 +210,21 @@ export const releaseRoundups: ReleaseRoundup[] = [
       },
       {
         name: 'Call of Duty: Modern Warfare 4',
-        date: '10月23日（デジタル版予約でキャンペーン早期アクセス10月17日）',
+        date: '10月23日（デジタル版予約でキャンペーン早期アクセス10月16日〈PT〉開始の公式案内）',
         os: 'Windows 10（22H2）以降',
-        minGpu: 'GTX 970・GTX 1060・RX 470・Arc A580（VRAM 3GB）※ベータ版の値',
-        memory: '12GB',
-        storage: 'SSD必須',
-        must: ['TPM 2.0とセキュアブート', 'Steamアカウントに電話番号', 'SSD'],
-        spec: { gpu: ['gtx-970'], vramGb: 3, ramGb: 12 },
+        minGpu: 'GTX 970・GTX 1060・RX 470・Arc A580（VRAM 3GB）（製品版）',
+        memory: '8GB',
+        storage: 'SSD空き115GB（発売時・更新分は別途）',
+        must: [
+          'Ryzen 5 1400・Core i5-6600以上',
+          'TPM 2.0とセキュアブート',
+          '電話番号認証は利用ストア・画面の条件を確認',
+          'SSD',
+        ],
+        spec: { gpu: ['gtx-970'], vramGb: 3, ramGb: 8 },
         gtx1660: 'yes',
-        gtx1660Note: 'ベータ版の最低環境（GTX 1060）より上',
+        gtx1660Note:
+          '製品版の最低GPU（GTX 1060）より上という目安。CPU・TPM等の要件は別途確認',
         win10: 'partial',
         win10Note:
           'Windows 10は22H2以降で、TPM 2.0とセキュアブートの有効化が必要',
@@ -226,7 +232,8 @@ export const releaseRoundups: ReleaseRoundup[] = [
           href: '/games/call-of-duty-modern-warfare-4/tpm-secure-boot',
           label: 'TPM 2.0・セキュアブートの有効化',
         },
-        source: steam('4435490'),
+        source:
+          'https://support.activision.com/modern-warfare-4/articles/pc-system-requirements-for-modern-warfare-4',
       },
       {
         name: 'ファイナルファンタジー レゾナンス',
@@ -292,12 +299,17 @@ export const releaseRoundups: ReleaseRoundup[] = [
         url: 'https://www.famitsu.com/article/202608/84258',
       },
       {
+        label:
+          'Activision公式：エディション・発売日・早期アクセス（10月13日更新）',
+        url: 'https://support.activision.com/modern-warfare-4/articles/modern-warfare-4-editions',
+      },
+      {
         label: 'Activision公式サポート：TPM 2.0とセキュアブート（英語）',
         url: 'https://support.activision.com/articles/trusted-platform-module-and-secure-boot',
       },
       {
-        label: 'Call of Duty公式ブログ：ベータ版のPC動作環境（英語）',
-        url: 'https://www.callofduty.com/blog/2026/08/call-of-duty-modern-warfare-4-next-early-intel-pc-specs',
+        label: 'Activision公式：製品版PC動作環境（10月1日更新・英語）',
+        url: 'https://support.activision.com/modern-warfare-4/articles/pc-system-requirements-for-modern-warfare-4',
       },
     ],
   },

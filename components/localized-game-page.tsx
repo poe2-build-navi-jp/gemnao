@@ -1,3 +1,4 @@
+import { GamePathHelp, WildsSaveGuideLink } from '@/components/game-path-help';
 import { ReportEntryLink } from '@/components/report-entry-link';
 import { OnimushaSaveAnswer } from '@/components/onimusha-save-answer';
 import { ArticleToc } from '@/components/article-toc';
@@ -193,6 +194,9 @@ export function LocalizedGamePage({
                     />
                   </div>
                 )}
+                {!hub.fileLocations ? (
+                  <GamePathHelp path={game.savePath} locale={locale} />
+                ) : null}
                 <h3>{t.config}</h3>
                 <div className="path-box">
                   <code>
@@ -207,11 +211,13 @@ export function LocalizedGamePage({
                     labels={t.copyLabels}
                   />
                 </div>
-                <p className="tip">
-                  {hub.fileLocations
-                    ? 'Use Steam → Library → right-click the game → Manage → Browse local files to open the actual installation. The library placeholder above is not a path to paste into Run. Copy config.ini before editing it.'
-                    : t.openPath}
-                </p>
+                <GamePathHelp
+                  path={hub.fileLocations?.configPath || game.configPath}
+                  locale={locale}
+                />
+                {game.slug === 'monster-hunter-wilds' ? (
+                  <WildsSaveGuideLink locale={locale} />
+                ) : null}
               </section>
               <section className="diagnosis-table" id="requirements">
                 <h2>{t.requirements}</h2>

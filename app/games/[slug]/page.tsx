@@ -1,3 +1,4 @@
+import { GamePathHelp, WildsSaveGuideLink } from '@/components/game-path-help';
 import { gamesListPath } from '@/lib/i18n';
 import { ReportEntryLink } from '@/components/report-entry-link';
 import { ArticleToc } from '@/components/article-toc';
@@ -314,16 +315,16 @@ export default async function GamePage({
                   <code>{game.savePath}</code>
                   <PathCopy value={game.savePath} />
                 </div>
+                <GamePathHelp path={game.savePath} />
                 <h3>設定ファイル</h3>
                 <div className="path-box">
                   <code>{game.configPath}</code>
                   <PathCopy value={game.configPath} />
                 </div>
-                <p className="tip">
-                  <b>開き方：</b> <kbd>Windows</kbd> + <kbd>R</kbd> を押し、上の{' '}
-                  <code>%APPDATA%</code> または <code>%LOCALAPPDATA%</code>{' '}
-                  から始まるパスを貼り付けます。
-                </p>
+                <GamePathHelp path={game.configPath} />
+                {game.slug === 'monster-hunter-wilds' ? (
+                  <WildsSaveGuideLink />
+                ) : null}
               </InfoSection>
 
               <InfoSection
