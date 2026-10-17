@@ -56,6 +56,19 @@ const cbtRewards = {
   label: 'Aniimo公式：クローズドβテスト参加特典の受け取りとアカウント連携',
   url: 'https://aniimo.com/ja/newslist/detail/100113',
 };
+const octoberResourceUpdate = {
+  label: 'Aniimo公式：10月15日リソース更新（10月16日掲載・英語）',
+  url: 'https://www.aniimo.com/newslist/detail/100198',
+};
+const octoberKnownIssues = {
+  label: 'Aniimo公式：既知の問題と対処（10月16日掲載・英語）',
+  url: 'https://www.aniimo.com/newslist/detail/100208',
+};
+const octoberScope =
+  '10月15日のリソース更新を10月16日に告知。再起動して更新を取得する案内があります。Holo-Battle Sim・Interlink・NPC対戦のクラッシュ、関連モードの読み込み改善はコンソール向け修正の項目です。PCの起動不可が修正済みという告知ではありません。';
+const octoberLimit =
+  '10月18日は公式サイトの10月16日掲載の更新告知・既知不具合を確認しました。掲載日と修正対象日・プラットフォームを区別しています。この2ページにはビルド番号がなく、Steamの特定ビルドとの対応や10月17日のPC起動修正完了は未確認です。';
+
 const related = [
   'not-launching',
   'black-screen',
@@ -77,10 +90,17 @@ export const aniimoArticles: GameArticle[] = [
       'ランチャーすら開かない場合は公式FAQの権限確認、ゲームがすぐ閉じる場合は表示されたエラーとファイル修復、プレイ中だけ落ちる場合はWindowsのアプリ履歴と描画環境を確認します。修復後は同じ場面を再現して結果を比べます。',
     description:
       '公式ランチャー版とSteam版では修復する画面が違います。エラー文や履歴は原因を断定する証拠ではなく、次に何を調べるかを絞る手がかりです。',
-    checkedAt: '2026-09-28',
+    checkedAt: '2026-10-18',
     status: 'verified',
-    targetVersion: 'Windows PC版（公式ランチャー・Steam）／2026年9月27日確認',
+    targetVersion:
+      'Windows PC版（公式ランチャー・Steam）／従来手順は9月27〜28日確認、10月18日は公式の10月16日掲載情報を追記',
     quickFacts: [
+      { label: '10月15日の更新：対象を区別', value: octoberScope },
+      {
+        label: '10月16日掲載：黒画面への公式案内',
+        value:
+          'GPUドライバー更新、DX11／DX12の切り替え、ログイン画面でのDLSS・フレーム生成OFFが案内されています。黒画面向けの確認候補で、すべての起動失敗の原因や解決を示すものではありません。',
+      },
       {
         label: '9月23日の更新（v1.1）',
         value:
@@ -200,7 +220,13 @@ export const aniimoArticles: GameArticle[] = [
           'Windowsのバージョン非対応と出た場合は「設定」→「システム」→「バージョン情報」でOSとシステムの種類を確認。最低条件は64ビット版Windows 10',
           'ディスク容量不足ならインストール先ドライブの空き容量を確認。ネットワークエラーならランチャーの通信と公式のお知らせを確認する',
         ],
-        note: '音が出て白画面のまま、真っ暗な画面が続く場合は「黒画面」の関連記事へ。エラーがない場合は次のファイル修復を試します。',
+        note: '音が出て白画面のまま、真っ暗な画面が続く場合は「黒画面」の関連記事へ。10月16日掲載の描画設定案内は黒画面向けで、ランチャー無反応へ一律に適用しません。エラーがない場合は次のファイル修復を試します。',
+        guideLink: {
+          href: '/games/aniimo/black-screen#after-repair-black-screen',
+          label: '黒画面向けの公式案内と確認手順',
+          description:
+            'Windowsが操作できるかを先に確認し、描画設定を1つずつ比較します。',
+        },
       },
       {
         id: 'repair-files',
@@ -248,6 +274,7 @@ export const aniimoArticles: GameArticle[] = [
       },
     ],
     cautions: [
+      octoberLimit,
       '再インストールやゲームフォルダの手動削除に進む前に、ゲームのアカウント連携先とインストール元を確かめてください。',
     ],
     avoid: [
@@ -274,6 +301,8 @@ export const aniimoArticles: GameArticle[] = [
       },
     ],
     sources: [
+      octoberResourceUpdate,
+      octoberKnownIssues,
       update1_1,
       pcLaunchFaq,
       steamVerifyGuide,
@@ -308,10 +337,17 @@ export const aniimoArticles: GameArticle[] = [
       'Windowsが見えるならゲーム側の表示切り替えを試し、映像が戻れば画面設定を保存。戻らなければAniimoの修復へ。PC画面全体が黒いなら、モニターの電源・入力先・接続を確かめてからWindowsの表示を復旧します。',
     description:
       '音が聞こえていても、ゲーム映像だけの問題かWindows全体の表示問題かは判定できません。デスクトップやセキュリティ画面が見えるかを先に確かめ、見えない場合はゲームのファイル操作へ進まないでください。',
-    checkedAt: '2026-09-28',
+    checkedAt: '2026-10-18',
     status: 'verified',
-    targetVersion: 'Windows PC版（公式ランチャー・Steam）／2026年9月27日確認',
+    targetVersion:
+      'Windows PC版（公式ランチャー・Steam）／従来手順は9月27〜28日確認、10月18日は公式の10月16日掲載情報を追記',
     quickFacts: [
+      { label: '10月15日の更新：対象を区別', value: octoberScope },
+      {
+        label: '10月16日掲載：黒画面への公式案内',
+        value:
+          'GPUドライバー更新、DX11／DX12の切り替え、ログイン画面でのDLSS・フレーム生成OFFが案内されています。黒画面向けの確認候補で、すべての起動失敗の原因や解決を示すものではありません。',
+      },
       {
         label: '9月23日の更新（v1.1）',
         value:
@@ -460,12 +496,15 @@ export const aniimoArticles: GameArticle[] = [
         actions: [
           '再取得後にゲームが映り、再起動しても再発しなければ修復完了。再取得されても同じ時点で黒くなるなら、公式更新情報を確認し、再発時刻と修復結果を控える',
           '修復で変化がなくAniimoだけ黒い場合は、GPUメーカー公式のドライバーを確認し、更新した場合はWindowsを再起動して比較する。Discordや録画ソフトのオーバーレイは一つずつ止めて試す',
+          '公式の10月16日掲載「Known Issues & Fixes」は、黒画面時にDX11とDX12の切り替えを案内している。Windowsを操作でき、切り替え項目を確認できる場合に元の値を控えて1つずつ比較する。見つからなければ設定ファイルや起動オプションを推測せず飛ばす',
+          'ログイン画面の設定を操作できる場合は、公式案内のDLSS・Frame Generation（フレーム生成）をオフにする確認を行う。元の設定を控え、1項目ずつ同じ場面で比較し、変化がなければ元へ戻す。項目がない・画面が操作できない場合は無理に変更しない',
           'Windowsのデスクトップも再び消える場合はゲーム設定の問題と決めつけず、MicrosoftのWindows空白画面の手順で表示先・接続・ドライバーを確認する',
           'ゲームだけ黒い症状が続くなら、公式ランチャー版かSteam版か、更新前後の変化、Alt＋Enterの結果、音の有無とエラー表示を添えて support_jp@aniimo.com へ相談する',
         ],
       },
     ],
     cautions: [
+      octoberLimit,
       'ランチャーの更新中やディスクへの書き込み中と分かるときは、強制終了や電源の長押しを繰り返さないでください。',
     ],
     avoid: [
@@ -490,6 +529,8 @@ export const aniimoArticles: GameArticle[] = [
       },
     ],
     sources: [
+      octoberResourceUpdate,
+      octoberKnownIssues,
       update1_1,
       pcLaunchFaq,
       windowsBlankScreen,
