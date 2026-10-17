@@ -33,3 +33,7 @@
 - https://partner.steamgames.com/doc/features/steam_controller/getting_started_for_players
 
 本番配信HTML/CSS/JSの確認は親ブラウザ担当に引き継ぐ（この環境の本番直アクセスは既知の接続制限）。Pages成功と実画面確認は区別する。
+
+## 公開QA後の説明文修正
+
+`/diagnose` 下部の「サーバー送信・結果共有は行わない」という旧説明を修正。共有コンポーネントの確認・同意・URL発行ガード、送信対象（answers/tried/results/version、自由入力ゲーム名なし）、サーバーTTL（作成から30日）、端末内TTL（最終操作から30日・再訪時削除）と照合した。自動送信なしと本人による任意共有を区別し、リンク閲覧範囲と端末内削除／共有削除の違いを明記。端末内βビルドは共有不可の説明を維持。受付設定・共有処理・APIは変更せず、共有POSTも実行していない。説明ページのみのlint・生成HTML確認・ビルドで検証。
