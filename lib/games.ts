@@ -115,7 +115,8 @@ export const games: GameGuide[] = [
     title: '鬼武者 Way of the Sword',
     shortTitle: '鬼武者 Way of the Sword',
     hubTitle: '鬼武者 Way of the Swordのセーブ方法｜PC版の不具合・エラー対処',
-    hubDescription: '鬼武者 Way of the Swordのセーブ方法を画像付き攻略から確認。PC操作キー・オートセーブ条件は未検証。起動しない・クラッシュ・低FPSなどPC版の不具合は、公式情報に基づく症状別記事へ案内します。',
+    hubDescription:
+      '鬼武者 Way of the Swordのセーブ方法を画像付き攻略から確認。PC操作キー・オートセーブ条件は未検証。起動しない・クラッシュ・低FPSなどPC版の不具合は、公式情報に基づく症状別記事へ案内します。',
     lead: '『鬼武者 Way of the Sword』のセーブ方法は、下の「セーブ方法」で案内します。破魔鏡の画像付き攻略を出典とし、PC操作キー・オートセーブ条件は未検証です。起動失敗・クラッシュ・低FPSは、公式情報に基づく症状別記事へ進んでください。',
     accent: '#8b2f28',
     demand: '2026年9月3日発売の新作',
@@ -378,12 +379,12 @@ export const games: GameGuide[] = [
     title:
       'Castlevania: Belmont’s Curse（キャッスルヴァニア ベルモンドの呪い）',
     shortTitle: 'Castlevania: Belmont’s Curse',
-    lead: 'Windows 11が必要。起動しない時の確認、コントローラーの設定、Midnight Editionの内容を公式情報から整理。',
+    lead: '起動すると黒い画面のまま進まない不具合の公式の回避策（V-SyncをON）と、Windows 11・コントローラーの確認を公式情報から整理。',
     accent: '#7a1730',
-    demand: '2026年10月15日発売（KONAMIの発表）',
+    demand: '2026年10月15日発売・黒い画面の不具合あり（Ver.1.1.3で対策）',
     issueScale: '中程度',
-    updated: '2026-10-03',
-    tags: ['起動しない', 'Windows 11', 'コントローラー', 'Midnight Edition'],
+    updated: '2026-10-17',
+    tags: ['起動しない', '黒い画面', 'V-Sync', 'Windows 11', 'コントローラー'],
     focused: true,
     savePath: '',
     configPath: '',
@@ -393,6 +394,8 @@ export const games: GameGuide[] = [
     controller:
       'フルコントローラーサポート・ゲームパッド推奨。DualSense対応、キーボードだけでも遊べる（Steamストアの表記）。',
     launchFixes: [
+      'Ver.1.1.3以降に更新する',
+      '黒い画面なら、リフレッシュレートを60Hz未満にして起動しV-SyncをONにする（公式の回避策）',
       'Windows 11か確認（最低環境からWindows 11）',
       'GPUドライバーを更新し、ゲームファイルを確認',
       'コントローラーはSteam InputのON・OFFを比べる',
