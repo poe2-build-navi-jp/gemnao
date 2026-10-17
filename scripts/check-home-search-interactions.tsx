@@ -1,7 +1,14 @@
-Object.defineProperty(globalThis, 'window', { configurable: true, value: { location: { href: 'https://gemnao.pages.dev/' }, history: { state: null, replaceState() {} } } });
+Object.defineProperty(globalThis, 'window', {
+  configurable: true,
+  value: {
+    location: { href: 'https://gemnao.pages.dev/' },
+    history: { state: null, replaceState() {} },
+  },
+});
 import assert from 'node:assert/strict';
 import { WikiHome } from '../components/wiki-home';
 import { RecentTroubles } from '../components/recent-troubles';
+import { compactSearchIndex } from '../lib/site-search';
 
 type Element = {
   type?: unknown;
@@ -34,10 +41,12 @@ runtime.__homeRef = {
     },
   },
 };
+// The browser fetches this index lazily; the test passes it in directly.
+const searchIndex = compactSearchIndex();
 const render = (query = '', cluster = 'all') => {
   runtime.__homeValues = [query, cluster];
   runtime.__homeIndex = 0;
-  return WikiHome({ view: 'articles' });
+  return WikiHome({ view: 'articles', searchIndex });
 };
 const click = (node: Element) => (node.props!.onClick as () => void)();
 for (const example of ['Aniimo 黒画面', 'Steam 起動しない', 'Discord マイク']) {

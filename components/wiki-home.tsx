@@ -1,10 +1,9 @@
 'use client';
-import { ReportEntryLink } from '@/components/report-entry-link';
 import { useSearchQuery } from './use-search-query';
 import { LatestArticles } from './latest-articles';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 
-import { useEffect, useMemo, useRef } from 'react';
+import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import {
   Bug,
   ChevronRight,
@@ -18,21 +17,20 @@ import {
   Server,
   Wrench,
 } from 'lucide-react';
-import { commonGuides } from '@/lib/common-guides';
-import { pcArticles } from '@/lib/pc-articles';
 import { siteConfig } from '@/lib/site-config';
 import {
-  searchGames,
-  searchArticles,
   normalizeSearchQuery,
-} from '@/lib/site-search';
+  searchGames,
+  searchInIndex,
+  type SearchArticle,
+  type SearchDocument,
+} from '@/lib/search-core';
 import { ContinueNotes } from './continue-notes';
 import { DiagnosisCta } from './diagnosis-cta';
 import { RecentTroubles } from './recent-troubles';
 import { MyShortcut } from './my-shortcut';
 import { HomeBookmarkHelp } from './home-bookmark-help';
 import { StatusTicker } from './status-board';
-import { WikiFooter, WikiHeader } from './wiki-header';
 
 const topics = [
   { slug: 'not-launching', label: '起動しない', icon: Power },
@@ -50,19 +48,14 @@ const articleFilters = [
   { slug: 'pc', label: 'PC・Windows' },
 ];
 
-const featuredGuideSlugs = [
-  'steam-game-not-launching',
-  'pc-game-crash',
-  'stutter-fix',
-  'save-data-backup',
-];
-
 export type LaunchItem = {
   slug: string;
   name: string;
   release: string;
   earlyAccess?: string;
   released: boolean;
+  /** Among the launches closest to today; the others are folded away. */
+  featured?: boolean;
   articles: { href: string; label: string }[];
 };
 
@@ -75,8 +68,26 @@ export function WikiHome({
   view,
   launches = [],
   weekly,
+  defaultArticles = [],
+  reportEntry,
+  header,
+  footer,
+  featuredGuides = [],
+  pcHighlights = [],
+  searchIndex,
 }: {
+  /** A preloaded index (tests); otherwise /search-index.json is fetched. */
+  searchIndex?: SearchDocument<SearchArticle>[];
+  /** Header and footer are rendered on the server (they read large registries). */
+  header?: ReactNode;
+  footer?: ReactNode;
+  featuredGuides?: { slug: string; shortTitle: string; description: string }[];
+  pcHighlights?: { slug: string; shortTitle: string; lead: string }[];
   view?: 'games' | 'articles';
+  /** Latest game articles for the first view, built on the server. */
+  defaultArticles?: SearchArticle[];
+  /** Server-rendered report link (keeps article data out of this bundle). */
+  reportEntry?: ReactNode;
   launches?: LaunchItem[];
   /** Latest weekly roundup, passed from the server to keep it out of the bundle. */
   weekly?: { slug: string; period: string };
@@ -85,12 +96,43 @@ export function WikiHome({
   const searchInput = useRef<HTMLInputElement>(null);
   const [articleCluster, setArticleCluster] = useSearchQuery('topic', 'all');
   const visible = useMemo(() => searchGames(query), [query]);
-  const visibleArticles = useMemo(
-    () => searchArticles(query, articleCluster),
-    [articleCluster, query],
-  );
   const isSearching = Boolean(query.trim());
   const isArticleFiltering = articleCluster !== 'all';
+  // The full article index is fetched only when it is needed (a query, a
+  // filter, or the all-articles view) or when the search box gets focus.
+  const needsIndex = isSearching || isArticleFiltering || view === 'articles';
+  const [wantIndex, setWantIndex] = useState(false);
+  const [loadedIndex, setIndex] = useState<
+    SearchDocument<SearchArticle>[] | null
+  >(null);
+  const index = loadedIndex ?? searchIndex ?? null;
+  const shouldLoadIndex = needsIndex || wantIndex;
+  useEffect(() => {
+    if (index || !shouldLoadIndex) return;
+    const controller = new AbortController();
+    fetch('/search-index.json', { signal: controller.signal })
+      .then(
+        (response) =>
+          (response.ok ? response.json() : null) as Promise<
+            SearchDocument<SearchArticle>[] | null
+          >,
+      )
+      .then((value) => {
+        if (value) setIndex(value);
+      })
+      .catch(() => undefined);
+    return () => controller.abort();
+  }, [index, shouldLoadIndex]);
+  const indexLoading = needsIndex && !index;
+  const visibleArticles = useMemo(
+    () =>
+      needsIndex
+        ? index
+          ? searchInIndex(index, query, articleCluster)
+          : []
+        : defaultArticles,
+    [articleCluster, defaultArticles, index, needsIndex, query],
+  );
   const displayedGames =
     isSearching || view === 'games' ? visible : visible.slice(0, 6);
   // Keep the existing game-only home preview. Search ranks all article types
@@ -102,11 +144,9 @@ export function WikiHome({
           .filter((article) => article.kind === 'game')
           .slice(0, 6);
   const displayedArticleCount = displayedArticles.length;
-  const featuredGuides = featuredGuideSlugs
-    .map((slug) => commonGuides.find((guide) => guide.slug === slug))
-    .filter((guide): guide is NonNullable<typeof guide> => Boolean(guide));
   const searchResultCount = displayedGames.length + displayedArticleCount;
-  const noSearchResults = isSearching && searchResultCount === 0;
+  const noSearchResults =
+    isSearching && !indexLoading && searchResultCount === 0;
   const showLatestArticles = !view && !isSearching && !isArticleFiltering;
 
   useEffect(() => {
@@ -132,7 +172,7 @@ export function WikiHome({
 
   return (
     <main>
-      <WikiHeader />
+      {header}
       <section
         className={`hero${isSearching ? ' hero-searching' : ''}`}
         id="site-search"
@@ -162,6 +202,7 @@ export function WikiHome({
             type="search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
+            onFocus={() => setWantIndex(true)}
             aria-label="ゲーム名や症状を検索"
             placeholder="ゲーム名・Windows・症状を入力"
           />
@@ -204,6 +245,7 @@ export function WikiHome({
         {isSearching && !noSearchResults ? (
           <output className="search-result-summary" aria-live="polite">
             検索結果：{searchResultCount}件
+            {indexLoading ? '（記事を読み込み中…）' : ''}
             {displayedGames.length > 0
               ? `・ゲーム ${displayedGames.length}タイトル`
               : ''}
@@ -223,11 +265,13 @@ export function WikiHome({
           </output>
         ) : null}
       </section>
-      {!isSearching && <div className="content report-entry-home"><ReportEntryLink prominent /></div>}
-      {showLatestArticles && <LatestArticles articles={visibleArticles
-        .filter(article => article.kind === 'game').slice(0, 3)} />}
-      {!isSearching ? <DiagnosisCta home /> : null}
-
+      {showLatestArticles && (
+        <LatestArticles
+          articles={visibleArticles
+            .filter((article) => article.kind === 'game')
+            .slice(0, 3)}
+        />
+      )}
       {!isSearching && (
         <section
           className="content symptom-section"
@@ -264,6 +308,85 @@ export function WikiHome({
           </div>
         </section>
       )}
+
+      {!isSearching && launches.length ? (
+        <section
+          className="content launch-watch"
+          aria-labelledby="launch-watch-title"
+        >
+          <div className="section-heading compact-heading">
+            <div>
+              <p>LAUNCH WATCH</p>
+              <h2 id="launch-watch-title">発売直後の新作｜不具合・対処法</h2>
+            </div>
+            <a href="/status">公式の障害・メンテ情報</a>
+          </div>
+          {weekly ? (
+            <a className="weekly-banner" href={`/weekly/${weekly.slug}`}>
+              <span>今週の不具合まとめ</span>
+              {weekly.period}の公式パッチ・障害・エラー情報
+              <ChevronRight size={16} />
+            </a>
+          ) : null}
+          <div className="launch-watch-grid">
+            {launches
+              .filter((launch) => launch.featured !== false)
+              .map((launch) => (
+                <div className="launch-watch-card" key={launch.slug}>
+                  <p>
+                    <a href={`/games/${launch.slug}`}>{launch.name}</a>
+                    <span>
+                      {launch.released ? '発売' : '発売予定'}{' '}
+                      {md(launch.release)}
+                      {launch.earlyAccess
+                        ? `（先行 ${md(launch.earlyAccess)}）`
+                        : ''}
+                    </span>
+                  </p>
+                  {launch.articles.map((article) => (
+                    <a href={article.href} key={article.href}>
+                      {article.label}
+                    </a>
+                  ))}
+                </div>
+              ))}
+          </div>
+          {launches.some((launch) => launch.featured === false) ? (
+            <details className="launch-watch-more">
+              <summary>
+                ほかの新作も見る（
+                {launches.filter((launch) => launch.featured === false).length}
+                本）
+              </summary>
+              <div className="launch-watch-grid">
+                {launches
+                  .filter((launch) => launch.featured === false)
+                  .map((launch) => (
+                    <div className="launch-watch-card" key={launch.slug}>
+                      <p>
+                        <a href={`/games/${launch.slug}`}>{launch.name}</a>
+                        <span>
+                          {launch.released ? '発売' : '発売予定'}{' '}
+                          {md(launch.release)}
+                          {launch.earlyAccess
+                            ? `（先行 ${md(launch.earlyAccess)}）`
+                            : ''}
+                        </span>
+                      </p>
+                      {launch.articles.map((article) => (
+                        <a href={article.href} key={article.href}>
+                          {article.label}
+                        </a>
+                      ))}
+                    </div>
+                  ))}
+              </div>
+            </details>
+          ) : null}
+        </section>
+      ) : null}
+
+      {!isSearching ? <DiagnosisCta home /> : null}
 
       {!isSearching ? <ContinueNotes /> : null}
       {!isSearching ? (
@@ -325,48 +448,6 @@ export function WikiHome({
           <p className="home-tools-note">
             Hzは測定の目安です。診断ツールは原因の確定・自動修復・すべてのゲームでの動作を保証しません。
           </p>
-        </section>
-      ) : null}
-
-      {!isSearching && launches.length ? (
-        <section
-          className="content launch-watch"
-          aria-labelledby="launch-watch-title"
-        >
-          <div className="section-heading compact-heading">
-            <div>
-              <p>LAUNCH WATCH</p>
-              <h2 id="launch-watch-title">発売直後の新作｜不具合・対処法</h2>
-            </div>
-            <a href="/status">公式の障害・メンテ情報</a>
-          </div>
-          {weekly ? (
-            <a className="weekly-banner" href={`/weekly/${weekly.slug}`}>
-              <span>今週の不具合まとめ</span>
-              {weekly.period}の公式パッチ・障害・エラー情報
-              <ChevronRight size={16} />
-            </a>
-          ) : null}
-          <div className="launch-watch-grid">
-            {launches.map((launch) => (
-              <div className="launch-watch-card" key={launch.slug}>
-                <p>
-                  <a href={`/games/${launch.slug}`}>{launch.name}</a>
-                  <span>
-                    {launch.released ? '発売' : '発売予定'} {md(launch.release)}
-                    {launch.earlyAccess
-                      ? `（先行 ${md(launch.earlyAccess)}）`
-                      : ''}
-                  </span>
-                </p>
-                {launch.articles.map((article) => (
-                  <a href={article.href} key={article.href}>
-                    {article.label}
-                  </a>
-                ))}
-              </div>
-            ))}
-          </div>
         </section>
       ) : null}
 
@@ -461,78 +542,79 @@ export function WikiHome({
         </section>
       )}
 
-      {!showLatestArticles && (displayedArticleCount > 0 || view === 'articles') && (
-        <section
-          className="content article-index"
-          id="articles"
-          aria-labelledby="article-index-title"
-        >
-          <div className="section-heading">
-            <div>
-              <p>ISSUE GUIDES</p>
-              <h2 id="article-index-title">
-                {query
-                  ? '該当するトラブル記事'
-                  : view === 'articles'
-                    ? '解決記事一覧'
-                    : '新着の解決記事'}
-              </h2>
+      {!showLatestArticles &&
+        (displayedArticleCount > 0 || view === 'articles') && (
+          <section
+            className="content article-index"
+            id="articles"
+            aria-labelledby="article-index-title"
+          >
+            <div className="section-heading">
+              <div>
+                <p>ISSUE GUIDES</p>
+                <h2 id="article-index-title">
+                  {query
+                    ? '該当するトラブル記事'
+                    : view === 'articles'
+                      ? '解決記事一覧'
+                      : '新着の解決記事'}
+                </h2>
+              </div>
+              <span>{displayedArticleCount}記事</span>
             </div>
-            <span>{displayedArticleCount}記事</span>
-          </div>
-          {view === 'articles' ? (
-            <section
-              className="article-cluster-filter"
-              aria-label="症状で記事を絞り込む"
-            >
-              <button
-                type="button"
-                className={articleCluster === 'all' ? 'active' : ''}
-                aria-pressed={articleCluster === 'all'}
-                onClick={() => setArticleCluster('all')}
+            {view === 'articles' ? (
+              <section
+                className="article-cluster-filter"
+                aria-label="症状で記事を絞り込む"
               >
-                すべて
-              </button>
-              {articleFilters.map((topic) => (
                 <button
                   type="button"
-                  className={articleCluster === topic.slug ? 'active' : ''}
-                  aria-pressed={articleCluster === topic.slug}
-                  onClick={() => setArticleCluster(topic.slug)}
-                  key={topic.slug}
+                  className={articleCluster === 'all' ? 'active' : ''}
+                  aria-pressed={articleCluster === 'all'}
+                  onClick={() => setArticleCluster('all')}
                 >
-                  {topic.label}
+                  すべて
                 </button>
-              ))}
-            </section>
-          ) : null}
-          {displayedArticleCount ? (
-            <div className="home-article-grid">
-              {displayedArticles.map((article) => (
-                <a href={article.href} key={article.key}>
-                  <span>{article.label}</span>
-                  <h3>{article.title}</h3>
-                  <p>確認日：{article.checkedAt.replaceAll('-', '.')}</p>
-                  <b>
-                    解決手順を見る <ChevronRight size={16} />
-                  </b>
-                </a>
-              ))}
-            </div>
-          ) : (
-            <div className="empty-state">
-              <Search size={28} />
-              <h3>該当する記事はありません</h3>
-              <p>別の症状を選ぶか、検索語を短くしてください。</p>
-            </div>
-          )}
-          {!isSearching && view !== 'articles' ? (
-            <a className="section-more" href="/?view=articles#articles">
-              新着記事をすべて見る <ChevronRight size={16} />
-            </a>
-          ) : null}
-        </section>
-      )}
+                {articleFilters.map((topic) => (
+                  <button
+                    type="button"
+                    className={articleCluster === topic.slug ? 'active' : ''}
+                    aria-pressed={articleCluster === topic.slug}
+                    onClick={() => setArticleCluster(topic.slug)}
+                    key={topic.slug}
+                  >
+                    {topic.label}
+                  </button>
+                ))}
+              </section>
+            ) : null}
+            {displayedArticleCount ? (
+              <div className="home-article-grid">
+                {displayedArticles.map((article) => (
+                  <a href={article.href} key={article.key}>
+                    <span>{article.label}</span>
+                    <h3>{article.title}</h3>
+                    <p>確認日：{article.checkedAt.replaceAll('-', '.')}</p>
+                    <b>
+                      解決手順を見る <ChevronRight size={16} />
+                    </b>
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <div className="empty-state">
+                <Search size={28} />
+                <h3>該当する記事はありません</h3>
+                <p>別の症状を選ぶか、検索語を短くしてください。</p>
+              </div>
+            )}
+            {!isSearching && view !== 'articles' ? (
+              <a className="section-more" href="/?view=articles#articles">
+                新着記事をすべて見る <ChevronRight size={16} />
+              </a>
+            ) : null}
+          </section>
+        )}
       <section className="content discord-entrances" aria-labelledby="pc-title">
         <div className="section-heading">
           <div>
@@ -541,7 +623,7 @@ export function WikiHome({
           </div>
         </div>
         <div className="guide-index-grid">
-          {pcArticles.slice(0, 3).map((article) => (
+          {pcHighlights.map((article) => (
             <a href={`/pc/${article.slug}`} key={article.slug}>
               <strong>{article.shortTitle}</strong>
               <span>{article.lead}</span>
@@ -593,6 +675,9 @@ export function WikiHome({
           </a>
         </div>
       </section>
+      {!isSearching && reportEntry ? (
+        <div className="content report-entry-home">{reportEntry}</div>
+      ) : null}
       <section className="content" aria-labelledby="about-gemnao-title">
         <div className="section-heading compact-heading">
           <div>
@@ -610,7 +695,7 @@ export function WikiHome({
           <a href="/contact">お問い合わせ</a>をご覧ください。
         </p>
       </section>
-      <WikiFooter />
+      {footer}
     </main>
   );
 }
