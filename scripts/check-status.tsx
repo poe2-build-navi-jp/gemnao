@@ -11,6 +11,7 @@ import {
   type Maintenance,
 } from '../lib/status/sources';
 import {
+  maintenancePeriod,
   currentMaintenance,
   isActiveOfficialStatus,
   officialSteamNoticeUrl,
@@ -224,7 +225,7 @@ const render = (
   data: StatusData | null,
   failed = false,
 ) => {
-  runtime.__statusValues = [data, failed];
+  runtime.__statusValues = [data, failed, Date.now()];
   runtime.__statusIndex = 0;
   return renderToStaticMarkup(component());
 };
@@ -304,6 +305,35 @@ assert.match(
   /終了未確認/,
 );
 assert.match(render(StatusBoard, null, true), /読み込めませんでした/);
+
+// A past planned window remains unconfirmed, but never counts as today's issue.
+const october17 = Date.parse('2026-10-17T03:00:00Z');
+assert.equal(maintenancePeriod(maintenance, october17), 'past');
+assert.equal(
+  maintenancePeriod(maintenance, Date.parse('2026-10-05T14:59:59Z')),
+  'today',
+);
+assert.equal(
+  maintenancePeriod(maintenance, Date.parse('2026-10-05T15:00:00Z')),
+  'past',
+);
+assert.equal(maintenancePeriod(maintenance, now), 'future');
+Date.now = () => october17;
+const oldSchedule = {
+  ...newsOnly,
+  maintenance: currentMaintenance([maintenance], october17).map((item) => ({
+    ...item,
+    game: 'AION2',
+  })),
+};
+assert.ok(!render(StatusTicker, oldSchedule).includes('AION2'));
+assert.ok(!render(StatusTicker, oldSchedule).includes('情報 1件'));
+const historical = render(StatusBoard, oldSchedule);
+assert.match(historical, /過去の予定（終了未確認）/);
+assert.match(historical, /AION2/);
+assert.match(historical, /現在の障害・実施状況を示すものではありません/);
+assert.equal(oldSchedule.maintenance[0].verifiedAt, maintenance.verifiedAt);
+Date.now = () => now;
 
 // Exercise the real effect: interval, visibility, retry after failure and cleanup.
 let interval: (() => void) | null = null;

@@ -1,0 +1,10 @@
+# Four UI corrections — 2026-10-17
+
+- The home status ticker includes manual maintenance windows only when they overlap today in Japan. `/status` separates today, future plans and past unconfirmed plans. A passed planned window is never treated as proof of recovery. AION2's original source, times and editorial verification time remain unchanged. The view clock updates with the existing status refresh attempts, including failures.
+- The shared Japanese anonymous-vote introduction now describes anonymous response counts, consistent with its existing explanatory note. Public report counting is separate and unchanged.
+- Report fields indicate required choices; missing game, guide and 1–8 steps receive specific errors. Version/date/source URL errors remain subject to the existing domain validation and privacy rules. Inline errors use accessible descriptions and focus moves to the first invalid field. Before a guide is selected, the steps area explains what to select first. Four languages use the same behavior.
+- Intake state has explicit loading, successful ON/OFF and failed-request displays. A failed status request never enables submission or falsely claims intake is merely preparing.
+
+Validation: status lifecycle/official-source tests include October 17 and Tokyo midnight boundaries; four-language Chromium checks cover missing-field focus, version/date/source errors, draft persistence, optional context, and loading/ON/OFF/failure. Layout screenshots at 390px and 1165px were saved under `/tmp/gemnao-four-fixes/`; no horizontal overflow. Existing optional-context/count SQL tests and count browser tests pass. No production synthetic submissions, migrations or runtime/protection settings changed. Unrelated collector proposal files remain outside this change.
+
+Release validation uses the full production build chain and a TypeScript pass excluding only the two pre-existing files requiring the unavailable Playwright package. Public UI/CSS/JS verification is handed to the parent browser because this environment's production access was previously blocked. Deployment outcome is reported separately.

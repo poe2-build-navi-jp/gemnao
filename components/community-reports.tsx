@@ -1,4 +1,8 @@
 'use client';
+import {
+  reportFieldErrors,
+  type ReportField,
+} from '@/lib/community-reports/form-validation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { games } from '@/lib/games';
 import { gameArticles } from '@/lib/game-articles';
@@ -123,6 +127,10 @@ export function CommunityReports({
     [busy, setBusy] = useState(false),
     [message, setMessage] = useState(''),
     [error, setError] = useState('');
+  const [statusPhase, setStatusPhase] = useState<
+    'loading' | 'loaded' | 'failed'
+  >('loading');
+  const [fieldErrors, setFieldErrors] = useState<ReportField[]>([]);
   const guard = useRef(false),
     preparation = useRef(false),
     generation = useRef(0),
@@ -149,6 +157,7 @@ export function CommunityReports({
   );
   function change<K extends keyof Content>(key: K, value: Content[K]) {
     setDraft((d) => ({ ...d, [key]: value }));
+    setFieldErrors((fields) => fields.filter((field) => field !== key));
     setPreview(false);
     setConsent(false);
     setMessage('');
@@ -232,11 +241,15 @@ export function CommunityReports({
           )
         )
           throw Error('unavailable');
+        if (stopped) return;
         setStatus(s);
+        setStatusPhase('loaded');
       })
-      .catch(() =>
-        setStatus({ enabled: false, publicEnabled: false, canDelete: false }),
-      );
+      .catch(() => {
+        if (stopped) return;
+        setStatus({ enabled: false, publicEnabled: false, canDelete: false });
+        setStatusPhase('failed');
+      });
     return () => {
       stopped = true;
     };
@@ -347,6 +360,34 @@ export function CommunityReports({
               : t.errors.input)
         : t.draftStorageError,
     );
+  }
+  function validateDraft() {
+    const fields = reportFieldErrors(draft, game, now);
+    setFieldErrors(fields);
+    if (!fields.length) return true;
+    setPreview(false);
+    setConsent(false);
+    draftFailure(Error('content'));
+    requestAnimationFrame(() =>
+      document.getElementById(`report-field-${fields[0]}`)?.focus(),
+    );
+    return false;
+  }
+  function fieldError(field: ReportField) {
+    return fieldErrors.includes(field) ? (
+      <p id={`report-error-${field}`} className="report-field-error">
+        {t.fieldErrors[field]}
+      </p>
+    ) : null;
+  }
+  function fieldProps(field: ReportField) {
+    return {
+      id: `report-field-${field}`,
+      'aria-invalid': fieldErrors.includes(field),
+      'aria-describedby': fieldErrors.includes(field)
+        ? `report-error-${field}`
+        : undefined,
+    };
   }
   function saveDraft() {
     const content = parseContent(draft, now);
@@ -478,7 +519,16 @@ export function CommunityReports({
       <p>{t.privacy}</p>
       <p>{t.ownership}</p>
       <p>{t.retention}</p>
-      {!status.enabled && <p className="report-notice">{t.disabled}</p>}
+      <output className="report-notice">
+        {statusPhase === 'loading'
+          ? t.statusLoading
+          : statusPhase === 'failed'
+            ? t.statusFailure
+            : status.enabled
+              ? t.statusOpen
+              : t.disabled}
+      </output>
+      <p>{t.requiredNote}</p>
       <button
         type="button"
         disabled={busy || !!ticket?.pending}
@@ -498,13 +548,18 @@ export function CommunityReports({
       <fieldset disabled={draftLocked}>
         <legend>{t.title}</legend>
         <label>
-          {t.game}
+          {t.game} <span>({t.required})</span>
           <select
+            {...fieldProps('game')}
+            aria-required="true"
             value={game}
             onChange={(e) => {
               generation.current++;
               selection.current = null;
               setGame(e.target.value);
+              setFieldErrors((fields) =>
+                fields.filter((field) => field !== 'game'),
+              );
               change('articlePath', '');
               change('stepIds', []);
               setTicket(null);
@@ -519,9 +574,12 @@ export function CommunityReports({
             ))}
           </select>
         </label>
+        {fieldError('game')}
         <label>
-          {t.article}
+          {t.article} <span>({t.required})</span>
           <select
+            {...fieldProps('articlePath')}
+            aria-required="true"
             value={draft.articlePath}
             onChange={(e) => {
               change('articlePath', e.target.value);
@@ -548,9 +606,11 @@ export function CommunityReports({
               })}
           </select>
         </label>
+        {fieldError('articlePath')}
         <label>
-          {t.symptom}
+          {t.symptom} <span>({t.required})</span>
           <select
+            aria-required="true"
             value={draft.symptom}
             onChange={(e) =>
               change('symptom', e.target.value as Content['symptom'])
@@ -563,8 +623,16 @@ export function CommunityReports({
             ))}
           </select>
         </label>
-        <fieldset className="report-step-list">
-          <legend>{t.steps}</legend>
+        <fieldset
+          className="report-step-list"
+          {...fieldProps('stepIds')}
+          tabIndex={-1}
+        >
+          <legend>
+            {t.steps} ({t.required})
+          </legend>
+          {!guide && <p>{t.chooseArticleFirst}</p>}
+          {fieldError('stepIds')}
           {guide?.steps.map((s) => (
             <label key={s.id}>
               <input
@@ -585,8 +653,9 @@ export function CommunityReports({
           ))}
         </fieldset>
         <label>
-          {t.outcome}
+          {t.outcome} <span>({t.required})</span>
           <select
+            aria-required="true"
             value={draft.outcome}
             onChange={(e) =>
               change('outcome', e.target.value as Content['outcome'])
@@ -645,14 +714,17 @@ export function CommunityReports({
           {t.observed}
           <input
             type="date"
+            {...fieldProps('observedOn')}
             max={today}
             value={draft.observedOn || ''}
             onChange={(e) => change('observedOn', e.target.value || null)}
           />
         </label>
+        {fieldError('observedOn')}
         <label>
           {t.version}
           <input
+            id="report-field-version"
             maxLength={24}
             aria-invalid={!validReportVersion(draft.version)}
             aria-describedby="report-version-hint report-version-error"
@@ -702,6 +774,7 @@ export function CommunityReports({
           {t.source}
           <input
             type="url"
+            {...fieldProps('sources')}
             maxLength={400}
             value={draft.sources[0]?.url || ''}
             onChange={(e) =>
@@ -720,10 +793,12 @@ export function CommunityReports({
             }
           />
         </label>
+        {fieldError('sources')}
         <label>
           {t.readOn}
           <input
             type="date"
+            {...fieldProps('readOn')}
             max={today}
             value={draft.sources[0]?.readOn || ''}
             disabled={!draft.sources.length}
@@ -737,11 +812,13 @@ export function CommunityReports({
             }
           />
         </label>
+        {fieldError('readOn')}
         <p>{t.optional}</p>
         <div className="my-pc-actions">
           <button
             type="button"
             onClick={() => {
+              if (!validateDraft()) return;
               try {
                 saveDraft();
                 setMessage(t.draftSaved);
@@ -756,6 +833,7 @@ export function CommunityReports({
           <button
             type="button"
             onClick={() => {
+              if (!validateDraft()) return;
               try {
                 parseContent(draft, now);
                 setPreview(true);

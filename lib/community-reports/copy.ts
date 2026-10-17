@@ -1,5 +1,25 @@
 export const reportCopy = {
   ja: {
+    required: '必須',
+    requiredNote:
+      '必須の項目を選び、プレビューを確認してから公開に同意してください。任意項目は空欄でも送れます。',
+    chooseArticleFirst:
+      '先にゲームと症状の記事を選ぶと、試した対処の一覧が表示されます。',
+    statusLoading: '受付状況を確認中…',
+    statusOpen: '受付中です。',
+    statusFailure:
+      '受付状況を取得できませんでした。送信せず、時間をおいてページを再読み込みしてください。',
+    fieldErrors: {
+      game: 'ゲームを選んでください。',
+      articlePath: '選んだゲームの症状の記事を選んでください。',
+      stepIds: 'この記事で試した対処を1〜8件選んでください。',
+      version:
+        'ゲーム版は半角数字から始まる24文字以内で入力してください。空欄でも構いません。',
+      observedOn: '結果の確認日は今日以前の有効な日付にしてください。',
+      sources:
+        '出典はクエリ・フラグメント・認証情報のない公開HTTPS URLを3件以内で入力してください。',
+      readOn: '出典の閲覧日は今日以前の有効な日付にしてください。',
+    },
     previouslyWorked: '以前は動いていたか（任意）',
     recentChange: '直前に変わったもの（任意・最後の変更を1つ）',
     notRecorded: '未記録',
@@ -41,7 +61,7 @@ export const reportCopy = {
     intro:
       '本人の報告を条件・出典・日付とともに残します。匿名投票や解決ノートとは別の、公開前に運営が審査する報告です。',
     disabled:
-      '受付は準備中です。下書きはこのブラウザに残せますが、まだ送信できません。',
+      '現在、受付を停止しています。下書きはこのブラウザに残せますが、まだ送信できません。',
     privacy:
       'ログ・添付・氏名・連絡先・他人の情報は受け付けません。出典URLにも個人情報を含めないでください。画面上の「確認済み」は本人の確認と運営の根拠確認を区別します。',
     ownership:
@@ -153,6 +173,27 @@ export const reportCopy = {
     },
   },
   en: {
+    required: 'Required',
+    requiredNote:
+      'Select the required fields, review the preview, then consent to publication. Optional fields may be blank.',
+    chooseArticleFirst:
+      'Select a game and an issue guide first to see the steps you can report.',
+    statusLoading: 'Checking report availability…',
+    statusOpen: 'Reports are open.',
+    statusFailure:
+      'Could not check report availability. Nothing will be sent; reload the page later.',
+    fieldErrors: {
+      game: 'Select a game.',
+      articlePath: 'Select an issue guide for this game.',
+      stepIds: 'Select 1–8 steps you tried from this guide.',
+      version:
+        'Use up to 24 ASCII characters starting with a digit, or leave this blank.',
+      observedOn: 'Use a valid date no later than today for the result.',
+      sources:
+        'Use up to 3 public HTTPS URLs without query strings, fragments or credentials.',
+      readOn:
+        'Use a valid date no later than today for when you read the source.',
+    },
     previouslyWorked: 'Did it work before? (optional)',
     recentChange:
       'What changed just before? (optional; choose the last change)',
@@ -203,7 +244,7 @@ export const reportCopy = {
     intro:
       'Keep a player report with conditions, sources and dates. These reports require editorial review before publication and are separate from anonymous votes and private fix notes.',
     disabled:
-      'Intake is preparing. You can keep a draft in this browser, but cannot send it yet.',
+      'Reports are currently closed. You can keep a draft in this browser, but cannot send it.',
     privacy:
       'No logs, attachments, names, contact details or third-party information. Do not put personal data in source URLs. A player’s check and an editor’s evidence review are separate.',
     ownership:
@@ -316,6 +357,21 @@ export const reportCopy = {
     },
   },
   zh: {
+    required: '必填',
+    requiredNote: '请选择必填项，检查预览后再同意公开。可选项可以留空。',
+    chooseArticleFirst: '请先选择游戏和症状文章，再选择尝试过的方法。',
+    statusLoading: '正在确认报告接收状态…',
+    statusOpen: '正在接收报告。',
+    statusFailure: '无法获取接收状态。不会发送，请稍后重新加载页面。',
+    fieldErrors: {
+      game: '请选择游戏。',
+      articlePath: '请选择该游戏的症状文章。',
+      stepIds: '请选择本篇文章中尝试过的1～8个方法。',
+      version: '版本号请以半角数字开头，最多24个ASCII字符，也可留空。',
+      observedOn: '结果确认日期必须有效且不晚于今天。',
+      sources: '最多填写3个公开HTTPS网址，不包含查询参数、片段或登录凭据。',
+      readOn: '来源查阅日期必须有效且不晚于今天。',
+    },
     previouslyWorked: '之前能正常运行吗？（可选）',
     recentChange: '出问题前有什么变化？（可选，选择最后一项变化）',
     notRecorded: '未记录',
@@ -363,7 +419,7 @@ export const reportCopy = {
     title: '故障报告与进展',
     intro:
       '以条件、来源和日期记录本人报告。公开前需经运营审核，与匿名投票和私人解决笔记分开。',
-    disabled: '暂未开放接收。可在此浏览器保存草稿，但尚不能发送。',
+    disabled: '目前暂停接收报告。可在此浏览器保存草稿，但不能发送。',
     privacy:
       '不接收日志、附件、姓名、联系方式或他人信息。来源URL也不得含个人信息。本人确认与运营核对依据分别记录。',
     ownership:
@@ -467,6 +523,26 @@ export const reportCopy = {
     },
   },
   es: {
+    required: 'Obligatorio',
+    requiredNote:
+      'Selecciona los campos obligatorios, revisa la vista previa y acepta la publicación. Los campos opcionales pueden quedar vacíos.',
+    chooseArticleFirst:
+      'Primero selecciona un juego y una guía para ver los métodos que puedes indicar.',
+    statusLoading: 'Consultando si se aceptan informes…',
+    statusOpen: 'Se aceptan informes.',
+    statusFailure:
+      'No se pudo consultar el estado. No se enviará nada; recarga la página más tarde.',
+    fieldErrors: {
+      game: 'Selecciona un juego.',
+      articlePath: 'Selecciona una guía del problema para este juego.',
+      stepIds: 'Selecciona entre 1 y 8 métodos de esta guía que hayas probado.',
+      version:
+        'Usa hasta 24 caracteres ASCII empezando por un número, o deja el campo vacío.',
+      observedOn: 'Usa una fecha válida que no sea posterior a hoy.',
+      sources:
+        'Usa hasta 3 URL HTTPS públicas sin parámetros, fragmentos ni credenciales.',
+      readOn: 'La fecha de consulta debe ser válida y no posterior a hoy.',
+    },
     previouslyWorked: '¿Funcionaba antes? (opcional)',
     recentChange: '¿Qué cambió justo antes? (opcional; elige el último cambio)',
     notRecorded: 'Sin registrar',
@@ -516,7 +592,7 @@ export const reportCopy = {
     intro:
       'Conserva un informe con condiciones, fuentes y fechas. Requiere revisión editorial antes de publicarse; es distinto de los votos anónimos y las notas privadas.',
     disabled:
-      'La recepción está en preparación. Puedes guardar un borrador en este navegador, pero todavía no enviarlo.',
+      'La recepción está cerrada. Puedes guardar un borrador en este navegador, pero no enviarlo.',
     privacy:
       'No admitimos registros, archivos, nombres, contactos ni datos de terceros. Tampoco incluyas datos personales en las URL. Separamos la comprobación del jugador de la revisión de pruebas del editor.',
     ownership:

@@ -1,5 +1,5 @@
 'use client';
-import { maintenanceLabels } from '@/lib/status/policy';
+import { maintenanceLabels, maintenancePeriod } from '@/lib/status/policy';
 
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import {
@@ -42,6 +42,7 @@ const incidentLabels: Record<string, string> = {
 function useStatus() {
   const [data, setData] = useState<StatusData | null>(null);
   const [failed, setFailed] = useState(false);
+  const [viewedAt, setViewedAt] = useState(() => Date.now());
   useEffect(() => {
     let controller: AbortController | null = null;
     let lastAttempt = 0;
@@ -56,6 +57,7 @@ function useStatus() {
       const requestController = new AbortController();
       controller = requestController;
       lastAttempt = Date.now();
+      setViewedAt(lastAttempt);
       try {
         const response = await fetch('/api/status?v=2', {
           signal: requestController.signal,
@@ -122,12 +124,12 @@ function useStatus() {
       document.removeEventListener('visibilitychange', onVisibility);
     };
   }, []);
-  return { data, failed };
+  return { data, failed, viewedAt };
 }
 
 /** One-glance version for the top page. */
 export function StatusTicker() {
-  const { data, failed } = useStatus();
+  const { data, failed, viewedAt } = useStatus();
   const unavailable =
     failed ||
     (data &&
@@ -138,7 +140,11 @@ export function StatusTicker() {
         data.discord.indicator !== 'none' ? 1 : 0,
       )
     : 0;
-  const issues = (data?.maintenance.length ?? 0) + discordIssues;
+  const todayMaintenance =
+    data?.maintenance.filter(
+      (item) => maintenancePeriod(item, viewedAt) === 'today',
+    ) ?? [];
+  const issues = todayMaintenance.length + discordIssues;
   return (
     <section className="status-ticker" aria-labelledby="status-ticker-title">
       <div>
@@ -171,11 +177,11 @@ export function StatusTicker() {
             一部の最新情報を取得できません。詳細で確認日時をご確認ください。
           </p>
         ) : null}
-        {data?.maintenance[0] ? (
+        {todayMaintenance[0] ? (
           <p className="status-ticker-item">
-            <b>{maintenanceLabels[data.maintenance[0].state]}</b>{' '}
-            {data.maintenance[0].game}：{fmt(data.maintenance[0].start)}〜
-            {fmt(data.maintenance[0].end)}（日本時間）
+            <b>{maintenanceLabels[todayMaintenance[0].state]}</b>{' '}
+            {todayMaintenance[0].game}：{fmt(todayMaintenance[0].start)}〜
+            {fmt(todayMaintenance[0].end)}（日本時間）
           </p>
         ) : null}
       </div>
@@ -185,7 +191,7 @@ export function StatusTicker() {
 }
 
 export function StatusBoard() {
-  const { data, failed } = useStatus();
+  const { data, failed, viewedAt } = useStatus();
   if (failed && !data)
     return (
       <p className="status-empty">
@@ -209,43 +215,68 @@ export function StatusBoard() {
       <p className="status-note">
         公式が復旧・完了を発表した情報は、次の取得時または確認後の更新で一覧から外します。予定の終了時刻を過ぎただけでは復旧扱いにしません。ゲームの公式告知は編集部が確認して登録し、DiscordとSteamのお知らせは自動取得しています。
       </p>
-      <section aria-labelledby="status-maintenance">
-        <h2 id="status-maintenance">メンテナンス</h2>
-        {data.maintenance.length ? (
-          <ul className="status-list">
-            {data.maintenance.map((item) => (
-              <li key={item.gameSlug + item.start}>
-                <span className={`status-badge status-${item.state}`}>
-                  {maintenanceLabels[item.state]}
-                </span>
-                <div>
-                  <b>
-                    <a href={`/games/${item.gameSlug}`}>{item.game}</a>：
-                    {item.title}
-                  </b>
-                  <p>
-                    {fmt(item.start)}〜{fmt(item.end)}（日本時間）
-                    {item.note ? ` ${item.note}` : ''}
-                    {item.state === 'unconfirmed'
-                      ? ' 予定時刻は過ぎていますが、公式の終了・復旧発表は未確認です。'
-                      : item.state === 'scheduled-window'
-                        ? ' 予定の時間帯です。実施・延長状況は公式告知をご確認ください。'
-                        : ''}
-                  </p>
-                  <p>告知確認：{fmt(item.verifiedAt)}（日本時間）</p>
-                  <a href={item.source.url} target="_blank" rel="noreferrer">
-                    {item.source.label} <ExternalLink size={13} />
-                  </a>
-                </div>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="status-empty">
-            確認済みのメンテナンス情報の登録はありません。
-          </p>
-        )}
-      </section>
+      {(['today', 'future', 'past'] as const).map((period) => {
+        const items = data.maintenance.filter(
+          (item) => maintenancePeriod(item, viewedAt) === period,
+        );
+        return (
+          <section
+            key={period}
+            aria-labelledby={`status-maintenance-${period}`}
+          >
+            <h2 id={`status-maintenance-${period}`}>
+              {period === 'past'
+                ? '過去の予定（終了未確認）'
+                : period === 'future'
+                  ? '今後のメンテナンス予定'
+                  : '今日のメンテナンス情報'}
+            </h2>
+            {period === 'past' && (
+              <p>
+                過去の予定です。現在の障害・実施状況を示すものではありません。終了・復旧の事実は確認できていません。
+              </p>
+            )}
+            {items.length ? (
+              <ul className="status-list">
+                {items.map((item) => (
+                  <li key={item.gameSlug + item.start}>
+                    <span className={`status-badge status-${item.state}`}>
+                      {maintenanceLabels[item.state]}
+                    </span>
+                    <div>
+                      <b>
+                        <a href={`/games/${item.gameSlug}`}>{item.game}</a>：
+                        {item.title}
+                      </b>
+                      <p>
+                        {fmt(item.start)}〜{fmt(item.end)}（日本時間）
+                        {item.note ? ` ${item.note}` : ''}
+                        {item.state === 'unconfirmed'
+                          ? ' 予定時刻は過ぎていますが、公式の終了・復旧発表は未確認です。'
+                          : item.state === 'scheduled-window'
+                            ? ' 予定の時間帯です。実施・延長状況は公式告知をご確認ください。'
+                            : ''}
+                      </p>
+                      <p>告知確認：{fmt(item.verifiedAt)}（日本時間）</p>
+                      <a
+                        href={item.source.url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {item.source.label} <ExternalLink size={13} />
+                      </a>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="status-empty">
+                この区分のメンテナンス情報の登録はありません。
+              </p>
+            )}
+          </section>
+        );
+      })}
 
       <section aria-labelledby="status-discord">
         <h2 id="status-discord">Discord</h2>

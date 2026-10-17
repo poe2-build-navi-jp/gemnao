@@ -1,5 +1,6 @@
 // Isolated browser component; all HTTP is synthetic and no report is submitted.
 import assert from 'node:assert/strict';
+import { readFile, mkdir } from 'node:fs/promises';
 import { build } from 'esbuild';
 const { chromium, expect } = await import(
   process.env.PLAYWRIGHT_TEST_MODULE || '@playwright/test'
@@ -31,6 +32,8 @@ for (const x of [
   null,
 ])
   assert.equal(validReportVersion(x), false);
+const css = await readFile('app/globals.css', 'utf8');
+await mkdir('/tmp/gemnao-four-fixes', { recursive: true });
 const browser = await chromium.launch({
   executablePath: '/usr/bin/chromium',
   args: ['--no-sandbox'],
@@ -53,7 +56,9 @@ try {
     const page = await browser.newPage();
     page.setDefaultTimeout(10000);
     page.on('pageerror', (e) => console.error(e.message));
-    let posts = 0;
+    let posts = 0,
+      statusMode = 'hold',
+      releaseStatus;
     await page.route('**/*', async (route) => {
       const req = route.request();
       if (req.method() !== 'GET') {
@@ -66,11 +71,20 @@ try {
           contentType: 'text/html',
           body: '<div id="root"></div>',
         });
+      if (path.endsWith('/status') && statusMode === 'hold')
+        await new Promise((resolve) => {
+          releaseStatus = resolve;
+        });
       return route.fulfill({
+        status: statusMode === 'error' && path.endsWith('/status') ? 503 : 200,
         contentType: 'application/json',
         body: JSON.stringify(
           path.endsWith('/status')
-            ? { enabled: true, publicEnabled: true, canDelete: true }
+            ? {
+                enabled: statusMode === 'on',
+                publicEnabled: statusMode === 'on',
+                canDelete: true,
+              }
             : { items: [] },
         ),
       });
@@ -78,8 +92,43 @@ try {
     await page.goto('http://127.0.0.1/');
     await page.addScriptTag({ content: b.outputFiles[0].text });
     const t = reportCopy[locale];
+    await expect(
+      page.getByRole('status').filter({ hasText: t.statusLoading }),
+    ).toBeVisible();
+    await expect(page.getByText(t.disabled, { exact: true })).toHaveCount(0);
+    await expect.poll(() => typeof releaseStatus).toBe('function');
+    statusMode = 'on';
+    releaseStatus();
+    await expect(page.getByText(t.statusOpen, { exact: true })).toBeVisible();
+    await expect(
+      page.getByText(t.chooseArticleFirst, { exact: true }),
+    ).toBeVisible();
+    await page.getByRole('button', { name: t.preview, exact: true }).click();
+    await expect(page.locator('#report-field-game')).toBeFocused();
+    for (const field of ['game', 'articlePath', 'stepIds'])
+      await expect(page.locator('#report-error-' + field)).toHaveText(
+        t.fieldErrors[field],
+      );
+    await page.addStyleTag({ content: css });
+    for (const width of [390, 1165]) {
+      await page.setViewportSize({ width, height: 900 });
+      assert.equal(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+        true,
+      );
+      await page.screenshot({
+        path: `/tmp/gemnao-four-fixes/${locale}-${width}.png`,
+        fullPage: true,
+      });
+    }
     await page.locator('select').first().selectOption('overwatch-2');
+    await page.getByRole('button', { name: t.preview, exact: true }).click();
+    await expect(page.locator('#report-field-articlePath')).toBeFocused();
     await page.locator('select').nth(1).selectOption({ index: 1 });
+    await page.getByRole('button', { name: t.preview, exact: true }).click();
+    await expect(page.locator('#report-field-stepIds')).toBeFocused();
     await page.locator('.report-step-list input').first().check();
     const version = page.getByLabel(t.version, { exact: true });
     await version.fill('QA-SYNTHETIC-NOT-SUBMITTED');
@@ -99,8 +148,26 @@ try {
       (await page.locator('body').innerText()).includes(t.failure),
       false,
     );
+    await expect(page.locator('#report-field-version')).toBeFocused();
     await version.fill('');
     await expect(version).toHaveAttribute('aria-invalid', 'false');
+    await page.getByLabel(t.observed, { exact: true }).fill('2099-01-01');
+    await page.getByRole('button', { name: t.preview, exact: true }).click();
+    await expect(page.locator('#report-field-observedOn')).toBeFocused();
+    await expect(page.locator('#report-error-observedOn')).toHaveText(
+      t.fieldErrors.observedOn,
+    );
+    await page.getByLabel(t.observed, { exact: true }).fill('');
+    await page
+      .getByLabel(t.source, { exact: true })
+      .fill('https://example.org/?personal=not-sent');
+    await page.getByRole('button', { name: t.preview, exact: true }).click();
+    await expect(page.locator('#report-field-sources')).toBeFocused();
+    await expect(page.locator('#report-error-sources')).toHaveText(
+      t.fieldErrors.sources,
+    );
+    await page.getByLabel(t.source, { exact: true }).fill('');
+
     await page.getByRole('button', { name: t.preview, exact: true }).click();
     await expect(page.locator('.report-preview')).toBeVisible();
     // Old draft shape is still valid; optional values round-trip locally.
@@ -150,6 +217,19 @@ try {
     await expect(
       page.getByText(t.draftStorageError, { exact: true }),
     ).toBeVisible();
+    for (const mode of ['off', 'error']) {
+      statusMode = mode;
+      await page.reload();
+      await page.addScriptTag({ content: b.outputFiles[0].text });
+      await expect(
+        page.getByText(mode === 'off' ? t.disabled : t.statusFailure, {
+          exact: true,
+        }),
+      ).toBeVisible();
+      await expect(
+        page.getByText(t.statusLoading, { exact: true }),
+      ).toHaveCount(0);
+    }
     assert.equal(posts, 0);
     await page.close();
     console.log(

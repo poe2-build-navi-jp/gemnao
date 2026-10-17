@@ -66,3 +66,18 @@ export function officialSteamNoticeUrl(value: string): string | null {
   }
   return null;
 }
+
+/** Tokyo calendar days define the "today" slot, not an inferred resolution. */
+export function maintenancePeriod(
+  item: { start: string; end: string },
+  now: number,
+) {
+  const day = (at: number) =>
+    new Date(at + 9 * 3600000).toISOString().slice(0, 10);
+  const today = day(now);
+  return day(Date.parse(item.end)) < today
+    ? 'past'
+    : day(Date.parse(item.start)) > today
+      ? 'future'
+      : 'today';
+}
