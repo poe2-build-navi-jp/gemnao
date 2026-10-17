@@ -6646,3 +6646,8 @@ a.my-games-primary {
   display: block;
   margin: 12px 0;
 }
+
+.report-queue-status {
+  display: block;
+  margin: 12px 0;
+}

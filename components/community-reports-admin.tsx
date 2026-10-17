@@ -1,7 +1,7 @@
 'use client';
 import { redactReportContent } from '@/lib/community-reports/model';
 /* oxlint-disable next/no-html-link-for-pages -- Reuse the existing admin login via native navigation. */
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { reportCopy } from '@/lib/community-reports/copy';
 import {
   parseEvidence,
@@ -126,6 +126,81 @@ const adminCopy = {
     flags: 'Avisos',
     proposal:
       'La reproducción en artículos está desactivada. El uso permanente requiere otro consentimiento del jugador; el actual no lo concede.',
+  },
+};
+const queueMessages = {
+  ja: {
+    loading: '一覧を読み込み中…',
+    empty: '読み込み完了。今回の一覧対象は0件です。',
+    loaded: '読み込み完了。このページの件数：',
+    unauthorized:
+      '認証または審査設定を確認できません（401）。既存の管理者ログインを同じブラウザで確認し、この画面に戻ってください。ログイン済みでも続く場合は審査設定の確認が必要です。',
+    forbidden:
+      'アクセスが拒否されました（403）。別経路で再試行せず、管理者に確認してください。',
+    unavailable:
+      '管理サービスを利用できません（503）。設定・サービス状態の確認が必要です。0件という意味ではありません。',
+    limited:
+      '読み取り回数の制限に達しました（429）。連続で再試行せず、時間を置いて確認してください。',
+    invalid: '応答を読み取れませんでした。件数は未確認です。',
+    network:
+      '通信に失敗しました。接続を確認してから再度読み込んでください。件数は未確認です。',
+    timeout:
+      '10秒以内に応答がなかったため読み込みを中止しました。件数は未確認です。',
+    other: '一覧を読み込めませんでした。HTTP状態：',
+  },
+  en: {
+    loading: 'Reading queue…',
+    empty: 'Read complete. No reports in this result.',
+    loaded: 'Read complete. Reports on this page:',
+    unauthorized:
+      'Authentication or review configuration could not be verified (401). Check the existing admin login in this browser, then return here. If already signed in, review configuration needs checking.',
+    forbidden:
+      'Access denied (403). Do not retry through another route; contact the administrator.',
+    unavailable:
+      'Admin service unavailable (503). Configuration or service status needs checking. This does not mean zero reports.',
+    limited:
+      'Read limit reached (429). Wait before trying again; do not repeatedly retry.',
+    invalid: 'Could not read the response. Report count is unknown.',
+    network:
+      'Connection failed. Check connectivity before retrying. Report count is unknown.',
+    timeout:
+      'Reading stopped after 10 seconds without a response. Report count is unknown.',
+    other: 'Could not read the queue. HTTP status:',
+  },
+  zh: {
+    loading: '正在读取列表…',
+    empty: '读取完成，本次列表没有报告。',
+    loaded: '读取完成，本页报告数：',
+    unauthorized:
+      '无法确认认证或审核配置（401）。请在同一浏览器确认现有管理员登录，再返回此页。若已登录仍失败，需要检查审核配置。',
+    forbidden: '访问被拒绝（403）。请勿改用其他路径重试，请联系管理员。',
+    unavailable:
+      '管理服务不可用（503）。需要检查配置或服务状态，不代表报告为0条。',
+    limited: '已达到读取次数限制（429）。请稍后再试，不要连续重试。',
+    invalid: '无法读取响应，报告数量尚未确认。',
+    network: '连接失败，请检查网络后再试。报告数量尚未确认。',
+    timeout: '10秒内未收到响应，已停止读取。报告数量尚未确认。',
+    other: '无法读取列表，HTTP状态：',
+  },
+  es: {
+    loading: 'Leyendo lista…',
+    empty: 'Lectura completada. No hay informes en este resultado.',
+    loaded: 'Lectura completada. Informes en esta página:',
+    unauthorized:
+      'No se pudo verificar la autenticación o configuración de revisión (401). Comprueba el acceso de administrador en este navegador y vuelve aquí. Si ya has iniciado sesión, hay que revisar la configuración.',
+    forbidden:
+      'Acceso denegado (403). No reintentes por otra ruta; consulta al administrador.',
+    unavailable:
+      'Servicio de administración no disponible (503). Hay que revisar su configuración o estado. No significa que haya cero informes.',
+    limited:
+      'Se alcanzó el límite de lecturas (429). Espera antes de volver a intentarlo; no repitas solicitudes seguidas.',
+    invalid:
+      'No se pudo leer la respuesta. Se desconoce el número de informes.',
+    network:
+      'Falló la conexión. Compruébala antes de reintentar. Se desconoce el número de informes.',
+    timeout:
+      'Lectura detenida tras 10 segundos sin respuesta. Se desconoce el número de informes.',
+    other: 'No se pudo leer la lista. Estado HTTP:',
   },
 };
 type QueueRow = OwnerReport & {
@@ -495,33 +570,74 @@ function ReviewCard({
 export function CommunityReportsAdmin() {
   const [locale, setLocale] = useState<MyGamesLocale>('ja'),
     [rows, setRows] = useState<QueueRow[]>([]),
-    [notice, setNotice] = useState(''),
+    [status, setStatus] = useState<keyof typeof queueMessages.ja | ''>(''),
+    [httpStatus, setHttpStatus] = useState(0),
     [next, setNext] = useState<string | null>(null),
     [busy, setBusy] = useState(false);
   const t = reportCopy[locale],
     a = adminCopy[locale],
-    guard = useRef(false);
+    guard = useRef(false),
+    request = useRef<AbortController | null>(null);
+  useEffect(() => () => request.current?.abort(), []);
   async function load(cursor = '') {
     if (guard.current) return;
     guard.current = true;
     setBusy(true);
+    setStatus('loading');
+    setRows([]);
+    setNext(null);
+    const controller = new AbortController();
+    request.current = controller;
+    const timer = setTimeout(() => controller.abort(), 10000);
     try {
       const r = await fetch(
         `/api/admin/reports?all=true${cursor ? '&before=' + encodeURIComponent(cursor) : ''}`,
-        { cache: 'no-store', signal: AbortSignal.timeout(10000) },
+        {
+          cache: 'no-store',
+          credentials: 'same-origin',
+          signal: controller.signal,
+        },
       );
-      const d = (await r.json()) as {
+      if (!r.ok) {
+        setHttpStatus(r.status);
+        setStatus(
+          r.status === 401
+            ? 'unauthorized'
+            : r.status === 403
+              ? 'forbidden'
+              : r.status === 503
+                ? 'unavailable'
+                : r.status === 429
+                  ? 'limited'
+                  : 'other',
+        );
+        return;
+      }
+      const d = (await r.json().catch(() => null)) as null | {
         reports: QueueRow[];
         next: string | null;
       };
-      if (!r.ok || !Array.isArray(d.reports)) throw Error('unavailable');
+      if (controller.signal.aborted) {
+        setStatus('timeout');
+        return;
+      }
+      if (
+        !d ||
+        !Array.isArray(d.reports) ||
+        !(d.next === null || typeof d.next === 'string')
+      ) {
+        setStatus('invalid');
+        return;
+      }
       setRows(d.reports);
       setNext(d.next);
-      setNotice('');
+      setStatus(d.reports.length ? 'loaded' : 'empty');
     } catch {
       setRows([]);
-      setNotice(a.preparing);
+      setStatus(controller.signal.aborted ? 'timeout' : 'network');
     } finally {
+      clearTimeout(timer);
+      request.current = null;
       guard.current = false;
       setBusy(false);
     }
@@ -547,10 +663,26 @@ export function CommunityReportsAdmin() {
       <p>
         <a href="/admin/discord-servers">{a.login}</a>
       </p>
-      <button disabled={busy} type="button" onClick={() => void load()}>
-        {a.load}
+      <button
+        disabled={busy}
+        aria-busy={busy}
+        type="button"
+        onClick={() => void load()}
+      >
+        {busy ? queueMessages[locale].loading : a.load}
       </button>
-      <output aria-live="polite">{notice}</output>
+      <output
+        className="report-queue-status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        {status ? queueMessages[locale][status] : ''}
+        {status === 'loaded'
+          ? ` ${rows.length}`
+          : status === 'other'
+            ? ` ${httpStatus}`
+            : ''}
+      </output>
       {rows.map((r) => (
         <ReviewCard
           key={`${r.id}:${r.revision}:${locale}`}
