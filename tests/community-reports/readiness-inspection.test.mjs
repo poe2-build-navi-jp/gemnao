@@ -248,6 +248,10 @@ function fixture(mode) {
       };
       if (['do-empty', 'history-present', 'history-failed'].includes(mode))
         account.doStorage = [];
+      if (mode === 'run8-no-do-activity') {
+        account.doRequests = [];
+        account.doPeriodic = [];
+      }
       if (mode === 'do-missing') delete account.doStorage;
       if (mode === 'do-unexpected')
         account.doStorage[0].dimensions.namespaceId = 'other-private-id';
@@ -563,4 +567,32 @@ await test('nonempty current storage does not trigger historical reads; history 
   assert.ok(!/mutation|objectId|scriptName/.test(q.query));
   schema.durableObjectsSqlStorageGroups.filter = [];
   assert.throws(() => storageHistoryQuery(schema, now));
+});
+
+await test('run 39001009305 shape: known storage never turns missing DO activity into zeros or runtime readiness', async () => {
+  // Reproduce the returned shape, not private metric values or a new live sample.
+  const f = fixture('run8-no-do-activity');
+  const result = await inspectReadiness(environment(), f.fetcher, now);
+  assert.equal(result.usage.reportedBelow80Percent.durableObjectStorage, true);
+  assert.deepEqual(result.usage.unknownReasons, {
+    doRequests: 'empty-rows',
+    doPeriodic: 'empty-rows',
+  });
+  for (const metric of [
+    'durableObjectRequests',
+    'durableObjectRowsRead',
+    'durableObjectRowsWritten',
+  ])
+    assert.equal(result.usage.reportedBelow80Percent[metric], null);
+  assert.equal(result.usage.durationValueReturned, false);
+  assert.equal(result.storageHistory.attempted, false);
+  assert.equal(result.usage.usageHeadroomVerified, false);
+  assert.equal(result.automaticCollectorCompatible, false);
+  assert.equal(result.authorizesActivation, false);
+  assert.equal(
+    f.calls.filter((c) =>
+      c.options.body?.includes('CommunityReportsStorageHistory'),
+    ).length,
+    0,
+  );
 });

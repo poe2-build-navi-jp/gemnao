@@ -105,3 +105,22 @@ durationの課金単位、providerの集計完了時刻、通知到達、cleanup
 4. 外部監視は既存タスクを継続。通知到達は本人が受信確認する必要がある。148分間隔という実測を踏まえ、GitHub scheduleに定刻保証があると扱わない。監視設定の追加・重複作成・75分期限の緩和はしない。
 
 本番受付フラグ、pin、bootstrap、cron、credential、保護設定は変更していない。受付開始は未達であり、この検査追加を開始完了と報告しない。
+
+## readiness run #8：DO保存容量の取得成功
+
+この節を保存量の最新検証結果として優先する。run [39001009305](https://github.com/poe2-build-navi-jp/gemnao/actions/runs/39001009305)、source `0ad450835d13611f24b25943099f328788c7e54d`、本人承認後gate/discoverとも成功。checkedAt `2026-10-17T04:06:14.584Z`、要求期間 `2026-10-17T00:00:00.000Z`〜`2026-10-17T04:01:14.584Z`。
+
+- **DO SQLite保存容量は取得成功、返された値は80%未満。** 当該queryの資源一覧網羅・数値検査を通過した。出力方針により生の容量値は保存していないため正確なバイト数は記載しない。過去のD1 446.46KBをDO値として転記していない。
+- 当日保存量が空ではなかったため `storageHistory.attempted=false`。前日の取得成功とは報告しない。前回の空応答から今回の行ありへの変化は確認できるが、providerの収録頻度やその原因まで断定しない。保存量取得コードのfield不整合や権限不足を示す結果ではなく、同じ調査目的のrunを追加する必要はない。
+- 当日の `doRequests` と `doPeriodic` はempty-rows。DO request、SQLite行read/writeはnull、durationValueReturned=false。前日分のこれらの値や保存容量成功を使って当日値をゼロ/確認済みにしない。D1/Workersの5項目は返された値が80%未満。
+- 全指標coverageとduration課金換算は未検証。collectorのmax freshness field不整合は継続。`usageHeadroomVerified=false`、`automaticCollectorCompatible=false`、`authorizesActivation=false`。
+- 専用DBに投稿・期限切れ・古いrate・未完了withdrawalなし。cleanupの成功時刻と15分cronなし。公開healthは503/not-configured、受付/公開OFF、cleanupReceiptPresent=false。通知登録は確認済みだが端末到達は未検証。
+
+今回の変更はこの確定記録と回帰テストだけ。run #8の応答形状（実数値は合成値）を再現し、保存量が取得できてもDO活動の欠測はnull、前日queryは0回、受付許可はfalseを検証。readiness 16テスト・変更テストlint成功。runtimeコード、既存固定hash、profile、フラグ、credential、cronを変更していない。実データ書込みや削除、欠測を埋めるための人工的なDO呼出しを実行していない。
+
+### 次の作業の境界
+
+- 保存容量確認は進んだため、同じ画像/トークンの再確認や調査runの反復は不要。
+- **直近の阻害要因は承認不足だけではない。** 実GraphQL schemaにないcoverage fieldを必要とする自動collectorの設計と、既存の完全性/鮮度要件が両立していない。仕様根拠のある取得方式を確立するまでは、credentialやcronを追加しても動作可能にならない。単なる承認で未検証のcoverageを保証できないため、新credentialや削除承認を先に要求しない。
+- collectorの取得方式を解決した後に、既に記録した限定credential登録、専用cleanupの消去を伴う実行と定期化について具体的な承認が必要。現runの読取り承認では実行しない。
+- 監視の端末通知到達は本人から受信確認を得る。監視タスクは追加しない。受付開始は未達のままであり、今回の保存量成功と混同しない。
