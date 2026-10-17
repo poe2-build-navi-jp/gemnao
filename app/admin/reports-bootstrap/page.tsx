@@ -1,3 +1,4 @@
+/* oxlint-disable next/no-html-link-for-pages -- The admin login is a separate full page; keep a native link. */
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { env } from 'cloudflare:workers';

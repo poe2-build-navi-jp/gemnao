@@ -266,7 +266,7 @@ function fixture(state = open, options = {}) {
   };
 }
 
-test('phase projections allow one bootstrap flag or one exact returned pin; intake always OFF', () => {
+void test('phase projections allow one bootstrap flag or one exact returned pin; intake always OFF', () => {
   assert.equal(openConfig.vars.REPORTS_BOOTSTRAP_ALLOWED, 'true');
   for (const flag of FLAGS.filter((x) => x !== 'REPORTS_BOOTSTRAP_ALLOWED'))
     assert.equal(openConfig.vars[flag], 'false');
@@ -311,7 +311,7 @@ test('phase projections allow one bootstrap flag or one exact returned pin; inta
   );
 });
 
-test('only exact successful non-secret owner response and successful opening proof produce pin', () => {
+void test('only exact successful non-secret owner response and successful opening proof produce pin', () => {
   for (const response of [
     null,
     {},
@@ -339,7 +339,7 @@ test('only exact successful non-secret owner response and successful opening pro
     );
 });
 
-test('offline preparation changes two files only, same UUID replay writes nothing, replacement/reopen rejected', async () => {
+void test('offline preparation changes two files only, same UUID replay writes nothing, replacement/reopen rejected', async () => {
   const dir = await mkdtemp(join(tmpdir(), 'reports-phase-'));
   try {
     await mkdir(dirname(join(dir, PHASE_PATH)), { recursive: true });
@@ -397,7 +397,7 @@ test('offline preparation changes two files only, same UUID replay writes nothin
   }
 });
 
-test('unknown/failed owner response can close without pin or any ledger operation', async () => {
+void test('unknown/failed owner response can close without pin or any ledger operation', async () => {
   const state = nextPhase(closed, record, openReceipt(), null, true);
   assert.equal(state.instanceId, null);
   assert.deepEqual(phaseConfig(closed, state, record), closed);
@@ -409,7 +409,7 @@ test('unknown/failed owner response can close without pin or any ledger operatio
   assert.ok(f.calls.every((x) => x.method === 'GET'));
 });
 
-test('opening deploys Pages only and records exact identities; never invokes bootstrap or SQL', async () => {
+void test('opening deploys Pages only and records exact identities; never invokes bootstrap or SQL', async () => {
   const f = fixture();
   await f.run();
   assert.deepEqual(f.writes, ['pages-open']);
@@ -437,7 +437,7 @@ test('opening deploys Pages only and records exact identities; never invokes boo
   assert.equal(f.result.replayedWithoutPagesDeployment, true);
 });
 
-test('pin closes Pages first, pins same UUID on cleanup only, same execution replay makes no writes', async () => {
+void test('pin closes Pages first, pins same UUID on cleanup only, same execution replay makes no writes', async () => {
   const f = fixture(pin());
   await f.run();
   assert.deepEqual(f.writes, ['pages-pin', 'cleanup-pin']);
@@ -457,7 +457,7 @@ test('pin closes Pages first, pins same UUID on cleanup only, same execution rep
   assert.equal(f.result.replayedWithoutPagesDeployment, true);
 });
 
-test('uncertain cleanup pin stops without retry; Pages remains closed; fresh exact-source run completes same pin', async () => {
+void test('uncertain cleanup pin stops without retry; Pages remains closed; fresh exact-source run completes same pin', async () => {
   const state = pin(),
     f = fixture(state, { failPatch: true });
   await assert.rejects(f.run(), /BOOTSTRAP_PIN_REQUEST_UNCERTAIN/);
@@ -503,7 +503,7 @@ for (const [name, options] of Object.entries({
   'another existing pin': { existingPin: otherId },
   'concurrent Pages settings drift': { pagesDrift: true },
 }))
-  test(name + ' stops before any write', async () => {
+  void test(name + ' stops before any write', async () => {
     const f = fixture(pin(), options);
     await assert.rejects(f.run());
     assert.deepEqual(f.writes, []);
@@ -514,7 +514,7 @@ for (const [name, options] of Object.entries({
   'wrong deployed source': { badSource: true },
   'preview changed': { previewDrift: true },
 }))
-  test(
+  void test(
     name + ' never writes cleanup, retries, rolls back or deletes',
     async () => {
       const f = fixture(pin(), options);
@@ -524,7 +524,7 @@ for (const [name, options] of Object.entries({
     },
   );
 
-test('transport refuses every other mutation and malformed pin before fetch; one accepted PATCH maximum', async () => {
+void test('transport refuses every other mutation and malformed pin before fetch; one accepted PATCH maximum', async () => {
   let network = 0;
   const state = pin(),
     api = phaseClient(
@@ -593,7 +593,7 @@ test('transport refuses every other mutation and malformed pin before fetch; one
   );
 });
 
-test('source verification accepts deterministic phase only; partial pair/runtime or intake drift fails closed', async () => {
+void test('source verification accepts deterministic phase only; partial pair/runtime or intake drift fails closed', async () => {
   const dir = await mkdtemp(join(tmpdir(), 'reports-phase-source-'));
   try {
     execFileSync('git', [
@@ -656,7 +656,7 @@ test('source verification accepts deterministic phase only; partial pair/runtime
   await verifySource();
 });
 
-test('all bootstrap entry points retain owner protection, exact confirmation and first-attempt context before Cloudflare', async () => {
+void test('all bootstrap entry points retain owner protection, exact confirmation and first-attempt context before Cloudflare', async () => {
   const previous = await readFile('closed-setup-receipt.json').catch(
     () => null,
   );
