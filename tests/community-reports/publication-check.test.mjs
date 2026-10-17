@@ -163,3 +163,24 @@ await test('ready-closed requires fresh operations while both public flags remai
     );
   }
 });
+await test('Free v2 publication requires a known policy and real cleanup without invented analytics coverage', async () => {
+  const health = {
+    schemaVersion: 2,
+    budgetMode: 'free-small-v1',
+    observedAt: null,
+    validUntil: null,
+  };
+  const f = fixture('open', { health });
+  await checkPublication({ origin, stage: 'open', now, fetcher: f.fetcher });
+  for (const patch of [
+    { budgetMode: 'typo' },
+    { observedAt: new Date(now).toISOString() },
+    { cleanupAt: null },
+    { cleanupAt: new Date(now - 7200001).toISOString() },
+  ]) {
+    const bad = fixture('open', { health: { ...health, ...patch } });
+    await assert.rejects(
+      checkPublication({ origin, stage: 'open', now, fetcher: bad.fetcher }),
+    );
+  }
+});

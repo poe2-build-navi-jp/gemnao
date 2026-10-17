@@ -1,6 +1,7 @@
 import type { ReportsEnv } from './service';
 import { cleanupReports } from './retention';
-import { callGuard } from './guard-client';
+import { FREE_BUDGET_MODE } from './admission';
+import { callGuard, admitReports } from './guard-client';
 
 export type MaintenanceEnv = ReportsEnv & { REPORTS_MONITOR_URL?: string };
 // The receiver must accept this documented JSON heartbeat and alert if it stops.
@@ -54,13 +55,13 @@ export async function eraseReportsContent(
   const blocked = JSON.stringify(guard.blocked);
   const erased = await env.REPORTS_DB.batch([
     env.REPORTS_DB.prepare(
-      "UPDATE community_reports SET state='deleted',content_json='{}',public_json=NULL,approved_revision=NULL WHERE id IN (SELECT value FROM json_each(?))",
+      "UPDATE community_reports SET state='deleted',content_json='{}',public_json=NULL,approved_revision=NULL WHERE id IN (SELECT value FROM json_each(?)) AND (state!='deleted' OR content_json!='{}' OR public_json IS NOT NULL OR approved_revision IS NOT NULL)",
     ).bind(blocked),
     env.REPORTS_DB.prepare(
-      "UPDATE community_revisions SET content_json='{}',payload_hash='' WHERE report_id IN (SELECT value FROM json_each(?))",
+      "UPDATE community_revisions SET content_json='{}',payload_hash='' WHERE report_id IN (SELECT value FROM json_each(?)) AND (content_json!='{}' OR payload_hash!='')",
     ).bind(blocked),
     env.REPORTS_DB.prepare(
-      'UPDATE community_audit SET evidence_json=NULL WHERE report_id IN (SELECT value FROM json_each(?))',
+      'UPDATE community_audit SET evidence_json=NULL WHERE report_id IN (SELECT value FROM json_each(?)) AND evidence_json IS NOT NULL',
     ).bind(blocked),
     env.REPORTS_DB.prepare(
       'DELETE FROM community_flags WHERE report_id IN (SELECT value FROM json_each(?))',
@@ -79,12 +80,21 @@ export async function runReportsMaintenance(
   fetcher: typeof fetch = fetch,
 ) {
   if (!env.REPORTS_DB) throw Error('Separate REPORTS_DB required');
+  // Denied admission must not enter the failure handler that writes to D1.
+  await admitReports(env, 'cleanup');
+  if (
+    env.REPORTS_BUDGET_MODE === FREE_BUDGET_MODE &&
+    (env.REPORTS_MONITOR_MODE !== 'public-status' ||
+      env.REPORTS_PUBLIC_MONITOR_VERIFIED !== 'true')
+  )
+    throw Error('monitor-unverified');
   try {
     await eraseReportsContent(env, now);
     if (env.REPORTS_MONITOR_MODE === 'public-status') {
       if (
         env.REPORTS_PUBLIC_MONITOR_VERIFIED !== 'true' ||
-        env.REPORTS_AUTO_OBSERVATION_ENABLED !== 'true'
+        (env.REPORTS_BUDGET_MODE !== FREE_BUDGET_MODE &&
+          env.REPORTS_AUTO_OBSERVATION_ENABLED !== 'true')
       )
         throw Error('monitor-unverified');
       await callGuard(env, '/operation', {

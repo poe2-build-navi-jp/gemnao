@@ -10,7 +10,7 @@ const cleanupWorker = {
     );
     if (
       event.cron !== '*/15 * * * *' ||
-      !result.collectionOk ||
+      !(result.collectionOk || result.budgetOk) ||
       !result.cleanupOk
     )
       throw Error('Community reports scheduled operation failed');

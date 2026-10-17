@@ -1,6 +1,6 @@
 import { strictJson } from '../diagnostic-feedback/json';
 import { ID } from './ids';
-import { callGuard } from './guard-client';
+import { callGuard, admitReports } from './guard-client';
 import { eraseReportsContent, type MaintenanceEnv } from './maintenance';
 import { reportHeaders } from './service';
 
@@ -103,6 +103,7 @@ export async function verifyClosedReports(
       return reply({ error: 'unavailable' }, 503);
     const body = await input(request).catch(() => null);
     if (!body) return reply({ error: 'input' }, 400);
+    await admitReports(env, body.operation === 'erase' ? 'cleanup' : 'admin');
     const operations = await env.REPORTS_DB.prepare(
       "SELECT key,value FROM community_operations WHERE key IN ('total','verification-db-id')",
     ).all<{ key: string; value: string }>();

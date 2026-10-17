@@ -108,3 +108,44 @@ await test('missing source identity blocks before any network request', async ()
   );
   assert.equal(p.calls.length, 0);
 });
+await test('Free policy v2 requires exact policy, null analytics timestamps and recent real cleanup', async () => {
+  const free = {
+    ...healthy(),
+    schemaVersion: 2,
+    budgetMode: 'free-small-v1',
+    observedAt: null,
+    validUntil: null,
+  };
+  assert.equal(
+    (await publicHealthCheck(env, probe(free).fetcher, now)).healthy,
+    true,
+  );
+  for (const patch of [
+    { budgetMode: 'typo' },
+    { observedAt: iso(0) },
+    { validUntil: iso(1000) },
+    { cleanupAt: null },
+    { cleanupAt: iso(-7200001) },
+    { cleanupAt: iso(1) },
+  ]) {
+    assert.equal(
+      (await publicHealthCheck(env, probe({ ...free, ...patch }).fetcher, now))
+        .healthy,
+      false,
+    );
+  }
+  const exhausted = {
+    ...free,
+    ok: false,
+    intakeEnabled: false,
+    publicEnabled: false,
+    reason: 'daily-budget',
+  };
+  const report = await publicHealthCheck(
+    env,
+    probe(exhausted, 503).fetcher,
+    now,
+  );
+  assert.equal(report.health.validSchema, true);
+  assert.equal(report.healthy, false);
+});

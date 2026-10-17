@@ -16,7 +16,7 @@ export function runtimeFixture(now) {
     restorePolicy: 'no-past-db-restore',
   });
 }
-export async function guardFixture(Ledger, clock, seedObservation = true) {
+export async function guardFixture(Ledger, clock, seedObservation = true, env) {
   const values = new Map();
   let chain = Promise.resolve();
   const control = { fail: false };
@@ -41,7 +41,7 @@ export async function guardFixture(Ledger, clock, seedObservation = true) {
       return work;
     },
   };
-  const ledger = new Ledger({ storage }, undefined, clock);
+  let ledger = new Ledger({ storage }, env, clock);
   const binding = { fetch: (request) => ledger.fetch(request) };
   const r = await binding.fetch(
     new Request('https://guard.test/initialize', {
@@ -60,5 +60,14 @@ export async function guardFixture(Ledger, clock, seedObservation = true) {
       }),
     );
   if (seedObservation) await observe(runtimeFixture(clock()));
-  return { binding, control, values, instanceId, observe };
+  return {
+    binding,
+    control,
+    values,
+    instanceId,
+    observe,
+    restart() {
+      ledger = new Ledger({ storage }, env, clock);
+    },
+  };
 }

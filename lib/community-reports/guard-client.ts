@@ -1,5 +1,7 @@
 import { ID } from './ids';
+import { FREE_BUDGET_MODE, type AdmissionKind } from './admission';
 export type GuardEnv = {
+  REPORTS_BUDGET_MODE?: string;
   REPORTS_GUARD?: Fetcher;
   REPORTS_GUARD_INSTANCE?: string;
   REPORTS_AUTO_OBSERVATION_ENABLED?: string;
@@ -21,7 +23,8 @@ export async function callGuard(
     | '/delete'
     | '/observe'
     | '/health'
-    | '/operation',
+    | '/operation'
+    | '/admit',
   input: Record<string, unknown>,
 ) {
   if (
@@ -43,6 +46,8 @@ export async function callGuard(
     }),
   );
   const d = (await r.json()) as {
+    budgetMode?: string | null;
+    budgetAvailable?: boolean;
     ok?: boolean;
     error?: string;
     known?: string[];
@@ -63,6 +68,7 @@ export async function callGuard(
         'deleted',
         'expired',
         'capacity',
+        'daily-budget',
         'old-observation',
         'conflicting-observation',
       ].includes(d.error || '')
@@ -95,14 +101,22 @@ export async function callGuard(
     throw new GuardFailure(503, 'unavailable');
   if (
     (path === '/check' || path === '/health') &&
-    (env.REPORTS_AUTO_OBSERVATION_ENABLED === 'true'
-      ? !d.automatic
-      : d.automatic)
+    (env.REPORTS_BUDGET_MODE === FREE_BUDGET_MODE
+      ? d.budgetMode !== FREE_BUDGET_MODE ||
+        typeof d.budgetAvailable !== 'boolean'
+      : d.budgetMode === FREE_BUDGET_MODE ||
+        (env.REPORTS_AUTO_OBSERVATION_ENABLED === 'true'
+          ? !d.automatic
+          : d.automatic))
   )
     d.ready = false;
+  if (path === '/admit' && d.budgetMode !== FREE_BUDGET_MODE)
+    throw new GuardFailure(503, 'unavailable');
   if (path === '/observe' && typeof d.ready !== 'boolean')
     throw new GuardFailure(503, 'unavailable');
   return d as {
+    budgetMode: string | null;
+    budgetAvailable: boolean;
     ok: true;
     known: string[];
     blocked: string[];
@@ -115,4 +129,10 @@ export async function callGuard(
     collection: { at: number; ok: boolean } | null;
     cleanup: { at: number; ok: boolean } | null;
   };
+}
+
+export async function admitReports(env: GuardEnv, kind: AdmissionKind) {
+  if (env.REPORTS_BUDGET_MODE === FREE_BUDGET_MODE)
+    await callGuard(env, '/admit', { kind });
+  else if (env.REPORTS_BUDGET_MODE) throw new GuardFailure(503, 'unavailable');
 }

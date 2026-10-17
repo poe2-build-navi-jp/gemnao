@@ -19,17 +19,17 @@ export async function cleanupReports(
     ),
     stmt(
       db,
-      "UPDATE community_reports SET content_json='{}',public_json=NULL,state='deleted',approved_revision=NULL,owner_hash='' WHERE expires_at<=?",
+      "UPDATE community_reports SET content_json='{}',public_json=NULL,state='deleted',approved_revision=NULL,owner_hash='' WHERE expires_at<=? AND (content_json!='{}' OR public_json IS NOT NULL OR state!='deleted' OR approved_revision IS NOT NULL OR owner_hash!='')",
       now,
     ),
     stmt(
       db,
-      "UPDATE community_revisions SET content_json='{}',payload_hash='' WHERE report_id IN(SELECT id FROM community_reports WHERE expires_at<=?)",
+      "UPDATE community_revisions SET content_json='{}',payload_hash='' WHERE report_id IN(SELECT id FROM community_reports WHERE expires_at<=?) AND (content_json!='{}' OR payload_hash!='')",
       now,
     ),
     stmt(
       db,
-      "UPDATE community_audit SET evidence_json=NULL,request_hash='' WHERE report_id IN(SELECT id FROM community_reports WHERE expires_at<=?)",
+      "UPDATE community_audit SET evidence_json=NULL,request_hash='' WHERE report_id IN(SELECT id FROM community_reports WHERE expires_at<=?) AND (evidence_json IS NOT NULL OR request_hash!='')",
       now,
     ),
     stmt(db, 'DELETE FROM community_rate WHERE at<?', now - 60),

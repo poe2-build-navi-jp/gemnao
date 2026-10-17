@@ -292,19 +292,24 @@ export async function inspectHealth(fetcher, now) {
       'not-configured',
       'monitor-unverified',
       'usage-unavailable',
+      'budget-unavailable',
+      'daily-budget',
       'usage-stale',
       'usage-limit',
       'cleanup-unavailable',
       'storage-unavailable',
       'intake-disabled',
     ];
+    const freeBudget =
+      body?.schemaVersion === 2 && body.budgetMode === 'free-small-v1';
+    if (freeBudget) names.push('budgetMode');
     need(
       object(body) &&
         Object.keys(body).length === names.length &&
         names.every((name) => Object.hasOwn(body, name)),
     );
     need(
-      body.schemaVersion === 1 &&
+      (body.schemaVersion === 1 || freeBudget) &&
         ['ok', 'intakeEnabled', 'publicEnabled'].every(
           (name) => typeof body[name] === 'boolean',
         ),
@@ -323,6 +328,7 @@ export async function inspectHealth(fetcher, now) {
         (name) => body[name] === null || iso(body[name]),
       ),
     );
+    if (freeBudget) need(body.observedAt === null && body.validUntil === null);
     need(/no-store/i.test(response.headers.get('cache-control') || ''));
     need(
       response.status === 200
@@ -337,12 +343,13 @@ export async function inspectHealth(fetcher, now) {
         until = Date.parse(body.validUntil),
         cleaned = Date.parse(body.cleanupAt);
       need(
-        Number.isFinite(observed) &&
-          observed <= now &&
-          observed >= now - 1_800_000 &&
-          Number.isFinite(until) &&
-          until > now &&
-          until <= observed + 1_800_000 &&
+        (freeBudget ||
+          (Number.isFinite(observed) &&
+            observed <= now &&
+            observed >= now - 1_800_000 &&
+            Number.isFinite(until) &&
+            until > now &&
+            until <= observed + 1_800_000)) &&
           Number.isFinite(cleaned) &&
           cleaned <= now &&
           cleaned >= now - 7_200_000,

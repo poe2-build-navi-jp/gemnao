@@ -1,3 +1,4 @@
+import { FREE_BUDGET_MODE } from './admission';
 import { strictJson } from '../diagnostic-feedback/json';
 import { callGuard, GuardFailure } from './guard-client';
 import { reportHeaders, type ReportsEnv } from './service';
@@ -65,6 +66,7 @@ export async function observeReports(
         monitoringMode?: unknown;
       };
       if (
+        env.REPORTS_BUDGET_MODE === FREE_BUDGET_MODE ||
         env.REPORTS_AUTO_OBSERVATION_ENABLED === 'true' ||
         state?.usage?.source !== 'operator-transcribed-dashboard' ||
         typeof state?.monitoringVerifiedAt !== 'string' ||

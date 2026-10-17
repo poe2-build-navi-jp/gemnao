@@ -1,3 +1,4 @@
+import { FREE_BUDGET_MODE } from './admission';
 import { callGuard } from './guard-client';
 import { type ReportsEnv, reportHeaders } from './service';
 const reply = (body: unknown, status: number) =>
@@ -23,12 +24,15 @@ export async function reportsHealth(
     observedAt: string | null = null,
     validUntil: string | null = null,
     cleanupAt: string | null = null;
+  const freeBudget = env.REPORTS_BUDGET_MODE === FREE_BUDGET_MODE;
   const configured =
+    (!env.REPORTS_BUDGET_MODE || freeBudget) &&
     !!env.REPORTS_DB &&
     !!env.REPORTS_GUARD &&
     !!env.REPORTS_GUARD_INSTANCE &&
-    env.REPORTS_AUTO_OBSERVATION_ENABLED === 'true' &&
-    env.REPORTS_USAGE_PROFILE_VERIFIED === 'true' &&
+    (freeBudget ||
+      (env.REPORTS_AUTO_OBSERVATION_ENABLED === 'true' &&
+        env.REPORTS_USAGE_PROFILE_VERIFIED === 'true')) &&
     env.REPORTS_MONITOR_MODE === 'public-status';
   if (!configured) reason = 'not-configured';
   else if (env.REPORTS_PUBLIC_MONITOR_VERIFIED !== 'true')
@@ -36,8 +40,9 @@ export async function reportsHealth(
   else
     try {
       const g = await callGuard(env, '/health', {});
-      observedAt = iso(g.observedAt, now);
+      observedAt = freeBudget ? null : iso(g.observedAt, now);
       validUntil =
+        !freeBudget &&
         typeof g.expiresAt === 'number' &&
         Number.isSafeInteger(g.expiresAt) &&
         g.expiresAt >= 0 &&
@@ -45,7 +50,10 @@ export async function reportsHealth(
           ? new Date(g.expiresAt).toISOString()
           : null;
       cleanupAt = iso(g.cleanup ? g.cleanup.at * 1000 : null, now);
-      if (
+      if (freeBudget) {
+        if (!g.ready) reason = 'budget-unavailable';
+        else if (!g.budgetAvailable) reason = 'daily-budget';
+      } else if (
         !g.ready ||
         !g.automatic ||
         !observedAt ||
@@ -84,7 +92,8 @@ export async function reportsHealth(
   if (!reason && (!intakeEnabled || !publicEnabled)) reason = 'intake-disabled';
   return reply(
     {
-      schemaVersion: 1,
+      schemaVersion: freeBudget ? 2 : 1,
+      ...(freeBudget ? { budgetMode: FREE_BUDGET_MODE } : {}),
       ok: reason === null,
       intakeEnabled: !!intakeEnabled,
       publicEnabled: !!publicEnabled,

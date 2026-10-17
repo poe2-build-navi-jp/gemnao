@@ -2,7 +2,13 @@ import { reportStatement as stmt, reportBatch as batch } from './database';
 import { strictJson } from '../diagnostic-feedback/json';
 import { feedbackNetwork } from '../diagnostic-feedback/rate-limit';
 import { articleReview } from '../fix-save';
-import { callGuard, GuardFailure, type GuardEnv } from './guard-client';
+import { FREE_BUDGET_MODE } from './admission';
+import {
+  callGuard,
+  admitReports,
+  GuardFailure,
+  type GuardEnv,
+} from './guard-client';
 import {
   ID,
   SECRET,
@@ -99,8 +105,11 @@ export async function reportsHealthy(
     env.REPORTS_BUDGET_VERIFIED !== 'true'
   )
     return false;
+  const freeBudget = env.REPORTS_BUDGET_MODE === FREE_BUDGET_MODE;
+  if (freeBudget && env.REPORTS_MONITOR_MODE !== 'public-status') return false;
   const publicMonitor = env.REPORTS_MONITOR_MODE === 'public-status';
   if (
+    !freeBudget &&
     env.REPORTS_AUTO_OBSERVATION_ENABLED === 'true' &&
     (!publicMonitor ||
       env.REPORTS_USAGE_PROFILE_VERIFIED !== 'true' ||
@@ -110,7 +119,7 @@ export async function reportsHealthy(
   if (
     publicMonitor &&
     (env.REPORTS_PUBLIC_MONITOR_VERIFIED !== 'true' ||
-      env.REPORTS_AUTO_OBSERVATION_ENABLED !== 'true')
+      (!freeBudget && env.REPORTS_AUTO_OBSERVATION_ENABLED !== 'true'))
   )
     return false;
   if (withGuard && !(await callGuard(env, '/check', { ids: [] })).ready)
@@ -276,6 +285,7 @@ export async function handleReports(
       if (url.search) return reply({ error: 'input' }, 400);
       const active =
         env.REPORTS_ENABLED === 'true' || env.REPORTS_PUBLIC_ENABLED === 'true';
+      if (active) await admitReports(env, 'general');
       if (
         active &&
         env.REPORTS_DB &&
@@ -308,11 +318,19 @@ export async function handleReports(
     const publicRead =
       path === '/api/reports/public' && request.method === 'GET';
     const flag = !!match?.[2] && request.method === 'POST';
+    await admitReports(
+      env,
+      isReview ? 'admin' : deletion ? 'deletion' : 'general',
+    );
     if (
       !isReview &&
       !deletion &&
       !ownerRead &&
-      !(await reportsHealthy(env, now, false))
+      !(await reportsHealthy(
+        env,
+        now,
+        env.REPORTS_BUDGET_MODE === FREE_BUDGET_MODE,
+      ))
     )
       return reply({ error: 'unavailable' }, 503);
     if (
@@ -817,7 +835,14 @@ async function review(
   } else {
     if (current.state === 'deleted') return reply({ error: 'deleted' }, 409);
     if (action === 'approve') {
-      if (!ledgerStatus.ready || !(await reportsHealthy(env, now, false)))
+      if (
+        !ledgerStatus.ready ||
+        !(await reportsHealthy(
+          env,
+          now,
+          env.REPORTS_BUDGET_MODE === FREE_BUDGET_MODE,
+        ))
+      )
         return reply({ error: 'unavailable' }, 503);
       try {
         evidence = parseEvidence(input.evidence, now);
@@ -869,7 +894,11 @@ async function review(
     } else if (action === 'restore') {
       if (
         !ledgerStatus.ready ||
-        !(await reportsHealthy(env, now, false)) ||
+        !(await reportsHealthy(
+          env,
+          now,
+          env.REPORTS_BUDGET_MODE === FREE_BUDGET_MODE,
+        )) ||
         current.state !== 'hidden' ||
         current.approved_revision !== current.revision ||
         !current.public_json

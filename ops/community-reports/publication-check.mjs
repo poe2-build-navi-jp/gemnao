@@ -19,6 +19,8 @@ const closedReasons = [
   'not-configured',
   'monitor-unverified',
   'usage-unavailable',
+  'budget-unavailable',
+  'daily-budget',
   'usage-stale',
   'usage-limit',
   'cleanup-unavailable',
@@ -230,14 +232,19 @@ export async function checkPublication({
   } catch {
     throw new CheckFailure('HEALTH_JSON');
   }
+  const freeBudget =
+    health?.schemaVersion === 2 && health.budgetMode === 'free-small-v1';
+  const healthFields = freeBudget ? [...fields, 'budgetMode'] : fields;
   const healthNow = now ?? Date.now();
   requireValue(
     health &&
       typeof health === 'object' &&
       !Array.isArray(health) &&
-      Object.keys(health).length === fields.length &&
-      fields.every((field) => Object.hasOwn(health, field)) &&
-      health.schemaVersion === 1 &&
+      Object.keys(health).length === healthFields.length &&
+      healthFields.every((field) => Object.hasOwn(health, field)) &&
+      (health.schemaVersion === 1 || freeBudget) &&
+      (!freeBudget ||
+        (health.observedAt === null && health.validUntil === null)) &&
       iso(health.checkedAt) &&
       Date.parse(health.checkedAt) >= healthNow - 120000 &&
       Date.parse(health.checkedAt) <= healthNow + 30000 &&
@@ -247,12 +254,15 @@ export async function checkPublication({
     'HEALTH_SCHEMA',
   );
   const freshOperations =
-    iso(health.observedAt) &&
-    iso(health.validUntil) &&
+    (freeBudget ||
+      (iso(health.observedAt) &&
+        iso(health.validUntil) &&
+        iso(health.cleanupAt) &&
+        Date.parse(health.observedAt) <= healthNow + 30000 &&
+        Date.parse(health.validUntil) > healthNow &&
+        Date.parse(health.validUntil) - Date.parse(health.observedAt) ===
+          1800000)) &&
     iso(health.cleanupAt) &&
-    Date.parse(health.observedAt) <= healthNow + 30000 &&
-    Date.parse(health.validUntil) > healthNow &&
-    Date.parse(health.validUntil) - Date.parse(health.observedAt) === 1800000 &&
     Date.parse(health.cleanupAt) >= healthNow - 7200000 &&
     Date.parse(health.cleanupAt) <= healthNow + 30000;
   if (stage === 'open') {

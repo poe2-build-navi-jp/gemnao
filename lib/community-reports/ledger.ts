@@ -1,6 +1,14 @@
 import { strictJson } from '../diagnostic-feedback/json';
 import { ID } from './ids';
 import {
+  FREE_BUDGET_MODE,
+  dailyLimits,
+  validBudget,
+  freshBudget,
+  type DailyBudget,
+  type AdmissionKind,
+} from './admission';
+import {
   runtimeObservationAt,
   runtimeStateReady,
   runtimeAutomatic,
@@ -12,6 +20,7 @@ type Ledger = {
   instanceId: string;
   total: number;
   entries: Record<string, Entry>;
+  freeStopped?: true;
   runtime?: string;
   observation?: { at: number; raw: string | null; conflict: boolean };
   operations?: Partial<
@@ -31,7 +40,7 @@ const reply = (x: unknown, status = 200) =>
 export class CommunityReportLedger {
   constructor(
     private state: DurableObjectState,
-    _env?: unknown,
+    private env?: { REPORTS_BUDGET_MODE?: string },
     private clock = () => Math.floor(Date.now() / 1000),
   ) {}
   async fetch(request: Request) {
@@ -47,6 +56,7 @@ export class CommunityReportLedger {
         '/observe',
         '/health',
         '/operation',
+        '/admit',
       ].includes(path)
     )
       return reply({ error: 'method' }, 405);
@@ -71,25 +81,29 @@ export class CommunityReportLedger {
     if (
       path === '/initialize' || path === '/health'
         ? Object.keys(input).length !== 0
-        : path === '/operation'
-          ? Object.keys(input).length !== 3 ||
-            !['collection', 'cleanup'].includes(input.kind as string) ||
-            !Number.isSafeInteger(input.at) ||
-            (input.at as number) < 0 ||
-            (input.at as number) > now ||
-            typeof input.ok !== 'boolean'
-          : path === '/observe'
-            ? Object.keys(input).length !== 1 ||
-              typeof input.state !== 'string' ||
-              input.state.length > 8000
-            : path === '/check'
+        : path === '/admit'
+          ? Object.keys(input).length !== 1 ||
+            typeof input.kind !== 'string' ||
+            !Object.hasOwn(dailyLimits, input.kind as string)
+          : path === '/operation'
+            ? Object.keys(input).length !== 3 ||
+              !['collection', 'cleanup'].includes(input.kind as string) ||
+              !Number.isSafeInteger(input.at) ||
+              (input.at as number) < 0 ||
+              (input.at as number) > now ||
+              typeof input.ok !== 'boolean'
+            : path === '/observe'
               ? Object.keys(input).length !== 1 ||
-                !Array.isArray(ids) ||
-                ids.length > 200 ||
-                !ids.every((x) => typeof x === 'string' && ID.test(x))
-              : Object.keys(input).length !== 1 ||
-                typeof ids !== 'string' ||
-                !ID.test(ids)
+                typeof input.state !== 'string' ||
+                input.state.length > 8000
+              : path === '/check'
+                ? Object.keys(input).length !== 1 ||
+                  !Array.isArray(ids) ||
+                  ids.length > 200 ||
+                  !ids.every((x) => typeof x === 'string' && ID.test(x))
+                : Object.keys(input).length !== 1 ||
+                  typeof ids !== 'string' ||
+                  !ID.test(ids)
     )
       return reply({ error: 'input' }, 400);
     try {
@@ -118,6 +132,35 @@ export class CommunityReportLedger {
           return reply({ error: 'uninitialized' }, 503);
         if (request.headers.get('x-report-instance') !== ledger.instanceId)
           return reply({ error: 'instance-mismatch' }, 503);
+        const freeBudget = this.env?.REPORTS_BUDGET_MODE === FREE_BUDGET_MODE;
+        const dailyBudget = freeBudget
+          ? await store.get<DailyBudget>('daily-budget-v1')
+          : undefined;
+        const validClock = Number.isSafeInteger(now) && now >= 0;
+        const budgetValid =
+          validClock &&
+          (dailyBudget === undefined || validBudget(dailyBudget, now));
+        if (path === '/admit') {
+          if (!freeBudget || !budgetValid)
+            return reply({ error: 'unavailable' }, 503);
+          const budget =
+            dailyBudget && dailyBudget.day === Math.floor(now / 86400)
+              ? dailyBudget
+              : freshBudget(now);
+          const kind = input.kind as AdmissionKind;
+          if (kind === 'general' && ledger.freeStopped)
+            return reply({ error: 'unavailable' }, 503);
+          if (budget.used[kind] >= dailyLimits[kind])
+            return reply({ error: 'daily-budget' }, 429);
+          budget.used[kind]++;
+          budget.lastAt = now;
+          await store.put('daily-budget-v1', budget);
+          return reply({
+            ok: true,
+            instanceId: ledger.instanceId,
+            budgetMode: FREE_BUDGET_MODE,
+          });
+        }
         if (path === '/operation') {
           const kind = input.kind as 'collection' | 'cleanup',
             at = input.at as number,
@@ -137,15 +180,21 @@ export class CommunityReportLedger {
         const automatic = runtimeAutomatic(ledger.runtime, now),
           collection = ledger.operations?.collection;
         const cleanup = ledger.operations?.cleanup;
-        const ready =
-          runtimeStateReady(ledger.runtime, now) &&
-          (!automatic ||
-            (!!collection?.ok &&
-              collection.at <= now &&
-              collection.at >= now - 1800 &&
-              !!cleanup?.ok &&
-              cleanup.at <= now &&
-              cleanup.at >= now - 7200));
+        const ready = freeBudget
+          ? !ledger.freeStopped &&
+            budgetValid &&
+            !!cleanup?.ok &&
+            Number.isSafeInteger(cleanup.at) &&
+            cleanup.at <= now &&
+            cleanup.at >= now - 7200
+          : runtimeStateReady(ledger.runtime, now) &&
+            (!automatic ||
+              (!!collection?.ok &&
+                collection.at <= now &&
+                collection.at >= now - 1800 &&
+                !!cleanup?.ok &&
+                cleanup.at <= now &&
+                cleanup.at >= now - 7200));
         if (path === '/health') {
           const observedAt = runtimeObservationAt(
             ledger.observation?.raw ?? undefined,
@@ -157,13 +206,35 @@ export class CommunityReportLedger {
             instanceId: ledger.instanceId,
             ready,
             automatic,
+            budgetMode: freeBudget ? FREE_BUDGET_MODE : null,
+            budgetAvailable:
+              freeBudget &&
+              !ledger.freeStopped &&
+              budgetValid &&
+              (!dailyBudget ||
+                dailyBudget.day < Math.floor(now / 86400) ||
+                dailyBudget.used.general < dailyLimits.general),
             observedAt,
             expiresAt: observedAt !== null ? observedAt + 1800000 : null,
             reason:
-              runtimeFailure(ledger.observation?.raw ?? undefined, now) ||
+              (freeBudget
+                ? !budgetValid
+                  ? 'budget-unavailable'
+                  : null
+                : runtimeFailure(ledger.observation?.raw ?? undefined, now)) ||
               (!ready ? 'usage-unavailable' : null),
             collection: collection ?? null,
             cleanup: ledger.operations?.cleanup ?? null,
+          });
+        }
+        if (path === '/observe' && freeBudget) {
+          if (input.state !== '') return reply({ error: 'unavailable' }, 503);
+          ledger.freeStopped = true;
+          await store.put('ledger', ledger);
+          return reply({
+            ok: true,
+            instanceId: ledger.instanceId,
+            ready: false,
           });
         }
         if (path === '/observe') {
@@ -209,6 +280,13 @@ export class CommunityReportLedger {
             instanceId: ledger.instanceId,
             ready,
             automatic,
+            budgetMode: freeBudget ? FREE_BUDGET_MODE : null,
+            budgetAvailable:
+              freeBudget &&
+              budgetValid &&
+              (!dailyBudget ||
+                dailyBudget.day < Math.floor(now / 86400) ||
+                dailyBudget.used.general < dailyLimits.general),
             known: (ids as string[]).filter(
               (id) => ledger!.entries[id]?.expiresAt > now,
             ),
