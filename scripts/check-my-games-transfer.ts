@@ -1,3 +1,4 @@
+import { READING_LIST_KEY, parseReadingList } from '../lib/reading-list';
 import assert from 'node:assert/strict';
 import {
   exportMyGames,
@@ -412,4 +413,150 @@ assert.equal(raced.getItem(MY_GAMES_KEY), null);
 assert.equal(raced.getItem(BACKUP_RECOVERY_KEY), 'other-claim');
 console.log(
   'PASS: UTF-8 capacity, per-game limits, cross-game reference rejection and lost recovery-journal claim',
+);
+
+// Reading-list v2 backups keep v1 files and pending v1 recovery journals usable.
+const bookmark = {
+  path: '/games/aniimo/not-launching',
+  title: 'Saved article',
+  savedAt: '2026-10-18T01:00:00.000Z',
+};
+const readingSource = memory();
+readingSource.setItem(
+  READING_LIST_KEY,
+  JSON.stringify({ version: 1, items: [bookmark] }),
+);
+readingSource.setItem('gemnao-recent-troubles', 'EXCLUDED_HISTORY');
+const readingRaw = exportMyGames(readingSource);
+assert.equal(JSON.parse(readingRaw).version, 2);
+assert(!readingRaw.includes('EXCLUDED_HISTORY'));
+const readingTarget = memory();
+restoreMyGames(readingTarget, previewMyGamesRestore(readingTarget, readingRaw));
+assert.deepEqual(parseReadingList(readingTarget.getItem(READING_LIST_KEY)), [
+  bookmark,
+]);
+assert.equal(
+  previewMyGamesRestore(readingTarget, readingRaw).rows.find(
+    (r) => r.category === 'reading',
+  )?.duplicate,
+  1,
+);
+const altered = JSON.parse(readingRaw);
+altered.data.reading[0].title = 'Other title';
+assert.equal(
+  previewMyGamesRestore(readingTarget, JSON.stringify(altered)).rows.find(
+    (r) => r.category === 'reading',
+  )?.conflict,
+  1,
+);
+restoreMyGames(
+  readingTarget,
+  previewMyGamesRestore(readingTarget, JSON.stringify(altered)),
+);
+assert.equal(
+  parseReadingList(readingTarget.getItem(READING_LIST_KEY))[0].title,
+  bookmark.title,
+);
+const v1 = JSON.parse(raw);
+v1.version = 1;
+delete v1.data.reading;
+const preserved = readingTarget.getItem(READING_LIST_KEY);
+restoreMyGames(
+  readingTarget,
+  previewMyGamesRestore(readingTarget, JSON.stringify(v1)),
+);
+assert.equal(readingTarget.getItem(READING_LIST_KEY), preserved);
+for (const path of [
+  'https://evil.example/a',
+  '//evil.example/a',
+  'javascript:alert(1)',
+  '/admin/reports',
+  '/games/a/b?token=x',
+  '/games/a/../b',
+]) {
+  const bad = JSON.parse(readingRaw);
+  bad.data.reading[0].path = path;
+  fails('invalid', () =>
+    previewMyGamesRestore(readingTarget, JSON.stringify(bad)),
+  );
+}
+const unknown = JSON.parse(readingRaw);
+unknown.data.reading[0].path = '/games/future-game/unknown-guide';
+const unknownTarget = memory();
+restoreMyGames(
+  unknownTarget,
+  previewMyGamesRestore(unknownTarget, JSON.stringify(unknown)),
+);
+assert.equal(
+  parseReadingList(unknownTarget.getItem(READING_LIST_KEY))[0].path,
+  unknown.data.reading[0].path,
+);
+const duplicateFile = JSON.parse(readingRaw);
+duplicateFile.data.reading.push(bookmark);
+fails('invalid', () =>
+  previewMyGamesRestore(readingTarget, JSON.stringify(duplicateFile)),
+);
+const full = memory();
+full.setItem(
+  READING_LIST_KEY,
+  JSON.stringify({
+    version: 1,
+    items: Array.from({ length: 50 }, (_, i) => ({
+      ...bookmark,
+      path: `/guide/item-${i}`,
+    })),
+  }),
+);
+const fullBefore = new Map(full.values);
+fails('limit', () => previewMyGamesRestore(full, readingRaw));
+assert.deepEqual(full.values, fullBefore);
+const readingCorrupt = memory();
+readingCorrupt.setItem(READING_LIST_KEY, '{');
+fails('currentInvalid', () => exportMyGames(readingCorrupt));
+fails('currentInvalid', () => previewMyGamesRestore(readingCorrupt, readingRaw));
+assert.equal(readingCorrupt.getItem(READING_LIST_KEY), '{');
+const over = JSON.parse(readingRaw);
+over.data.reading[0].title = 'x'.repeat(201);
+fails('invalid', () => parseMyGamesBackup(JSON.stringify(over)));
+const rollbackReading = memory();
+const withGames = JSON.parse(readingRaw);
+withGames.data.games = ['aniimo'];
+const rp = previewMyGamesRestore(rollbackReading, JSON.stringify(withGames));
+fails('rolledBack', () =>
+  restoreMyGames(
+    {
+      ...rollbackReading,
+      setItem: (k, v) => {
+        if (k === READING_LIST_KEY) throw Error('quota');
+        rollbackReading.setItem(k, v);
+      },
+    },
+    rp,
+  ),
+);
+assert.equal(rollbackReading.values.size, 0);
+const concurrent = memory();
+const cp = previewMyGamesRestore(concurrent, readingRaw);
+concurrent.setItem(
+  READING_LIST_KEY,
+  JSON.stringify({ version: 1, items: [{ ...bookmark, title: 'Newer' }] }),
+);
+fails('changed', () => restoreMyGames(concurrent, cp));
+const oldPending = memory();
+const op = previewMyGamesRestore(oldPending, JSON.stringify(v1));
+const oldBefore = { ...op.before },
+  oldAfter = { ...op.after };
+delete (oldBefore as Partial<typeof oldBefore>)[READING_LIST_KEY];
+delete (oldAfter as Partial<typeof oldAfter>)[READING_LIST_KEY];
+oldPending.setItem(MY_GAMES_KEY, oldAfter[MY_GAMES_KEY]!);
+oldPending.setItem(READING_LIST_KEY, preserved!);
+oldPending.setItem(
+  BACKUP_RECOVERY_KEY,
+  JSON.stringify({ version: 1, before: oldBefore, after: oldAfter }),
+);
+recoverMyGames(oldPending);
+assert.equal(oldPending.getItem(MY_GAMES_KEY), null);
+assert.equal(oldPending.getItem(READING_LIST_KEY), preserved);
+console.log(
+  'PASS reading backups: v2 round-trip, v1 compatibility/recovery, duplicates/conflicts, unsafe and unknown paths, limits/readingCorruption, quota rollback, concurrent edits and history exclusion',
 );

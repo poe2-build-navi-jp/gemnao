@@ -4,11 +4,11 @@ const en = {
   homeOpen: 'Continue this game',
   heading: 'Back up and restore all My Games records',
   scope:
-    'Protect saved games, My PC, support notes, settings, experiments, progress and next steps, tasks and troubleshooting, read changes and today’s choices.',
+    'Protect saved games, My PC, support notes, settings, experiments, progress and next steps, tasks and troubleshooting, read changes, today’s choices and saved articles.',
   privacy:
     'Files are saved and read on this device, without uploading. They may contain personal notes; choose where to keep them carefully.',
   excluded:
-    'Article bookmarks, browsing history, unsaved diagnosis answers and credentials are excluded.',
+    'Browsing history, unsaved diagnosis answers and credentials are excluded. Saved articles are limited to 50; internal links are retained without checking that the page still exists.',
   export: 'Save full backup',
   exported: 'Download started. Check that the file was saved.',
   choose: 'Choose a restore file',
@@ -17,7 +17,7 @@ const en = {
   preview: 'Review before restoring',
   legacy: 'Legacy notes format: only support notes will be imported.',
   merge:
-    'Existing records take priority. Only additions are imported. Identical records are not added twice; different records with the same ID or game keep the existing version and are not imported. Keep the source file if there are conflicts.',
+    'Existing records take priority. Only additions are imported. Identical records are not added twice; different records with the same ID, game or article URL keep the existing version and are not imported. Keep the source file if there are conflicts.',
   category: 'Category',
   existing: 'Current',
   incoming: 'File',
@@ -33,6 +33,7 @@ const en = {
   activity: 'Tasks and troubleshooting',
   read: 'Read official changes',
   today: 'Today’s choices',
+  reading: 'Saved articles',
   confirm: 'Restore the reviewed additions',
   cancel: 'Cancel',
   restored: 'Additions restored. Existing records were kept.',
@@ -76,11 +77,11 @@ export const myGamesTransferCopy: Record<MyGamesLocale, typeof en> = {
     homeOpen: 'このゲームの続きへ',
     heading: 'マイゲーム全体をバックアップ・復元',
     scope:
-      'ゲーム登録・マイPC・相談ノート・設定記録・実験ログ・進捗と次行動・チェックリストと対処・公式変更の既読・今日の選択条件を保護します。',
+      'ゲーム登録・マイPC・相談ノート・設定記録・実験ログ・進捗と次行動・チェックリストと対処・公式変更の既読・今日の選択条件・あとで読むの保存記事を保護します。',
     privacy:
       'ファイルの保存・読み込みはこの端末内だけ。サーバーへ送信しません。自由記述や個人情報が含まれる場合があるため、保管先を確認してください。',
     excluded:
-      '記事のブックマーク、閲覧履歴、診断ツールの未保存の回答、認証情報は対象外です。',
+      '閲覧履歴、診断ツールの未保存の回答、認証情報は対象外です。保存記事は50件まで。内部URLは保持しますが、ページの現在の実在は確認しません。',
     export: '全体バックアップを保存',
     exported:
       'ダウンロードを開始しました。ファイルが保存されたことを確認してください。',
@@ -90,7 +91,7 @@ export const myGamesTransferCopy: Record<MyGamesLocale, typeof en> = {
     preview: '復元前の確認',
     legacy: '旧ノート形式：相談ノートのみ取り込みます。',
     merge:
-      '既存記録を優先し、追加分だけ取り込みます。同じ記録は追加せず、内容が異なる同じID・同じゲームの記録は既存を残して取り込みません。競合がある場合は元ファイルも保管してください。',
+      '既存記録を優先し、追加分だけ取り込みます。同じ記録は追加せず、内容が異なる同じID・同じゲーム・同じ記事URLの記録は既存を残して取り込みません。競合がある場合は元ファイルも保管してください。',
     category: '種類',
     existing: '現在',
     incoming: 'ファイル',
@@ -106,6 +107,7 @@ export const myGamesTransferCopy: Record<MyGamesLocale, typeof en> = {
     activity: 'タスク・対処再開',
     read: '公式変更の既読',
     today: '今日の選択条件',
+    reading: 'あとで読むの保存記事',
     confirm: '確認した内容で復元する',
     cancel: 'キャンセル',
     restored: '追加分を復元しました。既存記録を保持しています。',
@@ -149,11 +151,11 @@ export const myGamesTransferCopy: Record<MyGamesLocale, typeof en> = {
     homeOpen: 'Continue this game',
     heading: 'Back up and restore all My Games records',
     scope:
-      'Protect saved games, My PC, support notes, settings, experiments, progress and next steps, tasks and troubleshooting, read changes and today’s choices.',
+      'Protect saved games, My PC, support notes, settings, experiments, progress and next steps, tasks and troubleshooting, read changes, today’s choices and saved articles.',
     privacy:
       'Files are saved and read on this device, without uploading. They may contain personal notes; choose where to keep them carefully.',
     excluded:
-      'Article bookmarks, browsing history, unsaved diagnosis answers and credentials are excluded.',
+      'Browsing history, unsaved diagnosis answers and credentials are excluded. Saved articles are limited to 50; internal links are retained without checking that the page still exists.',
     export: 'Save full backup',
     exported: 'Download started. Check that the file was saved.',
     choose: 'Choose a restore file',
@@ -162,7 +164,7 @@ export const myGamesTransferCopy: Record<MyGamesLocale, typeof en> = {
     preview: 'Review before restoring',
     legacy: 'Legacy notes format: only support notes will be imported.',
     merge:
-      'Existing records take priority. Only additions are imported. Identical records are not added twice; different records with the same ID or game keep the existing version and are not imported. Keep the source file if there are conflicts.',
+      'Existing records take priority. Only additions are imported. Identical records are not added twice; different records with the same ID, game or article URL keep the existing version and are not imported. Keep the source file if there are conflicts.',
     category: 'Category',
     existing: 'Current',
     incoming: 'File',
@@ -178,6 +180,7 @@ export const myGamesTransferCopy: Record<MyGamesLocale, typeof en> = {
     activity: 'Tasks and troubleshooting',
     read: 'Read official changes',
     today: 'Today’s choices',
+    reading: 'Saved articles',
     confirm: 'Restore the reviewed additions',
     cancel: 'Cancel',
     restored: 'Additions restored. Existing records were kept.',
@@ -223,10 +226,11 @@ export const myGamesTransferCopy: Record<MyGamesLocale, typeof en> = {
     homeOpen: '继续此游戏',
     heading: '备份与恢复全部游戏记录',
     scope:
-      '保护游戏登记、我的电脑、问题笔记、设置、实验、进度与下一步、任务与排查、已读官方更新和今天的选择条件。',
+      '保护游戏登记、我的电脑、问题笔记、设置、实验、进度与下一步、任务与排查、已读官方更新、今天的选择条件和稍后阅读文章。',
     privacy:
       '文件仅在此设备保存和读取，不上传服务器。可能含有私人笔记，请谨慎选择保存位置。',
-    excluded: '不包含文章收藏、浏览历史、诊断工具未保存的回答或认证信息。',
+    excluded:
+      '不包含浏览历史、诊断工具未保存的回答或认证信息。最多50篇保存文章；保留内部URL，但不检查页面是否仍然存在。',
     export: '保存完整备份',
     exported: '已开始下载，请确认文件已保存。',
     choose: '选择恢复文件',
@@ -235,7 +239,7 @@ export const myGamesTransferCopy: Record<MyGamesLocale, typeof en> = {
     preview: '恢复前确认',
     legacy: '旧笔记格式：仅导入问题笔记。',
     merge:
-      '已有记录优先，仅导入新增内容。相同记录不重复添加；同一ID或游戏内容不同则保留当前版本，不导入冲突记录。有冲突时请保留原文件。',
+      '已有记录优先，仅导入新增内容。相同记录不重复添加；同一ID、游戏或文章URL内容不同则保留当前版本，不导入冲突记录。有冲突时请保留原文件。',
     category: '类型',
     existing: '当前',
     incoming: '文件',
@@ -251,6 +255,7 @@ export const myGamesTransferCopy: Record<MyGamesLocale, typeof en> = {
     activity: '任务与排查',
     read: '已读官方更新',
     today: '今天的选择条件',
+    reading: '稍后阅读文章',
     confirm: '恢复已确认的新增内容',
     cancel: '取消',
     restored: '已恢复新增内容，已有记录保留。',
@@ -284,11 +289,11 @@ export const myGamesTransferCopy: Record<MyGamesLocale, typeof en> = {
     homeOpen: 'Continuar este juego',
     heading: 'Guardar y restaurar todos los registros de Mis juegos',
     scope:
-      'Protege juegos guardados, Mi PC, notas, ajustes, experimentos, progreso y próximos pasos, tareas y resolución, cambios leídos y elecciones de hoy.',
+      'Protege juegos guardados, Mi PC, notas, ajustes, experimentos, progreso y próximos pasos, tareas y resolución, cambios leídos, elecciones de hoy y artículos guardados.',
     privacy:
       'Los archivos se guardan y leen en este dispositivo, sin enviarlos al servidor. Pueden contener notas privadas; elige dónde guardarlos.',
     excluded:
-      'No incluye marcadores de artículos, historial, respuestas sin guardar del diagnóstico ni credenciales.',
+      'No incluye historial, respuestas sin guardar del diagnóstico ni credenciales. Hasta 50 artículos guardados; se conservan las rutas internas sin comprobar si la página sigue existiendo.',
     export: 'Guardar copia completa',
     exported: 'Descarga iniciada. Comprueba que se guardó el archivo.',
     choose: 'Elegir archivo para restaurar',
@@ -298,7 +303,7 @@ export const myGamesTransferCopy: Record<MyGamesLocale, typeof en> = {
     legacy:
       'Formato antiguo de notas: solo se importarán las notas de soporte.',
     merge:
-      'Se da prioridad a los registros existentes y solo se añaden los nuevos. No se duplican registros idénticos; si el mismo ID o juego tiene contenido distinto, se conserva el existente y no se importa el conflicto. Conserva el archivo original si hay conflictos.',
+      'Se da prioridad a los registros existentes y solo se añaden los nuevos. No se duplican registros idénticos; si el mismo ID, juego o URL de artículo tiene contenido distinto, se conserva el existente y no se importa el conflicto. Conserva el archivo original si hay conflictos.',
     category: 'Categoría',
     existing: 'Actual',
     incoming: 'Archivo',
@@ -314,6 +319,7 @@ export const myGamesTransferCopy: Record<MyGamesLocale, typeof en> = {
     activity: 'Tareas y resolución',
     read: 'Cambios oficiales leídos',
     today: 'Elecciones de hoy',
+    reading: 'Artículos guardados',
     confirm: 'Restaurar las adiciones revisadas',
     cancel: 'Cancelar',
     restored: 'Adiciones restauradas. Se conservaron los registros existentes.',

@@ -1,3 +1,8 @@
+import {
+  READING_LIST_KEY,
+  parseReadingList,
+  type ReadingItem,
+} from './reading-list';
 import { MY_GAMES_KEY, MY_PC_KEY, type MyPc } from './my-pc';
 import { parseRegisteredGames } from './my-games-selection';
 import {
@@ -42,7 +47,9 @@ export const backupKeys = [
   PLAY_ACTIVITY_KEY,
   CHANGES_READ_KEY,
   TODAY_CHOICES_KEY,
+  READING_LIST_KEY,
 ] as const;
+const legacyBackupKeys = backupKeys.filter((key) => key !== READING_LIST_KEY);
 export const backupCategories = [
   'games',
   'pc',
@@ -53,8 +60,13 @@ export const backupCategories = [
   'activity',
   'read',
   'today',
+  'reading',
 ] as const;
+const legacyCategories = backupCategories.filter(
+  (category) => category !== 'reading',
+);
 export type BackupData = {
+  reading: ReadingItem[];
   games: string[];
   pc: MyPc | null;
   notes: SavedSolution[];
@@ -121,6 +133,7 @@ function pc(raw: string | null): MyPc | null {
 function fromRaw(raw: RawState): BackupData {
   try {
     return {
+      reading: parseReadingList(raw[READING_LIST_KEY] ?? null),
       games: parseRegisteredGames(raw[MY_GAMES_KEY]),
       pc: pc(raw[MY_PC_KEY]),
       notes: parseSolutions(raw[SOLUTIONS_KEY]),
@@ -154,6 +167,7 @@ function readCurrent(storage: Pick<Storage, 'getItem'>) {
 }
 function toRaw(d: BackupData): RawState {
   return {
+    [READING_LIST_KEY]: items(d.reading),
     [MY_GAMES_KEY]: JSON.stringify(d.games),
     [MY_PC_KEY]: d.pc ? JSON.stringify(d.pc) : null,
     [SOLUTIONS_KEY]: items(d.notes),
@@ -192,7 +206,7 @@ function envelope(d: BackupData) {
   const raw = JSON.stringify(
     {
       format: 'gemnao-my-games',
-      version: 1,
+      version: 2,
       createdAt: new Date().toISOString(),
       data: d,
     },
@@ -225,16 +239,17 @@ export function parseMyGamesBackup(raw: string): {
       !obj(v) ||
       !exact(v, ['format', 'version', 'createdAt', 'data']) ||
       v.format !== 'gemnao-my-games' ||
-      v.version !== 1 ||
+      (v.version !== 1 && v.version !== 2) ||
       typeof v.createdAt !== 'string' ||
       !Number.isFinite(Date.parse(v.createdAt)) ||
       !obj(v.data) ||
-      !exact(v.data, backupCategories)
+      !exact(v.data, v.version === 1 ? legacyCategories : backupCategories)
     )
       throw new BackupError('invalid');
     // Round-trip through each established parser, copying only known application fields.
     const d = v.data;
     const normalized = fromRaw({
+      [READING_LIST_KEY]: v.version === 1 ? null : items(d.reading),
       [MY_GAMES_KEY]: JSON.stringify(d.games),
       [MY_PC_KEY]: d.pc === null ? null : JSON.stringify(d.pc),
       [SOLUTIONS_KEY]: items(d.notes),
@@ -347,6 +362,7 @@ export function previewMyGamesRestore(
     return v;
   }
   const data: BackupData = {
+    reading: merge('reading', current.reading, d.reading || [], (v) => v.path),
     games: merge('games', current.games, d.games || [], (v) => v),
     pc:
       merge(
@@ -410,7 +426,12 @@ export function previewMyGamesRestore(
   ) as RawState;
   return { before, after, rows, legacy: incoming.legacy, data };
 }
-type Recovery = { version: 1; before: RawState; after: RawState };
+type Recovery = {
+  version: 1;
+  before: RawState;
+  after: RawState;
+  keys: readonly (typeof backupKeys)[number][];
+};
 export function parseRecoveryRecords(raw: string | null): Recovery[] {
   if (raw === null) return [];
   try {
@@ -422,16 +443,25 @@ export function parseRecoveryRecords(raw: string | null): Recovery[] {
       v.version !== 1 ||
       !obj(v.before) ||
       !obj(v.after) ||
-      !exact(v.before, backupKeys) ||
-      !exact(v.after, backupKeys) ||
+      !(
+        (exact(v.before, backupKeys) && exact(v.after, backupKeys)) ||
+        (exact(v.before, legacyBackupKeys) && exact(v.after, legacyBackupKeys))
+      ) ||
       [v.before, v.after].some((o) =>
-        backupKeys.some((k) => o[k] !== null && typeof o[k] !== 'string'),
+        Object.values(o).some(
+          (value) => value !== null && typeof value !== 'string',
+        ),
       )
     )
       throw Error();
     fromRaw(v.before as RawState);
     fromRaw(v.after as RawState);
-    return [v as unknown as Recovery];
+    return [
+      {
+        ...v,
+        keys: exact(v.before, backupKeys) ? backupKeys : legacyBackupKeys,
+      } as unknown as Recovery,
+    ];
   } catch {
     throw new BackupError('recoveryInvalid');
   }
@@ -441,13 +471,11 @@ export function recoverMyGames(storage: Store) {
   if (!r) return;
   const current = readRaw(storage);
   if (
-    backupKeys.some(
-      (k) => current[k] !== r.before[k] && current[k] !== r.after[k],
-    )
+    r.keys.some((k) => current[k] !== r.before[k] && current[k] !== r.after[k])
   )
     throw new BackupError('recoveryConflict');
   try {
-    for (const k of [...backupKeys].reverse()) {
+    for (const k of [...r.keys].reverse()) {
       const value = storage.getItem(k);
       if (value !== r.before[k] && value !== r.after[k])
         throw new BackupError('recoveryConflict');
