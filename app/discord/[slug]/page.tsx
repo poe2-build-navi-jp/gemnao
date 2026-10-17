@@ -1,3 +1,4 @@
+import { DiscordRtcMemo } from '@/components/discord-rtc-memo';
 import { ArticleToc } from '@/components/article-toc';
 import { EditorialByline } from '@/components/editorial-byline';
 import { DiscordMicVolumeDiagram } from '@/components/discord-mic-volume-diagram';
@@ -384,6 +385,7 @@ export default async function DiscordArticlePage({
               ]}
             />
           )}
+          {item.slug === 'rtc-connecting' ? <DiscordRtcMemo /> : null}
           {item.followUp ? (
             <section className="answer-summary" id="next-guide">
               <h2>{item.followUp.title}</h2>

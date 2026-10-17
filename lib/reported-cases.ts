@@ -45,7 +45,8 @@ export const reportedCases = [
         prior: '先に試したこと',
         tried: [
           'Steamの整合性確認では再取得がなかった。',
-          'SteamオーバーレイOFF等では解決しなかった。',
+          'OBSを終了し、SteamオーバーレイをOFFにしたが、解決しなかった。',
+          '体験版は以前起動できていた。製品版と同じバージョン・条件での比較ではありません。',
         ],
         change: '変更と結果',
         changed:
@@ -60,7 +61,8 @@ export const reportedCases = [
         steamVersion: '本人のSteam版',
         reviewed: '記録・資料の確認日',
         limitations: [
-          'ドライバー版、Windows版、プレイ時間・再起動の回数は未記録。',
+          'ドライバー版、Windows版、具体的なプレイ時間・再起動の回数は未記録。',
+          '再起動後に遊べたという本人報告までを確認しています。長期間の再発状況は未確認で、恒久的な解決を示す記録ではありません。',
           '本人の申告を編集した記録で、編集部による独立した実機再現ではありません。',
           '一度に複数のローダーを切り離したため、原因DLLを1つに特定できません。CPU故障とも断定できません。',
           '公式資料と開発元資料は確認方法・構成の裏付けであり、このPCでの改善や現在の全環境での有効性を証明しません。',
@@ -92,7 +94,8 @@ export const reportedCases = [
         prior: 'Earlier checks',
         tried: [
           'Steam verification did not reacquire files.',
-          'Disabling the Steam overlay and other attempted checks did not resolve it.',
+          'Closing OBS and disabling the Steam overlay did not resolve it.',
+          'The demo had launched previously. This was not a comparison using the same version and conditions as the retail game.',
         ],
         change: 'Change and reported result',
         changed:
@@ -107,7 +110,8 @@ export const reportedCases = [
         steamVersion: 'Player’s Steam version',
         reviewed: 'Record and reference review date',
         limitations: [
-          'Driver and Windows versions, play duration and restart count were not recorded.',
+          'Driver and Windows versions, exact play duration and restart count were not recorded.',
+          'The confirmed scope is the player’s report of being able to play after a PC restart. Long-term recurrence was not checked; this is not evidence of a permanent fix.',
           'This is an edited self-report, not an independent hardware test by the editorial team.',
           'Several loaders were isolated together, so no single causal DLL was established. CPU failure was not established either.',
           'Official and developer references support the inspection method and configuration, not the reported improvement or effectiveness on all current systems.',
@@ -137,7 +141,8 @@ export const reportedCases = [
         prior: '此前的检查',
         tried: [
           'Steam验证完整性没有重新获取文件。',
-          '关闭Steam叠加界面等尝试未解决问题。',
+          '退出OBS并关闭Steam叠加界面后，问题仍未解决。',
+          '体验版此前可以启动，但这不是在与正式版相同的版本和条件下进行的比较。',
         ],
         change: '变更与反馈结果',
         changed:
@@ -152,7 +157,8 @@ export const reportedCases = [
         steamVersion: '本人使用的Steam版本',
         reviewed: '记录与资料核对日期',
         limitations: [
-          '未记录驱动和Windows版本、游玩时长及重启次数。',
+          '未记录驱动和Windows版本、具体游玩时长及重启次数。',
+          '已确认的范围仅为本人反馈重启电脑后仍可游玩。长期是否复发尚未确认，不能据此认定永久解决。',
           '这是整理后的本人反馈，不是编辑部独立进行的实机验证。',
           '同时隔离了多个加载器，不能确定某个DLL是原因，也不能判定CPU故障。',
           '官方和开发者资料支持检查方法与配置说明，不证明此电脑的改善或当前所有环境均有效。',
@@ -183,7 +189,8 @@ export const reportedCases = [
         prior: 'Comprobaciones anteriores',
         tried: [
           'La verificación de Steam no volvió a descargar archivos.',
-          'Desactivar la superposición de Steam y otras pruebas no lo resolvió.',
+          'Cerrar OBS y desactivar la superposición de Steam no lo resolvió.',
+          'La demo había arrancado anteriormente. No fue una comparación con la misma versión y condiciones que el juego comercial.',
         ],
         change: 'Cambio y resultado comunicado',
         changed:
@@ -198,7 +205,8 @@ export const reportedCases = [
         steamVersion: 'Versión de Steam del jugador',
         reviewed: 'Fecha de revisión del registro y referencias',
         limitations: [
-          'No se registraron las versiones del controlador y Windows, la duración de juego ni el número de reinicios.',
+          'No se registraron las versiones del controlador y Windows, la duración exacta de juego ni el número de reinicios.',
+          'Lo confirmado se limita al testimonio de poder jugar tras reiniciar el PC. No se comprobó la recurrencia a largo plazo; no demuestra una solución permanente.',
           'Es un testimonio editado, no una prueba independiente del equipo editorial.',
           'Se aislaron varios cargadores a la vez: no se identificó una única DLL causante ni se demostró un fallo de CPU.',
           'Las referencias oficiales y del desarrollador respaldan el método de inspección y la configuración, no la mejora comunicada ni su eficacia en todos los sistemas actuales.',
