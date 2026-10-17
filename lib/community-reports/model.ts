@@ -24,7 +24,18 @@ export const labels = [
 export type Symptom = (typeof symptoms)[number];
 export type Outcome = (typeof outcomes)[number];
 export type Source = { url: string; readOn: string | null };
+export const previousStates = ['yes', 'no', 'unknown'] as const;
+export const recentChanges = [
+  'game-update',
+  'driver-update',
+  'os-update',
+  'settings',
+  'none',
+  'unknown',
+] as const;
 export type Content = {
+  previouslyWorked?: (typeof previousStates)[number];
+  recentChange?: (typeof recentChanges)[number];
   articlePath: string;
   symptom: Symptom;
   stepIds: string[];
@@ -109,6 +120,8 @@ export function parseContent(value: unknown, now: number): Content {
       'os',
       'gpu',
       'sources',
+      'previouslyWorked',
+      'recentChange',
     ]) ||
     typeof value.articlePath !== 'string' ||
     !/^\/games\/[a-z0-9-]+\/[a-z0-9-]+$/.test(value.articlePath)
@@ -116,6 +129,14 @@ export function parseContent(value: unknown, now: number): Content {
     throw Error('content');
   const review = articleReview(value.articlePath);
   if (
+    (value.previouslyWorked !== undefined &&
+      !previousStates.includes(
+        value.previouslyWorked as Content['previouslyWorked'] & string,
+      )) ||
+    (value.recentChange !== undefined &&
+      !recentChanges.includes(
+        value.recentChange as Content['recentChange'] & string,
+      )) ||
     !review?.gameSlug ||
     !symptoms.includes(value.symptom as Symptom) ||
     !outcomes.includes(value.outcome as Outcome) ||
@@ -149,7 +170,29 @@ export function parseContent(value: unknown, now: number): Content {
     os: value.os as Content['os'],
     gpu: value.gpu as Content['gpu'],
     sources,
+    // Preserve absent keys (including the hash of a pending legacy request).
+    ...(value.previouslyWorked === undefined
+      ? {}
+      : {
+          previouslyWorked:
+            value.previouslyWorked as Content['previouslyWorked'],
+        }),
+    ...(value.recentChange === undefined
+      ? {}
+      : { recentChange: value.recentChange as Content['recentChange'] }),
   };
+}
+export function redactReportContent(content: Content): Content {
+  const publicContent = {
+    ...content,
+    version: '',
+    os: 'unknown' as const,
+    gpu: 'unknown' as const,
+    sources: [],
+  };
+  delete publicContent.previouslyWorked;
+  delete publicContent.recentChange;
+  return publicContent;
 }
 function text(value: unknown, max: number) {
   if (typeof value !== 'string' || value.length > max || /[<>@]/.test(value))

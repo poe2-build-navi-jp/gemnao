@@ -1,5 +1,24 @@
 export const reportCopy = {
   ja: {
+    previouslyWorked: '以前は動いていたか（任意）',
+    recentChange: '直前に変わったもの（任意・最後の変更を1つ）',
+    notRecorded: '未記録',
+    previousStates: { yes: '動いていた', no: '動かなかった', unknown: '不明' },
+    recentChanges: {
+      'game-update': 'ゲーム更新',
+      'driver-update': 'ドライバー更新',
+      'os-update': 'OS更新',
+      settings: '設定変更',
+      none: '変更なし',
+      unknown: '不明',
+    },
+    countCheck: '公開済み報告の件数を確認',
+    countLabel: '公開済み報告 {count}件',
+    countNote:
+      '人数ではなく報告数です。確認時点の件数で、その後に変わる場合があります。',
+    countAt: '確認時刻',
+    countUnavailable: '現在、件数を確認できません。',
+    countExpired: '件数の確認から時間が経ちました。再確認してください。',
     entryTitle: '不具合や解決した手順を教えてください',
     entryLink: '不具合・解決報告を送る',
     entryPurpose:
@@ -134,6 +153,30 @@ export const reportCopy = {
     },
   },
   en: {
+    previouslyWorked: 'Did it work before? (optional)',
+    recentChange:
+      'What changed just before? (optional; choose the last change)',
+    notRecorded: 'Not recorded',
+    previousStates: {
+      yes: 'It worked',
+      no: 'It did not work',
+      unknown: 'Unknown',
+    },
+    recentChanges: {
+      'game-update': 'Game update',
+      'driver-update': 'Driver update',
+      'os-update': 'OS update',
+      settings: 'Settings change',
+      none: 'No change',
+      unknown: 'Unknown',
+    },
+    countCheck: 'Check published report count',
+    countLabel: '{count} published reports',
+    countNote:
+      'Reports, not people. The count is from the check time and may change afterwards.',
+    countAt: 'Checked at',
+    countUnavailable: 'The count is currently unavailable.',
+    countExpired: 'This count has expired. Please check again.',
     entryTitle: 'Share an issue or a fix that worked',
     entryLink: 'Report an issue or a fix',
     entryPurpose:
@@ -273,6 +316,28 @@ export const reportCopy = {
     },
   },
   zh: {
+    previouslyWorked: '之前能正常运行吗？（可选）',
+    recentChange: '出问题前有什么变化？（可选，选择最后一项变化）',
+    notRecorded: '未记录',
+    previousStates: {
+      yes: '能正常运行',
+      no: '不能正常运行',
+      unknown: '不清楚',
+    },
+    recentChanges: {
+      'game-update': '游戏更新',
+      'driver-update': '驱动更新',
+      'os-update': '系统更新',
+      settings: '设置变更',
+      none: '没有变化',
+      unknown: '不清楚',
+    },
+    countCheck: '查看已公开报告数量',
+    countLabel: '已公开报告 {count} 条',
+    countNote: '统计报告条数，不是人数。数量为查询时的结果，之后可能变化。',
+    countAt: '查询时间',
+    countUnavailable: '暂时无法查询报告数量。',
+    countExpired: '查询结果已过期，请重新查询。',
     entryTitle: '分享遇到的问题或有效的解决方法',
     entryLink: '报告故障或解决方法',
     entryPurpose:
@@ -402,6 +467,29 @@ export const reportCopy = {
     },
   },
   es: {
+    previouslyWorked: '¿Funcionaba antes? (opcional)',
+    recentChange: '¿Qué cambió justo antes? (opcional; elige el último cambio)',
+    notRecorded: 'Sin registrar',
+    previousStates: {
+      yes: 'Funcionaba',
+      no: 'No funcionaba',
+      unknown: 'No lo sé',
+    },
+    recentChanges: {
+      'game-update': 'Actualización del juego',
+      'driver-update': 'Actualización del controlador',
+      'os-update': 'Actualización del sistema',
+      settings: 'Cambio de configuración',
+      none: 'Sin cambios',
+      unknown: 'No lo sé',
+    },
+    countCheck: 'Consultar cantidad de informes publicados',
+    countLabel: '{count} informes publicados',
+    countNote:
+      'Se cuentan informes, no personas. La cifra corresponde al momento de la consulta y puede cambiar después.',
+    countAt: 'Consultado a las',
+    countUnavailable: 'La cantidad no está disponible ahora.',
+    countExpired: 'La consulta ha caducado. Vuelve a consultar.',
     entryTitle: 'Comparte un problema o una solución',
     entryLink: 'Informar de un problema o una solución',
     entryPurpose:

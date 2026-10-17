@@ -103,6 +103,40 @@ try {
     await expect(version).toHaveAttribute('aria-invalid', 'false');
     await page.getByRole('button', { name: t.preview, exact: true }).click();
     await expect(page.locator('.report-preview')).toBeVisible();
+    // Old draft shape is still valid; optional values round-trip locally.
+    await expect(
+      page.getByLabel(t.previouslyWorked, { exact: true }),
+    ).toHaveValue('');
+    await expect(page.getByLabel(t.recentChange, { exact: true })).toHaveValue(
+      '',
+    );
+    await page
+      .getByLabel(t.previouslyWorked, { exact: true })
+      .selectOption('yes');
+    await page
+      .getByLabel(t.recentChange, { exact: true })
+      .selectOption('driver-update');
+    await page.getByRole('button', { name: t.saveDraft, exact: true }).click();
+    const saved = await page.evaluate(
+      () => JSON.parse(localStorage.getItem('gemnao-report-draft-v1')).content,
+    );
+    assert.equal(saved.previouslyWorked, 'yes');
+    assert.equal(saved.recentChange, 'driver-update');
+    await page.reload();
+    await page.addScriptTag({ content: b.outputFiles[0].text });
+    await expect(
+      page.getByLabel(t.previouslyWorked, { exact: true }),
+    ).toHaveValue('yes');
+    await expect(page.getByLabel(t.recentChange, { exact: true })).toHaveValue(
+      'driver-update',
+    );
+    await page.getByRole('button', { name: t.preview, exact: true }).click();
+    await expect(page.locator('.report-preview')).toContainText(
+      t.previousStates.yes,
+    );
+    await expect(page.locator('.report-preview')).toContainText(
+      t.recentChanges['driver-update'],
+    );
     await page.getByLabel(t.consent, { exact: true }).check();
     await expect(
       page.getByRole('button', { name: t.send, exact: true }),

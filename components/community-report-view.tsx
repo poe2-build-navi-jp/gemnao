@@ -44,6 +44,18 @@ export function CommunityReportView({
         <dd>{t.symptoms[content.symptom]}</dd>
         <dt>{t.outcome}</dt>
         <dd>{t.outcomes[content.outcome]}</dd>
+        <dt>{t.previouslyWorked}</dt>
+        <dd>
+          {content.previouslyWorked
+            ? t.previousStates[content.previouslyWorked]
+            : t.notRecorded}
+        </dd>
+        <dt>{t.recentChange}</dt>
+        <dd>
+          {content.recentChange
+            ? t.recentChanges[content.recentChange]
+            : t.notRecorded}
+        </dd>
         <dt>{t.observed}</dt>
         <dd>{content.observedOn || t.unknown}</dd>
         <dt>{t.version}</dt>

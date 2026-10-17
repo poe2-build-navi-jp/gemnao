@@ -9,6 +9,8 @@ import { reportCopy } from '@/lib/community-reports/copy';
 import {
   parseContent,
   validReportVersion,
+  previousStates,
+  recentChanges,
   symptoms,
   outcomes,
   reasons,
@@ -593,6 +595,48 @@ export function CommunityReports({
             {outcomes.map((s) => (
               <option key={s} value={s}>
                 {t.outcomes[s]}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label htmlFor="report-previously-worked">
+          {t.previouslyWorked}
+          <select
+            id="report-previously-worked"
+            aria-label={t.previouslyWorked}
+            value={draft.previouslyWorked || ''}
+            onChange={(e) =>
+              change(
+                'previouslyWorked',
+                (e.target.value || undefined) as Content['previouslyWorked'],
+              )
+            }
+          >
+            <option value="">{t.notRecorded}</option>
+            {previousStates.map((value) => (
+              <option key={value} value={value}>
+                {t.previousStates[value]}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label htmlFor="report-recent-change">
+          {t.recentChange}
+          <select
+            id="report-recent-change"
+            aria-label={t.recentChange}
+            value={draft.recentChange || ''}
+            onChange={(e) =>
+              change(
+                'recentChange',
+                (e.target.value || undefined) as Content['recentChange'],
+              )
+            }
+          >
+            <option value="">{t.notRecorded}</option>
+            {recentChanges.map((value) => (
+              <option key={value} value={value}>
+                {t.recentChanges[value]}
               </option>
             ))}
           </select>

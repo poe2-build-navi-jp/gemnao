@@ -1,6 +1,7 @@
 /* oxlint-disable next/no-html-link-for-pages -- Full navigation unloads article analytics. */
 import type { MyGamesLocale } from '@/lib/my-games-copy';
 import { reportCopy } from '@/lib/community-reports/copy';
+import { CommunityReportCount } from './community-report-count';
 import { gameArticles } from '@/lib/game-articles';
 export function ReportEntryLink({
   articlePath,
@@ -67,6 +68,13 @@ export function ReportEntryLink({
       <div>
         <strong>{t.entryTitle}</strong>
         <p>{t.entryPurpose}</p>
+        {gameSlug && (
+          <CommunityReportCount
+            key={gameSlug}
+            gameSlug={gameSlug}
+            locale={locale}
+          />
+        )}
       </div>
       {link}
     </aside>

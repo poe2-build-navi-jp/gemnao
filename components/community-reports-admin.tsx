@@ -1,4 +1,5 @@
 'use client';
+import { redactReportContent } from '@/lib/community-reports/model';
 /* oxlint-disable next/no-html-link-for-pages -- Reuse the existing admin login via native navigation. */
 import { useRef, useState } from 'react';
 import { reportCopy } from '@/lib/community-reports/copy';
@@ -388,17 +389,7 @@ function ReviewCard({
           </label>
           {preview && row.content && (
             <CommunityReportView
-              content={
-                redact
-                  ? {
-                      ...row.content,
-                      version: '',
-                      os: 'unknown',
-                      gpu: 'unknown',
-                      sources: [],
-                    }
-                  : row.content
-              }
+              content={redact ? redactReportContent(row.content) : row.content}
               evidence={preview}
               locale={locale}
             />

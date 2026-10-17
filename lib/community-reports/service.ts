@@ -16,6 +16,7 @@ import {
   RETENTION_SECONDS,
   exact,
   parseContent,
+  redactReportContent,
   parseEvidence,
   reasons,
   symptoms,
@@ -363,7 +364,7 @@ export async function handleReports(
     if (publicRead) {
       if (
         [...url.searchParams.keys()].some(
-          (k) => !['game', 'symptom'].includes(k),
+          (k) => !['game', 'symptom', 'count'].includes(k),
         )
       )
         return reply({ error: 'input' }, 400);
@@ -374,9 +375,32 @@ export async function handleReports(
         (symptom && !symptoms.includes(symptom as Content['symptom']))
       )
         return reply({ error: 'input' }, 400);
+      // Count report IDs, never distinct owners; the deletion ledger also applies.
+      // No cached count is exposed, and the existing admission/rate gates apply.
+      if (url.searchParams.has('count')) {
+        if (url.searchParams.get('count') !== 'true' || symptom)
+          return reply({ error: 'input' }, 400);
+        const rows = await stmt(
+          db,
+          `SELECT id FROM community_reports WHERE state='approved' AND approved_revision=revision AND public_json IS NOT NULL AND game_slug=? AND expires_at>? LIMIT 201`,
+          game,
+          now,
+        ).all<{ id: string }>();
+        // The existing store caps total rows at 200; never publish a truncated count.
+        if (rows.results.length > 200)
+          return reply({ error: 'unavailable' }, 503);
+        const guard = await callGuard(env, '/check', {
+          ids: rows.results.map((r) => r.id),
+        });
+        if (!guard.ready) return reply({ error: 'unavailable' }, 503);
+        const count = rows.results.filter(
+          (r) => guard.known.includes(r.id) && !guard.blocked.includes(r.id),
+        ).length;
+        return reply({ count, checkedAt: now });
+      }
       const q = await stmt(
         db,
-        `SELECT id,revision,public_json,created_at,updated_at FROM community_reports WHERE state='approved' AND approved_revision=revision AND game_slug=? AND (?='' OR symptom=?) AND expires_at>? ORDER BY updated_at DESC,id LIMIT 20`,
+        `SELECT id,revision,public_json,created_at,updated_at FROM community_reports WHERE state='approved' AND approved_revision=revision AND public_json IS NOT NULL AND game_slug=? AND (?='' OR symptom=?) AND expires_at>? ORDER BY updated_at DESC,id LIMIT 20`,
         game,
         symptom,
         symptom,
@@ -851,15 +875,7 @@ async function review(
       }
       const content = JSON.parse(current.content_json) as Content;
       const publicContent =
-        input.redactOptional !== false
-          ? {
-              ...content,
-              version: '',
-              os: 'unknown',
-              gpu: 'unknown',
-              sources: [],
-            }
-          : content;
+        input.redactOptional !== false ? redactReportContent(content) : content;
       const publicJson = JSON.stringify({ content: publicContent, evidence });
       update = stmt(
         db,

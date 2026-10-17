@@ -5677,3 +5677,6 @@ a.my-games-primary {
 .report-entry-card a { flex-shrink: 0; max-width: 100%; font-weight: 700; }
 .report-entry-card a:focus-visible, .report-entry-inline a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 @media (max-width: 760px) { .report-entry-card { flex-direction: column; align-items: stretch; gap: 12px; padding: 16px; } .report-entry-card a { flex-shrink: 1; } }
+
+.report-count { display: grid; gap: 8px; margin-top: 12px; }
+.report-count button { justify-self: start; min-height: 44px; max-width: 100%; white-space: normal; }
