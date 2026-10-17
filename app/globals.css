@@ -5667,3 +5667,13 @@ a.my-games-primary {
 
 .game-maintenance {margin:20px 0;overflow-wrap:anywhere;}
 .game-maintenance summary, .saved-game-fixes summary {min-height:44px;padding:10px 0;cursor:pointer;}
+
+/* Report entry: editorial review context, ordinary full-document links. */
+.report-entry-home.content { padding-top: 20px; padding-bottom: 20px; }
+.report-entry-card { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 20px; margin: 0 0 24px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); color: var(--ink); }
+.report-entry-card strong { font-size: 1.1rem; }
+.report-entry-card p { margin: 8px 0 0; max-width: 68ch; line-height: 1.7; }
+.report-entry-card a, .report-entry-inline a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; text-decoration: underline; text-underline-offset: 3px; }
+.report-entry-card a { flex-shrink: 0; max-width: 100%; font-weight: 700; }
+.report-entry-card a:focus-visible, .report-entry-inline a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+@media (max-width: 760px) { .report-entry-card { flex-direction: column; align-items: stretch; gap: 12px; padding: 16px; } .report-entry-card a { flex-shrink: 1; } }

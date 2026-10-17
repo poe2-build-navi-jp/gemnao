@@ -1,3 +1,4 @@
+import { ReportEntryLink } from '@/components/report-entry-link';
 import { ArticleToc } from '@/components/article-toc';
 import { OnimushaSaveAnswer } from '@/components/onimusha-save-answer';
 import type { Metadata } from 'next';
@@ -271,6 +272,7 @@ export default async function GamePage({
           )}
         </ArticleToc>
         <article className="guide-article">
+          {gameArticles.length > 0 && <ReportEntryLink prominent gameSlug={game.slug} />}
           {game.slug !== 'aniimo' && game.slug !== 'rocket-league' ? (
             <div className="safety-note">
               <AlertTriangle size={20} />

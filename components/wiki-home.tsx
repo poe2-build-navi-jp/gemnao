@@ -1,4 +1,5 @@
 'use client';
+import { ReportEntryLink } from '@/components/report-entry-link';
 import { useSearchQuery } from './use-search-query';
 import { LatestArticles } from './latest-articles';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
@@ -222,6 +223,7 @@ export function WikiHome({
           </output>
         ) : null}
       </section>
+      {!isSearching && <div className="content report-entry-home"><ReportEntryLink prominent /></div>}
       {showLatestArticles && <LatestArticles articles={visibleArticles
         .filter(article => article.kind === 'game').slice(0, 3)} />}
       {!isSearching ? <DiagnosisCta home /> : null}

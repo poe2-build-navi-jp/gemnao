@@ -1,5 +1,9 @@
 export const reportCopy = {
   ja: {
+    entryTitle: '不具合や解決した手順を教えてください',
+    entryLink: '不具合・解決報告を送る',
+    entryPurpose:
+      '未解決・解決・再発の経過を報告できます。運営が審査し、出典や根拠を確認して記事を見直す手がかりにします。投稿は自動公開されません。',
     results: { unresolved: '未解決', resolved: '解決', recurrence: '再発' },
     evidenceObserved: '検証・公式告知の記録日',
     evidenceResult: '根拠の記録が示す結果',
@@ -130,6 +134,10 @@ export const reportCopy = {
     },
   },
   en: {
+    entryTitle: 'Share an issue or a fix that worked',
+    entryLink: 'Report an issue or a fix',
+    entryPurpose:
+      'Report an unresolved issue, a fix, or a recurrence. Editors review reports and check sources and evidence to inform guide updates. Reports are not published automatically.',
     results: {
       unresolved: 'Unresolved',
       resolved: 'Resolved',
@@ -265,6 +273,10 @@ export const reportCopy = {
     },
   },
   zh: {
+    entryTitle: '分享遇到的问题或有效的解决方法',
+    entryLink: '报告故障或解决方法',
+    entryPurpose:
+      '可以报告未解决、已解决或再次出现的问题。运营会审核报告、核查来源与依据，作为改进指南的线索。报告不会自动公开。',
     results: {
       unresolved: '未解决',
       resolved: '已解决',
@@ -390,6 +402,10 @@ export const reportCopy = {
     },
   },
   es: {
+    entryTitle: 'Comparte un problema o una solución',
+    entryLink: 'Informar de un problema o una solución',
+    entryPurpose:
+      'Indica si el problema sigue, se resolvió o reapareció. Revisamos los informes, las fuentes y las pruebas para orientar mejoras de las guías. Los informes no se publican automáticamente.',
     results: {
       unresolved: 'Sin resolver',
       resolved: 'Resuelto',

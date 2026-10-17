@@ -1,3 +1,4 @@
+import { ReportEntryLink } from '@/components/report-entry-link';
 import { ContinueNotes } from './continue-notes';
 import { EnglishHomeSearch } from './english-home-search';
 import { LatestArticles } from './latest-articles';
@@ -40,6 +41,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
           <p>{t.homeNote}</p>
         </div>
       </section>
+      <div className="content report-entry-home"><ReportEntryLink prominent locale={locale} /></div>
       {locale === 'en' && <EnglishHomeSearch entries={[
         ...articles.map(article => ({
           href: article.gameSlug === 'discord' ? `/en/discord/${article.slug}` : `/en/games/${article.gameSlug}/${article.slug}`,

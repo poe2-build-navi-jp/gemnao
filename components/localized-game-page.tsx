@@ -1,3 +1,4 @@
+import { ReportEntryLink } from '@/components/report-entry-link';
 import { OnimushaSaveAnswer } from '@/components/onimusha-save-answer';
 import { ArticleToc } from '@/components/article-toc';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
@@ -136,6 +137,7 @@ export function LocalizedGamePage({
         </ArticleToc>
         <article className="guide-article">
           <p className="article-introduction">{hub.intro[locale]}</p>
+          {articles.length > 0 && <ReportEntryLink prominent gameSlug={game.slug} locale={locale} />}
           {game.slug === 'onimusha-way-of-the-sword' && locale === 'en' ? (
             <OnimushaSaveAnswer english />
           ) : null}
