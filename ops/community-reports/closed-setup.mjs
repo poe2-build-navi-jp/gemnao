@@ -696,8 +696,12 @@ export async function verifySource() {
     'ROOT_CONFIG_OUTSIDE_PERSISTED_CLOSED_SCOPE',
   );
 }
-export async function packageArtifact(directory, sourceSha) {
-  await verifySource();
+export async function packageArtifact(
+  directory,
+  sourceSha,
+  verify = verifySource,
+) {
+  await verify();
   fixed(/^[a-f0-9]{40}$/.test(sourceSha), 'SOURCE_SHA_REQUIRED');
   const { build } = await import('esbuild');
   await mkdir(join(directory, 'workers'), { recursive: true });
@@ -1259,7 +1263,9 @@ export async function main(env, fetcher = fetch, mode = process.argv[2]) {
   if (mode === 'gate') {
     // The historic mutation allowlist correctly rejects later article commits.
     // Readback has a GET-only client and does not build/upload artifact bytes.
-    if (env.REPORTS_SETUP_OPERATION !== 'readback') await verifySource();
+    if (env.REPORTS_SETUP_OPERATION === 'deploy-code-only')
+      await (await import('./code-deploy.mjs')).verifyCodeSource(env);
+    else if (env.REPORTS_SETUP_OPERATION !== 'readback') await verifySource();
     const environment = await gate(env, fetcher);
     if (env.GITHUB_OUTPUT)
       await writeFile(env.GITHUB_OUTPUT, 'environment=' + environment + '\n', {
@@ -1270,9 +1276,14 @@ export async function main(env, fetcher = fetch, mode = process.argv[2]) {
   if (mode === 'package') {
     context(env);
     const packager =
-      env.REPORTS_SETUP_OPERATION === 'resume-cleanup'
-        ? (await import('./cleanup-resume.mjs')).packageCleanupArtifact
-        : packageArtifact;
+      env.REPORTS_SETUP_OPERATION === 'deploy-code-only'
+        ? (directory, sha) =>
+            import('./code-deploy.mjs').then((m) =>
+              m.packageCodeArtifact(directory, sha, env),
+            )
+        : env.REPORTS_SETUP_OPERATION === 'resume-cleanup'
+          ? (await import('./cleanup-resume.mjs')).packageCleanupArtifact
+          : packageArtifact;
     const digest = await packager(env.REPORTS_ARTIFACT_DIR, env.GITHUB_SHA);
     if (env.GITHUB_OUTPUT)
       await writeFile(env.GITHUB_OUTPUT, 'digest=' + digest + '\n', {
@@ -1295,6 +1306,7 @@ export async function main(env, fetcher = fetch, mode = process.argv[2]) {
         'deploy',
         'readback',
         'resume-cleanup',
+        'deploy-code-only',
         'bootstrap-open',
         'bootstrap-pin',
         'bootstrap-close',
@@ -1315,7 +1327,31 @@ export async function main(env, fetcher = fetch, mode = process.argv[2]) {
       env.REPORTS_SETUP_ENVIRONMENT === TARGET.environment,
       'PROTECTED_ENVIRONMENT_REQUIRED',
     );
-    if (env.REPORTS_SETUP_OPERATION === 'readback') {
+    if (env.REPORTS_SETUP_OPERATION === 'deploy-code-only') {
+      const persist = async () => {
+        await writeFile(
+          'closed-setup-receipt.json',
+          JSON.stringify(receipt, null, 2) + '\n',
+        );
+        console.log(
+          JSON.stringify({
+            operation: receipt.operation,
+            completed: receipt.completed,
+            nextWrite: receipt.nextWrite,
+            workerHashes: receipt.workerHashes,
+          }),
+        );
+      };
+      await (
+        await import('./code-deploy.mjs')
+      ).runCodeDeployment(
+        env,
+        receipt,
+        (config) => uploadPages(env, env.REPORTS_ARTIFACT_DIR, config),
+        persist,
+        fetcher,
+      );
+    } else if (env.REPORTS_SETUP_OPERATION === 'readback') {
       fixed(
         !env.REPORTS_SETUP_CONFIRMATION,
         'READBACK_CONFIRMATION_MUST_BE_EMPTY',

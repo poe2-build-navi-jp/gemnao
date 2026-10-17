@@ -4,10 +4,11 @@ on:
   workflow_dispatch:
     inputs:
       operation:
-        description: Bootstrap phases change only temporary allow/pin/close; never execute initialization
+        description: deploy-code-only updates reviewed code with all flags OFF; bootstrap phases never execute initialization
         type: choice
         options:
           [
+            deploy-code-only,
             inspect,
             readback,
             resume-cleanup,
@@ -19,8 +20,12 @@ on:
           ]
         default: inspect
         required: true
+      source_sha:
+        description: Required only for deploy-code-only; exact reviewed 40-character workflow commit
+        type: string
+        required: false
       confirmation:
-        description: Exact operation confirmation from ops/community-reports/closed-setup.md
+        description: deploy-code-only requires DEPLOY_REPORTS_CODE_ONLY:<source_sha>; other operations use closed-setup.md
         type: string
         required: false
 permissions:
@@ -47,12 +52,18 @@ jobs:
         with:
           node-version: '22.19.0'
       - name: Test fixed request boundaries without credentials
+        if: inputs.operation != 'deploy-code-only'
         run: node --test --test-concurrency=1 tests/community-reports/closed-setup.test.mjs tests/community-reports/cleanup-resume.test.mjs tests/community-reports/bootstrap-phase.test.mjs
+      - name: Test code-only boundaries without credentials
+        if: inputs.operation == 'deploy-code-only'
+        run: node --test --test-concurrency=1 tests/community-reports/closed-setup.test.mjs tests/community-reports/code-deploy.test.mjs
       - id: verify
         name: Verify reviewed source and existing Environment protection
         env:
           GH_TOKEN: ${{ github.token }}
           REPORTS_SETUP_OPERATION: ${{ inputs.operation }}
+          REPORTS_SETUP_SOURCE_SHA: ${{ inputs.source_sha }}
+          REPORTS_SETUP_CONFIRMATION: ${{ inputs.confirmation }}
         run: node ops/community-reports/closed-setup.mjs gate
       - name: Install locked dependencies without lifecycle scripts
         if: inputs.operation != 'readback'
@@ -76,6 +87,8 @@ jobs:
         env:
           REPORTS_ARTIFACT_DIR: ${{ runner.temp }}/closed-reports-artifact
           REPORTS_SETUP_OPERATION: ${{ inputs.operation }}
+          REPORTS_SETUP_SOURCE_SHA: ${{ inputs.source_sha }}
+          REPORTS_SETUP_CONFIRMATION: ${{ inputs.confirmation }}
         run: node ops/community-reports/closed-setup.mjs package
       - id: artifact
         if: inputs.operation != 'readback'
@@ -118,6 +131,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           REPORTS_SETUP_ENVIRONMENT: gemnao-d1-production
           REPORTS_SETUP_OPERATION: ${{ inputs.operation }}
+          REPORTS_SETUP_SOURCE_SHA: ${{ inputs.source_sha }}
           REPORTS_SETUP_CONFIRMATION: ${{ inputs.confirmation }}
           REPORTS_ARTIFACT_DIR: ${{ runner.temp }}/closed-reports-artifact
           REPORTS_ARTIFACT_DIGEST: ${{ needs.gate.outputs.digest }}
