@@ -1,3 +1,5 @@
+> 2026-10-17追記：GitHub標準通知を使う承認済み代替経路は [community-reports-github-notifications.md](community-reports-github-notifications.md) を参照。下記のChatGPT未確認記録は当時の履歴。ChatGPTタスクは親で存在・有効状態を確認済みだが実受信は未確認。既存タスクは変更しない。inspect-cleanup run39005896813 は05:24:43 UTCに成功し対象5表・削除候補・古いrateは0件、binding一致、productionChanged=false。開始時には件数を再取得する。
+
 # 初回Free受付開始の限定operation（未実行）
 
 コード配備run39003076598、source `8f964ad2d63cfaf8059da4128f5120229c23f92f`、Pages `7215d9ee-cfc7-45a2-89cc-a06849a2ca28` の成功receiptを確認済み。親ブラウザの2026-10-17 04:50:57 UTC公開healthはschemaVersion1、ok=false、intakeEnabled=false、publicEnabled=false、reason=not-configured、cleanupAt等null。一般受付OFFを確認。今回の変更は準備・テスト・ソース保存だけで、本番操作はしていない。

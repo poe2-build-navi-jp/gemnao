@@ -516,3 +516,46 @@ await test('exact partial state can resume without repeating successful guard up
   );
   assert.equal(f.schedules[TARGET.cleanup][0].cron, CRON);
 });
+
+await test('GitHub scheduled notification attestation retains exact run and rejects absent/invalid/future/stale evidence', () => {
+  const prefix = 'GITHUB_SCHEDULE_ALERT_RECEIVED@12345@';
+  const receivedAt = new Date(now - 1000).toISOString();
+  const receipt = launchContext(
+    {
+      ...environment('start-free'),
+      REPORTS_MONITOR_RECEIPT: prefix + receivedAt,
+    },
+    now,
+  );
+  assert.equal(
+    receipt.runUrl,
+    'https://github.com/poe2-build-navi-jp/gemnao/actions/runs/12345',
+  );
+  assert.equal(receipt.event, 'schedule');
+  assert.equal(receipt.receivedAt, receivedAt);
+  assert.equal(receipt.independentlyVerified, false);
+  for (const value of [
+    'GITHUB_ACTIONS_ALERT_RECEIVED@12345@' + receivedAt,
+    'GITHUB_SCHEDULE_ALERT_RECEIVED@0@' + receivedAt,
+    'GITHUB_SCHEDULE_ALERT_RECEIVED@../12345@' + receivedAt,
+    prefix + new Date(now + 1).toISOString(),
+    prefix + new Date(now - 86400001).toISOString(),
+    prefix + '2026-02-30T00:00:00.000Z',
+    prefix + receivedAt + '\n',
+  ])
+    assert.throws(() =>
+      launchContext(
+        { ...environment('start-free'), REPORTS_MONITOR_RECEIPT: value },
+        now,
+      ),
+    );
+  assert.throws(() =>
+    launchContext(
+      {
+        ...environment('inspect-cleanup'),
+        REPORTS_MONITOR_RECEIPT: prefix + receivedAt,
+      },
+      now,
+    ),
+  );
+});

@@ -65,23 +65,40 @@ export function launchContext(env, now = Date.now()) {
     need(!env.REPORTS_MONITOR_RECEIPT, 'INSPECT_NO_MONITOR_ATTESTATION');
     return null;
   }
-  const match =
+  const raw = env.REPORTS_MONITOR_RECEIPT || '';
+  const chat =
     /^CHATGPT_REPORTS_ALERT_RECEIVED@(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z)$/.exec(
-      env.REPORTS_MONITOR_RECEIPT || '',
+      raw,
     );
-  const at = match ? Date.parse(match[1]) : NaN;
+  const github =
+    /^GITHUB_SCHEDULE_ALERT_RECEIVED@([1-9]\d{0,19})@(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z)$/.exec(
+      raw,
+    );
+  const receivedAt = chat?.[1] || github?.[2];
+  const at = receivedAt ? Date.parse(receivedAt) : NaN;
   need(
-    Number.isFinite(at) &&
-      new Date(at).toISOString() === match[1] &&
+    (chat?.[0] === raw || github?.[0] === raw) &&
+      Number.isFinite(at) &&
+      new Date(at).toISOString() === receivedAt &&
       at <= now &&
       at >= now - 86400000,
     'ACTUAL_OWNER_MONITOR_RECEIPT_REQUIRED',
   );
-  // Explicit owner attestation. A successful monitor job is never substituted.
+  // Owner attestation only. Run failure and notification delivery are distinct.
+  // GitHub requires receipt from this workflow's scheduled run, not just dispatch.
   return {
-    destination: MONITOR,
-    receivedAt: match[1],
-    evidence: 'owner-reported-receipt-and-active-task',
+    destination: github ? 'GitHub Actions standard notification' : MONITOR,
+    receivedAt,
+    evidence: github
+      ? 'owner-reported-scheduled-run-notification-and-active-workflow'
+      : 'owner-reported-receipt-and-active-task',
+    ...(github
+      ? {
+          workflow: '.github/workflows/community-reports-public-health.yml',
+          event: 'schedule',
+          runUrl: `https://github.com/${TARGET.repository}/actions/runs/${github[1]}`,
+        }
+      : {}),
     independentlyVerified: false,
   };
 }
@@ -101,6 +118,9 @@ export async function verifyLaunchSource(env) {
     'ops/community-reports/cleanup-counts.sql',
     'tests/community-reports/free-launch.test.mjs',
     'docs/community-reports-free-launch.md',
+    'ops/community-reports/public-health-check.mjs',
+    'tests/community-reports/public-health-check.test.mjs',
+    'docs/community-reports-github-notifications.md',
   ];
   need(
     git('diff', '--name-only', BASE, 'HEAD')

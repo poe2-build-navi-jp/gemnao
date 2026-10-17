@@ -21,17 +21,30 @@ export async function publicHealthCheck(
     notificationDeliveryVerified: false,
   };
 }
+// The CLI exit status is the GitHub standard notification trigger.
+// A failed job is not evidence that its notification was delivered.
+export async function runPublicHealthCheck(
+  env,
+  fetcher = fetch,
+  now = Date.now(),
+  logger = console,
+) {
+  try {
+    const result = await publicHealthCheck(env, fetcher, now);
+    logger.log('COMMUNITY_REPORTS_HEALTH ' + JSON.stringify(result));
+    if (!result.healthy) {
+      logger.error('PUBLIC_HEALTH_UNHEALTHY');
+      return 1;
+    }
+    return 0;
+  } catch {
+    logger.error('PUBLIC_HEALTH_CHECK_FAILED');
+    return 1;
+  }
+}
 if (
   process.argv[1] &&
   import.meta.url === pathToFileURL(resolve(process.argv[1])).href
 ) {
-  try {
-    console.log(
-      'COMMUNITY_REPORTS_HEALTH ' +
-        JSON.stringify(await publicHealthCheck(process.env)),
-    );
-  } catch {
-    console.error('PUBLIC_HEALTH_CHECK_FAILED');
-    process.exitCode = 1;
-  }
+  process.exitCode = await runPublicHealthCheck(process.env);
 }

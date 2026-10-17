@@ -1,6 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { publicHealthCheck } from '../../ops/community-reports/public-health-check.mjs';
+import {
+  publicHealthCheck,
+  runPublicHealthCheck,
+} from '../../ops/community-reports/public-health-check.mjs';
 
 const now = Date.parse('2026-10-16T20:00:00.000Z');
 const env = { GITHUB_SHA: 'a'.repeat(40) };
@@ -148,4 +151,49 @@ await test('Free policy v2 requires exact policy, null analytics timestamps and 
   );
   assert.equal(report.health.validSchema, true);
   assert.equal(report.healthy, false);
+});
+
+await test('job exit status fails on real unhealthy/invalid/stale/blocked results and never claims delivery', async () => {
+  for (const [p, expected] of [
+    [probe(healthy()), 0],
+    [
+      probe(
+        {
+          ...healthy(),
+          ok: false,
+          intakeEnabled: false,
+          publicEnabled: false,
+          reason: 'intake-disabled',
+        },
+        503,
+      ),
+      1,
+    ],
+    [probe({ ...healthy(), checkedAt: iso(-300001) }), 1],
+    [probe({ ...healthy(), intakeEnabled: false }), 1],
+    [probe({ private: 'DO_NOT_LOG' }, 403), 1],
+    [probe('invalid'), 1],
+  ]) {
+    const logs = [],
+      errors = [];
+    const code = await runPublicHealthCheck(env, p.fetcher, now, {
+      log: (s) => logs.push(s),
+      error: (s) => errors.push(s),
+    });
+    assert.equal(code, expected);
+    assert.equal(p.calls.length, 1);
+    const receipt = JSON.parse(
+      logs[0].slice('COMMUNITY_REPORTS_HEALTH '.length),
+    );
+    assert.equal(receipt.notificationDeliveryVerified, false);
+    assert.equal(receipt.productionChanged, false);
+    assert.equal(errors.length, expected);
+    assert.ok(!logs.join('').includes('DO_NOT_LOG'));
+  }
+  const p = probe(healthy());
+  assert.equal(
+    await runPublicHealthCheck({}, p.fetcher, now, { log() {}, error() {} }),
+    1,
+  );
+  assert.equal(p.calls.length, 0);
 });
