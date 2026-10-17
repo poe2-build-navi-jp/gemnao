@@ -1,3 +1,4 @@
+import { AceCombatNoticeHistory } from '@/components/ace-combat-notice-history';
 import { ReportedCaseLink } from '@/components/reported-case';
 import { ReportEntryLink } from '@/components/report-entry-link';
 import { ArticleToc } from '@/components/article-toc';
@@ -248,6 +249,7 @@ export function TroubleshootingArticle({
               </dl>
             </section>
           ) : null}
+          {article.gameSlug === 'ace-combat-8' && article.slug === 'error-st-3100001' && <AceCombatNoticeHistory />}
           {article.diagnosis?.length ? (
             <section
               className="diagnosis-table"

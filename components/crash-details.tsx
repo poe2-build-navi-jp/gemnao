@@ -1,3 +1,4 @@
+import { CrashRecordExamples } from '@/components/crash-record-examples';
 /* oxlint-disable next/no-html-link-for-pages -- Native links match the guide template. */
 
 export function CrashBeforeSteps() {
@@ -107,6 +108,7 @@ export function CrashAfterSteps() {
           。複数ゲームが落ちる、Windowsも停止する場合はPC側も調べます。
         </p>
       </section>
+      <CrashRecordExamples />
       <section className="diagnosis-table" id="steam-client-case">
         <h2>改善報告：ゲームのMODがなくてもSteam本体の拡張を確認</h2>
         <p>

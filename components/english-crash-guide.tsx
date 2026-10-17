@@ -1,3 +1,4 @@
+import { CrashRecordExamples } from '@/components/crash-record-examples';
 import {
   StepResultCollection,
   StepResultButtons,
@@ -73,6 +74,9 @@ export function EnglishCrashGuide() {
                 <a href={link.href}>{link.label}</a>
               </p>
             ))}
+            {section.id === 'crash-history' && (
+              <CrashRecordExamples locale="en" />
+            )}
             {/^step-[123]$/.test(section.id) && (
               <StepResultButtons method={section.id} />
             )}

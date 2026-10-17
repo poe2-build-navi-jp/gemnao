@@ -1,3 +1,4 @@
+import { AceCombatNoticeHistory } from '@/components/ace-combat-notice-history';
 import { ReportedCaseLink } from '@/components/reported-case';
 import { ReportEntryLink } from '@/components/report-entry-link';
 import {
@@ -225,6 +226,7 @@ export function LocalizedArticle({
               ))}
             </dl>
           </section>
+          {locale === 'en' && article.gameSlug === 'ace-combat-8' && article.slug === 'error-st-3100001' && <AceCombatNoticeHistory locale="en" />}
           <ReportedCaseLink articlePath={originalPath} locale={locale} />
           {!isDiscord && (
             <ReportEntryLink articlePath={originalPath} locale={locale} />

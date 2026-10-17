@@ -1,3 +1,4 @@
+import { CrashRecordExamples } from '@/components/crash-record-examples';
 import { SaveArticle } from '@/components/save-article';
 import { ogImageFor } from '@/lib/og-images';
 import type { Metadata } from 'next';
@@ -473,6 +474,7 @@ export default async function EnglishWindowsDiagnosis({
             settings or guarantee support for every game.
           </p>
         </section>
+        <CrashRecordExamples locale="en" />
         <section id="history">
           <h2>4. Save history or export only when you need to</h2>
           <p>

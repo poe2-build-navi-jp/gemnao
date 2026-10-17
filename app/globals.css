@@ -5692,3 +5692,10 @@ a.my-games-primary {
 }
 .my-games-no-results a { display: inline-block; min-height: 44px; padding-block: 10px; }
 #game-request { scroll-margin-top: 24px; }
+
+.crash-record-cards { display: grid; gap: 18px; margin-block: 20px; }
+.crash-record-cards article { padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); overflow-wrap: anywhere; }
+.crash-record-cards h3 { margin-top: 0; }
+.crash-record-cards dl > div { padding-block: 8px; border-bottom: 1px solid var(--line); }
+.crash-record-cards dt { font-weight: 700; }
+.crash-record-cards dd { margin: 4px 0 0; }

@@ -482,13 +482,13 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
     gameSlug: 'ace-combat-8',
     gameName: 'ACE COMBAT 8',
     slug: 'error-st-3100001',
-    checkedAt: '2026-10-13',
+    checkedAt: '2026-10-18',
     title:
       'ACE COMBAT 8 Error ST-3100001 on PC: Check Windows Time Synchronization',
     shortTitle: 'Error ST-3100001',
     description:
       'What ST-3100001 means in ACE COMBAT ONLINE, the official Windows clock-sync check, how to measure clock offset, and the separate mission-end error notice. Player reports are labeled.',
-    lead: 'For the Steam version of ACE COMBAT ONLINE showing ST-3100001 during play or deployment and preventing you from continuing. Guidance and notices were checked for the Japanese article on October 2, 2026.',
+    lead: 'For the Steam version of ACE COMBAT ONLINE showing ST-3100001 during play or deployment and preventing you from continuing. The official notice history below was reviewed on October 18, 2026 (JST); announcement dates and procedure updates are shown separately.',
     summary:
       'The publisher describes ST-3100001 as a general error shown when communication with the game server is lost. Its recommended first check is whether Windows time is incorrect. Open Settings → Time & language → Date & time → Sync now, then restart Steam and the game. This error code does not identify a single cause.',
     nextChecks: {
@@ -512,7 +512,7 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
       ],
     },
     sourcePolicy:
-      'The code meaning and first clock-sync check come from the publisher’s notice. Clock-offset examples are player reports, not official measurements or a guaranteed fix. The mission-end issue and penalty plan reflect the dated September 29 notice; check for newer official updates.',
+      'The code meaning and first clock-sync check come from the publisher’s notice. Clock-offset examples are player reports, not official measurements or a guaranteed fix. The September 29 X post and September 30 Steam notice are separate. This review of 37 official Steam announcements found no confirmation of a completed ST fix or penalty clearance; that absence does not prove either remains unresolved.',
     quickFacts: [
       {
         label: 'Meaning (publisher)',
@@ -536,7 +536,7 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
       {
         label: 'Error after a mission',
         value:
-          'The September 29 official notice said the results-screen issue was being addressed and affected penalties were planned to be removed. Check newer notices.',
+          'The September 29 X post concerns mission-end errors. The reviewed official Steam announcements do not confirm completed ST fixes or penalty clearance; see the dated history.',
       },
     ],
     diagnosis: [
@@ -617,7 +617,7 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
         risk: 'low',
         actions: [
           'Check the official ACE COMBAT X account (@PROJECT_ACES) and Steam news for outages and maintenance. Gemnao’s status page is also available in Japanese.',
-          'If the error appears after a mission instead of the results screen, compare with the issue in the September 29 notice and look for an official resolution update.',
+          'For an error after a mission instead of the results screen, compare the dated official notice history with your symptom. Do not treat the October 9 matchmaking or October 16 crash notice as proof of an ST fix.',
           'On Wi-Fi, compare a wired connection if available. If appropriate for your own connection, pause a VPN or network-optimization tool for a separate comparison; do not change a managed network’s required settings.',
           'Restart your router when it is safe to interrupt the connection, then retry.',
         ],
@@ -629,7 +629,7 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
       'Using repair tools or scripts from unknown sources',
     ],
     cautions: [
-      'In its September 29, 2026 notice, the publisher said it planned to clear penalties caused by the mission-end error. This is a dated plan, not confirmation that a specific account’s penalty has been removed.',
+      'The September 29 X post was previously cited here for a penalty-clearance plan. Its full text could not be rechecked this time. The official Steam announcements reviewed do not confirm completion; this does not prove penalties remain in place.',
       'Do not apply this code’s explanation to another error code without its own official guidance.',
     ],
     faqs: [
@@ -642,7 +642,7 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
         question:
           'I received a penalty when the error disconnected me. What happens?',
         answer:
-          'For the error after a mission instead of the results screen, the September 29 notice said the issue was being addressed and affected penalties were planned to be cleared. Check newer official notices; this does not confirm the status of an individual account.',
+          'This article previously cited a penalty-clearance plan from the September 29 X post. On October 18, 2026 (JST), the reviewed official Steam announcements did not establish completion, and the X post’s full text could not be rechecked. This cannot determine an individual account’s status.',
       },
       {
         question: 'The clock looks correct. Should I still check?',
