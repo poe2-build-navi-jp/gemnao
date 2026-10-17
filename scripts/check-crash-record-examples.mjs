@@ -36,7 +36,7 @@ try {
     const page = await browser.newPage();
     await page.route('**/*', (r) => r.abort());
     await page.setContent(
-      `<style>${css}</style><main class="static-page">${render(locale)}</main>`,
+      `<style>${css}</style><main class="static-page" style="max-width:720px">${render(locale)}</main>`,
     );
     await expect(page.locator('.crash-record-cards article')).toHaveCount(3);
     await expect(page.locator('.safety-note')).toContainText(
@@ -63,6 +63,37 @@ try {
         ),
         true,
       );
+      if (locale === 'en') {
+        const splitWords = await page
+          .locator('#official-notice-history table')
+          .evaluate((table) => {
+            const walker = document.createTreeWalker(
+              table,
+              NodeFilter.SHOW_TEXT,
+            );
+            const broken = [];
+            while (walker.nextNode()) {
+              const node = walker.currentNode;
+              for (const match of node.textContent.matchAll(/[A-Za-z]{4,}/g)) {
+                const range = document.createRange();
+                range.setStart(node, match.index);
+                range.setEnd(node, match.index + match[0].length);
+                if (
+                  new Set(
+                    [...range.getClientRects()].map((r) => Math.round(r.top)),
+                  ).size > 1
+                )
+                  broken.push(match[0]);
+              }
+            }
+            return broken;
+          });
+        assert.deepEqual(
+          splitWords,
+          [],
+          `English notice words split at ${width}px`,
+        );
+      }
       await page.screenshot({
         path: `/tmp/gemnao-crash-examples/${locale}-${width}.png`,
         fullPage: true,

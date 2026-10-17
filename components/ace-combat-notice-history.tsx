@@ -60,7 +60,11 @@ export function AceCombatNoticeHistory({
 }) {
   const en = locale === 'en';
   return (
-    <section className="diagnosis-table" id="official-notice-history">
+    <section
+      className="diagnosis-table"
+      id="official-notice-history"
+      lang={locale}
+    >
       <h2>
         {en
           ? 'Official notice history: keep the symptoms separate'

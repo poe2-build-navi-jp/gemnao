@@ -6606,3 +6606,10 @@ a.my-games-primary {
 .crash-record-cards dl > div { padding-block: 8px; border-bottom: 1px solid var(--line); }
 .crash-record-cards dt { font-weight: 700; }
 .crash-record-cards dd { margin: 4px 0 0; }
+
+/* Keep English notice words intact without changing other guide tables. */
+#official-notice-history:lang(en) table {
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
