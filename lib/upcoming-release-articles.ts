@@ -28,20 +28,23 @@ export const upcomingReleaseArticles: GameArticle[] = [
     gameSlug: 'castlevania-belmonts-curse',
     slug: 'not-launching',
     category: 'launch',
-    checkedAt: '2026-10-03',
+    checkedAt: '2026-10-17',
     seoTitle:
-      'Castlevania: Belmont’s Curse（悪魔城）が起動しない時の対処法【PC版】',
+      'Castlevania: Belmont’s Curse（悪魔城）が起動しない・黒い画面の対処法【PC版】',
     title:
-      'Castlevania: Belmont’s Curse（キャッスルヴァニア ベルモンドの呪い）が起動しない・コントローラーが効かない時の対処法【PC版】',
-    shortTitle: '起動しない・コントローラー',
-    targetVersion: 'Steam版・2026年10月3日時点の公式情報（発売前）',
+      'Castlevania: Belmont’s Curse（キャッスルヴァニア ベルモンドの呪い）が起動しない・黒い画面のまま進まない時の対処法【PC版】',
+    shortTitle: '起動しない・黒い画面',
+    targetVersion:
+      'Steam版・Ver.1.1.3と2026年10月16日時点のKONAMIの不具合のお知らせ',
     symptom:
-      'PC版が起動しない、起動直後に落ちる、コントローラーが反応しない、Midnight Editionのアートギャラリーや特典が見当たらない場合の確認手順です。',
+      'PC版が起動しない、黒い画面のまま進まない、起動直後に落ちる、コントローラーが反応しない、Midnight Editionのアートギャラリーや特典が見当たらない場合の確認手順です。',
     conclusion:
-      'Steamストアの動作環境は、最低・推奨ともWindows 11です。GPUの最低環境はGTX 1650、DirectXは11で、要件は比較的軽めです。起動しない時は、まずWindowsのバージョンとGPUドライバーを確認します。Midnight Editionの「デジタルサウンド＆アートギャラリー」は本編とは別のアプリケーションです。',
+      'KONAMIは、垂直同期（V-Sync）がOFFでFPSが「無制限」のとき、高リフレッシュレートのモニターでゲームが起動せず黒い画面になる不具合を認めています。まずゲームをVer.1.1.3以降に更新し、それでも起動しない時は、Windowsでモニターのリフレッシュレートを一時的に60Hz未満に下げてゲームを起動し、映像設定でV-SyncをONにしてから元に戻します（公式の手順）。動作環境は最低・推奨ともWindows 11です。',
     description:
-      'KONAMIの発表では2026年10月15日発売です（Steamストアの日本語表示は10月14日）。KONAMI・Evil Empire・Motion Twinが手がける探索型2Dアクションで、日本語は字幕と音声の両方に対応しています。',
+      '2026年10月15日に発売されました。10月16日のVer.1.1.3で黒い画面の不具合への対策が配信されましたが、環境によってはまだ起きる場合があるとKONAMIは案内しています。日本語は字幕と音声の両方に対応しています。',
     causes: [
+      'V-SyncがOFF・FPSが「無制限」で、高リフレッシュレートのモニターを使っている（KONAMIが確認している不具合）',
+      'ゲームがVer.1.1.3より古い',
       'Windows 11ではない（最低環境からWindows 11）',
       'GPUドライバーが古い・ゲームファイルの破損',
       'オーバーレイや録画ツールの干渉',
@@ -49,6 +52,16 @@ export const upcomingReleaseArticles: GameArticle[] = [
       'アートギャラリーを本編の中で探している（別アプリ）',
     ],
     quickFacts: [
+      {
+        label: '黒い画面で起動しない（公式の回避策）',
+        value:
+          'リフレッシュレートを60Hz未満に→ゲームの映像設定でV-SyncをON→ゲームを終了→リフレッシュレートを元に戻す',
+      },
+      {
+        label: '修正アップデート',
+        value:
+          'Ver.1.1.3（10月16日）。環境によってはまだ起きる場合あり（KONAMI）',
+      },
       {
         label: '最低動作環境',
         value:
@@ -60,7 +73,7 @@ export const upcomingReleaseArticles: GameArticle[] = [
       },
       {
         label: '発売日',
-        value: '2026年10月15日（KONAMIの発表）',
+        value: '2026年10月15日',
       },
       {
         label: 'コントローラー',
@@ -75,12 +88,17 @@ export const upcomingReleaseArticles: GameArticle[] = [
     ],
     diagnosis: [
       {
+        symptom: '起動すると黒い画面のまま進まない',
+        cause: 'V-Sync OFF・FPS無制限と高リフレッシュレート',
+        stepId: 'step-5',
+      },
+      {
         symptom: 'Windows 10のPCで起動しない',
         cause: '動作環境を満たしていない',
         stepId: 'step-1',
       },
       {
-        symptom: '起動直後に落ちる・黒い画面のまま',
+        symptom: '回避策を試しても起動直後に落ちる',
         cause: 'ドライバー・ファイル・常駐ツール',
         stepId: 'step-2',
       },
@@ -96,6 +114,21 @@ export const upcomingReleaseArticles: GameArticle[] = [
       },
     ],
     steps: [
+      {
+        id: 'step-5',
+        title: '黒い画面のまま起動しない時は、V-SyncをONにする（公式の回避策）',
+        summary:
+          'KONAMIは、V-SyncがOFFでFPSが「無制限」の設定だと、ゲームが起動できないことがあると発表しています。黒い画面のままでは設定画面に入れないため、一時的にモニターのリフレッシュレートを下げて起動します。',
+        time: '約10分',
+        risk: 'low',
+        actions: [
+          'Steamでゲームを最新版（Ver.1.1.3以降）に更新する。ライブラリでゲームを選び、更新が残っていないか確認する',
+          'それでも起動しない時：Windowsの「設定」→「システム」→「ディスプレイ」→「ディスプレイの詳細設定」で、リフレッシュレートを60Hz未満にする',
+          'ゲームを起動し、タイトル画面の「設定（Settings）」→「映像（Video）」で「V-Sync」をONにして、ゲームを一度終了する',
+          'Windowsのリフレッシュレートを元の値に戻す。以後は通常どおり起動できる（公式）',
+        ],
+        note: '60Hz未満が選べないモニターもあります。何度試しても起動しない場合は、KONAMIのカスタマーサポートに問い合わせるよう公式が案内しています。',
+      },
       {
         id: 'step-1',
         title: 'Windows 11と動作環境を確認する',
@@ -155,9 +188,15 @@ export const upcomingReleaseArticles: GameArticle[] = [
       'Midnight Editionと単品の特典を重複して買わないよう、購入前に内容を確認する',
     ],
     cautions: [
-      '発売前の情報です。発売後に公式が案内する不具合や修正は、公式のお知らせもあわせて確認してください。',
+      'KONAMIは、黒い画面の不具合を完全に直すアップデートを準備中です（2026年10月16日時点）。最新のお知らせもあわせて確認してください。',
+      'Steam Deckでは一部の画面表示が画面外にはみ出す不具合を、KONAMIが確認しています（修正を検討中）。',
     ],
     faqs: [
+      {
+        question: '144Hzや240Hzのモニターで、起動すると黒い画面のままです。',
+        answer:
+          'KONAMIが確認している不具合です。V-SyncがOFFでFPSが「無制限」だと起動できないことがあります。Ver.1.1.3に更新し、それでも直らなければ、Windowsでリフレッシュレートを一時的に60Hz未満にして起動し、映像設定でV-SyncをONにしてから元の値に戻してください（公式の手順）。',
+      },
       {
         question: 'Windows 10で遊べますか？',
         answer:
@@ -177,6 +216,16 @@ export const upcomingReleaseArticles: GameArticle[] = [
     sources: [
       {
         label:
+          'KONAMI公式：不具合に関するお知らせ（V-Sync OFF・FPS無制限で起動できない時の手順）',
+        url: 'https://www.konami.com/games/castlevania/belmonts_curse/jp/ja/noti_261014',
+      },
+      {
+        label:
+          'Steamニュース（公式）：Notice regarding Black Screen for High Refresh Rate Monitors（Ver.1.1.3）',
+        url: 'https://store.steampowered.com/news/app/4231820',
+      },
+      {
+        label:
           'Steamストア：Castlevania: Belmont’s Curse（動作環境・対応言語・Midnight Edition）',
         url: 'https://store.steampowered.com/app/4231820/',
       },
@@ -187,25 +236,25 @@ export const upcomingReleaseArticles: GameArticle[] = [
     ],
     related: [],
     metaDescription:
-      'Castlevania: Belmont’s Curse PC版が起動しない・コントローラーが効かない時の対処法。Windows 11の動作環境（GTX 1650・メモリ16GB）、ドライバーとファイルの確認、Steam Inputの切り替え、Midnight Editionのアートギャラリー（別アプリ）と特典の内容まで公式情報をもとに解説。',
+      'Castlevania: Belmont’s Curse PC版が起動しない・黒い画面のまま進まない時の対処法。KONAMI公式の回避策（リフレッシュレートを60Hz未満にしてV-SyncをON）、Ver.1.1.3の修正、Windows 11の動作環境、Steam Inputの切り替え、Midnight Editionの内容まで解説。',
   }),
   make({
     gameSlug: 'tales-of-eternia-remastered',
     slug: 'not-launching',
     category: 'launch',
-    checkedAt: '2026-10-03',
+    checkedAt: '2026-10-17',
     seoTitle:
       'テイルズ オブ エターニア リマスターが起動しない時の対処法【PC版】',
     title:
       'テイルズ オブ エターニア リマスターが起動しない・画面がおかしい時の対処法【PC版・Steam】',
     shortTitle: '起動しない・表示の確認',
-    targetVersion: 'Steam版・2026年10月3日時点の公式情報（発売前）',
+    targetVersion: 'Steam版・2026年10月17日時点の公式情報（発売後）',
     symptom:
       'PC版が起動しない、起動直後に落ちる、DirectX 12で起動できない、コントローラーが反応しない、デラックスエディションの特典が見当たらない場合の確認手順です。',
     conclusion:
       '要件はとても軽く、GPUはGTX 650 Ti（1GB）から動作します。ただしSteamストアの動作環境はWindows 11と記載されており、DirectX 12を使うにはWindows 10（バージョン1809以降）とVRAM 4GB以上のGPUが必須と注記されています。起動しない時は、Windowsのバージョン、GPUのVRAM、ドライバーの順に確認します。',
     description:
-      '発売は日本時間2026年10月16日7時です（公式の太平洋時間10月15日15時を換算）。2005年に発売された版をもとにしたリマスターで、目的地の表示、エンカウントのOFF、オート戦闘の高速モードなどの便利機能が追加されています。',
+      '日本時間2026年10月16日7時に発売されました（公式の太平洋時間10月15日15時）。2005年に発売された版をもとにしたリマスターで、目的地の表示、エンカウントのOFF、オート戦闘の高速モードなどの便利機能が追加されています。',
     causes: [
       'Windowsのバージョンが要件を満たしていない',
       'GPUのVRAMが4GB未満でDirectX 12が使えない',
@@ -335,7 +384,7 @@ export const upcomingReleaseArticles: GameArticle[] = [
       '非公式のパッチや改造ツールで要件を回避しようとしない',
     ],
     cautions: [
-      '発売前の情報です。発売後に公式が案内する不具合や修正は、公式のお知らせもあわせて確認してください。',
+      '発売後、Steamの公式のお知らせで不具合の案内は出ていません（2026年10月17日時点）。案内が出た場合は、公式のお知らせもあわせて確認してください。',
     ],
     faqs: [
       {

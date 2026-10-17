@@ -1,10 +1,10 @@
 'use client';
 /* oxlint-disable next/no-html-link-for-pages -- Native navigation preserves article fragments. */
 import { useSavedSolutions, announceMyData } from './use-saved-solutions';
-import { SupportUpdates } from './support-workspace';
+import { SupportUpdates } from './support-updates';
 import { ACTIVE_CASE_KEY } from '@/lib/support-record';
 import { supportCopy, type SupportLocale } from '@/lib/support-copy';
-import { hasTranslation } from '@/lib/localized';
+import { useEffect, useState } from 'react';
 
 const titles = {
   ja: '前回の続き',
@@ -14,6 +14,26 @@ const titles = {
 };
 export function ContinueNotes({ locale = 'ja' }: { locale?: SupportLocale }) {
   const { items, ready, error } = useSavedSolutions();
+  // The translation registry is large, so only translated pages load it.
+  const [hasTranslation, setHasTranslation] = useState<
+    ((locale: SupportLocale, path: string) => boolean) | null
+  >(null);
+  useEffect(() => {
+    if (locale === 'ja') return;
+    let active = true;
+    import('@/lib/localized')
+      .then((module) => {
+        if (active)
+          setHasTranslation(
+            () => (target: SupportLocale, path: string) =>
+              target !== 'ja' && module.hasTranslation(target, path),
+          );
+      })
+      .catch(() => undefined);
+    return () => {
+      active = false;
+    };
+  }, [locale]);
   const pending = items
     .filter((item) => item.status !== 'resolved')
     .sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
@@ -29,7 +49,8 @@ export function ContinueNotes({ locale = 'ja' }: { locale?: SupportLocale }) {
       <div className="recent-trouble-list">
         {pending.slice(0, 3).map((item) => {
           const translated =
-            locale !== 'ja' && hasTranslation(locale, item.articlePath);
+            locale !== 'ja' &&
+            Boolean(hasTranslation?.(locale, item.articlePath));
           const href = item.articlePath
             ? `${translated ? `/${locale}` : ''}${item.articlePath}${item.stepId ? `#${item.stepId}` : ''}`
             : `${myPath}#issue-notebook`;

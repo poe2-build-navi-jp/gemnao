@@ -1,43 +1,66 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState, useSyncExternalStore } from 'react';
 
 const KEY = 'gemnao-reports-bootstrap-attempt-v1';
 const UUID =
   /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/;
 type Attempt = { status: 'sent' } | { status: 'success'; instanceId: string };
 
+// The previous attempt in this tab, read without a state update in an effect.
+// undefined = not read yet (server render / hydration); UNREADABLE = storage
+// could not be read safely; null = no previous attempt.
+const UNREADABLE = 'unreadable';
+const noSubscribe = () => () => {};
+function readStoredAttempt() {
+  try {
+    return sessionStorage.getItem(KEY);
+  } catch {
+    return UNREADABLE;
+  }
+}
+/** null when the stored marker cannot be parsed (treated like unreadable). */
+function parseAttempt(raw: string): Attempt | null {
+  try {
+    const value = JSON.parse(raw) as Partial<Attempt>;
+    if (
+      value.status === 'success' &&
+      'instanceId' in value &&
+      typeof value.instanceId === 'string' &&
+      UUID.test(value.instanceId)
+    )
+      return { status: 'success', instanceId: value.instanceId };
+    return { status: 'sent' };
+  } catch {
+    return null;
+  }
+}
+
 export function ReportsBootstrapAdmin({ allowed }: { allowed: boolean }) {
   const attempted = useRef(false);
-  const [loaded, setLoaded] = useState(false);
-  const [attempt, setAttempt] = useState<Attempt | null>(null);
+  const stored = useSyncExternalStore(
+    noSubscribe,
+    readStoredAttempt,
+    () => undefined,
+  );
+  const storedAttempt =
+    typeof stored === 'string' && stored !== UNREADABLE
+      ? parseAttempt(stored)
+      : null;
+  const storageError =
+    stored === UNREADABLE || (typeof stored === 'string' && !storedAttempt);
+  const loaded = stored !== undefined && !storageError;
+  const [sentAttempt, setAttempt] = useState<Attempt | null>(null);
+  const attempt = sentAttempt ?? storedAttempt;
   const [busy, setBusy] = useState(false);
-  const [message, setMessage] = useState('');
-  useEffect(() => {
-    try {
-      const raw = sessionStorage.getItem(KEY);
-      if (raw !== null) {
-        attempted.current = true;
-        const value = JSON.parse(raw) as Partial<Attempt>;
-        if (
-          value.status === 'success' &&
-          'instanceId' in value &&
-          typeof value.instanceId === 'string' &&
-          UUID.test(value.instanceId)
-        ) {
-          setAttempt({ status: 'success', instanceId: value.instanceId });
-        } else setAttempt({ status: 'sent' });
-      }
-      setLoaded(true);
-    } catch {
-      attempted.current = true;
-      setMessage(
-        '送信履歴を安全に確認できません。実行せず、初期化口を閉じて設定を確認してください。',
-      );
-    }
-  }, []);
+  const [sendMessage, setMessage] = useState('');
+  const message =
+    sendMessage ||
+    (storageError
+      ? '送信履歴を安全に確認できません。実行せず、初期化口を閉じて設定を確認してください。'
+      : '');
 
   async function initialize() {
-    if (!allowed || !loaded || attempted.current) return;
+    if (!allowed || !loaded || storedAttempt || attempted.current) return;
     attempted.current = true;
     const sent: Attempt = { status: 'sent' };
     try {
@@ -131,25 +154,21 @@ export function ReportsBootstrapAdmin({ allowed }: { allowed: boolean }) {
       </p>
       <button
         type="button"
-        disabled={
-          !allowed || !loaded || attempted.current || attempt !== null || busy
-        }
+        disabled={!allowed || !loaded || attempt !== null || busy}
         onClick={() => void initialize()}
       >
         初期化を1回実行
       </button>
-      <p role="status" aria-live="polite">
+      <output aria-live="polite" style={{ display: 'block' }}>
         {message ||
           (attempt?.status === 'sent'
             ? 'このタブでは送信済みです。結果を確定できないため再実行せず、初期化口を閉じて確認してください。'
             : '')}
-      </p>
+      </output>
       {attempt?.status === 'success' && (
         <div>
           <h3>返却されたUUID</h3>
-          <output style={{ overflowWrap: 'anywhere' }}>
-            {attempt.instanceId}
-          </output>
+          <code style={{ overflowWrap: 'anywhere' }}>{attempt.instanceId}</code>
           <p>
             このUUIDは認証情報ではありません。初回作成か既存台帳かは、この応答だけでは判別できません。
           </p>

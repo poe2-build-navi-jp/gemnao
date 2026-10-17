@@ -150,7 +150,7 @@ try {
       el.click();
       el.click();
     });
-    if (mode === 'success') await expect(page.locator('output')).toHaveText(id);
+    if (mode === 'success') await expect(page.locator('code')).toHaveText(id);
     else await expect(page.getByRole('status')).not.toContainText('送信中です');
     await expect(button).toBeDisabled();
     assert.equal(calls, 1);
@@ -162,7 +162,7 @@ try {
       await page.screenshot({ path: out + '/success-320.png', fullPage: true });
     await page.reload();
     await expect(button).toBeDisabled();
-    if (mode === 'success') await expect(page.locator('output')).toHaveText(id);
+    if (mode === 'success') await expect(page.locator('code')).toHaveText(id);
     await button.evaluate((el) => el.click());
     assert.equal(calls, 1);
     assert.ok(
@@ -177,6 +177,7 @@ try {
   }
 
   const unavailable = await pageFor(base, true, () => {
+    // oxlint-disable-next-line typescript/unbound-method -- Called with its original receiver below.
     const original = Storage.prototype.setItem;
     Storage.prototype.setItem = function (key, value) {
       if (key === 'gemnao-reports-bootstrap-attempt-v1')

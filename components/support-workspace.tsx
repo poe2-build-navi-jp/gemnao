@@ -18,7 +18,6 @@ import {
   supportSummary,
   type ShareFields,
 } from '@/lib/support-summary';
-import { matchingUpdates, markUpdatesRead } from '@/lib/support-updates';
 import {
   MY_DATA_EVENT,
   type SavedSolution,
@@ -90,25 +89,32 @@ export function SupportWorkspace({
     }
   }
   return (
-    <section className="support-workspace" id="issue-notebook" aria-label={t.heading} lang={locale}>
+    <section
+      className="support-workspace"
+      id="issue-notebook"
+      aria-label={t.heading}
+      lang={locale}
+    >
       <h3>{t.heading}</h3>
       <p>{t.privacy}</p>
-      {items.length > 0 && <label>
-        {t.choose}
-        <select
-          aria-label={t.choose}
-          value={item?.id || ''}
-          disabled={!ready || !!error}
-          onChange={(e) => select(e.target.value)}
-        >
-          <option value="">{t.none}</option>
-          {items.map((i) => (
-            <option key={i.id} value={i.id}>
-              {i.title} — {t[i.status]}
-            </option>
-          ))}
-        </select>
-      </label>}
+      {items.length > 0 && (
+        <label>
+          {t.choose}
+          <select
+            aria-label={t.choose}
+            value={item?.id || ''}
+            disabled={!ready || !!error}
+            onChange={(e) => select(e.target.value)}
+          >
+            <option value="">{t.none}</option>
+            {items.map((i) => (
+              <option key={i.id} value={i.id}>
+                {i.title} — {t[i.status]}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
       {items.length > 0 && <p>{t.active}</p>}
       <div className="my-pc-actions">
         <button
@@ -394,7 +400,10 @@ function SupportSummary({
         item,
         fields,
         language,
-        gameDisplayName(games.find((g) => g.slug === item.gameSlug), language) || t.other,
+        gameDisplayName(
+          games.find((g) => g.slug === item.gameSlug),
+          language,
+        ) || t.other,
         pc,
       ),
     [item, fields, language, pc, t.other],
@@ -489,65 +498,5 @@ function SupportSummary({
     </details>
   );
 }
-export function SupportUpdates({ locale = 'ja', createHref }: {
-  locale?: SupportLocale;
-  createHref: string;
-}) {
-  const t = supportCopy[locale];
-  const { items, ready, error } = useSavedSolutions();
-  const [failed, setFailed] = useState(false);
-  const matches = items.flatMap((item) =>
-    matchingUpdates(item).map((update) => ({ item, update })),
-  );
-  return (
-    <section className="support-workspace" aria-label={t.updates}>
-      <h2>{t.updates}</h2>
-      <p>{t.updateHint}</p>
-      {ready && !error && !matches.length && (
-        !items.length ? <p>{t.noRecords} <a href={createHref}>{t.create} →</a></p>
-          : <p>{items.every(item => item.status === 'resolved') ? t.noUnresolved : t.emptyUpdates}</p>
-      )}
-      {(error || failed) && <p role="alert">{t.error}</p>}
-      {matches.map(({ item, update }) => (
-        <article key={`${item.id}:${update.id}`}>
-          <h3>
-            {item.title} — {t[update.kind]}
-          </h3>
-          <p>{gameDisplayName(games.find((g) => g.slug === item.gameSlug), locale)}</p>
-          <p>{update.text[locale]}</p>
-          <p>
-            {t.verified}: {update.verifiedOn}
-          </p>
-          <a href={update.sourceUrl} rel="noreferrer">
-            {t.evidence}
-          </a>
-        </article>
-      ))}
-      {!!matches.length && (
-        <button
-          type="button"
-          onClick={() => {
-            try {
-              markUpdatesRead(
-                localStorage,
-                items.map((item) => ({
-                  id: item.id,
-                  updates: matches
-                    .filter((m) => m.item.id === item.id)
-                    .map((m) => m.update.id),
-                })),
-              );
-              setFailed(false);
-            } catch {
-              setFailed(true);
-            } finally {
-              announceMyData();
-            }
-          }}
-        >
-          {t.mark}
-        </button>
-      )}
-    </section>
-  );
-}
+
+export { SupportUpdates } from './support-updates';

@@ -168,7 +168,7 @@ export const releaseRoundups: ReleaseRoundup[] = [
         win10Note: '動作環境の表記はWindows 11',
         article: {
           href: '/games/castlevania-belmonts-curse/not-launching',
-          label: '起動しない・コントローラーが効かない',
+          label: '起動しない・黒い画面の回避策',
         },
         source: steam('4231820'),
       },
@@ -204,7 +204,8 @@ export const releaseRoundups: ReleaseRoundup[] = [
         gtx1660: 'no',
         gtx1660Note: '最低環境のGPUはVRAM 8GBで、GTX 1660（6GB）は下回る',
         win10: 'no',
-        win10Note: 'Steamの最低・推奨OSはWindows 11。Windows 10は掲載された最低OSを満たさない（10月13日確認）',
+        win10Note:
+          'Steamの最低・推奨OSはWindows 11。Windows 10は掲載された最低OSを満たさない（10月13日確認）',
         source: steam('3486530'),
       },
       {
