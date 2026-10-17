@@ -22,3 +22,7 @@ wrangler.jsonは上記desiredConfigSha256に一致するlaunchConfig(base,true)�
 **本番利用者の送信入口確認は未完了。** 親ブラウザで記事リンク→/reportsの表示、JS/CSS、statusのenabled/publicEnabled/canDelete、フォーム入力→プレビュー→同意後の送信ボタン有効を確認する（送信は押さず、試験下書きは他の保存データに触れず処理）。statusのGETは既存設計で日次枠/rate記録を使うため、繰り返し検査しない。公開healthのJSONは親ブラウザでok/intake/public trueを確認したがHTTP番号自体は報告されていない。controlのreadyHealthはHTTP200を要求して通過した、という機械検査の証拠と区別する。
 
 監視通知は旧SHA122a79dのmanual run39017990097の端末受領確認。confirmedAt08:37:42 UTC、deliveredAt=null、scheduleVerified=false。定期監視欠落時の通知不達リスクは引き続き残る。
+
+## 親ブラウザの続報
+
+2026-10-17 18:26 JSTの「準備中」表示は初期ロード中で、読込完了後に消えたと親が訂正。ゲーム・症状・状態フォーム、「下書きを保存」「公開候補を確認」が表示される。status初期値false→取得後更新という既存実装と一致し、UI/API不一致の確定報告は取り消す。UIコードの修正は不要。実投稿なし。プレビュー・同意後の最終送信ボタン状態は、まだ親から確認結果を受領していない。
