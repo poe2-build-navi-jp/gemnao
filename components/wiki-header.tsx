@@ -1,3 +1,4 @@
+import { gamesListPath } from '@/lib/i18n';
 /* oxlint-disable next/no-img-element -- Tiny static logo uses the same asset as the favicon. */
 import { Languages, Search } from 'lucide-react';
 import type { Locale } from '@/lib/i18n';
@@ -87,7 +88,7 @@ export function WikiHeader({
           locale === 'ja' ? 'メインナビゲーション' : ui[locale].mainNav
         }
       >
-        <a href={locale === 'ja' ? '/?view=games#games' : `${root}/#games`}>
+        <a href={gamesListPath(locale)}>
           {labels.games}
         </a>
         {locale === 'ja' ? <a href="/#symptoms">症状から探す</a> : null}

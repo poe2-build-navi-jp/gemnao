@@ -78,7 +78,12 @@ export function GameRequestForm({ locale }: { locale: MyGamesLocale }) {
     if (result === 'unavailable') setAvailable(false);
   }
   return (
-    <section className="game-request" aria-labelledby={`${id}-heading`}>
+    <section
+      id="game-request"
+      tabIndex={-1}
+      className="game-request"
+      aria-labelledby={`${id}-heading`}
+    >
       <h2 id={`${id}-heading`}>{t.title}</h2>
       <p>{t.intro}</p>
       <p className="game-request-privacy">{t.capacity}</p>

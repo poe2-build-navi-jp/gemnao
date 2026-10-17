@@ -159,7 +159,12 @@ export function MyGamesPanel({
             </button>
           ))}
         </div>
-        {!matches.length ? <p>{t.noResults}</p> : null}
+        {!matches.length ? (
+          <div className="my-games-no-results">
+            <p>{t.noResults}</p>
+            <a href="#game-request">{t.requestGame} →</a>
+          </div>
+        ) : null}
         <output className="my-games-message" aria-live="polite">
           {message}
         </output>

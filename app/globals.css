@@ -1954,8 +1954,8 @@ kbd {
   font-size: 12px;
 }
 
-/* Use the compact navigation before the extra My PC link crowds the header. */
-@media (max-width: 1100px) {
+/* Keep the complete navigation compact before labels become crowded. */
+@media (max-width: 1480px) {
   .site-header {
     height: 60px;
     padding-inline: 16px;
@@ -5680,3 +5680,15 @@ a.my-games-primary {
 
 .report-count { display: grid; gap: 8px; margin-top: 12px; }
 .report-count button { justify-self: start; min-height: 44px; max-width: 100%; white-space: normal; }
+
+/* Header labels stay intact; compact navigation retains every destination. */
+.site-header { padding-inline: max(22px, calc((100vw - 1480px) / 2)); }
+.site-header > nav { gap: 14px; }
+.site-header > .logo, .site-header > .language-menu { flex-shrink: 0; }
+.site-header > nav a, .language-menu summary { white-space: nowrap; }
+@media (max-width: 1480px) {
+  .site-header { padding-inline: 16px; }
+  .site-header > .language-menu { margin-left: auto; }
+}
+.my-games-no-results a { display: inline-block; min-height: 44px; padding-block: 10px; }
+#game-request { scroll-margin-top: 24px; }

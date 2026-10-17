@@ -4,6 +4,7 @@ export const myGamesPath = (locale: MyGamesLocale) =>
   `${locale === 'ja' ? '' : `/${locale}`}/my-games`;
 export const myGamesCopy = {
   ja: {
+    requestGame: '見つからないゲームの追加をリクエストする',
     title: '遊ぶゲームの対処法を、自分の一覧に。',
     name: 'マイゲーム',
     lead: 'ゲームを1本選ぶだけ。起動しない・落ちる・重いときの解決記事を、次回もここからすぐ開けます。',
@@ -43,6 +44,7 @@ export const myGamesCopy = {
     count: '保存済み',
   },
   en: {
+    requestGame: 'Request a game that is missing',
     title: 'Your games. Their fixes. One place.',
     name: 'My Games',
     lead: 'Pick a game to keep its troubleshooting guides together. Come back here when it won’t launch, crashes, or runs poorly.',
@@ -83,6 +85,7 @@ export const myGamesCopy = {
     count: 'saved',
   },
   zh: {
+    requestGame: '申请添加未找到的游戏',
     title: '把常玩的游戏和解决方法，放在一起。',
     name: '我的游戏',
     lead: '选一个游戏，就能集中查看它的故障排查指南。下次遇到无法启动、崩溃或卡顿时，直接从这里打开。',
@@ -120,6 +123,7 @@ export const myGamesCopy = {
     count: '已保存',
   },
   es: {
+    requestGame: 'Solicitar un juego que falta',
     title: 'Tus juegos y sus soluciones, en un solo lugar.',
     name: 'Mis juegos',
     lead: 'Elige un juego para reunir sus guías de solución de problemas. Vuelve aquí cuando no arranque, se cierre o vaya lento.',

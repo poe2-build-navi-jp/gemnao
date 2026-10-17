@@ -187,3 +187,7 @@ export const copy = {
 export function localizedRoot(locale: 'ja' | Locale) {
   return locale === 'ja' ? '/' : `/${locale}`;
 }
+
+/** Japanese home defaults to featured games; translated homes already show all translated games. */
+export const gamesListPath = (locale: 'ja' | Locale = 'ja') =>
+  locale === 'ja' ? '/?view=games#games' : `/${locale}/#games`;

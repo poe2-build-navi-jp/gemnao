@@ -1,3 +1,4 @@
+import { gamesListPath } from '@/lib/i18n';
 import { ReportEntryLink } from '@/components/report-entry-link';
 import { ArticleToc } from '@/components/article-toc';
 import { OnimushaSaveAnswer } from '@/components/onimusha-save-answer';
@@ -225,7 +226,7 @@ export default async function GamePage({
           <nav className="breadcrumbs" aria-label="パンくず">
             <a href="/">ゲムなお</a>
             <span>/</span>
-            <a href="/#games">ゲーム一覧</a>
+            <a href={gamesListPath()}>ゲーム一覧</a>
             <span>/</span>
             <b>{game.shortTitle}</b>
           </nav>
