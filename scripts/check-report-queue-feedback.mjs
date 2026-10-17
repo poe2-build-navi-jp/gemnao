@@ -108,7 +108,9 @@ try {
     const p = await setup(result.outputFiles[0].text);
     await p.getByRole('combobox').selectOption(locale);
     const b = p.locator('.report-workspace > button').first(),
-      out = p.locator('.report-queue-status');
+      out = p.locator('.report-queue-status'),
+      resultText = p.locator('.report-queue-result'),
+      attemptText = p.locator('.report-queue-attempt');
     await mock(p, 'wait');
     await b.click();
     await expect(b).toBeDisabled();
@@ -119,22 +121,28 @@ try {
     assert.equal(await p.evaluate(() => window.mockCalls.length), 1);
     await p.evaluate(() => window.resolveQueue());
     await expect(b).toBeEnabled();
-    const empty = await out.innerText();
+    const empty = await resultText.innerText();
     assert.notEqual(empty, loading);
+    const firstAttempt = await attemptText.innerText();
+    await mock(p, 'empty');
+    await b.click();
+    await expect(b).toBeEnabled();
+    await expect(attemptText).not.toHaveText(firstAttempt);
+    await expect(resultText).toHaveText(empty);
     const messages = new Set([empty]);
     for (const code of [401, 403, 503, 429, 500]) {
       await mock(p, 'http', code);
       await b.click();
       await expect(out).toContainText(String(code));
       await expect(b).toBeEnabled();
-      messages.add(await out.innerText());
+      messages.add(await resultText.innerText());
     }
     assert.equal(messages.size, 6);
     for (const mode of ['network', 'bad']) {
       await mock(p, mode);
       await b.click();
       await expect(b).toBeEnabled();
-      messages.add(await out.innerText());
+      messages.add(await resultText.innerText());
     }
     assert.equal(messages.size, 8);
     await mock(p, 'row');
@@ -150,6 +158,11 @@ try {
     await mock(p, 'http', 503);
     await p.locator('.report-workspace > button').last().click();
     await expect(out).toContainText('503');
+    const failedAttempt = await attemptText.innerText();
+    await b.click();
+    await expect(b).toBeEnabled();
+    await expect(resultText).toContainText('503');
+    await expect(attemptText).not.toHaveText(failedAttempt);
     await expect(p.locator('.review-card')).toHaveCount(0);
     assert.equal(await p.locator('.report-workspace > button').count(), 1);
     for (const width of [390, 1165]) {
@@ -171,6 +184,12 @@ try {
       await b.click();
       await expect(out).toContainText('10秒', { timeout: 12000 });
       await expect(b).toBeEnabled();
+      const timedOutAttempt = await attemptText.innerText();
+      await mock(p, 'empty');
+      await b.click();
+      await expect(b).toBeEnabled();
+      await expect(resultText).toHaveText(empty);
+      await expect(attemptText).not.toHaveText(timedOutAttempt);
     }
     await p.close();
     console.log(

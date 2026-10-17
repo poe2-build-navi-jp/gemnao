@@ -567,11 +567,18 @@ function ReviewCard({
     </article>
   );
 }
+const queueAttemptLabels = {
+  ja: 'この画面での読込回数：',
+  en: 'Read attempts on this screen:',
+  zh: '本页面读取次数：',
+  es: 'Intentos de lectura en esta pantalla:',
+};
 export function CommunityReportsAdmin() {
   const [locale, setLocale] = useState<MyGamesLocale>('ja'),
     [rows, setRows] = useState<QueueRow[]>([]),
     [status, setStatus] = useState<keyof typeof queueMessages.ja | ''>(''),
     [httpStatus, setHttpStatus] = useState(0),
+    [attempt, setAttempt] = useState(0),
     [next, setNext] = useState<string | null>(null),
     [busy, setBusy] = useState(false);
   const t = reportCopy[locale],
@@ -584,6 +591,7 @@ export function CommunityReportsAdmin() {
     guard.current = true;
     setBusy(true);
     setStatus('loading');
+    setAttempt((value) => value + 1);
     setRows([]);
     setNext(null);
     const controller = new AbortController();
@@ -676,12 +684,22 @@ export function CommunityReportsAdmin() {
         aria-live="polite"
         aria-atomic="true"
       >
-        {status ? queueMessages[locale][status] : ''}
-        {status === 'loaded'
-          ? ` ${rows.length}`
-          : status === 'other'
-            ? ` ${httpStatus}`
-            : ''}
+        <span className="report-queue-result">
+          {status ? queueMessages[locale][status] : ''}
+          {status === 'loaded'
+            ? ` ${rows.length}`
+            : status === 'other'
+              ? ` ${httpStatus}`
+              : ''}
+        </span>
+        {attempt > 0 && (
+          <>
+            <br />
+            <span className="report-queue-attempt">
+              {queueAttemptLabels[locale]} {attempt}
+            </span>
+          </>
+        )}
       </output>
       {rows.map((r) => (
         <ReviewCard
