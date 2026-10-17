@@ -75,7 +75,7 @@ test('critical storage and unknown safety suppress ordinary game instructions', 
 
 test('dependent Back changes clear hidden errors; PC-wide branch goes to consultation', async ({ page }) => {
   await begin(page);
-  await choose(page, 'ゲームだけ（Windowsは操作できる）');
+  await choose(page, 'PC全体の停止はない（Windowsは操作できる）');
   await choose(page, 'エラーが表示される');
   await choose(page, 'DirectX / DXGI');
   await page.getByRole('button', { name: '前の質問へ' }).click();
@@ -177,7 +177,7 @@ test('diagnosis retains no GA, native article navigation, noindex and sitemap ex
 
 test('changing optional cost context keeps tried actions and reset really clears local history', async ({ page }) => {
   await begin(page, 'FPSが低い');
-  await choose(page, 'ゲームだけ（Windowsは操作できる）');
+  await choose(page, 'PC全体の停止はない（Windowsは操作できる）');
   await choose(page, '30 / 60など一定のFPSで止まる');
   await choose(page, '思い当たる変更はない');
   await choose(page, 'Steam');

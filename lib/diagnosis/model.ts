@@ -1,6 +1,7 @@
+import { specialistSymptoms, specialistObservations, specialistHelp } from './specialists';
 /** Versioned, deterministic triage. Never an estimated cause probability. */
-export const RULE_VERSION = '2026-10-10.1';
-export const PREVIOUS_RULE_VERSION = '2026-10-02.1';
+export const RULE_VERSION = '2026-10-18.1';
+export const PREVIOUS_RULE_VERSION = '2026-10-10.1';
 export const CHECKED_AT = '2026-10-02';
 export const symptoms = [
   {
@@ -21,6 +22,7 @@ export const symptoms = [
   { id: 'freeze', label: 'フリーズする', detail: '画面が止まって操作できない' },
   { id: 'low-fps', label: 'FPSが低い', detail: '全体的に動きが重い' },
   { id: 'stutter', label: 'カクつく', detail: '一瞬引っかかる・動きが不安定' },
+  ...specialistSymptoms,
 ] as const;
 export type Symptom = (typeof symptoms)[number]['id'];
 export const statuses = {
@@ -160,10 +162,10 @@ export const questions: Record<string, Question> = {
   },
   scope: {
     id: 'scope',
-    title: '止まるのはゲームだけですか？',
+    title: 'PC全体の停止・再起動も起きていますか？',
     help: '問題が起きたときWindowsのスタート画面や他のアプリが使えるかを思い出してください。PC全体の異常は、この診断の通常の対処と分けます。無理に再現させる必要はありません。',
     options: options([
-      ['game', 'ゲームだけ（Windowsは操作できる）'],
+      ['game', 'PC全体の停止はない（Windowsは操作できる）'],
       ['pc-freeze', 'PC全体が固まる'],
       ['restart', 'PCが再起動する・BSODが出る'],
       ['power-off', 'PCの電源が落ちる'],
@@ -238,7 +240,8 @@ export const questions: Record<string, Question> = {
     ]),
   },
 };
-const observations: Record<Symptom, string[][]> = {
+const observations: Record<string, string[][]> = {
+  ...specialistObservations,
   'not-launching': [
     ['nothing', 'プレイを押しても無反応'],
     ['exits', '起動中になってすぐ戻る'],
@@ -282,7 +285,7 @@ export function observationQuestion(a: Answers): Question {
   return {
     id: 'observation',
     title: 'どんな状況ですか？',
-    help: '一番近いものを選びます。FPSが未計測でも、分からないを選んで最後まで進めます。',
+    help: specialistHelp[a.symptom || ''] || '一番近いものを選びます。FPSが未計測でも、分からないを選んで最後まで進めます。',
     options: options(isSymptom(a.symptom) ? observations[a.symptom] : []),
   };
 }

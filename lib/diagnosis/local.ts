@@ -44,7 +44,7 @@ export function readLocal(): LocalDiagnosis | null {
     const d: unknown = JSON.parse(raw);
     if (
       !record(d) ||
-      ![RULE_VERSION, PREVIOUS_RULE_VERSION].includes(String(d.version)) ||
+      ![RULE_VERSION, PREVIOUS_RULE_VERSION, '2026-10-02.1'].includes(String(d.version)) ||
       typeof d.savedAt !== 'number' ||
       !Number.isFinite(d.savedAt) ||
       d.savedAt > Date.now() + 60000 ||
@@ -80,7 +80,7 @@ export function readLocal(): LocalDiagnosis | null {
       localStorage.removeItem(LOCAL_KEY);
       return null;
     }
-    if (d.version === PREVIOUS_RULE_VERSION) {
+    if (d.version !== RULE_VERSION) {
       // Keep prior answers and records; the new safety questions must be answered afresh.
       return {
         ...(d as LocalDiagnosis),

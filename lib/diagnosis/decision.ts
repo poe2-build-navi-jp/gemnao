@@ -59,6 +59,16 @@ export function repairDecision(
     evidence: ['危険な兆候またはストレージ警告について、未回答・分からない項目があります。「不明」は「正常」ではありません。'],
     nextSteps: ['すでに見た警告や気付いた兆候を、電源投入や再現テストをせずに確認します。判断できなければメーカー窓口へ相談できます。', '安全が確認できるまで負荷のかかる対処を進めず、部品購入や買い替えの判断を保留します。'],
   });
+  if (answers.symptom === 'steam-cloud') return finish({
+    category: 'insufficient', urgency: 'normal', title: '保存データの保全と同期状態の照合を優先',
+    evidence: ['Steam Cloudの問題という自己申告です。ローカル・クラウドの保存内容をこのWeb診断は取得していません。'],
+    nextSteps: ['ゲームを終了し、各端末のローカルセーブを別の場所へコピーして保全します。Cloud対応や正しい保存版が分かるまで起動・上書き・競合選択を保留してください。', '日時だけで選ばず実際のプレイ履歴と照合し、分からない場合はSteamまたはゲーム公式へ相談します。削除や再インストールを先に行いません。'],
+  });
+  if (answers.symptom === 'gpu-usage' && answers.observation === 'heat') return finish({
+    category: 'repair', urgency: 'normal', title: '温度警告がある場合は負荷を止めて相談',
+    evidence: ['温度警告・熱による低下が気になるという回答です。温度や原因は自動測定していません。'],
+    nextSteps: ['ゲームや負荷テストを止め、すでに見た警告をメーカーへ相談します。異臭・危険な熱があれば使用を中止してください。', '機種ごとの許容条件を確認せずに正常と判断しません。分解・電圧変更・再現テストは行いません。'],
+  });
   const improved = ['settings', 'fpscap', 'display'].filter((id) => records[id] === 'improved');
   if (improved.length || (answers.symptom === 'low-fps' && answers.observation === 'capped') || answers.change === 'settings') return finish({
     category: 'settings', urgency: 'normal', title: '設定の確認・改善を先に試す余地があります',

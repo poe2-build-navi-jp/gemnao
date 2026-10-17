@@ -119,7 +119,7 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
     diagnose(data.answers, {}).recommendations.map((r) => r.action.id),
   );
   const triedChoices = Object.values(actions).filter(
-    (a) => !['pc', 'inspect'].includes(a.id),
+    (a) => !['pc', 'inspect'].includes(a.id) && (!a.id.startsWith('specialist-') || a.id.startsWith(`specialist-${data.answers.symptom}-`)),
   );
   const recordTried = (id: string, status: ActionStatus) =>
     setData((d) => ({

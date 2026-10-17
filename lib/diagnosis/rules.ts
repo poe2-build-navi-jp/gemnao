@@ -1,3 +1,4 @@
+import { specialistActions, specialistBranches, specialistSymptoms, specialistActionFor, specialistFallbacks } from './specialists';
 import { repairDecision } from './decision';
 import {
   CHECKED_AT,
@@ -78,6 +79,8 @@ const action = (
   ...extra,
 });
 export const actions: Record<string, Action> = {
+  ...specialistActions,
+  ...Object.fromEntries(Object.values(specialistFallbacks).map((action) => [action.id, action])),
   inspect: action(
     'inspect',
     '症状と発生した場面を確認する',
@@ -314,6 +317,7 @@ const rule = (
   checkedAt: CHECKED_AT,
 });
 export const rules: Rule[] = [
+  ...specialistBranches.map((b) => ({ ...rule(b.action, b.action, 100, { symptom: [b.symptom], observation: [b.observation], scope: ['game'] }, b.reason), checkedAt: '2026-10-18' })),
   rule(
     'change-mods',
     'mods',
@@ -520,6 +524,7 @@ export function diagnose(
         .filter(
           (r) =>
             matches(a, r.conditions) &&
+            (!specialistSymptoms.some((s) => s.id === a.symptom) || r.id.startsWith('specialist-')) &&
             !Object.entries(r.excludes).some(([k, vs]) =>
               vs?.includes(a[k as keyof Answers] || ''),
             ),
@@ -540,7 +545,7 @@ export function diagnose(
         .map((r) => ({
           ruleId: r.id,
           reason: r.reason,
-          action: actions[r.action],
+          action: specialistActionFor(actions[r.action], a.os),
         }))
     : [];
   return {
@@ -557,7 +562,7 @@ export function diagnose(
             ruleId: 'insufficient-information',
             reason:
               '情報が足りない、または該当する確認をすでに実施しているためです。',
-            action: actions.inspect,
+            action: specialistFallbacks[a.symptom || ''] || actions.inspect,
           },
         ],
   };
