@@ -28,7 +28,7 @@ on:
         type: string
         required: false
       monitor_receipt:
-        description: start/open only; actual receipt within 24h. CHATGPT_REPORTS_ALERT_RECEIVED@UTC or GITHUB_SCHEDULE_ALERT_RECEIVED@RUN_ID@UTC. See github-notifications.md; never infer delivery.
+        description: start/open only; actual receipt within 24h. CHATGPT_REPORTS_ALERT_RECEIVED@UTC or GITHUB_SCHEDULE_ALERT_RECEIVED@RUN_ID@UTC. Or exact approved GITHUB_MANUAL_ALERT_CONFIRMED receipt; see github-notifications.md. Never infer delivery.
         type: string
         required: false
       confirmation:

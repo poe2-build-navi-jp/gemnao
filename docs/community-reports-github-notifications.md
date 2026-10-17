@@ -1,3 +1,25 @@
+> 2026-10-17 08:57 UTCの本人承認により、下記「承認済み手動通知の実証拠」を代替条件として追加した。旧手順の「定期run必須」はこの限定経路には適用しない。定期起動欠落リスクは承認時に説明済みで、解消済みとは扱わない。
+
+## 承認済み手動通知の実証拠
+
+run39017990097、event=workflow_dispatch、source SHA `122a79df3ff1eb62d11c6823e0ec5dc75808fa17`、実health検査は2026-10-17 08:36:27 UTCに503/valid JSON/not-configured/受付OFFを検出してexit1。本人端末の該当失敗メールの画像を親が08:37:42 UTCに確認。正確な配達秒は不明。
+
+使用する入力は以下の固定値。時刻は**受領を確認した日時**であり配達日時ではない。
+
+`GITHUB_MANUAL_ALERT_CONFIRMED@39017990097@122a79df3ff1eb62d11c6823e0ec5dc75808fa17@2026-10-17T08:37:42.000Z`
+
+receiptは confirmedAt、deliveredAt=null、event=workflow_dispatch、scheduleVerified=false、旧runのsourceSha/runURLを保存する。日時の未来・24時間超、run/SHA/日時の改変は拒否する。期限は2026-10-18 08:37:42 UTCまでで、更新日時を捏造して延長しない。独立機械検証済みとはしない。
+
+旧SHAの実績を参照できるのは、旧SHAから新HEADまでの変更がreceipt処理、起動workflowの入力説明、該当テスト、本書の4ファイルだけの場合。source gateがこの差分を照合し、監視workflow/検査スクリプト/health/runtimeが変更された場合は拒否する。新SHAで実施したrunとは記録しない。空DB/binding、artifact固定、本人Environment承認、実cleanup鮮度は従来通り。
+
+start-free/open-freeは新しい反映SHAをsource_sha/confirmationに指定する。monitor_receiptは上記旧runの固定根拠のまま使用。start-freeで初回を含むcron開始、実cleanupを確認してからopen-free。定期監視が欠落すれば通知も届かないリスクは残る。
+
+## 成功後の追随commitの準備
+
+未成功の設定を先にcommitしない。最終成功receiptのdesiredConfigSha256と、`launchConfig(base, opened)` のnormalized JSONのSHA256を照合し、その設定をroot wrangler.jsonに保存する。baseは配備基準8f964adのwrangler.json、openedは実際の完了状態から決める。open-free完了前に追随commitをpushすると固定SHA手順を阻害するため、開始から公開まで同じSHAを維持する。追随commitは `[CF-Pages-Skip]` とし、通常Pages配備は設定同期確認まで実行しない。中断時も現実の閉鎖/開放状態をreceiptで確定してから別途同期する。
+
+---
+
 # GitHub標準通知による投稿受付監視（実到達は未確認）
 
 2026-10-17、所有者がChatGPT監視の到達を確認できない場合の無料GitHub Actions通知への変更を承認。既存ChatGPTタスクは変更・停止しない。新credential、外部通知サービス、セキュリティ変更は不要。本人の通知設定は親ブラウザでActionsのOn GitHub/Emailと失敗のみ通知が有効と確認済み。宛先・個人情報は保存しない。

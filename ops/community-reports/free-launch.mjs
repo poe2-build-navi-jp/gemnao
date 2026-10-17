@@ -32,6 +32,13 @@ export const CONFIRM = {
   'start-free': 'START_FREE_REPORTS_30D_CLEANUP_AND_CRON:',
   'open-free': 'OPEN_FREE_REPORTS_AFTER_VERIFIED_CLEANUP:',
 };
+// Fixed, owner-confirmed historical notification. Confirmation time is not delivery time.
+export const MANUAL_MONITOR = Object.freeze({
+  runId: '39017990097',
+  sourceSha: '122a79df3ff1eb62d11c6823e0ec5dc75808fa17',
+  confirmedAt: '2026-10-17T08:37:42.000Z',
+});
+export const MANUAL_RECEIPT = `GITHUB_MANUAL_ALERT_CONFIRMED@${MANUAL_MONITOR.runId}@${MANUAL_MONITOR.sourceSha}@${MANUAL_MONITOR.confirmedAt}`;
 export const MONITOR = 'ChatGPT task: ゲムなお投稿受付の異常監視';
 export const COUNT_SQL = await readFile(
   new URL('./cleanup-counts.sql', import.meta.url),
@@ -66,6 +73,26 @@ export function launchContext(env, now = Date.now()) {
     return null;
   }
   const raw = env.REPORTS_MONITOR_RECEIPT || '';
+  if (raw === MANUAL_RECEIPT) {
+    const confirmed = Date.parse(MANUAL_MONITOR.confirmedAt);
+    need(
+      confirmed <= now && confirmed >= now - 86400000,
+      'ACTUAL_OWNER_MONITOR_RECEIPT_REQUIRED',
+    );
+    return {
+      destination: 'GitHub Actions standard notification',
+      workflow: '.github/workflows/community-reports-public-health.yml',
+      event: 'workflow_dispatch',
+      runId: MANUAL_MONITOR.runId,
+      runUrl: `https://github.com/${TARGET.repository}/actions/runs/${MANUAL_MONITOR.runId}`,
+      sourceSha: MANUAL_MONITOR.sourceSha,
+      confirmedAt: MANUAL_MONITOR.confirmedAt,
+      deliveredAt: null,
+      scheduleVerified: false,
+      evidence: 'owner-device-screenshot-reviewed-by-parent',
+      independentlyVerified: false,
+    };
+  }
   const chat =
     /^CHATGPT_REPORTS_ALERT_RECEIVED@(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z)$/.exec(
       raw,
@@ -103,9 +130,31 @@ export function launchContext(env, now = Date.now()) {
   };
 }
 export async function verifyLaunchSource(env) {
-  launchContext(env);
+  const monitor = launchContext(env);
   const git = (...a) => execFileSync('git', a, { encoding: 'utf8' }).trim();
   need(git('rev-parse', 'HEAD') === env.GITHUB_SHA, 'LAUNCH_CHECKOUT_SHA');
+  if (monitor?.event === 'workflow_dispatch') {
+    // Historical evidence may be reused only when the monitor and application
+    // tree are unchanged; only receipt plumbing, tests and rollout docs may differ.
+    const receiptFiles = [
+      '.github/workflows/community-reports-closed-setup.yml',
+      'ops/community-reports/free-launch.mjs',
+      'tests/community-reports/free-launch.test.mjs',
+      'docs/community-reports-github-notifications.md',
+    ];
+    try {
+      git('merge-base', '--is-ancestor', MANUAL_MONITOR.sourceSha, 'HEAD');
+    } catch {
+      throw new SetupFailure('MANUAL_MONITOR_SOURCE_REQUIRED');
+    }
+    need(
+      git('diff', '--name-only', MANUAL_MONITOR.sourceSha, 'HEAD')
+        .split('\n')
+        .filter(Boolean)
+        .every((p) => receiptFiles.includes(p)),
+      'MANUAL_MONITOR_CODE_CHANGED',
+    );
+  }
   try {
     git('merge-base', '--is-ancestor', BASE, 'HEAD');
   } catch {

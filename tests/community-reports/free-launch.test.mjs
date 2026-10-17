@@ -11,6 +11,8 @@ import { RELEASE } from '../../ops/community-reports/code-deploy.mjs';
 import { configProjection } from '../../ops/community-reports/managed-config.mjs';
 import {
   BASE,
+  MANUAL_MONITOR,
+  MANUAL_RECEIPT,
   ANCHOR,
   MODE,
   CRON,
@@ -558,4 +560,114 @@ await test('GitHub scheduled notification attestation retains exact run and reje
       now,
     ),
   );
+});
+
+await test('approved manual screenshot records confirmation, not delivery or scheduled execution', () => {
+  const at = Date.parse(MANUAL_MONITOR.confirmedAt);
+  for (const op of ['start-free', 'open-free']) {
+    const r = launchContext(
+      { ...environment(op), REPORTS_MONITOR_RECEIPT: MANUAL_RECEIPT },
+      at + 1000,
+    );
+    assert.equal(r.event, 'workflow_dispatch');
+    assert.equal(r.runId, '39017990097');
+    assert.equal(r.sourceSha, '122a79df3ff1eb62d11c6823e0ec5dc75808fa17');
+    assert.equal(r.confirmedAt, MANUAL_MONITOR.confirmedAt);
+    assert.equal(r.deliveredAt, null);
+    assert.equal(r.scheduleVerified, false);
+    assert.equal(r.independentlyVerified, false);
+    assert.ok(!Object.hasOwn(r, 'receivedAt'));
+  }
+  for (const time of [at - 1, at + 86400001])
+    assert.throws(() =>
+      launchContext(
+        {
+          ...environment('start-free'),
+          REPORTS_MONITOR_RECEIPT: MANUAL_RECEIPT,
+        },
+        time,
+      ),
+    );
+  for (const raw of [
+    MANUAL_RECEIPT + '\n',
+    MANUAL_RECEIPT.replace('39017990097', '39017990098'),
+    MANUAL_RECEIPT.replace(MANUAL_MONITOR.sourceSha, sha),
+  ])
+    assert.throws(() =>
+      launchContext(
+        { ...environment('start-free'), REPORTS_MONITOR_RECEIPT: raw },
+        at + 1000,
+      ),
+    );
+  assert.throws(() =>
+    launchContext(
+      {
+        ...environment('inspect-cleanup'),
+        REPORTS_MONITOR_RECEIPT: MANUAL_RECEIPT,
+      },
+      at + 1000,
+    ),
+  );
+});
+
+await test('historical manual evidence rejects a changed monitor even though normal launch scope allows it', async () => {
+  const directory = await mkdtemp(join(tmpdir(), 'reports-manual-source-'));
+  try {
+    execFileSync('git', [
+      'clone',
+      '--quiet',
+      '--shared',
+      '--no-hardlinks',
+      process.cwd(),
+      directory,
+    ]);
+    const git = (...a) =>
+      execFileSync('git', a, { cwd: directory, encoding: 'utf8' }).trim();
+    const url = pathToFileURL(
+      resolve('ops/community-reports/free-launch.mjs'),
+    ).href;
+    const verify = () => {
+      const source = git('rev-parse', 'HEAD');
+      return execFileSync(
+        process.execPath,
+        [
+          '--input-type=module',
+          '-e',
+          `import {verifyLaunchSource} from ${JSON.stringify(url)}; Date.now = () => ${Date.parse(MANUAL_MONITOR.confirmedAt) + 1000}; await verifyLaunchSource(JSON.parse(process.env.FREE_TEST_CONTEXT));`,
+        ],
+        {
+          cwd: directory,
+          stdio: 'pipe',
+          env: {
+            ...process.env,
+            FREE_TEST_CONTEXT: JSON.stringify({
+              ...environment('start-free'),
+              GITHUB_SHA: source,
+              REPORTS_SETUP_SOURCE_SHA: source,
+              REPORTS_SETUP_CONFIRMATION: CONFIRM['start-free'] + source,
+              REPORTS_MONITOR_RECEIPT: MANUAL_RECEIPT,
+            }),
+          },
+        },
+      );
+    };
+    verify();
+    await writeFile(
+      join(directory, 'ops/community-reports/public-health-check.mjs'),
+      '\n// changed monitoring bytes\n',
+      { flag: 'a' },
+    );
+    git(
+      '-c',
+      'user.name=synthetic',
+      '-c',
+      'user.email=synthetic@example.invalid',
+      'commit',
+      '-am',
+      'synthetic monitor change',
+    );
+    assert.throws(verify, /MANUAL_MONITOR_CODE_CHANGED/);
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
 });
