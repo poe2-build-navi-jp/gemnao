@@ -91,6 +91,12 @@ export function sourceUrl(value: unknown) {
     throw Error('source');
   return url.href;
 }
+export function validReportVersion(value: unknown): value is string {
+  return (
+    typeof value === 'string' &&
+    (value === '' || /^[0-9][0-9A-Za-z.+_-]{0,23}$/.test(value))
+  );
+}
 export function parseContent(value: unknown, now: number): Content {
   if (
     !exact(value, [
@@ -118,9 +124,7 @@ export function parseContent(value: unknown, now: number): Content {
     value.stepIds.length > 8 ||
     new Set(value.stepIds).size !== value.stepIds.length ||
     !value.stepIds.every((id) => review.steps.some((s) => s.id === id)) ||
-    typeof value.version !== 'string' ||
-    (value.version !== '' &&
-      !/^[0-9][0-9A-Za-z.+_-]{0,23}$/.test(value.version)) ||
+    !validReportVersion(value.version) ||
     !['unknown', 'windows-10', 'windows-11', 'other'].includes(
       value.os as string,
     ) ||

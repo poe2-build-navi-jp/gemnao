@@ -1,0 +1,14 @@
+# 報告フォームの入力エラー案内修正
+
+ゲーム版QA-SYNTHETIC-NOT-SUBMITTEDは、既存の「空欄または数字開始のASCII24文字以内」という制限に違反し、プレビューのparseContentでcontentエラーになった。送信API失敗ではない。共通通信エラー文言を流用していたため原因が不明瞭だった。
+
+- 元の正規表現をvalidReportVersionへ抽出し、サーバーとUIで同じ条件を使用。制限は変更しない。
+- ゲーム版の形式・例・不明時空欄の案内と、aria-invalid/aria-describedbyに対応する欄別エラーをJA/EN/ZH/ESへ追加。
+- 下書き/プレビューの入力エラーとブラウザ保存エラーを、通信結果不明の文言から分離。実送信の失敗・再試行処理は維持。
+- 記事、wrangler、DB/service/cron/securityは変更しない。受付ONの同期済み設定hashは5d52eaf0453081707974630c52afdbd216364f8f685585804a3d761fca5c2500を保持。
+
+検証：scripts/check-report-draft-validation.mjsで既存ChromiumとPlaywrightを使い、4言語の実コンポーネントで不正ゲーム版の欄別表示、誤った通信失敗文言の不在、空欄へ訂正後のプレビュー、同意後の送信有効、ブラウザ保存失敗の区別を確認。HTTPは全て合成応答、POST等は遮断し0件。初回はテストのselectラベル取得が既存option文字列を含むため一致せず、select位置を使う検査へ修正。製品のラベルや入力制限は変更していない。
+
+変更箇所lint/diff検査成功。未公開collector変更を除いた隔離checkoutでビルド、prepare-pages、静的検索資産、OG357ページ検査成功。全体tscは既存環境に@playwright/testがないため診断ブラウザテストの型で失敗。欠落した外部テストとその設定だけを除いた一時tsconfigでアプリ型検査を実施。依存/lockfileを変更していない。
+
+公開は既存Pages Git連携を利用する。新配備後は親ブラウザで日本語フォーム案内・無効入力・訂正後プレビューを確認し、送信は押さない。公開完了/実投稿成功はビルド成功だけから推定しない。

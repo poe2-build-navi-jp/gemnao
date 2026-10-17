@@ -32,6 +32,12 @@ export const reportCopy = {
     outcome: '現在の状態',
     observed: '本人が結果を確認した日（任意）',
     version: 'ゲーム版（任意）',
+    versionHint:
+      '数字で始まる半角24文字以内。英数字と . + _ - が使えます（例：1.2.3）。不明なら空欄にしてください。',
+    versionError: 'ゲーム版の形式を確認してください。',
+    draftInvalid: '入力内容を確認してください。まだ送信していません。',
+    draftStorageError:
+      'このブラウザに下書きを保存できませんでした。まだ送信していません。',
     os: 'OS（任意）',
     gpu: 'GPUメーカー（任意）',
     source: '出典URL（HTTPS、任意）',
@@ -160,6 +166,12 @@ export const reportCopy = {
     outcome: 'Current status',
     observed: 'Date the player checked the result (optional)',
     version: 'Game version (optional)',
+    versionHint:
+      'Start with a digit; up to 24 ASCII characters: letters, numbers, . + _ - (e.g. 1.2.3). Leave blank if unknown.',
+    versionError: 'Check the game version format.',
+    draftInvalid: 'Check your input. Nothing has been submitted.',
+    draftStorageError:
+      'Could not save the draft in this browser. Nothing has been submitted.',
     os: 'OS (optional)',
     gpu: 'GPU vendor (optional)',
     source: 'Source URL (HTTPS, optional)',
@@ -288,6 +300,11 @@ export const reportCopy = {
     outcome: '当前状态',
     observed: '本人确认结果的日期（可选）',
     version: '游戏版本（可选）',
+    versionHint:
+      '以数字开头，最多24个半角字符，可使用英文字母、数字及 . + _ -（例如1.2.3）。不清楚时请留空。',
+    versionError: '请检查游戏版本格式。',
+    draftInvalid: '请检查输入内容，尚未提交。',
+    draftStorageError: '无法在此浏览器保存草稿，尚未提交。',
     os: '操作系统（可选）',
     gpu: 'GPU厂商（可选）',
     source: '来源URL（HTTPS，可选）',
@@ -409,6 +426,12 @@ export const reportCopy = {
     outcome: 'Estado actual',
     observed: 'Fecha en que el jugador comprobó el resultado (opcional)',
     version: 'Versión del juego (opcional)',
+    versionHint:
+      'Empieza con un dígito; máximo 24 caracteres ASCII: letras, números y . + _ - (p. ej., 1.2.3). Déjalo en blanco si no lo sabes.',
+    versionError: 'Comprueba el formato de la versión del juego.',
+    draftInvalid: 'Revisa los datos. Todavía no se ha enviado nada.',
+    draftStorageError:
+      'No se pudo guardar el borrador en este navegador. No se ha enviado nada.',
     os: 'Sistema operativo (opcional)',
     gpu: 'Fabricante de GPU (opcional)',
     source: 'URL de la fuente (HTTPS, opcional)',

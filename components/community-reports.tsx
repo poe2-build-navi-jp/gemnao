@@ -8,6 +8,7 @@ import type { MyGamesLocale } from '@/lib/my-games-copy';
 import { reportCopy } from '@/lib/community-reports/copy';
 import {
   parseContent,
+  validReportVersion,
   symptoms,
   outcomes,
   reasons,
@@ -333,6 +334,18 @@ export function CommunityReports({
     setPreview(false);
     setConsent(false);
   }
+  function draftFailure(caught: unknown) {
+    const key = caught instanceof Error ? caught.message : '';
+    setError(
+      ['content', 'date', 'source'].includes(key) || caught instanceof TypeError
+        ? t.draftInvalid +
+            ' ' +
+            (!validReportVersion(draft.version)
+              ? t.versionError
+              : t.errors.input)
+        : t.draftStorageError,
+    );
+  }
   function saveDraft() {
     const content = parseContent(draft, now);
     localStorage.setItem(
@@ -597,10 +610,16 @@ export function CommunityReports({
           {t.version}
           <input
             maxLength={24}
+            aria-invalid={!validReportVersion(draft.version)}
+            aria-describedby="report-version-hint report-version-error"
             value={draft.version}
             onChange={(e) => change('version', e.target.value)}
           />
         </label>
+        <span id="report-version-hint">{t.versionHint}</span>
+        <span id="report-version-error" role="alert">
+          {!validReportVersion(draft.version) ? t.versionError : ''}
+        </span>
         <label>
           {t.os}
           <select
@@ -684,7 +703,7 @@ export function CommunityReports({
                 setMessage(t.draftSaved);
                 setError('');
               } catch (e) {
-                failure(e);
+                draftFailure(e);
               }
             }}
           >
@@ -699,7 +718,7 @@ export function CommunityReports({
                 setConsent(false);
                 setError('');
               } catch (e) {
-                failure(e);
+                draftFailure(e);
               }
             }}
           >
