@@ -1263,7 +1263,13 @@ export async function main(env, fetcher = fetch, mode = process.argv[2]) {
   if (mode === 'gate') {
     // The historic mutation allowlist correctly rejects later article commits.
     // Readback has a GET-only client and does not build/upload artifact bytes.
-    if (env.REPORTS_SETUP_OPERATION === 'deploy-code-only')
+    if (
+      ['inspect-cleanup', 'start-free', 'open-free'].includes(
+        env.REPORTS_SETUP_OPERATION,
+      )
+    )
+      await (await import('./free-launch.mjs')).verifyLaunchSource(env);
+    else if (env.REPORTS_SETUP_OPERATION === 'deploy-code-only')
       await (await import('./code-deploy.mjs')).verifyCodeSource(env);
     else if (env.REPORTS_SETUP_OPERATION !== 'readback') await verifySource();
     const environment = await gate(env, fetcher);
@@ -1275,8 +1281,14 @@ export async function main(env, fetcher = fetch, mode = process.argv[2]) {
   }
   if (mode === 'package') {
     context(env);
-    const packager =
-      env.REPORTS_SETUP_OPERATION === 'deploy-code-only'
+    const packager = ['start-free', 'open-free'].includes(
+      env.REPORTS_SETUP_OPERATION,
+    )
+      ? (directory, sha) =>
+          import('./free-launch.mjs').then((m) =>
+            m.packageLaunchArtifact(directory, sha, env),
+          )
+      : env.REPORTS_SETUP_OPERATION === 'deploy-code-only'
         ? (directory, sha) =>
             import('./code-deploy.mjs').then((m) =>
               m.packageCodeArtifact(directory, sha, env),
@@ -1307,6 +1319,9 @@ export async function main(env, fetcher = fetch, mode = process.argv[2]) {
         'readback',
         'resume-cleanup',
         'deploy-code-only',
+        'inspect-cleanup',
+        'start-free',
+        'open-free',
         'bootstrap-open',
         'bootstrap-pin',
         'bootstrap-close',
@@ -1327,7 +1342,34 @@ export async function main(env, fetcher = fetch, mode = process.argv[2]) {
       env.REPORTS_SETUP_ENVIRONMENT === TARGET.environment,
       'PROTECTED_ENVIRONMENT_REQUIRED',
     );
-    if (env.REPORTS_SETUP_OPERATION === 'deploy-code-only') {
+    if (
+      ['inspect-cleanup', 'start-free', 'open-free'].includes(
+        env.REPORTS_SETUP_OPERATION,
+      )
+    ) {
+      const persist = async () => {
+        await writeFile(
+          'closed-setup-receipt.json',
+          JSON.stringify(receipt, null, 2) + '\n',
+        );
+        console.log(
+          JSON.stringify({
+            operation: receipt.operation,
+            completed: receipt.completed,
+            nextWrite: receipt.nextWrite,
+          }),
+        );
+      };
+      await (
+        await import('./free-launch.mjs')
+      ).runLaunch(
+        env,
+        receipt,
+        (config) => uploadPages(env, env.REPORTS_ARTIFACT_DIR, config),
+        persist,
+        fetcher,
+      );
+    } else if (env.REPORTS_SETUP_OPERATION === 'deploy-code-only') {
       const persist = async () => {
         await writeFile(
           'closed-setup-receipt.json',
