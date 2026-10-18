@@ -1,0 +1,9 @@
+# English launch/security/demo articles
+
+Five complete adaptations: Call of Duty Modern Warfare 4 TPM/Secure Boot, DRAGON QUEST MONSTERS: The Withered World demo transfer, Castlevania: Belmont’s Curse launch, Tales of Eternia Remastered launch, Phantom Blade Zero launch preparation. Existing Japanese routes and source URLs remain unchanged. Inventory: 200/231 English, 31 remaining; game articles 83/91.
+
+Activision security/retail/edition and Microsoft boot guidance were reviewed: no TPM clearing or conversion shortcut; exact manufacturer procedure, backup and encryption recovery keys remain prerequisites. KONAMI’s below-60Hz V-Sync workaround preserves its condition. Tales store Windows 11 and separate Windows 10/DX12 note are described without inventing compatibility. Phantom Blade Zero remains prerelease on October 18: no playable-build claim or guessed release-time reconciliation. DQM uses the current official English name, edition, menu and bonus names; no save-overwrite instruction. Historical or inaccessible announcement details retain the original Japanese review context explicitly.
+
+Validation: localized 332; full TypeScript and changed-file lint passed. Isolated build initially ended 137 after prerendering; rerun with NODE_OPTIONS=--max-old-space-size=1536 succeeded without stopping other tasks’ servers. Postbuild: 580 editorial HTML, 559 sitemap URLs, 499 OG cards, 126 complete English articles, 5786 internal links/anchors passed. Static search and OG freshness passed.
+
+Browser: five articles × 375/390/430/1440, 20 diagnosis-link clicks, eight search/click/back operations, canonical and main language, no overflow/missing anchors/JS/CSS failures/API writes. Production HTML language is checked in prepared snapshots; local vinext start lacks the Pages HTML transform. Five OG cards and mobile CoD/desktop DQM screenshots visually inspected. Full English flow QA and parent production browser review remain pending.

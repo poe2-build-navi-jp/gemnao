@@ -1,3 +1,6 @@
+import { codMw4En } from '@/lib/localized/cod-mw4-en';
+import { dqmDemoEn } from '@/lib/localized/dqm-demo-en';
+import { upcomingLaunchEn } from '@/lib/localized/upcoming-launch-en';
 import { pcDiskEn } from '@/lib/localized/pc-disk-en';
 import { starWarsBacklogEn } from '@/lib/localized/star-wars-backlog-en';
 import { dawnwalkerBacklogEn } from '@/lib/localized/dawnwalker-backlog-en';
@@ -52,6 +55,7 @@ import type { LocalizedArticle } from '@/lib/localized/types';
 import { followupLocalizedArticles } from '@/lib/followups';
 
 export const localizedArticles: LocalizedArticle[] = [
+  ...codMw4En, ...dqmDemoEn, ...upcomingLaunchEn,
   ...starWarsBacklogEn,
   ...dawnwalkerBacklogEn,
   ...aniimoBacklogEn,

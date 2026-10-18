@@ -23,6 +23,11 @@ if (prerender.routes.some(route => route.route === '/:locale/reports' && route.r
   for (const locale of ['en', 'zh', 'es']) knownPaths.add(`/${locale}/reports`);
 }
 const paths = [
+  '/games/call-of-duty-modern-warfare-4/tpm-secure-boot',
+  '/games/dragon-quest-monsters-4/demo-transfer',
+  '/games/castlevania-belmonts-curse/not-launching',
+  '/games/tales-of-eternia-remastered/not-launching',
+  '/games/phantom-blade-zero/not-launching',
   '/pc/disk-usage-100',
   ...['not-launching','black-screen','save-progress','gtx10-rtx20-low-fps'].map(slug => `/games/star-wars-zero-company/${slug}`),
   ...['shader-compilation-crash','stutter-windowed','controller-sprint'].map(slug => `/games/the-blood-of-dawnwalker/${slug}`),
