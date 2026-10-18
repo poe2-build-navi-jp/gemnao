@@ -174,6 +174,7 @@ export const ogImageManifest: Record<string, string> = {
   "/en/pc/wifi-connected-no-internet": "ca184be1",
   "/en/pc/wifi-option-missing": "400f3d51",
   "/en/pc/windows-update-0x800f081f": "3ea143ac",
+  "/en/pc/windows-update-stuck": "0238abd7",
   "/en/tools": "0a29e39e",
   "/en/tools/windows-diagnosis": "81999518",
   "/es/discord/upload-failed": "cdcfb7b5",

@@ -1,3 +1,4 @@
+import { pcUpdateStuckEn } from '@/lib/localized/pc-update-stuck-en';
 import { pcUpdateExplorerEn } from '@/lib/localized/pc-update-explorer-en';
 import { pcSleepSigninEn } from '@/lib/localized/pc-sleep-signin-en';
 import { pcNetworkEn } from '@/lib/localized/pc-network-en';
@@ -54,7 +55,7 @@ export const localizedArticles: LocalizedArticle[] = [
   ...rocketLeagueLocalizedArticles,
 ];
 
-export const localizedPcArticles = [...localizedPcRepairArticles, ...pcAudioEn, ...pcDeviceRecoveryEn, ...pcUsbDisplayEn, ...pcGamingEn, ...pcNetworkEn, ...pcSleepSigninEn, ...pcUpdateExplorerEn];
+export const localizedPcArticles = [...localizedPcRepairArticles, ...pcAudioEn, ...pcDeviceRecoveryEn, ...pcUsbDisplayEn, ...pcGamingEn, ...pcNetworkEn, ...pcSleepSigninEn, ...pcUpdateExplorerEn, ...pcUpdateStuckEn];
 export const localizedPcArticle = (locale: Locale, slug: string) =>
   localizedPcArticles.find(
     (article) => article.locale === locale && article.slug === slug,
