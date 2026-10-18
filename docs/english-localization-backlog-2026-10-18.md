@@ -193,6 +193,6 @@ Discord38/38、英語158/231・残73。localized290、型/lint/build成功。538
 
 英語208/231・残23、ゲーム91/91。localized340、型/lint/build成功。588 HTML・567 sitemap・507 OG、134記事6143リンク/アンカー成功。5記事4幅、診断20クリック、検索往復8件、OG5枚/画面目視済み。API書込み0。137終了後、完了QA記録に対応する旧サーバー4台を停止し再build成功。全英語QA・本番画面確認は未完了。詳細english-final-games-review-2026-10-18.md。
 
-## 残り23ページ候補
+## 残り23ページ公開済み
 
-public7/index2/gear1/tool2/trouble7/weekly2/new-releases2を英語化。登録とsitemap上は231/231、未対応0、不一致0。`/en/my` と募集申請のnoindex操作画面も追加。公開成功確認までは公開済み数208/231を維持。検証・注意点は `english-reference-pages-review-2026-10-18.md`。全英語235 URL巡回は進行中。
+public7/index2/gear1/tool2/trouble7/weekly2/new-releases2を英語化。登録とsitemap上は231/231、未対応0、不一致0。`/en/my` と募集申請のnoindex操作画面も追加。5db78e9 の Pages b9f5e9f2-e13d-458d-8917-78bab00cb233 成功を確認し、公開済み231/231。検証・注意点は `english-reference-pages-review-2026-10-18.md`。全英語235 URLのローカル巡回・修正後再検証は完了。本番配備と親ブラウザ確認は最終報告を参照。
