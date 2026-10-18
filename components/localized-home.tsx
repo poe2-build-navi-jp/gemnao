@@ -1,3 +1,5 @@
+import { translatedCommonGuides } from '@/lib/localized/save-guides-zh-es';
+import { guideUi } from '@/lib/localized/guide-ui';
 import { commonGuidesEn } from '@/lib/localized/common-guides-en';
 import { ReportEntryLink } from '@/components/report-entry-link';
 import { ContinueNotes } from './continue-notes';
@@ -58,6 +60,11 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
         ...gearGuidesEn.map(guide => ({href: `/en/gear/${guide.slug}`, title: guide.title, label: 'Before you buy', body: guide.description || ''})),
         {href: '/en/tools/windows-diagnosis', title: 'Windows game diagnosis: instructions and download', label: 'Windows prototype', body: 'Game launch, crash, black screen, freeze, low FPS and stutter. Windows 11 x64.'},
       ]} />}
+      {locale !== 'en' && <><EnglishHomeSearch locale={locale} entries={[
+        ...articles.map(a => ({href:a.gameSlug === 'discord' ? `/${locale}/discord/${a.slug}` : `/${locale}/games/${a.gameSlug}/${a.slug}`,title:a.title,label:a.gameName || (a.gameSlug === 'discord' ? 'Discord' : gameFacts[a.gameSlug].names[locale]),body:`${a.lead} ${a.summary}`})),
+        ...translatedCommonGuides.filter(g => g.locale === locale).map(g => ({href:`/${locale}${g.path}`,title:g.title,label:guideUi[locale].index,body:g.description})),
+        {href:`/${locale}/guide`,title:guideUi[locale].indexTitle,label:guideUi[locale].index,body:guideUi[locale].indexDescription},
+      ]} /><section className="content"><div className="section-heading"><h2>{guideUi[locale].index}</h2><a href={`/${locale}/guide`}>{guideUi[locale].read} →</a></div><div className="guide-index-grid">{translatedCommonGuides.filter(g => g.locale === locale).map(g => <a href={`/${locale}${g.path}`} key={g.path}><strong>{g.shortTitle}</strong><span>{g.description}</span></a>)}</div></section></>}
       <LatestArticles locale={locale} articles={[...articles]
         .sort((a, b) => b.checkedAt.localeCompare(a.checkedAt))
         .slice(0, 3)

@@ -1,3 +1,5 @@
+import { guideUi } from '@/lib/localized/guide-ui';
+import type { Locale } from '@/lib/i18n';
 import { EnglishGuideShell } from './english-guide-shell';
 import {
   StepResultCollection,
@@ -5,19 +7,27 @@ import {
 } from './step-result-collection';
 import type { EnglishCommonGuide as Guide } from '@/lib/localized/common-guides-en';
 /* oxlint-disable next/no-html-link-for-pages -- Native links match existing guides. */
-export function EnglishCommonGuide({ guide }: { guide: Guide }) {
+export function EnglishCommonGuide({
+  guide,
+  locale = 'en',
+}: {
+  guide: Guide;
+  locale?: Locale;
+}) {
+  const t = guideUi[locale];
   return (
     <EnglishGuideShell
       guide={guide}
+      locale={locale}
       contents={[
-        { id: 'choose-check', title: 'Choose your symptom' },
+        { id: 'choose-check', title: t.symptom },
         ...guide.steps,
         ...(guide.extraSections || []),
-        { id: 'cautions', title: 'Protect saves and keep changes reversible' },
+        { id: 'cautions', title: t.cautions },
       ]}
     >
       <section className="pc-step" id="choose-check">
-        <h2>Choose your symptom</h2>
+        <h2>{t.symptom}</h2>
         <ul>
           {guide.branches.map((branch) => (
             <li key={branch.symptom}>
@@ -32,13 +42,13 @@ export function EnglishCommonGuide({ guide }: { guide: Guide }) {
       <StepResultCollection
         contextSlug={`guide-${guide.slug}`}
         topic={guide.topic}
-        locale="en"
+        locale={locale}
         steps={guide.steps}
       >
         {guide.steps.map((step, index) => (
           <section className="pc-step" id={step.id} key={step.id}>
             <h2>
-              STEP {index + 1}: {step.title}
+              {t.step} {index + 1}: {step.title}
             </h2>
             <ol>
               {step.actions.map((action) => (
@@ -46,7 +56,7 @@ export function EnglishCommonGuide({ guide }: { guide: Guide }) {
               ))}
             </ol>
             <p className="procedure-note">
-              <strong>Result and next action: </strong>
+              <strong>{t.result}: </strong>
               {step.next}
             </p>
             <StepResultButtons method={step.id} />
@@ -64,7 +74,7 @@ export function EnglishCommonGuide({ guide }: { guide: Guide }) {
         </section>
       ))}
       <section className="pc-step" id="cautions">
-        <h2>Protect saves and keep changes reversible</h2>
+        <h2>{t.cautions}</h2>
         <ul>
           {guide.cautions.map((caution) => (
             <li key={caution}>{caution}</li>

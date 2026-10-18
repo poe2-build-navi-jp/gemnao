@@ -1,3 +1,4 @@
+import { translatedCommonGuides } from './save-guides-zh-es';
 import { palworldBackupEn } from './palworld-backup-en';
 import { discordCoreEn } from './discord-core-en';
 import { commonGuidesEn } from '@/lib/localized/common-guides-en';
@@ -108,6 +109,8 @@ export function hasTranslation(locale: Locale, path: string) {
   )
     return true;
   if (locale === 'en' && englishEditorialPaths.includes(path)) return true;
+  if (path === '/guide' && translatedCommonGuides.some(g => g.locale === locale)) return true;
+  if (translatedCommonGuides.some(g => g.locale === locale && g.path === path)) return true;
   const [, section, gameSlug, slug, extra] = path.split('/');
   if (section === 'examples' && gameSlug && !slug && !extra)
     return Boolean(reportedCaseBySlug(gameSlug));

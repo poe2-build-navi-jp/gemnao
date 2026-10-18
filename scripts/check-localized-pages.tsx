@@ -1,3 +1,5 @@
+import { translatedCommonGuides } from '../lib/localized/save-guides-zh-es';
+import { LocalizedGuideIndex } from '../components/localized-guide-index';
 import { EnglishDiscordIndex } from '../components/english-discord-index';
 import { EnglishGuideIndex } from '../components/english-guide-index';
 import { guideGroupsEn } from '../lib/localized/guide-index-en';
@@ -68,8 +70,8 @@ assert.equal(new Set(indexGuides.map(guide => guide.path)).size, 9);
 const guideIndexHtml = renderToStaticMarkup(<EnglishGuideIndex />);
 check('/en/guide', 'en', guideIndexHtml);
 assert.equal(languageAlternates('/guide').en, '/en/guide');
-assert.equal(hasTranslation('zh', '/guide'), false);
-assert.equal(hasTranslation('es', '/guide'), false);
+assert.equal(hasTranslation('zh', '/guide'), true);
+assert.equal(hasTranslation('es', '/guide'), true);
 for (const guide of indexGuides) assert.ok(guideIndexHtml.includes(`href="/en${guide.path}"`));
 check('/en/discord', 'en', renderToStaticMarkup(<EnglishDiscordIndex />));
 assert.equal(localizedDiscordArticles.filter(a => a.locale === 'en').length, 4);
@@ -287,9 +289,27 @@ for (const guide of commonGuidesEn) {
   assert.deepEqual(guide.steps.map(step => step.id), original.steps.map((_, i) => `step-${i + 1}`));
   check(`/en${guide.path}`, 'en', renderToStaticMarkup(<EnglishCommonGuide guide={guide} />));
   assert.equal(languageAlternates(guide.path).en, `/en${guide.path}`);
-  assert.equal(hasTranslation('zh', guide.path), false);
-  assert.equal(hasTranslation('es', guide.path), false);
+  assert.equal(hasTranslation('zh', guide.path), guide.slug === 'save-data-backup');
+  assert.equal(hasTranslation('es', guide.path), guide.slug === 'save-data-backup');
   for (const branch of guide.branches) assert.ok([...guide.steps, ...(guide.extraSections || [])].some(step => step.id === branch.step));
+  pages++;
+}
+for (const locale of ['zh','es'] as const) {
+  check(`/${locale}/guide`, locale, renderToStaticMarkup(<LocalizedGuideIndex locale={locale} />));
+  assert.equal(languageAlternates('/guide')[locale === 'zh' ? 'zh-Hans' : locale], `/${locale}/guide`);
+  pages++;
+}
+for (const guide of translatedCommonGuides) {
+  const en = commonGuidesEn.find(g => g.slug === guide.slug)!;
+  assert.deepEqual(guide.steps.map(s => s.id), en.steps.map(s => s.id));
+  assert.deepEqual(guide.steps.map(s => s.actions.length), en.steps.map(s => s.actions.length));
+  assert.deepEqual(guide.extraSections?.map(s => [s.id,s.actions.length]), en.extraSections?.map(s => [s.id,s.actions.length]));
+  assert.equal(guide.faqs.length,en.faqs.length);
+  assert.equal(guide.cautions.length,en.cautions.length);
+  assert.deepEqual(guide.sources.map(s => s.url), en.sources.map(s => s.url));
+  check(`/${guide.locale}${guide.path}`, guide.locale, renderToStaticMarkup(<EnglishCommonGuide guide={guide} locale={guide.locale} />));
+  assert.equal(languageAlternates(guide.path)[guide.locale === 'zh' ? 'zh-Hans' : guide.locale], `/${guide.locale}${guide.path}`);
+  for (const b of guide.branches) assert.ok([...guide.steps,...(guide.extraSections||[])].some(s => s.id === b.step));
   pages++;
 }
 for (const article of recentGameArticlesEn) {

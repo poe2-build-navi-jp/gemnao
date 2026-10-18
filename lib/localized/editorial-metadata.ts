@@ -1,12 +1,14 @@
+import type { Locale } from '@/lib/i18n';
 import type { Metadata } from 'next';
-import { languageAlternates } from '@/lib/localized/index';
+import { languageAlternates, ogLocale } from '@/lib/localized/index';
 import { ogImageFor } from '@/lib/og-images';
 
 export function englishEditorialMetadata(
   path: string,
   article: { title: string; description: string; checkedAt: string },
+  locale: Locale = 'en',
 ): Metadata {
-  const englishPath = `/en${path}`;
+  const englishPath = `/${locale}${path}`;
   const image = ogImageFor(englishPath);
   return {
     title: { absolute: `${article.title} | Gemnao` },
@@ -14,7 +16,7 @@ export function englishEditorialMetadata(
     alternates: { canonical: englishPath, languages: languageAlternates(path) },
     openGraph: {
       type: 'article',
-      locale: 'en_US',
+      locale: ogLocale[locale],
       title: article.title,
       description: article.description,
       url: englishPath,

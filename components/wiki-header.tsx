@@ -99,9 +99,8 @@ export function WikiHeader({
           <a href={myGamesPath(locale)}>{myGamesCopy[locale].name}</a>
         ) : null}
         {locale === 'en' ? <a href="/en/tools">Tools</a> : null}
-        <a href={locale === 'en' ? '/en/guide' : '/guide'}>
+        <a href={locale === 'ja' ? '/guide' : `/${locale}/guide`}>
           {labels.basics}
-          {locale === 'ja' || locale === 'en' ? '' : ui[locale].inJapanese}
         </a>
         <a href={locale === 'en' ? '/en/discord' : '/discord'}>
           Discord{locale === 'ja' || locale === 'en' ? '' : ui[locale].inJapanese}

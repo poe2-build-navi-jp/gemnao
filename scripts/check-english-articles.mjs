@@ -132,7 +132,8 @@ const indexJa = await htmlFor('/guide');
 for (const html of [index, indexJa]) {
   assert.ok(html.includes('hrefLang="en" href="https://gemnao.pages.dev/en/guide"'));
   assert.ok(html.includes('hrefLang="ja" href="https://gemnao.pages.dev/guide"'));
-  assert.ok(!/hrefLang="(?:zh-Hans|es)"/.test(html.match(/<head>([\s\S]*?)<\/head>/)?.[1] || ''));
+  assert.ok(html.includes('hrefLang="zh-Hans" href="https://gemnao.pages.dev/zh/guide"'));
+  assert.ok(html.includes('hrefLang="es" href="https://gemnao.pages.dev/es/guide"'));
 }
 assert.ok(index.includes('rel="canonical" href="https://gemnao.pages.dev/en/guide"'));
 assert.ok(!/name="robots" content="[^"]*noindex/.test(index));
@@ -142,7 +143,7 @@ for (const path of paths.filter(path => path.startsWith('/guide/'))) {
   assert.ok((await htmlFor(`/en${path}`)).includes('href="/en/guide"'));
 }
 assert.ok(index.includes('/images/og/en/guide.png'));
-assert.ok(!index.includes('href="/zh/guide"') && !index.includes('href="/es/guide"'));
+assert.ok(index.includes('href="/zh/guide"') && index.includes('href="/es/guide"'));
 const discordIndex = await htmlFor('/en/discord');
 assert.ok(discordIndex.includes('"numberOfItems":4'));
 for (const html of [discordIndex, await htmlFor('/discord')]) {
@@ -211,3 +212,32 @@ assert.ok(home.includes('href="/en/tools/windows-diagnosis"'));
 console.log(
   `PASS: ${paths.length} complete English articles; reciprocal metadata/menu, language/schema/OG/sitemap, ${links} internal links and anchors, safe case wording, existing Japan affiliate and no phantom translations`,
 );
+
+for (const locale of ['zh','es']) for (const suffix of ['/guide','/guide/save-data-backup']) {
+  const path = `/${locale}${suffix}`;
+  const html = await htmlFor(path);
+  const head = html.match(/<head>([\s\S]*?)<\/head>/)?.[1] || '';
+  const tag = locale === 'zh' ? 'zh-Hans' : 'es';
+  assert.ok(head.includes(`rel="canonical" href="https://gemnao.pages.dev${path}"`));
+  assert.ok(!/name="robots" content="[^"]*noindex/.test(head));
+  assert.ok(head.includes(`/images/og${path}.png`));
+  await readFile(`public/images/og${path}.png`);
+  assert.ok(html.includes(`<main lang="${tag}"`));
+  assert.ok(html.includes(`"inLanguage":"${tag}"`));
+  assert.ok(sitemap.includes(`https://gemnao.pages.dev${path}</loc>`));
+  for (const counterpart of ['', '/en','/zh','/es']) {
+    const pair = await htmlFor(`${counterpart}${suffix}`);
+    assert.ok(pair.includes(`hrefLang="${tag}" href="https://gemnao.pages.dev${path}"`));
+  }
+  const visible = html.replace(/<details class="language-menu">[\s\S]*?<\/details>/g,'').replace(/<script[\s\S]*?<\/script>/g,'').replace(/<[^>]+>/g,' ');
+  assert.ok(!(locale === 'zh' ? /[ぁ-んァ-ヶ]/u : /[ぁ-んァ-ヶ一-龯]/u).test(visible));
+  for (const match of html.matchAll(/<a\b[^>]*href="([^"?#]*)([^" ]*)"/g)) {
+    const href = match[1];
+    if (!href.startsWith('/')) continue;
+    const target = new URL(href,'https://gemnao.pages.dev').pathname.replace(/\/$/, '') || '/';
+    assert.ok(knownPaths.has(target), `New localized guide broken link: ${path} -> ${target}`);
+  }
+  if (suffix.endsWith('save-data-backup')) for (const id of ['step-1','step-2','step-3','safe-restore']) assert.ok(html.includes(`id="${id}"`));
+  assert.ok((await htmlFor(`/${locale}`)).includes(`href="${path}"`));
+}
+console.log('PASS: zh/es guide indexes and save backup pages; reciprocal four-language metadata, sources, navigation and sitemap');

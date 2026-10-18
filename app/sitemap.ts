@@ -1,3 +1,4 @@
+import { translatedCommonGuides } from '@/lib/localized/save-guides-zh-es';
 import { commonGuidesEn } from '@/lib/localized/common-guides-en';
 import { reportedCases, casePath } from '@/lib/reported-cases';
 import type { MetadataRoute } from 'next';
@@ -133,6 +134,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...[
       { path: '/en/discord', updated: '2026-10-18' },
       { path: '/en/guide', updated: '2026-10-18' },
+      ...['zh','es'].map(locale => ({path:`/${locale}/guide`,updated:'2026-10-18'})),
+      ...translatedCommonGuides.map(g => ({path:`/${g.locale}${g.path}`,updated:g.checkedAt})),
       { path: '/en/guide/pc-game-crash', updated: '2026-10-03' },
       ...commonGuidesEn.map(guide => ({ path: `/en${guide.path}`, updated: guide.checkedAt })),
       ...gearGuidesEn.map((guide) => ({

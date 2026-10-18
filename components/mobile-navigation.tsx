@@ -95,9 +95,8 @@ export function MobileNavigation({
               {locale === 'ja' ? (
                 <a href="/?view=articles#articles">解決記事一覧</a>
               ) : null}
-              <a href={locale === 'en' ? '/en/guide' : '/guide'}>
+              <a href={locale === 'ja' ? '/guide' : `/${locale}/guide`}>
                 {basicsLabel}
-                {locale === 'ja' || locale === 'en' ? '' : ui[locale].inJapanese}
               </a>
               <a href={locale === 'en' ? '/en/discord' : '/discord'}>
                 {locale === 'ja'

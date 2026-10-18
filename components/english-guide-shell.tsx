@@ -1,3 +1,6 @@
+import { guideUi } from '@/lib/localized/guide-ui';
+import { languageTag } from '@/lib/localized/index';
+import type { Locale } from '@/lib/i18n';
 import { ArticleToc } from '@/components/article-toc';
 import { ArticleDiagnosisEntry } from '@/components/article-diagnosis-entry';
 import { ShareButtons } from '@/components/share-buttons';
@@ -28,13 +31,16 @@ export function EnglishGuideShell({
   contents,
   children,
   affiliate = false,
+  locale = 'en',
 }: {
   guide: EnglishGuideInfo;
   contents: { id: string; title: string }[];
   children: ReactNode;
   affiliate?: boolean;
+  locale?: Locale;
 }) {
-  const path = `/en${guide.path}`;
+  const t = guideUi[locale];
+  const path = `/${locale}${guide.path}`;
   const canonical = `https://gemnao.pages.dev${path}`;
   const schema = [
     {
@@ -43,7 +49,7 @@ export function EnglishGuideShell({
       headline: guide.title,
       description: guide.description,
       dateModified: guide.checkedAt,
-      inLanguage: 'en',
+      inLanguage: languageTag[locale],
       author: { '@type': 'Organization', name: 'Gemnao' },
       mainEntityOfPage: canonical,
       image: `https://gemnao.pages.dev${ogImageFor(path).split('?')[0]}`,
@@ -52,7 +58,7 @@ export function EnglishGuideShell({
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      inLanguage: 'en',
+      inLanguage: languageTag[locale],
       mainEntity: guide.faqs.map((faq) => ({
         '@type': 'Question',
         name: faq.question,
@@ -66,10 +72,19 @@ export function EnglishGuideShell({
         {
           '@type': 'ListItem',
           position: 1,
-          name: 'Home',
-          item: 'https://gemnao.pages.dev/en',
+          name: t.home,
+          item: `https://gemnao.pages.dev/${locale}`,
         },
-        ...(guide.path.startsWith('/guide/') ? [{ '@type': 'ListItem', position: 2, name: 'PC troubleshooting', item: 'https://gemnao.pages.dev/en/guide' }] : []),
+        ...(guide.path.startsWith('/guide/')
+          ? [
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: t.index,
+                item: `https://gemnao.pages.dev/${locale}/guide`,
+              },
+            ]
+          : []),
         {
           '@type': 'ListItem',
           position: guide.path.startsWith('/guide/') ? 3 : 2,
@@ -80,8 +95,8 @@ export function EnglishGuideShell({
     },
   ];
   return (
-    <main lang="en">
-      <WikiHeader locale="en" pagePath={guide.path} />
+    <main lang={languageTag[locale]}>
+      <WikiHeader locale={locale} pagePath={guide.path} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
@@ -89,49 +104,56 @@ export function EnglishGuideShell({
       <header className="article-hero issue-hero pc-hero">
         <div className="article-hero-inner">
           <nav className="breadcrumbs" aria-label="Breadcrumb">
-            <a href="/en">Home</a>
+            <a href={`/${locale}`}>{t.home}</a>
             <span>›</span>
-            {guide.path.startsWith('/guide/') && <><a href="/en/guide">PC troubleshooting</a><span>›</span></>}
+            {guide.path.startsWith('/guide/') && (
+              <>
+                <a href={`/${locale}/guide`}>{t.index}</a>
+                <span>›</span>
+              </>
+            )}
             <b>{guide.shortTitle}</b>
           </nav>
           <p className="article-label">{guide.category}</p>
           <h1>{guide.title}</h1>
           <p className="article-lead">{guide.lead}</p>
           <div className="article-meta">
-            <span>Last checked: {guide.checkedAt}</span>
+            <span>
+              {t.checked}: {guide.checkedAt}
+            </span>
             {affiliate ? (
               <span>Contains advertising / affiliate links</span>
             ) : null}
           </div>
-          <SaveArticle path={path} title={guide.title} locale="en" />
+          <SaveArticle path={path} title={guide.title} locale={locale} />
         </div>
       </header>
       <div className="article-layout issue-layout">
-        <ArticleToc title={'On this page'} className="issue-toc">
-          <a href="#answer">The short answer</a>
+        <ArticleToc title={t.toc} className="issue-toc">
+          <a href="#answer">{t.answer}</a>
           {contents.map((section) => (
             <a href={`#${section.id}`} key={section.id}>
               {section.title}
             </a>
           ))}
-          <a href="#faq">FAQ</a>
-          <a href="#references">Sources</a>
+          <a href="#faq">{t.faq}</a>
+          <a href="#references">{t.sources}</a>
         </ArticleToc>
         <article className="guide-article pc-guide">
           <section className="answer-summary" id="answer">
             <h2>
-              <CheckCircle2 size={23} /> The short answer
+              <CheckCircle2 size={23} /> {t.answer}
             </h2>
             <p>{guide.summary}</p>
             {guide.related.length ? (
               <a className="article-next-jump" href="#related-guides">
-                Need a different check? Find a related guide or tool →
+                {t.next}
               </a>
             ) : null}
           </section>
           {children}
           <section className="faq-section" id="faq">
-            <h2>FAQ</h2>
+            <h2>{t.faq}</h2>
             <div>
               {guide.faqs.map((faq) => (
                 <details key={faq.question}>
@@ -141,15 +163,23 @@ export function EnglishGuideShell({
               ))}
             </div>
           </section>
-          <ArticleDiagnosisEntry path={guide.path} locale="en" />
+          <ArticleDiagnosisEntry path={guide.path} locale={locale} />
           <section className="related-section" id="related-guides">
-            <h2>Related guides and tools</h2>
+            <h2>{t.related}</h2>
             <div>
               {guide.related.map((link) => (
                 <a
                   href={link.href}
                   data-related="true"
-                  hrefLang={link.href.startsWith('/en/') ? 'en' : 'ja'}
+                  hrefLang={
+                    link.href.startsWith('/en/')
+                      ? 'en'
+                      : link.href.startsWith('/zh/')
+                        ? 'zh-Hans'
+                        : link.href.startsWith('/es/')
+                          ? 'es'
+                          : 'ja'
+                  }
                   key={link.href}
                 >
                   {link.label}
@@ -160,16 +190,16 @@ export function EnglishGuideShell({
           </section>
           <p className="correction-link">
             <a href={guide.path} hrefLang="ja">
-              Japanese version of this page
+              {t.japanese}
             </a>{' '}
             ·{' '}
             <a href={`/contact?url=${encodeURIComponent(canonical)}`}>
-              Report an error (Japanese contact form)
+              {t.correction}
             </a>
           </p>
-          <ShareButtons title={guide.title} path={path} locale="en" />
+          <ShareButtons title={guide.title} path={path} locale={locale} />
           <section className="sources" id="references">
-            <h2>Sources and editorial notes</h2>
+            <h2>{t.sourceNotes}</h2>
             <p className="source-policy">{guide.sourcePolicy}</p>
             {guide.sources.map((source) => (
               <a
@@ -185,7 +215,7 @@ export function EnglishGuideShell({
           </section>
         </article>
       </div>
-      <WikiFooter locale="en" />
+      <WikiFooter locale={locale} />
     </main>
   );
 }
