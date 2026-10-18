@@ -74,6 +74,6 @@ export const pcUsbDisplayEn:LocalizedPcArticle[]=[
  escalation:'Record monitor, PC, dock and cable models, a connection diagram, Detect results, other-PC/direct comparisons and GPU-driver version. If the main PC screen is black too, this guide’s usable-screen assumption does not apply; seek startup or display help for that condition.',
  faqs:[{question:'Why does Windows show screen 2 while the monitor says No signal?',answer:'Check the Windows projection mode and the monitor’s selected physical input. Compare cables and any adapter one at a time.'},{question:'What if I cannot choose Extend?',answer:'Check the cable and input first, then use Detect in Settings. If using a dock, compare a supported direct connection as well.'}],
  sources:[display,ms('hardware/display-graphics/how-to-use-multiple-monitors-in-windows','using multiple monitors'),usb],
- related:[{href:'/en/pc/usb-c-device-not-recognized',label:'USB-C device not recognized'},{href:'/en/guide/black-screen',label:'Only the game picture is black'},{href:'/pc/black-screen-after-sign-in',label:'Black screen with a cursor after sign-in (Japanese)'}],
+ related:[{href:'/en/pc/usb-c-device-not-recognized',label:'USB-C device not recognized'},{href:'/en/guide/black-screen',label:'Only the game picture is black'},{href:'/en/pc/black-screen-after-sign-in',label:'Black screen with a cursor after sign-in'}],
 },
 ];

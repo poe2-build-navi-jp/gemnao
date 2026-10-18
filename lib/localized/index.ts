@@ -1,3 +1,4 @@
+import { pcSleepSigninEn } from '@/lib/localized/pc-sleep-signin-en';
 import { pcNetworkEn } from '@/lib/localized/pc-network-en';
 import { pcGamingEn } from '@/lib/localized/pc-gaming-en';
 import { pcUsbDisplayEn } from '@/lib/localized/pc-usb-display-en';
@@ -52,7 +53,7 @@ export const localizedArticles: LocalizedArticle[] = [
   ...rocketLeagueLocalizedArticles,
 ];
 
-export const localizedPcArticles = [...localizedPcRepairArticles, ...pcAudioEn, ...pcDeviceRecoveryEn, ...pcUsbDisplayEn, ...pcGamingEn, ...pcNetworkEn];
+export const localizedPcArticles = [...localizedPcRepairArticles, ...pcAudioEn, ...pcDeviceRecoveryEn, ...pcUsbDisplayEn, ...pcGamingEn, ...pcNetworkEn, ...pcSleepSigninEn];
 export const localizedPcArticle = (locale: Locale, slug: string) =>
   localizedPcArticles.find(
     (article) => article.locale === locale && article.slug === slug,
