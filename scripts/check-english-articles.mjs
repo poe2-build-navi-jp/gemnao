@@ -72,6 +72,9 @@ const paths = [
   '/discord/login-error',
   '/discord/mic-volume-low',
   '/discord/no-route',
+  '/discord/rtc-connecting',
+  '/discord/screen-share-not-working',
+  '/discord/system-helper',
   '/discord/notifications-not-working',
   '/discord/overlay-not-showing',
   '/discord/phone-verification-error',
@@ -189,13 +192,13 @@ for (const path of paths.filter(path => path.startsWith('/guide/'))) {
 assert.ok(index.includes('/images/og/en/guide.png'));
 assert.ok(index.includes('href="/zh/guide"') && index.includes('href="/es/guide"'));
 const discordIndex = await htmlFor('/en/discord');
-assert.ok(discordIndex.includes('"numberOfItems":29'));
+assert.ok(discordIndex.includes('"numberOfItems":32'));
 for (const html of [discordIndex, await htmlFor('/discord')]) {
  const head = html.match(/<head>([\s\S]*?)<\/head>/)?.[1] || '';
  assert.ok(head.includes('hrefLang="en" href="https://gemnao.pages.dev/en/discord"'));
  assert.ok(!/hrefLang="(?:zh-Hans|es)"/.test(head));
 }
-for (const slug of ['upload-failed','mic-not-working','stream-no-audio','screen-share-black-screen','not-opening','loading-stuck','update-failed','installation-failed','cant-hear-voice','audio-input-not-found','error-1001','error-1002','error-1003','bluetooth-audio-problem','bot-add','bot-not-responding','bot-remove','call-disconnects','camera-not-working','crashing','echo-double-voice','game-not-detected','game-volume-lowers','login-error','mic-volume-low','no-route','notifications-not-working','overlay-not-showing','phone-verification-error']) assert.ok(discordIndex.includes(`href="/en/discord/${slug}"`));
+for (const slug of ['upload-failed','mic-not-working','stream-no-audio','screen-share-black-screen','not-opening','loading-stuck','update-failed','installation-failed','cant-hear-voice','audio-input-not-found','error-1001','error-1002','error-1003','bluetooth-audio-problem','bot-add','bot-not-responding','bot-remove','call-disconnects','camera-not-working','crashing','echo-double-voice','game-not-detected','game-volume-lowers','login-error','mic-volume-low','no-route','notifications-not-working','overlay-not-showing','phone-verification-error','rtc-connecting','screen-share-not-working','system-helper']) assert.ok(discordIndex.includes(`href="/en/discord/${slug}"`));
 assert.ok(discordIndex.includes('rel="canonical" href="https://gemnao.pages.dev/en/discord"'));
 assert.ok(discordIndex.includes('/images/og/en/discord.png'));
 const microphone = await htmlFor('/en/gear/discord-microphone-guide');

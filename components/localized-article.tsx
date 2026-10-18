@@ -1,3 +1,4 @@
+import { EnglishDiscordRtcMemo } from '@/components/english-discord-rtc-memo';
 import { EnglishDiscordMicVolumeDiagram } from '@/components/english-discord-mic-volume-diagram';
 import { AceCombatNoticeHistory } from '@/components/ace-combat-notice-history';
 import { ReportedCaseLink } from '@/components/reported-case';
@@ -349,6 +350,7 @@ export function LocalizedArticle({
               ))}
             </StepResultCollection>
           </section>
+          {isDiscord && locale === 'en' && article.slug === 'rtc-connecting' ? <EnglishDiscordRtcMemo /> : null}
           <section className="avoid-block">
             <h2>
               <AlertTriangle size={21} /> {t.avoid}

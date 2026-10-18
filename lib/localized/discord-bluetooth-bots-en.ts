@@ -7,7 +7,6 @@ const windows=(path:string,label:string)=>({label,url:`https://support.microsoft
 const step=(n:number,title:string,summary:string,actions:string[],note?:string)=>({id:`cause-${n}`,title,summary,time:'Compare one change at a time',actions,...(note?{note}:{})});
 const row=(symptom:string,cause:string,n:number)=>({symptom,cause,stepId:`cause-${n}`});
 const link=(slug:string,label:string)=>({href:`/en/discord/${slug}`,label});
-const jp=(slug:string,label:string)=>({href:`/discord/${slug}`,label:`${label} (Japanese)`});
 const base={locale:'en' as const,gameSlug:'discord',gameName:'Discord',checkedAt:'2026-10-18',sourcePolicy:'English adaptation of the existing Japanese article. Official documentation supports the described controls and limits; comparison sequences are editorial guidance rather than measured results. Follow the permissions of the actual device, account and server, record original settings and verify the outcome before making another change.'};
 export const discordBluetoothBotsEn: LocalizedArticle[] = [
 {
@@ -83,7 +82,7 @@ export const discordBluetoothBotsEn: LocalizedArticle[] = [
  cautions:['If the server is absent, verify Manage Server and the signed-in account. If authorization completed but registration is unclear, inspect Members/Integrations and the provider’s support before retrying.','The walkthrough describes installation choices; this article does not install or authorize an app for you.'],
  faqs:[{question:'Do I need Administrator to add a bot?',answer:'The server owner or a member with Manage Server can add a server app. The bot’s own required permissions are a separate, feature-specific decision.'},{question:'Can I add one from a phone?',answer:'This walkthrough uses the desktop/browser App Directory. For a mobile-specific route, consult that app’s provider. Use the PC controls when available to inspect the full destination and permission request.'},{question:'Is a bot different from a Discord app?',answer:'Discord uses apps as a broader term for third-party features. Some expose bot commands; others include Activities used in calls or chats.'}],
  sources:[apps,permissions],
- related:[link('bot-not-responding','Commands missing or no response'),link('bot-remove','Remove or deauthorize an app'),jp('system-helper','Discord System Helper')],
+ related:[link('bot-not-responding','Commands missing or no response'),link('bot-remove','Remove or deauthorize an app'),link('system-helper','Discord System Helper')],
 },
 {
  ...base,slug:'bot-not-responding',title:'Discord Bot Not Responding: Missing Commands, Execution Errors or No Reply',shortTitle:'Bot commands missing or not responding',

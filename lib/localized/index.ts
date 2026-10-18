@@ -1,3 +1,4 @@
+import { discordRtcScreenHelperEn } from './discord-rtc-screen-helper-en';
 import { discordNotificationsOverlayPhoneEn } from './discord-notifications-overlay-phone-en';
 import { discordLoginMicNetworkEn } from './discord-login-mic-network-en';
 import { discordEchoActivityVolumeEn } from './discord-echo-activity-volume-en';
@@ -50,7 +51,7 @@ export const localizedPcArticle = (locale: Locale, slug: string) =>
     (article) => article.locale === locale && article.slug === slug,
   );
 
-export const localizedDiscordArticles = [...localizedDiscordUploadArticles, ...discordCoreEn, ...discordLaunchEn, ...discordAudioChecksEn, ...discordBluetoothBotsEn, ...discordCallCameraCrashEn, ...discordEchoActivityVolumeEn, ...discordNotificationsOverlayPhoneEn, ...discordLoginMicNetworkEn];
+export const localizedDiscordArticles = [...localizedDiscordUploadArticles, ...discordCoreEn, ...discordLaunchEn, ...discordAudioChecksEn, ...discordBluetoothBotsEn, ...discordCallCameraCrashEn, ...discordEchoActivityVolumeEn, ...discordNotificationsOverlayPhoneEn, ...discordLoginMicNetworkEn, ...discordRtcScreenHelperEn];
 export const localizedDiscordArticle = (locale: Locale, slug: string) =>
   localizedDiscordArticles.find(
     (article) => article.locale === locale && article.slug === slug,

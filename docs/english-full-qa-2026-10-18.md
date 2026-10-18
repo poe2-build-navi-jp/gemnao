@@ -72,3 +72,7 @@ Discord26/38・残12、英語127/231・残104。registry/sitemap不一致0。loc
 ## Discord通知・オーバーレイ・電話認証3件
 
 Discord29/38・残9、英語130/231・残101。registry/sitemap不一致0。localized262、型/lint/build、510静的HTML・489 sitemap・429OG、61記事2815内部リンク、4幅16組・検索12件成功。OG3目視/修正済み、API書込み0。詳細english-discord-notifications-review-2026-10-18.md。前コミット35cfe12とab44b66のPages成功確認済み。英語全体QAと今回の本番ブラウザ確認は未完了。
+
+## Discord RTC・画面共有・System Helper3件
+
+Discord32/38・残6、英語133/231・残98。registry/sitemap不一致0。localized265、型/lint/build、513静的HTML・492 sitemap・432OG、64記事2953内部リンク成功。4幅16組・検索12件とRTCメモのコピー成功/失敗フォールバック確認。詳細english-discord-rtc-review-2026-10-18.md。英語全体QA・本番画面確認は未完了。
