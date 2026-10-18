@@ -23,6 +23,7 @@ if (prerender.routes.some(route => route.route === '/:locale/reports' && route.r
   for (const locale of ['en', 'zh', 'es']) knownPaths.add(`/${locale}/reports`);
 }
 const paths = [
+  ...['save-data','fps','controller','mod','config-file','system-requirements','hdr','ultrawide'].map(slug => `/games/monster-hunter-wilds/${slug}`),
   ...['save-data','not-launching','fps','ultrawide','hdr','mod'].map(slug => `/games/elden-ring/${slug}`),
   '/discord/recommended-bots',
   '/pc/pc-broken',
@@ -264,7 +265,6 @@ for (const path of [
   '/en/games/ace-combat-8',
   '/zh/guide/stutter-fix',
   '/es/gear/discord-microphone-guide',
-  '/en/games/monster-hunter-wilds/system-requirements',
 ])
   assert.ok(!manifest[path], `Invented translation: ${path}`);
 const sitemap = await readFile('dist/client/sitemap.xml', 'utf8');

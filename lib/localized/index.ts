@@ -1,3 +1,4 @@
+import { wildsBacklogEn } from '@/lib/localized/wilds-backlog-en';
 import { eldenBacklogEn } from '@/lib/localized/elden-backlog-en';
 import { discordRecommendedBotsEn } from '@/lib/localized/discord-recommended-bots-en';
 import { pcHardwareEn } from '@/lib/localized/pc-hardware-en';
@@ -45,6 +46,7 @@ import type { LocalizedArticle } from '@/lib/localized/types';
 import { followupLocalizedArticles } from '@/lib/followups';
 
 export const localizedArticles: LocalizedArticle[] = [
+  ...wildsBacklogEn,
   ...eldenBacklogEn,
   ...palworldBackupEn,
   ...followupLocalizedArticles,

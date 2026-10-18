@@ -410,16 +410,16 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
         label: 'Choose a save-backup destination',
       },
       {
-        href: '/games/monster-hunter-wilds/save-data',
-        label: 'Wilds save locations (Japanese)',
+        href: '/en/games/monster-hunter-wilds/save-data',
+        label: 'Wilds save locations',
       },
       {
-        href: '/games/monster-hunter-wilds/config-file',
-        label: 'Wilds config.ini (Japanese)',
+        href: '/en/games/monster-hunter-wilds/config-file',
+        label: 'Wilds config.ini',
       },
       {
-        href: '/games/monster-hunter-wilds/mod',
-        label: 'Wilds mods and safe removal (Japanese)',
+        href: '/en/games/monster-hunter-wilds/mod',
+        label: 'Wilds mods and safe removal',
       },
       {
         href: '/guide/gpu-driver-update',
