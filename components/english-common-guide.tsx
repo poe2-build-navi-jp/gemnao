@@ -1,3 +1,5 @@
+import { EnglishResetConfigLocations } from './english-reset-config-locations';
+import { ResetConfigChecklist } from './reset-config-checklist';
 import { guideUi } from '@/lib/localized/guide-ui';
 import type { Locale } from '@/lib/i18n';
 import { EnglishGuideShell } from './english-guide-shell';
@@ -15,12 +17,14 @@ export function EnglishCommonGuide({
   locale?: Locale;
 }) {
   const t = guideUi[locale];
+  const reset = locale === 'en' && guide.slug === 'reset-config-file';
   return (
     <EnglishGuideShell
       guide={guide}
       locale={locale}
       contents={[
         { id: 'choose-check', title: t.symptom },
+        ...(reset ? [{id:'config-location',title:'Configuration locations'},{id:'reset-checklist',title:'Before you begin'}] : []),
         ...guide.steps,
         ...(guide.extraSections || []),
         { id: 'cautions', title: t.cautions },
@@ -39,6 +43,7 @@ export function EnglishCommonGuide({
           ))}
         </ul>
       </section>
+      {reset && <><EnglishResetConfigLocations /><ResetConfigChecklist english /></>}
       <StepResultCollection
         contextSlug={`guide-${guide.slug}`}
         topic={guide.topic}

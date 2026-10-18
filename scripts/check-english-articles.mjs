@@ -39,6 +39,10 @@ const paths = [
   '/guide/pc-shuts-down-while-gaming',
   '/guide/bsod-while-gaming',
   '/guide/reshade-uninstall',
+  '/guide/tpm-secure-boot',
+  '/guide/windows-11-required',
+  '/guide/ray-tracing-gpu',
+  '/guide/reset-config-file',
   '/guide/remove-mods-safely',
   '/guide/uninstall-save-data',
   '/guide/shader-cache-delete',
@@ -152,7 +156,7 @@ for (const html of [index, indexJa]) {
 }
 assert.ok(index.includes('rel="canonical" href="https://gemnao.pages.dev/en/guide"'));
 assert.ok(!/name="robots" content="[^"]*noindex/.test(index));
-assert.ok(index.includes('"numberOfItems":24'));
+assert.ok(index.includes('"numberOfItems":28'));
 for (const path of paths.filter(path => path.startsWith('/guide/'))) {
   assert.ok(index.includes(`href="/en${path}"`), `Index discovery: ${path}`);
   assert.ok((await htmlFor(`/en${path}`)).includes('href="/en/guide"'));

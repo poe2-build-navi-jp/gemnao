@@ -1,3 +1,5 @@
+import { requirementsGuidesEn } from './requirements-guides-en';
+import { resetConfigGuideEn } from './reset-config-guide-en';
 import { systemFailureGuidesEn } from './system-failure-guides-en';
 import { reshadeGuideEn } from './reshade-guide-en';
 import { maintenanceGuidesEn } from './maintenance-guides-en';
@@ -25,6 +27,8 @@ const windowsTools =
   'https://support.microsoft.com/en-us/windows/experience/system-configuration-tools-in-windows';
 
 export const commonGuidesEn: EnglishCommonGuide[] = [
+  ...requirementsGuidesEn,
+  resetConfigGuideEn,
   ...systemFailureGuidesEn,
   reshadeGuideEn,
   ...maintenanceGuidesEn,

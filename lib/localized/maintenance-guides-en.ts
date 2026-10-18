@@ -151,6 +151,6 @@ export const maintenanceGuidesEn: EnglishCommonGuide[] = [
       { label: 'Steam Support: Cloud settings and conflicts', url: 'https://help.steampowered.com/en/faqs/view/68D2-35AB-09A9-7678' },
       { label: 'Epic Games: uninstall a game through the launcher', url: 'https://www.epicgames.com/help/c-32735058/c-36403860/a12795838?lang=en-US' },
     ],
-    related: [{ href: '/en/guide/save-data-backup', label: 'Copy, verify and restore saves' }, { href: '/en/guide/steam-cloud-sync-error', label: 'Steam Cloud errors and conflicts' }, { href: '/guide/reset-config-file', label: 'Reset a configuration file (Japanese)' }, { href: '/en/guide/remove-mods-safely', label: 'Remove mods while preserving progress' }, { href: '/en/guide/verify-steam-files', label: 'Verify installed game files' }],
+    related: [{ href: '/en/guide/save-data-backup', label: 'Copy, verify and restore saves' }, { href: '/en/guide/steam-cloud-sync-error', label: 'Steam Cloud errors and conflicts' }, { href:'/en/guide/reset-config-file',label:'Reset a configuration file' }, { href: '/en/guide/remove-mods-safely', label: 'Remove mods while preserving progress' }, { href: '/en/guide/verify-steam-files', label: 'Verify installed game files' }],
   },
 ];

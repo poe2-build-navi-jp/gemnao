@@ -60,3 +60,7 @@
 
 - maintenance4件は `da96abe4c81833c3068e0ee9abebf80ddd3a3258` / Pages `633bf043-bf4b-419f-a099-3cbabf8be5b2` 成功。
 - 電源断・停止コード・ReShade解除を3件追加。英語101/231、未対応130、共通24/28（残4）。配備成功までは実装件数。
+
+## 共通ガイド完了バッチ
+
+要件3件と設定ファイル初期化を追加し共通28/28。英語105/231、残126。初期CSVは保持。再集計でregistry/sitemap不一致0。Discord34、PC19、ゲーム記事45・ハブ4、gear1、tools2、index3、public7、trouble7、月間2・週刊2が未対応。sitemap外の保存/診断等UIと英語全体QAも残る。

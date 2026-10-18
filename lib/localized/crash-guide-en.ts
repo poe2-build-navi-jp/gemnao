@@ -96,8 +96,7 @@ export const crashGuideEn: EnglishGuideInfo = {
     },
     { href: '/guide/vram-shortage', label: 'VRAM shortage checks (Japanese)' },
     {
-      href: '/guide/reset-config-file',
-      label: 'Back up and reset game settings (Japanese)',
+      href:'/en/guide/reset-config-file',label:'Back up and reset game settings',
     },
   ],
   sources: [

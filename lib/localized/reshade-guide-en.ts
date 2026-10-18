@@ -73,5 +73,5 @@ export const reshadeGuideEn: EnglishCommonGuide = {
  {label:'Developer crosire: normal local installation files',url:'https://reshade.me/forum/troubleshooting/3407-how-to-uninstall-completely'},
  {label:'Steam Support: verify installed game files',url:'https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB'},
  ],
- related:[{href:'/en/guide/remove-mods-safely',label:'Remove other mods safely'},{href:'/en/guide/steam-game-not-launching',label:'Steam launch failures'},{href:'/en/guide/black-screen',label:'Black screens'},{href:'/en/guide/verify-steam-files',label:'Verify game files'},{href:'/guide/reset-config-file',label:'Reset a configuration file (Japanese)'}],
+ related:[{href:'/en/guide/remove-mods-safely',label:'Remove other mods safely'},{href:'/en/guide/steam-game-not-launching',label:'Steam launch failures'},{href:'/en/guide/black-screen',label:'Black screens'},{href:'/en/guide/verify-steam-files',label:'Verify game files'},{href:'/en/guide/reset-config-file',label:'Reset a configuration file'}],
 };
