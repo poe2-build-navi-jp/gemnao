@@ -60,3 +60,7 @@ bluetooth-audio-problem / bot-add / bot-not-responding / bot-remove追加。Disc
 ## Discord通話切断・カメラ・終了3件
 
 Discord20/38、英語121/231・残110。localized253、全体型/build・対象lint、501静的HTML・480 sitemap・420OG、52記事2407内部リンク/アンカー。4幅16組・検索12件・未翻訳8ルート404成功。JS/CSS失敗・API書込み0。OG3枚と375px画面目視済み。詳細english-discord-connection-review-2026-10-18.md。親本番ブラウザ確認と英語全体QAは未完了。
+
+## Discord反響・ゲーム検出・音量低下3件
+
+Discord23/38・残15、英語124/231・残107。localized256、型/lint/build、55記事2539内部リンク、4幅16組・検索12件成功。OG3枚の省略と改行を修正して再生成。詳細english-discord-echo-review-2026-10-18.md。親は先行17記事とreset-config位置案内修正まで確認済み。英語全体QAは未完了。

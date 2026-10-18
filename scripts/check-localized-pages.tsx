@@ -75,7 +75,7 @@ assert.equal(hasTranslation('zh', '/guide'), true);
 assert.equal(hasTranslation('es', '/guide'), true);
 for (const guide of indexGuides) assert.ok(guideIndexHtml.includes(`href="/en${guide.path}"`));
 check('/en/discord', 'en', renderToStaticMarkup(<EnglishDiscordIndex />));
-assert.equal(localizedDiscordArticles.filter(a => a.locale === 'en').length, 20);
+assert.equal(localizedDiscordArticles.filter(a => a.locale === 'en').length, 23);
 let pages = 2;
 for (const locale of locales) {
   check(
@@ -132,7 +132,7 @@ for (const article of localizedArticles) {
 }
 const officialSourceKey = (value: string) => {
  const url = new URL(value);
- if (url.hostname === 'support.discord.com') return `${url.hostname}/articles/${url.pathname.match(/articles\/(\d+)/)?.[1]}`;
+ if (url.hostname === 'support.discord.com' || url.hostname === 'support.focusrite.com') return `${url.hostname}/articles/${url.pathname.match(/articles\/(\d+)/)?.[1]}`;
  return url.href.replace('/ja-jp/', '/en-us/').replace('chrome/answer/2693767?hl=ja', 'chrome/answer/2693767?hl=en');
 };
 for (const article of localizedDiscordArticles) {

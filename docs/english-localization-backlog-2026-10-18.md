@@ -80,3 +80,7 @@ bluetooth-audio-problem / bot-add / bot-not-responding / bot-remove追加。Disc
 ## Discord通話切断・カメラ・終了3件
 
 call-disconnects / camera-not-working / crashing追加。Discord20/38・残18、英語121/231・残110。registry/sitemap不一致0。前バッチfbf5faaはPages 6ea872e2-cac5-4d4e-bc54-e14baf1df268成功を確認済み。次はecho-double-voice、game-not-detected、game-volume-lowers以降。スペイン語版・中国語版には移行していない。
+
+## Discord反響・ゲーム検出・音量低下3件
+
+Discord23/38・残15、英語124/231・残107。localized256、型/lint/build、55記事2539内部リンク、4幅16組・検索12件成功。OG3枚の省略と改行を修正して再生成。詳細english-discord-echo-review-2026-10-18.md。親は先行17記事とreset-config位置案内修正まで確認済み。英語全体QAは未完了。

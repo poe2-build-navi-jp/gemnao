@@ -4,7 +4,7 @@ import { localizedDiscordArticles } from '@/lib/localized/index';
 export const discordIndexEn = {
   title: 'Discord Troubleshooting Guides',
   description:
-    'Find an English Discord guide for launch, loading and update failures, installation errors, microphone input, missing voices, audio errors 1001–1003, Bluetooth audio, stream audio, black shared screens, uploads, bot management, call disconnections, cameras and app crashes. Start with the affected device, viewer and channel.',
+    'Find an English Discord guide for launch, loading and update failures, installation errors, microphone input, missing voices, audio errors 1001–1003, Bluetooth audio, stream audio, black shared screens, uploads, bot management, call disconnections, cameras, app crashes, echoes, activity sharing and game-volume changes. Start with the affected device, viewer and channel.',
   checkedAt: '2026-10-18',
 };
 export function EnglishDiscordIndex() {
