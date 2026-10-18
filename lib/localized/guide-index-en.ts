@@ -22,7 +22,7 @@ export const guideGroupsEn = [
     title: 'Crashes and missing pictures',
     description:
       'The game closes, stays black, or has sound without a picture. First separate a game problem from a Windows-wide failure.',
-    paths: ['/guide/pc-game-crash', '/guide/black-screen'],
+    paths: ['/guide/pc-game-crash', '/guide/pc-game-freezes', '/guide/black-screen'],
   },
   {
     id: 'performance',

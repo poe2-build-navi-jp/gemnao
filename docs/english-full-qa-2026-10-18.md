@@ -28,3 +28,7 @@
 ## 外部資料の到達確認待ち
 
 - https://help.steampowered.com/en/faqs/view/3462-CD4C-36BD-5767 — 本文取得ツールは1行のみ、実行環境の直接取得はCONNECT403。到達性・本文確認は未検証。低GPU使用率の記事はゲーム内FPS表示で手順を実施可能とし、未確認のSteam画面名や機能詳細を追加していない。元日本語版の補助出典は保持し、親ブラウザで確認する。
+
+Steam補助資料の位置づけ: パフォーマンスモニターの任意の参照であり、記事の必須手順の根拠ではない。FPSはゲーム内表示で比較できる。GPU番号・3D負荷・専用/共有メモリはMicrosoft DirectXのTask Manager資料、CPU/GPU制約はMicrosoft DirectXのCPU/GPU-boundedness資料、GPU選択はMicrosoft WindowsのGraphics preference資料で独立に確認済み。Steam固有UI・監視機能詳細は未検証として追加していない。
+
+親ブラウザからの確認受領: no-game-audio / steam-input-controller / controller-double-input / directx-error / visual-c-runtime-error の英語5記事について、内容・表示・主要リンク・FAQを確認済み（親スレッド報告）。全英語版の全体合格とはしない。

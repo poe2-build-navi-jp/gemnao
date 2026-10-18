@@ -1,0 +1,86 @@
+import type { EnglishCommonGuide } from './common-guides-en';
+export const freezeGuideEn: EnglishCommonGuide = {
+ slug:'pc-game-freezes',path:'/guide/pc-game-freezes',topic:'launch',
+ title:'PC Game Freezes or Stops Responding: Memory, Temperature and Logs',shortTitle:'Game freezes or stops responding',
+ description:'Separate a frozen game from an unresponsive PC. Record memory, the correct temperature sensor and Reliability Monitor events, then compare one safe change.',
+ lead:'For a game whose picture or controls stop returning, mainly on Windows 11. Brief hitches that recover belong to the related stutter guide. Sound continuing does not prove the rest of Windows is working.',
+ summary:'First check whether Windows still responds to Alt+Tab, Ctrl+Shift+Esc or Ctrl+Alt+Delete. Recover using normal controls where possible. Afterwards, compare memory and temperature from the affected scene, and choose one relevant change. Not responding and high utilization are observations, not hardware diagnoses.',
+ category:'Common PC game troubleshooting',checkedAt:'2026-10-18',
+ sourcePolicy:'English edition of our Japanese freeze guide, including its memory, sensor and history details. Microsoft and hardware/software vendors document the tools. Our comparison order and numerical examples are editorial guidance, not a confirmed diagnosis or a hardware test.',
+ branches:[
+ {symptom:'Other Windows apps still respond',action:'Check progress before ending only the stuck game.',step:'step-1'},
+ {symptom:'Ctrl+Alt+Delete works but the game stays frozen',action:'Try Task Manager or a normal restart from that screen.',step:'freeze-scope'},
+ {symptom:'Neither input nor Windows responds',action:'Use the device’s recovery instructions; avoid repeated forced tests.',step:'freeze-scope'},
+ {symptom:'Freezes follow longer sessions or rising resource use',action:'Compare readings from before the freeze, not just after reboot.',step:'step-2'},
+ ],
+ steps:[
+ {id:'step-1',title:'Separate a game freeze from a wider failure',actions:[
+ 'Check whether Alt+Tab, Ctrl+Shift+Esc or Ctrl+Alt+Delete produces a usable response. Note the result; continued sound alone cannot establish that only the game stopped.',
+ 'If loading or shader preparation still shows changing progress, allow it to finish. If progress and controls do not return but Windows works, select only the affected game in Task Manager → Processes and consider End task. Unsaved progress may be lost.',
+ 'Only when the whole PC remains unresponsive and a normal restart is unavailable, follow the model’s manual for a power-button shutdown. Do not interrupt a known firmware update. After recovery, note the time and inspect the history below rather than repeatedly forcing the same failure.',
+ ],next:'A normal restart is preferable when available. Repeated whole-PC freezes, power loss or stop codes need the relevant PC/support branch, not repeated game termination.'},
+ {id:'step-2',title:'Record memory and the correct temperature sensor',actions:[
+ 'Before starting the game, open Task Manager → Performance. Record available and committed system memory, plus dedicated GPU memory for the GPU the game uses.',
+ 'Use the temperature section below to distinguish CPU from GPU readings. Compare shortly after launch with the time just before symptoms under the same conditions. A cool reading after a restart cannot reconstruct the earlier load.',
+ 'Mark unavailable values as not captured. Use one monitoring tool at a time, and if monitoring changes the symptom, record separate tests with and without it.',
+ ],next:'Keep the time, scene and sensor names with the numbers. Do not deliberately reproduce repeated system lockups just to obtain a reading.'},
+ {id:'step-3',title:'Try one change supported by the observations',actions:[
+ 'For one game freezing in the same scene, use its Steam Properties → Installed Files → Verify integrity of game files, then compare again after completion. If mods are involved, preserve saves and the configuration first and use the installation source’s documented disable method.',
+ 'If available memory is falling, save work and close an unnecessary browser or recording app normally. If GPU memory pressure is the candidate, compare one lower texture setting instead. Do not change both at once.',
+ 'If rising temperature coincides with falling performance, inspect ventilation and placement using the device manual. If several games or ordinary Windows tasks also freeze, use the PC manufacturer’s diagnostics/support rather than repeatedly reinstalling the game.',
+ ],next:'Restore an unhelpful reversible change before the next comparison. Stop testing if the PC repeatedly loses power, cooling appears abnormal or safe operation is uncertain.'},
+ ],
+ extraSections:[
+ {id:'freeze-scope',title:'What the responding controls can tell you',actions:[
+ 'Alt+Tab opens another app that you can use: investigate the game first. If Ctrl+Alt+Delete appears, Windows is at least partly responsive; try Task Manager, or its power menu for a normal restart after considering unsaved work.',
+ 'No usable response from input or Ctrl+Alt+Delete: the PC, display or input path may be involved. Use the model’s recovery instructions when ordinary controls cannot recover it, then inspect history after restart. Continued audio or a moving pointer is not enough to identify the failed component.',
+ 'Power loss, an automatic restart or a stop code is a different symptom from a game marked Not responding. Use the related whole-PC or stop-code guide (Japanese) and seek support for recurring failures.',
+ 'If only other players stop moving while your menus work, also consider the connection or server. A screen that briefly catches up is a stutter case rather than necessarily a sustained freeze.',
+ ]},
+ {id:'freeze-memory',title:'Read memory headroom without diagnosing a fault',actions:[
+ 'In Task Manager → Processes, sort Memory to see which apps use it. Save work before closing optional apps normally. In Performance → Memory, record In use, Available and Committed before gameplay and near the symptom.',
+ 'Committed shows usage against the current commit limit, not just RAM use or just page-file use. Illustrative example: 23.5 / 24.0 GB leaves about 0.5 GB to that limit. Check the growing application and whether paging was disabled or severely restricted; do not guess a page-file size from this example.',
+ 'Inspect dedicated GPU memory separately for the actual game GPU. An illustrative 7.8 / 8.0 GB with movement freezes suggests a comparison, not proof of shortage. Use the VRAM guide and lower one texture setting if appropriate.',
+ 'High CPU/GPU percentages are not fault codes, and a low CPU average can hide uneven work. Integrated graphics shares system RAM, so interpret its dedicated figure differently from a discrete card.',
+ 'Record readings before ending the game where safe. Closing it or switching windows can change resource use. If you could not capture the pre-freeze value, state when the available reading was taken.',
+ ]},
+ {id:'freeze-temperature',title:'Measure CPU and GPU temperatures separately',actions:[
+ 'Check Performance → the game’s GPU for a temperature reading where supported. Availability depends on the GPU and driver; a missing reading is not itself a fault. This is not the CPU temperature. Microsoft’s linked announcement documents the feature’s original support conditions, not a guarantee for every current device.',
+ 'For CPU temperature, prefer an existing manufacturer monitoring tool. HWiNFO’s official site is another source for sensor monitoring; follow its current documentation. Record the exact CPU sensor name and do not guess when a sensor cannot be identified.',
+ 'Compare the same sensor each time. Current is the present reading; Maximum depends on when monitoring began or its statistics were reset. Start a fresh comparison and record both timing and sensor name. CPU, GPU and GPU junction temperature are different readings.',
+ 'On supported AMD Software configurations, its Performance Metrics view can show CPU Temperature and GPU Current Temperature. Follow the linked AMD instructions for available metrics and logging; absent metrics cannot be assumed. Use monitoring rather than tuning controls.',
+ 'There is no universal temperature at which every CPU/GPU freezes. Check the exact product’s limit and whether rising temperature coincides with lower speed at comparable load. A single high maximum does not prove the cause.',
+ 'For suspected cooling problems, end the game and check unobstructed vents and suitable placement. Follow the model manual for external cleaning. Do not open the power supply, remove cooling parts or run stress tests to force a failure; persistent fan problems or shutdowns need manufacturer support.',
+ ]},
+ {id:'freeze-history',title:'Match Reliability Monitor to the freeze time',actions:[
+ 'After recovery, search Windows for View reliability history. Select the affected date and inspect events near the freeze. Open technical details where offered and record the application, time, event name and code.',
+ 'One game repeatedly stops: compare the scene, verified files and one documented mod/overlay change, and check official known issues. Display-related failures across games: record driver changes and use the driver guide; history alone does not establish a broken GPU.',
+ 'Windows was not properly shut down can be a consequence of a forced shutdown. It is not proof that the power supply caused the original freeze. If no event appears, keep the observed scope and time; missing history does not rule out a problem.',
+ ]},
+ {id:'freeze-compare',title:'Retest safely and prepare a useful support record',actions:[
+ 'Use the same save, route, quality and monitoring method, changing one item. If a freeze normally occurs after 20 minutes, a three-minute launch is not evidence that it is fixed. Compare only as far as safe operation allows; do not repeatedly lock up or power-cycle the PC for a test.',
+ 'Record the single change: an app closed, placement improved or an optional overlay disabled. Restore an unhelpful setting before testing another candidate.',
+ 'Support record: game/version; Windows, CPU, GPU and RAM; time and minutes since launch; scene and repeatability; response to Alt+Tab/Ctrl+Alt+Delete; recovery method; pre-freeze available/committed/GPU memory; monitoring tool and sensor; current/maximum values and capture time; history event; change and result. Use not captured for missing values.',
+ 'For failures across games and ordinary apps, take the record to PC support. For a game-only case, use its official support. Review screenshots and logs for usernames or personal paths before posting publicly.',
+ ]},
+ ],
+ cautions:['Ending a task or forcing shutdown can lose unsaved progress. Do not repeatedly force a whole-PC failure for comparison.','Stop using a device with smoke, unusual smell, swelling, dangerous heat or recent liquid exposure; seek manufacturer help instead of continuing diagnostics.','Do not treat high memory usage or one temperature reading as proof of failed hardware.'],
+ faqs:[
+ {question:'Should I end the task immediately when Windows says Not responding?',answer:'Temporary work can produce that label. If loading or shader preparation still progresses, wait. If controls and progress do not return, ending only the game may be appropriate, with a risk of losing unsaved progress. No single wait time suits all games.'},
+ {question:'Sound keeps playing while the picture freezes. Is it only the game?',answer:'Not necessarily. Check usable Windows responses such as Alt+Tab or Ctrl+Alt+Delete. Display failure and a wider freeze with repeating audio can look similar.'},
+ {question:'Does 90% memory use mean the RAM is faulty?',answer:'No. Look at available memory, commit-limit headroom and how they change near the freeze. Compare closing a saved, optional app before drawing a hardware conclusion.'},
+ {question:'Does a 90°C CPU reading prove overheating caused the freeze?',answer:'No. Limits vary by product, and sensor types differ. Compare the exact sensor with the product guidance and look for related performance changes at comparable load.'},
+ {question:'Everything looks normal after reboot. Can I rule out a problem?',answer:'Rebooting reduces load and resets much of the state. Record the earlier conditions where safe, including time to failure and history. Repeated whole-PC freezes warrant support rather than forced reproduction.'},
+ ],
+ sources:[
+ {label:'Microsoft: Task Manager and Windows system tools',url:'https://support.microsoft.com/en-us/windows/experience/system-configuration-tools-in-windows'},
+ {label:'Microsoft Learn: committed memory, commit limits and page files',url:'https://learn.microsoft.com/en-us/troubleshoot/windows-client/performance/introduction-to-the-page-file'},
+ {label:'Microsoft: original Task Manager GPU-temperature support conditions',url:'https://blogs.windows.com/windows-insider/2019/08/16/announcing-windows-10-insider-preview-build-18963/'},
+ {label:'AMD: performance metrics and logging on supported configurations',url:'https://www.amd.com/en/resources/support-articles/faqs/DH3-038.html'},
+ {label:'Intel: product-specific temperature limits and thermal control',url:'https://www.intel.com/content/www/us/en/support/articles/000005597/processors.html'},
+ {label:'HWiNFO: sensor monitoring features',url:'https://www.hwinfo.com/about-software/'},
+ {label:'Dell: using Windows Reliability Monitor',url:'https://www.dell.com/support/kbdoc/en-us/000178177/how-to-use-windows-reliability-monitor-to-identify-software-issues'},
+ {label:'Steam Support: verify game files',url:'https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB'},
+ ],
+ related:[{href:'/en/guide/stutter-fix',label:'Brief hitches and stutter'},{href:'/en/guide/vram-shortage',label:'GPU memory pressure'},{href:'/en/guide/verify-steam-files',label:'Verify Steam game files'},{href:'/en/guide/gpu-driver-update',label:'GPU driver checks'},{href:'/guide/pc-shuts-down-while-gaming',label:'The whole PC shuts down (Japanese)'},{href:'/guide/bsod-while-gaming',label:'Windows stop codes while gaming (Japanese)'}],
+};

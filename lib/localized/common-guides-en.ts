@@ -1,3 +1,4 @@
+import { freezeGuideEn } from './freeze-guide-en';
 import { gpuMemoryGuidesEn } from './gpu-memory-guides-en';
 import { runtimeGuidesEn } from './runtime-guides-en';
 import { audioControllerGuidesEn } from './audio-controller-guides-en';
@@ -19,6 +20,7 @@ const windowsTools =
   'https://support.microsoft.com/en-us/windows/experience/system-configuration-tools-in-windows';
 
 export const commonGuidesEn: EnglishCommonGuide[] = [
+  freezeGuideEn,
   ...gpuMemoryGuidesEn,
   ...runtimeGuidesEn,
   ...audioControllerGuidesEn,

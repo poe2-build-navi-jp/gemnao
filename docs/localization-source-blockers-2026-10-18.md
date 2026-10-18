@@ -13,3 +13,9 @@
 | Palworld MOD補助資料 | https://github.com/pocketpairjp/PalworldModUploader/blob/main/PalworldModUploader/docs/en/04-Tech.md | 元記事の公式開発者資料。現行の導入先と管理対象を上記告知・ガイドラインと突き合わせる必要がある。この資料単独で全ユーザー環境の削除対象を断定しない。 |
 
 親ブラウザで本文を取得できる場合は、該当節と確認日時を共有すれば再評価できる。新しい権限や認証情報を作る必要はない。復元やMOD操作を実機で実行した事実はなく、成功実績は補わない。
+
+## Steamディスク書き込みエラー英語版の中核資料
+
+対象 `/en/guide/steam-disk-write-error` は未追加のまま保留。必要な資料: https://help.steampowered.com/en/faqs/view/21F5-8D5D-0141-7A5E 。公開本文取得では画像1行のみ、公式ドメイン検索でも該当本文は取得できなかった。確認したいのは対象ライブラリの Repair Folder の現在の操作・対象範囲、更新再試行とWindowsのドライブ検査へ分ける条件。Windowsの一般的なドライブ検査資料ではSteam固有の修復操作を裏付けられないため、代替済みとは扱わない。親ブラウザで該当節を確認できれば再開可能。一般的な空き容量の説明だけで薄い記事を公開しない。
+
+Steamの性能モニター補助資料 https://help.steampowered.com/en/faqs/view/3462-CD4C-36BD-5767 は上記とは別。低GPU使用率記事はゲーム内FPSで実施でき、GPU/CPUの読み方とGPU選択はMicrosoft一次資料で独立に確認済み。Steam固有操作を必須としていない。詳細は全体QA台帳。

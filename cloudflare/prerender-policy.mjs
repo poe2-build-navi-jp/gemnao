@@ -31,6 +31,7 @@ export function isEditorialSnapshotPath(pathname) {
       '/es/guide/save-data-backup',
       '/en/guide/save-data-backup',
       '/en/guide/steam-cloud-sync-error',
+      '/en/guide/pc-game-freezes',
       '/en/guide/vram-shortage',
       '/en/guide/low-gpu-usage',
       '/en/guide/directx-error',

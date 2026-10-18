@@ -104,6 +104,7 @@ export const ogImageManifest: Record<string, string> = {
   "/en/guide/low-gpu-usage": "13fa1adf",
   "/en/guide/no-game-audio": "94166f68",
   "/en/guide/pc-game-crash": "949cced2",
+  "/en/guide/pc-game-freezes": "86a6e2b6",
   "/en/guide/save-data-backup": "b57fae8e",
   "/en/guide/steam-cloud-sync-error": "bb241b65",
   "/en/guide/steam-game-not-launching": "0a9c822d",
