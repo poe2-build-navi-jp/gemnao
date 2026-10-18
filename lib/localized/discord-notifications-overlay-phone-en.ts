@@ -3,7 +3,6 @@ const source=(id:string,label:string)=>({label,url:`https://support.discord.com/
 const step=(n:number,title:string,summary:string,actions:string[],note?:string)=>({id:`cause-${n}`,title,summary,time:'Compare one change at a time',actions,...(note?{note}:{})});
 const row=(symptom:string,cause:string,n:number)=>({symptom,cause,stepId:`cause-${n}`});
 const link=(slug:string,label:string)=>({href:`/en/discord/${slug}`,label});
-const jp=(slug:string,label:string)=>({href:`/discord/${slug}`,label:`${label} (Japanese)`});
 const base={locale:'en' as const,gameSlug:'discord',gameName:'Discord',checkedAt:'2026-10-18',sourcePolicy:'English adaptation of the existing Japanese guide, retaining its step IDs, diagnostic branches and official sources. Comparisons are editorial troubleshooting guidance, not measured results. Preserve original settings and distinguish an unperformed test from success.'};
 export const discordNotificationsOverlayPhoneEn: LocalizedArticle[] = [
 {
@@ -99,7 +98,7 @@ export const discordNotificationsOverlayPhoneEn: LocalizedArticle[] = [
  cautions:['Record game, Windows/Discord versions, missing controls versus participants/messages, keybind, display mode, another game’s result and elevation. Hide names and private messages in screenshots.','Example: controls and participants appear, a DM arrives in Discord, but no in-game message appears. This illustrates a useful comparison record, not a measured result for a particular game.'],
  faqs:[{question:'Why does the usual default shortcut do nothing?',answer:'Your assignment may differ or conflict with game controls. Inspect the actual keybind and press it while the running game is in front.'},{question:'Is it a fault if silent participants disappear?',answer:'Only while speaking can produce that result. Temporarily compare Always and check whether participants remain when silent.'},{question:'Where is the same overlay in macOS or browser Discord?',answer:'This guide covers Windows desktop. The official game overlay does not work on macOS/Linux; use the normal Discord window while keeping your call active.'},{question:'Should reinstalling be my first step?',answer:'First separate missing controls from missing messages, and one-game failure from all games. Reinstalling may leave the relevant display or notification setting unchanged.'}],
  sources:[source('217659737-Game-Overlay-101','Discord: Game Overlay settings and Windows support'),source('34853435033367-Discord-System-Helper','Discord: experimental System Helper and elevated keybinds')],
- related:[link('notifications-not-working','Desktop notifications are missing'),link('system-helper','System Helper'),jp('slow-performance','Discord feels slow')],
+ related:[link('notifications-not-working','Desktop notifications are missing'),link('system-helper','System Helper'),link('slow-performance','Discord feels slow')],
 },
 {
  ...base,slug:'phone-verification-error',title:'Discord Phone Verification Errors and Missing SMS',shortTitle:'Phone verification and missing SMS',

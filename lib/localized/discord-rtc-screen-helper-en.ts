@@ -5,7 +5,6 @@ const status={label:'Discord Status: service incidents',url:'https://discordstat
 const step=(n:number,title:string,summary:string,actions:string[],note?:string)=>({id:`cause-${n}`,title,summary,time:'Compare one change at a time',actions,...(note?{note}:{})});
 const row=(symptom:string,cause:string,n:number)=>({symptom,cause,stepId:`cause-${n}`});
 const link=(slug:string,label:string)=>({href:`/en/discord/${slug}`,label});
-const jp=(slug:string,label:string)=>({href:`/discord/${slug}`,label:`${label} (Japanese)`});
 const base={locale:'en' as const,gameSlug:'discord',gameName:'Discord',checkedAt:'2026-10-18',sourcePolicy:'English adaptation preserving the Japanese guide’s step IDs, comparisons, precautions and official sources. Examples describe how to record results; they are not measured outcomes or promises of recovery.'};
 export const discordRtcScreenHelperEn: LocalizedArticle[] = [
 {
@@ -54,7 +53,7 @@ export const discordRtcScreenHelperEn: LocalizedArticle[] = [
  cautions:['Record exact error/time, client versions, same-PC app/browser, same-Wi-Fi device, other-network results, DM/channel differences, VPN and each changed/restored setting. Use the blank memo on this page without including secrets.','The official connection-error guide includes PTB/Canary console-log collection if needed. First gather ordinary-client comparisons; submit logs privately through official support with personal information removed.'],
  faqs:[{question:'Why does browsing work while RTC Connecting stays stuck?',answer:'Loading websites or text chat does not verify a voice connection. Compare real conversation in the same-PC browser and, where available, another network.'},{question:'How many minutes should I wait?',answer:'There is no universal recovery time. For a relevant incident wait for recovery; otherwise record the error/time and proceed through comparisons after rejoining fails.'},{question:'Should every AMD PC disable OpenH264?',answer:'No. The dated official article concerns some AMD environments. First verify browser voice works, then check the hardware and whether that exact control exists.'},{question:'Does hotspot success prove my router is broken?',answer:'No. The original connection, routing, VPN and router configuration differ. Share the same-PC/same-destination comparison with the administrator/provider.'}],
  sources:[source('115001310031-Voice-Connection-Errors','Discord: voice connection errors'),voice,source('4978019693463-AMD-GPU-CPU-RTC-CONNECTING-Troubleshooting','Discord: conditional AMD RTC troubleshooting (2022)'),status],
- related:[jp('voice-client-outdated','Voice client is out of date'),link('no-route','No Route'),link('call-disconnects','Calls disconnect'),link('cant-hear-voice','Connected but cannot hear callers'),link('not-opening','Discord will not open')],
+ related:[link('voice-client-outdated','Voice client is out of date'),link('no-route','No Route'),link('call-disconnects','Calls disconnect'),link('cant-hear-voice','Connected but cannot hear callers'),link('not-opening','Discord will not open')],
 },
 {
  ...base,slug:'screen-share-not-working',title:'Discord Screen Sharing Not Working: Start, Source and Viewer Checks',shortTitle:'Screen sharing will not start',
@@ -97,7 +96,7 @@ export const discordRtcScreenHelperEn: LocalizedArticle[] = [
  cautions:['For support, record whether Go Live starts, ordinary-app/game/display differences, affected viewer count, incident/restart results and errors.','If the picture works but audio is absent, use the stream-audio guide. Mark unavailable second-viewer comparisons as untested.'],
  faqs:[{question:'Does a paused small preview mean viewers lost the picture?',answer:'Not necessarily. Discord documents pausing the local picture-in-picture when the game has focus. Ask whether the actual Watch Stream picture still updates.'},{question:'Why is the listing thumbnail black while the viewer sees video?',answer:'Stream previews can be hidden separately. If the opened stream works, you can continue sharing without changing its capture settings.'},{question:'Why does a DM share work but a server share will not start?',answer:'Ask the administrator to inspect the role and voice channel’s Video permission. DM success alone does not establish a server outage.'}],
  sources:[source('360040816151-Go-Live-and-Screen-Share','Discord: Go Live, Video permission and watching streams'),voice,source('33030151293079-Discord-Voice-Video-Streaming-Guide','Discord: voice, video and streaming settings'),status],
- related:[link('screen-share-black-screen','A shared screen is black'),link('stream-no-audio','Stream has no audio'),jp('stream-stuttering','Stream keeps stuttering')],
+ related:[link('screen-share-black-screen','A shared screen is black'),link('stream-no-audio','Stream has no audio'),link('stream-stuttering','Stream keeps stuttering')],
 },
 {
  ...base,slug:'system-helper',title:'Discord Keybinds Fail in Games: System Helper and Shortcut Checks',shortTitle:'System Helper and keybinds',

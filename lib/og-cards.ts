@@ -1,3 +1,4 @@
+import { discordPerformanceVersionEn } from '@/lib/localized/discord-performance-version-en';
 import { discordRtcScreenHelperEn } from '@/lib/localized/discord-rtc-screen-helper-en';
 import { discordNotificationsOverlayPhoneEn } from '@/lib/localized/discord-notifications-overlay-phone-en';
 import { discordLoginMicNetworkEn } from '@/lib/localized/discord-login-mic-network-en';
@@ -252,7 +253,7 @@ export function ogCardSpecs(): OgCardSpec[] {
       ...discordBluetoothBotsEn,
       ...discordCallCameraCrashEn,
       ...discordEchoActivityVolumeEn,
-      ...discordNotificationsOverlayPhoneEn, ...discordLoginMicNetworkEn, ...discordRtcScreenHelperEn,
+      ...discordNotificationsOverlayPhoneEn, ...discordLoginMicNetworkEn, ...discordRtcScreenHelperEn, ...discordPerformanceVersionEn,
       ...followupLocalizedArticles,
     ].map((article) => ({
       path:

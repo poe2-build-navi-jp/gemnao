@@ -76,3 +76,7 @@ Discord29/38・残9、英語130/231・残101。registry/sitemap不一致0。loca
 ## Discord RTC・画面共有・System Helper3件
 
 Discord32/38・残6、英語133/231・残98。registry/sitemap不一致0。localized265、型/lint/build、513静的HTML・492 sitemap・432OG、64記事2953内部リンク成功。4幅16組・検索12件とRTCメモのコピー成功/失敗フォールバック確認。詳細english-discord-rtc-review-2026-10-18.md。英語全体QA・本番画面確認は未完了。
+
+## Discord動作負荷・配信・旧音声client3件
+
+Discord35/38・残3、英語136/231・残95。registry/sitemap不一致0。localized268、型/lint/build、516静的HTML・495 sitemap・435OG、67記事3093内部リンク成功。4幅16組・検索12件成功。詳細english-discord-performance-review-2026-10-18.md。英語全体QAと本番画面確認は未完了。
