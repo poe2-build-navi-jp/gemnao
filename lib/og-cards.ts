@@ -1,3 +1,4 @@
+import { pcNetworkEn } from '@/lib/localized/pc-network-en';
 import { pcGamingEn } from '@/lib/localized/pc-gaming-en';
 import { pcUsbDisplayEn } from '@/lib/localized/pc-usb-display-en';
 import { pcDeviceRecoveryEn } from '@/lib/localized/pc-device-recovery-en';
@@ -221,7 +222,7 @@ export function ogCardSpecs(): OgCardSpec[] {
     ...roundupCards,
     ...weeklyCards,
     ...pcCards,
-    ...[...pcAudioEn, ...pcDeviceRecoveryEn, ...pcUsbDisplayEn, ...pcGamingEn].map(article => ({path: `/en/pc/${article.slug}`, locale: article.locale, eyebrow: 'Windows PC troubleshooting', title: article.title, itemsLabel: 'Choose the matching check', items: article.steps.map(step => step.title)})),
+    ...[...pcAudioEn, ...pcDeviceRecoveryEn, ...pcUsbDisplayEn, ...pcGamingEn, ...pcNetworkEn].map(article => ({path: `/en/pc/${article.slug}`, locale: article.locale, eyebrow: 'Windows PC troubleshooting', title: article.title, itemsLabel: 'Choose the matching check', items: article.steps.map(step => step.title)})),
     ...localizedPcRepairArticles.map((article) => ({
       path: `/${article.locale}/pc/${article.slug}`,
       locale: article.locale,

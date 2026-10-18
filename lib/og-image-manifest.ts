@@ -168,6 +168,8 @@ export const ogImageManifest: Record<string, string> = {
   "/en/pc/repair-or-replace": "454eb5ad",
   "/en/pc/second-monitor-not-detected": "f0e21566",
   "/en/pc/usb-c-device-not-recognized": "43664d44",
+  "/en/pc/wifi-connected-no-internet": "ca184be1",
+  "/en/pc/wifi-option-missing": "400f3d51",
   "/en/tools": "0a29e39e",
   "/en/tools/windows-diagnosis": "81999518",
   "/es/discord/upload-failed": "cdcfb7b5",

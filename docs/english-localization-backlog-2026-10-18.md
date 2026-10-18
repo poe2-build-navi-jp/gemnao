@@ -124,3 +124,7 @@ PC8/20・残12、英語146/231・残85。registry/sitemap不一致0。localized2
 ## PCリフレッシュレート・ショートカット
 
 PC10/20・残10、英語148/231・残83。localized280、型/lint/build、528静的HTML・507sitemap・447OG、78記事3572内部リンク/アンカー成功。4幅16組、検索クリック/戻る12件、10カード、7行早見表と28回STEP遷移、1920px通常header、未翻訳6ルート404成功。JS/CSS失敗0・API書込み0。OG2枚と375px早見表目視済み。英語全体QA・本番画面確認は未完了。 詳細english-pc-gaming-review-2026-10-18.md。
+
+## PC Wi-Fi2記事
+
+PC12/20・残8、英語150/231・残81。localized282、型/lint/build成功。530静的HTML・509sitemap・449OG、80記事3658内部リンク/アンカー成功。4幅16組、検索クリック/戻る12件、12カード、1920px通常header、未翻訳6ルート404成功。JS/CSS失敗0・API書込み0。OG2枚と375px結果表目視済み。英語全体QA・本番画面確認は未完了。 詳細english-pc-network-review-2026-10-18.md。

@@ -14,6 +14,8 @@ export function isEditorialSnapshotPath(pathname) {
       '/en/pc/call-starts-audio-disappears',
       '/en/pc/bluetooth-connected-no-sound',
       '/en/pc',
+      '/en/pc/wifi-option-missing',
+      '/en/pc/wifi-connected-no-internet',
       '/en/pc/refresh-rate-stuck-60hz',
       '/en/pc/gaming-shortcut-keys',
       '/en/pc/usb-c-device-not-recognized',
