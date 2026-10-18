@@ -76,3 +76,7 @@ Discord13/38・残25、英語114/231・残117。registry/sitemap不一致0。次
 ## Discord Bluetooth・Bot4件
 
 bluetooth-audio-problem / bot-add / bot-not-responding / bot-remove追加。Discord17/38・残21、英語118/231・残113、registry/sitemap不一致0。localized250、全体型/buildと対象lint、49記事2261内部リンク、4幅20組・検索16件成功。API書込み0。詳細english-discord-bots-review-2026-10-18.md。英語全体QAと親担当の本番画面確認は残る。次は台帳順call-disconnects以降。
+
+## Discord通話切断・カメラ・終了3件
+
+call-disconnects / camera-not-working / crashing追加。Discord20/38・残18、英語121/231・残110。registry/sitemap不一致0。前バッチfbf5faaはPages 6ea872e2-cac5-4d4e-bc54-e14baf1df268成功を確認済み。次はecho-double-voice、game-not-detected、game-volume-lowers以降。スペイン語版・中国語版には移行していない。

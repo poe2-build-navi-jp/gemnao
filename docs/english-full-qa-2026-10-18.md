@@ -56,3 +56,7 @@ cant-hear-voice / audio-input-not-found / error-1001 / error-1002 / error-1003�
 ## Discord Bluetooth・Bot4件
 
 bluetooth-audio-problem / bot-add / bot-not-responding / bot-remove追加。Discord17/38・残21、英語118/231・残113、registry/sitemap不一致0。localized250、全体型/buildと対象lint、49記事2261内部リンク、4幅20組・検索16件成功。API書込み0。詳細english-discord-bots-review-2026-10-18.md。英語全体QAと親担当の本番画面確認は残る。次は台帳順call-disconnects以降。
+
+## Discord通話切断・カメラ・終了3件
+
+Discord20/38、英語121/231・残110。localized253、全体型/build・対象lint、501静的HTML・480 sitemap・420OG、52記事2407内部リンク/アンカー。4幅16組・検索12件・未翻訳8ルート404成功。JS/CSS失敗・API書込み0。OG3枚と375px画面目視済み。詳細english-discord-connection-review-2026-10-18.md。親本番ブラウザ確認と英語全体QAは未完了。

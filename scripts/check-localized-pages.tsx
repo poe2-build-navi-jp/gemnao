@@ -75,7 +75,7 @@ assert.equal(hasTranslation('zh', '/guide'), true);
 assert.equal(hasTranslation('es', '/guide'), true);
 for (const guide of indexGuides) assert.ok(guideIndexHtml.includes(`href="/en${guide.path}"`));
 check('/en/discord', 'en', renderToStaticMarkup(<EnglishDiscordIndex />));
-assert.equal(localizedDiscordArticles.filter(a => a.locale === 'en').length, 17);
+assert.equal(localizedDiscordArticles.filter(a => a.locale === 'en').length, 20);
 let pages = 2;
 for (const locale of locales) {
   check(

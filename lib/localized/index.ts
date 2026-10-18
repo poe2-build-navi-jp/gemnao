@@ -1,3 +1,4 @@
+import { discordCallCameraCrashEn } from './discord-call-camera-crash-en';
 import { discordBluetoothBotsEn } from './discord-bluetooth-bots-en';
 import { discordAudioChecksEn } from './discord-audio-checks-en';
 import { discordLaunchEn } from './discord-launch-en';
@@ -46,7 +47,7 @@ export const localizedPcArticle = (locale: Locale, slug: string) =>
     (article) => article.locale === locale && article.slug === slug,
   );
 
-export const localizedDiscordArticles = [...localizedDiscordUploadArticles, ...discordCoreEn, ...discordLaunchEn, ...discordAudioChecksEn, ...discordBluetoothBotsEn];
+export const localizedDiscordArticles = [...localizedDiscordUploadArticles, ...discordCoreEn, ...discordLaunchEn, ...discordAudioChecksEn, ...discordBluetoothBotsEn, ...discordCallCameraCrashEn];
 export const localizedDiscordArticle = (locale: Locale, slug: string) =>
   localizedDiscordArticles.find(
     (article) => article.locale === locale && article.slug === slug,

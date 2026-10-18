@@ -1,3 +1,4 @@
+import { discordCallCameraCrashEn } from '@/lib/localized/discord-call-camera-crash-en';
 import { discordBluetoothBotsEn } from '@/lib/localized/discord-bluetooth-bots-en';
 import { discordAudioChecksEn } from '@/lib/localized/discord-audio-checks-en';
 import { discordLaunchEn } from '@/lib/localized/discord-launch-en';
@@ -245,6 +246,7 @@ export function ogCardSpecs(): OgCardSpec[] {
       ...discordLaunchEn,
       ...discordAudioChecksEn,
       ...discordBluetoothBotsEn,
+      ...discordCallCameraCrashEn,
       ...followupLocalizedArticles,
     ].map((article) => ({
       path:
