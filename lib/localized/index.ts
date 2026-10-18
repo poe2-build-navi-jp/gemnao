@@ -1,3 +1,4 @@
+import { starWarsBacklogEn } from '@/lib/localized/star-wars-backlog-en';
 import { dawnwalkerBacklogEn } from '@/lib/localized/dawnwalker-backlog-en';
 import { aniimoBacklogEn } from '@/lib/localized/aniimo-backlog-en';
 import { dogmaPerformanceEn } from '@/lib/localized/dogma-performance-en';
@@ -50,6 +51,7 @@ import type { LocalizedArticle } from '@/lib/localized/types';
 import { followupLocalizedArticles } from '@/lib/followups';
 
 export const localizedArticles: LocalizedArticle[] = [
+  ...starWarsBacklogEn,
   ...dawnwalkerBacklogEn,
   ...aniimoBacklogEn,
   ...dogmaPerformanceEn,

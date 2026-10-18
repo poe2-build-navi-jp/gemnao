@@ -1,3 +1,4 @@
+import { starWarsBacklogEn } from '@/lib/localized/star-wars-backlog-en';
 import { dawnwalkerBacklogEn } from '@/lib/localized/dawnwalker-backlog-en';
 import { aniimoBacklogEn } from '@/lib/localized/aniimo-backlog-en';
 import { dogmaPerformanceEn } from '@/lib/localized/dogma-performance-en';
@@ -364,7 +365,7 @@ export function ogCardSpecs(): OgCardSpec[] {
         'Read privacy and safety limits',
       ],
     },
-    ...[...dawnwalkerBacklogEn, ...aniimoBacklogEn, ...dogmaPerformanceEn, ...palworldBacklogEn, ...wildsBacklogEn, ...eldenBacklogEn, ...palworldBackupEn, ...recentGameArticlesEn, ...onimushaArticlesEn].map((article) => ({
+    ...[...starWarsBacklogEn, ...dawnwalkerBacklogEn, ...aniimoBacklogEn, ...dogmaPerformanceEn, ...palworldBacklogEn, ...wildsBacklogEn, ...eldenBacklogEn, ...palworldBackupEn, ...recentGameArticlesEn, ...onimushaArticlesEn].map((article) => ({
       path: `/en/games/${article.gameSlug}/${article.slug}`,
       locale: 'en' as const,
       eyebrow: 'PC game troubleshooting',

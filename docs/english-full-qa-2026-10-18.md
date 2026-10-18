@@ -148,3 +148,7 @@ Discord38/38、英語158/231・残73。localized290、型/lint/build成功。538
 ## Dawnwalker 3記事
 
 英語190/231・残41。ゲーム個別74/91・残17。localized322、型/lint/build成功。570静的HTML・549sitemap・489OG、116記事5327内部リンク/アンカー成功。3記事×4幅、診断12遷移、ハブ到達、検索クリック/戻る8件、エラー文コピー一致。横はみ出し・欠落アンカー・JS/CSS失敗・API書込み0。OG3枚と375px要点/1440px入力診断表目視済み。初回buildは137終了、完了済み検証サーバー停止後の再buildは成功。英語全体QA・本番画面確認は未完了。 詳細english-dawnwalker-review-2026-10-18.md。
+
+## Star Wars Zero Company 4記事とWilds診断リンク
+
+英語194/231・残37。ゲーム個別78/91・残13。localized326、型/lint/build成功。574静的HTML・553sitemap・493OG、120記事5511内部リンク/アンカー成功。4記事×4幅、診断16遷移、ハブ到達、検索クリック/戻る8件、保存パスコピー一致。横はみ出し・欠落アンカー・JS/CSS失敗・API書込み0。OG4枚と375px保存パス/1440px診断表を目視。Wilds config-file症状表の再発行をsafe-startからrestore-configへ修正し、4幅で実クリックしてStep 4へ到達。英語全体QA・本番画面確認は未完了。 詳細english-star-wars-review-2026-10-18.md。

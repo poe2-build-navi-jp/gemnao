@@ -23,6 +23,7 @@ if (prerender.routes.some(route => route.route === '/:locale/reports' && route.r
   for (const locale of ['en', 'zh', 'es']) knownPaths.add(`/${locale}/reports`);
 }
 const paths = [
+  ...['not-launching','black-screen','save-progress','gtx10-rtx20-low-fps'].map(slug => `/games/star-wars-zero-company/${slug}`),
   ...['shader-compilation-crash','stutter-windowed','controller-sprint'].map(slug => `/games/the-blood-of-dawnwalker/${slug}`),
   ...['not-launching','black-screen','login-error','video-memory-error','launcher-display'].map(slug => `/games/aniimo/${slug}`),
   '/games/dragons-dogma-2/performance',

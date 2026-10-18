@@ -1,3 +1,4 @@
+import { starWarsBacklogEn } from '../lib/localized/star-wars-backlog-en';
 import { dawnwalkerBacklogEn } from '../lib/localized/dawnwalker-backlog-en';
 import { aniimoBacklogEn } from '../lib/localized/aniimo-backlog-en';
 import { dogmaPerformanceEn } from '../lib/localized/dogma-performance-en';
@@ -350,7 +351,7 @@ for (const guide of translatedCommonGuides) {
   for (const b of guide.branches) assert.ok([...guide.steps,...(guide.extraSections||[])].some(s => s.id === b.step));
   pages++;
 }
-for (const article of [...recentGameArticlesEn, ...eldenBacklogEn, ...wildsBacklogEn, ...palworldBacklogEn, ...dogmaPerformanceEn, ...aniimoBacklogEn, ...dawnwalkerBacklogEn]) {
+for (const article of [...recentGameArticlesEn, ...eldenBacklogEn, ...wildsBacklogEn, ...palworldBacklogEn, ...dogmaPerformanceEn, ...aniimoBacklogEn, ...dawnwalkerBacklogEn, ...starWarsBacklogEn]) {
   const original = articleBySlug(article.gameSlug, article.slug)!;
   assert.deepEqual(
     article.sources.map((source) => source.url),
