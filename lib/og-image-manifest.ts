@@ -95,6 +95,8 @@ export const ogImageManifest: Record<string, string> = {
   "/en/guide/gpu-driver-update": "aa286963",
   "/en/guide/low-fps": "53d2f31a",
   "/en/guide/pc-game-crash": "949cced2",
+  "/en/guide/save-data-backup": "b57fae8e",
+  "/en/guide/steam-cloud-sync-error": "bb241b65",
   "/en/guide/steam-game-not-launching": "0a9c822d",
   "/en/guide/stutter-fix": "cadb22ac",
   "/en/guide/verify-steam-files": "1d7a9e38",

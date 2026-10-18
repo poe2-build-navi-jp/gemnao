@@ -14,6 +14,8 @@ export function isEditorialSnapshotPath(pathname) {
       '/zh/pc/repair-or-replace',
       '/es/pc/repair-or-replace',
       '/en/guide',
+      '/en/guide/save-data-backup',
+      '/en/guide/steam-cloud-sync-error',
       '/en/guide/verify-steam-files',
       '/en/guide/gpu-driver-update',
       '/en/guide/black-screen',

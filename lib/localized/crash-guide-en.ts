@@ -38,6 +38,8 @@ export const crashGuideEn: EnglishGuideInfo = {
     },
   ],
   related: [
+      { href: '/en/guide/save-data-backup', label: 'Preserve saves before changes or restoration' },
+      { href: '/en/guide/steam-cloud-sync-error', label: 'Cloud warnings: protect candidates before selecting' },
     { href: '/en/guide', label: 'All PC troubleshooting guides' },
     { href: '/en/guide/verify-steam-files', label: 'Verify files and interpret the result' },
     { href: '/en/guide/gpu-driver-update', label: 'Update or roll back the correct GPU driver' },

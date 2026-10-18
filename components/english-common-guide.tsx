@@ -12,6 +12,7 @@ export function EnglishCommonGuide({ guide }: { guide: Guide }) {
       contents={[
         { id: 'choose-check', title: 'Choose your symptom' },
         ...guide.steps,
+        ...(guide.extraSections || []),
         { id: 'cautions', title: 'Protect saves and keep changes reversible' },
       ]}
     >
@@ -52,6 +53,16 @@ export function EnglishCommonGuide({ guide }: { guide: Guide }) {
           </section>
         ))}
       </StepResultCollection>
+      {guide.extraSections?.map((section) => (
+        <section className="pc-step" id={section.id} key={section.id}>
+          <h2>{section.title}</h2>
+          <ol>
+            {section.actions.map((action) => (
+              <li key={action}>{action}</li>
+            ))}
+          </ol>
+        </section>
+      ))}
       <section className="pc-step" id="cautions">
         <h2>Protect saves and keep changes reversible</h2>
         <ul>

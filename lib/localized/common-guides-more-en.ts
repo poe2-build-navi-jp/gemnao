@@ -128,6 +128,8 @@ export const moreCommonGuidesEn: EnglishCommonGuide[] = [
       { label: 'Steam: cloud and saves', url: steam('68D2-35AB-09A9-7678') },
     ],
     related: [
+      { href: '/en/guide/save-data-backup', label: 'Preserve saves before changes or restoration' },
+      { href: '/en/guide/steam-cloud-sync-error', label: 'Cloud warnings: protect candidates before selecting' },
       related('steam-game-not-launching', 'Steam game does not launch'),
       related('pc-game-crash', 'Game launches and then crashes'),
       {

@@ -1,11 +1,13 @@
+import { saveGuidesEn } from './save-guides-en';
 import { moreCommonGuidesEn } from './common-guides-more-en';
 import type { EnglishGuideInfo } from '@/components/english-guide-shell';
 
 export type EnglishCommonGuide = EnglishGuideInfo & {
   slug: string;
-  topic: 'launch' | 'display';
+  topic: 'launch' | 'display' | 'save';
   branches: { symptom: string; action: string; step: string }[];
   steps: { id: string; title: string; actions: string[]; next: string }[];
+  extraSections?: { id: string; title: string; actions: string[] }[];
   cautions: string[];
 };
 const steam = (id: string) =>
@@ -15,6 +17,7 @@ const windowsTools =
 
 export const commonGuidesEn: EnglishCommonGuide[] = [
   ...moreCommonGuidesEn,
+  ...saveGuidesEn,
   {
     slug: 'steam-game-not-launching',
     path: '/guide/steam-game-not-launching',
@@ -142,6 +145,8 @@ export const commonGuidesEn: EnglishCommonGuide[] = [
       },
     ],
     related: [
+      { href: '/en/guide/save-data-backup', label: 'Preserve saves before changes or restoration' },
+      { href: '/en/guide/steam-cloud-sync-error', label: 'Cloud warnings: protect candidates before selecting' },
       { href: '/en/guide', label: 'Browse all PC troubleshooting guides' },
       { href: '/en/guide/verify-steam-files', label: 'Verify Steam files and read the result' },
       { href: '/en/guide/low-fps', label: 'Consistently low FPS: compare caps and rendering load' },

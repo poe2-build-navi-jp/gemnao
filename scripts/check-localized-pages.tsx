@@ -62,8 +62,8 @@ function check(name: string, locale: string, html: string) {
 }
 
 const indexGuides = guideGroupsEn.flatMap(group => group.guides);
-assert.equal(indexGuides.length, 7);
-assert.equal(new Set(indexGuides.map(guide => guide.path)).size, 7);
+assert.equal(indexGuides.length, 9);
+assert.equal(new Set(indexGuides.map(guide => guide.path)).size, 9);
 const guideIndexHtml = renderToStaticMarkup(<EnglishGuideIndex />);
 check('/en/guide', 'en', guideIndexHtml);
 assert.equal(languageAlternates('/guide').en, '/en/guide');
@@ -281,7 +281,7 @@ for (const guide of commonGuidesEn) {
   assert.equal(languageAlternates(guide.path).en, `/en${guide.path}`);
   assert.equal(hasTranslation('zh', guide.path), false);
   assert.equal(hasTranslation('es', guide.path), false);
-  for (const branch of guide.branches) assert.ok(guide.steps.some(step => step.id === branch.step));
+  for (const branch of guide.branches) assert.ok([...guide.steps, ...(guide.extraSections || [])].some(step => step.id === branch.step));
   pages++;
 }
 for (const article of recentGameArticlesEn) {
@@ -325,7 +325,7 @@ assert.equal(
   hasTranslation('en', '/games/monster-hunter-wilds/system-requirements'),
   false,
 );
-assert.equal(hasTranslation('en', '/guide/save-data-backup'), false);
+assert.equal(hasTranslation('en', '/guide/uninstall-save-data'), false);
 const existingEnglishText = JSON.stringify(articlesEn);
 for (const unsafe of [
   'fully reversible',

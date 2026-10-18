@@ -3,11 +3,12 @@ import { crashGuideEn } from './crash-guide-en';
 export const guideIndexEn = {
   title: 'PC Game Troubleshooting Guides',
   description:
-    'Choose an English guide for Steam launch failures, file verification, crashes, black screens, GPU drivers, low FPS or stutter. Compare one change safely and find your next check.',
+    'Choose an English guide for Steam launch failures, file verification, crashes, black screens, GPU drivers, low FPS, stutter, save backups or Steam Cloud conflicts. Compare one change safely and find your next check.',
   checkedAt: '2026-10-18',
 };
 const guides = [crashGuideEn, ...commonGuidesEn];
 export const guideGroupsEn = [
+  { id: 'saves-cloud', title: 'Save backups and Cloud conflicts', description: 'Preserve progress before repairs or synchronization choices. Keep independent copies and stop if the intended version is unclear.', paths: ['/guide/save-data-backup', '/guide/steam-cloud-sync-error'] },
   {
     id: 'launch-files',
     title: 'Launch and game files',

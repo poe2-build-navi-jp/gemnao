@@ -114,12 +114,12 @@ export const gearGuidesEn: GearGuide[] = [
         label: 'Save locations by game (Japanese)',
       },
       {
-        href: '/guide/save-data-backup',
-        label: 'Copy verification, hashes and safe restoration (Japanese)',
+        href: '/en/guide/save-data-backup',
+        label: 'Copy verification, hashes and safe restoration',
       },
       {
-        href: '/guide/steam-cloud-sync-error',
-        label: 'Steam Cloud sync errors (Japanese)',
+        href: '/en/guide/steam-cloud-sync-error',
+        label: 'Steam Cloud sync errors and preserved candidates',
       },
       {
         href: '/en/guide/pc-game-crash',
