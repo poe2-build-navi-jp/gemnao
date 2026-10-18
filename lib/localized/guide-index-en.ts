@@ -15,14 +15,14 @@ export const guideGroupsEn = [
     title: 'Launch and game files',
     description:
       'Nothing happens after Play, files are missing, or verification leaves the same error.',
-    paths: ['/guide/steam-game-not-launching', '/guide/verify-steam-files', '/guide/directx-error', '/guide/visual-c-runtime-error', '/guide/remove-mods-safely', '/guide/steam-disk-write-error'],
+    paths: ['/guide/steam-game-not-launching', '/guide/verify-steam-files', '/guide/directx-error', '/guide/visual-c-runtime-error', '/guide/remove-mods-safely', '/guide/steam-disk-write-error', '/guide/reshade-uninstall'],
   },
   {
     id: 'crash-display',
     title: 'Crashes and missing pictures',
     description:
       'The game closes, stays black, or has sound without a picture. First separate a game problem from a Windows-wide failure.',
-    paths: ['/guide/pc-game-crash', '/guide/pc-game-freezes', '/guide/black-screen'],
+    paths: ['/guide/pc-game-crash', '/guide/pc-game-freezes', '/guide/black-screen', '/guide/pc-shuts-down-while-gaming', '/guide/bsod-while-gaming'],
   },
   {
     id: 'performance',

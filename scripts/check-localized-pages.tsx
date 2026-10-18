@@ -66,8 +66,8 @@ function check(name: string, locale: string, html: string) {
 }
 
 const indexGuides = guideGroupsEn.flatMap(group => group.guides);
-assert.equal(indexGuides.length, 21);
-assert.equal(new Set(indexGuides.map(guide => guide.path)).size, 21);
+assert.equal(indexGuides.length, 24);
+assert.equal(new Set(indexGuides.map(guide => guide.path)).size, 24);
 const guideIndexHtml = renderToStaticMarkup(<EnglishGuideIndex />);
 check('/en/guide', 'en', guideIndexHtml);
 assert.equal(languageAlternates('/guide').en, '/en/guide');
@@ -292,7 +292,7 @@ for (const guide of commonGuidesEn) {
   assert.equal(languageAlternates(guide.path).en, `/en${guide.path}`);
   assert.equal(hasTranslation('zh', guide.path), translatedCommonGuides.some(g => g.locale === 'zh' && g.slug === guide.slug));
   assert.equal(hasTranslation('es', guide.path), translatedCommonGuides.some(g => g.locale === 'es' && g.slug === guide.slug));
-  if (['remove-mods-safely', 'uninstall-save-data', 'shader-cache-delete', 'steam-disk-write-error', 'pc-game-freezes', 'vram-shortage', 'low-gpu-usage', 'directx-error', 'visual-c-runtime-error', 'no-game-audio', 'steam-input-controller', 'controller-double-input'].includes(guide.slug)) {
+  if (['pc-shuts-down-while-gaming', 'bsod-while-gaming', 'reshade-uninstall', 'remove-mods-safely', 'uninstall-save-data', 'shader-cache-delete', 'steam-disk-write-error', 'pc-game-freezes', 'vram-shortage', 'low-gpu-usage', 'directx-error', 'visual-c-runtime-error', 'no-game-audio', 'steam-input-controller', 'controller-double-input'].includes(guide.slug)) {
     assert.deepEqual(guide.steps.map(s => s.actions.length), original.steps.map(s => s.actions.length), `${guide.slug}: action parity`);
     assert.equal(guide.faqs.length, original.faqs?.length, `${guide.slug}: FAQ parity`);
     const sourceKey = (url: string) => url.replace('/ja-jp/', '/en-us/').replace('steampowered.com/ja/', 'steampowered.com/en/').replace('?view=msvc-170', '');

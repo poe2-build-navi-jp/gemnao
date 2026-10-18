@@ -57,3 +57,6 @@
 - フリーズ記事を追加実装。共通一覧17件（共通残11件）、94/231 URL、未対応137。配備確認前は実装件数。Steamディスク書き込みエラーは中核の公式資料取得不可で保留（資料台帳参照）。
 
 - 2026-10-18 maintenance batch: remove-mods-safely / uninstall-save-data / shader-cache-delete / steam-disk-write-error の英語版4件を追加。英語98/231、未対応133、共通21/28（残7）。配備成功までは実装件数。既存CSVは659e基準のまま保持。
+
+- maintenance4件は `da96abe4c81833c3068e0ee9abebf80ddd3a3258` / Pages `633bf043-bf4b-419f-a099-3cbabf8be5b2` 成功。
+- 電源断・停止コード・ReShade解除を3件追加。英語101/231、未対応130、共通24/28（残4）。配備成功までは実装件数。

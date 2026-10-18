@@ -73,7 +73,7 @@ export const maintenanceGuidesEn: EnglishCommonGuide[] = [
       { label: 'Steam Workshop: subscriptions and game-specific management', url: 'https://steamcommunity.com/workshop/' },
       { label: 'Steam Support: verify installed game files', url: 'https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB' },
     ],
-    related: [{ href: '/en/guide/save-data-backup', label: 'Back up saves before changing files' }, { href: '/en/guide/steam-game-not-launching', label: 'Steam game will not launch' }, { href: '/guide/reshade-uninstall', label: 'Remove ReShade (Japanese)' }, { href: '/en/guide/verify-steam-files', label: 'Verify installed game files' }],
+    related: [{ href: '/en/guide/save-data-backup', label: 'Back up saves before changing files' }, { href: '/en/guide/steam-game-not-launching', label: 'Steam game will not launch' }, { href: '/en/guide/reshade-uninstall', label: 'Remove ReShade' }, { href: '/en/guide/verify-steam-files', label: 'Verify installed game files' }],
   },
   {
     slug: 'uninstall-save-data', path: '/guide/uninstall-save-data', topic: 'save',

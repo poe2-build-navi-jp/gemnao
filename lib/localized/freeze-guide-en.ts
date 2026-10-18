@@ -34,7 +34,7 @@ export const freezeGuideEn: EnglishCommonGuide = {
  {id:'freeze-scope',title:'What the responding controls can tell you',actions:[
  'Alt+Tab opens another app that you can use: investigate the game first. If Ctrl+Alt+Delete appears, Windows is at least partly responsive; try Task Manager, or its power menu for a normal restart after considering unsaved work.',
  'No usable response from input or Ctrl+Alt+Delete: the PC, display or input path may be involved. Use the model’s recovery instructions when ordinary controls cannot recover it, then inspect history after restart. Continued audio or a moving pointer is not enough to identify the failed component.',
- 'Power loss, an automatic restart or a stop code is a different symptom from a game marked Not responding. Use the related whole-PC or stop-code guide (Japanese) and seek support for recurring failures.',
+ 'Power loss, an automatic restart or a stop code is a different symptom from a game marked Not responding. Use the related whole-PC or stop-code guide and seek support for recurring failures.',
  'If only other players stop moving while your menus work, also consider the connection or server. A screen that briefly catches up is a stutter case rather than necessarily a sustained freeze.',
  ]},
  {id:'freeze-memory',title:'Read memory headroom without diagnosing a fault',actions:[
@@ -82,5 +82,5 @@ export const freezeGuideEn: EnglishCommonGuide = {
  {label:'Dell: using Windows Reliability Monitor',url:'https://www.dell.com/support/kbdoc/en-us/000178177/how-to-use-windows-reliability-monitor-to-identify-software-issues'},
  {label:'Steam Support: verify game files',url:'https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB'},
  ],
- related:[{href:'/en/guide/stutter-fix',label:'Brief hitches and stutter'},{href:'/en/guide/vram-shortage',label:'GPU memory pressure'},{href:'/en/guide/verify-steam-files',label:'Verify Steam game files'},{href:'/en/guide/gpu-driver-update',label:'GPU driver checks'},{href:'/guide/pc-shuts-down-while-gaming',label:'The whole PC shuts down (Japanese)'},{href:'/guide/bsod-while-gaming',label:'Windows stop codes while gaming (Japanese)'}],
+ related:[{href:'/en/guide/stutter-fix',label:'Brief hitches and stutter'},{href:'/en/guide/vram-shortage',label:'GPU memory pressure'},{href:'/en/guide/verify-steam-files',label:'Verify Steam game files'},{href:'/en/guide/gpu-driver-update',label:'GPU driver checks'},{href:'/en/guide/pc-shuts-down-while-gaming',label:'The whole PC shuts down'},{href:'/en/guide/bsod-while-gaming',label:'Windows stop codes while gaming'}],
 };
