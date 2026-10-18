@@ -14,6 +14,8 @@ export function isEditorialSnapshotPath(pathname) {
       '/en/pc/call-starts-audio-disappears',
       '/en/pc/bluetooth-connected-no-sound',
       '/en/pc',
+      '/en/pc/usb-c-device-not-recognized',
+      '/en/pc/second-monitor-not-detected',
       '/en/pc/audio-after-update',
       '/en/pc/bluetooth-option-missing',
       '/en/pc/repair-or-replace',

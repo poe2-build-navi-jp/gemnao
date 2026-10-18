@@ -485,13 +485,13 @@ for (const article of localizedPcArticles) {
     assert(article.checkedAt >= original.checkedAt, `${path}: verification date must not precede original`);
   }
   assert.deepEqual(
-    article.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/')),
-    original.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/')),
+    article.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/')),
+    original.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/')),
     `${path}: official-source parity`,
   );
   assert.deepEqual(
-    article.evidenceSummary?.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/')),
-    original.evidenceSummary?.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/')),
+    article.evidenceSummary?.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/')),
+    original.evidenceSummary?.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/')),
     `${path}: decision-source parity`,
   );
   assert.equal(

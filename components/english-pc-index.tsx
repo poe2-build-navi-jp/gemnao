@@ -1,7 +1,7 @@
 /* oxlint-disable next/no-html-link-for-pages -- Native links match editorial routes. */
 import { WikiHeader, WikiFooter } from './wiki-header';
 import { localizedPcArticles } from '@/lib/localized/index';
-export const pcIndexEn={title:'Windows PC Troubleshooting Guides',description:'Choose a Windows guide by the affected device and app: missing Bluetooth, silent output, microphone input, changes during calls, or repair and replacement decisions.',checkedAt:'2026-10-18'};
+export const pcIndexEn={title:'Windows PC Troubleshooting Guides',description:'Choose a Windows guide by the affected device and app: missing Bluetooth, silent output, microphone input, USB-C devices, second monitors, changes during calls, or repair and replacement decisions.',checkedAt:'2026-10-18'};
 export function EnglishPcIndex(){
  const articles=localizedPcArticles.filter(a=>a.locale==='en');
  const schema={'@context':'https://schema.org','@type':'CollectionPage',name:pcIndexEn.title,description:pcIndexEn.description,inLanguage:'en',url:'https://gemnao.pages.dev/en/pc',mainEntity:{'@type':'ItemList',numberOfItems:articles.length,itemListElement:articles.map((a,i)=>({'@type':'ListItem',position:i+1,name:a.shortTitle,url:`https://gemnao.pages.dev/en/pc/${a.slug}`}))}};

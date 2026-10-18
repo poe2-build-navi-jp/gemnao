@@ -164,6 +164,8 @@ export const ogImageManifest: Record<string, string> = {
   "/en/pc/call-starts-audio-disappears": "66acf668",
   "/en/pc/microphone-after-update": "ecc678cb",
   "/en/pc/repair-or-replace": "454eb5ad",
+  "/en/pc/second-monitor-not-detected": "f0e21566",
+  "/en/pc/usb-c-device-not-recognized": "43664d44",
   "/en/tools": "0a29e39e",
   "/en/tools/windows-diagnosis": "81999518",
   "/es/discord/upload-failed": "cdcfb7b5",

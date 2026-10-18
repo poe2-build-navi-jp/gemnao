@@ -92,3 +92,7 @@ PC4/20・残16、英語141/231・残90。registry/sitemap不一致0。localized2
 ## PC一覧・更新後音声・Bluetooth消失
 
 PC6/20・残14、英語144/231・残87。英語PC一覧も追加。localized276、型/lint/build、524静的HTML・503sitemap・443OG、74記事3396内部リンク/アンカー成功。4幅28組、1920px通常header、検索クリック/戻る12件、6カード、未翻訳6ルート404成功。通話開始時のみのBluetooth音質問題を別マイク比較へ直接案内し、4幅でリンク位置/遷移先STEP表示確認。JS/CSS失敗0・API書込み0。英語全体QAと本番ブラウザ確認は未完了。 詳細english-pc-recovery-review-2026-10-18.md。
+
+## PC USB-C・外部モニター
+
+PC8/20・残12、英語146/231・残85。registry/sitemap不一致0。localized278、型/lint/build成功。526静的HTML・505sitemap・445OG、76記事3478内部リンク/アンカー成功。4幅16組、1920px通常header、検索クリック/戻る12件、8カード、未翻訳6ルート404成功。JS/CSS失敗0・API書込み0。英語全体QAと本番ブラウザ確認は未完了。 詳細english-pc-usb-display-review-2026-10-18.md。
