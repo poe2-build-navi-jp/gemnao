@@ -1,3 +1,4 @@
+import { discordCoreEn } from './discord-core-en';
 import { commonGuidesEn } from '@/lib/localized/common-guides-en';
 import { reportedCaseBySlug } from '@/lib/reported-cases';
 import { localizedPcRepairArticles } from '@/lib/localized/pc-repair-articles';
@@ -39,7 +40,7 @@ export const localizedPcArticle = (locale: Locale, slug: string) =>
     (article) => article.locale === locale && article.slug === slug,
   );
 
-export const localizedDiscordArticles = localizedDiscordUploadArticles;
+export const localizedDiscordArticles = [...localizedDiscordUploadArticles, ...discordCoreEn];
 export const localizedDiscordArticle = (locale: Locale, slug: string) =>
   localizedDiscordArticles.find(
     (article) => article.locale === locale && article.slug === slug,
@@ -82,6 +83,7 @@ export const ogLocale: Record<Locale, string> = {
 
 /** English-only editorial routes. Do not infer translations from a prefix. */
 export const englishEditorialPaths = [
+  '/discord',
   '/guide',
   '/guide/pc-game-crash',
   ...commonGuidesEn.map(guide => guide.path),

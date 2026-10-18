@@ -103,8 +103,8 @@ export function WikiHeader({
           {labels.basics}
           {locale === 'ja' || locale === 'en' ? '' : ui[locale].inJapanese}
         </a>
-        <a href="/discord">
-          Discord{locale === 'ja' ? '' : ui[locale].inJapanese}
+        <a href={locale === 'en' ? '/en/discord' : '/discord'}>
+          Discord{locale === 'ja' || locale === 'en' ? '' : ui[locale].inJapanese}
         </a>
         <a href="/pc">
           {locale === 'ja'

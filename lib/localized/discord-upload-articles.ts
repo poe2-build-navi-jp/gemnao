@@ -34,6 +34,7 @@ export const localizedDiscordUploadArticles: LocalizedArticle[] = [
     sourcePolicy:
       'Based on official sources checked on October 3, 2026. The comparison sequence is editorial troubleshooting guidance, not a claim of hands-on testing across devices or accounts. Official limit descriptions are inconsistent and experiments are documented; use your current in-app account/channel limit. All linked sources below are in English.',
     related: [
+      { href: '/en/discord', label: 'All English Discord guides' },
       {
         href: '/discord/loading-stuck',
         label: 'Discord stuck loading (Japanese)',

@@ -13,6 +13,7 @@ export function isEditorialSnapshotPath(pathname) {
       '/en/pc/repair-or-replace',
       '/zh/pc/repair-or-replace',
       '/es/pc/repair-or-replace',
+      '/en/discord',
       '/en/guide',
       '/en/guide/save-data-backup',
       '/en/guide/steam-cloud-sync-error',

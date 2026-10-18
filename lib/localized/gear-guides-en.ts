@@ -285,6 +285,7 @@ export const gearGuidesEn: GearGuide[] = [
       },
     ],
     related: [
+      { href: '/en/discord/mic-not-working', label: 'Microphone input and call checks before buying' },
       {
         href: '/discord/mic-volume-low',
         label: 'Fix a quiet microphone or voice (Japanese)',

@@ -1,3 +1,4 @@
+import { EnglishDiscordIndex } from '../components/english-discord-index';
 import { EnglishGuideIndex } from '../components/english-guide-index';
 import { guideGroupsEn } from '../lib/localized/guide-index-en';
 import { EnglishCommonGuide } from '../components/english-common-guide';
@@ -70,7 +71,9 @@ assert.equal(languageAlternates('/guide').en, '/en/guide');
 assert.equal(hasTranslation('zh', '/guide'), false);
 assert.equal(hasTranslation('es', '/guide'), false);
 for (const guide of indexGuides) assert.ok(guideIndexHtml.includes(`href="/en${guide.path}"`));
-let pages = 1;
+check('/en/discord', 'en', renderToStaticMarkup(<EnglishDiscordIndex />));
+assert.equal(localizedDiscordArticles.filter(a => a.locale === 'en').length, 4);
+let pages = 2;
 for (const locale of locales) {
   check(
     `/${locale}`,
@@ -124,6 +127,11 @@ for (const article of localizedArticles) {
   );
   pages++;
 }
+const officialSourceKey = (value: string) => {
+ const url = new URL(value);
+ if (url.hostname === 'support.discord.com') return `${url.hostname}/articles/${url.pathname.match(/articles\/(\d+)/)?.[1]}`;
+ return url.href.replace('/ja-jp/', '/en-us/');
+};
 for (const article of localizedDiscordArticles) {
   const path = `/discord/${article.slug}`;
   const original = discordArticleBySlug(article.slug);
@@ -133,8 +141,8 @@ for (const article of localizedDiscordArticles) {
     original.causes.map((_, index) => `cause-${index + 1}`),
   );
   assert.deepEqual(
-    article.sources.map((source) => source.url),
-    original.sources.map((source) => source.url),
+    article.sources.map((source) => officialSourceKey(source.url)),
+    original.sources.map((source) => officialSourceKey(source.url)),
   );
   assert.equal(article.faqs.length, original.faqs.length, 'Discord FAQ parity');
   assert.equal(
@@ -232,12 +240,12 @@ for (const locale of locales) {
   assert(hasTranslation(locale, '/discord/upload-failed'));
   assert.equal(
     hasTranslation(locale, '/discord'),
-    false,
+    locale === 'en',
     'Do not invent a translated Discord hub',
   );
   assert.equal(
     hasTranslation(locale, '/discord/mic-not-working'),
-    false,
+    locale === 'en',
     'Do not invent other Discord translations',
   );
   assert.equal(hasTranslation(locale, '/games/discord/upload-failed'), false);

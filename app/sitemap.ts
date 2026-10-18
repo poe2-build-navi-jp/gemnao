@@ -131,6 +131,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     })),
     ...[
+      { path: '/en/discord', updated: '2026-10-18' },
       { path: '/en/guide', updated: '2026-10-18' },
       { path: '/en/guide/pc-game-crash', updated: '2026-10-03' },
       ...commonGuidesEn.map(guide => ({ path: `/en${guide.path}`, updated: guide.checkedAt })),

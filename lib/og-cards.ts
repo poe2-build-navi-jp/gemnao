@@ -1,3 +1,4 @@
+import { discordCoreEn } from '@/lib/localized/discord-core-en';
 import { commonGuidesEn } from '@/lib/localized/common-guides-en';
 import { reportedCases, casePath } from '@/lib/reported-cases';
 import { localizedPcRepairArticles } from '@/lib/localized/pc-repair-articles';
@@ -234,6 +235,7 @@ export function ogCardSpecs(): OgCardSpec[] {
       ...aceCombatLaunchArticles,
       ...rocketLeagueLocalizedArticles,
       ...localizedDiscordUploadArticles,
+      ...discordCoreEn,
       ...followupLocalizedArticles,
     ].map((article) => ({
       path:
@@ -345,6 +347,7 @@ export function ogCardSpecs(): OgCardSpec[] {
         'Low FPS and stuttering',
       ],
     },
+    { path: '/en/discord', locale: 'en' as const, eyebrow: 'Discord troubleshooting', title: 'Microphone, stream audio and screen share checks', itemsLabel: 'Find the affected part', items: ['Microphone input', 'Shared game audio', 'Black stream picture', 'File uploads'] },
     { path: '/en/guide', locale: 'en' as const, eyebrow: 'PC game troubleshooting', title: 'Find your next PC game check', itemsLabel: 'Choose your symptom', items: ['Launch and file repair', 'Crashes and black screens', 'GPU drivers', 'Low FPS and stutter'] },
     ...commonGuidesEn.map(guide => ({
       path: `/en${guide.path}`, locale: 'en' as const, eyebrow: 'PC game troubleshooting',

@@ -99,10 +99,10 @@ export function MobileNavigation({
                 {basicsLabel}
                 {locale === 'ja' || locale === 'en' ? '' : ui[locale].inJapanese}
               </a>
-              <a href="/discord">
+              <a href={locale === 'en' ? '/en/discord' : '/discord'}>
                 {locale === 'ja'
                   ? 'Discordトラブル'
-                  : `Discord${ui[locale].inJapanese}`}
+                  : locale === 'en' ? 'Discord' : `Discord${ui[locale].inJapanese}`}
               </a>
               <a href="/pc">
                 {locale === 'ja'

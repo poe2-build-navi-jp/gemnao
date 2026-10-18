@@ -1,3 +1,4 @@
+import { languageAlternates } from '@/lib/localized/index';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { ArrowRight, ExternalLink } from 'lucide-react';
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
   title: 'Discordの不具合・Bot・エラー解決｜起動・音声・RTC',
   description:
     'Discordが起動しない、声が聞こえない、RTC接続中、Botが反応しない・追加できないなどのPC版Discordトラブルを症状別に確認できます。',
-  alternates: { canonical: '/discord' },
+  alternates: { canonical: '/discord', languages: languageAlternates('/discord') },
   openGraph: { images: [discordHubVisual.ogImage] },
   twitter: { card: 'summary_large_image', images: [discordHubVisual.ogImage] },
 };
