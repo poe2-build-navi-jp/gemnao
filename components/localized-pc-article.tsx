@@ -233,6 +233,7 @@ export function LocalizedPcArticle({ article }: { article: Article }) {
           className={`issue-toc${isRepairGuide ? ' repair-article-toc' : ''}`}
         >
           <a href="#answer">{t.summary}</a>
+          {locale === 'en' && article.shortcutRows && <a href="#shortcut-list">Shortcut reference</a>}
           {article.evidenceSummary && (
             <a href="#signs">
               {article.evidenceSummary.tocLabel ??
@@ -299,6 +300,19 @@ export function LocalizedPcArticle({ article }: { article: Article }) {
                 ))}
               </ul>
             </SupplementarySection>
+          )}
+          {locale === 'en' && article.shortcutRows && (
+            <section className="diagnosis-table" id="shortcut-list">
+              <h2>Gaming shortcut reference</h2>
+              <p>Check whether Windows responds, then try the matching keys once. Read the requirements and next step before ending a game or changing display settings.</p>
+              <table><thead><tr><th scope="col">Situation</th><th scope="col">Keys</th><th scope="col">Effect and requirements</th><th scope="col">Next step</th></tr></thead>
+              <tbody>{article.shortcutRows.map(row => <tr key={row.keys}>
+                <td data-label="Situation">{row.situation}</td>
+                <td data-label="Keys"><strong>{row.keys}</strong></td>
+                <td data-label="Effect and requirements">{row.effect}. {row.condition}</td>
+                <td data-label="Next step"><a href={`#step-${row.step}`}>Step {row.step}</a></td>
+              </tr>)}</tbody></table>
+            </section>
           )}
           <section
             className="diagnosis-table"

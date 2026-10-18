@@ -485,13 +485,13 @@ for (const article of localizedPcArticles) {
     assert(article.checkedAt >= original.checkedAt, `${path}: verification date must not precede original`);
   }
   assert.deepEqual(
-    article.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/')),
-    original.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/')),
+    article.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/').replace('help.steampowered.com/ja/', 'help.steampowered.com/en/')),
+    [...original.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/').replace('help.steampowered.com/ja/', 'help.steampowered.com/en/')), ...(article.slug === 'gaming-shortcut-keys' ? ['https://store.steampowered.com/oldnews/5047'] : [])],
     `${path}: official-source parity`,
   );
   assert.deepEqual(
-    article.evidenceSummary?.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/')),
-    original.evidenceSummary?.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/')),
+    article.evidenceSummary?.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/').replace('help.steampowered.com/ja/', 'help.steampowered.com/en/')),
+    original.evidenceSummary?.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/').replace('help.steampowered.com/ja/', 'help.steampowered.com/en/')),
     `${path}: decision-source parity`,
   );
   assert.equal(
@@ -499,6 +499,11 @@ for (const article of localizedPcArticles) {
     original.evidenceSummary?.items.length,
     `${path}: four-way decision parity`,
   );
+  assert.deepEqual(article.shortcutRows?.map(row => row.step), original.shortcutRows?.map(row => row.step), `${path}: shortcut row and step parity`);
+  for (const row of article.shortcutRows || []) {
+    assert(row.situation && row.keys && row.effect && row.condition);
+    assert(row.step >= 1 && row.step <= article.steps.length);
+  }
   article.steps.forEach((step, index) => {
     assert.equal(
       step.actions.length,
@@ -521,6 +526,7 @@ for (const article of localizedPcArticles) {
       assert(liquidWarning.test(warning), `${path}: liquid exposure must retain its immediate-stop warning`);
   }
   const html = renderToStaticMarkup(<LocalizedPcArticle article={article} />);
+  for (const row of article.shortcutRows || []) assert(html.includes('id="shortcut-list"') && html.includes(row.keys));
   check(path, article.locale, html);
   for (const id of article.steps.map((_, index) => `step-${index + 1}`)) {
     assert.equal(

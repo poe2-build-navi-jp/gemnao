@@ -120,3 +120,7 @@ PC6/20・残14、英語144/231・残87。英語PC一覧も追加。localized276�
 ## PC USB-C・外部モニター
 
 PC8/20・残12、英語146/231・残85。registry/sitemap不一致0。localized278、型/lint/build成功。526静的HTML・505sitemap・445OG、76記事3478内部リンク/アンカー成功。4幅16組、1920px通常header、検索クリック/戻る12件、8カード、未翻訳6ルート404成功。JS/CSS失敗0・API書込み0。英語全体QAと本番ブラウザ確認は未完了。 詳細english-pc-usb-display-review-2026-10-18.md。
+
+## PCリフレッシュレート・ショートカット
+
+PC10/20・残10、英語148/231・残83。localized280、型/lint/build、528静的HTML・507sitemap・447OG、78記事3572内部リンク/アンカー成功。4幅16組、検索クリック/戻る12件、10カード、7行早見表と28回STEP遷移、1920px通常header、未翻訳6ルート404成功。JS/CSS失敗0・API書込み0。OG2枚と375px早見表目視済み。英語全体QA・本番画面確認は未完了。 詳細english-pc-gaming-review-2026-10-18.md。
