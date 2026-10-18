@@ -5,7 +5,6 @@ const status={label:'Discord Status: service incidents',url:'https://discordstat
 const step=(n:number,title:string,summary:string,actions:string[],note?:string)=>({id:`cause-${n}`,title,summary,time:'Compare one change at a time',actions,...(note?{note}:{})});
 const row=(symptom:string,cause:string,n:number)=>({symptom,cause,stepId:`cause-${n}`});
 const link=(slug:string,label:string)=>({href:`/en/discord/${slug}`,label});
-const jp=(slug:string,label:string)=>({href:`/discord/${slug}`,label:`${label} (Japanese)`});
 const base={locale:'en' as const,gameSlug:'discord',gameName:'Discord',checkedAt:'2026-10-18',sourcePolicy:'English adaptation of the existing Japanese guide using the same steps and official sources. Comparison sequences and example outcomes are editorial guidance, not measured results. Record original settings, change one condition at a time and distinguish an incomplete comparison from a successful result.'};
 export const discordCallCameraCrashEn: LocalizedArticle[] = [
 {
@@ -54,7 +53,7 @@ export const discordCallCameraCrashEn: LocalizedArticle[] = [
  cautions:['For help, record failure time and time to recurrence, whether the app remained open, location/client/network comparisons, VPN use, gaming/streaming and exact messages.','For one channel, contact its administrator; for one network, contact its operator/router support; for failures across tested conditions, contact Discord support. Mark unavailable comparisons as untested.'],
  faqs:[{question:'Why do calls disconnect when my speed test is fast?',answer:'Throughput does not establish freedom from brief outages or connection restrictions. Compare Ethernet and another network separately on the same PC and observe actual call failures.'},{question:'Does working browser chat prove the network is fine?',answer:'No. Compare a voice call with the same participant for a relevant duration. Chat access and sustained voice are different observations.'},{question:'Should I reinstall when only one server fails?',answer:'First compare another channel and a DM. Ask the administrator about settings, permissions and disconnect actions when failure is confined to a location.'},{question:'Is losing only voices while gaming necessarily a network issue?',answer:'No. If call membership remains, inspect input, sensitivity, Push to Talk and PC load using the voice-cutting-out guide rather than treating it as confirmed connection loss.'}],
  sources:[voice,status,source('115001310031-Voice-Connection-Errors','Discord: voice connection errors, VPN and network checks')],
- related:[jp('voice-cutting-out','Voice breaks up'),link('crashing','Discord exits or restarts'),link('rtc-connecting','Stuck on RTC Connecting'),link('no-route','No Route'),link('system-helper','Discord System Helper')],
+ related:[link('voice-cutting-out','Voice breaks up'),link('crashing','Discord exits or restarts'),link('rtc-connecting','Stuck on RTC Connecting'),link('no-route','No Route'),link('system-helper','Discord System Helper')],
 },
 {
  ...base,slug:'camera-not-working',title:'Discord Camera Not Working: Compare Windows, Your Preview and the Other Person’s View',shortTitle:'Camera missing or showing black',

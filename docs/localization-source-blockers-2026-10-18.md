@@ -23,3 +23,7 @@ Steamの性能モニター補助資料 https://help.steampowered.com/en/faqs/vie
 ## Steamディスク書き込みエラー：中核資料の保留解除
 
 2026-10-18、親担当から別担当による公式検索インデックス本文の確認を受領（先週crawl、直接抽出は画像のみ、Steam実機UI未検証）。上記21F5資料はSettings → Storage → … → Repair Folder、更新に必要なライブラリフォルダーのユーザー権限修復と説明。整合性確認は別対象。ドライブ選択の詳細・変更される権限の細目は不明のまま保持。英語版では対象ライブラリが不明なら中止、権限の一括変更や全ディスク障害修復を断定しない。4記事バッチで実装し、ビルド・画面・配備確認後に公開する。
+
+## Discord recommended-bots：Dyno本文の確認待ち
+
+https://docs.dyno.gg/en/modules/automod と https://docs.dyno.gg/en/premium はWeb抽出が「Copied to clipboard!」のみ、直接取得はCONNECT403。公式検索の断片だけではBanned Words完全一致、Warn、免除、アクション別権限、無料/Premium範囲の全条件を確認できないため、この1記事は未翻訳のまま保持。親ブラウザ担当へ本文確認を依頼済み。ほかのDiscord記事とPC/Windowsを継続する。実Botの導入・権限変更は実行していない。

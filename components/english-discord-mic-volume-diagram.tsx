@@ -17,7 +17,7 @@ export function EnglishDiscordMicVolumeDiagram() {
       <div className="voice-direction-path">
         <strong>You hear another person quietly</strong>
         <p>Their voice → your per-user/output volume → your headphones</p>
-        <a href="/discord/user-volume-low">Check the listening side in the quiet-caller guide (Japanese) →</a>
+        <a href="/en/discord/user-volume-low">Check the listening side in the quiet-caller guide →</a>
       </div>
       <p className="source-policy">Raising your microphone input does not raise the other person’s voice in your headphones. Recording and call comparisons are steps for you to perform, not measured volume or improvement results from the editorial team.</p>
     </figure>

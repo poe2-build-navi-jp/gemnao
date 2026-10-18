@@ -6,7 +6,6 @@ const status={label:'Discord Status: service incidents',url:'https://discordstat
 const step=(n:number,title:string,summary:string,actions:string[],note?:string)=>({id:`cause-${n}`,title,summary,time:'Compare one change at a time',actions,...(note?{note}:{})});
 const row=(symptom:string,cause:string,n:number)=>({symptom,cause,stepId:`cause-${n}`});
 const link=(slug:string,label:string)=>({href:`/en/discord/${slug}`,label});
-const jp=(slug:string,label:string)=>({href:`/discord/${slug}`,label:`${label} (Japanese)`});
 const base={locale:'en' as const,gameSlug:'discord',gameName:'Discord',checkedAt:'2026-10-18',sourcePolicy:'English adaptation preserving the Japanese article’s steps, diagnostic branches, precautions and official references. Numerical comparisons are illustrative, not measured results or universal thresholds. Record original settings and restore unhelpful changes.'};
 export const discordPerformanceVersionEn: LocalizedArticle[] = [
 {
@@ -63,7 +62,7 @@ export const discordPerformanceVersionEn: LocalizedArticle[] = [
  cautions:['For support, record the exact delayed action, time, duration since launch, versions, CPU/memory/GPU/disk activity, concurrent apps, browser/network results and settings restored.','Pair action and outcome: for example, typing lags while recording a game and improves when recording stops. This is an example of a useful report, not an observed result. Hide private conversations in screenshots.'],
  faqs:[{question:'What CPU or memory percentage is abnormal?',answer:'There is no fixed cutoff for this symptom. Compare sustained activity during the actual delay and whether reducing a task improves both figures and responsiveness.'},{question:'Should Hardware Acceleration always be off?',answer:'It is an official troubleshooting option, but the result varies. Record the original state, compare the same screen and restore it if unchanged or worse.'},{question:'Why is Discord slow on a fast connection?',answer:'Local controls can lag because of PC load or rendering. Connection speed also does not measure every delay or instability; separate typing from delivery.'},{question:'Does reducing Discord memory always make it faster?',answer:'No. Confirm the same action responds better, and do not terminate system tasks merely to lower a figure.'}],
  sources:[source('213491697-What-are-the-OS-system-requirements-for-Discord','Discord: requirements and lag comparisons'),general,source('225733808-Why-does-Discord-have-multiple-processes','Discord: multiple processes are normal'),{label:'Microsoft: monitoring and improving Windows performance',url:'https://support.microsoft.com/en-us/windows/experience/performance-optimization/tips-to-improve-pc-performance-in-windows'},status],
- related:[link('stream-stuttering','Stream stutters'),jp('voice-cutting-out','Speech cuts out'),link('not-opening','Discord will not open'),link('crashing','Discord crashes'),link('overlay-not-showing','Overlay is missing')],
+ related:[link('stream-stuttering','Stream stutters'),link('voice-cutting-out','Speech cuts out'),link('not-opening','Discord will not open'),link('crashing','Discord crashes'),link('overlay-not-showing','Overlay is missing')],
 },
 {
  ...base,slug:'stream-stuttering',title:'Discord Stream Stuttering: Broadcaster and Viewer Checks',shortTitle:'Stream keeps stuttering',

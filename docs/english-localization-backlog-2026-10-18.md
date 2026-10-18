@@ -100,3 +100,7 @@ Discord32/38・残6、英語133/231・残98。registry/sitemap不一致0。local
 ## Discord動作負荷・配信・旧音声client3件
 
 Discord35/38・残3、英語136/231・残95。registry/sitemap不一致0。localized268、型/lint/build、516静的HTML・495 sitemap・435OG、67記事3093内部リンク成功。4幅16組・検索12件成功。詳細english-discord-performance-review-2026-10-18.md。英語全体QAと本番画面確認は未完了。
+
+## Discord相手音量・音声途切れ2件
+
+Discord37/38・残1、英語138/231・残93。registry/sitemap不一致0。localized270、型/lint/build、518静的HTML・497 sitemap・437OG、69記事3184内部リンク成功。4幅16組・検索8件・37カード・未翻訳8ルート404、JS/CSS失敗0、API書込み0。音量方向図の英語リンク更新も確認。英語全体QA・本番ブラウザ確認は未完了。 詳細english-discord-listening-review-2026-10-18.md。残1はDyno本文確認待ち。次はPC/Windows19記事。
