@@ -140,3 +140,7 @@ PC16/20・残4、英語154/231・残77。localized286、型/lint/build成功。5
 ## PC Windows Update停止
 
 PC17/20・残3、英語155/231・残76。localized287、型/lint/build成功。535静的HTML・514sitemap・454OG、85記事3884内部リンク/アンカー成功。4幅16組、検索クリック/戻る12件、17カード、1920px通常header、未翻訳6ルート404成功。JS/CSS失敗0・API書込み0。OGと375px結果表目視済み。英語全体QA・本番画面確認は未完了。 詳細english-pc-update-stuck-review-2026-10-18.md。
+
+## PC故障・不正アクセス対処
+
+PC19/20・残1、英語157/231・残74。localized289、型/lint/build成功。537静的HTML・516sitemap・456OG、87記事3984内部リンク/アンカー成功。4幅16組、検索クリック/戻る12件、19カード、1920px通常header、未翻訳6ルート404成功。JS/CSS失敗0・API書込み0。OG2枚と375px結果表目視済み。英語全体QA・本番画面確認は未完了。 詳細english-pc-hardware-security-review-2026-10-18.md。

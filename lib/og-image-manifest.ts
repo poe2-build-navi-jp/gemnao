@@ -166,6 +166,8 @@ export const ogImageManifest: Record<string, string> = {
   "/en/pc/file-explorer-freezes-on-right-click": "63628e72",
   "/en/pc/gaming-shortcut-keys": "8fde9682",
   "/en/pc/microphone-after-update": "ecc678cb",
+  "/en/pc/pc-broken": "d4233b53",
+  "/en/pc/pc-hacked-signs": "5a4d0f9e",
   "/en/pc/refresh-rate-stuck-60hz": "8105f9c3",
   "/en/pc/repair-or-replace": "454eb5ad",
   "/en/pc/second-monitor-not-detected": "f0e21566",

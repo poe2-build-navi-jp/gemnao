@@ -23,6 +23,8 @@ if (prerender.routes.some(route => route.route === '/:locale/reports' && route.r
   for (const locale of ['en', 'zh', 'es']) knownPaths.add(`/${locale}/reports`);
 }
 const paths = [
+  '/pc/pc-broken',
+  '/pc/pc-hacked-signs',
   '/pc/windows-update-stuck',
   '/pc/windows-update-0x800f081f',
   '/pc/file-explorer-freezes-on-right-click',
@@ -314,7 +316,7 @@ for (const locale of ['zh','es']) for (const suffix of ['/guide','/guide/save-da
 console.log('PASS: zh/es guide indexes, save backup and Cloud pages; reciprocal four-language metadata, sources, navigation and sitemap');
 
 const pcIndex = await htmlFor('/en/pc');
-assert.ok(pcIndex.includes('"numberOfItems":17'));
+assert.ok(pcIndex.includes('"numberOfItems":19'));
 for (const html of [pcIndex, await htmlFor('/pc')]) {
  const head = html.match(/<head>([\s\S]*?)<\/head>/)?.[1] || '';
  assert.ok(head.includes('hrefLang="en" href="https://gemnao.pages.dev/en/pc"'));
@@ -322,11 +324,11 @@ for (const html of [pcIndex, await htmlFor('/pc')]) {
  assert.ok(!/hrefLang="(?:zh-Hans|es)"/.test(head));
 }
 assert.ok(pcIndex.includes('/images/og/en/pc.png'));
-for (const slug of ['windows-update-stuck','windows-update-0x800f081f','file-explorer-freezes-on-right-click','sleep-wakes-up-by-itself','black-screen-after-sign-in','wifi-option-missing','wifi-connected-no-internet','refresh-rate-stuck-60hz','gaming-shortcut-keys','usb-c-device-not-recognized','second-monitor-not-detected','repair-or-replace','microphone-after-update','call-starts-audio-disappears','bluetooth-connected-no-sound','audio-after-update','bluetooth-option-missing']) {
+for (const slug of ['pc-broken','pc-hacked-signs','windows-update-stuck','windows-update-0x800f081f','file-explorer-freezes-on-right-click','sleep-wakes-up-by-itself','black-screen-after-sign-in','wifi-option-missing','wifi-connected-no-internet','refresh-rate-stuck-60hz','gaming-shortcut-keys','usb-c-device-not-recognized','second-monitor-not-detected','repair-or-replace','microphone-after-update','call-starts-audio-disappears','bluetooth-connected-no-sound','audio-after-update','bluetooth-option-missing']) {
  assert.ok(pcIndex.includes(`href="/en/pc/${slug}"`));
  assert.ok((await htmlFor(`/en/pc/${slug}`)).includes('href="/en/pc"'));
 }
-console.log('PASS: English PC index and seventeen reciprocal article links');
+console.log('PASS: English PC index and nineteen reciprocal article links');
 
 const shortcuts = await htmlFor('/en/pc/gaming-shortcut-keys');
 assert.ok(shortcuts.includes('id="shortcut-list"'));

@@ -597,8 +597,8 @@ for (const locale of locales) {
   );
   assert.equal(
     hasTranslation(locale, '/pc/pc-broken'),
-    false,
-    'Do not invent other PC translations',
+    locale === 'en',
+    'Only the reviewed English hardware translation exists',
   );
   assert.equal(hasTranslation(locale, '/pc/repair-or-replace/extra'), false);
   assert.equal(
