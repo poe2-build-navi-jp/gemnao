@@ -1,3 +1,4 @@
+import type { BotRecommendation } from '@/lib/discord-recommended-bots';
 import type { Locale } from '@/lib/i18n';
 
 // A troubleshooting article rewritten for one language. It covers the same
@@ -10,6 +11,7 @@ export type LocalizedArticle = {
   /** English name when the game has no translated hub yet. */
   gameName?: string;
   sourcePolicy?: string;
+  botRecommendations?: BotRecommendation[];
   related?: { href: string; label: string }[];
   /** Symptom-specific checks in this article's language; use existing steps or translated routes. */
   nextChecks?: {

@@ -144,3 +144,7 @@ PC17/20・残3、英語155/231・残76。localized287、型/lint/build成功。5
 ## PC故障・不正アクセス対処
 
 PC19/20・残1、英語157/231・残74。localized289、型/lint/build成功。537静的HTML・516sitemap・456OG、87記事3984内部リンク/アンカー成功。4幅16組、検索クリック/戻る12件、19カード、1920px通常header、未翻訳6ルート404成功。JS/CSS失敗0・API書込み0。OG2枚と375px結果表目視済み。英語全体QA・本番画面確認は未完了。 詳細english-pc-hardware-security-review-2026-10-18.md。
+
+## Discord Bot比較
+
+Discord38/38、英語158/231・残73。localized290、型/lint/build成功。538静的HTML・517sitemap・457OG、88記事4038内部リンク/アンカー成功。日英各4幅、4カード各4操作、比較表/カード/戻る32組、一覧・検索からの到達、zh/es未翻訳404成功。横はみ出し・欠落アンカー・JS/CSS失敗・API書込み0。OGと375px比較表目視済み。英語全体QAと本番ブラウザ確認は未完了。 詳細english-discord-recommendations-review-2026-10-18.md。

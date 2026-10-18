@@ -76,7 +76,7 @@ assert.equal(hasTranslation('zh', '/guide'), true);
 assert.equal(hasTranslation('es', '/guide'), true);
 for (const guide of indexGuides) assert.ok(guideIndexHtml.includes(`href="/en${guide.path}"`));
 check('/en/discord', 'en', renderToStaticMarkup(<EnglishDiscordIndex />));
-assert.equal(localizedDiscordArticles.filter(a => a.locale === 'en').length, 37);
+assert.equal(localizedDiscordArticles.filter(a => a.locale === 'en').length, 38);
 check('/en/pc', 'en', renderToStaticMarkup(<EnglishPcIndex />));
 let pages = 3;
 for (const locale of locales) {
@@ -174,6 +174,17 @@ for (const article of localizedDiscordArticles) {
       `${path}: note parity`,
     );
   });
+  if (original.botRecommendations) {
+    assert.deepEqual(article.botRecommendations?.map(bot => bot.id), original.botRecommendations.map(bot => bot.id));
+    article.botRecommendations!.forEach((bot, i) => {
+      const source = original.botRecommendations![i];
+      assert.equal(bot.steps.length, source.steps.length, 'Bot setup action parity');
+      for (const key of ['purpose','useCase','fit','skip','cost','example','success','failure','undo'] as const) assert.ok(bot[key].trim(), `Bot ${bot.id}: missing ${key}`);
+      assert.equal(bot.entry.url, source.entry.url);
+      assert.equal(bot.dashboard, source.dashboard);
+      assert.equal(bot.manual, source.manual);
+    });
+  }
   article.diagnosis.forEach((row) =>
     assert(article.steps.some((step) => step.id === row.stepId)),
   );

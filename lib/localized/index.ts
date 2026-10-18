@@ -1,3 +1,4 @@
+import { discordRecommendedBotsEn } from '@/lib/localized/discord-recommended-bots-en';
 import { pcHardwareEn } from '@/lib/localized/pc-hardware-en';
 import { pcSecurityEn } from '@/lib/localized/pc-security-en';
 import { pcUpdateStuckEn } from '@/lib/localized/pc-update-stuck-en';
@@ -63,7 +64,7 @@ export const localizedPcArticle = (locale: Locale, slug: string) =>
     (article) => article.locale === locale && article.slug === slug,
   );
 
-export const localizedDiscordArticles = [...localizedDiscordUploadArticles, ...discordCoreEn, ...discordLaunchEn, ...discordAudioChecksEn, ...discordBluetoothBotsEn, ...discordCallCameraCrashEn, ...discordEchoActivityVolumeEn, ...discordNotificationsOverlayPhoneEn, ...discordLoginMicNetworkEn, ...discordRtcScreenHelperEn, ...discordPerformanceVersionEn, ...discordListeningSpeechEn];
+export const localizedDiscordArticles = [...localizedDiscordUploadArticles, ...discordCoreEn, ...discordLaunchEn, ...discordAudioChecksEn, ...discordBluetoothBotsEn, ...discordCallCameraCrashEn, ...discordEchoActivityVolumeEn, ...discordNotificationsOverlayPhoneEn, ...discordLoginMicNetworkEn, ...discordRtcScreenHelperEn, ...discordPerformanceVersionEn, ...discordListeningSpeechEn, ...discordRecommendedBotsEn];
 export const localizedDiscordArticle = (locale: Locale, slug: string) =>
   localizedDiscordArticles.find(
     (article) => article.locale === locale && article.slug === slug,

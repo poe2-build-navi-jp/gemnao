@@ -1,3 +1,4 @@
+import { discordRecommendedBotsEn } from '@/lib/localized/discord-recommended-bots-en';
 import { pcHardwareEn } from '@/lib/localized/pc-hardware-en';
 import { pcSecurityEn } from '@/lib/localized/pc-security-en';
 import { pcUpdateStuckEn } from '@/lib/localized/pc-update-stuck-en';
@@ -265,7 +266,7 @@ export function ogCardSpecs(): OgCardSpec[] {
       ...discordBluetoothBotsEn,
       ...discordCallCameraCrashEn,
       ...discordEchoActivityVolumeEn,
-      ...discordNotificationsOverlayPhoneEn, ...discordLoginMicNetworkEn, ...discordRtcScreenHelperEn, ...discordPerformanceVersionEn, ...discordListeningSpeechEn,
+      ...discordNotificationsOverlayPhoneEn, ...discordLoginMicNetworkEn, ...discordRtcScreenHelperEn, ...discordPerformanceVersionEn, ...discordListeningSpeechEn, ...discordRecommendedBotsEn,
       ...followupLocalizedArticles,
     ].map((article) => ({
       path:

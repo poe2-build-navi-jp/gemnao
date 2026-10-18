@@ -1,3 +1,4 @@
+import { DiscordBotComparison, DiscordBotRecommendations } from '@/components/discord-bot-recommendations';
 import { EnglishDiscordRtcMemo } from '@/components/english-discord-rtc-memo';
 import { EnglishDiscordMicVolumeDiagram } from '@/components/english-discord-mic-volume-diagram';
 import { AceCombatNoticeHistory } from '@/components/ace-combat-notice-history';
@@ -166,6 +167,7 @@ export function LocalizedArticle({
       <div className="article-layout issue-layout">
         <ArticleToc title={t.contents} className="issue-toc">
           <a href="#answer">{t.summary}</a>
+          {locale === 'en' && article.botRecommendations && <><a href="#bot-comparison">Compare bots</a>{article.botRecommendations.map(bot => <a key={bot.id} href={`#bot-${bot.id}`}>{bot.name} setup</a>)}</>}
           <a href="#diagnosis">{t.diagnosis}</a>
           {article.steps.map((step, index) => (
             <a href={`#${step.id}`} key={step.id}>
@@ -238,6 +240,7 @@ export function LocalizedArticle({
             <ReportEntryLink articlePath={originalPath} locale={locale} />
           )}
           {isDiscord && locale === 'en' && article.slug === 'mic-volume-low' ? <EnglishDiscordMicVolumeDiagram /> : null}
+          {locale === 'en' && article.botRecommendations && <><DiscordBotComparison bots={article.botRecommendations} locale="en" /><DiscordBotRecommendations bots={article.botRecommendations} locale="en" /></>}
           <section className="diagnosis-table" id="diagnosis">
             <h2>{t.diagnosis}</h2>
             <p>
