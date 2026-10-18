@@ -1,3 +1,4 @@
+import { dogmaPerformanceEn } from '../lib/localized/dogma-performance-en';
 import { palworldBacklogEn } from '../lib/localized/palworld-backlog-en';
 import { wildsBacklogEn } from '../lib/localized/wilds-backlog-en';
 import { EnglishPcIndex } from '../components/english-pc-index';
@@ -347,7 +348,7 @@ for (const guide of translatedCommonGuides) {
   for (const b of guide.branches) assert.ok([...guide.steps,...(guide.extraSections||[])].some(s => s.id === b.step));
   pages++;
 }
-for (const article of [...recentGameArticlesEn, ...eldenBacklogEn, ...wildsBacklogEn, ...palworldBacklogEn]) {
+for (const article of [...recentGameArticlesEn, ...eldenBacklogEn, ...wildsBacklogEn, ...palworldBacklogEn, ...dogmaPerformanceEn]) {
   const original = articleBySlug(article.gameSlug, article.slug)!;
   assert.deepEqual(
     article.sources.map((source) => source.url),
@@ -373,8 +374,8 @@ for (const article of [...recentGameArticlesEn, ...eldenBacklogEn, ...wildsBackl
 }
 assert.equal(
   hasTranslation('en', '/games/ace-combat-8'),
-  false,
-  'Do not fabricate a hub',
+  true,
+  'The reviewed English hub exists',
 );
 assert.equal(
   hasTranslation('en', '/games/ace-combat-8/error-st-3100001'),

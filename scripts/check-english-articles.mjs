@@ -23,6 +23,7 @@ if (prerender.routes.some(route => route.route === '/:locale/reports' && route.r
   for (const locale of ['en', 'zh', 'es']) knownPaths.add(`/${locale}/reports`);
 }
 const paths = [
+  '/games/dragons-dogma-2/performance',
   ...['save-data','not-launching','system-requirements','dedicated-server-settings','dedicated-server-port'].map(slug => `/games/palworld/${slug}`),
   ...['save-data','fps','controller','mod','config-file','system-requirements','hdr','ultrawide'].map(slug => `/games/monster-hunter-wilds/${slug}`),
   ...['save-data','not-launching','fps','ultrawide','hdr','mod'].map(slug => `/games/elden-ring/${slug}`),
@@ -259,11 +260,10 @@ for (const required of [
 ])
   assert.ok(wilds.includes(required), required);
 const ace = await htmlFor('/en/games/ace-combat-8/error-st-3100001');
-assert.ok(ace.includes('ACE COMBAT 8 (Japanese)'));
+assert.ok(ace.includes('href="/en/games/ace-combat-8"'));
 assert.ok(ace.includes('correct time zone for your location'));
-assert.ok(!ace.includes('href="/en/games/ace-combat-8"'));
+
 for (const path of [
-  '/en/games/ace-combat-8',
   '/zh/guide/stutter-fix',
   '/es/gear/discord-microphone-guide',
 ])

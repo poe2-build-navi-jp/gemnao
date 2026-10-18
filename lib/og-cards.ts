@@ -1,3 +1,4 @@
+import { dogmaPerformanceEn } from '@/lib/localized/dogma-performance-en';
 import { palworldBacklogEn } from '@/lib/localized/palworld-backlog-en';
 import { wildsBacklogEn } from '@/lib/localized/wilds-backlog-en';
 import { eldenBacklogEn } from '@/lib/localized/elden-backlog-en';
@@ -290,6 +291,7 @@ export function ogCardSpecs(): OgCardSpec[] {
       }[article.locale],
       items: article.steps.slice(0, 4).map((step) => step.title),
     })),
+    ...['aniimo','ace-combat-8','star-wars-zero-company','the-blood-of-dawnwalker'].map(gameSlug => ({path: `/en/games/${gameSlug}`,locale: 'en' as const,eyebrow: 'PC troubleshooting guides',title: localizedHubs[gameSlug].title!.en!,itemsLabel: 'Choose the matching check',items: localizedHubs[gameSlug].checklist!.en!.slice(0,4)})),
     ...['overwatch-2', 'pubg', 'arc-raiders', 'elden-ring-nightreign', 'marvel-rivals', 'valorant', 'apex-legends', 'fortnite', 'battlefield-6'].flatMap(
       (gameSlug) => (['en', 'zh', 'es'] as const).map((locale) => ({
         path: `/${locale}/games/${gameSlug}`,
@@ -360,7 +362,7 @@ export function ogCardSpecs(): OgCardSpec[] {
         'Read privacy and safety limits',
       ],
     },
-    ...[...palworldBacklogEn, ...wildsBacklogEn, ...eldenBacklogEn, ...palworldBackupEn, ...recentGameArticlesEn, ...onimushaArticlesEn].map((article) => ({
+    ...[...dogmaPerformanceEn, ...palworldBacklogEn, ...wildsBacklogEn, ...eldenBacklogEn, ...palworldBackupEn, ...recentGameArticlesEn, ...onimushaArticlesEn].map((article) => ({
       path: `/en/games/${article.gameSlug}/${article.slug}`,
       locale: 'en' as const,
       eyebrow: 'PC game troubleshooting',

@@ -1,3 +1,4 @@
+import { remainingHubsEn } from './remaining-hubs-en';
 import { competitiveLocalizedHubs } from '../competitive-game-hubs';
 import { launchLocalizedHubs } from '@/lib/launch-game-hubs';
 import { arcRaidersLocalizedHub } from '@/lib/arc-raiders-hub';
@@ -49,6 +50,7 @@ const store = (appId: string): LocalizedHub['sources'][number] => ({
 });
 
 export const localizedHubs: Record<string, LocalizedHub> = {
+  ...remainingHubsEn,
   ...competitiveLocalizedHubs,
   ...launchLocalizedHubs,
   'arc-raiders': arcRaidersLocalizedHub,
