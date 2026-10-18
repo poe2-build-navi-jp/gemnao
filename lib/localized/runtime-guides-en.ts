@@ -72,7 +72,7 @@ export const runtimeGuidesEn: EnglishCommonGuide[] = [
       {label: 'Microsoft: System File Checker', url: 'https://support.microsoft.com/en-us/windows/experience/backup-recovery/using-system-file-checker-in-windows'},
       {label: 'Steam Support: verify game files', url: 'https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB'},
     ],
-    related: [{href: '/en/guide/visual-c-runtime-error', label: 'Visual C++ and missing runtime DLLs'}, {href: '/en/guide/gpu-driver-update', label: 'GPU driver update or rollback'}, {href: '/en/guide/verify-steam-files', label: 'Verify Steam files'}, {href: '/guide/pc-shuts-down-while-gaming', label: 'The whole PC shuts down (Japanese)'}, {href: '/guide/vram-shortage', label: 'Check video memory pressure (Japanese)'}],
+    related: [{href: '/en/guide/visual-c-runtime-error', label: 'Visual C++ and missing runtime DLLs'}, {href: '/en/guide/gpu-driver-update', label: 'GPU driver update or rollback'}, {href: '/en/guide/verify-steam-files', label: 'Verify Steam files'}, {href: '/guide/pc-shuts-down-while-gaming', label: 'The whole PC shuts down (Japanese)'}, {href: '/en/guide/vram-shortage', label: 'Check video memory pressure'}],
   },
   {
     ...base, slug: 'visual-c-runtime-error', path: '/guide/visual-c-runtime-error', topic: 'launch',

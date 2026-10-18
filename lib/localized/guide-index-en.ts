@@ -29,7 +29,7 @@ export const guideGroupsEn = [
     title: 'Drivers and performance',
     description:
       'Check a driver change, consistently low FPS or occasional hitches. These symptoms need different comparisons.',
-    paths: ['/guide/gpu-driver-update', '/guide/low-fps', '/guide/stutter-fix'],
+    paths: ['/guide/gpu-driver-update', '/guide/low-fps', '/guide/stutter-fix', '/guide/vram-shortage', '/guide/low-gpu-usage'],
   },
 ].map((group) => ({
   ...group,

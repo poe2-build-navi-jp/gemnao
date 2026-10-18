@@ -24,3 +24,7 @@
 ## 追加中に見つかった導線の未対応
 
 - `components/save-article.tsx` の英語「Saved articles (Japanese page)」は `/my#my-reading-list` へ遷移する。`/en/my-games` はゲーム登録・保存した解決策の画面で、記事のreading listとは別のため単純なリンク差し替えはしない。`/my` の英語UI対応時にreading listの保存・削除・再表示・ストレージ拒否を含めて解消する。現時点は日本語行きの表示があり、英語内で完結したとは扱わない。
+
+## 外部資料の到達確認待ち
+
+- https://help.steampowered.com/en/faqs/view/3462-CD4C-36BD-5767 — 本文取得ツールは1行のみ、実行環境の直接取得はCONNECT403。到達性・本文確認は未検証。低GPU使用率の記事はゲーム内FPS表示で手順を実施可能とし、未確認のSteam画面名や機能詳細を追加していない。元日本語版の補助出典は保持し、親ブラウザで確認する。

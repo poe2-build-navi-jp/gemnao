@@ -35,6 +35,8 @@ const paths = [
   '/guide/low-fps',
   '/guide/save-data-backup',
   '/guide/steam-cloud-sync-error',
+  '/guide/vram-shortage',
+  '/guide/low-gpu-usage',
   '/guide/directx-error',
   '/guide/visual-c-runtime-error',
   '/guide/no-game-audio',
@@ -142,7 +144,7 @@ for (const html of [index, indexJa]) {
 }
 assert.ok(index.includes('rel="canonical" href="https://gemnao.pages.dev/en/guide"'));
 assert.ok(!/name="robots" content="[^"]*noindex/.test(index));
-assert.ok(index.includes('"numberOfItems":14'));
+assert.ok(index.includes('"numberOfItems":16'));
 for (const path of paths.filter(path => path.startsWith('/guide/'))) {
   assert.ok(index.includes(`href="/en${path}"`), `Index discovery: ${path}`);
   assert.ok((await htmlFor(`/en${path}`)).includes('href="/en/guide"'));
