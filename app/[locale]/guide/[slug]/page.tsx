@@ -36,6 +36,14 @@ export default async function Page({ params }: Props) {
   const translated = translatedCommonGuides.find(
     (g) => g.locale === locale && g.slug === slug,
   );
+  if (translated?.crashSections)
+    return (
+      <EnglishCrashGuide
+        guide={translated}
+        sections={translated.crashSections}
+        locale={translated.locale}
+      />
+    );
   if (translated)
     return <EnglishCommonGuide guide={translated} locale={translated.locale} />;
   if (locale !== 'en') notFound();

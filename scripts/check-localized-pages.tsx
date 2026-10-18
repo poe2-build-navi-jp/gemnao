@@ -1,3 +1,4 @@
+import { crashGuideEn, crashSectionsEn } from '../lib/localized/crash-guide-en';
 import { translatedCommonGuides } from '../lib/localized/save-guides-zh-es';
 import { LocalizedGuideIndex } from '../components/localized-guide-index';
 import { EnglishDiscordIndex } from '../components/english-discord-index';
@@ -289,8 +290,8 @@ for (const guide of commonGuidesEn) {
   assert.deepEqual(guide.steps.map(step => step.id), original.steps.map((_, i) => `step-${i + 1}`));
   check(`/en${guide.path}`, 'en', renderToStaticMarkup(<EnglishCommonGuide guide={guide} />));
   assert.equal(languageAlternates(guide.path).en, `/en${guide.path}`);
-  assert.equal(hasTranslation('zh', guide.path), ['save-data-backup','steam-cloud-sync-error'].includes(guide.slug));
-  assert.equal(hasTranslation('es', guide.path), ['save-data-backup','steam-cloud-sync-error'].includes(guide.slug));
+  assert.equal(hasTranslation('zh', guide.path), translatedCommonGuides.some(g => g.locale === 'zh' && g.slug === guide.slug));
+  assert.equal(hasTranslation('es', guide.path), translatedCommonGuides.some(g => g.locale === 'es' && g.slug === guide.slug));
   for (const branch of guide.branches) assert.ok([...guide.steps, ...(guide.extraSections || [])].some(step => step.id === branch.step));
   pages++;
 }
@@ -300,6 +301,15 @@ for (const locale of ['zh','es'] as const) {
   pages++;
 }
 for (const guide of translatedCommonGuides) {
+  if (guide.crashSections) {
+    assert.deepEqual(guide.crashSections.map(s => s.id),crashSectionsEn.map(s => s.id));
+    const shape = (s: {items?: string[];paragraphs?:string[];table?:{rows:string[][]};links?:unknown[]}) => [s.items?.length,s.paragraphs?.length,s.table?.rows.map(r=>r.length),s.links?.length];
+    assert.deepEqual(guide.crashSections.map(shape),crashSectionsEn.map(shape));
+    assert.deepEqual(guide.sources.map(s=>s.url),crashGuideEn.sources.map(s=>s.url));
+    assert.equal(guide.faqs.length,crashGuideEn.faqs.length);
+    check(`/${guide.locale}${guide.path}`,guide.locale,renderToStaticMarkup(<EnglishCrashGuide guide={guide} sections={guide.crashSections} locale={guide.locale} />));
+    pages++; continue;
+  }
   const en = commonGuidesEn.find(g => g.slug === guide.slug)!;
   assert.deepEqual(guide.steps.map(s => s.id), en.steps.map(s => s.id));
   assert.deepEqual(guide.steps.map(s => s.actions.length), en.steps.map(s => s.actions.length));

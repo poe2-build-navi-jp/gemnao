@@ -190,7 +190,7 @@ assert.ok(ace.includes('correct time zone for your location'));
 assert.ok(!ace.includes('href="/en/games/ace-combat-8"'));
 for (const path of [
   '/en/games/ace-combat-8',
-  '/zh/guide/pc-game-crash',
+  '/zh/guide/stutter-fix',
   '/es/gear/discord-microphone-guide',
   '/en/games/monster-hunter-wilds/system-requirements',
 ])
@@ -213,7 +213,7 @@ console.log(
   `PASS: ${paths.length} complete English articles; reciprocal metadata/menu, language/schema/OG/sitemap, ${links} internal links and anchors, safe case wording, existing Japan affiliate and no phantom translations`,
 );
 
-for (const locale of ['zh','es']) for (const suffix of ['/guide','/guide/save-data-backup','/guide/steam-cloud-sync-error']) {
+for (const locale of ['zh','es']) for (const suffix of ['/guide','/guide/save-data-backup','/guide/steam-cloud-sync-error','/guide/steam-game-not-launching','/guide/pc-game-crash']) {
   const path = `/${locale}${suffix}`;
   const html = await htmlFor(path);
   const head = html.match(/<head>([\s\S]*?)<\/head>/)?.[1] || '';
@@ -237,8 +237,9 @@ for (const locale of ['zh','es']) for (const suffix of ['/guide','/guide/save-da
     const target = new URL(href,'https://gemnao.pages.dev').pathname.replace(/\/$/, '') || '/';
     assert.ok(knownPaths.has(target), `New localized guide broken link: ${path} -> ${target}`);
   }
-  if (suffix.endsWith('steam-cloud-sync-error')) for (const id of ['step-1','step-2','step-3','step-4']) assert.ok(html.includes(`id="${id}"`));
-  if (suffix === '/guide') assert.ok(html.includes('"numberOfItems":2'));
+  if (['/guide/steam-cloud-sync-error','/guide/steam-game-not-launching'].includes(suffix)) for (const id of ['step-1','step-2','step-3','step-4']) assert.ok(html.includes(`id="${id}"`));
+  if (suffix.endsWith('pc-game-crash')) for (const id of ['step-1','step-2','step-3','crash-history','crash-record-examples','steam-client-case']) assert.ok(html.includes(`id="${id}"`));
+  if (suffix === '/guide') assert.ok(html.includes('"numberOfItems":4'));
   if (suffix.endsWith('save-data-backup')) for (const id of ['step-1','step-2','step-3','safe-restore']) assert.ok(html.includes(`id="${id}"`));
   assert.ok((await htmlFor(`/${locale}`)).includes(`href="${path}"`));
 }

@@ -1,3 +1,6 @@
+import type { Locale } from '@/lib/i18n';
+import type { EnglishGuideInfo } from './english-guide-shell';
+import type { CrashSection } from '@/lib/localized/crash-guides-zh-es';
 import { CrashRecordExamples } from '@/components/crash-record-examples';
 import {
   StepResultCollection,
@@ -7,19 +10,27 @@ import {
 import { EnglishGuideShell } from '@/components/english-guide-shell';
 import { crashGuideEn, crashSectionsEn } from '@/lib/localized/crash-guide-en';
 
-export function EnglishCrashGuide() {
+export function EnglishCrashGuide({
+  guide = crashGuideEn,
+  sections = crashSectionsEn,
+  locale = 'en',
+}: {
+  guide?: EnglishGuideInfo;
+  sections?: CrashSection[];
+  locale?: Locale;
+} = {}) {
   return (
-    <EnglishGuideShell guide={crashGuideEn} contents={crashSectionsEn}>
+    <EnglishGuideShell guide={guide} contents={sections} locale={locale}>
       <StepResultCollection
-        key="guide-pc-game-crash:en"
+        key={`guide-pc-game-crash:${locale}`}
         contextSlug="guide-pc-game-crash"
         topic="launch"
-        locale="en"
-        steps={crashSectionsEn
+        locale={locale}
+        steps={sections
           .filter((section) => /^step-[123]$/.test(section.id))
           .map(({ id, title }) => ({ id, title }))}
       >
-        {crashSectionsEn.map((section) => (
+        {sections.map((section) => (
           <section className="pc-step" id={section.id} key={section.id}>
             <h2>{section.title}</h2>
             {section.paragraphs?.map((paragraph) => (
@@ -57,7 +68,7 @@ export function EnglishCrashGuide() {
                       <tr key={row[0]}>
                         {row.map((cell, index) => (
                           <td
-                            data-label={section.table.headers[index]}
+                            data-label={section.table?.headers[index]}
                             key={index}
                           >
                             {cell}
@@ -75,7 +86,7 @@ export function EnglishCrashGuide() {
               </p>
             ))}
             {section.id === 'crash-history' && (
-              <CrashRecordExamples locale="en" />
+              <CrashRecordExamples locale={locale} />
             )}
             {/^step-[123]$/.test(section.id) && (
               <StepResultButtons method={section.id} />

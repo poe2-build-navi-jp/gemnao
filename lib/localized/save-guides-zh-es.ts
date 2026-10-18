@@ -1,8 +1,11 @@
+import { launchGuidesZhEs } from './launch-guides-zh-es';
+import { crashGuidesZhEs, type CrashSection } from './crash-guides-zh-es';
 import { cloudGuidesZhEs } from './cloud-guides-zh-es';
 import type { EnglishCommonGuide } from './common-guides-en';
 import { saveGuidesEn } from './save-guides-en';
 export type TranslatedCommonGuide = EnglishCommonGuide & {
   locale: 'zh' | 'es';
+  crashSections?: CrashSection[];
 };
 const original = saveGuidesEn.find((g) => g.slug === 'save-data-backup')!;
 const urls = original.sources.map((s) => s.url);
@@ -14,6 +17,8 @@ const base = {
 };
 export const translatedCommonGuides: TranslatedCommonGuide[] = [
   ...cloudGuidesZhEs,
+  ...launchGuidesZhEs,
+  ...crashGuidesZhEs,
   {
     ...base,
     locale: 'zh',

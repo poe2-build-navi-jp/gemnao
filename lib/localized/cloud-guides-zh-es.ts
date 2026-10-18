@@ -136,8 +136,8 @@ export const cloudGuidesZhEs: TranslatedCommonGuide[] = [
         label: '选择独立备份存储位置（英文）',
       },
       {
-        href: '/en/guide/steam-game-not-launching',
-        label: '云警告解决后仍无法启动（英文）',
+        href: '/zh/guide/steam-game-not-launching',
+        label: '云警告解决后仍无法启动',
       },
     ],
   },
@@ -276,8 +276,8 @@ export const cloudGuidesZhEs: TranslatedCommonGuide[] = [
         label: 'Elegir un destino independiente para copias (inglés)',
       },
       {
-        href: '/en/guide/steam-game-not-launching',
-        label: 'El juego no arranca tras resolver el aviso de nube (inglés)',
+        href: '/es/guide/steam-game-not-launching',
+        label: 'El juego no arranca tras resolver el aviso de nube',
       },
     ],
   },

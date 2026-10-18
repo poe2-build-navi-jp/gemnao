@@ -1,7 +1,9 @@
+import { crashRecordCopy } from '@/lib/localized/crash-record-copy';
 /* oxlint-disable next/no-html-link-for-pages -- Existing guide destinations use native links. */
 const source =
   'https://learn.microsoft.com/en-us/troubleshoot/windows-server/performance/troubleshoot-application-service-crashing-behavior';
 const copy = {
+  ...crashRecordCopy,
   ja: {
     title: 'ログ・診断結果の読み取り例',
     note: '説明用サンプルです。実際のゲームの障害記録・実測結果・画面の再現ではありません。SampleGame.exeとOtherApp.exeは架空の名前です。時刻は同じ日の同じタイムゾーンとして比較します。',
@@ -100,7 +102,7 @@ const copy = {
 export function CrashRecordExamples({
   locale = 'ja',
 }: {
-  locale?: 'ja' | 'en';
+  locale?: 'ja' | 'en' | 'zh' | 'es';
 }) {
   const t = copy[locale];
   return (
