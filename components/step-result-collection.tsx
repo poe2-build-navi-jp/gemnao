@@ -1,4 +1,5 @@
 'use client';
+import { withFeedbackDeadline } from '@/lib/feedback-deadline';
 import { StepResultImpression } from './step-result-impression';
 import { ReportEntryLink } from './report-entry-link';
 
@@ -186,15 +187,17 @@ export function StepResultCollection({
     const controller = new AbortController();
     async function load() {
       try {
-        const response = await fetch(
-          `/api/feedback?game=${encodeURIComponent(contextSlug)}`,
-          { signal: controller.signal },
-        );
-        if (!response.ok) throw new Error('unavailable');
-        const data = (await response.json()) as {
-          methods?: Method[];
-          stepResultsAvailable?: boolean;
-        };
+        const data = await withFeedbackDeadline(async (signal) => {
+          const response = await fetch(
+            `/api/feedback?game=${encodeURIComponent(contextSlug)}`,
+            { signal },
+          );
+          if (!response.ok) throw new Error('unavailable');
+          return (await response.json()) as {
+            methods?: Method[];
+            stepResultsAvailable?: boolean;
+          };
+        }, controller.signal);
         if (controller.signal.aborted) return;
         if (
           !validMethodSnapshot(data.methods, true) ||

@@ -1,3 +1,4 @@
+import { withFeedbackDeadline } from './feedback-deadline';
 import {
   trackStepResultSaved,
   trackStepResultFailed,
@@ -138,28 +139,37 @@ async function submit(
         false,
       );
     attempted = true;
-    const response = await fetch('/api/feedback', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        kind: 'step-result',
-        game: request.game,
-        topic: request.topic,
-        method: request.method,
-        outcome: request.outcome,
-        reportStruggling: request.reportStruggling,
-        requestId: request.requestId,
-        requestedAt: request.requestedAt,
-      }),
-    });
-    failure =
-      response.status === 429
-        ? 'rate_limited'
-        : [400, 403, 409, 410].includes(response.status)
-          ? 'rejected'
-          : response.ok
-            ? 'invalid_response'
-            : 'unavailable';
+    const { response, accepted } = await withFeedbackDeadline(
+      async (signal) => {
+        const response = await fetch('/api/feedback', {
+          signal,
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            kind: 'step-result',
+            game: request.game,
+            topic: request.topic,
+            method: request.method,
+            outcome: request.outcome,
+            reportStruggling: request.reportStruggling,
+            requestId: request.requestId,
+            requestedAt: request.requestedAt,
+          }),
+        });
+        failure =
+          response.status === 429
+            ? 'rate_limited'
+            : [400, 403, 409, 410].includes(response.status)
+              ? 'rejected'
+              : response.ok
+                ? 'invalid_response'
+                : 'unavailable';
+        const accepted =
+          response.ok &&
+          ((await response.json()) as { ok?: boolean }).ok === true;
+        return { response, accepted };
+      },
+    );
     if (response.status === 429)
       throw new StepResultError(
         '匿名回答の受付が混み合っています。回答は追加されていません。同じ回答を時間をおいて再送できます。',
@@ -179,10 +189,7 @@ async function submit(
         false,
       );
     }
-    if (
-      !response.ok ||
-      ((await response.json()) as { ok?: boolean }).ok !== true
-    )
+    if (!accepted)
       throw new StepResultError(
         '匿名回答の送信完了を確認できませんでした。同じ回答を再送できます。',
       );
