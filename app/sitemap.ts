@@ -144,6 +144,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         path: `/en${p.path}`,
         updated: '2026-10-18',
       })),
+      { path: '/en/articles', updated: '2026-10-19' },
       { path: '/en/pc', updated: '2026-10-18' },
       { path: '/en/discord', updated: '2026-10-18' },
       { path: '/en/guide', updated: '2026-10-18' },

@@ -1,3 +1,5 @@
+import { englishHomeCopy } from '@/lib/localized/home-copy-en';
+import { ogImageFor } from '@/lib/og-images';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { LocalizedHome } from '@/components/localized-home';
@@ -17,18 +19,21 @@ export async function generateMetadata({
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const t = ui[locale];
-  const title = `${t.homeTitle} | Gemnao`;
+  const title = `${locale === 'en' ? englishHomeCopy.title : t.homeTitle} | Gemnao`;
+  const description =
+    locale === 'en' ? englishHomeCopy.description : t.homeBody;
+  const image = locale === 'en' ? ogImageFor('/en') : '/og-default.png';
   return {
     title: { absolute: title },
-    description: t.homeBody,
+    description,
     openGraph: {
       title,
-      description: t.homeBody,
+      description,
       locale: ogLocale[locale],
-      images: ['/og-default.png'],
+      images: [image],
       url: `/${locale}`,
     },
-    twitter: { card: 'summary', title, description: t.homeBody, images: ['/og-default.png'] },
+    twitter: { card: 'summary', title, description, images: [image] },
     alternates: {
       canonical: `/${locale}`,
       languages: languageAlternates(''),

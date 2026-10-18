@@ -13,6 +13,7 @@ export function isEditorialSnapshotPath(pathname) {
       '/en/pc/microphone-after-update',
       '/en/pc/call-starts-audio-disappears',
       '/en/pc/bluetooth-connected-no-sound',
+      '/en/articles',
       '/en/pc',
       '/en/pc/disk-usage-100',
       '/en/pc/pc-broken',

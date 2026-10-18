@@ -6676,3 +6676,66 @@ a.my-games-primary {
   word-break: normal;
   overflow-wrap: normal;
 }
+
+/* English home: reuse the site hero, symptom links and return-path components. */
+.english-home-hero { padding-bottom: 36px; }
+.english-home-hero .hero-copy { max-width: 840px; }
+.english-home-hero .english-home-search { max-width: 840px; margin: 24px 0 0; padding: 0; }
+.english-home-hero .english-home-search h2 { font-size: 20px; color: inherit; }
+.english-home-hero .english-home-search label { color: inherit; }
+.english-search-hint { margin: 12px 0 0; font-size: 14px; }
+.english-home .content { padding-top: 32px; padding-bottom: 32px; }
+.english-home .section-heading { flex-wrap: wrap; gap: 16px; }
+.english-home-help { margin-top: 18px; }
+.english-home-game-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; margin-top: 22px; }
+.english-home-game-grid > a { padding: 20px; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--ink); text-decoration: none; }
+.english-home-game-grid h3 { margin: 0 0 12px; font-size: 19px; line-height: 1.45; }
+.english-home-game-grid span { color: #146b80; font-size: 14px; }
+.english-home-more-games { margin-top: 20px; border: 1px solid var(--line); border-radius: 8px; padding: 16px 20px; }
+.english-home-more-games summary { cursor: pointer; font-weight: 800; }
+.english-home-more-games ul { columns: 2; padding-left: 22px; }
+.english-home-more-games li { padding: 7px 0; break-inside: avoid; }
+.english-home-topics { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; }
+.english-home-topics > section { border: 1px solid var(--line); border-radius: 10px; background: #fff; padding: 22px; min-width: 0; display: flex; flex-direction: column; }
+.english-home-topics h3 { margin: 0; font-size: 21px; }
+.english-home-topics p { color: var(--muted); line-height: 1.7; }
+.english-home-topics ul { padding-left: 20px; flex: 1; }
+.english-home-topics li { margin-bottom: 14px; line-height: 1.6; }
+.english-topic-all { font-weight: 800; }
+.english-home-diagnosis { display: flex; align-items: center; gap: 28px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.english-home-diagnosis > div { flex: 1; }
+.english-home-diagnosis h2 { margin: 8px 0 14px; }
+.english-home-diagnosis > a { flex: 0 1 280px; padding: 18px 22px; border-radius: 8px; color: #fff; background: var(--navy); font-weight: 800; line-height: 1.6; text-decoration: none; }
+.english-home-resources ul { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 28px; padding-left: 22px; }
+.english-home-about > p { max-width: 85ch; line-height: 1.8; }
+.english-home-about .report-entry { margin-top: 24px; }
+.english-directory-header h1 { max-width: 22ch; }
+.english-directory-header > p { max-width: 80ch; line-height: 1.8; }
+.english-directory-header nav ul { display: flex; flex-wrap: wrap; gap: 12px 28px; padding-left: 20px; }
+.english-directory-group { padding-top: 20px; padding-bottom: 24px; scroll-margin-top: 90px; }
+.english-directory-group ul { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; padding: 0; list-style: none; }
+.english-directory-group li { padding: 16px 0; border-bottom: 1px solid var(--line); line-height: 1.6; }
+.english-directory-group li span { display: block; color: var(--muted); font-size: 13px; margin-top: 5px; }
+@media (max-width: 800px) {
+  .english-home-game-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .english-home-topics { grid-template-columns: 1fr; }
+  .english-home-diagnosis { display: block; }
+  .english-home-diagnosis > a { display: block; margin-top: 20px; }
+}
+@media (max-width: 540px) {
+  .english-home-game-grid, .english-home-resources ul, .english-directory-group ul { grid-template-columns: 1fr; }
+  .english-home-more-games ul { columns: 1; }
+  .english-home-game-grid > a { padding: 16px; }
+  .english-home .content { padding-top: 24px; padding-bottom: 24px; }
+}
+.english-home .content .kicker { color: #146b80; }
+.english-home .hero .english-home-search { color: #fff; }
+.english-home :where(a, button, summary, input):focus-visible,
+.english-directory :where(a, button, summary, input):focus-visible { outline: 3px solid #d96514; outline-offset: 4px; }
+.english-directory .breadcrumbs { color: #53616c; }
+.english-directory .breadcrumbs a { color: #146b80; }
+.english-directory .breadcrumbs b { color: var(--ink); }
+.english-directory-header h1 { margin: 20px 0; font-size: clamp(32px,4vw,48px); line-height: 1.2; font-weight: 800; letter-spacing: -0.025em; }
+.english-directory-group h2 { margin: 0 0 16px; font-size: 26px; line-height: 1.35; font-weight: 800; }
+.english-directory-header .english-home-search { padding: 0; margin: 26px 0; }
+.english-directory .english-home-search h2 { font-size: 21px; font-weight: 700; margin-bottom: 12px; }

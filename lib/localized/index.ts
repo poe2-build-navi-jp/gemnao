@@ -162,6 +162,7 @@ export const ogLocale: Record<Locale, string> = {
 
 /** English-only editorial routes. Do not infer translations from a prefix. */
 export const englishEditorialPaths = [
+  '/articles',
   ...remainingPagesEn.map((p) => p.path),
   '/pc',
   '/discord',
@@ -220,6 +221,7 @@ export function hasTranslation(locale: Locale, path: string) {
  * points to the Japanese original.
  */
 export function languageAlternates(path: string) {
+  if (path === '/articles') return {en:'/en/articles', 'x-default':'/en/articles'};
   const [, section, gameSlug, articleSlug] = path.split('/');
   if (section === 'games' && !articleSlug && localizedHubs[gameSlug]?.noindex)
     return {};

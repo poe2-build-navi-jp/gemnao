@@ -1,3 +1,4 @@
+import { englishHomeCopy, englishDirectoryCopy } from '@/lib/localized/home-copy-en';
 import { remainingPagesEn } from '@/lib/localized/remaining-pages-en';
 import { finalGamesEn } from '@/lib/localized/final-games-en';
 import { aionGearsEn } from '@/lib/localized/aion-gears-en';
@@ -470,6 +471,10 @@ export function ogCardSpecs(): OgCardSpec[] {
         'Low FPS and stuttering',
       ],
     },
+    ...[
+      {path:'/en',title:englishHomeCopy.title,items:['Choose a symptom','Find your game','Windows and Discord help']},
+      {path:'/en/articles',title:englishDirectoryCopy.title,items:['Game-specific fixes','Windows and Discord','Tools and reference pages']},
+    ].map(p=>({...p,locale:'en' as const,eyebrow:'PC troubleshooting',itemsLabel:'Find your next check'})),
     {
       path: '/en/pc',
       locale: 'en' as const,

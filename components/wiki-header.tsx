@@ -19,9 +19,11 @@ export const languageFallbackLabels = {
 export function WikiHeader({
   locale = 'ja',
   pagePath = '',
+  japanesePath,
 }: {
   locale?: 'ja' | Locale;
   pagePath?: string;
+  japanesePath?: string;
 }) {
   const root = localizedRoot(locale);
   const languageLabels = {
@@ -155,7 +157,7 @@ export function WikiHeader({
               item !== 'ja' && !hasTranslation(item, pagePath);
             const target =
               item === 'ja'
-                ? pagePath || '/'
+                ? japanesePath || pagePath || '/'
                 : hasTranslation(item, pagePath)
                   ? `/${item}${pagePath}`
                   : `/${item}`;
