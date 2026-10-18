@@ -1,3 +1,4 @@
+import { discordAudioChecksEn } from './discord-audio-checks-en';
 import { discordLaunchEn } from './discord-launch-en';
 import { translatedCommonGuides } from './save-guides-zh-es';
 import { palworldBackupEn } from './palworld-backup-en';
@@ -44,7 +45,7 @@ export const localizedPcArticle = (locale: Locale, slug: string) =>
     (article) => article.locale === locale && article.slug === slug,
   );
 
-export const localizedDiscordArticles = [...localizedDiscordUploadArticles, ...discordCoreEn, ...discordLaunchEn];
+export const localizedDiscordArticles = [...localizedDiscordUploadArticles, ...discordCoreEn, ...discordLaunchEn, ...discordAudioChecksEn];
 export const localizedDiscordArticle = (locale: Locale, slug: string) =>
   localizedDiscordArticles.find(
     (article) => article.locale === locale && article.slug === slug,

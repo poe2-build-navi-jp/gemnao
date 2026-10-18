@@ -15,7 +15,7 @@ export const resetConfigGuideEn: EnglishCommonGuide = {
  ],
  steps:[
  {id:'step-1',title:'Identify configuration and saves separately',actions:[
- 'Use the game-specific locations below to identify the exact file. For the listed Steam versions, Elden Ring uses GraphicsConfig.xml and Monster Hunter Wilds uses config.ini. Confirm the store, Windows account and actual installation; do not move the parent folder.',
+ 'Use the game-specific configuration locations in this guide to identify the exact file. For the listed Steam versions, Elden Ring uses GraphicsConfig.xml and Monster Hunter Wilds uses config.ini. Confirm the store, Windows account and actual installation; do not move the parent folder.',
  'In Windows 11 File Explorer, enable View → Show → File name extensions so the complete name is visible. If the in-game settings screen opens, first undo only the setting that triggered the problem.',
  ],next:'If the file cannot be identified confidently, stop and consult the game’s support instructions. Do not create a guessed configuration file.'},
  {id:'step-2',title:'Close the game and make independent copies',actions:[

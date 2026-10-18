@@ -1,3 +1,4 @@
+import { discordAudioChecksEn } from '@/lib/localized/discord-audio-checks-en';
 import { discordLaunchEn } from '@/lib/localized/discord-launch-en';
 import { translatedCommonGuides } from '@/lib/localized/save-guides-zh-es';
 import { guideUi } from '@/lib/localized/guide-ui';
@@ -241,6 +242,7 @@ export function ogCardSpecs(): OgCardSpec[] {
       ...localizedDiscordUploadArticles,
       ...discordCoreEn,
       ...discordLaunchEn,
+      ...discordAudioChecksEn,
       ...followupLocalizedArticles,
     ].map((article) => ({
       path:

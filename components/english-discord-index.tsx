@@ -4,7 +4,7 @@ import { localizedDiscordArticles } from '@/lib/localized/index';
 export const discordIndexEn = {
   title: 'Discord Troubleshooting Guides',
   description:
-    'Find an English Discord guide for launch, loading and update failures, installation errors, microphone input, missing stream audio, black shared screens and uploads. Start with the affected device, viewer and channel.',
+    'Find an English Discord guide for launch, loading and update failures, installation errors, microphone input, missing voices, audio errors 1001–1003, stream audio, black shared screens and uploads. Start with the affected device, viewer and channel.',
   checkedAt: '2026-10-18',
 };
 export function EnglishDiscordIndex() {

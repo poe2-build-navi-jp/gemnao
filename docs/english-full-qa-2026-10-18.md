@@ -48,3 +48,7 @@ MOD解除、アンインストールとセーブ、シェーダーキャッシ�
 ## Discord起動・更新4件
 
 not-opening / loading-stuck / update-failed / installation-failed追加。Discord8/38、英語109/231、未対応122。localized241、対象lint、隔離型/build、489静的HTML・468 sitemap・408OG、英語40記事1859内部リンク。4幅20組・検索16件・モバイル導線・未翻訳10ルート404成功。JS/CSS失敗と本番書き込み0。詳細english-discord-launch-review-2026-10-18.md。公開確認と全体英語QAは残る。
+
+## Discord音声5件
+
+cant-hear-voice / audio-input-not-found / error-1001 / error-1002 / error-1003。Discord13/38、英語114/231、残117。localized246、型/build/lint、45記事2089内部リンク、494静的HTML・473 sitemap・413OG成功。4幅24組・検索20件・未翻訳12ルート404、API書込み0。reset-config-fileの位置案内を親指摘どおり方向語なしへ変更。親の共通28一覧+11記事確認はdesktop全文/一部リンクFAQの範囲で、全体QA完了とはしない。詳細english-discord-audio-review-2026-10-18.md。
