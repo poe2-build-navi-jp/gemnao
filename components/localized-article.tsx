@@ -5,7 +5,7 @@ import {
   StepResultCollection,
   StepResultButtons,
 } from '@/components/step-result-collection';
-import { articleFeedbackTopic } from '@/lib/article-step-data';
+import { articleFeedbackTopic, articleSteps } from '@/lib/article-step-data';
 import { ArticleToc } from '@/components/article-toc';
 import { ArticleDiagnosisEntry } from '@/components/article-diagnosis-entry';
 import { SupportWorkspace } from '@/components/support-workspace';
@@ -226,7 +226,11 @@ export function LocalizedArticle({
               ))}
             </dl>
           </section>
-          {locale === 'en' && article.gameSlug === 'ace-combat-8' && article.slug === 'error-st-3100001' && <AceCombatNoticeHistory locale="en" />}
+          {locale === 'en' &&
+            article.gameSlug === 'ace-combat-8' &&
+            article.slug === 'error-st-3100001' && (
+              <AceCombatNoticeHistory locale="en" />
+            )}
           <ReportedCaseLink articlePath={originalPath} locale={locale} />
           {!isDiscord && (
             <ReportEntryLink articlePath={originalPath} locale={locale} />
@@ -295,7 +299,24 @@ export function LocalizedArticle({
               contextSlug={contextSlug}
               topic={feedbackTopic || ''}
               locale={locale}
-              steps={article.steps.map(({ id, title }) => ({ id, title }))}
+              steps={article.steps.map(({ id, title }) => {
+                const original = articleSteps(contextSlug)?.find(
+                  (step) => step.id === id,
+                );
+                return {
+                  id,
+                  title,
+                  nextStepId:
+                    original &&
+                    'nextStepId' in original &&
+                    typeof original.nextStepId === 'string'
+                      ? original.nextStepId
+                      : undefined,
+                  stopAfter: Boolean(
+                    original && 'endpoint' in original && original.endpoint,
+                  ),
+                };
+              })}
             >
               {article.steps.map((step, index) => (
                 <section className="pc-step" id={step.id} key={step.id}>

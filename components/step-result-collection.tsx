@@ -1,4 +1,5 @@
 'use client';
+import { StepResultImpression } from './step-result-impression';
 import { ReportEntryLink } from './report-entry-link';
 
 import { ResolvedFixSave } from './resolved-fix-save';
@@ -24,6 +25,9 @@ import {
 
 const copy = {
   en: {
+    reason: 'Results that did not fix the problem help the next reader too.',
+    next: 'Next step',
+    support: 'Review what you tried and check official sources and support',
     heading: 'Share the result you tried',
     intro:
       'After trying a step, share whether it fixed this article’s symptom. Only the article, step and result are sent to our anonymous counts. Your private notes and PC details are not sent.',
@@ -54,6 +58,9 @@ const copy = {
     failedCount: 'not fixed (since this feature began)',
   },
   zh: {
+    reason: '未能解决问题的结果，也能帮助下一位读者。',
+    next: '下一步',
+    support: '整理已尝试的结果，查看官方信息与支持渠道',
     heading: '分享实际尝试的结果',
     intro:
       '尝试步骤后，可以反馈是否解决了本文描述的症状。仅文章、步骤和结果会发送到匿名计数中，不会发送私人笔记或电脑信息。',
@@ -80,6 +87,11 @@ const copy = {
     failedCount: '未解决（此功能启用后）',
   },
   es: {
+    reason:
+      'Los resultados que no resolvieron el problema también ayudan a otros lectores.',
+    next: 'Siguiente paso',
+    support:
+      'Revisa lo que probaste y consulta las fuentes y el soporte oficiales',
     heading: 'Comparte el resultado que probaste',
     intro:
       'Tras probar un paso, indica si resolvió el síntoma de este artículo. Solo enviamos el artículo, el paso y el resultado al recuento anónimo. No enviamos tus notas privadas ni datos del PC.',
@@ -110,7 +122,12 @@ const copy = {
     failedCount: 'sin resolver (desde el inicio de esta función)',
   },
 };
-type Step = { id: string; title: string };
+type Step = {
+  id: string;
+  title: string;
+  stopAfter?: boolean;
+  nextStepId?: string;
+};
 type Outcome = 'resolved' | 'not-resolved';
 type Report = {
   state: 'sending' | 'sent' | 'already' | 'error';
@@ -130,7 +147,7 @@ type Collection = {
 };
 const Context = createContext<Collection | null>(null);
 
-// A small reporting-only layer: no navigation, saved-case IDs or notebook data.
+// Public STEP anchors only; no saved-case IDs or notebook data.
 export function StepResultCollection({
   contextSlug,
   topic,
@@ -307,6 +324,13 @@ export function StepResultButtons({ method }: { method: string }) {
   if (!context) return null;
   const { ready, t, methods, reports, send } = context;
   const counts = stepOutcomeCounts(methods, method, ready);
+  const index = context.steps.findIndex((step) => step.id === method);
+  const next =
+    index >= 0 && !context.steps[index].stopAfter
+      ? context.steps.find(
+          (step) => step.id === context.steps[index].nextStepId,
+        ) || context.steps[index + 1]
+      : undefined;
   const savedDraft = resolvedDraft(
     context.contextSlug,
     method,
@@ -338,7 +362,8 @@ export function StepResultButtons({ method }: { method: string }) {
             locale={context.locale}
           />
         )}
-      <div className="step-actions">
+      <p className="step-result-reason">{t.reason}</p>
+      <StepResultImpression method={method} enabled={ready}>
         {(['resolved', 'not-resolved'] as const).map((outcome) => (
           <button
             type="button"
@@ -352,7 +377,15 @@ export function StepResultButtons({ method }: { method: string }) {
             {outcome === 'resolved' ? t.fixed : t.failed}
           </button>
         ))}
-      </div>
+      </StepResultImpression>
+      {context.lastChosen[`${context.contextSlug}:${method}`] ===
+        'not-resolved' && (
+        <p className="procedure-note">
+          <a href={next ? `#${next.id}` : '#references'}>
+            {next ? `${t.next}: ${next.title}` : t.support} →
+          </a>
+        </p>
+      )}
       {counts && (
         <p className="step-outcome-counts">
           {t.counts}: {t.fixedCount} {counts.resolved} · {t.failedCount}{' '}

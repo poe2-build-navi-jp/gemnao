@@ -1,4 +1,8 @@
-import { trackStepResultSaved } from './analytics';
+import {
+  trackStepResultSaved,
+  trackStepResultFailed,
+  type StepFailure,
+} from './analytics';
 // Anonymous per-action tokens are idempotency keys, not visitor identifiers.
 // Nothing from the private notebook is accepted by this transport.
 export type StepResultSubmission = {
@@ -75,6 +79,8 @@ async function submit(
 ): Promise<'sent' | 'already'> {
   // Defer until the running entry is installed, including synchronous errors.
   await Promise.resolve();
+  let attempted = false;
+  let failure: StepFailure = 'network';
   try {
     const key = `${vote}:request`;
     let request = requests.get(key);
@@ -131,6 +137,7 @@ async function submit(
         'この回答の送信番号は再利用できません。ノートは別に保存できます。',
         false,
       );
+    attempted = true;
     const response = await fetch('/api/feedback', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -145,6 +152,14 @@ async function submit(
         requestedAt: request.requestedAt,
       }),
     });
+    failure =
+      response.status === 429
+        ? 'rate_limited'
+        : [400, 403, 409, 410].includes(response.status)
+          ? 'rejected'
+          : response.ok
+            ? 'invalid_response'
+            : 'unavailable';
     if (response.status === 429)
       throw new StepResultError(
         '匿名回答の受付が混み合っています。回答は追加されていません。同じ回答を時間をおいて再送できます。',
@@ -180,9 +195,12 @@ async function submit(
     } catch {
       /* Completed marker takes priority. */
     }
-    if (!alreadyAcknowledged) trackStepResultSaved(request.outcome, sourcePath);
+    if (!alreadyAcknowledged)
+      trackStepResultSaved(request.outcome, sourcePath, request.method);
     return alreadyAcknowledged ? 'already' : 'sent';
   } catch (error) {
+    if (attempted)
+      trackStepResultFailed(input.outcome, sourcePath, input.method, failure);
     if (error instanceof StepResultError) throw error;
     throw new StepResultError(
       '匿名回答の送信完了を確認できませんでした。同じ回答を再送できます。',

@@ -1,4 +1,5 @@
 'use client';
+import { StepResultImpression } from './step-result-impression';
 
 import {
   Check,
@@ -906,7 +907,13 @@ export function InteractiveSteps({
                         {step.advanceCheck.prompt}
                       </p>
                     )}
-                    <div className="step-actions">
+                    <p className="step-result-reason">
+                      直らなかった結果も、次の人の役に立ちます。
+                    </p>
+                    <StepResultImpression
+                      method={step.id}
+                      enabled={canCollectResults && !solvedStepId}
+                    >
                       <button
                         className="step-solved"
                         type="button"
@@ -974,7 +981,7 @@ export function InteractiveSteps({
                           <ChevronRight size={17} />
                         </button>
                       ) : null}
-                    </div>
+                    </StepResultImpression>
                   </>
                 )}
                 {Object.values(reports)
@@ -1016,6 +1023,20 @@ export function InteractiveSteps({
                   ))}
                 {outcome?.step.id === step.id && (
                   <>
+                    {!outcome.resolved && !step.endpoint && (
+                      <p className="procedure-note">
+                        {index < steps.length - 1 ? (
+                          <a href={`#${steps[nextIndex(step, index)].id}`}>
+                            次は「{steps[nextIndex(step, index)].title}」を確認
+                            →
+                          </a>
+                        ) : (
+                          <a href="#references">
+                            試した結果を整理して、公式情報・サポート案内を確認 →
+                          </a>
+                        )}
+                      </p>
+                    )}
                     {!outcome.resolved && step.endpoint && (
                       <aside
                         className="procedure-note step-endpoint"

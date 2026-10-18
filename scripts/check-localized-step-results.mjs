@@ -159,6 +159,44 @@ try {
     tree = render();
     assert.equal(posts.at(-1).reportStruggling, true);
     assert.equal(posts.at(-1).method, 'two');
+    controls = StepResultButtons({ method: 'two' });
+    assert.equal(
+      nodes(controls, (n) => n.type === 'a' && n.props.href === '#references')
+        .length,
+      1,
+    );
+    fail = true;
+    await h.context.send('one', 'not-resolved');
+    tree = render();
+    controls = StepResultButtons({ method: 'one' });
+    assert.equal(
+      nodes(controls, (n) => n.type === 'a' && n.props.href === '#two').length,
+      1,
+      'failed save does not block continuation',
+    );
+    h.context.steps = [
+      { id: 'one', title: 'First', stopAfter: true },
+      steps[1],
+    ];
+    controls = StepResultButtons({ method: 'one' });
+    assert.equal(
+      nodes(controls, (n) => n.type === 'a' && n.props.href === '#references')
+        .length,
+      1,
+      'endpoint stops continuation',
+    );
+    h.context.steps = [
+      { id: 'one', title: 'First', nextStepId: 'three' },
+      steps[1],
+      { id: 'three', title: 'Safe next' },
+    ];
+    controls = StepResultButtons({ method: 'one' });
+    assert.equal(
+      nodes(controls, (n) => n.type === 'a' && n.props.href === '#three')
+        .length,
+      1,
+      'explicit safe next STEP preserved',
+    );
   }
   console.log(
     'PASS: EN/ZH/ES loading/unavailable/reconnect, localized failure+same-token retry, repeated-result dedupe, final-only flag, no Japanese messages. Mocked transport only.',

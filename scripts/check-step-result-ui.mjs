@@ -51,7 +51,7 @@ const compiled = await build({
                 : path === 'support-workspace'
                   ? 'export const useActiveCase=()=>globalThis.__stepUI.activeCase;'
                   : path === 'analytics'
-                    ? 'export const trackEvent=(...args)=>globalThis.__stepUI.analytics.push(args); export const trackStepResultSaved=(outcome,path)=>{if(path)globalThis.__stepUI.analytics.push(["step_result_saved",{outcome}]);};'
+                    ? 'export const trackStepControlsViewed=()=>{}; export const trackStepResultFailed=()=>{}; export const trackEvent=(...args)=>globalThis.__stepUI.analytics.push(args); export const trackStepResultSaved=(outcome,path)=>{if(path)globalThis.__stepUI.analytics.push(["step_result_saved",{outcome}]);};'
                     : `export const ${{ 'result-note': 'ResultNote', 'save-solution': 'SaveSolution', 'troubleshooting-product': 'TroubleshootingProduct' }[path]}=()=>null;`,
         }));
       },

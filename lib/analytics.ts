@@ -7,6 +7,8 @@ import { siteConfig } from '@/lib/site-config';
 
 export type AnalyticsEvent =
   | 'step_result_saved'
+  | 'step_result_controls_viewed'
+  | 'step_result_failed'
   | 'solution_saved'
   | 'solution_reused'
   | 'issue_resolved'
@@ -85,18 +87,67 @@ export function editorialAnalyticsPath(path: string) {
     ? path
     : null;
 }
-export function trackStepResultSaved(
-  outcome: 'resolved' | 'not-resolved',
-  sourcePath: string,
-) {
+type StepOutcome = 'resolved' | 'not-resolved';
+export type StepFailure =
+  | 'network'
+  | 'rate_limited'
+  | 'rejected'
+  | 'unavailable'
+  | 'invalid_response';
+function stepParams(sourcePath: string, method: string) {
   const path = editorialAnalyticsPath(sourcePath);
-  if (!path || !['resolved', 'not-resolved'].includes(outcome)) return;
-  trackEvent('step_result_saved', {
-    outcome,
+  if (!path || !/^[a-z0-9][a-z0-9-]{0,99}$/.test(method)) return null;
+  return {
+    step_id: method,
     page_location: `${analyticsOrigin}${path}`,
     page_title: 'Troubleshooting result',
     page_referrer: '',
-  });
+  };
+}
+export function trackStepResultSaved(
+  outcome: StepOutcome,
+  sourcePath: string,
+  method: string,
+) {
+  const params = stepParams(sourcePath, method);
+  if (!params || !['resolved', 'not-resolved'].includes(outcome)) return;
+  trackEvent('step_result_saved', { ...params, outcome });
+}
+export function trackStepResultFailed(
+  outcome: StepOutcome,
+  sourcePath: string,
+  method: string,
+  failure: StepFailure,
+) {
+  const params = stepParams(sourcePath, method);
+  if (
+    !params ||
+    !['resolved', 'not-resolved'].includes(outcome) ||
+    ![
+      'network',
+      'rate_limited',
+      'rejected',
+      'unavailable',
+      'invalid_response',
+    ].includes(failure)
+  )
+    return;
+  trackEvent('step_result_failed', { ...params, outcome, failure });
+}
+// Once per public path/STEP in this document, including React remounts.
+const viewedStepControls = new Set<string>();
+export function trackStepControlsViewed(sourcePath: string, method: string) {
+  const params = stepParams(sourcePath, method);
+  const key = `${sourcePath}:${method}`;
+  if (
+    !params ||
+    !canTrackAnalytics() ||
+    typeof (window as unknown as { gtag?: unknown }).gtag !== 'function' ||
+    viewedStepControls.has(key)
+  )
+    return;
+  viewedStepControls.add(key);
+  trackEvent('step_result_controls_viewed', params);
 }
 export function trackSolutionSaved() {
   trackEvent('solution_saved', {
