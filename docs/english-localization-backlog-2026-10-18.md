@@ -1,0 +1,48 @@
+# 英語版の全体棚卸し — 2026-10-18
+
+基準commit: `659e2e633c6bd4bee4b3c72e99d5aaca364a3173`。本番Pages成功: `32a79a20-9cf9-45dc-b9c7-3246d9d297c6`。sitemapとhasTranslationの実登録を照合。日本語231 URL、英語86 URL、未対応145 URL、登録との不一致0。公開ブラウザの全ページ再検証を意味しない。
+
+[全URLの基準CSV](english-localization-backlog-2026-10-18.csv) はこのcommitのスナップショットとして保持し、バッチ差分を下に記録する。
+
+| 系列 | 日本語 | 英語 | 未対応 |
+|---|---:|---:|---:|
+| public-page | 8 | 1 | 7 |
+| index | 6 | 3 | 3 |
+| discord-article | 38 | 4 | 34 |
+| examples | 1 | 1 | 0 |
+| game-hub | 22 | 18 | 4 |
+| game-article | 91 | 46 | 45 |
+| gear-article | 3 | 2 | 1 |
+| guide-article | 28 | 9 | 19 |
+| new-releases | 2 | 0 | 2 |
+| pc-article | 20 | 1 | 19 |
+| tool | 3 | 1 | 2 |
+| trouble | 7 | 0 | 7 |
+| weekly | 2 | 0 | 2 |
+
+## 今回の差分
+
+共通ガイド `no-game-audio`、`steam-input-controller`、`controller-double-input` の英語版3件を追加。英語共通一覧は12件、サイト全体では89/231、未対応142となる。配備前は実装件数、配備成功確認後に公開件数として扱う。既存 `/en/pc/repair-or-replace` の英語ホーム検索・カードへの掲載漏れも修正（記事数増加には数えない）。
+
+## sitemap外の操作画面
+
+以下は145件と別枠。noindexを翻訳済みとは扱わない。実在ルートを調査し、管理画面は対象外とした。
+
+| 日本語ルート | 英語対応 | 確認事項 |
+|---|---|---|
+| /my-games | あり | localeルートあり。UI再確認は別工程 |
+| /reports | あり | localeルートあり。実投稿・運用変更は本作業外 |
+| /my | なし | localStorageのPC情報画面、noindex |
+| /diagnose | なし | 日本語の診断UI、既存公開フラグを維持 |
+| /diagnose/privacy | なし | 診断説明、noindex |
+| /diagnostic-feedback | なし | 診断フィードバック、noindex |
+| /discord-servers/submit | なし | 投稿フォーム、noindex |
+| /diagnosis/[id]、/diagnosis/manage/[id] | なし | 共有結果・管理操作。本文と権限動作を分けて検証が必要 |
+
+英語版を完了とするには、記事だけでなく上記UI・索引・検索の不足も扱う。英語の公開URLがあることのみで内容校正完了とはみなさない。
+
+## 保留条件
+
+出典の未確認により保留するゲーム別復元・MOD条件は [資料再確認待ち](localization-source-blockers-2026-10-18.md) の正確なURLと条件に従う。他の独立した英語記事は継続する。言語順は英語版、スペイン語版、中国語版。
+
+英語版追加後の全体QAは [QA台帳](english-full-qa-2026-10-18.md) に記録。全体監査・修正・再テスト・公開と保留報告を終えるまでスペイン語版に進まない。

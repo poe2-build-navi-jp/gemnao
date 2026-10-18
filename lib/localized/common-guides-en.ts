@@ -1,10 +1,11 @@
+import { audioControllerGuidesEn } from './audio-controller-guides-en';
 import { saveGuidesEn } from './save-guides-en';
 import { moreCommonGuidesEn } from './common-guides-more-en';
 import type { EnglishGuideInfo } from '@/components/english-guide-shell';
 
 export type EnglishCommonGuide = EnglishGuideInfo & {
   slug: string;
-  topic: 'launch' | 'display' | 'save';
+  topic: 'launch' | 'display' | 'save' | 'controller';
   branches: { symptom: string; action: string; step: string }[];
   steps: { id: string; title: string; actions: string[]; next: string }[];
   extraSections?: { id: string; title: string; actions: string[] }[];
@@ -16,6 +17,7 @@ const windowsTools =
   'https://support.microsoft.com/en-us/windows/experience/system-configuration-tools-in-windows';
 
 export const commonGuidesEn: EnglishCommonGuide[] = [
+  ...audioControllerGuidesEn,
   ...moreCommonGuidesEn,
   ...saveGuidesEn,
   {

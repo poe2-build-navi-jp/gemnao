@@ -35,6 +35,9 @@ const paths = [
   '/guide/low-fps',
   '/guide/save-data-backup',
   '/guide/steam-cloud-sync-error',
+  '/guide/no-game-audio',
+  '/guide/steam-input-controller',
+  '/guide/controller-double-input',
   '/discord/mic-not-working',
   '/discord/stream-no-audio',
   '/discord/screen-share-black-screen',
@@ -137,7 +140,7 @@ for (const html of [index, indexJa]) {
 }
 assert.ok(index.includes('rel="canonical" href="https://gemnao.pages.dev/en/guide"'));
 assert.ok(!/name="robots" content="[^"]*noindex/.test(index));
-assert.ok(index.includes('"numberOfItems":9'));
+assert.ok(index.includes('"numberOfItems":12'));
 for (const path of paths.filter(path => path.startsWith('/guide/'))) {
   assert.ok(index.includes(`href="/en${path}"`), `Index discovery: ${path}`);
   assert.ok((await htmlFor(`/en${path}`)).includes('href="/en/guide"'));

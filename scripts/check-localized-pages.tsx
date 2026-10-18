@@ -66,8 +66,8 @@ function check(name: string, locale: string, html: string) {
 }
 
 const indexGuides = guideGroupsEn.flatMap(group => group.guides);
-assert.equal(indexGuides.length, 9);
-assert.equal(new Set(indexGuides.map(guide => guide.path)).size, 9);
+assert.equal(indexGuides.length, 12);
+assert.equal(new Set(indexGuides.map(guide => guide.path)).size, 12);
 const guideIndexHtml = renderToStaticMarkup(<EnglishGuideIndex />);
 check('/en/guide', 'en', guideIndexHtml);
 assert.equal(languageAlternates('/guide').en, '/en/guide');
@@ -292,6 +292,12 @@ for (const guide of commonGuidesEn) {
   assert.equal(languageAlternates(guide.path).en, `/en${guide.path}`);
   assert.equal(hasTranslation('zh', guide.path), translatedCommonGuides.some(g => g.locale === 'zh' && g.slug === guide.slug));
   assert.equal(hasTranslation('es', guide.path), translatedCommonGuides.some(g => g.locale === 'es' && g.slug === guide.slug));
+  if (['no-game-audio', 'steam-input-controller', 'controller-double-input'].includes(guide.slug)) {
+    assert.deepEqual(guide.steps.map(s => s.actions.length), original.steps.map(s => s.actions.length), `${guide.slug}: action parity`);
+    assert.equal(guide.faqs.length, original.faqs?.length, `${guide.slug}: FAQ parity`);
+    const sourceKey = (url: string) => url.replace('/ja-jp/', '/en-us/').replace('steampowered.com/ja/', 'steampowered.com/en/');
+    assert.deepEqual(guide.sources.map(s => sourceKey(s.url)), original.sources.map(s => sourceKey(s.url)), `${guide.slug}: source parity`);
+  }
   for (const branch of guide.branches) assert.ok([...guide.steps, ...(guide.extraSections || [])].some(step => step.id === branch.step));
   pages++;
 }
