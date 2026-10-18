@@ -75,7 +75,7 @@ assert.equal(hasTranslation('zh', '/guide'), true);
 assert.equal(hasTranslation('es', '/guide'), true);
 for (const guide of indexGuides) assert.ok(guideIndexHtml.includes(`href="/en${guide.path}"`));
 check('/en/discord', 'en', renderToStaticMarkup(<EnglishDiscordIndex />));
-assert.equal(localizedDiscordArticles.filter(a => a.locale === 'en').length, 13);
+assert.equal(localizedDiscordArticles.filter(a => a.locale === 'en').length, 17);
 let pages = 2;
 for (const locale of locales) {
   check(
@@ -150,8 +150,8 @@ for (const article of localizedDiscordArticles) {
   assert.equal(article.faqs.length, original.faqs.length, 'Discord FAQ parity');
   assert.equal(
     article.diagnosis.length,
-    original.diagnosis?.length,
-    'Discord diagnosis parity',
+    original.diagnosis?.length ?? original.causes.length,
+    'Discord diagnosis parity (or one decision per cause without a Japanese diagnosis table)',
   );
   article.steps.forEach((step, index) => {
     assert.equal(

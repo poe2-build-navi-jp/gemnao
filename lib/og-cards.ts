@@ -1,3 +1,4 @@
+import { discordBluetoothBotsEn } from '@/lib/localized/discord-bluetooth-bots-en';
 import { discordAudioChecksEn } from '@/lib/localized/discord-audio-checks-en';
 import { discordLaunchEn } from '@/lib/localized/discord-launch-en';
 import { translatedCommonGuides } from '@/lib/localized/save-guides-zh-es';
@@ -243,6 +244,7 @@ export function ogCardSpecs(): OgCardSpec[] {
       ...discordCoreEn,
       ...discordLaunchEn,
       ...discordAudioChecksEn,
+      ...discordBluetoothBotsEn,
       ...followupLocalizedArticles,
     ].map((article) => ({
       path:

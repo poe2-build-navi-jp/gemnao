@@ -72,3 +72,7 @@
 ## Discord音声5件
 
 Discord13/38・残25、英語114/231・残117。registry/sitemap不一致0。次は台帳順Bluetooth音声、Bot追加/応答/削除。既存日本語も公式日本語も読めるためBluetooth英語資料単体の取得失敗を全体停止条件にはしない。スペイン語版/中国語版へは未移行。
+
+## Discord Bluetooth・Bot4件
+
+bluetooth-audio-problem / bot-add / bot-not-responding / bot-remove追加。Discord17/38・残21、英語118/231・残113、registry/sitemap不一致0。localized250、全体型/buildと対象lint、49記事2261内部リンク、4幅20組・検索16件成功。API書込み0。詳細english-discord-bots-review-2026-10-18.md。英語全体QAと親担当の本番画面確認は残る。次は台帳順call-disconnects以降。

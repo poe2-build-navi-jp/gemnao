@@ -52,3 +52,7 @@ not-opening / loading-stuck / update-failed / installation-failed追加。Discor
 ## Discord音声5件
 
 cant-hear-voice / audio-input-not-found / error-1001 / error-1002 / error-1003。Discord13/38、英語114/231、残117。localized246、型/build/lint、45記事2089内部リンク、494静的HTML・473 sitemap・413OG成功。4幅24組・検索20件・未翻訳12ルート404、API書込み0。reset-config-fileの位置案内を親指摘どおり方向語なしへ変更。親の共通28一覧+11記事確認はdesktop全文/一部リンクFAQの範囲で、全体QA完了とはしない。詳細english-discord-audio-review-2026-10-18.md。
+
+## Discord Bluetooth・Bot4件
+
+bluetooth-audio-problem / bot-add / bot-not-responding / bot-remove追加。Discord17/38・残21、英語118/231・残113、registry/sitemap不一致0。localized250、全体型/buildと対象lint、49記事2261内部リンク、4幅20組・検索16件成功。API書込み0。詳細english-discord-bots-review-2026-10-18.md。英語全体QAと親担当の本番画面確認は残る。次は台帳順call-disconnects以降。
