@@ -1,0 +1,74 @@
+name: Gemnao anonymous feedback aggregate read
+run-name: Anonymous feedback totals — owner-approved read only
+on:
+  workflow_dispatch:
+    inputs:
+      source_sha:
+        description: Exact reviewed 40-character workflow commit
+        required: true
+        type: string
+      confirmation:
+        description: Type READ_FEEDBACK_TOTALS_ONLY
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: gemnao-production-d1-migration
+  cancel-in-progress: false
+jobs:
+  gate:
+    if: github.repository == 'poe2-build-navi-jp/gemnao' && github.ref == 'refs/heads/gemunao' && github.run_attempt == 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: read
+    outputs:
+      environment: ${{ steps.verify.outputs.environment }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Test aggregate-only and approval boundaries with synthetic responses
+        run: node --test tests/feedback-stats-d1/control.test.mjs
+      - id: verify
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FEEDBACK_STATS_SOURCE_SHA: ${{ inputs.source_sha }}
+          FEEDBACK_STATS_CONFIRMATION: ${{ inputs.confirmation }}
+        run: node ops/feedback-stats/control.mjs gate
+  read:
+    needs: gate
+    if: needs.gate.outputs.environment == 'gemnao-d1-production'
+    environment: ${{ needs.gate.outputs.environment }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Fixed SELECT only using the existing protected credential
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          FEEDBACK_STATS_PROTECTED_ENVIRONMENT: gemnao-d1-production
+          FEEDBACK_STATS_SOURCE_SHA: ${{ inputs.source_sha }}
+          FEEDBACK_STATS_CONFIRMATION: ${{ inputs.confirmation }}
+        run: node ops/feedback-stats/control.mjs read
+      - name: Store aggregate counts only for seven days
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: anonymous-feedback-totals
+          path: feedback-stats.json
+          if-no-files-found: error
+          retention-days: 7
