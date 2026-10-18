@@ -9,3 +9,5 @@ PC12/20・残8、英語150/231・残81。localized282、型/lint/build成功。5
 OG2枚目視済み。英語全体QA・本番画面確認は未完了。collector関連3ファイルは除外して保持。
 
 最終検証：PC12/20・残8、英語150/231・残81。localized282、型/lint/build成功。530静的HTML・509sitemap・449OG、80記事3658内部リンク/アンカー成功。4幅16組、検索クリック/戻る12件、12カード、1920px通常header、未翻訳6ルート404成功。JS/CSS失敗0・API書込み0。OG2枚と375px結果表目視済み。英語全体QA・本番画面確認は未完了。
+
+2026-10-18 公開後QA追記：親ブラウザ担当の指摘によりwifi-option-missing STEP2の「matching result below」を「matching entry in the result table」へ変更。表の上下に依存しない案内とした。localized289・対象lint・build・静的検索/87英語記事3984内部リンク検証成功、生成HTMLに修正文を確認。新しいテストやUI変更は追加していない。
