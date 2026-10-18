@@ -130,8 +130,8 @@ export const launchGuidesZhEs: TranslatedCommonGuide[] = [
       },
       { href: '/zh/guide/pc-game-crash', label: '游戏退出到桌面：按时机检查' },
       {
-        href: '/en/guide/verify-steam-files',
-        label: '验证文件并判断结果（英文）',
+        href: '/zh/guide/verify-steam-files',
+        label: '验证文件并判断结果',
       },
       { href: '/en/guide/black-screen', label: '窗口持续黑屏（英文）' },
     ],
@@ -264,8 +264,8 @@ export const launchGuidesZhEs: TranslatedCommonGuide[] = [
         label: 'Cierres al escritorio según el momento del fallo',
       },
       {
-        href: '/en/guide/verify-steam-files',
-        label: 'Verificar archivos e interpretar el resultado (inglés)',
+        href: '/es/guide/verify-steam-files',
+        label: 'Verificar archivos e interpretar el resultado',
       },
       {
         href: '/en/guide/black-screen',

@@ -22,7 +22,7 @@
 | B | en/Discord一覧、mic-not-working、stream-no-audio、screen-share-black-screen | 公開済み `a520710979c830c5c11a89d74e4eba17a06a952a`。Pages `d9f19feb-7f5a-4480-9197-50abd4380715` 成功・SHA一致。英語一覧4本。 |
 | C1 | Palworld save-data・dedicated-server-backup、Wilds save-data、Elden Ring save-data | 専用サーバーバックアップ英語版は公開済み `17726c36603e585e7f05781becc1a808f2f31495`、Pages `8704c1d5-5cc1-4541-9f36-602953683f7a` 成功・SHA一致。ほか3件は出典再確認が未完了（Q&A・更新告知の取得制限／保存先の一次資料不足）。詳細は english-palworld-backup-review-2026-10-18.md。 |
 | C2 | Palworld not-launching、Elden Ring not-launching、Wilds fps等 | 既存英語記事・日本語利用実績・不足導線を確認して選定。未提供のアクセス数字は推測しない。 |
-| D | zh/es主要共通ガイド、各言語一覧・検索 | D初回は公開済み `3b1c21e30189b46e574f62a1adb47f0f5ce875d0`、Pages `4e1f98c9-a193-4f9b-a89b-8843266ff9b4` 成功・SHA一致。Cloudは公開済み `d5d19a7c914f39614205169328625ea103089986`、Pages `c8cff2e7-bbfe-4d21-91f9-71cca021be0e` 成功・SHA一致。起動・クラッシュ中西4記事を追加・検証（一覧各4本）。次は検証可能なファイル確認・FPS等を独立バッチ化。記事がない一覧カードや架空hreflangを公開しない。 |
+| D | zh/es主要共通ガイド、各言語一覧・検索 | D初回は公開済み `3b1c21e30189b46e574f62a1adb47f0f5ce875d0`、Pages `4e1f98c9-a193-4f9b-a89b-8843266ff9b4` 成功・SHA一致。Cloudは公開済み `d5d19a7c914f39614205169328625ea103089986`、Pages `c8cff2e7-bbfe-4d21-91f9-71cca021be0e` 成功・SHA一致。起動・クラッシュ4記事は公開済み `75e8a17445a933397b6d1adb6ffab1aab301a46d`、Pages `84890529-748a-44cf-be36-ddeea837bbba` 成功・SHA一致。ファイル検証・低FPS4記事を追加・検証し一覧各6本へ。表示系3種は次バッチ。記事がない一覧カードや架空hreflangを公開しない。 |
 
 C候補の実在未対応パス:
 

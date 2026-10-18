@@ -1,3 +1,4 @@
+import { verifyFpsGuidesZhEs } from './verify-fps-guides-zh-es';
 import { launchGuidesZhEs } from './launch-guides-zh-es';
 import { crashGuidesZhEs, type CrashSection } from './crash-guides-zh-es';
 import { cloudGuidesZhEs } from './cloud-guides-zh-es';
@@ -18,6 +19,7 @@ const base = {
 export const translatedCommonGuides: TranslatedCommonGuide[] = [
   ...cloudGuidesZhEs,
   ...launchGuidesZhEs,
+  ...verifyFpsGuidesZhEs,
   ...crashGuidesZhEs,
   {
     ...base,
