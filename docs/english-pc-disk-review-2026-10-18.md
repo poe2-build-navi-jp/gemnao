@@ -1,0 +1,11 @@
+# English PC disk article and production QA corrections
+
+Scope: `/en/pc/disk-usage-100`, English Bot comparison wrapping/tap targets, and empty Palworld Avoid sections. PC translation coverage is now 20/20; total inventory 195/231, remaining 36. Other pending translations are excluded from this commit.
+
+The disk translation preserves all eight steps and FAQs. Official Microsoft references distinguish active time from throughput and support restoring system-managed paging only when the reader disabled it. The manual fixed-size workaround is not recommended. Archived Resource Monitor evidence is not presented as a fresh Windows 11 test. Steam disk-allocation guidance is retained without claiming an unverified Pause/Resume interface. NVMe-only health monitoring, Event 153 retry interpretation, independent backups and illustrative figures retain their qualifications. Japanese source content is unchanged.
+
+Bot comparison: English-only normal word wrapping and larger link targets prevent split words at 1180px. The reported production Ticket Tool failure was not reproduced locally; all four comparison links and returns worked before/after. Palworld articles with no Avoid entries now omit that empty section; all original cautions remain. Populated Avoid sections remain visible.
+
+Validation: localized checks 327; full TypeScript, changed-file lint, isolated production build, static search, English article link/anchor checks and OG checks passed. Output: 575 static HTML, 554 sitemap entries, 494 OG assets, 121 English articles, 5563 internal links/anchors. Initial build ended 137; after stopping owned completed preview servers, rebuild succeeded.
+
+Browser: disk/index at 375/390/430/1440 plus 1920 header; search navigation/back, 20 PC cards, untranslated zh/es 404s; Palworld empty/nonempty section behavior. Bot comparison English/Japanese at 375/390/430/1180/1440, all four links and return links: 80 clicks passed. Smooth scrolling was awaited before checking target position. No horizontal overflow, JS/CSS failures or API writes. Disk OG, disk mobile/desktop and Bot mobile/1180 screenshots were visually inspected. Whole-English QA and parent production browser review remain pending.

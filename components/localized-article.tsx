@@ -354,7 +354,7 @@ export function LocalizedArticle({
             </StepResultCollection>
           </section>
           {isDiscord && locale === 'en' && article.slug === 'rtc-connecting' ? <EnglishDiscordRtcMemo /> : null}
-          <section className="avoid-block">
+          {article.avoid.length > 0 ? <section className="avoid-block">
             <h2>
               <AlertTriangle size={21} /> {t.avoid}
             </h2>
@@ -363,7 +363,7 @@ export function LocalizedArticle({
                 <li key={item}>{item}</li>
               ))}
             </ul>
-          </section>
+          </section> : null}
           <section className="caution-block">
             <h2>{t.cautions}</h2>
             <ul>

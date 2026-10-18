@@ -1,3 +1,4 @@
+import { pcDiskEn } from '@/lib/localized/pc-disk-en';
 import { starWarsBacklogEn } from '@/lib/localized/star-wars-backlog-en';
 import { dawnwalkerBacklogEn } from '@/lib/localized/dawnwalker-backlog-en';
 import { aniimoBacklogEn } from '@/lib/localized/aniimo-backlog-en';
@@ -72,7 +73,7 @@ export const localizedArticles: LocalizedArticle[] = [
   ...rocketLeagueLocalizedArticles,
 ];
 
-export const localizedPcArticles = [...localizedPcRepairArticles, ...pcAudioEn, ...pcDeviceRecoveryEn, ...pcUsbDisplayEn, ...pcGamingEn, ...pcNetworkEn, ...pcSleepSigninEn, ...pcUpdateExplorerEn, ...pcUpdateStuckEn, ...pcHardwareEn, ...pcSecurityEn];
+export const localizedPcArticles = [...localizedPcRepairArticles, ...pcAudioEn, ...pcDeviceRecoveryEn, ...pcUsbDisplayEn, ...pcGamingEn, ...pcNetworkEn, ...pcSleepSigninEn, ...pcUpdateExplorerEn, ...pcUpdateStuckEn, ...pcHardwareEn, ...pcSecurityEn, ...pcDiskEn];
 export const localizedPcArticle = (locale: Locale, slug: string) =>
   localizedPcArticles.find(
     (article) => article.locale === locale && article.slug === slug,

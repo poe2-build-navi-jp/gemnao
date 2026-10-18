@@ -152,3 +152,7 @@ Discord38/38、英語158/231・残73。localized290、型/lint/build成功。538
 ## Star Wars Zero Company 4記事とWilds診断リンク
 
 英語194/231・残37。ゲーム個別78/91・残13。localized326、型/lint/build成功。574静的HTML・553sitemap・493OG、120記事5511内部リンク/アンカー成功。4記事×4幅、診断16遷移、ハブ到達、検索クリック/戻る8件、保存パスコピー一致。横はみ出し・欠落アンカー・JS/CSS失敗・API書込み0。OG4枚と375px保存パス/1440px診断表を目視。Wilds config-file症状表の再発行をsafe-startからrestore-configへ修正し、4幅で実クリックしてStep 4へ到達。英語全体QA・本番画面確認は未完了。 詳細english-star-wars-review-2026-10-18.md。
+
+## PCディスク使用率・本番QA指摘修正
+
+英語195/231・残36、PC20/20。localized327、型/lint/build成功。575 HTML・554 sitemap・494 OG、121英語記事5563リンク/アンカー成功。Bot比較表は日英5幅80クリック成功、1180px単語分断を解消。Palworld3記事の空Avoidを非表示にし既存注意を保持。ディスク記事4幅・検索/戻る・20カード・未翻訳404成功。OG/画面目視済み、API書込み0。全英語QAと本番画面確認は未完了。詳細english-pc-disk-review-2026-10-18.md。

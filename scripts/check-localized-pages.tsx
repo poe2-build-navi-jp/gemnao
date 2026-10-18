@@ -466,6 +466,14 @@ for (const gameSlug of expansionGames) {
   }
 }
 
+// Reviewed disk-source replacements: the former pages omitted the cited controls.
+const reviewedDiskSources: Record<string,string> = {
+  'https://techcommunity.microsoft.com/blog/askperf/windows-8--windows-server-2012-the-new-task-manager/375149': 'https://learn.microsoft.com/en-us/previous-versions/windows/desktop/mttmprov/msft-mtdisk',
+  'https://support.microsoft.com/ja-jp/windows/experience/system-configuration-tools-in-windows': 'https://learn.microsoft.com/en-us/azure/site-recovery/monitoring-high-churn',
+  'https://support.microsoft.com/ja-jp/windows/experience/performance-optimization/tips-to-improve-pc-performance-in-windows': 'https://learn.microsoft.com/en-us/troubleshoot/windows-client/performance/how-to-determine-the-appropriate-page-file-size-for-64-bit-versions-of-windows',
+};
+const reviewedPcSource=(url:string,slug:string)=>slug==='disk-usage-100'?(reviewedDiskSources[url]||url):url;
+
 // Repair decision: real localized routes with the same safety and source scope.
 const repairCards = ogCardSpecs();
 const sitemapPaths = new Set(
@@ -504,12 +512,12 @@ for (const article of localizedPcArticles) {
   }
   assert.deepEqual(
     article.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/').replace('help.steampowered.com/ja/', 'help.steampowered.com/en/').replace(/\/windows\/[^/?]+19bc41ca-ad72-ae67-af3c-89ce169755dd$/, '/windows/windows-update-troubleshooter-19bc41ca-ad72-ae67-af3c-89ce169755dd')),
-    [...original.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/').replace('help.steampowered.com/ja/', 'help.steampowered.com/en/').replace(/\/windows\/[^/?]+19bc41ca-ad72-ae67-af3c-89ce169755dd$/, '/windows/windows-update-troubleshooter-19bc41ca-ad72-ae67-af3c-89ce169755dd')), ...(article.slug === 'gaming-shortcut-keys' ? ['https://store.steampowered.com/oldnews/5047'] : [])],
+    [...original.sources.map((source) => reviewedPcSource(source.url, article.slug).replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/').replace('help.steampowered.com/ja/', 'help.steampowered.com/en/').replace(/\/windows\/[^/?]+19bc41ca-ad72-ae67-af3c-89ce169755dd$/, '/windows/windows-update-troubleshooter-19bc41ca-ad72-ae67-af3c-89ce169755dd')), ...(article.slug === 'gaming-shortcut-keys' ? ['https://store.steampowered.com/oldnews/5047'] : article.slug === 'disk-usage-100' ? ['https://learn.microsoft.com/en-us/troubleshoot/windows-client/performance/slow-page-file-growth-memory-allocation-errors','https://store.steampowered.com/oldnews/88497'] : [])],
     `${path}: official-source parity`,
   );
   assert.deepEqual(
     article.evidenceSummary?.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/').replace('help.steampowered.com/ja/', 'help.steampowered.com/en/').replace(/\/windows\/[^/?]+19bc41ca-ad72-ae67-af3c-89ce169755dd$/, '/windows/windows-update-troubleshooter-19bc41ca-ad72-ae67-af3c-89ce169755dd')),
-    original.evidenceSummary?.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/').replace('help.steampowered.com/ja/', 'help.steampowered.com/en/').replace(/\/windows\/[^/?]+19bc41ca-ad72-ae67-af3c-89ce169755dd$/, '/windows/windows-update-troubleshooter-19bc41ca-ad72-ae67-af3c-89ce169755dd')),
+    original.evidenceSummary?.sources.map((source) => reviewedPcSource(source.url, article.slug).replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/').replace('help.steampowered.com/ja/', 'help.steampowered.com/en/').replace(/\/windows\/[^/?]+19bc41ca-ad72-ae67-af3c-89ce169755dd$/, '/windows/windows-update-troubleshooter-19bc41ca-ad72-ae67-af3c-89ce169755dd')),
     `${path}: decision-source parity`,
   );
   assert.equal(

@@ -200,6 +200,7 @@ export const ogImageManifest: Record<string, string> = {
   "/en/pc/bluetooth-connected-no-sound": "62d7457a",
   "/en/pc/bluetooth-option-missing": "24b1a732",
   "/en/pc/call-starts-audio-disappears": "66acf668",
+  "/en/pc/disk-usage-100": "44ca1b5b",
   "/en/pc/file-explorer-freezes-on-right-click": "63628e72",
   "/en/pc/gaming-shortcut-keys": "8fde9682",
   "/en/pc/microphone-after-update": "ecc678cb",

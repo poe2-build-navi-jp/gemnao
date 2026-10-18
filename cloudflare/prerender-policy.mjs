@@ -14,6 +14,7 @@ export function isEditorialSnapshotPath(pathname) {
       '/en/pc/call-starts-audio-disappears',
       '/en/pc/bluetooth-connected-no-sound',
       '/en/pc',
+      '/en/pc/disk-usage-100',
       '/en/pc/pc-broken',
       '/en/pc/pc-hacked-signs',
       '/en/pc/windows-update-stuck',

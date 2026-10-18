@@ -6651,3 +6651,16 @@ a.my-games-primary {
   display: block;
   margin: 12px 0;
 }
+
+/* Let English bot names and purposes establish readable column widths. */
+#bot-comparison:lang(en) th,
+#bot-comparison:lang(en) td {
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+#bot-comparison:lang(en) tbody td:last-child a {
+  display: inline-block;
+  min-height: 44px;
+  padding-block: 8px;
+}
