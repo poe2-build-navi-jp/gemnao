@@ -54,6 +54,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
           body: `${article.lead} ${article.summary} ${article.diagnosis.map(row => `${row.symptom} ${row.cause}`).join(' ')}`,
         })),
         ...translatedGames.map(game => ({href: `/en/games/${game.slug}`, title: localizedHubs[game.slug].names?.en || gameFacts[game.slug].names.en, label: 'Game troubleshooting', body: localizedHubs[game.slug].lead.en || ''})),
+        {href: '/en/pc', title: 'Windows PC Troubleshooting Guides', label: 'Windows PC index', body: 'Audio, microphones, Bluetooth, updates, repair and replacement.'},
         {href: '/en/discord', title: 'Discord troubleshooting guides', label: 'Discord index', body: 'Microphone, stream audio, screen share black screen and file uploads.'},
         {href: '/en/guide', title: 'PC game troubleshooting guides', label: 'Guide index', body: 'Steam verification, GPU drivers, black screen, low FPS, launch, crash and stutter.'},
         ...localizedPcArticles.filter(article => article.locale === 'en').map(article => ({href: `/en/pc/${article.slug}`, title: article.title, label: 'Windows PC', body: article.description})),

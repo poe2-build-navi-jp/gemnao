@@ -1,3 +1,4 @@
+import { pcDeviceRecoveryEn } from '@/lib/localized/pc-device-recovery-en';
 import { pcAudioEn } from '@/lib/localized/pc-audio-en';
 import { discordListeningSpeechEn } from './discord-listening-speech-en';
 import { discordPerformanceVersionEn } from './discord-performance-version-en';
@@ -48,7 +49,7 @@ export const localizedArticles: LocalizedArticle[] = [
   ...rocketLeagueLocalizedArticles,
 ];
 
-export const localizedPcArticles = [...localizedPcRepairArticles, ...pcAudioEn];
+export const localizedPcArticles = [...localizedPcRepairArticles, ...pcAudioEn, ...pcDeviceRecoveryEn];
 export const localizedPcArticle = (locale: Locale, slug: string) =>
   localizedPcArticles.find(
     (article) => article.locale === locale && article.slug === slug,
@@ -97,6 +98,7 @@ export const ogLocale: Record<Locale, string> = {
 
 /** English-only editorial routes. Do not infer translations from a prefix. */
 export const englishEditorialPaths = [
+  '/pc',
   '/discord',
   '/guide',
   '/guide/pc-game-crash',

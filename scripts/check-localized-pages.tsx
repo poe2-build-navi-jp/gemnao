@@ -1,3 +1,4 @@
+import { EnglishPcIndex } from '../components/english-pc-index';
 import { crashGuideEn, crashSectionsEn } from '../lib/localized/crash-guide-en';
 import { translatedCommonGuides } from '../lib/localized/save-guides-zh-es';
 import { LocalizedGuideIndex } from '../components/localized-guide-index';
@@ -76,7 +77,8 @@ assert.equal(hasTranslation('es', '/guide'), true);
 for (const guide of indexGuides) assert.ok(guideIndexHtml.includes(`href="/en${guide.path}"`));
 check('/en/discord', 'en', renderToStaticMarkup(<EnglishDiscordIndex />));
 assert.equal(localizedDiscordArticles.filter(a => a.locale === 'en').length, 37);
-let pages = 2;
+check('/en/pc', 'en', renderToStaticMarkup(<EnglishPcIndex />));
+let pages = 3;
 for (const locale of locales) {
   check(
     `/${locale}`,
@@ -488,8 +490,8 @@ for (const article of localizedPcArticles) {
     `${path}: official-source parity`,
   );
   assert.deepEqual(
-    article.evidenceSummary?.sources.map((source) => source.url),
-    original.evidenceSummary?.sources.map((source) => source.url),
+    article.evidenceSummary?.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/')),
+    original.evidenceSummary?.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/')),
     `${path}: decision-source parity`,
   );
   assert.equal(
@@ -539,8 +541,8 @@ for (const article of localizedPcArticles) {
     `${path}: schema self URL`,
   );
   assert(
-    !html.includes(`href="/${article.locale}/pc"`),
-    `${path}: no invented translated PC hub`,
+    (article.locale === 'en') === html.includes(`href="/${article.locale}/pc"`),
+    `${path}: only registered PC hub links`,
   );
   assert.equal(
     languageAlternates(originalPath)[
@@ -584,7 +586,7 @@ for (const locale of locales) {
   assert.equal(hasTranslation(locale, '/pc/repair-or-replace'), true);
   assert.equal(
     hasTranslation(locale, '/pc'),
-    false,
+    locale === 'en',
     'Do not invent a translated PC hub',
   );
   assert.equal(

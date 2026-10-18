@@ -103,10 +103,10 @@ export function MobileNavigation({
                   ? 'Discordトラブル'
                   : locale === 'en' ? 'Discord' : `Discord${ui[locale].inJapanese}`}
               </a>
-              <a href="/pc">
+              <a href={locale === 'en' ? '/en/pc' : '/pc'}>
                 {locale === 'ja'
                   ? 'PC・Windowsの不具合'
-                  : `${ui[locale].pcWindows}${ui[locale].inJapanese}`}
+                  : locale === 'en' ? ui.en.pcWindows : `${ui[locale].pcWindows}${ui[locale].inJapanese}`}
               </a>
               {locale === 'ja' ? (
                 <a href="/discord-servers">Discordサーバー募集</a>

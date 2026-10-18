@@ -1,3 +1,4 @@
+import { languageAlternates } from '@/lib/localized/index';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { ArrowRight, ExternalLink } from 'lucide-react';
@@ -17,7 +18,7 @@ import { siteConfig } from '@/lib/site-config';
 export const metadata: Metadata = {
   title: pcHub.title,
   description: pcHub.description,
-  alternates: { canonical: '/pc' },
+  alternates: { canonical: '/pc', languages: languageAlternates('/pc') },
   openGraph: {
     type: 'website',
     title: pcHub.title,

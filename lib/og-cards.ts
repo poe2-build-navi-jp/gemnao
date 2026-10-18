@@ -1,3 +1,4 @@
+import { pcDeviceRecoveryEn } from '@/lib/localized/pc-device-recovery-en';
 import { pcAudioEn } from '@/lib/localized/pc-audio-en';
 import { discordListeningSpeechEn } from '@/lib/localized/discord-listening-speech-en';
 import { discordPerformanceVersionEn } from '@/lib/localized/discord-performance-version-en';
@@ -218,7 +219,7 @@ export function ogCardSpecs(): OgCardSpec[] {
     ...roundupCards,
     ...weeklyCards,
     ...pcCards,
-    ...pcAudioEn.map(article => ({path: `/en/pc/${article.slug}`, locale: article.locale, eyebrow: 'Windows PC troubleshooting', title: article.title, itemsLabel: 'Choose the matching check', items: article.steps.map(step => step.title)})),
+    ...[...pcAudioEn, ...pcDeviceRecoveryEn].map(article => ({path: `/en/pc/${article.slug}`, locale: article.locale, eyebrow: 'Windows PC troubleshooting', title: article.title, itemsLabel: 'Choose the matching check', items: article.steps.map(step => step.title)})),
     ...localizedPcRepairArticles.map((article) => ({
       path: `/${article.locale}/pc/${article.slug}`,
       locale: article.locale,
@@ -368,6 +369,7 @@ export function ogCardSpecs(): OgCardSpec[] {
         'Low FPS and stuttering',
       ],
     },
+    { path: '/en/pc', locale: 'en' as const, eyebrow: 'Windows PC troubleshooting', title: 'Windows PC troubleshooting guides', itemsLabel: 'Compare one change at a time', items: ['Audio output and microphones', 'Bluetooth detection and pairing', 'Update-related changes', 'Repair and replacement decisions'] },
     { path: '/en/discord', locale: 'en' as const, eyebrow: 'Discord troubleshooting', title: 'Discord launch, update, voice and sharing checks', itemsLabel: 'Find the affected part', items: ['Launch and updates', 'Installation errors', 'Voice and screen share', 'File uploads'] },
     { path: '/en/guide', locale: 'en' as const, eyebrow: 'PC game troubleshooting', title: 'Find your next PC game check', itemsLabel: 'Choose your symptom', items: ['Launch and file repair', 'Crashes and black screens', 'GPU drivers', 'Low FPS and stutter'] },
     ...(['zh','es'] as const).map(locale => ({path:`/${locale}/guide`,locale,eyebrow:guideUi[locale].index,title:guideUi[locale].indexTitle,itemsLabel:guideUi[locale].read,items:translatedCommonGuides.filter(g => g.locale === locale).map(g => g.shortTitle)})),

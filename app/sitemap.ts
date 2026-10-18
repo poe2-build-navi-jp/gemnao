@@ -132,6 +132,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     })),
     ...[
+      { path: '/en/pc', updated: '2026-10-18' },
       { path: '/en/discord', updated: '2026-10-18' },
       { path: '/en/guide', updated: '2026-10-18' },
       ...['zh','es'].map(locale => ({path:`/${locale}/guide`,updated:'2026-10-18'})),

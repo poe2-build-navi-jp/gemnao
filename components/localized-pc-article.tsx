@@ -179,8 +179,8 @@ export function LocalizedPcArticle({ article }: { article: Article }) {
         {
           '@type': 'ListItem',
           position: 2,
-          name: `${t.pcWindows}${t.inJapanese}`,
-          item: `${site}/pc`,
+          name: locale === 'en' ? t.pcWindows : `${t.pcWindows}${t.inJapanese}`,
+          item: `${site}${locale === 'en' ? '/en/pc' : '/pc'}`,
         },
         {
           '@type': 'ListItem',
@@ -203,9 +203,9 @@ export function LocalizedPcArticle({ article }: { article: Article }) {
           <nav className="breadcrumbs" aria-label={labels.breadcrumb}>
             <a href={`/${locale}`}>{t.home}</a>
             <span>›</span>
-            <a href="/pc" hrefLang="ja">
+            <a href={locale === 'en' ? '/en/pc' : '/pc'} hrefLang={locale === 'en' ? 'en' : 'ja'}>
               {t.pcWindows}
-              {t.inJapanese}
+              {locale === 'en' ? '' : t.inJapanese}
             </a>
             <span>›</span>
             <b>{article.shortTitle}</b>
@@ -376,6 +376,9 @@ export function LocalizedPcArticle({ article }: { article: Article }) {
                     <h3>
                       {t.stepLabel} {index + 1}: {step.title}
                     </h3>
+                  )}
+                  {locale === 'en' && slug === 'bluetooth-connected-no-sound' && index === 2 && (
+                    <p>If quality changes only when a call starts, skip reconnection and pairing removal for now. <a href="/en/pc/call-starts-audio-disappears#step-3">Compare a separate microphone in the call-start audio guide</a> while keeping the same headphones as output.</p>
                   )}
                   <ol>
                     {step.actions.map((action) => (

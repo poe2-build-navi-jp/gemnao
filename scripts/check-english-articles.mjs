@@ -23,6 +23,8 @@ if (prerender.routes.some(route => route.route === '/:locale/reports' && route.r
   for (const locale of ['en', 'zh', 'es']) knownPaths.add(`/${locale}/reports`);
 }
 const paths = [
+  '/pc/audio-after-update',
+  '/pc/bluetooth-option-missing',
   '/pc/microphone-after-update',
   '/pc/call-starts-audio-disappears',
   '/pc/bluetooth-connected-no-sound',
@@ -299,3 +301,18 @@ for (const locale of ['zh','es']) for (const suffix of ['/guide','/guide/save-da
   assert.ok((await htmlFor(`/${locale}`)).includes(`href="${path}"`));
 }
 console.log('PASS: zh/es guide indexes, save backup and Cloud pages; reciprocal four-language metadata, sources, navigation and sitemap');
+
+const pcIndex = await htmlFor('/en/pc');
+assert.ok(pcIndex.includes('"numberOfItems":6'));
+for (const html of [pcIndex, await htmlFor('/pc')]) {
+ const head = html.match(/<head>([\s\S]*?)<\/head>/)?.[1] || '';
+ assert.ok(head.includes('hrefLang="en" href="https://gemnao.pages.dev/en/pc"'));
+ assert.ok(head.includes('hrefLang="ja" href="https://gemnao.pages.dev/pc"'));
+ assert.ok(!/hrefLang="(?:zh-Hans|es)"/.test(head));
+}
+assert.ok(pcIndex.includes('/images/og/en/pc.png'));
+for (const slug of ['repair-or-replace','microphone-after-update','call-starts-audio-disappears','bluetooth-connected-no-sound','audio-after-update','bluetooth-option-missing']) {
+ assert.ok(pcIndex.includes(`href="/en/pc/${slug}"`));
+ assert.ok((await htmlFor(`/en/pc/${slug}`)).includes('href="/en/pc"'));
+}
+console.log('PASS: English PC index and six reciprocal article links');

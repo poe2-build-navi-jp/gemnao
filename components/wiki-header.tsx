@@ -105,10 +105,10 @@ export function WikiHeader({
         <a href={locale === 'en' ? '/en/discord' : '/discord'}>
           Discord{locale === 'ja' || locale === 'en' ? '' : ui[locale].inJapanese}
         </a>
-        <a href="/pc">
+        <a href={locale === 'en' ? '/en/pc' : '/pc'}>
           {locale === 'ja'
             ? 'PC・Windows'
-            : `${ui[locale].pcWindows}${ui[locale].inJapanese}`}
+            : locale === 'en' ? ui.en.pcWindows : `${ui[locale].pcWindows}${ui[locale].inJapanese}`}
         </a>
         {locale === 'ja' ? (
           <a href="/discord-servers">Discordサーバー</a>
@@ -196,7 +196,7 @@ export function WikiFooter({ locale = 'ja' }: { locale?: 'ja' | Locale }) {
           {link('/privacy', t.privacy)}
           {link('/terms', t.terms)}
           {link('/discord-servers', t.discordServers)}
-          {link('/pc', t.pcWindows)}
+          {locale === 'en' ? <a href="/en/pc">{t.pcWindows}</a> : link('/pc', t.pcWindows)}
           {link('/contact', t.contact)}
         </nav>
         <small>© 2026 Gemnao. {t.trademarks}</small>
