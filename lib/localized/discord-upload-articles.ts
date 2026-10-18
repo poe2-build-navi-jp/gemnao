@@ -36,12 +36,12 @@ export const localizedDiscordUploadArticles: LocalizedArticle[] = [
     related: [
       { href: '/en/discord', label: 'All English Discord guides' },
       {
-        href: '/discord/loading-stuck',
-        label: 'Discord stuck loading (Japanese)',
+        href: '/en/discord/loading-stuck',
+        label: 'Discord stuck loading',
       },
       {
-        href: '/discord/not-opening',
-        label: 'Discord will not open (Japanese)',
+        href: '/en/discord/not-opening',
+        label: 'Discord will not open',
       },
     ],
     quickFacts: [

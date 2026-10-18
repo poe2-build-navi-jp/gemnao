@@ -1,3 +1,4 @@
+import { discordLaunchEn } from '@/lib/localized/discord-launch-en';
 import { translatedCommonGuides } from '@/lib/localized/save-guides-zh-es';
 import { guideUi } from '@/lib/localized/guide-ui';
 import { palworldBackupEn } from '@/lib/localized/palworld-backup-en';
@@ -239,6 +240,7 @@ export function ogCardSpecs(): OgCardSpec[] {
       ...rocketLeagueLocalizedArticles,
       ...localizedDiscordUploadArticles,
       ...discordCoreEn,
+      ...discordLaunchEn,
       ...followupLocalizedArticles,
     ].map((article) => ({
       path:
@@ -350,7 +352,7 @@ export function ogCardSpecs(): OgCardSpec[] {
         'Low FPS and stuttering',
       ],
     },
-    { path: '/en/discord', locale: 'en' as const, eyebrow: 'Discord troubleshooting', title: 'Microphone, stream audio and screen share checks', itemsLabel: 'Find the affected part', items: ['Microphone input', 'Shared game audio', 'Black stream picture', 'File uploads'] },
+    { path: '/en/discord', locale: 'en' as const, eyebrow: 'Discord troubleshooting', title: 'Discord launch, update, voice and sharing checks', itemsLabel: 'Find the affected part', items: ['Launch and updates', 'Installation errors', 'Voice and screen share', 'File uploads'] },
     { path: '/en/guide', locale: 'en' as const, eyebrow: 'PC game troubleshooting', title: 'Find your next PC game check', itemsLabel: 'Choose your symptom', items: ['Launch and file repair', 'Crashes and black screens', 'GPU drivers', 'Low FPS and stutter'] },
     ...(['zh','es'] as const).map(locale => ({path:`/${locale}/guide`,locale,eyebrow:guideUi[locale].index,title:guideUi[locale].indexTitle,itemsLabel:guideUi[locale].read,items:translatedCommonGuides.filter(g => g.locale === locale).map(g => g.shortTitle)})),
     ...translatedCommonGuides.map(g => ({path:`/${g.locale}${g.path}`,locale:g.locale,eyebrow:g.category,title:g.title,itemsLabel:guideUi[g.locale].read,items:g.steps.map(s => s.title)})),

@@ -44,3 +44,7 @@ MOD解除、アンインストールとセーブ、シェーダーキャッシ�
 ## 共通残り4件（要件・設定ファイル）
 
 共通28/28、英語105/231、未対応126。詳細はenglish-requirements-review-2026-10-18.md。localized237、全体型/build、英語36記事1674内部リンク、4画面幅20組・検索16件と準備チェック/パスコピー成功失敗を検査。コピー色を目視修正。公開ブラウザ・英語全体UI/操作/言語QAは引き続き未完了。次はDiscord34件。
+
+## Discord起動・更新4件
+
+not-opening / loading-stuck / update-failed / installation-failed追加。Discord8/38、英語109/231、未対応122。localized241、対象lint、隔離型/build、489静的HTML・468 sitemap・408OG、英語40記事1859内部リンク。4幅20組・検索16件・モバイル導線・未翻訳10ルート404成功。JS/CSS失敗と本番書き込み0。詳細english-discord-launch-review-2026-10-18.md。公開確認と全体英語QAは残る。

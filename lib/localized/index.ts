@@ -1,3 +1,4 @@
+import { discordLaunchEn } from './discord-launch-en';
 import { translatedCommonGuides } from './save-guides-zh-es';
 import { palworldBackupEn } from './palworld-backup-en';
 import { discordCoreEn } from './discord-core-en';
@@ -43,7 +44,7 @@ export const localizedPcArticle = (locale: Locale, slug: string) =>
     (article) => article.locale === locale && article.slug === slug,
   );
 
-export const localizedDiscordArticles = [...localizedDiscordUploadArticles, ...discordCoreEn];
+export const localizedDiscordArticles = [...localizedDiscordUploadArticles, ...discordCoreEn, ...discordLaunchEn];
 export const localizedDiscordArticle = (locale: Locale, slug: string) =>
   localizedDiscordArticles.find(
     (article) => article.locale === locale && article.slug === slug,
