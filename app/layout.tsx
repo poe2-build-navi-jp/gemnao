@@ -78,6 +78,7 @@ export default function RootLayout({
                   '@type': 'WebSite',
                   '@id': `${siteUrl}/#website`,
                   name: siteConfig.name,
+                  alternateName: 'Gemnao',
                   url: siteUrl,
                   description: siteConfig.description,
                   inLanguage: 'ja-JP',

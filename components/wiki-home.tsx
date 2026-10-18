@@ -182,9 +182,9 @@ export function WikiHome({
             <Wrench size={15} /> WINDOWS PC TROUBLESHOOTING
           </p>
           <h1>
-            PCゲームの
+            ゲムなお
             <br />
-            <span>「困った」を、すぐ解決。</span>
+            <span>PCゲームのお直しWiki</span>
           </h1>
           <p>
             起動しない・クラッシュ・重い・セーブ・MOD・Discord・Windowsなど、

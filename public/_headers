@@ -1,0 +1,4 @@
+# Deployment hashes/branch aliases only; gemnao.pages.dev remains indexable.
+# Worker responses receive the same rule in cloudflare/preview-indexing.mjs.
+https://:deployment.gemnao.pages.dev/*
+  X-Robots-Tag: noindex

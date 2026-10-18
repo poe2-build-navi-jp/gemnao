@@ -1,3 +1,4 @@
+import { applyPreviewIndexing } from './preview-indexing.mjs';
 import application from '../dist/server/index.js';
 import editorialSnapshots from '../dist/editorial-snapshots.json';
 import { snapshotAssetFor } from './prerender-policy.mjs';
@@ -285,4 +286,13 @@ const worker = {
   },
 };
 
-export default worker;
+const indexedWorker = {
+  async fetch(request, env, context) {
+    return applyPreviewIndexing(
+      request,
+      await worker.fetch(request, env, context),
+    );
+  },
+};
+
+export default indexedWorker;
