@@ -68,3 +68,7 @@ Discord23/38・残15、英語124/231・残107。localized256、型/lint/build、
 ## Discordログイン・マイク音量・No Route3件
 
 Discord26/38・残12、英語127/231・残104。registry/sitemap不一致0。localized259、型/lint/build、58記事2683内部リンク、4幅16組・検索12件成功。マイク音声方向図も英語化しリンク/4幅/375px目視確認。詳細english-discord-login-review-2026-10-18.md。英語全体QAと今回の本番ブラウザ確認は未完了。
+
+## Discord通知・オーバーレイ・電話認証3件
+
+Discord29/38・残9、英語130/231・残101。registry/sitemap不一致0。localized262、型/lint/build、510静的HTML・489 sitemap・429OG、61記事2815内部リンク、4幅16組・検索12件成功。OG3目視/修正済み、API書込み0。詳細english-discord-notifications-review-2026-10-18.md。前コミット35cfe12とab44b66のPages成功確認済み。英語全体QAと今回の本番ブラウザ確認は未完了。
