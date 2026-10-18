@@ -23,6 +23,7 @@ if (prerender.routes.some(route => route.route === '/:locale/reports' && route.r
   for (const locale of ['en', 'zh', 'es']) knownPaths.add(`/${locale}/reports`);
 }
 const paths = [
+  ...['save-data','not-launching','system-requirements','dedicated-server-settings','dedicated-server-port'].map(slug => `/games/palworld/${slug}`),
   ...['save-data','fps','controller','mod','config-file','system-requirements','hdr','ultrawide'].map(slug => `/games/monster-hunter-wilds/${slug}`),
   ...['save-data','not-launching','fps','ultrawide','hdr','mod'].map(slug => `/games/elden-ring/${slug}`),
   '/discord/recommended-bots',

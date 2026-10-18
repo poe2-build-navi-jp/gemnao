@@ -161,12 +161,12 @@ export const palworldBackupEn: LocalizedArticle[] = [
         label: 'Check an independent save backup',
       },
       {
-        href: '/games/palworld/save-data',
-        label: 'Local Steam world backups (Japanese)',
+        href: '/en/games/palworld/save-data',
+        label: 'Local Steam world backups',
       },
       {
-        href: '/games/palworld/dedicated-server-settings',
-        label: 'Dedicated server settings (Japanese)',
+        href: '/en/games/palworld/dedicated-server-settings',
+        label: 'Dedicated server settings',
       },
     ],
   },

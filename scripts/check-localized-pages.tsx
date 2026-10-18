@@ -1,3 +1,4 @@
+import { palworldBacklogEn } from '../lib/localized/palworld-backlog-en';
 import { wildsBacklogEn } from '../lib/localized/wilds-backlog-en';
 import { EnglishPcIndex } from '../components/english-pc-index';
 import { crashGuideEn, crashSectionsEn } from '../lib/localized/crash-guide-en';
@@ -346,7 +347,7 @@ for (const guide of translatedCommonGuides) {
   for (const b of guide.branches) assert.ok([...guide.steps,...(guide.extraSections||[])].some(s => s.id === b.step));
   pages++;
 }
-for (const article of [...recentGameArticlesEn, ...eldenBacklogEn, ...wildsBacklogEn]) {
+for (const article of [...recentGameArticlesEn, ...eldenBacklogEn, ...wildsBacklogEn, ...palworldBacklogEn]) {
   const original = articleBySlug(article.gameSlug, article.slug)!;
   assert.deepEqual(
     article.sources.map((source) => source.url),
