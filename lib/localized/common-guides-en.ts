@@ -1,3 +1,6 @@
+import { maintenanceGuidesEn } from './maintenance-guides-en';
+import { shaderGuideEn } from './shader-guide-en';
+import { diskWriteGuideEn } from './disk-write-guide-en';
 import { freezeGuideEn } from './freeze-guide-en';
 import { gpuMemoryGuidesEn } from './gpu-memory-guides-en';
 import { runtimeGuidesEn } from './runtime-guides-en';
@@ -8,7 +11,7 @@ import type { EnglishGuideInfo } from '@/components/english-guide-shell';
 
 export type EnglishCommonGuide = EnglishGuideInfo & {
   slug: string;
-  topic: 'launch' | 'display' | 'save' | 'controller';
+  topic: 'launch' | 'display' | 'save' | 'controller' | 'mods';
   branches: { symptom: string; action: string; step: string }[];
   steps: { id: string; title: string; actions: string[]; next: string }[];
   extraSections?: { id: string; title: string; actions: string[] }[];
@@ -20,6 +23,9 @@ const windowsTools =
   'https://support.microsoft.com/en-us/windows/experience/system-configuration-tools-in-windows';
 
 export const commonGuidesEn: EnglishCommonGuide[] = [
+  ...maintenanceGuidesEn,
+  shaderGuideEn,
+  diskWriteGuideEn,
   freezeGuideEn,
   ...gpuMemoryGuidesEn,
   ...runtimeGuidesEn,

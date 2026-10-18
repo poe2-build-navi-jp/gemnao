@@ -55,3 +55,5 @@
 - VRAM不足・低GPU使用率を2件追加実装。共通一覧16件（共通残12件）、93/231 URL、未対応138。配備確認前は実装件数として扱う。
 - VRAM・低GPU使用率は `a298d8735eab65f8257154401502e75ea2b2d454` / Pages `079c0cae-4ebd-4a3e-be25-ec51ba9072ae` 成功。
 - フリーズ記事を追加実装。共通一覧17件（共通残11件）、94/231 URL、未対応137。配備確認前は実装件数。Steamディスク書き込みエラーは中核の公式資料取得不可で保留（資料台帳参照）。
+
+- 2026-10-18 maintenance batch: remove-mods-safely / uninstall-save-data / shader-cache-delete / steam-disk-write-error の英語版4件を追加。英語98/231、未対応133、共通21/28（残7）。配備成功までは実装件数。既存CSVは659e基準のまま保持。

@@ -32,3 +32,7 @@
 Steam補助資料の位置づけ: パフォーマンスモニターの任意の参照であり、記事の必須手順の根拠ではない。FPSはゲーム内表示で比較できる。GPU番号・3D負荷・専用/共有メモリはMicrosoft DirectXのTask Manager資料、CPU/GPU制約はMicrosoft DirectXのCPU/GPU-boundedness資料、GPU選択はMicrosoft WindowsのGraphics preference資料で独立に確認済み。Steam固有UI・監視機能詳細は未検証として追加していない。
 
 親ブラウザからの確認受領: no-game-audio / steam-input-controller / controller-double-input / directx-error / visual-c-runtime-error の英語5記事について、内容・表示・主要リンク・FAQを確認済み（親スレッド報告）。全英語版の全体合格とはしない。
+
+## メンテナンス4記事の個別検証
+
+MOD解除、アンインストールとセーブ、シェーダーキャッシュ、Steamディスク書き込みエラーを追加。全体QA完了とは扱わない。Steamの中核資料は親の公式検索本文確認で保留解除し、対象不明時は中止・権限修復に限定。英語版98/231、共通21/28。公開画面は親ブラウザ確認待ち。詳細は english-maintenance-review-2026-10-18.md。
