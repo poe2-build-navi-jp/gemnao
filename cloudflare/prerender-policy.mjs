@@ -14,6 +14,8 @@ export function isEditorialSnapshotPath(pathname) {
       '/en/pc/call-starts-audio-disappears',
       '/en/pc/bluetooth-connected-no-sound',
       '/en/pc',
+      '/en/pc/windows-update-0x800f081f',
+      '/en/pc/file-explorer-freezes-on-right-click',
       '/en/pc/sleep-wakes-up-by-itself',
       '/en/pc/black-screen-after-sign-in',
       '/en/pc/wifi-option-missing',

@@ -1,3 +1,4 @@
+import { pcUpdateExplorerEn } from '@/lib/localized/pc-update-explorer-en';
 import { pcSleepSigninEn } from '@/lib/localized/pc-sleep-signin-en';
 import { pcNetworkEn } from '@/lib/localized/pc-network-en';
 import { pcGamingEn } from '@/lib/localized/pc-gaming-en';
@@ -223,7 +224,7 @@ export function ogCardSpecs(): OgCardSpec[] {
     ...roundupCards,
     ...weeklyCards,
     ...pcCards,
-    ...[...pcAudioEn, ...pcDeviceRecoveryEn, ...pcUsbDisplayEn, ...pcGamingEn, ...pcNetworkEn, ...pcSleepSigninEn].map(article => ({path: `/en/pc/${article.slug}`, locale: article.locale, eyebrow: 'Windows PC troubleshooting', title: article.title, itemsLabel: 'Choose the matching check', items: article.steps.map(step => step.title)})),
+    ...[...pcAudioEn, ...pcDeviceRecoveryEn, ...pcUsbDisplayEn, ...pcGamingEn, ...pcNetworkEn, ...pcSleepSigninEn, ...pcUpdateExplorerEn].map(article => ({path: `/en/pc/${article.slug}`, locale: article.locale, eyebrow: 'Windows PC troubleshooting', title: article.title, itemsLabel: 'Choose the matching check', items: article.steps.map(step => step.title)})),
     ...localizedPcRepairArticles.map((article) => ({
       path: `/${article.locale}/pc/${article.slug}`,
       locale: article.locale,

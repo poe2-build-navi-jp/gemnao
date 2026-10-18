@@ -132,3 +132,7 @@ PC12/20・残8、英語150/231・残81。localized282、型/lint/build成功。5
 ## PCスリープ復帰・サインイン後黒画面
 
 PC14/20・残6、英語152/231・残79。localized284、型/lint/build成功。532静的HTML・511sitemap・451OG、82記事3745内部リンク/アンカー成功。4幅16組、検索クリック/戻る12件、14カード、1920px通常header、未翻訳6ルート404成功。JS/CSS失敗0・API書込み0。OG2枚と375px結果表目視済み。英語全体QA・本番画面確認は未完了。 詳細english-pc-sleep-signin-review-2026-10-18.md。
+
+## PC更新エラー・エクスプローラー
+
+PC16/20・残4、英語154/231・残77。localized286、型/lint/build成功。534静的HTML・513sitemap・453OG、84記事3833内部リンク/アンカー成功。4幅16組、検索クリック/戻る12件、16カード、1920px通常header、未翻訳6ルート404成功。JS/CSS失敗0・API書込み0。OG2枚と375px結果表目視済み。英語全体QA・本番画面確認は未完了。 詳細english-pc-update-explorer-review-2026-10-18.md。

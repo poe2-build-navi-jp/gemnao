@@ -485,13 +485,13 @@ for (const article of localizedPcArticles) {
     assert(article.checkedAt >= original.checkedAt, `${path}: verification date must not precede original`);
   }
   assert.deepEqual(
-    article.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/').replace('help.steampowered.com/ja/', 'help.steampowered.com/en/')),
-    [...original.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/').replace('help.steampowered.com/ja/', 'help.steampowered.com/en/')), ...(article.slug === 'gaming-shortcut-keys' ? ['https://store.steampowered.com/oldnews/5047'] : [])],
+    article.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/').replace('help.steampowered.com/ja/', 'help.steampowered.com/en/').replace(/\/windows\/[^/?]+19bc41ca-ad72-ae67-af3c-89ce169755dd$/, '/windows/windows-update-troubleshooter-19bc41ca-ad72-ae67-af3c-89ce169755dd')),
+    [...original.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/').replace('help.steampowered.com/ja/', 'help.steampowered.com/en/').replace(/\/windows\/[^/?]+19bc41ca-ad72-ae67-af3c-89ce169755dd$/, '/windows/windows-update-troubleshooter-19bc41ca-ad72-ae67-af3c-89ce169755dd')), ...(article.slug === 'gaming-shortcut-keys' ? ['https://store.steampowered.com/oldnews/5047'] : [])],
     `${path}: official-source parity`,
   );
   assert.deepEqual(
-    article.evidenceSummary?.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/').replace('help.steampowered.com/ja/', 'help.steampowered.com/en/')),
-    original.evidenceSummary?.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/').replace('help.steampowered.com/ja/', 'help.steampowered.com/en/')),
+    article.evidenceSummary?.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/').replace('help.steampowered.com/ja/', 'help.steampowered.com/en/').replace(/\/windows\/[^/?]+19bc41ca-ad72-ae67-af3c-89ce169755dd$/, '/windows/windows-update-troubleshooter-19bc41ca-ad72-ae67-af3c-89ce169755dd')),
+    original.evidenceSummary?.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/').replace('learn.microsoft.com/ja-jp/', 'learn.microsoft.com/en-us/').replace('help.steampowered.com/ja/', 'help.steampowered.com/en/').replace(/\/windows\/[^/?]+19bc41ca-ad72-ae67-af3c-89ce169755dd$/, '/windows/windows-update-troubleshooter-19bc41ca-ad72-ae67-af3c-89ce169755dd')),
     `${path}: decision-source parity`,
   );
   assert.equal(
