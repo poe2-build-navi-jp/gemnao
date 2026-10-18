@@ -395,6 +395,8 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
       },
     ],
     related: [
+      { href: '/en/guide/steam-game-not-launching', label: 'Steam game not launching: choose the next check' },
+      { href: '/en/guide/stutter-fix', label: 'Stuttering with high FPS: compare frame pacing and loading' },
       {
         href: '/en/games/monster-hunter-wilds/crash-after-fixes',
         label: 'Crashes return after fixes: comparison and support records',

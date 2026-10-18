@@ -14,6 +14,8 @@ export function isEditorialSnapshotPath(pathname) {
       '/zh/pc/repair-or-replace',
       '/es/pc/repair-or-replace',
       '/en/guide/pc-game-crash',
+      '/en/guide/steam-game-not-launching',
+      '/en/guide/stutter-fix',
       '/en/gear/save-backup-storage-guide',
       '/en/gear/discord-microphone-guide',
       '/en/tools',

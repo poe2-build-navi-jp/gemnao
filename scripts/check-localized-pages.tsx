@@ -1,3 +1,6 @@
+import { EnglishCommonGuide } from '../components/english-common-guide';
+import { commonGuidesEn } from '../lib/localized/common-guides-en';
+import { commonGuideBySlug } from '../lib/common-guides';
 import { LocalizedPcArticle } from '../components/localized-pc-article';
 import { localizedPcArticles } from '../lib/localized/index';
 import { pcArticleBySlug } from '../lib/pc-articles';
@@ -259,6 +262,17 @@ check(
   renderToStaticMarkup(<EnglishCrashGuide />),
 );
 pages++;
+for (const guide of commonGuidesEn) {
+  const original = commonGuideBySlug(guide.slug)!;
+  assert.ok(original);
+  assert.deepEqual(guide.steps.map(step => step.id), original.steps.map((_, i) => `step-${i + 1}`));
+  check(`/en${guide.path}`, 'en', renderToStaticMarkup(<EnglishCommonGuide guide={guide} />));
+  assert.equal(languageAlternates(guide.path).en, `/en${guide.path}`);
+  assert.equal(hasTranslation('zh', guide.path), false);
+  assert.equal(hasTranslation('es', guide.path), false);
+  for (const branch of guide.branches) assert.ok(guide.steps.some(step => step.id === branch.step));
+  pages++;
+}
 for (const article of recentGameArticlesEn) {
   const original = articleBySlug(article.gameSlug, article.slug)!;
   assert.deepEqual(

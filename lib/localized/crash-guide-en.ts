@@ -38,6 +38,8 @@ export const crashGuideEn: EnglishGuideInfo = {
     },
   ],
   related: [
+      { href: '/en/guide/steam-game-not-launching', label: 'Steam game not launching: choose the next check' },
+      { href: '/en/guide/stutter-fix', label: 'Stuttering with high FPS: compare frame pacing and loading' },
     {
       href: '/en/games/overwatch-2/rendering-device-lost',
       label: 'Overwatch 2: rendering device lost',

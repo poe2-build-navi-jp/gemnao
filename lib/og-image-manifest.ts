@@ -91,6 +91,8 @@ export const ogImageManifest: Record<string, string> = {
   "/en/gear/discord-microphone-guide": "19bdf0d0",
   "/en/gear/save-backup-storage-guide": "f628e734",
   "/en/guide/pc-game-crash": "949cced2",
+  "/en/guide/steam-game-not-launching": "0a9c822d",
+  "/en/guide/stutter-fix": "cadb22ac",
   "/en/pc/repair-or-replace": "454eb5ad",
   "/en/tools": "0a29e39e",
   "/en/tools/windows-diagnosis": "81999518",

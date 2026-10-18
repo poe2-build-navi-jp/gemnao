@@ -1,3 +1,4 @@
+import { commonGuidesEn } from '@/lib/localized/common-guides-en';
 import { reportedCases, casePath } from '@/lib/reported-cases';
 import type { MetadataRoute } from 'next';
 import { gearGuidesEn } from '@/lib/localized/gear-guides-en';
@@ -131,6 +132,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     ...[
       { path: '/en/guide/pc-game-crash', updated: '2026-10-03' },
+      ...commonGuidesEn.map(guide => ({ path: `/en${guide.path}`, updated: guide.checkedAt })),
       ...gearGuidesEn.map((guide) => ({
         path: `/en/gear/${guide.slug}`,
         updated: guide.checkedAt,

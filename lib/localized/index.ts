@@ -1,3 +1,4 @@
+import { commonGuidesEn } from '@/lib/localized/common-guides-en';
 import { reportedCaseBySlug } from '@/lib/reported-cases';
 import { localizedPcRepairArticles } from '@/lib/localized/pc-repair-articles';
 import { arcRaidersLocalizedArticles } from '@/lib/localized/arc-raiders';
@@ -82,6 +83,7 @@ export const ogLocale: Record<Locale, string> = {
 /** English-only editorial routes. Do not infer translations from a prefix. */
 export const englishEditorialPaths = [
   '/guide/pc-game-crash',
+  ...commonGuidesEn.map(guide => guide.path),
   ...gearGuidesEn.map((guide) => `/gear/${guide.slug}`),
   '/tools',
   '/tools/windows-diagnosis',

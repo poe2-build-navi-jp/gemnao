@@ -1,4 +1,4 @@
-// Post-build regression: five complete English articles and their Japanese pairs.
+// Post-build regression: complete English articles and their Japanese pairs.
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { isEditorialSnapshotPath } from '../cloudflare/prerender-policy.mjs';
@@ -18,10 +18,16 @@ const knownPaths = new Set(
     )
     .map((route) => route.path || route.route),
 );
+// This real, locale-validated dynamic route has no static params.
+if (prerender.routes.some(route => route.route === '/:locale/reports' && route.reason === 'no-static-params')) {
+  for (const locale of ['en', 'zh', 'es']) knownPaths.add(`/${locale}/reports`);
+}
 const paths = [
   '/gear/save-backup-storage-guide',
   '/gear/discord-microphone-guide',
   '/guide/pc-game-crash',
+  '/guide/steam-game-not-launching',
+  '/guide/stutter-fix',
   '/games/monster-hunter-wilds/not-launching',
   '/games/ace-combat-8/error-st-3100001',
 ];
@@ -167,5 +173,5 @@ for (const original of paths)
   );
 assert.ok(home.includes('href="/en/tools/windows-diagnosis"'));
 console.log(
-  `PASS: 5 complete English articles; reciprocal metadata/menu, language/schema/OG/sitemap, ${links} internal links and anchors, safe case wording, existing Japan affiliate and no phantom translations`,
+  `PASS: ${paths.length} complete English articles; reciprocal metadata/menu, language/schema/OG/sitemap, ${links} internal links and anchors, safe case wording, existing Japan affiliate and no phantom translations`,
 );

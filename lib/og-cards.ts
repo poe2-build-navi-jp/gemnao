@@ -1,3 +1,4 @@
+import { commonGuidesEn } from '@/lib/localized/common-guides-en';
 import { reportedCases, casePath } from '@/lib/reported-cases';
 import { localizedPcRepairArticles } from '@/lib/localized/pc-repair-articles';
 import { followupLocalizedArticles } from '@/lib/followups';
@@ -344,6 +345,10 @@ export function ogCardSpecs(): OgCardSpec[] {
         'Low FPS and stuttering',
       ],
     },
+    ...commonGuidesEn.map(guide => ({
+      path: `/en${guide.path}`, locale: 'en' as const, eyebrow: 'PC game troubleshooting',
+      title: guide.title, itemsLabel: 'Find your next check', items: guide.steps.map(step => step.title),
+    })),
     ...gearGuidesEn.map((guide) => ({
       path: `/en/gear/${guide.slug}`,
       locale: 'en' as const,

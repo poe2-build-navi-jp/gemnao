@@ -1,3 +1,4 @@
+import { commonGuidesEn } from '@/lib/localized/common-guides-en';
 import { ReportEntryLink } from '@/components/report-entry-link';
 import { ContinueNotes } from './continue-notes';
 import { EnglishHomeSearch } from './english-home-search';
@@ -50,6 +51,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
           body: `${article.lead} ${article.summary} ${article.diagnosis.map(row => `${row.symptom} ${row.cause}`).join(' ')}`,
         })),
         ...translatedGames.map(game => ({href: `/en/games/${game.slug}`, title: localizedHubs[game.slug].names?.en || gameFacts[game.slug].names.en, label: 'Game troubleshooting', body: localizedHubs[game.slug].lead.en || ''})),
+        ...commonGuidesEn.map(guide => ({href: `/en${guide.path}`, title: guide.title, label: 'PC troubleshooting', body: guide.description || ''})),
         {href: `/en${crashGuideEn.path}`, title: crashGuideEn.title, label: 'PC troubleshooting', body: crashGuideEn.description || ''},
         ...gearGuidesEn.map(guide => ({href: `/en/gear/${guide.slug}`, title: guide.title, label: 'Before you buy', body: guide.description || ''})),
         {href: '/en/tools/windows-diagnosis', title: 'Windows game diagnosis: instructions and download', label: 'Windows prototype', body: 'Game launch, crash, black screen, freeze, low FPS and stutter. Windows 11 x64.'},
@@ -90,6 +92,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
                 {crashGuideEn.title}
                 <ArrowRight size={15} />
               </a>
+              {commonGuidesEn.map(guide => (<a href={`/en${guide.path}`} key={guide.slug}><span>PC troubleshooting</span>{guide.title}<ArrowRight size={15} /></a>))}
               {gearGuidesEn.map((guide) => (
                 <a href={`/en/gear/${guide.slug}`} key={guide.slug}>
                   <span>Before you buy</span>
