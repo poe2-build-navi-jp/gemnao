@@ -184,3 +184,7 @@ Discord38/38、英語158/231・残73。localized290、型/lint/build成功。538
 ## 起動・セキュリティ・体験版5記事
 
 英語200/231・残31、ゲーム83/91・残8。localized332、型/lint/build成功。580 HTML・559 sitemap・499 OG、126記事5786リンク/アンカー成功。5記事4幅、診断20クリック、検索往復8件、OG5枚/画面目視済み。初回build137、メモリ上限1536MBで再build成功。他作業サーバー停止なし。API書込み0。全英語QA・本番画面確認は未完了。詳細english-launch-five-review-2026-10-18.md。
+
+## Control・Townfall・Minecraft Dungeons II
+
+英語203/231・残28、ゲーム86/91・残5。localized335、型/lint/build成功。583 HTML・562 sitemap・502 OG、129記事5920リンク/アンカー成功。3記事4幅、診断12クリック、検索往復8件、OG3枚/画面目視済み。API書込み0。全英語QA・本番画面確認は未完了。詳細english-fall-three-review-2026-10-18.md。

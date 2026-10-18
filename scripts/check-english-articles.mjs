@@ -23,6 +23,9 @@ if (prerender.routes.some(route => route.route === '/:locale/reports' && route.r
   for (const locale of ['en', 'zh', 'es']) knownPaths.add(`/${locale}/reports`);
 }
 const paths = [
+  '/games/control-resonant/crash-performance',
+  '/games/silent-hill-townfall/stutter',
+  '/games/minecraft-dungeons-2/multiplayer',
   '/games/call-of-duty-modern-warfare-4/tpm-secure-boot',
   '/games/dragon-quest-monsters-4/demo-transfer',
   '/games/castlevania-belmonts-curse/not-launching',
