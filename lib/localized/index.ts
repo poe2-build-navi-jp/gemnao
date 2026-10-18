@@ -1,3 +1,5 @@
+import { finalGamesEn } from '@/lib/localized/final-games-en';
+import { aionGearsEn } from '@/lib/localized/aion-gears-en';
 import { fallReleaseEn } from '@/lib/localized/fall-release-en';
 import { codMw4En } from '@/lib/localized/cod-mw4-en';
 import { dqmDemoEn } from '@/lib/localized/dqm-demo-en';
@@ -56,6 +58,7 @@ import type { LocalizedArticle } from '@/lib/localized/types';
 import { followupLocalizedArticles } from '@/lib/followups';
 
 export const localizedArticles: LocalizedArticle[] = [
+  ...finalGamesEn, ...aionGearsEn,
   ...fallReleaseEn,
   ...codMw4En, ...dqmDemoEn, ...upcomingLaunchEn,
   ...starWarsBacklogEn,

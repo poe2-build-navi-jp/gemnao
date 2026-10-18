@@ -1,3 +1,5 @@
+import { finalGamesEn } from '../lib/localized/final-games-en';
+import { aionGearsEn } from '../lib/localized/aion-gears-en';
 import { fallReleaseEn } from '../lib/localized/fall-release-en';
 import { codMw4En } from '../lib/localized/cod-mw4-en';
 import { dqmDemoEn } from '../lib/localized/dqm-demo-en';
@@ -355,7 +357,7 @@ for (const guide of translatedCommonGuides) {
   for (const b of guide.branches) assert.ok([...guide.steps,...(guide.extraSections||[])].some(s => s.id === b.step));
   pages++;
 }
-for (const article of [...fallReleaseEn, ...codMw4En, ...dqmDemoEn, ...upcomingLaunchEn, ...recentGameArticlesEn, ...eldenBacklogEn, ...wildsBacklogEn, ...palworldBacklogEn, ...dogmaPerformanceEn, ...aniimoBacklogEn, ...dawnwalkerBacklogEn, ...starWarsBacklogEn]) {
+for (const article of [...finalGamesEn, ...aionGearsEn, ...fallReleaseEn, ...codMw4En, ...dqmDemoEn, ...upcomingLaunchEn, ...recentGameArticlesEn, ...eldenBacklogEn, ...wildsBacklogEn, ...palworldBacklogEn, ...dogmaPerformanceEn, ...aniimoBacklogEn, ...dawnwalkerBacklogEn, ...starWarsBacklogEn]) {
   const original = articleBySlug(article.gameSlug, article.slug)!;
   assert.deepEqual(
     article.sources.map((source) => source.url),

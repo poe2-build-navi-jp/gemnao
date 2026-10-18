@@ -1,3 +1,5 @@
+import { finalGamesEn } from '@/lib/localized/final-games-en';
+import { aionGearsEn } from '@/lib/localized/aion-gears-en';
 import { fallReleaseEn } from '@/lib/localized/fall-release-en';
 import { codMw4En } from '@/lib/localized/cod-mw4-en';
 import { dqmDemoEn } from '@/lib/localized/dqm-demo-en';
@@ -370,7 +372,7 @@ export function ogCardSpecs(): OgCardSpec[] {
         'Read privacy and safety limits',
       ],
     },
-    ...[...fallReleaseEn, ...codMw4En, ...dqmDemoEn, ...upcomingLaunchEn, ...starWarsBacklogEn, ...dawnwalkerBacklogEn, ...aniimoBacklogEn, ...dogmaPerformanceEn, ...palworldBacklogEn, ...wildsBacklogEn, ...eldenBacklogEn, ...palworldBackupEn, ...recentGameArticlesEn, ...onimushaArticlesEn].map((article) => ({
+    ...[...finalGamesEn, ...aionGearsEn, ...fallReleaseEn, ...codMw4En, ...dqmDemoEn, ...upcomingLaunchEn, ...starWarsBacklogEn, ...dawnwalkerBacklogEn, ...aniimoBacklogEn, ...dogmaPerformanceEn, ...palworldBacklogEn, ...wildsBacklogEn, ...eldenBacklogEn, ...palworldBackupEn, ...recentGameArticlesEn, ...onimushaArticlesEn].map((article) => ({
       path: `/en/games/${article.gameSlug}/${article.slug}`,
       locale: 'en' as const,
       eyebrow: 'PC game troubleshooting',

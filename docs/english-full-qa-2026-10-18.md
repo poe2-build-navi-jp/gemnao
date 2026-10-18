@@ -164,3 +164,7 @@ Discord38/38、英語158/231・残73。localized290、型/lint/build成功。538
 ## Control・Townfall・Minecraft Dungeons II
 
 英語203/231・残28、ゲーム86/91・残5。localized335、型/lint/build成功。583 HTML・562 sitemap・502 OG、129記事5920リンク/アンカー成功。3記事4幅、診断12クリック、検索往復8件、OG3枚/画面目視済み。API書込み0。全英語QA・本番画面確認は未完了。詳細english-fall-three-review-2026-10-18.md。
+
+## 残ゲーム5記事
+
+英語208/231・残23、ゲーム91/91。localized340、型/lint/build成功。588 HTML・567 sitemap・507 OG、134記事6143リンク/アンカー成功。5記事4幅、診断20クリック、検索往復8件、OG5枚/画面目視済み。API書込み0。137終了後、完了QA記録に対応する旧サーバー4台を停止し再build成功。全英語QA・本番画面確認は未完了。詳細english-final-games-review-2026-10-18.md。

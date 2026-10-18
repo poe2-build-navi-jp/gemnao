@@ -1,0 +1,9 @@
+# Remaining five English game articles
+
+AION 2 login, Gears of War E-Day launch, WARDOGS connection, DYNASTY WARRIORS 3 Complete Edition Remastered launch and FINAL FANTASY RESONANCE launch/demo/bonuses. All original STEP IDs, action counts, risk levels, FAQ counts and source URLs are retained. No production API writes or actual game/account/firmware changes were performed.
+
+English Steam names and specifications were reviewed for Dynasty Warriors, FF and WARDOGS. FF remains prerelease as of October 18, and uses the exact English bonus/menu names from the store. Regional release-date differences are stated without inventing a timezone reconciliation. AION Steam news exposed no body and Gears returned an age gate: their dated original review evidence is explicitly distinguished from a fresh/live verification. Past early access, outages, beta drivers, sharing changes and planned updates are not presented as current status. Security stays enabled; firmware changes retain model-specific instructions/backups/recovery-key conditions.
+
+Validation: localized 340, full TypeScript, changed-file lint, isolated build successful. Two build attempts ended 137; four old QA preview servers (3019–3022) were stopped only after matching completed browser evidence, and rerun with a 1536 MB Node heap succeeded. Postbuild: 588 editorial HTML, 567 sitemap URLs, 507 OG assets, 134 English articles and 6143 internal links/anchors passed. Static search and OG checks passed. Five articles × four widths, 20 diagnosis clicks, eight search/click/back checks, main language/canonical, no overflow/broken anchors/JS/CSS failures/API writes. Five OG cards and mobile AION/desktop FF screenshots visually inspected.
+
+English game articles are now 91/91; inventory 208/231, remaining 23 non-game pages. Whole-English/public-flow QA and parent production browser review are still pending. Unregistered drafts for later pages are not included in this commit.

@@ -23,6 +23,11 @@ if (prerender.routes.some(route => route.route === '/:locale/reports' && route.r
   for (const locale of ['en', 'zh', 'es']) knownPaths.add(`/${locale}/reports`);
 }
 const paths = [
+  '/games/aion2/login-error',
+  '/games/gears-of-war-e-day/not-launching',
+  '/games/wardogs/server-connection',
+  '/games/shin-sangoku-musou-2-remastered/not-launching',
+  '/games/final-fantasy-resonance/not-launching',
   '/games/control-resonant/crash-performance',
   '/games/silent-hill-townfall/stutter',
   '/games/minecraft-dungeons-2/multiplayer',
