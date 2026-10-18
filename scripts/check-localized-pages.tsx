@@ -1,3 +1,5 @@
+import { EnglishGuideIndex } from '../components/english-guide-index';
+import { guideGroupsEn } from '../lib/localized/guide-index-en';
 import { EnglishCommonGuide } from '../components/english-common-guide';
 import { commonGuidesEn } from '../lib/localized/common-guides-en';
 import { commonGuideBySlug } from '../lib/common-guides';
@@ -59,7 +61,16 @@ function check(name: string, locale: string, html: string) {
   assert(!/EVIDENCE STATUS|Relative demand/.test(html), `${name}: old panel`);
 }
 
-let pages = 0;
+const indexGuides = guideGroupsEn.flatMap(group => group.guides);
+assert.equal(indexGuides.length, 7);
+assert.equal(new Set(indexGuides.map(guide => guide.path)).size, 7);
+const guideIndexHtml = renderToStaticMarkup(<EnglishGuideIndex />);
+check('/en/guide', 'en', guideIndexHtml);
+assert.equal(languageAlternates('/guide').en, '/en/guide');
+assert.equal(hasTranslation('zh', '/guide'), false);
+assert.equal(hasTranslation('es', '/guide'), false);
+for (const guide of indexGuides) assert.ok(guideIndexHtml.includes(`href="/en${guide.path}"`));
+let pages = 1;
 for (const locale of locales) {
   check(
     `/${locale}`,

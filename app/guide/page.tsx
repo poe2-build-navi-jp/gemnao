@@ -1,3 +1,4 @@
+import { languageAlternates } from '@/lib/localized/index';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { ArrowRight } from 'lucide-react';
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
   title: 'PCゲーム共通トラブル解決ガイド',
   description:
     '起動しない、クラッシュ、FPS低下、コントローラー、MOD、セーブの問題を症状別に解決。',
-  alternates: { canonical: '/guide' },
+  alternates: { canonical: '/guide', languages: languageAlternates('/guide') },
 };
 export default function Guide() {
   const groups = groupedCommonGuides(commonGuides);

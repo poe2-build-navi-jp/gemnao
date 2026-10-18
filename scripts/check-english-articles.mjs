@@ -28,6 +28,10 @@ const paths = [
   '/guide/pc-game-crash',
   '/guide/steam-game-not-launching',
   '/guide/stutter-fix',
+  '/guide/verify-steam-files',
+  '/guide/gpu-driver-update',
+  '/guide/black-screen',
+  '/guide/low-fps',
   '/games/monster-hunter-wilds/not-launching',
   '/games/ace-combat-8/error-st-3100001',
 ];
@@ -117,6 +121,22 @@ for (const original of paths) {
     }
   }
 }
+const index = await htmlFor('/en/guide');
+const indexJa = await htmlFor('/guide');
+for (const html of [index, indexJa]) {
+  assert.ok(html.includes('hrefLang="en" href="https://gemnao.pages.dev/en/guide"'));
+  assert.ok(html.includes('hrefLang="ja" href="https://gemnao.pages.dev/guide"'));
+  assert.ok(!/hrefLang="(?:zh-Hans|es)"/.test(html.match(/<head>([\s\S]*?)<\/head>/)?.[1] || ''));
+}
+assert.ok(index.includes('rel="canonical" href="https://gemnao.pages.dev/en/guide"'));
+assert.ok(!/name="robots" content="[^"]*noindex/.test(index));
+assert.ok(index.includes('"numberOfItems":7'));
+for (const path of paths.filter(path => path.startsWith('/guide/'))) {
+  assert.ok(index.includes(`href="/en${path}"`), `Index discovery: ${path}`);
+  assert.ok((await htmlFor(`/en${path}`)).includes('href="/en/guide"'));
+}
+assert.ok(index.includes('/images/og/en/guide.png'));
+assert.ok(!index.includes('href="/zh/guide"') && !index.includes('href="/es/guide"'));
 const microphone = await htmlFor('/en/gear/discord-microphone-guide');
 assert.match(microphone, /amazon\.co\.jp\/dp\/B08H6X6G28/);
 assert.match(microphone, /rel="sponsored nofollow noopener"/);
@@ -165,6 +185,7 @@ for (const original of paths)
     sitemap.includes(`https://gemnao.pages.dev/en${original}</loc>`),
     original,
   );
+assert.ok(sitemap.includes('https://gemnao.pages.dev/en/guide</loc>'));
 const home = await htmlFor('/en');
 for (const original of paths)
   assert.ok(

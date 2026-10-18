@@ -69,9 +69,10 @@ export function EnglishGuideShell({
           name: 'Home',
           item: 'https://gemnao.pages.dev/en',
         },
+        ...(guide.path.startsWith('/guide/') ? [{ '@type': 'ListItem', position: 2, name: 'PC troubleshooting', item: 'https://gemnao.pages.dev/en/guide' }] : []),
         {
           '@type': 'ListItem',
-          position: 2,
+          position: guide.path.startsWith('/guide/') ? 3 : 2,
           name: guide.shortTitle,
           item: canonical,
         },
@@ -90,6 +91,7 @@ export function EnglishGuideShell({
           <nav className="breadcrumbs" aria-label="Breadcrumb">
             <a href="/en">Home</a>
             <span>›</span>
+            {guide.path.startsWith('/guide/') && <><a href="/en/guide">PC troubleshooting</a><span>›</span></>}
             <b>{guide.shortTitle}</b>
           </nav>
           <p className="article-label">{guide.category}</p>

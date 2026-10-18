@@ -1,3 +1,4 @@
+import { moreCommonGuidesEn } from './common-guides-more-en';
 import type { EnglishGuideInfo } from '@/components/english-guide-shell';
 
 export type EnglishCommonGuide = EnglishGuideInfo & {
@@ -13,6 +14,7 @@ const windowsTools =
   'https://support.microsoft.com/en-us/windows/experience/system-configuration-tools-in-windows';
 
 export const commonGuidesEn: EnglishCommonGuide[] = [
+  ...moreCommonGuidesEn,
   {
     slug: 'steam-game-not-launching',
     path: '/guide/steam-game-not-launching',
@@ -140,6 +142,9 @@ export const commonGuidesEn: EnglishCommonGuide[] = [
       },
     ],
     related: [
+      { href: '/en/guide', label: 'Browse all PC troubleshooting guides' },
+      { href: '/en/guide/verify-steam-files', label: 'Verify Steam files and read the result' },
+      { href: '/en/guide/low-fps', label: 'Consistently low FPS: compare caps and rendering load' },
       {
         href: '/en/guide/pc-game-crash',
         label: 'Game closes to desktop: choose a crash check',
@@ -275,6 +280,9 @@ export const commonGuidesEn: EnglishCommonGuide[] = [
       { label: 'Microsoft: Task Manager and system tools', url: windowsTools },
     ],
     related: [
+      { href: '/en/guide', label: 'Browse all PC troubleshooting guides' },
+      { href: '/en/guide/verify-steam-files', label: 'Verify Steam files and read the result' },
+      { href: '/en/guide/low-fps', label: 'Consistently low FPS: compare caps and rendering load' },
       {
         href: '/en/guide/pc-game-crash',
         label: 'Game closes instead of stuttering: crash checks',

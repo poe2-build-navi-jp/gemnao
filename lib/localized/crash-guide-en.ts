@@ -38,6 +38,10 @@ export const crashGuideEn: EnglishGuideInfo = {
     },
   ],
   related: [
+    { href: '/en/guide', label: 'All PC troubleshooting guides' },
+    { href: '/en/guide/verify-steam-files', label: 'Verify files and interpret the result' },
+    { href: '/en/guide/gpu-driver-update', label: 'Update or roll back the correct GPU driver' },
+    { href: '/en/guide/black-screen', label: 'Black screen while the game stays open' },
       { href: '/en/guide/steam-game-not-launching', label: 'Steam game not launching: choose the next check' },
       { href: '/en/guide/stutter-fix', label: 'Stuttering with high FPS: compare frame pacing and loading' },
     {

@@ -51,6 +51,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
           body: `${article.lead} ${article.summary} ${article.diagnosis.map(row => `${row.symptom} ${row.cause}`).join(' ')}`,
         })),
         ...translatedGames.map(game => ({href: `/en/games/${game.slug}`, title: localizedHubs[game.slug].names?.en || gameFacts[game.slug].names.en, label: 'Game troubleshooting', body: localizedHubs[game.slug].lead.en || ''})),
+        {href: '/en/guide', title: 'PC game troubleshooting guides', label: 'Guide index', body: 'Steam verification, GPU drivers, black screen, low FPS, launch, crash and stutter.'},
         ...commonGuidesEn.map(guide => ({href: `/en${guide.path}`, title: guide.title, label: 'PC troubleshooting', body: guide.description || ''})),
         {href: `/en${crashGuideEn.path}`, title: crashGuideEn.title, label: 'PC troubleshooting', body: crashGuideEn.description || ''},
         ...gearGuidesEn.map(guide => ({href: `/en/gear/${guide.slug}`, title: guide.title, label: 'Before you buy', body: guide.description || ''})),
@@ -78,7 +79,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
       {locale === 'en' ? (
         <section className="content" id="tools">
           <div className="section-heading">
-            <h2>Windows diagnosis and recent guides</h2>
+            <h2>Windows diagnosis and recent guides</h2><a href="/en/guide">Browse all PC troubleshooting guides <ArrowRight size={15} /></a>
           </div>
           <div className="related-section">
             <div>

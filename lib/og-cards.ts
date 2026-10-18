@@ -345,6 +345,7 @@ export function ogCardSpecs(): OgCardSpec[] {
         'Low FPS and stuttering',
       ],
     },
+    { path: '/en/guide', locale: 'en' as const, eyebrow: 'PC game troubleshooting', title: 'Find your next PC game check', itemsLabel: 'Choose your symptom', items: ['Launch and file repair', 'Crashes and black screens', 'GPU drivers', 'Low FPS and stutter'] },
     ...commonGuidesEn.map(guide => ({
       path: `/en${guide.path}`, locale: 'en' as const, eyebrow: 'PC game troubleshooting',
       title: guide.title, itemsLabel: 'Find your next check', items: guide.steps.map(step => step.title),
