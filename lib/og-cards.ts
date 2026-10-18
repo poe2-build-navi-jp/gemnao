@@ -1,3 +1,4 @@
+import { eldenBacklogEn } from '@/lib/localized/elden-backlog-en';
 import { discordRecommendedBotsEn } from '@/lib/localized/discord-recommended-bots-en';
 import { pcHardwareEn } from '@/lib/localized/pc-hardware-en';
 import { pcSecurityEn } from '@/lib/localized/pc-security-en';
@@ -357,7 +358,7 @@ export function ogCardSpecs(): OgCardSpec[] {
         'Read privacy and safety limits',
       ],
     },
-    ...[...palworldBackupEn, ...recentGameArticlesEn, ...onimushaArticlesEn].map((article) => ({
+    ...[...eldenBacklogEn, ...palworldBackupEn, ...recentGameArticlesEn, ...onimushaArticlesEn].map((article) => ({
       path: `/en/games/${article.gameSlug}/${article.slug}`,
       locale: 'en' as const,
       eyebrow: 'PC game troubleshooting',

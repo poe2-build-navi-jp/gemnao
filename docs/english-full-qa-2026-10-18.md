@@ -124,3 +124,7 @@ PC19/20・残1、英語157/231・残74。localized289、型/lint/build成功。5
 ## Discord Bot比較
 
 Discord38/38、英語158/231・残73。localized290、型/lint/build成功。538静的HTML・517sitemap・457OG、88記事4038内部リンク/アンカー成功。日英各4幅、4カード各4操作、比較表/カード/戻る32組、一覧・検索からの到達、zh/es未翻訳404成功。横はみ出し・欠落アンカー・JS/CSS失敗・API書込み0。OGと375px比較表目視済み。英語全体QAと本番ブラウザ確認は未完了。 詳細english-discord-recommendations-review-2026-10-18.md。
+
+## ELDEN RING 6記事
+
+英語164/231・残67。ゲーム個別52/91・残39。localized296、型/lint/build成功。544静的HTML・523sitemap・463OG、94記事4309内部リンク/アンカー成功。6記事×4幅、診断24遷移、ハブ到達、検索クリック/戻る8件、セーブパスのコピー一致。横はみ出し・欠落アンカー・JS/CSS失敗・API書込み0。OG6枚と375px保存パス/1440px診断表目視済み。英語全体QA・本番画面確認は未完了。 詳細english-elden-review-2026-10-18.md。

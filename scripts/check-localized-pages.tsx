@@ -24,6 +24,7 @@ import { EnglishGearGuide } from '../components/english-gear-guide';
 import { EnglishCrashGuide } from '../components/english-crash-guide';
 import { gearGuidesEn } from '../lib/localized/gear-guides-en';
 import { gearGuideBySlug } from '../lib/gear-guides';
+import { eldenBacklogEn } from '../lib/localized/elden-backlog-en';
 import { recentGameArticlesEn } from '../lib/localized/recent-game-articles-en';
 import { articlesEn } from '../lib/localized/articles-en';
 import { localizedHubs } from '../lib/localized/hubs';
@@ -344,7 +345,7 @@ for (const guide of translatedCommonGuides) {
   for (const b of guide.branches) assert.ok([...guide.steps,...(guide.extraSections||[])].some(s => s.id === b.step));
   pages++;
 }
-for (const article of recentGameArticlesEn) {
+for (const article of [...recentGameArticlesEn, ...eldenBacklogEn]) {
   const original = articleBySlug(article.gameSlug, article.slug)!;
   assert.deepEqual(
     article.sources.map((source) => source.url),

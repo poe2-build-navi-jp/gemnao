@@ -23,6 +23,7 @@ if (prerender.routes.some(route => route.route === '/:locale/reports' && route.r
   for (const locale of ['en', 'zh', 'es']) knownPaths.add(`/${locale}/reports`);
 }
 const paths = [
+  ...['save-data','not-launching','fps','ultrawide','hdr','mod'].map(slug => `/games/elden-ring/${slug}`),
   '/discord/recommended-bots',
   '/pc/pc-broken',
   '/pc/pc-hacked-signs',
