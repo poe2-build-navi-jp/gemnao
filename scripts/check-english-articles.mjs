@@ -23,6 +23,7 @@ if (prerender.routes.some(route => route.route === '/:locale/reports' && route.r
   for (const locale of ['en', 'zh', 'es']) knownPaths.add(`/${locale}/reports`);
 }
 const paths = [
+  ...['not-launching','black-screen','login-error','video-memory-error','launcher-display'].map(slug => `/games/aniimo/${slug}`),
   '/games/dragons-dogma-2/performance',
   ...['save-data','not-launching','system-requirements','dedicated-server-settings','dedicated-server-port'].map(slug => `/games/palworld/${slug}`),
   ...['save-data','fps','controller','mod','config-file','system-requirements','hdr','ultrawide'].map(slug => `/games/monster-hunter-wilds/${slug}`),

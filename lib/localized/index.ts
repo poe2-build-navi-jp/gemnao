@@ -1,3 +1,4 @@
+import { aniimoBacklogEn } from '@/lib/localized/aniimo-backlog-en';
 import { dogmaPerformanceEn } from '@/lib/localized/dogma-performance-en';
 import { palworldBacklogEn } from '@/lib/localized/palworld-backlog-en';
 import { wildsBacklogEn } from '@/lib/localized/wilds-backlog-en';
@@ -48,6 +49,7 @@ import type { LocalizedArticle } from '@/lib/localized/types';
 import { followupLocalizedArticles } from '@/lib/followups';
 
 export const localizedArticles: LocalizedArticle[] = [
+  ...aniimoBacklogEn,
   ...dogmaPerformanceEn,
   ...palworldBacklogEn,
   ...wildsBacklogEn,
