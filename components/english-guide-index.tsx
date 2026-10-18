@@ -87,7 +87,7 @@ export function EnglishGuideIndex() {
             <a href="/en/gear/save-backup-storage-guide">
               Choose a save-backup destination
             </a>{' '}
-            · <a href="/en/games">Find an English game-specific guide</a>
+            · <a href="/en#games">Find an English game-specific guide</a>
           </p>
         </section>
       </article>

@@ -1,3 +1,4 @@
+import { remainingPagesEn } from '@/lib/localized/remaining-pages-en';
 import { translatedCommonGuides } from '@/lib/localized/save-guides-zh-es';
 import { commonGuidesEn } from '@/lib/localized/common-guides-en';
 import { reportedCases, casePath } from '@/lib/reported-cases';
@@ -87,7 +88,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.86,
     })),
     ...articles,
-    ...reportedCases.flatMap(item => (["ja", "en", "zh", "es"] as const).map(locale => ({url: `${base}${casePath(item, locale)}`, lastModified: new Date(item.reviewedOn), changeFrequency: "monthly" as const, priority: 0.7}))),
+    ...reportedCases.flatMap((item) =>
+      (['ja', 'en', 'zh', 'es'] as const).map((locale) => ({
+        url: `${base}${casePath(item, locale)}`,
+        lastModified: new Date(item.reviewedOn),
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+      })),
+    ),
     ...common,
     ...discord,
     {
@@ -132,13 +140,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     })),
     ...[
+      ...remainingPagesEn.map((p) => ({
+        path: `/en${p.path}`,
+        updated: '2026-10-18',
+      })),
       { path: '/en/pc', updated: '2026-10-18' },
       { path: '/en/discord', updated: '2026-10-18' },
       { path: '/en/guide', updated: '2026-10-18' },
-      ...['zh','es'].map(locale => ({path:`/${locale}/guide`,updated:'2026-10-18'})),
-      ...translatedCommonGuides.map(g => ({path:`/${g.locale}${g.path}`,updated:g.checkedAt})),
+      ...['zh', 'es'].map((locale) => ({
+        path: `/${locale}/guide`,
+        updated: '2026-10-18',
+      })),
+      ...translatedCommonGuides.map((g) => ({
+        path: `/${g.locale}${g.path}`,
+        updated: g.checkedAt,
+      })),
       { path: '/en/guide/pc-game-crash', updated: '2026-10-03' },
-      ...commonGuidesEn.map(guide => ({ path: `/en${guide.path}`, updated: guide.checkedAt })),
+      ...commonGuidesEn.map((guide) => ({
+        path: `/en${guide.path}`,
+        updated: guide.checkedAt,
+      })),
       ...gearGuidesEn.map((guide) => ({
         path: `/en/gear/${guide.slug}`,
         updated: guide.checkedAt,

@@ -1,3 +1,4 @@
+import { languageAlternates } from '@/lib/localized';
 import { ArticleToc } from '@/components/article-toc';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
@@ -44,7 +45,7 @@ export async function generateMetadata({
   return {
     title: roundup.title,
     description: roundup.description,
-    alternates: { canonical: path },
+    alternates: { canonical: path, languages: languageAlternates(path) },
     openGraph: {
       type: 'article',
       title: roundup.title,
@@ -176,10 +177,15 @@ export default async function Page({
                 <dt>最低OSにWindows 10の記載あり（追加条件は表で確認）</dt>
                 <dd>{win10.map((game) => game.name).join('、')}</dd>
               </div>
-              {win10Unknown.length > 0 && <div>
-                <dt>Windows 10対応を確認できない</dt>
-                <dd>{win10Unknown.map((game) => game.name).join('、')}。未記載や表記の不一致は対応の根拠にできません。</dd>
-              </div>}
+              {win10Unknown.length > 0 && (
+                <div>
+                  <dt>Windows 10対応を確認できない</dt>
+                  <dd>
+                    {win10Unknown.map((game) => game.name).join('、')}
+                    。未記載や表記の不一致は対応の根拠にできません。
+                  </dd>
+                </div>
+              )}
               <div>
                 <dt>特別な必須条件がある</dt>
                 <dd>

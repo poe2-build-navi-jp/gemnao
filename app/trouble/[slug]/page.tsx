@@ -1,3 +1,4 @@
+import { languageAlternates } from '@/lib/localized';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { notFound } from 'next/navigation';
@@ -33,7 +34,7 @@ export async function generateMetadata({
   return {
     title: hub.title,
     description: hub.description,
-    alternates: { canonical },
+    alternates: { canonical, languages: languageAlternates(canonical) },
     openGraph: {
       type: 'website',
       title: `${hub.title}｜ゲムなお`,

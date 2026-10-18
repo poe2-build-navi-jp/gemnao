@@ -18,8 +18,8 @@ try {
  assert.deepEqual(searchEnglishEntries(entries,'wilds no-such-term'),[]);
  assert.equal(searchEnglishEntries(entries,'   ').length,entries.length);
  assert.deepEqual(searchEnglishEntries(entries,'wilds crash'),searchEnglishEntries(entries,' WILDS   CRASH '));
- assert.equal(find(LocalizedHome({locale:'zh'})).length,0);
- assert.equal(find(LocalizedHome({locale:'es'})).length,0);
+ assert.equal(find(LocalizedHome({locale:'zh'}))[0].props.locale,'zh');
+ assert.equal(find(LocalizedHome({locale:'es'}))[0].props.locale,'es');
  const connection=articleBySlug('ace-combat-8','error-st-3100001');
  assert.equal(articleCategoryLabel(connection),'サーバー・接続');
  assert.ok(searchArticles('ST-3100001')[0].label.includes('サーバー・接続'));

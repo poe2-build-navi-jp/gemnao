@@ -193,7 +193,9 @@ export function EnglishGuideShell({
               {t.japanese}
             </a>{' '}
             ·{' '}
-            <a href={`/contact?url=${encodeURIComponent(canonical)}`}>
+            <a
+              href={`${locale === 'en' ? '/en' : ''}/contact?url=${encodeURIComponent(canonical)}`}
+            >
               {t.correction}
             </a>
           </p>

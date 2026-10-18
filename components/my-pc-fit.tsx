@@ -12,24 +12,54 @@ const label = {
 } as const;
 
 /** "あなたのPCで：○ 動く目安" for one game. Renders nothing on the server. */
-export function MyPcFit({ spec }: { spec?: MinSpec }) {
+export function MyPcFit({
+  spec,
+  locale = 'ja',
+}: {
+  spec?: MinSpec;
+  locale?: 'ja' | 'en';
+}) {
   const [pc, , ready] = useMyPc();
   if (!ready) return null;
   if (!pc)
     return (
-      <a className="my-pc-fit my-pc-fit-empty" href="/my#my-pc">
-        マイPCを登録すると判定
+      <a
+        className="my-pc-fit my-pc-fit-empty"
+        href={locale === 'en' ? '/en/my#my-pc' : '/my#my-pc'}
+      >
+        {locale === 'en' ? 'Save your PC to compare' : 'マイPCを登録すると判定'}
       </a>
     );
-  if (!spec) return <span className="my-pc-fit">判定できる情報なし</span>;
-  const fit = checkFit(pc, spec);
+  if (!spec)
+    return (
+      <span className="my-pc-fit">
+        {locale === 'en'
+          ? 'Insufficient requirement data'
+          : '判定できる情報なし'}
+      </span>
+    );
+  const fit = checkFit(pc, spec, locale);
   return (
     <span
       className={`my-pc-fit my-pc-fit-${fit.result}`}
-      title={`${gpuById(pc.gpu)?.name ?? ''}／メモリ${pc.ramGb}GB／Windows ${pc.windows}`}
+      title={`${
+        gpuById(pc.gpu)
+          ?.name.replace(
+            '内蔵GPU（Intel UHD・Iris Xe・Radeon内蔵など）',
+            'Integrated GPU',
+          )
+          .replace(/（.*未選択）/, ' (model/capacity unspecified)') ?? ''
+      } / RAM ${pc.ramGb} GB / Windows ${pc.windows}`}
     >
-      <b>{mark[fit.result]}</b> {label[fit.result]}
-      <small>{fit.reasons.join('。')}</small>
+      <b>{mark[fit.result]}</b>{' '}
+      {locale === 'en'
+        ? {
+            ok: 'Estimated fit',
+            maybe: 'Performance may be insufficient',
+            no: 'Below minimum requirements',
+          }[fit.result]
+        : label[fit.result]}
+      <small>{fit.reasons.join(locale === 'en' ? ' ' : '。')}</small>
     </span>
   );
 }

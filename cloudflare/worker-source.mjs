@@ -41,7 +41,8 @@ const cacheablePath = (pathname) =>
   /^\/(?:games|guide|trouble|discord|new-releases|weekly|pc|status|tools|my)(?:\/|$)/.test(
     pathname,
   ) ||
-  /^\/(?:en|zh|es)(?:\/|$)/.test(pathname) ||
+  (/^\/(?:en|zh|es)(?:\/|$)/.test(pathname) &&
+    !/^\/(?:en|zh|es)\/(?:contact|discord-servers)(?:\/|$)/.test(pathname)) ||
   ['/about', '/privacy', '/terms'].includes(pathname);
 
 function edgeCacheKey(request) {
@@ -104,7 +105,10 @@ async function render(request, env, context, pathname) {
     protectedResponse.headers.set('X-Robots-Tag', 'noindex, nofollow');
     return protectedResponse;
   }
-  if (/^\/diagnostic-feedback(?:\/|$)/.test(pathname) || pathname === '/admin/reports-bootstrap') {
+  if (
+    /^\/diagnostic-feedback(?:\/|$)/.test(pathname) ||
+    pathname === '/admin/reports-bootstrap'
+  ) {
     const privateResponse = new Response(response.body, response);
     privateResponse.headers.set('Cache-Control', 'private, no-store');
     privateResponse.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');

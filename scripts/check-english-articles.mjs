@@ -18,6 +18,10 @@ const knownPaths = new Set(
     )
     .map((route) => route.path || route.route),
 );
+// English contact and directory validate locale at runtime and deliberately stay live.
+for (const path of ['/contact', '/discord-servers']) {
+  if (prerender.routes.some(route => route.route === `/:locale${path}` && route.reason === 'dynamic')) knownPaths.add(`/en${path}`);
+}
 // This real, locale-validated dynamic route has no static params.
 if (prerender.routes.some(route => route.route === '/:locale/reports' && route.reason === 'no-static-params')) {
   for (const locale of ['en', 'zh', 'es']) knownPaths.add(`/${locale}/reports`);

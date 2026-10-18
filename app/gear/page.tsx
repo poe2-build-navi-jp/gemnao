@@ -1,3 +1,4 @@
+import { languageAlternates } from '@/lib/localized';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { ArrowRight } from 'lucide-react';
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
   title: 'ゲーマー向けデバイス｜できること・買う前の確認点',
   description:
     'Discord用マイクや左手デバイスなどゲーマー向けデバイスを、メーカー公式の仕様から整理。できること、向いている人、買う前に確認したい端子・対応OS・サイズをまとめています。',
-  alternates: { canonical: '/gear' },
+  alternates: { canonical: '/gear', languages: languageAlternates('/gear') },
   openGraph: {
     title: 'ゲーマー向けデバイス｜できること・買う前の確認点',
     url: '/gear',

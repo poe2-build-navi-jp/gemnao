@@ -1,3 +1,4 @@
+import { languageAlternates } from '@/lib/localized';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
@@ -5,7 +6,10 @@ export const metadata: Metadata = {
   title: 'プライバシーポリシー',
   description:
     'ゲムなおの匿名回答、端末内のPC情報・解決ノート、お問い合わせ、アクセス解析、広告・アフィリエイトにおける情報の取り扱いを説明します。',
-  alternates: { canonical: '/privacy' },
+  alternates: {
+    canonical: '/privacy',
+    languages: languageAlternates('/privacy'),
+  },
 };
 export default function Privacy() {
   return (

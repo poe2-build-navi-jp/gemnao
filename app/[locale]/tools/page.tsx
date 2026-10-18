@@ -8,7 +8,7 @@ import { languageAlternates } from '@/lib/localized/index';
 
 const title = 'PC gaming tools and quick references';
 const description =
-  'The Windows PC Game Diagnosis prototype, save-backup guidance and quick references. English resources are listed first; Japanese-only tools are clearly labeled.';
+  'The Windows PC Game Diagnosis prototype, save-backup guidance and quick references. Save files, check browser refresh timing and compare your PC with listed requirements.';
 export function generateStaticParams() {
   return [{ locale: 'en' }];
 }
@@ -57,7 +57,7 @@ const tools = [
     body: 'Learn how to keep a separate copy of your saves and choose suitable storage before changing files.',
   },
 ];
-const japaneseTools = [
+const moreTools = [
   {
     href: '/status',
     title: 'Service status and maintenance',
@@ -81,7 +81,7 @@ const japaneseTools = [
   {
     href: '/tools/refresh-rate',
     title: 'Refresh-rate check',
-    body: 'A browser-based estimate to help check the display’s refresh rate.',
+    body: 'A browser animation-callback estimate, with limits and Windows display checks.',
   },
   {
     href: '/new-releases/2026-10',
@@ -128,7 +128,12 @@ export default async function EnglishTools({
         <div className="related-section">
           <div>
             {tools.map((tool) => (
-              <a href={tool.href} key={tool.href}>
+              <a
+                href={
+                  tool.href.startsWith('/en/') ? tool.href : `/en${tool.href}`
+                }
+                key={tool.href}
+              >
                 <span>{tool.title}</span>
                 {tool.body}
                 <ArrowRight size={15} />
@@ -136,16 +141,20 @@ export default async function EnglishTools({
             ))}
           </div>
         </div>
-        <h2>More tools, currently in Japanese</h2>
+        <h2>More tools and references</h2>
         <p>
-          These pages open the existing Japanese tools. They do not have an
-          English interface yet.
+          Use these tools alongside the game-specific troubleshooting guides.
         </p>
         <div className="related-section">
           <div>
-            {japaneseTools.map((tool) => (
-              <a href={tool.href} key={tool.href}>
-                <span>{tool.title} (Japanese)</span>
+            {moreTools.map((tool) => (
+              <a
+                href={
+                  tool.href.startsWith('/en/') ? tool.href : `/en${tool.href}`
+                }
+                key={tool.href}
+              >
+                <span>{tool.title}</span>
                 {tool.body}
                 <ArrowRight size={15} />
               </a>

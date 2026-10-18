@@ -1,3 +1,5 @@
+/* oxlint-disable next/no-html-link-for-pages -- Native links avoid the existing vinext client-link runtime issue. */
+import { languageAlternates } from '@/lib/localized';
 import type { Metadata } from 'next';
 import { MyDashboard, type DashboardGame } from '@/components/my-dashboard';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
@@ -14,7 +16,7 @@ export const metadata: Metadata = {
   title: 'マイページ｜遊ぶゲーム・診断結果・解決した設定を保存',
   description:
     '自分のPCのGPU・メモリ・Windowsと、遊んでいるゲームを登録すると、動作環境の目安と公式のお知らせ・メンテナンス・解決記事をまとめて確認できます。',
-  alternates: { canonical: '/my' },
+  alternates: { canonical: '/my', languages: languageAlternates('/my') },
   robots: { index: false, follow: true },
 };
 

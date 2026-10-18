@@ -26,7 +26,7 @@ const labels = {
   en: {
     save: 'Save for later',
     saved: 'Saved (remove)',
-    list: 'Saved articles (Japanese page)',
+    list: 'Saved articles',
     hint: 'No account needed. Saved only in this browser.',
     added: 'Saved. You can reopen this article from My Page.',
     removed: 'Removed from saved articles.',
@@ -104,7 +104,12 @@ export function SaveArticle({
           )}
           {saved ? t.saved : t.save}
         </button>
-        <a href="/my#my-reading-list" hrefLang="ja">
+        <a
+          href={
+            locale === 'en' ? '/en/my#my-reading-list' : '/my#my-reading-list'
+          }
+          hrefLang={locale === 'en' ? 'en' : 'ja'}
+        >
           {t.list} →
         </a>
       </div>

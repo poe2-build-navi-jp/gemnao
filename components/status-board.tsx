@@ -39,7 +39,7 @@ const incidentLabels: Record<string, string> = {
   monitoring: '復旧を監視中',
 };
 
-function useStatus() {
+export function useStatus() {
   const [data, setData] = useState<StatusData | null>(null);
   const [failed, setFailed] = useState(false);
   const [viewedAt, setViewedAt] = useState(() => Date.now());
@@ -58,6 +58,11 @@ function useStatus() {
       controller = requestController;
       lastAttempt = Date.now();
       setViewedAt(lastAttempt);
+      let timedOut = false;
+      const timeout = window.setTimeout(() => {
+        timedOut = true;
+        requestController.abort();
+      }, 15000);
       try {
         const response = await fetch('/api/status?v=2', {
           signal: requestController.signal,
@@ -91,10 +96,12 @@ function useStatus() {
       } catch (error: unknown) {
         if (
           !disposed &&
-          !(error instanceof DOMException && error.name === 'AbortError')
+          (timedOut ||
+            !(error instanceof DOMException && error.name === 'AbortError'))
         )
           setFailed(true);
       } finally {
+        window.clearTimeout(timeout);
         if (controller === requestController) controller = null;
       }
     };

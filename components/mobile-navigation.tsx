@@ -84,14 +84,30 @@ export function MobileNavigation({
               ) : null}
               <a href={gamesListPath(locale)}>{gamesLabel}</a>
               {locale === 'ja' ? <a href="/#symptoms">症状から探す</a> : null}
-              {locale === 'ja' ? <a href="/status">障害・メンテ情報</a> : null}
-              {locale === 'ja' ? <a href="/my">マイページ</a> : null}
+              {locale === 'ja' ? (
+                <a href="/status">障害・メンテ情報</a>
+              ) : locale === 'en' ? (
+                <>
+                  <a href="/en/status">Service status</a>
+                  <a href="/en/weekly">Weekly reports</a>
+                </>
+              ) : null}
+              {locale === 'ja' ? (
+                <a href="/my">マイページ</a>
+              ) : locale === 'en' ? (
+                <a href="/en/my">My page</a>
+              ) : null}
               <a href={myGamesPath(locale)}>{myGamesCopy[locale].name}</a>
               {locale === 'ja' ? <a href="/tools">便利ツール</a> : null}
               {locale === 'en' ? (
                 <a href="/en/tools">Tools and Windows diagnosis</a>
               ) : null}
-              {locale === 'en' ? <a href="/en#tools">Recent guides</a> : null}
+              {locale === 'en' ? (
+                <>
+                  <a href="/en/gear">Gaming equipment</a>
+                  <a href="/en/discord-servers">Discord communities</a>
+                </>
+              ) : null}
               {locale === 'ja' ? (
                 <a href="/?view=articles#articles">解決記事一覧</a>
               ) : null}
@@ -101,12 +117,16 @@ export function MobileNavigation({
               <a href={locale === 'en' ? '/en/discord' : '/discord'}>
                 {locale === 'ja'
                   ? 'Discordトラブル'
-                  : locale === 'en' ? 'Discord' : `Discord${ui[locale].inJapanese}`}
+                  : locale === 'en'
+                    ? 'Discord'
+                    : `Discord${ui[locale].inJapanese}`}
               </a>
               <a href={locale === 'en' ? '/en/pc' : '/pc'}>
                 {locale === 'ja'
                   ? 'PC・Windowsの不具合'
-                  : locale === 'en' ? ui.en.pcWindows : `${ui[locale].pcWindows}${ui[locale].inJapanese}`}
+                  : locale === 'en'
+                    ? ui.en.pcWindows
+                    : `${ui[locale].pcWindows}${ui[locale].inJapanese}`}
               </a>
               {locale === 'ja' ? (
                 <a href="/discord-servers">Discordサーバー募集</a>
@@ -114,9 +134,11 @@ export function MobileNavigation({
               {locale === 'ja' ? (
                 <a href="/discord-servers/submit">サーバーを掲載する</a>
               ) : null}
-              <a href="/about">
+              <a href={locale === 'en' ? '/en/about' : '/about'}>
                 {aboutLabel}
-                {locale === 'ja' ? '' : ui[locale].inJapanese}
+                {locale === 'ja' || locale === 'en'
+                  ? ''
+                  : ui[locale].inJapanese}
               </a>
             </nav>
             {locale === 'ja' ? (

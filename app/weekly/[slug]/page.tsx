@@ -1,3 +1,4 @@
+import { languageAlternates } from '@/lib/localized';
 import { ArticleToc } from '@/components/article-toc';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
@@ -35,7 +36,7 @@ export async function generateMetadata({
   return {
     title: report.title,
     description: report.description,
-    alternates: { canonical: path },
+    alternates: { canonical: path, languages: languageAlternates(path) },
     openGraph: {
       type: 'article',
       title: report.title,

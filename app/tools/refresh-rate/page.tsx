@@ -1,3 +1,4 @@
+import { languageAlternates } from '@/lib/localized';
 import { ogImageFor } from '@/lib/og-images';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
@@ -8,7 +9,10 @@ export const metadata: Metadata = {
   title: 'モニターのHz確認ツール｜ブラウザ描画の目安とWindows設定を比較',
   description:
     'ブラウザの描画間隔を約4秒間測り、Windowsのリフレッシュレート設定と比較。144Hz設定なのに約60回／秒と出る時の確認先、使い方と限界を解説します。物理モニターのHzやゲームFPSの直接測定ではありません。',
-  alternates: { canonical: '/tools/refresh-rate' },
+  alternates: {
+    canonical: '/tools/refresh-rate',
+    languages: languageAlternates('/tools/refresh-rate'),
+  },
   openGraph: {
     title: 'モニターのHz確認｜ブラウザ描画とWindows設定を比較',
     description:

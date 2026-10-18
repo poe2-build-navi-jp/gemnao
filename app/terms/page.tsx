@@ -1,3 +1,4 @@
+import { languageAlternates } from '@/lib/localized';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
@@ -5,7 +6,7 @@ export const metadata: Metadata = {
   title: '利用規約・免責事項',
   description:
     'ゲムなおの情報利用にあたっての注意、設定変更とバックアップ、著作権・商標、Discordサーバー募集、MOD・外部ツールの掲載方針を案内します。',
-  alternates: { canonical: '/terms' },
+  alternates: { canonical: '/terms', languages: languageAlternates('/terms') },
 };
 export default function Terms() {
   return (
@@ -36,8 +37,11 @@ export default function Terms() {
         <h2>Discordサーバー募集</h2>
         <p>
           サーバー募集は審査後に掲載します。虚偽情報、成人向け・出会い目的、RMT、アカウント売買、チート、海賊版、詐欺、マルウェア、違法行為を含む掲載は禁止します。詳細は
-          <a href="/discord-servers/guidelines">Discordサーバー掲載ガイドライン</a>
-          を確認してください。本サイトはDiscord Inc.とは無関係の非公式サービスです。
+          <a href="/discord-servers/guidelines">
+            Discordサーバー掲載ガイドライン
+          </a>
+          を確認してください。本サイトはDiscord
+          Inc.とは無関係の非公式サービスです。
         </p>
         <h2>MOD・外部ツール</h2>
         <p>

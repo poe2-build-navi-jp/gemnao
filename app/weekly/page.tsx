@@ -1,3 +1,4 @@
+import { languageAlternates } from '@/lib/localized';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { ArrowRight } from 'lucide-react';
@@ -11,7 +12,10 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: '/weekly' },
+  alternates: {
+    canonical: '/weekly',
+    languages: languageAlternates('/weekly'),
+  },
   openGraph: {
     title,
     description,

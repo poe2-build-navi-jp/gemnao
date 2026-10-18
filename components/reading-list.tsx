@@ -1,4 +1,5 @@
 'use client';
+import { personalCopy } from '@/lib/localized/personal-copy';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { Bookmark, ArrowRight, X } from 'lucide-react';
 import { useState } from 'react';
@@ -9,7 +10,9 @@ import {
 import { removeReadingItem, readingListError } from '@/lib/reading-list';
 import { trackReadingAction } from '@/lib/analytics';
 
-export function ReadingList() {
+export function ReadingList({ locale = 'ja' }: { locale?: 'ja' | 'en' } = {}) {
+  const en = locale === 'en';
+  const t = (s: string) => (en ? personalCopy[s] || s : s);
   const { items, ready, error } = useReadingList();
   const [message, setMessage] = useState('');
   return (
@@ -19,15 +22,23 @@ export function ReadingList() {
       aria-labelledby="reading-list-title"
     >
       <h2 id="reading-list-title">
-        <Bookmark size={21} aria-hidden="true" /> あとで読む
-        {ready && items.length ? `（${items.length}件）` : ''}
+        <Bookmark size={21} aria-hidden="true" /> {t('あとで読む')}
+        {ready && items.length
+          ? en
+            ? ` (${items.length})`
+            : `（${items.length}件）`
+          : ''}
       </h2>
-      <p>気になる記事を保存して、ここから再開。このブラウザの保存一覧です。</p>
+      <p>
+        {t(
+          '気になる記事を保存して、ここから再開。このブラウザの保存一覧です。',
+        )}
+      </p>
       {!ready ? (
-        <p>保存した記事を確認しています…</p>
+        <p>{t('保存した記事を確認しています…')}</p>
       ) : error ? (
         <p role="alert" className="solution-error">
-          {error}
+          {en ? readingListError(error, 'en') : error}
         </p>
       ) : items.length ? (
         <ul className="reading-list-items">
@@ -42,16 +53,22 @@ export function ReadingList() {
               </a>
               <button
                 type="button"
-                aria-label={`「${item.title}」をあとで読むから外す`}
+                aria-label={
+                  en
+                    ? `Remove ${item.title} from reading list`
+                    : `「${item.title}」をあとで読むから外す`
+                }
                 onClick={() => {
                   try {
                     removeReadingItem(localStorage, item.path);
                     announceReadingListChange();
                     setMessage(
-                      'あとで読むから外しました。記事を開くと、もう一度保存できます。',
+                      t(
+                        'あとで読むから外しました。記事を開くと、もう一度保存できます。',
+                      ),
                     );
                   } catch (cause) {
-                    setMessage(readingListError(cause));
+                    setMessage(readingListError(cause, locale));
                   }
                 }}
               >
@@ -63,10 +80,17 @@ export function ReadingList() {
       ) : (
         <div className="reading-list-empty">
           <p>
-            まだ保存した記事はありません。記事の「あとで読むに保存」で追加できます。
+            {t(
+              'まだ保存した記事はありません。記事の「あとで読むに保存」で追加できます。',
+            )}
           </p>
-          <a href="/?view=articles#articles">
-            症状に合う記事を探す <ArrowRight size={16} aria-hidden="true" />
+          <a
+            href={
+              en ? '/en?view=articles#articles' : '/?view=articles#articles'
+            }
+          >
+            {t('症状に合う記事を探す')}
+            <ArrowRight size={16} aria-hidden="true" />
           </a>
         </div>
       )}
@@ -74,13 +98,16 @@ export function ReadingList() {
         {message}
       </output>
       <details className="bookmark-help">
-        <summary>次回すぐ開けるように、このページをブックマーク</summary>
+        <summary>{t('次回すぐ開けるように、このページをブックマーク')}</summary>
         <p>
-          パソコンは Ctrl + D（Macは Command +
-          D）。スマートフォンはブラウザのメニューからブックマークに追加できます。追加方法はブラウザによって異なります。
+          {t(
+            'パソコンは Ctrl + D（Macは Command + D）。スマートフォンはブラウザのメニューからブックマークに追加できます。追加方法はブラウザによって異なります。',
+          )}
         </p>
         <p>
-          記事・ノート・PCの登録内容は端末間で同期されません。ブラウザのデータを消すと、保存した内容も消えます。
+          {t(
+            '記事・ノート・PCの登録内容は端末間で同期されません。ブラウザのデータを消すと、保存した内容も消えます。',
+          )}
         </p>
       </details>
     </section>

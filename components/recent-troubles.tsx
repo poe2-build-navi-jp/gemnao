@@ -1,4 +1,5 @@
 'use client';
+import { personalCopy } from '@/lib/localized/personal-copy';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { ChevronRight, Clock3 } from 'lucide-react';
 import { useMemo, useSyncExternalStore } from 'react';
@@ -18,9 +19,13 @@ function subscribe(callback: () => void) {
 }
 export function RecentTroubles({
   variant = 'home',
+  locale = 'ja',
 }: {
   variant?: 'home' | 'my';
+  locale?: 'ja' | 'en';
 }) {
+  const en = locale === 'en';
+  const t = (s: string) => (en ? personalCopy[s] || s : s);
   const raw = useSyncExternalStore(
     subscribe,
     () => {
@@ -45,7 +50,7 @@ export function RecentTroubles({
       <div className="section-heading compact-heading">
         <div>
           <p>CONTINUE</p>
-          <h2 id="recent-title">最近見た記事から再開</h2>
+          <h2 id="recent-title">{t('最近見た記事から再開')}</h2>
         </div>
       </div>
       <div className="recent-trouble-list">

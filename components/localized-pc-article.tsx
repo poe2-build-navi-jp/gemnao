@@ -486,11 +486,11 @@ export function LocalizedPcArticle({ article }: { article: Article }) {
           />
           <p className="correction-link">
             <a
-              href={`/contact?url=${encodeURIComponent(canonical)}`}
-              hrefLang="ja"
+              href={`${locale === 'en' ? '/en' : ''}/contact?url=${encodeURIComponent(canonical)}`}
+              hrefLang={locale === 'en' ? 'en' : 'ja'}
             >
               {labels.correction}
-              {t.inJapanese}
+              {locale === 'en' ? '' : t.inJapanese}
             </a>
           </p>
           <SupplementarySection

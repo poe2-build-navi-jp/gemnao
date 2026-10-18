@@ -86,7 +86,7 @@ for (const locale of ['en', 'zh', 'es'] as const) {
     />,
   );
   assert.ok(!html.includes('あとで読む'));
-  assert.match(html, /href="\/my#my-reading-list"/);
+  assert.ok(html.includes(`href="${locale === 'en' ? '/en' : ''}/my#my-reading-list"`));
 }
 const empty = renderToStaticMarkup(<ReadingList />);
 assert.match(empty, /id="my-reading-list"/);

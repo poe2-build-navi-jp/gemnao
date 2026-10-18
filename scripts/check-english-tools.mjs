@@ -29,6 +29,10 @@ const knownPaths = new Set(
     )
     .map((route) => route.path || route.route),
 );
+// English contact and directory validate locale at runtime and deliberately stay live.
+for (const path of ['/contact', '/discord-servers']) {
+  if (prerender.routes.some(route => route.route === `/:locale${path}` && route.reason === 'dynamic')) knownPaths.add(`/en${path}`);
+}
 const htmlFor = async (path) => {
   assert.ok(snapshots[path], `Missing public snapshot: ${path}`);
   return readFile(`dist/client${snapshots[path]}`, 'utf8');

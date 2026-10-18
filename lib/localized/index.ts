@@ -1,3 +1,4 @@
+import { remainingPagesEn } from './remaining-pages-en';
 import { finalGamesEn } from '@/lib/localized/final-games-en';
 import { aionGearsEn } from '@/lib/localized/aion-gears-en';
 import { fallReleaseEn } from '@/lib/localized/fall-release-en';
@@ -58,9 +59,12 @@ import type { LocalizedArticle } from '@/lib/localized/types';
 import { followupLocalizedArticles } from '@/lib/followups';
 
 export const localizedArticles: LocalizedArticle[] = [
-  ...finalGamesEn, ...aionGearsEn,
+  ...finalGamesEn,
+  ...aionGearsEn,
   ...fallReleaseEn,
-  ...codMw4En, ...dqmDemoEn, ...upcomingLaunchEn,
+  ...codMw4En,
+  ...dqmDemoEn,
+  ...upcomingLaunchEn,
   ...starWarsBacklogEn,
   ...dawnwalkerBacklogEn,
   ...aniimoBacklogEn,
@@ -82,13 +86,40 @@ export const localizedArticles: LocalizedArticle[] = [
   ...rocketLeagueLocalizedArticles,
 ];
 
-export const localizedPcArticles = [...localizedPcRepairArticles, ...pcAudioEn, ...pcDeviceRecoveryEn, ...pcUsbDisplayEn, ...pcGamingEn, ...pcNetworkEn, ...pcSleepSigninEn, ...pcUpdateExplorerEn, ...pcUpdateStuckEn, ...pcHardwareEn, ...pcSecurityEn, ...pcDiskEn];
+export const localizedPcArticles = [
+  ...localizedPcRepairArticles,
+  ...pcAudioEn,
+  ...pcDeviceRecoveryEn,
+  ...pcUsbDisplayEn,
+  ...pcGamingEn,
+  ...pcNetworkEn,
+  ...pcSleepSigninEn,
+  ...pcUpdateExplorerEn,
+  ...pcUpdateStuckEn,
+  ...pcHardwareEn,
+  ...pcSecurityEn,
+  ...pcDiskEn,
+];
 export const localizedPcArticle = (locale: Locale, slug: string) =>
   localizedPcArticles.find(
     (article) => article.locale === locale && article.slug === slug,
   );
 
-export const localizedDiscordArticles = [...localizedDiscordUploadArticles, ...discordCoreEn, ...discordLaunchEn, ...discordAudioChecksEn, ...discordBluetoothBotsEn, ...discordCallCameraCrashEn, ...discordEchoActivityVolumeEn, ...discordNotificationsOverlayPhoneEn, ...discordLoginMicNetworkEn, ...discordRtcScreenHelperEn, ...discordPerformanceVersionEn, ...discordListeningSpeechEn, ...discordRecommendedBotsEn];
+export const localizedDiscordArticles = [
+  ...localizedDiscordUploadArticles,
+  ...discordCoreEn,
+  ...discordLaunchEn,
+  ...discordAudioChecksEn,
+  ...discordBluetoothBotsEn,
+  ...discordCallCameraCrashEn,
+  ...discordEchoActivityVolumeEn,
+  ...discordNotificationsOverlayPhoneEn,
+  ...discordLoginMicNetworkEn,
+  ...discordRtcScreenHelperEn,
+  ...discordPerformanceVersionEn,
+  ...discordListeningSpeechEn,
+  ...discordRecommendedBotsEn,
+];
 export const localizedDiscordArticle = (locale: Locale, slug: string) =>
   localizedDiscordArticles.find(
     (article) => article.locale === locale && article.slug === slug,
@@ -131,11 +162,12 @@ export const ogLocale: Record<Locale, string> = {
 
 /** English-only editorial routes. Do not infer translations from a prefix. */
 export const englishEditorialPaths = [
+  ...remainingPagesEn.map((p) => p.path),
   '/pc',
   '/discord',
   '/guide',
   '/guide/pc-game-crash',
-  ...commonGuidesEn.map(guide => guide.path),
+  ...commonGuidesEn.map((guide) => guide.path),
   ...gearGuidesEn.map((guide) => `/gear/${guide.slug}`),
   '/tools',
   '/tools/windows-diagnosis',
@@ -154,9 +186,21 @@ export function hasTranslation(locale: Locale, path: string) {
     path === '/reports'
   )
     return true;
-  if (locale === 'en' && englishEditorialPaths.includes(path)) return true;
-  if (path === '/guide' && translatedCommonGuides.some(g => g.locale === locale)) return true;
-  if (translatedCommonGuides.some(g => g.locale === locale && g.path === path)) return true;
+  if (
+    locale === 'en' &&
+    (englishEditorialPaths.includes(path) ||
+      ['/discord-servers/submit', '/my'].includes(path))
+  )
+    return true;
+  if (
+    path === '/guide' &&
+    translatedCommonGuides.some((g) => g.locale === locale)
+  )
+    return true;
+  if (
+    translatedCommonGuides.some((g) => g.locale === locale && g.path === path)
+  )
+    return true;
   const [, section, gameSlug, slug, extra] = path.split('/');
   if (section === 'examples' && gameSlug && !slug && !extra)
     return Boolean(reportedCaseBySlug(gameSlug));

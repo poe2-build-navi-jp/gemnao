@@ -1,3 +1,4 @@
+import { remainingPagesEn } from '@/lib/localized/remaining-pages-en';
 import { localizedPcArticles } from '@/lib/localized/index';
 import { translatedCommonGuides } from '@/lib/localized/save-guides-zh-es';
 import { guideUi } from '@/lib/localized/guide-ui';
@@ -45,41 +46,161 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
           <p>{t.homeNote}</p>
         </div>
       </section>
-      <div className="content report-entry-home"><ReportEntryLink prominent locale={locale} /></div>
-      {locale === 'en' && <EnglishHomeSearch entries={[
-        ...articles.map(article => ({
-          href: article.gameSlug === 'discord' ? `/en/discord/${article.slug}` : `/en/games/${article.gameSlug}/${article.slug}`,
-          title: article.title,
-          label: article.gameSlug === 'discord' ? 'Discord' : article.gameName || gameFacts[article.gameSlug].names.en,
-          body: `${article.lead} ${article.summary} ${article.diagnosis.map(row => `${row.symptom} ${row.cause}`).join(' ')}`,
-        })),
-        ...translatedGames.map(game => ({href: `/en/games/${game.slug}`, title: localizedHubs[game.slug].names?.en || gameFacts[game.slug].names.en, label: 'Game troubleshooting', body: localizedHubs[game.slug].lead.en || ''})),
-        {href: '/en/pc', title: 'Windows PC Troubleshooting Guides', label: 'Windows PC index', body: 'Audio, microphones, Bluetooth, updates, repair and replacement.'},
-        {href: '/en/discord', title: 'Discord troubleshooting guides', label: 'Discord index', body: 'Microphone, stream audio, screen share black screen and file uploads.'},
-        {href: '/en/guide', title: 'PC game troubleshooting guides', label: 'Guide index', body: 'Steam verification, GPU drivers, black screen, low FPS, launch, crash and stutter.'},
-        ...localizedPcArticles.filter(article => article.locale === 'en').map(article => ({href: `/en/pc/${article.slug}`, title: article.title, label: 'Windows PC', body: article.description})),
-        ...commonGuidesEn.map(guide => ({href: `/en${guide.path}`, title: guide.title, label: 'PC troubleshooting', body: guide.description || ''})),
-        {href: `/en${crashGuideEn.path}`, title: crashGuideEn.title, label: 'PC troubleshooting', body: crashGuideEn.description || ''},
-        ...gearGuidesEn.map(guide => ({href: `/en/gear/${guide.slug}`, title: guide.title, label: 'Before you buy', body: guide.description || ''})),
-        {href: '/en/tools/windows-diagnosis', title: 'Windows game diagnosis: instructions and download', label: 'Windows prototype', body: 'Game launch, crash, black screen, freeze, low FPS and stutter. Windows 11 x64.'},
-      ]} />}
-      {locale !== 'en' && <><EnglishHomeSearch locale={locale} entries={[
-        ...articles.map(a => ({href:a.gameSlug === 'discord' ? `/${locale}/discord/${a.slug}` : `/${locale}/games/${a.gameSlug}/${a.slug}`,title:a.title,label:a.gameName || (a.gameSlug === 'discord' ? 'Discord' : gameFacts[a.gameSlug].names[locale]),body:`${a.lead} ${a.summary}`})),
-        ...translatedCommonGuides.filter(g => g.locale === locale).map(g => ({href:`/${locale}${g.path}`,title:g.title,label:guideUi[locale].index,body:g.description})),
-        {href:`/${locale}/guide`,title:guideUi[locale].indexTitle,label:guideUi[locale].index,body:guideUi[locale].indexDescription},
-      ]} /><section className="content"><div className="section-heading"><h2>{guideUi[locale].index}</h2><a href={`/${locale}/guide`}>{guideUi[locale].read} →</a></div><div className="guide-index-grid">{translatedCommonGuides.filter(g => g.locale === locale).map(g => <a href={`/${locale}${g.path}`} key={g.path}><strong>{g.shortTitle}</strong><span>{g.description}</span></a>)}</div></section></>}
-      <LatestArticles locale={locale} articles={[...articles]
-        .sort((a, b) => b.checkedAt.localeCompare(a.checkedAt))
-        .slice(0, 3)
-        .map(article => ({
-          href: article.gameSlug === 'discord'
-            ? `/${locale}/discord/${article.slug}`
-            : `/${locale}/games/${article.gameSlug}/${article.slug}`,
-          title: article.title,
-          checkedAt: article.checkedAt,
-          label: article.gameSlug === 'discord' ? 'Discord'
-            : article.gameName || gameFacts[article.gameSlug].names[locale],
-        }))} />
+      <div className="content report-entry-home">
+        <ReportEntryLink prominent locale={locale} />
+      </div>
+      {locale === 'en' && (
+        <EnglishHomeSearch
+          entries={[
+            ...remainingPagesEn.map((p) => ({
+              href: `/en${p.path}`,
+              title: p.title,
+              label: 'Tools and references',
+              body: p.items.join(' '),
+            })),
+            ...articles.map((article) => ({
+              href:
+                article.gameSlug === 'discord'
+                  ? `/en/discord/${article.slug}`
+                  : `/en/games/${article.gameSlug}/${article.slug}`,
+              title: article.title,
+              label:
+                article.gameSlug === 'discord'
+                  ? 'Discord'
+                  : article.gameName || gameFacts[article.gameSlug].names.en,
+              body: `${article.lead} ${article.summary} ${article.diagnosis.map((row) => `${row.symptom} ${row.cause}`).join(' ')}`,
+            })),
+            ...translatedGames.map((game) => ({
+              href: `/en/games/${game.slug}`,
+              title:
+                localizedHubs[game.slug].names?.en ||
+                gameFacts[game.slug].names.en,
+              label: 'Game troubleshooting',
+              body: localizedHubs[game.slug].lead.en || '',
+            })),
+            {
+              href: '/en/pc',
+              title: 'Windows PC Troubleshooting Guides',
+              label: 'Windows PC index',
+              body: 'Audio, microphones, Bluetooth, updates, repair and replacement.',
+            },
+            {
+              href: '/en/discord',
+              title: 'Discord troubleshooting guides',
+              label: 'Discord index',
+              body: 'Microphone, stream audio, screen share black screen and file uploads.',
+            },
+            {
+              href: '/en/guide',
+              title: 'PC game troubleshooting guides',
+              label: 'Guide index',
+              body: 'Steam verification, GPU drivers, black screen, low FPS, launch, crash and stutter.',
+            },
+            ...localizedPcArticles
+              .filter((article) => article.locale === 'en')
+              .map((article) => ({
+                href: `/en/pc/${article.slug}`,
+                title: article.title,
+                label: 'Windows PC',
+                body: article.description,
+              })),
+            ...commonGuidesEn.map((guide) => ({
+              href: `/en${guide.path}`,
+              title: guide.title,
+              label: 'PC troubleshooting',
+              body: guide.description || '',
+            })),
+            {
+              href: `/en${crashGuideEn.path}`,
+              title: crashGuideEn.title,
+              label: 'PC troubleshooting',
+              body: crashGuideEn.description || '',
+            },
+            ...gearGuidesEn.map((guide) => ({
+              href: `/en/gear/${guide.slug}`,
+              title: guide.title,
+              label: 'Before you buy',
+              body: guide.description || '',
+            })),
+            {
+              href: '/en/tools/windows-diagnosis',
+              title: 'Windows game diagnosis: instructions and download',
+              label: 'Windows prototype',
+              body: 'Game launch, crash, black screen, freeze, low FPS and stutter. Windows 11 x64.',
+            },
+          ]}
+        />
+      )}
+      {locale !== 'en' && (
+        <>
+          <EnglishHomeSearch
+            locale={locale}
+            entries={[
+              ...articles.map((a) => ({
+                href:
+                  a.gameSlug === 'discord'
+                    ? `/${locale}/discord/${a.slug}`
+                    : `/${locale}/games/${a.gameSlug}/${a.slug}`,
+                title: a.title,
+                label:
+                  a.gameName ||
+                  (a.gameSlug === 'discord'
+                    ? 'Discord'
+                    : gameFacts[a.gameSlug].names[locale]),
+                body: `${a.lead} ${a.summary}`,
+              })),
+              ...translatedCommonGuides
+                .filter((g) => g.locale === locale)
+                .map((g) => ({
+                  href: `/${locale}${g.path}`,
+                  title: g.title,
+                  label: guideUi[locale].index,
+                  body: g.description,
+                })),
+              {
+                href: `/${locale}/guide`,
+                title: guideUi[locale].indexTitle,
+                label: guideUi[locale].index,
+                body: guideUi[locale].indexDescription,
+              },
+            ]}
+          />
+          <section className="content">
+            <div className="section-heading">
+              <h2>{guideUi[locale].index}</h2>
+              <a href={`/${locale}/guide`}>{guideUi[locale].read} →</a>
+            </div>
+            <div className="guide-index-grid">
+              {translatedCommonGuides
+                .filter((g) => g.locale === locale)
+                .map((g) => (
+                  <a href={`/${locale}${g.path}`} key={g.path}>
+                    <strong>{g.shortTitle}</strong>
+                    <span>{g.description}</span>
+                  </a>
+                ))}
+            </div>
+          </section>
+        </>
+      )}
+      <LatestArticles
+        locale={locale}
+        articles={[...articles]
+          .sort((a, b) => b.checkedAt.localeCompare(a.checkedAt))
+          .slice(0, 3)
+          .map((article) => ({
+            href:
+              article.gameSlug === 'discord'
+                ? `/${locale}/discord/${article.slug}`
+                : `/${locale}/games/${article.gameSlug}/${article.slug}`,
+            title: article.title,
+            checkedAt: article.checkedAt,
+            label:
+              article.gameSlug === 'discord'
+                ? 'Discord'
+                : article.gameName || gameFacts[article.gameSlug].names[locale],
+          }))}
+      />
       <ContinueNotes locale={locale} />
       <div className="content home-my-shortcut">
         <MyGamesHomeEntry locale={locale} />
@@ -90,7 +211,13 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
       {locale === 'en' ? (
         <section className="content" id="tools">
           <div className="section-heading">
-            <h2>Windows diagnosis and recent guides</h2><a href="/en/discord">Discord troubleshooting <ArrowRight size={15} /></a><a href="/en/guide">Browse all PC troubleshooting guides <ArrowRight size={15} /></a>
+            <h2>Windows diagnosis and recent guides</h2>
+            <a href="/en/discord">
+              Discord troubleshooting <ArrowRight size={15} />
+            </a>
+            <a href="/en/guide">
+              Browse all PC troubleshooting guides <ArrowRight size={15} />
+            </a>
           </div>
           <div className="related-section">
             <div>
@@ -104,8 +231,22 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
                 {crashGuideEn.title}
                 <ArrowRight size={15} />
               </a>
-              {commonGuidesEn.map(guide => (<a href={`/en${guide.path}`} key={guide.slug}><span>PC troubleshooting</span>{guide.title}<ArrowRight size={15} /></a>))}
-              {localizedPcArticles.filter(article => article.locale === 'en').map(article => (<a href={`/en/pc/${article.slug}`} key={article.slug}><span>Windows PC</span>{article.title}<ArrowRight size={15} /></a>))}
+              {commonGuidesEn.map((guide) => (
+                <a href={`/en${guide.path}`} key={guide.slug}>
+                  <span>PC troubleshooting</span>
+                  {guide.title}
+                  <ArrowRight size={15} />
+                </a>
+              ))}
+              {localizedPcArticles
+                .filter((article) => article.locale === 'en')
+                .map((article) => (
+                  <a href={`/en/pc/${article.slug}`} key={article.slug}>
+                    <span>Windows PC</span>
+                    {article.title}
+                    <ArrowRight size={15} />
+                  </a>
+                ))}
               {gearGuidesEn.map((guide) => (
                 <a href={`/en/gear/${guide.slug}`} key={guide.slug}>
                   <span>Before you buy</span>

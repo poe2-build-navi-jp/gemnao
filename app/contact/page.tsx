@@ -1,3 +1,4 @@
+import { languageAlternates } from '@/lib/localized';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { ContactForm } from '@/components/contact-form';
@@ -7,7 +8,10 @@ export const metadata: Metadata = {
   title: 'お問い合わせ・記事の訂正依頼',
   description:
     'ゲムなおへの記事訂正、権利関係、プライバシー、PC・周辺機器メーカーからの企画相談を受け付けるお問い合わせ窓口です。',
-  alternates: { canonical: '/contact' },
+  alternates: {
+    canonical: '/contact',
+    languages: languageAlternates('/contact'),
+  },
 };
 
 export default async function ContactPage({
@@ -16,7 +20,10 @@ export default async function ContactPage({
   searchParams: Promise<{ url?: string; category?: string }>;
 }) {
   const { url = '', category } = await searchParams;
-  const initialUrl = typeof url === 'string' && url.startsWith('https://gemnao.pages.dev/') ? url : '';
+  const initialUrl =
+    typeof url === 'string' && url.startsWith('https://gemnao.pages.dev/')
+      ? url
+      : '';
   return (
     <main>
       <WikiHeader pagePath="/contact" />
@@ -42,12 +49,19 @@ export default async function ContactPage({
           <h2>企業・メーカーからの企画相談</h2>
           <p>
             PC・周辺機器の使い方案内、公式情報の訂正、貸出機を用いた検証記事などのご相談は、種別で「企業・メーカーの企画相談」を選んでください。
-            <a href="/about#business">対応範囲と広告・編集方針</a>もご確認ください。
+            <a href="/about#business">対応範囲と広告・編集方針</a>
+            もご確認ください。
           </p>
           <ul>
-            <li>会社・担当部署、製品名、企画の目的、希望時期をお知らせください。</li>
-            <li>貸出・提供・報酬の有無、想定する検証条件や掲載先も分かる範囲で記載してください。</li>
-            <li>返信を希望する場合は業務用メールアドレスを入力してください。未公開資料や秘密情報は、条件確認前に送らないでください。</li>
+            <li>
+              会社・担当部署、製品名、企画の目的、希望時期をお知らせください。
+            </li>
+            <li>
+              貸出・提供・報酬の有無、想定する検証条件や掲載先も分かる範囲で記載してください。
+            </li>
+            <li>
+              返信を希望する場合は業務用メールアドレスを入力してください。未公開資料や秘密情報は、条件確認前に送らないでください。
+            </li>
           </ul>
         </section>
         <ContactForm

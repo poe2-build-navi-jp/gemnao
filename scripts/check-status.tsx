@@ -339,6 +339,7 @@ Date.now = () => now;
 let interval: (() => void) | null = null;
 let listener: (() => void) | null = null;
 let cleared = false;
+let deadline: (() => void) | null = null;
 const documentMock = {
   visibilityState: 'visible',
   addEventListener: (_type: string, fn: () => void) => {
@@ -351,6 +352,8 @@ const documentMock = {
 Object.assign(globalThis, {
   document: documentMock,
   window: {
+    setTimeout: (fn: () => void, ms: number) => { assert.equal(ms, 15000); deadline = fn; return 2; },
+    clearTimeout: () => { deadline = null; },
     setInterval: (fn: () => void, ms: number) => {
       assert.equal(ms, 600_000);
       interval = fn;
@@ -396,6 +399,17 @@ Date.now = () => now + 600_001;
 (listener as unknown as () => void)();
 await tick();
 assert.equal(requests, 4);
+// A stalled request reaches the deadline, marks failure and preserves the last payload.
+globalThis.fetch = async (_input, init) => new Promise<Response>((_resolve, reject) => {
+  init?.signal?.addEventListener('abort', () => reject(new DOMException('Aborted', 'AbortError')));
+});
+(interval as unknown as () => void)();
+assert.ok(deadline);
+(deadline as unknown as () => void)();
+await tick();
+assert.equal(runtime.__statusValues[1], true);
+assert.ok(runtime.__statusValues[0]);
+assert.equal(deadline, null);
 // Hold a request in flight to ensure unmount cancels it and late replies cannot update state.
 globalThis.fetch = async (_input, init) => {
   signal = init?.signal ?? null;

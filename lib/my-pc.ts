@@ -50,32 +50,68 @@ export const gpus: Gpu[] = [
   g('rtx-2070', 'GeForce RTX 2070 / 2070 SUPER', 8, true, 7),
   g('rtx-2080', 'GeForce RTX 2080 / 2080 SUPER', 8, true, 8),
   g('rtx-2080-ti', 'GeForce RTX 2080 Ti', 11, true, 8),
-  { ...g('rtx-3050', 'GeForce RTX 3050（容量未選択）', 6, true, 5), vramMaxGb: 8 },
+  {
+    ...g('rtx-3050', 'GeForce RTX 3050（容量未選択）', 6, true, 5),
+    vramMaxGb: 8,
+  },
   g('rtx-3050-6gb', 'GeForce RTX 3050（6GB）', 6, true, 5),
   g('rtx-3050-8gb', 'GeForce RTX 3050（8GB）', 8, true, 5),
-  { ...g('rtx-3060', 'GeForce RTX 3060（容量未選択）', 8, true, 7), vramMaxGb: 12 },
+  {
+    ...g('rtx-3060', 'GeForce RTX 3060（容量未選択）', 8, true, 7),
+    vramMaxGb: 12,
+  },
   g('rtx-3060-8gb', 'GeForce RTX 3060（8GB）', 8, true, 7),
   g('rtx-3060-12gb', 'GeForce RTX 3060（12GB）', 12, true, 7),
   g('rtx-3060-ti', 'GeForce RTX 3060 Ti', 8, true, 8),
   g('rtx-3070', 'GeForce RTX 3070 / 3070 Ti', 8, true, 9),
-  { ...g('rtx-3080', 'GeForce RTX 3080（容量未選択）', 10, true, 10), vramMaxGb: 12 },
+  {
+    ...g('rtx-3080', 'GeForce RTX 3080（容量未選択）', 10, true, 10),
+    vramMaxGb: 12,
+  },
   g('rtx-3080-10gb', 'GeForce RTX 3080（10GB）', 10, true, 10),
   g('rtx-3080-12gb', 'GeForce RTX 3080（12GB）', 12, true, 10),
   g('rtx-3090', 'GeForce RTX 3090', 24, true, 11),
   g('rtx-4060', 'GeForce RTX 4060', 8, true, 8),
-  { ...g('rtx-4060-ti', 'GeForce RTX 4060 Ti（容量未選択）', 8, true, 9), vramMaxGb: 16 },
+  {
+    ...g('rtx-4060-ti', 'GeForce RTX 4060 Ti（容量未選択）', 8, true, 9),
+    vramMaxGb: 16,
+  },
   g('rtx-4060-ti-8gb', 'GeForce RTX 4060 Ti（8GB）', 8, true, 9),
   g('rtx-4060-ti-16gb', 'GeForce RTX 4060 Ti（16GB）', 16, true, 9),
   g('rtx-4070', 'GeForce RTX 4070 / 4070 SUPER', 12, true, 10),
   // Preserve the old combined ID: saved selections cannot reveal which model.
   // NVIDIA RTX 4070 family specifications: Ti 12GB, Ti SUPER 16GB.
-  { ...g('rtx-4070-ti', 'GeForce RTX 4070 Ti / Ti SUPER（型番未選択）', 12, true, 11), vramMaxGb: 16 },
+  {
+    ...g(
+      'rtx-4070-ti',
+      'GeForce RTX 4070 Ti / Ti SUPER（型番未選択）',
+      12,
+      true,
+      11,
+    ),
+    vramMaxGb: 16,
+  },
   g('rtx-4070-ti-12gb', 'GeForce RTX 4070 Ti（12GB）', 12, true, 11),
-  g('rtx-4070-ti-super-16gb', 'GeForce RTX 4070 Ti SUPER（16GB）', 16, true, 11),
+  g(
+    'rtx-4070-ti-super-16gb',
+    'GeForce RTX 4070 Ti SUPER（16GB）',
+    16,
+    true,
+    11,
+  ),
   g('rtx-4080', 'GeForce RTX 4080 / 4080 SUPER', 16, true, 12),
   g('rtx-4090', 'GeForce RTX 4090', 24, true, 13),
   g('rtx-5050', 'GeForce RTX 5050', 8, true, 7),
-  { ...g('rtx-5060', 'GeForce RTX 5060 / 5060 Ti（型番・容量未選択）', 8, true, 9), vramMaxGb: 16 },
+  {
+    ...g(
+      'rtx-5060',
+      'GeForce RTX 5060 / 5060 Ti（型番・容量未選択）',
+      8,
+      true,
+      9,
+    ),
+    vramMaxGb: 16,
+  },
   g('rtx-5060-8gb', 'GeForce RTX 5060（8GB）', 8, true, 9),
   g('rtx-5060-ti-8gb', 'GeForce RTX 5060 Ti（8GB）', 8, true, 9),
   g('rtx-5060-ti-16gb', 'GeForce RTX 5060 Ti（16GB）', 16, true, 9),
@@ -100,28 +136,43 @@ export const gpus: Gpu[] = [
   g('rx-6700-xt', 'Radeon RX 6700 XT / 6750 XT', 12, true, 8),
   g('rx-6800', 'Radeon RX 6800', 16, true, 10),
   g('rx-6800-xt', 'Radeon RX 6800 XT / 6900 XT', 16, true, 11),
-  { ...g('rx-7600', 'Radeon RX 7600 / 7600 XT（型番・容量未選択）', 8, true, 7), vramMaxGb: 16 },
+  {
+    ...g('rx-7600', 'Radeon RX 7600 / 7600 XT（型番・容量未選択）', 8, true, 7),
+    vramMaxGb: 16,
+  },
   g('rx-7600-8gb', 'Radeon RX 7600（8GB）', 8, true, 7),
   g('rx-7600-xt-16gb', 'Radeon RX 7600 XT（16GB）', 16, true, 7),
   g('rx-7700-xt', 'Radeon RX 7700 XT', 12, true, 9),
   g('rx-7800-xt', 'Radeon RX 7800 XT', 16, true, 10),
   // AMD product specifications: XT 20GB, GRE 16GB. Keep legacy ID ambiguous.
-  { ...g('rx-7900-xt', 'Radeon RX 7900 XT / GRE（型番未選択）', 16, true, 12), vramMaxGb: 20 },
+  {
+    ...g('rx-7900-xt', 'Radeon RX 7900 XT / GRE（型番未選択）', 16, true, 12),
+    vramMaxGb: 20,
+  },
   g('rx-7900-xt-20gb', 'Radeon RX 7900 XT（20GB）', 20, true, 12),
   g('rx-7900-gre-16gb', 'Radeon RX 7900 GRE（16GB）', 16, true, 12),
   g('rx-7900-xtx', 'Radeon RX 7900 XTX', 24, true, 13),
-  { ...g('rx-9060-xt', 'Radeon RX 9060 XT（型番・容量未選択）', 8, true, 9), vramMaxGb: 16 },
+  {
+    ...g('rx-9060-xt', 'Radeon RX 9060 XT（型番・容量未選択）', 8, true, 9),
+    vramMaxGb: 16,
+  },
   g('rx-9060-xt-8gb', 'Radeon RX 9060 XT（8GB）', 8, true, 9),
   g('rx-9060-xt-16gb', 'Radeon RX 9060 XT（16GB）', 16, true, 9),
   g('rx-9070', 'Radeon RX 9070 / 9070 XT', 16, true, 12),
   g('arc-a310', 'Intel Arc A310', 4, true, 2),
   g('arc-a380', 'Intel Arc A380', 6, true, 3),
   g('arc-a580', 'Intel Arc A580', 8, true, 6),
-  { ...g('arc-a750', 'Intel Arc A750 / A770（型番・容量未選択）', 8, true, 7), vramMaxGb: 16 },
+  {
+    ...g('arc-a750', 'Intel Arc A750 / A770（型番・容量未選択）', 8, true, 7),
+    vramMaxGb: 16,
+  },
   g('arc-a750-8gb', 'Intel Arc A750（8GB）', 8, true, 7),
   g('arc-a770-8gb', 'Intel Arc A770（8GB）', 8, true, 7),
   g('arc-a770-16gb', 'Intel Arc A770（16GB）', 16, true, 7),
-  { ...g('arc-b570', 'Intel Arc B570 / B580（型番・容量未選択）', 10, true, 8), vramMaxGb: 12 },
+  {
+    ...g('arc-b570', 'Intel Arc B570 / B580（型番・容量未選択）', 10, true, 8),
+    vramMaxGb: 12,
+  },
   g('arc-b570-10gb', 'Intel Arc B570（10GB）', 10, true, 8),
   g('arc-b580-12gb', 'Intel Arc B580（12GB）', 12, true, 8),
 ];
@@ -148,20 +199,43 @@ export type Fit = {
   reasons: string[];
 };
 
-export function checkFit(pc: MyPc, spec: MinSpec): Fit {
+export function checkFit(
+  pc: MyPc,
+  spec: MinSpec,
+  locale: 'ja' | 'en' = 'ja',
+): Fit {
   const gpu = gpuById(pc.gpu);
   const no: string[] = [];
   const maybe: string[] = [];
-  if (spec.windows11 && pc.windows !== 11) no.push('最低環境がWindows 11です');
+  if (spec.windows11 && pc.windows !== 11)
+    no.push(
+      locale === 'en' ? 'Windows 11 is required.' : '最低環境がWindows 11です',
+    );
   if (pc.ramGb < spec.ramGb)
-    no.push(`メモリが最低環境（${spec.ramGb}GB）より少ない`);
+    no.push(
+      locale === 'en'
+        ? `RAM is below the ${spec.ramGb} GB minimum.`
+        : `メモリが最低環境（${spec.ramGb}GB）より少ない`,
+    );
   if (spec.rayTracing && gpu && !gpu.rt)
-    no.push('レイトレーシング対応GPUが必須です');
+    no.push(
+      locale === 'en'
+        ? 'A hardware ray tracing GPU is required.'
+        : 'レイトレーシング対応GPUが必須です',
+    );
   if (spec.vramGb && gpu && gpu.vramGb < spec.vramGb) {
     if ((gpu.vramMaxGb ?? gpu.vramGb) < spec.vramGb)
-      no.push(`VRAMが最低環境（${spec.vramGb}GB）より少ない`);
+      no.push(
+        locale === 'en'
+          ? `VRAM is below the ${spec.vramGb} GB minimum.`
+          : `VRAMが最低環境（${spec.vramGb}GB）より少ない`,
+      );
     else
-      maybe.push(`VRAM容量で判定が変わります。マイページでGPUの型番を選び直してください（最低${spec.vramGb}GB）`);
+      maybe.push(
+        locale === 'en'
+          ? `The result depends on VRAM capacity. Select your exact GPU model on My page (minimum ${spec.vramGb} GB).`
+          : `VRAM容量で判定が変わります。マイページでGPUの型番を選び直してください（最低${spec.vramGb}GB）`,
+      );
   }
   const reference = spec.gpu
     .map(gpuById)
@@ -170,10 +244,19 @@ export function checkFit(pc: MyPc, spec: MinSpec): Fit {
     const minTier = Math.min(...reference.map((item) => item.tier));
     if (gpu.tier < minTier)
       maybe.push(
-        `GPUの性能が最低環境の${reference[0].name.replace(/ \/.*$/, '')}を下回る目安`,
+        locale === 'en'
+          ? `GPU performance is estimated below the minimum ${reference[0].name.replace(/ \/.*$/, '')}.`
+          : `GPUの性能が最低環境の${reference[0].name.replace(/ \/.*$/, '')}を下回る目安`,
       );
   }
   if (no.length) return { result: 'no', reasons: no };
   if (maybe.length) return { result: 'maybe', reasons: maybe };
-  return { result: 'ok', reasons: ['最低環境を満たす目安です'] };
+  return {
+    result: 'ok',
+    reasons: [
+      locale === 'en'
+        ? 'Estimated to meet the listed minimum checks.'
+        : '最低環境を満たす目安です',
+    ],
+  };
 }

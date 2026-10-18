@@ -1,3 +1,4 @@
+import { languageAlternates } from '@/lib/localized';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { PathCopy } from '@/components/path-copy';
@@ -9,7 +10,10 @@ export const metadata: Metadata = {
   title: 'PCゲームのセーブデータの場所一覧｜パスをコピーして開く',
   description:
     'モンハンワイルズ、エルデンリング、パルワールド、サイバーパンク2077、BG3、スカイリムなど人気PCゲームのセーブデータと設定ファイルの場所を一覧にまとめました。パスのコピー、環境ごとの置き換え方、ゲーム別のバックアップ・復元手順を案内。',
-  alternates: { canonical: '/tools/save-locations' },
+  alternates: {
+    canonical: '/tools/save-locations',
+    languages: languageAlternates('/tools/save-locations'),
+  },
 };
 
 // Only games whose save path is recorded in lib/games.ts (with sources).

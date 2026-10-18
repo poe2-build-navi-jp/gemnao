@@ -1,3 +1,4 @@
+import { englishEditorialMetadata } from '@/lib/localized/editorial-metadata';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { MyGamesPage } from '@/components/my-games-page';
@@ -14,6 +15,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
+  if(locale==='en') return {...englishEditorialMetadata('/my-games',{title:myGamesCopy.en.title,description:myGamesCopy.en.lead,checkedAt:'2026-10-18'}),robots:{index:false,follow:true,noarchive:true}};
   return {
     title: { absolute: `${myGamesCopy[locale].title} | Gemnao` },
     description: myGamesCopy[locale].lead,

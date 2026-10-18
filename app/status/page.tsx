@@ -1,3 +1,4 @@
+import { languageAlternates } from '@/lib/localized';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { ExternalLink } from 'lucide-react';
@@ -9,7 +10,10 @@ export const metadata: Metadata = {
   title: 'PCゲーム・Discordの障害・メンテナンス情報｜今日落ちてる？',
   description:
     'Discordの稼働状況、PCゲームの公式メンテナンス予定、Steamの公式アナウンス（障害・修正）、ゲムなおで「困っている」が急増しているゲームを1ページで確認できます。ページを開いている間は約10分ごとに自動取得。復旧・完了が確認できた情報は一覧から外します。',
-  alternates: { canonical: '/status' },
+  alternates: {
+    canonical: '/status',
+    languages: languageAlternates('/status'),
+  },
 };
 
 export default function StatusPage() {

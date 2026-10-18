@@ -88,13 +88,23 @@ export function WikiHeader({
           locale === 'ja' ? 'メインナビゲーション' : ui[locale].mainNav
         }
       >
-        <a href={gamesListPath(locale)}>
-          {labels.games}
-        </a>
+        <a href={gamesListPath(locale)}>{labels.games}</a>
         {locale === 'ja' ? <a href="/#symptoms">症状から探す</a> : null}
-        {locale === 'ja' ? <a href="/weekly">今週の不具合</a> : null}
-        {locale === 'ja' ? <a href="/status">障害情報</a> : null}
-        {locale === 'ja' ? <a href="/my">マイページ</a> : null}
+        {locale === 'ja' ? (
+          <a href="/weekly">今週の不具合</a>
+        ) : locale === 'en' ? (
+          <a href="/en/weekly">Weekly</a>
+        ) : null}
+        {locale === 'ja' ? (
+          <a href="/status">障害情報</a>
+        ) : locale === 'en' ? (
+          <a href="/en/status">Status</a>
+        ) : null}
+        {locale === 'ja' ? (
+          <a href="/my">マイページ</a>
+        ) : locale === 'en' ? (
+          <a href="/en/my">My page</a>
+        ) : null}
         {locale !== 'ja' ? (
           <a href={myGamesPath(locale)}>{myGamesCopy[locale].name}</a>
         ) : null}
@@ -103,12 +113,15 @@ export function WikiHeader({
           {labels.basics}
         </a>
         <a href={locale === 'en' ? '/en/discord' : '/discord'}>
-          Discord{locale === 'ja' || locale === 'en' ? '' : ui[locale].inJapanese}
+          Discord
+          {locale === 'ja' || locale === 'en' ? '' : ui[locale].inJapanese}
         </a>
         <a href={locale === 'en' ? '/en/pc' : '/pc'}>
           {locale === 'ja'
             ? 'PC・Windows'
-            : locale === 'en' ? ui.en.pcWindows : `${ui[locale].pcWindows}${ui[locale].inJapanese}`}
+            : locale === 'en'
+              ? ui.en.pcWindows
+              : `${ui[locale].pcWindows}${ui[locale].inJapanese}`}
         </a>
         {locale === 'ja' ? (
           <a href="/discord-servers">Discordサーバー</a>
@@ -123,9 +136,9 @@ export function WikiHeader({
             <Search size={18} aria-hidden="true" />
           </a>
         ) : (
-          <a href="/about">
+          <a href={locale === 'en' ? '/en/about' : '/about'}>
             {labels.about}
-            {ui[locale].inJapanese}
+            {locale === 'en' ? '' : ui[locale].inJapanese}
           </a>
         )}
       </nav>
@@ -154,7 +167,9 @@ export function WikiHeader({
                 aria-current={item === locale ? 'page' : undefined}
               >
                 {localeNames[item]}
-                {homeFallback ? <small lang={item}>{languageFallbackLabels[item]}</small> : null}
+                {homeFallback ? (
+                  <small lang={item}>{languageFallbackLabels[item]}</small>
+                ) : null}
               </a>
             );
           })}
@@ -178,9 +193,9 @@ export function WikiFooter({ locale = 'ja' }: { locale?: 'ja' | Locale }) {
   if (locale !== 'ja') {
     const t = ui[locale];
     const link = (href: string, label: string) => (
-      <a href={href}>
+      <a href={hasTranslation(locale, href) ? `/${locale}${href}` : href}>
         {label}
-        {t.inJapanese}
+        {hasTranslation(locale, href) ? '' : t.inJapanese}
       </a>
     );
     return (
@@ -196,7 +211,11 @@ export function WikiFooter({ locale = 'ja' }: { locale?: 'ja' | Locale }) {
           {link('/privacy', t.privacy)}
           {link('/terms', t.terms)}
           {link('/discord-servers', t.discordServers)}
-          {locale === 'en' ? <a href="/en/pc">{t.pcWindows}</a> : link('/pc', t.pcWindows)}
+          {locale === 'en' ? (
+            <a href="/en/pc">{t.pcWindows}</a>
+          ) : (
+            link('/pc', t.pcWindows)
+          )}
           {link('/contact', t.contact)}
         </nav>
         <small>© 2026 Gemnao. {t.trademarks}</small>

@@ -1,3 +1,4 @@
+import { languageAlternates } from '@/lib/localized';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { ArrowRight, CheckCircle2, ShieldCheck } from 'lucide-react';
@@ -14,7 +15,10 @@ export const metadata: Metadata = {
   title: 'Discordサーバー募集を探す｜PCゲーム・日本語コミュニティ',
   description:
     'PCゲーム向けのDiscordサーバー募集をゲーム名・活動時間・VC条件で探す。掲載がない時の公式「発見」機能の使い方、参加前の確認、運営者向け無料掲載も案内。',
-  alternates: { canonical: '/discord-servers' },
+  alternates: {
+    canonical: '/discord-servers',
+    languages: languageAlternates('/discord-servers'),
+  },
   openGraph: {
     title: 'Discordサーバー募集を探す｜PCゲーム・日本語コミュニティ',
     description:
@@ -32,7 +36,8 @@ export const metadata: Metadata = {
 const faq = [
   {
     question: '招待を開いても参加できない時は、何を確認しますか？',
-    answer: '期限切れ・無効な招待なら募集元の最新リンクを確認します。参加上限が表示される場合はDiscord公式の案内を確認してください。申請待ちのサーバーは管理者の確認が必要で、すぐ参加できるとは限りません。BANの表示はアカウントを変えて回避せず、サーバー側の案内に従います。',
+    answer:
+      '期限切れ・無効な招待なら募集元の最新リンクを確認します。参加上限が表示される場合はDiscord公式の案内を確認してください。申請待ちのサーバーは管理者の確認が必要で、すぐ参加できるとは限りません。BANの表示はアカウントを変えて回避せず、サーバー側の案内に従います。',
   },
   {
     question: 'ディスコードサーバーとは何ですか？',
@@ -162,7 +167,11 @@ export default async function DiscordServersPage() {
             PCゲーム向けのDiscordサーバー募集と掲載状況を、下の募集欄で確認できます。掲載がある場合はゲーム・目的・活動時間・VC条件を比較してください。掲載がない場合はDiscord公式のゲーム一覧も利用できます。参加前の確認方法と管理者向けの無料掲載手順も案内します。
           </p>
           <div className="server-hero-actions">
-            <a href="https://discord.com/servers/gaming" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://discord.com/servers/gaming"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Discord公式のゲーム一覧
             </a>
             <a href="#server-search-title">
@@ -238,7 +247,8 @@ export default async function DiscordServersPage() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                出典：Discord公式「Discover Tab」（英語） <ArrowRight size={15} />
+                出典：Discord公式「Discover Tab」（英語）{' '}
+                <ArrowRight size={15} />
               </a>
             </article>
             <article>

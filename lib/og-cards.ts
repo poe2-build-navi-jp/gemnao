@@ -1,3 +1,4 @@
+import { remainingPagesEn } from '@/lib/localized/remaining-pages-en';
 import { finalGamesEn } from '@/lib/localized/final-games-en';
 import { aionGearsEn } from '@/lib/localized/aion-gears-en';
 import { fallReleaseEn } from '@/lib/localized/fall-release-en';
@@ -236,13 +237,40 @@ export function ogCardSpecs(): OgCardSpec[] {
     },
     ...gameCards,
     ...guideCards,
-    ...reportedCases.flatMap(item => (["ja", "en", "zh", "es"] as const).map(locale => ({path: casePath(item, locale), eyebrow: item.copy[locale].badge, title: item.copy[locale].title, itemsLabel: item.copy[locale].limits, items: [item.cpu, item.gpu, item.copy[locale].unknown]}))),
+    ...reportedCases.flatMap((item) =>
+      (['ja', 'en', 'zh', 'es'] as const).map((locale) => ({
+        path: casePath(item, locale),
+        eyebrow: item.copy[locale].badge,
+        title: item.copy[locale].title,
+        itemsLabel: item.copy[locale].limits,
+        items: [item.cpu, item.gpu, item.copy[locale].unknown],
+      })),
+    ),
     ...discordCards,
     ...troubleCards,
     ...roundupCards,
     ...weeklyCards,
     ...pcCards,
-    ...[...pcAudioEn, ...pcDeviceRecoveryEn, ...pcUsbDisplayEn, ...pcGamingEn, ...pcNetworkEn, ...pcSleepSigninEn, ...pcUpdateExplorerEn, ...pcUpdateStuckEn, ...pcHardwareEn, ...pcSecurityEn, ...pcDiskEn].map(article => ({path: `/en/pc/${article.slug}`, locale: article.locale, eyebrow: 'Windows PC troubleshooting', title: article.title, itemsLabel: 'Choose the matching check', items: article.steps.map(step => step.title)})),
+    ...[
+      ...pcAudioEn,
+      ...pcDeviceRecoveryEn,
+      ...pcUsbDisplayEn,
+      ...pcGamingEn,
+      ...pcNetworkEn,
+      ...pcSleepSigninEn,
+      ...pcUpdateExplorerEn,
+      ...pcUpdateStuckEn,
+      ...pcHardwareEn,
+      ...pcSecurityEn,
+      ...pcDiskEn,
+    ].map((article) => ({
+      path: `/en/pc/${article.slug}`,
+      locale: article.locale,
+      eyebrow: 'Windows PC troubleshooting',
+      title: article.title,
+      itemsLabel: 'Choose the matching check',
+      items: article.steps.map((step) => step.title),
+    })),
     ...localizedPcRepairArticles.map((article) => ({
       path: `/${article.locale}/pc/${article.slug}`,
       locale: article.locale,
@@ -257,14 +285,15 @@ export function ogCardSpecs(): OgCardSpec[] {
         zh: '购买前先比较',
         es: 'Compara antes de comprar',
       }[article.locale],
-      items: article.locale === 'es'
-        ? [
-            'Revisa seguridad, datos y garantía',
-            'Distingue ajustes y falta de rendimiento',
-            'Confirma si una ampliación basta',
-            'Compara costes y condiciones',
-          ]
-        : article.steps.map((step) => step.title),
+      items:
+        article.locale === 'es'
+          ? [
+              'Revisa seguridad, datos y garantía',
+              'Distingue ajustes y falta de rendimiento',
+              'Confirma si una ampliación basta',
+              'Compara costes y condiciones',
+            ]
+          : article.steps.map((step) => step.title),
     })),
     ...gearCards,
     ...[
@@ -280,7 +309,12 @@ export function ogCardSpecs(): OgCardSpec[] {
       ...discordBluetoothBotsEn,
       ...discordCallCameraCrashEn,
       ...discordEchoActivityVolumeEn,
-      ...discordNotificationsOverlayPhoneEn, ...discordLoginMicNetworkEn, ...discordRtcScreenHelperEn, ...discordPerformanceVersionEn, ...discordListeningSpeechEn, ...discordRecommendedBotsEn,
+      ...discordNotificationsOverlayPhoneEn,
+      ...discordLoginMicNetworkEn,
+      ...discordRtcScreenHelperEn,
+      ...discordPerformanceVersionEn,
+      ...discordListeningSpeechEn,
+      ...discordRecommendedBotsEn,
       ...followupLocalizedArticles,
     ].map((article) => ({
       path:
@@ -301,9 +335,31 @@ export function ogCardSpecs(): OgCardSpec[] {
       }[article.locale],
       items: article.steps.slice(0, 4).map((step) => step.title),
     })),
-    ...['aniimo','ace-combat-8','star-wars-zero-company','the-blood-of-dawnwalker'].map(gameSlug => ({path: `/en/games/${gameSlug}`,locale: 'en' as const,eyebrow: 'PC troubleshooting guides',title: localizedHubs[gameSlug].title!.en!,itemsLabel: 'Choose the matching check',items: localizedHubs[gameSlug].checklist!.en!.slice(0,4)})),
-    ...['overwatch-2', 'pubg', 'arc-raiders', 'elden-ring-nightreign', 'marvel-rivals', 'valorant', 'apex-legends', 'fortnite', 'battlefield-6'].flatMap(
-      (gameSlug) => (['en', 'zh', 'es'] as const).map((locale) => ({
+    ...[
+      'aniimo',
+      'ace-combat-8',
+      'star-wars-zero-company',
+      'the-blood-of-dawnwalker',
+    ].map((gameSlug) => ({
+      path: `/en/games/${gameSlug}`,
+      locale: 'en' as const,
+      eyebrow: 'PC troubleshooting guides',
+      title: localizedHubs[gameSlug].title!.en!,
+      itemsLabel: 'Choose the matching check',
+      items: localizedHubs[gameSlug].checklist!.en!.slice(0, 4),
+    })),
+    ...[
+      'overwatch-2',
+      'pubg',
+      'arc-raiders',
+      'elden-ring-nightreign',
+      'marvel-rivals',
+      'valorant',
+      'apex-legends',
+      'fortnite',
+      'battlefield-6',
+    ].flatMap((gameSlug) =>
+      (['en', 'zh', 'es'] as const).map((locale) => ({
         path: `/${locale}/games/${gameSlug}`,
         locale,
         eyebrow: {
@@ -322,7 +378,11 @@ export function ogCardSpecs(): OgCardSpec[] {
           ...nightreignLocalizedArticles,
           ...marvelRivalsLocalizedArticles,
           ...followupLocalizedArticles,
-        ].filter((article) => article.gameSlug === gameSlug && article.locale === locale)
+        ]
+          .filter(
+            (article) =>
+              article.gameSlug === gameSlug && article.locale === locale,
+          )
           .map((article) => article.shortTitle),
       })),
     ),
@@ -372,7 +432,24 @@ export function ogCardSpecs(): OgCardSpec[] {
         'Read privacy and safety limits',
       ],
     },
-    ...[...finalGamesEn, ...aionGearsEn, ...fallReleaseEn, ...codMw4En, ...dqmDemoEn, ...upcomingLaunchEn, ...starWarsBacklogEn, ...dawnwalkerBacklogEn, ...aniimoBacklogEn, ...dogmaPerformanceEn, ...palworldBacklogEn, ...wildsBacklogEn, ...eldenBacklogEn, ...palworldBackupEn, ...recentGameArticlesEn, ...onimushaArticlesEn].map((article) => ({
+    ...[
+      ...finalGamesEn,
+      ...aionGearsEn,
+      ...fallReleaseEn,
+      ...codMw4En,
+      ...dqmDemoEn,
+      ...upcomingLaunchEn,
+      ...starWarsBacklogEn,
+      ...dawnwalkerBacklogEn,
+      ...aniimoBacklogEn,
+      ...dogmaPerformanceEn,
+      ...palworldBacklogEn,
+      ...wildsBacklogEn,
+      ...eldenBacklogEn,
+      ...palworldBackupEn,
+      ...recentGameArticlesEn,
+      ...onimushaArticlesEn,
+    ].map((article) => ({
       path: `/en/games/${article.gameSlug}/${article.slug}`,
       locale: 'en' as const,
       eyebrow: 'PC game troubleshooting',
@@ -393,14 +470,83 @@ export function ogCardSpecs(): OgCardSpec[] {
         'Low FPS and stuttering',
       ],
     },
-    { path: '/en/pc', locale: 'en' as const, eyebrow: 'Windows PC troubleshooting', title: 'Windows PC troubleshooting guides', itemsLabel: 'Compare one change at a time', items: ['Audio output and microphones', 'Bluetooth detection and pairing', 'Update-related changes', 'Repair and replacement decisions'] },
-    { path: '/en/discord', locale: 'en' as const, eyebrow: 'Discord troubleshooting', title: 'Discord launch, update, voice and sharing checks', itemsLabel: 'Find the affected part', items: ['Launch and updates', 'Installation errors', 'Voice and screen share', 'File uploads'] },
-    { path: '/en/guide', locale: 'en' as const, eyebrow: 'PC game troubleshooting', title: 'Find your next PC game check', itemsLabel: 'Choose your symptom', items: ['Launch and file repair', 'Crashes and black screens', 'GPU drivers', 'Low FPS and stutter'] },
-    ...(['zh','es'] as const).map(locale => ({path:`/${locale}/guide`,locale,eyebrow:guideUi[locale].index,title:guideUi[locale].indexTitle,itemsLabel:guideUi[locale].read,items:translatedCommonGuides.filter(g => g.locale === locale).map(g => g.shortTitle)})),
-    ...translatedCommonGuides.map(g => ({path:`/${g.locale}${g.path}`,locale:g.locale,eyebrow:g.category,title:g.title,itemsLabel:guideUi[g.locale].read,items:g.steps.map(s => s.title)})),
-    ...commonGuidesEn.map(guide => ({
-      path: `/en${guide.path}`, locale: 'en' as const, eyebrow: 'PC game troubleshooting',
-      title: guide.title, itemsLabel: 'Find your next check', items: guide.steps.map(step => step.title),
+    {
+      path: '/en/pc',
+      locale: 'en' as const,
+      eyebrow: 'Windows PC troubleshooting',
+      title: 'Windows PC troubleshooting guides',
+      itemsLabel: 'Compare one change at a time',
+      items: [
+        'Audio output and microphones',
+        'Bluetooth detection and pairing',
+        'Update-related changes',
+        'Repair and replacement decisions',
+      ],
+    },
+    {
+      path: '/en/discord',
+      locale: 'en' as const,
+      eyebrow: 'Discord troubleshooting',
+      title: 'Discord launch, update, voice and sharing checks',
+      itemsLabel: 'Find the affected part',
+      items: [
+        'Launch and updates',
+        'Installation errors',
+        'Voice and screen share',
+        'File uploads',
+      ],
+    },
+    {
+      path: '/en/guide',
+      locale: 'en' as const,
+      eyebrow: 'PC game troubleshooting',
+      title: 'Find your next PC game check',
+      itemsLabel: 'Choose your symptom',
+      items: [
+        'Launch and file repair',
+        'Crashes and black screens',
+        'GPU drivers',
+        'Low FPS and stutter',
+      ],
+    },
+    ...(['zh', 'es'] as const).map((locale) => ({
+      path: `/${locale}/guide`,
+      locale,
+      eyebrow: guideUi[locale].index,
+      title: guideUi[locale].indexTitle,
+      itemsLabel: guideUi[locale].read,
+      items: translatedCommonGuides
+        .filter((g) => g.locale === locale)
+        .map((g) => g.shortTitle),
+    })),
+    ...translatedCommonGuides.map((g) => ({
+      path: `/${g.locale}${g.path}`,
+      locale: g.locale,
+      eyebrow: g.category,
+      title: g.title,
+      itemsLabel: guideUi[g.locale].read,
+      items: g.steps.map((s) => s.title),
+    })),
+    ...commonGuidesEn.map((guide) => ({
+      path: `/en${guide.path}`,
+      locale: 'en' as const,
+      eyebrow: 'PC game troubleshooting',
+      title: guide.title,
+      itemsLabel: 'Find your next check',
+      items: guide.steps.map((step) => step.title),
+    })),
+    ...[
+      {path:'/en/my',title:'My Page: Saved Articles, Games and PC',items:['Reading list','Your PC specifications','Diagnosis and solution notes','Browser-only storage']},
+      {path:'/en/my-games',title:'My Games: Keep Your Progress and Solutions',items:['Find and save games','Record settings and checks','Back up your records','Continue where you left off']},
+      {path:'/en/reports',title:'Share a PC Game Problem Report',items:['Review the public preview','Describe what you tried','Keep personal information out','Submission and review status']},
+      {path:'/en/discord-servers/submit',title:'Apply for a Discord Server Listing',items:['Japanese-speaking communities','Describe joining conditions','Review the listing guidelines','Applications are reviewed']},
+    ].map(p=>({...p,locale:'en' as const,eyebrow:'Tools and community',itemsLabel:'What you can do'})),
+    ...remainingPagesEn.map((p) => ({
+      ...p,
+      path: `/en${p.path}`,
+      locale: 'en' as const,
+      eyebrow: 'Gemnao · PC gaming help',
+      itemsLabel: 'What this page covers',
     })),
     ...gearGuidesEn.map((guide) => ({
       path: `/en/gear/${guide.slug}`,

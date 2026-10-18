@@ -1,3 +1,4 @@
+import { englishEditorialMetadata } from '@/lib/localized/editorial-metadata';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { isLocale } from '@/lib/i18n';
@@ -12,6 +13,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
+  if(locale==='en') return {...englishEditorialMetadata('/reports',{title:reportCopy.en.title,description:reportCopy.en.intro,checkedAt:'2026-10-18'}),robots:{index:false,follow:false,noarchive:true}};
   return {
     title: { absolute: `${reportCopy[locale].title} | Gemnao` },
     description: reportCopy[locale].intro,

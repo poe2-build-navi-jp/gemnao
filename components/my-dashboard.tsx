@@ -1,4 +1,5 @@
 'use client';
+import { personalCopy } from '@/lib/localized/personal-copy';
 
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { ArrowRight, Cpu, ExternalLink, Gamepad2, Trash2 } from 'lucide-react';
@@ -15,9 +16,16 @@ import { maintenanceLabels, type MaintenanceState } from '@/lib/status/policy';
 
 export type DashboardGame = {
   slug: string;
+  href?: string;
   name: string;
   articles: { href: string; label: string }[];
-  maintenance: { title: string; start: string; end: string; url: string; state: MaintenanceState }[];
+  maintenance: {
+    title: string;
+    start: string;
+    end: string;
+    url: string;
+    state: MaintenanceState;
+  }[];
   spec?: MinSpec;
   hasNews: boolean;
   /** 記事の確認・週刊まとめ（30日以内、新しい順。dateはYYYY-MM-DD）。 */
@@ -50,14 +58,18 @@ const vendors = [
 ];
 
 function PcForm({
+  locale = 'ja',
   pc,
   onSave,
   onClear,
 }: {
+  locale?: 'ja' | 'en';
   pc: MyPc | null;
   onSave: (pc: MyPc) => boolean;
   onClear: () => boolean;
 }) {
+  const en = locale === 'en';
+  const t = (s: string) => (en ? personalCopy[s] || s : s);
   const [gpu, setGpu] = useState(pc?.gpu ?? '');
   const [ramGb, setRam] = useState(pc?.ramGb ?? 16);
   const [windows, setWindows] = useState<10 | 11>(pc?.windows ?? 11);
@@ -74,12 +86,12 @@ function PcForm({
         setError(
           success
             ? ''
-            : '保存できませんでした。ブラウザの保存設定を確認してください。',
+            : t('保存できませんでした。ブラウザの保存設定を確認してください。'),
         );
       }}
     >
       <label>
-        GPU（グラフィックボード）
+        {t('GPU（グラフィックボード）')}
         <select
           value={gpu}
           onChange={(event) => {
@@ -88,14 +100,24 @@ function PcForm({
           }}
           required
         >
-          <option value="">選択してください</option>
+          <option value="">{t('選択してください')}</option>
           {vendors.map((vendor) => (
-            <optgroup label={vendor.label} key={vendor.label}>
+            <optgroup label={t(vendor.label)} key={vendor.label}>
               {gpus
                 .filter((item) => vendor.test(item.id))
                 .map((item) => (
                   <option value={item.id} key={item.id}>
-                    {item.name}
+                    {en
+                      ? item.name
+                          .replace(
+                            '内蔵GPU（Intel UHD・Iris Xe・Radeon内蔵など）',
+                            'Integrated GPU',
+                          )
+                          .replace(
+                            /（.*未選択）/,
+                            ' (model/capacity unspecified)',
+                          )
+                      : item.name}
                   </option>
                 ))}
             </optgroup>
@@ -103,7 +125,7 @@ function PcForm({
         </select>
       </label>
       <label>
-        メモリ
+        {t('メモリ')}
         <select
           value={ramGb}
           onChange={(event) => {
@@ -136,7 +158,7 @@ function PcForm({
         ))}
       </fieldset>
       <div className="my-pc-actions">
-        <button type="submit">{pc ? '更新する' : '登録する'}</button>
+        <button type="submit">{pc ? t('更新する') : t('登録する')}</button>
         {pc ? (
           <button
             type="button"
@@ -144,26 +166,32 @@ function PcForm({
             onClick={() => {
               if (!onClear())
                 setError(
-                  '削除できませんでした。ブラウザの保存設定を確認してください。',
+                  t(
+                    '削除できませんでした。ブラウザの保存設定を確認してください。',
+                  ),
                 );
             }}
           >
-            <Trash2 size={15} /> 削除
+            <Trash2 size={15} /> {t('削除')}
           </button>
         ) : null}
-        {saved ? <output>このブラウザに保存しました</output> : null}
+        {saved ? <output>{t('このブラウザに保存しました')}</output> : null}
       </div>
       {error ? <p role="alert">{error}</p> : null}
       <details>
-        <summary>自分のPCの調べ方</summary>
+        <summary>{t('自分のPCの調べ方')}</summary>
         <ul>
           <li>
-            GPU：Ctrl＋Shift＋Escでタスクマネージャーを開き、「パフォーマンス」→「GPU」の右上に表示される名前
+            {t(
+              'GPU：Ctrl＋Shift＋Escでタスクマネージャーを開き、「パフォーマンス」→「GPU」の右上に表示される名前',
+            )}
           </li>
-          <li>メモリ：同じ画面の「メモリ」の右上に表示される容量</li>
-          <li>Windows：Windows＋Rを押して「winver」と入力し、Enter</li>
+          <li>{t('メモリ：同じ画面の「メモリ」の右上に表示される容量')}</li>
+          <li>{t('Windows：Windows＋Rを押して「winver」と入力し、Enter')}</li>
           <li>
-            一覧にないGPUは、名前の数字が近いもの（同じシリーズ）を選んでください。判定は目安になります。
+            {t(
+              '一覧にないGPUは、名前の数字が近いもの（同じシリーズ）を選んでください。判定は目安になります。',
+            )}
           </li>
         </ul>
       </details>
@@ -173,7 +201,15 @@ function PcForm({
 
 type News = Record<string, { title: string; date: string; url: string }[]>;
 
-export function MyDashboard({ games }: { games: DashboardGame[] }) {
+export function MyDashboard({
+  games,
+  locale = 'ja',
+}: {
+  games: DashboardGame[];
+  locale?: 'ja' | 'en';
+}) {
+  const en = locale === 'en';
+  const t = (s: string) => (en ? personalCopy[s] || s : s);
   const [pc, savePc, pcReady] = useMyPc();
   const [myGames, , gamesReady] = useMyGames();
   const [news, setNews] = useState<News>({});
@@ -207,16 +243,20 @@ export function MyDashboard({ games }: { games: DashboardGame[] }) {
 
   return (
     <div className="my-dashboard">
-      <ReadingList />
-      <RecentTroubles variant="my" />
+      <ReadingList locale={locale} />
+      <RecentTroubles variant="my" locale={locale} />
 
       <section id="my-feed" aria-labelledby="my-feed-title">
-        <h2 id="my-feed-title">マイゲームの最新情報</h2>
+        <h2 id="my-feed-title">{t('マイゲームの最新情報')}</h2>
         {mine.length && previous !== undefined ? (
           <p className="my-visit-note">
             {previous
-              ? `前回（${shortDate(previousDate)}）見た後に出た情報に「新着」が付いています。`
-              : '次に開いた時から、前回見た後に出た情報に「新着」が付きます。'}
+              ? en
+                ? `Items published since your previous visit (${shortDate(previousDate)}) are marked New.`
+                : `前回（${shortDate(previousDate)}）見た後に出た情報に「新着」が付いています。`
+              : t(
+                  '次に開いた時から、前回見た後に出た情報に「新着」が付きます。',
+                )}
           </p>
         ) : null}
         {mine.length ? (
@@ -229,34 +269,53 @@ export function MyDashboard({ games }: { games: DashboardGame[] }) {
               return (
                 <article className="my-game-card" key={game.slug}>
                   <h3>
-                    <a href={`/games/${game.slug}`}>{game.name}</a>
+                    <a href={game.href || `${en ? '/en' : ''}/games/${game.slug}`}>
+                      {game.name}{en && game.href && !game.href.startsWith('/en/') ? ' (Japanese overview)' : ''}
+                    </a>
                     {fresh ? (
-                      <span className="my-new-badge">新着 {fresh}</span>
+                      <span className="my-new-badge">
+                        {t('新着')}
+                        {fresh}
+                      </span>
                     ) : null}
                   </h3>
                   {game.spec ? (
                     <p>
-                      あなたのPCで：
-                      <MyPcFit spec={game.spec} />
+                      {t('あなたのPCで：')}
+                      <MyPcFit spec={game.spec} locale={locale} />
                     </p>
                   ) : null}
                   {game.maintenance.map((item) => (
                     <p className="my-game-maintenance" key={item.start}>
-                      <b>メンテ（{maintenanceLabels[item.state]}）</b> 予定：{time.format(new Date(item.start))}〜
+                      <b>
+                        {t('メンテ（')}
+                        {en
+                          ? {
+                              upcoming: 'upcoming',
+                              'scheduled-window': 'within scheduled window',
+                              ongoing: 'ongoing',
+                              unconfirmed: 'end unconfirmed',
+                            }[item.state]
+                          : maintenanceLabels[item.state]}
+                        ）
+                      </b>{' '}
+                      {t('予定：')}
+                      {time.format(new Date(item.start))}〜
                       {time.format(new Date(item.end))}：{item.title}{' '}
                       <a href={item.url} target="_blank" rel="noreferrer">
-                        公式 <ExternalLink size={12} />
+                        {t('公式')}
+                        <ExternalLink size={12} />
                       </a>
                     </p>
                   ))}
                   {news[game.slug]?.length ? (
                     <>
-                      <h4>公式のお知らせ（Steam・30日以内）</h4>
+                      <h4>{t('公式のお知らせ（Steam・30日以内）')}</h4>
                       <ul>
                         {news[game.slug].map((item) => (
                           <li key={item.url}>
                             {isNewTime(item.date) ? (
-                              <span className="my-new-mark">新着</span>
+                              <span className="my-new-mark">{t('新着')}</span>
                             ) : null}
                             {day.format(new Date(item.date))}{' '}
                             <a href={item.url} target="_blank" rel="noreferrer">
@@ -269,12 +328,12 @@ export function MyDashboard({ games }: { games: DashboardGame[] }) {
                   ) : null}
                   {game.updates.length ? (
                     <>
-                      <h4>記事の確認・週刊まとめ（30日以内）</h4>
+                      <h4>{t('記事の確認・週刊まとめ（30日以内）')}</h4>
                       <ul>
                         {game.updates.map((item) => (
                           <li key={`${item.date}-${item.label}`}>
                             {isNewDate(item.date) ? (
-                              <span className="my-new-mark">新着</span>
+                              <span className="my-new-mark">{t('新着')}</span>
                             ) : null}
                             {shortDate(item.date)}{' '}
                             <a href={item.href}>
@@ -287,7 +346,7 @@ export function MyDashboard({ games }: { games: DashboardGame[] }) {
                   ) : null}
                   {game.articles.length ? (
                     <>
-                      <h4>ゲムなおの解決記事</h4>
+                      <h4>{t('ゲムなおの解決記事')}</h4>
                       <ul>
                         {game.articles.map((article) => (
                           <li key={article.href}>
@@ -307,41 +366,50 @@ export function MyDashboard({ games }: { games: DashboardGame[] }) {
           <p>
             {gamesReady ? (
               <>
-                <a href="#my-games">遊ぶゲームを登録</a>
-                すると、公式のお知らせと解決記事がここにまとまります。
+                <a href="#my-games">{t('遊ぶゲームを登録')}</a>
+                {t('すると、公式のお知らせと解決記事がここにまとまります。')}
               </>
             ) : (
-              'マイゲームを確認しています…'
+              t('マイゲームを確認しています…')
             )}
           </p>
         )}
       </section>
       <section id="my-games" aria-labelledby="my-games-title">
         <h2 id="my-games-title">
-          <Gamepad2 size={21} /> マイゲーム
+          <Gamepad2 size={21} /> {t('マイゲーム')}
         </h2>
         <p>
-          ゲーム名で検索して、遊んでいるゲームを登録・解除できます（最大10本）。登録済みのゲームはそのまま引き継がれます。
+          {t(
+            'ゲーム名で検索して、遊んでいるゲームを登録・解除できます（最大10本）。登録済みのゲームはそのまま引き継がれます。',
+          )}
         </p>
         <p>
-          <a className="my-games-primary" href="/my-games#my-games">
-            ゲームを検索・登録する <ArrowRight size={16} aria-hidden="true" />
+          <a
+            className="my-games-primary"
+            href={en ? '/en/my-games#my-games' : '/my-games#my-games'}
+          >
+            {t('ゲームを検索・登録する')}
+            <ArrowRight size={16} aria-hidden="true" />
           </a>
         </p>
       </section>
 
-      <MyGamesBackup />
-      <SolutionNotebook />
+      <MyGamesBackup locale={locale} />
+      <SolutionNotebook locale={locale} />
 
       <section id="my-pc" aria-labelledby="my-pc-title">
         <h2 id="my-pc-title">
-          <Cpu size={21} /> マイPC
+          <Cpu size={21} /> {t('マイPC')}
         </h2>
         <p>
-          登録すると、新作の動作環境まとめなどで「あなたのPCで動くか」の目安が表示されます。内容はこのブラウザだけに保存され、サーバーには送信しません。
+          {t(
+            '登録すると、新作の動作環境まとめなどで「あなたのPCで動くか」の目安が表示されます。内容はこのブラウザだけに保存され、サーバーには送信しません。',
+          )}
         </p>
         {pcReady ? (
           <PcForm
+            locale={locale}
             key={pc ? `${pc.gpu}-${pc.ramGb}-${pc.windows}` : 'new'}
             pc={pc}
             onSave={(value) => savePc(value)}

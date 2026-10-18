@@ -11,7 +11,7 @@ export const guideUi = {
     related: 'Related guides and tools',
     next: 'Need a different check? Find a related guide or tool →',
     japanese: 'Japanese version of this page',
-    correction: 'Report an error (Japanese contact form)',
+    correction: 'Report an error',
     symptom: 'Choose your symptom',
     cautions: 'Protect saves and keep changes reversible',
     result: 'Result and next action',
