@@ -36,7 +36,7 @@ export async function generateMetadata({
   if (!report) return {};
   const path = `/en/weekly/${slug}`;
   return {
-    title: report.title,
+    title: { absolute: `${report.title} | Gemnao` },
     description: report.description,
     alternates: {
       canonical: path,

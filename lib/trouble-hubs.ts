@@ -159,12 +159,16 @@ export function articleMatchesTrouble(article: GameArticle, slug: string) {
       article.category === 'launch' &&
       /クラッシュ|強制終了|落ちる|フリーズ|CrashReport/i.test(text)
     );
-  if (slug === 'fps')
+  if (slug === 'fps') {
+    // Related symptoms in descriptions are not the article's primary subject.
+    const subject = `${article.title} ${article.shortTitle}`;
     return (
       article.category === 'display' ||
-      article.category === 'settings' ||
-      /FPS|カクつ|スタッター|重い|VRAM|ビデオメモリ/i.test(text)
+      /FPS|フレームレート|カクつ|スタッター|重い|VRAM|ビデオメモリ/i.test(subject) ||
+      (article.category === 'settings' &&
+        /画面|解像度|表示|画質|グラフィック|config/i.test(subject))
     );
+  }
   if (slug === 'save') return article.category === 'save';
   if (slug === 'mod') return article.category === 'mods';
   if (slug === 'controller') return article.category === 'controller';

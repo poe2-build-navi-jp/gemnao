@@ -6664,3 +6664,15 @@ a.my-games-primary {
   min-height: 44px;
   padding-block: 8px;
 }
+
+/* These English actions sit on the light article surface, outside the dark hero. */
+.server-hero-actions-light a:last-child {
+  color: #fff;
+  background: var(--navy);
+  border-color: var(--navy);
+}
+.english-release-requirements td[data-label="OS"] {
+  min-width: 8rem;
+  word-break: normal;
+  overflow-wrap: normal;
+}

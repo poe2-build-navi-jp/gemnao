@@ -105,7 +105,7 @@ export default async function Page({ params }: Props) {
             </a>
           ))}
       </nav>
-      <section className="diagnosis-table" id="requirements">
+      <section className="diagnosis-table english-release-requirements" id="requirements">
         <h2>Minimum requirements</h2>
         <p>
           Dates follow the original Japanese schedule unless a different

@@ -83,7 +83,7 @@ export default async function Page({
           }),
         }}
       />
-      <div className="server-hero-actions">
+      <div className="server-hero-actions server-hero-actions-light">
         <a
           href="https://discord.com/servers/gaming"
           target="_blank"

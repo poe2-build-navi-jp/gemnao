@@ -200,3 +200,16 @@ Discord38/38、英語158/231・残73。localized290、型/lint/build成功。538
 結果: exit 0、14操作ケース成功。390/1440px各2状態、7失敗/復旧状態、英語の管理確認1状態の計12回で axe の wcag2a / wcag2aa / wcag21aa 対象違反0。自動検査対象外や全WCAG適合を保証する意味ではない。JS例外・CSS/JS失敗・本番書き込み・実GA送信は0。アプリ修正不要。
 
 証拠: `/tmp/english-community-axe-final.log`、`/tmp/gemnao-discord-remaining-release-en/.wrangler/community-reports-review/browser/results.json`。全APIは隔離SQLite fixtureに接続し外部通信は遮断。英語以外の追加・公開データ送信はない。残る確認は親担当の本番閲覧とSteam補助資料。
+
+## 親の本番QA受領・最終表示修正
+
+親から refresh-rate / save-locations、Wilds、disk記事のbelow削除、本番一般7ページの本文・404・状態取得、症状別7一覧と週報/月次本文・主要リンク・過去日付注記の確認を受領。最終表示修正は週報2件のtitle末尾、FPS一覧の無関係記事、directory CTAのコントラスト、11月最低要件表のOS単語分割。
+
+- 全235英語URLのtitleを確認し、日本語サイト名末尾は週報2件のみ。root templateを継承しない絶対titleにしてGemnaoへ統一。本文見出し・OGカード内容は変更なし。
+- FPS一覧はsettingsカテゴリ全件と説明文中の関連語を拾っていた。displayカテゴリと記事title/shortTitleの性能・表示主題に限定。VC/DLC/Ping/体験版引継ぎは除外し、低FPS/スタッター/黒画面/表示設定を保持。共通分類を使う日本語一覧にも同じ誤分類修正が適用される。
+- 英語directoryの明るい面に置かれたCTAのみ濃紺背景＋白文字へ。日本語の暗いheroは変更しない。
+- 英語月次要件表のOSセルに最小幅を設定し、単語内折返しを止める。
+
+Steam補助資料3462-CD4C-36BD-5767は、親が同IDの公式検索インデックス英語本文（/ms/、4日前クロール）で「Understanding the In-Game Overlay Performance Monitor」、Settings > In Game、FPS/CPU/GPU/RAMの説明を確認。任意の性能指標補助として適切で保持可。ディスク修復の根拠ではない。指定 /en/ URLのライブ到達性のみ未確認で、ライブ確認済みとは扱わない。
+
+修正後検証: 全体型検査・対象lint・本番build成功（608 HTML / 590 sitemap / 534 OG、OG変更不要）。全235英語URLのtitle末尾日本語0。既存reference-data検査にFPSの除外/保持回帰を追加して成功。directory・10月/11月表は375/390/430/1165/1180/1440pxの18ケース成功、横はみ出し0、CTAのaxe color-contrast違反/未判定0、全OSセル内Windowsは単語分割0。7症状一覧応答とFPSカードの除外/保持を確認。1180px CTA・1165px表の画面も目視確認。証拠 `/tmp/english-polish-browser.json`、`/tmp/english-title-after.json`、`/tmp/english-final-polish-build.log`。

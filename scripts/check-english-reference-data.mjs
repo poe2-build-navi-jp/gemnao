@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { build } from 'esbuild';
 const bundle = await build({
   stdin: {
-    contents: `export {remainingPagesEn} from './lib/localized/remaining-pages-en';export {weeklyReportsEn} from './lib/localized/weekly-reports-en';export {weeklyReports} from './lib/weekly-reports';export {releaseRoundupsEn} from './lib/localized/release-roundups-en';export {releaseRoundups} from './lib/release-roundups';export {gearArticlesEn} from './lib/localized/gear-articles-en';export {gearArticles} from './lib/gear-articles';export {troubleHubsEn} from './lib/localized/trouble-hubs-en';export {troubleHubs} from './lib/trouble-hubs';export {checkFit,gpus} from './lib/my-pc';`,
+    contents: `export {remainingPagesEn} from './lib/localized/remaining-pages-en';export {weeklyReportsEn} from './lib/localized/weekly-reports-en';export {weeklyReports} from './lib/weekly-reports';export {releaseRoundupsEn} from './lib/localized/release-roundups-en';export {releaseRoundups} from './lib/release-roundups';export {gearArticlesEn} from './lib/localized/gear-articles-en';export {gearArticles} from './lib/gear-articles';export {troubleHubsEn} from './lib/localized/trouble-hubs-en';export {troubleHubs,articleMatchesTrouble} from './lib/trouble-hubs';export {gameArticles} from './lib/game-articles';export {checkFit,gpus} from './lib/my-pc';`,
     resolveDir: process.cwd(),
     loader: 'ts',
   },
@@ -105,3 +105,12 @@ for (const gpu of d.gpus)
 console.log(
   'PASS: 23 reference pages; weekly/source/item parity, 18 requirement/spec/fit records, gear and trouble content parity, English PC-fit results match Japanese decisions.',
 );
+
+const fpsArticles = d.gameArticles.filter((a) => d.articleMatchesTrouble(a, 'fps'));
+for (const slug of ['voice-chat', 'dlc-not-working', 'high-ping', 'demo-transfer']) {
+  assert.ok(!fpsArticles.some((a) => a.slug === slug), `Unrelated FPS topic: ${slug}`);
+}
+for (const slug of ['fps', 'stutter', 'black-screen', 'launcher-display', 'crash-performance', 'config-file']) {
+  assert.ok(fpsArticles.some((a) => a.slug === slug), `Missing display/performance topic: ${slug}`);
+}
+console.log('PASS: FPS hub excludes unrelated settings and incidental description matches.');
