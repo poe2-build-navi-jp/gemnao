@@ -1,3 +1,4 @@
+import { cloudGuidesZhEs } from './cloud-guides-zh-es';
 import type { EnglishCommonGuide } from './common-guides-en';
 import { saveGuidesEn } from './save-guides-en';
 export type TranslatedCommonGuide = EnglishCommonGuide & {
@@ -12,6 +13,7 @@ const base = {
   checkedAt: '2026-10-18',
 };
 export const translatedCommonGuides: TranslatedCommonGuide[] = [
+  ...cloudGuidesZhEs,
   {
     ...base,
     locale: 'zh',
@@ -129,8 +131,8 @@ export const translatedCommonGuides: TranslatedCommonGuide[] = [
     })),
     related: [
       {
-        href: '/en/guide/steam-cloud-sync-error',
-        label: 'Steam 云冲突：选择版本前保全文件（英文）',
+        href: '/zh/guide/steam-cloud-sync-error',
+        label: 'Steam 云冲突：选择版本前保全文件',
       },
       {
         href: '/en/gear/save-backup-storage-guide',
@@ -263,9 +265,9 @@ export const translatedCommonGuides: TranslatedCommonGuide[] = [
     })),
     related: [
       {
-        href: '/en/guide/steam-cloud-sync-error',
+        href: '/es/guide/steam-cloud-sync-error',
         label:
-          'Conflictos de Steam Cloud: conserva las versiones antes de elegir (inglés)',
+          'Conflictos de Steam Cloud: conserva las versiones antes de elegir',
       },
       {
         href: '/en/gear/save-backup-storage-guide',

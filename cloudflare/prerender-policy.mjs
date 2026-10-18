@@ -18,6 +18,8 @@ export function isEditorialSnapshotPath(pathname) {
       '/zh/guide',
       '/es/guide',
       '/zh/guide/save-data-backup',
+      '/zh/guide/steam-cloud-sync-error',
+      '/es/guide/steam-cloud-sync-error',
       '/es/guide/save-data-backup',
       '/en/guide/save-data-backup',
       '/en/guide/steam-cloud-sync-error',

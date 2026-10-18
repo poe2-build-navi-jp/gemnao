@@ -149,8 +149,9 @@ export const ogImageManifest: Record<string, string> = {
   "/es/games/valorant/van9001": "9b45de19",
   "/es/games/valorant/van9003": "d42f36bc",
   "/es/games/valorant/van9005": "e9d8f44a",
-  "/es/guide": "76f21ca7",
+  "/es/guide": "03918d7d",
   "/es/guide/save-data-backup": "af6c4db6",
+  "/es/guide/steam-cloud-sync-error": "43431121",
   "/es/pc/repair-or-replace": "6d230706",
   "/examples/wilds-steam-added-dll": "14979c8e",
   "/games/ace-combat-8": "40d090cc",
@@ -373,7 +374,8 @@ export const ogImageManifest: Record<string, string> = {
   "/zh/games/valorant/van9001": "cf2198fc",
   "/zh/games/valorant/van9003": "59b46e6e",
   "/zh/games/valorant/van9005": "a091ce47",
-  "/zh/guide": "3bbbb47d",
+  "/zh/guide": "16b18149",
   "/zh/guide/save-data-backup": "f89e7558",
+  "/zh/guide/steam-cloud-sync-error": "6f32b89e",
   "/zh/pc/repair-or-replace": "061d3279"
 };

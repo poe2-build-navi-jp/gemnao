@@ -289,8 +289,8 @@ for (const guide of commonGuidesEn) {
   assert.deepEqual(guide.steps.map(step => step.id), original.steps.map((_, i) => `step-${i + 1}`));
   check(`/en${guide.path}`, 'en', renderToStaticMarkup(<EnglishCommonGuide guide={guide} />));
   assert.equal(languageAlternates(guide.path).en, `/en${guide.path}`);
-  assert.equal(hasTranslation('zh', guide.path), guide.slug === 'save-data-backup');
-  assert.equal(hasTranslation('es', guide.path), guide.slug === 'save-data-backup');
+  assert.equal(hasTranslation('zh', guide.path), ['save-data-backup','steam-cloud-sync-error'].includes(guide.slug));
+  assert.equal(hasTranslation('es', guide.path), ['save-data-backup','steam-cloud-sync-error'].includes(guide.slug));
   for (const branch of guide.branches) assert.ok([...guide.steps, ...(guide.extraSections || [])].some(step => step.id === branch.step));
   pages++;
 }
