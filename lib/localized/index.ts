@@ -1,3 +1,4 @@
+import { palworldBackupEn } from './palworld-backup-en';
 import { discordCoreEn } from './discord-core-en';
 import { commonGuidesEn } from '@/lib/localized/common-guides-en';
 import { reportedCaseBySlug } from '@/lib/reported-cases';
@@ -21,6 +22,7 @@ import type { LocalizedArticle } from '@/lib/localized/types';
 import { followupLocalizedArticles } from '@/lib/followups';
 
 export const localizedArticles: LocalizedArticle[] = [
+  ...palworldBackupEn,
   ...followupLocalizedArticles,
   ...arcRaidersLocalizedArticles,
   ...nightreignLocalizedArticles,

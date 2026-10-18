@@ -23,6 +23,7 @@ if (prerender.routes.some(route => route.route === '/:locale/reports' && route.r
   for (const locale of ['en', 'zh', 'es']) knownPaths.add(`/${locale}/reports`);
 }
 const paths = [
+  '/games/palworld/dedicated-server-backup',
   '/gear/save-backup-storage-guide',
   '/gear/discord-microphone-guide',
   '/guide/pc-game-crash',

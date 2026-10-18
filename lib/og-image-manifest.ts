@@ -82,6 +82,7 @@ export const ogImageManifest: Record<string, string> = {
   "/en/games/onimusha-way-of-the-sword/shader-cache": "7ce19702",
   "/en/games/overwatch-2": "c40b9f96",
   "/en/games/overwatch-2/rendering-device-lost": "c757b8c4",
+  "/en/games/palworld/dedicated-server-backup": "33d1c152",
   "/en/games/pubg": "e241d591",
   "/en/games/pubg/anti-cheat-conflict-warning": "90d129ea",
   "/en/games/rocket-league": "e375a041",

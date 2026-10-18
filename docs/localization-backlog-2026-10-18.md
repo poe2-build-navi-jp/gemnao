@@ -19,8 +19,8 @@
 | 順位 | 独立したまとまり | 今回の状態・次の作業 |
 |---|---|---|
 | A | en/save-data-backup、en/steam-cloud-sync-error | 公開済み `e53de3145ee8cb953b8465d796405481c13d6ab4`。Pages `5422d0f2-af8d-4fe7-96a2-0bef969dd13e` 成功・SHA一致。共通一覧9本。 |
-| B | en/Discord一覧、mic-not-working、stream-no-audio、screen-share-black-screen | 実装・検証済み。英語一覧4本、公式資料と原因IDを照合。配備結果は別途確認。 |
-| C1 | Palworld save-data・dedicated-server-backup、Wilds save-data、Elden Ring save-data | セーブ関連の不足を先に再評価。ローカル／サーバー／アカウント・版の違いを確認し、共通ガイドと重複しない固有の保存先・復元条件が確認できた記事から。 |
+| B | en/Discord一覧、mic-not-working、stream-no-audio、screen-share-black-screen | 公開済み `a520710979c830c5c11a89d74e4eba17a06a952a`。Pages `d9f19feb-7f5a-4480-9197-50abd4380715` 成功・SHA一致。英語一覧4本。 |
+| C1 | Palworld save-data・dedicated-server-backup、Wilds save-data、Elden Ring save-data | 専用サーバーバックアップの英語版を実装・検証。ほか3件は出典再確認が未完了（Q&A・更新告知の取得制限／保存先の一次資料不足）。詳細は english-palworld-backup-review-2026-10-18.md。 |
 | C2 | Palworld not-launching、Elden Ring not-launching、Wilds fps等 | 既存英語記事・日本語利用実績・不足導線を確認して選定。未提供のアクセス数字は推測しない。 |
 | D | zh/es主要共通ガイド、各言語一覧・検索 | 保存保護、起動、クラッシュ等の有効な一式ごとに校正。記事がない一覧カードや架空hreflangは先に公開しない。 |
 

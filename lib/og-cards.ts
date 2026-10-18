@@ -1,3 +1,4 @@
+import { palworldBackupEn } from '@/lib/localized/palworld-backup-en';
 import { discordCoreEn } from '@/lib/localized/discord-core-en';
 import { commonGuidesEn } from '@/lib/localized/common-guides-en';
 import { reportedCases, casePath } from '@/lib/reported-cases';
@@ -326,7 +327,7 @@ export function ogCardSpecs(): OgCardSpec[] {
         'Read privacy and safety limits',
       ],
     },
-    ...[...recentGameArticlesEn, ...onimushaArticlesEn].map((article) => ({
+    ...[...palworldBackupEn, ...recentGameArticlesEn, ...onimushaArticlesEn].map((article) => ({
       path: `/en/games/${article.gameSlug}/${article.slug}`,
       locale: 'en' as const,
       eyebrow: 'PC game troubleshooting',
