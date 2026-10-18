@@ -187,8 +187,16 @@ Discord38/38、英語158/231・残73。localized290、型/lint/build成功。538
 
 既存 `check-feedback-deadline-browser.mjs` の合成環境検査は成功（英語を含む既存3言語、GET停止/再接続・遅い応答無視・POST停止・言語切替/アンマウント・同一tokenでの回復）。本番への送信なし。ログ `/tmp/english-feedback-final.log`。
 
-追加の報告フォーム既存ブラウザ試験は現在の必須ラベル・複数output・非表示field errorに合わせて隔離コピーのlocatorを更新して再実行。アプリの振る舞いや公開設定は変更しない。axe-coreが存在せずパッケージ取得も失敗したため、axe自動検査は未実施として区別する。
+追加の報告フォーム既存ブラウザ試験は現在の必須ラベル・複数output・非表示field errorに合わせて隔離コピーのlocatorを更新して再実行。アプリの振る舞いや公開設定は変更しない。初回はaxe-coreが存在せず取得も失敗したため保留したが、下記の再実行で解消済み。
 
 報告フォームの英語390/1440pxライフサイクルと、受付OFF・応答消失・timeout・容量上限・rate limit・DB失敗・ローカル保存容量不足の7ケースは合格。すべて隔離SQLと合成APIを使用。ログ `/tmp/english-community-final.log`（後続試験の旧locator失敗は修正して別ログで再検証）。
 
-後続5ケースも再検証成功: 2タブ編集競合、削除後/新規開始後の遅い所有者応答、既存管理者確認、flagと別タブ削除の反映。`/tmp/english-community-final-rest.log` exit 0。管理画面の言語ループは今回英語のみであり、元スクリプトの固定文言「four-language」は4言語合格を意味しない。総計14ケース、axe部分は未実施。fixture以外へのAPI通信・本番データ/設定変更はない。
+後続5ケースも再検証成功: 2タブ編集競合、削除後/新規開始後の遅い所有者応答、既存管理者確認、flagと別タブ削除の反映。`/tmp/english-community-final-rest.log` exit 0。管理画面の言語ループは今回英語のみであり、元スクリプトの固定文言「four-language」は4言語合格を意味しない。初回総計14ケース、axe部分は当時未実施（下記で保留解除）。fixture以外へのAPI通信・本番データ/設定変更はない。
+
+## axe追加検査の保留解除
+
+書き込み可能な `/tmp/gemnao-final-npm-cache` を指定し、axe-core 4.14.0 を一時領域に取得。製品依存・lockfile・アプリ・公開設定は変更なし。同じ公開済みアプリのローカルサーバー3065で、前記locator補正を持つ隔離版 `.english-community-reports-axe.mjs` に既存checks関数を復元し、英語のみ再実行した。
+
+結果: exit 0、14操作ケース成功。390/1440px各2状態、7失敗/復旧状態、英語の管理確認1状態の計12回で axe の wcag2a / wcag2aa / wcag21aa 対象違反0。自動検査対象外や全WCAG適合を保証する意味ではない。JS例外・CSS/JS失敗・本番書き込み・実GA送信は0。アプリ修正不要。
+
+証拠: `/tmp/english-community-axe-final.log`、`/tmp/gemnao-discord-remaining-release-en/.wrangler/community-reports-review/browser/results.json`。全APIは隔離SQLite fixtureに接続し外部通信は遮断。英語以外の追加・公開データ送信はない。残る確認は親担当の本番閲覧とSteam補助資料。
