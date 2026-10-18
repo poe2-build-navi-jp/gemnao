@@ -84,3 +84,7 @@ Discord35/38・残3、英語136/231・残95。registry/sitemap不一致0。local
 ## Discord相手音量・音声途切れ2件
 
 Discord37/38・残1、英語138/231・残93。registry/sitemap不一致0。localized270、型/lint/build、518静的HTML・497 sitemap・437OG、69記事3184内部リンク成功。4幅16組・検索8件・37カード・未翻訳8ルート404、JS/CSS失敗0、API書込み0。音量方向図の英語リンク更新も確認。英語全体QA・本番ブラウザ確認は未完了。 詳細english-discord-listening-review-2026-10-18.md。残1はDyno本文確認待ち。次はPC/Windows19記事。
+
+## PC音声3件
+
+PC4/20・残16、英語141/231・残90。registry/sitemap不一致0。localized273、型/lint/build成功。521静的HTML・500 sitemap・440OG、72記事3302内部リンク/アンカー成功。4幅16組（既存repair含む）・検索クリック/戻る12件・未翻訳9ルート404、JS/CSS失敗0、API書込み0。英語全体QA・本番ブラウザ確認は未完了。 詳細english-pc-audio-review-2026-10-18.md。Discord残1はDyno本文確認待ち。

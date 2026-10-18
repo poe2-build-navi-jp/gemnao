@@ -23,6 +23,9 @@ if (prerender.routes.some(route => route.route === '/:locale/reports' && route.r
   for (const locale of ['en', 'zh', 'es']) knownPaths.add(`/${locale}/reports`);
 }
 const paths = [
+  '/pc/microphone-after-update',
+  '/pc/call-starts-audio-disappears',
+  '/pc/bluetooth-connected-no-sound',
   '/games/palworld/dedicated-server-backup',
   '/gear/save-backup-storage-guide',
   '/gear/discord-microphone-guide',

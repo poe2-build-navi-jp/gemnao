@@ -210,7 +210,7 @@ export function LocalizedPcArticle({ article }: { article: Article }) {
             <span>›</span>
             <b>{article.shortTitle}</b>
           </nav>
-          <p className="article-label">{labels.label}</p>
+          <p className="article-label">{isRepairGuide ? labels.label : t.pcWindows}</p>
           <h1>{article.title}</h1>
           <p className="article-lead">{article.lead}</p>
           <div className="article-meta">

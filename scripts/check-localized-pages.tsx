@@ -456,7 +456,7 @@ for (const article of localizedPcArticles) {
   const originalPath = `/pc/${article.slug}`;
   const path = `/${article.locale}${originalPath}`;
   assert(original, `${path}: Japanese original missing`);
-  assert.equal(article.steps.length, 4, `${path}: exactly four decision steps`);
+  if (article.slug === 'repair-or-replace') assert.equal(article.steps.length, 4, `${path}: exactly four decision steps`);
   assert.equal(
     article.steps.length,
     original.steps.length,
@@ -477,14 +477,14 @@ for (const article of localizedPcArticles) {
     original.faqs.length,
     `${path}: FAQ parity`,
   );
-  assert.equal(
-    article.checkedAt,
-    original.checkedAt,
-    `${path}: verification-date parity`,
-  );
+  if (article.slug === 'repair-or-replace') {
+    assert.equal(article.checkedAt, original.checkedAt, `${path}: verification-date parity`);
+  } else {
+    assert(article.checkedAt >= original.checkedAt, `${path}: verification date must not precede original`);
+  }
   assert.deepEqual(
-    article.sources.map((source) => source.url),
-    original.sources.map((source) => source.url),
+    article.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/')),
+    original.sources.map((source) => source.url.replace('support.microsoft.com/ja-jp/', 'support.microsoft.com/en-us/')),
     `${path}: official-source parity`,
   );
   assert.deepEqual(
@@ -513,12 +513,14 @@ for (const article of localizedPcArticles) {
       `${path}: result and safety copy`,
     );
   });
-  const liquidWarning = { en: /liquid/i, zh: /液体/u, es: /líquido/iu }[article.locale];
-  for (const warning of [article.quickChecks[0], article.diagnosis[0].symptom, article.steps[0].actions[0]])
-    assert(liquidWarning.test(warning), `${path}: liquid exposure must retain its immediate-stop warning`);
+  if (article.slug === 'repair-or-replace') {
+    const liquidWarning = { en: /liquid/i, zh: /液体/u, es: /líquido/iu }[article.locale];
+    for (const warning of [article.quickChecks[0], article.diagnosis[0].symptom, article.steps[0].actions[0]])
+      assert(liquidWarning.test(warning), `${path}: liquid exposure must retain its immediate-stop warning`);
+  }
   const html = renderToStaticMarkup(<LocalizedPcArticle article={article} />);
   check(path, article.locale, html);
-  for (const id of ['step-1', 'step-2', 'step-3', 'step-4']) {
+  for (const id of article.steps.map((_, index) => `step-${index + 1}`)) {
     assert.equal(
       (html.match(new RegExp(`id="${id}"`, 'g')) ?? []).length,
       1,
@@ -558,21 +560,23 @@ for (const article of localizedPcArticles) {
     1,
     `${path}: one localized OG specification`,
   );
-  assert.deepEqual(
-    Object.keys(localizedRepairCosts[article.locale]).sort(),
-    repairCostExamples.map((item) => item.id).sort(),
-    `${path}: every cost example translated`,
-  );
-  for (const item of repairCostExamples) {
-    const translation = localizedRepairCosts[article.locale][item.id];
-    assert(
-      translation.label && translation.conditions && translation.provider,
-      `${path}: complete cost copy for ${item.id}`,
+  if (article.slug === 'repair-or-replace') {
+    assert.deepEqual(
+      Object.keys(localizedRepairCosts[article.locale]).sort(),
+      repairCostExamples.map((item) => item.id).sort(),
+      `${path}: every cost example translated`,
     );
-    assert(
-      html.includes(item.source.replaceAll('&', '&amp;')),
-      `${path}: cost source ${item.id}`,
-    );
+    for (const item of repairCostExamples) {
+      const translation = localizedRepairCosts[article.locale][item.id];
+      assert(
+        translation.label && translation.conditions && translation.provider,
+        `${path}: complete cost copy for ${item.id}`,
+      );
+      assert(
+        html.includes(item.source.replaceAll('&', '&amp;')),
+        `${path}: cost source ${item.id}`,
+      );
+    }
   }
   pages++;
 }

@@ -1,3 +1,4 @@
+import { pcAudioEn } from '@/lib/localized/pc-audio-en';
 import { discordListeningSpeechEn } from '@/lib/localized/discord-listening-speech-en';
 import { discordPerformanceVersionEn } from '@/lib/localized/discord-performance-version-en';
 import { discordRtcScreenHelperEn } from '@/lib/localized/discord-rtc-screen-helper-en';
@@ -217,6 +218,7 @@ export function ogCardSpecs(): OgCardSpec[] {
     ...roundupCards,
     ...weeklyCards,
     ...pcCards,
+    ...pcAudioEn.map(article => ({path: `/en/pc/${article.slug}`, locale: article.locale, eyebrow: 'Windows PC troubleshooting', title: article.title, itemsLabel: 'Choose the matching check', items: article.steps.map(step => step.title)})),
     ...localizedPcRepairArticles.map((article) => ({
       path: `/${article.locale}/pc/${article.slug}`,
       locale: article.locale,

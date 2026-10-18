@@ -1,4 +1,4 @@
-import { localizedPcRepairArticles } from '@/lib/localized/pc-repair-articles';
+import { localizedPcArticles } from '@/lib/localized/index';
 import { translatedCommonGuides } from '@/lib/localized/save-guides-zh-es';
 import { guideUi } from '@/lib/localized/guide-ui';
 import { commonGuidesEn } from '@/lib/localized/common-guides-en';
@@ -56,7 +56,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
         ...translatedGames.map(game => ({href: `/en/games/${game.slug}`, title: localizedHubs[game.slug].names?.en || gameFacts[game.slug].names.en, label: 'Game troubleshooting', body: localizedHubs[game.slug].lead.en || ''})),
         {href: '/en/discord', title: 'Discord troubleshooting guides', label: 'Discord index', body: 'Microphone, stream audio, screen share black screen and file uploads.'},
         {href: '/en/guide', title: 'PC game troubleshooting guides', label: 'Guide index', body: 'Steam verification, GPU drivers, black screen, low FPS, launch, crash and stutter.'},
-        ...localizedPcRepairArticles.filter(article => article.locale === 'en').map(article => ({href: `/en/pc/${article.slug}`, title: article.title, label: 'Windows PC', body: article.description})),
+        ...localizedPcArticles.filter(article => article.locale === 'en').map(article => ({href: `/en/pc/${article.slug}`, title: article.title, label: 'Windows PC', body: article.description})),
         ...commonGuidesEn.map(guide => ({href: `/en${guide.path}`, title: guide.title, label: 'PC troubleshooting', body: guide.description || ''})),
         {href: `/en${crashGuideEn.path}`, title: crashGuideEn.title, label: 'PC troubleshooting', body: crashGuideEn.description || ''},
         ...gearGuidesEn.map(guide => ({href: `/en/gear/${guide.slug}`, title: guide.title, label: 'Before you buy', body: guide.description || ''})),
@@ -104,7 +104,7 @@ export function LocalizedHome({ locale }: { locale: Locale }) {
                 <ArrowRight size={15} />
               </a>
               {commonGuidesEn.map(guide => (<a href={`/en${guide.path}`} key={guide.slug}><span>PC troubleshooting</span>{guide.title}<ArrowRight size={15} /></a>))}
-              {localizedPcRepairArticles.filter(article => article.locale === 'en').map(article => (<a href={`/en/pc/${article.slug}`} key={article.slug}><span>Windows PC</span>{article.title}<ArrowRight size={15} /></a>))}
+              {localizedPcArticles.filter(article => article.locale === 'en').map(article => (<a href={`/en/pc/${article.slug}`} key={article.slug}><span>Windows PC</span>{article.title}<ArrowRight size={15} /></a>))}
               {gearGuidesEn.map((guide) => (
                 <a href={`/en/gear/${guide.slug}`} key={guide.slug}>
                   <span>Before you buy</span>

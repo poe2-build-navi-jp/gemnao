@@ -10,6 +10,9 @@ export function isEditorialSnapshotPath(pathname) {
     ) ||
     /^\/(?:en|zh|es)\/(?:discord|examples)\/[a-z0-9-]+$/.test(pathname) ||
     [
+      '/en/pc/microphone-after-update',
+      '/en/pc/call-starts-audio-disappears',
+      '/en/pc/bluetooth-connected-no-sound',
       '/en/pc/repair-or-replace',
       '/zh/pc/repair-or-replace',
       '/es/pc/repair-or-replace',

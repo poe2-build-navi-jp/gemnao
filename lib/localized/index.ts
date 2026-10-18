@@ -1,3 +1,4 @@
+import { pcAudioEn } from '@/lib/localized/pc-audio-en';
 import { discordListeningSpeechEn } from './discord-listening-speech-en';
 import { discordPerformanceVersionEn } from './discord-performance-version-en';
 import { discordRtcScreenHelperEn } from './discord-rtc-screen-helper-en';
@@ -47,7 +48,7 @@ export const localizedArticles: LocalizedArticle[] = [
   ...rocketLeagueLocalizedArticles,
 ];
 
-export const localizedPcArticles = localizedPcRepairArticles;
+export const localizedPcArticles = [...localizedPcRepairArticles, ...pcAudioEn];
 export const localizedPcArticle = (locale: Locale, slug: string) =>
   localizedPcArticles.find(
     (article) => article.locale === locale && article.slug === slug,
