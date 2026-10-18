@@ -84,3 +84,7 @@ call-disconnects / camera-not-working / crashing追加。Discord20/38・残18、
 ## Discord反響・ゲーム検出・音量低下3件
 
 Discord23/38・残15、英語124/231・残107。localized256、型/lint/build、55記事2539内部リンク、4幅16組・検索12件成功。OG3枚の省略と改行を修正して再生成。詳細english-discord-echo-review-2026-10-18.md。親は先行17記事とreset-config位置案内修正まで確認済み。英語全体QAは未完了。
+
+## Discordログイン・マイク音量・No Route3件
+
+Discord26/38・残12、英語127/231・残104。registry/sitemap不一致0。localized259、型/lint/build、58記事2683内部リンク、4幅16組・検索12件成功。マイク音声方向図も英語化しリンク/4幅/375px目視確認。詳細english-discord-login-review-2026-10-18.md。英語全体QAと今回の本番ブラウザ確認は未完了。

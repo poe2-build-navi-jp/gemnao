@@ -1,3 +1,4 @@
+import { EnglishDiscordMicVolumeDiagram } from '@/components/english-discord-mic-volume-diagram';
 import { AceCombatNoticeHistory } from '@/components/ace-combat-notice-history';
 import { ReportedCaseLink } from '@/components/reported-case';
 import { ReportEntryLink } from '@/components/report-entry-link';
@@ -235,6 +236,7 @@ export function LocalizedArticle({
           {!isDiscord && (
             <ReportEntryLink articlePath={originalPath} locale={locale} />
           )}
+          {isDiscord && locale === 'en' && article.slug === 'mic-volume-low' ? <EnglishDiscordMicVolumeDiagram /> : null}
           <section className="diagnosis-table" id="diagnosis">
             <h2>{t.diagnosis}</h2>
             <p>
