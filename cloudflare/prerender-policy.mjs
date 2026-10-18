@@ -31,6 +31,8 @@ export function isEditorialSnapshotPath(pathname) {
       '/es/guide/save-data-backup',
       '/en/guide/save-data-backup',
       '/en/guide/steam-cloud-sync-error',
+      '/en/guide/directx-error',
+      '/en/guide/visual-c-runtime-error',
       '/en/guide/no-game-audio',
       '/en/guide/steam-input-controller',
       '/en/guide/controller-double-input',

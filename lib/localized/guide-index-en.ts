@@ -3,7 +3,7 @@ import { crashGuideEn } from './crash-guide-en';
 export const guideIndexEn = {
   title: 'PC Game Troubleshooting Guides',
   description:
-    'Choose an English guide for Steam launch failures, file verification, crashes, black screens, GPU drivers, low FPS, stutter, save backups, Steam Cloud conflicts, missing audio or controller input. Compare one change safely and find your next check.',
+    'Choose an English guide for Steam launch failures, DirectX and Visual C++ errors, file verification, crashes, black screens, GPU drivers, low FPS, stutter, save backups, Steam Cloud conflicts, missing audio or controller input. Compare one change safely and find your next check.',
   checkedAt: '2026-10-18',
 };
 const guides = [crashGuideEn, ...commonGuidesEn];
@@ -15,7 +15,7 @@ export const guideGroupsEn = [
     title: 'Launch and game files',
     description:
       'Nothing happens after Play, files are missing, or verification leaves the same error.',
-    paths: ['/guide/steam-game-not-launching', '/guide/verify-steam-files'],
+    paths: ['/guide/steam-game-not-launching', '/guide/verify-steam-files', '/guide/directx-error', '/guide/visual-c-runtime-error'],
   },
   {
     id: 'crash-display',

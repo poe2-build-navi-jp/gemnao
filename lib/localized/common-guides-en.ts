@@ -1,3 +1,4 @@
+import { runtimeGuidesEn } from './runtime-guides-en';
 import { audioControllerGuidesEn } from './audio-controller-guides-en';
 import { saveGuidesEn } from './save-guides-en';
 import { moreCommonGuidesEn } from './common-guides-more-en';
@@ -17,6 +18,7 @@ const windowsTools =
   'https://support.microsoft.com/en-us/windows/experience/system-configuration-tools-in-windows';
 
 export const commonGuidesEn: EnglishCommonGuide[] = [
+  ...runtimeGuidesEn,
   ...audioControllerGuidesEn,
   ...moreCommonGuidesEn,
   ...saveGuidesEn,
