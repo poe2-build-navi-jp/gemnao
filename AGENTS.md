@@ -9,3 +9,7 @@
 - 記事を追加・タイトル変更したら`pnpm og:cards`を実行し、`public/images/og/`と`lib/og-image-manifest.ts`をコミットする。
 - `cloudflare/worker-wrapper.mjs`と`cloudflare/worker-source.mjs`の静的ファイル振り分けとHTMLキャッシュ設定を維持する。
 - `NEXT_PUBLIC_ADSENSE_CLIENT`、Googleサイト確認タグ、`public/ads.txt`を削除しない。
+
+## ローカル品質検証の入口
+
+無料の既存ツールを使う再現手順は `docs/site-quality-kit.md`。`pnpm qa:checks` は型・lint・データ/部品検査、`pnpm qa:site` はローカルHTTPリンクとChromium実ブラウザ検査。ブラウザ検査には先に `pnpm build` が必要。結果の種類と既存エラーを区別し、本番配備成功や全サイト検証済みとは言い換えない。

@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import { build } from 'esbuild';
+import { localOrigin, readLocal } from './quality/local-policy.mjs';
 const base = process.env.TEST_BASE_URL || 'http://localhost:3065';
-assert.ok(['localhost', '127.0.0.1'].includes(new URL(base).hostname));
+localOrigin(base);
 const bundle = await build({
   stdin: {
     contents: "export {englishSearchEntries} from './lib/localized/home-en'",
@@ -16,11 +17,7 @@ const bundle = await build({
 const { englishSearchEntries: entries } = await import(
   `data:text/javascript;base64,${Buffer.from(bundle.outputFiles[0].text).toString('base64')}`
 );
-const read = async (path) => {
-  const r = await fetch(base + path);
-  assert.equal(r.status, 200, path);
-  return r.text();
-};
+const read = (path) => readLocal(base, path);
 const home = await read('/en'),
   directory = await read('/en/articles');
 const links = (html) =>
