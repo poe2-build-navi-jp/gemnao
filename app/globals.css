@@ -6739,3 +6739,8 @@ a.my-games-primary {
 .english-directory-group h2 { margin: 0 0 16px; font-size: 26px; line-height: 1.35; font-weight: 800; }
 .english-directory-header .english-home-search { padding: 0; margin: 26px 0; }
 .english-directory .english-home-search h2 { font-size: 21px; font-weight: 700; margin-bottom: 12px; }
+
+.server-loading {
+  display: block;
+  margin: 1em 0;
+}

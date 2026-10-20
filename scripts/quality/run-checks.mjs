@@ -27,6 +27,8 @@ const checks = [
     process.execPath,
     ['--test', 'tests/quality/local-policy.test.mjs'],
   ],
+  ['contrast-pixels', 'python3', ['tests/quality/contrast-pixels.test.py']],
+  ['feedback-stats-synthetic', process.execPath, ['--test', 'tests/feedback-stats-d1/control.test.mjs']],
   ['english-search', process.execPath, ['scripts/check-english-search.mjs']],
   [
     'english-reference-data',

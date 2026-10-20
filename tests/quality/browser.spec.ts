@@ -1,5 +1,6 @@
 import { createRequire } from 'node:module';
 import { test, expect } from './fixtures';
+import { reviewContrast } from './contrast-review';
 const require = createRequire(import.meta.url);
 const axePath = require.resolve('axe-core/axe.min.js');
 const paths = [
@@ -56,6 +57,8 @@ test('English pages: responsive layout, accessibility and evidence', async ({
       fullPage: true,
     });
     expect(accessibility.violations, `${path}: axe violations`).toEqual([]);
+    if (accessibility.incomplete.length)
+      await reviewContrast(page, accessibility.incomplete, testInfo, path.replaceAll('/', '-'));
     if (path.includes('new-releases')) {
       const wrapping = await page
         .locator('#requirements td[data-label="OS"]')
@@ -162,4 +165,34 @@ test('Directory unavailable state is distinct from an empty listing', async ({
   await expect(
     page.locator('.server-hero-actions a[href="/en/discord-servers/submit"]'),
   ).toBeVisible();
+});
+
+test('Directory loading status and translated game filters retain Japanese searches', async ({ page }) => {
+  let release!: () => void;
+  const pending = new Promise<void>(resolve => { release = resolve; });
+  await page.route('**/api/discord-servers', async route => {
+    await pending;
+    await route.fulfill({json:{servers:[{id:1,slug:'local-fixture',name:'Local QA community',game:'モンスターハンターワイルズ',gameSlug:'monster-hunter-wilds',purposes:['協力プレイ'],styles:[],voiceChat:'optional',activeTimes:[],description:'Synthetic listing for local QA',requirements:'Local fixture',rules:'Local fixture',inviteUrl:'https://discord.gg/local-fixture',lastVerifiedAt:'2026-10-20',status:'approved'}]}});
+  });
+  await page.goto('/en/discord-servers');
+  try {
+    await expect(page.getByRole('status')).toHaveText('Loading server listings…');
+    expect(await page.getByRole('status').evaluate(el => el.tagName)).toBe('OUTPUT');
+  } finally { release(); }
+  const cards = page.locator('.server-card-grid article');
+  await expect(cards).toHaveCount(1);
+  await expect(page.getByRole('status')).toHaveCount(0);
+  const search = page.getByPlaceholder('Game or server name');
+  for (const query of ['Monster Hunter Wilds', 'モンスターハンターワイルズ']) {
+    await search.fill(query);
+    await expect(cards).toHaveCount(1);
+  }
+  await search.fill('nonexistent-fixture');
+  await expect(cards).toHaveCount(0);
+  await page.getByRole('button', {name:'Clear filters',exact:true}).click();
+  await expect(cards).toHaveCount(1);
+  await page.locator('.server-filters select').first().selectOption('VALORANT');
+  await expect(cards).toHaveCount(0);
+  await page.locator('.server-filters select').first().selectOption('モンスターハンターワイルズ');
+  await expect(cards).toHaveCount(1);
 });
