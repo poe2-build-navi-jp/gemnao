@@ -25,22 +25,22 @@ function fake({ deny=0, badBinding=false, reviewer=true, changed=false }={}) {
  };
  return {calls,fetcher};
 }
-test('existing protection, identity then a single fixed SELECT; separate counters',async()=>{
+void test('existing protection, identity then a single fixed SELECT; separate counters',async()=>{
  const f=fake();const report=await read(env,f.fetcher);assert.equal(f.calls.length,5);assert.equal(f.calls.filter(c=>c.init.method==='POST').length,1);assert.equal(report.issue_feedback.resolved,7);assert.equal(report.solution_method_feedback.resolved,7);assert.equal(report.combine_tables,false);assert.equal(report.complete,true);assert.ok(!JSON.stringify(report).includes('synthetic-cloudflare'));
 });
-test('manual source SHA, branch, approval, rerun, credential and identity gates fail closed',async()=>{
+void test('manual source SHA, branch, approval, rerun, credential and identity gates fail closed',async()=>{
  for(const patch of [{GITHUB_REF:'refs/heads/other'},{GITHUB_EVENT_NAME:'push'},{GITHUB_RUN_ATTEMPT:'2'},{FEEDBACK_STATS_SOURCE_SHA:'b'.repeat(40)},{FEEDBACK_STATS_CONFIRMATION:''},{FEEDBACK_STATS_PROTECTED_ENVIRONMENT:''},{CLOUDFLARE_API_TOKEN:''}]){
   const f=fake();await assert.rejects(read({...env,...patch},f.fetcher));assert.equal(f.calls.filter(c=>c.init.method==='POST').length,0);
  }
  for(const option of [{badBinding:true},{reviewer:false}]){const f=fake(option);await assert.rejects(read(env,f.fetcher));assert.equal(f.calls.filter(c=>c.init.method==='POST').length,0);}
 });
-test('403 at each stage stops without retry and never exposes provider text',async()=>{
+void test('403 at each stage stops without retry and never exposes provider text',async()=>{
  for(let deny=1;deny<=5;deny++){const f=fake({deny});await assert.rejects(read(env,f.fetcher),e=>!String(e).includes('PRIVATE_SENTINEL'));assert.equal(f.calls.length,deny);}
 });
-test('invalid counts, unexpected fields, partial or changed results cannot become zero/success',()=>{
+void test('invalid counts, unexpected fields, partial or changed results cannot become zero/success',()=>{
  for(const mutate of [r=>{r[0].meta.changed_db=true;},r=>{delete r[0].meta.changed_db;},r=>{r[0].results[0].issue_resolved=-1;},r=>{r[0].results[0].invalid_method_rows=1;},r=>{r[0].results[0].private='secret';},r=>{r[0].results=[];},r=>{r.push(r[0]);}]){const r=result();mutate(r);assert.throws(()=>summarize(r,sha,sha));}
 });
-test('fixed SELECT executes on synthetic SQLite, including empty state, without writes',()=>{
+void test('fixed SELECT executes on synthetic SQLite, including empty state, without writes',()=>{
  const code=`import sqlite3,json,sys
 sql=sys.stdin.read()
 c=sqlite3.connect(':memory:')
@@ -55,6 +55,6 @@ print(json.dumps({'empty':empty,'full':full,'unchanged':before==c.total_changes}
  const out=JSON.parse(execFileSync('python3',['-c',code],{input:sql,encoding:'utf8'}));assert.equal(out.empty.issue_resolved,0);assert.equal(out.full.issue_resolved,7);assert.equal(out.full.method_resolved,7);assert.equal(out.unchanged,true);
  assert.ok(!/\b(INSERT|UPDATE|DELETE|DROP|ALTER|PRAGMA)\b/i.test(sql));
 });
-test('workflow has no schedule, arbitrary SQL, new credentials or approval bypass',()=>{
+void test('workflow has no schedule, arbitrary SQL, new credentials or approval bypass',()=>{
  const yaml=readFileSync('.github/workflows/feedback-stats-read.yml','utf8');assert.ok(yaml.includes('workflow_dispatch:'));assert.ok(!/schedule:|pull_request:|push:|write-all/.test(yaml));assert.ok(yaml.includes('retention-days: 7'));assert.ok(yaml.includes('environment: ${{ needs.gate.outputs.environment }}'));assert.ok(yaml.includes('secrets.CLOUDFLARE_API_TOKEN'));
 });
