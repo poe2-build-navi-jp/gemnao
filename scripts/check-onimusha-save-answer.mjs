@@ -29,6 +29,12 @@ for (const page of html) {
   assert.ok(!page.includes('win64_save'));
 }
 assert.match(html[0], /破魔鏡/);
+for (const href of ['/guide/save-data-backup', '/guide/steam-cloud-sync-error', '#article-links-title']) {
+  assert.ok(html[0].includes(`href="${href}"`));
+}
+assert.match(html[0], /保存パスを確認できませんでした/);
+assert.match(html[0], /Steamクラウド対応の表記/);
+assert.equal(html[0].split('<summary>').length - 1, 2);
 assert.match(html[0], /オートセーブの発生条件は未検証/);
 assert.match(html[0], /当サイトの実機プレイ検証ではありません/);
 assert.match(html[1], /not our own gameplay test/);

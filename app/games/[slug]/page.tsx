@@ -175,7 +175,7 @@ export default async function GamePage({
       about: game.title,
       mainEntityOfPage: `https://gemnao.pages.dev/games/${game.slug}`,
     },
-    // This focused hub has no visible FAQ; do not emit its fallback question.
+    // Onimusha renders specific save questions, not this generic fallback FAQ.
     ...(game.slug === 'onimusha-way-of-the-sword'
       ? []
       : [
@@ -246,7 +246,10 @@ export default async function GamePage({
           {game.focused ? (
             <>
               {game.slug === 'onimusha-way-of-the-sword' ? (
-                <a href="#save-method">セーブ方法</a>
+                <>
+                  <a href="#save-method">セーブ方法・保存と同期の確認</a>
+                  <a href="#save-faq">セーブのよくある質問</a>
+                </>
               ) : null}
               {game.slug === 'aniimo' ? (
                 <>
@@ -282,7 +285,7 @@ export default async function GamePage({
                 <strong>変更前にバックアップ</strong>
                 <p>
                   {game.slug === 'onimusha-way-of-the-sword'
-                    ? 'PC上の設定ファイルなどを変更する場合は、先にセーブと設定を別の場所へコピーします。通常のゲーム内セーブの手順は、下の「セーブ方法」を確認してください。'
+                    ? '保存先を確認できたデータは、変更前に別の場所へコピーしてください。保存先が不明なままファイルを削除・移動せず、同期の競合時も上書きを急がないでください。'
                     : 'セーブと設定ファイルは、フォルダごと別の場所へコピーしてから操作してください。'}
                 </p>
               </div>

@@ -1,8 +1,11 @@
 /* oxlint-disable next/no-html-link-for-pages -- Native links preserve the existing navigation behavior. */
 
+import { OnimushaSaveHub } from './onimusha-save-hub';
+
 const walkthrough = 'https://game8.jp/onimusha-ws/813817';
 
 export function OnimushaSaveAnswer({ english = false }: { english?: boolean }) {
+  if (!english) return <OnimushaSaveHub />;
   return (
     <section className="guide-section" id="save-method">
       <h2>

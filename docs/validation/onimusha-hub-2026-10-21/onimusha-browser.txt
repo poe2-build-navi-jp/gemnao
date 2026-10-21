@@ -1,0 +1,2 @@
+{"width":375,"links":9,"overflow":false,"errors":[],"canonical":true,"faq":true,"navigation":true}
+{"width":1440,"links":9,"overflow":false,"errors":[],"canonical":true,"faq":true,"navigation":true}
