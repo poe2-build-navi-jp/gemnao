@@ -1,0 +1,2 @@
+$ node scripts/run-localized-check.mjs
+PASS: 340 translated pages and three-game expansion parity
