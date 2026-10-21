@@ -33,7 +33,7 @@ const copy = {
     intro:
       'After trying a step, share whether it fixed this article’s symptom. Only the article, step and result are sent to our anonymous counts. Your private notes and PC details are not sent.',
     limits:
-      'Counts are answers, not people or a guaranteed success rate. “Not fixed” counts start with this feature; earlier failures did not record a method. Historical successes can include repeat or test answers. All language versions share the same counts.',
+      'These cumulative counts include historical answers for this article and step, with no date filter. Article-wide answers and per-step answers are separate aggregates; their totals and coverage can differ. Counts are answers, not people or a procedure success rate. “Not fixed” counts start with this feature; earlier failures did not record a method. Historical successes can include repeat or test answers. All language versions share the same counts.',
     loading: 'Checking whether reporting is available…',
     unavailable:
       'Result reporting is unavailable right now. You can still read the steps and use your private notebook.',
@@ -53,7 +53,7 @@ const copy = {
     pending:
       'This browser has an unconfirmed answer. Recover the original step and result without changing your private notes.',
     recover: 'Check original submission',
-    counts: 'Community reports',
+    counts: 'This step’s cumulative answers (including historical answers)',
     smallSample: 'Few reports so far; treat these as a reference.',
     fixedCount: 'fixed',
     failedCount: 'not fixed (since this feature began)',

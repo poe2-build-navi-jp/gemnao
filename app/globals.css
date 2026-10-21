@@ -6739,3 +6739,33 @@ a.my-games-primary {
 .english-directory-group h2 { margin: 0 0 16px; font-size: 26px; line-height: 1.35; font-weight: 800; }
 .english-directory-header .english-home-search { padding: 0; margin: 26px 0; }
 .english-directory .english-home-search h2 { font-size: 21px; font-weight: 700; margin-bottom: 12px; }
+
+/* Keep the ST error's first action ahead of save controls on small screens. */
+.clock-sync-hero h1 {
+  font-size: clamp(24px, 3.5vw, 40px);
+}
+.clock-sync-hero .article-label {
+  margin-top: 18px;
+}
+.clock-sync-first {
+  max-width: 720px;
+  margin-top: 16px;
+  padding: 16px;
+  color: #153f36;
+  background: #edf8f5;
+  border-radius: 7px;
+  line-height: 1.6;
+}
+.clock-sync-first p {
+  margin: 0 0 12px;
+}
+.clock-sync-first a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 14px;
+  color: #fff;
+  background: #236c54;
+  border-radius: 5px;
+  font-weight: 700;
+}

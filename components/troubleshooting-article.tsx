@@ -1,3 +1,4 @@
+import { ClockSyncFirst } from '@/components/clock-sync-first';
 import { AceCombatNoticeHistory } from '@/components/ace-combat-notice-history';
 import { ReportedCaseLink } from '@/components/reported-case';
 import { ReportEntryLink } from '@/components/report-entry-link';
@@ -42,6 +43,7 @@ export function TroubleshootingArticle({
   game: GameGuide;
   article: GameArticle;
 }) {
+  const clockSyncFirst = article.gameSlug === 'ace-combat-8' && article.slug === 'error-st-3100001';
   const canonical = `https://gemnao.pages.dev/games/${game.slug}/${article.slug}`;
   const feedbackTopic =
     article.category === 'settings'
@@ -132,7 +134,7 @@ export function TroubleshootingArticle({
         }}
       />
       <header
-        className="article-hero issue-hero"
+        className={`article-hero issue-hero${clockSyncFirst ? ' clock-sync-hero' : ''}`}
         style={{ '--game-accent': game.accent } as React.CSSProperties}
       >
         <div className="article-hero-inner">
@@ -147,6 +149,7 @@ export function TroubleshootingArticle({
             {articleCategoryLabel(article)}｜PC版トラブル解決
           </p>
           <h1>{article.title}</h1>
+          {clockSyncFirst && <ClockSyncFirst />}
           <p className="article-lead">{article.symptom}</p>
           <div className="article-meta">
             <EditorialByline />

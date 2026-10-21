@@ -630,12 +630,11 @@ export function InteractiveSteps({
           "collecting data" panel on every article reads as unfinished. */}
       {solvedRate !== null ? (
         <div className="solution-data-panel">
-          <h2>このトラブルの解決状況</h2>
+          <h2>記事全体の匿名回答（過去の回答を含む）</h2>
           <div className="solution-data-summary">
-            <strong>解決報告の割合 {solvedRate}%</strong>
+            <strong>解決 {row.resolved}件 ／ 未解決 {row.struggling}件</strong>
             <span>
-              匿名回答 {total}件（解決 {row.resolved}件・未解決 {row.struggling}
-              件）
+              累計 {total}件（人数ではなく回答件数）
             </span>
           </div>
           {row.resolved >= threshold && rankedMethods.length ? (
@@ -680,7 +679,7 @@ export function InteractiveSteps({
             </figure>
           ) : null}
           <small>
-            利用者の自己申告で、全閲覧者の成功率や効果の比較試験ではありません。同じ人が未解決と解決の両方を報告する場合があります。件数は人数ではなく回答数です。
+            期間で絞らない、この記事・症状に対する全言語共通の累積回答です。記事全体とSTEP別は別集計で、合計や集計範囲が一致するとは限りません。過去の回答（重複・動作確認を区別できない回答も含む）を除外していません。手順の成功率や効果の比較試験ではありません。同じ人が未解決と解決の両方を報告する場合があります。件数は人数ではなく回答数です。
           </small>
         </div>
       ) : null}
@@ -833,8 +832,9 @@ export function InteractiveSteps({
                     {step.summary ? <p>{step.summary}</p> : null}
                     {counts ? (
                       <p className="step-outcome-counts">
-                        みんなの報告：直った {counts.resolved}件 ／ 直らなかった{' '}
+                        このSTEPの累積回答：直った {counts.resolved}件 ／ 直らなかった{' '}
                         {counts.notResolved}件
+                        <small>記事全体とは別集計です。直った回答は過去分を含み、直らなかった回答はSTEP別受付開始後の分です。</small>
                         {counts.total < 10 && (
                           <small>報告が少ないため参考情報です。</small>
                         )}
