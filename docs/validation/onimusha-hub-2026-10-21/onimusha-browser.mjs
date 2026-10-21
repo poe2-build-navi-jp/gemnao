@@ -27,7 +27,7 @@ for(const width of [375,1440]) {
  assert.ok(await page.locator('#save-faq details').first().getAttribute('open')!==null);
  await page.screenshot({path:`/tmp/onimusha-${width}.png`,fullPage:true});
  const links=await page.locator('#save-method a[href^="/"], .article-link-section a[href^="/"]').evaluateAll(els=>els.map(e=>e.getAttribute('href')));
- for(const href of [...new Set(links)]) {const response=await context.request.get(base+href);assert.equal(response.status(),200,href);}
+ for(const href of new Set(links)) {const response=await context.request.get(base+href);assert.equal(response.status(),200,href);}
  await page.locator('#save-method a[href="/guide/save-data-backup"]').click(); await page.waitForURL('**/guide/save-data-backup');
  assert.equal(errors.length,0,JSON.stringify(errors));
  console.log(JSON.stringify({width,links:links.length,overflow:false,errors,canonical:true,faq:true,navigation:true}));
