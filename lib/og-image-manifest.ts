@@ -318,7 +318,7 @@ export const ogImageManifest: Record<string, string> = {
   "/games/ace-combat-8/time-sync-failed": "52d382df",
   "/games/aion2": "c1b351f2",
   "/games/aion2/login-error": "db0fe781",
-  "/games/aniimo": "a955ed4b",
+  "/games/aniimo": "277b80fc",
   "/games/aniimo/black-screen": "d4ce40f0",
   "/games/aniimo/launcher-display": "60776225",
   "/games/aniimo/login-error": "6262e42b",

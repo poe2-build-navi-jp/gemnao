@@ -47,13 +47,14 @@ export const games: GameGuide[] = [
     title: 'Aniimo / アニモ',
     shortTitle: 'アニモ（Aniimo）',
     hubTitle: aniimoHubTitle,
-    lead: 'アニモ（Aniimo）が起動しない・開かない、途中で落ちる時のPC版ガイドです。ログイン・黒画面も症状別に分け、公式の修復方法と結果に応じた次の行動を確認できます。',
+    lead: 'アニモ（Aniimo）が開けない・開かない、パッチエラーで更新できない時の総合案内です。起動・ログイン・黒画面などの症状から、公式情報と詳しい対処記事を探せます。',
     accent: '#6f5bd3',
     demand: 'Windows PC版：公式ランチャー・Steam',
     issueScale: '高い',
-    updated: '2026-09-30',
+    updated: '2026-10-21',
     tags: [
       '起動しない',
+      'パッチエラー',
       'クラッシュ',
       '黒画面',
       'ログインできない',
@@ -89,8 +90,12 @@ export const games: GameGuide[] = [
         url: 'https://aniimo.com/ja/newslist/detail/100102',
       },
       {
-        label: 'Aniimo公式：更新・修正内容（9月23日）',
-        url: 'https://aniimo.com/ja/newslist/detail/100139',
+        label: 'Aniimo公式：10月15日の更新（10月16日掲載）',
+        url: 'https://www.aniimo.com/newslist/detail/100198',
+      },
+      {
+        label: 'Aniimo公式：既知問題・修正履歴（10月16日掲載）',
+        url: 'https://www.aniimo.com/newslist/detail/100208',
       },
       {
         label: 'Aniimo公式：不具合の報告窓口',
