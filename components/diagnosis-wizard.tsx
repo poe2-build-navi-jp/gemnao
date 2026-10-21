@@ -61,10 +61,7 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
   const [ready, setReady] = useState(false),
     [storageOk, setStorageOk] = useState(true),
     [resume, setResume] = useState<LocalDiagnosis | null>(null);
-  const [config, setConfig] = useState({
-      enabled: false,
-      sharing: false,
-    }),
+  const [config, setConfig] = useState<{ enabled: boolean; sharing: boolean } | null>(null),
     [started, setStarted] = useState(false);
   const [notice, setNotice] = useState('');
   const [shareBusy, setShareBusy] = useState(false);
@@ -73,6 +70,11 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
   const [configError, setConfigError] = useState('');
   const title = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
+    let active = true;
+    const timeout = setTimeout(() => {
+      active = false;
+      setConfigError('診断の稼働状況を確認できません。保存済みの端末内データは消去していません。時間を空けて再読み込みしてください。');
+    }, 15_000);
     queueMicrotask(() => {
       setResume(readLocal());
       setReady(true);
@@ -82,11 +84,20 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
       sharing: boolean;
       metrics: boolean;
     }>('/config')
-      .then((next) => setConfig({
-        enabled: (process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED === 'true' || process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA === 'true') && next.enabled === true,
-        sharing: process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA !== 'true' && process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED === 'true' && next.enabled === true && next.sharing === true,
-      }))
-      .catch(() => setConfigError('受付状況を確認できないため、診断を一時停止しています。保存済みの端末内データは消去していません。時間を空けて再読み込みしてください。'));
+      .then((next) => {
+        if (!active) return;
+        clearTimeout(timeout);
+        setConfig({
+          enabled: (process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED === 'true' || process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA === 'true') && next.enabled === true,
+          sharing: process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA !== 'true' && process.env.NEXT_PUBLIC_DIAGNOSIS_ENABLED === 'true' && next.enabled === true && next.sharing === true,
+        });
+      })
+      .catch(() => {
+        if (!active) return;
+        clearTimeout(timeout);
+        setConfigError('診断の稼働状況を確認できません。保存済みの端末内データは消去していません。時間を空けて再読み込みしてください。');
+      });
+    return () => { active = false; clearTimeout(timeout); };
   }, []);
   useEffect(() => {
     if (ready && started) {
@@ -160,7 +171,7 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
     setNotice('');
   };
   const start = () => {
-    if (shareBusy) return;
+    if (shareBusy || !config?.enabled) return;
     const d = freshLocal();
     setData(d);
     setResume(null);
@@ -184,12 +195,14 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
       process.env.NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA === 'true' ? 'このブラウザの診断を消去しました。' : 'このブラウザの診断を消去しました。発行済みの共有ページは管理画面で削除してください。',
     );
   };
-  if (!ready)
-    return <output className="diag-notice">診断を準備しています…</output>;
+  if (configError)
+    return <output className="diag-warning">確認不能：{configError}<a href="/guide">症状別の記事をご覧ください</a></output>;
+  if (!ready || !config)
+    return <output className="diag-notice" aria-live="polite">診断の稼働状況を確認中です…</output>;
   if (!config.enabled)
     return (
       <p className="diag-warning">
-        {configError || '診断は現在停止しています。'}
+        診断は現在停止中です。
         <a href="/guide">症状別の記事をご覧ください</a>
       </p>
     );
@@ -230,6 +243,7 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
       )}
       {!started ? (
         <section className="diag-start">
+          <output className="diag-notice">診断は稼働中です。</output>
           <div className="diag-badges">
             <span>無料</span>
             <span>登録不要</span>

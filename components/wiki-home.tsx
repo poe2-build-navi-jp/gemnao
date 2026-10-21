@@ -1,4 +1,5 @@
 'use client';
+import { WeeklyPeriodLabel } from './weekly-period-label';
 import { useSearchQuery } from './use-search-query';
 import { LatestArticles } from './latest-articles';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
@@ -323,7 +324,7 @@ export function WikiHome({
           </div>
           {weekly ? (
             <a className="weekly-banner" href={`/weekly/${weekly.slug}`}>
-              <span>今週の不具合まとめ</span>
+              <WeeklyPeriodLabel slug={weekly.slug} />
               {weekly.period}の公式パッチ・障害・エラー情報
               <ChevronRight size={16} />
             </a>

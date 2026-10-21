@@ -93,7 +93,7 @@ export function WikiHeader({
         <a href={gamesListPath(locale)}>{labels.games}</a>
         {locale === 'ja' ? <a href="/#symptoms">症状から探す</a> : null}
         {locale === 'ja' ? (
-          <a href="/weekly">今週の不具合</a>
+          <a href="/weekly">週刊まとめ</a>
         ) : locale === 'en' ? (
           <a href="/en/weekly">Weekly</a>
         ) : null}
@@ -235,7 +235,7 @@ export function WikiFooter({ locale = 'ja' }: { locale?: 'ja' | Locale }) {
         <a href="/about#business">企業・メーカーの方へ</a>
         <a href="/privacy">プライバシー</a>
         <a href="/terms">利用規約・免責</a>
-        <a href="/weekly">今週の不具合まとめ</a>
+        <a href="/weekly">週刊まとめ</a>
         <a href="/status">障害・メンテ情報</a>
         <a href="/tools">便利ツール</a>
         <a href="/discord-servers">Discordサーバー募集</a>
