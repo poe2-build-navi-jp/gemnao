@@ -428,6 +428,31 @@ export function ogCardSpecs(): OgCardSpec[] {
         'Save backups and storage',
       ],
     },
+    ...(['zh', 'es'] as const).map((locale) => ({
+      path: `/${locale}/tools/windows-diagnosis`,
+      locale,
+      eyebrow:
+        locale === 'zh'
+          ? '未签名的 Windows 试作版'
+          : 'Prototipo para Windows sin firma',
+      title:
+        locale === 'zh'
+          ? 'Windows PC 游戏诊断工具'
+          : 'Diagnóstico de juegos para Windows',
+      itemsLabel: locale === 'zh' ? '下载前请先阅读' : 'Antes de descargar',
+      items:
+        locale === 'zh'
+          ? [
+              '注意事项与下载',
+              '应用仅支持日语、英语',
+              '新版本尚未在 Windows 实机上验证',
+            ]
+          : [
+              'Precauciones y descarga',
+              'Aplicación en japonés e inglés',
+              'Sin pruebas de la nueva versión en un PC Windows real',
+            ],
+    })),
     {
       path: '/en/tools/windows-diagnosis',
       locale: 'en' as const,

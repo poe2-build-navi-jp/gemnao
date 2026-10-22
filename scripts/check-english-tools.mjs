@@ -171,7 +171,7 @@ if (release?.languages.includes('en')) {
 }
 for (const locale of ['zh', 'es', 'fr']) {
   assert.ok(!snapshots[`/${locale}/tools`]);
-  assert.ok(!snapshots[`/${locale}/tools/windows-diagnosis`]);
+  assert.equal(Boolean(snapshots[`/${locale}/tools/windows-diagnosis`]), locale !== 'fr');
 }
 console.log(
   `PASS: English tools HTML, paired canonical/hreflang, schema, language, ${links} real internal links/anchors, and ${release?.languages.includes('en') ? release.version + ' download identity' : 'unavailable-English-artifact guard'}`,

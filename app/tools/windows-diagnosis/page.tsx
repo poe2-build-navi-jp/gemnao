@@ -183,6 +183,7 @@ export default function WindowsDiagnosis() {
           aria-labelledby="download-title"
         >
           <h2 id="download-title">PCゲーム診断・Windows x64版</h2>
+          <p className="download-caution"><strong>未署名・新版Windows実機検証前の試作版です。保護機能を無効にしたり、警告を回避して実行したりしないでください。</strong></p>
           {release ? (
             <>
               <a

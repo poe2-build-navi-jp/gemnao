@@ -315,6 +315,7 @@ export const ogImageManifest: Record<string, string> = {
   "/es/guide/steam-game-not-launching": "b3f8f8fc",
   "/es/guide/verify-steam-files": "66037302",
   "/es/pc/repair-or-replace": "6d230706",
+  "/es/tools/windows-diagnosis": "41216f50",
   "/examples/wilds-steam-added-dll": "14979c8e",
   "/games/ace-combat-8": "40d090cc",
   "/games/ace-combat-8/connection-after-time-sync": "129b2f4d",
@@ -548,5 +549,6 @@ export const ogImageManifest: Record<string, string> = {
   "/zh/guide/steam-cloud-sync-error": "6f32b89e",
   "/zh/guide/steam-game-not-launching": "845dc51d",
   "/zh/guide/verify-steam-files": "e508071a",
-  "/zh/pc/repair-or-replace": "061d3279"
+  "/zh/pc/repair-or-replace": "061d3279",
+  "/zh/tools/windows-diagnosis": "3837f981"
 };

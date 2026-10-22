@@ -1,3 +1,7 @@
+import {
+  windowsDiagnosisCopy,
+  windowsDiagnosisPath,
+} from '@/lib/windows-diagnosis-copy';
 import { gamesListPath } from '@/lib/i18n';
 /* oxlint-disable next/no-img-element -- Tiny static logo uses the same asset as the favicon. */
 import { Languages, Search } from 'lucide-react';
@@ -90,6 +94,9 @@ export function WikiHeader({
           locale === 'ja' ? 'メインナビゲーション' : ui[locale].mainNav
         }
       >
+        <a className="windows-nav-link" href={windowsDiagnosisPath(locale)}>
+          {windowsDiagnosisCopy[locale].label}
+        </a>
         <a href={gamesListPath(locale)}>{labels.games}</a>
         {locale === 'ja' ? <a href="/#symptoms">症状から探す</a> : null}
         {locale === 'ja' ? (

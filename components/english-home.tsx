@@ -1,4 +1,5 @@
 /* oxlint-disable next/no-html-link-for-pages -- Native navigation preserves existing search history. */
+import { WindowsDiagnosisEntry } from '@/components/windows-diagnosis-entry';
 import { ArrowRight, Wrench } from 'lucide-react';
 import { WikiHeader, WikiFooter } from './wiki-header';
 import { EnglishHomeSearch } from './english-home-search';
@@ -98,6 +99,7 @@ export function EnglishHome() {
             more.
           </p>
         </div>
+        <WindowsDiagnosisEntry locale="en" id="tools" />
         <EnglishHomeSearch entries={englishSearchEntries} />
         <p className="english-search-hint">
           Try “Wilds crash”, “Discord microphone” or “ST-3100001”.
@@ -203,24 +205,7 @@ export function EnglishHome() {
           ))}
         </div>
       </section>
-      <section
-        className="content english-home-diagnosis"
-        id="tools"
-        aria-labelledby="english-diagnosis-title"
-      >
-        <div>
-          <p className="kicker">NEED HELP NARROWING IT DOWN?</p>
-          <h2 id="english-diagnosis-title">Windows game diagnosis</h2>
-          <p>
-            Read the instructions before downloading the free Windows 11 x64
-            prototype. It helps organize checks; it does not guarantee a
-            diagnosis or a fix.
-          </p>
-        </div>
-        <a href="/en/tools/windows-diagnosis">
-          Read diagnosis instructions and download →
-        </a>
-      </section>
+
       <LatestArticles
         locale="en"
         allHref="/en/articles"

@@ -9,6 +9,9 @@ import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { languageAlternates } from '@/lib/localized/index';
 import { windowsDiagnosisRelease } from '@/lib/windows-diagnosis-release';
 
+import { LocalizedWindowsDiagnosis } from '@/components/localized-windows-diagnosis';
+import { windowsDiagnosisGuides } from '@/lib/windows-diagnosis-guide';
+
 const pagePath = '/tools/windows-diagnosis';
 const path = `/en${pagePath}`;
 const title = 'PC Game Diagnosis for Windows: download and English guide';
@@ -20,14 +23,37 @@ const release = windowsDiagnosisRelease?.languages.includes('en')
   : null;
 
 export function generateStaticParams() {
-  return [{ locale: 'en' }];
+  return ['en', 'zh', 'es'].map((locale) => ({ locale }));
 }
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  if ((await params).locale !== 'en') return {};
+  const { locale } = await params;
+  if (locale === 'zh' || locale === 'es') {
+    const t = windowsDiagnosisGuides[locale];
+    const url = `/${locale}${pagePath}`;
+    return {
+      title: { absolute: `${t.title} | Gemnao` },
+      description: t.description,
+      alternates: { canonical: url, languages: languageAlternates(pagePath) },
+      openGraph: {
+        title: t.title,
+        description: t.description,
+        url,
+        locale: locale === 'zh' ? 'zh_CN' : 'es_ES',
+        images: [ogImageFor(url)],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: t.title,
+        description: t.description,
+        images: [ogImageFor(url)],
+      },
+    };
+  }
+  if (locale !== 'en') return {};
   return {
     title: { absolute: `${title} | Gemnao` },
     description,
@@ -81,7 +107,10 @@ export default async function EnglishWindowsDiagnosis({
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  if ((await params).locale !== 'en') notFound();
+  const { locale } = await params;
+  if (locale === 'zh' || locale === 'es')
+    return <LocalizedWindowsDiagnosis locale={locale} />;
+  if (locale !== 'en') notFound();
   const siteUrl =
     process.env.NEXT_PUBLIC_SITE_URL || 'https://gemnao.pages.dev';
   const schema = {
@@ -228,6 +257,7 @@ export default async function EnglishWindowsDiagnosis({
           <h2 id="download-title">
             Windows x64 download · English and Japanese
           </h2>
+          <p className="download-caution"><strong>Unsigned prototype: the new version has not been tested on a real Windows PC. Do not disable security protections or bypass warnings to run it.</strong></p>
           {release ? (
             <>
               <a
@@ -498,10 +528,19 @@ export default async function EnglishWindowsDiagnosis({
           </p>
           <h3>Keep a short summary in your Web solution notebook</h3>
           <p>
-            <a href="/my#my-solutions" hrefLang="ja">My Page: diagnosis results and solution notes (Japanese)</a> lets you manually record symptoms, key findings, settings changed and results. It does not import raw logs or app history files, or send them automatically.
+            <a href="/my#my-solutions" hrefLang="ja">
+              My Page: diagnosis results and solution notes (Japanese)
+            </a>{' '}
+            lets you manually record symptoms, key findings, settings changed
+            and results. It does not import raw logs or app history files, or
+            send them automatically.
           </p>
           <p>
-            The linked page is in Japanese. No account is needed; notes stay in the same browser on the device where you enter them. They are separate from the Windows app history and do not sync automatically between PCs, phones or browsers. Clearing browser data can erase them. Back up important notes on My Page.
+            The linked page is in Japanese. No account is needed; notes stay in
+            the same browser on the device where you enter them. They are
+            separate from the Windows app history and do not sync automatically
+            between PCs, phones or browsers. Clearing browser data can erase
+            them. Back up important notes on My Page.
           </p>
           <h3>Diagnosis text and feedback JSON are different exports</h3>
           <p>
@@ -579,11 +618,12 @@ export default async function EnglishWindowsDiagnosis({
             </p>
             <p>
               The optional Steam-client check also works in the general profile
-              when Steam is selected. It requires separate consent and the
-              Steam executable you select. It checks the presence and Hidden attribute of six fixed
-              filenames under that installation, plus the locations of five
-              known DLL names in matching Steam processes. It does not read those files’ contents, process memory
-              or account data; unavailable results remain unknown.
+              when Steam is selected. It requires separate consent and the Steam
+              executable you select. It checks the presence and Hidden attribute
+              of six fixed filenames under that installation, plus the locations
+              of five known DLL names in matching Steam processes. It does not
+              read those files’ contents, process memory or account data;
+              unavailable results remain unknown.
             </p>
             <p>
               Limited CrashReport ZIP analysis temporarily decompresses dump

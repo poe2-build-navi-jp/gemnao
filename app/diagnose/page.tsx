@@ -1,4 +1,5 @@
 /* oxlint-disable next/no-html-link-for-pages -- Full document navigation isolates diagnostic pages from third-party scripts. */
+import { WindowsDiagnosisEntry } from '@/components/windows-diagnosis-entry';
 import type { Metadata } from 'next';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { DiagnosisWizard } from '@/components/diagnosis-wizard';
@@ -46,6 +47,7 @@ export default function DiagnosePage() {
             この診断は回答内容をもとに、確認する順番と、修理・部品交換・買い替えを比べる材料を整理します。すべて自己申告で、PC内部の自動検査や故障原因の確定は行いません。正常なPCの買い替えを前提にしません。
           </p>
         </header>
+        <WindowsDiagnosisEntry />
         <DiagnosisWizard gameNames={games.map((g) => g.title)} />
         <section className="diag-about">
           <h2>この診断で分かること</h2>

@@ -1,4 +1,5 @@
 'use client';
+import { WindowsDiagnosisEntry } from '@/components/windows-diagnosis-entry';
 import { WeeklyPeriodLabel } from './weekly-period-label';
 import { useSearchQuery } from './use-search-query';
 import { LatestArticles } from './latest-articles';
@@ -193,6 +194,7 @@ export function WikiHome({
             PCゲームのトラブルを症状から探せます。
           </p>
         </div>
+        {!isSearching ? <WindowsDiagnosisEntry /> : null}
         {isSearching ? (
           <h1 className="search-heading">ゲーム・症状から検索</h1>
         ) : null}

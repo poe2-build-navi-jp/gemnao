@@ -1,3 +1,4 @@
+import { WindowsDiagnosisEntry } from '@/components/windows-diagnosis-entry';
 import { EnglishHome } from './english-home';
 import { translatedCommonGuides } from '@/lib/localized/save-guides-zh-es';
 import { guideUi } from '@/lib/localized/guide-ui';
@@ -46,6 +47,7 @@ function ExistingLocalizedHome({ locale }: { locale: Locale }) {
           <p>{t.homeBody}</p>
           <p>{t.homeNote}</p>
         </div>
+        <WindowsDiagnosisEntry locale={locale} />
       </section>
       <div className="content report-entry-home">
         <ReportEntryLink prominent locale={locale} />

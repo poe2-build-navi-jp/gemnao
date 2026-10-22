@@ -166,7 +166,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
         updated: guide.checkedAt,
       })),
       { path: '/en/tools', updated: '2026-10-03' },
-      { path: '/en/tools/windows-diagnosis', updated: '2026-10-03' },
+      ...['en', 'zh', 'es'].map((locale) => ({
+        path: `/${locale}/tools/windows-diagnosis`,
+        updated: '2026-10-22',
+      })),
     ].map(({ path, updated }) => ({
       url: `${base}${path}`,
       lastModified: new Date(updated),
