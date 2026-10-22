@@ -51,6 +51,20 @@ const store = (appId: string): LocalizedHub['sources'][number] => ({
 
 export const localizedHubs: Record<string, LocalizedHub> = {
   ...remainingHubsEn,
+  'planet-zoo-2': {
+    focused: true,
+    noindex: true,
+    names: { en: 'Planet Zoo 2' },
+    title: { en: 'Planet Zoo 2: Crashes and Autosave Issues' },
+    checkedAt: '2026-10-22',
+    lead: { en: 'Find the official manual-save advice and the investigation status for animal-release crashes and autosave failures after hub transitions.' },
+    intro: { en: 'The Steam store lists an October 13, 2026 release. The October 20 investigation list describes fixes being tested; it is separate from the October 16 update 1.0.5. Choose the guide below to protect saved progress and check the current release status.' },
+    checklist: { en: ['Save manually and often.', 'Load from My Saves on the main menu.', 'Check released patch notes against your installed version.'] },
+    sources: [
+      { label: { en: 'Official Steam announcements: October 20 investigation and October 16 update' }, url: 'https://steamcommunity.com/app/3219030/allnews/' },
+      { label: { en: 'Steam store: title and release date' }, url: 'https://store.steampowered.com/app/3219030/' },
+    ],
+  },
   ...competitiveLocalizedHubs,
   ...launchLocalizedHubs,
   'arc-raiders': arcRaidersLocalizedHub,

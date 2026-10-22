@@ -1,3 +1,4 @@
+import { octoberStabilityArticlesEn } from '@/lib/october-stability-articles';
 import { remainingPagesEn } from './remaining-pages-en';
 import { finalGamesEn } from '@/lib/localized/final-games-en';
 import { aionGearsEn } from '@/lib/localized/aion-gears-en';
@@ -74,6 +75,7 @@ export const localizedArticles: LocalizedArticle[] = [
   ...eldenBacklogEn,
   ...palworldBackupEn,
   ...followupLocalizedArticles,
+  ...octoberStabilityArticlesEn,
   ...arcRaidersLocalizedArticles,
   ...nightreignLocalizedArticles,
   ...marvelRivalsLocalizedArticles,

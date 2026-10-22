@@ -1,0 +1,74 @@
+[
+  {
+    "path": "/games/ace-combat-8/crashing-memory",
+    "width": 375,
+    "status": 200,
+    "overflow": false,
+    "screenshot": "games-ace-combat-8-crashing-memory-375.png"
+  },
+  {
+    "path": "/games/planet-zoo-2/crashing-autosave",
+    "width": 375,
+    "status": 200,
+    "overflow": false,
+    "screenshot": "games-planet-zoo-2-crashing-autosave-375.png"
+  },
+  {
+    "path": "/en/games/ace-combat-8/crashing-memory",
+    "width": 375,
+    "status": 200,
+    "overflow": false,
+    "screenshot": "en-games-ace-combat-8-crashing-memory-375.png"
+  },
+  {
+    "path": "/en/games/planet-zoo-2/crashing-autosave",
+    "width": 375,
+    "status": 200,
+    "overflow": false,
+    "screenshot": "en-games-planet-zoo-2-crashing-autosave-375.png"
+  },
+  {
+    "width": 375,
+    "runtimeErrors": [],
+    "assetsChecked": 161,
+    "assetStatuses": [
+      200
+    ]
+  },
+  {
+    "path": "/games/ace-combat-8/crashing-memory",
+    "width": 1440,
+    "status": 200,
+    "overflow": false,
+    "screenshot": "games-ace-combat-8-crashing-memory-1440.png"
+  },
+  {
+    "path": "/games/planet-zoo-2/crashing-autosave",
+    "width": 1440,
+    "status": 200,
+    "overflow": false,
+    "screenshot": "games-planet-zoo-2-crashing-autosave-1440.png"
+  },
+  {
+    "path": "/en/games/ace-combat-8/crashing-memory",
+    "width": 1440,
+    "status": 200,
+    "overflow": false,
+    "screenshot": "en-games-ace-combat-8-crashing-memory-1440.png"
+  },
+  {
+    "path": "/en/games/planet-zoo-2/crashing-autosave",
+    "width": 1440,
+    "status": 200,
+    "overflow": false,
+    "screenshot": "en-games-planet-zoo-2-crashing-autosave-1440.png"
+  },
+  {
+    "width": 1440,
+    "runtimeErrors": [],
+    "assetsChecked": 161,
+    "assetStatuses": [
+      200
+    ]
+  }
+]

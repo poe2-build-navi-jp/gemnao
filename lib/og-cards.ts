@@ -1,3 +1,4 @@
+import { octoberStabilityArticlesEn } from '@/lib/october-stability-articles';
 import { englishHomeCopy, englishDirectoryCopy } from '@/lib/localized/home-copy-en';
 import { remainingPagesEn } from '@/lib/localized/remaining-pages-en';
 import { finalGamesEn } from '@/lib/localized/final-games-en';
@@ -317,6 +318,7 @@ export function ogCardSpecs(): OgCardSpec[] {
       ...discordListeningSpeechEn,
       ...discordRecommendedBotsEn,
       ...followupLocalizedArticles,
+  ...octoberStabilityArticlesEn,
     ].map((article) => ({
       path:
         article.gameSlug === 'discord'
@@ -339,6 +341,7 @@ export function ogCardSpecs(): OgCardSpec[] {
     ...[
       'aniimo',
       'ace-combat-8',
+      'planet-zoo-2',
       'star-wars-zero-company',
       'the-blood-of-dawnwalker',
     ].map((gameSlug) => ({
@@ -379,6 +382,7 @@ export function ogCardSpecs(): OgCardSpec[] {
           ...nightreignLocalizedArticles,
           ...marvelRivalsLocalizedArticles,
           ...followupLocalizedArticles,
+  ...octoberStabilityArticlesEn,
         ]
           .filter(
             (article) =>

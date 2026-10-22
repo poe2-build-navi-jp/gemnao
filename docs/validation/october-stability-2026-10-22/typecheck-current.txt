@@ -1,0 +1,19 @@
+playwright.diagnosis.config.ts(1,30): error TS2307: Cannot find module '@playwright/test' or its corresponding type declarations.
+tests/diagnosis/browser.spec.ts(1,41): error TS2307: Cannot find module '@playwright/test' or its corresponding type declarations.
+tests/diagnosis/browser.spec.ts(4,26): error TS7031: Binding element 'page' implicitly has an 'any' type.
+tests/diagnosis/browser.spec.ts(5,48): error TS7006: Parameter 'route' implicitly has an 'any' type.
+tests/diagnosis/browser.spec.ts(36,121): error TS7031: Binding element 'page' implicitly has an 'any' type.
+tests/diagnosis/browser.spec.ts(38,23): error TS7006: Parameter 'request' implicitly has an 'any' type.
+tests/diagnosis/browser.spec.ts(49,100): error TS7031: Binding element 'page' implicitly has an 'any' type.
+tests/diagnosis/browser.spec.ts(50,31): error TS7031: Binding element 'version' implicitly has an 'any' type.
+tests/diagnosis/browser.spec.ts(66,90): error TS7031: Binding element 'page' implicitly has an 'any' type.
+tests/diagnosis/browser.spec.ts(76,98): error TS7031: Binding element 'page' implicitly has an 'any' type.
+tests/diagnosis/browser.spec.ts(95,109): error TS7031: Binding element 'page' implicitly has an 'any' type.
+tests/diagnosis/browser.spec.ts(97,23): error TS7006: Parameter 'request' implicitly has an 'any' type.
+tests/diagnosis/browser.spec.ts(127,99): error TS7031: Binding element 'page' implicitly has an 'any' type.
+tests/diagnosis/browser.spec.ts(137,88): error TS7031: Binding element 'page' implicitly has an 'any' type.
+tests/diagnosis/browser.spec.ts(138,31): error TS7031: Binding element 'version' implicitly has an 'any' type.
+tests/diagnosis/browser.spec.ts(148,128): error TS7031: Binding element 'page' implicitly has an 'any' type.
+tests/diagnosis/browser.spec.ts(159,100): error TS7031: Binding element 'page' implicitly has an 'any' type.
+tests/diagnosis/browser.spec.ts(159,106): error TS7031: Binding element 'request' implicitly has an 'any' type.
+tests/diagnosis/browser.spec.ts(178,107): error TS7031: Binding element 'page' implicitly has an 'any' type.

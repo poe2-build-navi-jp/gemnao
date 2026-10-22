@@ -18,12 +18,14 @@ export const aceCombatLaunchArticles: LocalizedArticle[] = [
   {
     ...common,
     locale: 'en',
+    checkedAt: '2026-10-22',
     title:
       'ACE COMBAT 8 Not Launching or Crashing on PC: Requirements and Official Checks',
     shortTitle: 'Not launching or crashing',
     nextChecks: {
       heading: 'The game starts, but controls, video or audio fail',
       links: [
+        { href: '/en/games/ace-combat-8/crashing-memory', label: 'Gameplay crashes: memory guidance and the planned update' },
         { href: '/en/games/ace-combat-8/hotas-not-recognized', label: 'HOTAS or flight stick not responding' },
         { href: '/en/games/ace-combat-8/stutter-audio-cutting-out', label: 'Stutter or audio cuts during play' },
       ],
@@ -32,9 +34,9 @@ export const aceCombatLaunchArticles: LocalizedArticle[] = [
       'Check Windows 11, hardware ray tracing, SSD space and the publisher’s driver and virtual-memory advice. Separate launch crashes from ST-3100001 online disconnections.',
     lead: 'For the PC/Steam version failing to start, closing at launch, getting stuck loading or crashing in flight. These are source-based checks, not fixes verified on our own gaming PC.',
     summary:
-      'Check the minimum requirements first: Windows 11, an SSD, a hardware ray tracing GPU and DirectX 12 with Shader Model 6.6. For a PC that meets them, the September 29 publisher notice recommends the driver indicated at launch, at least 16 GB free on the installation SSD, and enabled Windows virtual memory. Change one condition at a time and repeat the same scene. ST-3100001 is a separate online connection check.',
+      'Check the minimum requirements first: Windows 11, an SSD, a hardware ray tracing GPU and DirectX 12 with Shader Model 6.6. For a PC that meets them, the September 29 publisher notice recommends the driver indicated at launch, at least 16 GB free on the installation SSD, and enabled Windows virtual memory. For crashes after launch, use the related memory guide covering the October 16 notice. Version 1.01.002 is planned for October 23; it is not yet a released fix at this review date. ST-3100001 is a separate connection check.',
     sourcePolicy:
-      'Requirements and the September 29–October 2, 2026 notices were rechecked on October 4. The publisher was investigating crashes in those notices; these checks are not a universal fix or evidence that a later update solved them. File verification and one-at-a-time comparisons are general troubleshooting, not confirmed causes for your PC. Follow newer publisher guidance.',
+      'Requirements and the September 29–October 2, 2026 notices were reviewed on October 4. The October 16 memory notice and October 20 update preview were checked on October 22. The Steam store lists October 1, 2026 as the release date; regional listings may differ. The publisher was investigating crashes in those notices; these checks are not a universal fix or evidence that a later update solved them. File verification and one-at-a-time comparisons are general troubleshooting, not confirmed causes for your PC. Follow newer publisher guidance.',
     quickFacts: [
       {
         label: 'Required',
@@ -153,8 +155,9 @@ export const aceCombatLaunchArticles: LocalizedArticle[] = [
       {
         id: 'step-6',
         title: 'Check virtual memory and in-flight load',
+        guideLink: { href: '/en/games/ace-combat-8/crashing-memory', label: 'October 16 memory guidance and the planned update' },
         summary:
-          'The publisher recommends enabled virtual memory. Lower graphics load is a comparison, not a proven diagnosis.',
+          'See the related guide for the newer October 16 memory guidance. Lower graphics load is a general comparison, not a proven diagnosis.',
         time: 'About 5 minutes',
         risk: 'low',
         actions: [
@@ -206,6 +209,7 @@ export const aceCombatLaunchArticles: LocalizedArticle[] = [
       },
     ],
     related: [
+      { href: '/en/games/ace-combat-8/crashing-memory', label: 'Gameplay crashes and memory guidance' },
       { href: '/en/games/ace-combat-8/hotas-not-recognized', label: 'HOTAS and flight-stick checks' },
       { href: '/en/games/ace-combat-8/stutter-audio-cutting-out', label: 'Stutter and audio cuts during play' },
       {

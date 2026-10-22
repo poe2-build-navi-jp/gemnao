@@ -7,6 +7,7 @@ export const aceCombatPerformanceGuide: FollowupGuide = {
   category: 'display',
   checkedAt: '2026-10-16',
   relatedSlugs: [
+    'crashing-memory',
     'not-launching',
     'hotas-not-recognized',
     'error-st-3100001',
@@ -344,6 +345,7 @@ export const aceCombatPerformanceGuide: FollowupGuide = {
         },
       ],
       related: [
+        { href: '/en/games/ace-combat-8/crashing-memory', label: 'Gameplay crashes and memory guidance' },
         {
           href: '/en/games/ace-combat-8/not-launching',
           label: 'Not launching or crashing',

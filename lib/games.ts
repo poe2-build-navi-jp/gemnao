@@ -36,6 +36,50 @@ const pcgw = (path: string) => `https://www.pcgamingwiki.com/wiki/${path}`;
 const steam = (id: string) => `https://store.steampowered.com/app/${id}`;
 
 export const games: GameGuide[] = [
+{
+  "slug": "planet-zoo-2",
+  "title": "Planet Zoo 2",
+  "shortTitle": "Planet Zoo 2",
+  "hubTitle": "Planet Zoo 2のクラッシュ・オートセーブ不具合",
+  "lead": "動物解放時に落ちる、ハブ移動後にオートセーブされない時の案内。10月20日の修正テストと配信済み更新を分け、手動保存とMy Savesの公式回避策を確認します。",
+  "accent": "#388464",
+  "demand": "Steamストア掲載の発売日：2026年10月13日",
+  "updated": "2026-10-22",
+  "tags": [
+    "クラッシュ",
+    "オートセーブ",
+    "動物解放"
+  ],
+  "focused": true,
+  "savePath": "",
+  "configPath": "",
+  "fps": "",
+  "ultrawide": "",
+  "hdr": "",
+  "controller": "",
+  "launchFixes": [
+    "手動保存をこまめに行う",
+    "メインメニューのMy Savesからロードする",
+    "修正テスト中の項目と実際の配信版を照合する"
+  ],
+  "mod": "",
+  "japanese": "日本語のインターフェース・字幕・音声に対応（Steamストア）。",
+  "specs": {
+    "minimum": "最新のSteamストアで確認",
+    "recommended": "最新のSteamストアで確認",
+    "storage": "最新のSteamストアで確認"
+  },
+  "sources": [
+    {
+      "label": "公式Steam告知：10月20日 Under Investigation／10月16日1.0.5",
+      "url": "https://steamcommunity.com/app/3219030/allnews/"
+    },
+    {
+      "label": "Steamストア：正式名・発売日",
+      "url": "https://store.steampowered.com/app/3219030/"
+    }
+  ]
+},
   ...competitiveGameGuides,
   ...launchGameGuides,
   arcRaidersGuide,
@@ -772,9 +816,9 @@ export const games: GameGuide[] = [
     title:
       'エースコンバット8 ウイングス・オブ・シーヴ（ACE COMBAT 8: WINGS OF THEVE）',
     shortTitle: 'エースコンバット8',
-    lead: 'PC版の起動不良・ST-3100001に加え、HOTASの認識、プレイ中のカクつき・音切れを症状別に案内。公式の要件・機種別手順と利用者報告を区別し、次に確かめる場所を絞ります。',
+    lead: 'PC版の起動不良・ST-3100001に加え、メモリ関連クラッシュ、HOTASの認識、プレイ中のカクつき・音切れを症状別に案内。公式の要件・機種別手順と利用者報告を区別し、次に確かめる場所を絞ります。',
     accent: '#2f5d73',
-    demand: '2026年10月2日発売・9月29日アーリーアクセス',
+    demand: 'Steamストア掲載の発売日：2026年10月1日（地域・時差に注意）',
     issueScale: '高い',
     updated: '2026-09-28',
     tags: [
