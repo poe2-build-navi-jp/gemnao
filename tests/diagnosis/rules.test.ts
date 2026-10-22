@@ -335,7 +335,7 @@ void test('new UI has no event or GA emitters even under future runtime flags', 
   const report = readFileSync('components/diagnosis-repair-report.tsx', 'utf8');
   for (const forbidden of ['fetch(', 'diagnosisRequest(', 'metric(', 'gtag(']) assert.ok(!report.includes(forbidden), forbidden);
   assert.match(report, /if \(!confirmed\) return;/);
-  assert.match(report, /disabled=\{!confirmed\}/);
+  assert.match(report, /disabled=\{!confirmed \|\| busy\}/);
   assert.match(wizard, /DiagnosisRepairReport key=\{report\}/);
 });
 

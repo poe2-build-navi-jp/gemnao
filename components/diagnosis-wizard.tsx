@@ -27,6 +27,7 @@ import { DiagnosisResultView, DiagnosisSummary } from './diagnosis-result';
 import { repairDecision } from '@/lib/diagnosis/decision';
 import { buildRepairReport } from '@/lib/diagnosis/report';
 import { DiagnosisRepairReport } from './diagnosis-repair-report';
+import { consultationSummary } from '@/lib/diagnosis/consultation';
 import { DiagnosisShare } from './diagnosis-share';
 import { readPendingShare, type PendingShare } from '@/lib/diagnosis/pending-share';
 function TriedActionField({
@@ -304,7 +305,7 @@ export function DiagnosisWizard({ gameNames }: { gameNames: string[] }) {
               );
             }}
           />
-          <DiagnosisRepairReport key={report} report={report} />
+          <DiagnosisRepairReport key={report} report={report} summary={consultationSummary(data.answers, data.tried, data.results)} />
           {Object.keys(data.tried).length > 0 && (
             <details>
               <summary>診断前に試した対処</summary>
