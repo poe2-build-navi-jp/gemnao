@@ -1,3 +1,4 @@
+import { ArticleEvidence } from '@/components/article-evidence';
 import { ClockSyncFirst } from '@/components/clock-sync-first';
 import { DiscordBotComparison, DiscordBotRecommendations } from '@/components/discord-bot-recommendations';
 import { EnglishDiscordRtcMemo } from '@/components/english-discord-rtc-memo';
@@ -238,6 +239,7 @@ export function LocalizedArticle({
             article.slug === 'error-st-3100001' && (
               <AceCombatNoticeHistory locale="en" />
             )}
+          <ArticleEvidence path={originalPath} locale={locale} />
           <ReportedCaseLink articlePath={originalPath} locale={locale} />
           {!isDiscord && (
             <ReportEntryLink articlePath={originalPath} locale={locale} />

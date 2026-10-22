@@ -1,3 +1,4 @@
+import { ArticleEvidence } from '@/components/article-evidence';
 import { ClockSyncFirst } from '@/components/clock-sync-first';
 import { AceCombatNoticeHistory } from '@/components/ace-combat-notice-history';
 import { ReportedCaseLink } from '@/components/reported-case';
@@ -314,6 +315,7 @@ export function TroubleshootingArticle({
               </ul>
             </section>
           ) : null}
+          <ArticleEvidence path={`/games/${game.slug}/${article.slug}`} />
           <ReportedCaseLink
             articlePath={`/games/${game.slug}/${article.slug}`}
           />
