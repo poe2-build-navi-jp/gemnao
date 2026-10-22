@@ -1,3 +1,4 @@
+import { gearsWardogsArticles } from '@/lib/gears-wardogs-articles';
 import { octoberStabilityArticles } from '@/lib/october-stability-articles';
 import { arcRaidersArticles } from '@/lib/arc-raiders';
 import { nightreignArticles } from '@/lib/nightreign';
@@ -978,6 +979,7 @@ export const gameArticles: GameArticle[] = [
   ...monsterHunterArticles,
   ...followupGameArticles,
   ...octoberStabilityArticles,
+  ...gearsWardogsArticles,
   ...originalGameArticles,
   ...eldenArticles,
   ...currentGameArticles,

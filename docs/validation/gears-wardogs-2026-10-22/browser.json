@@ -1,0 +1,186 @@
+[
+  {
+    "path": "/games/gears-of-war-e-day/achievements-rewards",
+    "width": 375,
+    "status": 200,
+    "overflow": false,
+    "screenshot": "games-gears-of-war-e-day-achievements-rewards-375.png"
+  },
+  {
+    "path": "/games/wardogs/error-wd-l020",
+    "width": 375,
+    "status": 200,
+    "overflow": false,
+    "screenshot": "games-wardogs-error-wd-l020-375.png"
+  },
+  {
+    "path": "/en/games/gears-of-war-e-day/achievements-rewards",
+    "width": 375,
+    "status": 200,
+    "overflow": false,
+    "screenshot": "en-games-gears-of-war-e-day-achievements-rewards-375.png"
+  },
+  {
+    "path": "/en/games/wardogs/error-wd-l020",
+    "width": 375,
+    "status": 200,
+    "overflow": false,
+    "screenshot": "en-games-wardogs-error-wd-l020-375.png"
+  },
+  {
+    "path": "/games/gears-of-war-e-day/not-launching",
+    "width": 375,
+    "status": 200,
+    "overflow": false,
+    "screenshot": null
+  },
+  {
+    "path": "/en/games/gears-of-war-e-day/not-launching",
+    "width": 375,
+    "status": 200,
+    "overflow": false,
+    "screenshot": null
+  },
+  {
+    "path": "/games/wardogs/server-connection",
+    "width": 375,
+    "status": 200,
+    "overflow": false,
+    "screenshot": null
+  },
+  {
+    "path": "/en/games/wardogs/server-connection",
+    "width": 375,
+    "status": 200,
+    "overflow": false,
+    "screenshot": null
+  },
+  {
+    "path": "/games/gears-of-war-e-day",
+    "width": 375,
+    "status": 200,
+    "overflow": false,
+    "screenshot": null
+  },
+  {
+    "path": "/en/games/gears-of-war-e-day",
+    "width": 375,
+    "status": 200,
+    "overflow": false,
+    "screenshot": null
+  },
+  {
+    "path": "/games/wardogs",
+    "width": 375,
+    "status": 200,
+    "overflow": false,
+    "screenshot": null
+  },
+  {
+    "path": "/en/games/wardogs",
+    "width": 375,
+    "status": 200,
+    "overflow": false,
+    "screenshot": null
+  },
+  {
+    "width": 375,
+    "runtimeErrors": [],
+    "assetsChecked": 404,
+    "assetStatuses": [
+      200
+    ]
+  },
+  {
+    "path": "/games/gears-of-war-e-day/achievements-rewards",
+    "width": 1440,
+    "status": 200,
+    "overflow": false,
+    "screenshot": "games-gears-of-war-e-day-achievements-rewards-1440.png"
+  },
+  {
+    "path": "/games/wardogs/error-wd-l020",
+    "width": 1440,
+    "status": 200,
+    "overflow": false,
+    "screenshot": "games-wardogs-error-wd-l020-1440.png"
+  },
+  {
+    "path": "/en/games/gears-of-war-e-day/achievements-rewards",
+    "width": 1440,
+    "status": 200,
+    "overflow": false,
+    "screenshot": "en-games-gears-of-war-e-day-achievements-rewards-1440.png"
+  },
+  {
+    "path": "/en/games/wardogs/error-wd-l020",
+    "width": 1440,
+    "status": 200,
+    "overflow": false,
+    "screenshot": "en-games-wardogs-error-wd-l020-1440.png"
+  },
+  {
+    "path": "/games/gears-of-war-e-day/not-launching",
+    "width": 1440,
+    "status": 200,
+    "overflow": false,
+    "screenshot": null
+  },
+  {
+    "path": "/en/games/gears-of-war-e-day/not-launching",
+    "width": 1440,
+    "status": 200,
+    "overflow": false,
+    "screenshot": null
+  },
+  {
+    "path": "/games/wardogs/server-connection",
+    "width": 1440,
+    "status": 200,
+    "overflow": false,
+    "screenshot": null
+  },
+  {
+    "path": "/en/games/wardogs/server-connection",
+    "width": 1440,
+    "status": 200,
+    "overflow": false,
+    "screenshot": null
+  },
+  {
+    "path": "/games/gears-of-war-e-day",
+    "width": 1440,
+    "status": 200,
+    "overflow": false,
+    "screenshot": null
+  },
+  {
+    "path": "/en/games/gears-of-war-e-day",
+    "width": 1440,
+    "status": 200,
+    "overflow": false,
+    "screenshot": null
+  },
+  {
+    "path": "/games/wardogs",
+    "width": 1440,
+    "status": 200,
+    "overflow": false,
+    "screenshot": null
+  },
+  {
+    "path": "/en/games/wardogs",
+    "width": 1440,
+    "status": 200,
+    "overflow": false,
+    "screenshot": null
+  },
+  {
+    "width": 1440,
+    "runtimeErrors": [],
+    "assetsChecked": 404,
+    "assetStatuses": [
+      200
+    ]
+  }
+]

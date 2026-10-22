@@ -51,6 +51,26 @@ const store = (appId: string): LocalizedHub['sources'][number] => ({
 
 export const localizedHubs: Record<string, LocalizedHub> = {
   ...remainingHubsEn,
+  'gears-of-war-e-day': {
+    focused: true,
+    names: { en: 'Gears of War: E-Day' },
+    title: { en: 'Gears of War: E-Day: Launch Problems and Missing Rewards' },
+    checkedAt: '2026-10-22',
+    lead: { en: 'Choose launch and crash checks, or help with missing campaign achievements, collectibles and rewards.' },
+    intro: { en: 'The October 14 patch lists tracking fixes alongside a remaining achievement and reward issue. The launch guide preserves its earlier requirements review; the rewards guide explains the newer patch and safe replay precautions.' },
+    checklist: { en: ['Identify whether the game cannot launch or progress is missing.', 'Separate achievements, collectibles and completion rewards.', 'Protect existing progress before considering replay.', 'Record unresolved cases for official support.'] },
+    sources: [{ label: { en: 'Official October 14 patch notes' }, url: 'https://www.gearsofwar.com/en-us/news/oct-14-patch-notes/' }],
+  },
+  wardogs: {
+    focused: true,
+    names: { en: 'WARDOGS' },
+    title: { en: 'WARDOGS: WD-L020, Login and Server Connection Help' },
+    checkedAt: '2026-10-22',
+    lead: { en: 'Separate a WD-L020 launch error from queues, sign-in failures and server disconnects.' },
+    intro: { en: 'Start with released game updates, then choose the relevant symptom. The earlier Windows-related fix and Season 2 connection changes do not establish a live outage or guarantee that every later error is resolved.' },
+    checklist: { en: ['Record the exact code and stage of failure.', 'Install released client updates before comparing.', 'Check current notices and server filters for connection failures.', 'Keep Windows security and anti-cheat protection enabled.'] },
+    sources: [{ label: { en: 'Official Steam updates and release history' }, url: 'https://steamcommunity.com/app/1867240/allnews/' }],
+  },
   'planet-zoo-2': {
     focused: true,
     noindex: true,

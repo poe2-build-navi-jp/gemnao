@@ -1,3 +1,4 @@
+import { gearsWardogsArticlesEn } from '@/lib/gears-wardogs-articles';
 import { octoberStabilityArticlesEn } from '@/lib/october-stability-articles';
 import { remainingPagesEn } from './remaining-pages-en';
 import { finalGamesEn } from '@/lib/localized/final-games-en';
@@ -76,6 +77,7 @@ export const localizedArticles: LocalizedArticle[] = [
   ...palworldBackupEn,
   ...followupLocalizedArticles,
   ...octoberStabilityArticlesEn,
+  ...gearsWardogsArticlesEn,
   ...arcRaidersLocalizedArticles,
   ...nightreignLocalizedArticles,
   ...marvelRivalsLocalizedArticles,

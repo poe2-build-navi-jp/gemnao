@@ -1,3 +1,4 @@
+import { gearsWardogsArticlesEn } from '@/lib/gears-wardogs-articles';
 import { octoberStabilityArticlesEn } from '@/lib/october-stability-articles';
 import { englishHomeCopy, englishDirectoryCopy } from '@/lib/localized/home-copy-en';
 import { remainingPagesEn } from '@/lib/localized/remaining-pages-en';
@@ -319,6 +320,7 @@ export function ogCardSpecs(): OgCardSpec[] {
       ...discordRecommendedBotsEn,
       ...followupLocalizedArticles,
   ...octoberStabilityArticlesEn,
+  ...gearsWardogsArticlesEn,
     ].map((article) => ({
       path:
         article.gameSlug === 'discord'
@@ -342,6 +344,8 @@ export function ogCardSpecs(): OgCardSpec[] {
       'aniimo',
       'ace-combat-8',
       'planet-zoo-2',
+      'gears-of-war-e-day',
+      'wardogs',
       'star-wars-zero-company',
       'the-blood-of-dawnwalker',
     ].map((gameSlug) => ({

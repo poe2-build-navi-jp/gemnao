@@ -1,0 +1,3 @@
+Prepared editorial HTML snapshots: 621 (dynamic routes excluded)
+Generated sitemap: 603 URLs
+Generated image sitemap: 21 pages
