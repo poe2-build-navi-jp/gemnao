@@ -86,6 +86,7 @@ export const articleStepEndpoints: Record<
     'step-5': launch,
     'step-6': { symptom: 'アカウントの電話番号確認' },
   },
+  'call-of-duty-modern-warfare-4/crash': { 'step-5': connection },
   'dragon-quest-monsters-4/demo-transfer': {
     'step-3': save,
     'step-4': content,

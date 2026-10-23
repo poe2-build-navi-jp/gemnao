@@ -34,6 +34,24 @@ const sources = {
     label: 'Microsoft公式：MBR2GPT（MBRからGPTへの変換）',
     url: 'https://learn.microsoft.com/ja-jp/windows/deployment/mbr-to-gpt',
   },
+  crashes: {
+    label:
+      'Activision公式サポート：Modern Warfare 4のクラッシュ・フリーズ（英語・10月16日更新）',
+    url: 'https://support.activision.com/modern-warfare-4/articles/crashes-or-game-freezes-in-modern-warfare-4',
+  },
+  knownIssues: {
+    label:
+      'Activision公式サポート：Modern Warfare 4の既知の不具合（英語・10月22日更新）',
+    url: 'https://support.activision.com/modern-warfare-4/articles/known-issues-in-modern-warfare-4',
+  },
+  launchPatch: {
+    label: 'Call of Duty公式：Modern Warfare 4 発売時のパッチノート（英語）',
+    url: 'https://www.callofduty.com/patchnotes/2026/10/call-of-duty-modern-warfare-4-launch-patch-notes',
+  },
+  connecting: {
+    label: 'Activision公式サポート：Modern Warfare 4に接続できない時（英語）',
+    url: 'https://support.activision.com/modern-warfare-4/articles/connecting-to-modern-warfare-4',
+  },
 };
 
 const biosEntry =
@@ -259,6 +277,224 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
     related: [],
     metaDescription:
       'CoD MW4（Modern Warfare 4）がPCで起動しない・遊べない時の対処法。必須のTPM 2.0とセキュアブートの確認（tpm.msc・msinfo32）とBIOSでの有効化、MBR形式の場合、UACの確認、Activisionなど対象アカウントの電話番号認証まで公式の案内をもとに解説。',
+  },
+  {
+    gameSlug: 'call-of-duty-modern-warfare-4',
+    slug: 'crash',
+    category: 'launch',
+    seoTitle:
+      'CoD MW4がPCで落ちる・クラッシュする時の対処法｜推奨ドライバーと既知の不具合',
+    title:
+      'CoD MW4（Modern Warfare 4）がPCで落ちる・クラッシュする・キャンペーンやDMZを起動できない時の対処法【PC版】',
+    shortTitle: '落ちる・クラッシュ',
+    checkedAt: '2026-10-23',
+    status: 'verified',
+    targetVersion:
+      'Steam版・Battle.net版・XBOX on PC版。2026年10月23日（発売日）に公式サポートの本文を確認',
+    symptom:
+      'PC版で起動直後やマルチプレイ中に落ちる、フリーズする、XBOX on PC版でキャンペーンやDMZを起動するボタンが出ない場合の確認手順です。',
+    conclusion:
+      'Activision公式は、PCのクラッシュは起動時と公開マッチのマルチプレイ中に起きやすいと説明しています。まず公式の推奨ドライバー（NVIDIA 616.56、AMD 26.7.1、Intel 32.0.101.8974）に合わせ、録画ソフト・オーバーレイ・キー割り当てソフトを終了します。それでも落ちる場合は、公式が案内しているとおり、これらのソフトのアンインストールを試します。XBOX on PC版でキャンペーンやDMZのボタンが出ない問題は公式が調査中で、「Content Pack 1」の導入とMicrosoft Storeのデバイス数（上限10台）の確認が案内されています。',
+    description:
+      'TPM 2.0やセキュアブートの要件を満たしていない場合は、落ちるのではなくオンラインモードに入れません。その場合は「TPM 2.0とセキュアブート」の記事を先に確認してください。この記事は、要件を満たしたうえで落ちる・止まる場合が対象です。',
+    causes: [
+      'GPUドライバーが公式の推奨バージョンと違う',
+      '録画ソフト・オーバーレイ・キー割り当て（入力リマップ）ソフトとの競合（起動していなくても影響する場合がある）',
+      'PCが動作環境を満たしていない（AVX命令に対応したIntel・AMDのCPUのみ対応、Intel ArcはResizable BARが必要）',
+      'PCやノートPCの熱',
+      'XBOX on PC版で「Content Pack 1」が入っていない、Microsoft Storeのデバイス数が上限',
+    ],
+    quickFacts: [
+      {
+        label: '推奨GPUドライバー（公式）',
+        value: 'NVIDIA 616.56・AMD 26.7.1・Intel 32.0.101.8974',
+      },
+      {
+        label: '落ちやすい場面（公式）',
+        value: 'ゲームの起動時と、公開マッチのマルチプレイ中',
+      },
+      {
+        label: 'CPUの条件',
+        value: 'AVX命令に対応したIntel・AMDのCPUのみ',
+      },
+      {
+        label: '空き容量',
+        value: 'SSDに115GB以上（発売時点。アップデートで増える場合あり）',
+      },
+      {
+        label: 'クラッシュの報告',
+        value: '公式の「Call of Duty PC Crash Report」から送れる',
+      },
+    ],
+    diagnosis: [
+      {
+        symptom: '起動直後やマッチ中に落ちる・固まる',
+        cause: 'GPUドライバーのバージョン',
+        stepId: 'step-1',
+      },
+      {
+        symptom: '録画・配信・オーバーレイのソフトを使っている',
+        cause: '他のソフトとの競合',
+        stepId: 'step-2',
+      },
+      {
+        symptom: '古いCPU・Intel Arc・ノートPCで落ちる',
+        cause: '動作環境・熱',
+        stepId: 'step-3',
+      },
+      {
+        symptom: 'XBOX on PC版でキャンペーン・DMZのボタンがない',
+        cause: 'Content Pack 1・デバイス数',
+        stepId: 'step-4',
+      },
+      {
+        symptom: 'オンラインにつながらない・切断される',
+        cause: 'サーバーの状況・回線',
+        stepId: 'step-5',
+      },
+      {
+        symptom: 'ロードアウトが保存できない・戦績が表示されない',
+        cause: '公式が調査中の既知の不具合',
+        stepId: 'step-6',
+      },
+    ],
+    steps: [
+      {
+        id: 'step-1',
+        title: 'GPUドライバーを公式の推奨バージョンにする',
+        summary:
+          'Activision公式の動作環境ページに、Modern Warfare 4の推奨ドライバーが載っています。画面の不具合や落ちる場合は、まずこのバージョンに合わせます。',
+        time: '約10分',
+        risk: 'low',
+        actions: [
+          'NVIDIA：616.56（公式ページには、10月21日に対応ドライバーが公開されると記載）',
+          'AMD：26.7.1',
+          'Intel：32.0.101.8974',
+          'ドライバーはNVIDIA・AMD・Intelの公式サイトか、各社の公式アプリから入手する',
+          'Windowsも最新の状態にする（Windows Update）。試用版・ベータ版・Insider版のWindowsは対象外の場合がある',
+        ],
+      },
+      {
+        id: 'step-2',
+        title: '録画ソフト・オーバーレイ・キー割り当てソフトを止める',
+        summary:
+          '公式は、入力のリマップソフト、オーバーレイ、録画ソフトなどが、起動していなくてもゲームの起動やプレイを妨げる場合があると案内しています。',
+        time: '約10分',
+        risk: 'low',
+        actions: [
+          'バックグラウンドで動いているアプリをすべて終了してから起動する',
+          'それでも落ちる場合は、録画ソフト・オーバーレイ・キー割り当てソフトのアンインストールを試す（公式の案内）',
+        ],
+        note: '公式はこれらのソフトについて「Call of Duty セキュリティ・不正対策ポリシー」もあわせて確認するよう案内しています。',
+      },
+      {
+        id: 'step-3',
+        title: '動作環境と、PCの熱を確認する',
+        summary:
+          '動作環境を満たしていない場合や、PCが熱を持っている場合も落ちることがあります。',
+        time: '約10分',
+        risk: 'low',
+        actions: [
+          'PCやノートPCは、涼しく風通しのよい場所に置く（公式の案内）',
+          'CPUがAVX命令に対応したIntel・AMD製か確認する（それ以外は対象外）',
+          'Intel ArcのGPUは、Resizable BAR（ReBAR）が有効になっているか確認する',
+          '最低環境：Ryzen 5 1400・Core i5-6600、メモリ8GB、GTX 970・GTX 1060・RX 470・Arc A580（VRAM 3GB）、SSDの空き115GB',
+        ],
+        note: 'ノートPCは、同じ名前のGPUでも別のモデルで、対象外の場合があると公式が注意しています。',
+      },
+      {
+        id: 'step-4',
+        title:
+          'XBOX on PC版でキャンペーン・DMZのボタンが出ない時は、Content Pack 1とデバイス数を確認する',
+        summary:
+          '一部のXBOX on PC版で、インストール後にCOD Homeからキャンペーン・DMZを起動できない問題を公式が調査中です（10月22日時点）。',
+        time: '約10分',
+        risk: 'low',
+        actions: [
+          '起動する前に「Call of Duty: Modern Warfare 4 - Content Pack 1」がインストールされているか確認する',
+          'Microsoft Storeのデバイス管理で、登録しているデバイスが上限の10台を超えていないか確認する',
+        ],
+      },
+      {
+        id: 'step-5',
+        title: 'オンラインにつながらない時は、サーバーの状況と回線を確認する',
+        summary:
+          '落ちるのではなく接続できない・切断される場合は、まず公式のサーバー状況を確認します。',
+        time: '約10分',
+        risk: 'low',
+        actions: [
+          'Activision公式のModern Warfare 4サーバー状況のページで、PCの表示が緑か、お知らせが出ていないか確認する',
+          'できればWi-Fiではなく有線LANでつなぐ（公式の推奨）',
+          'ルーターを再起動し、動画や大きなダウンロードなど回線を多く使うものを止める',
+          'それでもだめな場合は、ルーターの設定でUPnPを有効にする（ポート開放をしている場合はいったん無効にする）',
+        ],
+        note: '学校・会社などの共有ネットワークでは、管理者に相談してください。',
+      },
+      {
+        id: 'step-6',
+        title: '公式が調査中の不具合を確認する',
+        summary:
+          '次の問題は、公式の「既知の不具合」に載っている調査中のものです（10月22日更新）。PCの設定では直らないため、修正を待ちます。',
+        time: '約3分',
+        risk: 'low',
+        actions: [
+          'マルチプレイでロードアウトを保存できない（全機種）',
+          '戦績（Combat Record・リーダーボード）が表示されない（全機種）。表示だけの問題で、記録は続いている',
+          'DMZでオペレーターのプレステージができない（全機種）。公式の回避策：アタッチメントのスロットが3つまでのレア武器（これまで4つ以上付けたことがないもの）を装備する',
+          '載っていない不具合は、公式のバグ報告フォームから報告できる。PCのクラッシュは「Call of Duty PC Crash Report」で報告できる',
+        ],
+      },
+    ],
+    avoid: [
+      '公式以外のサイトからドライバーや修正ツールを入れない',
+      'チートと誤解されるおそれのある、ゲームの動作を書き換えるツールを使わない',
+    ],
+    cautions: [
+      '推奨ドライバーと既知の不具合は、2026年10月23日に公式サポートで確認した内容です。今後のアップデートで変わるため、最新の情報は公式ページで確認してください。',
+      '発売前のパッチノートでは、マルチプレイのサーバーのクラッシュや、DMZのクラッシュ（10月20日・21日）の修正が案内されています。ゲームは最新の状態にしてから試してください。',
+    ],
+    faqs: [
+      {
+        question: 'セキュリティ要件を満たしていないと表示されます。',
+        answer:
+          'PC版はTPM 2.0とセキュアブートの両方が必須です。「TPM 2.0とセキュアブート」の記事で確認してください。',
+      },
+      {
+        question: 'キャンペーンを始めると落ちます。',
+        answer:
+          'まず推奨ドライバーと、録画ソフト・オーバーレイの停止を試してください。発売前のパッチで、キャンペーン「Counter Attack」のホテルの場面で進めなくなる問題が修正されています。ゲームを最新の状態にしてください。',
+      },
+      {
+        question: '直らない場合はどこに連絡しますか？',
+        answer:
+          'Activision公式サポートのバグ報告フォーム、またはPCのクラッシュレポートから報告できます。',
+      },
+    ],
+    sources: [
+      sources.crashes,
+      sources.knownIssues,
+      sources.retailSpecs,
+      sources.launchPatch,
+      sources.connecting,
+    ],
+    related: ['tpm-secure-boot'],
+    nextChecks: {
+      heading: 'セキュリティ要件の通知が出る場合',
+      links: [
+        {
+          href: '/games/call-of-duty-modern-warfare-4/tpm-secure-boot',
+          label: 'TPM 2.0とセキュアブートを確認する',
+        },
+      ],
+    },
+    metaDescription:
+      'CoD MW4（Modern Warfare 4）がPCで落ちる・クラッシュする・フリーズする時の対処法。公式の推奨GPUドライバー（NVIDIA 616.56・AMD 26.7.1・Intel 32.0.101.8974）、録画ソフト・オーバーレイの停止、XBOX on PC版でキャンペーン・DMZのボタンが出ない時の確認、公式が調査中の既知の不具合まで解説。',
+    ogTitle: 'CoD MW4がPCで落ちる時の対処法',
+    ogSteps: [
+      '推奨ドライバーにする',
+      '録画ソフト・オーバーレイを止める',
+      '既知の不具合を確認',
+    ],
   },
 ];
 

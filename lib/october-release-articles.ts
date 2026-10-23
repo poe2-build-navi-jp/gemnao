@@ -463,12 +463,13 @@ export const octoberReleaseArticles: GameArticle[] = [
     gameSlug: 'final-fantasy-resonance',
     slug: 'not-launching',
     category: 'launch',
-    checkedAt: '2026-09-28',
+    checkedAt: '2026-10-23',
     seoTitle: 'FFレゾナンスが起動しない・特典が受け取れない時の対処法【PC版】',
     title:
       'ファイナルファンタジー レゾナンスが起動しない・特典が受け取れない時の対処法｜体験版の引き継ぎも【PC版】',
     shortTitle: '起動しない・特典・体験版',
-    targetVersion: 'Steam版・体験版・2026年9月28日時点',
+    targetVersion:
+      'Steam版（2026年10月23日発売）・体験版・2026年10月23日時点',
     symptom:
       'PC版や体験版が起動しない、体験版のセーブを製品版で使いたい、予約特典・早期購入特典・Digital Deluxe Editionのアイテムが見当たらない場合の確認手順です。',
     conclusion:
@@ -618,9 +619,20 @@ export const octoberReleaseArticles: GameArticle[] = [
       'Digital Deluxe Editionと単品のDLCを重複して買わない（公式の注意）',
     ],
     cautions: [
-      '発売後に公式が案内する不具合や修正は、公式のお知らせもあわせて確認してください。',
+      '発売時点で公式が調査中の不具合（10月23日のSteamニュース）：ミニマップ・ヘルプを非表示にしても、特定のタイミングで再び表示されることがある。特定のCPU構成で、まれに音にノイズが入ることがある。',
+      'ほかの不具合は、スクウェア・エニックスのサポートへの問い合わせが案内されています。発売後に公式が案内する修正は、公式のお知らせもあわせて確認してください。',
     ],
     faqs: [
+      {
+        question: '音にノイズが入ります。',
+        answer:
+          '特定のCPU構成でまれに音にノイズが入る問題は、公式が発売時点で調査中と案内しています（10月23日）。修正はアップデートで案内される見込みのため、公式のお知らせを確認してください。',
+      },
+      {
+        question: 'ミニマップを消しても、また表示されます。',
+        answer:
+          'ミニマップ・ヘルプが特定のタイミングで再表示される問題も、公式が調査中の不具合です（10月23日）。',
+      },
       {
         question: 'Windows 10で遊べますか？',
         answer:
@@ -648,7 +660,8 @@ export const octoberReleaseArticles: GameArticle[] = [
         url: 'https://store.steampowered.com/app/4474710/',
       },
       {
-        label: 'Steamニュース（公式）：体験版の配信',
+        label:
+          'Steamニュース（公式）：発売のお知らせ（調査中の不具合）・体験版の配信',
         url: 'https://store.steampowered.com/news/app/3259780',
       },
     ],
