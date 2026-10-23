@@ -2166,4 +2166,22 @@ CPU: </value>
   <data name="MainForm.MatchSummaryClose" xml:space="preserve">
     <value>） / </value>
   </data>
+  <data name="Selection.Help" xml:space="preserve"><value>どれを選べばいいか分からない</value></data>
+  <data name="Selection.Steps" xml:space="preserve"><value>1. Steam で対象ゲームのインストール先を開きます（ライブラリでゲームを右クリック → 管理 → ローカルファイルを閲覧）。
+2. このツールの「EXEを選ぶ」で、ゲーム本体の .exe を選びます。ワイルズは MonsterHunterWilds.exe です。
+3. Steam.exe・CrashReport.exe などのランチャー／報告ツールは選びません。複数あり判断できない場合は、ゲームの公式サポートで本体名を確認してから戻ってください。
+Steam 以外はストアのインストール先表示を使います。この案内はゲームを起動せず、ドライブを検索しません。</value></data>
+  <data name="Selection.HelperRejected" xml:space="preserve"><value>これはゲーム本体ではなく Steam／クラッシュ報告ツールの名前です。ゲームのインストール先で本体の EXE を選び直してください。</value></data>
+  <data name="Result.ShowDetails" xml:space="preserve"><value>詳細・手順を開く</value></data>
+  <data name="Result.HideDetails" xml:space="preserve"><value>詳細・手順を閉じる</value></data>
+  <data name="Result.Known" xml:space="preserve"><value>分かったこと（観測）</value></data>
+  <data name="Result.Unknown" xml:space="preserve"><value>まだ分からないこと</value></data>
+  <data name="Result.Next" xml:space="preserve"><value>次に試す 1 つ（提案）</value></data>
+  <data name="Result.Zero" xml:space="preserve"><value>対象期間の Application ログ取得完了。一致する記録は 0 件です。</value></data>
+  <data name="Result.Incomplete" xml:space="preserve"><value>Application ログ取得は未完了です。一致 0 件という結論にはできません。状態: </value></data>
+  <data name="Result.Matches" xml:space="preserve"><value>取得済み記録: パス一致 {0} 件／名前のみ一致 {1} 件。</value></data>
+  <data name="Result.Other" xml:space="preserve"><value>別の対象の記録もありました。選択した EXE が誤りだと断定はできません。</value></data>
+  <data name="Result.Uncertain" xml:space="preserve"><value>原因・解決は未確定です。名前だけの一致では同一 EXE と確認できません。本人回答と原因の推測は詳細で区別しています。</value></data>
+  <data name="Result.NoRecord" xml:space="preserve"><value>記録が未反映・対象や期間が違う・記録されない症状の可能性があります。反映待ちとは断定できません。</value></data>
+  <data name="Result.NoNext" xml:space="preserve"><value>未着手の提案はありません。詳細でこれまでの記録を確認してください。</value></data>
 </root>

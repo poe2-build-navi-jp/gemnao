@@ -117,7 +117,9 @@ namespace Gemnao.Diagnostics
                             if (target.Examined >= Rules.MaxEventsPerLog) { target.LimitReached = true; target.Status = ReadStatus.Partial; return; }
                             target.Examined++;
                             EventFact fact;
-                            var outcome = Rules.ParseEvent(record.ToXml(), targetPath, start, end, out fact);
+                            bool otherTarget;
+                            var outcome = Rules.ParseEvent(record.ToXml(), targetPath, start, end, out fact, out otherTarget);
+                            if (otherTarget) target.OtherTarget++;
                             if (outcome == ParseOutcome.Accepted) target.Events.Add(fact);
                             else if (outcome == ParseOutcome.Malformed || outcome == ParseOutcome.Unsupported) target.Unsupported++;
                         }

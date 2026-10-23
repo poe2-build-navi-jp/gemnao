@@ -2166,4 +2166,22 @@ Official: </value>
   <data name="MainForm.MatchSummaryClose" xml:space="preserve">
     <value>) / </value>
   </data>
+  <data name="Selection.Help" xml:space="preserve"><value>Not sure which EXE to choose?</value></data>
+  <data name="Selection.Steps" xml:space="preserve"><value>1. In Steam, open the game installation folder (right-click the game in Library → Manage → Browse local files).
+2. Use this tool’s EXE picker to select the game executable. For Wilds, select MonsterHunterWilds.exe.
+3. Do not select launchers or reporters such as Steam.exe or CrashReport.exe. If several EXEs remain unclear, check the game’s official support for the executable name before returning.
+For other stores, use their installation location display. This help does not launch a game or scan drives.</value></data>
+  <data name="Selection.HelperRejected" xml:space="preserve"><value>This filename belongs to Steam or a crash reporter. Choose the game executable from its installation folder.</value></data>
+  <data name="Result.ShowDetails" xml:space="preserve"><value>Show details and steps</value></data>
+  <data name="Result.HideDetails" xml:space="preserve"><value>Hide details and steps</value></data>
+  <data name="Result.Known" xml:space="preserve"><value>What we found (observed)</value></data>
+  <data name="Result.Unknown" xml:space="preserve"><value>What we still do not know</value></data>
+  <data name="Result.Next" xml:space="preserve"><value>One next step (suggestion)</value></data>
+  <data name="Result.Zero" xml:space="preserve"><value>Application log collection completed for the selected time window. No matching records were found.</value></data>
+  <data name="Result.Incomplete" xml:space="preserve"><value>Application log collection is incomplete. This does not establish zero matching records. Status: </value></data>
+  <data name="Result.Matches" xml:space="preserve"><value>Records collected: {0} exact-path matches / {1} name-only matches.</value></data>
+  <data name="Result.Other" xml:space="preserve"><value>Records for a different target were also found. This does not prove that the selected EXE is wrong.</value></data>
+  <data name="Result.Uncertain" xml:space="preserve"><value>The cause and resolution are not established. A name-only match does not confirm the same EXE. Details distinguish your answers from hypotheses.</value></data>
+  <data name="Result.NoRecord" xml:space="preserve"><value>Records may be delayed, outside this target or time window, or absent for this symptom. A pending record is not confirmed.</value></data>
+  <data name="Result.NoNext" xml:space="preserve"><value>No untried suggestion remains. Review the existing records in details.</value></data>
 </root>

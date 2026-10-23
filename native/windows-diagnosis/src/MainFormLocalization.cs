@@ -31,7 +31,7 @@ namespace Gemnao.Diagnostics
             {
                 L.SetLanguage(next);
                 TranslateControls(this,previous);
-                Text=L.T("MainForm.050")+Rules.Version;
+                Text=L.T("MainForm.050")+Rules.Version+"-rc.1";
                 if(targetPath!=null)targetLabel.Text=L.T("MainForm.099")+Rules.LocalLabel(targetPath);
                 else targetLabel.Text=L.TranslateUiText(targetLabel.Text,previous);
                 string oldPrefix=L.Text("MainForm.053",previous);

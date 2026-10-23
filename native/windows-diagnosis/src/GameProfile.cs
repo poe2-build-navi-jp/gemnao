@@ -30,7 +30,12 @@ namespace Gemnao.Diagnostics
         public static string[] GraphicsTrialLabels { get { return new[] {L.T("GameProfile.015"),L.T("GameProfile.016"),L.T("GameProfile.017"),L.T("GameProfile.018"),L.T("GameProfile.019"),L.T("GameProfile.020")}; } }
         public static string Name(GameKind kind){return kind==GameKind.Wilds?L.T("GameProfile.021"):L.T("GameProfile.022");}
         public static string SymptomText(GameSymptom symptom){return Enum.IsDefined(typeof(GameSymptom),symptom)?SymptomLabels[(int)symptom]:L.T("GameProfile.008");}
-        public static bool Accepts(string path,GameKind kind){return Enum.IsDefined(typeof(GameKind),kind)&&Rules.IsLocalExe(path)&&SteamText.IsLocalDirectory(path)&&(kind!=GameKind.Wilds||WildsProfile.IsTarget(path));}
+        public static bool Accepts(string path,GameKind kind){return Enum.IsDefined(typeof(GameKind),kind)&&Rules.IsLocalExe(path)&&!IsHelperExecutable(path)&&SteamText.IsLocalDirectory(path)&&(kind!=GameKind.Wilds||WildsProfile.IsTarget(path));}
+        public static bool IsHelperExecutable(string path)
+        {
+            string name=Rules.FileName(path ?? "");
+            return new[]{"steam.exe","steamservice.exe","steamwebhelper.exe","crashreport.exe","crashreporter.exe","crashreportclient.exe","crashreportclienteditor.exe"}.Any(x=>string.Equals(x,name,StringComparison.OrdinalIgnoreCase));
+        }
         public static bool UsesWildsRules(GameKind kind,GameSymptom symptom){return kind==GameKind.Wilds&&symptom==GameSymptom.Launch;}
         public static bool IsPerformance(GameSymptom symptom){return symptom==GameSymptom.LowFps||symptom==GameSymptom.Stutter;}
         private static GuideStep Copy(string id,string title,string instructions,string warning,string official)

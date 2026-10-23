@@ -1,3 +1,6 @@
+0.6.1-rc.1 REVIEW CANDIDATE: not validated on real Windows; not a default release.
+See source/docs/CANDIDATE-VALIDATION.md for EXE guidance/result-summary changes and pending tests.
+
 Gemnao PC Game Diagnosis 0.6.0 — Windows x64 prototype
 
 Unsigned. This version has NOT been executed on Windows.

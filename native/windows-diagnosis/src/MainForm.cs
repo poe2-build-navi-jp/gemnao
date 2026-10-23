@@ -41,6 +41,9 @@ namespace Gemnao.Diagnostics
         private readonly Button pickArchive = Button(L.T("MainForm.009"));
         private readonly CheckBox consent = new CheckBox { Text=L.T("MainForm.010"), AutoSize=true };
         private readonly Button find = Button(L.T("MainForm.011"));
+        private readonly Button chooseHelp = Button(L.T("Selection.Help"));
+        private readonly Button details = Button(L.T("Result.ShowDetails"));
+        private readonly Panel detailPanel = new Panel { Dock=DockStyle.Fill, Visible=false };
         private readonly Button choose = Button(L.T("MainForm.012"));
         private readonly Button reset = Button(L.T("MainForm.013"));
         private readonly Label targetLabel = Label(L.T("MainForm.014"));
@@ -73,7 +76,7 @@ namespace Gemnao.Diagnostics
 
         internal MainForm()
         {
-            Text=L.T("MainForm.050") + Rules.Version;
+            Text=L.T("MainForm.050") + Rules.Version + "-rc.1";
             Width=1100; Height=850; MinimumSize=new Size(800,650); StartPosition=FormStartPosition.CenterScreen;
             Font=new Font("Yu Gothic UI",10); AutoScaleMode=AutoScaleMode.Dpi;
             var root=new TableLayoutPanel { Dock=DockStyle.Fill,ColumnCount=1,RowCount=3,Padding=new Padding(14) };
@@ -87,6 +90,8 @@ namespace Gemnao.Diagnostics
             steamConsent.CheckedChanged+=(s,e)=>UpdateButtons(); chooseSteam.Click+=(s,e)=>ChooseSteamTarget();
             traceConsent.CheckedChanged+=(s,e)=>UpdateButtons(); archiveConsent.CheckedChanged+=(s,e)=>UpdateButtons();
             reread.Click+=async(s,e)=>await RefreshCapture(); rereadFromActions.Click+=async(s,e)=>await RefreshCapture(); pickArchive.Click+=async(s,e)=>await PickArchive();
+            chooseHelp.Click+=(s,e)=>MessageBox.Show(this,L.T("Selection.Steps"),L.T("Selection.Help"));
+            details.Click+=(s,e)=> { detailPanel.Visible=!detailPanel.Visible; details.Text=L.T(detailPanel.Visible?"Result.HideDetails":"Result.ShowDetails"); UpdateButtons(); };
             choose.Click+=(s,e)=>ChooseTarget(); find.Click+=async(s,e)=>await FindTarget(); reset.Click+=(s,e)=>ResetSession();
             begin.Click+=(s,e)=>BeginMeasurement(false); retest.Click+=(s,e)=>BeginMeasurement(true);
             recent.Click+=async(s,e)=>await ReadRecent(); finish.Click+=async(s,e)=>await FinishMeasurement();
@@ -107,7 +112,7 @@ namespace Gemnao.Diagnostics
             f.Controls.Add(Label(L.T("MainForm.056")));
             f.Controls.Add(Label(L.T("MainForm.057")));
             f.Controls.Add(Row(Label(L.T("MainForm.058")),profile)); f.Controls.Add(Row(Label(L.T("MainForm.059")),symptom)); f.Controls.Add(Row(Label(L.T("MainForm.060")),store));
-            f.Controls.Add(consent); f.Controls.Add(traceConsent); f.Controls.Add(archiveConsent); f.Controls.Add(steamConsent); f.Controls.Add(Label(L.T("MainForm.061"))); f.Controls.Add(Row(find,choose,reset)); f.Controls.Add(chooseSteam); f.Controls.Add(targetLabel);
+            f.Controls.Add(consent); f.Controls.Add(traceConsent); f.Controls.Add(archiveConsent); f.Controls.Add(steamConsent); f.Controls.Add(Label(L.T("MainForm.061"))); f.Controls.Add(Row(find,choose,chooseHelp,reset)); f.Controls.Add(chooseSteam); f.Controls.Add(targetLabel);
             f.Controls.Add(Label(L.T("MainForm.062")));
             f.Controls.Add(Row(Label(L.T("MainForm.063")),scene)); f.Controls.Add(Row(Label(L.T("MainForm.064")),frequency)); f.Controls.Add(Row(Label(L.T("MainForm.065")),lowerGraphics));
             f.Controls.Add(Row(Label(L.T("MainForm.066")),stage)); f.Controls.Add(Row(Label(L.T("MainForm.067")),worked));
@@ -133,7 +138,13 @@ namespace Gemnao.Diagnostics
             var page=new TabPage(L.T("MainForm.080"));
             var grid=new TableLayoutPanel { Dock=DockStyle.Fill,ColumnCount=1,RowCount=6,Padding=new Padding(8) };
             grid.RowStyles.Add(new RowStyle(SizeType.AutoSize)); grid.RowStyles.Add(new RowStyle(SizeType.AutoSize)); grid.RowStyles.Add(new RowStyle(SizeType.Absolute,145)); grid.RowStyles.Add(new RowStyle(SizeType.Percent,100)); grid.RowStyles.Add(new RowStyle(SizeType.AutoSize)); grid.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            grid.Controls.Add(resultSummary,0,0); grid.Controls.Add(Row(rereadFromActions),0,1); grid.Controls.Add(actions,0,2); grid.Controls.Add(actionDetail,0,3); grid.Controls.Add(Row(actionState,guide,official),0,4); grid.Controls.Add(Row(retest,outcome),0,5);
+            grid.RowStyles[2].Height=0;
+            var detailGrid=new TableLayoutPanel { Dock=DockStyle.Fill,ColumnCount=1,RowCount=2 };
+            detailGrid.RowStyles.Add(new RowStyle(SizeType.Absolute,145)); detailGrid.RowStyles.Add(new RowStyle(SizeType.Percent,100));
+            detailGrid.Controls.Add(actions,0,0); detailGrid.Controls.Add(actionDetail,0,1); detailPanel.Controls.Add(detailGrid);
+            grid.Controls.Add(resultSummary,0,0); grid.Controls.Add(Row(rereadFromActions,details),0,1); grid.Controls.Add(detailPanel,0,3); grid.Controls.Add(Row(actionState,guide,official),0,4); grid.Controls.Add(Row(retest,outcome),0,5);
+            page.SizeChanged+=(s,e)=>resultSummary.MaximumSize=new Size(Math.Max(300,page.ClientSize.Width-45),0);
+            grid.AutoScroll=true;
             page.Controls.Add(grid); tabs.TabPages.Add(page);
         }
         private void BuildReportTab()
@@ -180,6 +191,7 @@ namespace Gemnao.Diagnostics
         }
         private void SelectTarget(string path,string steam)
         {
+            if(GameProfile.IsHelperExecutable(path)) { MessageBox.Show(this,L.T("Selection.HelperRejected"),L.T("Selection.Help")); return; }
             if(!GameProfile.Accepts(path,selectedGame) || !LocalGuard.Allowed(path)) { MessageBox.Show(this,L.T("MainForm.092")); return; }
             if(string.Equals(path,targetPath,StringComparison.OrdinalIgnoreCase))
             {
@@ -301,7 +313,7 @@ namespace Gemnao.Diagnostics
                 if(!committed.PreserveStepRecords&&journal.Records.Count==0)states.Clear();
                 if(mode!=CaptureMode.Refresh)retestActionId=mode==CaptureMode.Retest?pendingRetestActionId:null;
                 current=committed.Current;sessionRestartObserved|=current.PriorRestartObserved||current.System.Events.Any(e=>e.Kind==EventKind.UncleanRestart); updating=true; outcome.SelectedIndex=(int)committed.Outcome; updating=false; RefreshResults(); tabs.SelectedIndex=2;
-                progress.Text=mode==CaptureMode.Refresh?L.T("MainForm.134"):current.Application.Events.Count==0?L.T("MainForm.135"):L.T("MainForm.136");
+                progress.Text=ResultOverview.Collection(current.Application);
             }
             catch(OperationCanceledException) { if(!IsDisposed)progress.Text=L.T("MainForm.137"); }
             catch { if(!IsDisposed)progress.Text=L.T("MainForm.138"); }
@@ -347,10 +359,8 @@ namespace Gemnao.Diagnostics
             int index=advance?next:plan.FindIndex(x=>x.Step.Id==previous);
             if(index<0)index=next;
             if(index<0)index=Math.Max(0,plan.FindIndex(x=>x.Step.Id=="wilds-records"||x.Step.Id=="game-records")); if(actions.Items.Count>0)actions.SelectedIndex=index; updating=priorUpdating; ShowAction();
-            int count=current.Application.Events.Count;
-            resultSummary.Text=L.T("MainForm.148")+count+L.T("MainForm.149")+current.Application.Events.Count(x=>x.Match==MatchKind.ExactPath)+L.T("MainForm.150")+current.Application.Events.Count(x=>x.Match==MatchKind.NameOnly)+L.T("MainForm.MatchSummaryClose")+Rules.StatusText(current.Application.Status)+"\n"+(count==0?(GameProfile.IsPerformance(selectedSymptom)?L.T("MainForm.151"):CaptureWorkflow.MissingRecordHint):L.T("MainForm.152"));
-            resultSummary.Text+=L.T("MainForm.153");
-            if(next<0)resultSummary.Text+=L.T("MainForm.154");
+            var nextItem=ResultOverview.Next(plan,states);
+            resultSummary.Text=ResultOverview.Build(current,nextItem);
             if(journal.Records.Any(r=>r.Outcome==ActionOutcome.Resolved))resultSummary.Text+=L.T("MainForm.155");
             if(outcome.SelectedIndex==1)resultSummary.Text+=L.T("MainForm.156");
             RefreshReport(); UpdateButtons();
@@ -359,6 +369,7 @@ namespace Gemnao.Diagnostics
         {
             int i=actions.SelectedIndex; if(i<0 || i>=plan.Count)return;
             var item=plan[i];
+            actions.AccessibleName=L.T("Result.ShowDetails");
             string nextText=(item.Step.Id=="wilds-stop"||item.Step.Id=="stop")?L.T("MainForm.157"):(item.Step.Id=="wilds-records"||item.Step.Id=="game-records")?L.T("MainForm.158"):L.T("MainForm.159");
             actionDetail.Text=ForTextBox(item.Step.Title+L.T("MainForm.160")+item.Reason+L.T("MainForm.161")+item.Step.Instructions+L.T("MainForm.162")+item.Step.Warning+"\n\n"+nextText+L.T("MainForm.163")+item.Step.OfficialUrl);
             StepState st; if(!states.TryGetValue(item.Step.Id,out st))st=StepState.NotStarted; bool priorUpdating=updating; updating=true; actionState.SelectedIndex=(int)st; updating=priorUpdating;
@@ -382,11 +393,13 @@ namespace Gemnao.Diagnostics
             begin.Enabled=recent.Enabled && !sessionRestartObserved && WildsProfile.MayRetest(current,Answers());
             begin.Text=current==null?L.T("MainForm.032"):L.T("MainForm.166");
             finish.Enabled=!busy && measureStart.HasValue; cancel.Enabled=busy || measureStart.HasValue;
-            retest.Enabled=idle && consent.Checked && current!=null && !sessionRestartObserved && WildsProfile.MayRetest(current,Answers()); export.Enabled=idle && current!=null; reread.Enabled=rereadFromActions.Enabled=idle&&consent.Checked&&current!=null;pickArchive.Enabled=idle&&consent.Checked&&archiveConsent.Checked&&current!=null&&current.Game==GameKind.Wilds&&selectedGame==GameKind.Wilds;
+            retest.Enabled=idle && detailPanel.Visible && consent.Checked && current!=null && !sessionRestartObserved && WildsProfile.MayRetest(current,Answers()); export.Enabled=idle && current!=null; reread.Enabled=rereadFromActions.Enabled=idle&&consent.Checked&&current!=null;pickArchive.Enabled=idle&&consent.Checked&&archiveConsent.Checked&&current!=null&&current.Game==GameKind.Wilds&&selectedGame==GameKind.Wilds;
             foreach(var c in new[]{stage,worked,demo,capture,mods,textures,pcIssue,verify,scene,frequency,lowerGraphics})c.Enabled=idle;
             stage.Enabled=textures.Enabled=idle&&GameProfile.UsesWildsRules(selectedGame,selectedSymptom);lowerGraphics.Enabled=idle&&GameProfile.IsPerformance(selectedSymptom);
-            actions.Enabled=actionState.Enabled=outcome.Enabled=idle && current!=null;
-            guide.Enabled=official.Enabled=idle && actions.SelectedIndex>=0; UpdateHistoryButtons();
+            details.Enabled=idle && current!=null;
+            actions.Enabled=actionState.Enabled=idle && current!=null && detailPanel.Visible;
+            outcome.Enabled=idle && current!=null && detailPanel.Visible;
+            guide.Enabled=official.Enabled=idle && actions.SelectedIndex>=0 && detailPanel.Visible; UpdateHistoryButtons();
         }
         private void OpenLink(bool officialLink)
         {

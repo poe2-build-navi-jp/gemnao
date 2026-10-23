@@ -258,6 +258,7 @@ export default async function EnglishWindowsDiagnosis({
             Windows x64 download · English and Japanese
           </h2>
           <p className="download-caution"><strong>Unsigned prototype: the new version has not been tested on a real Windows PC. Do not disable security protections or bypass warnings to run it.</strong></p>
+          <p>The download remains v0.6.0. Improved EXE guidance and result summaries are review candidates pending real Windows validation; they are not included in the default download.</p>
           {release ? (
             <>
               <a

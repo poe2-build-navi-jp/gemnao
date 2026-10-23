@@ -38,6 +38,7 @@ namespace Gemnao.Diagnostics
         public ReadStatus Status = ReadStatus.NotRead;
         public int Examined;
         public int Unsupported;
+        public int OtherTarget;
         public bool LimitReached;
         public readonly List<EventFact> Events = new List<EventFact>();
     }
@@ -108,7 +109,7 @@ namespace Gemnao.Diagnostics
     }
     public static class Rules
     {
-        public const string Version = "0.6.0";
+        public const string Version = "0.6.1";
         public const int MaxEventsPerLog = 300;
         public const int MaxWindowHours = 24;
         public static string NumericVersion(object value) { return NumericVersionValue(value) ?? L.T("Core.001"); }
@@ -170,6 +171,12 @@ namespace Gemnao.Diagnostics
         }
         public static ParseOutcome ParseEvent(string xml, string targetPath, DateTime start, DateTime end, out EventFact fact)
         {
+            bool otherTarget;
+            return ParseEvent(xml,targetPath,start,end,out fact,out otherTarget);
+        }
+        public static ParseOutcome ParseEvent(string xml, string targetPath, DateTime start, DateTime end, out EventFact fact, out bool otherTarget)
+        {
+            otherTarget = false;
             fact = null;
             if (string.IsNullOrEmpty(xml) || xml.Length > 65536) return ParseOutcome.Malformed;
             try
@@ -219,13 +226,13 @@ namespace Gemnao.Diagnostics
                     data.TryGetValue("AppName", out appName);
                     if (!string.IsNullOrWhiteSpace(appPath))
                     {
-                        if (!string.Equals(Canonical(appPath), Canonical(targetPath), StringComparison.OrdinalIgnoreCase)) return ParseOutcome.NotTarget;
+                        if (!string.Equals(Canonical(appPath), Canonical(targetPath), StringComparison.OrdinalIgnoreCase)) { otherTarget = true; return ParseOutcome.NotTarget; }
                         result.Match = MatchKind.ExactPath;
                     }
                     else
                     {
                         if (string.IsNullOrWhiteSpace(appName)) return ParseOutcome.Unsupported;
-                        if (!string.Equals(FileName(appName), FileName(targetPath), StringComparison.OrdinalIgnoreCase)) return ParseOutcome.NotTarget;
+                        if (!string.Equals(FileName(appName), FileName(targetPath), StringComparison.OrdinalIgnoreCase)) { otherTarget = true; return ParseOutcome.NotTarget; }
                         result.Match = MatchKind.NameOnly;
                     }
                     string module, code;

@@ -125,6 +125,7 @@ internal static class CoreTests
         EvidenceTests.Run(Test);
         GeneralGameTests.Run(Test);
         LocalizationTests.Run(Test);
+        OverviewTests.Run(Test);
         Console.WriteLine("\n" + passed + " passed; " + failed + " failed. Synthetic fixtures; Windows collector/UI not executed.");
         return failed==0 ? 0 : 1;
     }
