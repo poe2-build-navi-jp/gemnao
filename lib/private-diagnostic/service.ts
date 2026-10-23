@@ -1,7 +1,7 @@
 // Isolated private inbox; reuses audited feedback receipt/quota design. No shared admission ledger.
 import { parseEnvelope } from './contract';
 import { strictJson } from '../diagnostic-feedback/json';
-import { takeFeedbackQuota } from '../diagnostic-feedback/rate-limit';
+import { takePrivateDiagnosticQuota } from './rate-limit';
 export type PrivateDiagnosticEnv = {
   PRIVATE_DIAGNOSTIC_ENABLED?: string;
   PRIVATE_DIAGNOSTIC_DB?: D1Database;
@@ -32,7 +32,7 @@ export async function healthy(env: PrivateDiagnosticEnv, now: number) {
   )
     return false;
   const row = await env.PRIVATE_DIAGNOSTIC_DB.prepare(
-    'SELECT last_cleanup FROM diagnostic_retention_health WHERE singleton=1',
+    'SELECT last_cleanup FROM private_diagnostic_retention_health WHERE singleton=1',
   ).first<{ last_cleanup: number }>();
   return !!row && row.last_cleanup <= now && row.last_cleanup >= now - 7200;
 }
@@ -101,7 +101,7 @@ export async function handlePrivateDiagnostic(
     // Only an edge-supplied address is used transiently; D1 stores a daily HMAC.
     // GET/POST share intake quota; neither can consume DELETE quota.
     if (
-      !(await takeFeedbackQuota(
+      !(await takePrivateDiagnosticQuota(
         env.PRIVATE_DIAGNOSTIC_DB,
         request.method === 'DELETE' ? 'delete' : 'intake',
         request.headers.get('cf-connecting-ip'),
@@ -137,7 +137,7 @@ export async function handlePrivateDiagnostic(
       if (
         await db
           .prepare(
-            'SELECT receipt_id FROM diagnostic_report_tombstones WHERE receipt_id=? AND delete_hash=?',
+            'SELECT receipt_id FROM private_diagnostic_report_tombstones WHERE receipt_id=? AND delete_hash=?',
           )
           .bind(input.receipt_id, keyHash)
           .first()
@@ -146,7 +146,7 @@ export async function handlePrivateDiagnostic(
       const issued = parseInt(input.receipt_id.slice(0, 8), 16);
       const existing = await db
         .prepare(
-          'SELECT receipt_id FROM diagnostic_reports WHERE receipt_id=? AND delete_hash=?',
+          'SELECT receipt_id FROM private_diagnostic_reports WHERE receipt_id=? AND delete_hash=?',
         )
         .bind(input.receipt_id, keyHash)
         .first();
@@ -158,7 +158,7 @@ export async function handlePrivateDiagnostic(
       const results = await db.batch([
         db
           .prepare(
-            'INSERT OR IGNORE INTO diagnostic_report_tombstones(receipt_id,delete_hash,expires_at) SELECT ?,?,? WHERE NOT EXISTS(SELECT 1 FROM diagnostic_reports WHERE receipt_id=? AND delete_hash<>?) AND ((SELECT count(*) FROM diagnostic_reports)+(SELECT count(*) FROM diagnostic_report_tombstones)<1000 OR EXISTS(SELECT 1 FROM diagnostic_reports WHERE receipt_id=? AND delete_hash=?))',
+            'INSERT OR IGNORE INTO private_diagnostic_report_tombstones(receipt_id,delete_hash,expires_at) SELECT ?,?,? WHERE NOT EXISTS(SELECT 1 FROM private_diagnostic_reports WHERE receipt_id=? AND delete_hash<>?) AND ((SELECT count(*) FROM private_diagnostic_reports)+(SELECT count(*) FROM private_diagnostic_report_tombstones)<1000 OR EXISTS(SELECT 1 FROM private_diagnostic_reports WHERE receipt_id=? AND delete_hash=?))',
           )
           .bind(
             input.receipt_id,
@@ -171,7 +171,7 @@ export async function handlePrivateDiagnostic(
           ),
         db
           .prepare(
-            'DELETE FROM diagnostic_reports WHERE receipt_id=? AND delete_hash=? AND EXISTS(SELECT 1 FROM diagnostic_report_tombstones WHERE receipt_id=? AND delete_hash=?)',
+            'DELETE FROM private_diagnostic_reports WHERE receipt_id=? AND delete_hash=? AND EXISTS(SELECT 1 FROM private_diagnostic_report_tombstones WHERE receipt_id=? AND delete_hash=?)',
           )
           .bind(input.receipt_id, keyHash, input.receipt_id, keyHash),
       ]);
@@ -187,7 +187,7 @@ export async function handlePrivateDiagnostic(
     if (
       await db
         .prepare(
-          'SELECT receipt_id FROM diagnostic_report_tombstones WHERE receipt_id=?',
+          'SELECT receipt_id FROM private_diagnostic_report_tombstones WHERE receipt_id=?',
         )
         .bind(input.receipt_id)
         .first()
@@ -196,7 +196,7 @@ export async function handlePrivateDiagnostic(
     const json = JSON.stringify(input.report);
     const previous = await db
       .prepare(
-        'SELECT delete_hash,report_json,expires_at FROM diagnostic_reports WHERE receipt_id=? AND expires_at>?',
+        'SELECT delete_hash,report_json,expires_at FROM private_diagnostic_reports WHERE receipt_id=? AND expires_at>?',
       )
       .bind(input.receipt_id, now)
       .first<{
@@ -236,7 +236,7 @@ export async function handlePrivateDiagnostic(
     ];
     const result = await db
       .prepare(
-        `INSERT OR IGNORE INTO diagnostic_reports(receipt_id,delete_hash,report_json,consent_version,created_at,expires_at) SELECT ?,?,?,1,?,? WHERE (SELECT count(*) FROM diagnostic_reports WHERE created_at>=?)<200 AND NOT EXISTS(SELECT 1 FROM diagnostic_report_tombstones WHERE receipt_id=?) AND (SELECT count(*) FROM diagnostic_reports)+(SELECT count(*) FROM diagnostic_report_tombstones)<1000`,
+        `INSERT OR IGNORE INTO private_diagnostic_reports(receipt_id,delete_hash,report_json,consent_version,created_at,expires_at) SELECT ?,?,?,1,?,? WHERE (SELECT count(*) FROM private_diagnostic_reports WHERE created_at>=?)<200 AND NOT EXISTS(SELECT 1 FROM private_diagnostic_report_tombstones WHERE receipt_id=?) AND (SELECT count(*) FROM private_diagnostic_reports)+(SELECT count(*) FROM private_diagnostic_report_tombstones)<1000`,
       )
       .bind(...values)
       .run();
@@ -244,7 +244,7 @@ export async function handlePrivateDiagnostic(
     if (result.meta.changes !== 1) {
       const retry = await db
         .prepare(
-          'SELECT delete_hash,report_json,expires_at FROM diagnostic_reports WHERE receipt_id=? AND expires_at>?',
+          'SELECT delete_hash,report_json,expires_at FROM private_diagnostic_reports WHERE receipt_id=? AND expires_at>?',
         )
         .bind(input.receipt_id, now)
         .first<{

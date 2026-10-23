@@ -39,7 +39,7 @@ export async function handlePrivateAdmin(
     if (id) {
       const row = await db
         .prepare(
-          'SELECT receipt_id,report_json,created_at,expires_at FROM diagnostic_reports WHERE receipt_id=? AND expires_at>?',
+          'SELECT receipt_id,report_json,created_at,expires_at FROM private_diagnostic_reports WHERE receipt_id=? AND expires_at>?',
         )
         .bind(id, now)
         .first<{
@@ -58,7 +58,7 @@ export async function handlePrivateAdmin(
     }
     const result = await db
       .prepare(
-        'SELECT receipt_id,created_at,expires_at FROM diagnostic_reports WHERE expires_at>? AND receipt_id<? ORDER BY receipt_id DESC LIMIT 21',
+        'SELECT receipt_id,created_at,expires_at FROM private_diagnostic_reports WHERE expires_at>? AND receipt_id<? ORDER BY receipt_id DESC LIMIT 21',
       )
       .bind(now, before || 'g')
       .all<{ receipt_id: string; created_at: number; expires_at: number }>();
