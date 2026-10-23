@@ -2,6 +2,15 @@ name: Gemnao preview data (manual protected control)
 run-name: Preview data exact-run approval required
 on:
   workflow_dispatch:
+    inputs:
+      operation:
+        description: 'Existing protected controller operation; QA metadata is read-only'
+        type: choice
+        required: true
+        default: preview
+        options:
+          - preview
+          - private-qa-metadata
 permissions:
   contents: read
   actions: read
