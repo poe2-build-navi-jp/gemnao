@@ -1,3 +1,4 @@
+import { PrivateIntakeNotice } from '@/components/private-intake-notice';
 import { CommunitySupportReference } from '@/components/community-support-reference';
 import { CrashRecordExamples } from '@/components/crash-record-examples';
 import { SaveArticle } from '@/components/save-article';
@@ -134,6 +135,7 @@ export default function WindowsDiagnosis() {
           title="PCゲーム診断ツール"
           locale="ja"
         />
+        <PrivateIntakeNotice locale="ja" />
         <aside className="download-caution" aria-labelledby="trial-title">
           <h2 id="trial-title">使う前に：できることと限界</h2>
           <p>

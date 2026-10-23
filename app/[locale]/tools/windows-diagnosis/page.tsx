@@ -1,3 +1,4 @@
+import { PrivateIntakeNotice } from '@/components/private-intake-notice';
 import { CommunitySupportReference } from '@/components/community-support-reference';
 import { CrashRecordExamples } from '@/components/crash-record-examples';
 import { SaveArticle } from '@/components/save-article';
@@ -191,6 +192,7 @@ export default async function EnglishWindowsDiagnosis({
           title="PC Game Diagnosis for Windows"
           locale="en"
         />
+        <PrivateIntakeNotice locale="en" />
         <aside className="download-caution" aria-labelledby="trial-title">
           <h2 id="trial-title">Before you start: scope and safety</h2>
           <p>

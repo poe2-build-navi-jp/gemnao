@@ -1,3 +1,4 @@
+import { PrivateIntakeNotice } from '@/components/private-intake-notice';
 /* oxlint-disable next/no-html-link-for-pages -- Native document navigation. */
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { windowsDiagnosisGuides } from '@/lib/windows-diagnosis-guide';
@@ -14,6 +15,7 @@ export function LocalizedWindowsDiagnosis({ locale }: { locale: 'zh' | 'es' }) {
         </nav>
         <h1>{t.title}</h1>
         <p className="page-lead">{t.description}</p>
+        <PrivateIntakeNotice locale={locale} />
         <section id="download">
           <h2>{t.download}</h2>
           <div className="download-caution">

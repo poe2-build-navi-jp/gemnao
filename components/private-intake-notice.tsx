@@ -1,0 +1,29 @@
+// Shared public policy copy. No intake, retention job or notification activation.
+const privateDiagnosticPolicy = {
+  ja: '受付開始後の保存方針：保存容量に上限があるため、受付を一時停止することがあります。全件の受付、個別の返信、問題の解決は保証できません。受信した診断結果は受信から30日で閲覧できなくなり、自動削除の対象になります。毎時の削除処理が正常に動作している場合、データベースからの削除はその後おおむね1時間以内です。障害時は遅れる場合があり、無条件の削除時刻は保証しません。バックアップや配信事業者の通信ログは事業者の保持方針に従い、同時の完全消去は保証しません。',
+  en: 'Policy after intake opens: storage capacity is limited, so intake may pause. Acceptance of every submission, individual replies and resolution are not guaranteed. Received diagnostic results become inaccessible 30 days after receipt and are due for automatic deletion. When hourly cleanup runs normally, deletion from the database follows within approximately one hour. Failures can delay deletion; an unconditional deletion time is not guaranteed. Backups and hosting-provider connection logs follow the provider’s retention policies; simultaneous complete erasure is not guaranteed.',
+  zh: '接收开放后的保存方针：存储容量有限，可能暂时停止接收。不保证接受每份提交、逐一回复或解决问题。收到的诊断结果在接收满30天后不可再查看，并进入自动删除范围。每小时清理任务正常运行时，数据库中的数据通常会在此后约1小时内删除；故障可能导致延迟，因此不无条件保证删除时间。备份及托管服务商的通信日志遵循服务商的保存政策，不保证同时彻底清除。',
+  es: 'Política tras abrir la recepción: la capacidad de almacenamiento es limitada y la recepción puede pausarse. No se garantiza aceptar todos los envíos, responder individualmente ni resolver el problema. Los resultados dejan de poder consultarse a los 30 días de recibirse y quedan pendientes de eliminación automática. Si la limpieza horaria funciona con normalidad, se eliminan de la base de datos aproximadamente en la hora siguiente. Los fallos pueden retrasarla; no se garantiza una hora de eliminación incondicional. Las copias de seguridad y los registros de conexión del proveedor siguen sus políticas de conservación; no se garantiza su borrado completo simultáneo.',
+} as const;
+
+const privateDiagnosticPurpose = {
+  ja: '利用目的：送信された診断結果は、ゲムなおの診断機能・記事などウェブサイトの改善と、同じ不具合で困っている他の利用者の解決支援に利用します。非公開で受け取り、個人を識別できる情報や個別結果の原文は公表しません。この同意は原文公開、第三者販売、別目的での利用への同意ではありません。個別事例の公開には別途本人の許可が必要です。一般化した対処説明は改善として残る場合がありますが、元データや個別詳細を別名で残して30日の保持期限を延長することはしません。',
+  en: 'Purpose: submitted diagnostic results are used to improve Gemnao’s diagnostic features, articles and website, and to help other people facing the same issue. Results are received privately; identifying information and verbatim individual results are not published. This consent does not authorize publication of original results, sale to third parties or use for other purposes. Publishing an individual case requires separate permission from its sender. General troubleshooting guidance may remain as an improvement, but source data and individual details will not be retained under another name to extend the 30-day retention period.',
+  zh: '用途：提交的诊断结果将用于改进 Gemnao 的诊断功能、文章及网站，并帮助遇到相同故障的其他用户。结果以非公开方式接收，不公布可识别个人的信息或个别结果原文。本次同意不包含公开原文、向第三方出售或用于其他目的。公开个别案例须另行获得提交者许可。概括性的处理说明可以作为改进保留，但不会通过改名保存原始数据或个别详情来延长30天的保存期限。',
+  es: 'Finalidad: los resultados enviados se utilizan para mejorar las funciones de diagnóstico, los artículos y el sitio de Gemnao, y ayudar a otras personas con el mismo problema. Se reciben de forma privada; no se publican datos identificativos ni el texto original de resultados individuales. Este consentimiento no autoriza publicar los originales, venderlos a terceros ni utilizarlos para otros fines. Publicar un caso individual requiere un permiso adicional de quien lo envió. Las indicaciones generales pueden permanecer como mejora, pero no se conservarán los datos originales ni los detalles individuales con otro nombre para prolongar el plazo de 30 días.',
+} as const;
+
+const preparation = {
+  "ja": "非公開受付は準備中です。以下は受付開始後の方針です。現在の配布版 v0.6.0 からこの受付へ送信することはできません。",
+  "en": "Private intake is in preparation. The policy below applies after intake opens. The current v0.6.0 download cannot submit to this intake.",
+  "zh": "非公开接收功能正在准备中。以下方针适用于开放接收之后。当前下载的 v0.6.0 版本无法向此接收功能提交结果。",
+  "es": "La recepción privada está en preparación. La política siguiente se aplicará cuando se abra. La descarga actual v0.6.0 no permite enviar resultados a esta recepción."
+} as const;
+
+export function PrivateIntakeNotice({ locale }: { locale: 'ja' | 'en' | 'zh' | 'es' }) {
+  return <aside className="download-caution" lang={locale === 'zh' ? 'zh-Hans' : locale}>
+    <p><strong>{preparation[locale]}</strong></p>
+    <p>{privateDiagnosticPurpose[locale]}</p>
+    <p>{privateDiagnosticPolicy[locale]}</p>
+  </aside>;
+}
