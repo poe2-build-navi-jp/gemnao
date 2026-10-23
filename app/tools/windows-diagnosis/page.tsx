@@ -1,3 +1,4 @@
+import { privateDiagnosticPolicy, privateDiagnosticPurpose } from '@/lib/private-diagnostic/policy';
 import { CommunitySupportReference } from '@/components/community-support-reference';
 import { CrashRecordExamples } from '@/components/crash-record-examples';
 import { SaveArticle } from '@/components/save-article';
@@ -137,6 +138,8 @@ export default function WindowsDiagnosis() {
         <aside className="download-caution" aria-labelledby="trial-title">
           <h2 id="trial-title">使う前に：できることと限界</h2>
             <p>配布は v0.6.0 のままです。EXE 選択案内・結果要約・本人同意による非公開受付用JSONの候補はレビュー用です。非公開受付は未有効化で、Windows 実機検証前のため既定ダウンロードに含めていません。</p>
+            <p>{privateDiagnosticPurpose.ja}</p>
+            <p>{privateDiagnosticPolicy.ja}</p>
           <p>
             <strong>未署名・Windows実機での新版確認前の試作版です。</strong>
             すべてのゲームでの動作や、すべての原因の特定・修復を保証するものではありません。PCの設定変更や自動修復は行いません。不安がある場合は、下の通常ガイドをご利用ください。

@@ -1,4 +1,5 @@
 'use client';
+import { privateDiagnosticPolicy, privateDiagnosticPurpose } from '@/lib/private-diagnostic/policy';
 import { useEffect, useRef, useState } from 'react';
 import {
   parseEnvelope,
@@ -286,6 +287,14 @@ export function PrivateDiagnosticForm() {
           'Maximum 4KB; retained for 30 days. No names, paths, raw logs, PC product names, device IDs or free text. Not guaranteed anonymous: the hosting provider processes connection data, and backups/service logs follow its policies. Keep receipt information private.',
         )}
       </p>
+      <p id="private-use-purpose">{privateDiagnosticPurpose[en ? 'en' : 'ja']}</p>
+      <p id="private-retention-policy">{privateDiagnosticPolicy[en ? 'en' : 'ja']}</p>
+      <details><summary>中文 / Español — 保存方针 / Política de conservación</summary>
+        <p lang="zh-Hans">{privateDiagnosticPurpose.zh}</p>
+        <p lang="zh-Hans">{privateDiagnosticPolicy.zh}</p>
+        <p lang="es">{privateDiagnosticPurpose.es}</p>
+        <p lang="es">{privateDiagnosticPolicy.es}</p>
+      </details>
       <output aria-live="polite">
         {enabled
           ? t(
@@ -293,8 +302,8 @@ export function PrivateDiagnosticForm() {
               'Intake is available. Sending is optional.',
             )
           : t(
-              '受付は停止中または未確認です。読み込み・確認のみ利用できます。',
-              'Intake is closed or unverified. Import and review only.',
+              '準備中：受付は停止中または未確認です。上記は受付開始後の保存方針です。読み込み・確認のみ利用できます。',
+              'In preparation: intake is closed or unverified. The policy above applies after intake opens. Import and review only.',
             )}
       </output>
       <label>
@@ -311,13 +320,14 @@ export function PrivateDiagnosticForm() {
       <label className="block">
         <input
           type="checkbox"
+          aria-describedby="private-use-purpose private-retention-policy"
           checked={consent}
           disabled={!report || busy || phase === 'saved' || phase === 'deleted'}
           onChange={(e) => setConsent(e.target.checked)}
         />
         {t(
-          '上の全内容・保持期間を確認し、運営者に非公開で送ることに同意します。',
-          'I reviewed all content and retention terms and consent to send it privately to the operator.',
+          '上の全内容、サイト改善と他の利用者の解決支援という利用目的（原文公開・第三者販売・別目的利用は含まない）、容量による受付停止・対応の限界、30日の閲覧期限と自動削除の時期・例外を確認し、運営者に非公開で送ることに同意します。',
+          'I reviewed all content, its use to improve the site and help others (excluding publication of originals, third-party sale and other purposes), capacity-related pauses and service limitations, the 30-day access limit and automatic deletion timing and exceptions, and consent to send it privately to the operator.',
         )}
       </label>
       <button

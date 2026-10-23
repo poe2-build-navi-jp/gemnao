@@ -1,3 +1,4 @@
+import { privateDiagnosticPolicy, privateDiagnosticPurpose } from '@/lib/private-diagnostic/policy';
 import { CommunitySupportReference } from '@/components/community-support-reference';
 import { CrashRecordExamples } from '@/components/crash-record-examples';
 import { SaveArticle } from '@/components/save-article';
@@ -259,6 +260,8 @@ export default async function EnglishWindowsDiagnosis({
           </h2>
           <p className="download-caution"><strong>Unsigned prototype: the new version has not been tested on a real Windows PC. Do not disable security protections or bypass warnings to run it.</strong></p>
           <p>The download remains v0.6.0. Improved EXE guidance, result summaries and a JSON export for consent-based private intake are review candidates. Private intake is not enabled and real Windows validation is pending; they are not included in the default download.</p>
+            <p>{privateDiagnosticPurpose.en}</p>
+            <p>{privateDiagnosticPolicy.en}</p>
           {release ? (
             <>
               <a

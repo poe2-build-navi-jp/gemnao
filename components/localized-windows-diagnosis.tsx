@@ -1,3 +1,4 @@
+import { privateDiagnosticPolicy, privateDiagnosticPurpose } from '@/lib/private-diagnostic/policy';
 /* oxlint-disable next/no-html-link-for-pages -- Native document navigation. */
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { windowsDiagnosisGuides } from '@/lib/windows-diagnosis-guide';
@@ -21,6 +22,8 @@ export function LocalizedWindowsDiagnosis({ locale }: { locale: 'zh' | 'es' }) {
               <strong>{t.caution}</strong>
             </p>
             <p>{t.language}</p>
+            <p>{privateDiagnosticPurpose[locale]}</p>
+            <p>{privateDiagnosticPolicy[locale]}</p>
             <p>{t.requirements}</p>
           </div>
           {release ? (

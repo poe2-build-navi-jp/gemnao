@@ -103,6 +103,13 @@ async function sends(p) {
 try {
   let p = await page();
   await load(p);
+  assert.match(await p.locator('#private-use-purpose').innerText(), /原文公開、第三者販売、別目的/);
+  assert.match(await p.locator('#private-retention-policy').innerText(), /30日で閲覧できなく/);
+  assert.match(await p.locator('#private-retention-policy').innerText(), /1時間以内/);
+  assert.equal(await p.getByRole('checkbox').getAttribute('aria-describedby'), 'private-use-purpose private-retention-policy');
+  await p.getByText('中文 / Español — 保存方针 / Política de conservación', {exact:true}).click();
+  assert.match(await p.locator('p[lang="zh-Hans"]').allTextContents().then(x=>x.join(' ')), /30天/);
+  assert.match(await p.locator('p[lang="es"]').allTextContents().then(x=>x.join(' ')), /30 días/);
   assert.equal(await p.getByRole('checkbox').isChecked(), false);
   assert.equal(
     await p
@@ -221,6 +228,8 @@ try {
   p = await page();
   await load(p);
   await p.getByRole('combobox').selectOption('en');
+  assert.match(await p.locator('#private-use-purpose').innerText(), /sale to third parties/);
+  assert.match(await p.locator('#private-retention-policy').innerText(), /inaccessible 30 days/);
   assert.equal(await p.getByRole('checkbox').isChecked(), false);
   await p.getByRole('checkbox').check();
   await p.getByRole('button', { name: 'Send reviewed content' }).click();
