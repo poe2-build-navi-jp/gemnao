@@ -66,7 +66,7 @@ export function DiscordServerDirectory({
       const text = [
         server.name,
         server.game,
-        t(server.game),
+        en ? serverDirectoryCopy[server.game] || server.game : server.game,
         server.description,
         ...server.purposes,
         ...server.styles,
@@ -213,7 +213,7 @@ export function DiscordServerDirectory({
         </>
       )}
 
-      {loadState === 'loading' ? <p role="status">{en ? 'Loading server listings…' : '掲載情報を読み込んでいます…'}</p> : loadState === 'error' ? (
+      {loadState === 'loading' ? <output style={{ display: 'block' }}>{en ? 'Loading server listings…' : '掲載情報を読み込んでいます…'}</output> : loadState === 'error' ? (
         <div className="server-empty" role="alert">
           <h3>{t('募集情報を読み込めませんでした')}</h3>
           <p>{t('時間を置いてページを再読み込みしてください。')}</p>
