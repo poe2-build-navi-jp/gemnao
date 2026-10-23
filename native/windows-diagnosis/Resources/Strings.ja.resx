@@ -1,0 +1,2169 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionHistory.001" xml:space="preserve">
+    <value>不明</value>
+  </data>
+  <data name="ActionHistory.002" xml:space="preserve">
+    <value>解決・プレイできた（本人申告）</value>
+  </data>
+  <data name="ActionHistory.003" xml:space="preserve">
+    <value>改善した（本人申告）</value>
+  </data>
+  <data name="ActionHistory.004" xml:space="preserve">
+    <value>変わらない（本人申告）</value>
+  </data>
+  <data name="ActionHistory.005" xml:space="preserve">
+    <value>悪化した（本人申告）</value>
+  </data>
+  <data name="ActionHistory.006" xml:space="preserve">
+    <value>試していない（本人申告）</value>
+  </data>
+  <data name="ActionHistory.007" xml:space="preserve">
+    <value>判断できない（本人申告）</value>
+  </data>
+  <data name="ActionHistory.008" xml:space="preserve">
+    <value>結果未記録</value>
+  </data>
+  <data name="ActionHistory.009" xml:space="preserve">
+    <value>値の変化を観測（操作実施の証明ではない）</value>
+  </data>
+  <data name="ActionHistory.010" xml:space="preserve">
+    <value>取得値は同じ</value>
+  </data>
+  <data name="ActionHistory.011" xml:space="preserve">
+    <value>取得不足/不明</value>
+  </data>
+  <data name="ActionHistory.012" xml:space="preserve">
+    <value>未比較</value>
+  </data>
+  <data name="ActionHistory.013" xml:space="preserve">
+    <value>
+【実施履歴（本人記録と限定した観測を分離）】
+</value>
+  </data>
+  <data name="ActionHistory.014" xml:space="preserve">
+    <value>履歴の区分: </value>
+  </data>
+  <data name="ActionHistory.015" xml:space="preserve">
+    <value>。ローカル対象照合用の値は表示/共有しません。</value>
+  </data>
+  <data name="ActionHistory.016" xml:space="preserve">
+    <value>保存履歴を本人が選んで読み込みました。現在のPC/インストールとの同一性は自動検証していません。過去の観測は現在の基準値に使いません。</value>
+  </data>
+  <data name="ActionHistory.017" xml:space="preserve">
+    <value>このアプリ起動中の履歴です。実施と結果は本人の入力で、操作を自動監視した証明ではありません。</value>
+  </data>
+  <data name="ActionHistory.018" xml:space="preserve">
+    <value>まだ記録がありません。以前の操作を未実施とは断定しません。</value>
+  </data>
+  <data name="ActionHistory.019" xml:space="preserve">
+    <value>  記録時の同一セッション観測: Steam </value>
+  </data>
+  <data name="ActionHistory.020" xml:space="preserve">
+    <value> / ドライバー </value>
+  </data>
+  <data name="ActionHistory.021" xml:space="preserve">
+    <value> / 管理者実行登録 </value>
+  </data>
+  <data name="ActionHistory.022" xml:space="preserve">
+    <value>最大64記録。古い記録は順に一覧から外れます。観測の変化と改善の申告が並んでも、1つのDLLや操作が根因だと確定しません。</value>
+  </data>
+  <data name="CaptureWorkflow.001" xml:space="preserve">
+    <value>起動し直さず、同じ記録を読み直す</value>
+  </data>
+  <data name="CaptureWorkflow.002" xml:space="preserve">
+    <value>症状確認・レポート生成完了後 → 読み取る</value>
+  </data>
+  <data name="CaptureWorkflow.003" xml:space="preserve">
+    <value>記録0件は起動成功ではありません。CrashReport生成中なら完了まで待ち、ゲームを起動し直さず『同じ記録を読み直す』を押してください。</value>
+  </data>
+  <data name="CaptureWorkflow.004" xml:space="preserve">
+    <value>症状確認前からの時間記録（実際の起動/場面は本人確認）</value>
+  </data>
+  <data name="CaptureWorkflow.005" xml:space="preserve">
+    <value>直近範囲の読み取り（複数の起動が含まれる可能性あり）</value>
+  </data>
+  <data name="CaptureWorkflow.006" xml:space="preserve">
+    <value>計測方法の記録なし</value>
+  </data>
+  <data name="CaptureWorkflow.007" xml:space="preserve">
+    <value>取得方法: </value>
+  </data>
+  <data name="CaptureWorkflow.008" xml:space="preserve">
+    <value> / 同じ記録の読み直し </value>
+  </data>
+  <data name="CaptureWorkflow.009" xml:space="preserve">
+    <value> 回。新しい再テストではありません</value>
+  </data>
+  <data name="Core.001" xml:space="preserve">
+    <value>不明</value>
+  </data>
+  <data name="Core.002" xml:space="preserve">
+    <value>その他/不明</value>
+  </data>
+  <data name="Core.003" xml:space="preserve">
+    <value>同じ時間範囲に、PC全体の正常でない終了を示す Kernel-Power 41 の記録があります。</value>
+  </data>
+  <data name="Core.004" xml:space="preserve">
+    <value>ゲーム以外を含むPC全体の問題を、まず切り分ける必要があります。</value>
+  </data>
+  <data name="Core.005" xml:space="preserve">
+    <value>記録時刻は次回起動時です。電源・メモリ・ドライバーのどれが原因か、この記録だけでは分かりません。</value>
+  </data>
+  <data name="Core.006" xml:space="preserve">
+    <value>選択対象とのパス完全一致 </value>
+  </data>
+  <data name="Core.007" xml:space="preserve">
+    <value> 件 / EXE名のみ一致 </value>
+  </data>
+  <data name="Core.008" xml:space="preserve">
+    <value> 件。内訳: クラッシュ </value>
+  </data>
+  <data name="Core.009" xml:space="preserve">
+    <value> 件 / 応答停止 </value>
+  </data>
+  <data name="Core.010" xml:space="preserve">
+    <value> 件。</value>
+  </data>
+  <data name="Core.011" xml:space="preserve">
+    <value>アプリ・配布ファイル・実行環境などを順に確認する候補があります。</value>
+  </data>
+  <data name="Core.012" xml:space="preserve">
+    <value>名前のみ一致の記録は別の実行ファイルの可能性が残ります。イベントだけでは根因を確定しません。</value>
+  </data>
+  <data name="Core.013" xml:space="preserve">
+    <value>対象とのパス一致を確認していますが、障害モジュールや例外だけでは根因を確定しません。</value>
+  </data>
+  <data name="Core.014" xml:space="preserve">
+    <value>描画系に分類される障害モジュール、またはPC全体の Display 4101 の記録があります。</value>
+  </data>
+  <data name="Core.015" xml:space="preserve">
+    <value>描画経路・ゲーム側の描画設定・ドライバー互換性を確認する手掛かりです。</value>
+  </data>
+  <data name="Core.016" xml:space="preserve">
+    <value>GPU故障やドライバー不具合の証明ではありません。Display 4101 は別アプリの影響でも記録されます。</value>
+  </data>
+  <data name="Core.017" xml:space="preserve">
+    <value>実行環境に分類されるモジュールが障害記録に現れています。</value>
+  </data>
+  <data name="Core.018" xml:space="preserve">
+    <value>ゲーム公式が指定する Visual C++ ランタイムの版と構成を確認できます。</value>
+  </data>
+  <data name="Core.019" xml:space="preserve">
+    <value>モジュール名だけでDLL破損や不足とは判断できません。</value>
+  </data>
+  <data name="Core.020" xml:space="preserve">
+    <value>取得時の空き容量が5 GiB未満、または容量の5%未満の対象ドライブがあります。</value>
+  </data>
+  <data name="Core.021" xml:space="preserve">
+    <value>更新・一時ファイルの書き込み余裕を確認する候補です。これは本ツールの確認目安です。</value>
+  </data>
+  <data name="Core.022" xml:space="preserve">
+    <value>ゲーム固有の必要容量や不具合発生時の空き容量は判定していません。</value>
+  </data>
+  <data name="Core.023" xml:space="preserve">
+    <value>取得時の利用可能な物理メモリが1 GiB未満でした（本ツールの確認目安）。</value>
+  </data>
+  <data name="Core.024" xml:space="preserve">
+    <value>作業を保存し、不要なアプリを自分で閉じて、同条件と比較する候補です。</value>
+  </data>
+  <data name="Core.025" xml:space="preserve">
+    <value>瞬間値であり、ゲーム実行中のメモリ不足やRAM故障の証明ではありません。</value>
+  </data>
+  <data name="Core.026" xml:space="preserve">
+    <value>この取得結果には選択した実行ファイルに対応するクラッシュ・応答停止記録がありません。</value>
+  </data>
+  <data name="Core.027" xml:space="preserve">
+    <value>対象EXE、発生時刻、ランチャー側の更新状態や公式要件を確認してください。</value>
+  </data>
+  <data name="Core.028" xml:space="preserve">
+    <value>正常・解決を意味しません。ログがない失敗、別EXE、権限不足、上限到達、未対応形式などは判定できません。</value>
+  </data>
+  <data name="Core.029" xml:space="preserve">
+    <value>発生場面と対象を確認</value>
+  </data>
+  <data name="Core.030" xml:space="preserve">
+    <value>ゲーム本体のEXEと発生時刻を選びます。ランチャーと本体が別の場合があります。Steam等の更新完了、ゲーム公式の障害・必要環境を確認します。</value>
+  </data>
+  <data name="Core.031" xml:space="preserve">
+    <value>公式情報を確認するだけで、ファイルや設定は変更しません。</value>
+  </data>
+  <data name="Core.032" xml:space="preserve">
+    <value>配布ファイルの検証手順を確認</value>
+  </data>
+  <data name="Core.033" xml:space="preserve">
+    <value>Steamならゲームを終了し、セーブとMOD構成を控えてから、ライブラリ → プロパティ → インストール済みファイル → 整合性確認。Steam以外はその配布元の公式手順を確認します。</value>
+  </data>
+  <data name="Core.034" xml:space="preserve">
+    <value>実行は自分で行います。再取得でMODの上書きが元に戻ることがあります。セーブを削除しません。</value>
+  </data>
+  <data name="Core.035" xml:space="preserve">
+    <value>描画環境とドライバー版を照合</value>
+  </data>
+  <data name="Core.036" xml:space="preserve">
+    <value>表示された版をデバイス マネージャーと照合し、PC/GPUメーカー公式とゲームの既知問題を確認します。最近の変更は手掛かりですが、版の日付を更新実施日とみなしません。</value>
+  </data>
+  <data name="Core.037" xml:space="preserve">
+    <value>この初期版は更新・削除しません。DDU、オーバークロック、BIOS変更は案内対象外です。</value>
+  </data>
+  <data name="Core.038" xml:space="preserve">
+    <value>必要ランタイムの公式要件を照合</value>
+  </data>
+  <data name="Core.039" xml:space="preserve">
+    <value>ゲーム公式が指定する年版とx86/x64を確認し、Microsoftの公式配布情報と照合します。</value>
+  </data>
+  <data name="Core.040" xml:space="preserve">
+    <value>障害モジュールに現れただけで再インストールしません。DLL単体配布サイトは利用せず、既存の版を削除しません。</value>
+  </data>
+  <data name="Core.041" xml:space="preserve">
+    <value>対象ドライブの空き容量を確認</value>
+  </data>
+  <data name="Core.042" xml:space="preserve">
+    <value>Windowsの設定 → システム → ストレージで使用量を自分で確認し、ゲーム公式の必要容量と比べます。</value>
+  </data>
+  <data name="Core.043" xml:space="preserve">
+    <value>自動クリーンアップは行いません。セーブ、不明なファイル、回復用データを削除しないでください。</value>
+  </data>
+  <data name="Core.044" xml:space="preserve">
+    <value>不要なアプリを閉じた条件で比較</value>
+  </data>
+  <data name="Core.045" xml:space="preserve">
+    <value>保存していない作業を保存し、不要なアプリを自分で終了します。安全に起動できる場合だけ、同じ場面・同じ長さで比較します。</value>
+  </data>
+  <data name="Core.046" xml:space="preserve">
+    <value>サービス強制停止やページファイル変更は行いません。空きRAMはその瞬間の値です。</value>
+  </data>
+  <data name="Core.047" xml:space="preserve">
+    <value>PC全体の異常なら再現を中止</value>
+  </data>
+  <data name="Core.048" xml:space="preserve">
+    <value>PCの電源断・再起動・フリーズが続く場合、負荷テストをせず、作業を保存してPCメーカーや修理窓口へ相談してください。</value>
+  </data>
+  <data name="Core.049" xml:space="preserve">
+    <value>焦げた臭い、異常な発熱などがあれば使用を中止してください。このツールではハードウェア故障を証明・修理できません。</value>
+  </data>
+  <data name="Core.050" xml:space="preserve">
+    <value>取得完了（指定範囲のみ）</value>
+  </data>
+  <data name="Core.051" xml:space="preserve">
+    <value>アクセス拒否・昇格しません</value>
+  </data>
+  <data name="Core.052" xml:space="preserve">
+    <value>利用できません</value>
+  </data>
+  <data name="Core.053" xml:space="preserve">
+    <value>時間上限・不完全</value>
+  </data>
+  <data name="Core.054" xml:space="preserve">
+    <value>一部のみ・不完全</value>
+  </data>
+  <data name="Core.055" xml:space="preserve">
+    <value>中止・不完全</value>
+  </data>
+  <data name="Core.056" xml:space="preserve">
+    <value>未取得</value>
+  </data>
+  <data name="Core.057" xml:space="preserve">
+    <value>比較には取得前後の2回の結果が必要です。</value>
+  </data>
+  <data name="Core.058" xml:space="preserve">
+    <value>比較できません: ゲーム区分または症状が異なります。</value>
+  </data>
+  <data name="Core.059" xml:space="preserve">
+    <value>比較できません: 対象セッションが異なります。</value>
+  </data>
+  <data name="Core.060" xml:space="preserve">
+    <value>比較しません: 同じ記録の読み直しです。新しい再テストではありません。</value>
+  </data>
+  <data name="Core.061" xml:space="preserve">
+    <value>比較できません: 観測範囲が重なっています。対処前の記録を再カウントするためです。</value>
+  </data>
+  <data name="Core.062" xml:space="preserve">
+    <value>未確認</value>
+  </data>
+  <data name="Core.063" xml:space="preserve">
+    <value>改善した（本人の申告）</value>
+  </data>
+  <data name="Core.064" xml:space="preserve">
+    <value>変わらない（本人の申告）</value>
+  </data>
+  <data name="Core.065" xml:space="preserve">
+    <value>悪化した（本人の申告）</value>
+  </data>
+  <data name="Core.066" xml:space="preserve">
+    <value>判断できない（本人の申告）</value>
+  </data>
+  <data name="Core.067" xml:space="preserve">
+    <value>本人の再テスト結果: </value>
+  </data>
+  <data name="Core.068" xml:space="preserve">
+    <value>対象: 同じセッションで選択したEXE / 観測範囲は非重複</value>
+  </data>
+  <data name="Core.069" xml:space="preserve">
+    <value>選択アプリの記録件数: 前 </value>
+  </data>
+  <data name="Core.070" xml:space="preserve">
+    <value> 件（</value>
+  </data>
+  <data name="Core.071" xml:space="preserve">
+    <value>分） → 後 </value>
+  </data>
+  <data name="Core.072" xml:space="preserve">
+    <value>分）</value>
+  </data>
+  <data name="Core.073" xml:space="preserve">
+    <value>取得不足があるため件数の増減を評価できません。</value>
+  </data>
+  <data name="Core.074" xml:space="preserve">
+    <value>観測時間が異なります。件数だけを改善の根拠にできません。</value>
+  </data>
+  <data name="Core.075" xml:space="preserve">
+    <value>ゲームを実際に同条件で試したかは自動検証していません。記録ゼロは解決の証明ではなく、変更の因果関係も確定しません。</value>
+  </data>
+  <data name="Core.076" xml:space="preserve">
+    <value>ゲムなお Windows診断 試作 </value>
+  </data>
+  <data name="Core.077" xml:space="preserve">
+    <value> / 選別済みローカルレポート</value>
+  </data>
+  <data name="Core.078" xml:space="preserve">
+    <value>完全な匿名化を保証しません。共有前に内容を確認してください。外部への送信機能はありません。</value>
+  </data>
+  <data name="Core.079" xml:space="preserve">
+    <value>対象名・パス・ユーザー名・生ログ・端末IDは出力しません。CPU/GPU名はローカル画面のみです。</value>
+  </data>
+  <data name="Core.080" xml:space="preserve">
+    <value>値は取得時の状態です。原因確定・正常判定・自動修復は行いません。
+</value>
+  </data>
+  <data name="Core.081" xml:space="preserve">
+    <value>対処前</value>
+  </data>
+  <data name="Core.082" xml:space="preserve">
+    <value>現在</value>
+  </data>
+  <data name="Core.083" xml:space="preserve">
+    <value>対処後</value>
+  </data>
+  <data name="Core.084" xml:space="preserve">
+    <value>
+【前後比較】</value>
+  </data>
+  <data name="Core.085" xml:space="preserve">
+    <value>
+【手順の状態（本人による記録）】</value>
+  </data>
+  <data name="Core.086" xml:space="preserve">
+    <value>
+【手動の次の一歩】</value>
+  </data>
+  <data name="Core.087" xml:space="preserve">
+    <value>
+注意: </value>
+  </data>
+  <data name="Core.088" xml:space="preserve">
+    <value>
+ガイド: </value>
+  </data>
+  <data name="Core.089" xml:space="preserve">
+    <value>
+公式: </value>
+  </data>
+  <data name="Core.090" xml:space="preserve">
+    <value>不明: 温度・電源容量/劣化・RAM健全性・GPU健全性・ゲーム固有の要件を満たすか・最近の更新実施日・セーブ/MOD状態。
+記録が残らない起動失敗、Windows Error Reporting 1001、他のランチャー/子EXEは対象外です。
+Wilds固有コースでCrashReportの追加同意時のみ、ダンプの例外・モジュール等の限定項目を解析します。メモリ内容・レジスタ・スタック・命令・シンボル解析は対象外です。</value>
+  </data>
+  <data name="Core.091" xml:space="preserve">
+    <value>内容を確認</value>
+  </data>
+  <data name="Core.092" xml:space="preserve">
+    <value>自分で試した</value>
+  </data>
+  <data name="Core.093" xml:space="preserve">
+    <value>見送った</value>
+  </data>
+  <data name="Core.094" xml:space="preserve">
+    <value>実施の記録なし</value>
+  </data>
+  <data name="Core.095" xml:space="preserve">
+    <value>の取得事実】</value>
+  </data>
+  <data name="Core.096" xml:space="preserve">
+    <value>この診断内の先行取得でPC全体の終了記録あり。今回の件数には加算せず、再現中止の注意を保持しています。</value>
+  </data>
+  <data name="Core.097" xml:space="preserve">
+    <value>観測幅: </value>
+  </data>
+  <data name="Core.098" xml:space="preserve">
+    <value>分 / 個々の時刻は観測終了からの相対値</value>
+  </data>
+  <data name="Core.099" xml:space="preserve">
+    <value>OS内部版（10.0でもWindows 11の場合あり）: </value>
+  </data>
+  <data name="Core.100" xml:space="preserve">
+    <value>CPUメーカー分類: </value>
+  </data>
+  <data name="Core.101" xml:space="preserve">
+    <value> / 論理プロセッサ: </value>
+  </data>
+  <data name="Core.102" xml:space="preserve">
+    <value>物理RAM: </value>
+  </data>
+  <data name="Core.103" xml:space="preserve">
+    <value> MiB / 利用可能: </value>
+  </data>
+  <data name="Core.104" xml:space="preserve">
+    <value> MiB（取得時）</value>
+  </data>
+  <data name="Core.105" xml:space="preserve">
+    <value>  メーカー分類: </value>
+  </data>
+  <data name="Core.106" xml:space="preserve">
+    <value> / ドライバー版: </value>
+  </data>
+  <data name="Core.107" xml:space="preserve">
+    <value>容量: </value>
+  </data>
+  <data name="Core.108" xml:space="preserve">
+    <value>Windows側</value>
+  </data>
+  <data name="Core.109" xml:space="preserve">
+    <value>選択ゲーム側</value>
+  </data>
+  <data name="Core.110" xml:space="preserve">
+    <value>: 空き </value>
+  </data>
+  <data name="Core.111" xml:space="preserve">
+    <value> / 全体 </value>
+  </data>
+  <data name="Core.112" xml:space="preserve">
+    <value>System（PC全体の参考記録）</value>
+  </data>
+  <data name="Core.113" xml:space="preserve">
+    <value>
+【観測 → 原因候補 → 不明】</value>
+  </data>
+  <data name="Core.114" xml:space="preserve">
+    <value>観測: </value>
+  </data>
+  <data name="Core.115" xml:space="preserve">
+    <value>
+候補: </value>
+  </data>
+  <data name="Core.116" xml:space="preserve">
+    <value>
+不明: </value>
+  </data>
+  <data name="Core.117" xml:space="preserve">
+    <value> / 確認 </value>
+  </data>
+  <data name="Core.118" xml:space="preserve">
+    <value> / 未対応・解析不能 </value>
+  </data>
+  <data name="Core.119" xml:space="preserve">
+    <value> / 上限 </value>
+  </data>
+  <data name="Core.120" xml:space="preserve">
+    <value>到達</value>
+  </data>
+  <data name="Core.121" xml:space="preserve">
+    <value>未到達</value>
+  </data>
+  <data name="Core.122" xml:space="preserve">
+    <value>パス完全一致（パス非表示）</value>
+  </data>
+  <data name="Core.123" xml:space="preserve">
+    <value>EXE名のみ一致・別アプリの可能性あり</value>
+  </data>
+  <data name="Core.124" xml:space="preserve">
+    <value>PC全体・対象ゲームとの関連は不明</value>
+  </data>
+  <data name="Core.125" xml:space="preserve">
+    <value>  約</value>
+  </data>
+  <data name="Core.126" xml:space="preserve">
+    <value>分前: </value>
+  </data>
+  <data name="Core.127" xml:space="preserve">
+    <value> / モジュール分類: </value>
+  </data>
+  <data name="Core.128" xml:space="preserve">
+    <value> / 例外: </value>
+  </data>
+  <data name="Core.129" xml:space="preserve">
+    <value>    アプリ版 </value>
+  </data>
+  <data name="Core.130" xml:space="preserve">
+    <value> / モジュール版 </value>
+  </data>
+  <data name="Core.131" xml:space="preserve">
+    <value> / モジュール内位置 </value>
+  </data>
+  <data name="CrashArchive.001" xml:space="preserve">
+    <value>
+【別枠: ゲームのCrashReport】
+</value>
+  </data>
+  <data name="CrashArchive.002" xml:space="preserve">
+    <value>追加読取りに同意していないため、ZIP内容は読みませんでした。</value>
+  </data>
+  <data name="CrashArchive.003" xml:space="preserve">
+    <value>限定したフォルダ/探索範囲で候補ZIPが見つかりません。クラッシュしなかった証明ではありません。</value>
+  </data>
+  <data name="CrashArchive.004" xml:space="preserve">
+    <value>安全条件/形式/アクセス等により解析できません。保護を回避したり、未知の内容を実行したりしません。</value>
+  </data>
+  <data name="CrashArchive.005" xml:space="preserve">
+    <value>項目。解析対象はCrashReport.txtの固定項目とMiniDumpの例外/モジュールだけ。メモリ、レジスタ、スタック、その他の本文は解析していません。</value>
+  </data>
+  <data name="CrashArchive.006" xml:space="preserve">
+    <value>一部は上限/未対応形式のため解析できませんでした。</value>
+  </data>
+  <data name="CrashArchive.007" xml:space="preserve">
+    <value>テキストの例外: </value>
+  </data>
+  <data name="CrashArchive.008" xml:space="preserve">
+    <value> / RUNASADMINという記録あり（実際の適用/原因は未確定）</value>
+  </data>
+  <data name="CrashArchive.009" xml:space="preserve">
+    <value>テキストだけでは生成時刻/今回の対象との同一性を照合できません。別資料として扱い、現在の記録や前後比較へ混ぜません。</value>
+  </data>
+  <data name="CrashArchive.010" xml:space="preserve">
+    <value>ダンプの例外: </value>
+  </data>
+  <data name="CrashArchive.011" xml:space="preserve">
+    <value>ダンプ内のワイルズ本体名に対応（選択中EXEとの同一性は未検証）</value>
+  </data>
+  <data name="CrashArchive.012" xml:space="preserve">
+    <value> / モジュール内位置 </value>
+  </data>
+  <data name="CrashArchive.013" xml:space="preserve">
+    <value>対象EXE版: </value>
+  </data>
+  <data name="CrashArchive.014" xml:space="preserve">
+    <value> / モジュール版: </value>
+  </data>
+  <data name="CrashArchive.015" xml:space="preserve">
+    <value>作成時刻が取得できず、今回の観測との対応は不明。今回の比較には混ぜません。</value>
+  </data>
+  <data name="CrashArchive.016" xml:space="preserve">
+    <value>ダンプ作成時刻は観測範囲外です。別の時点の資料として表示し、今回の原因候補/前後比較には混ぜません。</value>
+  </data>
+  <data name="CrashArchive.017" xml:space="preserve">
+    <value>ダンプ作成時刻は観測範囲内。ただし生成時刻と最初の例外時刻は違う場合があり、同一の1回とはまだ確定しません。</value>
+  </data>
+  <data name="CrashArchive.018" xml:space="preserve">
+    <value>1000記録と例外・モジュール名・版・位置が一致する候補あり。同一障害/根因の証明ではありません。</value>
+  </data>
+  <data name="CrashArchive.019" xml:space="preserve">
+    <value>今回の詳細1000記録とは、例外・版・モジュール・位置の組合せが一致しません。別の障害や後段の例外の可能性を残します。</value>
+  </data>
+  <data name="CrashArchive.020" xml:space="preserve">
+    <value>モジュール一覧 </value>
+  </data>
+  <data name="CrashArchive.021" xml:space="preserve">
+    <value>件 / Steamオーバーレイ名のDLL: </value>
+  </data>
+  <data name="CrashArchive.022" xml:space="preserve">
+    <value>一覧にあり（原因の証明ではありません）</value>
+  </data>
+  <data name="CrashArchive.023" xml:space="preserve">
+    <value>このダンプ一覧では見つからず（全時点の不在証明ではありません）</value>
+  </data>
+  <data name="CrashArchive.024" xml:space="preserve">
+    <value>Steam追加確認で照合する既知5名の、ゲーム側ダンプ内の記録（現在のSteamプロセスとは別）:</value>
+  </data>
+  <data name="CrashArchive.025" xml:space="preserve">
+    <value>  このダンプ一覧では既知5名を検出せず。全時点の不在証明ではありません。</value>
+  </data>
+  <data name="CrashArchive.026" xml:space="preserve">
+    <value>: ゲーム側ダンプの一覧にあり / </value>
+  </data>
+  <data name="CrashArchive.027" xml:space="preserve">
+    <value>場所の分類は、このPCの選択Steam/Windowsパスとの文字列照合です。ダンプが同じPC・導入先・時点かは未検証で、現在のSteam状態と混ぜません。</value>
+  </data>
+  <data name="CrashArchive.028" xml:space="preserve">
+    <value>テキストとダンプの例外コードも異なります。1つの原因にまとめません。</value>
+  </data>
+  <data name="CrashArchive.029" xml:space="preserve">
+    <value>C000001Dは不正命令例外の分類です。CPUが要件不足/故障とは限らず、意図的な例外や後段の処理もあり得ます。この版は命令やスタックを解析して根因を断定しません。</value>
+  </data>
+  <data name="CrashArchive.030" xml:space="preserve">
+    <value>C0000005等の1000記録や別時点の資料を、コードが違うまま同じ故障と結び付けません。生ZIPは自動保存/共有しません。</value>
+  </data>
+  <data name="CrashDetails.001" xml:space="preserve">
+    <value>不明</value>
+  </data>
+  <data name="CrashDetails.002" xml:space="preserve">
+    <value>モジュール名が記録上不明（特定できず）</value>
+  </data>
+  <data name="CrashDetails.003" xml:space="preserve">
+    <value>対象ゲーム本体（モジュールパスも一致）</value>
+  </data>
+  <data name="CrashDetails.004" xml:space="preserve">
+    <value>対象EXE名と一致（モジュールパス未確認）</value>
+  </data>
+  <data name="CrashDetails.005" xml:space="preserve">
+    <value>Steamオーバーレイ名のモジュール</value>
+  </data>
+  <data name="CrashDetails.006" xml:space="preserve">
+    <value>描画系</value>
+  </data>
+  <data name="CrashDetails.007" xml:space="preserve">
+    <value>Visual C++系</value>
+  </data>
+  <data name="CrashDetails.008" xml:space="preserve">
+    <value>Windows基盤（原因未確定）</value>
+  </data>
+  <data name="CrashDetails.009" xml:space="preserve">
+    <value>未知のモジュール（名前はローカルのみ）</value>
+  </data>
+  <data name="CrashDetails.010" xml:space="preserve">
+    <value>不明/対象外</value>
+  </data>
+  <data name="CrashDetails.011" xml:space="preserve">
+    <value>
+【クラッシュの記録パターン】
+</value>
+  </data>
+  <data name="CrashDetails.012" xml:space="preserve">
+    <value>必要な項目が揃ったパターンはまだありません。例外コードだけが同じでも、同じ障害とはまとめません。</value>
+  </data>
+  <data name="CrashDetails.013" xml:space="preserve">
+    <value> / 例外 </value>
+  </data>
+  <data name="CrashDetails.014" xml:space="preserve">
+    <value> / モジュール内位置 </value>
+  </data>
+  <data name="CrashDetails.015" xml:space="preserve">
+    <value>  アプリ版 </value>
+  </data>
+  <data name="CrashDetails.016" xml:space="preserve">
+    <value> / モジュール版 </value>
+  </data>
+  <data name="CrashDetails.017" xml:space="preserve">
+    <value>  前 </value>
+  </data>
+  <data name="CrashDetails.018" xml:space="preserve">
+    <value>件 / 後 </value>
+  </data>
+  <data name="CrashDetails.019" xml:space="preserve">
+    <value>件</value>
+  </data>
+  <data name="CrashDetails.020" xml:space="preserve">
+    <value>  この取得に一致する記録 </value>
+  </data>
+  <data name="CrashDetails.021" xml:space="preserve">
+    <value>モジュール名の空欄/unknownは識別情報の欠落です。未知の名前付きDLLとは区別し、版や位置が0でも完全な反復パターンにしません。</value>
+  </data>
+  <data name="CrashDetails.022" xml:space="preserve">
+    <value>項目不足または名前のみ一致のクラッシュ記録: </value>
+  </data>
+  <data name="CrashDetails.023" xml:space="preserve">
+    <value>件。パターン比較から除外しています。</value>
+  </data>
+  <data name="CrashDetails.024" xml:space="preserve">
+    <value>P番号はこのレポート内だけのラベルです。項目の一致は根因の証明でも、独立した起動回数の証明でもありません。異なる取得のP番号を単独で照合しないでください。</value>
+  </data>
+  <data name="CrashDetails.025" xml:space="preserve">
+    <value>オフセットはモジュール内の位置で、絶対アドレスは保存しません。版が変わったオフセットを同じ障害と見なしません。</value>
+  </data>
+  <data name="CrashDetails.026" xml:space="preserve">
+    <value>取得不足があるため、このパターン一覧も不完全です。</value>
+  </data>
+  <data name="CrashDetails.027" xml:space="preserve">
+    <value>【ローカルだけの障害モジュール詳細】
+名前に個人情報を含む場合があります。この欄をそのまま共有しないでください。未知の名前は保存レポートへ出しません。
+</value>
+  </data>
+  <data name="CrashDetails.028" xml:space="preserve">
+    <value>モジュール名: </value>
+  </data>
+  <data name="CrashDetails.029" xml:space="preserve">
+    <value>未取得</value>
+  </data>
+  <data name="CrashDetails.030" xml:space="preserve">
+    <value> / 位置 </value>
+  </data>
+  <data name="CrashDetails.031" xml:space="preserve">
+    <value> / アプリ版 </value>
+  </data>
+  <data name="FeedbackExport.001" xml:space="preserve">
+    <value>不明</value>
+  </data>
+  <data name="GameProfile.001" xml:space="preserve">
+    <value>起動できない</value>
+  </data>
+  <data name="GameProfile.002" xml:space="preserve">
+    <value>クラッシュ・途中で終了</value>
+  </data>
+  <data name="GameProfile.003" xml:space="preserve">
+    <value>黒い画面</value>
+  </data>
+  <data name="GameProfile.004" xml:space="preserve">
+    <value>フリーズ・応答しない</value>
+  </data>
+  <data name="GameProfile.005" xml:space="preserve">
+    <value>FPSが低い</value>
+  </data>
+  <data name="GameProfile.006" xml:space="preserve">
+    <value>カクつく・一瞬止まる</value>
+  </data>
+  <data name="GameProfile.007" xml:space="preserve">
+    <value>その他・分からない</value>
+  </data>
+  <data name="GameProfile.008" xml:space="preserve">
+    <value>分からない</value>
+  </data>
+  <data name="GameProfile.009" xml:space="preserve">
+    <value>起動時</value>
+  </data>
+  <data name="GameProfile.010" xml:space="preserve">
+    <value>メニュー</value>
+  </data>
+  <data name="GameProfile.011" xml:space="preserve">
+    <value>プレイ中</value>
+  </data>
+  <data name="GameProfile.012" xml:space="preserve">
+    <value>どの場面でも</value>
+  </data>
+  <data name="GameProfile.013" xml:space="preserve">
+    <value>毎回</value>
+  </data>
+  <data name="GameProfile.014" xml:space="preserve">
+    <value>ときどき</value>
+  </data>
+  <data name="GameProfile.015" xml:space="preserve">
+    <value>結果未記録</value>
+  </data>
+  <data name="GameProfile.016" xml:space="preserve">
+    <value>まだ試していない</value>
+  </data>
+  <data name="GameProfile.017" xml:space="preserve">
+    <value>画質を1項目下げると改善</value>
+  </data>
+  <data name="GameProfile.018" xml:space="preserve">
+    <value>変わらない</value>
+  </data>
+  <data name="GameProfile.019" xml:space="preserve">
+    <value>悪化した</value>
+  </data>
+  <data name="GameProfile.020" xml:space="preserve">
+    <value>判断できない</value>
+  </data>
+  <data name="GameProfile.021" xml:space="preserve">
+    <value>Monster Hunter Wilds（本人が選んだ固有ルール）</value>
+  </data>
+  <data name="GameProfile.022" xml:space="preserve">
+    <value>PCゲーム共通（ゲーム名は保存しません）</value>
+  </data>
+  <data name="GameProfile.023" xml:space="preserve">
+    <value>選んだ本体・発生場面と公式情報を照合</value>
+  </data>
+  <data name="GameProfile.024" xml:space="preserve">
+    <value>ランチャーとゲーム本体が別なら、実際に終了/停止する本体EXEを配布元のローカルファイル画面で確認します。ゲーム公式の必要環境・既知問題・更新完了と、今回の場面を照合してください。以前動いた場合は直前に変えた設定を控えます。</value>
+  </data>
+  <data name="GameProfile.025" xml:space="preserve">
+    <value>本体を選べない保護されたゲーム/別の子EXEは、この版で自動追跡しません。権限や保護を変えて探しません。要件の自動合否判定はしません。</value>
+  </data>
+  <data name="GameProfile.026" xml:space="preserve">
+    <value>黒画面がゲーム内かPC全体かを分ける</value>
+  </data>
+  <data name="GameProfile.027" xml:space="preserve">
+    <value>ゲームだけ黒いか、デスクトップも表示できないか、音やメニュー操作は続くかを確認します。ゲームに表示モード設定がある場合だけ、現在値を控え、公式手順でウィンドウ表示に1項目だけ変えて同じ場面を比較します。</value>
+  </data>
+  <data name="GameProfile.028" xml:space="preserve">
+    <value>画面が戻らないPC全体の異常では再現を止めます。レジストリや設定ファイルを書き換えず、変化がなければ元の表示設定へ戻してください。</value>
+  </data>
+  <data name="GameProfile.029" xml:space="preserve">
+    <value>ゲームの応答停止と処理待ちを分ける</value>
+  </data>
+  <data name="GameProfile.030" xml:space="preserve">
+    <value>ゲームのロード/シェーダー準備表示がある場合は公式の待ち時間を確認します。Windowsは動くか、同じ場面で止まるかを記録してください。応答停止1002があれば時刻を照合します。</value>
+  </data>
+  <data name="GameProfile.031" xml:space="preserve">
+    <value>ログなしでもフリーズを否定できません。保存中の強制終了や繰り返しの強制電源断は案内しません。PC全体が止まる場合は再テストを中止します。</value>
+  </data>
+  <data name="GameProfile.032" xml:space="preserve">
+    <value>同じ場面で1項目だけ画質を比較</value>
+  </data>
+  <data name="GameProfile.033" xml:space="preserve">
+    <value>ゲーム内のFPS表示があれば本人が値を控え、同じ解像度・同じ場面・同じ長さで確認します。現在の設定を控え、ゲームが提供する画質設定を1項目だけ下げて比較してください。結果を準備画面の質問と実施履歴に記録できます。</value>
+  </data>
+  <data name="GameProfile.034" xml:space="preserve">
+    <value>このツールはFPS/フレーム時間/温度/使用率を計測していません。改善してもGPU不足の証明ではありません。効果がなければ設定を戻します。電力・電圧・BIOSは変更しません。</value>
+  </data>
+  <data name="GameProfile.035" xml:space="preserve">
+    <value>カクつく条件と処理待ちを確認</value>
+  </data>
+  <data name="GameProfile.036" xml:space="preserve">
+    <value>初回の場所だけか、同じ場面を再度通っても続くか、ロード/シェーダー準備表示があるかを本人が控えます。ゲーム公式の案内と照合し、安全な同じ短い場面だけで比較します。</value>
+  </data>
+  <data name="GameProfile.037" xml:space="preserve">
+    <value>シェーダーキャッシュやセーブを削除しません。シェーダーが原因と決めず、継続する場合は公式窓口へ場面を伝えます。フレーム時間の自動測定は未対応です。</value>
+  </data>
+  <data name="GameProfile.038" xml:space="preserve">
+    <value>利用中の録画/オーバーレイを1つずつ比較</value>
+  </data>
+  <data name="GameProfile.039" xml:space="preserve">
+    <value>利用していると本人が分かっている録画/オーバーレイだけ、元の状態を控え、通常の終了/公式設定で1つだけ止めた条件と比較します。</value>
+  </data>
+  <data name="GameProfile.040" xml:space="preserve">
+    <value>このツールは他アプリを検出/終了しません。改善しなかった条件は繰り返さず、必要なら元に戻します。存在だけで原因ではありません。</value>
+  </data>
+  <data name="GameProfile.041" xml:space="preserve">
+    <value>追加ツールの導入元と対応版を確認</value>
+  </data>
+  <data name="GameProfile.042" xml:space="preserve">
+    <value>MOD/描画追加ツールを使っていると本人が分かる場合だけ、ゲーム版への対応と提供元の安全な戻し方を確認します。</value>
+  </data>
+  <data name="GameProfile.043" xml:space="preserve">
+    <value>この共通コースはゲームフォルダの追加物を走査しません。不明なDLLを削除せず、セーブを保護し、同時に複数を変更しません。</value>
+  </data>
+  <data name="GameProfile.044" xml:space="preserve">
+    <value>互換モード/管理者実行の登録を確認</value>
+  </data>
+  <data name="GameProfile.045" xml:space="preserve">
+    <value>選択EXEのプロパティの互換性画面を自分で見て、表示した登録値と照合します。ゲーム提供元が必要とする設定を確認してください。</value>
+  </data>
+  <data name="GameProfile.046" xml:space="preserve">
+    <value>登録の存在は原因や現在の権限の証明ではありません。一般ゲームへ一律に設定解除/管理者実行を勧めません。ツールは昇格しません。</value>
+  </data>
+  <data name="GameProfile.047" xml:space="preserve">
+    <value>Steam側の追加構成を導入元と照合</value>
+  </data>
+  <data name="GameProfile.048" xml:space="preserve">
+    <value>選択したSteam直下の既知名と、実行中Steamの読込み先を区別します。追加物と分かる場合だけ、導入元/提供元と安全な無効化・復元方法を確認します。</value>
+  </data>
+  <data name="GameProfile.049" xml:space="preserve">
+    <value>Wildsの1事例は他ゲームの原因を証明しません。存在/Hidden属性/読込みだけで悪質・故障・原因とは判定せず、名前だけで削除/リネームしません。System32/SysWOW64内は変更しません。</value>
+  </data>
+  <data name="GameProfile.050" xml:space="preserve">
+    <value>記録を保管してゲームの公式窓口へ</value>
+  </data>
+  <data name="GameProfile.051" xml:space="preserve">
+    <value>同じ失敗した手順を繰り返さず、選別済みレポートと本人が分かる症状・場面・試した結果を確認し、必要部分だけ公式窓口へ本人が渡します。</value>
+  </data>
+  <data name="GameProfile.052" xml:space="preserve">
+    <value>すべてのゲーム固有障害を解析できません。一般ゲームの生ログ/ZIP/ダンプは読みません。アカウント/通信/音声/コントローラー等はこの版の専用解析対象外です。</value>
+  </data>
+  <data name="GameProfile.053" xml:space="preserve">
+    <value>PC全体の異常の申告または記録があります。原因未確定でも再現を優先しません。</value>
+  </data>
+  <data name="GameProfile.054" xml:space="preserve">
+    <value>再現せず、取得済みの記録を保管します。</value>
+  </data>
+  <data name="GameProfile.055" xml:space="preserve">
+    <value>この症状の専用判定は未対応です。共通事実は取得できます。</value>
+  </data>
+  <data name="GameProfile.056" xml:space="preserve">
+    <value>症状に合う公式窓口で追加確認が必要です。</value>
+  </data>
+  <data name="GameProfile.057" xml:space="preserve">
+    <value>本人が黒画面と申告。画面や描画処理を自動観測しての断定ではありません。</value>
+  </data>
+  <data name="GameProfile.058" xml:space="preserve">
+    <value>本人が応答停止と申告。ロード待ちとPC全体の停止は別に確認します。</value>
+  </data>
+  <data name="GameProfile.059" xml:space="preserve">
+    <value>本人がカクつきと申告。Windowsエラー件数だけでは性能を評価できません。</value>
+  </data>
+  <data name="GameProfile.060" xml:space="preserve">
+    <value>同条件での画質比較が未記録です。推測だけで部品交換を勧めません。</value>
+  </data>
+  <data name="GameProfile.061" xml:space="preserve">
+    <value>画質比較の本人結果あり。実施済みの同じ条件を繰り返さず、場面と公式要件を照合します。</value>
+  </data>
+  <data name="GameProfile.062" xml:space="preserve">
+    <value>追加同意の範囲でSteam側の存在/読込みを観測。ゲーム側への読込みや原因は別です。</value>
+  </data>
+  <data name="GameProfile.063" xml:space="preserve">
+    <value>本人が併用していると回答しています。</value>
+  </data>
+  <data name="GameProfile.064" xml:space="preserve">
+    <value>本人が追加ツールを使っていると回答しています。</value>
+  </data>
+  <data name="GameProfile.065" xml:space="preserve">
+    <value>選択EXEに関連する登録フラグあり。必要な設定かはゲーム公式で確認します。</value>
+  </data>
+  <data name="GameProfile.066" xml:space="preserve">
+    <value>配布ファイルの検証結果が未確認。破損を検出したわけではありません。</value>
+  </data>
+  <data name="GameProfile.067" xml:space="preserve">
+    <value>実際の版と公式既知問題を照合する候補です。最新版や故障を自動判定していません。</value>
+  </data>
+  <data name="GameProfile.068" xml:space="preserve">
+    <value>ゲーム本体・場面・必要環境を照合し、未取得の条件を補います。</value>
+  </data>
+  <data name="GameProfile.069" xml:space="preserve">
+    <value>改善しない場合は取得範囲外の確認が必要です。記録ゼロは正常の証明ではありません。</value>
+  </data>
+  <data name="GameProfile.070" xml:space="preserve">
+    <value>【PCゲーム診断・共通の入口】
+</value>
+  </data>
+  <data name="GameProfile.071" xml:space="preserve">
+    <value>ルール: </value>
+  </data>
+  <data name="GameProfile.072" xml:space="preserve">
+    <value> / 症状（本人申告）: </value>
+  </data>
+  <data name="GameProfile.073" xml:space="preserve">
+    <value>配布元（本人申告）: </value>
+  </data>
+  <data name="GameProfile.074" xml:space="preserve">
+    <value>Steam以外</value>
+  </data>
+  <data name="GameProfile.075" xml:space="preserve">
+    <value> / 場面: </value>
+  </data>
+  <data name="GameProfile.076" xml:space="preserve">
+    <value> / 頻度: </value>
+  </data>
+  <data name="GameProfile.077" xml:space="preserve">
+    <value>過去に遊べた: </value>
+  </data>
+  <data name="GameProfile.078" xml:space="preserve">
+    <value> / 録画・オーバーレイ: </value>
+  </data>
+  <data name="GameProfile.079" xml:space="preserve">
+    <value>画質比較（本人申告）: </value>
+  </data>
+  <data name="GameProfile.080" xml:space="preserve">
+    <value>
+FPS・フレーム時間・GPU使用率・温度は測定していません。性能改善は本人の同条件比較で記録します。取得時のRAM/容量はプレイ中の最大負荷ではありません。</value>
+  </data>
+  <data name="GameProfile.081" xml:space="preserve">
+    <value>本体ファイル版: </value>
+  </data>
+  <data name="GameProfile.082" xml:space="preserve">
+    <value>互換性登録の読取: </value>
+  </data>
+  <data name="GameProfile.083" xml:space="preserve">
+    <value> / ゲームの互換フラグ: </value>
+  </data>
+  <data name="GameProfile.084" xml:space="preserve">
+    <value>あり</value>
+  </data>
+  <data name="GameProfile.085" xml:space="preserve">
+    <value>なし又は未取得</value>
+  </data>
+  <data name="GameProfile.086" xml:space="preserve">
+    <value> / 管理者実行フラグ: </value>
+  </data>
+  <data name="GameProfile.087" xml:space="preserve">
+    <value>PC全体の異常（本人申告）: </value>
+  </data>
+  <data name="GameProfile.088" xml:space="preserve">
+    <value> / ファイル検証（本人申告）: </value>
+  </data>
+  <data name="GameProfile.089" xml:space="preserve">
+    <value>
+手掛かり: </value>
+  </data>
+  <data name="GameProfile.090" xml:space="preserve">
+    <value>
+注意: </value>
+  </data>
+  <data name="GameProfile.091" xml:space="preserve">
+    <value>
+公式: </value>
+  </data>
+  <data name="GameProfile.092" xml:space="preserve">
+    <value>
+対応範囲: 選択したWindowsゲームEXEの1000/1002と、同時間帯の4101/41、取得時PC情報。別EXE・独自エンジンログ・FPS/通信/入力/音声・すべての原因の特定は未対応。一般ゲームのZIP/ダンプをWilds形式として読みません。</value>
+  </data>
+  <data name="Language.OriginalData" xml:space="preserve">
+    <value>ローカルの取得原文を翻訳せず表示します。端末名と未知のモジュール名は保存レポートから除外します。既知のDLL名は別の固定リストの選択時だけ保存できます。</value>
+  </data>
+  <data name="Language.SessionOnly" xml:space="preserve">
+    <value>言語は今回の起動中だけ適用します。待機中に切り替えても取得済みの事実や回答は保持します。</value>
+  </data>
+  <data name="MainForm.001" xml:space="preserve">
+    <value>PCゲーム共通（通常はこちら）</value>
+  </data>
+  <data name="MainForm.002" xml:space="preserve">
+    <value>Monster Hunter Wilds Steam版の固有ルール</value>
+  </data>
+  <data name="MainForm.003" xml:space="preserve">
+    <value>配布元が分からない</value>
+  </data>
+  <data name="MainForm.004" xml:space="preserve">
+    <value>Steam以外</value>
+  </data>
+  <data name="MainForm.005" xml:space="preserve">
+    <value>Wildsのみ追加確認: ゲーム直下の既知7項目の痕跡/版情報と、製品版登録のLastPlayedを読む（導入歴/成功は断定しません）</value>
+  </data>
+  <data name="MainForm.006" xml:space="preserve">
+    <value>Wildsのみ追加確認: CrashReportのZIPを1個読む（最大8MiB。固定テキストと例外/モジュールのみ。生データは共有しません）</value>
+  </data>
+  <data name="MainForm.007" xml:space="preserve">
+    <value>追加確認: 選択したSteam直下の既知6項目/Hidden属性と、実行中Steamの既知5DLLの読込先を調べる（原因は断定しません）</value>
+  </data>
+  <data name="MainForm.008" xml:space="preserve">
+    <value>Steam本体を自分で選ぶ（追加確認用）</value>
+  </data>
+  <data name="MainForm.009" xml:space="preserve">
+    <value>別のCrashReport ZIPを選んで読む</value>
+  </data>
+  <data name="MainForm.010" xml:space="preserve">
+    <value>読み取り範囲を確認し、このPC内での取得に同意する</value>
+  </data>
+  <data name="MainForm.011" xml:space="preserve">
+    <value>Steamの登録先からワイルズを探す</value>
+  </data>
+  <data name="MainForm.012" xml:space="preserve">
+    <value>自分で本体EXEを選ぶ</value>
+  </data>
+  <data name="MainForm.013" xml:space="preserve">
+    <value>新しい診断を始める</value>
+  </data>
+  <data name="MainForm.014" xml:space="preserve">
+    <value>ゲーム未選択</value>
+  </data>
+  <data name="MainForm.015" xml:space="preserve">
+    <value>分からない</value>
+  </data>
+  <data name="MainForm.016" xml:space="preserve">
+    <value>製品版で遊べたことはない</value>
+  </data>
+  <data name="MainForm.017" xml:space="preserve">
+    <value>製品版では以前遊べた</value>
+  </data>
+  <data name="MainForm.018" xml:space="preserve">
+    <value>体験版/βで遊べたことはない</value>
+  </data>
+  <data name="MainForm.019" xml:space="preserve">
+    <value>体験版/βでは遊べた</value>
+  </data>
+  <data name="MainForm.020" xml:space="preserve">
+    <value>録画/オーバーレイは併用していない</value>
+  </data>
+  <data name="MainForm.021" xml:space="preserve">
+    <value>録画/オーバーレイを併用している</value>
+  </data>
+  <data name="MainForm.022" xml:space="preserve">
+    <value>使っていない</value>
+  </data>
+  <data name="MainForm.023" xml:space="preserve">
+    <value>MOD/描画ツールを使っている</value>
+  </data>
+  <data name="MainForm.024" xml:space="preserve">
+    <value>高解像度DLCなし</value>
+  </data>
+  <data name="MainForm.025" xml:space="preserve">
+    <value>高解像度DLCあり</value>
+  </data>
+  <data name="MainForm.026" xml:space="preserve">
+    <value>ゲームの症状だけ・PCは動く</value>
+  </data>
+  <data name="MainForm.027" xml:space="preserve">
+    <value>PCも電源断/再起動/ブルースクリーン/完全停止</value>
+  </data>
+  <data name="MainForm.028" xml:space="preserve">
+    <value>実施の記録なし</value>
+  </data>
+  <data name="MainForm.029" xml:space="preserve">
+    <value>実施結果は分からない</value>
+  </data>
+  <data name="MainForm.030" xml:space="preserve">
+    <value>実施・再取得なし</value>
+  </data>
+  <data name="MainForm.031" xml:space="preserve">
+    <value>実施・再取得あり（完了済み）</value>
+  </data>
+  <data name="MainForm.032" xml:space="preserve">
+    <value>症状を確認する直前 → 記録開始</value>
+  </data>
+  <data name="MainForm.033" xml:space="preserve">
+    <value>すでに症状が出た場合: 直近10分を読む</value>
+  </data>
+  <data name="MainForm.034" xml:space="preserve">
+    <value>中止する</value>
+  </data>
+  <data name="MainForm.035" xml:space="preserve">
+    <value>1 / 準備。Windows x64専用。まだPC情報を取得していません</value>
+  </data>
+  <data name="MainForm.036" xml:space="preserve">
+    <value>計測開始後、普段の配布元からゲームを起動し、選んだ症状の場面を1回だけ確認します。</value>
+  </data>
+  <data name="MainForm.037" xml:space="preserve">
+    <value>診断後、次に確認する手順をここへ表示します。</value>
+  </data>
+  <data name="MainForm.038" xml:space="preserve">
+    <value>内容を確認</value>
+  </data>
+  <data name="MainForm.039" xml:space="preserve">
+    <value>自分で試した</value>
+  </data>
+  <data name="MainForm.040" xml:space="preserve">
+    <value>見送った</value>
+  </data>
+  <data name="MainForm.041" xml:space="preserve">
+    <value>再テスト: 未確認</value>
+  </data>
+  <data name="MainForm.042" xml:space="preserve">
+    <value>再テスト: 改善した</value>
+  </data>
+  <data name="MainForm.043" xml:space="preserve">
+    <value>再テスト: 変わらない</value>
+  </data>
+  <data name="MainForm.044" xml:space="preserve">
+    <value>再テスト: 悪化した</value>
+  </data>
+  <data name="MainForm.045" xml:space="preserve">
+    <value>再テスト: 判断できない</value>
+  </data>
+  <data name="MainForm.046" xml:space="preserve">
+    <value>この手順のガイドを開く</value>
+  </data>
+  <data name="MainForm.047" xml:space="preserve">
+    <value>公式情報を開く</value>
+  </data>
+  <data name="MainForm.048" xml:space="preserve">
+    <value>1つ試したら → 同じ場面を再テスト</value>
+  </data>
+  <data name="MainForm.049" xml:space="preserve">
+    <value>共有する内容を確認して保存</value>
+  </data>
+  <data name="MainForm.050" xml:space="preserve">
+    <value>ゲムなお | PCゲーム診断 </value>
+  </data>
+  <data name="MainForm.051" xml:space="preserve">
+    <value>PCゲーム診断  症状から次の確認へ</value>
+  </data>
+  <data name="MainForm.052" xml:space="preserve">
+    <value>PC設定変更・自動送信なし / 保存は本人操作 | 未署名 / Windows x64専用・新機能の実機確認前。保護機能が止めた場合は回避せず中止してください。</value>
+  </data>
+  <data name="MainForm.053" xml:space="preserve">
+    <value>記録する範囲: </value>
+  </data>
+  <data name="MainForm.054" xml:space="preserve">
+    <value>24時間を超えたため計測を中止しました。新しい短い範囲でやり直してください。</value>
+  </data>
+  <data name="MainForm.055" xml:space="preserve">
+    <value>1  準備</value>
+  </data>
+  <data name="MainForm.056" xml:space="preserve">
+    <value>ゲーム本体EXEと症状を選ぶ共通コースです。起動不可・クラッシュ・黒画面・フリーズ・低FPS・カクつきの確認を案内します。すべてのゲーム固有の原因を特定する機能ではありません。Wildsの経験は任意の固有ルールとして利用します。</value>
+  </data>
+  <data name="MainForm.057" xml:space="preserve">
+    <value>取得範囲: 選んだ本体EXEの版・互換性登録、OS・CPU・GPU/ドライバー・RAM・2ドライブ容量、指定範囲の1000/1002・4101/41記録（障害モジュール名/版/位置を含む）。共通コースはゲームフォルダや独自ログ/ZIPを走査しません。Wilds固有コースのときだけSteam登録検索/CrashReportフォルダのZIP有無・時刻が対象になります。
+セーブやSteamのユーザー別フォルダは読みません。追加確認を選んだ場合だけ、既知の痕跡やZIP内の指定項目を読みます。登録ファイルに識別情報が含まれる場合も、場所など同意範囲の固定項目だけを利用し、識別情報は保存/出力しません。フルディスク走査・アップロードはしません。</value>
+  </data>
+  <data name="MainForm.058" xml:space="preserve">
+    <value>診断するルール</value>
+  </data>
+  <data name="MainForm.059" xml:space="preserve">
+    <value>困っている症状</value>
+  </data>
+  <data name="MainForm.060" xml:space="preserve">
+    <value>ゲームの配布元</value>
+  </data>
+  <data name="MainForm.061" xml:space="preserve">
+    <value>Steam追加確認は固定6名だけ。Steamのモジュール一覧を一時取得し、既知名5件の場所分類だけ保持します。本文/プロセスのタイトル/引数/他アプリ一覧は記録しません。読み込み一覧以外の実行メモリは解析しません。権限不足は不明のままです。</value>
+  </data>
+  <data name="MainForm.062" xml:space="preserve">
+    <value>本体EXEの選び方: 配布元のローカルファイル表示で実際のゲーム本体を選びます。Steamならライブラリ → 対象ゲームを右クリック → 管理 → ローカルファイルを閲覧。ランチャー/クラッシュ報告用EXEとは別の場合があります。保護されたフォルダで選べない場合は、権限を変更せず中止してください。Wilds検索は固有ルール選択時だけ使えます。</value>
+  </data>
+  <data name="MainForm.063" xml:space="preserve">
+    <value>発生する場面</value>
+  </data>
+  <data name="MainForm.064" xml:space="preserve">
+    <value>発生する頻度</value>
+  </data>
+  <data name="MainForm.065" xml:space="preserve">
+    <value>画質を1項目下げた結果（性能症状用）</value>
+  </data>
+  <data name="MainForm.066" xml:space="preserve">
+    <value>Wilds起動時の詳細（固有ルール用）</value>
+  </data>
+  <data name="MainForm.067" xml:space="preserve">
+    <value>このゲームで以前遊べた？</value>
+  </data>
+  <data name="MainForm.068" xml:space="preserve">
+    <value>体験版/βで遊べた？</value>
+  </data>
+  <data name="MainForm.069" xml:space="preserve">
+    <value>録画/オーバーレイ</value>
+  </data>
+  <data name="MainForm.070" xml:space="preserve">
+    <value>MOD/描画ツール</value>
+  </data>
+  <data name="MainForm.071" xml:space="preserve">
+    <value>高解像度テクスチャDLC</value>
+  </data>
+  <data name="MainForm.072" xml:space="preserve">
+    <value>PC全体の状態</value>
+  </data>
+  <data name="MainForm.073" xml:space="preserve">
+    <value>配布元のファイル検証（本人記録）</value>
+  </data>
+  <data name="MainForm.074" xml:space="preserve">
+    <value>分からない項目はそのままで構いません。まず1回だけ記録します。電源断・異常な発熱・PC全体の再起動があるなら再現せず、直近の記録だけを読んでください。</value>
+  </data>
+  <data name="MainForm.075" xml:space="preserve">
+    <value>2  症状を記録</value>
+  </data>
+  <data name="MainForm.076" xml:space="preserve">
+    <value>いつもと同じ場面で、症状を1回確認</value>
+  </data>
+  <data name="MainForm.077" xml:space="preserve">
+    <value>このツールはゲームの操作・画面録画・FPSや温度の計測をしません。開始〜終了の時刻だけを保持し、下のボタンの後に該当するWindowsの記録を読みます。
+クラッシュ表示が出ても、CrashReport生成中はまだ押さずに待ってください。起動できた場合/性能症状では同じ短い場面を確認し、安全にゲームを終了してから進めます。</value>
+  </data>
+  <data name="MainForm.078" xml:space="preserve">
+    <value>先にCrashReportの「生成完了」を確認 → その後に下の読み取りボタン。生成画面が出ない場合は終了後に進めます。数分の生成待ちはゲームのフリーズとは別です。</value>
+  </data>
+  <data name="MainForm.079" xml:space="preserve">
+    <value>終了後はログの書き込みを5秒待ってから読み取ります。それでも記録が遅れたり残らないことがあります。記録がないことを『正常』とは判断しません。
+待ち時間が長い場合は中止またはこのアプリを閉じられます。Windows APIの待機は即時終了できない場合があります。</value>
+  </data>
+  <data name="MainForm.080" xml:space="preserve">
+    <value>3  次の一手</value>
+  </data>
+  <data name="MainForm.081" xml:space="preserve">
+    <value>4  詳細と保存</value>
+  </data>
+  <data name="MainForm.082" xml:space="preserve">
+    <value>この画面の冒頭にはローカル表示だけのCPU/GPU名があります。保存時は除外します。共有前に別画面で実際に保存する全文を確認できます。</value>
+  </data>
+  <data name="MainForm.083" xml:space="preserve">
+    <value>Wilds固有ルールはSteam版用です。他の配布元ならPCゲーム共通を選んでください。</value>
+  </data>
+  <data name="MainForm.084" xml:space="preserve">
+    <value>配布元を変えるため取得済みの比較をクリアします。本人の実施履歴は保持します。変更しますか？</value>
+  </data>
+  <data name="MainForm.085" xml:space="preserve">
+    <value>配布元変更</value>
+  </data>
+  <data name="MainForm.086" xml:space="preserve">
+    <value>配布元を変更しました。新しい読み取り待ちです。</value>
+  </data>
+  <data name="MainForm.087" xml:space="preserve">
+    <value>ルール/症状を変えると、別の診断として画面内の記録・比較をクリアします。必要なら先に履歴を保存してください。変更しますか？</value>
+  </data>
+  <data name="MainForm.088" xml:space="preserve">
+    <value>診断の区分変更</value>
+  </data>
+  <data name="MainForm.089" xml:space="preserve">
+    <value>ゲーム未選択。固有ルールに合う本体を選んでください。</value>
+  </data>
+  <data name="MainForm.090" xml:space="preserve">
+    <value>診断の区分を変更しました。新しい取得待ちです。</value>
+  </data>
+  <data name="MainForm.091" xml:space="preserve">
+    <value>最初の記録待ち</value>
+  </data>
+  <data name="MainForm.092" xml:space="preserve">
+    <value>ローカル固定ドライブのゲーム本体EXEを選んでください。Wilds固有ルールはMonsterHunterWilds.exeのみです。ネットワーク/リンク/保護されたアプリ経由はこの版の対象外です。</value>
+  </data>
+  <data name="MainForm.093" xml:space="preserve">
+    <value>ゲームは同じですがSteam本体の関連付けが変わります。取得済みの比較をクリアし、本人の手順履歴を保持して続けますか？</value>
+  </data>
+  <data name="MainForm.094" xml:space="preserve">
+    <value>Steamの関連付け</value>
+  </data>
+  <data name="MainForm.095" xml:space="preserve">
+    <value>Steamの関連付けを更新しました。新しい読み取り待ちです。</value>
+  </data>
+  <data name="MainForm.096" xml:space="preserve">
+    <value>同じ本体を確認しました。次の読み取りでSteam側の互換モード登録も確認できます。</value>
+  </data>
+  <data name="MainForm.097" xml:space="preserve">
+    <value>別のゲーム導入先に変更すると、画面内の比較と手順記録を新しい診断にします。必要なら先に履歴を保存してください。変更しますか？</value>
+  </data>
+  <data name="MainForm.098" xml:space="preserve">
+    <value>対象変更</value>
+  </data>
+  <data name="MainForm.099" xml:space="preserve">
+    <value>ゲーム本体を選択済み（このPC内のみ）: </value>
+  </data>
+  <data name="MainForm.100" xml:space="preserve">
+    <value>準備できました。起動直前の開始、または直近10分の読み取りを選びます。</value>
+  </data>
+  <data name="MainForm.101" xml:space="preserve">
+    <value>実際に症状が出るゲーム本体EXEを選ぶ（実行しません）</value>
+  </data>
+  <data name="MainForm.102" xml:space="preserve">
+    <value>ゲーム本体 (*.exe)|*.exe</value>
+  </data>
+  <data name="MainForm.103" xml:space="preserve">
+    <value>実際に使用するSteam本体の steam.exe を選ぶ（実行しません）</value>
+  </data>
+  <data name="MainForm.104" xml:space="preserve">
+    <value>Steam本体|steam.exe</value>
+  </data>
+  <data name="MainForm.105" xml:space="preserve">
+    <value>ローカル固定ドライブのSteam本体を選んでください。</value>
+  </data>
+  <data name="MainForm.106" xml:space="preserve">
+    <value>Steamの選択が変わるので取得済み比較をクリアします。本人が記録した手順履歴は保持します。よいですか？</value>
+  </data>
+  <data name="MainForm.107" xml:space="preserve">
+    <value>Steamの選択</value>
+  </data>
+  <data name="MainForm.108" xml:space="preserve">
+    <value>Steam本体を選択しました。次の読み取りで実行中の本体パスと照合します。</value>
+  </data>
+  <data name="MainForm.109" xml:space="preserve">
+    <value>Steam本体を選択済み（ローカルのみ）。名前が同じ別の本体は照合に含めません。</value>
+  </data>
+  <data name="MainForm.110" xml:space="preserve">
+    <value>Steamの登録場所と、登録されたローカルライブラリだけを確認しています。</value>
+  </data>
+  <data name="MainForm.111" xml:space="preserve">
+    <value>使っているワイルズの場所を選択（ローカル表示のみ）</value>
+  </data>
+  <data name="MainForm.112" xml:space="preserve">
+    <value>この場所を選ぶ</value>
+  </data>
+  <data name="MainForm.113" xml:space="preserve">
+    <value>登録先から見つかりませんでした。未インストールとは限りません。「自分で本体EXEを選ぶ」を使ってください。</value>
+  </data>
+  <data name="MainForm.114" xml:space="preserve">
+    <value>本体を選択しました。一部の登録情報は取得できませんでした。実際に使っている場所か確認してください。</value>
+  </data>
+  <data name="MainForm.115" xml:space="preserve">
+    <value>検索を中止しました。前の選択を保持しています。</value>
+  </data>
+  <data name="MainForm.116" xml:space="preserve">
+    <value>自動検索を完了できませんでした。手動選択を使えます。</value>
+  </data>
+  <data name="MainForm.117" xml:space="preserve">
+    <value>未保存の結果と手順記録を消して、新しい診断にしますか？</value>
+  </data>
+  <data name="MainForm.118" xml:space="preserve">
+    <value>新しい診断</value>
+  </data>
+  <data name="MainForm.119" xml:space="preserve">
+    <value>新しい診断です。ゲームの選択は維持しています。</value>
+  </data>
+  <data name="MainForm.120" xml:space="preserve">
+    <value>PC全体の異常の申告/記録があります。再現を止め、直近の記録や公式相談を優先してください。</value>
+  </data>
+  <data name="MainForm.121" xml:space="preserve">
+    <value>PC全体の電源断・異常な発熱・再起動がない場合だけ、同じ症状の場面を短く1回だけ確認してください。
+このツールはゲームを起動/操作しません。</value>
+  </data>
+  <data name="MainForm.122" xml:space="preserve">
+    <value>
+比較のため、試す対処は1つだけにしてください。</value>
+  </data>
+  <data name="MainForm.123" xml:space="preserve">
+    <value>
+
+安全に試せるので、記録範囲の計測を開始しますか？</value>
+  </data>
+  <data name="MainForm.124" xml:space="preserve">
+    <value>起動の記録</value>
+  </data>
+  <data name="MainForm.125" xml:space="preserve">
+    <value>記録する範囲: 00:00:00</value>
+  </data>
+  <data name="MainForm.126" xml:space="preserve">
+    <value>普段の配布元からゲームを起動し、同じ症状の場面を1回確認してください。性能の値はゲーム内表示等で本人が確認します。落ちてレポート生成中なら完了を待ちます。</value>
+  </data>
+  <data name="MainForm.127" xml:space="preserve">
+    <value>再テストを計測中。直前の記録と比較します。</value>
+  </data>
+  <data name="MainForm.128" xml:space="preserve">
+    <value>最初の起動を計測中。まだWindowsログは読み取っていません。</value>
+  </data>
+  <data name="MainForm.129" xml:space="preserve">
+    <value>実際に症状の場面を確認してから押してください。自動では起動していません。</value>
+  </data>
+  <data name="MainForm.130" xml:space="preserve">
+    <value>CrashReportの生成画面が出た場合は、生成完了まで待ってください。クラッシュ表示直後は記録がまだ残っていないことがあります。
+
+生成完了を確認した、または生成画面は出ていませんか？
+『いいえ』で計測を続けます。ゲームを起動し直す必要はありません。</value>
+  </data>
+  <data name="MainForm.131" xml:space="preserve">
+    <value>読み取る前の確認</value>
+  </data>
+  <data name="MainForm.132" xml:space="preserve">
+    <value>ログの書き込みを5秒待っています。ゲームの再起動は不要です。</value>
+  </data>
+  <data name="MainForm.133" xml:space="preserve">
+    <value>Windowsの選別済み記録とPC状態を読み取り中。設定は変更しません。</value>
+  </data>
+  <data name="MainForm.134" xml:space="preserve">
+    <value>同じ記録を読み直しました。比較元・手順状態・本人の結果を保持しています。新しい再テストには数えません。</value>
+  </data>
+  <data name="MainForm.135" xml:space="preserve">
+    <value>取得は終わりましたが、アプリ記録は0件です。生成完了待ちと読み直しの案内を確認してください。</value>
+  </data>
+  <data name="MainForm.136" xml:space="preserve">
+    <value>読み取り終了。事実と候補を確認します。以前に試した操作は繰り返さず、手順状態に記録してください。</value>
+  </data>
+  <data name="MainForm.137" xml:space="preserve">
+    <value>中止しました。前の取得済み記録があれば保持しています。</value>
+  </data>
+  <data name="MainForm.138" xml:space="preserve">
+    <value>読み取りを完了できませんでした。前の結果を保持。手順1へ戻って対象を確認してください。</value>
+  </data>
+  <data name="MainForm.139" xml:space="preserve">
+    <value>同じ記録の読み直しは、元の開始から30分以内です。結果と手順状態は保持しています。保存や、完了済みのCrashReport ZIPの手動選択は可能です。別の時間範囲が必要なら保存後に『新しい診断を始める』を選んでください。ゲームの再起動は不要です。</value>
+  </data>
+  <data name="MainForm.140" xml:space="preserve">
+    <value>CrashReport生成中なら、完了してから読み直してください。
+ゲームを追加で起動せず、開始時刻を維持したまま終了を現在まで延ばします（開始から最大30分）。比較元・手順状態・本人の結果は保持します。別の起動や設定変更が入った場合は、いいえを選んでください。
+
+生成完了後、追加の起動や設定変更をせずに読み直しますか？</value>
+  </data>
+  <data name="MainForm.141" xml:space="preserve">
+    <value>遅延した記録の確認</value>
+  </data>
+  <data name="MainForm.142" xml:space="preserve">
+    <value>確認中に読み直せる範囲を超えたため、追加の読み取りは行いません。結果と手順状態を保持しています。</value>
+  </data>
+  <data name="MainForm.143" xml:space="preserve">
+    <value>読むCrashReport ZIPを1個選択（生データは保存/送信しません）</value>
+  </data>
+  <data name="MainForm.144" xml:space="preserve">
+    <value>ZIP読取りを中止し、前の結果を保持しました。</value>
+  </data>
+  <data name="MainForm.145" xml:space="preserve">
+    <value>ZIPを読めませんでした。前の結果を保持しています。</value>
+  </data>
+  <data name="MainForm.146" xml:space="preserve">
+    <value>計測を中止しました。Windowsログは読み取っていません。</value>
+  </data>
+  <data name="MainForm.147" xml:space="preserve">
+    <value>中止を要求しました。Windows APIの待機が戻るまで時間がかかる場合があります。閉じても構いません。</value>
+  </data>
+  <data name="MainForm.148" xml:space="preserve">
+    <value>記録から原因はまだ確定していません。選択したゲームに対応するアプリ記録: </value>
+  </data>
+  <data name="MainForm.149" xml:space="preserve">
+    <value>件（パス完全一致 </value>
+  </data>
+  <data name="MainForm.150" xml:space="preserve">
+    <value>、名前のみ </value>
+  </data>
+  <data name="MainForm.151" xml:space="preserve">
+    <value>性能の症状はエラーログが残らない場合があります。FPS未計測のため、この件数で性能を判定しません。</value>
+  </data>
+  <data name="MainForm.152" xml:space="preserve">
+    <value>障害モジュールや例外は手掛かりです。故障部品を断定しません。</value>
+  </data>
+  <data name="MainForm.153" xml:space="preserve">
+    <value>
+手順の状態は本人の記録です。実施の記録なし＝まだ試していない、とは限りません。</value>
+  </data>
+  <data name="MainForm.154" xml:space="preserve">
+    <value>
+未実施の確認が残っていません。同じ手順を繰り返さず、レポートを保管して公式窓口へ相談できます。</value>
+  </data>
+  <data name="MainForm.155" xml:space="preserve">
+    <value>
+履歴に解決したとの本人の記録があります。現在も遊べるなら追加の変更や失敗の再現は不要です。</value>
+  </data>
+  <data name="MainForm.156" xml:space="preserve">
+    <value>
+今回は改善したとの本人の記録です。追加変更を止め、この条件を保って確認してください。完全解決の断定ではありません。</value>
+  </data>
+  <data name="MainForm.157" xml:space="preserve">
+    <value>再現を行わず、記録を保管してメーカー等へ相談してください。</value>
+  </data>
+  <data name="MainForm.158" xml:space="preserve">
+    <value>相談用の内容を保存し、必要なものだけを本人が公式窓口へ渡してください。</value>
+  </data>
+  <data name="MainForm.159" xml:space="preserve">
+    <value>実行後: 状態を『自分で試した』にし、再テストへ。改善しなければ次の手順を選びます。</value>
+  </data>
+  <data name="MainForm.160" xml:space="preserve">
+    <value>
+
+なぜ候補？
+</value>
+  </data>
+  <data name="MainForm.161" xml:space="preserve">
+    <value>
+
+自分で行う手順
+</value>
+  </data>
+  <data name="MainForm.162" xml:space="preserve">
+    <value>
+
+注意・戻し方
+</value>
+  </data>
+  <data name="MainForm.163" xml:space="preserve">
+    <value>
+
+公式情報: </value>
+  </data>
+  <data name="MainForm.164" xml:space="preserve">
+    <value>
+一般ゲームの独自ログ/ZIP/ダンプは解析していません。
+</value>
+  </data>
+  <data name="MainForm.165" xml:space="preserve">
+    <value>【この画面のみ。保存レポートでは除外】
+CPU: </value>
+  </data>
+  <data name="MainForm.166" xml:space="preserve">
+    <value>記録あり → 同じ場面を再テスト</value>
+  </data>
+  <data name="MainForm.167" xml:space="preserve">
+    <value>既定のブラウザーで公開ページを開きます。診断結果はURLに含めません。通常のWeb通信が発生します。
+
+</value>
+  </data>
+  <data name="MainForm.168" xml:space="preserve">
+    <value>外部ページ</value>
+  </data>
+  <data name="MainForm.169" xml:space="preserve">
+    <value>ブラウザーを開けませんでした。レポートのURLを確認してください。</value>
+  </data>
+  <data name="MainForm.170" xml:space="preserve">
+    <value>この内容だけを保存します</value>
+  </data>
+  <data name="MainForm.171" xml:space="preserve">
+    <value>選別済みですが完全匿名ではありません。対象名/パス、CPU/GPU名、生ログは除外しています。
+同期フォルダへ保存するとOneDrive等が同期する場合があります。内容を読んでから保存してください。</value>
+  </data>
+  <data name="MainForm.172" xml:space="preserve">
+    <value>公開名の固定リストにあるDLL名も保存する（未知の名前/パスは保存しません）</value>
+  </data>
+  <data name="MainForm.173" xml:space="preserve">
+    <value>保存される全文を確認しました</value>
+  </data>
+  <data name="MainForm.174" xml:space="preserve">
+    <value>ローカルにテキスト保存</value>
+  </data>
+  <data name="MainForm.175" xml:space="preserve">
+    <value>テキスト (*.txt)|*.txt</value>
+  </data>
+  <data name="MainForm.176" xml:space="preserve">
+    <value>リンク/ネットワーク経由でないローカル固定ドライブを選んでください。</value>
+  </data>
+  <data name="MainForm.177" xml:space="preserve">
+    <value>確認した内容を保存しました。このアプリから外部送信していません。</value>
+  </data>
+  <data name="MainForm.178" xml:space="preserve">
+    <value>保存できませんでした。別のローカル保存先を選んでください。</value>
+  </data>
+  <data name="MainFormHistory.001" xml:space="preserve">
+    <value>履歴をこのWindowsユーザー用に保存/読むことに同意する（任意。PCの読み取り同意とは別です）</value>
+  </data>
+  <data name="MainFormHistory.002" xml:space="preserve">
+    <value>実施の記録なし</value>
+  </data>
+  <data name="MainFormHistory.003" xml:space="preserve">
+    <value>内容を確認</value>
+  </data>
+  <data name="MainFormHistory.004" xml:space="preserve">
+    <value>自分で試した</value>
+  </data>
+  <data name="MainFormHistory.005" xml:space="preserve">
+    <value>見送った</value>
+  </data>
+  <data name="MainFormHistory.006" xml:space="preserve">
+    <value>結果未記録</value>
+  </data>
+  <data name="MainFormHistory.007" xml:space="preserve">
+    <value>解決・プレイできた（本人申告）</value>
+  </data>
+  <data name="MainFormHistory.008" xml:space="preserve">
+    <value>改善した（本人申告）</value>
+  </data>
+  <data name="MainFormHistory.009" xml:space="preserve">
+    <value>変わらない（本人申告）</value>
+  </data>
+  <data name="MainFormHistory.010" xml:space="preserve">
+    <value>悪化した（本人申告）</value>
+  </data>
+  <data name="MainFormHistory.011" xml:space="preserve">
+    <value>試していない（本人申告）</value>
+  </data>
+  <data name="MainFormHistory.012" xml:space="preserve">
+    <value>判断できない（本人申告）</value>
+  </data>
+  <data name="MainFormHistory.013" xml:space="preserve">
+    <value>選択した手順と結果を記録</value>
+  </data>
+  <data name="MainFormHistory.014" xml:space="preserve">
+    <value>このPCに履歴を保存</value>
+  </data>
+  <data name="MainFormHistory.015" xml:space="preserve">
+    <value>保存した履歴を読む</value>
+  </data>
+  <data name="MainFormHistory.016" xml:space="preserve">
+    <value>保存履歴をゴミ箱へ</value>
+  </data>
+  <data name="MainFormHistory.017" xml:space="preserve">
+    <value>改善報告用JSONを確認して保存</value>
+  </data>
+  <data name="MainFormHistory.018" xml:space="preserve">
+    <value>5  実施履歴と改善報告</value>
+  </data>
+  <data name="MainFormHistory.019" xml:space="preserve">
+    <value>1. 準備画面でゲームを選んだ後、過去に試した手順もここで結果を記録できます。本人の回答と、同じ診断中に読み取れた設定の変化は区別します。ファイル検証や正常プレイの実施を自動証明しません。</value>
+  </data>
+  <data name="MainFormHistory.020" xml:space="preserve">
+    <value>2. 任意で履歴を保存できます。保存内容はゲーム区分/症状/固定の手順ID/状態/本人結果/限定した観測（最大64記録）と、対象取り違え防止用のローカル照合値です。EXEのパスそのもの・アカウント・端末ID・生ログは保存しません。照合値は履歴ごとの乱数を使い、TXT/JSONには出しません。WindowsのLocalAppData内の専用フォルダに、現在のWindowsユーザーで保護して保存します。選択EXEの場所・ルール・症状が一致した履歴だけ読めます。同じ場所の実体が変わった場合やPC同一性までは証明しません。0.4以前のWilds履歴は取り込みません。</value>
+  </data>
+  <data name="MainFormHistory.021" xml:space="preserve">
+    <value>同意チェックだけでは保存されません。保存ボタンを押してください。読み込みも自動では行いません。</value>
+  </data>
+  <data name="MainFormHistory.022" xml:space="preserve">
+    <value>3. 改善報告は別操作です。Web受付は公開準備中。一般ゲームのJSON形式は未対応のため無効です。Wilds起動コースだけ既存の選別済みJSONをローカル保存できます。送信はしません。公開後もサイトで読込み・確認・送信同意が必要です。</value>
+  </data>
+  <data name="MainFormHistory.023" xml:space="preserve">
+    <value>Web受付は準備中（まだ送信できません）</value>
+  </data>
+  <data name="MainFormHistory.024" xml:space="preserve">
+    <value>実施状態と結果の組合せを確認してください。改善/変わらない等は『自分で試した』、未実施なら『試していない』です。自動で実施済みにはしません。</value>
+  </data>
+  <data name="MainFormHistory.025" xml:space="preserve">
+    <value>表示中の履歴を専用のローカル保存先に保存します。前の保存履歴があれば置き換えます。外部送信はしません。保存しますか？</value>
+  </data>
+  <data name="MainFormHistory.026" xml:space="preserve">
+    <value>履歴の保存</value>
+  </data>
+  <data name="MainFormHistory.027" xml:space="preserve">
+    <value>このWindowsユーザー用に履歴を保存しました。次回は同意して『保存した履歴を読む』で再開できます。</value>
+  </data>
+  <data name="MainFormHistory.028" xml:space="preserve">
+    <value>履歴を保存できませんでした。現在の画面の履歴は保持しています。保護や権限を変更して回避しないでください。</value>
+  </data>
+  <data name="MainFormHistory.029" xml:space="preserve">
+    <value>保存履歴がない、読めない、別のWindowsユーザー用、または非対応/不正な形式です。現在の履歴は変更していません。</value>
+  </data>
+  <data name="MainFormHistory.030" xml:space="preserve">
+    <value>保存履歴の対象EXEの場所・ゲーム区分・症状が選択中のものと一致しません。取り違え防止のため読み込みません。現在の記録は保持しています。</value>
+  </data>
+  <data name="MainFormHistory.031" xml:space="preserve">
+    <value>保存履歴の内容を確認</value>
+  </data>
+  <data name="MainFormHistory.032" xml:space="preserve">
+    <value>同じ対象の場所・区分・症状の照合に一致しました。現在の実体やPC/インストールとの同一性まで証明しません。同じ問題の続きか本人が確認してください。読み込むと未保存の手順記録を置き換え、取得済みの比較基準はクリアします（外部送信なし）。</value>
+  </data>
+  <data name="MainFormHistory.033" xml:space="preserve">
+    <value>この履歴を今回の問題の参考として使う</value>
+  </data>
+  <data name="MainFormHistory.034" xml:space="preserve">
+    <value>確認した履歴を読む</value>
+  </data>
+  <data name="MainFormHistory.035" xml:space="preserve">
+    <value>保存履歴を参考として読みました。現在の状態はまだ取得していません。</value>
+  </data>
+  <data name="MainFormHistory.036" xml:space="preserve">
+    <value>このアプリ専用の保存履歴をWindowsのゴミ箱へ移します。Windowsの確認画面でも内容を確認してください。ゴミ箱へ移せず完全削除になる警告が出たら取り消してください。ゴミ箱は空にしません。画面内の履歴は保持します。実行しますか？</value>
+  </data>
+  <data name="MainFormHistory.037" xml:space="preserve">
+    <value>保存履歴をゴミ箱へ移しました。画面内の履歴を消す場合は『新しい診断を始める』を選びます。</value>
+  </data>
+  <data name="MainFormHistory.038" xml:space="preserve">
+    <value>ゴミ箱への移動を完了できませんでした。削除や権限昇格は試しません。画面内の履歴は保持しています。</value>
+  </data>
+  <data name="MainFormHistory.039" xml:space="preserve">
+    <value>改善報告用の選別JSON（保存のみ・まだ送信しません）</value>
+  </data>
+  <data name="MainFormHistory.040" xml:space="preserve">
+    <value>最大8手順を選択。JSONに出る全項目を確認します。選んだ対処からMODや追加ツールの利用が分かる/推測できる場合があり、完全匿名ではありません。名前/パス/端末ID/DLL名/生ログ/ZIP/履歴全文は含めません。観測変化は送らず、結果は本人申告として扱います。</value>
+  </data>
+  <data name="MainFormHistory.041" xml:space="preserve">
+    <value>症状は分からない</value>
+  </data>
+  <data name="MainFormHistory.042" xml:space="preserve">
+    <value>起動直後のクラッシュ</value>
+  </data>
+  <data name="MainFormHistory.043" xml:space="preserve">
+    <value>黒い画面</value>
+  </data>
+  <data name="MainFormHistory.044" xml:space="preserve">
+    <value>描画関連エラー</value>
+  </data>
+  <data name="MainFormHistory.045" xml:space="preserve">
+    <value>シェーダー準備中</value>
+  </data>
+  <data name="MainFormHistory.046" xml:space="preserve">
+    <value>ゲームプレイ中のクラッシュ</value>
+  </data>
+  <data name="MainFormHistory.047" xml:space="preserve">
+    <value>報告対象と現在のPC環境が同じだと自分で確認し、OS/GPU分類・ドライバー版も含める（任意）</value>
+  </data>
+  <data name="MainFormHistory.048" xml:space="preserve">
+    <value>保存するJSON全文を確認しました</value>
+  </data>
+  <data name="MainFormHistory.049" xml:space="preserve">
+    <value>JSONをローカル保存（送信しない）</value>
+  </data>
+  <data name="MainFormHistory.050" xml:space="preserve">
+    <value>1〜8件の手順を選択してください。未記録の結果は勝手に補いません。</value>
+  </data>
+  <data name="MainFormHistory.051" xml:space="preserve">
+    <value>JSONを保存しました。送信はしていません。Web受付は公開準備中です。同期フォルダに保存した場合の同期は別です。</value>
+  </data>
+  <data name="MainFormHistory.052" xml:space="preserve">
+    <value>保存できませんでした。権限や保護を変更せず、別のローカル保存先を選んでください。</value>
+  </data>
+  <data name="SteamEvidence.001" xml:space="preserve">
+    <value>選択したSteam直下</value>
+  </data>
+  <data name="SteamEvidence.002" xml:space="preserve">
+    <value>WindowsのSystem32/SysWOW64</value>
+  </data>
+  <data name="SteamEvidence.003" xml:space="preserve">
+    <value>その他の場所（パス非表示）</value>
+  </data>
+  <data name="SteamEvidence.004" xml:space="preserve">
+    <value>場所不明</value>
+  </data>
+  <data name="SteamEvidence.005" xml:space="preserve">
+    <value>既知名のDLLをSteam直下から読込む記録あり</value>
+  </data>
+  <data name="SteamEvidence.006" xml:space="preserve">
+    <value>今回照合した既知名はWindowsシステム側のみで観測</value>
+  </data>
+  <data name="SteamEvidence.007" xml:space="preserve">
+    <value>今回のSteam一覧に既知5名は見つからず</value>
+  </data>
+  <data name="SteamEvidence.008" xml:space="preserve">
+    <value>不明/未確認</value>
+  </data>
+  <data name="SteamEvidence.009" xml:space="preserve">
+    <value>
+【追加確認: Steam側の限定した構成】
+</value>
+  </data>
+  <data name="SteamEvidence.010" xml:space="preserve">
+    <value>選択したSteam直下の既知6項目: </value>
+  </data>
+  <data name="SteamEvidence.011" xml:space="preserve">
+    <value>存在 / Hidden属性 </value>
+  </data>
+  <data name="SteamEvidence.012" xml:space="preserve">
+    <value>あり</value>
+  </data>
+  <data name="SteamEvidence.013" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="SteamEvidence.014" xml:space="preserve">
+    <value>この場所に見つからず</value>
+  </data>
+  <data name="SteamEvidence.015" xml:space="preserve">
+    <value>アクセス拒否</value>
+  </data>
+  <data name="SteamEvidence.016" xml:space="preserve">
+    <value>未確認/非対応</value>
+  </data>
+  <data name="SteamEvidence.017" xml:space="preserve">
+    <value>選択本体パスと一致した実行中Steamのモジュール: </value>
+  </data>
+  <data name="SteamEvidence.018" xml:space="preserve">
+    <value>: Steam内に観測 / </value>
+  </data>
+  <data name="SteamEvidence.019" xml:space="preserve">
+    <value>ファイルの存在/Hidden属性、Steamへの読込み、ゲームへの読込み、クラッシュ原因は別々です。名前だけで不正・有害・原因とは判定しません。HiddenはWindowsの属性で、隠された意図は判断できません。</value>
+  </data>
+  <data name="SteamEvidence.020" xml:space="preserve">
+    <value>ゲーム側の一覧は追加同意したCrashReportの別時点の資料です。Steam側の読込みをゲームへの読込みとみなしません。読み取れない/一覧にない場合も全時点の不在証明ではありません。設定本文・アカウント・他アプリの一覧は保存しません。</value>
+  </data>
+  <data name="TraceEvidence.001" xml:space="preserve">
+    <value>
+【追加の痕跡・成功履歴の確認】
+</value>
+  </data>
+  <data name="TraceEvidence.002" xml:space="preserve">
+    <value>製品版で遊べた（本人申告）: </value>
+  </data>
+  <data name="TraceEvidence.003" xml:space="preserve">
+    <value> / 体験版・βで遊べた（本人申告）: </value>
+  </data>
+  <data name="TraceEvidence.004" xml:space="preserve">
+    <value>体験版の成功は現在の製品版の成功/互換性の証明ではありません。記録だけで起動成功を決めず、この2つを分けます。</value>
+  </data>
+  <data name="TraceEvidence.005" xml:space="preserve">
+    <value>ゲーム直下の既知の痕跡: </value>
+  </data>
+  <data name="TraceEvidence.006" xml:space="preserve">
+    <value>存在を確認</value>
+  </data>
+  <data name="TraceEvidence.007" xml:space="preserve">
+    <value>この場所には見つからず</value>
+  </data>
+  <data name="TraceEvidence.008" xml:space="preserve">
+    <value>アクセス拒否</value>
+  </data>
+  <data name="TraceEvidence.009" xml:space="preserve">
+    <value>未確認/非対応</value>
+  </data>
+  <data name="TraceEvidence.010" xml:space="preserve">
+    <value> / 版メタデータの製品名はReShade</value>
+  </data>
+  <data name="TraceEvidence.011" xml:space="preserve">
+    <value> / 版メタデータの製品名はREFramework</value>
+  </data>
+  <data name="TraceEvidence.012" xml:space="preserve">
+    <value>名前/メタデータの痕跡と、導入された履歴・実際の読込み・今回の原因は別です。DLL名だけでMODと断定せず、未知ファイルを削除しません。未検出でも『一度も入れたことがない』とは証明できません。</value>
+  </data>
+  <data name="TraceEvidence.013" xml:space="preserve">
+    <value>LastPlayedに時刻形式の値あり（失敗した起動も含み得る）</value>
+  </data>
+  <data name="TraceEvidence.014" xml:space="preserve">
+    <value>LastPlayedに利用できる値なし（未起動の証明ではない）</value>
+  </data>
+  <data name="TraceEvidence.015" xml:space="preserve">
+    <value>利用できる履歴は未確認</value>
+  </data>
+  <data name="TraceEvidence.016" xml:space="preserve">
+    <value>製品版のSteam登録: </value>
+  </data>
+  <data name="TraceEvidence.017" xml:space="preserve">
+    <value>SteamのアカウントIDやuserdata、体験版の個人ファイルは調べません。LastPlayedの値/時刻は出力しません。</value>
+  </data>
+  <data name="WildsCore.001" xml:space="preserve">
+    <value>不明</value>
+  </data>
+  <data name="WildsCore.002" xml:space="preserve">
+    <value>Steam側の追加構成を導入元と照合</value>
+  </data>
+  <data name="WildsCore.003" xml:space="preserve">
+    <value>Steam直下の存在と、実行中Steamへの読込みを別々に確認します。ゲーム側の整合性確認だけでSteam本体側の追加物がなくなるとは限りません。身に覚えのない構成は、導入元/提供者と照合してください。追加物と確認できた場合だけ、元の構成と戻し方を保管し、提供元の安全な無効化方法を確認して、Steamを通常終了・再起動した条件と比較します。</value>
+  </data>
+  <data name="WildsCore.004" xml:space="preserve">
+    <value>名前だけで削除/リネームしません。WindowsのSystem32/SysWOW64内のDLLは変更しません。複数の変更で改善しても単独DLLの原因とは確定できません。このツールはSteamの終了・移動・設定変更をしません。</value>
+  </data>
+  <data name="WildsCore.005" xml:space="preserve">
+    <value>PC全体の異常があるので再現を止める</value>
+  </data>
+  <data name="WildsCore.006" xml:space="preserve">
+    <value>電源断・再起動・ブルースクリーン・異常な発熱がある場合、ゲームの再起動テストは行いません。作業を保存し、PCメーカー/修理窓口に現象を相談します。</value>
+  </data>
+  <data name="WildsCore.007" xml:space="preserve">
+    <value>Kernel-Power 41だけで電源やCPUの故障とは判定しません。負荷テスト、BIOS、電圧変更は行いません。</value>
+  </data>
+  <data name="WildsCore.008" xml:space="preserve">
+    <value>ブロック通知がある場合は保護履歴を確認</value>
+  </data>
+  <data name="WildsCore.009" xml:space="preserve">
+    <value>Windows セキュリティ → ウイルスと脅威の防止 → 保護の履歴で、同じ時刻の対象を確認します。他社製品ならその検知履歴を確認。ゲーム本体か、MOD等の別ファイルかを区別します。</value>
+  </data>
+  <data name="WildsCore.010" xml:space="preserve">
+    <value>除外追加・許可・保護無効化はしません。関連する検知があればソフト提供元へ確認。個人情報を含む履歴を公開しないでください。</value>
+  </data>
+  <data name="WildsCore.011" xml:space="preserve">
+    <value>互換モードが設定されているか確認</value>
+  </data>
+  <data name="WildsCore.012" xml:space="preserve">
+    <value>Steam → ライブラリ → ワイルズを右クリック → 管理 → ローカルファイルを閲覧。MonsterHunterWilds.exe のプロパティ → 互換性で、元の値を控えます。互換モードが有効なら、そのチェックだけを外してSteamから比較するのが公式の案内です。変わらなければSteam.exeも同様に確認します。</value>
+  </data>
+  <data name="WildsCore.013" xml:space="preserve">
+    <value>このツールは設定を変更しません。管理者実行を追加しません。チェックが無効/管理されている場合は無理に変えず相談してください。戻す場合は控えた元の値へ。</value>
+  </data>
+  <data name="WildsCore.014" xml:space="preserve">
+    <value>管理者実行の登録を現在の画面で照合</value>
+  </data>
+  <data name="WildsCore.015" xml:space="preserve">
+    <value>ゲーム本体のプロパティ → 互換性で『管理者としてこのプログラムを実行する』の現在の状態を確認します。元の値を控え、通常の権限で変更できる場合に限り、このチェックだけを外したSteam起動と1回比較できます。変わらなければ実施済みと記録して次へ進みます。</value>
+  </data>
+  <data name="WildsCore.016" xml:space="preserve">
+    <value>登録値や過去のCrashReportのModeだけでは、現在のチェック状態・実効権限・原因を確定できません。自動変更や管理者昇格はしません。組織管理の設定や『すべてのユーザー』は変更しません。</value>
+  </data>
+  <data name="WildsCore.017" xml:space="preserve">
+    <value>自分で入れたMOD・描画ツールを確認</value>
+  </data>
+  <data name="WildsCore.018" xml:space="preserve">
+    <value>MODを使用している場合は、導入履歴とセーブを保管し、使っている管理ツールの無効化/展開解除機能で元の構成と比較します。ReShadeや録画/性能表示ツールは、自分で起動したものだけ終了して比較します。</value>
+  </data>
+  <data name="WildsCore.019" xml:space="preserve">
+    <value>名前だけでDLLを削除しません。どれを追加したか分からなければこの作業は見送り。MODを外した状態で既存セーブを上書きしません。整合性確認だけで追加MODが全部消えるとは限りません。</value>
+  </data>
+  <data name="WildsCore.020" xml:space="preserve">
+    <value>録画/オーバーレイを終了した条件と1回比較</value>
+  </data>
+  <data name="WildsCore.021" xml:space="preserve">
+    <value>併用していると回答したツールだけを対象にします。録画/配信を終えて保存し、自分で開いたOBS等を通常終了。他の条件を変えずSteamから1回起動します。変わらなければ今回の単独原因という仮説を弱め、元に戻して次の確認へ進みます。</value>
+  </data>
+  <data name="WildsCore.022" xml:space="preserve">
+    <value>画面に映っていた/導入されていたことはゲームへの介入や原因の証明ではありません。終了済みで失敗したなら同じ試験を繰り返しません。録画ツール等のプロセスを調査/終了しません。追加同意した場合のSteam本体だけが別の限定確認です。</value>
+  </data>
+  <data name="WildsCore.023" xml:space="preserve">
+    <value>見つかった追加ツール名の痕跡を確認</value>
+  </data>
+  <data name="WildsCore.024" xml:space="preserve">
+    <value>詳細の痕跡一覧を見て、導入元や自分で追加したかを確認します。ファイル名だけではゲーム付属か追加ツールかを決められません。身に覚えがなければ削除せず、公式サポート等に確認します。</value>
+  </data>
+  <data name="WildsCore.025" xml:space="preserve">
+    <value>存在、版メタデータ、ダンプの読込み一覧、原因は別々です。未導入という本人回答も保持します。保護無効化や未知DLLの実行はしません。</value>
+  </data>
+  <data name="WildsCore.026" xml:space="preserve">
+    <value>Steamの整合性確認を1回行う</value>
+  </data>
+  <data name="WildsCore.027" xml:space="preserve">
+    <value>ゲームを閉じ、Steamのダウンロードで更新が止まっていないか確認。ライブラリ → ワイルズを右クリック → プロパティ → インストール済みファイル → ゲームファイルの整合性を確認。再取得があればダウンロード完了を待ちます。結果を準備画面の選択肢に記録し、Steamのプレイから同じ起動を比較します。</value>
+  </data>
+  <data name="WildsCore.028" xml:space="preserve">
+    <value>再取得と起動改善は別です。セーブ/MODの状態を先に保管。検証を繰り返すだけにせず、同じ起動失敗が続いたら次へ進みます。</value>
+  </data>
+  <data name="WildsCore.029" xml:space="preserve">
+    <value>高解像度テクスチャDLCを確認</value>
+  </data>
+  <data name="WildsCore.030" xml:space="preserve">
+    <value>Steam → ワイルズのプロパティ → DLCで、High Resolution Texture Packの有無を確認。導入後に不安定になった場合は、元のチェックを控え、このDLCだけチェックを外し、Steamを再起動して比較する公式手順があります。</value>
+  </data>
+  <data name="WildsCore.031" xml:space="preserve">
+    <value>公式条件は専用VRAM 16GB以上。共有GPUメモリを足しません。本ツールはVRAM容量/DLC導入を自動判定しません。16GB搭載でも今回の原因とは限りません。元に戻すと再ダウンロードが必要になる場合があります。</value>
+  </data>
+  <data name="WildsCore.032" xml:space="preserve">
+    <value>実際のGPUドライバー版と公式情報を照合</value>
+  </data>
+  <data name="WildsCore.033" xml:space="preserve">
+    <value>診断のGPU名/ドライバー版を確認し、カプコンのドライバー告知と、PC/GPUメーカーの対応情報を照合します。GPU/DirectXエラーや直前の更新がある場合は、その条件を記録します。</value>
+  </data>
+  <data name="WildsCore.034" xml:space="preserve">
+    <value>古い/新しいだけで原因としません。特定の版を固定推奨せず、このツールは更新・DDU・削除を実行しません。DirectXのWebインストーラーでDirectX12へ更新するという案内はしません。</value>
+  </data>
+  <data name="WildsCore.035" xml:space="preserve">
+    <value>公式の必要環境との未確認点を照合</value>
+  </data>
+  <data name="WildsCore.036" xml:space="preserve">
+    <value>公式最低条件は64-bit Windows 10/11、RAM16GB、DirectX12、SSD/75GB、CPU i5-10400/i3-12100/Ryzen5 3600、GPU GTX1660 6GB/RX5500XT8GBです。取得したCPU/GPU名を手掛かりに公式条件と比較します。</value>
+  </data>
+  <data name="WildsCore.037" xml:space="preserve">
+    <value>型番の文字列だけで性能合否を自動判定しません。75GBは配布元の必要ストレージで、インストール済みPCに追加75GBの空きを要求する判定ではありません。SSD/VRAM/DirectX機能は未判定です。</value>
+  </data>
+  <data name="WildsCore.038" xml:space="preserve">
+    <value>CrashReportと試した結果を保管して相談</value>
+  </data>
+  <data name="WildsCore.039" xml:space="preserve">
+    <value>Steam → 管理 → ローカルファイルを閲覧 → CrashReportに、落ちた時刻に近いZIPがあれば保管します。このツールの選別済みレポートも内容確認後に保存できます。カプコンの公式窓口へ、Steamプレイ直後の状況、エラーの分類、ドライバー版、試した手順と結果を伝えます。</value>
+  </data>
+  <data name="WildsCore.040" xml:space="preserve">
+    <value>追加同意した場合だけZIP内の固定項目・例外・モジュールを読みます。生データは送信しません。生ログ・DxDiag・設定・ZIPは個人情報を含む場合があります。公式窓口から必要なものを求められた時だけ本人が確認して渡してください。</value>
+  </data>
+  <data name="WildsCore.041" xml:space="preserve">
+    <value>本人の申告、今回またはこの診断内の先行取得にPC全体の終了記録があります。ゲームが原因とは未確定です。</value>
+  </data>
+  <data name="WildsCore.042" xml:space="preserve">
+    <value>安全な追加取得/相談に切り替えます。</value>
+  </data>
+  <data name="WildsCore.043" xml:space="preserve">
+    <value>選択したSteamのプロセスで、既知名のDLLをSteam直下から読込む記録を観測しました。ゲームへの読込みや原因とは別です。</value>
+  </data>
+  <data name="WildsCore.044" xml:space="preserve">
+    <value>選択したSteam直下に既知名の追加構成候補があります。存在だけで導入元・読込み・原因は未確定です。</value>
+  </data>
+  <data name="WildsCore.045" xml:space="preserve">
+    <value>本人が保護通知ありと申告。Windowsログだけでブロック原因は確定できません。</value>
+  </data>
+  <data name="WildsCore.046" xml:space="preserve">
+    <value>現在のゲームEXEに管理者実行の登録を検出。まず実際の画面と照合し、通常権限との違いを確認する候補です。</value>
+  </data>
+  <data name="WildsCore.047" xml:space="preserve">
+    <value>ローカル登録値に互換モードのフラグを検出。実際に適用されたか、原因かは未確定です。</value>
+  </data>
+  <data name="WildsCore.048" xml:space="preserve">
+    <value>本人が録画/オーバーレイの併用を申告。存在や一覧だけで原因と決めず、未実施の場合だけ比較します。</value>
+  </data>
+  <data name="WildsCore.049" xml:space="preserve">
+    <value>限定した場所に既知名の痕跡候補があります。MOD/ReShadeの導入や現在の稼働を確定していません。</value>
+  </data>
+  <data name="WildsCore.050" xml:space="preserve">
+    <value>本人がMOD/描画介入ツールの利用を申告。追加ファイルを検査しての断定ではありません。</value>
+  </data>
+  <data name="WildsCore.051" xml:space="preserve">
+    <value>取得できたOS/RAMの一部が公式条件と合っていない可能性があります。取得不足や予約領域も確認します。</value>
+  </data>
+  <data name="WildsCore.052" xml:space="preserve">
+    <value>Steamからの起動直後の失敗なので、配布ファイルと更新完了を確認する一般的な候補です。破損を検出したという意味ではありません。</value>
+  </data>
+  <data name="WildsCore.053" xml:space="preserve">
+    <value>本人が高解像度DLCありと申告。VRAM不足やDLCが今回の原因とは断定していません。</value>
+  </data>
+  <data name="WildsCore.054" xml:space="preserve">
+    <value>描画関連の申告/記録があるため。Windowsの記録はドライバー故障の証明ではありません。</value>
+  </data>
+  <data name="WildsCore.055" xml:space="preserve">
+    <value>DLCの有無が未確認です。まず導入状態を見るだけに留めます。</value>
+  </data>
+  <data name="WildsCore.056" xml:space="preserve">
+    <value>MOD/描画介入ツールの利用が未確認です。導入履歴を確認し、不明なファイルは触りません。</value>
+  </data>
+  <data name="WildsCore.057" xml:space="preserve">
+    <value>ファイル確認後も続く場合、実際の版と公式告知を照合します。取得した版の良否は自動判断していません。</value>
+  </data>
+  <data name="WildsCore.058" xml:space="preserve">
+    <value>改善しない場合の相談先。記録ゼロでも正常とは判定しません。</value>
+  </data>
+  <data name="WildsCore.059" xml:space="preserve">
+    <value>【ワイルズ専用・Steamのプレイ直後に落ちる】</value>
+  </data>
+  <data name="WildsCore.060" xml:space="preserve">
+    <value>公式情報の確認日: </value>
+  </data>
+  <data name="WildsCore.061" xml:space="preserve">
+    <value> / ネットで最新状況を自動照会しません</value>
+  </data>
+  <data name="WildsCore.062" xml:space="preserve">
+    <value>本人の申告: </value>
+  </data>
+  <data name="WildsCore.063" xml:space="preserve">
+    <value> / 以前は動いた: </value>
+  </data>
+  <data name="WildsCore.064" xml:space="preserve">
+    <value>録画/オーバーレイ（本人申告）: </value>
+  </data>
+  <data name="WildsCore.065" xml:space="preserve">
+    <value>MOD/描画ツール: </value>
+  </data>
+  <data name="WildsCore.066" xml:space="preserve">
+    <value> / 高解像度DLC: </value>
+  </data>
+  <data name="WildsCore.067" xml:space="preserve">
+    <value> / PC全体の異常: </value>
+  </data>
+  <data name="WildsCore.068" xml:space="preserve">
+    <value>整合性確認（本人の記録）: </value>
+  </data>
+  <data name="WildsCore.069" xml:space="preserve">
+    <value>
+読み取れた事実:</value>
+  </data>
+  <data name="WildsCore.070" xml:space="preserve">
+    <value>ゲームEXEのファイル版: </value>
+  </data>
+  <data name="WildsCore.071" xml:space="preserve">
+    <value>（ゲーム内バージョンと同一とは限りません）</value>
+  </data>
+  <data name="WildsCore.072" xml:space="preserve">
+    <value>未取得</value>
+  </data>
+  <data name="WildsCore.073" xml:space="preserve">
+    <value>はい</value>
+  </data>
+  <data name="WildsCore.074" xml:space="preserve">
+    <value>いいえ</value>
+  </data>
+  <data name="WildsCore.075" xml:space="preserve">
+    <value>搭載RAMモジュール合計: </value>
+  </data>
+  <data name="WildsCore.076" xml:space="preserve">
+    <value>互換モード登録: ゲーム </value>
+  </data>
+  <data name="WildsCore.077" xml:space="preserve">
+    <value>ゲームに管理者実行の登録があります。本ツールは昇格も設定変更も行いません。</value>
+  </data>
+  <data name="WildsCore.078" xml:space="preserve">
+    <value>判定できません</value>
+  </data>
+  <data name="WildsCore.079" xml:space="preserve">
+    <value>フォルダあり</value>
+  </data>
+  <data name="WildsCore.080" xml:space="preserve">
+    <value>フォルダなし</value>
+  </data>
+  <data name="WildsCore.081" xml:space="preserve">
+    <value>ZIPの更新時刻が観測範囲内: </value>
+  </data>
+  <data name="WildsCore.082" xml:space="preserve">
+    <value> 件 / 調べたZIP </value>
+  </data>
+  <data name="WildsCore.083" xml:space="preserve">
+    <value> 件</value>
+  </data>
+  <data name="WildsCore.084" xml:space="preserve">
+    <value> / 上限到達</value>
+  </data>
+  <data name="WildsCore.085" xml:space="preserve">
+    <value>（件数/更新時刻のみの集計。内容の追加解析は別枠、対応は未確定）</value>
+  </data>
+  <data name="WildsCore.086" xml:space="preserve">
+    <value>
+次の一歩（1つずつ。下にあるほど後で確認）:</value>
+  </data>
+  <data name="WildsCore.087" xml:space="preserve">
+    <value>手順の状態はこの起動中の本人の記録です。『実施の記録なし』は未実施の証明ではありません。以前に試して改善しなかった操作を繰り返さないでください。</value>
+  </data>
+  <data name="WildsCore.088" xml:space="preserve">
+    <value>]
+理由: </value>
+  </data>
+  <data name="WildsCore.089" xml:space="preserve">
+    <value>
+注意: </value>
+  </data>
+  <data name="WildsCore.090" xml:space="preserve">
+    <value>
+公式: </value>
+  </data>
+  <data name="WildsCore.091" xml:space="preserve">
+    <value>まだ分からないこと: 必要GPU機能/専用VRAM、DLCの実導入、CPU/GPUの故障、セーブ内容、実際のMOD構成。メモリが多い/ファイル再取得なし/ログなしだけで正常や解決とはしません。</value>
+  </data>
+  <data name="WildsCore.092" xml:space="preserve">
+    <value>あり</value>
+  </data>
+  <data name="WildsCore.093" xml:space="preserve">
+    <value>この範囲では見つからず</value>
+  </data>
+  <data name="WildsCore.094" xml:space="preserve">
+    <value>未確認</value>
+  </data>
+  <data name="WildsCore.095" xml:space="preserve">
+    <value>あり/はい</value>
+  </data>
+  <data name="WildsCore.096" xml:space="preserve">
+    <value>なし/いいえ</value>
+  </data>
+  <data name="WildsCore.097" xml:space="preserve">
+    <value>分からない</value>
+  </data>
+  <data name="WildsCore.098" xml:space="preserve">
+    <value>Unhandled exception / Crash の画面</value>
+  </data>
+  <data name="WildsCore.099" xml:space="preserve">
+    <value>CrashReport生成画面（ゲームの応答停止とは別）</value>
+  </data>
+  <data name="WildsCore.100" xml:space="preserve">
+    <value>シェーダー準備中</value>
+  </data>
+  <data name="WildsCore.101" xml:space="preserve">
+    <value>GPU/DirectX/メモリ関連の表示</value>
+  </data>
+  <data name="WildsCore.102" xml:space="preserve">
+    <value>保護/ブロック通知</value>
+  </data>
+  <data name="WildsCore.103" xml:space="preserve">
+    <value>その他/分からない</value>
+  </data>
+  <data name="WildsCore.104" xml:space="preserve">
+    <value>プレイ直後に終了・表示なし</value>
+  </data>
+  <data name="WildsCore.105" xml:space="preserve">
+    <value>実施結果は分からない</value>
+  </data>
+  <data name="WildsCore.106" xml:space="preserve">
+    <value>実施・再取得なし</value>
+  </data>
+  <data name="WildsCore.107" xml:space="preserve">
+    <value>実施・再取得あり（完了待ちを確認）</value>
+  </data>
+  <data name="WildsCore.108" xml:space="preserve">
+    <value>実施の記録なし（未実施の証明ではない）</value>
+  </data>
+  <data name="GameProfile.ModLabel" xml:space="preserve">
+    <value> / MOD: </value>
+  </data>
+  <data name="MainForm.MatchSummaryClose" xml:space="preserve">
+    <value>） / </value>
+  </data>
+</root>
