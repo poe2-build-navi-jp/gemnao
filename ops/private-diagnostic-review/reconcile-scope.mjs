@@ -3,9 +3,16 @@ import {account,database} from './scope.mjs';
 export const settingsPath=`/accounts/${account}/workers/scripts/gemnao-private-diagnostic-finite-qa/settings`;
 export const queryPath=`/accounts/${account}/d1/database/${database}/query`;
 export const categories=['reports','report_tombstones','retention_health','rate_salt','rate_attempts','notification_state'];
-export const countSql=categories.map(name=>`SELECT '${name}' AS category,count(*) AS n FROM private_diagnostic_${name}`).join(' UNION ALL ')+';';
-export function allowed(path,method,body){return method==='GET'&&path===settingsPath&&body===undefined||method==='POST'&&path===queryPath&&body===JSON.stringify({sql:countSql});}
-export function boundedScope(){const seen=new Set();return (p,m,b)=>{const key=JSON.stringify([p,m,b]);if(!allowed(p,m,b)||seen.has(key)||seen.size>=2)throw Error('BLOCKED:TRANSPORT_SCOPE');seen.add(key);};}
+export const schemaSql="SELECT name FROM sqlite_schema WHERE type='table' AND name IN ("+categories.map(n=>"'private_diagnostic_"+n+"'").join(',')+") ORDER BY name;";
+export const countQueries=Object.freeze(Object.fromEntries(categories.map(n=>[n,`SELECT count(*) AS n FROM private_diagnostic_${n};`])));
+export function allowed(path,method,body){return method==='GET'&&path===settingsPath&&body===undefined||method==='POST'&&path===queryPath&&[schemaSql,...Object.values(countQueries)].some(sql=>body===JSON.stringify({sql}));}
+export function boundedScope(){const seen=new Set();return (p,m,b)=>{const key=JSON.stringify([p,m,b]);if(!allowed(p,m,b)||seen.has(key)||seen.size>=8)throw Error('BLOCKED:TRANSPORT_SCOPE');seen.add(key);};}
+export function readRows(result,max){
+ if(!Array.isArray(result)||result.length!==1||result[0].success!==true||result[0].meta?.rows_written!==0||result[0].meta?.changed_db!==false||!Array.isArray(result[0].results)||result[0].results.length>max)throw Error('BLOCKED:SCHEMA_RESULTS');
+ return result[0].results;
+}
+export function schemaPresence(result){const rows=readRows(result,6);if(rows.some(r=>Object.keys(r).length!==1||!categories.some(c=>'private_diagnostic_'+c===r.name))||new Set(rows.map(r=>r.name)).size!==rows.length)throw Error('BLOCKED:SCHEMA_RESULTS');return Object.fromEntries(categories.map(c=>[c,rows.some(r=>r.name==='private_diagnostic_'+c)]));}
+export function countIsEmpty(result){const rows=readRows(result,1);if(rows.length!==1||Object.keys(rows[0]).length!==1||!Number.isSafeInteger(rows[0].n)||rows[0].n<0)throw Error('BLOCKED:SCHEMA_RESULTS');return rows[0].n===0;}
 export function summarizeSettings(settings,now){
  const bindings=settings?.bindings;if(!Array.isArray(bindings)||!Number.isSafeInteger(now))throw Error('BLOCKED:SETTINGS_SHAPE');
  const plain=name=>{const rows=bindings.filter(b=>b.name===name);return rows.length===1&&rows[0].type==='plain_text'?rows[0].text:undefined;};
@@ -20,11 +27,4 @@ export function summarizeSettings(settings,now){
   runtimeModeClosed:mode==='closed',runtimeModeFinite:mode==='finite-synthetic-v1',
   intakeOff:plain('PRIVATE_DIAGNOSTIC_ENABLED')==='false',ownerReviewOff:plain('PRIVATE_DIAGNOSTIC_OWNER_REVIEW_ENABLED')==='false',notificationOff:plain('PRIVATE_DIAGNOSTIC_NOTIFY_ENABLED')==='false',
   doPersistedCloseVerified:false,driverOutcomeKnown:false};
-}
-export function summarizeCounts(result){
- if(!Array.isArray(result)||result.length!==1||result[0].success!==true||result[0].meta?.rows_written!==0||result[0].meta?.changed_db!==false)throw Error('BLOCKED:SCHEMA_RESULTS');
- const rows=result[0].results;
- if(!Array.isArray(rows)||rows.length!==6||new Set(rows.map(r=>r.category)).size!==6||rows.some(r=>Object.keys(r).length!==2||!categories.includes(r.category)||!Number.isSafeInteger(r.n)||r.n<0))throw Error('BLOCKED:SCHEMA_RESULTS');
- // Exact counts are used transiently; public Actions logs receive only empty flags.
- return {privateTablesEmpty:Object.fromEntries(rows.map(r=>[r.category,r.n===0])),allPrivateTablesEmpty:rows.every(r=>r.n===0),payloadRead:false,exactCountsPublished:false};
 }

@@ -177,7 +177,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     const transport = diagnostics.transport(credentialTransport({ operation: env.PREVIEW_OPERATION, githubToken: () => env.PREVIEW_GITHUB_TOKEN,
       cloudflareToken: () => { need(protectedJob, 'CLOUDFLARE_IN_GATE'); return env.GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN; } }));
     if (protectedJob) {
-      const result = await runProtected({ env, checkoutSha, transport, logSecrets: env.PREVIEW_OPERATION === PAGES_LOG_OPERATION ? [env.PREVIEW_GITHUB_TOKEN, env.GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN] : [], onStage: diagnostics.stage, onEnvelope: diagnostics.envelope, onReceipt: receipt => console.log(JSON.stringify({ [env.PREVIEW_OPERATION === PAGES_LOG_OPERATION ? 'pagesDeploymentLogReceipt' : env.PREVIEW_OPERATION === PUBLIC_HEALTH_OPERATION ? 'publicHealthInstallationReceipt' : 'cleanupInstallationReceipt']: receipt })) });
+      const result = await runProtected({ env, checkoutSha, transport, logSecrets: env.PREVIEW_OPERATION === PAGES_LOG_OPERATION ? [env.PREVIEW_GITHUB_TOKEN, env.GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN] : [], onStage: diagnostics.stage, onEnvelope: diagnostics.envelope, onReceipt: receipt => console.log(JSON.stringify({ [env.PREVIEW_OPERATION === QA_READY_OPERATION ? 'qaReadinessReceipt' : env.PREVIEW_OPERATION === PAGES_LOG_OPERATION ? 'pagesDeploymentLogReceipt' : env.PREVIEW_OPERATION === PUBLIC_HEALTH_OPERATION ? 'publicHealthInstallationReceipt' : 'cleanupInstallationReceipt']: receipt })) });
       console.log(JSON.stringify(publicRunResult(result)));
       if (result.mode === PAGES_LOG_MODE && result.completed === false) process.exitCode = 1;
     }

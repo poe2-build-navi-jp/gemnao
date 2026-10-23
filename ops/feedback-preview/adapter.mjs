@@ -1,3 +1,4 @@
+import {readProviderCodes} from '../private-diagnostic-review/safe-provider-error.mjs';
 import { operation as QA_READY_OPERATION, mode as QA_READY_MODE, planHash as QA_READY_PLAN, validateContext as validateQaReady, allowed as qaReadyAllowed, scopedTransport as qaReadyTransport, collect as collectQaReady } from '../private-diagnostic-review/reconcile-profile.mjs';
 import { operation as QA_META_OPERATION, mode as QA_META_MODE, planHash as QA_META_PLAN, validateContext as validateQaMeta, allowed as qaMetaAllowed, scopedTransport as qaMetaTransport, collect as collectQaMeta } from '../private-diagnostic-review/profile.mjs';
 import { PAGES_LOG_OPERATION, PAGES_LOG_MODE, PAGES_LOG_PLAN_HASH, PAGES_LOG_PATH, PAGES_PROJECT_PATH, validatePagesLogContext, pagesLogRequestAllowed, pagesLogTransport, projectLogs, projectPagesState } from '../diagnosis-production/pages-deployment-log.mjs';
@@ -187,7 +188,9 @@ async function createAdapter({ transport, durableClaims, recordBytes, trustedRec
         need(!deadlineExpired, 'REQUEST_DEADLINE_EXCEEDED');
         responseStatus = Number.isInteger(response.status) && response.status >= 100 && response.status <= 599 ? response.status : null;
         phase = 'response-validation';
-        need(response.url === url && response.redirected === false && [200, 201].includes(response.status), 'RESPONSE_IDENTITY_STATUS');
+        need(response.url === url && response.redirected === false, 'RESPONSE_IDENTITY_STATUS');
+        if(qaReady && service==='cloudflare' && response.status===400){const codes=await readProviderCodes(response);onReceipt({kind:'provider-error',httpStatus:400,providerCodes:codes});throw Error('BLOCKED:QA_READ_PROVIDER_HTTP_400');}
+        need([200, 201].includes(response.status), 'RESPONSE_IDENTITY_STATUS');
         need(response.headers.get('content-type')?.includes('application/json'), 'RESPONSE_TYPE');
         phase = 'reading-body';
         const reader = response.body?.getReader(); need(reader, 'RESPONSE_BODY');
@@ -386,7 +389,7 @@ async function createAdapter({ transport, durableClaims, recordBytes, trustedRec
     need(!started, 'ATTEMPT_ALREADY_STARTED'); started = true;
     validateApproval(); await githubGate();
     const result = await collectQaReady(async (path, sql) =>
-      (await request('cloudflare', sql === undefined ? 'GET' : 'POST', path, sql === undefined ? undefined : {sql})).result, now());
+      (await request('cloudflare', sql === undefined ? 'GET' : 'POST', path, sql === undefined ? undefined : {sql})).result, now(), onReceipt);
     return {...result, mode: QA_READY_MODE, planHash, readOnly: true, intakeEnabled: false, observedAt: new Date(now()).toISOString()};
   }
   async function readinessInventory() {
@@ -610,8 +613,8 @@ export async function createQaMetadataAdapter({transport,context,now=Date.now,on
   return Object.freeze({metadata:adapter.qaMetadata});
 }
 
-export async function createQaReadinessAdapter({transport,context,now=Date.now,onStage,onEnvelope}) {
+export async function createQaReadinessAdapter({transport,context,now=Date.now,onStage,onEnvelope,onReceipt}) {
   validateQaReady(context);
-  const adapter=await createAdapter({transport:qaReadyTransport(transport),readContext:context,now,onStage,onEnvelope,operation:QA_READY_OPERATION});
+  const adapter=await createAdapter({transport:qaReadyTransport(transport),readContext:context,now,onStage,onEnvelope,onReceipt,operation:QA_READY_OPERATION});
   return Object.freeze({readiness:adapter.qaReadiness});
 }
