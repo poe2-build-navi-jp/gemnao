@@ -104,7 +104,7 @@ export default function RootLayout({
               dangerouslySetInnerHTML={{
                 // The admin screens are not counted (see lib/analytics.ts).
                 __html: `(function(){if(location.origin !== ${JSON.stringify(analyticsOrigin).replace(/</g, '\\u003c')}) return;var p=location.pathname;
-if (p === '/admin' || p.indexOf('/admin/') === 0 || /^\\/diagnos(?:e|is)(?:\\/|$)/.test(p) || /^\\/(?:(?:en|zh|es)\\/)?reports(?:\\/|$)/.test(p) || p === '/diagnostic-feedback' || p.indexOf('/diagnostic-feedback/') === 0) return;
+if (p === '/admin' || p.indexOf('/admin/') === 0 || /^\\/diagnos(?:e|is)(?:\\/|$)/.test(p) || /^\\/(?:(?:en|zh|es)\\/)?reports(?:\\/|$)/.test(p) || p === '/private-diagnostic' || p.indexOf('/private-diagnostic/') === 0 || p === '/diagnostic-feedback' || p.indexOf('/diagnostic-feedback/') === 0) return;
 window.dataLayer = window.dataLayer || [];
 window.gtag = function(){dataLayer.push(arguments);};
 gtag('js', new Date());

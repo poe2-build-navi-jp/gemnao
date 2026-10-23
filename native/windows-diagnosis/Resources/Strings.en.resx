@@ -2184,4 +2184,13 @@ For other stores, use their installation location display. This help does not la
   <data name="Result.Uncertain" xml:space="preserve"><value>The cause and resolution are not established. A name-only match does not confirm the same EXE. Details distinguish your answers from hypotheses.</value></data>
   <data name="Result.NoRecord" xml:space="preserve"><value>Records may be delayed, outside this target or time window, or absent for this symptom. A pending record is not confirmed.</value></data>
   <data name="Result.NoNext" xml:space="preserve"><value>No untried suggestion remains. Review the existing records in details.</value></data>
+<data name="Private.Export" xml:space="preserve"><value>Review and save private intake JSON</value></data>
+<data name="Private.Explain" xml:space="preserve"><value>This app does not transmit reports. The JSON contains only selected collection states, counts, symptom, your answers and one suggested next step; no names, paths, raw logs, PC product names or device identifiers. It is not guaranteed anonymous.
+Import it on the intake page, review it, then explicitly consent and send. Only then can Gemnao receive it privately; it is not a public community post. Sending is unavailable while intake is closed. A sync folder may synchronize saved files separately.</value></data>
+<data name="Private.Confirm" xml:space="preserve"><value>I reviewed the complete JSON to save (this is not consent to send)</value></data>
+<data name="Private.Save" xml:space="preserve"><value>Save JSON locally (do not send)</value></data>
+<data name="Private.Web" xml:space="preserve"><value>Check intake availability on the web</value></data>
+<data name="Private.Saved" xml:space="preserve"><value>JSON saved. Nothing has been sent. Import it on the intake page, review and consent separately.</value></data>
+<data name="Private.SaveFailed" xml:space="preserve"><value>Could not confirm saving. Nothing has been sent.</value></data>
+<data name="Private.Invalid" xml:space="preserve"><value>The current result cannot be converted safely. Nothing has been sent or saved.</value></data>
 </root>

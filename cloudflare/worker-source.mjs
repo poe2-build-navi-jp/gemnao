@@ -106,6 +106,7 @@ async function render(request, env, context, pathname) {
     return protectedResponse;
   }
   if (
+    /^\/(?:private-diagnostic|admin\/private-diagnostic)(?:\/|$)/.test(pathname) ||
     /^\/diagnostic-feedback(?:\/|$)/.test(pathname) ||
     pathname === '/admin/reports-bootstrap'
   ) {

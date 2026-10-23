@@ -8,7 +8,7 @@ export const windowsDiagnosisGuides = {
     caution:
       '这是未签名的试作版。新版本尚未在 Windows 实机上验证，不能保证支持所有游戏、确定故障原因或解决问题。不会自动修复或更改 PC 设置。',
     language:
-      '默认下载仍为 v0.6.0。EXE 选择指引和结果摘要的改进候选版尚待 Windows 实机验证，不包含在默认下载中。本页为中文说明；v0.6.0 应用界面和诊断文本仅支持日语、英语，不含中文或西班牙语。',
+      '默认下载仍为 v0.6.0。EXE 选择指引、结果摘要及经本人同意的非公开接收用 JSON 导出仍是候选功能，接收尚未启用，也尚待 Windows 实机验证，不包含在默认下载中。本页为中文说明；v0.6.0 应用界面和诊断文本仅支持日语、英语，不含中文或西班牙语。',
     requirements:
       '适用于 Windows 11 x64；Windows 10、ARM64 和 32 位版本未经验证。需要 .NET Framework 4.8 或更高版本。请先阅读 ZIP 内的说明。不要关闭 Defender、绕过 SmartScreen、添加排除项或以管理员身份强行运行；遇到拦截或无法确认来源时请停止使用。',
     get: '下载 Windows x64 ZIP',
@@ -42,7 +42,7 @@ export const windowsDiagnosisGuides = {
     caution:
       'Es un prototipo sin firma digital. La nueva versión aún no se ha probado en un PC Windows real. No garantiza compatibilidad con todos los juegos, identificar la causa ni resolver el problema. No repara ni modifica los ajustes del PC automáticamente.',
     language:
-      'La descarga sigue siendo v0.6.0. Las mejoras de selección del EXE y del resumen están en revisión, pendientes de pruebas en Windows real, y no se incluyen en la descarga predeterminada. Esta guía está en español; la interfaz y los textos de diagnóstico de v0.6.0 solo están en japonés e inglés. No incluye interfaz en español ni chino.',
+      'La descarga sigue siendo v0.6.0. Las mejoras de selección del EXE, del resumen y de exportación JSON para envío privado con consentimiento están en revisión; la recepción privada no está habilitada y faltan pruebas en Windows real, y no se incluyen en la descarga predeterminada. Esta guía está en español; la interfaz y los textos de diagnóstico de v0.6.0 solo están en japonés e inglés. No incluye interfaz en español ni chino.',
     requirements:
       'Para Windows 11 x64; Windows 10, ARM64 y 32 bits no están verificados. Requiere .NET Framework 4.8 o posterior. Lee primero las instrucciones del ZIP. No desactives Defender, no eludas SmartScreen, no añadas exclusiones ni fuerces la ejecución como administrador. Si se bloquea o no puedes confirmar su procedencia, deja de usarlo.',
     get: 'Descargar ZIP para Windows x64',
