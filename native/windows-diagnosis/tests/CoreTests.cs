@@ -32,6 +32,7 @@ internal static class CoreTests
     private static int Main(string[] args)
     {
         L.SetLanguage("ja");
+        if(args.Length==2 && args[0]=="--write-private-fixture")return PrivateExportTests.WriteFixture(args[1]);
         if(args.Length==2 && args[0]=="--write-feedback-fixture")return ClientWorkflowTests.WriteFeedbackFixture(args[1]);
         if(args.Length==2 && args[0]=="--inspect-crash-archive")return EvidenceTests.Inspect(args[1]);
         Test("vendor Intel Corporation", () => Assert(Rules.Vendor("Intel Corporation") == "Intel"));
@@ -126,6 +127,7 @@ internal static class CoreTests
         GeneralGameTests.Run(Test);
         LocalizationTests.Run(Test);
         OverviewTests.Run(Test);
+        PrivateExportTests.Run(Test);
         Console.WriteLine("\n" + passed + " passed; " + failed + " failed. Synthetic fixtures; Windows collector/UI not executed.");
         return failed==0 ? 0 : 1;
     }

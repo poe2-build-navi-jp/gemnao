@@ -76,7 +76,7 @@ namespace Gemnao.Diagnostics
 
         internal MainForm()
         {
-            Text=L.T("MainForm.050") + Rules.Version + "-rc.1";
+            Text=L.T("MainForm.050") + Rules.Version + "-rc.2";
             Width=1100; Height=850; MinimumSize=new Size(800,650); StartPosition=FormStartPosition.CenterScreen;
             Font=new Font("Yu Gothic UI",10); AutoScaleMode=AutoScaleMode.Dpi;
             var root=new TableLayoutPanel { Dock=DockStyle.Fill,ColumnCount=1,RowCount=3,Padding=new Padding(14) };
@@ -100,7 +100,7 @@ namespace Gemnao.Diagnostics
             actions.SelectedIndexChanged+=(s,e)=>ShowAction();
             actionState.SelectedIndexChanged+=(s,e)=> { if(updating || actions.SelectedIndex<0 || actions.SelectedIndex>=plan.Count)return; string id=plan[actions.SelectedIndex].Step.Id; StepState state=(StepState)actionState.SelectedIndex; states[id]=state; journal.Record(id,state,ActionOutcome.Unrecorded); RefreshResults(); RefreshJournal(); };
             outcome.SelectedIndexChanged+=(s,e)=> { if(updating)return; if(retestActionId!=null&&baseline!=null&&current!=null){journal.Record(retestActionId,StepState.Tried,ActionJournal.FromTrial((TrialOutcome)outcome.SelectedIndex),baseline,current);states[retestActionId]=StepState.Tried;RefreshJournal();} RefreshResults(outcome.SelectedIndex==2 || outcome.SelectedIndex==3); };
-            guide.Click+=(s,e)=>OpenLink(false); official.Click+=(s,e)=>OpenLink(true); export.Click+=(s,e)=>ShowExport();
+            guide.Click+=(s,e)=>OpenLink(false); official.Click+=(s,e)=>OpenLink(true); export.Click+=(s,e)=>ShowExport(); privateExport.Click+=(s,e)=>ShowPrivateExport();
             timer.Tick+=(s,e)=> { if(measureStart.HasValue) { var span=DateTime.UtcNow-measureStart.Value; elapsed.Text=L.T("MainForm.053")+span.ToString(@"hh\:mm\:ss"); if(span.TotalHours>=24) { measureStart=null; timer.Stop(); progress.Text=L.T("MainForm.054"); UpdateButtons(); } } };
             FormClosing+=(s,e)=> { cancellation?.Cancel(); timer.Stop(); };
             FormClosed+=(s,e)=> { timer.Dispose(); cancellation?.Dispose(); };
@@ -151,7 +151,7 @@ namespace Gemnao.Diagnostics
         {
             var page=new TabPage(L.T("MainForm.081")); var grid=new TableLayoutPanel { Dock=DockStyle.Fill,ColumnCount=1,RowCount=3,Padding=new Padding(8) };
             grid.RowStyles.Add(new RowStyle(SizeType.AutoSize)); grid.RowStyles.Add(new RowStyle(SizeType.Percent,100)); grid.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            grid.Controls.Add(Label(L.T("MainForm.082")),0,0); grid.Controls.Add(report,0,1); grid.Controls.Add(Row(export,reread,pickArchive),0,2); page.Controls.Add(grid); tabs.TabPages.Add(page);
+            grid.Controls.Add(Label(L.T("MainForm.082")),0,0); grid.Controls.Add(report,0,1); grid.Controls.Add(Row(export,privateExport,reread,pickArchive),0,2); page.Controls.Add(grid); tabs.TabPages.Add(page);
         }
         private static Button Button(string t) { return new Button { Text=t,AutoSize=true,Padding=new Padding(8,4,8,4),Margin=new Padding(3,5,3,5) }; }
         private static Label Label(string t) { return new Label { Text=t,AutoSize=true,MaximumSize=new Size(950,0),Margin=new Padding(3,7,3,7) }; }
@@ -393,7 +393,7 @@ namespace Gemnao.Diagnostics
             begin.Enabled=recent.Enabled && !sessionRestartObserved && WildsProfile.MayRetest(current,Answers());
             begin.Text=current==null?L.T("MainForm.032"):L.T("MainForm.166");
             finish.Enabled=!busy && measureStart.HasValue; cancel.Enabled=busy || measureStart.HasValue;
-            retest.Enabled=idle && detailPanel.Visible && consent.Checked && current!=null && !sessionRestartObserved && WildsProfile.MayRetest(current,Answers()); export.Enabled=idle && current!=null; reread.Enabled=rereadFromActions.Enabled=idle&&consent.Checked&&current!=null;pickArchive.Enabled=idle&&consent.Checked&&archiveConsent.Checked&&current!=null&&current.Game==GameKind.Wilds&&selectedGame==GameKind.Wilds;
+            retest.Enabled=idle && detailPanel.Visible && consent.Checked && current!=null && !sessionRestartObserved && WildsProfile.MayRetest(current,Answers()); export.Enabled=privateExport.Enabled=idle && current!=null; reread.Enabled=rereadFromActions.Enabled=idle&&consent.Checked&&current!=null;pickArchive.Enabled=idle&&consent.Checked&&archiveConsent.Checked&&current!=null&&current.Game==GameKind.Wilds&&selectedGame==GameKind.Wilds;
             foreach(var c in new[]{stage,worked,demo,capture,mods,textures,pcIssue,verify,scene,frequency,lowerGraphics})c.Enabled=idle;
             stage.Enabled=textures.Enabled=idle&&GameProfile.UsesWildsRules(selectedGame,selectedSymptom);lowerGraphics.Enabled=idle&&GameProfile.IsPerformance(selectedSymptom);
             details.Enabled=idle && current!=null;
@@ -405,6 +405,10 @@ namespace Gemnao.Diagnostics
         {
             if(actions.SelectedIndex<0 || actions.SelectedIndex>=plan.Count)return;
             var step=plan[actions.SelectedIndex].Step; string url=officialLink?step.OfficialUrl:step.GuideUrl;
+            OpenApprovedLink(url);
+        }
+        private void OpenApprovedLink(string url)
+        {
             if(MessageBox.Show(this,L.T("MainForm.167")+L.LinkLabel(url),L.T("MainForm.168"),MessageBoxButtons.YesNo)!=DialogResult.Yes)return;
             try { Process.Start(new ProcessStartInfo(url){UseShellExecute=true}); } catch { MessageBox.Show(this,L.T("MainForm.169")); }
         }

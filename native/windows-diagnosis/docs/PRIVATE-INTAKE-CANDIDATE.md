@@ -1,0 +1,7 @@
+# 0.6.1-rc.2 — private intake export candidate, not a release
+
+This candidate extends rc.1 with a separate sanitized JSON export for general games and Wilds. The native app still makes no network requests. It shows the complete fixed JSON, requires a separate save confirmation, and offers a confirmed browser navigation to a static URL with no diagnostic data. Saving/opening the page does not send the report. The browser must import the JSON locally, show the content and retention notice, obtain the person's unchecked-by-default consent, and receive an explicit Send action. The public/private intake is not enabled by this candidate.
+
+The selection includes log read states/counts, symptom/category, restart/display-record presence, the person's whole-PC/trial answers and one fixed next-step ID. No raw TXT/logs, EXE paths/names, hardware product names, device IDs, timestamps or free text. It is not a promise of anonymity, independent verification, diagnosis or a reply. The previous TXT and Wilds feedback exports are unchanged and are not accepted as this private schema.
+
+416 synthetic native tests and scoped build/source guards pass. No Windows UI, live upload, operator authentication, remote DB/retention or alert delivery has been verified. The inherited BUILD-RESULTS.md concerns 0.6.0; CANDIDATE-VALIDATION.md concerns rc.1. The repository's docs/private-diagnostic/REVIEW.md covers the new server/browser implementation and tests. PRIVATE-INTAKE-ACTIVATION.ja.md lists blocked activation steps. No production download/Release promotion.
