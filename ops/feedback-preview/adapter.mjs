@@ -1,4 +1,4 @@
-import { operation as QA_READY_OPERATION, mode as QA_READY_MODE, planHash as QA_READY_PLAN, validateContext as validateQaReady, allowed as qaReadyAllowed, scopedTransport as qaReadyTransport, collect as collectQaReady } from '../private-diagnostic-review/readiness-profile.mjs';
+import { operation as QA_READY_OPERATION, mode as QA_READY_MODE, planHash as QA_READY_PLAN, validateContext as validateQaReady, allowed as qaReadyAllowed, scopedTransport as qaReadyTransport, collect as collectQaReady } from '../private-diagnostic-review/reconcile-profile.mjs';
 import { operation as QA_META_OPERATION, mode as QA_META_MODE, planHash as QA_META_PLAN, validateContext as validateQaMeta, allowed as qaMetaAllowed, scopedTransport as qaMetaTransport, collect as collectQaMeta } from '../private-diagnostic-review/profile.mjs';
 import { PAGES_LOG_OPERATION, PAGES_LOG_MODE, PAGES_LOG_PLAN_HASH, PAGES_LOG_PATH, PAGES_PROJECT_PATH, validatePagesLogContext, pagesLogRequestAllowed, pagesLogTransport, projectLogs, projectPagesState } from '../diagnosis-production/pages-deployment-log.mjs';
 import { collectDiagnosisReadiness } from '../d1/diagnosis-readiness.mjs';

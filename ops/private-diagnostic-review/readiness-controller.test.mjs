@@ -4,9 +4,10 @@ import {readFile} from 'node:fs/promises';
 import {TARGET} from '../feedback-preview/controller.mjs';
 import {runGate,runProtected,credentialTransport,SETUP} from '../feedback-preview/live.mjs';
 import {createQaReadinessAdapter,createPreparedAdapter} from '../feedback-preview/adapter.mjs';
-import {operation,mode,planHash,scopedTransport} from './readiness-profile.mjs';
+import {operation,mode,planHash,scopedTransport} from './reconcile-profile.mjs';
 import {account,database} from './scope.mjs';
-import {settingsPath,readinessQueries as queries} from './readiness-scope.mjs';
+import {settingsPath,countSql,categories} from './reconcile-scope.mjs';
+const queries=[countSql];
 const getPaths=[settingsPath];
 import {fixtureRecord,mock,workflow} from '../../tests/feedback-preview/fixtures.mjs';
 const root='https://api.cloudflare.com/client/v4', marker='SYNTHETIC_PRIVATE_VALUE';
@@ -38,7 +39,7 @@ function setup(mutate = () => {}, failedRequest = 0) {
     else {
       assert.equal(path, `/accounts/${account}/d1/database/${database}/query`);
       const {sql}=JSON.parse(options.body);assert.ok(queries.includes(sql));
-      result=[{success:true,meta:{rows_written:0,changed_db:false},results:sql===queries[0]?[{last_cleanup:0}]:[]}];
+      result=[{success:true,meta:{rows_written:0,changed_db:false},results:categories.map(category=>({category,n:0}))}];
     }
     const value = { success: true, errors: [], result };
     mutate({ path, method: options.method }, value);
@@ -81,15 +82,15 @@ function setup(mutate = () => {}, failedRequest = 0) {
   };
 }
 
-test('existing exact-run owner gate, no records/SDK, exactly three QA calls and projected output',async()=>{
+test('existing exact-run owner gate, no records/SDK, exactly two reconciliation calls and projected output',async()=>{
  const f=setup(),env=f.env();
  for(const k of ['PREVIEW_APPROVAL_RECORD','PREVIEW_APPROVAL_SHA256'])Object.defineProperty(env,k,{get:()=>assert.fail('old secret read')});
  const gate=await runGate({env:f.env('gate'),checkoutSha:f.r.commit,transport:f.transport});
  assert.equal(gate.planHash,planHash);assert.ok(f.calls.every(x=>!x.url.startsWith(root)));
  const r=await runProtected({env,checkoutSha:f.r.commit,transport:f.transport,loadClient:()=>assert.fail('SDK')});
- assert.equal(r.mode,mode);assert.equal(r.bindingsMatch,false);assert.equal(r.privateNamespaceEmpty,true);assert.equal(r.cleanupHealthy,false);
+ assert.equal(r.mode,mode);assert.equal(r.privateDbBindingMatches,false);assert.equal(r.allPrivateTablesEmpty,true);assert.equal(r.configuredWindowExpired,null);
  assert.equal(r.receiptActivationAuthorized,false);assert.equal(JSON.stringify(r).includes(marker),false);
- assert.deepEqual(f.calls.filter(x=>x.url.startsWith(root)).map(x=>x.options.method),['GET','POST','POST']);
+ assert.deepEqual(f.calls.filter(x=>x.url.startsWith(root)).map(x=>x.options.method),['GET','POST']);
 });
 test("owner, exact run/head, branch and Environment checks still precede every Cloudflare call", async () => {
   for (const mutate of [
@@ -131,7 +132,7 @@ test("owner, exact run/head, branch and Environment checks still precede every C
 });
 
 test('403 at any request stops with no retry or remaining requests',async()=>{
- for(let i=1;i<=3;i++){const f=setup(()=>{},i);await assert.rejects(runProtected({env:f.env(),checkoutSha:f.r.commit,transport:f.transport}));assert.equal(f.calls.filter(x=>x.url.startsWith(root)).length,i);}
+ for(let i=1;i<=2;i++){const f=setup(()=>{},i);await assert.rejects(runProtected({env:f.env(),checkoutSha:f.r.commit,transport:f.transport}));assert.equal(f.calls.filter(x=>x.url.startsWith(root)).length,i);}
 });
 test('both transports forbid production, settings, arbitrary SQL and mutation',async()=>{
  for(const [url,options] of [[root+getPaths[0],{method:'DELETE'}],[root+getPaths[0]+'/query',{method:'POST',body:JSON.stringify({sql:'SELECT * FROM diagnostic_reports'})}],[root+getPaths[0]+'/versions',{method:'GET'}],[root+'/accounts/'+account+'/pages/projects/gemnao',{method:'GET'}]]){
@@ -155,8 +156,7 @@ test('write-marked or unknown schema never proves reuse and provider fields neve
   const f=setup(mutate);await assert.rejects(runProtected({env:f.env(),checkoutSha:f.r.commit,transport:f.transport}));
  }
  const f=setup((c,v)=>{if(c.path.endsWith('/query'))v.result[0].results=[];});
- const r=await runProtected({env:f.env(),checkoutSha:f.r.commit,transport:f.transport});
- assert.equal(r.cleanupHealthy,false);assert.equal(r.privateNamespaceEmpty,true);assert.equal(r.receiptActivationAuthorized,false);
+ await assert.rejects(runProtected({env:f.env(),checkoutSha:f.r.commit,transport:f.transport}),/SCHEMA_RESULTS/);
 });
 test('401 and redirected responses stop before any subsequent Cloudflare request',async()=>{
  for(const status of [401,302]){

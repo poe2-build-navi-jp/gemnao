@@ -1,6 +1,6 @@
 import {operation as FINITE_OPERATION,planHash as FINITE_PLAN,allowed as finiteAllowed} from '../private-diagnostic-execution/profile.mjs';
 import {runFiniteProtected} from '../private-diagnostic-execution/execute.mjs';
-import { operation as QA_READY_OPERATION, planHash as QA_READY_PLAN, allowed as qaReadyAllowed } from '../private-diagnostic-review/readiness-profile.mjs';
+import { operation as QA_READY_OPERATION, planHash as QA_READY_PLAN, allowed as qaReadyAllowed } from '../private-diagnostic-review/reconcile-profile.mjs';
 import { operation as QA_META_OPERATION, planHash as QA_META_PLAN, allowed as qaMetaAllowed } from '../private-diagnostic-review/profile.mjs';
 import { PAGES_LOG_OPERATION, PAGES_LOG_MODE, PAGES_LOG_PLAN_HASH, pagesLogRequestAllowed } from '../diagnosis-production/pages-deployment-log.mjs';
 import { READINESS_OPERATION, READINESS_PLAN_HASH, readinessRequestAllowed } from '../diagnosis-production/readiness-profile.mjs';
