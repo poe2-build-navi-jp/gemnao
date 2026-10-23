@@ -8,7 +8,7 @@ export class FiniteQaBudget {
     try {
       if(request.method!=='POST' || new URL(request.url).search) return deny();
       const path=new URL(request.url).pathname;
-      if(!['/admit','/close'].includes(path)) return deny();
+      if(!['/admit','/close','/claim'].includes(path)) return deny();
       if(this.env.PRIVATE_QA_MODE!==mode) return deny();
       const start=Number(this.env.PRIVATE_QA_START),end=Number(this.env.PRIVATE_QA_END),now=this.clock();
       if(!Number.isSafeInteger(start)||!Number.isSafeInteger(end)||!Number.isSafeInteger(now)||start<=0||end<=start||end-start>900) return deny();
@@ -20,6 +20,7 @@ export class FiniteQaBudget {
         if(!saved) saved={start,end,last:start,closed:false,used:Object.fromEntries(Object.keys(limits).map(k=>[k,0]))};
         if(path==='/close'||now>=end){saved.closed=true;saved.last=Math.max(now,saved.last);await store.put('finite-qa-v1',saved);return path==='/close'?new Response(null,{status:204}):deny();}
         if(now<start) return deny();
+        if(path==='/claim'){if(saved.claimed)return deny();saved.claimed=true;saved.last=now;await store.put('finite-qa-v1',saved);return new Response(null,{status:204});}
         if(saved.used[kind]>=limits[kind]) return new Response(null,{status:429});
         saved.used[kind]++;saved.last=now;
         await store.put('finite-qa-v1',saved); // Consume before any D1; never refund.
@@ -31,6 +32,7 @@ export class FiniteQaBudget {
 function valid(s) {
   return Number.isSafeInteger(s.start)&&Number.isSafeInteger(s.end)&&s.end>s.start&&s.end-s.start<=900
     &&Number.isSafeInteger(s.last)&&s.last>=s.start&&typeof s.closed==='boolean'
+    &&(s.claimed===undefined||typeof s.claimed==='boolean')
     &&s.used&&Object.keys(s.used).length===Object.keys(limits).length
     &&Object.entries(limits).every(([k,n])=>Number.isSafeInteger(s.used[k])&&s.used[k]>=0&&s.used[k]<=n);
 }

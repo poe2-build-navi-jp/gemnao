@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "kind": "private-diagnostic",
+  "tool_version": "0.6.1",
+  "game": "general",
+  "symptom": "crash",
+  "observed": {
+    "application": {"status":"complete","exact_matches":0,"name_matches":0,"other_target_records":0,"examined":0,"unsupported":0,"limit_reached":false},
+    "system": {"status":"unavailable","restart_record":false,"display_record":false}
+  },
+  "self_report": {"whole_pc_issue":"no","trial":"not-tested"},
+  "next_step": "game-context"
+}
