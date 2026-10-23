@@ -16,6 +16,7 @@ on:
           - production-health-publish
           - diagnosis-readiness
           - pages-deployment-log
+          - private-qa-metadata
 permissions:
   contents: read
   actions: read
@@ -37,7 +38,7 @@ jobs:
         with:
           node-version: '22.19.0'
       - name: Test fixed controller and injected mocks
-        run: node --test tests/feedback-preview/control.test.mjs tests/feedback-preview/adapter.test.mjs tests/feedback-preview/health.test.mjs tests/diagnosis-production/databases.test.mjs tests/diagnosis-production/cleanup-controller.test.mjs tests/diagnosis-production/cleanup-health.test.mjs tests/diagnosis-production/public-health.test.mjs tests/diagnosis-production/public-health-controller.test.mjs tests/diagnosis-production/d1-readiness.test.mjs tests/diagnosis-production/readiness-controller.test.mjs tests/diagnosis-production/pages-deployment-log.test.mjs
+        run: node --test ops/private-diagnostic-review/*.test.mjs tests/feedback-preview/control.test.mjs tests/feedback-preview/adapter.test.mjs tests/feedback-preview/health.test.mjs tests/diagnosis-production/databases.test.mjs tests/diagnosis-production/cleanup-controller.test.mjs tests/diagnosis-production/cleanup-health.test.mjs tests/diagnosis-production/public-health.test.mjs tests/diagnosis-production/public-health-controller.test.mjs tests/diagnosis-production/d1-readiness.test.mjs tests/diagnosis-production/readiness-controller.test.mjs tests/diagnosis-production/pages-deployment-log.test.mjs
       - id: settings
         name: Verify existing exact Environment before referencing it
         env:
@@ -60,10 +61,10 @@ jobs:
         with:
           node-version: '22.19.0'
       - name: Install locked official Artifact SDK without lifecycle scripts
-        if: inputs.operation != 'diagnosis-readiness' && inputs.operation != 'pages-deployment-log'
+        if: inputs.operation != 'diagnosis-readiness' && inputs.operation != 'pages-deployment-log' && inputs.operation != 'private-qa-metadata'
         run: npm ci --ignore-scripts --no-audit --no-fund --prefix ops/feedback-preview/runtime --registry=https://registry.npmjs.org
       - name: Verify live integration with synthetic inputs only
-        if: inputs.operation != 'diagnosis-readiness' && inputs.operation != 'pages-deployment-log'
+        if: inputs.operation != 'diagnosis-readiness' && inputs.operation != 'pages-deployment-log' && inputs.operation != 'private-qa-metadata'
         run: node --test tests/feedback-preview/live.test.mjs
       - name: Execute exact approved run with one Environment-scoped credential
         uses: ./ops/feedback-preview
@@ -71,6 +72,6 @@ jobs:
           PREVIEW_PROTECTED_ENVIRONMENT: gemnao-preview-data
           PREVIEW_OPERATION: ${{ inputs.operation || 'preview' }}
           PREVIEW_GITHUB_TOKEN: ${{ github.token }}
-          PREVIEW_APPROVAL_RECORD: ${{ inputs.operation != 'production-cleanup-health' && inputs.operation != 'pages-deployment-log' && inputs.operation != 'diagnosis-readiness' && secrets.GEMNAO_PREVIEW_APPROVAL_RECORD || '' }}
-          PREVIEW_APPROVAL_SHA256: ${{ inputs.operation != 'production-cleanup-health' && inputs.operation != 'pages-deployment-log' && inputs.operation != 'diagnosis-readiness' && secrets.GEMNAO_PREVIEW_APPROVAL_SHA256 || '' }}
+          PREVIEW_APPROVAL_RECORD: ${{ inputs.operation != 'production-cleanup-health' && inputs.operation != 'pages-deployment-log' && inputs.operation != 'private-qa-metadata' && inputs.operation != 'diagnosis-readiness' && secrets.GEMNAO_PREVIEW_APPROVAL_RECORD || '' }}
+          PREVIEW_APPROVAL_SHA256: ${{ inputs.operation != 'production-cleanup-health' && inputs.operation != 'pages-deployment-log' && inputs.operation != 'private-qa-metadata' && inputs.operation != 'diagnosis-readiness' && secrets.GEMNAO_PREVIEW_APPROVAL_SHA256 || '' }}
           GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN: ${{ secrets.GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN }}

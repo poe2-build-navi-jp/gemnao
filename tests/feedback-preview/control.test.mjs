@@ -181,8 +181,8 @@ await test('CLI never reads/logs synthetic credentials or unexpected arguments',
 await test('workflow stays manual-only and sources approval configuration exclusively from secrets', async () => {
   const workflow = await readFile('.github/workflows/feedback-preview-control.yml', 'utf8');
   assert.match(workflow, /on:\n  workflow_dispatch:\n    inputs:\n      operation:/);
-  assert.match(workflow, /type: choice\n        required: true\n        default: preview\n        options:\n          - preview\n          - production-databases\n          - production-cleanup\n          - production-cleanup-health\n          - production-health-publish\n          - diagnosis-readiness\n          - pages-deployment-log\npermissions:/);
-  assert.equal((workflow.match(/inputs\.operation/g) ?? []).length, 12);
+  assert.match(workflow, /type: choice\n        required: true\n        default: preview\n        options:\n          - preview\n          - production-databases\n          - production-cleanup\n          - production-cleanup-health\n          - production-health-publish\n          - diagnosis-readiness\n          - pages-deployment-log\n          - private-qa-metadata\npermissions:/);
+  assert.equal((workflow.match(/inputs\.operation/g) ?? []).length, 16);
   assert.doesNotMatch(workflow, /schedule:|pull_request:|push:|workflow_call:|id-token:/);
   assert.match(workflow, /if: needs\.gate\.outputs\.environment == 'gemnao-preview-data'/);
   assert.match(workflow, /environment: \$\{\{ needs\.gate\.outputs\.environment \}\}/);
@@ -192,7 +192,7 @@ await test('workflow stays manual-only and sources approval configuration exclus
   assert.equal((gate.match(/secrets\./g) ?? []).length, 2);
   for (const name of ['RECORD', 'SHA256']) {
     assert.ok(gate.includes(`secrets.GEMNAO_PREVIEW_APPROVAL_${name} != ''`));
-    assert.ok(provision.includes(`PREVIEW_APPROVAL_${name}: $` + `{{ inputs.operation != 'production-cleanup-health' && inputs.operation != 'pages-deployment-log' && inputs.operation != 'diagnosis-readiness' && secrets.GEMNAO_PREVIEW_APPROVAL_${name} || '' }}`));
+    assert.ok(provision.includes(`PREVIEW_APPROVAL_${name}: $` + `{{ inputs.operation != 'production-cleanup-health' && inputs.operation != 'pages-deployment-log' && inputs.operation != 'private-qa-metadata' && inputs.operation != 'diagnosis-readiness' && secrets.GEMNAO_PREVIEW_APPROVAL_${name} || '' }}`));
   }
   assert.match(provision, /secrets\.GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN/);
   const controller = await readFile('ops/feedback-preview/controller.mjs', 'utf8');

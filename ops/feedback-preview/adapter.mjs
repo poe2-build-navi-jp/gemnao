@@ -1,3 +1,4 @@
+import { operation as QA_META_OPERATION, mode as QA_META_MODE, planHash as QA_META_PLAN, validateContext as validateQaMeta, allowed as qaMetaAllowed, scopedTransport as qaMetaTransport, collect as collectQaMeta } from '../private-diagnostic-review/profile.mjs';
 import { PAGES_LOG_OPERATION, PAGES_LOG_MODE, PAGES_LOG_PLAN_HASH, PAGES_LOG_PATH, PAGES_PROJECT_PATH, validatePagesLogContext, pagesLogRequestAllowed, pagesLogTransport, projectLogs, projectPagesState } from '../diagnosis-production/pages-deployment-log.mjs';
 import { collectDiagnosisReadiness } from '../d1/diagnosis-readiness.mjs';
 import { READINESS_OPERATION, READINESS_MODE, READINESS_PLAN_HASH, READINESS_PAGES_PATH, READINESS_DATABASE_PATH, validateReadinessContext, readinessRequestAllowed, readinessTransport } from '../diagnosis-production/readiness-profile.mjs';
@@ -139,14 +140,15 @@ async function createAdapter({ transport, durableClaims, recordBytes, trustedRec
   const productionHealth = operation === PRODUCTION_HEALTH_OPERATION;
   const readiness = operation === READINESS_OPERATION;
   const pagesLog = operation === PAGES_LOG_OPERATION;
-  const observation = productionHealth || readiness || pagesLog;
+  const qaMeta = operation === QA_META_OPERATION;
+  const observation = productionHealth || readiness || pagesLog || qaMeta;
   const publicHealth = operation === PUBLIC_HEALTH_OPERATION;
   const cleanup = operation === CLEANUP_OPERATION;
   const features = observation ? [] : publicHealth ? [PUBLIC_HEALTH_FEATURE] : cleanup ? CLEANUP_FEATURES : production ? PRODUCTION_FEATURES : FEATURES;
   const pinnedArtifacts = publicHealth ? PUBLIC_HEALTH_ARTIFACTS : cleanup ? CLEANUP_ARTIFACTS : production ? PRODUCTION_ARTIFACTS : ARTIFACTS;
-  const planHash = pagesLog ? PAGES_LOG_PLAN_HASH : readiness ? READINESS_PLAN_HASH : publicHealth ? PUBLIC_HEALTH_PLAN_HASH : productionHealth ? PRODUCTION_HEALTH_PLAN_HASH : cleanup ? CLEANUP_PLAN_HASH : production ? PRODUCTION_PLAN_HASH : PLAN_HASH;
+  const planHash = qaMeta ? QA_META_PLAN : pagesLog ? PAGES_LOG_PLAN_HASH : readiness ? READINESS_PLAN_HASH : publicHealth ? PUBLIC_HEALTH_PLAN_HASH : productionHealth ? PRODUCTION_HEALTH_PLAN_HASH : cleanup ? CLEANUP_PLAN_HASH : production ? PRODUCTION_PLAN_HASH : PLAN_HASH;
   const readSnapshot = observation ? Object.freeze(structuredClone(readContext)) : null;
-  const validateApproval = () => pagesLog ? validatePagesLogContext(readSnapshot) : readiness ? validateReadinessContext(readSnapshot) : productionHealth ? validateProductionHealthContext(readSnapshot)
+  const validateApproval = () => qaMeta ? validateQaMeta(readSnapshot) : pagesLog ? validatePagesLogContext(readSnapshot) : readiness ? validateReadinessContext(readSnapshot) : productionHealth ? validateProductionHealthContext(readSnapshot)
     : validateRecord(approvedBytes, trustedRecordHash, now(), operation);
   need(typeof transport === 'function', 'NO_TRANSPORT');
   const approvedBytes = String(recordBytes);
@@ -162,7 +164,7 @@ async function createAdapter({ transport, durableClaims, recordBytes, trustedRec
   let preflightAt = null;
   let inventory;
   async function request(service, method, path, body) {
-    need(!production || service === 'github' || (pagesLog ? pagesLogRequestAllowed(path, method, body === undefined ? undefined : JSON.stringify(body)) : readiness ? readinessRequestAllowed(path, method, body === undefined ? undefined : JSON.stringify(body)) : productionHealth ? productionHealthRequestAllowed(path, method, body === undefined ? undefined : JSON.stringify(body))
+    need(!production || service === 'github' || (qaMeta ? qaMetaAllowed(path, method, body === undefined ? undefined : JSON.stringify(body)) : pagesLog ? pagesLogRequestAllowed(path, method, body === undefined ? undefined : JSON.stringify(body)) : readiness ? readinessRequestAllowed(path, method, body === undefined ? undefined : JSON.stringify(body)) : productionHealth ? productionHealthRequestAllowed(path, method, body === undefined ? undefined : JSON.stringify(body))
       : (publicHealth ? publicHealthRequestAllowed : cleanup ? cleanupRequestAllowed : productionDatabaseRequestAllowed)(path, method)), 'TRANSPORT_SCOPE');
     need(++requests <= 120, 'REQUEST_BOUND');
     const root = service === 'github' ? 'https://api.github.com' : 'https://api.cloudflare.com/client/v4';
@@ -263,7 +265,7 @@ async function createAdapter({ transport, durableClaims, recordBytes, trustedRec
       const safe = (production ? record.reconciledPriorRuns : record.reconciledNoWriteRuns).find(r => r.id === prior.id);
       const reconciled = safe && safe.headSha === prior.head_sha && prior.status === 'completed' && prior.run_attempt === 1;
       if (!reconciled) unreconciledPriorRunCount++;
-      need(reconciled || ['read-only-preflight', 'cleanup-health', PRODUCTION_HEALTH_MODE, READINESS_MODE, PAGES_LOG_MODE].includes(record.mode), 'PRIOR_RUN_REQUIRES_READ_ONLY_RECONCILIATION');
+      need(reconciled || ['read-only-preflight', 'cleanup-health', PRODUCTION_HEALTH_MODE, READINESS_MODE, PAGES_LOG_MODE, QA_META_MODE].includes(record.mode), 'PRIOR_RUN_REQUIRES_READ_ONLY_RECONCILIATION');
     }
     const reviews = await gh(`/actions/runs/${record.runId}/approvals`);
     need(Array.isArray(reviews), 'RUN_REVIEWS');
@@ -368,6 +370,14 @@ async function createAdapter({ transport, durableClaims, recordBytes, trustedRec
       completed: Object.keys(failures).length === 0, cloudflareReadsAttempted: 2,
       cloudflareWrites: 0, databaseQueries: 0, liveIntakeVerified: false,
       observedAt: new Date(now()).toISOString() };
+  }
+  async function qaMetadata() {
+    need(qaMeta && record.mode === QA_META_MODE, 'READ_ONLY_MODE');
+    need(!started, 'ATTEMPT_ALREADY_STARTED'); started = true;
+    validateApproval(); await githubGate();
+    const result = await collectQaMeta(async (path, sql) =>
+      (await request('cloudflare', sql === undefined ? 'GET' : 'POST', path, sql === undefined ? undefined : {sql})).result);
+    return {...result, mode: QA_META_MODE, planHash, readOnly: true, intakeEnabled: false, observedAt: new Date(now()).toISOString()};
   }
   async function readinessInventory() {
     need(readiness && record.mode === READINESS_MODE, 'READ_ONLY_MODE');
@@ -540,12 +550,12 @@ async function createAdapter({ transport, durableClaims, recordBytes, trustedRec
     return { ...(production ? { mode: cleanup ? CLEANUP_MODE : PRODUCTION_MODE } : {}), receipts, ...(cleanup ? { installationPreflight: { observedAt: inspected.observedAt, databaseCount: inspected.databaseCount, workerCount: inspected.workerCount, cronCount: inspected.cronCount, usageHeadroom: 'not-measured' } } : {}), journal: structuredClone(journal), actualHeartbeatVerified: false, alertDeliveryVerified: false, intakeEnabled: false };
   }
   return Object.freeze({ preflight: async () => { need(!started, 'ATTEMPT_ALREADY_STARTED'); return inspect(); },
-    provision, health, readinessInventory, pagesDeploymentLog, journal: () => structuredClone(journal) });
+    provision, health, readinessInventory, pagesDeploymentLog, qaMetadata, journal: () => structuredClone(journal) });
 }
 
 // Write/legacy factories cannot accept the record-free production-health scope.
 export async function createPreparedAdapter(options) {
-  need(![PRODUCTION_HEALTH_OPERATION, READINESS_OPERATION, PAGES_LOG_OPERATION].includes(options.operation), 'HEALTH_MODE');
+  need(![PRODUCTION_HEALTH_OPERATION, READINESS_OPERATION, PAGES_LOG_OPERATION, QA_META_OPERATION].includes(options.operation), 'HEALTH_MODE');
   return createAdapter(options);
 }
 
@@ -582,4 +592,10 @@ export async function createPagesDeploymentLogAdapter({ transport, context, now 
   const adapter = await createAdapter({ transport: pagesLogTransport(transport), readContext: context,
     now, onStage, onEnvelope, onReceipt, logSecrets, operation: PAGES_LOG_OPERATION });
   return Object.freeze({ deploymentLog: adapter.pagesDeploymentLog });
+}
+
+export async function createQaMetadataAdapter({transport,context,now=Date.now,onStage,onEnvelope}) {
+  validateQaMeta(context);
+  const adapter=await createAdapter({transport:qaMetaTransport(transport),readContext:context,now,onStage,onEnvelope,operation:QA_META_OPERATION});
+  return Object.freeze({metadata:adapter.qaMetadata});
 }
