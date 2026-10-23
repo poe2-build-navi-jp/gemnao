@@ -1,0 +1,172 @@
+Already up to date
+Done in 356ms using pnpm v11.19.0
+
+   ╭──────────────────────────────────────────╮
+   │                                          │
+   │   Update available! 11.19.0 → 12.14.0.   │
+   │   Changelog: https://pnpm.io/v/12.14.0   │
+   │     To update, run: pnpm self-update     │
+   │                                          │
+   ╰──────────────────────────────────────────╯
+
+$ NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=false NEXT_PUBLIC_DIAGNOSIS_ENABLED=true vinext build --prerender-all --prerender-concurrency 1 && NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=false NEXT_PUBLIC_DIAGNOSIS_ENABLED=true node scripts/prepare-pages.mjs && node scripts/check-static-search-assets.mjs && NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=false NEXT_PUBLIC_DIAGNOSIS_ENABLED=true node scripts/generate-og-cards.mjs --check
+
+  vinext build  (Vite 8.0.13)
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mProxy environment variables detected. We'll use your proxy for fetch requests.[0m
+
+
+[1/5] analyze client references...
+[2Ktransforming...✓ 732 modules transformed.
+rendering chunks...
+✓ built in 2.22s
+[2/5] analyze server references...
+[2Ktransforming...✓ 445 modules transformed.
+rendering chunks...
+✓ built in 705ms
+[3/5] build rsc environment...
+[2Ktransforming...✓ 729 modules transformed.
+rendering chunks...
+computing gzip size...
+✓ built in 2.01s
+[4/5] build client environment...
+[2Ktransforming...✓ 2226 modules transformed.
+rendering chunks...
+computing gzip size...
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 2.17s
+[5/5] build ssr environment...
+[2Ktransforming...✓ 451 modules transformed.
+rendering chunks...
+computing gzip size...
+✓ built in 1.14s
+[0m  Pre-rendering all routes...
+[vinext] Production server for prerendering running at http://127.0.0.1:42515
+  Prerendered 629 routes (37 skipped).
+[vinext] Seeded 629 pre-rendered routes into memory cache
+[vinext] Production server for prerendering running at http://127.0.0.1:35665
+  Discovered 632 CDN warmup path(s).
+[0m
+  Route (app)
+  ┌ ? /                                  
+  ├ ƒ /:locale                           
+  ├ ƒ /:locale/about                     
+  ├ ƒ /:locale/articles                  
+  ├ ƒ /:locale/contact                   
+  ├ ƒ /:locale/discord                   
+  ├ ƒ /:locale/discord-servers           
+  ├ ƒ /:locale/discord-servers/guidelines
+  ├ ƒ /:locale/discord-servers/submit    
+  ├ ƒ /:locale/discord/:slug             
+  ├ ƒ /:locale/examples/:slug            
+  ├ ƒ /:locale/games/:slug               
+  ├ ƒ /:locale/games/:slug/:article      
+  ├ ƒ /:locale/gear                      
+  ├ ƒ /:locale/gear/:slug                
+  ├ ƒ /:locale/guide                     
+  ├ ƒ /:locale/guide/:slug               
+  ├ ƒ /:locale/my                        
+  ├ ƒ /:locale/my-games                  
+  ├ ƒ /:locale/new-releases/:slug        
+  ├ ƒ /:locale/pc                        
+  ├ ƒ /:locale/pc/:slug                  
+  ├ ƒ /:locale/privacy                   
+  ├ ƒ /:locale/reports                   
+  ├ ƒ /:locale/status                    
+  ├ ƒ /:locale/terms                     
+  ├ ƒ /:locale/tools                     
+  ├ ƒ /:locale/tools/refresh-rate        
+  ├ ƒ /:locale/tools/save-locations      
+  ├ ƒ /:locale/tools/windows-diagnosis   
+  ├ ƒ /:locale/trouble/:slug             
+  ├ ƒ /:locale/weekly                    
+  ├ ƒ /:locale/weekly/:slug              
+  ├ ○ /about                             
+  ├ ○ /admin/contacts                    
+  ├ ○ /admin/diagnosis-qa                
+  ├ ○ /admin/discord-servers             
+  ├ ○ /admin/game-requests               
+  ├ ƒ /admin/reports                     
+  ├ ƒ /admin/reports-bootstrap           
+  ├ ○ /admin/search-demand               
+  ├ λ /api/admin/contacts                
+  ├ λ /api/admin/contacts/:id            
+  ├ λ /api/admin/discord-servers         
+  ├ λ /api/admin/discord-servers/:id     
+  ├ λ /api/admin/discord-servers/login   
+  ├ λ /api/admin/discord-servers/logout  
+  ├ λ /api/admin/game-requests           
+  ├ λ /api/admin/reports                 
+  ├ λ /api/admin/reports-bootstrap       
+  ├ λ /api/admin/reports-control         
+  ├ λ /api/admin/reports-verification    
+  ├ λ /api/admin/search-demand           
+  ├ λ /api/automation/game-requests      
+  ├ λ /api/contact                       
+  ├ λ /api/diagnostic-feedback           
+  ├ λ /api/discord-servers               
+  ├ λ /api/feedback                      
+  ├ λ /api/game-news                     
+  ├ λ /api/game-requests                 
+  ├ λ /api/reports/:path*                
+  ├ λ /api/reports/health                
+  ├ λ /api/search-demand                 
+  ├ λ /api/solution-image                
+  ├ λ /api/status                        
+  ├ ? /contact                           
+  ├ ○ /diagnose                          
+  ├ ○ /diagnose/privacy                  
+  ├ ƒ /diagnosis/:id                     
+  ├ ƒ /diagnosis/manage/:id              
+  ├ ○ /diagnostic-feedback               
+  ├ ○ /discord                           
+  ├ ƒ /discord-servers                   
+  ├ ○ /discord-servers/guidelines        
+  ├ ○ /discord-servers/submit            
+  ├ ƒ /discord/:slug                     
+  ├ ƒ /examples/:slug                    
+  ├ λ /feed.xml                          
+  ├ ƒ /games/:slug                       
+  ├ ƒ /games/:slug/:article              
+  ├ ○ /gear                              
+  ├ ƒ /gear/:slug                        
+  ├ ○ /guide                             
+  ├ ƒ /guide/:slug                       
+  ├ ○ /my                                
+  ├ ○ /my-games                          
+  ├ ƒ /new-releases/:slug                
+  ├ ○ /pc                                
+  ├ ƒ /pc/:slug                          
+  ├ ○ /privacy                           
+  ├ ƒ /reports                           
+  ├ λ /search-index.json                 
+  ├ ○ /status                            
+  ├ ○ /terms                             
+  ├ ○ /tools                             
+  ├ ○ /tools/refresh-rate                
+  ├ ○ /tools/save-locations              
+  ├ ○ /tools/windows-diagnosis           
+  ├ ƒ /trouble/:slug                     
+  ├ ○ /weekly                            
+  └ ƒ /weekly/:slug                      
+
+  λ API  ƒ Dynamic  ○ Static  ? Unknown
+
+  ? Some routes could not be classified. vinext currently uses static analysis
+    and cannot detect dynamic API usage (headers(), cookies(), etc.) at build time.
+    Automatic classification will be improved in a future release.
+
+  ○ Routes marked static were confirmed by speculative prerender (attempted render
+    succeeded without dynamic API usage).
+
+  Build complete. Run `vinext start` to start the production server.
+
+Prepared editorial HTML snapshots: 609 (dynamic routes excluded)
+Generated sitemap: 591 URLs
+Generated image sitemap: 21 pages
+Static search assets: routes, redirects, and three output files verified
+OG cards up to date: 536 pages

@@ -1,3 +1,4 @@
+import { CommunitySupportReference } from '@/components/community-support-reference';
 import { CrashRecordExamples } from '@/components/crash-record-examples';
 import { SaveArticle } from '@/components/save-article';
 import type { Metadata } from 'next';
@@ -182,6 +183,7 @@ export default function WindowsDiagnosis() {
           aria-labelledby="download-title"
         >
           <h2 id="download-title">PCゲーム診断・Windows x64版</h2>
+          <p className="download-caution"><strong>未署名・新版Windows実機検証前の試作版です。保護機能を無効にしたり、警告を回避して実行したりしないでください。</strong></p>
           {release ? (
             <>
               <a
@@ -363,6 +365,7 @@ export default function WindowsDiagnosis() {
             同じ場面を再テスト」から進めます。悪化やPC全体の異常があれば中止。改善したら追加変更を止めてください。ドライバーの最新版判定、ゲーム設定の自動修復、全ゲームの動作保証はしません。
           </p>
         </section>
+        <CommunitySupportReference />
         <CrashRecordExamples />
         <section id="history">
           <h2>④ 履歴・書き出しは必要な方だけ</h2>

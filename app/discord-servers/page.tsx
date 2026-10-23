@@ -104,7 +104,7 @@ export default async function DiscordServersPage() {
       description:
         'PCゲーム向けDiscordサーバー募集の検索、参加前の比較、無料掲載申請を案内するページです。',
       inLanguage: 'ja-JP',
-      dateModified: '2026-10-08',
+      dateModified: '2026-10-21',
       isPartOf: {
         '@type': 'WebSite',
         name: 'ゲムなお',
@@ -164,7 +164,7 @@ export default async function DiscordServersPage() {
             <span>PCゲーム・日本語で探す</span>
           </h1>
           <p>
-            PCゲーム向けのDiscordサーバー募集と掲載状況を、下の募集欄で確認できます。掲載がある場合はゲーム・目的・活動時間・VC条件を比較してください。掲載がない場合はDiscord公式のゲーム一覧も利用できます。参加前の確認方法と管理者向けの無料掲載手順も案内します。
+            ゲムなおは、運営者から申請され、審査を通過したPCゲーム向けDiscordサーバー募集を掲載する一覧です。下の募集欄で掲載状況を確認し、ゲーム・活動時間・VC条件を比較してください。希望する募集がなければDiscord公式のゲーム一覧へ。参加先のルールと招待の有効性は、参加前に確認します。
           </p>
           <div className="server-hero-actions">
             <a
@@ -186,17 +186,17 @@ export default async function DiscordServersPage() {
         <section className="server-intro" aria-labelledby="server-intro-title">
           <div>
             <p className="page-kicker">DISCORD SERVER BASICS</p>
-            <h2 id="server-intro-title">ディスコードサーバーとは？</h2>
+            <h2 id="server-intro-title">この募集一覧でできること</h2>
             <p>
-              Discordサーバー募集は、ゲーム仲間や攻略情報を共有するコミュニティへの参加者募集です。掲載がある場合は、下の掲載欄でゲーム名と活動時間を選び、募集目的・VC条件・参加条件を確認します。掲載がない場合はDiscord公式のWeb一覧や、利用できる場合はアプリの「発見」→「サーバー」でも公開コミュニティを探せます。非公開サーバーは運営者が公開した招待リンクを確認してください。
+              Discord全体のサーバーを網羅する一覧ではありません。掲載がある場合は、下の掲載欄でゲーム名と活動時間を選び、募集目的・VC条件・参加条件を確認します。掲載がない場合はDiscord公式のWeb一覧や、利用できる場合はアプリの「発見」→「サーバー」でも公開コミュニティを探せます。非公開サーバーは運営者が公開した招待リンクを確認してください。
             </p>
             <a
               className="server-source"
-              href="https://support.discord.com/hc/ja/articles/33023827550359"
+              href="https://support.discord.com/hc/en-us/articles/25323248535319-Discover-Tab"
               target="_blank"
               rel="noopener noreferrer"
             >
-              出典：Discord公式「サーバーセットアップガイド」
+              出典：Discord公式「発見タブ」（英語）
             </a>
           </div>
           <ul>
@@ -336,7 +336,7 @@ export default async function DiscordServersPage() {
             </table>
           </div>
           <p>
-            ゲムなおの「活動確認済み」は運営者による募集継続の確認であり、同時接続人数や毎日の会話量を保証する表示ではありません。
+            ゲムなおの「活動確認済み」は運営者による募集継続の確認であり、同時接続人数や毎日の会話量を保証する表示ではありません。条件に合う募集がなければ絞り込みを戻し、掲載自体がなければ公式一覧を確認してください。読み込みエラーは「掲載なし」とは異なるため、時間を置いて再読み込みします。
           </p>
         </section>
 
@@ -403,6 +403,7 @@ export default async function DiscordServersPage() {
 
         <section className="server-related">
           <h2>Discord・Botで困ったとき</h2>
+          <p>案内・公式資料の確認日：2026年10月21日。募集ごとの活動確認日は各掲載を参照してください。</p>
           <p>
             参加後の音声・画面共有トラブルや、サーバー管理者向けのBot追加・権限確認を手順で確認できます。
           </p>

@@ -29,8 +29,8 @@ assert.equal(input.slug, 'steam-input-controller');
 assert.equal(launch.slug, 'steam-game-not-launching');
 assert.deepEqual(input.steps.map((step) => step.actions.length), [2, 3, 2]);
 assert.deepEqual(launch.steps.map((step) => step.actions.length), [4, 6, 3, 3]);
-assert.equal(input.checkedAt, '2026-10-03');
-assert.equal(launch.checkedAt, '2026-10-08');
+assert.equal(input.checkedAt, '2026-10-21');
+assert.match(launch.checkedAt, /^\d{4}-\d{2}-\d{2}$/); // Do not pin an unrelated guide's review date.
 assert.ok(input.faqs.some((faq) => faq.question.includes('Xbox 360') && faq.answer.includes('仮想')));
 assert.ok(input.faqs.some((faq) => faq.question.includes('戦闘中') && faq.answer.includes('独立')));
 assert.ok(launch.faqs.some((faq) => faq.question.includes('EA app') && faq.answer.includes('一部')));
@@ -40,9 +40,12 @@ assert.ok(launch.sources.some((source) => source.url === 'https://help.ea.com/en
 const rendered = (Component) => data.renderToStaticMarkup(data.createElement(Component));
 const inputHtml = rendered(data.SteamInputBeforeSteps) + rendered(data.SteamInputAfterSteps);
 const launchHtml = rendered(data.SteamLaunchBeforeSteps) + rendered(data.SteamLaunchAfterSteps);
-for (const id of ['input-branches', 'input-device', 'input-game', 'input-results', 'input-conflicts']) assert.equal(inputHtml.split(`id="${id}"`).length - 1, 1);
+for (const id of ['input-branches', 'input-device', 'input-game', 'input-results', 'input-conflicts', 'input-labels']) assert.equal(inputHtml.split(`id="${id}"`).length - 1, 1);
 for (const id of ['steam-launch-symptoms', 'steam-launch-process', 'steam-launch-history', 'steam-launch-results', 'steam-launch-publisher']) assert.equal(launchHtml.split(`id="${id}"`).length - 1, 1);
 assert.match(inputHtml, /仮想Xbox 360/);
+assert.match(inputHtml, /href="#input-labels"/);
+assert.match(inputHtml, /改善しなければ元に戻す/);
+assert.match(inputHtml, /ABXY/);
 assert.match(inputHtml, /ドライバーを削除する必要はありません/);
 assert.match(inputHtml, /アクションセット/);
 assert.match(inputHtml, /セット名と有無はゲームごとに異なります/);

@@ -10,14 +10,14 @@ export function AniimoTroubleshootingHub() {
   return (
     <>
       <section className="guide-section" id="aniimo-first">
-        <h2>アニモで不具合が起きたら、最初に何をする？</h2>
+        <h2>アニモが開けない時は、更新・起動・ログインを分ける</h2>
         <p>{aniimoHubAnswer}</p>
         <p>
           このページの操作手順はWindows
           PC版（公式ランチャー・Steam）が対象です。スマホ・PS5・XboxではPC用の修復やWindows設定を使わず、公式のお知らせとサポートを確認してください。
         </p>
         <p className="source-note">
-          2026年9月30日確認。公式FAQ・更新案内を照合した対処ガイドです。下の症状は、現在すべての利用者に発生している障害を示すものではありません。
+          2026年10月21日確認。公式PC版FAQと10月16日掲載の更新・既知問題案内を照合しています。下の症状は、現在すべての利用者に発生している障害を示すものではありません。
         </p>
       </section>
       <section
@@ -43,12 +43,53 @@ export function AniimoTroubleshootingHub() {
                 <td data-label="症状">{row.symptom}</td>
                 <td data-label="確認">{row.check}</td>
                 <td data-label="手順">
-                  <a href={`/games/aniimo/${row.slug}`}>{row.label}</a>
+                  <a href={row.href ?? `/games/aniimo/${row.slug}`}>
+                    {row.label}
+                  </a>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </section>
+      <section className="guide-section" id="aniimo-patch">
+        <h2>パッチエラー・更新できない時は、表示全文を確認</h2>
+        <p>
+          「パッチエラー」という検索語だけでは原因を特定できません。
+          <strong>エラーが出ているか、進捗バーだけが止まっているか</strong>
+          を分け、公式ランチャー／Steamのどちらで発生したかを控えてください。
+        </p>
+        <ul>
+          <li>
+            <strong>進捗だけが止まる：</strong>
+            公式FAQでは、更新中や中断後の再開時にローカルファイルを処理することがあると案内しています。
+            一時停止だけで失敗と判断せず、処理を待ちます。待ち時間の一律の基準は確認できていません。
+          </li>
+          <li>
+            <strong>更新エラーが出る：</strong>
+            エラー全文とインストール先の空き容量を確認。セキュリティソフトにブロック履歴があればファイル名を控えます。
+            保護の一括無効化や、正体を確認できないファイルの除外登録はしません。
+          </li>
+          <li>
+            <strong>エラーが続く・更新後に開かない：</strong>
+            更新処理中の強制終了を避け、終了できる状態で
+            <a href="#aniimo-repair">配布元別の修復先</a>を確認します。
+            同じエラーが続けば
+            <a href="#aniimo-report">公式サポートへ記録を送る</a>段階です。
+          </li>
+        </ul>
+        <p className="source-note">
+          根拠：
+          <a
+            href="https://aniimo.com/ja/newslist/detail/100091"
+            target="_blank"
+            rel="noreferrer"
+          >
+            公式PC版FAQのダウンロード・更新項目
+          </a>
+          。
+          この総合ページでは確認先を案内します。起動後のクラッシュや黒画面の詳しい操作は、それぞれの症状別記事を参照してください。
+        </p>
       </section>
       <section className="guide-section" id="aniimo-official">
         <h2>公式の不具合情報と、自分のPCで起きる症状を分ける</h2>
@@ -82,13 +123,24 @@ export function AniimoTroubleshootingHub() {
         </p>
         <p>
           <a
-            href="https://aniimo.com/ja/newslist/detail/100139"
+            href="https://www.aniimo.com/newslist/detail/100198"
             target="_blank"
             rel="noreferrer"
           >
-            9月23日の更新案内
+            10月16日掲載の更新案内
           </a>
-          など、修正済みの項目も更新日と一緒に確認してください。ここではリアルタイムの障害発生を判定していません。
+          は10月15日のリソース更新を扱っています。コンソール向けのクラッシュ修正を、PCの起動不可が直った根拠にはしません。
+          <a
+            href="https://www.aniimo.com/newslist/detail/100208"
+            target="_blank"
+            rel="noreferrer"
+          >
+            同日掲載の既知問題・修正履歴
+          </a>
+          にある黒画面向けの案内は、
+          <a href="/games/aniimo/black-screen">黒画面の記事</a>
+          で条件を確認してください。
+          掲載日と各修正日を区別し、現在の障害は公式の最新告知で照合します。
         </p>
       </section>
       <section className="guide-section" id="aniimo-repair">
@@ -96,33 +148,24 @@ export function AniimoTroubleshootingHub() {
         <p>
           ゲームを終了してから、自分がインストールした配布元だけで修復します。ログイン待ちや表示倍率の問題に、修復を繰り返す必要はありません。
         </p>
-        <h3>公式ランチャー版</h3>
+        <ul>
+          <li>
+            <strong>公式ランチャー版：</strong>
+            公式PC版FAQの「ワンクリック修復」を使います。
+          </li>
+          <li>
+            <strong>Steam版：</strong>
+            Steamの「ゲームファイルの整合性を確認」を使います。同じ名前の修復ボタンをランチャーで探す必要はありません。
+          </li>
+        </ul>
         <p>
-          ランチャー右上の「設定」→「ワンクリック修復」を実行。完了後に起動し、以前止まった地点まで進めるか確認します。操作の根拠は
-          <a
-            href="https://aniimo.com/ja/newslist/detail/100091"
-            target="_blank"
-            rel="noreferrer"
-          >
-            公式PC版FAQ
+          <a href="/games/aniimo/not-launching#repair-files">
+            配布元別の修復操作と、修復後の結果別判断
           </a>
-          です。
-        </p>
-        <h3>Steam版</h3>
-        <p>
-          Steam「ライブラリ」→Aniimoを右クリック→「プロパティ」→「インストール済みファイル」→「ゲームファイルの整合性を確認」。完了後、同じ起動操作で比較します。
-          <a href="/guide/verify-steam-files">
-            再取得された場合・変わらない場合の読み方
-          </a>
-          も確認できます。
-        </p>
-        <p>
-          <strong>修復後の判断：</strong>
-          起動できたら通常の操作で再発を確認。エラー文が変わったら新しい表示に合う記事へ。同じ症状なら
-          <a href="/games/aniimo/not-launching">
-            発生時点とWindowsの履歴から次の対処を選びます
-          </a>
-          。
+          は起動・クラッシュの記事へ。Steamの確認結果の読み方は
+          <a href="/guide/verify-steam-files">整合性確認ガイド</a>
+          も参照できます。
+          修復完了の表示だけで解決とせず、以前止まった地点まで進めるか確認してください。
         </p>
       </section>
       <section className="guide-section" id="aniimo-report">

@@ -8,6 +8,7 @@ import {
   answerLabel,
   questions,
 } from '@/lib/diagnosis/model';
+import { nextDiagnosisArticle } from '@/lib/diagnosis/next-article';
 import { DiagnosisDecision } from './diagnosis-decision';
 export function DiagnosisSummary({
   answers,
@@ -53,6 +54,7 @@ export function DiagnosisResultView({
   onRecord?: (id: string, status: ActionStatus) => void;
   onArticle?: (id: string) => void;
 }) {
+  const nextArticle = nextDiagnosisArticle(result, records);
   return (
     <section aria-labelledby={headingId}>
       <p className="diag-kicker">回答から整理した確認の順番</p>
@@ -65,6 +67,16 @@ export function DiagnosisResultView({
           情報が不足している項目：{result.missing.join('、')}
           。「分からない」は「問題なし」と判定していません。
         </p>
+      )}
+      {nextArticle && (
+        <nav className="diag-notice" aria-label="次に読む記事">
+          <strong>次に読む記事は1つずつ</strong>
+          <p>{nextArticle.reason}</p>
+          <a className="diag-link" href={nextArticle.action.article} onClick={() => onArticle?.(nextArticle.action.id)}>
+            {nextArticle.action.title}の詳しい手順 →
+          </a>
+          <p className="diag-small">試した結果を下で記録すると、未確認の対処を優先します。改善したら追加変更は止めてください。</p>
+        </nav>
       )}
       {result.decision && <DiagnosisDecision decision={result.decision} answers={answers} />}
       {result.recommendations.length > 0 && <h3>

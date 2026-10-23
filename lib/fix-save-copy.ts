@@ -1,5 +1,7 @@
 export const fixSaveCopy = {
   ja: {
+    settings: '効いた設定・接続方法（任意）',
+    settingsHint: '例：FPS上限60、USB接続。変更前→変更後と結果を記録。空欄なら手順名だけ保存します。',
     jaGuide: '（日本語）',
     heading: '効いた対処をマイゲームに残す',
     save: 'ゲームと効いた対処を保存',
@@ -32,6 +34,8 @@ export const fixSaveCopy = {
     step: '効いた手順',
   },
   en: {
+    settings: 'Settings or connection that helped (optional)',
+    settingsHint: 'For example: 60 FPS cap, USB connection. Record before → after and the result. Leave blank to save only the step name.',
     jaGuide: ' (Japanese)',
     heading: 'Keep the fix in My Games',
     save: 'Save the game and fix',
@@ -67,6 +71,8 @@ export const fixSaveCopy = {
     step: 'Step that helped',
   },
   zh: {
+    settings: '有效的设置或连接方式（可选）',
+    settingsHint: '例如：帧率上限60、USB连接。记录修改前后的值和结果。留空则只保存步骤名称。',
     jaGuide: '（日语）',
     heading: '把有效方法保存在我的游戏',
     save: '保存游戏和有效方法',
@@ -94,6 +100,8 @@ export const fixSaveCopy = {
     step: '有效的步骤',
   },
   es: {
+    settings: 'Ajustes o conexión que ayudaron (opcional)',
+    settingsHint: 'Ejemplo: límite de 60 FPS, conexión USB. Anota antes → después y el resultado. Si lo dejas vacío, se guarda solo el nombre del paso.',
     jaGuide: ' (japonés)',
     heading: 'Conserva la solución en Mis juegos',
     save: 'Guardar juego y solución',

@@ -1,0 +1,2 @@
+{"width":375,"guidePages":28,"translatedPages":40,"gameLinks":27,"overflow":false,"errors":[]}
+{"width":1440,"guidePages":28,"translatedPages":40,"gameLinks":27,"overflow":false,"errors":[]}

@@ -107,7 +107,7 @@ import {
 } from '@/components/reset-config-details';
 import { ShareButtons } from '@/components/share-buttons';
 import { SolutionIllustration } from '@/components/solution-illustration';
-import { gameArticles } from '@/lib/game-articles';
+import { gameArticlesForGuide } from '@/lib/guide-game-links';
 import { gameBySlug } from '@/lib/games';
 import { commonGuideBySlug, commonGuides } from '@/lib/common-guides';
 import { troubleHubForGuide } from '@/lib/trouble-hubs';
@@ -189,50 +189,7 @@ export default async function Page({
               item.slug.includes('shader')
             ? 'display'
             : 'launch';
-  const symptomGamePaths: Record<string, string[]> = {
-    'tpm-secure-boot': [
-      'valorant/van9003',
-      'valorant/van9001',
-      'battlefield-6/secure-boot-enabled-not-launching',
-    ],
-    'windows-11-required': ['valorant/van9003', 'valorant/van9001'],
-    'steam-game-not-launching': [
-      'pubg/anti-cheat-conflict-warning',
-      'apex-legends/r5apex-exe-launch-error',
-      'battlefield-6/javelin-error-94',
-    ],
-    'gpu-driver-update': ['overwatch-2/rendering-device-lost'],
-    'pc-game-crash': [
-      'overwatch-2/rendering-device-lost',
-      'apex-legends/r5apex-exe-launch-error',
-      'apex-legends/apex-crash-txt',
-      'valorant/not-launching-no-van',
-    ],
-    'black-screen': [
-      'overwatch-2/rendering-device-lost',
-      'fortnite/dx12-black-screen',
-    ],
-    'directx-error': ['fortnite/dx12-black-screen'],
-  };
-  const matchingGamePaths = symptomGamePaths[slug];
-  const defaultGameLinks = gameArticles
-    .filter(
-      (article) =>
-        article.category === (slug === 'reshade-uninstall' ? 'mods' : topic) ||
-        (topic === 'display' && article.category === 'settings'),
-    )
-    .slice(0, 5);
-  const gameLinks = matchingGamePaths
-    ? [
-        ...gameArticles.filter((article) =>
-          matchingGamePaths.includes(`${article.gameSlug}/${article.slug}`),
-        ),
-        ...defaultGameLinks.filter(
-          (article) =>
-            !matchingGamePaths.includes(`${article.gameSlug}/${article.slug}`),
-        ),
-      ]
-    : defaultGameLinks;
+  const gameLinks = gameArticlesForGuide(slug);
   const troubleHub = troubleHubForGuide(item);
   const schema = [
     {
@@ -821,22 +778,24 @@ export default async function Page({
               })}
             </div>
           </section>
-          <section className="related-section">
-            <h2>ゲーム別の対処法</h2>
-            <div>
-              {gameLinks.map((article) => (
-                <a
-                  href={`/games/${article.gameSlug}/${article.slug}`}
-                  data-related="true"
-                  key={`${article.gameSlug}-${article.slug}`}
-                >
-                  {gameBySlug(article.gameSlug)?.shortTitle}：
-                  {article.shortTitle}
-                  <ArrowRight size={15} />
-                </a>
-              ))}
-            </div>
-          </section>
+          {gameLinks.length > 0 && (
+            <section className="related-section">
+              <h2>ゲーム別の対処法</h2>
+              <div>
+                {gameLinks.map((article) => (
+                  <a
+                    href={`/games/${article.gameSlug}/${article.slug}`}
+                    data-related="true"
+                    key={`${article.gameSlug}-${article.slug}`}
+                  >
+                    {gameBySlug(article.gameSlug)?.shortTitle}：
+                    {article.shortTitle}
+                    <ArrowRight size={15} />
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
           <ShareButtons
             title={item.title}
             path={`/guide/${item.slug}`}

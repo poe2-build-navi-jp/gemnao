@@ -352,7 +352,7 @@ export const launchWeekArticles: GameArticle[] = [
     gameSlug: 'ace-combat-8',
     slug: 'not-launching',
     category: 'launch',
-    checkedAt: '2026-10-17',
+    checkedAt: '2026-10-22',
     seoTitle:
       'エースコンバット8（エスコン8）が起動しない・落ちる時の対処法【PC版】',
     title:
@@ -361,6 +361,7 @@ export const launchWeekArticles: GameArticle[] = [
     nextChecks: {
       heading: '起動はするが、操作・映像・音が不安定な場合',
       links: [
+        { href: '/games/ace-combat-8/crashing-memory', label: 'プレイ中のメモリ関連クラッシュ・1.01.002の修正予定' },
         {
           href: '/games/ace-combat-8/hotas-not-recognized',
           label: 'HOTAS・フライトスティックが反応しない',
@@ -372,13 +373,13 @@ export const launchWeekArticles: GameArticle[] = [
       ],
     },
     targetVersion:
-      'STEAM版・公式システム要件と2026年10月9日時点の公式のお知らせ',
+      'Steam版・既存の要件案内と2026年10月22日確認のクラッシュ告知',
     symptom:
       'PC版（Steam）が起動しない、起動直後に落ちる、読み込みで止まる、プレイ中にクラッシュする場合の確認手順です。',
     conclusion:
-      '最初に、GPUがハードウェアレイトレーシングに対応しているか、Windows 11か、SSDにインストールしているかを確認します。公式のシステム要件では、この3つが最低環境から必須です。要件を満たしているのに落ちる場合、公式はSteam版のクラッシュを調査中と発表しており、起動時に表示される推奨ドライバーへの更新、SSDの空き容量（16GB以上を推奨）、Windowsの仮想メモリの有効化を確認するよう案内しています。',
+      '最初に、GPUがハードウェアレイトレーシングに対応しているか、Windows 11か、SSDにインストールしているかを確認します。公式のシステム要件では、この3つが最低環境から必須です。起動後に落ちる場合は、10月16日のメモリ暫定対策を扱う補完記事へ。1.01.002は10月23日配信予定であり、全クラッシュの修正済みを意味しません。',
     description:
-      '発売は2026年10月2日、DELUXE EDITIONなどのアーリーアクセスは9月29日からです。配信開始時間はストアに準拠するため前後する可能性があると、公式は案内しています。',
+      'Steamストアの発売日表示は2026年10月1日です（10月22日確認）。日本向けの既存告知では10月2日と案内されていました。地域・時差による表示差に注意してください。起動不良と、起動後のメモリ関連クラッシュを分けて確認します。',
     causes: [
       'GPUがハードウェアレイトレーシングに対応していない',
       'Windows 11ではない（最低環境からWindows 11）',
@@ -405,10 +406,10 @@ export const launchWeekArticles: GameArticle[] = [
       { label: '空き容量', value: '150GB（SSD）' },
       {
         label: '発売日',
-        value: '2026年10月2日（アーリーアクセスは9月29日から）',
+        value: 'Steamストア：2026年10月1日。日本向け既存告知：10月2日（時差・地域に注意）',
       },
       {
-        label: 'クラッシュ（公式が調査中）',
+        label: 'クラッシュ（過去の基本案内）',
         value:
           '推奨ドライバーに更新／SSDの空きを16GB以上／仮想メモリを有効に（9月29日の公式のお知らせ）',
       },
@@ -521,9 +522,10 @@ export const launchWeekArticles: GameArticle[] = [
       },
       {
         id: 'step-6',
-        title: 'プレイ中に落ちる時は設定と負荷を下げる',
+        title: 'プレイ中に落ちる時はメモリ告知と比較手順を確認する',
+        guideLink: { href: '/games/ace-combat-8/crashing-memory', label: 'メモリ関連クラッシュの暫定対策', description: 'RAMと仮想メモリの目安・更新予定の区別' },
         summary:
-          '推奨環境はメモリ32GBです。16GBのPCでは、ほかのアプリを閉じるだけで安定することがあります。',
+          '10月16日の新しいメモリ目安は補完記事で確認してください。以下の負荷比較は一般的な切り分けで、解決を保証しません。',
         time: '約5分',
         risk: 'low',
         actions: [
@@ -555,7 +557,7 @@ export const launchWeekArticles: GameArticle[] = [
       '起動しないからといって、先にWindowsの再インストールをしない（まず要件を確認する）',
     ],
     cautions: [
-      '公式はSteam版のクラッシュの原因を調査中で、不具合の修正を含むアップデートを準備中です（2026年10月9日時点。配信日は未定）。最新のお知らせも確認してください。',
+      '10月20日の告知では1.01.002は10月23日予定。10月16日のメモリ暫定対策と区別し、配信後の告知と導入版を確認してください（10月22日確認）。',
       'ACE COMBAT ONLINEでマッチングが成立しにくい問題について、公式は、動作環境を満たさない環境からの接続が要因の1つの可能性があるとして、Windows 11で遊ぶこと、SSDにインストールすることを求めています（10月9日）。',
       '直らない場合は、公式がSteamのお知らせに設けた「PC Crash Report Thread」（10月2日）に報告できます。公式は、PCの構成（GPU・CPU・メモリなど）、Windowsとシステムソフトウェアのバージョン、エラーメッセージや再現手順、一緒に起動していたアプリの一覧を書くよう求めています。',
     ],
@@ -590,7 +592,7 @@ export const launchWeekArticles: GameArticle[] = [
     sources: [
       {
         label:
-          '公式告知本文：クラッシュ・ST-3100001・フライトスティック（英語、2026年10月4日確認）',
+          '公式告知本文：10月16日のメモリ対策・10月20日の更新予告（英語、10月22日確認）',
         url: 'https://steamcommunity.com/app/2288340/allnews/',
       },
       {
@@ -607,6 +609,7 @@ export const launchWeekArticles: GameArticle[] = [
       aceSources.steam,
     ],
     related: [
+      'crashing-memory',
       'error-st-3100001',
       'hotas-not-recognized',
       'stutter-audio-cutting-out',

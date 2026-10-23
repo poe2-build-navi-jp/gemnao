@@ -247,7 +247,8 @@ export const octoberReleaseArticles: GameArticle[] = [
       gearsSources.support,
       gearsSources.status,
     ],
-    related: [],
+    related: ['achievements-rewards'],
+    nextChecks: { heading: '起動できるが実績・報酬が反映されない場合', links: [{ href: '/games/gears-of-war-e-day/achievements-rewards', label: '実績・クリア報酬の修正状況と再取得の注意' }] },
     metaDescription:
       'Gears of War: E-Day（ギアーズ・オブ・ウォー E-Day）PC版が起動しない・落ちる時の対処法。必須のレイトレーシング対応GPUとSSD、Windows 10 22H2以降、推奨ドライバー、OBS・セキュリティソフトとの競合、Intel ArcのReBAR、オンラインのポートまで公式情報をもとに解説。',
   }),

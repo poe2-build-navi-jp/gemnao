@@ -1,3 +1,5 @@
+import { gearsWardogsArticlesEn } from '@/lib/gears-wardogs-articles';
+import { octoberStabilityArticlesEn } from '@/lib/october-stability-articles';
 import { englishHomeCopy, englishDirectoryCopy } from '@/lib/localized/home-copy-en';
 import { remainingPagesEn } from '@/lib/localized/remaining-pages-en';
 import { finalGamesEn } from '@/lib/localized/final-games-en';
@@ -317,6 +319,8 @@ export function ogCardSpecs(): OgCardSpec[] {
       ...discordListeningSpeechEn,
       ...discordRecommendedBotsEn,
       ...followupLocalizedArticles,
+  ...octoberStabilityArticlesEn,
+  ...gearsWardogsArticlesEn,
     ].map((article) => ({
       path:
         article.gameSlug === 'discord'
@@ -339,6 +343,9 @@ export function ogCardSpecs(): OgCardSpec[] {
     ...[
       'aniimo',
       'ace-combat-8',
+      'planet-zoo-2',
+      'gears-of-war-e-day',
+      'wardogs',
       'star-wars-zero-company',
       'the-blood-of-dawnwalker',
     ].map((gameSlug) => ({
@@ -379,6 +386,7 @@ export function ogCardSpecs(): OgCardSpec[] {
           ...nightreignLocalizedArticles,
           ...marvelRivalsLocalizedArticles,
           ...followupLocalizedArticles,
+  ...octoberStabilityArticlesEn,
         ]
           .filter(
             (article) =>
@@ -420,6 +428,31 @@ export function ogCardSpecs(): OgCardSpec[] {
         'Save backups and storage',
       ],
     },
+    ...(['zh', 'es'] as const).map((locale) => ({
+      path: `/${locale}/tools/windows-diagnosis`,
+      locale,
+      eyebrow:
+        locale === 'zh'
+          ? '未签名的 Windows 试作版'
+          : 'Prototipo para Windows sin firma',
+      title:
+        locale === 'zh'
+          ? 'Windows PC 游戏诊断工具'
+          : 'Diagnóstico de juegos para Windows',
+      itemsLabel: locale === 'zh' ? '下载前请先阅读' : 'Antes de descargar',
+      items:
+        locale === 'zh'
+          ? [
+              '注意事项与下载',
+              '应用仅支持日语、英语',
+              '新版本尚未在 Windows 实机上验证',
+            ]
+          : [
+              'Precauciones y descarga',
+              'Aplicación en japonés e inglés',
+              'Sin pruebas de la nueva versión en un PC Windows real',
+            ],
+    })),
     {
       path: '/en/tools/windows-diagnosis',
       locale: 'en' as const,

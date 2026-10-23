@@ -36,6 +36,50 @@ const pcgw = (path: string) => `https://www.pcgamingwiki.com/wiki/${path}`;
 const steam = (id: string) => `https://store.steampowered.com/app/${id}`;
 
 export const games: GameGuide[] = [
+{
+  "slug": "planet-zoo-2",
+  "title": "Planet Zoo 2",
+  "shortTitle": "Planet Zoo 2",
+  "hubTitle": "Planet Zoo 2のクラッシュ・オートセーブ不具合",
+  "lead": "動物解放時に落ちる、ハブ移動後にオートセーブされない時の案内。10月20日の修正テストと配信済み更新を分け、手動保存とMy Savesの公式回避策を確認します。",
+  "accent": "#388464",
+  "demand": "Steamストア掲載の発売日：2026年10月13日",
+  "updated": "2026-10-22",
+  "tags": [
+    "クラッシュ",
+    "オートセーブ",
+    "動物解放"
+  ],
+  "focused": true,
+  "savePath": "",
+  "configPath": "",
+  "fps": "",
+  "ultrawide": "",
+  "hdr": "",
+  "controller": "",
+  "launchFixes": [
+    "手動保存をこまめに行う",
+    "メインメニューのMy Savesからロードする",
+    "修正テスト中の項目と実際の配信版を照合する"
+  ],
+  "mod": "",
+  "japanese": "日本語のインターフェース・字幕・音声に対応（Steamストア）。",
+  "specs": {
+    "minimum": "最新のSteamストアで確認",
+    "recommended": "最新のSteamストアで確認",
+    "storage": "最新のSteamストアで確認"
+  },
+  "sources": [
+    {
+      "label": "公式Steam告知：10月20日 Under Investigation／10月16日1.0.5",
+      "url": "https://steamcommunity.com/app/3219030/allnews/"
+    },
+    {
+      "label": "Steamストア：正式名・発売日",
+      "url": "https://store.steampowered.com/app/3219030/"
+    }
+  ]
+},
   ...competitiveGameGuides,
   ...launchGameGuides,
   arcRaidersGuide,
@@ -47,13 +91,14 @@ export const games: GameGuide[] = [
     title: 'Aniimo / アニモ',
     shortTitle: 'アニモ（Aniimo）',
     hubTitle: aniimoHubTitle,
-    lead: 'アニモ（Aniimo）が起動しない・開かない、途中で落ちる時のPC版ガイドです。ログイン・黒画面も症状別に分け、公式の修復方法と結果に応じた次の行動を確認できます。',
+    lead: 'アニモ（Aniimo）が開けない・開かない、パッチエラーで更新できない時の総合案内です。起動・ログイン・黒画面などの症状から、公式情報と詳しい対処記事を探せます。',
     accent: '#6f5bd3',
     demand: 'Windows PC版：公式ランチャー・Steam',
     issueScale: '高い',
-    updated: '2026-09-30',
+    updated: '2026-10-21',
     tags: [
       '起動しない',
+      'パッチエラー',
       'クラッシュ',
       '黒画面',
       'ログインできない',
@@ -89,8 +134,12 @@ export const games: GameGuide[] = [
         url: 'https://aniimo.com/ja/newslist/detail/100102',
       },
       {
-        label: 'Aniimo公式：更新・修正内容（9月23日）',
-        url: 'https://aniimo.com/ja/newslist/detail/100139',
+        label: 'Aniimo公式：10月15日の更新（10月16日掲載）',
+        url: 'https://www.aniimo.com/newslist/detail/100198',
+      },
+      {
+        label: 'Aniimo公式：既知問題・修正履歴（10月16日掲載）',
+        url: 'https://www.aniimo.com/newslist/detail/100208',
       },
       {
         label: 'Aniimo公式：不具合の報告窓口',
@@ -116,12 +165,12 @@ export const games: GameGuide[] = [
     shortTitle: '鬼武者 Way of the Sword',
     hubTitle: '鬼武者 Way of the Swordのセーブ方法｜PC版の不具合・エラー対処',
     hubDescription:
-      '鬼武者 Way of the Swordのセーブ方法を画像付き攻略から確認。PC操作キー・オートセーブ条件は未検証。起動しない・クラッシュ・低FPSなどPC版の不具合は、公式情報に基づく症状別記事へ案内します。',
-    lead: '『鬼武者 Way of the Sword』のセーブ方法は、下の「セーブ方法」で案内します。破魔鏡の画像付き攻略を出典とし、PC操作キー・オートセーブ条件は未検証です。起動失敗・クラッシュ・低FPSは、公式情報に基づく症状別記事へ進んでください。',
+      '鬼武者 Way of the Swordのセーブ方法・バックアップ・Steamクラウド同期の確認先を案内。保存パスとオートセーブ条件は公式未確認。起動しない・クラッシュ・低FPSなどの症状別記事も探せます。',
+    lead: 'セーブしたい人は「ゲーム内のセーブ方法」、データを残したい人は「保存場所・バックアップ」、進行が戻った人は「同期エラー・競合」へ。起動しない・クラッシュ・低FPSは「症状から探す」から詳しい手順を確認できます。',
     accent: '#8b2f28',
     demand: '2026年9月3日発売の新作',
     issueScale: '高い',
-    updated: '2026-10-07',
+    updated: '2026-10-21',
     tags: ['起動しない', 'クラッシュ', '低FPS', 'CrashReport', 'config.ini'],
     focused: true,
     savePath: String.raw`<Steam>\userdata\<Steam ID>\2638890\remote\win64_save`,
@@ -255,7 +304,7 @@ export const games: GameGuide[] = [
     slug: 'gears-of-war-e-day',
     title: 'Gears of War: E-Day（ギアーズ・オブ・ウォー E-Day）',
     shortTitle: 'Gears of War: E-Day',
-    lead: 'レイトレーシング対応GPUとSSDが必須。起動しない・落ちる原因を、公式の動作環境とベータ版の既知の問題から確認。',
+    lead: '起動不良・クラッシュと、キャンペーン実績・クリア報酬の未反映を分けて案内。公式の要件、修正履歴と残る調査項目を確認します。',
     accent: '#7a1f1f',
     demand: '2026年10月7日発売（日本時間）・Premium Editionは10月2日から',
     issueScale: '非常に高い',
@@ -767,9 +816,9 @@ export const games: GameGuide[] = [
     title:
       'エースコンバット8 ウイングス・オブ・シーヴ（ACE COMBAT 8: WINGS OF THEVE）',
     shortTitle: 'エースコンバット8',
-    lead: 'PC版の起動不良・ST-3100001に加え、HOTASの認識、プレイ中のカクつき・音切れを症状別に案内。公式の要件・機種別手順と利用者報告を区別し、次に確かめる場所を絞ります。',
+    lead: 'PC版の起動不良・ST-3100001に加え、メモリ関連クラッシュ、HOTASの認識、プレイ中のカクつき・音切れを症状別に案内。公式の要件・機種別手順と利用者報告を区別し、次に確かめる場所を絞ります。',
     accent: '#2f5d73',
-    demand: '2026年10月2日発売・9月29日アーリーアクセス',
+    demand: 'Steamストア掲載の発売日：2026年10月1日（地域・時差に注意）',
     issueScale: '高い',
     updated: '2026-09-28',
     tags: [
@@ -851,7 +900,7 @@ export const games: GameGuide[] = [
     slug: 'wardogs',
     title: 'WARDOGS',
     shortTitle: 'WARDOGS',
-    lead: '発売直後に確認されたサーバー混雑、ログイン待ち、接続不良を、ローカル設定と運営側障害に分けて確認。',
+    lead: '起動エラーWD-L020と、起動後のログイン待ち・接続不良を区別。修正履歴と地域別ping上限を確認し、過去の混雑を現在の障害と断定しません。',
     accent: '#526246',
     demand: '2026年9月10日早期アクセス・最大30万人超',
     issueScale: '非常に高い',

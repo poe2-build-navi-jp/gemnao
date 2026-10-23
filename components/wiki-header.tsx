@@ -1,3 +1,7 @@
+import {
+  windowsDiagnosisCopy,
+  windowsDiagnosisPath,
+} from '@/lib/windows-diagnosis-copy';
 import { gamesListPath } from '@/lib/i18n';
 /* oxlint-disable next/no-img-element -- Tiny static logo uses the same asset as the favicon. */
 import { Languages, Search } from 'lucide-react';
@@ -90,10 +94,13 @@ export function WikiHeader({
           locale === 'ja' ? 'メインナビゲーション' : ui[locale].mainNav
         }
       >
+        <a className="windows-nav-link" href={windowsDiagnosisPath(locale)}>
+          {windowsDiagnosisCopy[locale].label}
+        </a>
         <a href={gamesListPath(locale)}>{labels.games}</a>
         {locale === 'ja' ? <a href="/#symptoms">症状から探す</a> : null}
         {locale === 'ja' ? (
-          <a href="/weekly">今週の不具合</a>
+          <a href="/weekly">週刊まとめ</a>
         ) : locale === 'en' ? (
           <a href="/en/weekly">Weekly</a>
         ) : null}
@@ -235,7 +242,7 @@ export function WikiFooter({ locale = 'ja' }: { locale?: 'ja' | Locale }) {
         <a href="/about#business">企業・メーカーの方へ</a>
         <a href="/privacy">プライバシー</a>
         <a href="/terms">利用規約・免責</a>
-        <a href="/weekly">今週の不具合まとめ</a>
+        <a href="/weekly">週刊まとめ</a>
         <a href="/status">障害・メンテ情報</a>
         <a href="/tools">便利ツール</a>
         <a href="/discord-servers">Discordサーバー募集</a>

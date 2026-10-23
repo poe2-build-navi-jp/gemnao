@@ -21,6 +21,7 @@ export function ResolvedFixSave({
 }) {
   const t = fixSaveCopy[locale],
     { ready, error } = useSavedSolutions();
+  const [settings, setSettings] = useState(draft.settings);
   const [version, setVersion] = useState(''),
     [message, setMessage] = useState(''),
     [failure, setFailure] = useState(''),
@@ -33,7 +34,7 @@ export function ResolvedFixSave({
     try {
       const result = saveResolvedFix(
         localStorage,
-        draft,
+        { ...draft, settings: settings.trim() },
         attempt,
         locale,
         version,
@@ -58,6 +59,17 @@ export function ResolvedFixSave({
       <p>{t.privacy}</p>
       {!saved && (
         <>
+          <label>
+            {t.settings}
+            <textarea
+              rows={3}
+              maxLength={4000}
+              value={settings}
+              onChange={(e) => setSettings(e.target.value)}
+              placeholder={t.settingsHint}
+            />
+          </label>
+          <p>{t.settingsHint}</p>
           <label>
             {t.version}
             <input

@@ -6452,7 +6452,8 @@ a.my-games-primary {
   gap: 8px;
   margin-bottom: 12px;
 }
-.resolved-fix-save input {
+.resolved-fix-save input,
+.resolved-fix-save textarea {
   min-width: 0;
   max-width: 100%;
 }
@@ -6739,3 +6740,85 @@ a.my-games-primary {
 .english-directory-group h2 { margin: 0 0 16px; font-size: 26px; line-height: 1.35; font-weight: 800; }
 .english-directory-header .english-home-search { padding: 0; margin: 26px 0; }
 .english-directory .english-home-search h2 { font-size: 21px; font-weight: 700; margin-bottom: 12px; }
+
+/* Keep the ST error's first action ahead of save controls on small screens. */
+.clock-sync-hero h1 {
+  font-size: clamp(24px, 3.5vw, 40px);
+}
+.clock-sync-hero .article-label {
+  margin-top: 18px;
+}
+.clock-sync-first {
+  max-width: 720px;
+  margin-top: 16px;
+  padding: 16px;
+  color: #153f36;
+  background: #edf8f5;
+  border-radius: 7px;
+  line-height: 1.6;
+}
+.clock-sync-first p {
+  margin: 0 0 12px;
+}
+.clock-sync-first a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 14px;
+  color: #fff;
+  background: #236c54;
+  border-radius: 5px;
+  font-weight: 700;
+}
+
+.article-evidence h3 {
+  margin: 16px 0 6px;
+  font-weight: 700;
+}
+.article-evidence p,
+.article-evidence li {
+  margin-bottom: 10px;
+}
+
+.community-reference p,
+.community-reference ol,
+.community-reference ul {
+  margin: 14px 0;
+  line-height: 1.8;
+}
+.community-reference ol { list-style: decimal; padding-left: 24px; }
+.community-reference ul { list-style: disc; padding-left: 24px; }
+.community-reference li + li { margin-top: 10px; }
+.community-reference h3 { margin-top: 24px; font-weight: 700; }
+.community-reference a { color: var(--blue); text-decoration: underline; }
+.copy-share-link textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-height: 160px;
+  margin: 10px 0;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font: inherit;
+  line-height: 1.7;
+  resize: vertical;
+}
+.copy-share-link textarea:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}
+
+/* Windows download entry: one compact explanation near the primary content. */
+.windows-diagnosis-entry { color: var(--ink); margin: 20px 0; padding: 16px 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); text-align: left; min-width: 0; }
+.windows-diagnosis-entry p { margin: 8px 0; font-size: 14px; line-height: 1.7; }
+.windows-diagnosis-entry a { display: inline-block; padding-block: 8px; font-weight: 700; text-decoration: underline; }
+.site-header > nav .windows-nav-link { white-space: normal; max-width: 190px; line-height: 1.4; }
+.mobile-navigation-panel nav a { white-space: normal; }
+
+.hero .windows-diagnosis-entry p { color: var(--ink); }
+.windows-diagnosis-entry a { color: var(--blue); }
+
+.diagnosis-download { overflow-wrap: anywhere; }
+.localized-hero { display: block; }

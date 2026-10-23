@@ -1,3 +1,5 @@
+import { ArticleEvidence } from '@/components/article-evidence';
+import { ClockSyncFirst } from '@/components/clock-sync-first';
 import { DiscordBotComparison, DiscordBotRecommendations } from '@/components/discord-bot-recommendations';
 import { EnglishDiscordRtcMemo } from '@/components/english-discord-rtc-memo';
 import { EnglishDiscordMicVolumeDiagram } from '@/components/english-discord-mic-volume-diagram';
@@ -43,6 +45,7 @@ export function LocalizedArticle({
   | { game: GameGuide; section?: 'games' }
   | { game?: never; section: 'discord' }
 )) {
+  const clockSyncFirst = article.gameSlug === 'ace-combat-8' && article.slug === 'error-st-3100001' && article.locale === 'en';
   const { locale } = article;
   const t = ui[locale];
   const isDiscord = section === 'discord';
@@ -136,7 +139,7 @@ export function LocalizedArticle({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <header className="article-hero issue-hero">
+      <header className={`article-hero issue-hero${clockSyncFirst ? ' clock-sync-hero' : ''}`}>
         <div className="article-hero-inner">
           <nav className="breadcrumbs" aria-label="breadcrumb">
             <a href={`/${locale}`}>{t.home}</a>
@@ -149,6 +152,7 @@ export function LocalizedArticle({
           </nav>
           <p className="article-label">{name}</p>
           <h1>{article.title}</h1>
+          {clockSyncFirst && <ClockSyncFirst locale="en" />}
           <p className="article-lead">{article.lead}</p>
           <div className="article-meta">
             <span>
@@ -235,6 +239,7 @@ export function LocalizedArticle({
             article.slug === 'error-st-3100001' && (
               <AceCombatNoticeHistory locale="en" />
             )}
+          <ArticleEvidence path={originalPath} locale={locale} />
           <ReportedCaseLink articlePath={originalPath} locale={locale} />
           {!isDiscord && (
             <ReportEntryLink articlePath={originalPath} locale={locale} />

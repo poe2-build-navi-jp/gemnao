@@ -100,6 +100,7 @@ test('explicit cost category and report stay local, with preview approval reset 
   await page.getByLabel('症状が出る頻度（自己申告）').selectOption('intermittent');
   await finish(page);
   await expect(page.getByRole('heading', { name: '選んだ作業の公式料金例' })).toBeVisible();
+  await page.getByLabel('友達・コミュニティ向けの短いまとめ', { exact: false }).uncheck();
   await page.getByRole('button', { name: '相談用メモの全文を確認する' }).click();
   const preview = page.getByLabel('保存・コピーする内容の全文');
   const report = await preview.inputValue();

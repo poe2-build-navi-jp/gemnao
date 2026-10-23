@@ -1,4 +1,8 @@
 'use client';
+import {
+  windowsDiagnosisCopy,
+  windowsDiagnosisPath,
+} from '@/lib/windows-diagnosis-copy';
 import { gamesListPath } from '@/lib/i18n';
 
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
@@ -82,6 +86,9 @@ export function MobileNavigation({
               {locale === 'ja' ? (
                 <a href="/#site-search">ゲーム名・症状を検索</a>
               ) : null}
+              <a href={windowsDiagnosisPath(locale)}>
+                {windowsDiagnosisCopy[locale].label}
+              </a>
               <a href={gamesListPath(locale)}>{gamesLabel}</a>
               {locale === 'ja' ? <a href="/#symptoms">症状から探す</a> : null}
               {locale === 'ja' ? (

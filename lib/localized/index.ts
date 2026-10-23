@@ -1,3 +1,5 @@
+import { gearsWardogsArticlesEn } from '@/lib/gears-wardogs-articles';
+import { octoberStabilityArticlesEn } from '@/lib/october-stability-articles';
 import { remainingPagesEn } from './remaining-pages-en';
 import { finalGamesEn } from '@/lib/localized/final-games-en';
 import { aionGearsEn } from '@/lib/localized/aion-gears-en';
@@ -74,6 +76,8 @@ export const localizedArticles: LocalizedArticle[] = [
   ...eldenBacklogEn,
   ...palworldBackupEn,
   ...followupLocalizedArticles,
+  ...octoberStabilityArticlesEn,
+  ...gearsWardogsArticlesEn,
   ...arcRaidersLocalizedArticles,
   ...nightreignLocalizedArticles,
   ...marvelRivalsLocalizedArticles,
@@ -184,7 +188,9 @@ export function hasTranslation(locale: Locale, path: string) {
     path === '' ||
     path === '/' ||
     path === '/my-games' ||
-    path === '/reports'
+    path === '/reports' ||
+    path === '/tools/windows-diagnosis' ||
+    path === '/diagnose'
   )
     return true;
   if (
@@ -221,7 +227,8 @@ export function hasTranslation(locale: Locale, path: string) {
  * points to the Japanese original.
  */
 export function languageAlternates(path: string) {
-  if (path === '/articles') return {en:'/en/articles', 'x-default':'/en/articles'};
+  if (path === '/articles')
+    return { en: '/en/articles', 'x-default': '/en/articles' };
   const [, section, gameSlug, articleSlug] = path.split('/');
   if (section === 'games' && !articleSlug && localizedHubs[gameSlug]?.noindex)
     return {};
