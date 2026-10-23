@@ -1,3 +1,5 @@
+import {operation as FINITE_OPERATION,planHash as FINITE_PLAN,allowed as finiteAllowed} from '../private-diagnostic-execution/profile.mjs';
+import {runFiniteProtected} from '../private-diagnostic-execution/execute.mjs';
 import { operation as QA_READY_OPERATION, planHash as QA_READY_PLAN, allowed as qaReadyAllowed } from '../private-diagnostic-review/readiness-profile.mjs';
 import { operation as QA_META_OPERATION, planHash as QA_META_PLAN, allowed as qaMetaAllowed } from '../private-diagnostic-review/profile.mjs';
 import { PAGES_LOG_OPERATION, PAGES_LOG_MODE, PAGES_LOG_PLAN_HASH, pagesLogRequestAllowed } from '../diagnosis-production/pages-deployment-log.mjs';
@@ -52,7 +54,7 @@ export function credentialTransport({ githubToken, cloudflareToken, fetchImpl = 
         || (operation === PAGES_LOG_OPERATION && pagesLogRequestAllowed(u.pathname.replace(/^\/client\/v4/, ''), options.method, options.body))
         || (operation === READINESS_OPERATION && u.pathname === `/client/v4/accounts/${TARGET.accountId}/pages/projects/gemnao`));
     need(!u.username && !u.password && !u.hash && (github || cloudflare), 'TRANSPORT_SCOPE');
-    need(!production || github || (operation === QA_READY_OPERATION ? !u.search && qaReadyAllowed(u.pathname.replace(/^\/client\/v4/, ''), options.method, options.body) : operation === QA_META_OPERATION ? !u.search && qaMetaAllowed(u.pathname.replace(/^\/client\/v4/, ''), options.method, options.body) : operation === PAGES_LOG_OPERATION ? !u.search && pagesLogRequestAllowed(u.pathname.replace(/^\/client\/v4/, ''), options.method, options.body)
+    need(!production || github || (operation === FINITE_OPERATION ? !u.search && finiteAllowed(u.pathname.replace(/^\/client\/v4/, ''), options.method, options.body) : operation === QA_READY_OPERATION ? !u.search && qaReadyAllowed(u.pathname.replace(/^\/client\/v4/, ''), options.method, options.body) : operation === QA_META_OPERATION ? !u.search && qaMetaAllowed(u.pathname.replace(/^\/client\/v4/, ''), options.method, options.body) : operation === PAGES_LOG_OPERATION ? !u.search && pagesLogRequestAllowed(u.pathname.replace(/^\/client\/v4/, ''), options.method, options.body)
       : operation === READINESS_OPERATION ? !u.search && readinessRequestAllowed(u.pathname.replace(/^\/client\/v4/, ''), options.method, options.body)
       : operation === PRODUCTION_HEALTH_OPERATION
       ? !u.search && productionHealthRequestAllowed(u.pathname.replace(/^\/client\/v4/, ''), options.method, options.body)
@@ -99,9 +101,10 @@ export async function runGate({ env, checkoutSha, transport }) {
   // This job has no Environment and receives only secret-presence booleans.
   // Reject repo/org fallbacks before they can become trusted authorization.
   need(env.PREVIEW_OUTSIDE_RECORD_PRESENT === 'false' && env.PREVIEW_OUTSIDE_DIGEST_PRESENT === 'false', 'UNPROTECTED_RECORD_SECRET');
+  if(env.PREVIEW_OPERATION===FINITE_OPERATION)need(env.QA_OUTSIDE_ACCESS_PRESENT==='false','UNPROTECTED_QA_SECRET');
   const reviewerId = await verifyConfiguredEnvironment(transport);
   return { environment: SETUP.environment, runId: Number(env.GITHUB_RUN_ID), commit: env.GITHUB_SHA,
-    ref: SETUP.ref, reviewerId, planHash: env.PREVIEW_OPERATION === QA_READY_OPERATION ? QA_READY_PLAN : env.PREVIEW_OPERATION === QA_META_OPERATION ? QA_META_PLAN : env.PREVIEW_OPERATION === PAGES_LOG_OPERATION ? PAGES_LOG_PLAN_HASH : env.PREVIEW_OPERATION === READINESS_OPERATION ? READINESS_PLAN_HASH : env.PREVIEW_OPERATION === PUBLIC_HEALTH_OPERATION ? PUBLIC_HEALTH_PLAN_HASH : env.PREVIEW_OPERATION === PRODUCTION_HEALTH_OPERATION ? PRODUCTION_HEALTH_PLAN_HASH
+    ref: SETUP.ref, reviewerId, planHash: env.PREVIEW_OPERATION === FINITE_OPERATION ? FINITE_PLAN : env.PREVIEW_OPERATION === QA_READY_OPERATION ? QA_READY_PLAN : env.PREVIEW_OPERATION === QA_META_OPERATION ? QA_META_PLAN : env.PREVIEW_OPERATION === PAGES_LOG_OPERATION ? PAGES_LOG_PLAN_HASH : env.PREVIEW_OPERATION === READINESS_OPERATION ? READINESS_PLAN_HASH : env.PREVIEW_OPERATION === PUBLIC_HEALTH_OPERATION ? PUBLIC_HEALTH_PLAN_HASH : env.PREVIEW_OPERATION === PRODUCTION_HEALTH_OPERATION ? PRODUCTION_HEALTH_PLAN_HASH
       : env.PREVIEW_OPERATION === CLEANUP_OPERATION ? CLEANUP_PLAN_HASH : isProductionOperation(env.PREVIEW_OPERATION) ? PRODUCTION_PLAN_HASH : PLAN_HASH };
 }
 export async function loadPinnedArtifactClient() {
@@ -120,6 +123,7 @@ export async function loadPinnedArtifactClient() {
 export async function runProtected({ env, checkoutSha, transport, loadClient = loadPinnedArtifactClient, now = Date.now, onStage = () => {}, onEnvelope = () => {}, onReceipt = () => {}, logSecrets = [] }) {
   validateContext(env, checkoutSha, true);
   const operation = env.PREVIEW_OPERATION ?? 'preview';
+  if(operation===FINITE_OPERATION){const reviewerId=await verifyConfiguredEnvironment(transport);return runFiniteProtected({env,transport,reviewerId,now,onStage});}
   if ([PRODUCTION_HEALTH_OPERATION, READINESS_OPERATION, PAGES_LOG_OPERATION, QA_META_OPERATION, QA_READY_OPERATION].includes(operation)) {
     onStage('environment');
     const reviewerId = await verifyConfiguredEnvironment(transport);
