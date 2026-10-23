@@ -17,6 +17,7 @@ on:
           - diagnosis-readiness
           - pages-deployment-log
           - private-qa-metadata
+          - private-qa-readiness
 permissions:
   contents: read
   actions: read
@@ -61,10 +62,10 @@ jobs:
         with:
           node-version: '22.19.0'
       - name: Install locked official Artifact SDK without lifecycle scripts
-        if: inputs.operation != 'diagnosis-readiness' && inputs.operation != 'pages-deployment-log' && inputs.operation != 'private-qa-metadata'
+        if: inputs.operation != 'diagnosis-readiness' && inputs.operation != 'pages-deployment-log' && inputs.operation != 'private-qa-metadata' && inputs.operation != 'private-qa-readiness'
         run: npm ci --ignore-scripts --no-audit --no-fund --prefix ops/feedback-preview/runtime --registry=https://registry.npmjs.org
       - name: Verify live integration with synthetic inputs only
-        if: inputs.operation != 'diagnosis-readiness' && inputs.operation != 'pages-deployment-log' && inputs.operation != 'private-qa-metadata'
+        if: inputs.operation != 'diagnosis-readiness' && inputs.operation != 'pages-deployment-log' && inputs.operation != 'private-qa-metadata' && inputs.operation != 'private-qa-readiness'
         run: node --test tests/feedback-preview/live.test.mjs
       - name: Execute exact approved run with one Environment-scoped credential
         uses: ./ops/feedback-preview
@@ -72,6 +73,6 @@ jobs:
           PREVIEW_PROTECTED_ENVIRONMENT: gemnao-preview-data
           PREVIEW_OPERATION: ${{ inputs.operation || 'preview' }}
           PREVIEW_GITHUB_TOKEN: ${{ github.token }}
-          PREVIEW_APPROVAL_RECORD: ${{ inputs.operation != 'production-cleanup-health' && inputs.operation != 'pages-deployment-log' && inputs.operation != 'private-qa-metadata' && inputs.operation != 'diagnosis-readiness' && secrets.GEMNAO_PREVIEW_APPROVAL_RECORD || '' }}
-          PREVIEW_APPROVAL_SHA256: ${{ inputs.operation != 'production-cleanup-health' && inputs.operation != 'pages-deployment-log' && inputs.operation != 'private-qa-metadata' && inputs.operation != 'diagnosis-readiness' && secrets.GEMNAO_PREVIEW_APPROVAL_SHA256 || '' }}
+          PREVIEW_APPROVAL_RECORD: ${{ inputs.operation != 'production-cleanup-health' && inputs.operation != 'pages-deployment-log' && inputs.operation != 'private-qa-metadata' && inputs.operation != 'private-qa-readiness' && inputs.operation != 'diagnosis-readiness' && secrets.GEMNAO_PREVIEW_APPROVAL_RECORD || '' }}
+          PREVIEW_APPROVAL_SHA256: ${{ inputs.operation != 'production-cleanup-health' && inputs.operation != 'pages-deployment-log' && inputs.operation != 'private-qa-metadata' && inputs.operation != 'private-qa-readiness' && inputs.operation != 'diagnosis-readiness' && secrets.GEMNAO_PREVIEW_APPROVAL_SHA256 || '' }}
           GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN: ${{ secrets.GEMNAO_PREVIEW_CLOUDFLARE_API_TOKEN }}

@@ -36,7 +36,7 @@ export const PRODUCTION_PLAN_HASH = sha256(JSON.stringify({
     access: 'existing-repository', overwrite: false },
 }));
 export function isProductionOperation(operation = 'preview') {
-  if (!['preview', PRODUCTION_OPERATION, 'production-cleanup', 'production-cleanup-health', 'production-health-publish', 'diagnosis-readiness', 'pages-deployment-log', 'private-qa-metadata'].includes(operation)) throw new Error('BLOCKED:RECORD_SCOPE');
+  if (!['preview', PRODUCTION_OPERATION, 'production-cleanup', 'production-cleanup-health', 'production-health-publish', 'diagnosis-readiness', 'pages-deployment-log', 'private-qa-metadata', 'private-qa-readiness'].includes(operation)) throw new Error('BLOCKED:RECORD_SCOPE');
   return operation !== 'preview';
 }
 
