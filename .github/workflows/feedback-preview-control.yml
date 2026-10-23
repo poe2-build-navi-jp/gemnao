@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       operation:
-        description: 'Existing protected controller operation; QA metadata is read-only'
+        description: 'Existing protected controller: read-only metadata or finite synthetic QA'
         type: choice
         required: true
         default: preview
@@ -12,6 +12,7 @@ on:
           - preview
           - private-qa-metadata
           - private-qa-readiness
+          - private-qa-finite
 permissions:
   contents: read
   actions: read
