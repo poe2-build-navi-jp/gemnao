@@ -166,156 +166,145 @@ export const octoberStabilityArticles: GameArticle[] = [
     },
   },
   {
-    checkedAt: '2026-10-22',
+    title:
+      'Planet Zoo 2でセーブが消えた・Resumeで接続エラー｜1.0.6／1.0.7の修正状況',
+    shortTitle: 'セーブ・Resume・クラッシュ',
+    description:
+      'Planet Zoo 2のオートセーブ・動物放流クラッシュは1.0.6、FranchiseのResume接続エラーは1.0.7で修正。更新確認とセーブを削除しない対処を案内します。',
+    gameSlug: 'planet-zoo-2',
+    slug: 'crashing-autosave',
+    checkedAt: '2026-10-24',
     quickFacts: [
       {
-        label: '確認日',
-        value: '2026年10月22日',
-      },
-      {
-        label: '状態',
-        value: '対象問題は10月20日告知で修正テスト中。',
-      },
-      {
-        label: '対象',
-        value: 'Steam版・動物解放とオートセーブ',
+        label: '修正の区別',
+        value: '1.0.6：自動保存・特定の放流クラッシュ／1.0.7：Franchise Resume',
       },
     ],
-    diagnosis: [
-      {
-        symptom: 'ハブ移動後に自動保存されない',
-        cause: '既知のタイマー問題。まず手動保存を確認',
-        stepId: 'protect',
-      },
-      {
-        symptom: '動物解放時に落ちる',
-        cause: '公式調査項目と照合し、再現を繰り返さない',
-        stepId: 'status',
-      },
-    ],
-    faqs: [
-      {
-        question: '再インストールすれば失った進行が戻りますか？',
-        answer:
-          '復旧できる根拠は確認できていません。まず既存の保存を保護し、My Savesに残る日時と動物園を確認してください。',
-      },
-    ],
-    title:
-      'Planet Zoo 2が落ちる・オートセーブされない時は｜動物解放とハブ移動の既知問題',
-    shortTitle: 'クラッシュ・オートセーブ',
-    description:
-      'Planet Zoo 2の動物解放時クラッシュとハブ移動でオートセーブが動かない問題。10月20日の修正テスト状況、手動保存とMy Savesの公式回避策を解説します。',
     steps: [
       {
         id: 'protect',
-        title: '公式回避策：手動保存とMy Savesを使う',
-        summary:
-          'オートセーブだけに任せず、保存を確認してから次の操作に進みます。',
+        title: '現在版と更新状態を先に確認',
+        summary: 'セーブを触る前に、導入済みの更新を確認します。',
         actions: [
-          '公式は頻繁な手動保存と、メインメニューのMy Savesからのロードを案内している。日本語UIの項目名は未確認。',
-          '一般的な予防策：ロード前に保存日時と対象の動物園を確認する。別枠で保存できる場合は、既存の正常な保存を残す。',
-          'クラウド競合や保存先が不明な場合は上書きを止める。この記事は削除や復元を案内するものではない。',
+          'ゲームの版表示とSteamの更新状態を確認し、ダウンロード中なら完了を待つ。版が不明な場合は推測で1.0.7導入済みとしない。',
+          'セーブフォルダーの削除、再インストール、クラウド同期の初期化を復旧手順として行わない。既存データの上書きも保留する。',
         ],
-        time: '約5分',
+        time: '確認約3〜5分（更新待ちを除く）',
         risk: 'low',
       },
       {
         id: 'status',
-        title: '10月20日の調査項目と1.0.5を区別する',
-        summary:
-          'Under Investigationは次回更新に向けた修正テストの告知で、確定パッチノートではありません。',
+        title: '1.0.6と1.0.7の対象を区別する',
+        summary: '以前の「修正テスト中」から、正式な配信内容へ更新しています。',
         actions: [
-          '対象はフランチャイズの野生保護区へ動物を解放する時のクラッシュと、planet hubへ入るとオートセーブタイマーがリセットされ保存が発動しない問題。',
-          '10月16日の1.0.5では安定性改善などが配信されたが、それだけで10月20日の対象問題が直ったとは判断しない。',
-          '現在の版と最新の正式な更新内容を照合する。予定一覧のFixedという表現だけで配信済みと判断しない。',
+          '1.0.6：Planet Hubへ入ると自動保存のタイマーがリセットされる問題と、Franchiseの野生保護区へ動物を放流する際のクラッシュは修正済みと告知。全クラッシュの解消ではない。',
+          '1.0.7：FranchiseセーブのResumeで接続エラーが出て、どのモードにもロードできなくなる問題を修正。1.0.7の配信確認は今回のSteam告知の範囲。',
         ],
-        time: '約5分',
+        time: '確認約3〜5分（更新待ちを除く）',
         risk: 'low',
       },
       {
         id: 'isolate',
-        title: '一般的な予防策：危険な再現を繰り返さない',
+        title: '1.0.7を取得できない場合だけ公式回避策',
         summary:
-          'ここからは公式の修正保証ではなく、進行を守りながら原因を整理する手順です。',
+          '1.0.6導入済みで1.0.7をダウンロードできない人向けの一時策です。',
         actions: [
-          '動物解放で落ちるなら、その操作を繰り返さず保存を確認して作業を中断する。',
-          'ハブ移動の前後に手動保存を確認し、オートセーブの待ち時間だけを頼りに終了しない。',
-          'ほかの場面で落ちる場合も、全クラッシュを動物解放の既知問題と決めつけず、モード・操作・発生時刻を分けて記録する。',
+          'ゲームを再起動する。メインメニューでResumeは使わず、遊びたいモードのボタンから入る。日本語UI名は断定せず、表示されたモード名と照合する。',
+          '1.0.7導入後も続く接続エラーを同じ原因と決めない。公式はVPN使用の影響にも言及しているため利用状況を控え、必要な接続の変更は管理者や公式サポートへ相談する。',
         ],
-        time: '約5分',
+        time: '確認約3〜5分（更新待ちを除く）',
         risk: 'low',
       },
       {
         id: 'report',
-        title: '保存済みの状態を確認し、未解決なら報告する',
-        summary: '既に失った進行の復旧方法は、この告知では確認できません。',
+        title: '保存一覧と未解決の症状を記録する',
+        summary: '表示の回復と、実際の進行データの復元は別です。',
         actions: [
-          'My Savesに残る保存の日時と対象を確認する。新規ゲームや空のデータで既存セーブを置き換えない。',
-          'ゲーム版、モード、発生操作、最後に成功した手動保存、エラーを記録し、公式告知が案内するIssue Trackerへ報告する。',
-          '公開報告に個人情報を含めない。実機での改善確認は行っていないため、結果を保証しない。',
+          '入れるようになったら保存一覧の日時と動物園を確認する。見えない・古い場合は空の新規データで上書きせず、状態を控える。',
+          '版、モード、Resumeかモードボタンか、エラー全文、最後に確認できた保存日時を公式Issue Trackerへ報告する。私的情報や生ログを公開欄へ貼らない。',
+          '動物放流で落ちる場合も、唯一のセーブで何度も再現を試さない。別場面のクラッシュはモード・操作を分けて記録する。',
         ],
-        time: '約5分',
+        time: '確認約3〜5分（更新待ちを除く）',
         risk: 'low',
       },
     ],
+    faqs: [
+      {
+        question:
+          '公式の「セーブは失われていない」は全ケースに当てはまりますか？',
+        answer:
+          'いいえ。1.0.6後のFranchise Resumeによる接続・メニュー不具合の説明です。未保存の進行や別のセーブ事故が必ず戻る保証には広げません。',
+      },
+      {
+        question: '修正テスト中ではなく修正済みですか？',
+        answer:
+          '今回扱うタイマーリセットと特定の動物放流クラッシュは1.0.6、Resumeによる接続エラーは1.0.7の正式告知に修正として載っています。個別環境での改善は実機確認していません。',
+      },
+      {
+        question: '再インストールや同期リセットをすれば戻りますか？',
+        answer:
+          'その復旧効果は確認できていません。公式は今回の不具合でセーブフォルダーを消さないよう案内しています。既存保存を保ち、更新状態と症状を報告してください。',
+      },
+    ],
+    diagnosis: [
+      {
+        symptom: 'Resumeで入れない',
+        cause: '現在版と更新完了を先に確認',
+        stepId: 'protect',
+      },
+    ],
     avoid: [
-      'セーブファイルの削除や、内容不明のクラウド上書きをしない。',
-      '動物解放クラッシュを確かめるために、唯一のセーブで繰り返し試さない。',
+      'セーブ削除・内容不明の上書き・クラウド同期初期化をしない',
+      '唯一の保存で危険な再現を繰り返さない',
     ],
     cautions: [
-      'My Savesは公式の英語表記です。未確認のセーブパスや日本語UI名は記載しません。',
+      '対象のResume不具合と、別原因のデータ消失を区別します。未確認のセーブパスは案内しません。',
     ],
-    related: [],
-    gameSlug: 'planet-zoo-2',
-    slug: 'crashing-autosave',
-    category: 'save',
-    status: 'verified',
     sources: [
       {
-        label: '公式Steam告知：2026年10月16日・20日（10月22日確認）',
+        label: '公式Steam：10/23の1.0.6・1.0.7配信告知（10/24確認）',
         url: 'https://steamcommunity.com/app/3219030/allnews/',
       },
-      {
-        label: 'Steamストア：正式名・発売日',
-        url: 'https://store.steampowered.com/app/3219030/',
-      },
     ],
+    category: 'save',
+    status: 'verified',
     symptom:
-      'Steam版Planet Zoo 2で動物解放時に落ちる、保存したはずの進行が残らない人向け。公式資料の確認日は2026年10月22日です。',
+      'Steam版でセーブが見えない、Resumeから入れない、動物放流で落ちる人向けです。まず版と更新状況を確認し、別の症状を同じ原因と決めつけないでください。',
     conclusion:
-      'まず手動保存をこまめに行い、ロードはメインメニューのMy Savesから行ってください。10月20日の公式告知では動物解放時クラッシュとハブ移動時のオートセーブ問題の修正をテスト中です。修正済みとも、失った進行を戻せるとも確認されていません。',
+      '10/23配信の1.0.6はPlanet HubでのオートセーブタイマーリセットとFranchise野生保護区への動物放流クラッシュを修正しました。一方、1.0.6後のFranchiseセーブをResumeすると接続エラーで各モードに入れなくなる問題は、同日の1.0.7で修正と告知されています。Steamの更新完了を確認し、セーブフォルダーは削除しないでください。',
     seoTitle:
-      'Planet Zoo 2が落ちる・オートセーブされない時は｜動物解放とハブ移動の既知問題',
+      'Planet Zoo 2でセーブが消えた・Resumeで接続エラー｜1.0.6／1.0.7の修正状況',
     metaDescription:
-      'Planet Zoo 2の動物解放時クラッシュとハブ移動でオートセーブが動かない問題。10月20日の修正テスト状況、手動保存とMy Savesの公式回避策を解説します。',
+      'Planet Zoo 2のオートセーブ・動物放流クラッシュは1.0.6、FranchiseのResume接続エラーは1.0.7で修正。更新確認とセーブを削除しない対処を案内します。',
     symptoms: [
       {
-        label: '公式回避策：手動保存とMy Savesを使う',
+        label: '現在版と更新状態を先に確認',
         target: 'protect',
       },
       {
-        label: '10月20日の調査項目と1.0.5を区別する',
+        label: '1.0.6と1.0.7の対象を区別する',
         target: 'status',
       },
       {
-        label: '一般的な予防策：危険な再現を繰り返さない',
+        label: '1.0.7を取得できない場合だけ公式回避策',
         target: 'isolate',
       },
       {
-        label: '保存済みの状態を確認し、未解決なら報告する',
+        label: '保存一覧と未解決の症状を記録する',
         target: 'report',
       },
     ],
+    related: [],
     nextChecks: {
-      heading: '関連する症状を確認',
+      heading: '関連する症状',
       links: [
         {
           href: '/guide/steam-cloud-sync-error',
-          label: 'Steamクラウドの同期エラー',
+          label: '別症状：Steamクラウド同期エラー',
         },
         {
           href: '/guide/pc-game-crash',
-          label: '他の場面で落ちる時の一般的な切り分け',
+          label: '別場面で落ちる時の確認',
         },
       ],
     },
@@ -459,131 +448,123 @@ export const octoberStabilityArticlesEn: LocalizedArticle[] = [
     ],
   },
   {
-    checkedAt: '2026-10-22',
+    title:
+      'Planet Zoo 2 saves missing or Resume connection error: 1.0.6 and 1.0.7 fixes',
+    shortTitle: 'Saves, Resume and crashes',
+    description:
+      'Separate Planet Zoo 2 autosave and animal-release fixes in 1.0.6 from the Franchise Resume connection fix in 1.0.7. Check updates and keep your saves folder intact.',
+    lead: 'For Steam players who cannot see saves, cannot enter through Resume or crash when releasing animals. Check the installed version and update status before assuming a common cause.',
+    summary:
+      'The October 23 update 1.0.6 fixed the Planet Hub autosave timer reset and crashes when releasing animals into Franchise wildlife reserves. A separate issue after 1.0.6, where Resume for a Franchise save caused a connection error and blocked all modes, was addressed by 1.0.7 that day. Confirm Steam has completed the update and do not delete your saves folder.',
+    gameSlug: 'planet-zoo-2',
+    slug: 'crashing-autosave',
+    checkedAt: '2026-10-24',
     quickFacts: [
       {
-        label: 'Checked',
-        value: 'October 22, 2026',
-      },
-      {
-        label: 'Status',
+        label: 'Fix scope',
         value:
-          'Fixes for these issues were being tested in the October 20 notice.',
-      },
-      {
-        label: 'Scope',
-        value: 'Steam: animal release and autosave',
+          '1.0.6: autosave and specific release crash / 1.0.7: Franchise Resume',
       },
     ],
-    diagnosis: [
-      {
-        symptom: 'Autosave does not trigger after a hub transition',
-        cause: 'Known timer issue; confirm a manual save first',
-        stepId: 'protect',
-      },
-      {
-        symptom: 'The game crashes when releasing animals',
-        cause: 'Compare with the investigation notice; avoid repeated tests',
-        stepId: 'status',
-      },
-    ],
-    faqs: [
-      {
-        question: 'Will reinstalling recover lost progress?',
-        answer:
-          'We found no evidence that it will. Protect existing saves first, then check the timestamps and zoos still available in My Saves.',
-      },
-    ],
-    title:
-      'Planet Zoo 2 Crashes and Autosave Not Working: Animal Release and Hub Issues',
-    shortTitle: 'Crashes and autosave',
-    description:
-      'What to do about Planet Zoo 2 animal-release crashes and the hub autosave timer issue: official manual-save advice, My Saves, and the October 20 investigation status.',
-    lead: 'For Steam players losing progress or crashing when releasing animals. Official sources checked October 22, 2026.',
-    summary:
-      'Save manually and often, then load through My Saves on the main menu. The October 20 notice says fixes for animal-release crashes and the hub autosave issue are being tested. It does not confirm a released fix or a way to recover progress already lost.',
     steps: [
       {
         id: 'protect',
-        title: 'Official workaround: manual saves and My Saves',
-        summary:
-          'Confirm a save before continuing instead of relying entirely on autosave.',
+        title: 'Check the installed version and update status first',
+        summary: 'Confirm the update before touching saved data.',
         actions: [
-          'The publisher advises frequent manual saves and loading through My Saves on the main menu.',
-          'General precaution: check the save timestamp and zoo before loading. If a separate slot is available, retain your known-good save.',
-          'Stop before overwriting if cloud copies conflict or you cannot identify the save. This guide does not instruct you to delete or restore files.',
+          'Check the game version display and Steam update status; let any active download finish. If the version is unclear, do not assume 1.0.7 is installed.',
+          'Do not delete saves, reinstall or reset cloud synchronization as a recovery procedure. Pause any overwrite of existing data.',
         ],
-        time: 'About 5 minutes',
+        time: 'About 3–5 minutes to check; update time varies',
         risk: 'low',
       },
       {
         id: 'status',
-        title: 'Separate the October 20 investigation from 1.0.5',
+        title: 'Separate the fixes in 1.0.6 and 1.0.7',
         summary:
-          'Under Investigation describes fixes being tested for a future update, not final patch notes.',
+          'Released patch notes supersede the earlier testing status for these specific issues.',
         actions: [
-          'The listed issues include crashes when releasing animals into franchise wildlife reserves and an autosave timer reset on entering the planet hub that prevents autosaving.',
-          'Version 1.0.5 delivered stability improvements on October 16. That does not establish that the issues listed on October 20 are fixed.',
-          'Compare your installed version with actual release notes. The word Fixed in the investigation list does not establish that a fix has shipped.',
+          '1.0.6 lists fixes for the autosave timer resetting on entry to Planet Hub and crashes when releasing animals into Franchise wildlife reserves. This is not a fix for every crash.',
+          '1.0.7 fixes selecting Resume for a Franchise save causing a connection error and blocking loading into any mode. The release confirmation used here is the Steam announcement.',
         ],
-        time: 'About 5 minutes',
+        time: 'About 3–5 minutes to check; update time varies',
         risk: 'low',
       },
       {
         id: 'isolate',
-        title: 'General precaution: avoid repeating a risky trigger',
+        title: 'Use the official workaround only if 1.0.7 is unavailable',
         summary:
-          'These steps help protect progress and organize evidence; they are not guaranteed fixes.',
+          'This temporary route applies when 1.0.6 is installed but 1.0.7 cannot be downloaded.',
         actions: [
-          'If releasing an animal causes a crash, stop repeating the action and check your saved progress before continuing.',
-          'Confirm manual saves around hub transitions. Do not rely on elapsed autosave time alone before quitting.',
-          'For crashes elsewhere, record the mode, action and time separately rather than attributing every crash to animal release.',
+          'Restart the game. Enter through the chosen mode’s button on the main menu instead of Resume.',
+          'If a connection error remains after 1.0.7, do not assume the same cause. The publisher also mentions VPN-related connectivity; record whether one is used and consult the administrator or official support before changing a required connection.',
         ],
-        time: 'About 5 minutes',
+        time: 'About 3–5 minutes to check; update time varies',
         risk: 'low',
       },
       {
         id: 'report',
-        title: 'Check existing saves and report unresolved issues',
+        title: 'Record the save list and remaining symptoms',
         summary:
-          'The notice does not establish a recovery method for progress already lost.',
+          'Restored access is different from recovery of progress that was never saved.',
         actions: [
-          'Review the timestamps and zoos still listed in My Saves. Do not replace an existing save with a new or empty game.',
-          'Record the game version, mode, triggering action, last successful manual save and any error. Follow the official notice to the Issue Tracker.',
-          'Remove personal details from public reports. We have not tested the game on a physical PC and cannot guarantee an improvement.',
+          'Once access returns, check save timestamps and zoo names. If a save is absent or older than expected, record that instead of overwriting it with a new empty game.',
+          'Report the version, mode, whether you used Resume or a mode button, exact error and last confirmed save time through the official Issue Tracker. Keep private details and raw logs out of public posts.',
+          'Do not repeatedly trigger an animal-release crash using your only save. Record other crash scenes separately by mode and action.',
         ],
-        time: 'About 5 minutes',
+        time: 'About 3–5 minutes to check; update time varies',
         risk: 'low',
       },
     ],
+    faqs: [
+      {
+        question:
+          'Does the statement that saves were not lost cover every case?',
+        answer:
+          'No. It addresses the Franchise Resume connection/menu problem after 1.0.6. It does not guarantee recovery of unsaved progress or unrelated save incidents.',
+      },
+      {
+        question: 'Are these fixes released rather than still being tested?',
+        answer:
+          'The specific timer reset and animal-release crash appear as fixes in 1.0.6, and the Resume connection problem in 1.0.7. We have not verified improvement on a physical gaming system.',
+      },
+      {
+        question: 'Will reinstalling or resetting sync recover progress?',
+        answer:
+          'That recovery effect is not established. The publisher explicitly says not to delete the saves folder for this issue. Preserve existing saves and report the update status and symptoms.',
+      },
+    ],
+    diagnosis: [
+      {
+        symptom: 'Resume cannot load',
+        cause: 'Check version and update completion first',
+        stepId: 'protect',
+      },
+    ],
     avoid: [
-      'Do not delete save files or overwrite cloud data you have not identified.',
-      'Do not repeatedly test the animal-release crash using your only save.',
+      'Do not delete saves, overwrite unidentified data or reset cloud synchronization',
+      'Do not repeatedly test a risky trigger using your only save',
     ],
-    cautions: ['This guide does not assume an unverified save-file path.'],
-    related: [
-      {
-        href: '/en/guide/steam-cloud-sync-error',
-        label: 'Steam Cloud sync errors',
-      },
-      {
-        href: '/en/guide/pc-game-crash',
-        label: 'General checks for crashes in other scenes',
-      },
+    cautions: [
+      'Keep this Resume issue separate from unrelated data loss. No unverified save path is supplied.',
     ],
-    gameSlug: 'planet-zoo-2',
-    gameName: 'Planet Zoo 2',
-    slug: 'crashing-autosave',
-    locale: 'en',
     sources: [
       {
         label:
-          'Official Steam announcements: October 16 and 20 (checked October 22, 2026)',
+          'Official Steam: October 23 releases 1.0.6 and 1.0.7 (reviewed October 24)',
         url: 'https://steamcommunity.com/app/3219030/allnews/',
       },
+    ],
+    locale: 'en',
+    gameName: 'Planet Zoo 2',
+    related: [
       {
-        label: 'Steam store: title and release date',
-        url: 'https://store.steampowered.com/app/3219030/',
+        href: '/en/guide/steam-cloud-sync-error',
+        label: 'Separate symptom: Steam Cloud sync errors',
+      },
+      {
+        href: '/en/guide/pc-game-crash',
+        label: 'Crashes in other scenes',
       },
     ],
   },
