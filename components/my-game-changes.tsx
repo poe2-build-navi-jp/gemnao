@@ -100,8 +100,12 @@ export function MyGameChanges({
             </p>
             <ul>
               <li>
-                <a href={item.sourceUrl} hrefLang="ja" rel="noreferrer">
-                  {t.source}
+                <a
+                  href={item.sourceUrl}
+                  hrefLang={item.sourceLanguage || 'ja'}
+                  rel="noreferrer"
+                >
+                  {item.sourceLanguage === 'en' ? t.sourceEnglish : t.source}
                 </a>
               </li>
               <li>

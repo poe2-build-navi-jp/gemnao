@@ -92,6 +92,7 @@ export function SupportWorkspace({
     <section
       className="support-workspace"
       id="issue-notebook"
+      tabIndex={-1}
       aria-label={t.heading}
       lang={locale}
     >
