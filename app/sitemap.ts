@@ -12,7 +12,7 @@ import { troubleHubs } from '@/lib/trouble-hubs';
 import { releaseRoundups } from '@/lib/release-roundups';
 import { weeklyReports } from '@/lib/weekly-reports';
 import { pcArticles } from '@/lib/pc-articles';
-import { locales } from '@/lib/i18n';
+import { isIndexedPath, locales } from '@/lib/i18n';
 import { gameFacts } from '@/lib/localized/game-facts';
 import { localizedHubs } from '@/lib/localized/hubs';
 import {
@@ -26,6 +26,12 @@ import { gearGuides } from '@/lib/gear-guides';
 export default function sitemap(): MetadataRoute.Sitemap {
   if (process.env.NEXT_PUBLIC_SITE_PUBLIC === 'false') return [];
   const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://gemnao.pages.dev';
+  // zh/es pages are noindex, so they are not listed (see lib/i18n.ts).
+  return entries(base).filter(({ url }) =>
+    isIndexedPath(url.slice(base.length)),
+  );
+}
+function entries(base: string): MetadataRoute.Sitemap {
   const fixed = [
     { path: '', updated: '2026-09-30' },
     { path: '/guide', updated: '2026-09-12' },

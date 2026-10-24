@@ -37,7 +37,8 @@ for (const locale of ['ja', 'en', 'zh', 'es']) {
     metadata = m.caseMetadata(item.slug, locale),
     html = m.renderCase(item, locale);
   assert.equal(metadata.alternates.canonical, path);
-  assert.equal(Object.keys(metadata.alternates.languages).length, 5);
+  // ja, en and x-default; zh/es are noindex and not alternates.
+  assert.equal(Object.keys(metadata.alternates.languages).length, 3);
   assert.equal(
     m.hasTranslation(locale === 'ja' ? 'en' : locale, m.casePath(item)),
     true,

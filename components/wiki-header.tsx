@@ -11,6 +11,10 @@ import { MobileNavigation } from '@/components/mobile-navigation';
 import { hasTranslation } from '@/lib/localized/index';
 import { myGamesCopy, myGamesPath } from '@/lib/my-games-copy';
 import { ui } from '@/lib/localized/ui';
+import {
+  latestEnglishArticles,
+  latestJapaneseArticles,
+} from '@/lib/footer-latest';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 
 export const languageFallbackLabels = {
@@ -213,6 +217,16 @@ export function WikiFooter({ locale = 'ja' }: { locale?: 'ja' | Locale }) {
           <strong>Gemnao</strong>
           <p>{t.footerTagline}</p>
         </div>
+        {locale === 'en' ? (
+          <nav className="footer-latest" aria-label="Recently updated guides">
+            <span>Recently updated guides</span>
+            {latestEnglishArticles().map((item) => (
+              <a href={item.href} key={item.href}>
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        ) : null}
         <nav aria-label={t.footerNav}>
           <a href={myGamesPath(locale)}>{myGamesCopy[locale].name}</a>
           {locale === 'en' ? <a href="/en/tools">Tools</a> : null}
@@ -237,6 +251,14 @@ export function WikiFooter({ locale = 'ja' }: { locale?: 'ja' | Locale }) {
         <strong>ゲムなお</strong>
         <p>まず試す順番がわかる、日本語のPCゲームお直しWiki。</p>
       </div>
+      <nav className="footer-latest" aria-label="新着・更新した記事">
+        <span>新着・更新した記事</span>
+        {latestJapaneseArticles().map((item) => (
+          <a href={item.href} key={item.href}>
+            {item.label}
+          </a>
+        ))}
+      </nav>
       <nav aria-label="フッターナビゲーション">
         <a href="/about">運営情報</a>
         <a href="/about#business">企業・メーカーの方へ</a>

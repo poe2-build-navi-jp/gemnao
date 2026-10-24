@@ -57,6 +57,11 @@ import {
   localizedArticles,
   localizedGameSlugsFor,
 } from '../lib/localized/index';
+// zh/es pages stay published but are noindex, so hreflang lists ja/en only.
+const alternateFor = (path: string, locale: string) =>
+  languageAlternates(path)[locale === 'zh' ? 'zh-Hans' : locale];
+const expectedAlternate = (locale: string, href: string) =>
+  locale === 'zh' || locale === 'es' ? undefined : href;
 
 // Kana always means untranslated Japanese. Kanji is allowed on Chinese
 // pages but must not appear on English or Spanish ones.
@@ -114,11 +119,10 @@ for (const locale of locales) {
         'No hreflang to a noindex discovery hub',
       );
     } else
-      assert(
-        languageAlternates(`/games/${slug}`)[
-          locale === 'zh' ? 'zh-Hans' : locale
-        ],
-        `${slug}: missing hreflang for ${locale}`,
+      assert.equal(
+        Boolean(alternateFor(`/games/${slug}`, locale)),
+        locale === 'en',
+        `${slug}: hreflang for ${locale} only when indexed`,
       );
     pages++;
   }
@@ -208,12 +212,7 @@ for (const article of localizedDiscordArticles) {
   assert(html.includes(`/${article.locale}${path}`), 'Correct Discord path');
   assert(!html.includes('/games/discord/'), 'No invented Discord game path');
   assert(html.includes('SoftwareApplication'), 'Discord schema entity type');
-  assert.equal(
-    languageAlternates(path)[
-      article.locale === 'zh' ? 'zh-Hans' : article.locale
-    ],
-    `/${article.locale}${path}`,
-  );
+  assert.equal(alternateFor(path, article.locale), expectedAlternate(article.locale, `/${article.locale}${path}`));
   pages++;
 }
 for (const article of rocketLeagueLocalizedArticles) {
@@ -260,12 +259,7 @@ for (const article of rocketLeagueLocalizedArticles) {
     );
   });
   assert(article.title.includes('DualSense'), 'Scope must remain DualSense');
-  assert.equal(
-    languageAlternates(`/games/${article.gameSlug}/${article.slug}`)[
-      article.locale === 'zh' ? 'zh-Hans' : article.locale
-    ],
-    `/${article.locale}/games/${article.gameSlug}/${article.slug}`,
-  );
+  assert.equal(alternateFor(`/games/${article.gameSlug}/${article.slug}`, article.locale), expectedAlternate(article.locale, `/${article.locale}/games/${article.gameSlug}/${article.slug}`));
 }
 for (const locale of locales) {
   assert(hasTranslation(locale, '/discord/upload-failed'));
@@ -332,7 +326,7 @@ for (const guide of commonGuidesEn) {
 }
 for (const locale of ['zh','es'] as const) {
   check(`/${locale}/guide`, locale, renderToStaticMarkup(<LocalizedGuideIndex locale={locale} />));
-  assert.equal(languageAlternates('/guide')[locale === 'zh' ? 'zh-Hans' : locale], `/${locale}/guide`);
+  assert.equal(alternateFor('/guide', locale), expectedAlternate(locale, `/${locale}/guide`));
   pages++;
 }
 for (const guide of translatedCommonGuides) {
@@ -353,7 +347,7 @@ for (const guide of translatedCommonGuides) {
   assert.equal(guide.cautions.length,en.cautions.length);
   assert.deepEqual(guide.sources.map(s => s.url), en.sources.map(s => s.url));
   check(`/${guide.locale}${guide.path}`, guide.locale, renderToStaticMarkup(<EnglishCommonGuide guide={guide} locale={guide.locale} />));
-  assert.equal(languageAlternates(guide.path)[guide.locale === 'zh' ? 'zh-Hans' : guide.locale], `/${guide.locale}${guide.path}`);
+  assert.equal(alternateFor(guide.path, guide.locale), expectedAlternate(guide.locale, `/${guide.locale}${guide.path}`));
   for (const b of guide.branches) assert.ok([...guide.steps,...(guide.extraSections||[])].some(s => s.id === b.step));
   pages++;
 }
@@ -447,7 +441,7 @@ for (const gameSlug of expansionGames) {
   assert(hub.focused && !hub.noindex && hub.checkedAt, `${gameSlug}: complete focused hub`);
   for (const locale of locales) {
     assert(hub.names?.[locale] && hub.title?.[locale], `${gameSlug}: localized hub identity`);
-    assert.equal(languageAlternates(`/games/${gameSlug}`)[locale === 'zh' ? 'zh-Hans' : locale], `/${locale}/games/${gameSlug}`);
+    assert.equal(alternateFor(`/games/${gameSlug}`, locale), expectedAlternate(locale, `/${locale}/games/${gameSlug}`));
   }
   for (const original of originals) {
     const path = `/games/${gameSlug}/${original.slug}`;
@@ -462,7 +456,7 @@ for (const gameSlug of expansionGames) {
       assert.equal(translation.faqs.length, original.faqs!.length, `${path}: FAQ parity`);
       assert.equal(translation.avoid.length, original.avoid!.length, `${path}: safety parity`);
       assert.equal(translation.cautions.length, original.cautions.length, `${path}: caution parity`);
-      assert.equal(languageAlternates(path)[locale === 'zh' ? 'zh-Hans' : locale], `/${locale}${path}`);
+      assert.equal(alternateFor(path, locale), expectedAlternate(locale, `/${locale}${path}`));
     }
   }
   for (const prefix of ['', '/en', '/zh', '/es']) {
@@ -582,15 +576,14 @@ for (const article of localizedPcArticles) {
     (article.locale === 'en') === html.includes(`href="/${article.locale}/pc"`),
     `${path}: only registered PC hub links`,
   );
-  assert.equal(
-    languageAlternates(originalPath)[
-      article.locale === 'zh' ? 'zh-Hans' : article.locale
-    ],
-    path,
-  );
+  assert.equal(alternateFor(originalPath, article.locale), expectedAlternate(article.locale, path));
   assert.equal(languageAlternates(originalPath).ja, originalPath);
   assert.equal(languageAlternates(originalPath)['x-default'], originalPath);
-  assert(sitemapPaths.has(path), `${path}: present in sitemap`);
+  assert.equal(
+    sitemapPaths.has(path),
+    article.locale === 'en',
+    `${path}: only indexed locales in sitemap`,
+  );
   assert(
     isEditorialSnapshotPath(path),
     `${path}: public HTML snapshot allowed`,

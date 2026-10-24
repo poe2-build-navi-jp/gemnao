@@ -1,6 +1,4 @@
-import { gameArticles } from './game-articles';
-import { commonGuides } from './common-guides';
-import { discordArticles } from './discord-articles';
+import { articleReviews, gameArticleContexts } from './article-review-index';
 import {
   readSolutions,
   upsertSolution,
@@ -17,58 +15,22 @@ import {
 } from './support-record';
 import type { MyGamesLocale } from './my-games-copy';
 import { fixSaveCopy } from './fix-save-copy';
+// Uses the compact generated index so browser bundles do not include every
+// article body (`pnpm review:index` regenerates it).
 export function articleReview(path: string) {
   const canonical = canonicalArticle(path);
-  const game = gameArticles.find(
-    (a) =>
-      `/games/${a.gameSlug}/${a.slug}` === canonical &&
-      !['draft', 'thin'].includes(a.status || 'verified'),
-  );
-  if (game)
-    return {
-      path: canonical,
-      title: game.title,
-      gameSlug: game.gameSlug,
-      checkedOn: game.checkedAt,
-      steps: game.steps,
-    };
-  const guide = commonGuides.find(
-    (a) => `/guide/${a.slug}` === canonical && a.status === 'verified',
-  );
-  if (guide)
-    return {
-      path: canonical,
-      title: guide.title,
-      gameSlug: '',
-      checkedOn: guide.checkedAt,
-      steps: guide.steps.map((s, i) => ({
-        id: `step-${i + 1}`,
-        title: s.title,
-      })),
-    };
-  const discord = discordArticles.find(
-    (a) => `/discord/${a.slug}` === canonical && a.status === 'verified',
-  );
-  if (discord)
-    return {
-      path: canonical,
-      title: discord.title,
-      gameSlug: '',
-      checkedOn: discord.checkedAt,
-      steps: discord.causes.map((s, i) => ({
-        id: `cause-${i + 1}`,
-        title: s.title,
-      })),
-    };
-  return undefined;
+  const review = Object.hasOwn(articleReviews, canonical)
+    ? articleReviews[canonical]
+    : undefined;
+  return review ? { path: canonical, ...review } : undefined;
 }
 export function reviewForContext(context: string) {
-  const game = gameArticles.find(
-    (a) => `game-${a.gameSlug}-${a.slug}` === context,
-  );
+  const game = Object.hasOwn(gameArticleContexts, context)
+    ? gameArticleContexts[context]
+    : undefined;
   return articleReview(
     game
-      ? `/games/${game.gameSlug}/${game.slug}`
+      ? game
       : context.startsWith('guide-')
         ? `/guide/${context.slice(6)}`
         : context.startsWith('discord-')
