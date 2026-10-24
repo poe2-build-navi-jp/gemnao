@@ -32,7 +32,9 @@ assert.equal(changesForGame('apex-legends', 'ja', '2026-10-13').length, 0);
 assert.equal(validChangeDate('2026-02-30'), false);
 assert.equal(validChangeDate('2026-2-01'), false);
 assert.equal(validChangeDate('2024-02-29'), true);
-const original = officialGameChanges[0];
+const original = officialGameChanges.find(
+  (item) => item.gameSlug === 'apex-legends',
+)!;
 for (const bad of [
   { publishedOn: '2026-02-30' },
   { checkedOn: '2026-09-01' },
@@ -128,7 +130,10 @@ console.log(
 );
 
 // A real current diagnosis draft remains resumable after new read-state writes.
-Object.defineProperty(globalThis, 'localStorage', { value: storage, configurable: true });
+Object.defineProperty(globalThis, 'localStorage', {
+  value: storage,
+  configurable: true,
+});
 const diagnosis = { ...freshLocal(), game: 'apex-legends' };
 assert.equal(saveLocal(diagnosis), true);
 const diagnosisBytes = storage.getItem('gemnao-diagnosis-v1');
@@ -137,3 +142,22 @@ assert.equal(storage.getItem('gemnao-diagnosis-v1'), diagnosisBytes);
 assert.equal(readLocal()?.game, 'apex-legends');
 assert.equal(readLocal()?.step, 'safety');
 console.log('PASS: current diagnosis save/resume remains intact');
+
+for (const game of ['enshrouded', 'planet-zoo-2', 'battlefield-6']) {
+  for (const locale of ['ja', 'en', 'zh', 'es'] as const) {
+    const [card] = changesForGame(game, locale, '2026-10-24');
+    assert.ok(card);
+    assert.equal(card.sourceLanguage, 'en');
+    assert.equal(card.checkedOn, '2026-10-24');
+    assert.equal(card.copyLocale, locale === 'en' ? 'en' : 'ja');
+    assert.equal(card.articleJapanese, locale === 'zh' || locale === 'es');
+    assert.ok(
+      card.copy.condition &&
+        card.copy.check &&
+        card.sourceUrl.startsWith('https://'),
+    );
+  }
+}
+console.log(
+  'PASS: three reviewed update cards, JA/EN copy and explicit JA fallback for ZH/ES; dated source conditions retained.',
+);

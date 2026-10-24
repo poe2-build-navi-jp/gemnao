@@ -14,12 +14,101 @@ export type OfficialGameChange = {
   publishedOn: string;
   checkedOn: string;
   sourceUrl: string;
+  sourceLanguage?: 'ja' | 'en';
   articlePath: string;
   copy: Partial<Record<MyGamesLocale, ChangeCopy>>;
 };
 // A small, manually verified registry, not a feed or proof that other games have no changes.
-// Source pages are Japanese. Dates are publication and editorial check dates, not article updatedAt.
+// Source language is declared for new entries (legacy entries use Japanese). Dates are publication and editorial check dates, not article updatedAt.
 export const officialGameChanges: OfficialGameChange[] = [
+  {
+    id: 'enshrouded-1003-20261021-v1',
+    gameSlug: 'enshrouded',
+    publishedOn: '2026-10-21',
+    checkedOn: '2026-10-24',
+    sourceUrl: 'https://enshrouded.com/en-US/news/changelog-for-hotfix-1003',
+    sourceLanguage: 'en',
+    articlePath: '/games/enshrouded/black-screen-save-migration',
+    copy: {
+      ja: {
+        title: '1.0.0.3のマルチ読み込み・移行修正',
+        condition:
+          'マルチ読み込みが黒画面のまま、または旧セーブの移行中にクラッシュする場合。',
+        change:
+          '10/21の1.0.0.3（1273043）は一部の黒画面とまれな移行クラッシュを修正。移行時の問題アイテムや特定拠点の水には制限があります。',
+        check:
+          '導入版と更新完了を先に確認。保存した症状と照合し、セーブは削除せず移行条件を記事で確認してください。更新だけで解決済みにはしません。',
+      },
+      en: {
+        title: '1.0.0.3 multiplayer loading and migration fixes',
+        condition:
+          'An endless multiplayer-loading black screen or a crash while converting an older save.',
+        change:
+          'The October 21 hotfix (1273043) fixes some black screens and a rare migration crash. Problem items and water at affected bases have migration limitations.',
+        check:
+          'Check the installed version and download completion, then compare your saved symptoms. Keep saves intact and review the conditions in the guide. An update alone does not mark the issue resolved.',
+      },
+    },
+  },
+  {
+    id: 'planet-zoo-2-107-20261023-v1',
+    gameSlug: 'planet-zoo-2',
+    publishedOn: '2026-10-23',
+    checkedOn: '2026-10-24',
+    sourceUrl: 'https://steamcommunity.com/app/3219030/allnews/',
+    sourceLanguage: 'en',
+    articlePath: '/games/planet-zoo-2/crashing-autosave',
+    copy: {
+      ja: {
+        title: '1.0.7でResumeの接続問題を修正',
+        condition:
+          '1.0.6導入後、FranchiseのResumeから接続エラーになり各モードに入れない場合。',
+        change:
+          '10/23の1.0.6はオートセーブ関連などを修正。その後の1.0.7はResumeの接続問題を修正しています。公式の「セーブは失われていない」はこの事象の説明です。',
+        check:
+          'まず1.0.7以降の導入状態を確認。セーブフォルダーを削除せず、前回の症状と更新後の表示を分けて記録してください。',
+      },
+      en: {
+        title: '1.0.7 fixes the Resume connection issue',
+        condition:
+          'After 1.0.6, resuming Franchise produces a connection error and prevents access to modes.',
+        change:
+          'October 23 update 1.0.6 addressed autosave issues; 1.0.7 then fixed the Resume connection problem. The statement that saves were not lost applies to this incident.',
+        check:
+          'Check installation of 1.0.7 or later first. Do not delete the saves folder; record the earlier symptom and post-update result separately.',
+      },
+    },
+  },
+  {
+    id: 'bf6-stability-20261022-v1',
+    gameSlug: 'battlefield-6',
+    publishedOn: '2026-10-22',
+    checkedOn: '2026-10-24',
+    sourceUrl:
+      'https://steamcommunity.com/app/2807960/discussions/0/572678538884419660/',
+    sourceLanguage: 'en',
+    articlePath: '/games/battlefield-6/crash-after-update',
+    copy: {
+      ja: {
+        title: 'Vegas Strip・Area 51の安定性改善',
+        condition:
+          'Vegas StripまたはArea 51で不安定になる場合。告知に機種・版番号の指定はありません。',
+        change:
+          '10/22にクライアントHotfixを配信。全クラッシュやBRの蘇生問題を修正したという告知ではありません。',
+        check:
+          '更新のダウンロード完了を確認し、保存したマップ・発生場面と比較してください。残る症状は別途記録し、更新を解決の証拠にしません。',
+      },
+      en: {
+        title: 'Stability improvements for Vegas Strip and Area 51',
+        condition:
+          'Instability on Vegas Strip or Area 51. The announcement specifies no platform or version number.',
+        change:
+          'A client hotfix was released on October 22. It does not claim to fix every crash or the Battle Royale revive issue.',
+        check:
+          'Confirm the update download is complete, then compare the map and situation in your saved notes. Record remaining symptoms separately; the update is not proof of resolution.',
+      },
+    },
+  },
   {
     id: 'apex-javelin-20260929-v1',
     gameSlug: 'apex-legends',

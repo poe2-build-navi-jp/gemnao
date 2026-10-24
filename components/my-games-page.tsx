@@ -19,9 +19,6 @@ export function MyGamesPage({ locale = 'ja' }: { locale?: MyGamesLocale }) {
         <p className="page-kicker">{t.name}</p>
         <h1>{t.title}</h1>
         <p className="page-lead">{t.lead}</p>
-        <a className="my-games-primary" href="#my-games">
-          {t.open} ↓
-        </a>
         <p className="my-games-privacy">{t.privacy}</p>
         <MyGamesPanel games={myGamesData(locale)} locale={locale} />
         <MyGamesBackup locale={locale} />

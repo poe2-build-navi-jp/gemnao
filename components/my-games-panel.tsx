@@ -1,6 +1,7 @@
 'use client';
 import { MyReportLinks } from './my-report-links';
 import { GameMaintenance } from './game-maintenance';
+import { GameOpenIssues } from './game-open-issues';
 import { SavedGameFixes } from './saved-game-fixes';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { useEffect, useState } from 'react';
@@ -91,133 +92,148 @@ export function MyGamesPanel({
     matches.find((game) =>
       game.articles.some((article) => !article.japanese),
     ) || matches[0];
+  const choose = (
+    <section
+      id="my-games"
+      aria-labelledby="choose-games-title"
+      className="my-games-choose"
+    >
+      <h2 id="choose-games-title">
+        <Gamepad2 size={22} aria-hidden="true" />
+        {t.choose}
+      </h2>
+      <p>{t.hint}</p>
+      <label className="my-games-search">
+        {t.search}
+        <input
+          type="search"
+          value={query}
+          placeholder={t.placeholder}
+          onChange={(event) => setQuery(event.target.value)}
+        />
+      </label>
+      <p className="my-games-count">
+        {ready ? `${saved.length} / 10 ${t.count}` : t.loading}
+      </p>
+      <div className="my-games-choices">
+        {matches.map((game) => (
+          <button
+            key={game.slug}
+            type="button"
+            aria-pressed={saved.includes(game.slug)}
+            disabled={!ready}
+            onClick={() => change(game.slug, 'add')}
+          >
+            <span>{game.name}</span>
+            <small>
+              {saved.includes(game.slug) ? (
+                <Check size={16} aria-hidden="true" />
+              ) : (
+                <Plus size={16} aria-hidden="true" />
+              )}
+              {saved.includes(game.slug) ? t.selected : t.add}
+            </small>
+          </button>
+        ))}
+      </div>
+      {!matches.length ? (
+        <div className="my-games-no-results">
+          <p>{t.noResults}</p>
+          <a href="#game-request">{t.requestGame} →</a>
+        </div>
+      ) : null}
+      <MyGamesNotice notice={message} locale={locale} />
+      {ready && mine.length ? (
+        <a className="my-games-view" href="#my-feed">
+          {t.return} ({mine.length}) ↓
+        </a>
+      ) : null}
+    </section>
+  );
+  const feed = (
+    <section id="my-feed" aria-labelledby="saved-games-title">
+      <h2 id="saved-games-title">{t.savedTitle}</h2>
+      <a href="#my-games">{t.choose} ↓</a>
+      <TodayGames games={mine} locale={locale} ready={ready} />
+      <p>{gameChangesCopy[locale].scope}</p>
+      <p className="my-game-changes-rules">{gameChangesCopy[locale].rules}</p>
+      {ready && mine.length ? (
+        <div className="my-games-results">
+          {mine.map((game) => (
+            <article
+              className="my-game-card"
+              id={`my-game-${game.slug}`}
+              key={game.slug}
+            >
+              <div className="my-games-card-heading">
+                <h3>{game.name}</h3>
+                <button
+                  type="button"
+                  onClick={() => change(game.slug, 'remove')}
+                  aria-label={`${t.remove}: ${game.name}`}
+                >
+                  {t.remove}
+                </button>
+              </div>
+              <GameOpenIssues gameSlug={game.slug} locale={locale} />
+              <SavedGameFixes gameSlug={game.slug} locale={locale} />
+              <PlayPlanCard gameSlug={game.slug} locale={locale} />
+              <GameMaintenance gameSlug={game.slug} locale={locale} />
+              <MyGameChanges changes={game.officialChanges} locale={locale} />
+              <GameSettingsSnapshots gameSlug={game.slug} locale={locale} />
+              {links(game)}
+              {news[game.slug]?.length ? (
+                <details>
+                  <summary>{t.news}</summary>
+                  <p>
+                    {t.newsNote} {t.original}.
+                  </p>
+                  <ul>
+                    {news[game.slug].map((item) => (
+                      <li key={item.url}>
+                        <a href={item.url} target="_blank" rel="noreferrer">
+                          {item.title}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              ) : null}
+            </article>
+          ))}
+        </div>
+      ) : (
+        <>
+          <p>{ready ? t.empty : t.loading}</p>
+          {example ? (
+            <aside className="my-games-example">
+              <p className="page-kicker">{t.preview}</p>
+              <h3>
+                {t.example}
+                {example.name}
+              </h3>
+              <p>{t.previewNote}</p>
+              {links(example)}
+            </aside>
+          ) : null}
+        </>
+      )}
+    </section>
+  );
   return (
     <div className="my-games-experience">
       <MyReportLinks locale={locale} />
-      <section
-        id="my-games"
-        aria-labelledby="choose-games-title"
-        className="my-games-choose"
-      >
-        <p className="page-kicker">1 / 2</p>
-        <h2 id="choose-games-title">
-          <Gamepad2 size={22} aria-hidden="true" />
-          {t.choose}
-        </h2>
-        <p>{t.hint}</p>
-        <label className="my-games-search">
-          {t.search}
-          <input
-            type="search"
-            value={query}
-            placeholder={t.placeholder}
-            onChange={(event) => setQuery(event.target.value)}
-          />
-        </label>
-        <p className="my-games-count">
-          {ready ? `${saved.length} / 10 ${t.count}` : t.loading}
-        </p>
-        <div className="my-games-choices">
-          {matches.map((game) => (
-            <button
-              key={game.slug}
-              type="button"
-              aria-pressed={saved.includes(game.slug)}
-              disabled={!ready}
-              onClick={() => change(game.slug, 'add')}
-            >
-              <span>{game.name}</span>
-              <small>
-                {saved.includes(game.slug) ? (
-                  <Check size={16} aria-hidden="true" />
-                ) : (
-                  <Plus size={16} aria-hidden="true" />
-                )}
-                {saved.includes(game.slug) ? t.selected : t.add}
-              </small>
-            </button>
-          ))}
-        </div>
-        {!matches.length ? (
-          <div className="my-games-no-results">
-            <p>{t.noResults}</p>
-            <a href="#game-request">{t.requestGame} →</a>
-          </div>
-        ) : null}
-        <MyGamesNotice notice={message} locale={locale} />
-        {ready && mine.length ? (
-          <a className="my-games-view" href="#my-feed">
-            {t.return} ({mine.length}) ↓
-          </a>
-        ) : null}
-      </section>
-      <section id="my-feed" aria-labelledby="saved-games-title">
-        <p className="page-kicker">2 / 2</p>
-        <h2 id="saved-games-title">{t.savedTitle}</h2>
-        <TodayGames games={mine} locale={locale} ready={ready} />
-        <p>{gameChangesCopy[locale].scope}</p>
-        <p className="my-game-changes-rules">{gameChangesCopy[locale].rules}</p>
-        {ready && mine.length ? (
-          <div className="my-games-results">
-            {mine.map((game) => (
-              <article
-                className="my-game-card"
-                id={`my-game-${game.slug}`}
-                key={game.slug}
-              >
-                <div className="my-games-card-heading">
-                  <h3>{game.name}</h3>
-                  <button
-                    type="button"
-                    onClick={() => change(game.slug, 'remove')}
-                    aria-label={`${t.remove}: ${game.name}`}
-                  >
-                    {t.remove}
-                  </button>
-                </div>
-                <SavedGameFixes gameSlug={game.slug} locale={locale} />
-                <PlayPlanCard gameSlug={game.slug} locale={locale} />
-                <GameMaintenance gameSlug={game.slug} locale={locale} />
-                <MyGameChanges changes={game.officialChanges} locale={locale} />
-                <GameSettingsSnapshots gameSlug={game.slug} locale={locale} />
-                {links(game)}
-                {news[game.slug]?.length ? (
-                  <details>
-                    <summary>{t.news}</summary>
-                    <p>
-                      {t.newsNote} {t.original}.
-                    </p>
-                    <ul>
-                      {news[game.slug].map((item) => (
-                        <li key={item.url}>
-                          <a href={item.url} target="_blank" rel="noreferrer">
-                            {item.title}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </details>
-                ) : null}
-              </article>
-            ))}
-          </div>
-        ) : (
-          <>
-            <p>{ready ? t.empty : t.loading}</p>
-            {example ? (
-              <aside className="my-games-example">
-                <p className="page-kicker">{t.preview}</p>
-                <h3>
-                  {t.example}
-                  {example.name}
-                </h3>
-                <p>{t.previewNote}</p>
-                {links(example)}
-              </aside>
-            ) : null}
-          </>
-        )}
-      </section>
+      {ready && mine.length ? (
+        <>
+          {feed}
+          {choose}
+        </>
+      ) : (
+        <>
+          {choose}
+          {feed}
+        </>
+      )}
     </div>
   );
 }

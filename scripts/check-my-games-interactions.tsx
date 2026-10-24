@@ -111,7 +111,12 @@ for (const source of [
           locale: source.slice(-2) as 'ja' | 'en' | 'zh' | 'es',
         });
   const handler = () => {
-    const control = find(render(), (node) => node.type === 'button');
+    const control = find(
+      render(),
+      (node) =>
+        node.type === 'button' &&
+        typeof node.props?.['aria-pressed'] === 'boolean',
+    );
     assert.ok(control, source);
     return control.props!.onClick as () => void;
   };
@@ -318,4 +323,123 @@ assert.equal(calls.length, 0);
 assert.equal(notifications, 0);
 console.log(
   'PASS: legacy My Games anchor routes to the shared search editor and preserves existing saved data.',
+);
+
+// Return flow uses existing storage and selects only a live open note for this game.
+import { GameOpenIssues } from '../components/game-open-issues';
+import {
+  openIssues,
+  selectOpenIssue,
+  returnCopy,
+} from '../lib/my-games-return';
+import {
+  SOLUTIONS_KEY,
+  serializeSolutions,
+  parseSolutions,
+  type SavedSolution,
+} from '../lib/saved-solutions';
+import { ACTIVE_CASE_KEY } from '../lib/support-record';
+const note: SavedSolution = {
+  id: 'synthetic-a',
+  gameSlug: game.slug,
+  title: 'Synthetic symptom',
+  status: 'unresolved',
+  diagnosis: '',
+  settings: '',
+  notes: '',
+  articlePath: '',
+  stepId: '',
+  completedSteps: [],
+  createdAt: '2026-10-20T00:00:00Z',
+  updatedAt: '2026-10-20T00:00:00Z',
+};
+const newer = { ...note, id: 'synthetic-b', updatedAt: '2026-10-21T00:00:00Z' };
+for (const locale of ['ja', 'en', 'zh', 'es'] as const) {
+  reset();
+  const renderPanel = () =>
+    MyGamesPanel({
+      games: [
+        {
+          ...game,
+          searchNames: game.name,
+          hub: '/games/elden-ring',
+          hubJapanese: false,
+        },
+      ],
+      locale,
+    });
+  assert.equal(
+    find(renderPanel(), (n) => n.type === 'section')?.props?.id,
+    'my-games',
+  );
+  values.set(MY_GAMES_KEY, JSON.stringify([game.slug]));
+  assert.equal(
+    find(renderPanel(), (n) => n.type === 'section')?.props?.id,
+    'my-feed',
+  );
+  assert.ok(
+    nodeText(GameOpenIssues({ gameSlug: game.slug, locale })).includes(
+      returnCopy[locale].empty,
+    ),
+  );
+  values.set(
+    SOLUTIONS_KEY,
+    serializeSolutions([
+      note,
+      newer,
+      { ...note, id: 'resolved', status: 'resolved' },
+      { ...note, id: 'other', gameSlug: 'pubg' },
+    ]),
+  );
+  assert.deepEqual(
+    openIssues(parseSolutions(values.get(SOLUTIONS_KEY)!), game.slug).map(
+      (n) => n.id,
+    ),
+    ['synthetic-b', 'synthetic-a'],
+  );
+  let focused = 0;
+  Object.assign(globalThis, {
+    document: {
+      getElementById: (id: string) =>
+        id === 'issue-notebook'
+          ? {
+              scrollIntoView() {},
+              focus() {
+                focused++;
+              },
+            }
+          : null,
+    },
+  });
+  const tree = GameOpenIssues({ gameSlug: game.slug, locale });
+  const click = find(tree, (n) => n.type === 'button')?.props
+    ?.onClick as () => void;
+  const before = values.get(SOLUTIONS_KEY);
+  click();
+  click();
+  assert.equal(values.get(ACTIVE_CASE_KEY), 'synthetic-b');
+  assert.equal(values.get(SOLUTIONS_KEY), before);
+  assert.equal(focused, 2);
+  assert.equal(
+    calls.length,
+    0,
+    'No note contents or invented reuse events sent',
+  );
+  values.set(SOLUTIONS_KEY, serializeSolutions([]));
+  click();
+  assert.equal(focused, 2, 'Deleted note does not navigate');
+  assert.equal(selectOpenIssue(root.localStorage, game.slug, note.id), false);
+  values.set(SOLUTIONS_KEY, serializeSolutions([note]));
+  failure = 'set';
+  assert.throws(() => selectOpenIssue(root.localStorage, game.slug, note.id));
+  failure = '';
+  assert.equal(selectOpenIssue(root.localStorage, game.slug, note.id), true);
+  assert.equal(
+    openIssues(parseSolutions(values.get(SOLUTIONS_KEY)!), game.slug).length,
+    1,
+    'Re-read preserves record',
+  );
+}
+console.log(
+  'PASS: four-language first/return order, empty/multiple/other/resolved notes, exact selection, stale deletion, denied writes, repeated selection, reload and focus callback; no analytics or note mutation. Browser keyboard/DPI untested.',
 );
