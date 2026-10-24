@@ -1,3 +1,4 @@
+import { mw4LaunchIssuesEn } from '@/lib/mw4-launch-issues';
 import { gearsWardogsArticlesEn } from '@/lib/gears-wardogs-articles';
 import { octoberStabilityArticlesEn } from '@/lib/october-stability-articles';
 import { englishHomeCopy, englishDirectoryCopy } from '@/lib/localized/home-copy-en';
@@ -341,6 +342,7 @@ export function ogCardSpecs(): OgCardSpec[] {
       items: article.steps.slice(0, 4).map((step) => step.title),
     })),
     ...[
+      'call-of-duty-modern-warfare-4',
       'aniimo',
       'ace-combat-8',
       'planet-zoo-2',
@@ -471,6 +473,7 @@ export function ogCardSpecs(): OgCardSpec[] {
       ...aionGearsEn,
       ...fallReleaseEn,
       ...codMw4En,
+  ...mw4LaunchIssuesEn,
       ...dqmDemoEn,
       ...upcomingLaunchEn,
       ...starWarsBacklogEn,

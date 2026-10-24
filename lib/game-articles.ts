@@ -11,6 +11,7 @@ import { currentGameArticles } from '@/lib/current-game-articles';
 import { newReleaseArticles } from '@/lib/new-release-articles';
 import { launchWeekArticles } from '@/lib/launch-week-articles';
 import { fallReleaseArticles } from '@/lib/fall-release-articles';
+import { mw4LaunchIssues } from '@/lib/mw4-launch-issues';
 import { codMw4Articles } from '@/lib/cod-mw4-articles';
 import { octoberReleaseArticles } from '@/lib/october-release-articles';
 import { upcomingReleaseArticles } from '@/lib/upcoming-release-articles';
@@ -989,6 +990,7 @@ export const gameArticles: GameArticle[] = [
   ...launchWeekArticles,
   ...fallReleaseArticles,
   ...codMw4Articles,
+  ...mw4LaunchIssues,
   ...octoberReleaseArticles,
   ...upcomingReleaseArticles,
   ...classicGameArticles,

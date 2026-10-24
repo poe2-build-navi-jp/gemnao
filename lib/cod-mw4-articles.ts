@@ -41,7 +41,7 @@ const sources = {
   },
   knownIssues: {
     label:
-      'Activision公式サポート：Modern Warfare 4の既知の不具合（英語・10月22日更新）',
+      'Activision公式サポート：Modern Warfare 4の既知の不具合（英語・10月23日更新）',
     url: 'https://support.activision.com/modern-warfare-4/articles/known-issues-in-modern-warfare-4',
   },
   launchPatch: {
@@ -274,7 +274,7 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
         url: 'https://support.microsoft.com/ja-jp/windows/security/devicesecurity/windows-11-and-secure-boot',
       },
     ],
-    related: [],
+    related: ['xbox-pc-launch-button', 'loadout-not-saving', 'stats-not-showing'],
     metaDescription:
       'CoD MW4（Modern Warfare 4）がPCで起動しない・遊べない時の対処法。必須のTPM 2.0とセキュアブートの確認（tpm.msc・msinfo32）とBIOSでの有効化、MBR形式の場合、UACの確認、Activisionなど対象アカウントの電話番号認証まで公式の案内をもとに解説。',
   },
@@ -294,7 +294,7 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
     symptom:
       'PC版で起動直後やマルチプレイ中に落ちる、フリーズする、XBOX on PC版でキャンペーンやDMZを起動するボタンが出ない場合の確認手順です。',
     conclusion:
-      'Activision公式は、PCのクラッシュは起動時と公開マッチのマルチプレイ中に起きやすいと説明しています。まず公式の推奨ドライバー（NVIDIA 616.56、AMD 26.7.1、Intel 32.0.101.8974）に合わせ、録画ソフト・オーバーレイ・キー割り当てソフトを終了します。それでも落ちる場合は、公式が案内しているとおり、これらのソフトのアンインストールを試します。XBOX on PC版でキャンペーンやDMZのボタンが出ない問題は公式が調査中で、「Content Pack 1」の導入とMicrosoft Storeのデバイス数（上限10台）の確認が案内されています。',
+      'Activision公式は、PCのクラッシュは起動時と公開マッチのマルチプレイ中に起きやすいと説明しています。まず公式の推奨ドライバー（NVIDIA 616.56、AMD 26.7.1、Intel 32.0.101.8974）に合わせ、録画ソフト・オーバーレイ・キー割り当てソフトを終了します。それでも落ちる場合は、公式が案内しているとおり、これらのソフトのアンインストールを試します。XBOX on PC版で起動ボタン自体がない場合は、クラッシュとは分けて専用記事の対象範囲と確認項目を見てください。',
     description:
       'TPM 2.0やセキュアブートの要件を満たしていない場合は、落ちるのではなくオンラインモードに入れません。その場合は「TPM 2.0とセキュアブート」の記事を先に確認してください。この記事は、要件を満たしたうえで落ちる・止まる場合が対象です。',
     causes: [
@@ -302,7 +302,7 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
       '録画ソフト・オーバーレイ・キー割り当て（入力リマップ）ソフトとの競合（起動していなくても影響する場合がある）',
       'PCが動作環境を満たしていない（AVX命令に対応したIntel・AMDのCPUのみ対応、Intel ArcはResizable BARが必要）',
       'PCやノートPCの熱',
-      'XBOX on PC版で「Content Pack 1」が入っていない、Microsoft Storeのデバイス数が上限',
+      'XBOX on PC版の起動ボタンがない別症状（専用記事で切り分け）',
     ],
     quickFacts: [
       {
@@ -343,8 +343,8 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
         stepId: 'step-3',
       },
       {
-        symptom: 'XBOX on PC版でキャンペーン・DMZのボタンがない',
-        cause: 'Content Pack 1・デバイス数',
+        symptom: 'XBOX on PC版で起動ボタンがない',
+        cause: '未導入コンテンツ・デバイス登録数の確認',
         stepId: 'step-4',
       },
       {
@@ -404,14 +404,15 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
       },
       {
         id: 'step-4',
+        guideLink: { href: '/games/call-of-duty-modern-warfare-4/xbox-pc-launch-button', label: 'Xbox PC版の起動ボタンがない時の確認', description: '対象範囲と公式の確認項目を分けて確認します。' },
         title:
-          'XBOX on PC版でキャンペーン・DMZのボタンが出ない時は、Content Pack 1とデバイス数を確認する',
+          'XBOX on PC版で起動ボタンが出ない時は、専用記事の確認項目を使う',
         summary:
-          '一部のXBOX on PC版で、インストール後にCOD Homeからキャンペーン・DMZを起動できない問題を公式が調査中です（10月22日時点）。',
+          'COD Homeの起動ボタンがない症状は、起動後のクラッシュとは分けて扱います。対象と確認項目は専用記事へ進んでください。',
         time: '約10分',
         risk: 'low',
         actions: [
-          '起動する前に「Call of Duty: Modern Warfare 4 - Content Pack 1」がインストールされているか確認する',
+          '未導入のMW4 Content Packsを確認する。番号を限定せず公式の現行案内と照合する',
           'Microsoft Storeのデバイス管理で、登録しているデバイスが上限の10台を超えていないか確認する',
         ],
       },
@@ -434,7 +435,7 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
         id: 'step-6',
         title: '公式が調査中の不具合を確認する',
         summary:
-          '次の問題は、公式の「既知の不具合」に載っている調査中のものです（10月22日更新）。PCの設定では直らないため、修正を待ちます。',
+          '以下の項目は10月23日更新の既知問題に掲載されています。一般的なPC設定変更で解消すると断定せず、各項目の案内と更新を確認します。',
         time: '約3分',
         risk: 'low',
         actions: [
@@ -477,9 +478,9 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
       sources.launchPatch,
       sources.connecting,
     ],
-    related: ['tpm-secure-boot'],
+    related: ['tpm-secure-boot', 'xbox-pc-launch-button', 'loadout-not-saving', 'stats-not-showing'],
     nextChecks: {
-      heading: 'セキュリティ要件の通知が出る場合',
+      heading: '症状別の確認へ',
       links: [
         {
           href: '/games/call-of-duty-modern-warfare-4/tpm-secure-boot',
@@ -488,7 +489,7 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
       ],
     },
     metaDescription:
-      'CoD MW4（Modern Warfare 4）がPCで落ちる・クラッシュする・フリーズする時の対処法。公式の推奨GPUドライバー（NVIDIA 616.56・AMD 26.7.1・Intel 32.0.101.8974）、録画ソフト・オーバーレイの停止、XBOX on PC版でキャンペーン・DMZのボタンが出ない時の確認、公式が調査中の既知の不具合まで解説。',
+      'CoD MW4（Modern Warfare 4）がPCで落ちる・クラッシュする・フリーズする時の対処法。公式の推奨GPUドライバー（NVIDIA 616.56・AMD 26.7.1・Intel 32.0.101.8974）、録画ソフト・オーバーレイの停止、XBOX on PC版で起動ボタンが出ない時の確認、公式が調査中の既知の不具合まで解説。',
     ogTitle: 'CoD MW4がPCで落ちる時の対処法',
     ogSteps: [
       '推奨ドライバーにする',

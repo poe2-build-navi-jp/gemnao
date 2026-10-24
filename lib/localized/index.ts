@@ -1,3 +1,4 @@
+import { mw4LaunchIssuesEn } from '@/lib/mw4-launch-issues';
 import { gearsWardogsArticlesEn } from '@/lib/gears-wardogs-articles';
 import { octoberStabilityArticlesEn } from '@/lib/october-stability-articles';
 import { remainingPagesEn } from './remaining-pages-en';
@@ -65,6 +66,7 @@ export const localizedArticles: LocalizedArticle[] = [
   ...aionGearsEn,
   ...fallReleaseEn,
   ...codMw4En,
+  ...mw4LaunchIssuesEn,
   ...dqmDemoEn,
   ...upcomingLaunchEn,
   ...starWarsBacklogEn,

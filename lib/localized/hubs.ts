@@ -51,6 +51,16 @@ const store = (appId: string): LocalizedHub['sources'][number] => ({
 
 export const localizedHubs: Record<string, LocalizedHub> = {
   ...remainingHubsEn,
+  'call-of-duty-modern-warfare-4': {
+    focused: true,
+    names: { en: 'Call of Duty: Modern Warfare 4' },
+    title: { en: 'MW4 PC Help: Launch Button, Loadouts, Stats and Security Requirements' },
+    checkedAt: '2026-10-24',
+    lead: { en: 'Choose the screen or action that is failing before changing PC settings.' },
+    intro: { en: 'Use the dedicated launch-button, loadout and stats guides for status checks and reporting. TPM and Secure Boot have a separate requirements guide. None of these pages promises an individual fix.' },
+    checklist: { en: ['Missing Xbox PC launch button', 'Multiplayer loadout saving', 'Combat Record and Leaderboards', 'Separate TPM and Secure Boot requirements'] },
+    sources: [{ label: { en: 'Activision: current MW4 known issues' }, url: 'https://support.activision.com/uk/en/modern-warfare-4/articles/known-issues-in-modern-warfare-4' }],
+  },
   'gears-of-war-e-day': {
     focused: true,
     names: { en: 'Gears of War: E-Day' },
