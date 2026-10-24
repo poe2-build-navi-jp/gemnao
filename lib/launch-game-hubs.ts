@@ -204,8 +204,8 @@ export const launchGameGuides: GameGuide[] = [
       recommended: '',
       storage: '',
     },
-    hubTitle: 'Battlefield 6のJavelin 94・Secure Boot確認ガイド【PC版】',
-    lead: 'Javelin (94)とSecure Bootの要求は別の確認です。94はEA app起動と導入先、Secure BootはWindowsのOn・UEFIから確認します。',
+    hubTitle: 'Battlefield 6の更新後クラッシュ・蘇生・起動エラー確認ガイド',
+    lead: '更新後クラッシュ、BRの蘇生表示、Javelin (94)とSecure Bootの要求を分けて確認します。94はEA app起動と導入先、Secure BootはWindowsのOn・UEFIから確認します。',
     updated: '2026-10-13',
     tags: [
       'Javelin 94',
@@ -495,7 +495,7 @@ export const launchLocalizedHubs: Record<string, LocalizedHub> = {
       es: 'Battlefield 6',
     },
     title: {
-      en: 'Battlefield 6: Javelin 94 and Secure Boot Launch Checks',
+      en: 'Battlefield 6: Update Crashes, Revives and Launch Errors',
       zh: 'Battlefield 6：Javelin 94 与安全启动检查',
       es: 'Battlefield 6: Javelin 94 y comprobación de Secure Boot',
     },
