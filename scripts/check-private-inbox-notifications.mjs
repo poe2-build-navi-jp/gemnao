@@ -46,7 +46,7 @@ try {
   const env = {
     DB: db,
     INBOX_NOTIFY_ENABLED: 'true',
-    INBOX_NOTIFY_TOKEN_SHA256: verifier,
+    INBOX_NOTIFY_READ_TOKEN_HASH_V2: verifier,
   };
   const request = (
     cursor,
@@ -63,6 +63,28 @@ try {
       },
     });
   assert.equal((await handle(request(), {})).status, 404);
+  // Legacy-only configuration must fail closed; it is never an auth fallback.
+  const legacyOnly = {
+    DB: db,
+    INBOX_NOTIFY_ENABLED: 'true',
+    INBOX_NOTIFY_TOKEN_SHA256: verifier,
+  };
+  assert.equal((await handle(request(), legacyOnly)).status, 401);
+  assert.equal(
+    (
+      await handle(request(), {
+        ...legacyOnly,
+        INBOX_NOTIFY_READ_TOKEN_HASH_V2: 'b'.repeat(64),
+      })
+    ).status,
+    401,
+  );
+  assert.equal(
+    calls,
+    0,
+    'Missing or invalid V2 verifier must not reach D1, even with a valid old setting',
+  );
+
   assert.equal(
     (
       await handle(
@@ -117,7 +139,10 @@ try {
   );
   assert.equal((await handle(request('broken'), env)).status, 400);
   assert.equal(calls, 0, 'No unauthenticated DB read');
-  let response = await handle(request(), env);
+  let response = await handle(request(), {
+    ...env,
+    INBOX_NOTIFY_TOKEN_SHA256: 'b'.repeat(64),
+  });
   assert.equal(response.headers.get('cache-control'), 'no-store');
   assert.equal(response.headers.get('access-control-allow-origin'), null);
   const first = await response.json();
