@@ -46,6 +46,7 @@ export const valorantVan9003Guide: FollowupGuide = {
   ],
   copy: {
     ja: {
+      checkedAt: '2026-10-24',
       title: 'VALORANTのVAN9003：セキュアブートの状態確認と次の手順',
       shortTitle: 'VAN9003・セキュアブート',
       description:
@@ -156,6 +157,7 @@ export const valorantVan9003Guide: FollowupGuide = {
         'Vanguardやウイルス対策を無効にして回避しない',
       ],
       cautions: [
+        'VAN9003はSecure Boot要件の通知です。最近のパッチの不具合とは断定しません。回復キーは本人が安全に保管し、このサイトやチャットには貼らないでください。',
         '回復キーや機種別手順が不明なら設定変更を止め、管理者・メーカーへ相談します。',
         'Windows 11以外でも、表示されたエラーと現行のRiot要件を確認します。OS名だけで要否を決めません。',
       ],
@@ -172,6 +174,10 @@ export const valorantVan9003Guide: FollowupGuide = {
         },
       ],
       related: [
+        {
+          href: '/games/valorant/stuck-loading',
+          label: 'ロード画面で止まる：PC版の切り分け',
+        },
         {
           href: '/games/valorant/van-restriction-5',
           label: 'VAN RESTRICTION 5：HVCIの確認',
@@ -195,6 +201,7 @@ export const valorantVan9003Guide: FollowupGuide = {
       ],
     },
     en: {
+      checkedAt: '2026-10-24',
       title: 'VALORANT VAN9003: Check Secure Boot and Choose the Next Step',
       shortTitle: 'VAN9003 and Secure Boot',
       description:
@@ -306,6 +313,7 @@ export const valorantVan9003Guide: FollowupGuide = {
         'Do not disable Vanguard or antivirus protection to bypass the error',
       ],
       cautions: [
+        'VAN9003 is a Secure Boot requirement message, not evidence of a new patch bug. Keep your recovery key privately accessible; never paste it into this site or a chat.',
         'Stop before firmware changes if recovery-key access or model instructions are missing. Ask the administrator or manufacturer.',
         'On other Windows versions too, follow the displayed error and current Riot requirements; the OS name alone does not settle the requirement.',
       ],
@@ -322,6 +330,10 @@ export const valorantVan9003Guide: FollowupGuide = {
         },
       ],
       related: [
+        {
+          href: '/en/games/valorant/stuck-loading',
+          label: 'Stuck loading: PC checks',
+        },
         {
           href: '/en/games/valorant/van-restriction-5',
           label: 'VAN RESTRICTION 5: HVCI checks',
@@ -648,6 +660,7 @@ export const valorantVan9003Guide: FollowupGuide = {
     },
   },
   relatedSlugs: [
+    'stuck-loading',
     'van-restriction-5',
     'van9005',
     'van9001',

@@ -3,7 +3,7 @@ import type { Locale } from '@/lib/i18n';
 import type { LocalizedArticle } from '@/lib/localized/types';
 
 export type FollowupLanguage = 'ja' | Locale;
-export type FollowupCopy = Pick<
+export type FollowupCopy = { checkedAt?: string } & Pick<
   LocalizedArticle,
   | 'title'
   | 'shortTitle'
@@ -36,7 +36,7 @@ export function japaneseFollowup(guide: FollowupGuide): GameArticle {
     slug: guide.slug,
     category: guide.category,
     status: 'verified',
-    checkedAt: guide.checkedAt,
+    checkedAt: copy.checkedAt ?? guide.checkedAt,
     title: copy.title,
     seoTitle: copy.title,
     shortTitle: copy.shortTitle,
@@ -74,7 +74,7 @@ export function translatedFollowups(guide: FollowupGuide): LocalizedArticle[] {
     gameSlug: guide.gameSlug,
     gameName: guide.gameName,
     slug: guide.slug,
-    checkedAt: guide.checkedAt,
+    checkedAt: guide.copy[locale].checkedAt ?? guide.checkedAt,
     sources: guide.sources.map((source) => ({
       url: source.url,
       label: source.labels[locale],

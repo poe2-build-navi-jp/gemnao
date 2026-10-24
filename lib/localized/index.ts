@@ -1,3 +1,4 @@
+import { valorantLoadingEn } from '@/lib/valorant-loading';
 import { mw4LaunchIssuesEn } from '@/lib/mw4-launch-issues';
 import { gearsWardogsArticlesEn } from '@/lib/gears-wardogs-articles';
 import { octoberStabilityArticlesEn } from '@/lib/october-stability-articles';
@@ -67,6 +68,7 @@ export const localizedArticles: LocalizedArticle[] = [
   ...fallReleaseEn,
   ...codMw4En,
   ...mw4LaunchIssuesEn,
+  ...valorantLoadingEn,
   ...dqmDemoEn,
   ...upcomingLaunchEn,
   ...starWarsBacklogEn,
