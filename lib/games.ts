@@ -40,11 +40,11 @@ export const games: GameGuide[] = [
   "slug": "planet-zoo-2",
   "title": "Planet Zoo 2",
   "shortTitle": "Planet Zoo 2",
-  "hubTitle": "Planet Zoo 2のクラッシュ・オートセーブ不具合",
-  "lead": "動物解放時に落ちる、ハブ移動後にオートセーブされない時の案内。10月20日の修正テストと配信済み更新を分け、手動保存とMy Savesの公式回避策を確認します。",
+  "hubTitle": "Planet Zoo 2のセーブ・Resume接続エラーとクラッシュ",
+  "lead": "1.0.6のオートセーブ・特定の動物放流クラッシュ修正と、1.0.7のFranchise Resume接続エラー修正を区別します。まず更新を確認し、セーブフォルダーを削除しないでください。",
   "accent": "#388464",
   "demand": "Steamストア掲載の発売日：2026年10月13日",
-  "updated": "2026-10-22",
+  "updated": "2026-10-24",
   "tags": [
     "クラッシュ",
     "オートセーブ",
@@ -58,9 +58,9 @@ export const games: GameGuide[] = [
   "hdr": "",
   "controller": "",
   "launchFixes": [
-    "手動保存をこまめに行う",
-    "メインメニューのMy Savesからロードする",
-    "修正テスト中の項目と実際の配信版を照合する"
+    "現在版と更新完了を確認する",
+    "1.0.6と1.0.7の修正対象を分ける",
+    "セーブを削除せず、残る症状を記録する"
   ],
   "mod": "",
   "japanese": "日本語のインターフェース・字幕・音声に対応（Steamストア）。",
@@ -71,7 +71,7 @@ export const games: GameGuide[] = [
   },
   "sources": [
     {
-      "label": "公式Steam告知：10月20日 Under Investigation／10月16日1.0.5",
+      "label": "公式Steam：10/23の1.0.6・1.0.7",
       "url": "https://steamcommunity.com/app/3219030/allnews/"
     },
     {
