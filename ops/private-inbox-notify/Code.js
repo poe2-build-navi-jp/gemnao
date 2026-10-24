@@ -20,7 +20,9 @@ function runInboxCheck(send) {
     const headers = { Authorization: 'Bearer ' + token };
     if (previous) headers['X-Inbox-Cursor'] = previous;
     const response = UrlFetchApp.fetch(INBOX_ENDPOINT, { method:'get', headers, followRedirects:false, muteHttpExceptions:true });
-    if (response.getResponseCode() !== 200) return 'read-failed';
+    const status = response.getResponseCode();
+    if ([400,401,403].includes(status)) { p.setProperty('NOTIFY_ENABLED','false'); return 'authorization-or-cursor-stopped'; }
+    if (status !== 200) return 'read-failed';
     const text = response.getContentText();
     if (text.length > 512) return 'invalid-response';
     const data = JSON.parse(text);
