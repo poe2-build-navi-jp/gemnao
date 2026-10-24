@@ -37,6 +37,7 @@ export const valorantLaunchGuide: FollowupGuide = {
   ],
   copy: {
     ja: {
+      checkedAt: '2026-10-24',
       title: 'VALORANTが起動しない・VAN番号なし｜Riot Client修復と次の確認',
       shortTitle: 'VAN番号なし・起動しない',
       description:
@@ -160,7 +161,9 @@ export const valorantLaunchGuide: FollowupGuide = {
         'ウイルス対策・Vanguardを無効化して回避しない',
         'サービス削除、任意DLL/.sys取得・削除をしない',
       ],
-      cautions: [],
+      cautions: [
+        'ゲーム画面が開いた後にロードで止まる場合は、下のロード専用記事へ。ダウンロードが0%で止まる更新問題やVAN番号とは分けます。症状だけで保護機能を停止したり、レジストリを変更しません。',
+      ],
       faqs: [
         {
           question: 'VAN番号がなくてもTPMを変更しますか？',
@@ -174,6 +177,10 @@ export const valorantLaunchGuide: FollowupGuide = {
         },
       ],
       related: [
+        {
+          href: '/games/valorant/stuck-loading',
+          label: 'ロード画面で止まる：PC版の切り分け',
+        },
         {
           href: '/games/valorant/van-restriction-5',
           label: 'VAN RESTRICTION 5：HVCIの確認',
@@ -193,6 +200,7 @@ export const valorantLaunchGuide: FollowupGuide = {
       ],
     },
     en: {
+      checkedAt: '2026-10-24',
       title:
         'VALORANT Will Not Launch Without a VAN Code: Riot Client Repair and Next Checks',
       shortTitle: 'No VAN code: launch failure',
@@ -318,7 +326,9 @@ export const valorantLaunchGuide: FollowupGuide = {
         'Do not disable antivirus or Vanguard as a workaround',
         'Do not delete services or fetch/delete arbitrary DLL/.sys files',
       ],
-      cautions: [],
+      cautions: [
+        'If the game opens but loading stalls, use the loading guide below. An update download stuck at 0% and a VAN code are different branches. Do not disable protection or edit the registry based on this symptom alone.',
+      ],
       faqs: [
         {
           question: 'Should I change TPM without a VAN number?',
@@ -332,6 +342,10 @@ export const valorantLaunchGuide: FollowupGuide = {
         },
       ],
       related: [
+        {
+          href: '/en/games/valorant/stuck-loading',
+          label: 'Stuck loading: PC checks',
+        },
         {
           href: '/en/games/valorant/van-restriction-5',
           label: 'VAN RESTRICTION 5: HVCI checks',
@@ -664,5 +678,11 @@ export const valorantLaunchGuide: FollowupGuide = {
       ],
     },
   },
-  relatedSlugs: ['van-restriction-5', 'van9005', 'van9003', 'van9001'],
+  relatedSlugs: [
+    'stuck-loading',
+    'van-restriction-5',
+    'van9005',
+    'van9003',
+    'van9001',
+  ],
 };
