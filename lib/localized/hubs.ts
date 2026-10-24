@@ -50,6 +50,15 @@ const store = (appId: string): LocalizedHub['sources'][number] => ({
 });
 
 export const localizedHubs: Record<string, LocalizedHub> = {
+  enshrouded: {
+    focused: true, noindex: true,
+    names: { en: 'Enshrouded' },
+    title: { en: 'Enshrouded: Black Screens, Multiplayer Loading and Save Migration' },
+    checkedAt: '2026-10-24',
+    lead: { en: 'Start with the installed update, then separate loading and save-conversion symptoms.' },
+    intro: { en: 'The 1.0.0.3 guide explains the published fixes, migration limitations and safe checks. It does not promise to repair every connection or recover every save.' },
+    sources: [{ label: { en: 'Official Hotfix 1.0.0.3 changelog' }, url: 'https://enshrouded.com/en-US/news/changelog-for-hotfix-1003' }],
+  },
   ...remainingHubsEn,
   'call-of-duty-modern-warfare-4': {
     focused: true,
