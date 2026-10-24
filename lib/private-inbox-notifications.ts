@@ -2,7 +2,7 @@ import { timingSafeEqual } from 'node:crypto';
 export type InboxNotifyEnv = {
   DB?: D1Database;
   INBOX_NOTIFY_ENABLED?: string;
-  INBOX_NOTIFY_TOKEN_SHA256?: string;
+  INBOX_NOTIFY_READ_TOKEN_HASH_V2?: string;
 };
 const headers = {
   'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ export async function handleInboxNotifications(
   const token = request.headers
     .get('authorization')
     ?.match(/^Bearer ([a-f0-9]{64})$/)?.[1];
-  const verifier = env.INBOX_NOTIFY_TOKEN_SHA256;
+  const verifier = env.INBOX_NOTIFY_READ_TOKEN_HASH_V2;
   if (!token || !verifier || !/^[a-f0-9]{64}$/.test(verifier))
     return reply({ error: 'unauthorized' }, 401);
   if (
