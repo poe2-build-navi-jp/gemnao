@@ -167,6 +167,14 @@ export const battlefieldSecureBootGuide: FollowupGuide = {
       ],
       related: [
         {
+          href: '/games/battlefield-6/crash-after-update',
+          label: '更新後のクラッシュ',
+        },
+        {
+          href: '/games/battlefield-6/cannot-revive',
+          label: 'BRで蘇生できない',
+        },
+        {
           href: '/games/battlefield-6/javelin-error-94',
           label: 'Javelinエラー94',
         },
@@ -295,6 +303,14 @@ export const battlefieldSecureBootGuide: FollowupGuide = {
         },
       ],
       related: [
+        {
+          href: '/en/games/battlefield-6/crash-after-update',
+          label: 'Crashes after updating',
+        },
+        {
+          href: '/en/games/battlefield-6/cannot-revive',
+          label: 'Cannot revive in Battle Royale',
+        },
         {
           href: '/en/games/battlefield-6/javelin-error-94',
           label: 'Javelin error 94',
@@ -557,5 +573,5 @@ export const battlefieldSecureBootGuide: FollowupGuide = {
       ],
     },
   },
-  relatedSlugs: ['javelin-error-94'],
+  relatedSlugs: ['crash-after-update', 'cannot-revive', 'javelin-error-94'],
 };

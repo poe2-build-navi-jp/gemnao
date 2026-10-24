@@ -1,3 +1,4 @@
+import { bf6UpdateIssuesEn } from '@/lib/bf6-update-issues';
 import { mw4LaunchIssuesEn } from '@/lib/mw4-launch-issues';
 import { gearsWardogsArticlesEn } from '@/lib/gears-wardogs-articles';
 import { octoberStabilityArticlesEn } from '@/lib/october-stability-articles';
@@ -474,6 +475,7 @@ export function ogCardSpecs(): OgCardSpec[] {
       ...fallReleaseEn,
       ...codMw4En,
   ...mw4LaunchIssuesEn,
+  ...bf6UpdateIssuesEn,
       ...dqmDemoEn,
       ...upcomingLaunchEn,
       ...starWarsBacklogEn,

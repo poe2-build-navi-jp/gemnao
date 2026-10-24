@@ -148,6 +148,14 @@ export const battlefieldJavelin94Guide: FollowupGuide = {
       ],
       related: [
         {
+          href: '/games/battlefield-6/crash-after-update',
+          label: '更新後のクラッシュ',
+        },
+        {
+          href: '/games/battlefield-6/cannot-revive',
+          label: 'BRで蘇生できない',
+        },
+        {
           href: '/games/battlefield-6/secure-boot-enabled-not-launching',
           label: 'Secure Boot有効でも起動しない',
         },
@@ -274,6 +282,14 @@ export const battlefieldJavelin94Guide: FollowupGuide = {
         },
       ],
       related: [
+        {
+          href: '/en/games/battlefield-6/crash-after-update',
+          label: 'Crashes after updating',
+        },
+        {
+          href: '/en/games/battlefield-6/cannot-revive',
+          label: 'Cannot revive in Battle Royale',
+        },
         {
           href: '/en/games/battlefield-6/secure-boot-enabled-not-launching',
           label: 'Secure Boot On but launch blocked',
@@ -534,5 +550,9 @@ export const battlefieldJavelin94Guide: FollowupGuide = {
       ],
     },
   },
-  relatedSlugs: ['secure-boot-enabled-not-launching'],
+  relatedSlugs: [
+    'crash-after-update',
+    'cannot-revive',
+    'secure-boot-enabled-not-launching',
+  ],
 };

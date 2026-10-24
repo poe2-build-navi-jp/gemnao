@@ -1,3 +1,4 @@
+import { bf6UpdateIssues } from '@/lib/bf6-update-issues';
 import { gearsWardogsArticles } from '@/lib/gears-wardogs-articles';
 import { octoberStabilityArticles } from '@/lib/october-stability-articles';
 import { arcRaidersArticles } from '@/lib/arc-raiders';
@@ -991,6 +992,7 @@ export const gameArticles: GameArticle[] = [
   ...fallReleaseArticles,
   ...codMw4Articles,
   ...mw4LaunchIssues,
+  ...bf6UpdateIssues,
   ...octoberReleaseArticles,
   ...upcomingReleaseArticles,
   ...classicGameArticles,
