@@ -121,6 +121,11 @@ try {
       .first();
     await expect(saved).toHaveAttribute('aria-pressed', 'true');
     await saved.click();
+    await saved.click();
+    await expect(saved).toHaveAttribute('aria-pressed', 'true');
+    await page
+      .locator('#my-game-elden-ring .my-games-card-heading button')
+      .click();
     await expect(saved).toHaveAttribute('aria-pressed', 'false');
     await saved.click();
     await expect(saved).toHaveAttribute('aria-pressed', 'true');

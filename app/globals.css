@@ -6822,3 +6822,13 @@ a.my-games-primary {
 
 .diagnosis-download { overflow-wrap: anywhere; }
 .localized-hero { display: block; }
+
+/* My Games feedback: wording and live regions distinguish each state without color alone. */
+.my-games-notice { flex-basis: 100%; font-size: 14px; }
+.my-games-notice > :not(:empty) { padding: 10px 12px; border: 1px solid currentColor; border-radius: 8px; }
+.my-games-notice[data-kind="success"] { color: #14532d; background: #f0fdf4; }
+.my-games-notice[data-kind="error"] { color: #7f1d1d; background: #fef2f2; }
+.my-games-notice[data-kind="warning"] { color: #713f12; background: #fffbeb; }
+.my-games-notice[data-kind="info"] { color: #1e3a5f; background: #eff6ff; }
+
+.my-games-notice > output { display: block; color: inherit; }

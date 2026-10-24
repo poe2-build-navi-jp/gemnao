@@ -10,7 +10,11 @@ import { GameSettingsSnapshots } from '@/components/game-settings-snapshots';
 import { gameChangesCopy } from '@/lib/my-game-changes-copy';
 import { Check, Plus, Gamepad2, ArrowRight } from 'lucide-react';
 import { useMyGames } from '@/components/use-my-pc';
-import { MY_GAMES_KEY } from '@/lib/my-pc';
+import {
+  changeMyGames,
+  type MyGamesNotice as Notice,
+} from '@/lib/my-games-selection';
+import { MyGamesNotice } from '@/components/my-games-notice';
 import { trackMyGameAdded } from '@/lib/analytics';
 import { myGamesCopy, type MyGamesLocale } from '@/lib/my-games-copy';
 import type { SavedGameChoice } from '@/lib/my-games-data';
@@ -26,7 +30,7 @@ export function MyGamesPanel({
   const t = myGamesCopy[locale];
   const [saved, save, ready] = useMyGames();
   const [query, setQuery] = useState('');
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState<Notice | null>(null);
   const [news, setNews] = useState<News>({});
   const mine = games.filter((game) => saved.includes(game.slug));
   const matches = games.filter((game) =>
@@ -49,35 +53,10 @@ export function MyGamesPanel({
       .catch(() => undefined);
     return () => controller.abort();
   }, [newsKey]);
-  function toggle(slug: string) {
-    try {
-      const value: unknown = JSON.parse(
-        localStorage.getItem(MY_GAMES_KEY) || '[]',
-      );
-      if (
-        !Array.isArray(value) ||
-        !value.every((item) => typeof item === 'string')
-      )
-        throw new Error(t.corrupt);
-      const current = [...new Set(value as string[])];
-      const removing = current.includes(slug);
-      if (!removing && current.length >= 10) {
-        setMessage(t.limit);
-        return;
-      }
-      if (
-        !save(
-          removing
-            ? current.filter((item) => item !== slug)
-            : [...current, slug],
-        )
-      )
-        throw new Error(t.error);
-      if (!removing) trackMyGameAdded();
-      setMessage(removing ? t.removed : t.success);
-    } catch (error) {
-      setMessage(error instanceof Error ? error.message : t.error);
-    }
+  function change(slug: string, operation: 'add' | 'remove') {
+    const result = changeMyGames(() => localStorage, save, slug, operation);
+    setMessage(result);
+    if (result.added) trackMyGameAdded();
   }
   function links(game: SavedGameChoice) {
     return (
@@ -145,7 +124,7 @@ export function MyGamesPanel({
               type="button"
               aria-pressed={saved.includes(game.slug)}
               disabled={!ready}
-              onClick={() => toggle(game.slug)}
+              onClick={() => change(game.slug, 'add')}
             >
               <span>{game.name}</span>
               <small>
@@ -165,9 +144,7 @@ export function MyGamesPanel({
             <a href="#game-request">{t.requestGame} →</a>
           </div>
         ) : null}
-        <output className="my-games-message" aria-live="polite">
-          {message}
-        </output>
+        <MyGamesNotice notice={message} locale={locale} />
         {ready && mine.length ? (
           <a className="my-games-view" href="#my-feed">
             {t.return} ({mine.length}) ↓
@@ -192,7 +169,7 @@ export function MyGamesPanel({
                   <h3>{game.name}</h3>
                   <button
                     type="button"
-                    onClick={() => toggle(game.slug)}
+                    onClick={() => change(game.slug, 'remove')}
                     aria-label={`${t.remove}: ${game.name}`}
                   >
                     {t.remove}

@@ -3,7 +3,11 @@
 import { useState } from 'react';
 import { Check, Gamepad2 } from 'lucide-react';
 import { useMyGames } from '@/components/use-my-pc';
-import { MY_GAMES_KEY } from '@/lib/my-pc';
+import {
+  changeMyGames,
+  type MyGamesNotice as Notice,
+} from '@/lib/my-games-selection';
+import { MyGamesNotice } from '@/components/my-games-notice';
 import { trackMyGameAdded } from '@/lib/analytics';
 import {
   myGamesCopy,
@@ -20,7 +24,7 @@ export function SaveGame({
 }) {
   const t = myGamesCopy[locale];
   const [myGames, saveGames, ready] = useMyGames();
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState<Notice | null>(null);
   const saved = myGames.includes(slug);
   return (
     <div className="save-game my-pc-actions">
@@ -29,35 +33,14 @@ export function SaveGame({
         aria-pressed={saved}
         disabled={!ready}
         onClick={() => {
-          try {
-            // Read at click time so another component/tab's latest choices survive.
-            const value: unknown = JSON.parse(
-              localStorage.getItem(MY_GAMES_KEY) || '[]',
-            );
-            if (
-              !Array.isArray(value) ||
-              !value.every((item) => typeof item === 'string')
-            )
-              throw new Error(t.corrupt);
-            const current = [...new Set(value as string[])];
-            const removing = current.includes(slug);
-            if (!removing && current.length >= 10) {
-              setMessage(t.limit);
-              return;
-            }
-            if (
-              !saveGames(
-                removing
-                  ? current.filter((item) => item !== slug)
-                  : [...current, slug],
-              )
-            )
-              throw new Error(t.error);
-            if (!removing) trackMyGameAdded();
-            setMessage(removing ? t.removed : t.success);
-          } catch (error) {
-            setMessage(error instanceof Error ? error.message : t.error);
-          }
+          const result = changeMyGames(
+            () => localStorage,
+            saveGames,
+            slug,
+            'add',
+          );
+          setMessage(result);
+          if (result.added) trackMyGameAdded();
         }}
       >
         {saved ? (
@@ -65,7 +48,7 @@ export function SaveGame({
         ) : (
           <Gamepad2 size={18} aria-hidden="true" />
         )}
-        {saved ? `${t.selected} · ${t.remove}` : `${t.name} · ${t.add}`}
+        {saved ? t.selected : `${t.name} · ${t.add}`}
       </button>
       <a href={`${myGamesPath(locale)}#my-feed`}>{t.return} →</a>
       <small className="save-game-benefit">
@@ -77,7 +60,7 @@ export function SaveGame({
               ? '下次直接打开这款游戏的解决方法。无需账号，仅保存在当前浏览器。'
               : 'Ten a mano las soluciones de este juego. Sin cuenta. Solo en este navegador.'}
       </small>
-      <output aria-live="polite">{message}</output>
+      <MyGamesNotice notice={message} locale={locale} />
     </div>
   );
 }

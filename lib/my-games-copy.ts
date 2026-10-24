@@ -4,6 +4,15 @@ export const myGamesPath = (locale: MyGamesLocale) =>
   `${locale === 'ja' ? '' : `/${locale}`}/my-games`;
 export const myGamesCopy = {
   ja: {
+    already:
+      'すでに保存済みです。外す場合はマイゲーム一覧の「外す」を使ってください。',
+    absent: 'すでに一覧から外れています。',
+    noticeLabels: {
+      success: '完了',
+      error: '保存できません',
+      warning: '上限',
+      info: '変更なし',
+    },
     requestGame: '見つからないゲームの追加をリクエストする',
     title: '遊ぶゲームの対処法を、自分の一覧に。',
     name: 'マイゲーム',
@@ -44,6 +53,14 @@ export const myGamesCopy = {
     count: '保存済み',
   },
   en: {
+    already: 'Already saved. To remove it, use Remove in your My Games list.',
+    absent: 'Already removed from your list.',
+    noticeLabels: {
+      success: 'Done',
+      error: 'Could not save',
+      warning: 'Limit reached',
+      info: 'No change',
+    },
     requestGame: 'Request a game that is missing',
     title: 'Your games. Their fixes. One place.',
     name: 'My Games',
@@ -85,6 +102,14 @@ export const myGamesCopy = {
     count: 'saved',
   },
   zh: {
+    already: '已保存。如需移除，请使用“我的游戏”列表中的“移除”。',
+    absent: '已从列表中移除。',
+    noticeLabels: {
+      success: '已完成',
+      error: '无法保存',
+      warning: '达到上限',
+      info: '未更改',
+    },
     requestGame: '申请添加未找到的游戏',
     title: '把常玩的游戏和解决方法，放在一起。',
     name: '我的游戏',
@@ -123,6 +148,15 @@ export const myGamesCopy = {
     count: '已保存',
   },
   es: {
+    already:
+      'Ya está guardado. Para quitarlo, usa Quitar en la lista Mis juegos.',
+    absent: 'Ya se ha quitado de la lista.',
+    noticeLabels: {
+      success: 'Completado',
+      error: 'No se pudo guardar',
+      warning: 'Límite alcanzado',
+      info: 'Sin cambios',
+    },
     requestGame: 'Solicitar un juego que falta',
     title: 'Tus juegos y sus soluciones, en un solo lugar.',
     name: 'Mis juegos',
