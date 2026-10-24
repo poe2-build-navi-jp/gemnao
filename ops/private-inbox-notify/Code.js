@@ -1,6 +1,8 @@
 // Owner-private standalone Apps Script only. No web-app deployment or mailbox reading.
 const INBOX_ENDPOINT = 'https://gemnao.pages.dev/api/private-inbox/notifications';
+// eslint-disable-next-line no-unused-vars -- Owner-invoked Apps Script entry point.
 function initializeInboxBaseline() { return runInboxCheck(false); }
+// eslint-disable-next-line no-unused-vars -- Owner-created hourly trigger entry point.
 function checkInboxNotifications() { return runInboxCheck(true); }
 function runInboxCheck(send) {
   const lock = LockService.getScriptLock();
