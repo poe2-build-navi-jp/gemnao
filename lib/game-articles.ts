@@ -1,3 +1,4 @@
+import { enshroudedArticles } from '@/lib/enshrouded-articles';
 import { bf6UpdateIssues } from '@/lib/bf6-update-issues';
 import { gearsWardogsArticles } from '@/lib/gears-wardogs-articles';
 import { octoberStabilityArticles } from '@/lib/october-stability-articles';
@@ -992,6 +993,7 @@ export const gameArticles: GameArticle[] = [
   ...fallReleaseArticles,
   ...codMw4Articles,
   ...mw4LaunchIssues,
+  ...enshroudedArticles,
   ...bf6UpdateIssues,
   ...octoberReleaseArticles,
   ...upcomingReleaseArticles,

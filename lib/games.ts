@@ -37,6 +37,58 @@ const steam = (id: string) => `https://store.steampowered.com/app/${id}`;
 
 export const games: GameGuide[] = [
 {
+  "slug": "enshrouded",
+  "title": "Enshrouded",
+  "shortTitle": "Enshrouded",
+  "hubTitle": "Enshroudedの黒画面・マルチ読み込み・セーブ移行",
+  "lead": "1.0.0.3への更新状況を先に確認し、マルチ読み込みの黒画面と旧セーブの変換を分けて確認します。",
+  "accent": "#47717a",
+  "demand": "Windows PC・Steam版",
+  "updated": "2026-10-24",
+  "tags": [
+    "黒画面",
+    "マルチプレイ",
+    "セーブ移行"
+  ],
+  "focused": true,
+  "launchFixes": [
+    "更新版と導入状態を確認",
+    "読み込みと通信エラーを区別",
+    "既存保存を保護し、移行条件を確認"
+  ],
+  "specs": {
+    "minimum": "公式Steamストアで確認",
+    "recommended": "公式Steamストアで確認",
+    "storage": "公式Steamストアで確認"
+  },
+  "sources": [
+    {
+      "url": "https://enshrouded.com/en-US/news/changelog-for-hotfix-1003",
+      "label": "公式：1.0.0.3変更履歴（英語）"
+    },
+    {
+      "url": "https://enshrouded.com/en-US/news/enshrouded-launch-faq-early-access-reward-world",
+      "label": "公式：正式版移行FAQ（英語）"
+    },
+    {
+      "url": "https://enshrouded.com/en-US/news",
+      "label": "公式ニュース（英語）"
+    },
+    {
+      "url": "https://store.steampowered.com/app/1203620/Enshrouded/",
+      "label": "Steam：Windows PC要件"
+    }
+  ],
+  "savePath": "",
+  "configPath": "",
+  "fps": "",
+  "ultrawide": "",
+  "hdr": "",
+  "controller": "",
+  "mod": "",
+  "japanese": ""
+},
+{
   "slug": "planet-zoo-2",
   "title": "Planet Zoo 2",
   "shortTitle": "Planet Zoo 2",
