@@ -590,11 +590,11 @@ export const games: GameGuide[] = [
     title:
       'Call of Duty: Modern Warfare 4（コール オブ デューティ モダン・ウォーフェア4）',
     shortTitle: 'CoD MW4',
-    lead: 'PC版はTPM 2.0とセキュアブートが必須。遊べない時の確認と有効化の手順をActivision公式の案内から整理。',
+    lead: '起動ボタンがない・ロードアウト保存不可・戦績表示の問題を症状別に確認。PCのTPM 2.0・セキュアブート要件とは分けて案内します。',
     accent: '#3d4a2f',
     demand: '2026年10月23日発売・キャンペーン早期アクセスは10月16日（PT）から',
     issueScale: '非常に高い',
-    updated: '2026-10-18',
+    updated: '2026-10-24',
     tags: [
       'TPM 2.0',
       'セキュアブート',
