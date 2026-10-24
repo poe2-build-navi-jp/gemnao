@@ -87,3 +87,88 @@ assert.ok(!dashboardHtml.includes('my_game_added'));
 console.log(
   'My Games analytics checks passed: fixed payload, no source URL/title/private data, SSR, admin exclusion, disabled/throwing analytics, and unrelated imports.',
 );
+
+// Notifications are localized and convey status without relying on color.
+const { changeMyGames } = await import('../lib/my-games-selection');
+const { MyGamesNotice } = await import('../components/my-games-notice');
+const { myGamesCopy } = await import('../lib/my-games-copy');
+for (const locale of ['ja', 'en', 'zh', 'es'] as const) {
+  const fixtures = [
+    changeMyGames(
+      () => ({ getItem: () => '[]' }),
+      () => true,
+      'elden-ring',
+      'add',
+    ),
+    changeMyGames(
+      () => ({ getItem: () => '[]' }),
+      () => false,
+      'elden-ring',
+      'add',
+    ),
+    changeMyGames(
+      () => ({
+        getItem: () =>
+          JSON.stringify(Array.from({ length: 10 }, (_, i) => `game-${i}`)),
+      }),
+      () => {
+        throw Error('must not save');
+      },
+      'elden-ring',
+      'add',
+    ),
+    changeMyGames(
+      () => ({ getItem: () => '["elden-ring"]' }),
+      () => {
+        throw Error('must not save');
+      },
+      'elden-ring',
+      'add',
+    ),
+    changeMyGames(
+      () => ({ getItem: () => '["elden-ring"]' }),
+      () => true,
+      'elden-ring',
+      'remove',
+    ),
+    changeMyGames(
+      () => {
+        throw Error('PRIVATE storage detail');
+      },
+      () => true,
+      'elden-ring',
+      'add',
+    ),
+    changeMyGames(
+      () => ({ getItem: () => 'invalid' }),
+      () => true,
+      'elden-ring',
+      'add',
+    ),
+  ];
+  assert.deepEqual(
+    fixtures.map((x) => x.kind),
+    ['success', 'error', 'warning', 'info', 'success', 'error', 'error'],
+  );
+  assert.deepEqual(
+    fixtures.map((x) => x.added),
+    [true, false, false, false, false, false, false],
+  );
+  for (const notice of fixtures) {
+    const html = renderToStaticMarkup(
+      <MyGamesNotice notice={notice} locale={locale} />,
+    );
+    assert.ok(html.includes(`data-kind="${notice.kind}"`));
+    assert.ok(html.includes(myGamesCopy[locale].noticeLabels[notice.kind]));
+    assert.ok(!html.includes('PRIVATE'));
+    assert.match(html, /<output/);
+    assert.match(html, /role="alert"/);
+    assert.match(html, /aria-atomic="true"/);
+    if (notice.kind === 'error' || notice.kind === 'warning')
+      assert.match(html, /role="alert"[^>]*>[^<]+/);
+    else assert.match(html, /<output[^>]*>[^<]+/);
+  }
+}
+console.log(
+  'PASS: four-language success/error/limit/no-op/removal notices, stable live regions, blocked storage accessor and corruption; no raw error details',
+);

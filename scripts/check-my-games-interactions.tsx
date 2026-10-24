@@ -84,15 +84,21 @@ const game = {
   updates: [],
 };
 for (const source of [
-  'game-page',
+  'game-page-ja',
+  'game-page-en',
+  'game-page-zh',
+  'game-page-es',
   'focused-ja',
   'focused-en',
   'focused-zh',
   'focused-es',
 ]) {
   const render = () =>
-    source === 'game-page'
-      ? SaveGame({ slug: game.slug })
+    source.startsWith('game-page')
+      ? SaveGame({
+          slug: game.slug,
+          locale: source.slice(-2) as 'ja' | 'en' | 'zh' | 'es',
+        })
       : MyGamesPanel({
           games: [
             {
@@ -117,17 +123,51 @@ for (const source of [
   assert.deepEqual(selected(), ['elden-ring']);
   assert.deepEqual(calls, [expected]);
   assert.equal(notifications, 1);
-  click(); // Repeat the exact same callback; current storage wins over its snapshot.
-  assert.deepEqual(selected(), []);
-  assert.equal(calls.length, 1, `${source}: removal does not count`);
+  click(); // Identical callback represents a rapid second activation.
   click();
-  assert.equal(calls.length, 2, `${source}: genuine re-addition counts`);
+  assert.deepEqual(selected(), ['elden-ring']);
+  assert.equal(
+    calls.length,
+    1,
+    `${source}: repeated add must not remove or recount`,
+  );
+  assert.equal(notifications, 1, `${source}: repeated add must not write`);
   render();
-  assert.equal(calls.length, 2, `${source}: re-render does not count`);
+  assert.equal(calls.length, 1, `${source}: re-render does not count`);
+  const management = () =>
+    MyGamesPanel({
+      games: [
+        {
+          ...game,
+          searchNames: game.name,
+          hub: '/games/elden-ring',
+          hubJapanese: false,
+        },
+      ],
+      locale: source.slice(-2) as 'ja' | 'en' | 'zh' | 'es',
+    });
+  const remove = find(
+    management(),
+    (node) =>
+      node.type === 'button' && typeof node.props?.['aria-label'] === 'string',
+  );
+  assert.ok(remove, `${source}: explicit removal control`);
+  const removeClick = remove.props!.onClick as () => void;
+  removeClick();
+  removeClick();
+  assert.deepEqual(selected(), []);
+  assert.equal(
+    calls.length,
+    1,
+    `${source}: repeated removal never adds or counts`,
+  );
+  click();
+  assert.deepEqual(selected(), ['elden-ring']);
+  assert.equal(calls.length, 2, `${source}: explicit re-add counts once`);
 
   reset(['elden-ring', 'elden-ring']);
   handler()();
-  assert.deepEqual(selected(), []);
+  assert.deepEqual(selected(), ['elden-ring', 'elden-ring']);
   assert.equal(
     calls.length,
     0,
@@ -144,11 +184,11 @@ for (const source of [
   const staleUnchecked = handler();
   values.set(MY_GAMES_KEY, '["elden-ring"]');
   staleUnchecked();
-  assert.deepEqual(selected(), []);
+  assert.deepEqual(selected(), ['elden-ring']);
   assert.equal(
     calls.length,
     0,
-    `${source}: stale unchecked UI must not count a removal`,
+    `${source}: stale unchecked UI must not change or count an existing selection`,
   );
 
   for (const blocked of [
@@ -213,34 +253,69 @@ console.log(
 // Synthetic schedules only: the dashboard must distinguish each active state.
 function nodeText(node: unknown): string {
   if (Array.isArray(node)) return node.map(nodeText).join('');
-  if (node && typeof node === 'object') return nodeText((node as Node).props?.children);
-  return typeof node === 'string' || typeof node === 'number' ? String(node) : '';
+  if (node && typeof node === 'object')
+    return nodeText((node as Node).props?.children);
+  return typeof node === 'string' || typeof node === 'number'
+    ? String(node)
+    : '';
 }
 for (const [state, label] of [
-  ['upcoming', '予定'], ['scheduled-window', '予定時間内'],
-  ['ongoing', '実施中'], ['unconfirmed', '終了未確認'],
+  ['upcoming', '予定'],
+  ['scheduled-window', '予定時間内'],
+  ['ongoing', '実施中'],
+  ['unconfirmed', '終了未確認'],
 ] as const) {
   reset([game.slug]);
-  const tree = MyDashboard({ games: [{ ...game, maintenance: [{
-    title: 'fixture maintenance', start: '2026-10-05T05:00:00Z',
-    end: '2026-10-05T13:00:00Z', url: 'https://example.com/official-fixture', state,
-  }] }] });
+  const tree = MyDashboard({
+    games: [
+      {
+        ...game,
+        maintenance: [
+          {
+            title: 'fixture maintenance',
+            start: '2026-10-05T05:00:00Z',
+            end: '2026-10-05T13:00:00Z',
+            url: 'https://example.com/official-fixture',
+            state,
+          },
+        ],
+      },
+    ],
+  });
   assert.ok(nodeText(tree).includes(`メンテ（${label}）`));
   assert.ok(nodeText(tree).includes('予定：'));
-  assert.equal(calls.length, 0, 'maintenance rendering does not track personal data');
+  assert.equal(
+    calls.length,
+    0,
+    'maintenance rendering does not track personal data',
+  );
 }
 reset([game.slug]);
 assert.ok(!nodeText(MyDashboard({ games: [game] })).includes('メンテ（'));
-console.log('PASS: dashboard maintenance labels, planned times, empty schedule, no new analytics');
+console.log(
+  'PASS: dashboard maintenance labels, planned times, empty schedule, no new analytics',
+);
 
 // The legacy anchor now opens the same editor; rendering it never rewrites data.
 reset([game.slug, 'previously-saved-game']);
 const dashboardStorage = values.get(MY_GAMES_KEY);
 const dashboard = MyDashboard({ games: [game] });
 assert.ok(find(dashboard, (node) => node.props?.id === 'my-games'));
-assert.ok(find(dashboard, (node) => node.type === 'a' && node.props?.href === '/my-games#my-games'));
-assert.ok(!find(dashboard, (node) => node.type === 'input' && node.props?.type === 'checkbox'));
+assert.ok(
+  find(
+    dashboard,
+    (node) => node.type === 'a' && node.props?.href === '/my-games#my-games',
+  ),
+);
+assert.ok(
+  !find(
+    dashboard,
+    (node) => node.type === 'input' && node.props?.type === 'checkbox',
+  ),
+);
 assert.equal(values.get(MY_GAMES_KEY), dashboardStorage);
 assert.equal(calls.length, 0);
 assert.equal(notifications, 0);
-console.log('PASS: legacy My Games anchor routes to the shared search editor and preserves existing saved data.');
+console.log(
+  'PASS: legacy My Games anchor routes to the shared search editor and preserves existing saved data.',
+);
