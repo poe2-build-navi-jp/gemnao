@@ -1,3 +1,4 @@
+import { siteConfig } from '@/lib/site-config';
 import { englishHomeCopy } from '@/lib/localized/home-copy-en';
 import { ogImageFor } from '@/lib/og-images';
 import type { Metadata } from 'next';
@@ -27,6 +28,7 @@ export async function generateMetadata({
     title: { absolute: title },
     description,
     openGraph: {
+      siteName: siteConfig.name,
       title,
       description,
       locale: ogLocale[locale],
