@@ -1953,6 +1953,16 @@ kbd {
   color: #748993;
   font-size: 12px;
 }
+.site-footer .footer-latest {
+  gap: 10px 20px;
+  padding-bottom: 0;
+}
+.site-footer .footer-latest span {
+  flex-basis: 100%;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+}
 
 /* Keep the complete navigation compact before labels become crowded. */
 @media (max-width: 1480px) {

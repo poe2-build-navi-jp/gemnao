@@ -1,6 +1,14 @@
 export const locales = ['en', 'zh', 'es'] as const;
 export type Locale = (typeof locales)[number];
 
+/**
+ * Translations that search engines should index. zh/es pages remain public
+ * (and linked) but get `X-Robots-Tag: noindex` from the worker and are left
+ * out of the sitemap and hreflang, so crawling goes to ja/en first.
+ */
+export const indexedLocales = ['en'] as const;
+export const isIndexedPath = (path: string) => !/^\/(zh|es)(\/|$)/.test(path);
+
 export const isLocale = (value: string): value is Locale =>
   locales.includes(value as Locale);
 

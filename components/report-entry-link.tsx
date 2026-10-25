@@ -2,7 +2,10 @@
 import type { MyGamesLocale } from '@/lib/my-games-copy';
 import { reportCopy } from '@/lib/community-reports/copy';
 import { CommunityReportCount } from './community-report-count';
-import { gameArticles } from '@/lib/game-articles';
+import {
+  gameArticleCategories,
+  reportableGames,
+} from '@/lib/article-review-index';
 export function ReportEntryLink({
   articlePath,
   gameSlug,
@@ -22,18 +25,12 @@ export function ReportEntryLink({
     return null;
   const query = new URLSearchParams();
   if (articlePath) query.set('article', articlePath);
-  else if (
-    gameSlug &&
-    gameArticles.some(
-      (a) =>
-        a.gameSlug === gameSlug &&
-        !['draft', 'thin'].includes(a.status || 'verified'),
-    )
-  )
+  else if (gameSlug && reportableGames.includes(gameSlug))
     query.set('game', gameSlug);
-  const category = gameArticles.find(
-    (a) => `/games/${a.gameSlug}/${a.slug}` === articlePath,
-  )?.category;
+  const category =
+    articlePath && Object.hasOwn(gameArticleCategories, articlePath)
+      ? gameArticleCategories[articlePath]
+      : undefined;
   if (articlePath)
     query.set(
       'symptom',

@@ -39,6 +39,26 @@ export default defineConfig(async () => {
     server: isCodexSeatbeltSandbox
       ? { watch: { useFsEvents: false, usePolling: true } }
       : undefined,
+    environments: {
+      client: {
+        build: {
+          rolldownOptions: {
+            output: {
+              // Each lucide icon was emitted as its own file, adding requests to
+              // every article for readers and Googlebot. Keep icons together.
+              codeSplitting: {
+                groups: [
+                  {
+                    name: 'icons',
+                    test: /[\\/]node_modules[\\/]lucide-react[\\/]/,
+                  },
+                ],
+              },
+            },
+          },
+        },
+      },
+    },
     plugins: [
       vinext(),
       sites(),

@@ -1,4 +1,5 @@
 import { applyPreviewIndexing } from './preview-indexing.mjs';
+import { applyLocaleIndexing } from './locale-indexing.mjs';
 import application from '../dist/server/index.js';
 import editorialSnapshots from '../dist/editorial-snapshots.json';
 import { snapshotAssetFor } from './prerender-policy.mjs';
@@ -242,11 +243,20 @@ const worker = {
       // articles unavailable; the existing renderer remains the fallback.
     }
 
-    if (
-      pathname.startsWith('/_next/static/') ||
-      pathname.startsWith('/images/') ||
-      staticFiles.has(pathname)
-    ) {
+    // Build output under /_next/static/ is content-hashed (or inside a
+    // per-build directory), so browsers and crawlers can keep it for a year
+    // instead of revalidating dozens of files on every page view.
+    if (pathname.startsWith('/_next/static/')) {
+      const asset = await env.ASSETS.fetch(request);
+      if (asset.status !== 200) return asset;
+      const response = new Response(asset.body, asset);
+      response.headers.set(
+        'Cache-Control',
+        'public, max-age=31536000, immutable',
+      );
+      return response;
+    }
+    if (pathname.startsWith('/images/') || staticFiles.has(pathname)) {
       return env.ASSETS.fetch(request);
     }
 
@@ -292,9 +302,9 @@ const worker = {
 
 const indexedWorker = {
   async fetch(request, env, context) {
-    return applyPreviewIndexing(
+    return applyLocaleIndexing(
       request,
-      await worker.fetch(request, env, context),
+      applyPreviewIndexing(request, await worker.fetch(request, env, context)),
     );
   },
 };

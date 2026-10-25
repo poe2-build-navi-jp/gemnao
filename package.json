@@ -7,11 +7,12 @@
   },
   "scripts": {
     "dev": "vinext dev",
-    "build": "NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=false NEXT_PUBLIC_DIAGNOSIS_ENABLED=true vinext build --prerender-all --prerender-concurrency 1 && NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=false NEXT_PUBLIC_DIAGNOSIS_ENABLED=true node scripts/prepare-pages.mjs && node scripts/check-static-search-assets.mjs && NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=false NEXT_PUBLIC_DIAGNOSIS_ENABLED=true node scripts/generate-og-cards.mjs --check",
+    "build": "node scripts/generate-article-review-index.mjs && NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=false NEXT_PUBLIC_DIAGNOSIS_ENABLED=true vinext build --prerender-all --prerender-concurrency 1 && NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=false NEXT_PUBLIC_DIAGNOSIS_ENABLED=true node scripts/prepare-pages.mjs && node scripts/check-static-search-assets.mjs && NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=false NEXT_PUBLIC_DIAGNOSIS_ENABLED=true node scripts/generate-og-cards.mjs --check",
     "build:pages": "pnpm build",
     "start": "wrangler dev --config dist/server/wrangler.json",
     "content:freshness": "node scripts/run-freshness-report.mjs",
     "og:cards": "node scripts/generate-og-cards.mjs",
+    "review:index": "node scripts/generate-article-review-index.mjs",
     "lint": "oxlint",
     "format": "oxfmt",
     "visuals:keys": "node scripts/generate-key-visuals.mjs",

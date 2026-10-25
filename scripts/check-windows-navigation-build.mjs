@@ -10,10 +10,12 @@ for (const locale of ['ja', 'en', 'zh', 'es']) {
   assert.match(html, /id="download"/);
   assert.match(html, new RegExp(`<html lang="${locale === 'zh' ? 'zh-Hans' : locale}"`));
   assert.ok(html.includes(`rel="canonical" href="https://gemnao.pages.dev${path}"`));
-  assert.ok(sitemap.includes(`https://gemnao.pages.dev${path}`));
+  // zh/es are published but noindex: not in the sitemap or hreflang.
+  const indexed = locale === 'ja' || locale === 'en';
+  assert.equal(sitemap.includes(`https://gemnao.pages.dev${path}<`), indexed, `${path} sitemap`);
   for (const [language, root] of [['ja', ''], ['en', '/en'], ['zh-Hans', '/zh'], ['es', '/es']]) {
     const tags = [...html.matchAll(/<link[^>]+>/g)].map(m => m[0]);
-    assert.ok(tags.some(t => t.toLowerCase().includes(`hreflang="${language.toLowerCase()}"`) && t.includes(`href="https://gemnao.pages.dev${root}/tools/windows-diagnosis"`)), `${path} ${language}`);
+    assert.equal(tags.some(t => t.toLowerCase().includes(`hreflang="${language.toLowerCase()}"`) && t.includes(`href="https://gemnao.pages.dev${root}/tools/windows-diagnosis"`)), language === 'ja' || language === 'en', `${path} ${language}`);
   }
   const homePath = prefix || '/';
   // Japanese home is live; its navigation is covered by the browser test.

@@ -228,8 +228,9 @@ const indexJa = await htmlFor('/guide');
 for (const html of [index, indexJa]) {
   assert.ok(html.includes('hrefLang="en" href="https://gemnao.pages.dev/en/guide"'));
   assert.ok(html.includes('hrefLang="ja" href="https://gemnao.pages.dev/guide"'));
-  assert.ok(html.includes('hrefLang="zh-Hans" href="https://gemnao.pages.dev/zh/guide"'));
-  assert.ok(html.includes('hrefLang="es" href="https://gemnao.pages.dev/es/guide"'));
+  // zh/es stay linked but are noindex, so they are not hreflang alternates.
+  assert.ok(!html.includes('hrefLang="zh-Hans" href="https://gemnao.pages.dev/zh/guide"'));
+  assert.ok(!html.includes('hrefLang="es" href="https://gemnao.pages.dev/es/guide"'));
 }
 assert.ok(index.includes('rel="canonical" href="https://gemnao.pages.dev/en/guide"'));
 assert.ok(!/name="robots" content="[^"]*noindex/.test(index));
@@ -318,10 +319,11 @@ for (const locale of ['zh','es']) for (const suffix of ['/guide','/guide/save-da
   await readFile(`public/images/og${path}.png`);
   assert.ok(html.includes(`<main lang="${tag}"`));
   assert.ok(html.includes(`"inLanguage":"${tag}"`));
-  assert.ok(sitemap.includes(`https://gemnao.pages.dev${path}</loc>`));
+  // Published but noindex (worker header): left out of sitemap and hreflang.
+  assert.ok(!sitemap.includes(`https://gemnao.pages.dev${path}</loc>`));
   for (const counterpart of ['', '/en','/zh','/es']) {
     const pair = await htmlFor(`${counterpart}${suffix}`);
-    assert.ok(pair.includes(`hrefLang="${tag}" href="https://gemnao.pages.dev${path}"`));
+    assert.ok(!pair.includes(`hrefLang="${tag}" href="https://gemnao.pages.dev${path}"`));
   }
   const visible = html.replace(/<details class="language-menu">[\s\S]*?<\/details>/g,'').replace(/<script[\s\S]*?<\/script>/g,'').replace(/<[^>]+>/g,' ');
   assert.ok(!(locale === 'zh' ? /[ぁ-んァ-ヶ]/u : /[ぁ-んァ-ヶ一-龯]/u).test(visible));

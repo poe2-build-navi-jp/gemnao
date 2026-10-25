@@ -15,12 +15,15 @@ for (const path of paths) {
   );
   assert.match(head, /<title>/);
   assert.match(head, /property="og:image"/);
-  for (const lang of ['ja', 'en', 'zh-Hans', 'es', 'x-default'])
+  for (const lang of ['ja', 'en', 'x-default'])
     assert.ok(
       head.includes(`hrefLang="${lang}"`) ||
         head.includes(`hreflang="${lang}"`),
       `${path} ${lang}`,
     );
+  // zh/es are noindex, so they are not hreflang alternates.
+  for (const lang of ['zh-Hans', 'es'])
+    assert.ok(!head.toLowerCase().includes(`hreflang="${lang.toLowerCase()}"`), `${path} no ${lang}`);
   for (let i = 1; i <= 4; i++)
     assert.ok(html.includes(`id="step-${i}"`), `${path} step${i}`);
   assert.ok(html.includes('id="repair-costs"'));
@@ -35,7 +38,12 @@ for (const path of paths) {
       html.includes('TechArticle') &&
       html.includes('BreadcrumbList'),
   );
-  assert.ok(sitemap.includes('https://gemnao.pages.dev' + path));
+  // zh/es are published but noindex, so only ja/en are listed.
+  assert.equal(
+    sitemap.includes('https://gemnao.pages.dev' + path + '<'),
+    !/^\/(zh|es)\//.test(path),
+    `${path} sitemap`,
+  );
   const assets = [
     ...html.matchAll(/(?:href|src)="(\/_next\/static\/[^"?]+)(?:\?[^"]*)?"/g),
   ].map((m) => m[1]);

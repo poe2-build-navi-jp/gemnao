@@ -53,7 +53,7 @@ import { recentGameArticlesEn } from '@/lib/localized/recent-game-articles-en';
 import { rocketLeagueLocalizedArticles } from '@/lib/localized/rocket-league-articles';
 import { localizedDiscordUploadArticles } from '@/lib/localized/discord-upload-articles';
 import { gearGuidesEn } from '@/lib/localized/gear-guides-en';
-import type { Locale } from '@/lib/i18n';
+import { indexedLocales, type Locale } from '@/lib/i18n';
 import { articlesEn } from '@/lib/localized/articles-en';
 import { articlesEs } from '@/lib/localized/articles-es';
 import { articlesZh } from '@/lib/localized/articles-zh';
@@ -242,7 +242,9 @@ export function languageAlternates(path: string) {
     ja: path || '/',
     'x-default': path || '/',
   };
-  for (const locale of ['en', 'zh', 'es'] as const) {
+  // Chinese and Spanish pages stay published but are noindex (the worker adds
+  // the header), so only Japanese and English are offered as alternates.
+  for (const locale of indexedLocales) {
     if (hasTranslation(locale, path))
       languages[languageTag[locale]] = `/${locale}${path}`;
   }
