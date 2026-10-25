@@ -506,7 +506,7 @@ export const monsterHunterArticles: GameArticle[] = [
     shortTitle: 'セーブデータの場所',
     symptom:
       'セーブデータの保存先を開きたい、MOD導入やPC移行の前にバックアップしたい、消えたセーブを戻したい、体験版のデータを引き継ぎたい人向けです。',
-    conclusion: String.raw`Steam版のセーブは「<Steamのインストール先>\userdata\<数字のアカウントID>\2246340\remote\win64_save」にあります（標準のSteamの場所は「C:\Program Files (x86)\Steam」）。win64_saveフォルダを丸ごと別の場所へコピーすればバックアップ完了です。`,
+    conclusion: String.raw`Steam版のセーブは「<Steamのインストール先>\userdata\<数字のアカウントID>\2246340\remote\win64_save」にあります（標準のSteamの場所は「C:\Program Files (x86)\Steam」）。ゲームとSteamを終了してwin64_saveフォルダを丸ごと別の場所へコピーし、コピー先の内容を確認します。コピー完了だけでは、ゲームで読み込めることまで確認した扱いにはしません。`,
     description:
       'セーブはゲームのインストール先ではなく、Steamのuserdataフォルダにあります。Steamクラウドにも対応していますが、手元にもコピーを残すと安心です。',
     causes: [],
@@ -1090,7 +1090,7 @@ export const monsterHunterArticles: GameArticle[] = [
     shortTitle: 'config.iniの場所・初期化',
     symptom:
       '設定ファイルの場所を知りたい、画面設定を変えてから起動しない・映らない、設定を初期化したい、サポートに設定を送りたい人向けです。',
-    conclusion: String.raw`config.iniは、ゲームのインストール先（標準は「C:\Program Files (x86)\Steam\steamapps\common\MonsterHunterWilds」）の直下にあります。初期化する時は、削除せずゲームフォルダの外へ移すと、起動時に新しいファイルが作られます。`,
+    conclusion: String.raw`config.iniは、ゲームのインストール先（標準は「C:\Program Files (x86)\Steam\steamapps\common\MonsterHunterWilds」）の直下にあります。初期化する時はコピーを残してゲームフォルダの外へ移し、起動後に新しいファイルが作られるか確認します。`,
     description:
       'カプコンの公式ガイドでも、問い合わせ時にグラフィック設定としてconfig.iniのコピーを送るよう案内されています。',
     causes: [
@@ -1109,7 +1109,7 @@ export const monsterHunterArticles: GameArticle[] = [
       },
       {
         label: '初期化の方法',
-        value: 'ファイルをゲームフォルダの外へ移す→起動すると作り直される',
+        value: 'コピーを残して退避→起動後に再生成の有無を確認',
       },
       {
         label: 'セーブへの影響',
@@ -1199,7 +1199,7 @@ export const monsterHunterArticles: GameArticle[] = [
       {
         question: 'config.iniを消しても大丈夫ですか？',
         answer:
-          '先にコピーを作り、削除ではなくゲームフォルダの外へ退避してください。次の起動時に作り直されます。',
+          '先にコピーを作り、削除ではなくゲームフォルダの外へ退避してください。次の起動後に再生成の有無を確認し、作られなければ元の控えを残して原因を切り分けます。',
       },
       {
         question: 'config.iniを初期化するとセーブデータも消えますか？',

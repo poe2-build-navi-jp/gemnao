@@ -362,7 +362,7 @@ const originalGameArticles: GameArticle[] = [
         actions: [
           String.raw`PalServer直下のDefaultPalWorldSettings.iniをコピーする`,
           String.raw`Pal\Saved\Config\WindowsServerフォルダを開く`,
-          'コピーしたファイルを貼り付ける',
+          '既存のPalWorldSettings.iniがある場合は先に別の場所へコピーして保全し、初回設定や作り直しが必要な場合だけテンプレートを貼り付ける',
           'ファイル名をPalWorldSettings.iniにする',
         ],
         note: '拡張子が非表示の場合は、エクスプローラーの「表示」からファイル名拡張子をONにしてください。',
