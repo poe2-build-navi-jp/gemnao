@@ -784,4 +784,509 @@ export const upcomingReleaseArticles: GameArticle[] = [
     metaDescription:
       'ドラクエモンスターズ4（DQM4）体験版の引き継ぎ方法。製品版に連れていけるのはパーティとスタンバイのモンスター最大8体、タイトル画面で「はじめから」を選ぶ、同じPC・同じアカウントが条件。引き継げないもの、特典の受け取り場所、Windows 11・VRAM 6GBの動作環境まで解説。',
   }),
+  make({
+    gameSlug: 'football-manager-27',
+    slug: 'not-launching',
+    category: 'launch',
+    checkedAt: '2026-10-25',
+    seoTitle:
+      'FM27が起動しない時の対処法｜無料ローンチプレビューとDenuvoの認証制限【PC版】',
+    title:
+      'Football Manager 27（FM27）が起動しない時の対処法｜無料ローンチプレビューの期間・引き継ぎとDenuvoの認証制限【PC版】',
+    shortTitle: '起動しない・ローンチプレビュー・Denuvo',
+    targetVersion: 'Steam版・2026年10月25日時点の公式情報（発売前）',
+    symptom:
+      'PC版のFM27（ローンチプレビューを含む）が起動しない、起動直後に落ちる、複数のPCで遊ぶと起動できなくなった、ローンチプレビューのセーブを製品版で続けたい場合の確認手順です。',
+    conclusion:
+      'まずCPUがSSE4.2・SSSE3に対応しているか、Windowsが最新の状態かを確認します。Steamストアには、DRMとして「Denuvo Anti-tamper」と「5 a day マシン認証制限」（1日に認証できるマシンは5台まで）が表記されています。複数のPCで遊ぶ人は注意してください。無料のローンチプレビューは日本時間10月30日3時〜11月4日3時で、そこで始めたセーブは製品版でも続けられると公式が案内しています。',
+    description:
+      'Steamストアの日本語表示では2026年11月10日発売です。ローンチプレビューは、これまでの「ベータ／先行アクセス」に代わる発売前の版で、無料期間の後は予約購入した人が発売日まで続けて遊べます（SEGA公認の販売店で購入した場合）。日本語に対応しています。',
+    causes: [
+      'CPUがSSE4.2・SSSE3に対応していない',
+      'Windowsの更新が適用されていない（動作環境に「最新の更新を適用」と記載）',
+      'Denuvoのマシン認証の上限（1日5台）に達した',
+      'GPUドライバーが古い・ゲームファイルの破損',
+      'オーバーレイや録画ツールの干渉',
+    ],
+    quickFacts: [
+      {
+        label: '発売日',
+        value: '2026年11月10日（Steamストアの表記）',
+      },
+      {
+        label: '無料のローンチプレビュー',
+        value:
+          '日本時間10月30日3時〜11月4日3時（英国時間10月29日18時〜11月3日18時）。登録不要',
+      },
+      {
+        label: 'セーブの引き継ぎ',
+        value:
+          '無料期間に始めたセーブは、有料のローンチプレビュー・製品版でも続けられる（公式）',
+      },
+      {
+        label: 'DRM',
+        value:
+          'Denuvo Anti-tamper・5 a day マシン認証制限（Steamストアの表記）',
+      },
+      {
+        label: '最低動作環境',
+        value:
+          'Windows 10/11（最新の更新）／Core i3-530・FX-4100（SSE4.2・SSSE3必須）／GTX 960・R9 380・Intel HD 530／メモリ6GB／20GB',
+      },
+    ],
+    diagnosis: [
+      {
+        symptom: '古いPCで起動しない・すぐ落ちる',
+        cause: 'CPU・GPU・Windowsの条件',
+        stepId: 'step-1',
+      },
+      {
+        symptom: '別のPCでも遊んだら起動できなくなった',
+        cause: 'Denuvoのマシン認証の上限',
+        stepId: 'step-2',
+      },
+      {
+        symptom: 'ローンチプレビューの期間・続きが分からない',
+        cause: '無料期間と引き継ぎの条件',
+        stepId: 'step-3',
+      },
+      {
+        symptom: '起動直後に落ちる・画面が出ない',
+        cause: 'ドライバー・ファイル・常駐ツール',
+        stepId: 'step-4',
+      },
+    ],
+    steps: [
+      {
+        id: 'step-1',
+        title: 'CPU・GPU・Windowsが動作環境を満たすか確認する',
+        summary:
+          '最低動作環境では、CPUがSSE4.2とSSSE3に対応していること、GPUがシェーダーモデル5.0に対応していること、Windows 10/11に最新の更新を適用していることが条件です。',
+        time: '約5分',
+        risk: 'low',
+        actions: [
+          'タスクマネージャー（Ctrl + Shift + Esc）の「パフォーマンス」で、CPU・GPUの名前とメモリ（6GB以上）を確認する',
+          'CPUの名前で、メーカーの公式サイトの仕様（命令セット）にSSE4.2・SSSE3があるか確認する',
+          '「設定」→「Windows Update」で更新を確認し、すべて適用してから再起動する',
+          winver,
+        ],
+      },
+      {
+        id: 'step-2',
+        title: '複数のPCで遊ぶ時は、Denuvoの1日5台の認証制限に注意する',
+        summary:
+          'Steamストアには「Denuvo Anti-tamper」「5 a day マシン認証制限」と表記されています。1日に認証できるマシンの数に上限があるという意味の表記です。',
+        time: '約3分',
+        risk: 'low',
+        actions: [
+          '同じ日に多くのPCで起動していないか確認する（自宅・ノートPC・ネットカフェなど）',
+          '上限は1日あたりなので、上限に達したと思われる場合は時間をおいてから、遊ぶPCで起動し直す',
+          '表示されたエラーの文言を控え、解決しない場合はSEGA・Sports Interactiveの公式サポートに伝える',
+        ],
+        note: '認証の細かな仕組みは公開されていません。DRMを回避する非公式ツールは使わないでください。',
+      },
+      {
+        id: 'step-3',
+        title: 'ローンチプレビューの期間と、セーブの引き継ぎ条件を確認する',
+        summary:
+          '無料のローンチプレビューは、Steam・Epic・Microsoft Store・Xbox Game Pass・PC Game Passで遊べます。無料期間に始めたセーブは、有料のローンチプレビューと製品版でも始め直さずに続けられると公式が案内しています。',
+        time: '約3分',
+        risk: 'low',
+        actions: [
+          '無料期間は日本時間10月30日3時〜11月4日3時。期間が終わると、予約購入していない場合は製品版の発売まで遊べない',
+          '予約購入すると、無料期間の後も有料のローンチプレビューとして11月10日の発売まで続けられる（SEGA公認の販売店で購入した場合）',
+          'Game Passで遊ぶ場合は、サブスクリプションでセーブを続けられる（ローンチプレビューはGame Pass UltimateとPC Game Passのみ）',
+        ],
+        note: 'ローンチプレビューは権利者の承認前のデータを含み、一部のクラブや選手の素材がない場合があると公式が注意しています。',
+      },
+      {
+        id: 'step-4',
+        title: 'GPUドライバーを更新し、ゲームファイルを確認する',
+        summary: '起動直後に落ちる・画面が出ない場合に確認します。',
+        time: '約15分',
+        risk: 'low',
+        actions: [
+          driverUpdate,
+          steamVerify,
+          'Discord・Steamのオーバーレイ、録画・FPS表示ツールをオフにして起動を比べる',
+        ],
+      },
+    ],
+    avoid: [
+      'Denuvoを回避するとうたう非公式ツールやファイルを使わない',
+      '起動しないからといって、ローンチプレビューのセーブフォルダを消さない（製品版で続けられる）',
+    ],
+    cautions: [
+      '発売前の情報です。発売後に公式が案内する不具合や修正は、公式のお知らせもあわせて確認してください。',
+      '時刻は公式の英国時間（GMT）を日本時間に換算した目安です。正確な時刻はSteamストアと公式のお知らせで確認してください。',
+    ],
+    faqs: [
+      {
+        question: 'ローンチプレビューは無料ですか？',
+        answer:
+          '日本時間10月30日3時〜11月4日3時の5日間は、登録不要で無料で遊べます（PC・Mac）。その後は予約購入した人が、11月10日の発売まで続けて遊べます。',
+      },
+      {
+        question: '無料期間のセーブは製品版で使えますか？',
+        answer:
+          '公式は、無料期間に始めたゲームは有料のローンチプレビューと製品版でも始め直さずに続けられると案内しています。',
+      },
+      {
+        question: '日本語で遊べますか？',
+        answer: 'Steamストアの対応言語に日本語が含まれています。',
+      },
+      {
+        question: 'Windows 10で遊べますか？',
+        answer:
+          '最低動作環境はWindows 10/11（最新の更新を適用）、推奨はWindows 11（64bit）です（Steamストアの表記）。',
+      },
+    ],
+    sources: [
+      {
+        label:
+          'Steamストア：Football Manager 27（動作環境・対応言語・DRMの表記）',
+        url: 'https://store.steampowered.com/app/4530370/',
+      },
+      {
+        label:
+          'Steamニュース（公式）：Play Free: Football Manager 27 Launch Preview（無料期間・引き継ぎ）',
+        url: 'https://store.steampowered.com/news/app/4530370',
+      },
+    ],
+    related: [],
+    metaDescription:
+      'Football Manager 27（FM27）PC版が起動しない時の対処法。SSE4.2・SSSE3が必要なCPUの条件、Denuvoの「1日5台」のマシン認証制限、無料ローンチプレビューの期間（10月30日3時〜11月4日3時）と製品版へのセーブ引き継ぎまで公式情報をもとに解説。',
+  }),
+  make({
+    gameSlug: 'where-the-seeds-fall',
+    slug: 'not-launching',
+    category: 'launch',
+    checkedAt: '2026-10-25',
+    seoTitle:
+      '崩落の国が起動しない時の対処法｜Windows 11・SSD必須と体験版【PC版】',
+    title:
+      '崩落の国（Where the Seeds Fall）が起動しない・体験版が動かない時の対処法｜Windows 11とSSDが必須【PC版】',
+    shortTitle: '起動しない・体験版',
+    targetVersion: 'Steam版・体験版・2026年10月25日時点の公式情報（発売前）',
+    symptom:
+      'PC版・体験版が起動しない、起動直後に落ちる、読み込みが長い、重い場合の確認手順です。',
+    conclusion:
+      '最低動作環境からWindows 11とSSDへのインストールが必須です（Steamストアの表記）。起動しない時は、まずWindowsのバージョンとインストール先のドライブを確認します。最低環境のGPUはGTX 1660（6GB）・RX 6600（8GB）、メモリは16GBです。',
+    description:
+      'Cygamesの新ブランド「CygamesEdge」の第1作で、Steamストアの日本語表示では2026年11月5日発売です。体験版は配信中で、公式によると最初からすべてのアクションが使える高難度の区間で、ストーリー要素はなく15〜30分ほどで遊べます。日本語に対応しています。',
+    causes: [
+      'Windows 10を使っている（最低環境からWindows 11）',
+      'HDDにインストールしている（SSD必須）',
+      'GPUが最低環境（GTX 1660 6GB・RX 6600 8GB）を下回る',
+      'GPUドライバーが古い・ゲームファイルの破損',
+      'オーバーレイや録画ツールの干渉',
+    ],
+    quickFacts: [
+      { label: '発売日', value: '2026年11月5日（Steamストアの表記）' },
+      {
+        label: '必須',
+        value: 'Windows 11／SSDへのインストール（最低環境から）',
+      },
+      {
+        label: '最低動作環境',
+        value:
+          'Core i5-10400・Ryzen 5 5500／GTX 1660（6GB）・RX 6600（8GB）／メモリ16GB／DirectX 12／5GB',
+      },
+      {
+        label: '推奨動作環境',
+        value:
+          'Core i5-12400・Ryzen 5 5600／RTX 3060（8GB）・RX 6700 XT／メモリ16GB',
+      },
+      {
+        label: '体験版',
+        value:
+          '配信中。すべてのアクションが使える区間で、ストーリー要素なし・15〜30分程度（公式）',
+      },
+    ],
+    diagnosis: [
+      {
+        symptom: '起動しない・すぐ終了する',
+        cause: 'Windows 11ではない',
+        stepId: 'step-1',
+      },
+      {
+        symptom: '読み込みが長い・途中で止まる',
+        cause: 'HDDにインストールしている',
+        stepId: 'step-2',
+      },
+      {
+        symptom: '古いGPUで起動しない・極端に重い',
+        cause: '最低環境を下回る',
+        stepId: 'step-3',
+      },
+      {
+        symptom: '起動直後に落ちる・黒い画面のまま',
+        cause: 'ドライバー・ファイル・常駐ツール',
+        stepId: 'step-4',
+      },
+    ],
+    steps: [
+      {
+        id: 'step-1',
+        title: 'Windows 11か確認する',
+        summary:
+          'Steamストアの動作環境は、最低・推奨ともWindows 11です。Windows 10は動作環境に含まれていません。',
+        time: '約2分',
+        risk: 'low',
+        actions: [
+          winver,
+          '「Windows 10」と表示された場合は動作環境の対象外。PCがWindows 11に対応しているかは、Microsoftの「PC正常性チェック」アプリで確認できる',
+        ],
+      },
+      {
+        id: 'step-2',
+        title: 'SSDにインストールされているか確認する',
+        summary:
+          'Steamストアの動作環境には、最低・推奨とも「SSD環境必須」と書かれています。',
+        time: '約5分',
+        risk: 'low',
+        actions: [
+          'Steamの「設定」→「ストレージ」で、ゲームが入っているドライブを確認する',
+          'タスクマネージャー（Ctrl + Shift + Esc）の「パフォーマンス」で、そのドライブの種類（SSD／HDD）を確認する',
+          'HDDに入っている場合は、ストレージ画面でゲームを選び「移動」からSSDのドライブへ移す',
+        ],
+      },
+      {
+        id: 'step-3',
+        title: 'GPUとメモリが最低環境を満たすか確認する',
+        summary:
+          '最低環境はGTX 1660（6GB）・RX 6600（8GB）、メモリ16GBです。体験版で動作を確かめてから購入するのが確実です。',
+        time: '約3分',
+        risk: 'low',
+        actions: [
+          'タスクマネージャーの「パフォーマンス」→「GPU」で、GPUの名前と「専用GPUメモリ」を確認する',
+          'メモリ（RAM）が16GB以上あるか確認する',
+          'CPUは最低環境でCore i5-10400・Ryzen 5 5500',
+        ],
+      },
+      {
+        id: 'step-4',
+        title: 'GPUドライバーを更新し、ゲームファイルを確認する',
+        summary: '起動直後に落ちる・黒い画面のまま進まない場合に確認します。',
+        time: '約15分',
+        risk: 'low',
+        actions: [
+          driverUpdate,
+          steamVerify,
+          'Discord・Steamのオーバーレイ、録画・FPS表示ツールをオフにして起動を比べる',
+        ],
+      },
+    ],
+    avoid: [
+      'Windows 10のまま、設定やファイルを書き換えて動かそうとしない（動作環境の対象外）',
+      'HDDのまま設定を下げ続けない（SSD必須の要件を先に満たす）',
+    ],
+    cautions: [
+      '発売前の情報です。発売後に公式が案内する不具合や修正は、公式のお知らせもあわせて確認してください。',
+    ],
+    faqs: [
+      {
+        question: 'Windows 10で遊べますか？',
+        answer:
+          'Steamストアの動作環境は、最低・推奨ともWindows 11と記載されています。',
+      },
+      {
+        question: '体験版のセーブは製品版に引き継げますか？',
+        answer:
+          '公式は、体験版を製品版とは別の内容（すべてのアクションが最初から使える区間・ストーリー要素なし）と説明しています。セーブの引き継ぎについての案内は確認できていません（10月25日時点）。',
+      },
+      {
+        question: 'どのくらいで遊び終わりますか？',
+        answer:
+          '公式によると、メインストーリーは初回のプレイで約3時間です。製品版は体験版より遊びやすい難易度に調整されています。',
+      },
+      {
+        question: 'コントローラーで遊べますか？',
+        answer:
+          'フルコントローラーサポートで、ゲームパッドが推奨されています。DUALSHOCK・DualSenseにも対応しています（Steamストアの表記）。',
+      },
+    ],
+    sources: [
+      {
+        label:
+          'Steamストア：崩落の国（動作環境・Windows 11・SSD必須・対応言語）',
+        url: 'https://store.steampowered.com/app/4139580/',
+      },
+      {
+        label:
+          'Steamニュース（公式）：体験版の配信（体験版の内容・プレイ時間・価格）',
+        url: 'https://store.steampowered.com/news/app/4139580',
+      },
+    ],
+    related: [],
+    metaDescription:
+      '崩落の国（Where the Seeds Fall）PC版・体験版が起動しない時の対処法。最低環境から必須のWindows 11とSSD、GTX 1660・RX 6600の最低環境、ドライバーとファイルの確認、体験版の内容まで公式情報をもとに解説。',
+  }),
+  make({
+    gameSlug: 'godzilla-destroy-all-monsters-melee',
+    slug: 'not-launching',
+    category: 'launch',
+    checkedAt: '2026-10-25',
+    seoTitle:
+      'ゴジラ DAMM Remasteredが起動しない時の対処法｜DirectX 12とオンライン対戦【PC版】',
+    title:
+      'Godzilla: Destroy All Monsters Melee Remastered（ゴジラ）が起動しない・オンライン対戦できない時の対処法【PC版】',
+    shortTitle: '起動しない・オンライン対戦',
+    targetVersion: 'Steam版・体験版・2026年10月25日時点の公式情報（発売前）',
+    symptom:
+      'PC版・体験版が起動しない、起動直後に落ちる、オンライン対戦につながらない、友達と遊ぶ方法が分からない場合の確認手順です。',
+    conclusion:
+      '最低動作環境のGPUは「DirectX 12・シェーダーモデル6対応」のGTX 1060（6GB）・RX 580（8GB）で、メモリは16GBです（Steamストアの表記）。起動しない時は、まずGPUとドライバーを確認します。オンラインは1対1のクイックマッチで、ローカルでは最大4人で遊べます（体験版の公式案内）。',
+    description:
+      'Steamストアの日本語表示では2026年11月3日発売です。体験版は10月27日まで配信されています（公式）。Windows 10（64bit）でも動作環境に含まれ、Windows 11が推奨です。日本語のインターフェース・字幕に対応し、フル音声は英語のみです。',
+    causes: [
+      'GPUがDirectX 12・シェーダーモデル6に対応していない、または最低環境を下回る',
+      'メモリが16GB未満',
+      'GPUドライバーが古い・ゲームファイルの破損',
+      'オーバーレイや録画ツールの干渉',
+      'オンライン対戦の回線・Steamの状態',
+    ],
+    quickFacts: [
+      { label: '発売日', value: '2026年11月3日（Steamストアの表記）' },
+      { label: '体験版', value: '10月27日まで配信（公式）' },
+      {
+        label: '最低動作環境',
+        value:
+          'Windows 10（64bit）・Windows 11推奨／Core i5-8400・Ryzen 5 2600／GTX 1060（6GB）・RX 580（8GB）、DirectX 12・シェーダーモデル6対応／メモリ16GB／6GB',
+      },
+      {
+        label: '遊び方',
+        value:
+          'オンラインは1対1のクイックマッチ、ローカルは最大4人。Remote Play Together対応',
+      },
+      {
+        label: '日本語',
+        value:
+          'インターフェース・字幕は対応。フル音声は英語のみ（Steamストアの表記）',
+      },
+    ],
+    diagnosis: [
+      {
+        symptom: '起動しない・すぐ落ちる',
+        cause: 'GPU・DirectX 12の条件',
+        stepId: 'step-1',
+      },
+      {
+        symptom: '起動直後に落ちる・黒い画面のまま',
+        cause: 'ドライバー・ファイル・常駐ツール',
+        stepId: 'step-2',
+      },
+      {
+        symptom: 'オンライン対戦につながらない',
+        cause: '回線・Steamの状態',
+        stepId: 'step-3',
+      },
+      {
+        symptom: '離れた友達と一緒に遊びたい',
+        cause: 'Remote Play Togetherの使い方',
+        stepId: 'step-4',
+      },
+    ],
+    steps: [
+      {
+        id: 'step-1',
+        title: 'GPUとメモリが最低環境を満たすか確認する',
+        summary:
+          '最低環境はGTX 1060（6GB）・RX 580（8GB）で、「DirectX 12・シェーダーモデル6対応」と書かれています。メモリは16GBです。',
+        time: '約5分',
+        risk: 'low',
+        actions: [
+          'タスクマネージャー（Ctrl + Shift + Esc）の「パフォーマンス」→「GPU」で、GPUの名前と「専用GPUメモリ」を確認する',
+          'Windows + R →「dxdiag」と入力し、「ディスプレイ」タブの「機能レベル」に12_0以上が含まれているか見る（DirectX 12対応の目安）',
+          'メモリ（RAM）が16GB以上あるか確認する',
+        ],
+      },
+      {
+        id: 'step-2',
+        title: 'GPUドライバーを更新し、ゲームファイルを確認する',
+        summary: '起動直後に落ちる・黒い画面のまま進まない場合に確認します。',
+        time: '約15分',
+        risk: 'low',
+        actions: [
+          driverUpdate,
+          steamVerify,
+          'Discord・Steamのオーバーレイ、録画・FPS表示ツールをオフにして起動を比べる',
+        ],
+      },
+      {
+        id: 'step-3',
+        title: 'オンライン対戦につながらない時は、回線とSteamの状態を確認する',
+        summary:
+          'オンラインは1対1のクイックマッチです（体験版の公式案内）。つながらない時は、まず自分の回線とSteamの状態を確認します。',
+        time: '約10分',
+        risk: 'low',
+        actions: [
+          'ほかのサイトや動画が普通に見られるか確認し、ルーターを再起動する',
+          'Steamにログインできているか、Steamのダウンロードや動画配信など回線を多く使うものを止める',
+          '公式のお知らせ（Steamニュース）で、メンテナンスや障害の案内が出ていないか確認する',
+        ],
+      },
+      {
+        id: 'step-4',
+        title: '離れた友達とはRemote Play Togetherで遊ぶ',
+        summary:
+          'ローカルでは最大4人で遊べ、Steamストアの表記ではRemote Play Togetherに対応しています。',
+        time: '約5分',
+        risk: 'low',
+        actions: [
+          '自分がゲームを起動し、Shift + Tabでオーバーレイを開いて、フレンドリストから友達を「Remote Play Together」に招待する',
+          '招待された友達はゲームを持っていなくても参加できる（Steamの仕様）',
+          '映像や操作が遅れる時は、有線LANで接続する',
+        ],
+      },
+    ],
+    avoid: [
+      '最低環境を下回るGPUで、ファイルを書き換えて無理に動かそうとしない',
+      '公式以外のサイトからドライバーや修正ツールを入れない',
+    ],
+    cautions: [
+      '発売前の情報です。発売後に公式が案内する不具合や修正は、公式のお知らせもあわせて確認してください。',
+    ],
+    faqs: [
+      {
+        question: 'Windows 10で遊べますか？',
+        answer:
+          'Steamストアの最低動作環境は「Windows 10 64-bit、Windows 11推奨」です。',
+      },
+      {
+        question: '体験版はいつまで遊べますか？',
+        answer:
+          '公式の案内では10月27日までです。体験版ではゴジラ・キングギドラ・ガイガンを選べ、オンラインの1対1と最大4人のローカル対戦を試せます。',
+      },
+      {
+        question: '日本語で遊べますか？',
+        answer:
+          'インターフェースと字幕は日本語に対応しています。フル音声は英語のみです（Steamストアの表記）。',
+      },
+      {
+        question: 'コントローラーで遊べますか？',
+        answer:
+          'フルコントローラーサポートで、ゲームパッドが推奨されています（Steamストアの表記）。',
+      },
+    ],
+    sources: [
+      {
+        label:
+          'Steamストア：Godzilla: Destroy All Monsters Melee Remastered（動作環境・対応言語・遊び方）',
+        url: 'https://store.steampowered.com/app/4251460/',
+      },
+      {
+        label:
+          'Steamニュース（公式）：体験版の配信（10月27日まで・オンライン1対1）',
+        url: 'https://store.steampowered.com/news/app/4251460',
+      },
+      {
+        label: 'Steam：Remote Play Together（招待のしかた）',
+        url: 'https://store.steampowered.com/remoteplay',
+      },
+    ],
+    related: [],
+    metaDescription:
+      'Godzilla: Destroy All Monsters Melee Remastered（ゴジラ）PC版・体験版が起動しない・オンライン対戦できない時の対処法。DirectX 12・シェーダーモデル6対応のGTX 1060・RX 580の最低環境、ドライバーとファイルの確認、オンライン1対1とRemote Play Togetherまで公式情報をもとに解説。',
+  }),
 ];

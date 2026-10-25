@@ -559,6 +559,127 @@ export const games: GameGuide[] = [
     ],
   },
   {
+    slug: 'godzilla-destroy-all-monsters-melee',
+    title: 'Godzilla: Destroy All Monsters Melee Remastered（ゴジラ）',
+    shortTitle: 'ゴジラ DAMM Remastered',
+    lead: 'DirectX 12・シェーダーモデル6に対応したGPUが必要。起動しない・オンライン対戦できない時に確認する手順を公式情報から整理。',
+    accent: '#24433a',
+    demand: '2026年11月3日発売（Steamストアの表記。体験版は10月27日まで）',
+    issueScale: '中程度',
+    updated: '2026-10-25',
+    tags: ['起動しない', 'DirectX 12', 'オンライン対戦', '体験版'],
+    focused: true,
+    savePath: '',
+    configPath: '',
+    fps: '',
+    ultrawide: '',
+    hdr: '',
+    controller:
+      'フルコントローラーサポート・ゲームパッド推奨。ローカルで最大4人、Remote Play Together対応（Steamストアの表記）。',
+    launchFixes: [
+      'GPUがDirectX 12・シェーダーモデル6に対応しているか確認',
+      'GPUドライバーを更新し、ゲームファイルを確認',
+      'オンライン対戦は回線とSteamの状態を確認',
+    ],
+    mod: '',
+    japanese:
+      '日本語のインターフェース・字幕に対応。フル音声は英語のみ（Steamストアの表記）。',
+    specs: {
+      minimum:
+        'Windows 10（64bit）・Windows 11推奨／Core i5-8400・Ryzen 5 2600／GTX 1060（6GB）・RX 580（8GB）、DirectX 12・シェーダーモデル6対応／メモリ16GB',
+      recommended: '記載なし',
+      storage: '6GB',
+    },
+    sources: [
+      { label: 'Steamストア', url: steam('4251460') },
+      {
+        label: '公式のお知らせ（Steamニュース）',
+        url: 'https://store.steampowered.com/news/app/4251460',
+      },
+    ],
+  },
+  {
+    slug: 'where-the-seeds-fall',
+    title: '崩落の国（Where the Seeds Fall）',
+    shortTitle: '崩落の国',
+    lead: 'Windows 11とSSDが必須。起動しない・体験版が動かない時に、OS・GPU・インストール先から確認する手順を公式情報から整理。',
+    accent: '#3b4f2a',
+    demand: '2026年11月5日発売（Steamストアの表記。体験版配信中）',
+    issueScale: '中程度',
+    updated: '2026-10-25',
+    tags: ['起動しない', 'Windows 11', 'SSD', '体験版'],
+    focused: true,
+    savePath: '',
+    configPath: '',
+    fps: '',
+    ultrawide: '',
+    hdr: '',
+    controller:
+      'フルコントローラーサポート・ゲームパッド推奨。DUALSHOCK・DualSense対応（Steamストアの表記）。',
+    launchFixes: [
+      'Windows 11か確認（最低環境から必須）',
+      'SSDにインストール（最低環境から必須）',
+      'GPUドライバーを更新し、ゲームファイルを確認',
+    ],
+    mod: '',
+    japanese: '日本語に対応（Steamストアの表記）。',
+    specs: {
+      minimum:
+        'Windows 11／Core i5-10400・Ryzen 5 5500／GTX 1660（6GB）・RX 6600（8GB）／メモリ16GB／DirectX 12',
+      recommended:
+        'Windows 11／Core i5-12400・Ryzen 5 5600／RTX 3060（8GB）・RX 6700 XT／メモリ16GB',
+      storage: '5GB（SSD必須）',
+    },
+    sources: [
+      { label: 'Steamストア', url: steam('4139580') },
+      {
+        label: '公式のお知らせ（Steamニュース）',
+        url: 'https://store.steampowered.com/news/app/4139580',
+      },
+    ],
+  },
+  {
+    slug: 'football-manager-27',
+    title: 'Football Manager 27（FM27）',
+    shortTitle: 'FM27',
+    lead: 'Denuvoの「1日5台」のマシン認証制限と、無料のローンチプレビューの期間・引き継ぎを、起動しない時の手順とあわせて公式情報から整理。',
+    accent: '#3c2a5e',
+    demand:
+      '2026年11月10日発売（Steamストアの表記。無料のローンチプレビューは10月30日3時〜11月4日3時）',
+    issueScale: '中程度',
+    updated: '2026-10-25',
+    tags: ['起動しない', 'Denuvo', 'ローンチプレビュー', 'セーブ引き継ぎ'],
+    focused: true,
+    savePath: '',
+    configPath: '',
+    fps: '',
+    ultrawide: '',
+    hdr: '',
+    controller:
+      'フルコントローラーサポート。DUALSHOCK・DualSense対応（Steamストアの表記）。',
+    launchFixes: [
+      'CPUがSSE4.2・SSSE3に対応しているか確認',
+      'Windowsを最新の状態に更新',
+      '複数のPCで遊ぶ時はDenuvoの1日5台の認証制限に注意',
+    ],
+    mod: '',
+    japanese: '日本語に対応（Steamストアの表記）。',
+    specs: {
+      minimum:
+        'Windows 10/11（最新の更新を適用）／Core i3-530・FX-4100（SSE4.2・SSSE3必須）／GTX 960・R9 380・Intel HD 530（VRAM 1GB、シェーダーモデル5.0）／メモリ6GB／DirectX 11',
+      recommended:
+        'Windows 11（64bit、最新の更新を適用）／Core i5-9600・Ryzen 5 2600／RTX 2060・RX 5600 XT／メモリ12GB',
+      storage: '20GB',
+    },
+    sources: [
+      { label: 'Steamストア', url: steam('4530370') },
+      {
+        label: '公式のお知らせ（Steamニュース）',
+        url: 'https://store.steampowered.com/news/app/4530370',
+      },
+    ],
+  },
+  {
     slug: 'phantom-blade-zero',
     title: 'Phantom Blade Zero（ファントムブレード ゼロ／影の刃零）',
     shortTitle: 'Phantom Blade Zero',
