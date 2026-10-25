@@ -1,4 +1,4 @@
-import { languageAlternates } from '@/lib/localized';
+import { hasTranslation, languageAlternates } from '@/lib/localized';
 import { ArticleToc } from '@/components/article-toc';
 import type { Metadata } from 'next';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
@@ -20,6 +20,15 @@ import {
 const weeklyReportBySlug = (slug: string) =>
   weeklyReports.find((r) => r.slug === slug);
 const SITE = 'https://gemnao.pages.dev';
+
+// Weekly items can point to guides that only exist in Japanese yet. Link to
+// the English edition when it exists, otherwise to the Japanese original.
+const guideLink = (href: string) => {
+  const original = href.replace(/^\/en(?=\/)/, '');
+  return hasTranslation('en', original)
+    ? { href: `/en${original}`, japanese: false }
+    : { href: original, japanese: true };
+};
 
 export function generateStaticParams() {
   return weeklyReports.map(({ slug }) => ({ locale: 'en', slug }));
@@ -191,11 +200,21 @@ export default async function Page({
                       <h3>{item.title}</h3>
                       <p>{item.summary}</p>
                       <div className="weekly-item-links">
-                        {item.article ? (
-                          <a href={item.article.href}>
-                            {item.article.label} <ArrowRight size={14} />
-                          </a>
-                        ) : null}
+                        {item.article
+                          ? (() => {
+                              const link = guideLink(item.article.href);
+                              return (
+                                <a
+                                  href={link.href}
+                                  hrefLang={link.japanese ? 'ja' : undefined}
+                                >
+                                  {item.article.label}
+                                  {link.japanese ? ' (Japanese)' : ''}{' '}
+                                  <ArrowRight size={14} />
+                                </a>
+                              );
+                            })()
+                          : null}
                         <a
                           href={item.source.url}
                           target="_blank"
@@ -224,7 +243,11 @@ export default async function Page({
                   <tr key={`${row.date}-${row.game}`}>
                     <td data-label="Date">{row.date}</td>
                     <td data-label="Game">
-                      {row.href ? <a href={row.href}>{row.game}</a> : row.game}
+                      {row.href ? (
+                        <a href={guideLink(row.href).href}>{row.game}</a>
+                      ) : (
+                        row.game
+                      )}
                     </td>
                     <td data-label="Schedule">{row.note}</td>
                   </tr>

@@ -5,6 +5,8 @@ const names: Record<string, string> = {
   'ドラゴンズドグマ2 ダークアリズン': 'Dragon’s Dogma 2: Dark Arisen',
   'テイルズ オブ エターニア リマスター': 'Tales of Eternia Remastered',
   'アニモ（Aniimo）': 'Aniimo',
+  サイバーパンク2077: 'Cyberpunk 2077',
+  'ファイナルファンタジー レゾナンス': 'FINAL FANTASY RESONANCE',
   'Call of Duty: Modern Warfare 4・ファイナルファンタジー レゾナンス':
     'Call of Duty: Modern Warfare 4 / Final Fantasy Resonance',
 };
@@ -18,6 +20,79 @@ const text: Record<
     upcoming: string[];
   }
 > = {
+  '2026-10-19': {
+    title:
+      'PC Gaming Weekly, October 19–25: HELLDIVERS 2 Anti-Cheat, ACE COMBAT 8 and Dawnwalker 1.1',
+    description:
+      'An archive of official patches and announcements from October 19–25, 2026: HELLDIVERS 2’s switch from GameGuard to Easy Anti-Cheat, ACE COMBAT 8 Ver. 1.01.002, The Blood of Dawnwalker Update 1.1, a Gears of War: E-Day hotfix and AION2 maintenance.',
+    highlights: [
+      'HELLDIVERS 2: on October 20 the anti-cheat changed from GameGuard to Easy Anti-Cheat. The developer said some mods may stop working.',
+      'ACE COMBAT 8: Ver. 1.01.002 (released October 23) fixed mission progression blockers and several crashes, and added an Async Compute toggle.',
+      'The Blood of Dawnwalker: Update 1.1 fixed many crashes and short freezes when saving. The notes warn the game may crash when turning FrameGen on with an RX 9070 XT.',
+    ],
+    items: [
+      [
+        'Anti-cheat changed from GameGuard to Easy Anti-Cheat (7.2.0)',
+        'Patch 7.2.0 on October 20 replaced GameGuard with Easy Anti-Cheat and added tools against cheat mods. Mods that affect other players may stop working, and some cosmetic mods may need updates from their creators. The patch also fixed crashes when cycling resolutions or render scale.',
+      ],
+      [
+        '7.2.1 fixed a crash when players joined or left the squad',
+        'The hotfix addressed one of the main crashes, which occurred when another player joined or left the squad.',
+      ],
+      [
+        'Ver. 1.01.002 (released October 23) fixed progression blockers and some crashes',
+        'Fixes covered missions that could not progress, a crash during a chain explosion in MISSION 11, and crashes in aircraft selection and the AIRCRAFT TREE screen. An Async Compute toggle was added under SYSTEM for supported GPUs, and ACE COINS purchases that stalled with the Steam overlay disabled were fixed.',
+      ],
+      [
+        'Standalone ACE COMBAT ZERO released for pre-order bonus owners',
+        'It is added to eligible libraries in stages. On the same PC, existing saves carry over automatically regardless of Steam Cloud; to move progress to another PC, enable Steam Cloud before launching. To skip the ZERO launch dialog, choose “Always use this option” or uncheck ACE COMBAT ZERO under DLC in the game’s properties.',
+      ],
+      [
+        'Update 1.1 fixed many crashes and freezes when saving',
+        'The update refreshed frame generation with dedicated settings; fixed crashes in dialogue and when loading saves, short freezes when saving or loading, and flickering with DLSS Frame Generation in windowed mode; and added controller deadzone settings. A known issue: the game may crash when switching FrameGen from off to on with an RX 9070 XT. Gore is no longer censored in the Japanese Steam version.',
+      ],
+      [
+        'October 22 hotfix reduced crashes and fixed a sign-in issue',
+        'Stability, performance and crash improvements were made on PC and other platforms, and players with incorrect system date/time settings can now sign in. Reports of freezes and crashes during long sessions were still under investigation.',
+      ],
+      [
+        'Hotfix 1.1.3.0 fixed crashes and improved login around error code CH1',
+        'Fixes covered crashes during play and a hard lock when a couch co-op party returned to the main menu. Login stability around error code “CH1” was improved.',
+      ],
+      [
+        'Scheduled maintenance from 15:30 for about 5.5 hours',
+        'Skill-effect display issues and others were fixed. From 09:30 on October 25, European servers also had about 2.5 hours of temporary maintenance for the end of summer time, with compensation items (seven-day claim window).',
+      ],
+      [
+        'Missing daily-reset items under investigation',
+        'Some players did not receive Shugo keys and Nightmare tickets at the October 25 morning (CET) reset. Further account restrictions for abuse were announced on October 21 and 24.',
+      ],
+      [
+        'Released; loadout saving and stats display under official investigation',
+        'Activision’s known-issues page (updated October 22) listed loadouts that cannot be saved in Multiplayer, stats not displaying (still tracked), and a missing Campaign/DMZ launch button for some XBOX on PC players.',
+      ],
+      [
+        'Released; minimap reappearing and audio noise under investigation',
+        'The launch notice listed a minimap/help display that can reappear after being hidden and occasional audio noise on certain CPU configurations.',
+      ],
+      [
+        'Edgerunners 2 Update (2.5) released',
+        'New content inspired by the second Cyberpunk: Edgerunners anime season was added. Detailed changes are in the official patch notes.',
+      ],
+      [
+        'Free Launch Preview from October 29, 18:00 GMT',
+        'PC players can play free for five days, to November 3, 18:00 GMT (03:00 JST on October 30 to November 4). Saves started in the free period continue into the paid Launch Preview and the full game.',
+      ],
+    ],
+    upcoming: [
+      'Release date shown on Steam.',
+      'Free Launch Preview from 03:00 JST (until November 4, 03:00 JST).',
+      'Release date shown on Steam.',
+      'Ludra Awakens update announced; check the official notice for timing.',
+      'Release date shown on Steam.',
+      'Release date shown on Steam.',
+    ],
+  },
   '2026-10-12': {
     title:
       'PC Gaming Weekly, October 12–18: ACE COMBAT 8 Crashes, AION2 and Castlevania',
@@ -259,6 +334,7 @@ const text: Record<
   },
 };
 const periods: Record<string, string> = {
+  '2026-10-19': 'October 19–25',
   '2026-10-12': 'October 12–18',
   '2026-10-05': 'October 5–11',
   '2026-09-28': 'September 28–October 4',
@@ -299,7 +375,9 @@ export const weeklyReportsEn: WeeklyReport[] = weeklyReports.map((r) => {
         url: i.source.url,
         label: i.source.url.includes('konami.com')
           ? 'KONAMI: Patch 1.3.1 (Japanese)'
-          : 'Official Steam news',
+          : i.source.url.includes('support.activision.com')
+            ? 'Activision Support: known issues'
+            : 'Official Steam news',
       },
     })),
     upcoming: r.upcoming.map((u, n) => ({

@@ -44,6 +44,238 @@ const steamNews = (appId: string) =>
 
 export const weeklyReports: WeeklyReport[] = [
   {
+    slug: '2026-10-19',
+    title:
+      '今週のPCゲーム不具合まとめ（10月19日〜10月25日）｜HELLDIVERS 2のアンチチート変更・エースコンバット8の更新・Dawnwalker 1.1ほか',
+    shortTitle: '10月19日〜10月25日',
+    period: '2026年10月19日〜10月25日',
+    publishedAt: '2026-10-26',
+    description:
+      '10月19日〜10月25日に出たPCゲームの公式パッチ・障害・お知らせをまとめました。HELLDIVERS 2のGameGuardからEasy Anti-Cheatへの切り替え、エースコンバット8のVer.1.01.002、The Blood of Dawnwalkerのアップデート1.1、Gears of War: E-Dayのホットフィックス、AION2のメンテナンスなど。',
+    lead: '今週出た公式のパッチ・障害・エラー情報を、ゲームごとに1行で確認できます。詳しい直し方は各記事へ。',
+    highlights: [
+      'HELLDIVERS 2：10/20にアンチチートをGameGuardからEasy Anti-Cheatに切り替え。一部のMODは動かなくなる場合があると公式が案内',
+      'エースコンバット8：Ver.1.01.002（10/23配信）で、ミッションが進まない問題や一部のクラッシュを修正。非同期コンピュートのON/OFFを追加',
+      'The Blood of Dawnwalker：アップデート1.1で多数のクラッシュとセーブ時の短いフリーズを修正。RX 9070 XTではフレーム生成をONにすると落ちる場合があると公式が注意',
+    ],
+    items: [
+      {
+        date: '10/20',
+        game: 'HELLDIVERS 2',
+        gameSlug: 'helldivers-2',
+        kind: 'notice',
+        title: 'アンチチートをGameGuardからEasy Anti-Cheatに切り替え（7.2.0）',
+        summary:
+          '10/20の7.2.0で、GameGuardに代えてEasy Anti-Cheatを導入。不正なMODへの対策を強めたため、ほかのプレイヤーに影響するMODは動かなくなり、見た目だけのMODも作者の更新が必要になる場合があると公式が案内。7.2.0では、解像度やレンダースケールを切り替えた時のクラッシュなども修正した。',
+        article: {
+          href: '/games/helldivers-2/gameguard-error-114',
+          label: 'GameGuardのエラー（切り替え前の記事）',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('553850') },
+      },
+      {
+        date: '10/22',
+        game: 'HELLDIVERS 2',
+        gameSlug: 'helldivers-2',
+        kind: 'patch',
+        title: '7.2.1：ほかのプレイヤーの参加・離脱時のクラッシュを修正',
+        summary:
+          '主なクラッシュの1つだった、分隊にほかのプレイヤーが参加・離脱した時のクラッシュを修正。',
+        source: { label: 'Steamニュース（公式）', url: steamNews('553850') },
+      },
+      {
+        date: '10/20',
+        game: 'エースコンバット8',
+        gameSlug: 'ace-combat-8',
+        kind: 'patch',
+        title:
+          'Ver.1.01.002（10/23配信）：ミッションが進まない問題と一部のクラッシュを修正',
+        summary:
+          '一部のミッションで進行できなくなる問題、MISSION 11の連鎖爆発や機体選択・AIRCRAFT TREEの画面でのクラッシュなどを修正。対応GPUでは「SYSTEM」で非同期コンピュートのON/OFFを選べるようになった。Steamオーバーレイをオフにしているとゲーム内購入（ACE COINS）が進まない問題も修正。',
+        article: {
+          href: '/games/ace-combat-8/crashing-memory',
+          label: '落ちる・クラッシュする時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('2288340') },
+      },
+      {
+        date: '10/23',
+        game: 'エースコンバット8',
+        gameSlug: 'ace-combat-8',
+        kind: 'notice',
+        title:
+          'ACE COMBAT ZEROの単体アプリ版を配信（予約特典を持っている人のみ）',
+        summary:
+          '対象者のSteamライブラリに順次追加。同じPCなら、これまでのセーブはSteamクラウドの設定に関係なく自動で引き継がれる。別のPCへ移す場合は、起動前にSteamクラウドを有効にする。本編の起動時にZEROの選択画面を出さないようにするには、「常にこのオプションを使用」にチェックするか、プロパティの「DLC」でACE COMBAT ZEROのインストールを外す。',
+        source: { label: 'Steamニュース（公式）', url: steamNews('2288340') },
+      },
+      {
+        date: '10/22',
+        game: 'The Blood of Dawnwalker',
+        gameSlug: 'the-blood-of-dawnwalker',
+        kind: 'patch',
+        title: 'アップデート1.1：多数のクラッシュとセーブ時のフリーズを修正',
+        summary:
+          'フレーム生成の技術を更新し、専用の設定を追加。会話中やセーブデータの読み込み時などのクラッシュ、セーブ・ロード時の短いフリーズ、ウィンドウモードでDLSSフレーム生成をONにした時のちらつきを修正。コントローラーのデッドゾーン設定も追加。既知の問題として、RX 9070 XTではフレーム生成をOFFからONにすると落ちる場合がある。Steamの日本版では流血表現の規制がなくなった。',
+        article: {
+          href: '/games/the-blood-of-dawnwalker/stutter-windowed',
+          label: 'カクつく・スタッターする時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('3751260') },
+      },
+      {
+        date: '10/23',
+        game: 'Gears of War: E-Day',
+        gameSlug: 'gears-of-war-e-day',
+        kind: 'patch',
+        title: '10月22日のホットフィックス：クラッシュの軽減とサインインの修正',
+        summary:
+          'PCなどで安定性・動作・クラッシュを改善。Windowsの日付・時刻の設定が正しくないとサインインできない問題も修正。長時間のプレイで固まる・落ちる報告はまだ調査中と公式が案内。',
+        article: {
+          href: '/games/gears-of-war-e-day/not-launching',
+          label: '起動しない・落ちる時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('3010850') },
+      },
+      {
+        date: '10/22',
+        game: 'Minecraft Dungeons II',
+        gameSlug: 'minecraft-dungeons-2',
+        kind: 'patch',
+        title:
+          'Hotfix 1.1.3.0：クラッシュとエラーコード「CH1」まわりのログインを改善',
+        summary:
+          'プレイ中のクラッシュ、画面分割の協力プレイでメインメニューに戻った時に固まる問題を修正。エラーコード「CH1」まわりのログインの安定性も改善した。',
+        article: {
+          href: '/games/minecraft-dungeons-2/multiplayer',
+          label: '友達と遊べない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('1912410') },
+      },
+      {
+        date: '10/21',
+        game: 'AION2',
+        gameSlug: 'aion2',
+        kind: 'outage',
+        title: '定期メンテナンス（15:30から約5時間30分）',
+        summary:
+          'スキル効果の表示などの不具合を修正。10/25 9:30からはヨーロッパのサーバーで、サマータイム終了に合わせた約2時間30分の臨時メンテナンスがあり、補償アイテムが配られた（受け取り期限は7日）。',
+        article: {
+          href: '/games/aion2/login-error',
+          label: 'ログイン・接続できない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('3393110') },
+      },
+      {
+        date: '10/25',
+        game: 'AION2',
+        gameSlug: 'aion2',
+        kind: 'notice',
+        title: '日替わりのリセットで一部のアイテムが届かない問題を調査中',
+        summary:
+          '10/25朝（中央ヨーロッパ時間）の日替わりのリセットで、シュゴの鍵とナイトメアのチケットを受け取れなかったプレイヤーがいるとして調査中。不正利用によるアカウント制限も、10/21・10/24に続けて発表された。',
+        source: { label: 'Steamニュース（公式）', url: steamNews('3393110') },
+      },
+      {
+        date: '10/23',
+        game: 'Call of Duty: Modern Warfare 4',
+        gameSlug: 'call-of-duty-modern-warfare-4',
+        kind: 'release',
+        title: '発売。ロードアウトの保存や戦績の表示などを公式が調査中',
+        summary:
+          'Activision公式サポートの「既知の不具合」（10/22更新）では、マルチプレイでロードアウトを保存できない、戦績が表示されない（記録は続いている）、XBOX on PC版でキャンペーン・DMZを起動するボタンが出ないなどを調査中としている。',
+        article: {
+          href: '/games/call-of-duty-modern-warfare-4/crash',
+          label: '落ちる・クラッシュする時の対処法',
+        },
+        source: {
+          label: 'Activision公式サポート：既知の不具合（英語）',
+          url: 'https://support.activision.com/modern-warfare-4/articles/known-issues-in-modern-warfare-4',
+        },
+      },
+      {
+        date: '10/23',
+        game: 'ファイナルファンタジー レゾナンス',
+        gameSlug: 'final-fantasy-resonance',
+        kind: 'release',
+        title: '発売。ミニマップの再表示と音のノイズを公式が調査中',
+        summary:
+          '発売のお知らせで、非表示にしたミニマップ・ヘルプが特定のタイミングで再び表示される問題と、特定のCPU構成でまれに音にノイズが入る問題を調査中と案内。',
+        article: {
+          href: '/games/final-fantasy-resonance/not-launching',
+          label: '起動しない・特典が受け取れない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('3259780') },
+      },
+      {
+        date: '10/22',
+        game: 'サイバーパンク2077',
+        gameSlug: 'cyberpunk-2077',
+        kind: 'patch',
+        title: 'Edgerunners 2 アップデート（2.5）を配信',
+        summary:
+          'アニメ「サイバーパンク エッジランナーズ」第2作に合わせた新しい要素を追加。詳しい修正内容は公式のパッチノートで案内されている。',
+        article: {
+          href: '/games/cyberpunk-2077/not-launching',
+          label: '起動しない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('1091500') },
+      },
+      {
+        date: '10/21',
+        game: 'Football Manager 27',
+        gameSlug: 'football-manager-27',
+        kind: 'notice',
+        title: '無料のローンチプレビューを10/30 3時から実施',
+        summary:
+          '日本時間10/30 3時〜11/4 3時の5日間、PC版を無料で遊べる。無料期間に始めたセーブは、有料のローンチプレビューと製品版でも続けられる。',
+        article: {
+          href: '/games/football-manager-27/not-launching',
+          label: '起動しない・ローンチプレビュー・Denuvo',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('4530370') },
+      },
+    ],
+    upcoming: [
+      {
+        date: '10/28',
+        game: 'Phantom Blade Zero',
+        note: '発売（Steamストアの表記）',
+        href: '/games/phantom-blade-zero/not-launching',
+      },
+      {
+        date: '10/30',
+        game: 'Football Manager 27',
+        note: '3時から無料のローンチプレビュー（11/4 3時まで）',
+        href: '/games/football-manager-27/not-launching',
+      },
+      {
+        date: '11/3',
+        game: 'Godzilla: Destroy All Monsters Melee Remastered',
+        note: '発売（Steamストアの表記）',
+        href: '/games/godzilla-destroy-all-monsters-melee/not-launching',
+      },
+      {
+        date: '11/4',
+        game: 'AION2',
+        note: 'アップデート「Ludra Awakens」（公式の告知。時刻は公式のお知らせで確認）',
+        href: '/games/aion2/login-error',
+      },
+      {
+        date: '11/5',
+        game: '崩落の国',
+        note: '発売（Steamストアの表記）',
+        href: '/games/where-the-seeds-fall/not-launching',
+      },
+      {
+        date: '11/10',
+        game: 'Football Manager 27',
+        note: '発売（Steamストアの表記）',
+        href: '/games/football-manager-27/not-launching',
+      },
+    ],
+  },
+  {
     slug: '2026-10-12',
     title:
       '今週のPCゲーム不具合まとめ（10月12日〜10月18日）｜エースコンバット8のクラッシュ対策・AION2・Castlevaniaほか',
