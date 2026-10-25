@@ -1582,6 +1582,60 @@ export const articleReviews: Record<string, Omit<ArticleReview, 'path'>> = {
       { id: 'step-5', title: 'Windows 11とVRAM 6GB以上を確認する' },
     ],
   },
+  '/games/football-manager-27/not-launching': {
+    title:
+      'Football Manager 27（FM27）が起動しない時の対処法｜無料ローンチプレビューの期間・引き継ぎとDenuvoの認証制限【PC版】',
+    gameSlug: 'football-manager-27',
+    checkedOn: '2026-10-25',
+    steps: [
+      { id: 'step-1', title: 'CPU・GPU・Windowsが動作環境を満たすか確認する' },
+      {
+        id: 'step-2',
+        title: '複数のPCで遊ぶ時は、Denuvoの1日5台の認証制限に注意する',
+      },
+      {
+        id: 'step-3',
+        title: 'ローンチプレビューの期間と、セーブの引き継ぎ条件を確認する',
+      },
+      {
+        id: 'step-4',
+        title: 'GPUドライバーを更新し、ゲームファイルを確認する',
+      },
+    ],
+  },
+  '/games/where-the-seeds-fall/not-launching': {
+    title:
+      '崩落の国（Where the Seeds Fall）が起動しない・体験版が動かない時の対処法｜Windows 11とSSDが必須【PC版】',
+    gameSlug: 'where-the-seeds-fall',
+    checkedOn: '2026-10-25',
+    steps: [
+      { id: 'step-1', title: 'Windows 11か確認する' },
+      { id: 'step-2', title: 'SSDにインストールされているか確認する' },
+      { id: 'step-3', title: 'GPUとメモリが最低環境を満たすか確認する' },
+      {
+        id: 'step-4',
+        title: 'GPUドライバーを更新し、ゲームファイルを確認する',
+      },
+    ],
+  },
+  '/games/godzilla-destroy-all-monsters-melee/not-launching': {
+    title:
+      'Godzilla: Destroy All Monsters Melee Remastered（ゴジラ）が起動しない・オンライン対戦できない時の対処法【PC版】',
+    gameSlug: 'godzilla-destroy-all-monsters-melee',
+    checkedOn: '2026-10-25',
+    steps: [
+      { id: 'step-1', title: 'GPUとメモリが最低環境を満たすか確認する' },
+      {
+        id: 'step-2',
+        title: 'GPUドライバーを更新し、ゲームファイルを確認する',
+      },
+      {
+        id: 'step-3',
+        title: 'オンライン対戦につながらない時は、回線とSteamの状態を確認する',
+      },
+      { id: 'step-4', title: '離れた友達とはRemote Play Togetherで遊ぶ' },
+    ],
+  },
   '/games/cyberpunk-2077/not-launching': {
     title:
       'サイバーパンク2077が起動しない・クラッシュする時の対処法｜公式サポートの手順【PC版】',
@@ -3053,6 +3107,12 @@ export const gameArticleContexts: Record<string, string> = {
     '/games/phantom-blade-zero/not-launching',
   'game-dragon-quest-monsters-4-demo-transfer':
     '/games/dragon-quest-monsters-4/demo-transfer',
+  'game-football-manager-27-not-launching':
+    '/games/football-manager-27/not-launching',
+  'game-where-the-seeds-fall-not-launching':
+    '/games/where-the-seeds-fall/not-launching',
+  'game-godzilla-destroy-all-monsters-melee-not-launching':
+    '/games/godzilla-destroy-all-monsters-melee/not-launching',
   'game-cyberpunk-2077-not-launching': '/games/cyberpunk-2077/not-launching',
   'game-baldurs-gate-3-crash-on-startup':
     '/games/baldurs-gate-3/crash-on-startup',
@@ -3162,6 +3222,9 @@ export const gameArticleCategories: Record<string, string> = {
   '/games/tales-of-eternia-remastered/not-launching': 'launch',
   '/games/phantom-blade-zero/not-launching': 'launch',
   '/games/dragon-quest-monsters-4/demo-transfer': 'save',
+  '/games/football-manager-27/not-launching': 'launch',
+  '/games/where-the-seeds-fall/not-launching': 'launch',
+  '/games/godzilla-destroy-all-monsters-melee/not-launching': 'launch',
   '/games/cyberpunk-2077/not-launching': 'launch',
   '/games/baldurs-gate-3/crash-on-startup': 'launch',
   '/games/helldivers-2/gameguard-error-114': 'launch',
@@ -3207,6 +3270,9 @@ export const reportableGames: readonly string[] = [
   'tales-of-eternia-remastered',
   'phantom-blade-zero',
   'dragon-quest-monsters-4',
+  'football-manager-27',
+  'where-the-seeds-fall',
+  'godzilla-destroy-all-monsters-melee',
   'cyberpunk-2077',
   'baldurs-gate-3',
   'helldivers-2',

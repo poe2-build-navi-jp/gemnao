@@ -33,6 +33,13 @@ export const launches: Launch[] = [
   { gameSlug: 'call-of-duty-modern-warfare-4', release: '2026-10-23' },
   { gameSlug: 'final-fantasy-resonance', release: '2026-10-23' },
   { gameSlug: 'phantom-blade-zero', release: '2026-10-28' },
+  { gameSlug: 'godzilla-destroy-all-monsters-melee', release: '2026-11-03' },
+  { gameSlug: 'where-the-seeds-fall', release: '2026-11-05' },
+  {
+    gameSlug: 'football-manager-27',
+    release: '2026-11-10',
+    earlyAccess: '2026-10-30',
+  },
   {
     gameSlug: 'dragon-quest-monsters-4',
     release: '2026-12-03',

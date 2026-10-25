@@ -143,9 +143,19 @@ const rows: Record<
   ],
   '2026-11': [
     {
+      name: 'Godzilla: Destroy All Monsters Melee Remastered',
+      date: 'November 3 (demo available until October 27)',
+      os: 'Windows 10 (64-bit); Windows 11 preferred',
+      minGpu: 'GTX 1060 (6 GB) / RX 580 (8 GB)',
+      storage: '6 GB',
+      must: ['DirectX 12 / Shader Model 6 capable GPU'],
+      gtx1660Note: 'Estimated above the minimum GTX 1060 (6 GB).',
+      win10Note: 'Windows 10, 64-bit; Windows 11 preferred.',
+    },
+    {
       name: 'CRYMELIGHT',
-      date: 'November 5 (demo listed in the original review)',
-      os: 'Windows 10/11 (64-bit)',
+      date: 'November 4 (Steam listing; demo available)',
+      os: 'Windows 10 (64-bit)',
       minGpu: 'RTX 2060 (6 GB) / RX 5600',
       storage: '10 GB',
       must: ['Minimum GPU: RTX 2060'],
@@ -155,7 +165,7 @@ const rows: Record<
     },
     {
       name: 'Edge of Memories',
-      date: 'November 5',
+      date: 'Moved to December 3 (Steam listing, October 25 check)',
       os: 'Windows 10/11',
       minGpu: 'GTX 1060 (6 GB) / RX 590 (8 GB) / Arc A580 (8 GB)',
       storage: '22 GB',
@@ -165,18 +175,30 @@ const rows: Record<
     },
     {
       name: 'Where the Seeds Fall',
-      date: 'November (Steam listing)',
+      date: 'November 5 (Steam listing; demo available)',
       os: 'Windows 11',
       minGpu: 'GTX 1660 (6 GB) / RX 6600 (8 GB)',
-      storage:
-        '10 GB in the September 28 edition; Steam now lists 5 GB (October 18 check). SSD required.',
+      storage: '5 GB (SSD required)',
       must: ['Windows 11', 'SSD'],
       gtx1660Note: 'GTX 1660 (6 GB) is the listed minimum.',
       win10Note: 'Both minimum and recommended OS are Windows 11.',
     },
     {
+      name: 'Football Manager 27',
+      date: 'November 10; free Launch Preview from October 29 to November 3, 18:00 GMT',
+      os: 'Windows 10/11 with all updates',
+      minGpu: 'GTX 960 / R9 380 / Intel HD 530 (1 GB VRAM)',
+      storage: '20 GB',
+      must: [
+        'CPU with SSE4.2 and SSSE3',
+        'Denuvo with a limit of five machine activations a day',
+      ],
+      gtx1660Note: 'Estimated above the minimum GTX 960.',
+      win10Note: 'Windows 10/11 minimum; Windows 11 recommended.',
+    },
+    {
       name: 'Moomin: Midsummer Madness',
-      date: 'November 12',
+      date: 'November 12 (demo available)',
       os: 'Windows 10',
       minGpu: 'GTX 780',
       storage: '3 GB',
@@ -186,7 +208,7 @@ const rows: Record<
     },
     {
       name: 'Prinny Party: Going Overboard!',
-      date: 'November 12 in the Japanese schedule; English Steam lists November 11 (October 18 check)',
+      date: 'November 11 (Steam listing, October 25 check)',
       os: 'Windows 10/11',
       minGpu: 'GTX 1050 Ti',
       storage: '1 GB',
@@ -206,10 +228,10 @@ const rows: Record<
     },
     {
       name: 'Rakuen Tsuihou -The Stellar Angel- (romanized Japanese title)',
-      date: 'November 26',
+      date: 'November 25 (Steam listing, October 25 check)',
       os: 'Windows 11 (64-bit)',
       minGpu: 'DirectX 11-compatible GPU',
-      storage: '400 MB',
+      storage: '1 GB',
       must: ['Windows 11'],
       gtx1660Note: 'The minimum is a DirectX 11-compatible GPU.',
       win10Note: 'The listed OS is Windows 11.',
@@ -246,12 +268,24 @@ const faq: Record<string, { question: string; answer: string }[]> = {
         'Where the Seeds Fall, SONIC PICO PARK and Rakuen Tsuihou -The Stellar Angel- list Windows 11.',
     },
     {
+      question: 'Is Edge of Memories still a November release?',
+      answer:
+        'Steam now lists December 3, 2026 (October 25 check). The table keeps it as a record of the earlier November schedule.',
+    },
+    {
       question: 'Does this roundup list a PC release for GTA VI?',
       answer:
-        'At the original September 28, 2026 review, GTA VI was scheduled for November 19 on PS5 and Xbox Series X|S, with no PC version announced. This is a dated record, not a new verification of its current release plans.',
+        'GTA VI is scheduled for November 19, 2026 on PS5 and Xbox Series X|S. Rockstar Games had not officially announced a PC version as of October 25, 2026.',
     },
   ],
 };
+// Linked articles without an English edition yet; the English table must not
+// point to a missing /en page. Remove an entry when its translation is added.
+const japaneseOnlyArticles = new Set([
+  '/games/godzilla-destroy-all-monsters-melee/not-launching',
+  '/games/where-the-seeds-fall/not-launching',
+  '/games/football-manager-27/not-launching',
+]);
 export const releaseRoundupsEn: ReleaseRoundup[] = releaseRoundups.map((r) => {
   const month = r.slug === '2026-10' ? 'October' : 'November';
   const translated = rows[r.slug];
@@ -265,17 +299,18 @@ export const releaseRoundupsEn: ReleaseRoundup[] = releaseRoundups.map((r) => {
     lead:
       r.slug === '2026-10'
         ? 'Check essential requirements before buying. This English edition preserves the Japanese review: Tales and Stupid Never Dies OS notes were reviewed October 13; MW4 full-release specifications and launch information were reviewed October 18.'
-        : 'A dated requirements roundup based on the September 28 Japanese edition. Three listed games require Windows 11. Check current official requirements before buying; specifically identified October 18 corrections are noted in the table.',
+        : 'A dated requirements roundup based on the Japanese edition, with dates and requirements rechecked against Steam on October 25. Three listed games require Windows 11. Check current official requirements before buying.',
     games: r.games.map((g, i) => ({
       ...g,
       ...translated[i],
       memory: g.memory === '記載なし' ? 'Not listed' : g.memory,
-      article: g.article
-        ? {
-            href: `/en${g.article.href}`,
-            label: 'Requirements and troubleshooting',
-          }
-        : undefined,
+      article:
+        g.article && !japaneseOnlyArticles.has(g.article.href)
+          ? {
+              href: `/en${g.article.href}`,
+              label: 'Requirements and troubleshooting',
+            }
+          : undefined,
     })),
     faqs: faq[r.slug],
     sources: r.sources.map((s, i) => ({
