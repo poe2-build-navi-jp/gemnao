@@ -7,7 +7,7 @@ export const directxGuide: CommonGuide = {
   description:
     'PCゲームのDirectXエラーを表示名から切り分け。DX12と機能レベル12_0の違い、d3dx9_43.dll・XINPUT1_3.dllの不足、DXGI_ERROR_DEVICE_REMOVEDなどのGPUエラーを分けて対処します。',
   conclusion:
-    'エラー全文を撮影し、まず「機能レベル不足」「d3dx9_43.dllなどの追加DLL不足」「DXGI_ERROR_DEVICE_REMOVEDなどのGPUエラー」のどれかを選びます。機能レベルはdxdiagの使用GPUで照合、古いDLLだけ不足する場合はMicrosoft公式の追加ランタイム、GPUエラーはドライバー・設定・発生条件を1項目ずつ比較します。',
+    'エラー全文から「機能レベル不足」「古い追加DLL不足」「DXGIのGPUエラー」を分けます。機能レベルは使用GPUの対応、DLL不足は公式追加ランタイム、DXGIエラーは発生条件を確認。DirectXの入れ直し1つで全部を直せるわけではありません。',
   checkedAt: '2026-09-27',
   status: 'verified',
   causes: [

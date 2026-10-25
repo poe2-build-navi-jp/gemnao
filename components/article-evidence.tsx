@@ -1,3 +1,7 @@
+import {
+  articleEvidenceReviews,
+  type ArticleEvidenceReview,
+} from '@/lib/article-evidence-reviews';
 type Evidence = {
   official: { text: string; label: string; url: string }[];
   scope: string;
@@ -62,6 +66,8 @@ export function ArticleEvidence({
   path: string;
   locale?: string;
 }) {
+  const review = locale === 'ja' ? articleEvidenceReviews[path] : undefined;
+  if (review) return <ReviewedArticleEvidence review={review} />;
   if (
     path !== '/games/rocket-league/dualsense-not-working' ||
     (locale !== 'ja' && locale !== 'en')
@@ -104,6 +110,47 @@ export function ArticleEvidence({
           : '一般的な切り分け・効果は未検証'}
       </h3>
       <p>{evidence.checks}</p>
+    </section>
+  );
+}
+
+function ReviewedArticleEvidence({
+  review,
+}: {
+  review: ArticleEvidenceReview;
+}) {
+  return (
+    <section
+      className="sources article-evidence"
+      id="article-evidence"
+      aria-labelledby="article-evidence-title"
+    >
+      <h2 id="article-evidence-title">確認結果・未検証の範囲と根拠</h2>
+      <h3>実際に記録されている結果</h3>
+      <p>{review.result}</p>
+      {review.reportPath ? (
+        <p>
+          <a href={review.reportPath}>既存の本人報告と記録の限界を読む</a>
+        </p>
+      ) : null}
+      <h3>分かっていないこと</h3>
+      <p>{review.limits}</p>
+      <h3>自分の環境で比較する項目</h3>
+      <p>{review.compare}</p>
+      <h3>対象の版・環境</h3>
+      <p>{review.scope}</p>
+      <h3>公式説明が裏付ける範囲</h3>
+      <ul>
+        {review.official.map((source) => (
+          <li key={source.url}>
+            {source.text}{' '}
+            <a href={source.url} target="_blank" rel="noopener noreferrer">
+              {source.label} ↗
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p>{review.sourceReview}</p>
     </section>
   );
 }

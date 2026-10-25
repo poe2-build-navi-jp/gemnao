@@ -315,7 +315,6 @@ export function TroubleshootingArticle({
               </ul>
             </section>
           ) : null}
-          <ArticleEvidence path={`/games/${game.slug}/${article.slug}`} />
           <ReportedCaseLink
             articlePath={`/games/${game.slug}/${article.slug}`}
           />
@@ -357,6 +356,7 @@ export function TroubleshootingArticle({
               },
             ]}
           />
+          <ArticleEvidence path={`/games/${game.slug}/${article.slug}`} />
           {article.avoid?.length ? (
             <section className="avoid-block" aria-labelledby="avoid-title">
               <h2 id="avoid-title">

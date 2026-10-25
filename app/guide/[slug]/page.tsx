@@ -1,3 +1,4 @@
+import { ArticleEvidence } from '@/components/article-evidence';
 import { ArticleToc } from '@/components/article-toc';
 import { ArticleDiagnosisEntry } from '@/components/article-diagnosis-entry';
 import { EditorialByline } from '@/components/editorial-byline';
@@ -652,6 +653,7 @@ export default async function Page({
               { href: '/guide', label: 'PC共通ガイド一覧へ戻る' },
             ]}
           />
+          <ArticleEvidence path={`/guide/${slug}`} />
           {slug === 'reset-config-file' ? <ResetConfigAfterSteps /> : null}
           {slug === 'reshade-uninstall' ? <ReShadeAfterSteps /> : null}
           {slug === 'remove-mods-safely' ? <RemoveModsAfterSteps /> : null}
