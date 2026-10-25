@@ -1,0 +1,3674 @@
+[
+  {
+    "path": "/games/arc-raiders/matchmaking",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 16,
+      "sourceCount": 6
+    },
+    "declaredScope": "PC版／公式サポートと2026年10月8日の更新情報を確認",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/arc-raiders/voice-chat",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 18,
+      "sourceCount": 7
+    },
+    "declaredScope": "PC版／公式サポートと2026年10月8日の更新情報を確認",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/elden-ring-nightreign/dlc-not-working",
+    "family": "games",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 18,
+      "sourceCount": 9
+    },
+    "declaredScope": "Windows／Steam版。公式情報確認：2026-10-08",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "公式情報を2026年10月8日に確認した手順です。実機での再現・解消を保証するものではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/elden-ring-nightreign/deep-of-night-not-appearing",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 17,
+      "sourceCount": 9
+    },
+    "declaredScope": "Windows／Steam版。公式情報確認：2026-10-08",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/marvel-rivals/login-error",
+    "family": "games",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 5
+    },
+    "declaredScope": "Windows PC版／正規インストール内の公式ツール",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "公式の公開資料を基にした案内です。実機での再現・解決を保証するものではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/marvel-rivals/high-ping",
+    "family": "games",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 5
+    },
+    "declaredScope": "Windows PC版／正規インストール内の公式ツール",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "公式の公開資料を基にした案内です。実機での再現・解決を保証するものではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/rocket-league/dualsense-not-working",
+    "family": "games",
+    "classification": "scoped-evidence-record-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 18,
+      "sourceCount": 8
+    },
+    "declaredScope": "Windows PC・通常のDualSense・Epic Games Launcher版／Steam版",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "未認識とは分け、実機1台の条件で比較",
+      "Epic・Sony・Microsoft・Valveの一次情報をもとにしたガイドです。接続の比較や結果の判定は編集部の診断手順で、実機検証済みの修復例や成功率を示すものではありません。",
+      "ゲームを終了し、Windows＋Rで「joy.cpl」を開く。コントローラー一覧に機器があるかを確認し、プロパティにテスト画面があればボタンとスティックの反応を見る。表示名だけで実機か仮想機器かを決めない。",
+      "2P参加や二重入力が残る場合は、比較条件を整理するためゲームを終了し、余分なゲームパッドだけを外して実機1台で再試行する。入力変換ツールを自分で使用中なら、設定を記録して通常終了した条件も別に比較し、悪化したら元へ戻す。",
+      "公式の対処案内であり、特定の不具合の修正完了や全環境での成功を確認したものではありません。編集部による実機再現・改善テストは行っていません。",
+      "一般的な切り分け・効果は未検証",
+      "PC側の入力→ゲームのメニュー→フリープレイの比較、実機1台での確認は編集部の切り分け手順です。2Pや二重入力の原因を断定せず、設定は1つずつ比較し、改善しなければ戻します。"
+    ],
+    "assessment": "今回4件と既存Rocket League。記録に示す制限を保持。全環境の実機検証済みではない。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/aniimo/not-launching",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 24,
+      "sourceCount": 11
+    },
+    "declaredScope": "Windows PC版（公式ランチャー・Steam）／従来手順は9月27〜28日確認、10月18日は公式の10月16日掲載情報を追記",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/aniimo/black-screen",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 24,
+      "sourceCount": 11
+    },
+    "declaredScope": "Windows PC版（公式ランチャー・Steam）／従来手順は9月27〜28日確認、10月18日は公式の10月16日掲載情報を追記",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/aniimo/login-error",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 17,
+      "sourceCount": 12
+    },
+    "declaredScope": "Windows PC版（公式ランチャー・Steam）／2026年9月27日確認",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/aniimo/video-memory-error",
+    "family": "games",
+    "classification": "basic-structure-and-partial-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 13,
+      "sourceCount": 15
+    },
+    "declaredScope": "Windows PC版（公式ランチャー・Steam）／2026年9月27日確認",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "同じ場面・同じ解像度で専用／共有GPUメモリを再確認する。たとえば「専用7.6／8GBで落ちた→5.2／8GBで落ちない」なら描画負荷が関係する手がかりになる。これは説明用の数値でAniimoの実測結果ではない。"
+    ],
+    "assessment": "数値例・利用者報告・商品仕様紹介の一部に限界の明記あり。これを記事全体の検証状況に拡大できない。残る手順の根拠範囲と対象版は個別監査が必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/aniimo/launcher-display",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 20,
+      "sourceCount": 10
+    },
+    "declaredScope": "Aniimo公式PCランチャー／Windows 11・10（2026年9月27日確認）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/monster-hunter-wilds/not-launching",
+    "family": "games",
+    "classification": "scoped-evidence-record-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 54,
+      "sourceCount": 12
+    },
+    "declaredScope": "PC・Steam製品版／ドライバー・動画再生の公式案内を2026年10月4日に再確認",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "まず落ちた時刻・場面・エラー全文を記録します。起動直後や同じロードなら整合性確認、狩猟中ならGPU・画質設定、MOD導入後なら導入物を復元可能な形で退避。1項目ずつ変えて同じ場面を比較し、追加DLLの本人報告を全環境に当てはめないでください。",
+      "本人報告1件・独立再現なし",
+      "記録例：「同じクエスト、開始約20分後に終了、MODなし、プリセット高」。これは比較方法の例で、編集部の実測結果ではない",
+      "2026年10月3日（日本時間）の改善報告1件：Windows PCでSteam版がタイトル前に終了し、プレイを始められなかった。MOD・ReShadeは使っていないとの申告だった",
+      "カプコンの元投稿は2025年2月のものです。2026年10月4日は本文の確認日で、新しい障害の発生日ではありません。実機で再生改善を検証した記録ではありません。",
+      "確認結果・未検証の範囲と根拠",
+      "既存の本人報告1件では、整合性確認で再取得なし、OBS終了・SteamオーバーレイOFFでも改善なし。Steam側の追加DLLを復元可能な形で切り離した後、起動・プレイでき、PC再起動後も遊べたと報告されています。編集部の実機テストではありません。",
+      "既存の本人報告と記録の限界を読む",
+      "Windows PC・Steam製品版。本人報告のゲーム・Steam・Windows・ドライバーの版は未記録。体験版や家庭用機の結果へは広げません。",
+      "公式ガイドの動作要件・高解像度テクスチャ条件は2026-10-25に本文を照合。本人報告は既存公開記録（資料確認日2026-10-14）を再利用し、新しい検証結果は追加していません。"
+    ],
+    "assessment": "今回4件と既存Rocket League。記録に示す制限を保持。全環境の実機検証済みではない。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/monster-hunter-wilds/save-data",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 5
+    },
+    "declaredScope": "Steam版 Ver.1.042.00.02（2026年9月27日時点の最新）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/monster-hunter-wilds/fps",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 15,
+      "sourceCount": 5
+    },
+    "declaredScope": "Steam版 Ver.1.042.00.02（2026年9月27日時点の最新）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/monster-hunter-wilds/controller",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 14,
+      "sourceCount": 4
+    },
+    "declaredScope": "Steam版 Ver.1.042.00.02（2026年9月27日時点の最新）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/monster-hunter-wilds/mod",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 10,
+      "sourceCount": 5
+    },
+    "declaredScope": "Steam版 Ver.1.042.00.02（2026年9月27日時点の最新）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/monster-hunter-wilds/config-file",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 4
+    },
+    "declaredScope": "Steam版 Ver.1.042.00.02（2026年9月27日時点の最新）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/monster-hunter-wilds/system-requirements",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 4
+    },
+    "declaredScope": "Steam版 Ver.1.042.00.02（2026年9月27日時点の最新）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/monster-hunter-wilds/hdr",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 15,
+      "sourceCount": 6
+    },
+    "declaredScope": "Steam版 Ver.1.042.00.02（2026年9月27日時点の最新）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/monster-hunter-wilds/ultrawide",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 4
+    },
+    "declaredScope": "Steam版 Ver.1.042.00.02（2026年9月27日時点の最新）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/ace-combat-8/hotas-not-recognized",
+    "family": "games",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 10,
+      "sourceCount": 5
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "PC／Steam版でスティック・スロットル・ペダルが反応しない場合が対象です。資料を確認した手順であり、当サイトが各機器を実機で試した結果ではありません。",
+      "外部マッパーをすでに使っている場合だけ、ゲームとマッパーを通常終了し、実機1組で起動して比較する。改善すれば入力経路の重複が候補、変化がなければ記録した状態へ戻す。Steam Inputの一律有効化や、新しいマッパーの導入を解決条件にしない。",
+      "出典確認は2026年10月16日。機器の実機検証や、全HOTAS・全ペダルでの動作保証ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/ace-combat-8/stutter-audio-cutting-out",
+    "family": "games",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 10,
+      "sourceCount": 7
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "PC／Steam版でゲームは起動するものの、映像や音声が不安定な場合向けです。出典と比較手順を整理した記事で、当サイトの実機検証による修正方法ではありません。",
+      "これは一般的な切り分けで、AC8で効果を実測した設定集ではありません。",
+      "出典確認：2026年10月16日。公式の要件・告知と利用者報告を区別しています。実機での改善率や、特定機種での再現は測定していません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/apex-legends/game-version-mismatch",
+    "family": "games",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 9,
+      "sourceCount": 8
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "公式確認日：2026-10-14。実機での再現・解決を示すものではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/overwatch-2/rendering-device-lost",
+    "family": "games",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 8,
+      "sourceCount": 3
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "出典確認日：2026-10-14。実機再現・解決率の主張はありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/pubg/anti-cheat-conflict-warning",
+    "family": "games",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 8,
+      "sourceCount": 1
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "公式資料の確認日：2026-10-14。実機での警告再現や解決率は確認していません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/apex-legends/javelin-launch-error",
+    "family": "games",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 11,
+      "sourceCount": 9
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "2026-10-14に公式資料を確認。実機での再現・解決率を示す記事ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/valorant/van-restriction-5",
+    "family": "games",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 11
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "公式確認日：2026-10-14。実機での再現・解決検証ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/valorant/van9005",
+    "family": "games",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 11
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "公式確認日：2026-10-14。実機での再現・解決を確認した記事ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/ace-combat-8/time-sync-failed",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 4
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/ace-combat-8/connection-after-time-sync",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 5
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/monster-hunter-wilds/crash-after-fixes",
+    "family": "games",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 6
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "この段階では設定変更やログ削除は不要です。実際の記録を残し、例の時間を自分の検証結果として使わないでください。",
+      "ここには編集部の実機測定や新しい成功事例は含めていません。比較例は記録方法の説明です。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/valorant/van9003",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 13,
+      "sourceCount": 9
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/valorant/van9001",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 13,
+      "sourceCount": 9
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/apex-legends/r5apex-exe-launch-error",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 13,
+      "sourceCount": 7
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/apex-legends/apex-crash-txt",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 13,
+      "sourceCount": 7
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/apex-legends/code-net-leaf",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 13,
+      "sourceCount": 7
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/fortnite/running-not-opening",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 4
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/fortnite/dx12-black-screen",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 4
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/battlefield-6/javelin-error-94",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 5
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/battlefield-6/secure-boot-enabled-not-launching",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 5
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/valorant/not-launching-no-van",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 16,
+      "sourceCount": 9
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/ace-combat-8/crashing-memory",
+    "family": "games",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 11,
+      "sourceCount": 5
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "Steam版で起動後に落ちる人向け。2026年10月22日に公式資料を確認した記事で、実機検証結果ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/planet-zoo-2/crashing-autosave",
+    "family": "games",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 9,
+      "sourceCount": 2
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "今回扱うタイマーリセットと特定の動物放流クラッシュは1.0.6、Resumeによる接続エラーは1.0.7の正式告知に修正として載っています。個別環境での改善は実機確認していません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/gears-of-war-e-day/achievements-rewards",
+    "family": "games",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 13,
+      "sourceCount": 5
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "本記事は公式資料の整理で、実機検証ではありません。報酬復旧や実績解除を保証しません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/wardogs/error-wd-l020",
+    "family": "games",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 13,
+      "sourceCount": 10
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "WD-L014／WD-L018なら別コードとして記録する。9月30日の公式告知は対応中としており、今回確認した資料では個別コードの修正完了を確認できない。今日の継続障害を新たに実測したわけではない。",
+      "本記事は実機検証ではありません。0.1.2の修正は対象条件の修正履歴で、将来の全WD-L020の解消保証ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/palworld/save-data",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 24,
+      "sourceCount": 6
+    },
+    "declaredScope": "WindowsのSteam版・自分のPCに保存されるワールド",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/palworld/dedicated-server-settings",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 17,
+      "sourceCount": 4
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/palworld/dedicated-server-backup",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 18,
+      "sourceCount": 5
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/palworld/dedicated-server-port",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 14,
+      "sourceCount": 5
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/palworld/not-launching",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 29,
+      "sourceCount": 7
+    },
+    "declaredScope": "Steam版・Windows・パルワールド1.0系（専用サーバーは対象外）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/palworld/system-requirements",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 19,
+      "sourceCount": 4
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/elden-ring/save-data",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 10,
+      "sourceCount": 3
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/elden-ring/not-launching",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 15,
+      "sourceCount": 5
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/elden-ring/fps",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 15,
+      "sourceCount": 3
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/elden-ring/ultrawide",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 9,
+      "sourceCount": 3
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/elden-ring/hdr",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 4
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/elden-ring/mod",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 2
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword/not-launching",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 18,
+      "sourceCount": 5
+    },
+    "declaredScope": "Steam版・2026年9月27日時点のカプコン公式案内",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword/crash-report",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 10,
+      "sourceCount": 3
+    },
+    "declaredScope": "Steam版・2026年9月27日時点のカプコン公式案内",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword/low-fps",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 16,
+      "sourceCount": 8
+    },
+    "declaredScope": "Steam版・2026年10月3日にFPSとGPUの切り分け手順を再確認",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword/shader-cache",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 11,
+      "sourceCount": 3
+    },
+    "declaredScope": "Steam版・2026年9月27日時点のカプコン公式案内",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword/black-screen",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 13,
+      "sourceCount": 3
+    },
+    "declaredScope": "Steam版・2026年9月27日時点のカプコン公式案内",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword/hdr",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 14,
+      "sourceCount": 6
+    },
+    "declaredScope": "Steam版・2026年9月27日時点のカプコン公式案内",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/onimusha-way-of-the-sword/gpu-driver-version",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 3
+    },
+    "declaredScope": "Steam版・2026年9月27日時点のカプコン公式案内",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/wardogs/server-connection",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 17,
+      "sourceCount": 7
+    },
+    "declaredScope": "Steam版（早期アクセス）・10月22日に更新履歴と接続症状を再確認",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/the-blood-of-dawnwalker/shader-compilation-crash",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 15,
+      "sourceCount": 9
+    },
+    "declaredScope": "PC版 Hotfix 1.0.5（2026年9月27日時点の最新）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/the-blood-of-dawnwalker/stutter-windowed",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 7
+    },
+    "declaredScope": "PC版 Hotfix 1.0.5（2026年9月27日時点の最新）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/the-blood-of-dawnwalker/controller-sprint",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 7
+    },
+    "declaredScope": "PC版 Hotfix 1.0.5（2026年9月27日時点の最新）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/star-wars-zero-company/not-launching",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 19,
+      "sourceCount": 5
+    },
+    "declaredScope": "PC版（EA app・Steam・Epic）・2026年9月27日時点のEA公式案内",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/star-wars-zero-company/black-screen",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 4
+    },
+    "declaredScope": "PC版（EA app・Steam・Epic）・2026年9月27日時点のEA公式案内",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/star-wars-zero-company/save-progress",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 11,
+      "sourceCount": 5
+    },
+    "declaredScope": "PC版（EA app・Steam・Epic）・2026年9月27日時点のEA公式案内",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/star-wars-zero-company/gtx10-rtx20-low-fps",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 15,
+      "sourceCount": 4
+    },
+    "declaredScope": "PC版（EA app・Steam・Epic）・2026年9月27日時点のEA公式案内",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/aion2/login-error",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 19,
+      "sourceCount": 5
+    },
+    "declaredScope": "Steam版・PURPLE版（正式サービス）・2026年10月11日時点の公式のお知らせ",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/ace-combat-8/not-launching",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 22,
+      "sourceCount": 8
+    },
+    "declaredScope": "Steam版・既存の要件案内と2026年10月22日確認のクラッシュ告知",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/shin-sangoku-musou-2-remastered/not-launching",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 18,
+      "sourceCount": 5
+    },
+    "declaredScope": "Steam版・体験版・2026年9月28日時点の動作環境",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/control-resonant/crash-performance",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 20,
+      "sourceCount": 7
+    },
+    "declaredScope": "Steam版・Epic版（ホットフィックス1.3.3）・2026年9月28日時点",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/silent-hill-townfall/stutter",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 18,
+      "sourceCount": 5
+    },
+    "declaredScope": "Steam版・Epic版（Patch 1.3.1／v1.4.153829）・2026年10月1日時点",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/minecraft-dungeons-2/multiplayer",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 16,
+      "sourceCount": 4
+    },
+    "declaredScope": "Steam版・Microsoft Store版（Game Pass）・2026年10月1日時点の公式情報",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/call-of-duty-modern-warfare-4/tpm-secure-boot",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 22,
+      "sourceCount": 8
+    },
+    "declaredScope": "Steam版・Battle.net版・XBOX on PC版。2026年10月18日確認：通常発売は10月23日、デジタル予約特典のキャンペーン早期アクセスは10月16日（PT）開始の案内",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/call-of-duty-modern-warfare-4/crash",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 21,
+      "sourceCount": 8
+    },
+    "declaredScope": "Steam版・Battle.net版・XBOX on PC版。2026年10月23日（発売日）に公式サポートの本文を確認",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/call-of-duty-modern-warfare-4/xbox-pc-launch-button",
+    "family": "games",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 6,
+      "sourceCount": 6
+    },
+    "declaredScope": "Xbox PC版のみ。Steam・Battle.net版の同じ症状まで公式確認されたとは扱いません。",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "確認日：2026年10月24日。公式の最終更新日は10月23日です。以下は症状の切り分けと報告準備であり、実機での解決実績や修正完了を示すものではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/call-of-duty-modern-warfare-4/loadout-not-saving",
+    "family": "games",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 6,
+      "sourceCount": 6
+    },
+    "declaredScope": "全プラットフォームのマルチプレイ。この記事のPCでの確認はSteam・Battle.net・Xbox PC版を区別して記録します。",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "確認日：2026年10月24日。公式の最終更新日は10月23日です。以下は症状の切り分けと報告準備であり、実機での解決実績や修正完了を示すものではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/call-of-duty-modern-warfare-4/stats-not-showing",
+    "family": "games",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 6,
+      "sourceCount": 6
+    },
+    "declaredScope": "全プラットフォームのCombat Record・リーダーボード表示。別の進行状況・購入品の消失まで説明する項目ではありません。",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "確認日：2026年10月24日。公式の最終更新日は10月23日です。以下は症状の切り分けと報告準備であり、実機での解決実績や修正完了を示すものではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/enshrouded/black-screen-save-migration",
+    "family": "games",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 9,
+      "sourceCount": 4
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "実機での再現・修正効果は未確認です。後続更新は公式ニュースで確認してください。",
+      "10/21の正式なHotfix変更履歴で修正として案内されています。今回の確認で実機の改善まで検証したわけではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/battlefield-6/crash-after-update",
+    "family": "games",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 6,
+      "sourceCount": 8
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "公式告知の範囲を整理した記事です。ゲーム実機での再現・解決確認は行っていません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/battlefield-6/cannot-revive",
+    "family": "games",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 6,
+      "sourceCount": 8
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "公式告知の範囲を整理した記事です。ゲーム実機での再現・解決確認は行っていません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/gears-of-war-e-day/not-launching",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 18,
+      "sourceCount": 6
+    },
+    "declaredScope": "Steam版・XBOX on PC版・2026年10月1日時点の公式情報",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/dragons-dogma-2/performance",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 18,
+      "sourceCount": 5
+    },
+    "declaredScope": "Steam版（TU3.2以降）・2026年9月28日時点",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/final-fantasy-resonance/not-launching",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 16,
+      "sourceCount": 6
+    },
+    "declaredScope": "Steam版（2026年10月23日発売）・体験版・2026年10月23日時点",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/castlevania-belmonts-curse/not-launching",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 16,
+      "sourceCount": 4
+    },
+    "declaredScope": "Steam版・Ver.1.1.3と2026年10月16日時点のKONAMIの不具合のお知らせ",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/tales-of-eternia-remastered/not-launching",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 11,
+      "sourceCount": 3
+    },
+    "declaredScope": "Steam版・2026年10月17日時点の公式情報（発売後）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/phantom-blade-zero/not-launching",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 3
+    },
+    "declaredScope": "Steam版・2026年10月3日時点の公式情報（発売前）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/dragon-quest-monsters-4/demo-transfer",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 14,
+      "sourceCount": 5
+    },
+    "declaredScope": "Steam版・体験版・2026年10月3日時点の公式情報（発売前）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/football-manager-27/not-launching",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 13,
+      "sourceCount": 3
+    },
+    "declaredScope": "Steam版・2026年10月25日時点の公式情報（発売前）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/where-the-seeds-fall/not-launching",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 11,
+      "sourceCount": 3
+    },
+    "declaredScope": "Steam版・体験版・2026年10月25日時点の公式情報（発売前）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/godzilla-destroy-all-monsters-melee/not-launching",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 4
+    },
+    "declaredScope": "Steam版・体験版・2026年10月25日時点の公式情報（発売前）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/cyberpunk-2077/not-launching",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 14,
+      "sourceCount": 5
+    },
+    "declaredScope": "Steam・GOG・Epic版（PC）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/baldurs-gate-3/crash-on-startup",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 16,
+      "sourceCount": 6
+    },
+    "declaredScope": "Steam・GOG版（Windows）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/helldivers-2/gameguard-error-114",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 6
+    },
+    "declaredScope": "Steam版（Windows）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/hogwarts-legacy/crash",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 13,
+      "sourceCount": 5
+    },
+    "declaredScope": "Steam版（Windows）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/gta-v-enhanced/story-save-migration",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 9,
+      "sourceCount": 4
+    },
+    "declaredScope": "PC版（Steam・Rockstar Games Launcher・Epic）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/skyrim-special-edition/skse-after-update",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 10,
+      "sourceCount": 4
+    },
+    "declaredScope": "Steam版・GOG版（Windows）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/stardew-valley/save-restore",
+    "family": "games",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 18,
+      "sourceCount": 5
+    },
+    "declaredScope": "Windows版（Steam・GOG）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/games/ace-combat-8/error-st-3100001",
+    "family": "games",
+    "classification": "basic-structure-and-partial-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 13,
+      "sourceCount": 7
+    },
+    "declaredScope": "Steam版（ACE COMBAT ONLINE）・時刻同期手順は10月13日更新、公式Steam告知は2026年10月18日（日本時間）確認",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "公式はすべての環境に共通する許容時差の秒数を示していません。プレイヤーの改善報告は個別例で、原因や成功率の証明ではありません。"
+    ],
+    "assessment": "数値例・利用者報告・商品仕様紹介の一部に限界の明記あり。これを記事全体の検証状況に拡大できない。残る手順の根拠範囲と対象版は個別監査が必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/low-gpu-usage",
+    "family": "guide",
+    "classification": "basic-structure-and-partial-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 8,
+      "sourceCount": 6
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "下記の数値は判断方法を示す仮の例で、特定のゲーム・PCでの実測結果ではありません。実際はプレイ中の同じ場面で自分の目標FPSと比べます。",
+      "目標60／上限60／実測ほぼ60",
+      "目標120／上限60／実測ほぼ60",
+      "目標60／上限120／実測45前後",
+      "目標FPSを維持している場合は、GPU使用率の低さ自体を直す必要はありません。記事の数値例は判定の練習用です。ご自身の結果は、ゲーム名・目標FPS・実測FPS・上限・CPU全体と各論理プロセッサ・GPU番号と名前・3D負荷を同じ場面のメモに残してください。"
+    ],
+    "assessment": "数値例・利用者報告・商品仕様紹介の一部に限界の明記あり。これを記事全体の検証状況に拡大できない。残る手順の根拠範囲と対象版は個別監査が必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/pc-game-freezes",
+    "family": "guide",
+    "classification": "basic-structure-and-partial-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 9,
+      "sourceCount": 8
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "数値は読み方を説明する仮例で、実機測定値や異常判定のしきい値ではありません。RAMはPC全体の作業用メモリ、VRAMは主に画像処理用です。内蔵GPUはRAMを共有するため、専用GPUと同じ容量の見方はできません。"
+    ],
+    "assessment": "数値例・利用者報告・商品仕様紹介の一部に限界の明記あり。これを記事全体の検証状況に拡大できない。残る手順の根拠範囲と対象版は個別監査が必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/steam-game-not-launching",
+    "family": "guide",
+    "classification": "scoped-evidence-record-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 16,
+      "sourceCount": 11
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "確認結果・未検証の範囲と根拠",
+      "この共通手順について、編集部の実機で起動失敗を再現・修復した結果はありません。Wildsの本人報告を、Steam全体での成功実績として転用していません。",
+      "公式資料を確認し、本文は独自の表現で要約しています。本文の「期待結果」は、設定を変えた後に読者が判断する目安です。編集部が実機で改善を確認した結果ではありません。変化がなければ元の設定へ戻し、症状に合う次の確認先へ進んでください。"
+    ],
+    "assessment": "今回4件と既存Rocket League。記録に示す制限を保持。全環境の実機検証済みではない。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/verify-steam-files",
+    "family": "guide",
+    "classification": "scoped-evidence-record-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 8,
+      "sourceCount": 5
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "確認結果・未検証の範囲と根拠",
+      "この解説の手順を編集部の実機で比較した結果はありません。既存Wilds本人報告では再取得がなかったことまで記録されていますが、全ゲームでの正常判定や修復成功を示しません。"
+    ],
+    "assessment": "今回4件と既存Rocket League。記録に示す制限を保持。全環境の実機検証済みではない。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/pc-game-crash",
+    "family": "guide",
+    "classification": "basic-structure-and-partial-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 8,
+      "sourceCount": 6
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "説明用サンプルです。実際のゲームの障害記録・実測結果・画面の再現ではありません。SampleGame.exeとOtherApp.exeは架空の名前です。時刻は同じ日の同じタイムゾーンとして比較します。",
+      "改善報告：ゲームのMODがなくてもSteam本体の拡張を確認"
+    ],
+    "assessment": "数値例・利用者報告・商品仕様紹介の一部に限界の明記あり。これを記事全体の検証状況に拡大できない。残る手順の根拠範囲と対象版は個別監査が必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/black-screen",
+    "family": "guide",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 9,
+      "sourceCount": 6
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/gpu-driver-update",
+    "family": "guide",
+    "classification": "basic-structure-and-partial-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 9,
+      "sourceCount": 7
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "数値を実測した結果ではなく、読者が埋めるためのテンプレートです。サポートに相談する際にも使えます。"
+    ],
+    "assessment": "数値例・利用者報告・商品仕様紹介の一部に限界の明記あり。これを記事全体の検証状況に拡大できない。残る手順の根拠範囲と対象版は個別監査が必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/stutter-fix",
+    "family": "guide",
+    "classification": "basic-structure-and-partial-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 9,
+      "sourceCount": 7
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "数値は設定の考え方を示す仮例で、実測結果・全ゲーム共通の推奨値ではありません。90fpsが選べなければ利用できる近い低めの値で比較します。固定リフレッシュレートでは上限との組み合わせで動きが不均等になる場合があり、VRRも動作範囲内での確認が必要です。",
+      "これは記入用の書式です。編集部の実測値ではありません。資料確認：2026年9月27日。"
+    ],
+    "assessment": "数値例・利用者報告・商品仕様紹介の一部に限界の明記あり。これを記事全体の検証状況に拡大できない。残る手順の根拠範囲と対象版は個別監査が必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/low-fps",
+    "family": "guide",
+    "classification": "basic-structure-and-partial-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 8,
+      "sourceCount": 7
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "読み方の例（すべて説明用の仮の数値で、実機検証結果ではありません）"
+    ],
+    "assessment": "数値例・利用者報告・商品仕様紹介の一部に限界の明記あり。これを記事全体の検証状況に拡大できない。残る手順の根拠範囲と対象版は個別監査が必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/vram-shortage",
+    "family": "guide",
+    "classification": "basic-structure-and-partial-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 6,
+      "sourceCount": 4
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "読み方はMicrosoft DirectXの解説に基づきます。ゲーム内の「必要VRAM」「推定使用量」は、実測使用量と異なる場合があります。比較にはタスクマネージャーの同じ表示を使います。",
+      "記録例（説明のための仮の数値・実機測定ではありません）"
+    ],
+    "assessment": "数値例・利用者報告・商品仕様紹介の一部に限界の明記あり。これを記事全体の検証状況に拡大できない。残る手順の根拠範囲と対象版は個別監査が必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/save-data-backup",
+    "family": "guide",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 9,
+      "sourceCount": 5
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "仕様の確認： メーカー公式情報。実機での動作検証に基づく紹介ではありません。",
+      "2026年9月27日に公式資料を照合。ゲーム実機での復元テスト結果は掲載していません。共有時はPCのユーザー名やアカウントIDを伏せてください。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/steam-input-controller",
+    "family": "guide",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 7,
+      "sourceCount": 5
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "PSのパッドなのにABXYが出るなど、表示と実機の記号が一致しない",
+      "PS4パッドなのに「Xbox 360」と出る場合：DS4Windows・InputMapperなどで変換していると、Steamはツールが作る仮想Xbox 360パッドを認識します。 表示名だけで別の機器や故障と判断せず、実機名・使用中の変換ツール・Steamの表示名を控えてください。 切り分ける時はゲームと変換ツールを終了し、実機1台で入力テストをやり直します。名前が違うという理由だけでドライバーを削除する必要はありません。",
+      "DS4Windowsなどの入力変換ツールを使っている場合はゲームとツールを終了し、実機1台とSteam Inputだけで再起動。1回押して1回だけ反応するか確認する。直ったら二重の入力経路が候補。外部ツールを使う必要がある場合だけ、Steam Inputを無効化した状態を別に試す。",
+      "ボタン表記が違うだけでは、認識失敗や故障とは判断できません。Steam Inputによるゲームパッド入力の変換や、ゲーム側の表示対応によって、実機と異なる記号が出る場合があります。 Steamに表示される機器名と、ゲーム内のボタン表記を分けて確認してください。",
+      "1回押したのに2回動く場合は、DS4Windowsなどの変換ツールや仮想パッドを終了し、実機1台とSteam Inputだけで試します。直った場合は二重変換が候補です。二重入力の詳しい切り分けも参照してください。",
+      "DS4WindowsやInputMapperを使用中なら、Steamがツールの作る仮想Xbox 360パッドを認識している場合があります。実機名と表示名を分けて記録し、ゲームと変換ツールを終了して実機1台で再テストしてください。表示名だけでは故障や誤接続と判断できません。",
+      "外部入力変換ツールとSteam Input、または実機と仮想コントローラーの重複を疑います。まずゲームと外部ツールを終了し、実機1台とSteam Inputだけで再起動。詳しくは「コントローラー二重入力」の記事を確認してください。",
+      "公式資料を確認し、本文は独自の表現で要約しています。本文の「期待結果」は、設定を変えた後に読者が判断する目安です。編集部が実機で改善を確認した結果ではありません。変化がなければ元の設定へ戻し、症状に合う次の確認先へ進んでください。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/controller-double-input",
+    "family": "guide",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 9,
+      "sourceCount": 4
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "PCゲームでボタンを1回押したのにメニューが2つ進む、2Pが参加する時の切り分け。Windowsで実機と仮想パッドを見分け、外部変換ツールとSteam Inputを1つずつ切り替えた結果から、ゲームに届く入力経路を判断します。",
+      "まず対象ゲームのタイトル画面で、同じ方向ボタンを1回だけ押し、メニューが何項目動いたか記録します。DS4Windowsなどを使っていればゲームを終了してツールを停止し、実機1台とSteam Inputだけで再起動して同じ操作を比較。1項目だけ動くようになれば、外部ツールが作る仮想パッドと実機の入力が重なった可能性があります。変わらない場合はSteam Inputをゲームごとに切り替え、結果から次の確認先を選びます。",
+      "STEP 1｜1回押した結果と実機・仮想パッドを記録する",
+      "外部変換ツールが実機に加えて仮想パッドを作り、ゲームが両方を読む",
+      "実機・仮想パッド以外にも別のゲームパッドや配信ソフトの仮想機器が接続中",
+      "まずゲームを終了し、実機と仮想パッドの一覧を記録します。外部変換ツールを使っていない場合は、ツールを終了する手順を飛ばして、Steam Inputとゲームの割り当てを比べます。",
+      "実機と仮想パッドの見分け方：名前より「消える方」を見る",
+      "例：停止前に「Wireless Controller」と「Xbox 360 Controller」があり、停止後にXbox側だけ消えたなら、消えたXbox側がそのツールによる仮想パッドの候補。どちらも残るなら、その名前だけで実機・仮想の区別を確定しないで、別の変換ツール・常駐アプリも調べます。",
+      "HidHideなどですでに実機を隠していると、joy.cplには仮想パッドだけが表示される場合があります。一覧が1台でも入力が一系統とは限らず、2台でもゲームが両方読むとは限りません。一覧の変化とゲーム内で1回押した結果を必ずセットで確認してください。DS4Windows Docsの実機・仮想パッドの説明",
+      "1回押した結果と実機・仮想パッドを記録する",
+      "ゲームを終了し、Windowsキー＋R→joy.cplで「ゲーム コントローラー」一覧を開く。DS4Windowsなどを使う場合、実機（例：Wireless Controller）と仮想機器（例：Xbox 360 Controller）が並ぶことがある。名前だけで決めず、ツールを停止して消える方を確認する。",
+      "実機のパッドをゲームから隠す設定（HidHideなど）を使っている場合は一覧に両方出るとは限らない。機器を削除・ドライバーを無効化せず、変換ツールの「接続中」「出力」表示と停止前後を照合する。",
+      "Steamの「設定」→「コントローラ」で実機の認識と入力を確認し、対象ゲームのライブラリ→「プロパティ」→「コントローラ」で現在値を控える。Steam Inputを有効にしてSteamからゲームを起動し、同じボタンを1回だけ押す。",
+      "外部ツールを止めたまま二重入力する場合は、ゲームを終了し、対象ゲームの「プロパティ」→「コントローラ」でSteam Inputを無効化して再起動。同じボタンが1回だけ反応するか比べる。ゲームが実機の入力に対応していなければ無反応になるため、その場合は元へ戻す。",
+      "外部ツールを使う必要がある場合は、今度はゲームを終了してSteam Inputを無効にし、外部ツールだけで起動して比較。2系統を同時に変更・起動しない。HidHideを既に使用中なら専用の案内で実機と仮想機器の表示先を確認し、推測で隠す対象を追加しない。",
+      "外部ツールだけでは説明できない。実機以外のパッド・仮想機器と、Steam／ゲームの重複割り当てを確認",
+      "Steam Input側の関与が候補。ゲームが実機を直接認識できるなら、この条件で比較を終える",
+      "無反応ならゲームが実機を直接読めない可能性があり、Steam Inputを元へ。二重のままなら別の機器・ゲーム内設定へ",
+      "外部ツールだけでも2回動く場合は、ゲームが実機と仮想パッドを両方読んでいる可能性があります。DS4Windows Docsは実機をゲームから隠し、仮想パッドだけ見せる方法を案内しています。すでにHidHideを使っているなら設定の対象機器と許可アプリを配布元の案内で照合。実機やドライバーを推測で無効化しないでください。",
+      "問題が1本のゲームだけなら、Steamの「コントローラーレイアウト」とゲーム内のボタン割り当てで、同じ物理ボタンが複数の操作に割り当てられていないか確認します。別ゲームでも起きるなら、実機以外のゲームパッド、常駐する仮想機器や入力変換ツールを調べます。判別できない場合は、ゲーム名、使ったパッド、joy.cplの一覧、試した条件と「1回で何項目動いたか」を記録してサポートへ伝えます。",
+      "実機やドライバーを名前だけで推測して削除・無効化しないでください。HidHideなどの表示制御があるとWindowsの一覧に実機が出ない場合もあります。Steam Inputと外部ツールは一条件ずつ変え、無反応になったら変更前の状態へ戻してください。",
+      "DS4WindowsでXbox型の仮想パッドを出している場合は、Wireless Controllerが実機、Xbox 360 Controllerが仮想パッドの例があります。ただし名称だけで確定できません。ゲームを終了して外部ツールを通常停止し、一覧から消える方とツールの出力表示を照合してください。",
+      "外部ツールがそのゲーム向けの入力を作っていた可能性があります。Steamの「設定」→「コントローラ」で実機の入力が届いているかを確認し、ゲーム側の対応機種とSteam Input設定を比較。外部ツールを使う場合はSteam Inputを無効にした条件を別に試し、変更前に戻せるよう記録します。",
+      "DS4Windows側の資料では、外部ツールを使う構成で実機をゲームから隠し仮想パッドだけを見せる方法が案内されています。ただし隠す機器や許可するアプリを誤ると入力が届きません。外部ツールなしで動くなら追加設定は不要です。使う必要がある場合だけ、利用中のツールの手順を確認してください。"
+    ],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/directx-error",
+    "family": "guide",
+    "classification": "scoped-evidence-record-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 7,
+      "sourceCount": 6
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "確認結果・未検証の範囲と根拠",
+      "2026-10-25にMicrosoftのDXGIエラー定義とJune 2010追加ランタイムの説明を照合。これは引用箇所の資料確認であり、記事全体や実機の最新動作確認ではありません。"
+    ],
+    "assessment": "今回4件と既存Rocket League。記録に示す制限を保持。全環境の実機検証済みではない。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/visual-c-runtime-error",
+    "family": "guide",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 8,
+      "sourceCount": 4
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/remove-mods-safely",
+    "family": "guide",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 10,
+      "sourceCount": 4
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/reshade-uninstall",
+    "family": "guide",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 10,
+      "sourceCount": 5
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "公開するパスではWindowsユーザー名を伏せてください。編集部によるゲーム実機検証ではなく、ReShade 6.8.0の公式ソースと開発者の説明を確認して整理しています。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/reset-config-file",
+    "family": "guide",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 10,
+      "sourceCount": 8
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "Windows向け。ワイルズのパスはSteamの標準インストール先です。保存先の資料確認：2026年9月27日。編集部によるゲーム実機検証は未実施です。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/shader-cache-delete",
+    "family": "guide",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 7,
+      "sourceCount": 7
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "本記事は2026年9月27日に公式資料を照合して編集しました。上のメモは読者が実測を残すためのもので、編集部によるゲーム実機テストの結果ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/uninstall-save-data",
+    "family": "guide",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 7,
+      "sourceCount": 6
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "公式に確認した保存先と削除範囲を照合した判断です。全ストア・全バージョンのアンインストーラーを実機検証した結果ではありません。保存先の移動や、ユーザーデータも消す追加操作がある場合は条件が変わります。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/steam-cloud-sync-error",
+    "family": "guide",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 10,
+      "sourceCount": 3
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/steam-disk-write-error",
+    "family": "guide",
+    "classification": "basic-structure-and-partial-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 11,
+      "sourceCount": 6
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "数値は説明用で、特定ゲームで実測した必要容量ではありません。Microsoft公式：このPCで空き容量を確認"
+    ],
+    "assessment": "数値例・利用者報告・商品仕様紹介の一部に限界の明記あり。これを記事全体の検証状況に拡大できない。残る手順の根拠範囲と対象版は個別監査が必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/pc-shuts-down-while-gaming",
+    "family": "guide",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 7,
+      "sourceCount": 8
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/bsod-while-gaming",
+    "family": "guide",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 7,
+      "sourceCount": 8
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/no-game-audio",
+    "family": "guide",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 10,
+      "sourceCount": 5
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/tpm-secure-boot",
+    "family": "guide",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 16,
+      "sourceCount": 4
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/windows-11-required",
+    "family": "guide",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 10,
+      "sourceCount": 5
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/guide/ray-tracing-gpu",
+    "family": "guide",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 9,
+      "sourceCount": 4
+    },
+    "declaredScope": null,
+    "scopeFieldGap": "専用フィールドなし。本文中の対象記述の不存在を意味しない。",
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/upload-failed",
+    "family": "discord",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 24,
+      "sourceCount": 10
+    },
+    "declaredScope": "Discordのデスクトップ・ブラウザ版、Android・iOSアプリ",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "以下は2026年10月3日に確認した公式資料を基に編集した切り分け手順です。実機で全端末・全アカウントを検証したものではありません。安全上の警告がある場合はテストよりSTEP 6を優先し、該当する行だけ進めてください。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/not-opening",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 24,
+      "sourceCount": 3
+    },
+    "declaredScope": "Windows版Discordデスクトップアプリ",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/mic-not-working",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 24,
+      "sourceCount": 4
+    },
+    "declaredScope": "Windows 11／10版Discordデスクトップアプリ。ブラウザ版との比較も掲載",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/cant-hear-voice",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 29,
+      "sourceCount": 5
+    },
+    "declaredScope": "Windows 11／10版Discordデスクトップアプリ。ブラウザ版との比較も掲載",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/rtc-connecting",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 23,
+      "sourceCount": 4
+    },
+    "declaredScope": "Windows版Discordデスクトップアプリ。PCブラウザ版・スマートフォンとの比較も掲載",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/no-route",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 23,
+      "sourceCount": 3
+    },
+    "declaredScope": "Windows版Discordデスクトップアプリ。ブラウザ版・スマートフォンを比較に使用",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/screen-share-not-working",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 18,
+      "sourceCount": 4
+    },
+    "declaredScope": "Windows版 Discordデスクトップアプリ",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/stream-no-audio",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 16,
+      "sourceCount": 3
+    },
+    "declaredScope": "配信者：Windows版Discordデスクトップアプリ／視聴者：Discord",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/loading-stuck",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 19,
+      "sourceCount": 4
+    },
+    "declaredScope": "Windows版 Discordデスクトップアプリ",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/update-failed",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 21,
+      "sourceCount": 5
+    },
+    "declaredScope": "Windows 11／Windows 10のDiscordデスクトップアプリ（通常版）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/installation-failed",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 22,
+      "sourceCount": 4
+    },
+    "declaredScope": "Windows 11／Windows 10のDiscord通常版インストーラー",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/audio-input-not-found",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 24,
+      "sourceCount": 5
+    },
+    "declaredScope": "Windows 11／Windows 10のDiscordデスクトップアプリ・ブラウザ版（Chromeの操作例）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/error-1001",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 13,
+      "sourceCount": 4
+    },
+    "declaredScope": "Windows版 DiscordデスクトップアプリのGo Live・画面共有",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/error-1002",
+    "family": "discord",
+    "classification": "basic-structure-and-partial-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 18,
+      "sourceCount": 4
+    },
+    "declaredScope": "Windows版Discordデスクトップアプリの音声通話",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "「元の設定：1002あり／声の語尾が欠ける」「オフ：1002なし／声は届くが打鍵音が増える」のように、エラー・声・雑音を3項目で記録する。この例は記入例であり、実測結果ではない。"
+    ],
+    "assessment": "数値例・利用者報告・商品仕様紹介の一部に限界の明記あり。これを記事全体の検証状況に拡大できない。残る手順の根拠範囲と対象版は個別監査が必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/error-1003",
+    "family": "discord",
+    "classification": "basic-structure-and-partial-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 19,
+      "sourceCount": 4
+    },
+    "declaredScope": "Windows版Discordデスクトップアプリの音声通話",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "出力切り替え前は音量を下げてください。スピーカーで比較する場合はマイクへの回り込みに注意し、エコーが出たら止めます。比較例は実測結果ではありません。"
+    ],
+    "assessment": "数値例・利用者報告・商品仕様紹介の一部に限界の明記あり。これを記事全体の検証状況に拡大できない。残る手順の根拠範囲と対象版は個別監査が必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/system-helper",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 24,
+      "sourceCount": 4
+    },
+    "declaredScope": "Windows版Discordデスクトップアプリ。システムヘルパーは公式案内上、一部ユーザー向けの実験機能",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/overlay-not-showing",
+    "family": "discord",
+    "classification": "basic-structure-and-partial-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 22,
+      "sourceCount": 2
+    },
+    "declaredScope": "Windows版Discordデスクトップアプリのゲームオーバーレイ",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "問い合わせには「ゲーム名／Windows・Discordのバージョン／本体・通話・通知のどれが出ないか／設定したキー／表示モード／別ゲームの結果／管理者起動の有無」をまとめます。記入例：本体は開く、通話は見える、DMは受信するがゲーム内通知なし。比較結果の例であり、特定ゲームでの実測結果ではありません。画面を添える場合はDM本文・ユーザー名を隠してください。"
+    ],
+    "assessment": "数値例・利用者報告・商品仕様紹介の一部に限界の明記あり。これを記事全体の検証状況に拡大できない。残る手順の根拠範囲と対象版は個別監査が必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/notifications-not-working",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 23,
+      "sourceCount": 7
+    },
+    "declaredScope": "Windows 11／10版 Discordデスクトップアプリの画面右下の通知",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/screen-share-black-screen",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 15,
+      "sourceCount": 6
+    },
+    "declaredScope": "Windows版 Discordデスクトップアプリの画面共有・Go Live",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/slow-performance",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 29,
+      "sourceCount": 5
+    },
+    "declaredScope": "Windows 11／10版Discordデスクトップアプリ。ブラウザ版との比較も掲載",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/camera-not-working",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 22,
+      "sourceCount": 4
+    },
+    "declaredScope": "Windows 11／Windows 10のDiscordデスクトップアプリ",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/login-error",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 30,
+      "sourceCount": 6
+    },
+    "declaredScope": "DiscordのPCアプリ・ブラウザ版。ログイン済みスマートフォンも確認に利用",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/crashing",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 34,
+      "sourceCount": 7
+    },
+    "declaredScope": "Windows 11／10版Discordデスクトップアプリ",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/stream-stuttering",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 17,
+      "sourceCount": 4
+    },
+    "declaredScope": "Windows 11 / Windows 10版 Discordデスクトップアプリ",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/game-volume-lowers",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 21,
+      "sourceCount": 6
+    },
+    "declaredScope": "Windows 11／Windows 10のDiscordデスクトップアプリ",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/mic-volume-low",
+    "family": "discord",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 23,
+      "sourceCount": 4
+    },
+    "declaredScope": "Windows 11／Windows 10のDiscordデスクトップアプリ",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "自分の入力音量を上げても、自分が聞く相手の声の音量は調整できません。 以下の録音・通話の比較は読者が確認する手順です。編集部による実機の改善結果や音量の測定値ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/call-disconnects",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 23,
+      "sourceCount": 3
+    },
+    "declaredScope": "WindowsのDiscordデスクトップアプリ／ブラウザ版",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/echo-double-voice",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 17,
+      "sourceCount": 3
+    },
+    "declaredScope": "Windows 11／Windows 10のDiscordデスクトップアプリ",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/voice-cutting-out",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 23,
+      "sourceCount": 4
+    },
+    "declaredScope": "Windows 11／Windows 10のDiscordデスクトップアプリ",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/bluetooth-audio-problem",
+    "family": "discord",
+    "classification": "basic-structure-and-partial-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 17,
+      "sourceCount": 6
+    },
+    "declaredScope": "Windows 11／Windows 10のDiscordデスクトップアプリとBluetoothヘッドセット",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "仕様の確認： メーカー公式情報。実機での動作検証に基づく紹介ではありません。"
+    ],
+    "assessment": "数値例・利用者報告・商品仕様紹介の一部に限界の明記あり。これを記事全体の検証状況に拡大できない。残る手順の根拠範囲と対象版は個別監査が必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/game-not-detected",
+    "family": "discord",
+    "classification": "basic-structure-and-partial-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 21,
+      "sourceCount": 3
+    },
+    "declaredScope": "Windows 11／Windows 10のDiscordデスクトップアプリ。PCゲームの検出とアクティビティ表示が対象",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "これは比較方法の例で、実機検証の結果ではありません。メンバー一覧のカード表示だけで判断せず、相手から見たプロフィールも確認してください。"
+    ],
+    "assessment": "数値例・利用者報告・商品仕様紹介の一部に限界の明記あり。これを記事全体の検証状況に拡大できない。残る手順の根拠範囲と対象版は個別監査が必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/user-volume-low",
+    "family": "discord",
+    "classification": "basic-structure-and-partial-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 23,
+      "sourceCount": 3
+    },
+    "declaredScope": "Windows 11／Windows 10のDiscordデスクトップアプリ",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "例としてゲーム音量を80から40に変更し、同じ場面・同じ相手の文章で比較する。この数値は比較例であり、推奨値や実測結果ではない。"
+    ],
+    "assessment": "数値例・利用者報告・商品仕様紹介の一部に限界の明記あり。これを記事全体の検証状況に拡大できない。残る手順の根拠範囲と対象版は個別監査が必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/phone-verification-error",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 16,
+      "sourceCount": 4
+    },
+    "declaredScope": "Discordのアカウント電話番号認証／PC・スマートフォン",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/bot-add",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 14,
+      "sourceCount": 2
+    },
+    "declaredScope": "Discordデスクトップ版・ブラウザ版／サーバー所有者・管理者",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/bot-not-responding",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 23,
+      "sourceCount": 6
+    },
+    "declaredScope": "Discordデスクトップ版・ブラウザ版／既存Bot・アプリの利用者とサーバー管理者",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/bot-remove",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 21,
+      "sourceCount": 7
+    },
+    "declaredScope": "Discordデスクトップ版・ブラウザ版／サーバー管理者と自分のアカウントの利用者",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/recommended-bots",
+    "family": "discord",
+    "classification": "basic-structure-present-evidence-separation-needs-review",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 12
+    },
+    "declaredScope": "DiscordのPC・ブラウザ版／ゲームサーバーの所有者・管理者",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [],
+    "assessment": "結論・操作手順・出典は存在。記録された実測結果／一般の期待結果／未検証範囲のまとまった説明を今回の抽出・確認では認定していない。不存在の断定ではなく個別監査の対象。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/discord/voice-client-outdated",
+    "family": "discord",
+    "classification": "basic-structure-and-partial-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 19,
+      "sourceCount": 7
+    },
+    "declaredScope": "Windows版Discord・PCブラウザ版／バージョン非対応が疑われる場合",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "記録例：「アプリは古い版の警告、Chromeは相互通話OK」ならアプリ側を優先。「両方RTC接続中」なら接続経路の確認へ進みます。これは判断例であり、実機検証結果ではありません。"
+    ],
+    "assessment": "数値例・利用者報告・商品仕様紹介の一部に限界の明記あり。これを記事全体の検証状況に拡大できない。残る手順の根拠範囲と対象版は個別監査が必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/pc/repair-or-replace",
+    "family": "pc",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 14,
+      "sourceCount": 5
+    },
+    "declaredScope": "個人向けWindows PC（共通テンプレート）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": {
+      "title": "修理・交換・買い替えを考える前の4分類",
+      "tocLabel": "4つの判断と次の行動",
+      "intro": "以下は購入を決める判定ではなく、次に確認することを整理した編集部の判断枠組みです。診断結果や使用率だけで部品故障を確定できません。",
+      "items": [
+        {
+          "label": "設定改善を優先",
+          "explanation": "アプリや画質の設定変更で症状が改善した記録がある。改善した条件で必要な用途を満たせるなら、購入せず使い続ける選択肢があります。"
+        },
+        {
+          "label": "性能不足の可能性を確認",
+          "explanation": "使いたいソフトの公式要件に届かない、または普段の用途で不足する項目を確認できた。対応するメモリ・SSD・GPU等の交換で目的を満たせるか、機種別仕様と総額を確認します。"
+        },
+        {
+          "label": "故障を疑い修理相談",
+          "explanation": "メーカー診断のエラー、ストレージ警告、繰り返すPC全体の異常などがある。必要データを保全し、保証と点検・修理見積もりを確認します。警告だけで部品名や修理代は確定しません。"
+        },
+        {
+          "label": "情報不足",
+          "explanation": "不具合の範囲・必要な性能・機種・見積もりが不明。分からない項目を問題なしとして扱わず、症状の切り分けと情報確認へ戻ります。"
+        }
+      ],
+      "limitation": "故障が見つからなかったことは、買い替えが必要な根拠にはなりません。逆に、短い診断で異常が出なかっただけで正常を保証することもできません。",
+      "sources": [
+        {
+          "label": "Microsoft：PCのパフォーマンス改善",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/performance-optimization/tips-to-improve-pc-performance-in-windows"
+        },
+        {
+          "label": "Dell：電源・起動・映像出力の区別",
+          "url": "https://www.dell.com/support/contents/ja-jp/article/product-support/self-support-knowledgebase/fix-common-issues/no-post"
+        }
+      ]
+    },
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "メーカー・修理事業者の公式資料と料金表を確認し、比較方法をゲムなおで整理しました。掲載料金は確認日の公式例で、平均や個別見積もりではありません。判断例は全機器での実機検証結果ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/pc/disk-usage-100",
+    "family": "pc",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 24,
+      "sourceCount": 12
+    },
+    "declaredScope": "Windows 11（共通テンプレート）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": {
+      "title": "ディスク100％と容量不足・故障は別に判断する",
+      "tocLabel": "100％の意味と対処の選び方",
+      "intro": "使用率、転送速度、空き容量はそれぞれ別の情報です。100％という数値に、処理が進んでいるか・操作が止まるか・エラーが出るかを組み合わせて判断します。",
+      "items": [
+        {
+          "label": "使用率100％＝最大の転送速度とは限らない",
+          "explanation": "「アクティブな時間」は処理で忙しい時間の割合、「読み取り／書き込み速度」は1秒に転送したデータ量です。細かな読み書きや応答待ちでも、速度が小さいまま100％になることがあります。MB/sだけで故障とは判断しません。"
+        },
+        {
+          "label": "更新やコピー中だけ高いなら、完了後を比較",
+          "explanation": "Windows Update、ゲームのインストール、ファイルコピー、検索用インデックスの作成中はディスクを使います。進行があり、終了後に操作が戻るなら、まず同時に行う処理を減らします。"
+        },
+        {
+          "label": "読み取りエラー・重大な警告は、使用率より優先",
+          "explanation": "ファイルを開けない、ドライブが読み取り専用になる、正常性の警告が出る場合は、設定の高速化より重要ファイルの保全と点検を優先します。警告が表示されないだけでは、すべてのドライブが正常とは分かりません。"
+        }
+      ],
+      "limitation": "このページは公式資料を基にした確認手順です。改善率や、すべてのPCに共通する正常な速度・応答時間は示していません。Systemの強制終了、ウイルス対策の停止、SysMain・Windows Searchの一括無効化、ページファイルの削除を最初の対処にしないでください。STEP 8の数値は比較方法を説明する仮想例です。",
+      "sources": [
+        {
+          "label": "タスクマネージャーのディスク表示：Microsoft公式ブログ",
+          "url": "https://techcommunity.microsoft.com/blog/askperf/windows-8--windows-server-2012-the-new-task-manager/375149"
+        },
+        {
+          "label": "Windows 11のディスク100％：NEC公式",
+          "url": "https://faq.nec-lavie.jp/fa/qa/web/knowledge24546.html"
+        },
+        {
+          "label": "ストレージの重大な警告：Microsoft",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/storage-filemanagement/what-to-do-about-a-critical-warning-for-a-storage-device"
+        }
+      ]
+    },
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "「発生時刻／ディスク名・C:など／上位プロセス／読み書き速度／メモリ／実行中の処理／変更した一項目／操作の改善有無」をメモする。以下の数値は記入方法の仮想例で、実測値や正常値の基準ではない。",
+      "Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/pc/windows-update-stuck",
+    "family": "pc",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 23,
+      "sourceCount": 11
+    },
+    "declaredScope": "Windows 11（共通テンプレート）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": {
+      "title": "どのくらい待つ？％より「画面・段階・変化」で判断する",
+      "tocLabel": "待つか対処するかの判断",
+      "intro": "Microsoftは所要時間が回線や更新内容によって変わると説明しています。このページでは、待ち時間を固定せず、画面で確認できる変化と操作できる範囲を組み合わせます。",
+      "items": [
+        {
+          "label": "％が増える・文言が変わる",
+          "explanation": "処理が進んだことを確認できるので、電源を維持して待ちます。再起動を挟むと別段階の％になる場合があり、前の数値と単純比較しません。"
+        },
+        {
+          "label": "同じ％だがWindowsは操作できる",
+          "explanation": "設定画面で対象の更新、回線、空き容量を確認できます。0％・100％だけでPC全体の停止と決めず、STEP 2・3の通常操作へ進みます。"
+        },
+        {
+          "label": "再起動後に長時間変化がない",
+          "explanation": "設定や診断ツールを開けない状態です。PCメーカーへ画面の文言と経過を伝え、回復の必要性を確認します。設定画面向けの「再起動」を、電源ボタン長押しに置き換えません。"
+        }
+      ],
+      "limitation": "「30分・1時間・2時間を超えれば強制終了してよい」という共通基準は、確認した公式資料にはありません。回転する点やファン音だけでも、正常進行・停止のどちらとも断定できません。下の時刻入り比較例は判断方法の説明で、実機検証の記録ではありません。",
+      "sources": [
+        {
+          "label": "時間と0％・100％の確認：Microsoft",
+          "url": "https://support.microsoft.com/ja-jp/windows/deployment/updates-lifecycle/troubleshoot-problems-updating-windows"
+        },
+        {
+          "label": "再起動が必要な更新：Microsoft",
+          "url": "https://support.microsoft.com/ja-jp/windows/deployment/updates-lifecycle/windows-update-faq"
+        },
+        {
+          "label": "起動できない時の回復：Microsoft",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/backup-recovery/recovery-options-in-windows"
+        }
+      ]
+    },
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "「30分・1時間・2時間を超えれば強制終了してよい」という共通基準は、確認した公式資料にはありません。回転する点やファン音だけでも、正常進行・停止のどちらとも断定できません。下の時刻入り比較例は判断方法の説明で、実機検証の記録ではありません。",
+      "Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/pc/bluetooth-option-missing",
+    "family": "pc",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 25,
+      "sourceCount": 8
+    },
+    "declaredScope": "Windows 11（共通テンプレート）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": {
+      "title": "Bluetoothが消えた地点で、確認先が変わる理由",
+      "tocLabel": "消えた地点と判断根拠",
+      "intro": "アダプターはPC側の無線通信機器、接続する機器はイヤホン・マウスなどの相手です。次の整理はMicrosoftの設定・認識・ペアリングの案内を基にした判断例で、実機の故障を再現した検証結果ではありません。",
+      "items": [
+        {
+          "label": "設定のスイッチがない・灰色",
+          "explanation": "WindowsがPC側のBluetoothを検出・有効化できていない可能性があります。ドライバーや機器側の状態も確認対象です。登録済みイヤホンを削除する前に、アダプターの状態を調べます。"
+        },
+        {
+          "label": "非表示にするとアダプターが現れる",
+          "explanation": "過去に接続されていた機器の項目も含まれます。コード45なら現在接続されていない状態で、一覧に名前があるだけでは使用可能と判断できません。電源の入れ直しやUSB接続を比較します。"
+        },
+        {
+          "label": "Bluetoothはオンにできるが特定機器だけ出ない",
+          "explanation": "PC側のスイッチ消失とは分け、相手機器が検出可能か、電池と接続先、Windowsの検出設定を調べます。別機器が同じPCで見つかるかも判断材料になります。"
+        }
+      ],
+      "limitation": "「アダプターが正常」と表示されても、ペアリングや実際の動作まで保証されません。復旧は、スイッチ・現在のアダプター・同じ機器での使用を確認して判断します。症状やコードだけで故障部品を確定しません。",
+      "sources": [
+        {
+          "label": "スイッチ消失とPC側の確認：Microsoft",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/fix-bluetooth-disappeared-in-windows"
+        },
+        {
+          "label": "コード45などの状態の読み方：Microsoft",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/drivers/error-codes-in-device-manager-in-windows"
+        },
+        {
+          "label": "接続する機器の検出とペアリング：Microsoft",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/pair-a-bluetooth-device-in-windows"
+        }
+      ]
+    },
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "アダプターはPC側の無線通信機器、接続する機器はイヤホン・マウスなどの相手です。次の整理はMicrosoftの設定・認識・ペアリングの案内を基にした判断例で、実機の故障を再現した検証結果ではありません。",
+      "Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/pc/pc-broken",
+    "family": "pc",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 28,
+      "sourceCount": 7
+    },
+    "declaredScope": "Windows 11（共通テンプレート）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": {
+      "title": "PCが壊れたか見分ける4つの確認結果",
+      "tocLabel": "故障を見分ける確認結果",
+      "intro": "確認結果は「次にどこを調べるか」を選ぶ材料です。以下は公式の電源・起動・表示トラブルの分類を基に、ゲムなお編集部が整理した判断例です。実機で故障を再現した検証結果ではありません。",
+      "items": [
+        {
+          "label": "外付け機器を外したら起動できた",
+          "explanation": "その機器・接続・構成との関係を優先して調べます。必要データを保存後、正常な機器を一台ずつ戻し、どの接続で再発するか記録します。本体全体が壊れたという結論にはなりません。"
+        },
+        {
+          "label": "同じPCが別モニターでは映る",
+          "explanation": "元のモニター・入力先・ケーブルとの関係を確認します。一度に全部変えると原因を絞れないため、一つずつ比較します。「信号なし」だけでPC本体の故障とは判断しません。"
+        },
+        {
+          "label": "Windowsのスタートアップ修復後に起動できた",
+          "explanation": "Windowsの起動に関係する問題が改善した結果です。データをコピーし、通常の再起動で再発するか確認します。物理部品がすべて正常であることを証明する検査ではありません。"
+        },
+        {
+          "label": "メーカー診断のエラーや、型番に対応する点滅コードがある",
+          "explanation": "型番・エラー番号・症状を窓口へ渡して点検を相談します。点滅の意味と検査対象は機種別資料で照合し、別機種のコードや自己判断で部品交換を決めません。"
+        }
+      ],
+      "limitation": "PCが重い、ファンが回る、画面が黒い、スタートアップ修復が失敗した、という結果一つでは故障部品を特定できません。危険な異常があれば比較を中止し、データが必要なら初期化・フォーマットより先に保全と相談を優先します。",
+      "sources": [
+        {
+          "label": "電源・自己診断・起動・映像出力の区別：Dell",
+          "url": "https://www.dell.com/support/contents/ja-jp/article/product-support/self-support-knowledgebase/fix-common-issues/no-post"
+        },
+        {
+          "label": "ケーブル・表示機器の確認：Microsoft",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/troubleshooting-blank-screens-in-windows"
+        },
+        {
+          "label": "Windowsの起動を修復する機能：Microsoft",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/startup-boot/startup-repair"
+        }
+      ]
+    },
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "確認結果は「次にどこを調べるか」を選ぶ材料です。以下は公式の電源・起動・表示トラブルの分類を基に、ゲムなお編集部が整理した判断例です。実機で故障を再現した検証結果ではありません。",
+      "Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/pc/pc-hacked-signs",
+    "family": "pc",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 32,
+      "sourceCount": 11
+    },
+    "declaredScope": "Windows 11（共通テンプレート）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": {
+      "title": "PCの乗っ取りを疑う5つの兆候と、断定できない症状",
+      "intro": "次の兆候があれば、単なる動作不良として放置せず、操作・アカウント・保護設定の記録を確認します。兆候の数を数えて感染判定するチェックリストではありません。",
+      "items": [
+        {
+          "label": "許可していない操作が続く",
+          "explanation": "文字入力、アプリの起動、送信などが勝手に行われる。カーソルの動きだけとは分け、不審なら先にネットを切ります。"
+        },
+        {
+          "label": "不審な相手に遠隔操作を許可した",
+          "explanation": "電話の相手に接続番号を渡したり、操作を承認したりした。正規ソフトでも悪用されるため、ウイルス検出がないことだけでは安全と判断できません。"
+        },
+        {
+          "label": "身に覚えのないログイン成功・送信・購入がある",
+          "explanation": "公式サービスの履歴で、日時と操作を照合します。アカウント侵害の兆候ですが、これだけでPC感染とは確定できません。"
+        },
+        {
+          "label": "保護設定や復旧先が勝手に変わった",
+          "explanation": "セキュリティ機能の無効化、知らない復旧メールなど、自分の操作や管理者の設定で説明できない変更を確認します。"
+        },
+        {
+          "label": "ファイルが使えなくなり、身代金を要求された",
+          "explanation": "ランサムウェア被害を疑う状態です。接続と保存機器を切り離し、管理者・警察・専門窓口へ相談します。"
+        }
+      ],
+      "limitation": "一方、PCが重い、ファンが回る、カーソルだけ動く、ブラウザに感染警告が出る、といった症状だけでは乗っ取りと断定できません。また、目立った症状がないことやスキャンの検出なしも、侵害がない証明にはなりません。下の表で確認先を選んでください。",
+      "sources": [
+        {
+          "label": "遠隔操作ソフトの悪用と検知の限界：IPA",
+          "url": "https://www.ipa.go.jp/security/anshin/attention/2023/mgdayori20230411.html"
+        },
+        {
+          "label": "偽警告は感染していなくても出る：警察庁",
+          "url": "https://www.npa.go.jp/bureau/cyber/countermeasures/support-fraud.html"
+        },
+        {
+          "label": "ログイン成功・設定変更の読み方：Microsoft",
+          "url": "https://support.microsoft.com/ja-jp/accounts-billing/security/what-is-the-recent-activity-page"
+        }
+      ]
+    },
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/pc/microphone-after-update",
+    "family": "pc",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 9,
+      "sourceCount": 4
+    },
+    "declaredScope": "Windows 11（共通テンプレート）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/pc/call-starts-audio-disappears",
+    "family": "pc",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 9,
+      "sourceCount": 3
+    },
+    "declaredScope": "Windows 11（共通テンプレート）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/pc/bluetooth-connected-no-sound",
+    "family": "pc",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 9,
+      "sourceCount": 3
+    },
+    "declaredScope": "Windows 11（共通テンプレート）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/pc/usb-c-device-not-recognized",
+    "family": "pc",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 5
+    },
+    "declaredScope": "Windows 11（共通テンプレート）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "仕様の確認： メーカー公式情報。実機での動作検証に基づく紹介ではありません。",
+      "Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/pc/second-monitor-not-detected",
+    "family": "pc",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 9,
+      "sourceCount": 3
+    },
+    "declaredScope": "Windows 11（共通テンプレート）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/pc/audio-after-update",
+    "family": "pc",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 17,
+      "sourceCount": 6
+    },
+    "declaredScope": "Windows 11（共通テンプレート）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/pc/wifi-option-missing",
+    "family": "pc",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 4
+    },
+    "declaredScope": "Windows 11（共通テンプレート）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/pc/windows-update-0x800f081f",
+    "family": "pc",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 12,
+      "sourceCount": 7
+    },
+    "declaredScope": "Windows 11（共通テンプレート）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "相談用の記録例：「対象の更新名／KB（表示された時）／0x800f081fが出た日時と画面／診断ツールの結果／DISMとSFCの結果／修復後も失敗するか」。これは記入例であり、実測結果ではありません。CBS.logやdism.logを求められたら公式窓口にだけ提出し、個人情報が含まれ得るログを公開しないでください。Windows Updateのキャッシュ削除、サービスの一括停止、出所不明なISOの指定はこの手順では行いません。",
+      "Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/pc/sleep-wakes-up-by-itself",
+    "family": "pc",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 15,
+      "sourceCount": 6
+    },
+    "declaredScope": "Windows 11（共通テンプレート）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/pc/black-screen-after-sign-in",
+    "family": "pc",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 15,
+      "sourceCount": 7
+    },
+    "declaredScope": "Windows 11（共通テンプレート）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/pc/file-explorer-freezes-on-right-click",
+    "family": "pc",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 18,
+      "sourceCount": 6
+    },
+    "declaredScope": "Windows 11（共通テンプレート）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/pc/wifi-connected-no-internet",
+    "family": "pc",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 18,
+      "sourceCount": 6
+    },
+    "declaredScope": "Windows 11（共通テンプレート）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/pc/refresh-rate-stuck-60hz",
+    "family": "pc",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 15,
+      "sourceCount": 2
+    },
+    "declaredScope": "Windows 11（共通テンプレート）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  },
+  {
+    "path": "/pc/gaming-shortcut-keys",
+    "family": "pc",
+    "classification": "basic-structure-and-article-limit-disclosure-present",
+    "basicStructure": {
+      "answer": true,
+      "actions": 15,
+      "sourceCount": 4
+    },
+    "declaredScope": "Windows 11（共通テンプレート）",
+    "scopeFieldGap": null,
+    "existingEvidenceSummary": null,
+    "renderedHtmlInspected": true,
+    "evidenceLanguageCandidates": [
+      "Microsoftの公開手順を確認し、判断表と比較方法はゲムなおで整理しました。機器固有の症状は各製造元の案内も確認してください。記載した正常・異常の例は切り分けの目安であり、全機器の実機検証結果ではありません。"
+    ],
+    "assessment": "結論・手順・出典に加え、実機結果ではない／実機での効果を確認していない等の本文説明あり。説明が示す範囲は下記引用どおり。版ごとの再現記録・最新性の個別監査は別途必要。",
+    "verification": "構造の確認のみ。候補文の真偽・再現性・最新性の検証ではない。"
+  }
+]

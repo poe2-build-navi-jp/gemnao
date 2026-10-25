@@ -54,7 +54,7 @@ export const articleEvidenceReviews: Record<string, ArticleEvidenceReview> = {
   },
   '/guide/verify-steam-files': {
     scope:
-      'Steamのインストール済みゲームファイル。セーブの復旧、MOD互換性、ドライバーや機器の故障を検査する機能ではありません。ゲーム・Steamクライアントの対象ビルドは特定していません。',
+      'この記事ではSteamのインストール済みゲームファイルの照合を扱います。セーブの復旧、MOD互換性の保証、ドライバーや機器の故障診断はこの手順の対象にしていません。ゲーム・Steamクライアントの対象ビルドは特定していません。',
     result:
       'この解説の手順を編集部の実機で比較した結果はありません。既存Wilds本人報告では再取得がなかったことまで記録されていますが、全ゲームでの正常判定や修復成功を示しません。',
     limits:

@@ -1,7 +1,7 @@
 import { build } from 'esbuild';
 const result = await build({
   stdin: {
-    contents: `import {gameArticles} from './lib/game-articles'; import {commonGuides} from './lib/common-guides'; import {discordArticles} from './lib/discord-articles'; import {pcArticles} from './lib/pc-articles'; import sitemap from './app/sitemap'; export {gameArticles,commonGuides,discordArticles,pcArticles,sitemap};`,
+    contents: `import {gameArticles} from './lib/game-articles'; import {commonGuides} from './lib/common-guides'; import {discordArticles} from './lib/discord-articles'; import {pcArticles} from './lib/pc-articles'; import sitemap from './app/sitemap'; import {games} from './lib/games'; import {hasTranslation} from './lib/localized/index'; export {gameArticles,commonGuides,discordArticles,pcArticles,sitemap,games,hasTranslation};`,
     resolveDir: process.cwd(),
   },
   bundle: true,
@@ -38,6 +38,39 @@ for (const [family, items] of [
       steps: (a.steps || a.causes || []).length,
       sources: a.sources?.length || 0,
       version: a.targetVersion || null,
+      languages: [
+        'ja',
+        ...['en', 'zh', 'es'].filter((locale) =>
+          d.hasTranslation(locale, path),
+        ),
+      ],
+      actionCount: (a.steps || a.causes || []).reduce(
+        (total, step) => total + (step.actions?.length || 0),
+        0,
+      ),
+      effectiveSources: [
+        ...(a.sources || []),
+        ...(family === 'games'
+          ? d.games.find((g) => g.slug === a.gameSlug)?.sources || []
+          : []),
+      ]
+        .map((source) => ({
+          label: source.label || source.title,
+          url: source.url,
+        }))
+        .filter(
+          (source, index, all) =>
+            all.findIndex((other) => other.url === source.url) === index,
+        ),
+      declaredScope:
+        a.targetVersion ||
+        a.target ||
+        (family === 'pc'
+          ? a.slug === 'repair-or-replace'
+            ? '個人向けWindows PC（共通テンプレート）'
+            : 'Windows 11（共通テンプレート）'
+          : null),
+      existingEvidenceSummary: a.evidenceSummary || null,
       scope: selected.has(path)
         ? 'individual-evidence-added'
         : path === '/games/rocket-league/dualsense-not-working'

@@ -1,4 +1,4 @@
-import { ArticleEvidence } from '@/components/article-evidence';
+import { ArticleEvidence, ArticleEvidenceTocLink } from '@/components/article-evidence';
 import { ClockSyncFirst } from '@/components/clock-sync-first';
 import { AceCombatNoticeHistory } from '@/components/ace-combat-notice-history';
 import { ReportedCaseLink } from '@/components/reported-case';
@@ -184,6 +184,7 @@ export function TroubleshootingArticle({
             </a>
           ))}
           {faqs.length ? <a href="#faq">よくある質問</a> : null}
+          <ArticleEvidenceTocLink path={`/games/${game.slug}/${article.slug}`} />
           <a href="#references">参考情報</a>
         </ArticleToc>
         <article className="guide-article">

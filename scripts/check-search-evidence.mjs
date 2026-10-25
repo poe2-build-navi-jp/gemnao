@@ -108,3 +108,55 @@ assert.equal(
 console.log(
   'PASS: robot groups/static parity, Google/Bing access, admin/API exclusion, private mode; four scoped reviews, inherited dates, existing report unknowns and explicit backlog',
 );
+
+const structure = JSON.parse(
+  readFileSync('docs/search-evidence-2026-10-25/structure-review.json', 'utf8'),
+);
+assert.equal(structure.length, 191);
+assert(
+  structure.every(
+    (row) =>
+      row.renderedHtmlInspected &&
+      row.basicStructure.answer &&
+      row.basicStructure.actions > 0 &&
+      row.basicStructure.sourceCount > 0,
+  ),
+);
+assert.equal(
+  structure.filter(
+    (row) =>
+      row.classification ===
+      'basic-structure-and-article-limit-disclosure-present',
+  ).length,
+  50,
+);
+assert.equal(
+  structure.filter(
+    (row) =>
+      row.classification ===
+      'basic-structure-and-partial-limit-disclosure-present',
+  ).length,
+  17,
+);
+assert.equal(
+  structure.filter(
+    (row) =>
+      row.classification ===
+      'basic-structure-present-evidence-separation-needs-review',
+  ).length,
+  119,
+);
+for (const row of inventory.articles.filter(
+  (row) => row.scope === 'individual-evidence-added',
+)) {
+  assert.deepEqual(
+    row.languages,
+    row.path === '/guide/steam-game-not-launching' ||
+      row.path === '/guide/verify-steam-files'
+      ? ['ja', 'en', 'zh', 'es']
+      : ['ja', 'en'],
+  );
+}
+console.log(
+  'PASS: all 191 rendered records, 50/17/119 backlog classifications and exact selected translations',
+);

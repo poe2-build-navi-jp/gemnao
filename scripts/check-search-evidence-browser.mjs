@@ -61,6 +61,11 @@ try {
       assert.equal(response.status(), 200, path);
       assert.equal(await page.locator('h1').count(), 1, path);
       assert.equal(await page.locator('#article-evidence').count(), 1, path);
+      assert.equal(
+        await page.locator('a[href="#article-evidence"]').count(),
+        1,
+        path,
+      );
       const positions = await page.evaluate(() => {
         const evidence = document.getElementById('article-evidence');
         const conclusion = document.querySelector('.answer-summary');

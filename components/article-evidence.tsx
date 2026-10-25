@@ -154,3 +154,9 @@ function ReviewedArticleEvidence({
     </section>
   );
 }
+
+export function ArticleEvidenceTocLink({ path }: { path: string }) {
+  return articleEvidenceReviews[path] ? (
+    <a href="#article-evidence">確認結果・未検証範囲</a>
+  ) : null;
+}

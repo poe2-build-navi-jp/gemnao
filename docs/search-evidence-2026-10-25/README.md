@@ -64,3 +64,10 @@ node scripts/check-search-evidence-browser.mjs
 ブラウザ検査は既存Chromium `/usr/bin/chromium` を使う隔離環境向け。APIはローカルfixture、外部通信・書込み・WebSocketは遮断する。対照ページはホーム・英語ホーム・tools・Rocket League日英。証跡はGit対象外の `outputs/search-evidence-2026-10-25/` に保存。初回のテスト側ではrobotsのUser-Agent大文字小文字を厳密比較して失敗したため、大文字小文字を区別しない照合へ修正し、全ブラウザケースを再実行して成功。新規テストのlint指摘も修正済み。
 
 残件: Steam公式本文の再取得・画面操作の実機検証、残り186記事の個別根拠整備、公開robots本文と実OAI-SearchBot到達性の確認。Cloudflare/WAFを変更して残件を解消しない。draft PRのレビュー後も、本番反映は別途判断する。
+
+
+## 公開判断の追補
+
+[RELEASE-READINESS.md](RELEASE-READINESS.md) に4記事の正確なURL/既存対応言語、Steam未再確認の影響と限定、変更前でも同一だったDiscordテスト失敗、残186記事の50/17/119件の構造別評価と次のまとまりを記録。`structure-review.json` は全191件の生成HTMLの候補文と評価。今回の追補で186件を新たに実機検証済みとはしていない。
+
+追加の共通表示は、実際に根拠レコードがある4記事の目次リンクのみ。Steam整合性の対象外説明は、機能全般の断定から「この記事で扱う手順の範囲」へ限定した。
