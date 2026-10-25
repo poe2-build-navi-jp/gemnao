@@ -1,0 +1,54 @@
+0.6.1-rc.1 REVIEW CANDIDATE: not validated on real Windows; not a default release.
+See source/docs/CANDIDATE-VALIDATION.md for EXE guidance/result-summary changes and pending tests.
+
+Gemnao PC Game Diagnosis 0.6.0 — Windows x64 prototype
+
+Unsigned. This version has NOT been executed on Windows.
+If security software or policy blocks it, stop. Do not bypass a warning,
+disable protection, add an exclusion or elevate to get around the block.
+The tool does not automatically identify every cause or repair anything.
+
+1. Extract the entire ZIP. Open Gemnao.Diagnostics.exe normally, with its
+   .exe.config alongside it. Intended target: Windows 11 x64 / .NET Framework
+   4.8 or later. No SDK, installer, PowerShell command or administrator access is needed.
+
+2. At the top, choose Language / 言語: English or 日本語.
+   Japanese Windows UI defaults to Japanese; otherwise English.
+   The choice applies only to this launch. Switch while idle; evidence,
+   answers, consent and action history are retained. No reread occurs.
+
+3. In tab 1 choose general PC-game rules, symptom and store. Read the scope
+   and consent, then select the actual game EXE, not its launcher/reporter.
+   Steam can show it via Manage > Browse local files. Do not change protected
+   folder permissions if you cannot access it. Optional checks start off.
+
+4. If it already happened, read the previous ten minutes without relaunching.
+   If a new attempt is safe, start timing before a short manual attempt.
+   Wait for any CrashReport generation to finish before reading. If records are
+   delayed, reread the same range without another launch (within 30 minutes of the original start).
+   Finding no records does NOT prove that the game launched successfully
+   or that the PC is healthy.
+
+5. In tab 3, try one manual step at a time and record its state and result.
+   Do not repeat a failed check. If it works, more changes are unnecessary.
+   For whole-PC restarts, shutdowns, freezes or abnormal heat, STOP trying to reproduce the issue.
+   FPS, frame time, GPU use and temperature are NOT measured by this tool.
+
+6. Tab 4 previews exactly what will be saved. Read it, confirm, and save TXT.
+   No automatic upload. A sync folder may sync independently. Filtered output
+   is not guaranteed to be anonymous. CPU/GPU names and unknown module names stay local. Known DLL names are
+   saved only if you select the separate option.
+
+7. Tab 5 can record earlier actions and outcomes. History requires separate
+   consent and an explicit save action. Restore requires the same EXE location, rules
+   and symptom, plus review. It does not prove the installation is identical.
+   History is protected for this Windows user. Moving it to the Recycle Bin
+   needs confirmation; cancel if Windows instead offers permanent deletion.
+
+8. Improvement-report JSON is local-save only, for Wilds launch diagnosis.
+   General-game JSON and web submission are unavailable; the web button is
+   disabled. Nothing is submitted. Review all selected JSON fields before saving.
+
+Full instructions: source/README.en.md
+日本語: 最初に読む.txt / source/README.ja.md
+Actual Windows validation checklist: source/docs/WINDOWS-VALIDATION.en.md

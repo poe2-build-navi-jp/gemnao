@@ -1,0 +1,2187 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionHistory.001" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="ActionHistory.002" xml:space="preserve">
+    <value>Resolved; able to play (self-reported)</value>
+  </data>
+  <data name="ActionHistory.003" xml:space="preserve">
+    <value>Improved (self-reported)</value>
+  </data>
+  <data name="ActionHistory.004" xml:space="preserve">
+    <value>Unchanged (self-reported)</value>
+  </data>
+  <data name="ActionHistory.005" xml:space="preserve">
+    <value>Worse (self-reported)</value>
+  </data>
+  <data name="ActionHistory.006" xml:space="preserve">
+    <value>Not tried (self-reported)</value>
+  </data>
+  <data name="ActionHistory.007" xml:space="preserve">
+    <value>Cannot tell (self-reported)</value>
+  </data>
+  <data name="ActionHistory.008" xml:space="preserve">
+    <value>Result not recorded</value>
+  </data>
+  <data name="ActionHistory.009" xml:space="preserve">
+    <value>Value change observed (does not prove the action was performed)</value>
+  </data>
+  <data name="ActionHistory.010" xml:space="preserve">
+    <value>Collected values unchanged</value>
+  </data>
+  <data name="ActionHistory.011" xml:space="preserve">
+    <value>Incomplete data / unknown</value>
+  </data>
+  <data name="ActionHistory.012" xml:space="preserve">
+    <value>Not compared</value>
+  </data>
+  <data name="ActionHistory.013" xml:space="preserve">
+    <value>
+[Action history: self-reports and limited observations kept separate]
+</value>
+  </data>
+  <data name="ActionHistory.014" xml:space="preserve">
+    <value>History category: </value>
+  </data>
+  <data name="ActionHistory.015" xml:space="preserve">
+    <value>. Values used to match the local target are not displayed or shared.</value>
+  </data>
+  <data name="ActionHistory.016" xml:space="preserve">
+    <value>You selected and loaded saved history. Whether it belongs to the current PC and installation has not been automatically verified. Past observations are not used as the current baseline.</value>
+  </data>
+  <data name="ActionHistory.017" xml:space="preserve">
+    <value>This history is from the current app session. You enter the actions and outcomes; the app does not monitor your actions or independently verify these entries.</value>
+  </data>
+  <data name="ActionHistory.018" xml:space="preserve">
+    <value>No entries yet. An empty history does not mean you have never tried these steps.</value>
+  </data>
+  <data name="ActionHistory.019" xml:space="preserve">
+    <value>  Observations recorded in the same session: Steam </value>
+  </data>
+  <data name="ActionHistory.020" xml:space="preserve">
+    <value> / driver </value>
+  </data>
+  <data name="ActionHistory.021" xml:space="preserve">
+    <value> / Run as administrator registration </value>
+  </data>
+  <data name="ActionHistory.022" xml:space="preserve">
+    <value>Up to 64 entries are kept. The oldest entries are removed from the list first. An observed change alongside a reported improvement does not establish any single DLL or action as the root cause.</value>
+  </data>
+  <data name="CaptureWorkflow.001" xml:space="preserve">
+    <value>Read the same records again without relaunching</value>
+  </data>
+  <data name="CaptureWorkflow.002" xml:space="preserve">
+    <value>Once the symptom check and report generation are complete → Read records</value>
+  </data>
+  <data name="CaptureWorkflow.003" xml:space="preserve">
+    <value>Zero records does not mean the game launched successfully. If the CrashReport is still being generated, wait for it to finish, then select “Read the same records again” without relaunching the game.</value>
+  </data>
+  <data name="CaptureWorkflow.004" xml:space="preserve">
+    <value>Time window recorded from before the symptom check (actual launch and scene confirmed by you)</value>
+  </data>
+  <data name="CaptureWorkflow.005" xml:space="preserve">
+    <value>Recent time range read (may include multiple launches)</value>
+  </data>
+  <data name="CaptureWorkflow.006" xml:space="preserve">
+    <value>Capture method not recorded</value>
+  </data>
+  <data name="CaptureWorkflow.007" xml:space="preserve">
+    <value>Capture method: </value>
+  </data>
+  <data name="CaptureWorkflow.008" xml:space="preserve">
+    <value> / Same records read again </value>
+  </data>
+  <data name="CaptureWorkflow.009" xml:space="preserve">
+    <value> time(s). This is not a new retest</value>
+  </data>
+  <data name="Core.001" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="Core.002" xml:space="preserve">
+    <value>Other/unknown</value>
+  </data>
+  <data name="Core.003" xml:space="preserve">
+    <value>A Kernel-Power 41 event in the same time range indicates an abnormal shutdown of the whole PC.</value>
+  </data>
+  <data name="Core.004" xml:space="preserve">
+    <value>First, investigate system-wide problems that may also affect applications other than the game.</value>
+  </data>
+  <data name="Core.005" xml:space="preserve">
+    <value>This event is recorded at the next startup. The event alone cannot identify whether power, memory, or a driver caused the problem.</value>
+  </data>
+  <data name="Core.006" xml:space="preserve">
+    <value>Exact path matches for the selected target: </value>
+  </data>
+  <data name="Core.007" xml:space="preserve">
+    <value> / EXE name-only matches: </value>
+  </data>
+  <data name="Core.008" xml:space="preserve">
+    <value>. Breakdown: crashes </value>
+  </data>
+  <data name="Core.009" xml:space="preserve">
+    <value> / hangs </value>
+  </data>
+  <data name="Core.010" xml:space="preserve">
+    <value>.</value>
+  </data>
+  <data name="Core.011" xml:space="preserve">
+    <value>Possible next checks include the application, distributed files, and runtime environment, one at a time.</value>
+  </data>
+  <data name="Core.012" xml:space="preserve">
+    <value>Records matching only the name may refer to a different executable. Events alone do not establish the root cause.</value>
+  </data>
+  <data name="Core.013" xml:space="preserve">
+    <value>The path has been confirmed to match the target, but the faulting module or exception alone does not establish the root cause.</value>
+  </data>
+  <data name="Core.014" xml:space="preserve">
+    <value>A faulting module classified as graphics-related, or a system-wide Display 4101 event, was recorded.</value>
+  </data>
+  <data name="Core.015" xml:space="preserve">
+    <value>This is a clue for checking the graphics path, in-game graphics settings, and driver compatibility.</value>
+  </data>
+  <data name="Core.016" xml:space="preserve">
+    <value>This does not prove GPU hardware failure or a driver defect. Display 4101 can also be recorded because of another application.</value>
+  </data>
+  <data name="Core.017" xml:space="preserve">
+    <value>A module classified as runtime-related appears in a fault record.</value>
+  </data>
+  <data name="Core.018" xml:space="preserve">
+    <value>You can check the Visual C++ runtime version and architecture specified by the game's official requirements.</value>
+  </data>
+  <data name="Core.019" xml:space="preserve">
+    <value>A module name alone cannot establish that a DLL is damaged or missing.</value>
+  </data>
+  <data name="Core.020" xml:space="preserve">
+    <value>At collection time, at least one target drive had less than 5 GiB free or less than 5% of its capacity free.</value>
+  </data>
+  <data name="Core.021" xml:space="preserve">
+    <value>Consider checking whether there is enough room to write updates and temporary files. These thresholds are guidelines used by this tool.</value>
+  </data>
+  <data name="Core.022" xml:space="preserve">
+    <value>The tool has not assessed game-specific storage requirements or the free space at the time of the problem.</value>
+  </data>
+  <data name="Core.023" xml:space="preserve">
+    <value>Available physical memory was below 1 GiB at collection time (a guideline used by this tool).</value>
+  </data>
+  <data name="Core.024" xml:space="preserve">
+    <value>Consider saving your work, manually closing unnecessary applications, and comparing under the same conditions.</value>
+  </data>
+  <data name="Core.025" xml:space="preserve">
+    <value>This is a snapshot. It does not prove memory exhaustion during gameplay or faulty RAM.</value>
+  </data>
+  <data name="Core.026" xml:space="preserve">
+    <value>These results contain no crash or hang records matching the selected executable.</value>
+  </data>
+  <data name="Core.027" xml:space="preserve">
+    <value>Check the target EXE, the time of the problem, the launcher's update status, and the official requirements.</value>
+  </data>
+  <data name="Core.028" xml:space="preserve">
+    <value>This does not mean the system is healthy or the problem is resolved. Failures without logs, other EXEs, insufficient permissions, collection limits, and unsupported formats cannot be assessed.</value>
+  </data>
+  <data name="Core.029" xml:space="preserve">
+    <value>Check the target and when the problem occurs</value>
+  </data>
+  <data name="Core.030" xml:space="preserve">
+    <value>Select the game's main EXE and the time of the problem. The launcher and the game may use separate executables. Check that updates in Steam or other launchers are complete, and review the game's official service notices and system requirements.</value>
+  </data>
+  <data name="Core.031" xml:space="preserve">
+    <value>This only involves checking official information. No files or settings are changed.</value>
+  </data>
+  <data name="Core.032" xml:space="preserve">
+    <value>Check how to verify the distributed files</value>
+  </data>
+  <data name="Core.033" xml:space="preserve">
+    <value>For Steam, close the game and make a record of your saves and mod setup first. Then go to Library → Properties → Installed Files → Verify integrity of game files. For other distributors, follow their official instructions.</value>
+  </data>
+  <data name="Core.034" xml:space="preserve">
+    <value>Run the verification yourself. Redownloading files may undo changes made by mods. Do not delete saves.</value>
+  </data>
+  <data name="Core.035" xml:space="preserve">
+    <value>Cross-check the graphics environment and driver version</value>
+  </data>
+  <data name="Core.036" xml:space="preserve">
+    <value>Compare the displayed version with Device Manager, and check the PC/GPU manufacturer's official information and the game's known issues. Recent changes can be clues, but a driver version date is not the date you installed the update.</value>
+  </data>
+  <data name="Core.037" xml:space="preserve">
+    <value>This initial version does not update or remove drivers. DDU, overclocking, and BIOS changes are outside the scope of this guidance.</value>
+  </data>
+  <data name="Core.038" xml:space="preserve">
+    <value>Cross-check the official runtime requirements</value>
+  </data>
+  <data name="Core.039" xml:space="preserve">
+    <value>Check the year/version and x86/x64 architecture specified by the game's official requirements, and compare them with Microsoft's official distribution information.</value>
+  </data>
+  <data name="Core.040" xml:space="preserve">
+    <value>Do not reinstall a runtime just because it appears as a faulting module. Do not use individual-DLL download sites or remove existing versions.</value>
+  </data>
+  <data name="Core.041" xml:space="preserve">
+    <value>Check free space on the target drive</value>
+  </data>
+  <data name="Core.042" xml:space="preserve">
+    <value>Manually check usage in Windows Settings → System → Storage, and compare it with the game's official storage requirements.</value>
+  </data>
+  <data name="Core.043" xml:space="preserve">
+    <value>The tool does not perform automatic cleanup. Do not delete saves, unfamiliar files, or recovery data.</value>
+  </data>
+  <data name="Core.044" xml:space="preserve">
+    <value>Compare with unnecessary applications closed</value>
+  </data>
+  <data name="Core.045" xml:space="preserve">
+    <value>Save any unsaved work and manually close unnecessary applications. Only if it is safe to launch the game, compare the same scene for the same length of time.</value>
+  </data>
+  <data name="Core.046" xml:space="preserve">
+    <value>The tool does not force-stop services or change the page file. Free RAM is a value measured at a single point in time.</value>
+  </data>
+  <data name="Core.047" xml:space="preserve">
+    <value>Stop reproducing system-wide problems</value>
+  </data>
+  <data name="Core.048" xml:space="preserve">
+    <value>If the PC repeatedly loses power, restarts, or freezes, do not run stress tests. Save your work and consult the PC manufacturer or a repair service.</value>
+  </data>
+  <data name="Core.049" xml:space="preserve">
+    <value>Stop using the PC if you notice a burning smell, unusual heat, or similar signs. This tool cannot prove or repair hardware failure.</value>
+  </data>
+  <data name="Core.050" xml:space="preserve">
+    <value>Collection complete (specified scope only)</value>
+  </data>
+  <data name="Core.051" xml:space="preserve">
+    <value>Access denied; no elevation attempted</value>
+  </data>
+  <data name="Core.052" xml:space="preserve">
+    <value>Unavailable</value>
+  </data>
+  <data name="Core.053" xml:space="preserve">
+    <value>Time limit reached; incomplete</value>
+  </data>
+  <data name="Core.054" xml:space="preserve">
+    <value>Partial results; incomplete</value>
+  </data>
+  <data name="Core.055" xml:space="preserve">
+    <value>Canceled; incomplete</value>
+  </data>
+  <data name="Core.056" xml:space="preserve">
+    <value>Not collected</value>
+  </data>
+  <data name="Core.057" xml:space="preserve">
+    <value>Comparison requires two sets of results, collected before and after the action.</value>
+  </data>
+  <data name="Core.058" xml:space="preserve">
+    <value>Cannot compare: the game category or symptom differs.</value>
+  </data>
+  <data name="Core.059" xml:space="preserve">
+    <value>Cannot compare: the target sessions differ.</value>
+  </data>
+  <data name="Core.060" xml:space="preserve">
+    <value>No comparison: these are the same records read again, not a new retest.</value>
+  </data>
+  <data name="Core.061" xml:space="preserve">
+    <value>Cannot compare: the observation windows overlap, which would count pre-action records again.</value>
+  </data>
+  <data name="Core.062" xml:space="preserve">
+    <value>Not checked</value>
+  </data>
+  <data name="Core.063" xml:space="preserve">
+    <value>Improved (self-reported)</value>
+  </data>
+  <data name="Core.064" xml:space="preserve">
+    <value>Unchanged (self-reported)</value>
+  </data>
+  <data name="Core.065" xml:space="preserve">
+    <value>Worse (self-reported)</value>
+  </data>
+  <data name="Core.066" xml:space="preserve">
+    <value>Cannot tell (self-reported)</value>
+  </data>
+  <data name="Core.067" xml:space="preserve">
+    <value>Your reported retest result: </value>
+  </data>
+  <data name="Core.068" xml:space="preserve">
+    <value>Target: the EXE selected in the same session / Non-overlapping observation windows</value>
+  </data>
+  <data name="Core.069" xml:space="preserve">
+    <value>Selected application record count: Before </value>
+  </data>
+  <data name="Core.070" xml:space="preserve">
+    <value> (</value>
+  </data>
+  <data name="Core.071" xml:space="preserve">
+    <value> min) → After </value>
+  </data>
+  <data name="Core.072" xml:space="preserve">
+    <value> min)</value>
+  </data>
+  <data name="Core.073" xml:space="preserve">
+    <value>Incomplete collection prevents assessment of changes in record counts.</value>
+  </data>
+  <data name="Core.074" xml:space="preserve">
+    <value>The observation durations differ. Record counts alone cannot show improvement.</value>
+  </data>
+  <data name="Core.075" xml:space="preserve">
+    <value>The tool does not automatically verify that you actually tested the game under the same conditions. Zero records do not prove resolution, and a causal link to the change is not established.</value>
+  </data>
+  <data name="Core.076" xml:space="preserve">
+    <value>Gemnao Windows Diagnostics Prototype </value>
+  </data>
+  <data name="Core.077" xml:space="preserve">
+    <value> / Filtered local report</value>
+  </data>
+  <data name="Core.078" xml:space="preserve">
+    <value>Complete anonymization is not guaranteed. Review the contents before sharing. The tool has no external transmission feature.</value>
+  </data>
+  <data name="Core.079" xml:space="preserve">
+    <value>Target names, paths, usernames, raw logs, and device IDs are not included in the output. CPU/GPU names appear only on the local screen.</value>
+  </data>
+  <data name="Core.080" xml:space="preserve">
+    <value>Values reflect the state at collection time. The tool does not confirm a cause, declare the system healthy, or perform automatic repairs.
+</value>
+  </data>
+  <data name="Core.081" xml:space="preserve">
+    <value>Before action</value>
+  </data>
+  <data name="Core.082" xml:space="preserve">
+    <value>Current</value>
+  </data>
+  <data name="Core.083" xml:space="preserve">
+    <value>After action</value>
+  </data>
+  <data name="Core.084" xml:space="preserve">
+    <value>
+[Before/after comparison]</value>
+  </data>
+  <data name="Core.085" xml:space="preserve">
+    <value>
+[Step status (self-recorded)]</value>
+  </data>
+  <data name="Core.086" xml:space="preserve">
+    <value>
+[Next manual steps]</value>
+  </data>
+  <data name="Core.087" xml:space="preserve">
+    <value>
+Caution: </value>
+  </data>
+  <data name="Core.088" xml:space="preserve">
+    <value>
+Guide: </value>
+  </data>
+  <data name="Core.089" xml:space="preserve">
+    <value>
+Official: </value>
+  </data>
+  <data name="Core.090" xml:space="preserve">
+    <value>Unknown: temperatures, power supply capacity/degradation, RAM health, GPU health, whether game-specific requirements are met, dates of recent update installations, and save/mod status.
+Startup failures that leave no records, Windows Error Reporting 1001, and other launchers/child EXEs are outside the scope.
+Only with additional CrashReport consent in the Wilds-specific flow does the tool analyze limited dump fields, such as exceptions and modules. Memory contents, registers, stacks, instructions, and symbol analysis are outside the scope.</value>
+  </data>
+  <data name="Core.091" xml:space="preserve">
+    <value>Reviewed</value>
+  </data>
+  <data name="Core.092" xml:space="preserve">
+    <value>Tried it myself</value>
+  </data>
+  <data name="Core.093" xml:space="preserve">
+    <value>Skipped</value>
+  </data>
+  <data name="Core.094" xml:space="preserve">
+    <value>No action recorded</value>
+  </data>
+  <data name="Core.095" xml:space="preserve">
+    <value>: collected facts】</value>
+  </data>
+  <data name="Core.096" xml:space="preserve">
+    <value>An earlier collection in this diagnosis recorded a system-wide shutdown. It is not added to the current count; the warning to stop reproducing the problem is retained.</value>
+  </data>
+  <data name="Core.097" xml:space="preserve">
+    <value>Observation window: </value>
+  </data>
+  <data name="Core.098" xml:space="preserve">
+    <value> min / Individual times are relative to the end of the observation window</value>
+  </data>
+  <data name="Core.099" xml:space="preserve">
+    <value>Internal OS version (10.0 may also mean Windows 11): </value>
+  </data>
+  <data name="Core.100" xml:space="preserve">
+    <value>CPU vendor category: </value>
+  </data>
+  <data name="Core.101" xml:space="preserve">
+    <value> / Logical processors: </value>
+  </data>
+  <data name="Core.102" xml:space="preserve">
+    <value>Physical RAM: </value>
+  </data>
+  <data name="Core.103" xml:space="preserve">
+    <value> MiB / Available: </value>
+  </data>
+  <data name="Core.104" xml:space="preserve">
+    <value> MiB (at collection time)</value>
+  </data>
+  <data name="Core.105" xml:space="preserve">
+    <value>  Vendor category: </value>
+  </data>
+  <data name="Core.106" xml:space="preserve">
+    <value> / Driver version: </value>
+  </data>
+  <data name="Core.107" xml:space="preserve">
+    <value>Storage: </value>
+  </data>
+  <data name="Core.108" xml:space="preserve">
+    <value>Windows drive</value>
+  </data>
+  <data name="Core.109" xml:space="preserve">
+    <value>Selected game drive</value>
+  </data>
+  <data name="Core.110" xml:space="preserve">
+    <value>: Free </value>
+  </data>
+  <data name="Core.111" xml:space="preserve">
+    <value> / Total </value>
+  </data>
+  <data name="Core.112" xml:space="preserve">
+    <value>System (system-wide reference records)</value>
+  </data>
+  <data name="Core.113" xml:space="preserve">
+    <value>
+[Observations → Possible causes → Unknowns]</value>
+  </data>
+  <data name="Core.114" xml:space="preserve">
+    <value>Observation: </value>
+  </data>
+  <data name="Core.115" xml:space="preserve">
+    <value>
+Possible cause: </value>
+  </data>
+  <data name="Core.116" xml:space="preserve">
+    <value>
+Unknown: </value>
+  </data>
+  <data name="Core.117" xml:space="preserve">
+    <value> / Examined </value>
+  </data>
+  <data name="Core.118" xml:space="preserve">
+    <value> / Unsupported or unparseable </value>
+  </data>
+  <data name="Core.119" xml:space="preserve">
+    <value> / Limit </value>
+  </data>
+  <data name="Core.120" xml:space="preserve">
+    <value>reached</value>
+  </data>
+  <data name="Core.121" xml:space="preserve">
+    <value>not reached</value>
+  </data>
+  <data name="Core.122" xml:space="preserve">
+    <value>Exact path match (path hidden)</value>
+  </data>
+  <data name="Core.123" xml:space="preserve">
+    <value>EXE name-only match; may be a different application</value>
+  </data>
+  <data name="Core.124" xml:space="preserve">
+    <value>System-wide; relationship to the target game is unknown</value>
+  </data>
+  <data name="Core.125" xml:space="preserve">
+    <value>  ~</value>
+  </data>
+  <data name="Core.126" xml:space="preserve">
+    <value> min ago: </value>
+  </data>
+  <data name="Core.127" xml:space="preserve">
+    <value> / Module category: </value>
+  </data>
+  <data name="Core.128" xml:space="preserve">
+    <value> / Exception: </value>
+  </data>
+  <data name="Core.129" xml:space="preserve">
+    <value>    Application version </value>
+  </data>
+  <data name="Core.130" xml:space="preserve">
+    <value> / Module version </value>
+  </data>
+  <data name="Core.131" xml:space="preserve">
+    <value> / Offset within module </value>
+  </data>
+  <data name="CrashArchive.001" xml:space="preserve">
+    <value>
+[Separate evidence: the game’s CrashReport]
+</value>
+  </data>
+  <data name="CrashArchive.002" xml:space="preserve">
+    <value>The ZIP contents were not read because you did not consent to this additional read.</value>
+  </data>
+  <data name="CrashArchive.003" xml:space="preserve">
+    <value>No candidate ZIP was found within the limited folders and search scope. This does not prove that no crash occurred.</value>
+  </data>
+  <data name="CrashArchive.004" xml:space="preserve">
+    <value>Unable to analyze due to safety constraints, format, access, or similar limitations. Protections are not bypassed, and unknown content is not executed.</value>
+  </data>
+  <data name="CrashArchive.005" xml:space="preserve">
+    <value> item(s). Only predefined fields in CrashReport.txt and exception/module information in the minidump are analyzed. Memory, registers, stacks, and other dump contents have not been analyzed.</value>
+  </data>
+  <data name="CrashArchive.006" xml:space="preserve">
+    <value>Some parts could not be analyzed due to limits or unsupported formats.</value>
+  </data>
+  <data name="CrashArchive.007" xml:space="preserve">
+    <value>Exception in text: </value>
+  </data>
+  <data name="CrashArchive.008" xml:space="preserve">
+    <value> / RUNASADMIN is recorded (whether the flag was applied or affected the failure is unconfirmed)</value>
+  </data>
+  <data name="CrashArchive.009" xml:space="preserve">
+    <value>The text alone cannot establish its creation time or whether it refers to the current target. It is treated as separate evidence and excluded from current records and before/after comparisons.</value>
+  </data>
+  <data name="CrashArchive.010" xml:space="preserve">
+    <value>Exception in dump: </value>
+  </data>
+  <data name="CrashArchive.011" xml:space="preserve">
+    <value>Matches the Wilds executable name in the dump (not verified as the selected EXE)</value>
+  </data>
+  <data name="CrashArchive.012" xml:space="preserve">
+    <value> / offset within module </value>
+  </data>
+  <data name="CrashArchive.013" xml:space="preserve">
+    <value>Target EXE version: </value>
+  </data>
+  <data name="CrashArchive.014" xml:space="preserve">
+    <value> / module version: </value>
+  </data>
+  <data name="CrashArchive.015" xml:space="preserve">
+    <value>The creation time could not be obtained, so its relationship to the current observations is unknown. It is excluded from the current comparison.</value>
+  </data>
+  <data name="CrashArchive.016" xml:space="preserve">
+    <value>The dump was created outside the observation window. It is shown as evidence from another time and excluded from current possible causes and before/after comparisons.</value>
+  </data>
+  <data name="CrashArchive.017" xml:space="preserve">
+    <value>The dump was created within the observation window. However, its creation time may differ from the time of the first exception, so it is not yet confirmed to be the same occurrence.</value>
+  </data>
+  <data name="CrashArchive.018" xml:space="preserve">
+    <value>A possible match has the same exception code, module name, versions, and offset as an Event ID 1000 record. This does not prove that it is the same failure or establish the root cause.</value>
+  </data>
+  <data name="CrashArchive.019" xml:space="preserve">
+    <value>The combination of exception, versions, module, and offset does not match the current detailed Event ID 1000 records. A different failure or a later exception remains possible.</value>
+  </data>
+  <data name="CrashArchive.020" xml:space="preserve">
+    <value>Module list: </value>
+  </data>
+  <data name="CrashArchive.021" xml:space="preserve">
+    <value> module(s) / DLL with a Steam overlay name: </value>
+  </data>
+  <data name="CrashArchive.022" xml:space="preserve">
+    <value>Listed (does not prove causation)</value>
+  </data>
+  <data name="CrashArchive.023" xml:space="preserve">
+    <value>Not found in this dump’s list (does not prove absence at all times)</value>
+  </data>
+  <data name="CrashArchive.024" xml:space="preserve">
+    <value>Records in the game’s dump for the five known names checked by the additional Steam check (separate from the current Steam process):</value>
+  </data>
+  <data name="CrashArchive.025" xml:space="preserve">
+    <value>  None of the five known names were detected in this dump’s list. This does not prove absence at all times.</value>
+  </data>
+  <data name="CrashArchive.026" xml:space="preserve">
+    <value>: Listed in the game’s dump / </value>
+  </data>
+  <data name="CrashArchive.027" xml:space="preserve">
+    <value>Locations are classified by string matching against the selected Steam and Windows paths on this PC. Whether the dump is from the same PC, installation, and time has not been verified; it is kept separate from the current Steam state.</value>
+  </data>
+  <data name="CrashArchive.028" xml:space="preserve">
+    <value>The exception codes in the text and dump also differ. They are not combined into a single cause.</value>
+  </data>
+  <data name="CrashArchive.029" xml:space="preserve">
+    <value>C000001D is classified as an illegal-instruction exception. It does not necessarily mean the CPU fails to meet the requirements or is faulty; a deliberate exception or later processing may also be involved. This version does not analyze instructions or stacks to establish the root cause.</value>
+  </data>
+  <data name="CrashArchive.030" xml:space="preserve">
+    <value>Event ID 1000 records such as C0000005, or evidence from other times, are not linked as the same failure when their codes differ. The raw ZIP is not automatically saved or shared.</value>
+  </data>
+  <data name="CrashDetails.001" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="CrashDetails.002" xml:space="preserve">
+    <value>Module name unknown in the record (cannot be identified)</value>
+  </data>
+  <data name="CrashDetails.003" xml:space="preserve">
+    <value>Target game executable (module path also matches)</value>
+  </data>
+  <data name="CrashDetails.004" xml:space="preserve">
+    <value>Matches the target EXE name (module path unverified)</value>
+  </data>
+  <data name="CrashDetails.005" xml:space="preserve">
+    <value>Module with a Steam overlay name</value>
+  </data>
+  <data name="CrashDetails.006" xml:space="preserve">
+    <value>Graphics-related</value>
+  </data>
+  <data name="CrashDetails.007" xml:space="preserve">
+    <value>Visual C++-related</value>
+  </data>
+  <data name="CrashDetails.008" xml:space="preserve">
+    <value>Windows core (cause unconfirmed)</value>
+  </data>
+  <data name="CrashDetails.009" xml:space="preserve">
+    <value>Unknown module (name shown locally only)</value>
+  </data>
+  <data name="CrashDetails.010" xml:space="preserve">
+    <value>Unknown / outside scope</value>
+  </data>
+  <data name="CrashDetails.011" xml:space="preserve">
+    <value>
+[Crash record patterns]
+</value>
+  </data>
+  <data name="CrashDetails.012" xml:space="preserve">
+    <value>No patterns have all the required fields yet. Matching exception codes alone are not enough to group records as the same failure.</value>
+  </data>
+  <data name="CrashDetails.013" xml:space="preserve">
+    <value> / exception </value>
+  </data>
+  <data name="CrashDetails.014" xml:space="preserve">
+    <value> / offset within module </value>
+  </data>
+  <data name="CrashDetails.015" xml:space="preserve">
+    <value>  App version </value>
+  </data>
+  <data name="CrashDetails.016" xml:space="preserve">
+    <value> / module version </value>
+  </data>
+  <data name="CrashDetails.017" xml:space="preserve">
+    <value>  Before: </value>
+  </data>
+  <data name="CrashDetails.018" xml:space="preserve">
+    <value> record(s) / after: </value>
+  </data>
+  <data name="CrashDetails.019" xml:space="preserve">
+    <value> record(s)</value>
+  </data>
+  <data name="CrashDetails.020" xml:space="preserve">
+    <value>  Matching records in this capture: </value>
+  </data>
+  <data name="CrashDetails.021" xml:space="preserve">
+    <value>A blank or “unknown” module name means identifying information is missing. This is distinguished from an unfamiliar named DLL; even a version or offset of 0 does not make it a complete recurring pattern.</value>
+  </data>
+  <data name="CrashDetails.022" xml:space="preserve">
+    <value>Crash records with missing fields or name-only matches: </value>
+  </data>
+  <data name="CrashDetails.023" xml:space="preserve">
+    <value> record(s). Excluded from pattern comparisons.</value>
+  </data>
+  <data name="CrashDetails.024" xml:space="preserve">
+    <value>P numbers are labels used only within this report. Matching fields do not prove a root cause or a count of separate launches. Do not match P numbers alone across different captures.</value>
+  </data>
+  <data name="CrashDetails.025" xml:space="preserve">
+    <value>An offset is a position within a module; absolute addresses are not saved. Matching offsets across different versions are not treated as the same failure.</value>
+  </data>
+  <data name="CrashDetails.026" xml:space="preserve">
+    <value>Because some data could not be collected, this pattern list is also incomplete.</value>
+  </data>
+  <data name="CrashDetails.027" xml:space="preserve">
+    <value>[Faulting module details: local only]
+Names may contain personal information. Do not share this section as-is. Unknown names are excluded from saved reports.
+</value>
+  </data>
+  <data name="CrashDetails.028" xml:space="preserve">
+    <value>Module name: </value>
+  </data>
+  <data name="CrashDetails.029" xml:space="preserve">
+    <value>Not collected</value>
+  </data>
+  <data name="CrashDetails.030" xml:space="preserve">
+    <value> / offset </value>
+  </data>
+  <data name="CrashDetails.031" xml:space="preserve">
+    <value> / app version </value>
+  </data>
+  <data name="FeedbackExport.001" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="GameProfile.001" xml:space="preserve">
+    <value>Will not launch</value>
+  </data>
+  <data name="GameProfile.002" xml:space="preserve">
+    <value>Crashes or closes unexpectedly</value>
+  </data>
+  <data name="GameProfile.003" xml:space="preserve">
+    <value>Black screen</value>
+  </data>
+  <data name="GameProfile.004" xml:space="preserve">
+    <value>Freezes or stops responding</value>
+  </data>
+  <data name="GameProfile.005" xml:space="preserve">
+    <value>Low FPS</value>
+  </data>
+  <data name="GameProfile.006" xml:space="preserve">
+    <value>Stuttering or brief pauses</value>
+  </data>
+  <data name="GameProfile.007" xml:space="preserve">
+    <value>Other / not sure</value>
+  </data>
+  <data name="GameProfile.008" xml:space="preserve">
+    <value>Not sure</value>
+  </data>
+  <data name="GameProfile.009" xml:space="preserve">
+    <value>At startup</value>
+  </data>
+  <data name="GameProfile.010" xml:space="preserve">
+    <value>In menus</value>
+  </data>
+  <data name="GameProfile.011" xml:space="preserve">
+    <value>During gameplay</value>
+  </data>
+  <data name="GameProfile.012" xml:space="preserve">
+    <value>In any scene</value>
+  </data>
+  <data name="GameProfile.013" xml:space="preserve">
+    <value>Every time</value>
+  </data>
+  <data name="GameProfile.014" xml:space="preserve">
+    <value>Sometimes</value>
+  </data>
+  <data name="GameProfile.015" xml:space="preserve">
+    <value>Result not recorded</value>
+  </data>
+  <data name="GameProfile.016" xml:space="preserve">
+    <value>Not tried yet</value>
+  </data>
+  <data name="GameProfile.017" xml:space="preserve">
+    <value>Improved after lowering one graphics setting</value>
+  </data>
+  <data name="GameProfile.018" xml:space="preserve">
+    <value>Unchanged</value>
+  </data>
+  <data name="GameProfile.019" xml:space="preserve">
+    <value>Worse</value>
+  </data>
+  <data name="GameProfile.020" xml:space="preserve">
+    <value>Cannot tell</value>
+  </data>
+  <data name="GameProfile.021" xml:space="preserve">
+    <value>Monster Hunter Wilds (game-specific rules selected by you)</value>
+  </data>
+  <data name="GameProfile.022" xml:space="preserve">
+    <value>General PC game checks (the game name is not saved)</value>
+  </data>
+  <data name="GameProfile.023" xml:space="preserve">
+    <value>Cross-check the selected executable and scene with official information</value>
+  </data>
+  <data name="GameProfile.024" xml:space="preserve">
+    <value>If the launcher and the game are separate, use the distributor's local-files view to identify the main EXE that actually closes or stops responding. Compare the scene where the problem occurs with the game's official requirements, known issues, and update status. If it worked before, note the settings you changed just before the problem began.</value>
+  </data>
+  <data name="GameProfile.025" xml:space="preserve">
+    <value>This version does not automatically track protected games whose main executable cannot be selected, or separate child EXEs. It does not change permissions or protections to find them. It does not automatically determine whether requirements are met.</value>
+  </data>
+  <data name="GameProfile.026" xml:space="preserve">
+    <value>Determine whether the black screen affects the game or the whole PC</value>
+  </data>
+  <data name="GameProfile.027" xml:space="preserve">
+    <value>Check whether only the game is black, whether the desktop is also unavailable, and whether audio or menu controls still work. Only if the game offers a display mode setting, note its current value and follow official instructions to change just that setting to windowed mode. Compare the same scene.</value>
+  </data>
+  <data name="GameProfile.028" xml:space="preserve">
+    <value>Stop reproducing the issue if it affects the whole PC and the display does not return. Do not edit the registry or configuration files. If there is no improvement, restore the original display setting.</value>
+  </data>
+  <data name="GameProfile.029" xml:space="preserve">
+    <value>Distinguish a game hang from waiting for processing</value>
+  </data>
+  <data name="GameProfile.030" xml:space="preserve">
+    <value>If the game shows loading or shader preparation, check the officially advised wait time. Record whether Windows still responds and whether the game stops at the same scene. If there is an Application Hang 1002 event, compare its time with the problem.</value>
+  </data>
+  <data name="GameProfile.031" xml:space="preserve">
+    <value>The absence of logs does not rule out a freeze. This guidance does not recommend force-quitting while saving or repeatedly forcing the PC off. Stop retesting if the whole PC freezes.</value>
+  </data>
+  <data name="GameProfile.032" xml:space="preserve">
+    <value>Compare one graphics setting in the same scene</value>
+  </data>
+  <data name="GameProfile.033" xml:space="preserve">
+    <value>If the game has an FPS display, record the values yourself and compare at the same resolution, in the same scene, for the same duration. Note the current settings, then lower just one in-game graphics setting and compare. You can record the result in the preparation-screen questions and action history.</value>
+  </data>
+  <data name="GameProfile.034" xml:space="preserve">
+    <value>This tool does not measure FPS, frame times, temperatures, or utilization. Improvement does not prove the GPU is underpowered. Restore the setting if it does not help. Do not change power, voltage, or BIOS settings.</value>
+  </data>
+  <data name="GameProfile.035" xml:space="preserve">
+    <value>Check when stuttering occurs and whether processing is still underway</value>
+  </data>
+  <data name="GameProfile.036" xml:space="preserve">
+    <value>Note whether it occurs only on the first visit to a location, whether it persists on a second pass through the same scene, and whether loading or shader preparation is displayed. Cross-check the game's official guidance, and compare only the same short scene when safe.</value>
+  </data>
+  <data name="GameProfile.037" xml:space="preserve">
+    <value>Do not delete shader caches or saves. Do not assume shaders are the cause. If it persists, describe the scene to official support. Automatic frame-time measurement is not supported.</value>
+  </data>
+  <data name="GameProfile.038" xml:space="preserve">
+    <value>Compare recording tools and overlays one at a time</value>
+  </data>
+  <data name="GameProfile.039" xml:space="preserve">
+    <value>Only test recording tools or overlays you know you are using. Note the original state, then close or disable just one through its normal exit command or official settings, and compare.</value>
+  </data>
+  <data name="GameProfile.040" xml:space="preserve">
+    <value>This tool does not detect or close other applications. Do not repeat a condition that did not help; restore the original state if needed. A tool's presence alone does not make it the cause.</value>
+  </data>
+  <data name="GameProfile.041" xml:space="preserve">
+    <value>Check the source and supported versions of add-on tools</value>
+  </data>
+  <data name="GameProfile.042" xml:space="preserve">
+    <value>Only if you know you use mods or graphics add-ons, check their compatibility with the game version and the provider's safe rollback instructions.</value>
+  </data>
+  <data name="GameProfile.043" xml:space="preserve">
+    <value>This general flow does not scan the game folder for add-ons. Do not delete unfamiliar DLLs. Protect your saves and do not make multiple changes at once.</value>
+  </data>
+  <data name="GameProfile.044" xml:space="preserve">
+    <value>Check registered compatibility and administrator settings</value>
+  </data>
+  <data name="GameProfile.045" xml:space="preserve">
+    <value>Manually open the selected EXE's Properties → Compatibility tab and compare it with the displayed registered values. Check which settings the game provider requires.</value>
+  </data>
+  <data name="GameProfile.046" xml:space="preserve">
+    <value>A registered setting does not prove the cause or the current privileges. This tool does not recommend disabling these settings or running as administrator for every game. It does not request elevation.</value>
+  </data>
+  <data name="GameProfile.047" xml:space="preserve">
+    <value>Cross-check Steam-side add-ons with their source</value>
+  </data>
+  <data name="GameProfile.048" xml:space="preserve">
+    <value>Distinguish known filenames directly in the selected Steam folder from the paths loaded by the running Steam process. Only if you know an item is an add-on, check its source/provider and safe ways to disable and restore it.</value>
+  </data>
+  <data name="GameProfile.049" xml:space="preserve">
+    <value>One Wilds case does not prove the cause in other games. Presence, the Hidden attribute, or being loaded does not establish that an item is malicious, faulty, or responsible. Do not delete or rename files based only on names. Do not modify files in System32/SysWOW64.</value>
+  </data>
+  <data name="GameProfile.050" xml:space="preserve">
+    <value>Keep the records and consult the game's official support</value>
+  </data>
+  <data name="GameProfile.051" xml:space="preserve">
+    <value>Do not repeat the same unsuccessful steps. Review the filtered report along with the symptoms, scenes, and test results you know, then personally share only the necessary parts with official support.</value>
+  </data>
+  <data name="GameProfile.052" xml:space="preserve">
+    <value>This tool cannot analyze every game-specific problem. It does not read raw logs, ZIPs, or dumps from general games. Accounts, networking, audio, controllers, and similar issues have no dedicated analysis in this version.</value>
+  </data>
+  <data name="GameProfile.053" xml:space="preserve">
+    <value>A system-wide problem has been reported or recorded. Reproducing it is not a priority, even if the cause is still unknown.</value>
+  </data>
+  <data name="GameProfile.054" xml:space="preserve">
+    <value>Do not reproduce the problem. Keep the records already collected.</value>
+  </data>
+  <data name="GameProfile.055" xml:space="preserve">
+    <value>Dedicated assessment of this symptom is not supported. General facts can still be collected.</value>
+  </data>
+  <data name="GameProfile.056" xml:space="preserve">
+    <value>Further checks with official support for this symptom are needed.</value>
+  </data>
+  <data name="GameProfile.057" xml:space="preserve">
+    <value>You reported a black screen. This is not a conclusion drawn from automatic observation of the screen or rendering.</value>
+  </data>
+  <data name="GameProfile.058" xml:space="preserve">
+    <value>You reported a hang. Loading delays and a system-wide freeze must be checked separately.</value>
+  </data>
+  <data name="GameProfile.059" xml:space="preserve">
+    <value>You reported stuttering. Windows error counts alone cannot assess performance.</value>
+  </data>
+  <data name="GameProfile.060" xml:space="preserve">
+    <value>No graphics comparison under the same conditions has been recorded. Component replacement is not recommended based on speculation alone.</value>
+  </data>
+  <data name="GameProfile.061" xml:space="preserve">
+    <value>You have reported a graphics comparison result. Do not repeat the same tested conditions; cross-check the scene and official requirements.</value>
+  </data>
+  <data name="GameProfile.062" xml:space="preserve">
+    <value>Steam-side presence/loading was observed within the scope of additional consent. Loading into the game and causation are separate questions.</value>
+  </data>
+  <data name="GameProfile.063" xml:space="preserve">
+    <value>You reported using a recording tool or overlay alongside the game.</value>
+  </data>
+  <data name="GameProfile.064" xml:space="preserve">
+    <value>You reported using add-on tools.</value>
+  </data>
+  <data name="GameProfile.065" xml:space="preserve">
+    <value>Registered flags associated with the selected EXE were found. Check the game's official guidance to see whether those settings are required.</value>
+  </data>
+  <data name="GameProfile.066" xml:space="preserve">
+    <value>File verification results have not been confirmed. This does not mean corruption was detected.</value>
+  </data>
+  <data name="GameProfile.067" xml:space="preserve">
+    <value>Consider comparing the actual version with officially known issues. The tool does not automatically determine whether it is the latest version or whether a fault exists.</value>
+  </data>
+  <data name="GameProfile.068" xml:space="preserve">
+    <value>Cross-check the main game executable, scene, and system requirements, and fill in conditions not yet collected.</value>
+  </data>
+  <data name="GameProfile.069" xml:space="preserve">
+    <value>If there is no improvement, checks beyond the collected scope are needed. Zero records do not prove normal operation.</value>
+  </data>
+  <data name="GameProfile.070" xml:space="preserve">
+    <value>[PC game diagnostics: general starting point]
+</value>
+  </data>
+  <data name="GameProfile.071" xml:space="preserve">
+    <value>Rules: </value>
+  </data>
+  <data name="GameProfile.072" xml:space="preserve">
+    <value> / Symptom (self-reported): </value>
+  </data>
+  <data name="GameProfile.073" xml:space="preserve">
+    <value>Distributor (self-reported): </value>
+  </data>
+  <data name="GameProfile.074" xml:space="preserve">
+    <value>Non-Steam</value>
+  </data>
+  <data name="GameProfile.075" xml:space="preserve">
+    <value> / Scene: </value>
+  </data>
+  <data name="GameProfile.076" xml:space="preserve">
+    <value> / Frequency: </value>
+  </data>
+  <data name="GameProfile.077" xml:space="preserve">
+    <value>Worked before: </value>
+  </data>
+  <data name="GameProfile.078" xml:space="preserve">
+    <value> / Recording tools/overlays: </value>
+  </data>
+  <data name="GameProfile.079" xml:space="preserve">
+    <value>Graphics comparison (self-reported): </value>
+  </data>
+  <data name="GameProfile.080" xml:space="preserve">
+    <value>
+FPS, frame times, GPU utilization, and temperatures are not measured. Performance improvements are recorded from your own comparisons under the same conditions. RAM/storage readings at collection time do not represent peak load during gameplay.</value>
+  </data>
+  <data name="GameProfile.081" xml:space="preserve">
+    <value>Main executable file version: </value>
+  </data>
+  <data name="GameProfile.082" xml:space="preserve">
+    <value>Compatibility registration read status: </value>
+  </data>
+  <data name="GameProfile.083" xml:space="preserve">
+    <value> / Game compatibility flags: </value>
+  </data>
+  <data name="GameProfile.084" xml:space="preserve">
+    <value>Present</value>
+  </data>
+  <data name="GameProfile.085" xml:space="preserve">
+    <value>Absent or not collected</value>
+  </data>
+  <data name="GameProfile.086" xml:space="preserve">
+    <value> / Run-as-administrator flag: </value>
+  </data>
+  <data name="GameProfile.087" xml:space="preserve">
+    <value>System-wide problem (self-reported): </value>
+  </data>
+  <data name="GameProfile.088" xml:space="preserve">
+    <value> / File verification (self-reported): </value>
+  </data>
+  <data name="GameProfile.089" xml:space="preserve">
+    <value>
+Clue: </value>
+  </data>
+  <data name="GameProfile.090" xml:space="preserve">
+    <value>
+Caution: </value>
+  </data>
+  <data name="GameProfile.091" xml:space="preserve">
+    <value>
+Official: </value>
+  </data>
+  <data name="GameProfile.092" xml:space="preserve">
+    <value>
+Scope: events 1000/1002 for the selected Windows game EXE, events 4101/41 from the same time range, and PC information at collection time. Other EXEs, custom engine logs, FPS/networking/input/audio, and identifying all possible causes are not supported. ZIPs/dumps from general games are not read as Wilds-format files.</value>
+  </data>
+  <data name="Language.OriginalData" xml:space="preserve">
+    <value>Original local values are shown without translation. CPU/GPU names and unknown module names are excluded from saved reports; known DLL names are included only if you select the separate option.</value>
+  </data>
+  <data name="Language.SessionOnly" xml:space="preserve">
+    <value>Language applies to this session. You can switch while idle; captured evidence and your answers are kept.</value>
+  </data>
+  <data name="MainForm.001" xml:space="preserve">
+    <value>General PC games (recommended)</value>
+  </data>
+  <data name="MainForm.002" xml:space="preserve">
+    <value>Monster Hunter Wilds Steam-specific rules</value>
+  </data>
+  <data name="MainForm.003" xml:space="preserve">
+    <value>Not sure which store or launcher</value>
+  </data>
+  <data name="MainForm.004" xml:space="preserve">
+    <value>Non-Steam</value>
+  </data>
+  <data name="MainForm.005" xml:space="preserve">
+    <value>Optional Wilds check: read traces/version info for 7 known items directly in the game folder and LastPlayed from the full-game registration (does not confirm past installation or successful play)</value>
+  </data>
+  <data name="MainForm.006" xml:space="preserve">
+    <value>Optional Wilds check: read one CrashReport ZIP (up to 8 MiB; predefined text, exceptions and modules only; raw data is not shared)</value>
+  </data>
+  <data name="MainForm.007" xml:space="preserve">
+    <value>Optional check: inspect 6 known items/their Hidden attributes directly in the selected Steam folder and load locations of 5 known DLLs in running Steam (does not confirm a cause)</value>
+  </data>
+  <data name="MainForm.008" xml:space="preserve">
+    <value>Choose Steam manually (for optional checks)</value>
+  </data>
+  <data name="MainForm.009" xml:space="preserve">
+    <value>Choose and read another CrashReport ZIP</value>
+  </data>
+  <data name="MainForm.010" xml:space="preserve">
+    <value>I have reviewed the scope and consent to collecting this information within this PC</value>
+  </data>
+  <data name="MainForm.011" xml:space="preserve">
+    <value>Find Wilds in registered Steam locations</value>
+  </data>
+  <data name="MainForm.012" xml:space="preserve">
+    <value>Choose the game EXE manually</value>
+  </data>
+  <data name="MainForm.013" xml:space="preserve">
+    <value>Start a new diagnosis</value>
+  </data>
+  <data name="MainForm.014" xml:space="preserve">
+    <value>No game selected</value>
+  </data>
+  <data name="MainForm.015" xml:space="preserve">
+    <value>Not sure</value>
+  </data>
+  <data name="MainForm.016" xml:space="preserve">
+    <value>I have never been able to play the full game</value>
+  </data>
+  <data name="MainForm.017" xml:space="preserve">
+    <value>I could play the full game before</value>
+  </data>
+  <data name="MainForm.018" xml:space="preserve">
+    <value>I have never been able to play the demo/beta</value>
+  </data>
+  <data name="MainForm.019" xml:space="preserve">
+    <value>I could play the demo/beta</value>
+  </data>
+  <data name="MainForm.020" xml:space="preserve">
+    <value>Not using recording software or overlays</value>
+  </data>
+  <data name="MainForm.021" xml:space="preserve">
+    <value>Using recording software or overlays</value>
+  </data>
+  <data name="MainForm.022" xml:space="preserve">
+    <value>Not using any</value>
+  </data>
+  <data name="MainForm.023" xml:space="preserve">
+    <value>Using mods or graphics tools</value>
+  </data>
+  <data name="MainForm.024" xml:space="preserve">
+    <value>No high-resolution DLC</value>
+  </data>
+  <data name="MainForm.025" xml:space="preserve">
+    <value>High-resolution DLC installed</value>
+  </data>
+  <data name="MainForm.026" xml:space="preserve">
+    <value>Only the game is affected; the PC still works</value>
+  </data>
+  <data name="MainForm.027" xml:space="preserve">
+    <value>The PC also shuts down/restarts/blue-screens/freezes completely</value>
+  </data>
+  <data name="MainForm.028" xml:space="preserve">
+    <value>No action recorded</value>
+  </data>
+  <data name="MainForm.029" xml:space="preserve">
+    <value>Verification result unknown</value>
+  </data>
+  <data name="MainForm.030" xml:space="preserve">
+    <value>Verified; no files redownloaded</value>
+  </data>
+  <data name="MainForm.031" xml:space="preserve">
+    <value>Verified; files redownloaded (completed)</value>
+  </data>
+  <data name="MainForm.032" xml:space="preserve">
+    <value>Just before checking the symptom → Start recording</value>
+  </data>
+  <data name="MainForm.033" xml:space="preserve">
+    <value>Symptom already occurred? Read the last 10 minutes</value>
+  </data>
+  <data name="MainForm.034" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="MainForm.035" xml:space="preserve">
+    <value>1 / Prepare. Windows x64 only. No PC information has been collected yet</value>
+  </data>
+  <data name="MainForm.036" xml:space="preserve">
+    <value>After starting the timer, launch the game from your usual store or launcher and check the selected symptom once.</value>
+  </data>
+  <data name="MainForm.037" xml:space="preserve">
+    <value>After diagnosis, the next checks will appear here.</value>
+  </data>
+  <data name="MainForm.038" xml:space="preserve">
+    <value>Reviewed</value>
+  </data>
+  <data name="MainForm.039" xml:space="preserve">
+    <value>Tried it myself</value>
+  </data>
+  <data name="MainForm.040" xml:space="preserve">
+    <value>Skipped</value>
+  </data>
+  <data name="MainForm.041" xml:space="preserve">
+    <value>Retest: Not checked</value>
+  </data>
+  <data name="MainForm.042" xml:space="preserve">
+    <value>Retest: Improved</value>
+  </data>
+  <data name="MainForm.043" xml:space="preserve">
+    <value>Retest: Unchanged</value>
+  </data>
+  <data name="MainForm.044" xml:space="preserve">
+    <value>Retest: Worse</value>
+  </data>
+  <data name="MainForm.045" xml:space="preserve">
+    <value>Retest: Cannot tell</value>
+  </data>
+  <data name="MainForm.046" xml:space="preserve">
+    <value>Open the guide for this step</value>
+  </data>
+  <data name="MainForm.047" xml:space="preserve">
+    <value>Open official information</value>
+  </data>
+  <data name="MainForm.048" xml:space="preserve">
+    <value>Try one step → Retest the same situation</value>
+  </data>
+  <data name="MainForm.049" xml:space="preserve">
+    <value>Review and save content for sharing</value>
+  </data>
+  <data name="MainForm.050" xml:space="preserve">
+    <value>Gemnao | PC Game Diagnosis </value>
+  </data>
+  <data name="MainForm.051" xml:space="preserve">
+    <value>PC Game Diagnosis  From symptoms to next steps</value>
+  </data>
+  <data name="MainForm.052" xml:space="preserve">
+    <value>No PC settings are changed, and nothing is sent automatically / Saving requires your action | Unsigned / Windows x64 only; new features have not yet been tested on real hardware. If security protection blocks this app, stop without bypassing it.</value>
+  </data>
+  <data name="MainForm.053" xml:space="preserve">
+    <value>Recording window: </value>
+  </data>
+  <data name="MainForm.054" xml:space="preserve">
+    <value>The timer stopped because 24 hours have elapsed. Please start again with a new, short recording window.</value>
+  </data>
+  <data name="MainForm.055" xml:space="preserve">
+    <value>1  Prepare</value>
+  </data>
+  <data name="MainForm.056" xml:space="preserve">
+    <value>The general workflow lets you select the game EXE and symptom. It guides you through checks for launch failures, crashes, black screens, freezes, low FPS and stuttering. It cannot identify every game-specific cause. Findings from Wilds are available as optional game-specific rules.</value>
+  </data>
+  <data name="MainForm.057" xml:space="preserve">
+    <value>Collection scope: the selected game EXE version and compatibility settings; OS, CPU, GPU/driver, RAM and capacity of two drives; events 1000/1002 and 4101/41 within the selected time window (including faulting module name/version/location). The general workflow does not scan game folders or game-specific logs/ZIPs. Only the Wilds-specific workflow searches Steam registrations and checks whether ZIPs exist in the CrashReport folder and their timestamps.
+Save files and per-user Steam folders are not read. Known traces and specified ZIP entries are read only if you select the optional checks. Even if registration files contain identifying information, only predefined fields within the consented scope, such as locations, are used; identifying information is not saved or included in output. No full-disk scans or uploads.</value>
+  </data>
+  <data name="MainForm.058" xml:space="preserve">
+    <value>Diagnosis rules</value>
+  </data>
+  <data name="MainForm.059" xml:space="preserve">
+    <value>Symptom</value>
+  </data>
+  <data name="MainForm.060" xml:space="preserve">
+    <value>Game store or launcher</value>
+  </data>
+  <data name="MainForm.061" xml:space="preserve">
+    <value>Optional Steam checks cover only 6 predefined names. The Steam module list is collected temporarily; only location categories for 5 known names are retained. File contents, process titles, arguments and lists of other apps are not recorded. Process memory is not analyzed beyond the loaded-module list. Information blocked by insufficient permissions remains unknown.</value>
+  </data>
+  <data name="MainForm.062" xml:space="preserve">
+    <value>Choosing the game EXE: use your store or launcher to view local files and select the actual game executable. In Steam: Library → right-click the game → Manage → Browse local files. The game EXE may differ from the launcher or crash reporter EXE. If a protected folder prevents selection, stop without changing permissions. Wilds search is available only when its game-specific rules are selected.</value>
+  </data>
+  <data name="MainForm.063" xml:space="preserve">
+    <value>When it happens</value>
+  </data>
+  <data name="MainForm.064" xml:space="preserve">
+    <value>How often it happens</value>
+  </data>
+  <data name="MainForm.065" xml:space="preserve">
+    <value>Result of lowering one graphics setting (performance issues)</value>
+  </data>
+  <data name="MainForm.066" xml:space="preserve">
+    <value>Wilds launch details (game-specific rules)</value>
+  </data>
+  <data name="MainForm.067" xml:space="preserve">
+    <value>Could you play this game before?</value>
+  </data>
+  <data name="MainForm.068" xml:space="preserve">
+    <value>Could you play the demo/beta?</value>
+  </data>
+  <data name="MainForm.069" xml:space="preserve">
+    <value>Recording software/overlays</value>
+  </data>
+  <data name="MainForm.070" xml:space="preserve">
+    <value>Mods/graphics tools</value>
+  </data>
+  <data name="MainForm.071" xml:space="preserve">
+    <value>High-resolution texture DLC</value>
+  </data>
+  <data name="MainForm.072" xml:space="preserve">
+    <value>Overall PC condition</value>
+  </data>
+  <data name="MainForm.073" xml:space="preserve">
+    <value>File verification in the store or launcher (self-reported)</value>
+  </data>
+  <data name="MainForm.074" xml:space="preserve">
+    <value>You can leave items you are unsure about unchanged. Start with just one recording. If the PC shuts down, overheats unusually or restarts, do not reproduce the issue; read only the recent records.</value>
+  </data>
+  <data name="MainForm.075" xml:space="preserve">
+    <value>2  Record the symptom</value>
+  </data>
+  <data name="MainForm.076" xml:space="preserve">
+    <value>Check the symptom once in the same situation as usual</value>
+  </data>
+  <data name="MainForm.077" xml:space="preserve">
+    <value>This tool does not control the game, record the screen or measure FPS or temperatures. It keeps only the start and end times, then reads the relevant Windows records after you press the button below.
+Even if a crash is shown, wait for CrashReport generation to finish before pressing the button. If the game launches or you have a performance issue, check the same short scenario and exit the game safely before continuing.</value>
+  </data>
+  <data name="MainForm.078" xml:space="preserve">
+    <value>First confirm that CrashReport generation has finished → then press the read button below. If no generation screen appears, continue after exiting. A few minutes spent generating a report is different from a game freeze.</value>
+  </data>
+  <data name="MainForm.079" xml:space="preserve">
+    <value>After you finish, the app waits 5 seconds for logs to be written before reading them. Records may still be delayed or missing. Missing records are not treated as proof that everything is working normally.
+If the wait is too long, you can cancel or close this app. A Windows API wait may not end immediately.</value>
+  </data>
+  <data name="MainForm.080" xml:space="preserve">
+    <value>3  Next step</value>
+  </data>
+  <data name="MainForm.081" xml:space="preserve">
+    <value>4  Details and saving</value>
+  </data>
+  <data name="MainForm.082" xml:space="preserve">
+    <value>CPU/GPU names at the top of this screen are displayed locally only and excluded when saving. Before sharing, you can review the full text that will actually be saved on a separate screen.</value>
+  </data>
+  <data name="MainForm.083" xml:space="preserve">
+    <value>Wilds-specific rules are for the Steam version. For other stores or launchers, select General PC games.</value>
+  </data>
+  <data name="MainForm.084" xml:space="preserve">
+    <value>Changing the store or launcher clears the collected comparison data. Your self-reported action history will be kept. Change it?</value>
+  </data>
+  <data name="MainForm.085" xml:space="preserve">
+    <value>Change store or launcher</value>
+  </data>
+  <data name="MainForm.086" xml:space="preserve">
+    <value>Store or launcher changed. Waiting for a new read.</value>
+  </data>
+  <data name="MainForm.087" xml:space="preserve">
+    <value>Changing the rules or symptom starts a separate diagnosis and clears on-screen records and comparisons. Save your history first if needed. Change it?</value>
+  </data>
+  <data name="MainForm.088" xml:space="preserve">
+    <value>Change diagnosis category</value>
+  </data>
+  <data name="MainForm.089" xml:space="preserve">
+    <value>No game selected. Choose the game EXE that matches the game-specific rules.</value>
+  </data>
+  <data name="MainForm.090" xml:space="preserve">
+    <value>Diagnosis category changed. Waiting for new data collection.</value>
+  </data>
+  <data name="MainForm.091" xml:space="preserve">
+    <value>Waiting for the first recording</value>
+  </data>
+  <data name="MainForm.092" xml:space="preserve">
+    <value>Select the game EXE on a local fixed drive. Wilds-specific rules support only MonsterHunterWilds.exe. This version does not support access through networks, links or protected apps.</value>
+  </data>
+  <data name="MainForm.093" xml:space="preserve">
+    <value>The game is unchanged, but its associated Steam executable will change. Clear the collected comparison data and continue, keeping your self-reported step history?</value>
+  </data>
+  <data name="MainForm.094" xml:space="preserve">
+    <value>Steam association</value>
+  </data>
+  <data name="MainForm.095" xml:space="preserve">
+    <value>Steam association updated. Waiting for a new read.</value>
+  </data>
+  <data name="MainForm.096" xml:space="preserve">
+    <value>The same game executable was confirmed. The next read can also check Steam compatibility-mode settings.</value>
+  </data>
+  <data name="MainForm.097" xml:space="preserve">
+    <value>Changing to a different game installation starts a new diagnosis for on-screen comparisons and step records. Save your history first if needed. Change it?</value>
+  </data>
+  <data name="MainForm.098" xml:space="preserve">
+    <value>Change target</value>
+  </data>
+  <data name="MainForm.099" xml:space="preserve">
+    <value>Game EXE selected (on this PC only): </value>
+  </data>
+  <data name="MainForm.100" xml:space="preserve">
+    <value>Ready. Start just before launching, or read the last 10 minutes.</value>
+  </data>
+  <data name="MainForm.101" xml:space="preserve">
+    <value>Choose the actual game EXE affected by the symptom (it will not be run)</value>
+  </data>
+  <data name="MainForm.102" xml:space="preserve">
+    <value>Game executable (*.exe)|*.exe</value>
+  </data>
+  <data name="MainForm.103" xml:space="preserve">
+    <value>Choose steam.exe for the Steam installation you actually use (it will not be run)</value>
+  </data>
+  <data name="MainForm.104" xml:space="preserve">
+    <value>Steam executable|steam.exe</value>
+  </data>
+  <data name="MainForm.105" xml:space="preserve">
+    <value>Choose the Steam executable on a local fixed drive.</value>
+  </data>
+  <data name="MainForm.106" xml:space="preserve">
+    <value>Changing the selected Steam installation clears the collected comparison data. Your self-reported step history will be kept. Continue?</value>
+  </data>
+  <data name="MainForm.107" xml:space="preserve">
+    <value>Select Steam</value>
+  </data>
+  <data name="MainForm.108" xml:space="preserve">
+    <value>Steam executable selected. The next read will compare it with the path of the running executable.</value>
+  </data>
+  <data name="MainForm.109" xml:space="preserve">
+    <value>Steam executable selected (local only). Other executables with the same name are excluded from matching.</value>
+  </data>
+  <data name="MainForm.110" xml:space="preserve">
+    <value>Checking only the registered Steam location and registered local libraries.</value>
+  </data>
+  <data name="MainForm.111" xml:space="preserve">
+    <value>Choose the Wilds installation you use (displayed locally only)</value>
+  </data>
+  <data name="MainForm.112" xml:space="preserve">
+    <value>Choose this location</value>
+  </data>
+  <data name="MainForm.113" xml:space="preserve">
+    <value>Not found in registered locations. This does not mean the game is not installed. Use "Choose the game EXE manually".</value>
+  </data>
+  <data name="MainForm.114" xml:space="preserve">
+    <value>Game EXE selected. Some registration information could not be collected. Confirm this is the installation you actually use.</value>
+  </data>
+  <data name="MainForm.115" xml:space="preserve">
+    <value>Search canceled. The previous selection has been kept.</value>
+  </data>
+  <data name="MainForm.116" xml:space="preserve">
+    <value>Automatic search could not be completed. You can select the executable manually.</value>
+  </data>
+  <data name="MainForm.117" xml:space="preserve">
+    <value>Discard unsaved results and step records and start a new diagnosis?</value>
+  </data>
+  <data name="MainForm.118" xml:space="preserve">
+    <value>New diagnosis</value>
+  </data>
+  <data name="MainForm.119" xml:space="preserve">
+    <value>New diagnosis started. The game selection has been kept.</value>
+  </data>
+  <data name="MainForm.120" xml:space="preserve">
+    <value>A system-wide problem has been reported or recorded. Stop reproducing it and prioritize reading recent records or contacting official support.</value>
+  </data>
+  <data name="MainForm.121" xml:space="preserve">
+    <value>Only if the PC is not shutting down, overheating unusually or restarting, briefly check the same symptom once.
+This tool does not launch or control the game.</value>
+  </data>
+  <data name="MainForm.122" xml:space="preserve">
+    <value>
+For a useful comparison, try only one change.</value>
+  </data>
+  <data name="MainForm.123" xml:space="preserve">
+    <value>
+
+If it is safe to try, start timing the recording window?</value>
+  </data>
+  <data name="MainForm.124" xml:space="preserve">
+    <value>Record a launch</value>
+  </data>
+  <data name="MainForm.125" xml:space="preserve">
+    <value>Recording window: 00:00:00</value>
+  </data>
+  <data name="MainForm.126" xml:space="preserve">
+    <value>Launch the game from your usual store or launcher and check the same symptom once. Check performance values yourself using in-game displays or similar tools. If the game crashed and a report is being generated, wait until it finishes.</value>
+  </data>
+  <data name="MainForm.127" xml:space="preserve">
+    <value>Timing the retest. It will be compared with the previous recording.</value>
+  </data>
+  <data name="MainForm.128" xml:space="preserve">
+    <value>Timing the first launch. Windows logs have not been read yet.</value>
+  </data>
+  <data name="MainForm.129" xml:space="preserve">
+    <value>Press this only after checking the situation where the symptom occurs. The game has not been launched automatically.</value>
+  </data>
+  <data name="MainForm.130" xml:space="preserve">
+    <value>If the CrashReport generation screen appears, wait until generation finishes. Records may not yet exist immediately after the crash appears.
+
+Have you confirmed generation is complete, or did no generation screen appear?
+Choose "No" to keep the timer running. You do not need to relaunch the game.</value>
+  </data>
+  <data name="MainForm.131" xml:space="preserve">
+    <value>Confirm before reading</value>
+  </data>
+  <data name="MainForm.132" xml:space="preserve">
+    <value>Waiting 5 seconds for logs to be written. You do not need to relaunch the game.</value>
+  </data>
+  <data name="MainForm.133" xml:space="preserve">
+    <value>Reading filtered Windows records and PC information. No settings will be changed.</value>
+  </data>
+  <data name="MainForm.134" xml:space="preserve">
+    <value>The same recording was read again. The comparison baseline, step states and your self-reported results have been kept. This does not count as a new retest.</value>
+  </data>
+  <data name="MainForm.135" xml:space="preserve">
+    <value>Collection finished, but no application events were found. Check the guidance on waiting for report generation and reading again.</value>
+  </data>
+  <data name="MainForm.136" xml:space="preserve">
+    <value>Read complete. Review the facts and possible causes. Record steps you have already tried instead of repeating them.</value>
+  </data>
+  <data name="MainForm.137" xml:space="preserve">
+    <value>Canceled. Any previously collected records have been kept.</value>
+  </data>
+  <data name="MainForm.138" xml:space="preserve">
+    <value>The read could not be completed. Previous results have been kept. Return to step 1 and check the target.</value>
+  </data>
+  <data name="MainForm.139" xml:space="preserve">
+    <value>You can read the same recording again only within 30 minutes of its original start. Results and step states have been kept. You can save them or manually select a completed CrashReport ZIP. If you need a different time window, save first and choose "Start a new diagnosis". You do not need to relaunch the game.</value>
+  </data>
+  <data name="MainForm.140" xml:space="preserve">
+    <value>If CrashReport is being generated, wait until it finishes before reading again.
+Without launching the game again, this keeps the original start time and extends the end to now (up to 30 minutes from the start). The comparison baseline, step states and your self-reported results are kept. Choose No if you have launched the game again or changed settings.
+
+After generation finishes, read again without another launch or any setting changes?</value>
+  </data>
+  <data name="MainForm.141" xml:space="preserve">
+    <value>Check for delayed records</value>
+  </data>
+  <data name="MainForm.142" xml:space="preserve">
+    <value>The allowed reread window expired while you were confirming, so no additional read will be performed. Results and step states have been kept.</value>
+  </data>
+  <data name="MainForm.143" xml:space="preserve">
+    <value>Choose one CrashReport ZIP to read (raw data is not saved or sent)</value>
+  </data>
+  <data name="MainForm.144" xml:space="preserve">
+    <value>ZIP read canceled. Previous results have been kept.</value>
+  </data>
+  <data name="MainForm.145" xml:space="preserve">
+    <value>The ZIP could not be read. Previous results have been kept.</value>
+  </data>
+  <data name="MainForm.146" xml:space="preserve">
+    <value>Timer canceled. Windows logs have not been read.</value>
+  </data>
+  <data name="MainForm.147" xml:space="preserve">
+    <value>Cancellation requested. A Windows API wait may take time to return. You can close the app.</value>
+  </data>
+  <data name="MainForm.148" xml:space="preserve">
+    <value>The records have not yet established a cause. Application events matching the selected game: </value>
+  </data>
+  <data name="MainForm.149" xml:space="preserve">
+    <value> (exact path matches: </value>
+  </data>
+  <data name="MainForm.150" xml:space="preserve">
+    <value>, name-only matches: </value>
+  </data>
+  <data name="MainForm.151" xml:space="preserve">
+    <value>Performance issues may leave no error logs. FPS has not been measured, so event counts are not used to assess performance.</value>
+  </data>
+  <data name="MainForm.152" xml:space="preserve">
+    <value>Faulting modules and exceptions are clues. They do not establish that a component has failed.</value>
+  </data>
+  <data name="MainForm.153" xml:space="preserve">
+    <value>
+Step states are self-reported. "No action recorded" does not necessarily mean you have not tried the step.</value>
+  </data>
+  <data name="MainForm.154" xml:space="preserve">
+    <value>
+No untried checks remain. Instead of repeating the same steps, keep the report and contact official support.</value>
+  </data>
+  <data name="MainForm.155" xml:space="preserve">
+    <value>
+Your history includes a self-reported resolution. If you can still play, no further changes or attempts to reproduce the failure are needed.</value>
+  </data>
+  <data name="MainForm.156" xml:space="preserve">
+    <value>
+You reported an improvement this time. Stop making additional changes and check again under the same conditions. This does not establish a complete resolution.</value>
+  </data>
+  <data name="MainForm.157" xml:space="preserve">
+    <value>Do not reproduce the issue. Keep the records and contact the manufacturer or another appropriate support service.</value>
+  </data>
+  <data name="MainForm.158" xml:space="preserve">
+    <value>Save the support information and personally share only what is needed with official support.</value>
+  </data>
+  <data name="MainForm.159" xml:space="preserve">
+    <value>After trying it: set the state to "Tried it myself" and retest. If there is no improvement, select the next step.</value>
+  </data>
+  <data name="MainForm.160" xml:space="preserve">
+    <value>
+
+Why this is a candidate
+</value>
+  </data>
+  <data name="MainForm.161" xml:space="preserve">
+    <value>
+
+Steps to take yourself
+</value>
+  </data>
+  <data name="MainForm.162" xml:space="preserve">
+    <value>
+
+Precautions and how to undo
+</value>
+  </data>
+  <data name="MainForm.163" xml:space="preserve">
+    <value>
+
+Official information: </value>
+  </data>
+  <data name="MainForm.164" xml:space="preserve">
+    <value>
+Game-specific logs, ZIPs and dumps are not analyzed in the general workflow.
+</value>
+  </data>
+  <data name="MainForm.165" xml:space="preserve">
+    <value>[Shown on this screen only; excluded from saved reports]
+CPU: </value>
+  </data>
+  <data name="MainForm.166" xml:space="preserve">
+    <value>Records available → Retest the same situation</value>
+  </data>
+  <data name="MainForm.167" xml:space="preserve">
+    <value>This opens a public page in your default browser. The URL does not include diagnosis results. Normal web traffic will occur.
+
+</value>
+  </data>
+  <data name="MainForm.168" xml:space="preserve">
+    <value>External page</value>
+  </data>
+  <data name="MainForm.169" xml:space="preserve">
+    <value>The browser could not be opened. Check the URL in the report.</value>
+  </data>
+  <data name="MainForm.170" xml:space="preserve">
+    <value>Only this content will be saved</value>
+  </data>
+  <data name="MainForm.171" xml:space="preserve">
+    <value>This content is filtered but not fully anonymous. Target names/paths, CPU/GPU names and raw logs are excluded.
+Saving to a synced folder may cause OneDrive or another service to sync it. Read the content before saving.</value>
+  </data>
+  <data name="MainForm.172" xml:space="preserve">
+    <value>Also save DLL names from the predefined list of public names (unknown names/paths are not saved)</value>
+  </data>
+  <data name="MainForm.173" xml:space="preserve">
+    <value>I have reviewed the full text that will be saved</value>
+  </data>
+  <data name="MainForm.174" xml:space="preserve">
+    <value>Save text locally</value>
+  </data>
+  <data name="MainForm.175" xml:space="preserve">
+    <value>Text (*.txt)|*.txt</value>
+  </data>
+  <data name="MainForm.176" xml:space="preserve">
+    <value>Choose a local fixed drive without going through a link or network.</value>
+  </data>
+  <data name="MainForm.177" xml:space="preserve">
+    <value>The reviewed content has been saved. This app has not sent it externally.</value>
+  </data>
+  <data name="MainForm.178" xml:space="preserve">
+    <value>Could not save. Choose another local save location.</value>
+  </data>
+  <data name="MainFormHistory.001" xml:space="preserve">
+    <value>I consent to saving/reading history for this Windows user (optional; separate from consent to read PC information)</value>
+  </data>
+  <data name="MainFormHistory.002" xml:space="preserve">
+    <value>No action recorded</value>
+  </data>
+  <data name="MainFormHistory.003" xml:space="preserve">
+    <value>Reviewed</value>
+  </data>
+  <data name="MainFormHistory.004" xml:space="preserve">
+    <value>Tried it myself</value>
+  </data>
+  <data name="MainFormHistory.005" xml:space="preserve">
+    <value>Skipped</value>
+  </data>
+  <data name="MainFormHistory.006" xml:space="preserve">
+    <value>Result not recorded</value>
+  </data>
+  <data name="MainFormHistory.007" xml:space="preserve">
+    <value>Resolved; able to play (self-reported)</value>
+  </data>
+  <data name="MainFormHistory.008" xml:space="preserve">
+    <value>Improved (self-reported)</value>
+  </data>
+  <data name="MainFormHistory.009" xml:space="preserve">
+    <value>Unchanged (self-reported)</value>
+  </data>
+  <data name="MainFormHistory.010" xml:space="preserve">
+    <value>Worse (self-reported)</value>
+  </data>
+  <data name="MainFormHistory.011" xml:space="preserve">
+    <value>Not tried (self-reported)</value>
+  </data>
+  <data name="MainFormHistory.012" xml:space="preserve">
+    <value>Cannot tell (self-reported)</value>
+  </data>
+  <data name="MainFormHistory.013" xml:space="preserve">
+    <value>Record the selected step and result</value>
+  </data>
+  <data name="MainFormHistory.014" xml:space="preserve">
+    <value>Save history on this PC</value>
+  </data>
+  <data name="MainFormHistory.015" xml:space="preserve">
+    <value>Read saved history</value>
+  </data>
+  <data name="MainFormHistory.016" xml:space="preserve">
+    <value>Move saved history to Recycle Bin</value>
+  </data>
+  <data name="MainFormHistory.017" xml:space="preserve">
+    <value>Review and save feedback JSON</value>
+  </data>
+  <data name="MainFormHistory.018" xml:space="preserve">
+    <value>5  Action history and feedback</value>
+  </data>
+  <data name="MainFormHistory.019" xml:space="preserve">
+    <value>1. After choosing a game on the Prepare screen, you can also record the results of steps you tried previously. Your answers are kept separate from setting changes observed during the same diagnosis. The app does not automatically verify that file verification or successful play took place.</value>
+  </data>
+  <data name="MainFormHistory.020" xml:space="preserve">
+    <value>2. Saving history is optional. It contains the game category, symptom, fixed step IDs, states, self-reported results, limited observations (up to 64 records) and a local matching value to help prevent mixing up targets. The EXE path itself, accounts, device IDs and raw logs are not saved. The matching value uses a random value for each history and is not included in TXT/JSON exports. History is saved in a dedicated folder under Windows LocalAppData, protected for the current Windows user. Only history matching the selected EXE location, rules and symptom can be read. This does not verify that the actual file at that location is unchanged or that the PC is the same. Wilds history from version 0.4 or earlier is not imported.</value>
+  </data>
+  <data name="MainFormHistory.021" xml:space="preserve">
+    <value>Checking the consent box does not save anything. Press the save button. History is not loaded automatically either.</value>
+  </data>
+  <data name="MainFormHistory.022" xml:space="preserve">
+    <value>3. Feedback is a separate action. Web submission is not yet available. JSON for general games is not supported, so that option is disabled. Only the Wilds launch workflow can save the existing filtered JSON locally. It is not sent. Even after the website opens for submissions, you will need to load the file, review it and consent to sending it there.</value>
+  </data>
+  <data name="MainFormHistory.023" xml:space="preserve">
+    <value>Web submission is being prepared (sending is not available yet)</value>
+  </data>
+  <data name="MainFormHistory.024" xml:space="preserve">
+    <value>Check the combination of action state and result. Results such as Improved or Unchanged require "Tried it myself"; if you have not tried the step, choose "Not tried". The app does not automatically mark steps as tried.</value>
+  </data>
+  <data name="MainFormHistory.025" xml:space="preserve">
+    <value>Save the displayed history to the dedicated local location? This replaces any previously saved history. Nothing is sent externally.</value>
+  </data>
+  <data name="MainFormHistory.026" xml:space="preserve">
+    <value>Save history</value>
+  </data>
+  <data name="MainFormHistory.027" xml:space="preserve">
+    <value>History saved for this Windows user. Next time, give consent and select "Read saved history" to resume.</value>
+  </data>
+  <data name="MainFormHistory.028" xml:space="preserve">
+    <value>History could not be saved. The history on the current screen has been kept. Do not bypass this by changing security protection or permissions.</value>
+  </data>
+  <data name="MainFormHistory.029" xml:space="preserve">
+    <value>Saved history is missing, unreadable, for another Windows user, or in an unsupported/invalid format. The current history has not been changed.</value>
+  </data>
+  <data name="MainFormHistory.030" xml:space="preserve">
+    <value>The saved history does not match the selected EXE location, game category or symptom. It will not be loaded, to avoid mixing up targets. Current records have been kept.</value>
+  </data>
+  <data name="MainFormHistory.031" xml:space="preserve">
+    <value>Review saved history</value>
+  </data>
+  <data name="MainFormHistory.032" xml:space="preserve">
+    <value>The target location, category and symptom match. This does not verify that the current file, PC or installation is the same. Confirm for yourself that this is a continuation of the same problem. Loading replaces unsaved step records and clears the collected comparison baseline (nothing is sent externally).</value>
+  </data>
+  <data name="MainFormHistory.033" xml:space="preserve">
+    <value>Use this history as a reference for the current problem</value>
+  </data>
+  <data name="MainFormHistory.034" xml:space="preserve">
+    <value>Read the reviewed history</value>
+  </data>
+  <data name="MainFormHistory.035" xml:space="preserve">
+    <value>Saved history loaded as a reference. Current PC information has not been collected yet.</value>
+  </data>
+  <data name="MainFormHistory.036" xml:space="preserve">
+    <value>Move this app's saved history to the Windows Recycle Bin? Review the Windows confirmation dialog too. If a warning says the file cannot be moved to the Recycle Bin and will be permanently deleted, cancel. The Recycle Bin will not be emptied. On-screen history will be kept.</value>
+  </data>
+  <data name="MainFormHistory.037" xml:space="preserve">
+    <value>Saved history moved to the Recycle Bin. To clear on-screen history, choose "Start a new diagnosis".</value>
+  </data>
+  <data name="MainFormHistory.038" xml:space="preserve">
+    <value>Could not finish moving history to the Recycle Bin. The app will not try to delete it or elevate permissions. On-screen history has been kept.</value>
+  </data>
+  <data name="MainFormHistory.039" xml:space="preserve">
+    <value>Filtered feedback JSON (save only; not sent yet)</value>
+  </data>
+  <data name="MainFormHistory.040" xml:space="preserve">
+    <value>Select up to 8 steps and review every field included in the JSON. The selected actions may reveal or imply use of mods or additional tools, so this is not fully anonymous. Names, paths, device IDs, DLL names, raw logs, ZIPs and the full history are excluded. Observed changes are not sent; results are treated as self-reported.</value>
+  </data>
+  <data name="MainFormHistory.041" xml:space="preserve">
+    <value>Not sure of the symptom</value>
+  </data>
+  <data name="MainFormHistory.042" xml:space="preserve">
+    <value>Crash just after launch</value>
+  </data>
+  <data name="MainFormHistory.043" xml:space="preserve">
+    <value>Black screen</value>
+  </data>
+  <data name="MainFormHistory.044" xml:space="preserve">
+    <value>Graphics-related error</value>
+  </data>
+  <data name="MainFormHistory.045" xml:space="preserve">
+    <value>During shader preparation</value>
+  </data>
+  <data name="MainFormHistory.046" xml:space="preserve">
+    <value>Crash during gameplay</value>
+  </data>
+  <data name="MainFormHistory.047" xml:space="preserve">
+    <value>I have checked that this report concerns the current PC environment; also include OS/GPU categories and driver version (optional)</value>
+  </data>
+  <data name="MainFormHistory.048" xml:space="preserve">
+    <value>I have reviewed the full JSON that will be saved</value>
+  </data>
+  <data name="MainFormHistory.049" xml:space="preserve">
+    <value>Save JSON locally (do not send)</value>
+  </data>
+  <data name="MainFormHistory.050" xml:space="preserve">
+    <value>Select 1–8 steps. Unrecorded results will not be filled in for you.</value>
+  </data>
+  <data name="MainFormHistory.051" xml:space="preserve">
+    <value>JSON saved. This app has not sent it. Web submission is not yet available. If you saved the file in a synced folder, that service may sync it independently of this app.</value>
+  </data>
+  <data name="MainFormHistory.052" xml:space="preserve">
+    <value>Could not save. Choose another local save location without changing permissions or security protection.</value>
+  </data>
+  <data name="SteamEvidence.001" xml:space="preserve">
+    <value>Directly in the selected Steam folder</value>
+  </data>
+  <data name="SteamEvidence.002" xml:space="preserve">
+    <value>Windows System32/SysWOW64</value>
+  </data>
+  <data name="SteamEvidence.003" xml:space="preserve">
+    <value>Other location (path hidden)</value>
+  </data>
+  <data name="SteamEvidence.004" xml:space="preserve">
+    <value>Location unknown</value>
+  </data>
+  <data name="SteamEvidence.005" xml:space="preserve">
+    <value>A DLL with a known name was observed loaded directly from the Steam folder</value>
+  </data>
+  <data name="SteamEvidence.006" xml:space="preserve">
+    <value>Among the known DLL names checked, matches were observed only in Windows system folders</value>
+  </data>
+  <data name="SteamEvidence.007" xml:space="preserve">
+    <value>None of the five known DLL names were found in the current Steam list</value>
+  </data>
+  <data name="SteamEvidence.008" xml:space="preserve">
+    <value>Unknown / not checked</value>
+  </data>
+  <data name="SteamEvidence.009" xml:space="preserve">
+    <value>
+[Additional check: limited Steam configuration]
+</value>
+  </data>
+  <data name="SteamEvidence.010" xml:space="preserve">
+    <value>Six known items directly in the selected Steam folder: </value>
+  </data>
+  <data name="SteamEvidence.011" xml:space="preserve">
+    <value>Present / Hidden attribute: </value>
+  </data>
+  <data name="SteamEvidence.012" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="SteamEvidence.013" xml:space="preserve">
+    <value>Not set</value>
+  </data>
+  <data name="SteamEvidence.014" xml:space="preserve">
+    <value>Not found in this location</value>
+  </data>
+  <data name="SteamEvidence.015" xml:space="preserve">
+    <value>Access denied</value>
+  </data>
+  <data name="SteamEvidence.016" xml:space="preserve">
+    <value>Not checked / unsupported</value>
+  </data>
+  <data name="SteamEvidence.017" xml:space="preserve">
+    <value>Modules in running Steam with an executable path matching the selected path: </value>
+  </data>
+  <data name="SteamEvidence.018" xml:space="preserve">
+    <value>: Observed in Steam / </value>
+  </data>
+  <data name="SteamEvidence.019" xml:space="preserve">
+    <value>File presence, the Hidden attribute, loading into Steam, loading into the game, and the cause of a crash are separate facts. A name alone does not establish that an item is unauthorized, harmful, or the cause. Hidden is a Windows attribute; it does not reveal why the item was hidden.</value>
+  </data>
+  <data name="SteamEvidence.020" xml:space="preserve">
+    <value>The game-side list comes from a CrashReport from another time, read with your additional consent. Loading into Steam is not treated as loading into the game. An unreadable or missing list entry does not prove absence at all times. Configuration contents, accounts, and lists of other apps are not saved.</value>
+  </data>
+  <data name="TraceEvidence.001" xml:space="preserve">
+    <value>
+[Additional checks: traces and successful play history]
+</value>
+  </data>
+  <data name="TraceEvidence.002" xml:space="preserve">
+    <value>Able to play the full game (self-reported): </value>
+  </data>
+  <data name="TraceEvidence.003" xml:space="preserve">
+    <value> / Able to play the demo/beta (self-reported): </value>
+  </data>
+  <data name="TraceEvidence.004" xml:space="preserve">
+    <value>Success with the demo does not prove that the current full game works or is compatible. Records alone do not establish a successful launch, and these two experiences are kept separate.</value>
+  </data>
+  <data name="TraceEvidence.005" xml:space="preserve">
+    <value>Known traces directly in the game folder: </value>
+  </data>
+  <data name="TraceEvidence.006" xml:space="preserve">
+    <value>Presence confirmed</value>
+  </data>
+  <data name="TraceEvidence.007" xml:space="preserve">
+    <value>Not found in this location</value>
+  </data>
+  <data name="TraceEvidence.008" xml:space="preserve">
+    <value>Access denied</value>
+  </data>
+  <data name="TraceEvidence.009" xml:space="preserve">
+    <value>Not checked / unsupported</value>
+  </data>
+  <data name="TraceEvidence.010" xml:space="preserve">
+    <value> / Product name in version metadata is ReShade</value>
+  </data>
+  <data name="TraceEvidence.011" xml:space="preserve">
+    <value> / Product name in version metadata is REFramework</value>
+  </data>
+  <data name="TraceEvidence.012" xml:space="preserve">
+    <value>Traces in names or metadata are separate from installation history, actual loading, and the cause of the current issue. A DLL name alone does not establish that it is a mod, and unknown files are not deleted. Finding no traces does not prove that nothing was ever installed.</value>
+  </data>
+  <data name="TraceEvidence.013" xml:space="preserve">
+    <value>LastPlayed contains a timestamp-formatted value (may include a failed launch)</value>
+  </data>
+  <data name="TraceEvidence.014" xml:space="preserve">
+    <value>LastPlayed has no usable value (does not prove the game was never launched)</value>
+  </data>
+  <data name="TraceEvidence.015" xml:space="preserve">
+    <value>Usable history has not been confirmed</value>
+  </data>
+  <data name="TraceEvidence.016" xml:space="preserve">
+    <value>Steam registration for the full game: </value>
+  </data>
+  <data name="TraceEvidence.017" xml:space="preserve">
+    <value>Steam account IDs, userdata, and personal files from the demo are not examined. LastPlayed values and timestamps are not output.</value>
+  </data>
+  <data name="WildsCore.001" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="WildsCore.002" xml:space="preserve">
+    <value>Cross-check Steam-side add-ons with their source</value>
+  </data>
+  <data name="WildsCore.003" xml:space="preserve">
+    <value>Check separately whether an item is directly in the Steam folder and whether it is loaded into the running Steam process. Verifying only the game files may not remove add-ons on the Steam client side. Check unfamiliar configurations with their source/provider. Only after confirming that an item is an add-on, save a record of the original setup and how to restore it, check the provider's safe disabling instructions, and compare after normally exiting and restarting Steam.</value>
+  </data>
+  <data name="WildsCore.004" xml:space="preserve">
+    <value>Do not delete or rename files based only on names. Do not modify DLLs in Windows System32/SysWOW64. Improvement after multiple changes does not establish that a single DLL was the cause. This tool does not close or move Steam, or change its settings.</value>
+  </data>
+  <data name="WildsCore.005" xml:space="preserve">
+    <value>Stop reproducing the issue because it affects the whole PC</value>
+  </data>
+  <data name="WildsCore.006" xml:space="preserve">
+    <value>If there are power losses, restarts, blue screens, or unusual heat, do not test by relaunching the game. Save your work and describe the symptoms to the PC manufacturer or a repair service.</value>
+  </data>
+  <data name="WildsCore.007" xml:space="preserve">
+    <value>Kernel-Power 41 alone does not establish a power supply or CPU fault. Do not run stress tests or change BIOS or voltage settings.</value>
+  </data>
+  <data name="WildsCore.008" xml:space="preserve">
+    <value>Check Protection history if there is a blocking notification</value>
+  </data>
+  <data name="WildsCore.009" xml:space="preserve">
+    <value>In Windows Security → Virus &amp; threat protection → Protection history, check the item at the matching time. For third-party security software, check its detection history. Distinguish the main game executable from other files such as mods.</value>
+  </data>
+  <data name="WildsCore.010" xml:space="preserve">
+    <value>Do not add exclusions, allow blocked items, or disable protection. If there is a related detection, contact the software provider. Do not publish history that contains personal information.</value>
+  </data>
+  <data name="WildsCore.011" xml:space="preserve">
+    <value>Check whether compatibility mode is enabled</value>
+  </data>
+  <data name="WildsCore.012" xml:space="preserve">
+    <value>In Steam → Library, right-click Wilds → Manage → Browse local files. Open MonsterHunterWilds.exe Properties → Compatibility and note the original values. If compatibility mode is enabled, the official guidance is to uncheck only that box and compare a launch from Steam. If nothing changes, check Steam.exe the same way.</value>
+  </data>
+  <data name="WildsCore.013" xml:space="preserve">
+    <value>This tool does not change settings or enable running as administrator. If the checkbox is disabled or managed, do not force a change; seek support. To revert, restore the original values you noted.</value>
+  </data>
+  <data name="WildsCore.014" xml:space="preserve">
+    <value>Cross-check the administrator setting in the current UI</value>
+  </data>
+  <data name="WildsCore.015" xml:space="preserve">
+    <value>Open the main game executable's Properties → Compatibility and check the current state of “Run this program as an administrator.” Note its original value. Only if it can be changed with normal permissions, you can uncheck just this box and compare one launch from Steam. If nothing changes, record that you tried it and move on.</value>
+  </data>
+  <data name="WildsCore.016" xml:space="preserve">
+    <value>Registered values or the Mode field in an earlier CrashReport cannot establish the current checkbox state, effective privileges, or cause. The tool does not automatically change settings or elevate to administrator. Do not change organization-managed settings or settings for all users.</value>
+  </data>
+  <data name="WildsCore.017" xml:space="preserve">
+    <value>Check mods and graphics tools you installed yourself</value>
+  </data>
+  <data name="WildsCore.018" xml:space="preserve">
+    <value>If you use mods, preserve your installation history and saves, then use your mod manager's disable/undeploy function to compare with the original setup. For ReShade and recording/performance-display tools, close only the ones you started yourself and compare.</value>
+  </data>
+  <data name="WildsCore.019" xml:space="preserve">
+    <value>Do not delete DLLs based only on names. Skip this step if you do not know which items were added. Do not overwrite existing saves with mods removed. Verifying file integrity may not remove all added mods.</value>
+  </data>
+  <data name="WildsCore.020" xml:space="preserve">
+    <value>Compare once with recording tools/overlays closed</value>
+  </data>
+  <data name="WildsCore.021" xml:space="preserve">
+    <value>Only test tools you reported using alongside the game. End and save recordings/streams, then normally exit tools you opened yourself, such as OBS. Launch once from Steam without changing other conditions. If nothing changes, that weakens the hypothesis that this tool alone caused the current issue; restore the original setup and move to the next check.</value>
+  </data>
+  <data name="WildsCore.022" xml:space="preserve">
+    <value>Appearing on screen or being installed does not prove interference with the game or causation. If the launch already failed with the tool closed, do not repeat the same test. This tool does not inspect or close recording-tool or similar processes. Only the Steam client has a separate, limited check with additional consent.</value>
+  </data>
+  <data name="WildsCore.023" xml:space="preserve">
+    <value>Check the detected traces of add-on tool names</value>
+  </data>
+  <data name="WildsCore.024" xml:space="preserve">
+    <value>Review the detailed trace list and check the source and whether you added each item yourself. A filename alone cannot tell you whether a file came with the game or is an add-on. If it is unfamiliar, do not delete it; consult official support or a similar trusted source.</value>
+  </data>
+  <data name="WildsCore.025" xml:space="preserve">
+    <value>File presence, version metadata, the dump's loaded-module list, and causation are separate facts. Your answer that a tool was not installed is also retained. Do not disable protection or run unfamiliar DLLs.</value>
+  </data>
+  <data name="WildsCore.026" xml:space="preserve">
+    <value>Verify file integrity in Steam once</value>
+  </data>
+  <data name="WildsCore.027" xml:space="preserve">
+    <value>Close the game and check Steam Downloads for stalled updates. In Library, right-click Wilds → Properties → Installed Files → Verify integrity of game files. If files are redownloaded, wait for the download to finish. Record the result using the preparation-screen options, then compare the same launch using Steam's Play button.</value>
+  </data>
+  <data name="WildsCore.028" xml:space="preserve">
+    <value>Redownloading files and improving startup are separate outcomes. Preserve your save/mod state first. Do not keep repeating verification; move on if the same startup failure persists.</value>
+  </data>
+  <data name="WildsCore.029" xml:space="preserve">
+    <value>Check the high-resolution texture DLC</value>
+  </data>
+  <data name="WildsCore.030" xml:space="preserve">
+    <value>In Steam → Wilds Properties → DLC, check whether High Resolution Texture Pack is present. If instability began after installation, the official procedure is to note the original checkbox state, uncheck only this DLC, restart Steam, and compare.</value>
+  </data>
+  <data name="WildsCore.031" xml:space="preserve">
+    <value>The official requirement is at least 16 GB of dedicated VRAM. Do not add shared GPU memory to that total. This tool does not automatically assess VRAM capacity or DLC installation. Even with 16 GB installed, this does not establish the cause of the current issue. Restoring the DLC may require redownloading it.</value>
+  </data>
+  <data name="WildsCore.032" xml:space="preserve">
+    <value>Cross-check the actual GPU driver version with official information</value>
+  </data>
+  <data name="WildsCore.033" xml:space="preserve">
+    <value>Check the GPU name and driver version in the diagnostics, then compare them with Capcom's driver notices and the PC/GPU manufacturer's support information. Record any GPU/DirectX errors or updates immediately preceding the issue.</value>
+  </data>
+  <data name="WildsCore.034" xml:space="preserve">
+    <value>Do not identify a version as the cause merely because it is old or new. No single driver version is recommended universally. This tool does not update drivers, run DDU, or remove drivers. It does not advise using the DirectX web installer to upgrade to DirectX 12.</value>
+  </data>
+  <data name="WildsCore.035" xml:space="preserve">
+    <value>Cross-check unverified points in the official system requirements</value>
+  </data>
+  <data name="WildsCore.036" xml:space="preserve">
+    <value>The official minimum requirements are 64-bit Windows 10/11, 16 GB RAM, DirectX 12, 75 GB of storage on an SSD, an Intel Core i5-10400/i3-12100 or AMD Ryzen 5 3600 CPU, and a GTX 1660 6 GB or RX 5500 XT 8 GB GPU. Use the collected CPU/GPU names as clues when comparing with the official requirements.</value>
+  </data>
+  <data name="WildsCore.037" xml:space="preserve">
+    <value>Model-name text alone is not used to automatically judge whether performance requirements are met. The 75 GB figure is the distributor's storage requirement; it does not mean an additional 75 GB of free space is required on a PC where the game is already installed. SSD, VRAM, and DirectX capabilities have not been assessed.</value>
+  </data>
+  <data name="WildsCore.038" xml:space="preserve">
+    <value>Keep CrashReports and test results, then seek support</value>
+  </data>
+  <data name="WildsCore.039" xml:space="preserve">
+    <value>In Steam → Manage → Browse local files → CrashReport, keep any ZIP with a time close to the crash. You can also save this tool's filtered report after reviewing its contents. Tell Capcom's official support what happened immediately after pressing Play in Steam, the error category, the driver version, and the steps you tried and their results.</value>
+  </data>
+  <data name="WildsCore.040" xml:space="preserve">
+    <value>The tool reads only fixed fields, exceptions, and modules in the ZIP, and only with additional consent. It does not transmit raw data. Raw logs, DxDiag output, settings, and ZIPs may contain personal information. Only when official support requests specific items should you personally review and provide them.</value>
+  </data>
+  <data name="WildsCore.041" xml:space="preserve">
+    <value>A system-wide problem was self-reported, or a system-wide shutdown was recorded in this collection or an earlier collection in this diagnosis. The game has not been established as the cause.</value>
+  </data>
+  <data name="WildsCore.042" xml:space="preserve">
+    <value>Switch to safe additional collection or consultation.</value>
+  </data>
+  <data name="WildsCore.043" xml:space="preserve">
+    <value>A record was observed showing the selected Steam process loading a DLL with a known name directly from the Steam folder. This does not establish loading into the game or causation.</value>
+  </data>
+  <data name="WildsCore.044" xml:space="preserve">
+    <value>A known filename directly in the selected Steam folder is a possible add-on. Presence alone does not establish its source, whether it was loaded, or causation.</value>
+  </data>
+  <data name="WildsCore.045" xml:space="preserve">
+    <value>You reported a protection notification. Windows logs alone cannot establish the cause of blocking.</value>
+  </data>
+  <data name="WildsCore.046" xml:space="preserve">
+    <value>A run-as-administrator registration was detected for the current game EXE. Consider first checking it against the actual UI and comparing with normal permissions.</value>
+  </data>
+  <data name="WildsCore.047" xml:space="preserve">
+    <value>Compatibility-mode flags were detected in local registered values. Whether they were actually applied, or caused the problem, is unknown.</value>
+  </data>
+  <data name="WildsCore.048" xml:space="preserve">
+    <value>You reported using recording tools/overlays alongside the game. Do not infer causation from their presence or a list alone. Compare only if you have not already done so.</value>
+  </data>
+  <data name="WildsCore.049" xml:space="preserve">
+    <value>Possible traces of known names were found in the limited locations checked. Mod/ReShade installation or current activity has not been confirmed.</value>
+  </data>
+  <data name="WildsCore.050" xml:space="preserve">
+    <value>You reported using mods or tools that interact with rendering. This is not a conclusion based on inspecting added files.</value>
+  </data>
+  <data name="WildsCore.051" xml:space="preserve">
+    <value>Some of the collected OS/RAM information may not match the official requirements. Incomplete collection and reserved memory must also be checked.</value>
+  </data>
+  <data name="WildsCore.052" xml:space="preserve">
+    <value>Because the failure occurs immediately after launching from Steam, checking distributed files and update completion is a general candidate step. This does not mean corruption was detected.</value>
+  </data>
+  <data name="WildsCore.053" xml:space="preserve">
+    <value>You reported having the high-resolution DLC. This does not establish insufficient VRAM or the DLC as the cause of this issue.</value>
+  </data>
+  <data name="WildsCore.054" xml:space="preserve">
+    <value>Suggested because of graphics-related reports or records. Windows records do not prove a driver fault.</value>
+  </data>
+  <data name="WildsCore.055" xml:space="preserve">
+    <value>The presence of the DLC has not been checked. Start by only checking its installation status.</value>
+  </data>
+  <data name="WildsCore.056" xml:space="preserve">
+    <value>Use of mods or tools that interact with rendering has not been checked. Review installation history and leave unfamiliar files untouched.</value>
+  </data>
+  <data name="WildsCore.057" xml:space="preserve">
+    <value>If the problem persists after file checks, compare the actual version with official notices. The collected version is not automatically judged to be good or faulty.</value>
+  </data>
+  <data name="WildsCore.058" xml:space="preserve">
+    <value>A support option if there is no improvement. Even zero records do not establish normal operation.</value>
+  </data>
+  <data name="WildsCore.059" xml:space="preserve">
+    <value>[Wilds-specific: closes immediately after Play in Steam]</value>
+  </data>
+  <data name="WildsCore.060" xml:space="preserve">
+    <value>Official information checked on: </value>
+  </data>
+  <data name="WildsCore.061" xml:space="preserve">
+    <value> / Latest information is not automatically checked online</value>
+  </data>
+  <data name="WildsCore.062" xml:space="preserve">
+    <value>Your report: </value>
+  </data>
+  <data name="WildsCore.063" xml:space="preserve">
+    <value> / Worked before: </value>
+  </data>
+  <data name="WildsCore.064" xml:space="preserve">
+    <value>Recording tools/overlays (self-reported): </value>
+  </data>
+  <data name="WildsCore.065" xml:space="preserve">
+    <value>Mods/graphics tools: </value>
+  </data>
+  <data name="WildsCore.066" xml:space="preserve">
+    <value> / High-resolution DLC: </value>
+  </data>
+  <data name="WildsCore.067" xml:space="preserve">
+    <value> / System-wide problem: </value>
+  </data>
+  <data name="WildsCore.068" xml:space="preserve">
+    <value>Integrity verification (self-recorded): </value>
+  </data>
+  <data name="WildsCore.069" xml:space="preserve">
+    <value>
+Collected facts:</value>
+  </data>
+  <data name="WildsCore.070" xml:space="preserve">
+    <value>Game EXE file version: </value>
+  </data>
+  <data name="WildsCore.071" xml:space="preserve">
+    <value> (may differ from the in-game version)</value>
+  </data>
+  <data name="WildsCore.072" xml:space="preserve">
+    <value>Not collected</value>
+  </data>
+  <data name="WildsCore.073" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="WildsCore.074" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="WildsCore.075" xml:space="preserve">
+    <value>Total installed RAM module capacity: </value>
+  </data>
+  <data name="WildsCore.076" xml:space="preserve">
+    <value>Registered compatibility mode: Game </value>
+  </data>
+  <data name="WildsCore.077" xml:space="preserve">
+    <value>The game has a run-as-administrator registration. This tool does not elevate privileges or change settings.</value>
+  </data>
+  <data name="WildsCore.078" xml:space="preserve">
+    <value>Cannot determine</value>
+  </data>
+  <data name="WildsCore.079" xml:space="preserve">
+    <value>Folder present</value>
+  </data>
+  <data name="WildsCore.080" xml:space="preserve">
+    <value>Folder absent</value>
+  </data>
+  <data name="WildsCore.081" xml:space="preserve">
+    <value>ZIPs modified within the observation window: </value>
+  </data>
+  <data name="WildsCore.082" xml:space="preserve">
+    <value> / ZIPs examined: </value>
+  </data>
+  <data name="WildsCore.083" xml:space="preserve">
+    <value> total</value>
+  </data>
+  <data name="WildsCore.084" xml:space="preserve">
+    <value> / Limit reached</value>
+  </data>
+  <data name="WildsCore.085" xml:space="preserve">
+    <value> (counts/modification times only; additional content analysis is separate, and correspondence is unconfirmed)</value>
+  </data>
+  <data name="WildsCore.086" xml:space="preserve">
+    <value>
+Next steps (one at a time; lower items come later):</value>
+  </data>
+  <data name="WildsCore.087" xml:space="preserve">
+    <value>Step status is your own record during this app session. “No action recorded” does not prove a step was never tried. Do not repeat actions you previously tried without improvement.</value>
+  </data>
+  <data name="WildsCore.088" xml:space="preserve">
+    <value>]
+Reason: </value>
+  </data>
+  <data name="WildsCore.089" xml:space="preserve">
+    <value>
+Caution: </value>
+  </data>
+  <data name="WildsCore.090" xml:space="preserve">
+    <value>
+Official: </value>
+  </data>
+  <data name="WildsCore.091" xml:space="preserve">
+    <value>Still unknown: required GPU capabilities/dedicated VRAM, actual DLC installation, CPU/GPU hardware faults, save contents, and the actual mod setup. Plenty of memory, no redownloaded files, or no logs alone does not establish normal operation or resolution.</value>
+  </data>
+  <data name="WildsCore.092" xml:space="preserve">
+    <value>Present</value>
+  </data>
+  <data name="WildsCore.093" xml:space="preserve">
+    <value>Not found within this scope</value>
+  </data>
+  <data name="WildsCore.094" xml:space="preserve">
+    <value>Not checked</value>
+  </data>
+  <data name="WildsCore.095" xml:space="preserve">
+    <value>Present/yes</value>
+  </data>
+  <data name="WildsCore.096" xml:space="preserve">
+    <value>Absent/no</value>
+  </data>
+  <data name="WildsCore.097" xml:space="preserve">
+    <value>Not sure</value>
+  </data>
+  <data name="WildsCore.098" xml:space="preserve">
+    <value>Unhandled exception / Crash screen</value>
+  </data>
+  <data name="WildsCore.099" xml:space="preserve">
+    <value>CrashReport generation screen (distinct from the game not responding)</value>
+  </data>
+  <data name="WildsCore.100" xml:space="preserve">
+    <value>During shader preparation</value>
+  </data>
+  <data name="WildsCore.101" xml:space="preserve">
+    <value>GPU/DirectX/memory-related message</value>
+  </data>
+  <data name="WildsCore.102" xml:space="preserve">
+    <value>Protection/blocking notification</value>
+  </data>
+  <data name="WildsCore.103" xml:space="preserve">
+    <value>Other/not sure</value>
+  </data>
+  <data name="WildsCore.104" xml:space="preserve">
+    <value>Closes immediately after Play with no message</value>
+  </data>
+  <data name="WildsCore.105" xml:space="preserve">
+    <value>Verification result unknown</value>
+  </data>
+  <data name="WildsCore.106" xml:space="preserve">
+    <value>Verified; no files redownloaded</value>
+  </data>
+  <data name="WildsCore.107" xml:space="preserve">
+    <value>Verified; files redownloaded (check download completion)</value>
+  </data>
+  <data name="WildsCore.108" xml:space="preserve">
+    <value>No action recorded (does not prove it was never tried)</value>
+  </data>
+  <data name="GameProfile.ModLabel" xml:space="preserve">
+    <value> / Mods: </value>
+  </data>
+  <data name="MainForm.MatchSummaryClose" xml:space="preserve">
+    <value>) / </value>
+  </data>
+  <data name="Selection.Help" xml:space="preserve"><value>Not sure which EXE to choose?</value></data>
+  <data name="Selection.Steps" xml:space="preserve"><value>1. In Steam, open the game installation folder (right-click the game in Library → Manage → Browse local files).
+2. Use this tool’s EXE picker to select the game executable. For Wilds, select MonsterHunterWilds.exe.
+3. Do not select launchers or reporters such as Steam.exe or CrashReport.exe. If several EXEs remain unclear, check the game’s official support for the executable name before returning.
+For other stores, use their installation location display. This help does not launch a game or scan drives.</value></data>
+  <data name="Selection.HelperRejected" xml:space="preserve"><value>This filename belongs to Steam or a crash reporter. Choose the game executable from its installation folder.</value></data>
+  <data name="Result.ShowDetails" xml:space="preserve"><value>Show details and steps</value></data>
+  <data name="Result.HideDetails" xml:space="preserve"><value>Hide details and steps</value></data>
+  <data name="Result.Known" xml:space="preserve"><value>What we found (observed)</value></data>
+  <data name="Result.Unknown" xml:space="preserve"><value>What we still do not know</value></data>
+  <data name="Result.Next" xml:space="preserve"><value>One next step (suggestion)</value></data>
+  <data name="Result.Zero" xml:space="preserve"><value>Application log collection completed for the selected time window. No matching records were found.</value></data>
+  <data name="Result.Incomplete" xml:space="preserve"><value>Application log collection is incomplete. This does not establish zero matching records. Status: </value></data>
+  <data name="Result.Matches" xml:space="preserve"><value>Records collected: {0} exact-path matches / {1} name-only matches.</value></data>
+  <data name="Result.Other" xml:space="preserve"><value>Records for a different target were also found. This does not prove that the selected EXE is wrong.</value></data>
+  <data name="Result.Uncertain" xml:space="preserve"><value>The cause and resolution are not established. A name-only match does not confirm the same EXE. Details distinguish your answers from hypotheses.</value></data>
+  <data name="Result.NoRecord" xml:space="preserve"><value>Records may be delayed, outside this target or time window, or absent for this symptom. A pending record is not confirmed.</value></data>
+  <data name="Result.NoNext" xml:space="preserve"><value>No untried suggestion remains. Review the existing records in details.</value></data>
+</root>

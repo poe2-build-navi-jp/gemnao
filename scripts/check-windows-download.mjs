@@ -86,7 +86,7 @@ console.log(
   `General diagnosis guide, artifact identity and routing passed; release ${release?.version ?? 'not yet published'}`,
 );
 
-const englishPage = readFileSync('app/[locale]/tools/windows-diagnosis/page.tsx', 'utf8');
+const englishPage = readFileSync('app/[locale]/tools/windows-diagnosis/page.tsx', 'utf8').replace(/\s+/g, ' ');
 assert.ok(page.includes('Steamを選んだ一般コースでも'));
 assert.ok(page.includes('固定6ファイルの存在・非表示属性'));
 assert.ok(page.includes('既知5種類のDLL名・場所'));

@@ -138,6 +138,7 @@ export default function WindowsDiagnosis() {
         <PrivateIntakeNotice locale="ja" />
         <aside className="download-caution" aria-labelledby="trial-title">
           <h2 id="trial-title">使う前に：できることと限界</h2>
+            <p>配布は v0.6.0 のままです。EXE 選択案内と結果要約の改善候補はレビュー用で、Windows 実機検証前のため既定ダウンロードに含めていません。</p>
           <p>
             <strong>未署名・Windows実機での新版確認前の試作版です。</strong>
             すべてのゲームでの動作や、すべての原因の特定・修復を保証するものではありません。PCの設定変更や自動修復は行いません。不安がある場合は、下の通常ガイドをご利用ください。
