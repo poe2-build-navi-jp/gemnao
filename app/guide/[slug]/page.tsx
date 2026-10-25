@@ -261,7 +261,7 @@ export default async function Page({
           <p className="article-lead">{item.description}</p>
           <div className="article-meta">
             <EditorialByline />
-            <span>最終確認：{item.checkedAt.replaceAll('-', '.')}</span>
+            <span>資料の確認記録：{item.checkedAt.replaceAll('-', '.')}</span>
             <span>公式資料を優先して確認</span>
           </div>
           <SaveArticle path={`/guide/${item.slug}`} title={item.title} />

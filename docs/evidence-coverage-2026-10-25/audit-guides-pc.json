@@ -1,0 +1,2129 @@
+{
+  "scope": "21 common guides + 20 pc; existing content/template structural review",
+  "summary": {
+    "existing-sufficient": 37,
+    "needs-specific-edit": 4,
+    "blocked-evidence": 0
+  },
+  "templateNotes": [
+    "guideの最終確認→資料確認記録は適切。共通出典文は公式以外の開発者/MOD作者の明記を損ねない表現にする。",
+    "PCの既存非実測説明・対象・expected/unexpected/revertを再利用できる。追加同一注意書き不要。"
+  ],
+  "articles": [
+    {
+      "path": "/guide/pc-game-freezes",
+      "classification": "existing-sufficient",
+      "reason": "Windows 11対象がfreeze-details冒頭にあり、RAM/VRAMの数値例を実測・しきい値ではないと明記。反応範囲・メモリ・温度を同場面で比較し、コード/高負荷を故障と断定しない。",
+      "shortAnswer": "まずCtrl＋Shift＋Escでタスクマネージャーが開くか確認します。Windowsが操作できるならゲーム側の停止として調べ、Ctrl＋Alt＋Deleteにも反応しないならPC全体・表示・入力の問題も候補にします。復旧後は同じ場面でメモリの空きと温度を記録し、結果に合う対処を1つだけ試します。「応答なし」や高い使用率だけで故障とは決めつけません。",
+      "procedures": {
+        "titles": [
+          "ゲームだけかPC全体か分ける",
+          "メモリと温度を記録する",
+          "結果に合う対処を1つ試す"
+        ],
+        "exampleAction": "下の症状表に沿って、Alt＋Tab、Ctrl＋Shift＋Esc、Ctrl＋Alt＋Deleteへの反応を確認する。音が続くだけではWindowsが正常とは判断しない。",
+        "expected": null,
+        "unexpected": null,
+        "revert": null
+      },
+      "scopeEvidence": "ゲームだけ固まる場合とPC全体が操作できない場合を切り分け。Windows 11のタスクマネージャー、メモリ・GPU温度の見方、CPU温度の確認、信頼性履歴から次の対処を選ぶ方法を解説します。",
+      "evidenceLimitation": "Windows 11対象がfreeze-details冒頭にあり、RAM/VRAMの数値例を実測・しきい値ではないと明記。反応範囲・メモリ・温度を同場面で比較し、コード/高負荷を故障と断定しない。",
+      "sourceAttribution": [
+        {
+          "label": "Microsoft：タスクマネージャーの起動とシステム構成ツール",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/system-configuration-tools-in-windows"
+        },
+        {
+          "label": "Microsoft：コミット済みメモリ・上限とページファイル",
+          "url": "https://learn.microsoft.com/en-us/troubleshoot/windows-client/performance/introduction-to-the-page-file"
+        },
+        {
+          "label": "Microsoft：タスクマネージャーのGPU温度表示と対応条件",
+          "url": "https://blogs.windows.com/windows-insider/2019/08/16/announcing-windows-10-insider-preview-build-18963/"
+        },
+        {
+          "label": "AMD：温度・使用量の確認とパフォーマンス記録",
+          "url": "https://www.amd.com/en/resources/support-articles/faqs/DH3-038.html"
+        },
+        {
+          "label": "Intel：CPUごとに異なる温度上限と温度制御",
+          "url": "https://www.intel.com/content/www/us/en/support/articles/000005597/processors.html"
+        },
+        {
+          "label": "HWiNFO：CPU・GPUのセンサー監視機能",
+          "url": "https://www.hwinfo.com/about-software/"
+        },
+        {
+          "label": "Dell：信頼性履歴からソフトウェアの問題を調べる",
+          "url": "https://www.dell.com/support/kbdoc/en-us/000178177/how-to-use-windows-reliability-monitor-to-identify-software-issues"
+        },
+        {
+          "label": "Steam：ゲームファイルの整合性確認",
+          "url": "https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/guide/pc-game-crash",
+      "classification": "needs-specific-edit",
+      "reason": "同時刻のログ・モジュールの限定、SampleGame架空例と本人報告を分離済み。ただしcrash-detailsの10月3日表現とzh/esの受領日断定がPR146の報告日時未記録に矛盾する。",
+      "shortAnswer": "ゲームだけ閉じる場合は、落ちた時刻・エラー文と発生場面を記録し、再起動後も起きるか確認します。起動直後は追加ツール、ロード中はセーブを保全してファイル、長時間後はメモリや温度の変化を1項目ずつ比較。PCごと再起動する症状は別手順です。固まったゲームを終了したい場合は、下のFAQを確認してください。",
+      "procedures": {
+        "titles": [
+          "落ち方と発生時刻を記録する",
+          "発生タイミングに合う1項目を試す",
+          "同じ条件で結果を比べ、次へ進む"
+        ],
+        "exampleAction": "画面がデスクトップへ戻った時刻、起動直後／ロード中／プレイ開始から何分後か、同じ操作で再現するかを控える。PCの電源断・自動再起動・青い画面は別記事で調べる。",
+        "expected": null,
+        "unexpected": null,
+        "revert": null
+      },
+      "scopeEvidence": "PCゲームがデスクトップに戻る時の切り分け方。起動直後・ロード中・長時間プレイ後で確認先を分け、エラー表示がない場合のWindowsの信頼性履歴・イベントビューアーの見方と比較方法を解説します。",
+      "evidenceLimitation": "同時刻のログ・モジュールの限定、SampleGame架空例と本人報告を分離済み。ただしcrash-detailsの10月3日表現とzh/esの受領日断定がPR146の報告日時未記録に矛盾する。",
+      "sourceAttribution": [
+        {
+          "label": "FMV公式：応答しないアプリを終了する際の注意と手順",
+          "url": "https://www.fmworld.net/cs/azbyclub/qanavi/jsp/qacontents.jsp?PID=4311-2959"
+        },
+        {
+          "label": "Steam公式：Steamクラウドの同期と競合",
+          "url": "https://help.steampowered.com/ja/faqs/view/68D2-35AB-09A9-7678"
+        },
+        {
+          "label": "Microsoft：イベントビューアーで日時・イベントの詳細を調べる",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/system-configuration-tools-in-windows"
+        },
+        {
+          "label": "Microsoft Learn：アプリケーションの停止とイベント1000・1001",
+          "url": "https://learn.microsoft.com/en-us/troubleshoot/windows-server/performance/troubleshoot-application-service-crashing-behavior"
+        },
+        {
+          "label": "Dell：信頼性履歴からソフトウェアの問題を調べる",
+          "url": "https://www.dell.com/support/kbdoc/en-us/000178177/how-to-use-windows-reliability-monitor-to-identify-software-issues"
+        },
+        {
+          "label": "Steam：ゲームファイルの整合性確認",
+          "url": "https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/guide/black-screen",
+      "classification": "existing-sufficient",
+      "reason": "主にWindows11と冒頭明示。Windowsが映るかから分岐し、HDR/画面モード/設定退避の条件あり。Elden Ring保存先をMOD作者記録と出典ラベルで区別。独立テストの主張なし。",
+      "shortAnswer": "まずAlt＋TabやCtrl＋Alt＋DeleteでWindowsの画面が出るか確認します。Windowsが映るならゲームの画面モード・解像度・直前に変えた設定を確認し、デスクトップまで映らないならモニターの入力先・接続・Windowsの表示を先に調べます。音だけ出ることは原因を断定する材料にはなりません。設定初期化はバックアップ後に対象ファイルだけを退避して比較します。",
+      "procedures": {
+        "titles": [
+          "Windowsの画面が出るか確認",
+          "画面モードと直前の設定を戻す",
+          "修復と追加機能を1つずつ比較"
+        ],
+        "exampleAction": "Alt＋Tabで他のアプリへ切り替える。見えなければCtrl＋Alt＋Deleteを押し、Windowsの画面が出るか確認する。音が鳴るだけでゲームが正常とは判断しない。",
+        "expected": null,
+        "unexpected": null,
+        "revert": null
+      },
+      "scopeEvidence": "ゲームだけ黒い、音だけ出る、モニターに信号なしと出る場合を切り分け。Windowsの反応確認、画面モード・HDRの戻し方、設定ファイルの退避例、直らない時の次の対処を説明します。",
+      "evidenceLimitation": "主にWindows11と冒頭明示。Windowsが映るかから分岐し、HDR/画面モード/設定退避の条件あり。Elden Ring保存先をMOD作者記録と出典ラベルで区別。独立テストの主張なし。",
+      "sourceAttribution": [
+        {
+          "label": "Microsoft：Windowsの黒い画面・接続と表示復旧",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/troubleshooting-blank-screens-in-windows"
+        },
+        {
+          "label": "Microsoft：HDRの設定と切り替え時の表示",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/hdr-settings-in-windows"
+        },
+        {
+          "label": "Microsoft：リフレッシュレートと対応する表示設定",
+          "url": "https://support.microsoft.com/en-us/windows/hardware/display-graphics/change-the-refresh-rate-on-your-monitor-in-windows"
+        },
+        {
+          "label": "Epic公式：Fortniteの黒画面・描画方式・設定の保存",
+          "url": "https://www.epicgames.com/help/c-34254770/c-38015632/a14140539?lang=ja"
+        },
+        {
+          "label": "ELDEN RING MOD作者の記録：GraphicsConfig.xmlの保存先（メーカー公式ではありません）",
+          "url": "https://www.nexusmods.com/eldenring/mods/135"
+        },
+        {
+          "label": "Steam：ゲームファイルの整合性確認",
+          "url": "https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/guide/gpu-driver-update",
+      "classification": "existing-sufficient",
+      "reason": "Windows11で画面が操作できる状態を明示。対象GPU/元版/配布元/更新後版と同場面比較を記録し、版変更と症状改善を分離。記録表は実測値ではないと明記。",
+      "shortAnswer": "更新前に「使用中のGPU名・現在のドライバー版・困っている症状」を控え、ノートPCや携帯型PCは製品メーカーの対応版を先に確認します。NVIDIA・AMD・Intelのうち、対象のGPUに合う方法を1つ選んで更新し、インストール完了後に一度再起動。同じゲーム・同じ場面で比較します。悪化したら以前の版に戻せるか確認してください。",
+      "procedures": {
+        "titles": [
+          "GPU名・現在の版と症状を記録する",
+          "メーカー別に1つの経路で更新する",
+          "同じ条件で比較し、悪化したら戻す"
+        ],
+        "exampleAction": "ゲームを終了し、Windowsの「スタート」を右クリック→「デバイス マネージャー」→「ディスプレイ アダプター」を開く。対象GPUの製品名を控える。2つ表示されるPCでは両方を記録し、ゲームの使用GPUも確認する。",
+        "expected": null,
+        "unexpected": null,
+        "revert": null
+      },
+      "scopeEvidence": "PCゲームの画面乱れやクラッシュが更新で改善するか調べる手順。更新前のGPU名・ドライバー版の記録、NVIDIAアプリ・AMD Software・Intel DSAの操作、悪化した時のロールバックをWindows 11向けに解説します。",
+      "evidenceLimitation": "Windows11で画面が操作できる状態を明示。対象GPU/元版/配布元/更新後版と同場面比較を記録し、版変更と症状改善を分離。記録表は実測値ではないと明記。",
+      "sourceAttribution": [
+        {
+          "label": "NVIDIA公式：NVIDIAアプリのDrivers画面・更新・以前の版の再導入",
+          "url": "https://www.nvidia.com/en-us/geforce/news/gfecnt/202411/nvidia-app-download-and-features/"
+        },
+        {
+          "label": "NVIDIA公式：製品・OSに合うドライバーの検索",
+          "url": "https://www.nvidia.com/ja-jp/drivers/"
+        },
+        {
+          "label": "AMD公式：Software and Drivers・Manage Updates",
+          "url": "https://www.amd.com/en/resources/support-articles/faqs/DH3-016.html"
+        },
+        {
+          "label": "AMD公式：インストール手順とFactory Resetの制限",
+          "url": "https://www.amd.com/en/resources/support-articles/faqs/rsx2-install.html"
+        },
+        {
+          "label": "Intel公式：Driver & Support Assistantによる自動検出",
+          "url": "https://www.intel.com/content/www/us/en/support/articles/000005629/graphics/processor-graphics.html"
+        },
+        {
+          "label": "Intel公式：Driver & Support Assistant入手先",
+          "url": "https://www.intel.com/content/www/us/en/support/detect.html"
+        },
+        {
+          "label": "Microsoft公式：ディスプレイアダプターのドライバーを元に戻す",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/fix-graphics-device-problems-with-error-code-43"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/guide/save-data-backup",
+      "classification": "existing-sufficient",
+      "reason": "Windows向け保存先3例に公式リンク、コピー一致とロード成功を分離。2026-09-27は資料照合、ゲーム実機復元テスト未掲載と明記。",
+      "shortAnswer": "ゲームを終了し、セーブを含むフォルダーを日付付きの別フォルダーへコピーします。コピー元とコピー先のファイル数・サイズを照合し、必要ならハッシュで内容の一致も確認してください。ただし「正しくコピーできた」と「ゲームで読み込める」は別です。復元時は現在のセーブを退避し、同期を止めてバックアップを元の保存先へ戻します。",
+      "procedures": {
+        "titles": [
+          "保存先とコピー対象を確認する",
+          "元の名前で日付別にコピーする",
+          "コピーの一致を確認して記録する"
+        ],
+        "exampleAction": "正常に遊べている時のバックアップなら、ゲーム内で保存してタイトルへ戻り、ゲームを終了する。Steam Cloudを使う場合は同期完了を確認してからSteamも終了する。ほかのPC・端末でも同じゲームを終了しておく。",
+        "expected": null,
+        "unexpected": null,
+        "revert": null
+      },
+      "scopeEvidence": "Windows版ゲームのセーブ保存先3例とコピー対象を掲載。ファイル数・サイズ・ハッシュでコピー成功を確認する方法、Steam Cloudとの違い、元データを残して復元する手順を解説します。",
+      "evidenceLimitation": "Windows向け保存先3例に公式リンク、コピー一致とロード成功を分離。2026-09-27は資料照合、ゲーム実機復元テスト未掲載と明記。",
+      "sourceAttribution": [
+        {
+          "label": "CD PROJEKT RED公式：Cyberpunk 2077のセーブ保存先",
+          "url": "https://support.cdprojektred.com/ja/cyberpunk/pc/sp-technical/issue/1706/sebudetanobao-cun-chang-suo-wojiao-etekudasai"
+        },
+        {
+          "label": "Larian公式：Baldur’s Gate 3の保存先・セーブ単位",
+          "url": "https://larian.com/support/faqs/multiplayer-issues_84"
+        },
+        {
+          "label": "Stardew Valley公式：保存先・必要ファイル・前日バックアップ",
+          "url": "https://www.stardewvalley.net/missing-corrupt-save-file-troubleshooting-guide/"
+        },
+        {
+          "label": "Steam公式：クラウド同期・ゲームごとの設定・競合",
+          "url": "https://help.steampowered.com/ja/faqs/view/68D2-35AB-09A9-7678"
+        },
+        {
+          "label": "Microsoft公式：Get-FileHashによる内容の比較",
+          "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-filehash?view=powershell-5.1"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/guide/steam-input-controller",
+      "classification": "existing-sufficient",
+      "reason": "Steam認識→ゲーム別入力→外部変換の手順。出典欄が期待結果を読者の判断目安・非実測と明記。機器別UI差/ゲーム側対応を分け、特定版成功は主張しない。",
+      "shortAnswer": "Steamの「設定」→「コントローラ」で機器名とボタン入力を確認します。未認識なら接続、特定ゲームだけ無反応ならゲーム別Steam Input、二重入力なら入力経路を確認。操作できて表記だけ違う場合は、ゲーム側のボタン表示を調べます。",
+      "procedures": {
+        "titles": [
+          "Steamが機器とボタン入力を認識するか確認する",
+          "ゲーム別Steam Inputと入力方式を比較する",
+          "外部変換・複数機器を外して結果を確かめる"
+        ],
+        "exampleAction": "ゲームを終了し、コントローラーを1台だけ接続。「Steam」→「設定」→「コントローラ」で機器名を確認し、入力テストが使える場合はA／決定ボタンとスティックを操作。名前と入力が両方出るならゲーム側の確認へ進む。",
+        "expected": null,
+        "unexpected": null,
+        "revert": null
+      },
+      "scopeEvidence": "Steamでコントローラーを認識しない、Steamでは反応するのにゲームだけ動かない場合の対処法。接続・入力テスト、ゲーム別Steam Inputの有効／無効、レイアウトを順に比較し、一部のボタンだけ効かない・二重入力・Xboxボタン表記になる場合も切り分けます。",
+      "evidenceLimitation": "Steam認識→ゲーム別入力→外部変換の手順。出典欄が期待結果を読者の判断目安・非実測と明記。機器別UI差/ゲーム側対応を分け、特定版成功は主張しない。",
+      "sourceAttribution": [
+        {
+          "label": "Steamworks：Steam Inputとゲーム別コントローラー設定",
+          "url": "https://partner.steamgames.com/doc/features/steam_controller/getting_started_for_players"
+        },
+        {
+          "label": "Steamworks：ゲームパッド・キーボード・マウスの入力割り当て",
+          "url": "https://partner.steamgames.com/doc/features/steam_controller/legacy_mode"
+        },
+        {
+          "label": "Steam公式：ゲーム別Steam Inputと機種別の対応表示",
+          "url": "https://store.steampowered.com/news/posts/?enddate=1701713393&feed=steam_blog"
+        },
+        {
+          "label": "Steamサポート（Steam Controller）：入力方式と競合の確認",
+          "url": "https://help.steampowered.com/ja/wizard/HelpWithGameIssue/?appid=353370&issueid=361&nodeid=9"
+        },
+        {
+          "label": "Microsoft：WindowsのBluetooth接続の問題",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/fix-bluetooth-problems-in-windows"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/guide/controller-double-input",
+      "classification": "existing-sufficient",
+      "reason": "joy.cplとツール終了で消える機器を比較し、名称だけで判定しない。DS4Windows資料に仕組みを帰属。1回押し/仮想パッドの例は条件文、実測成功ではない。",
+      "shortAnswer": "まず対象ゲームのタイトル画面で、同じ方向ボタンを1回だけ押し、メニューが何項目動いたか記録します。DS4Windowsなどを使っていればゲームを終了してツールを停止し、実機1台とSteam Inputだけで再起動して同じ操作を比較。1項目だけ動くようになれば、外部ツールが作る仮想パッドと実機の入力が重なった可能性があります。変わらない場合はSteam Inputをゲームごとに切り替え、結果から次の確認先を選びます。",
+      "procedures": {
+        "titles": [
+          "1回押した結果と実機・仮想パッドを記録する",
+          "外部ツールを停止しSteam Inputだけで比較する",
+          "残る場合だけSteam Inputかゲーム側を確認する"
+        ],
+        "exampleAction": "ゲームのタイトル画面など、同じ項目数を確認できるメニューで、方向ボタンを押してすぐ離す。1回押しただけで1項目／2項目／無反応のどれかを記録する。長押しによるキーリピートと混同しない。",
+        "expected": null,
+        "unexpected": null,
+        "revert": null
+      },
+      "scopeEvidence": "PCゲームでボタンを1回押したのにメニューが2つ進む、2Pが参加する時の切り分け。Windowsで実機と仮想パッドを見分け、外部変換ツールとSteam Inputを1つずつ切り替えた結果から、ゲームに届く入力経路を判断します。",
+      "evidenceLimitation": "joy.cplとツール終了で消える機器を比較し、名称だけで判定しない。DS4Windows資料に仕組みを帰属。1回押し/仮想パッドの例は条件文、実測成功ではない。",
+      "sourceAttribution": [
+        {
+          "label": "DS4Windows Docs：実機と仮想パッドが重なる仕組み・HidHide",
+          "url": "https://kanuan.github.io/DS4WSite/guides/solving-double-input/"
+        },
+        {
+          "label": "Microsoft：joy.cplでゲームコントローラー一覧を開く",
+          "url": "https://support.microsoft.com/en-us/topic/how-to-run-control-panel-tools-by-typing-a-command-bce95b4d-e8c2-1cd0-ee0d-027679d520a6"
+        },
+        {
+          "label": "Steamサポート：競合する入力ソフト・複数機器の確認",
+          "url": "https://help.steampowered.com/ja/wizard/HelpWithGameIssue/?appid=353370&issueid=361&nodeid=9"
+        },
+        {
+          "label": "Steamworks：Steam Inputのゲーム別設定",
+          "url": "https://partner.steamgames.com/doc/features/steam_controller/getting_started_for_players"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/guide/visual-c-runtime-error",
+      "classification": "existing-sufficient",
+      "reason": "Windows上のゲームの対象アーキテクチャとDLL系列を区別。MS年版/x86/x64の出典、導入済み/修復/不成功分岐があり、Runtime Errorだけでは必要版不明と明示。",
+      "shortAnswer": "表示されたDLL名とゲーム名を控え、140系ならMicrosoftの最新v14、120系なら2013、110系なら2012、100系なら2010の配布欄を確認します。x86・x64はWindowsではなくゲームの対象に合わせ、既に入っている同じ系列・対象なら「変更→修復」を試します。DLL名のない「Runtime Error」だけでは必要な版を決められません。",
+      "procedures": {
+        "titles": [
+          "エラーの全文とゲームの対象を控える",
+          "Windowsで同じ系列・x86／x64の導入状況を見る",
+          "Microsoft公式の該当パッケージを修復または導入する",
+          "再起動して再現を確認し、結果で次を決める"
+        ],
+        "exampleAction": "起動時の表示を撮影し、DLL名（例：MSVCP120.dll）・エラーコード・どのEXEの起動時かを記録。表のDLL名に当てはまらない「Runtime Error」だけならVisual C++の版を決めつけず、ゲーム公式の必要条件とログを確認します。",
+        "expected": null,
+        "unexpected": null,
+        "revert": null
+      },
+      "scopeEvidence": "「MSVCP140.dllがない」「MSVCP120.dllがない」「Runtime Error」の違いから必要なVisual C++再頒布可能パッケージを絞る方法。Windowsでの導入状況の確認、ゲームのx86・x64に合う版の選択、修復やインストールが失敗した時の分岐を説明します。",
+      "evidenceLimitation": "Windows上のゲームの対象アーキテクチャとDLL系列を区別。MS年版/x86/x64の出典、導入済み/修復/不成功分岐があり、Runtime Errorだけでは必要版不明と明示。",
+      "sourceAttribution": [
+        {
+          "label": "Microsoft：Visual C++再頒布可能パッケージの各年版・x86/x64",
+          "url": "https://learn.microsoft.com/ja-jp/cpp/windows/latest-supported-vc-redist"
+        },
+        {
+          "label": "Microsoft：Windowsでアプリ・プログラムを修復する",
+          "url": "https://support.microsoft.com/ja-jp/windows/apps/repair-apps-and-programs-in-windows"
+        },
+        {
+          "label": "Microsoft：Visual C++再頒布可能パッケージのインストール問題",
+          "url": "https://learn.microsoft.com/ja-jp/cpp/windows/troubleshoot-vc-redistributable-installation-issues"
+        },
+        {
+          "label": "Steam：ゲームファイルの整合性確認",
+          "url": "https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/guide/remove-mods-safely",
+      "classification": "existing-sufficient",
+      "reason": "Vortex/MO2/手動/Workshopで根拠と導入経路を分離。元ファイル不明は削除停止、MOD依存セーブは保全。一般的な取り外し手順で、全ゲームの起動成功保証なし。",
+      "shortAnswer": "ゲームを終了し、セーブとMODの一覧を先にコピー・記録します。管理ツールはそのツールで無効化して配置を反映、手動導入は配布元のファイル一覧と照合できた追加物だけをゲーム外に退避、ワークショップは対象の購読を解除して同期完了を確認します。その後もMODが残る場合は元の導入経路を確認し、ゲーム本体・セーブを推測で削除しないでください。元へ戻す時は導入した経路から1件ずつ再適用します。",
+      "procedures": {
+        "titles": [
+          "セーブ・導入記録・退避先を用意する",
+          "管理ツール・手動導入・ワークショップ別に外す",
+          "残存を確認し、MODなしの起動を比べる",
+          "元に戻す場合は、導入経路から1件ずつ再適用する"
+        ],
+        "exampleAction": "ゲーム・MOD管理ツール・Steamの同期が完了していることを確認し、ゲームを終了。対象ゲームの公式案内またはゲーム別記事でセーブ保存先を特定し、セーブをゲーム外の別フォルダーへコピーする。保存先が未確認なら推測でファイルを移動しない。",
+        "expected": null,
+        "unexpected": null,
+        "revert": null
+      },
+      "scopeEvidence": "MODを外しても起動しない時、導入方法別に退避・残存確認・復元まで行う手順。Vortexなどの管理ツール、手動配置、Steamワークショップを区別し、セーブと元ファイルを守りながら「MODなし」で起動できるか判定します。",
+      "evidenceLimitation": "Vortex/MO2/手動/Workshopで根拠と導入経路を分離。元ファイル不明は削除停止、MOD依存セーブは保全。一般的な取り外し手順で、全ゲームの起動成功保証なし。",
+      "sourceAttribution": [
+        {
+          "label": "Nexus Mods：Vortexの配置・Purge Modsと復元",
+          "url": "https://github.com/Nexus-Mods/Vortex/wiki/MODDINGWIKI-Users-FAQ"
+        },
+        {
+          "label": "Mod Organizer 2：仮想ファイルとプロファイル（開発元リリース）",
+          "url": "https://github.com/ModOrganizer2/modorganizer/releases"
+        },
+        {
+          "label": "Steam：ワークショップの購読一覧とゲーム別設定",
+          "url": "https://steamcommunity.com/workshop/"
+        },
+        {
+          "label": "Steam：ゲームファイルの整合性確認",
+          "url": "https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/guide/reshade-uninstall",
+      "classification": "existing-sufficient",
+      "reason": "ReShade 6.8.0公式ソース/開発者説明が根拠、ゲーム実機未検証と明記。API/導入exe/識別済みDLLに限定し、Vulkan/OpenXRは手動コピー復元対象外。",
+      "shortAnswer": "ReShadeは、導入時に使ったゲームの実行ファイルと描画APIを公式セットアップで選び、アンインストールします。先にプリセットと設定をバックアップしてください。手動で外す場合は、ReShade製と確認したDLLだけをゲーム外へ退避します。エフェクトをオフにするだけでは、本体の読み込みは止まりません。",
+      "procedures": {
+        "titles": [
+          "導入先とプリセットを控える",
+          "導入方法に合わせてReShadeを解除する",
+          "起動を確認し、残すものを整理する"
+        ],
+        "exampleAction": "ゲームを終了する。Steamならライブラリで対象ゲームを右クリック→「管理」→「ローカルファイルを閲覧」でインストール先を開く。ランチャーではなく、ReShade導入時に選んだゲームの.exeと、そのフォルダーを確認する。",
+        "expected": null,
+        "unexpected": null,
+        "revert": null
+      },
+      "scopeEvidence": "ReShadeを消したい、導入後にゲームが起動しない人向け。公式セットアップでのアンインストール、dxgi.dllなどの識別、プリセットの保全、Vulkanの注意点、削除後の確認と復元まで説明します。",
+      "evidenceLimitation": "ReShade 6.8.0公式ソース/開発者説明が根拠、ゲーム実機未検証と明記。API/導入exe/識別済みDLLに限定し、Vulkan/OpenXRは手動コピー復元対象外。",
+      "sourceAttribution": [
+        {
+          "label": "ReShade公式：配布元・対応API",
+          "url": "https://reshade.me/"
+        },
+        {
+          "label": "公式ソース v6.8.0：対象DLLの識別・アンインストール処理",
+          "url": "https://github.com/crosire/reshade/blob/v6.8.0/setup/MainWindow.xaml.cs"
+        },
+        {
+          "label": "公式ソース v6.8.0：アンインストール画面の選択肢",
+          "url": "https://github.com/crosire/reshade/blob/v6.8.0/setup/Pages/SelectOperationPage.xaml"
+        },
+        {
+          "label": "開発者crosireの説明：通常導入のDLL・設定・シェーダー",
+          "url": "https://reshade.me/forum/troubleshooting/3407-how-to-uninstall-completely"
+        },
+        {
+          "label": "Steam公式：ゲームファイルの整合性確認",
+          "url": "https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/guide/reset-config-file",
+      "classification": "existing-sufficient",
+      "reason": "Windows向けゲーム別保存先、公式とMOD作者記録を分離。資料確認日と実機未実施が明記され、対象特定/バックアップ/再生成/復元の結果分岐あり。",
+      "shortAnswer": "設定ファイルを別の場所へコピーしてから退避し、ゲームを起動して既定値と比較します。直れば必要な設定を1つずつ戻し、直らなければバックアップを元の場所へ戻します。まず下のゲーム別表で対象ファイルを確認してください。",
+      "procedures": {
+        "titles": [
+          "対象ファイルとセーブの場所を確認する",
+          "ゲームを終了し、別の場所へコピーする",
+          "設定だけを退避し、既定値で起動する",
+          "再起動で確認し、必要なら元に戻す"
+        ],
+        "exampleAction": "上のゲーム別表からフォルダーを開き、対象ファイルを探す。エルデンリングはGraphicsConfig.xml、ワイルズはconfig.ini。",
+        "expected": null,
+        "unexpected": null,
+        "revert": null
+      },
+      "scopeEvidence": "画質設定を変えたら黒画面になる・ゲームが起動しない時に。設定ファイルの場所の探し方、セーブと分けたバックアップ、再生成、元に戻す手順を解説。初期化後に設定が戻る場合やファイルが見つからない場合も確認できます。",
+      "evidenceLimitation": "Windows向けゲーム別保存先、公式とMOD作者記録を分離。資料確認日と実機未実施が明記され、対象特定/バックアップ/再生成/復元の結果分岐あり。",
+      "sourceAttribution": [
+        {
+          "label": "カプコン公式：ワイルズのインストール先・トラブル対処",
+          "url": "https://steamcommunity.com/app/2246340/discussions/0/596267902352499417/"
+        },
+        {
+          "label": "Epic公式：Fortniteの設定ファイル・読み取り専用の解除",
+          "url": "https://www.epicgames.com/help/c-202300000001636/c-202300000001719/a202300000013484"
+        },
+        {
+          "label": "ELDEN RING MOD作者の記録：GraphicsConfig.xmlの保存場所",
+          "url": "https://www.nexusmods.com/eldenring/mods/135"
+        },
+        {
+          "label": "Microsoft：エクスプローラーの拡張子・隠しファイル表示",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/fileexplorer/file-explorer-in-windows"
+        },
+        {
+          "label": "Steam：Steam Cloud（設定の同期と競合）",
+          "url": "https://help.steampowered.com/en/faqs/view/68D2-35AB-09A9-7678"
+        },
+        {
+          "label": "Steam：ゲームファイルの整合性確認（ローカル設定の扱い）",
+          "url": "https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB"
+        },
+        {
+          "label": "Epic Games：Unreal Engineの設定ファイルの仕組み",
+          "url": "https://dev.epicgames.com/documentation/ja-jp/unreal-engine/configuration-files-in-unreal-engine"
+        },
+        {
+          "label": "Steam：バックアップ機能に含まれないデータと保存先の確認",
+          "url": "https://help.steampowered.com/en/faqs/view/4593-5CB7-DC3C-64F0"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/guide/shader-cache-delete",
+      "classification": "existing-sufficient",
+      "reason": "Windows/NVIDIA/AMD/ゲーム内構築を分離した表と対応一次資料。初回カクつきを最終結果とせず、同場面再比較。改善を保証せず、版/項目差は公式へ誘導。",
+      "shortAnswer": "WindowsのDirectXシェーダーキャッシュは「ディスク クリーンアップ」から削除できます。GPU側はNVIDIAとAMDで手順が異なるため、下の表から対象を1つ選びます。削除後は再構築で一時的に重くなることがあります。初回だけで判断せず、構築完了後に同じ場面を再確認してください。",
+      "procedures": {
+        "titles": [
+          "症状を控え、ゲームを終了する",
+          "対象のキャッシュだけを削除する",
+          "再構築を待ち、同じ場面で比較する"
+        ],
+        "exampleAction": "ゲーム名、GPU、ドライバーの版、症状が始まった更新、止まる場面をメモする。画質設定を変えずに比較できる場面を1つ決める。",
+        "expected": null,
+        "unexpected": null,
+        "revert": null
+      },
+      "scopeEvidence": "シェーダーキャッシュを消す画面をWindows・NVIDIA・AMD別に解説。ゲーム内の事前構築との違い、削除後のカクつき、終わらない時の判断、同じ場面での比較方法まで説明します。",
+      "evidenceLimitation": "Windows/NVIDIA/AMD/ゲーム内構築を分離した表と対応一次資料。初回カクつきを最終結果とせず、同場面再比較。改善を保証せず、版/項目差は公式へ誘導。",
+      "sourceAttribution": [
+        {
+          "label": "Intelサポート担当者：WindowsのDirectXキャッシュ削除画面",
+          "url": "https://community.intel.com/t5/Gaming-on-Intel-Processors-with/CS2-crashed-Failure-Exception-IP-Module-igd10umt64xe-DLL/m-p/1757369"
+        },
+        {
+          "label": "Microsoft：ディスク クリーンアップ・一時ファイルの削除",
+          "url": "https://support.microsoft.com/en-us/windows/experience/storage-filemanagement/free-up-drive-space-in-windows"
+        },
+        {
+          "label": "NVIDIA：シェーダーキャッシュ削除の具体的手順（2026年5月更新）",
+          "url": "https://nvidia.custhelp.com/app/answers/detail/a_id/5735/~/deleting-nvidia-shader-cache-files"
+        },
+        {
+          "label": "NVIDIA：Shader Cache Sizeの役割・更新後の再コンパイル",
+          "url": "https://www.nvidia.com/content/Control-Panel-Help/vLatest/en-us/mergedProjects/nv3d/Manage_3D_Settings_(reference).htm"
+        },
+        {
+          "label": "AMD：Global Graphics／Advanced／Reset Shader Cache",
+          "url": "https://www.amd.com/en/resources/support-articles/faqs/dh3-012.html"
+        },
+        {
+          "label": "Activision：Black Ops 6のシェーダープリロードと待機画面",
+          "url": "https://support.activision.com/black-ops-6/articles/black-ops-6-pc-troubleshooting"
+        },
+        {
+          "label": "Epic Games：FortniteのDirectX 12と削除後の初回カクつき",
+          "url": "https://www.epicgames.com/help/c-34254770/c-38015632/a11302262"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/guide/uninstall-save-data",
+      "classification": "existing-sufficient",
+      "reason": "公式に確認した保存先と削除範囲の判断で、全ストア/全版の実機アンインストール結果ではないと明記。通常操作と追加ユーザーデータ削除を区別。",
+      "shortAnswer": "ゲーム本体だけをアンインストールし、別の場所にあるセーブ保存先を削除しなければ、ローカルセーブは残ります。一方、セーブを含むフォルダーの手動削除や「ユーザーデータも削除」を選ぶ操作では失う可能性があります。まず本体とセーブの場所を分けて確認してください。Steam Cloud対応でも、未同期の進行状況や過去の状態が戻るとは限りません。",
+      "procedures": {
+        "titles": [
+          "本体とセーブの場所を分けて確認する",
+          "クラウド同期と使用アカウントを確認する",
+          "削除範囲の外へコピーして照合する"
+        ],
+        "exampleAction": "Steamならライブラリで対象ゲームを右クリック→「管理」→「ローカルファイルを閲覧」でゲーム本体の場所を確認する。セーブ保存先は下のゲーム別表などで別に開く。",
+        "expected": null,
+        "unexpected": null,
+        "revert": null
+      },
+      "scopeEvidence": "ゲーム本体だけの削除と、AppDataなどのセーブ保存先の手動削除は別です。PCゲーム3例で残る条件・消える操作を整理し、Steam・Epicの削除手順、再インストール後の確認まで解説します。",
+      "evidenceLimitation": "公式に確認した保存先と削除範囲の判断で、全ストア/全版の実機アンインストール結果ではないと明記。通常操作と追加ユーザーデータ削除を区別。",
+      "sourceAttribution": [
+        {
+          "label": "CD PROJEKT RED公式：通常削除と保存先削除を分けたクリーンインストール手順",
+          "url": "https://support.cdprojektred.com/en/cyberpunk/pc/sp-technical/issue/2233/how-do-i-perform-a-clean-install-of-the-game"
+        },
+        {
+          "label": "Larian公式：Baldur’s Gate 3のセーブ保存先",
+          "url": "https://larian.com/support/faqs/multiplayer-issues_84"
+        },
+        {
+          "label": "Stardew Valley公式：セーブ保存先と必要ファイル",
+          "url": "https://www.stardewvalley.net/missing-corrupt-save-file-troubleshooting-guide/"
+        },
+        {
+          "label": "Steam公式：ゲームの「管理」→「アンインストール」",
+          "url": "https://help.steampowered.com/en/faqs/view/4566-6D94-3A46-953A"
+        },
+        {
+          "label": "Steam公式：クラウド同期・競合・設定",
+          "url": "https://help.steampowered.com/ja/faqs/view/68D2-35AB-09A9-7678"
+        },
+        {
+          "label": "Epic公式：ランチャーでゲームをアンインストールする",
+          "url": "https://www.epicgames.com/help/c-32735058/c-36403860/a12795838?lang=en-US"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/guide/steam-cloud-sync-error",
+      "classification": "existing-sufficient",
+      "reason": "Windowsのセーブ保全→競合候補→選択後の進行確認を分離。PC A/B章数は明確な例で実測主張なし。日時だけで正解としない。Steam公式とSteamworksを各判断に帰属。",
+      "shortAnswer": "競合画面ではどちらもすぐ選ばず、候補の日時を撮影します。各PCでゲームを閉じたままローカルのセーブを日付別にコピーし、表示できるクラウドファイルも別に保存。最後に確かに進めたPC・日時とスクリーンショットやゲーム内メモを照合して選びます。選んだ後は上書き保存する前に進行状況を確認してください。",
+      "procedures": {
+        "titles": [
+          "競合画面を記録し候補を保全する",
+          "PCごとの最後のプレイを調べる",
+          "判断例に当てはめて候補を選ぶ",
+          "選択後に進行を確認する"
+        ],
+        "exampleAction": "「ローカル」「クラウド」の表示日時を撮影し、すぐに起動・続行・同期の選択をしない。Steamの「同期できません」で起動を促されても、保全と通信状態の確認を先に済ませる。",
+        "expected": null,
+        "unexpected": null,
+        "revert": null
+      },
+      "scopeEvidence": "Steamクラウドの同期エラーや競合でセーブを失わないための手順。1台・複数PC別の保全、ゲームの進行と更新日時の照合、ローカル／クラウドを選ぶ具体例、選択後の確認まで解説します。",
+      "evidenceLimitation": "Windowsのセーブ保全→競合候補→選択後の進行確認を分離。PC A/B章数は明確な例で実測主張なし。日時だけで正解としない。Steam公式とSteamworksを各判断に帰属。",
+      "sourceAttribution": [
+        {
+          "label": "Steamサポート：競合で日時とプレイ履歴を照合、同期エラー時の注意",
+          "url": "https://help.steampowered.com/ja/faqs/view/68D2-35AB-09A9-7678"
+        },
+        {
+          "label": "Steamworks公式：起動前後の同期とゲーム別Cloud設定",
+          "url": "https://partner.steamgames.com/doc/features/cloud"
+        },
+        {
+          "label": "Steam公式：ログインしてクラウドファイルを表示",
+          "url": "https://store.steampowered.com/account/remotestorage"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/guide/steam-disk-write-error",
+      "classification": "existing-sufficient",
+      "reason": "C/D保存先と空き容量を区別し、ライブラリ修復完了と更新・起動成功を分離。容量例は実測必要量でないと明示。SteamとWindows点検の対象別一次出典あり。",
+      "shortAnswer": "エラーになったゲームの保存先をSteamの「設定」→「ストレージ」、またはゲームの「プロパティ」→「インストール済みファイル」から特定し、そのドライブの空きをWindowsの「このPC」で確認します。SteamがC:でゲームがD:なら、まずD:を見ます。空きに余裕があっても失敗するなら、対象ライブラリを修復後に同じ更新を再開し、ダウンロードとインストールの完了・ゲームの起動で判定。複数のゲームやWindowsの保存でも失敗する、ドライブが消えるなどの場合は点検へ進みます。",
+      "procedures": {
+        "titles": [
+          "対象ゲームの保存先ドライブと空き容量を確認する",
+          "再起動後に同じ更新を一度再開して結果を記録する",
+          "対象のSteamライブラリを修復し、更新完了まで確認する",
+          "複数ゲームでも失敗する場合はドライブ側を点検する"
+        ],
+        "exampleAction": "Steamの「ダウンロード」でエラーの出たゲーム名と進行状況を控え、「設定」→「ストレージ」でゲームが入ったライブラリのドライブを確認する。インストール済みならゲームを右クリック→「プロパティ」→「インストール済みファイル」→「参照」で実際のフォルダーのドライブ文字を確かめる。",
+        "expected": null,
+        "unexpected": null,
+        "revert": null
+      },
+      "scopeEvidence": "Steamのインストール・更新で「ディスク書き込みエラー」が出る時は、対象ゲームの保存先ドライブを先に特定。空き容量を確認し、ライブラリ修復後の再試行結果から、整合性確認・競合調査・Windowsのドライブ点検へ進む条件を解説します。",
+      "evidenceLimitation": "C/D保存先と空き容量を区別し、ライブラリ修復完了と更新・起動成功を分離。容量例は実測必要量でないと明示。SteamとWindows点検の対象別一次出典あり。",
+      "sourceAttribution": [
+        {
+          "label": "Steamサポート：アップデートとインストール問題、フォルダー修復",
+          "url": "https://help.steampowered.com/ja/faqs/view/21F5-8D5D-0141-7A5E"
+        },
+        {
+          "label": "Steamサポート：ゲームファイルの整合性確認",
+          "url": "https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB"
+        },
+        {
+          "label": "Steamサポート：ゲームのインストール先の移動",
+          "url": "https://help.steampowered.com/en/faqs/view/4BD4-4528-6B2E-8327"
+        },
+        {
+          "label": "Microsoft：Windowsでドライブの空き領域を調べる",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/storage-filemanagement/free-up-drive-space-in-windows"
+        },
+        {
+          "label": "Microsoft Learn：Windowsのドライブ検査と修復の違い",
+          "url": "https://learn.microsoft.com/ja-jp/windows-server/administration/windows-commands/chkdsk"
+        },
+        {
+          "label": "Steamサポート：Steamと競合する可能性があるプログラム",
+          "url": "https://help.steampowered.com/ja/faqs/view/1F39-DCB4-FF28-5748"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/guide/pc-shuts-down-while-gaming",
+      "classification": "existing-sufficient",
+      "reason": "イベント41を電源故障と断定せず、停止コード/電源断/再起動を分離。Intel/AMDの温度条件とメーカー点検へ帰属し、固定の温度しきい値で判断しない。",
+      "shortAnswer": "まず「切れたまま」「操作せずに再起動」「停止コードを表示」「ゲームだけ終了」のどれかを記録します。焦げた臭い・煙・火花・筐体の変形があれば使用を止めて点検を依頼。異常が見えない場合は発生時刻とイベント記録を照合し、直前の温度・冷却・外部の電源接続を安全に確認します。Kernel-Power 41だけで電源ユニットの故障とは判断できません。",
+      "procedures": {
+        "titles": [
+          "電源断・再起動・停止コードを分ける",
+          "信頼性履歴とイベント41を時刻で照合する",
+          "温度・冷却・電源接続を安全に確認する"
+        ],
+        "exampleAction": "画面が突然消えた時、PCのランプ・ファンは止まったか、何も押さずにWindowsのロゴへ戻ったか、停止コードを表示したかを記録する。ゲームだけ閉じたならPC電源ではなくゲームのクラッシュとして調べる。",
+        "expected": null,
+        "unexpected": null,
+        "revert": null
+      },
+      "scopeEvidence": "ゲーム中にPCが突然切れる、勝手に再起動する時の確認手順。電源断・再起動・停止コードの違い、Kernel-Power 41の読み方、CPU・GPU温度の調べ方、安全にできる確認と点検依頼の目安を解説します。",
+      "evidenceLimitation": "イベント41を電源故障と断定せず、停止コード/電源断/再起動を分離。Intel/AMDの温度条件とメーカー点検へ帰属し、固定の温度しきい値で判断しない。",
+      "sourceAttribution": [
+        {
+          "label": "Microsoft：Kernel-Powerイベント41、BugcheckCode 0の解釈",
+          "url": "https://learn.microsoft.com/ja-jp/troubleshoot/windows-client/performance/event-id-41-restart"
+        },
+        {
+          "label": "Microsoft：イベント ビューアーの役割と開き方",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/system-configuration-tools-in-windows"
+        },
+        {
+          "label": "Microsoft：予期しない再起動と停止コードの確認",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/performance-optimization/troubleshooting-windows-unexpected-restarts-and-stop-code-errors"
+        },
+        {
+          "label": "Microsoft：タスク マネージャーのGPU温度の表示条件",
+          "url": "https://blogs.windows.com/windows-insider/2019/08/16/announcing-windows-10-insider-preview-build-18963/"
+        },
+        {
+          "label": "Intel：CPUの型番別の温度上限と温度保護",
+          "url": "https://www.intel.com/content/www/us/en/support/articles/000005597/processors.html"
+        },
+        {
+          "label": "AMD：GPU温度・接合部温度の監視",
+          "url": "https://www.amd.com/en/resources/support-articles/faqs/DH3-038.html"
+        },
+        {
+          "label": "ASUS：高温とファンの確認、機種対応の診断",
+          "url": "https://www.asus.com/jp/support/faq/1015064/"
+        },
+        {
+          "label": "Dell：温度異常と電源断を分ける点検の目安",
+          "url": "https://www.dell.com/support/kbdoc/en-us/000130867/how-to-troubleshoot-a-overheating-shutdown-or-thermal-issue-on-a-dell-pc"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/guide/bsod-while-gaming",
+      "classification": "existing-sufficient",
+      "reason": "停止コードごとのMS資料、メモリ診断/ダンプと同時刻ログを照合。コード・ファイル名を故障部品の証明にしない。実測ではなく読者が採る結果の読み方。",
+      "shortAnswer": "画面の色より「停止コード」「表示されたファイル名」「発生時刻」を先に記録します。再起動後はイベント ビューアーで同じ時刻の記録を確認し、コードに応じてGPUドライバー、メモリ診断、PCメーカーの診断へ進みます。何度も止まる場合は重要なデータを先にバックアップし、ミニダンプと経過をサポートへ伝えてください。",
+      "procedures": {
+        "titles": [
+          "停止コードと発生時刻を記録する",
+          "コード別にGPU・メモリ・機器を調べる",
+          "メモリ診断とダンプを確認する"
+        ],
+        "exampleAction": "停止画面の「Stop code／停止コード」と、あれば「What failed／失敗した内容」のファイル名を撮影する。画面がすぐ消えたら再起動後にイベント ビューアーの「Windows ログ」→「システム」で発生時刻付近のBugCheckやWHEA-Loggerを調べる。",
+        "expected": null,
+        "unexpected": null,
+        "revert": null
+      },
+      "scopeEvidence": "ゲーム中にPCが停止コードを表示して再起動する時の調べ方。VIDEO_TDR_FAILURE・MEMORY_MANAGEMENT・WHEAなどの確認先、Windowsメモリ診断の起動と結果、ミニダンプの保存先、相談用メモを解説します。",
+      "evidenceLimitation": "停止コードごとのMS資料、メモリ診断/ダンプと同時刻ログを照合。コード・ファイル名を故障部品の証明にしない。実測ではなく読者が採る結果の読み方。",
+      "sourceAttribution": [
+        {
+          "label": "Microsoft：停止コードの見方とWindowsの基本的な確認",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/performance-optimization/troubleshooting-windows-unexpected-restarts-and-stop-code-errors"
+        },
+        {
+          "label": "Microsoft：Windowsメモリ診断と結果のイベントログ",
+          "url": "https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/bug-check-0x116---video-tdr-failure"
+        },
+        {
+          "label": "Microsoft：MEMORY_MANAGEMENTの解説",
+          "url": "https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/bug-check-0x1a--memory-management"
+        },
+        {
+          "label": "Microsoft：IRQL_NOT_LESS_OR_EQUALの解説",
+          "url": "https://support.microsoft.com/en-us/windows/experience/performance-optimization/how-to-fix-error-0xa-irql-not-less-or-equal"
+        },
+        {
+          "label": "Microsoft：WHEA_UNCORRECTABLE_ERRORの解説",
+          "url": "https://learn.microsoft.com/en-us/windows-hardware/drivers/debugger/bug-check-0x124---whea-uncorrectable-error"
+        },
+        {
+          "label": "Microsoft：小さなメモリダンプの保存先と設定",
+          "url": "https://learn.microsoft.com/en-us/troubleshoot/windows-client/performance/read-small-memory-dump-file"
+        },
+        {
+          "label": "Microsoft：停止コードとダンプの調査",
+          "url": "https://learn.microsoft.com/en-us/troubleshoot/windows-client/performance/stop-code-error-troubleshooting"
+        },
+        {
+          "label": "Microsoft：Kernel-Powerイベント41の読み方",
+          "url": "https://learn.microsoft.com/ja-jp/troubleshoot/windows-client/performance/event-id-41-restart"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/guide/no-game-audio",
+      "classification": "existing-sufficient",
+      "reason": "Windows11出力設定とゲーム内音量を分離。同じ出力/場面で比較、機器固有とOS全体を切り分け。公式音声案内へ対応し、例は条件文で成功実績を装わない。",
+      "shortAnswer": "同じヘッドホン・スピーカーで別のアプリの音が出るかを先に確認します。どのアプリも無音ならWindowsの「設定」→「システム」→「サウンド」で出力先と全体音量を確認。ゲームだけ無音ならゲームを開いたまま「音量ミキサー」のゲーム別音量・出力先を確認し、最後にゲーム内のマスター音量を調べます。設定は1項目ずつ変更し、同じ場面で聞こえるか比べてください。",
+      "procedures": {
+        "titles": [
+          "同じ出力機器で、ほかの音が聞こえるか調べる",
+          "Windowsの出力先とゲーム別の音量を確認する",
+          "ゲーム内の音量を確認し、同じ場面で聞き比べる",
+          "直らない場合だけ、結果に合う次の確認へ進む"
+        ],
+        "exampleAction": "ゲームを起動したまま音が鳴る場面を用意し、同じヘッドホン／スピーカーで別アプリの音も試す。両方無音ならWindows全体の出力先へ、ゲームだけ無音ならゲーム別の音量ミキサーへ進む。",
+        "expected": null,
+        "unexpected": null,
+        "revert": null
+      },
+      "scopeEvidence": "ゲームだけ無音か、PC全体が無音か、ヘッドホンなど特定の機器だけかを先に確認。Windows 11の出力先、ゲーム別の音量ミキサー、ゲーム内の音量・出力設定を順番に調べ、結果に合わせて対処します。",
+      "evidenceLimitation": "Windows11出力設定とゲーム内音量を分離。同じ出力/場面で比較、機器固有とOS全体を切り分け。公式音声案内へ対応し、例は条件文で成功実績を装わない。",
+      "sourceAttribution": [
+        {
+          "label": "Microsoft：システム音が出るのにアプリだけ無音の場合",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows"
+        },
+        {
+          "label": "Microsoft：スピーカーやヘッドホンから音が出ない場合",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-audio-issues-when-no-sound-plays-from-speakers-or-headphones-in-windows"
+        },
+        {
+          "label": "Microsoft：Windowsのサウンドまたはオーディオの問題",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-sound-or-audio-problems-in-windows"
+        },
+        {
+          "label": "Microsoft：Bluetooth接続中に音が出ない場合",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/fix-bluetooth-connected-but-no-sound-issue-on-windows"
+        },
+        {
+          "label": "Steam：ゲームファイルの整合性確認",
+          "url": "https://help.steampowered.com/ja/faqs/view/0C48-FCBD-DA71-93EB"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/guide/tpm-secure-boot",
+      "classification": "needs-specific-edit",
+      "reason": "対象・前提・公式資料は揃うが、原因の「自作PCはオフが多い」とFAQ「通常のゲームには影響しない」は根拠の及ぶ範囲を超える。英語版は既に限定されており日本語を整合可能。",
+      "shortAnswer": "Windows + R で「tpm.msc」を開き、TPMの仕様バージョンが2.0か確認します。セキュアブートは「msinfo32」でBIOSモードと現在の状態を確認。無効でも、すぐに起動モードを切り替えないでください。先にディスク形式、バックアップ、暗号化の回復キー、PCメーカーの機種別手順を確認します。",
+      "procedures": {
+        "titles": [
+          "Windowsで今の状態を確認する",
+          "UEFI（BIOS）の設定画面を開く",
+          "TPMを有効にする",
+          "セキュアブートを有効にする",
+          "有効にしたのにゲームで要件を満たさないと出る場合"
+        ],
+        "exampleAction": "Windows + R を押して「tpm.msc」と入力し、OKを押す。TPMを使用する準備ができている旨の表示と、「TPM製造元情報」の仕様バージョンが2.0かを確認する。「互換性のあるTPMが見つかりません」と出たらTPMが無効の可能性がある",
+        "expected": null,
+        "unexpected": null,
+        "revert": null
+      },
+      "scopeEvidence": "PCゲームでTPM 2.0・セキュアブートが必要と表示された時の確認方法。tpm.msc・msinfo32で状態を調べ、変更前にディスク形式、バックアップ、暗号化の回復キー、メーカーの手順を確認します。",
+      "evidenceLimitation": "対象・前提・公式資料は揃うが、原因の「自作PCはオフが多い」とFAQ「通常のゲームには影響しない」は根拠の及ぶ範囲を超える。英語版は既に限定されており日本語を整合可能。",
+      "sourceAttribution": [
+        {
+          "label": "Microsoft公式：PCでTPM 2.0を有効にする",
+          "url": "https://support.microsoft.com/ja-jp/windows/security/devicesecurity/enable-tpm-2-0-on-your-pc"
+        },
+        {
+          "label": "Microsoft公式：Windows 11とセキュアブート",
+          "url": "https://support.microsoft.com/ja-jp/windows/security/devicesecurity/windows-11-and-secure-boot"
+        },
+        {
+          "label": "Activision公式：Call of DutyのためのTPM 2.0とセキュアブート（英語）",
+          "url": "https://support.activision.com/articles/trusted-platform-module-and-secure-boot"
+        },
+        {
+          "label": "Microsoft公式：MBR2GPTの前提条件・BitLocker・変換後の注意（安全上の注意：2026-10-03確認）",
+          "url": "https://learn.microsoft.com/ja-jp/windows/deployment/mbr-to-gpt"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/guide/windows-11-required",
+      "classification": "needs-specific-edit",
+      "reason": "winver/PC正常性/ESUとゲーム要件の違いは明瞭。新作複数タイトルのOS断定と増加傾向はこのページでは自サイトまとめに依存。一般ガイドとして現行各公式要件の照合に限定する。",
+      "shortAnswer": "Windows + R →「winver」でWindowsのバージョンを確認します。動作環境の最低条件がWindows 11のゲームは、Windows 10では公式にサポートされません。Windows 10の通常サポートは2025年10月14日に終了しました。対象機器では登録条件付きの拡張セキュリティ更新（ESU）がありますが、ゲームの対応OSが変わるわけではありません。アップグレードできるかは「PC正常性チェック」アプリで確認できます。",
+      "procedures": {
+        "titles": [
+          "Windowsのバージョンを確認する",
+          "Windows 11にアップグレードできるか確認する",
+          "アップグレードの前にセーブデータをバックアップする",
+          "Windows 10のまま遊ぶ場合の注意"
+        ],
+        "exampleAction": "Windows + R を押して「winver」と入力し、Enterを押す",
+        "expected": null,
+        "unexpected": null,
+        "revert": null
+      },
+      "scopeEvidence": "2026年10月の新作では、エースコンバット8、真・三國無双2 Remastered、FFレゾナンスなど、動作環境の最低条件がWindows 11の作品が増えています。自分のWindowsのバージョンと、Windows 11にアップグレードできるかを確認する方法をまとめました。",
+      "evidenceLimitation": "winver/PC正常性/ESUとゲーム要件の違いは明瞭。新作複数タイトルのOS断定と増加傾向はこのページでは自サイトまとめに依存。一般ガイドとして現行各公式要件の照合に限定する。",
+      "sourceAttribution": [
+        {
+          "label": "Microsoft公式：PC正常性チェックアプリの使用方法",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/compatibility/how-to-use-the-pc-health-check-app"
+        },
+        {
+          "label": "Microsoft公式：PCでTPM 2.0を有効にする",
+          "url": "https://support.microsoft.com/ja-jp/windows/security/devicesecurity/enable-tpm-2-0-on-your-pc"
+        },
+        {
+          "label": "Microsoft公式：Windows 11とセキュアブート",
+          "url": "https://support.microsoft.com/ja-jp/windows/security/devicesecurity/windows-11-and-secure-boot"
+        },
+        {
+          "label": "Microsoft：Windows 10拡張セキュリティ更新（ESU）",
+          "url": "https://www.microsoft.com/en-us/windows/extended-security-updates"
+        },
+        {
+          "label": "ゲムなお：2026年10月発売の新作PCゲーム 動作環境まとめ",
+          "url": "https://gemnao.pages.dev/new-releases/2026-10"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/guide/ray-tracing-gpu",
+      "classification": "needs-specific-edit",
+      "reason": "専用RT機能と基本DXR、GPU能力とゲーム要件を分ける英語版が既存。日本語の一律の起動不可とNVIDIA非対応の表現を、正式な必須要件/専用RTに限定し同じ根拠へ整合する。",
+      "shortAnswer": "タスクマネージャーの「パフォーマンス」→「GPU」でGPU名を確認します。NVIDIAはGeForce RTXシリーズ（RTX 20シリーズ以降）、AMDはRadeon RX 6000シリーズ以降が、ハードウェアのレイトレーシング機能を備えています。GTX 10／16シリーズやRadeon RX 5000シリーズ以前は非対応で、ゲーム側の設定では解決できません。",
+      "procedures": {
+        "titles": [
+          "GPU名を確認する",
+          "レイトレーシングに対応しているか判断する",
+          "ノートPCはゲームが使うGPUを確認する",
+          "対応GPUなのに起動しない場合"
+        ],
+        "exampleAction": "Ctrl + Shift + Esc でタスクマネージャーを開き、「パフォーマンス」→「GPU」を選ぶ",
+        "expected": null,
+        "unexpected": null,
+        "revert": null
+      },
+      "scopeEvidence": "エースコンバット8やGears of War: E-Dayのように、最低環境から「ハードウェアレイトレーシング対応GPU」を必須にするPCゲームがあります。非対応のGPUでは設定を下げても起動できないため、購入前に自分のGPUを確認する方法をまとめました。",
+      "evidenceLimitation": "専用RT機能と基本DXR、GPU能力とゲーム要件を分ける英語版が既存。日本語の一律の起動不可とNVIDIA非対応の表現を、正式な必須要件/専用RTに限定し同じ根拠へ整合する。",
+      "sourceAttribution": [
+        {
+          "label": "AMD公式：Radeon RX 6600の仕様（レイ アクセラレータ）",
+          "url": "https://www.amd.com/ja/products/graphics/desktops/radeon/6000-series/amd-radeon-rx-6600.html"
+        },
+        {
+          "label": "エースコンバット8 公式サイト：STEAM版システム要件",
+          "url": "https://enso-order.acecombat.jp/"
+        },
+        {
+          "label": "Steamストア：Gears of War: E-Day（動作環境）",
+          "url": "https://store.steampowered.com/app/3010850/"
+        },
+        {
+          "label": "ゲムなお：2026年10月発売の新作PCゲーム 動作環境まとめ",
+          "url": "https://gemnao.pages.dev/new-releases/2026-10"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/pc/repair-or-replace",
+      "classification": "existing-sufficient",
+      "reason": "既存対象表示は個人向けWindows PC。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。個別evidenceSummaryの限界も明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "shortAnswer": "パソコンの修理と買い替えは、故障の根拠、保証、交換できる部品、修理後に満たせる用途、データ移行を含む総額で判断します。設定変更で改善するなら継続使用、性能不足の箇所が明確で交換可能なら部品交換、故障を疑う警告があれば修理相談、情報が不足していれば確認・見積もりを先にします。年数や「新品の半額」という一律の基準だけでは決められません。",
+      "procedures": {
+        "titles": [
+          "安全とデータを守り、保証の対象か確認する",
+          "用途に対する性能不足と設定の問題を分ける",
+          "部品交換で目的を満たせるか、機種別に確認する",
+          "「直す・性能を上げる・買い替える」の3案を比べる"
+        ],
+        "exampleAction": "煙・異臭・膨張・危険な発熱・液体侵入や水濡れ直後であれば使用・充電をやめ、安全にできる範囲で電源供給を止める。熱い箇所へ無理に触れずメーカーへ相談。膨張バッテリーを取り外したり、電源ユニットを分解したりしない。",
+        "expected": "安全上の問題と保証窓口、バックアップの有無を整理できる。",
+        "unexpected": "危険な兆候がある、またはデータを読めない場合は通電・分解を繰り返さず相談する。",
+        "revert": "使用中止は比較目的で取り消さない。再使用はメーカーの確認後。バックアップは修理完了後も確認する。"
+      },
+      "scopeEvidence": "「重いから買い替える」「古いから修理しない」と決める前に、今のPCで必要な用途を満たせるか、直す範囲と総額を比べます。日本国内の個人向けWindows PCを中心にした比較ガイドです。電源・画面・起動の切り分けは別記事で扱います。",
+      "evidenceLimitation": "故障が見つからなかったことは、買い替えが必要な根拠にはなりません。逆に、短い診断で異常が出なかっただけで正常を保証することもできません。",
+      "sourceAttribution": [
+        {
+          "title": "Lenovo：液体をこぼした場合の電源停止の注意（英語）",
+          "url": "https://download.lenovo.com/pccbbs/pubs/ideapad_slim5_14_16/ug/html_en/en/faq_drain_liquid.html"
+        },
+        {
+          "title": "Microsoft：ストレージ デバイスの重大な警告についての対処方法",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/storage-filemanagement/what-to-do-about-a-critical-warning-for-a-storage-device"
+        },
+        {
+          "title": "HP：バッテリーの膨張時は使用を中止する（英語）",
+          "url": "https://support.hp.com/in-en/document/ish_4158581-4158704-16"
+        },
+        {
+          "title": "Microsoft：PCのパフォーマンス改善",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/performance-optimization/tips-to-improve-pc-performance-in-windows"
+        },
+        {
+          "title": "Dell：電源・起動・映像出力の区別",
+          "url": "https://www.dell.com/support/contents/ja-jp/article/product-support/self-support-knowledgebase/fix-common-issues/no-post"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/pc/disk-usage-100",
+      "classification": "existing-sufficient",
+      "reason": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。個別evidenceSummaryの限界も明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "shortAnswer": "ディスク使用率100％は、ディスクが読み書きの処理で忙しい状態を示し、空き容量がゼロという意味ではありません。Ctrl＋Shift＋Escでタスクマネージャーを開き、ディスクを使うプロセス、対象ドライブ、メモリを確認します。更新・コピーが進んでいるなら完了後に比較し、何もしていなくても重いなら自動起動アプリや検索処理を調べます。読み取りエラーやドライブの警告がある場合は、先にデータを保全してください。",
+      "procedures": {
+        "titles": [
+          "タスクマネージャーでプロセス・ディスク・メモリを見る",
+          "更新・ゲームの展開・同期が進んでいるか確認する",
+          "自動起動するアプリを一つずつ減らす",
+          "メモリ不足による読み書きが重なっていないか比べる",
+          "検索インデックスとウイルススキャンを区別する",
+          "空き容量が少ない場合だけ、削除する項目を確認する",
+          "低速で固まる場合はドライブの警告・接続・履歴を調べる",
+          "同じ操作で改善を確認し、相談用の記録を残す"
+        ],
+        "exampleAction": "Ctrl＋Shift＋Escを押してタスクマネージャーを開き、「プロセス」の「ディスク」列をクリックする。数値が大きい順になるまで切り替え、上位3つの名前と時刻を控える。列が見えない時はウィンドウを広げる。",
+        "expected": "どの物理ディスクが忙しく、どのアプリ・ファイルの読み書きと重なっているかを記録できる。",
+        "unexpected": "タスクマネージャーが開けない場合はCtrl＋Alt＋Deleteから開けるか確認。PC全体が応答せず繰り返す場合は、末尾のフリーズ記事または故障確認記事へ進む。",
+        "revert": "表示と並べ替えだけなので、システム設定を戻す操作は不要。"
+      },
+      "scopeEvidence": "「ディスクが100％なのに読み書きは数MB/s」「起動後ずっと重い」「SSDでも100％になる」。Windows 11で、使用率だけでは分からない原因を、操作画面と処理の進み方から絞ります。",
+      "evidenceLimitation": "このページは公式資料を基にした確認手順です。改善率や、すべてのPCに共通する正常な速度・応答時間は示していません。Systemの強制終了、ウイルス対策の停止、SysMain・Windows Searchの一括無効化、ページファイルの削除を最初の対処にしないでください。STEP 8の数値は比較方法を説明する仮想例です。",
+      "sourceAttribution": [
+        {
+          "title": "Microsoft公式ブログ：タスクマネージャーのディスク表示（表示項目の説明）",
+          "url": "https://techcommunity.microsoft.com/blog/askperf/windows-8--windows-server-2012-the-new-task-manager/375149"
+        },
+        {
+          "title": "NEC公式：Windows 11でディスク使用率100％になる場合",
+          "url": "https://faq.nec-lavie.jp/fa/qa/web/knowledge24546.html"
+        },
+        {
+          "title": "Microsoft：タスクマネージャー・リソースモニター・イベントビューアー",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/system-configuration-tools-in-windows"
+        },
+        {
+          "title": "Microsoft：パフォーマンス改善とスタートアップ・負荷の確認",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/performance-optimization/tips-to-improve-pc-performance-in-windows"
+        },
+        {
+          "title": "Microsoft Learn：ページファイル・コミット済みメモリの役割",
+          "url": "https://learn.microsoft.com/ja-jp/troubleshoot/windows-client/performance/introduction-to-the-page-file"
+        },
+        {
+          "title": "Microsoft：Windowsの検索インデックスと作成状況",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/performance-optimization/search-indexing-in-windows"
+        },
+        {
+          "title": "Microsoft Learn：検索対象フォルダーの除外と結果の確認",
+          "url": "https://learn.microsoft.com/ja-jp/troubleshoot/windows-client/shell-experience/windows-search-performance-issues"
+        },
+        {
+          "title": "Microsoft：空き容量と削除候補の確認",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/storage-filemanagement/free-up-drive-space-in-windows"
+        },
+        {
+          "title": "Microsoft：ストレージの重大な警告とNVMe監視の対象",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/storage-filemanagement/what-to-do-about-a-critical-warning-for-a-storage-device"
+        },
+        {
+          "title": "Microsoft Japan Windows Technology Support：Disk 153の意味",
+          "url": "https://jpwinsup.github.io/blog/2022/08/05/Storage/Management/Disk153/"
+        },
+        {
+          "title": "Steam公式：ダウンロードと更新の管理",
+          "url": "https://help.steampowered.com/en/faqs/view/71AB-698D-57EB-178C"
+        },
+        {
+          "title": "Steamworks公式：SteamPipeの圧縮・展開と更新時のディスク処理",
+          "url": "https://partner.steamgames.com/doc/sdk/uploading"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/pc/windows-update-stuck",
+      "classification": "existing-sufficient",
+      "reason": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。個別evidenceSummaryの限界も明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "shortAnswer": "Windows Updateが終わらない時は、設定画面と再起動後の更新画面を分けます。設定を操作できるなら通信とWindowsの空き容量を確認し、再起動待ちなら通常再起動、同じ更新が失敗するなら診断ツールを実行します。再起動後は電源を維持して表示の変化を記録してください。％や経過時間だけで強制終了してよいとは判断できません。",
+      "procedures": {
+        "titles": [
+          "止まった画面と更新名を記録する",
+          "ダウンロードが進まない時は通信とWindows側の空き容量を確認する",
+          "再起動待ちを終え、同じ更新が失敗するなら診断する",
+          "更新が繰り返し失敗する時だけ、DISM→SFCの結果を確認する",
+          "再起動後の更新画面・取り消し画面から戻れない場合",
+          "起動できても直らない場合は、現在のWindowsを修復再インストールする",
+          "同じ更新の成功・再起動待ち・再発を確認する"
+        ],
+        "exampleAction": "最初に、設定やスタートを開けるか確認する。使える場合は設定→Windows Updateで「ダウンロード中」「インストール中」「再起動の保留中」と更新名を控える。KB番号があれば番号も記録。履歴は「更新の履歴」から見る。",
+        "expected": "現在の画面、段階、更新名、経過が分かり、自分に合う手順を選べる。",
+        "unexpected": "BIOS・UEFI・Firmwareなどの更新画面はWindowsの更新画面と別。PCメーカーの案内を優先し、Windows用の回復操作をその画面で行わない。",
+        "revert": "記録と確認だけでは設定は変わらない。共有する写真はアカウント名・通知などが写っていないか確認する。"
+      },
+      "scopeEvidence": "同じ100％でも、設定画面のダウンロード完了と、再起動後の更新処理は別の段階です。Windows 11を対象に、今の画面でできる確認から始めます。",
+      "evidenceLimitation": "「30分・1時間・2時間を超えれば強制終了してよい」という共通基準は、確認した公式資料にはありません。回転する点やファン音だけでも、正常進行・停止のどちらとも断定できません。下の時刻入り比較例は判断方法の説明で、実機検証の記録ではありません。",
+      "sourceAttribution": [
+        {
+          "title": "Microsoft：Windows更新の問題・0％／100％と所要時間",
+          "url": "https://support.microsoft.com/ja-jp/windows/deployment/updates-lifecycle/troubleshoot-problems-updating-windows"
+        },
+        {
+          "title": "Microsoft：Windows Updateの再起動とFAQ",
+          "url": "https://support.microsoft.com/ja-jp/windows/deployment/updates-lifecycle/windows-update-faq"
+        },
+        {
+          "title": "Microsoft：Windows Updateトラブルシューティングの起動と再確認",
+          "url": "https://support.microsoft.com/en-us/windows/windows-update-troubleshooter-19bc41ca-ad72-ae67-af3c-89ce169755dd"
+        },
+        {
+          "title": "Microsoft：更新に必要な空き領域",
+          "url": "https://support.microsoft.com/ja-jp/windows/deployment/updates-lifecycle/free-up-space-for-windows-updates"
+        },
+        {
+          "title": "Microsoft：ストレージの空き領域と削除する項目の注意",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/storage-filemanagement/free-up-drive-space-in-windows"
+        },
+        {
+          "title": "Microsoft：DISM・SFCの操作と結果の読み方",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/backup-recovery/use-the-system-file-checker-tool-to-repair-missing-or-corrupted-system-files"
+        },
+        {
+          "title": "Microsoft：現在のWindowsの修復再インストールと利用条件",
+          "url": "https://support.microsoft.com/ja-jp/windows/deployment/install-upgrade/fix-issues-by-reinstalling-the-current-version-of-windows"
+        },
+        {
+          "title": "Microsoft：Windows回復環境への入り方",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/backup-recovery/windows-recovery-environment"
+        },
+        {
+          "title": "Microsoft：起動できない場合の回復とBitLocker",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/backup-recovery/recovery-options-in-windows"
+        },
+        {
+          "title": "Microsoft：Windows回復環境から更新をアンインストールする",
+          "url": "https://support.microsoft.com/en-us/windows/deployment/updates-lifecycle/how-to-uninstall-a-windows-update"
+        },
+        {
+          "title": "Microsoft Learn：バージョン別の既知の問題と対応状況",
+          "url": "https://learn.microsoft.com/ja-jp/windows/release-health/"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/pc/bluetooth-option-missing",
+      "classification": "existing-sufficient",
+      "reason": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。個別evidenceSummaryの限界も明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "shortAnswer": "Windows 11でBluetoothが消えたら、設定→Bluetoothとデバイスにオン・オフのスイッチがあるか確認します。スイッチがない・灰色ならPCのアダプター認識をデバイスマネージャーで調べます。スイッチは使えるが特定機器だけ出ないなら、その機器のペアリングモードと検出設定を確認してください。項目が消えたことだけで故障とは断定できません。",
+      "procedures": {
+        "titles": [
+          "設定とクイック設定を比べ、何が消えたか確かめる",
+          "デバイスマネージャーのアダプター名・状態を読む",
+          "アダプターがない場合は、搭載仕様と電源・USB接続を確認する",
+          "更新前後の記録から、ドライバーの更新・戻し・再導入を選ぶ",
+          "機器だけ見つからない場合は、ペアリングと検出設定を比べる",
+          "復旧を確認し、再発時は同じ条件の記録をメーカーへ渡す"
+        ],
+        "exampleAction": "作業を保存する。Bluetoothのマウス・キーボードだけで操作している場合は、ドライバー操作の前に本体キーボード・タッチパッド・有線機器など代わりの操作方法を用意する。会社・学校の管理PCは管理担当者へ。",
+        "expected": "スイッチ自体がないのか、接続する機器だけ出ないのかを分けられる。",
+        "unexpected": "診断が失敗してもBluetooth故障の確定ではない。表示結果を控えて次へ進む。",
+        "revert": "診断が変更内容を表示した場合は記録する。機内モードは利用場所のルールに合わせて戻す。"
+      },
+      "scopeEvidence": "「Bluetoothが消えた」は、PCの無線機能が見つからない場合と、イヤホン・マウスなど接続したい機器が見つからない場合で対処が変わります。設定とデバイスマネージャーを比べ、今の状態に合う手順を選んでください。",
+      "evidenceLimitation": "「アダプターが正常」と表示されても、ペアリングや実際の動作まで保証されません。復旧は、スイッチ・現在のアダプター・同じ機器での使用を確認して判断します。症状やコードだけで故障部品を確定しません。",
+      "sourceAttribution": [
+        {
+          "title": "Microsoft：Bluetoothが消える問題と電源の入れ直し",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/fix-bluetooth-disappeared-in-windows"
+        },
+        {
+          "title": "Microsoft：Bluetoothの設定・自動診断・検出設定",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/fix-bluetooth-problems-in-windows"
+        },
+        {
+          "title": "Microsoft：Bluetoothドライバーの更新・ロールバック・再導入",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/update-bluetooth-drivers-in-windows"
+        },
+        {
+          "title": "Microsoft：Bluetooth機器のペアリング",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/pair-a-bluetooth-device-in-windows"
+        },
+        {
+          "title": "Microsoft：接続できない場合と登録機器の再追加",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/troubleshoot-bluetooth-not-connecting-in-windows"
+        },
+        {
+          "title": "Microsoft：デバイスマネージャーのエラーコード",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/drivers/error-codes-in-device-manager-in-windows"
+        },
+        {
+          "title": "Microsoft Learn：非表示のデバイスを表示する",
+          "url": "https://learn.microsoft.com/en-us/windows-hardware/drivers/install/viewing-hidden-devices"
+        },
+        {
+          "title": "Microsoft：Bluetoothが繰り返し切断される場合",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/bluetooth-keeps-disconnecting-in-windows"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/pc/pc-broken",
+      "classification": "existing-sufficient",
+      "reason": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。個別evidenceSummaryの限界も明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "shortAnswer": "PCが壊れたと思ったら、危険な異常の有無を確認し、電源・画面・Windows起動のどこで止まるかを分けてください。電源が入らないなら給電、電源は入るが映らないなら画面接続、ロゴの後で止まるならWindowsの回復が確認先です。症状だけでは故障部品を確定できません。煙・焦げ臭さ・バッテリーの膨張・液体侵入は使用を中止し、起動できる場合は初期化より先に重要データをコピーします。",
+      "procedures": {
+        "titles": [
+          "危険な異常があれば、使用・充電を止めて相談する",
+          "電源が入らない場合は、外から確認できる接続を調べる",
+          "電源は入るが映らない場合は、モニターとPCを分ける",
+          "Windowsが起動しない場合は、データと回復キーを先に確認する",
+          "起動できるが落ちる・重い場合は、PC全体か一部か比較する",
+          "データを保全し、診断結果と見積もりで修理・買い替えを決める"
+        ],
+        "exampleAction": "煙・焦げ臭さ・異常な発熱・液体の侵入・本体やバッテリーの膨らみがある場合は、起動確認や充電を中止する。安全にできる範囲で電源を切り、電源供給を止める。熱い・濡れている箇所に無理に触れない。",
+        "expected": "使用を止め、修理・安全な取り扱いをメーカーに確認できる。",
+        "unexpected": "症状が消えても、液体侵入や膨張があった機器を自己判断で再使用しない。",
+        "revert": "この中止判断は動作比較のために戻さない。再使用はメーカーの確認後にする。"
+      },
+      "scopeEvidence": "パソコンが急に使えなくなっても、接続・周辺機器・Windowsの不調で改善する場合があります。個人用のWindows PCを中心に、電源→画面→起動→使用中の順に、どこまで動いているか確認します。",
+      "evidenceLimitation": "PCが重い、ファンが回る、画面が黒い、スタートアップ修復が失敗した、という結果一つでは故障部品を特定できません。危険な異常があれば比較を中止し、データが必要なら初期化・フォーマットより先に保全と相談を優先します。",
+      "sourceAttribution": [
+        {
+          "title": "Dell：電源・POST（起動時の自己診断）の確認",
+          "url": "https://www.dell.com/support/contents/ja-jp/article/product-support/self-support-knowledgebase/fix-common-issues/no-post"
+        },
+        {
+          "title": "Dell：ノートPCの電源・損傷やバッテリー膨張時の対処",
+          "url": "https://www.dell.com/support/kbdoc/ja-jp/000124389/dellノートパソコンの電源に関する問題をトラブルシューティングする方法"
+        },
+        {
+          "title": "NITE：配線器具の異常発熱・異臭は使用中止",
+          "url": "https://www.nite.go.jp/jiko/chuikanki/press/2024fy/prs241128.html"
+        },
+        {
+          "title": "Microsoft：空白・黒い画面のトラブルシューティング",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/troubleshooting-blank-screens-in-windows"
+        },
+        {
+          "title": "Microsoft：スタートアップ修復",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/startup-boot/startup-repair"
+        },
+        {
+          "title": "Microsoft：Windowsの回復オプションとBitLocker",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/backup-recovery/recovery-options-in-windows"
+        },
+        {
+          "title": "Microsoft：予期しない再起動・停止コードの確認",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/performance-optimization/troubleshooting-windows-unexpected-restarts-and-stop-code-errors"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/pc/pc-hacked-signs",
+      "classification": "existing-sufficient",
+      "reason": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。個別evidenceSummaryの限界も明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "shortAnswer": "PCが乗っ取られた可能性を疑う兆候は、許可していない遠隔操作、身に覚えのない成功したログインや送信、勝手なセキュリティ設定の変更などです。PCが重い・カーソルが動く・警告が出るだけでは確定できません。第三者が操作中、または不審な相手に遠隔操作を許可した場合は、先にそのPCのネット接続を切り、安全な別端末からアカウントを保護します。",
+      "procedures": {
+        "titles": [
+          "不審な遠隔操作があるなら先にネット接続を切る",
+          "安全な別端末からアカウントの履歴と復旧先を確認する",
+          "ブラウザの偽警告と本物の検知を分ける",
+          "遠隔操作ソフト・拡張機能の導入経緯を確認する",
+          "重さ・カーソルの動きだけなら機器や通常処理も比較する",
+          "Windowsのフルスキャン・オフラインスキャンと結果を確認する",
+          "遠隔操作済み・暗号化・被害ありなら復旧と相談を決める"
+        ],
+        "exampleAction": "有線LANケーブルをPCから抜く。Wi-FiはWindows＋Aのクイック設定、または設定→ネットワークとインターネット→Wi-Fiでオフにする。有線と無線の両方を使っている場合は両方を切る。",
+        "expected": "疑わしいPCをネットワークから切り離し、別端末から必要な連絡ができる状態になる。",
+        "unexpected": "接続が切れたことだけで、データ流出やアカウント侵害がなかったとは判断できない。",
+        "revert": "安全確認・復旧の方針が決まるまで再接続しない。遠隔操作の承認を相手へもう一度渡さない。"
+      },
+      "scopeEvidence": "「マウスが勝手に動く」「知らないアプリがある」「ウイルス警告が消えない」。一つの症状だけで乗っ取りとは断定できません。Windows 11の個人用PCを中心に、何が起きたかと確認記録を照合します。会社・学校のPCは管理担当者へ連絡してください。",
+      "evidenceLimitation": "一方、PCが重い、ファンが回る、カーソルだけ動く、ブラウザに感染警告が出る、といった症状だけでは乗っ取りと断定できません。また、目立った症状がないことやスキャンの検出なしも、侵害がない証明にはなりません。下の表で確認先を選んでください。",
+      "sourceAttribution": [
+        {
+          "title": "IPA：ランサムウェア対策（暗号化・身代金要求と相談）",
+          "url": "https://www.ipa.go.jp/security/anshin/measures/ransom_tokusetsu.html"
+        },
+        {
+          "title": "警察庁：サポート詐欺対策（切断・被害時の対処・相談）",
+          "url": "https://www.npa.go.jp/bureau/cyber/countermeasures/support-fraud.html"
+        },
+        {
+          "title": "IPA：遠隔操作ソフトを悪用される手口に気をつけて（正規ソフトと検知の限界）",
+          "url": "https://www.ipa.go.jp/security/anshin/attention/2023/mgdayori20230411.html"
+        },
+        {
+          "title": "IPA：偽のウイルス感染警告・遠隔操作後の復元と初期化",
+          "url": "https://www.ipa.go.jp/security/anshin/attention/2024/mgdayori20241119.html"
+        },
+        {
+          "title": "Microsoft：ウイルスと脅威の防止・スキャンの種類",
+          "url": "https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app"
+        },
+        {
+          "title": "Microsoft Learn：Defenderオフラインスキャン",
+          "url": "https://learn.microsoft.com/ja-jp/defender-endpoint/microsoft-defender-offline"
+        },
+        {
+          "title": "Microsoft：Windows セキュリティの保護履歴",
+          "url": "https://support.microsoft.com/ja-jp/windows/security/windows-security/protection-history-in-the-windows-security-app"
+        },
+        {
+          "title": "Microsoft：最近のアクティビティの見方",
+          "url": "https://support.microsoft.com/ja-jp/accounts-billing/security/what-is-the-recent-activity-page"
+        },
+        {
+          "title": "Microsoft：すべての場所からサインアウト",
+          "url": "https://support.microsoft.com/ja-jp/accounts-billing/manage/how-to-sign-out-of-your-microsoft-account-everywhere"
+        },
+        {
+          "title": "Microsoft：侵害されたアカウントの回復",
+          "url": "https://support.microsoft.com/en-us/accounts-billing/manage/how-to-recover-a-hacked-or-compromised-microsoft-account"
+        },
+        {
+          "title": "Microsoft：Windowsの回復オプション",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/backup-recovery/recovery-options-in-windows"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/pc/microphone-after-update",
+      "classification": "existing-sufficient",
+      "reason": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "shortAnswer": "まず「設定→システム→サウンド→入力」で機器が表示され、録音テストで自分の声を再生できるか確認します。Windowsでは録れるのに通話アプリだけ使えないなら「プライバシーとセキュリティ→マイク」の権限を確認してください。入力一覧にない場合は接続・デバイスマネージャーを調べます。",
+      "procedures": {
+        "titles": [
+          "Windowsの入力テストで、OSまで声が届くか調べる",
+          "通話アプリだけ使えない場合は権限と入力先を合わせる",
+          "マイクが一覧にない時は機器とエラー表示を調べる"
+        ],
+        "exampleAction": "マイク本体のミュートを解除。スタート→設定→システム→サウンド→入力で使うマイクを名前で選ぶ。",
+        "expected": "再生で自分の声が聞こえる。Windows側の入力は動作しているので、STEP 2でアプリを確認。",
+        "unexpected": "録音が無音、または入力一覧にマイクがない。別の通話アプリを入れ直す前にSTEP 3へ。",
+        "revert": "入力音量を控えた数値へ戻し、テスト中に一時選択したマイクがあれば元の入力先へ戻す。"
+      },
+      "scopeEvidence": "更新後、通話アプリに声が入らない／入力機器の一覧からマイクが消えた場合を分けます。Windows 11の画面表記です。",
+      "evidenceLimitation": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "sourceAttribution": [
+        {
+          "title": "Microsoft サポート：マイクの設定とテスト",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/drivers/how-to-set-up-and-test-microphones-in-windows"
+        },
+        {
+          "title": "Microsoft サポート：マイクのアプリ権限",
+          "url": "https://support.microsoft.com/ja-jp/windows/privacy/turn-on-app-permissions-for-your-microphone-in-windows"
+        },
+        {
+          "title": "Microsoft サポート：マイクの問題を解決する",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/drivers/fix-microphone-problems"
+        },
+        {
+          "title": "Microsoft サポート：デバイスマネージャーのエラーコード",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/drivers/error-codes-in-device-manager-in-windows"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/pc/call-starts-audio-disappears",
+      "classification": "existing-sufficient",
+      "reason": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "shortAnswer": "有線でも通話中だけ他の音が小さくなるなら、Windowsの「その他のサウンド設定→通信」で自動減衰を「何もしない」に変えて比較します。音が完全に別の機器へ移った場合は出力先を確認。Bluetoothヘッドセットだけで起きる音質変化はマイク使用時のモード制約も調べます。",
+      "procedures": {
+        "titles": [
+          "Windowsの「通信」設定を一度だけ比較する",
+          "通話前後でゲームと通話の出力先を比べる",
+          "Bluetoothヘッドセットのマイク使用による変化を分ける"
+        ],
+        "exampleAction": "通話前にゲームか動画の一定の場面を再生し、音量とWindowsの出力機器名を記録する。",
+        "expected": "通話前後で他の音量が変わらなくなるなら、Windowsの通信時の自動調整が関係した可能性がある。",
+        "unexpected": "変わらない場合は通話アプリ側の減衰や、出力先の切り替わりをSTEP 2で確認する。",
+        "revert": "通信タブで控えた元の選択肢に戻して「適用」。通話中の音量が下がる設定を好む場合はそのまま維持できる。"
+      },
+      "scopeEvidence": "TeamsやDiscordなどで通話に入った瞬間、別のアプリの音量や音質が変わる場合のWindows側の確認です。通話相手の声が聞こえない問題とは分けます。",
+      "evidenceLimitation": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "sourceAttribution": [
+        {
+          "title": "Microsoft サポート：Bluetoothマイク使用時の音声形式",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/configuring-bluetooth-le-audio-quality-settings-on-windows-11"
+        },
+        {
+          "title": "Microsoft サポート：Teams会議中に他の音量が下がる時の通信設定",
+          "url": "https://support.microsoft.com/ja-jp/teams/meetings/share-sound-from-your-computer-in-microsoft-teams-meetings-or-live-events"
+        },
+        {
+          "title": "Microsoft サポート：アプリ別の音量と出力先",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/pc/bluetooth-connected-no-sound",
+      "classification": "existing-sufficient",
+      "reason": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "shortAnswer": "先にイヤホンの電池・本体音量を確認し、設定→システム→サウンド→出力でイヤホンを明示的に選びます。Windowsのテスト音は鳴るのに特定アプリだけ無音なら音量ミキサーへ。出力一覧から消える／接続が不安定な場合だけ再接続やペアリングを検討します。",
+      "procedures": {
+        "titles": [
+          "「接続済み」と「音の出力先」を分けて確認する",
+          "特定アプリだけ無音なら音量ミキサーを見る",
+          "出力に現れない時だけ接続をやり直す"
+        ],
+        "exampleAction": "イヤホンを充電し、本体がミュート／最低音量でないか確認。設定→Bluetoothとデバイス→デバイスで接続状態を見る。",
+        "expected": "イヤホンを選ぶとイヤホンから音が聞こえ、スピーカーを選ぶとスピーカーから聞こえる。",
+        "unexpected": "Windows側では鳴るが特定アプリだけ無音ならSTEP 2。出力の一覧にないならSTEP 3。",
+        "revert": "検証前の出力機器名へ選び直し、音量を元の値に戻す。"
+      },
+      "scopeEvidence": "Windowsでは「接続済み」でも音の出力先がPCのスピーカーのままのことがあります。通話に入ると音質だけ変わる症状は別に切り分けます。",
+      "evidenceLimitation": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "sourceAttribution": [
+        {
+          "title": "Microsoft サポート：接続済みなのに音が出ない",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/fix-bluetooth-connected-but-no-sound-issue-on-windows"
+        },
+        {
+          "title": "Microsoft サポート：アプリだけ音が出ない",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows"
+        },
+        {
+          "title": "Microsoft サポート：マイク使用中の音声品質",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/configuring-bluetooth-le-audio-quality-settings-on-windows-11"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/pc/usb-c-device-not-recognized",
+      "classification": "existing-sufficient",
+      "reason": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "shortAnswer": "USB-C機器が認識されない時は、ハブを外してデータや映像に対応したケーブルで直結し、同じ機器を別ポートでも比べます。エラーコードはWindowsが報告した状態の手掛かりであり、コードだけでケーブルかドライバーかは断定できません。外付けSSDがエクスプローラーにない場合は「ディスクの管理」で表示状態を確認し、正常だがドライブ文字がない場合と、未初期化・RAWの場合を分けて対応します。",
+      "procedures": {
+        "titles": [
+          "直結・ケーブル・別ポートを1つずつ比較する",
+          "デバイスマネージャーで状態とエラーコードを見る",
+          "SSDは「ディスクの管理」の表示結果から判断する",
+          "映像・ドック・USB4はポートの対応機能を照合する"
+        ],
+        "exampleAction": "外付けSSDやUSBメモリでコピー中なら終了する。取り外しアイコンが使える場合はタスクバーの「ハードウェアを安全に取り外してメディアを取り出す」で停止してから抜く。",
+        "expected": "直結なら動く場合はハブ／ドックや給電が候補。ケーブルだけ替えて動けば元のケーブルが候補。別PCでは使えるなら元のPCのポートや設定を調べる。",
+        "unexpected": "接続通知や黄色い警告が出るならSTEP 2。SSDがデバイスとしては認識されるがエクスプローラーにないならSTEP 3。映像だけ出ないならSTEP 4。",
+        "revert": "比較後は機器の案内に従い、ストレージなら安全に取り外して配線を戻す。動作した組み合わせを記録し、元の故障する接続へ戻す必要はない。"
+      },
+      "scopeEvidence": "USB-Cの外付けSSD・ドック・モニターが使えない場合を、接続そのものの問題と機器ごとの機能の問題に分けます。「USBデバイスが認識されません」、充電だけできる、ディスク管理には表示される症状も対象です。",
+      "evidenceLimitation": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "sourceAttribution": [
+        {
+          "title": "Microsoft サポート：USB-C接続の問題",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/fix-usb-c-problems-in-windows"
+        },
+        {
+          "title": "Microsoft サポート：デバイスマネージャーのエラーコード",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/drivers/error-codes-in-device-manager-in-windows"
+        },
+        {
+          "title": "Microsoft サポート：外部モニターの接続",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/troubleshoot-external-monitor-connections-in-windows"
+        },
+        {
+          "title": "Microsoft Learn：ドライブ文字を割り当てる",
+          "url": "https://learn.microsoft.com/ja-jp/windows-server/storage/disk-management/change-a-drive-letter"
+        },
+        {
+          "title": "Microsoft Learn：新しいディスクの初期化と既存データへの注意",
+          "url": "https://learn.microsoft.com/ja-jp/windows-server/storage/disk-management/initialize-new-disks"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/pc/second-monitor-not-detected",
+      "classification": "existing-sufficient",
+      "reason": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "shortAnswer": "設定→システム→ディスプレイで2台目の四角が見えるかを確認。見えるならWindows＋Pで「拡張」を選び、モニターの入力信号を実際のHDMI／DisplayPortに合わせます。見えないなら「検出」、直結、別ケーブル・別ポートで比較してください。",
+      "procedures": {
+        "titles": [
+          "Windowsが2台目を見つけているか確認する",
+          "検出と直結で接続経路を分ける",
+          "更新後に限る場合はグラフィックドライバーの版を確認する"
+        ],
+        "exampleAction": "スタート→設定→システム→ディスプレイで「1」「2」の四角があるか確認。ある場合は対象画面を選択する。",
+        "expected": "設定画面に1・2が現れ、拡張にすると2台目へマウスを移動できる。",
+        "unexpected": "設定画面に2台目がないならSTEP 2。認識されるのに「信号なし」なら入力端子・ケーブルを確認する。",
+        "revert": "Windows＋Pで変更前の「複製」「PC画面のみ」などに戻す。モニター側の入力も元へ戻す。"
+      },
+      "scopeEvidence": "Windowsが2台目を検出しない場合と、検出しているのにモニターが黒い場合で最初の操作が変わります。PC本体の画面が操作できる状態を対象にします。",
+      "evidenceLimitation": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "sourceAttribution": [
+        {
+          "title": "Microsoft サポート：外部モニターのトラブルシューティング",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/troubleshoot-external-monitor-connections-in-windows"
+        },
+        {
+          "title": "Microsoft サポート：複数のモニターの使い方",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/how-to-use-multiple-monitors-in-windows"
+        },
+        {
+          "title": "Microsoft サポート：USB-Cポートの機能",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/fix-usb-c-problems-in-windows"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/pc/audio-after-update",
+      "classification": "existing-sufficient",
+      "reason": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "shortAnswer": "Windows 11の更新後に音が出ない時は「設定→システム→サウンド→出力」で機器名とミュートを確認します。ゲームなど一部だけ無音なら音量ミキサーへ。出力機器が一覧にないならデバイスマネージャーで認識を確認し、更新直後にドライバーが変わった場合は以前の版へ戻せるか調べます。更新プログラムの削除は最後に対象を特定して検討します。",
+      "procedures": {
+        "titles": [
+          "音が出る範囲と出力先を同じ音で比べる",
+          "出力機器が一覧にない場合は、認識と有効状態を確認する",
+          "更新履歴とドライバーの版を照合する",
+          "音声サービスが止まっていないか確認する",
+          "特定の更新が原因と疑われる時だけ回復・削除を検討する"
+        ],
+        "exampleAction": "同じ短い動画を再生し、別のアプリでも音が出るか比べる。使いたいスピーカー・イヤホンの電源や本体のミュートも確認する。",
+        "expected": "出力先やゲームの音量を直して聞こえれば、無音の直接の原因として出力先・アプリ別設定が考えられる。更新が設定変更のきっかけだった可能性は残る。",
+        "unexpected": "出力に機器がないならSTEP 2へ。機器はあるが別のアプリでも無音ならSTEP 3へ。ゲームだけ無音のままならゲーム内の出力設定も確認する。",
+        "revert": "出力先や音量を変更した場合は、比較前に控えた機器・数値へ戻せる。音が戻った設定は維持してよい。"
+      },
+      "scopeEvidence": "Windows Updateの後にスピーカーやイヤホンが無音になったら、まず出力機器が一覧にあるか、どのアプリも鳴らないかを分けます。更新した日時だけで原因を決めず、同じ音で変更前後を比べます。",
+      "evidenceLimitation": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "sourceAttribution": [
+        {
+          "title": "Microsoft サポート：Windows Update後に音が出ない",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-audio-stops-working-after-a-windows-update-in-windows"
+        },
+        {
+          "title": "Microsoft サポート：アプリだけ無音の確認",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows"
+        },
+        {
+          "title": "Microsoft サポート：出力機器が表示されない場合",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-missing-or-undetected-audio-output-device-in-windows"
+        },
+        {
+          "title": "Microsoft サポート：デバイスの状態に表示されたエラーコード",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/drivers/error-codes-in-device-manager-in-windows"
+        },
+        {
+          "title": "Microsoft サポート：Windows Updateの削除条件",
+          "url": "https://support.microsoft.com/ja-jp/windows/deployment/updates-lifecycle/how-to-uninstall-a-windows-update"
+        },
+        {
+          "title": "Microsoft サポート：現在のバージョンを修復再インストール",
+          "url": "https://support.microsoft.com/ja-jp/windows/deployment/install-upgrade/fix-issues-by-reinstalling-the-current-version-of-windows"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/pc/wifi-option-missing",
+      "classification": "existing-sufficient",
+      "reason": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "shortAnswer": "「設定→ネットワークとインターネット」にWi-Fiがない場合は、まず機内モードと本体の無線スイッチを確認し、次に「デバイス マネージャー→ネットワーク アダプター」で無線機器の表示を調べます。Wi-Fiはオンなのに接続先が0件なら、一覧の再検索、別端末の表示、WLAN AutoConfigの状態を比べてください。アダプターそのものが表示されなければ、機種に合うドライバーと機器の認識状態を確認します。",
+      "procedures": {
+        "titles": [
+          "スイッチがないのか、接続先だけが空なのか確かめる",
+          "デバイスマネージャーで無線アダプターの状態を読む",
+          "接続先が空なら別端末・周波数帯・無線サービスを比べる",
+          "無線アダプターがない・更新後から消えた時に確認する"
+        ],
+        "exampleAction": "作業中のファイルを保存する。タスクバー右端のネットワーク・音量・電池のいずれかを押してクイック設定を開き、Wi-Fiのボタンがあるか見る。ボタンがなくても、スタート→設定→ネットワークとインターネットで「Wi-Fi」の有無を確かめる。",
+        "expected": "Wi-Fiをオンにできて接続先が表示されれば、いつものSSIDを選んで接続する。ボタンだけが見えなかった場合も、設定で使えれば無線アダプターの故障とは判断しない。",
+        "unexpected": "設定にWi-Fi自体がない、またはオンにできないならSTEP 2。オンにできても一覧が空ならSTEP 3へ。",
+        "revert": "比較のために機内モードや本体スイッチを変えた場合は、検証前の状態を控え、必要なら元の状態へ戻す。Wi-Fiを使う時は機内モードをオフにする。"
+      },
+      "scopeEvidence": "昨日まで使えたWi-Fiが見当たらない場合、設定の「Wi-Fi」自体がないのか、スイッチはあるが接続先が空なのかを先に確認します。Windows 11でデスクトップを操作できる人向けです。",
+      "evidenceLimitation": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "sourceAttribution": [
+        {
+          "title": "Microsoft サポート：Wi-Fi接続の問題・項目がない場合",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/connectivity-networking/fix-wi-fi-connection-issues-in-windows"
+        },
+        {
+          "title": "Microsoft サポート：接続先一覧の開き方と再検索",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/connectivity-networking/connect-to-a-wi-fi-network-in-windows"
+        },
+        {
+          "title": "Microsoft Learn：WLAN AutoConfigの役割と無線接続の診断",
+          "url": "https://learn.microsoft.com/ja-jp/troubleshoot/windows-client/networking/wireless-network-connectivity-issues-troubleshooting"
+        },
+        {
+          "title": "Microsoft サポート：デバイスマネージャーのエラー番号",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/drivers/error-codes-in-device-manager-in-windows"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/pc/windows-update-0x800f081f",
+      "classification": "existing-sufficient",
+      "reason": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "shortAnswer": "0x800f081fは必要なファイルを利用できない時などに表示され、コードだけで「どのKBが失敗したか」や原因の場所までは決まりません。「設定→Windows Update→更新の履歴」で失敗した更新名・KB番号・日時を控え、Windows Updateのトラブルシューティング後に再試行します。続く場合はDISM、成功後にSFCを実行し、各結果と同じ更新の成否を比べてください。",
+      "procedures": {
+        "titles": [
+          "更新の履歴で失敗した項目とエラーの出た場所を記録する",
+          "Windows Updateの診断を実行し、同じ更新を再確認する",
+          "DISMとSFCの表示結果を読み、更新をもう一度試す",
+          "修復が失敗する時はWindows 11の回復機能を確認する"
+        ],
+        "exampleAction": "スタート→設定→Windows Update→「更新の履歴」を開き、更新プログラムの種類を展開。対象が「インストールに失敗」などと表示されるか確認し、更新の名前・KB番号があれば番号・表示日時・0x800f081fを控える。履歴にKBがない場合は表示された更新名をそのまま記録する。",
+        "expected": "失敗した更新名と現在の状態が分かる。「更新名／KB（表示がある時）／失敗した日時／エラーが出た画面」を1行で残す。",
+        "unexpected": "履歴に失敗が見当たらないなら、Windows Updateの現在のエラー画面の文言と時刻を控える。DISMや.NET 3.5だけのエラーを更新の失敗と混同しない。",
+        "revert": "表示内容を読むだけなので設定変更はない。記録に個人名や組織情報が入ったスクリーンショットは公開前に隠す。"
+      },
+      "scopeEvidence": "Windows Updateで「インストール エラー - 0x800f081f」が出た場合の確認手順です。最初に失敗した更新を特定し、再試行後に同じ更新が成功したか確かめます。.NET Framework 3.5の有効化中だけ出た場合は別の対処が必要です。",
+      "evidenceLimitation": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "sourceAttribution": [
+        {
+          "title": "Microsoft サポート：更新履歴から失敗した更新とエラーを調べる",
+          "url": "https://support.microsoft.com/ja-jp/windows/deployment/install-upgrade/get-help-with-windows-upgrade-and-installation-errors"
+        },
+        {
+          "title": "Microsoft サポート：0x800f081fの原因候補と更新エラーの対処",
+          "url": "https://support.microsoft.com/ja-jp/windows/deployment/updates-lifecycle/troubleshoot-problems-updating-windows"
+        },
+        {
+          "title": "Microsoft サポート：Windows Updateトラブルシューティング ツール",
+          "url": "https://support.microsoft.com/ja-jp/windows/windows-update-%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0-%E3%83%84%E3%83%BC%E3%83%AB-19bc41ca-ad72-ae67-af3c-89ce169755dd"
+        },
+        {
+          "title": "Microsoft サポート：DISM・SFCの操作と結果",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/backup-recovery/use-the-system-file-checker-tool-to-repair-missing-or-corrupted-system-files"
+        },
+        {
+          "title": "Microsoft サポート：現在のバージョンを修復再インストールする",
+          "url": "https://support.microsoft.com/ja-jp/windows/deployment/install-upgrade/fix-issues-by-reinstalling-the-current-version-of-windows"
+        },
+        {
+          "title": "Microsoft Learn：.NET Framework 3.5をWindows 11に導入する",
+          "url": "https://learn.microsoft.com/ja-jp/dotnet/framework/install/dotnet-35-windows-11"
+        },
+        {
+          "title": "Microsoft Learn：Windows修復ソースの構成と版の注意点",
+          "url": "https://learn.microsoft.com/ja-jp/windows-hardware/manufacture/desktop/configure-a-windows-repair-source?view=windows-11"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/pc/sleep-wakes-up-by-itself",
+      "classification": "existing-sufficient",
+      "reason": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "shortAnswer": "勝手に復帰した直後に「powercfg /lastwake」で直前の解除元を調べます。機器名ならその機器の解除許可を1台ずつ、タイマーが疑わしければ「powercfg /waketimers」と復帰時刻を照合します。「powercfg /devicequery wake_armed」に出る機器は解除が許可された候補であり、それだけでは今回の原因と断定できません。",
+      "procedures": {
+        "titles": [
+          "画面消灯とスリープを区別し、復帰時刻を控える",
+          "4つの powercfg コマンドで、解除元と候補を分ける",
+          "機器が解除元なら、該当する1台の許可を比較する",
+          "時刻が合う場合だけスリープ解除タイマーを比較する",
+          "解除元が不明なら、スリープ方式と時間帯から絞り込む"
+        ],
+        "exampleAction": "作業を保存し、スタート→電源→「スリープ」を選ぶ。マウスやキーボードに触れずに、何分後に画面が点いたか、AC接続かバッテリーかを記録する。外付けマウスが動いていないかも確認する。",
+        "expected": "手動スリープ後にも画面が点けば「復帰」を再現できた。復帰した時刻を控えてSTEP 2へ。",
+        "unexpected": "画面オフの後だけ点く、または手動スリープに入れない場合はスリープ時間や電源要求を先に調べる。電源オフからの起動は別の現象として切り分ける。",
+        "revert": "比較のために画面オフ・スリープまでの時間を変えた場合は、控えた元の分数に戻す。ここまでの確認コマンドは設定を変更しない。"
+      },
+      "scopeEvidence": "寝る前にスリープしたのに画面が点く、スリープ直後に戻る、決まった時間に起きる。まず「実際の解除元」と「解除できる機器の候補」を分けて調べます。",
+      "evidenceLimitation": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "sourceAttribution": [
+        {
+          "title": "Microsoft Learn：powercfg の /lastwake・/waketimers・/devicequery・/a・/sleepstudy",
+          "url": "https://learn.microsoft.com/ja-jp/windows-hardware/design/device-experiences/powercfg-command-line-options"
+        },
+        {
+          "title": "Microsoft サポート：Windows 11の画面・スリープの時間設定",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/power-battery/power-settings-in-windows-11"
+        },
+        {
+          "title": "Microsoft サポート：Windows 11で手動スリープにする方法",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/power-battery/shut-down-sleep-or-hibernate-your-pc"
+        },
+        {
+          "title": "Microsoft Learn：モダンスタンバイのSleepStudyレポート",
+          "url": "https://learn.microsoft.com/ja-jp/windows-hardware/design/device-experiences/modern-standby-sleepstudy"
+        },
+        {
+          "title": "Microsoft Learn：モダンスタンバイの解除元と画面点灯の違い",
+          "url": "https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/modern-standby-wake-sources"
+        },
+        {
+          "title": "VAIO公式：Windows 11で意図せずスリープが解除される場合",
+          "url": "https://solutions.vaio.com/6160"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/pc/black-screen-after-sign-in",
+      "classification": "existing-sufficient",
+      "reason": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "shortAnswer": "サインイン後にマウスカーソルだけ表示されるなら、まずCtrl＋Shift＋Escでタスクマネージャーを開きます。開けたら「Windows エクスプローラー」を再起動し、一覧にない場合は「新しいタスクの実行」から explorer.exe を起動します。Ctrl＋Alt＋Deleteの画面も映らず、モニターが「信号なし」なら、表示先とケーブルから確認します。",
+      "procedures": {
+        "titles": [
+          "Windowsの画面が見えているかを最初に分ける",
+          "タスクマネージャーが開くなら、デスクトップの表示を戻す",
+          "画面全体が映らないなら、表示先と接続を確認する",
+          "デスクトップが一度戻っても再発する時は、起動条件を照合する",
+          "タスクマネージャーが使えない・再発する時はセーフモードで比較する"
+        ],
+        "exampleAction": "まず作業中のファイルがあれば、保存できる操作は先に済ませる。起動ロゴとサインイン画面が映り、サインイン後だけカーソルが見えるかを確認する。サインイン前からモニターに「信号なし」と表示されるならSTEP 3へ。",
+        "expected": "タスクマネージャーを表示できれば、作業内容を保存しながらSTEP 2の復旧操作へ進める。",
+        "unexpected": "画面に「信号なし」が出る、またはタスクマネージャーが見えない場合は、画面全体の表示経路をSTEP 3で確かめる。",
+        "revert": "確認のキー操作だけなら設定変更はない。開いたタスクマネージャーは閉じればよい。"
+      },
+      "scopeEvidence": "パスワードやPINを入力した後、背景が真っ黒で矢印だけ動き、デスクトップやタスクバーが出ない場合の手順です。起動ロゴやサインイン画面も見えない場合は別の経路から始めます。",
+      "evidenceLimitation": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "sourceAttribution": [
+        {
+          "title": "Microsoft サポート：Windowsの黒い画面・カーソルのある画面の対処",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/troubleshooting-blank-screens-in-windows"
+        },
+        {
+          "title": "Microsoft サポート：スタートアップ アプリを1つずつ設定",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/startup-boot/configure-startup-applications-in-windows"
+        },
+        {
+          "title": "Microsoft サポート：Windows回復環境への入り方とBitLockerの注意",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/backup-recovery/windows-recovery-environment"
+        },
+        {
+          "title": "Microsoft サポート：セーフモードの起動と通常起動への戻し方",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/startup-boot/windows-startup-settings"
+        },
+        {
+          "title": "Microsoft サポート：セーフモードでのサインインとパスワード",
+          "url": "https://support.microsoft.com/ja-jp/windows/security/identity-signin/troubleshoot-problems-signing-in-to-windows"
+        },
+        {
+          "title": "Microsoft サポート：ディスプレイドライバーを以前の版へ戻す",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/troubleshoot-screen-flickering-in-windows"
+        },
+        {
+          "title": "Microsoftサポート：2026年の一部企業環境でのサインイン後の黒画面",
+          "url": "https://support.microsoft.com/ja-jp/servicing/os/hotpatch/windows-11/2026/kb5129241-windows-11-24h2-25h2-security-update"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/pc/file-explorer-freezes-on-right-click",
+      "classification": "existing-sufficient",
+      "reason": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "shortAnswer": "まずWindowsキー＋Eでエクスプローラーが開くか確認します。開かなければタスクマネージャーで「Windows エクスプローラー」を再起動。開くが右クリックで「応答なし」になるなら、どの種類のファイル・場所・メニューで起きるかを比べ、関係するアプリのメニュー拡張機能を1つずつ調べます。特定のフォルダーだけなら、その場所や接続の問題を先に確認してください。",
+      "procedures": {
+        "titles": [
+          "開く段階と、固まる操作を記録する",
+          "ウィンドウが開かないなら、エクスプローラーを再起動する",
+          "右クリックだけ止まるなら、対象とメニューを比較する",
+          "特定の場所だけ固まるなら、別の場所と比べる",
+          "右クリック時の追加機能が疑わしい場合、1つずつ一時的に外す",
+          "ローカルの全フォルダーで失敗するならWindows側の状態を調べる"
+        ],
+        "exampleAction": "作業中のファイルを保存。Windowsキー＋Eでエクスプローラーを開く。ウィンドウが全く出ない・すぐ閉じる場合はSTEP 2へ。ウィンドウが出る場合は「このPC」や「ドキュメント」など、開ける場所を1つ控える。",
+        "expected": "「どこで」「何をした直後に」固まるかを一行で説明でき、該当するSTEPへ進める。",
+        "unexpected": "タスクバーや他のアプリまで操作できずPC全体が止まる場合は、エクスプローラー固有の問題とは決めつけず、発生条件を控えてPC製造元に相談する。",
+        "revert": "この段階では設定を変更しない。確認に開いたウィンドウを閉じるだけ。"
+      },
+      "scopeEvidence": "ウィンドウ自体が開かない状態と、開けるのに右クリック・「その他のオプションを表示」・特定のフォルダーで固まる状態を分けます。個人ファイルの削除やPCの初期化は手順に含めません。",
+      "evidenceLimitation": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "sourceAttribution": [
+        {
+          "title": "Microsoft サポート：エクスプローラーが開かない・起動しない時の確認",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/fileexplorer/fix-file-explorer-if-it-won-t-open-or-start"
+        },
+        {
+          "title": "Microsoft サポート：Windows 11の右クリックメニューと「このPC」起動先",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/fileexplorer/file-explorer-in-windows"
+        },
+        {
+          "title": "Microsoft Learn：シェル拡張機能がエクスプローラーの動作に与える影響",
+          "url": "https://learn.microsoft.com/ja-jp/windows/win32/shell/shell-exts"
+        },
+        {
+          "title": "Microsoft Learn：公式のAutorunsとチェックによる無効化",
+          "url": "https://learn.microsoft.com/ja-jp/sysinternals/downloads/autoruns"
+        },
+        {
+          "title": "Microsoftサポート：ファイルとフォルダーのキーボード操作",
+          "url": "https://support.microsoft.com/ja-jp/accessibility/windows/keyboard-shortcuts-in-windows"
+        },
+        {
+          "title": "Microsoft サポート：DISMとSFCの順番・結果",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/backup-recovery/using-system-file-checker-in-windows"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/pc/wifi-connected-no-internet",
+      "classification": "existing-sufficient",
+      "reason": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "shortAnswer": "同じWi-Fiにつないだスマホでも複数サイトが開けなければ、ルーター・回線側を確認します。スマホは開けてPCだけ開けなければ、WindowsのWi-Fi接続、IP設定、プロキシを順に確認。特定サイトだけなら、別のブラウザーと別端末で同じURLを比べ、サイト側・ブラウザー側・ネットワーク側のどこに限るかを確かめます。「インターネットなし」の表示だけで原因を決めず、実際にページが開くかを基準にします。",
+      "procedures": {
+        "titles": [
+          "PC・スマホ・別サイトで、止まる範囲を比べる",
+          "家中の端末で使えないなら、回線とルーターを調べる",
+          "PCだけ使えないなら、接続先とWindowsの診断を確認",
+          "特定サイトだけなら、同じURLを別環境で比べる",
+          "PCだけ続く場合、IPアドレスとDNSの結果を読む",
+          "まだPCだけ失敗するなら、プロキシとVPNを確認"
+        ],
+        "exampleAction": "PCのブラウザーで、普段開ける独立した2サイトと、問題のサイトを開く。「全部開けない／1サイトだけ開けない／ページは開くがWindowsだけインターネットなしと表示」をメモする。接続エラーの文言と発生時刻も控える。",
+        "expected": "「どの端末」「どのWi-Fi」「どのサイト」に限るかが分かり、次の手順を選べる。",
+        "unexpected": "スマホでWi-Fiを切ったまま比較すると、モバイル通信が正常なだけなのに自宅回線も正常だと誤認する。Wi-Fi名とモバイル通信の状態を確認してから判定する。",
+        "revert": "スマホのモバイル通信を元の状態に戻す。このSTEPではPCの設定を変更しない。"
+      },
+      "scopeEvidence": "「Wi-Fiにつながっている」は、ルーターに接続できている状態です。ネットまで使えるかは別に確認します。スマホのモバイル通信を一時的に切り、同じWi-Fi・同じページで比べるところから始めてください。",
+      "evidenceLimitation": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "sourceAttribution": [
+        {
+          "title": "Microsoft サポート：Wi-Fi接続済み・インターネットなしの判定と対処",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/connectivity-networking/fix-wi-fi-connection-issues-in-windows"
+        },
+        {
+          "title": "Microsoft サポート：Windows 11のIP・DNS設定と自動取得",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/connectivity-networking/essential-network-settings-and-tasks-in-windows"
+        },
+        {
+          "title": "Microsoft サポート：Windowsでのプロキシ設定の確認",
+          "url": "https://support.microsoft.com/ja-jp/windows/experience/connectivity-networking/use-a-proxy-server-in-windows"
+        },
+        {
+          "title": "Microsoft サポート：ヘルプを表示するアプリでネットワークを診断",
+          "url": "https://support.microsoft.com/ja-jp/support/get-help/windows-troubleshooters"
+        },
+        {
+          "title": "Microsoft サポート：Edgeで特定のページが開けない場合",
+          "url": "https://support.microsoft.com/ja-jp/edge/what-to-do-if-microsoft-edge-isn-t-working"
+        },
+        {
+          "title": "Microsoft サポート：Edge拡張機能を一時的にオフにする",
+          "url": "https://support.microsoft.com/ja-jp/edge/add-turn-off-or-remove-extensions-in-microsoft-edge"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/pc/refresh-rate-stuck-60hz",
+      "classification": "existing-sufficient",
+      "reason": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "shortAnswer": "「設定」→「システム」→「ディスプレイ」→「ディスプレイの詳細設定」を開き、「ディスプレイ情報」で対象のモニターの現在のリフレッシュレートを確認します。「リフレッシュレートの選択」で高い値を選べるならそれを選びます。高い値が出てこない場合は、ケーブル・接続する端子・ディスプレイドライバーを順に確認します。Windowsは高いのにゲームだけ低い場合は、動的リフレッシュレート（DRR）をオフにして比べます（Microsoft公式の案内）。",
+      "procedures": {
+        "titles": [
+          "Windowsの「ディスプレイの詳細設定」で今のHzを見て、選び直す",
+          "ゲームだけ低いなら、動的リフレッシュレート（DRR）とゲーム内設定を確認",
+          "高いHzが出てこないなら、ケーブル・端子・接続を確認",
+          "ドライバーをリセット・ロールバック・再インストールする"
+        ],
+        "exampleAction": "「スタート」→「設定」→「システム」→「ディスプレイ」→「ディスプレイの詳細設定」を開く。モニターが2台以上ある場合は、上の選択欄でゲームに使うモニターを選ぶ。",
+        "expected": "「ディスプレイ情報」の現在のリフレッシュレートが、選んだ値になる。",
+        "unexpected": "選んだ後に画面が乱れる・映らない場合は元の値に戻し、別の値を試し続けずにSTEP 3でケーブル・端子を確認する。",
+        "revert": "「リフレッシュレートの選択」で元の値（控えた値）に戻す。"
+      },
+      "scopeEvidence": "まずWindowsが今そのモニターを何Hzで動かしているかを確認します。Windowsの表示が高いのにゲームだけ低い場合と、Windowsの時点で60Hzの場合では、見る場所が違います。",
+      "evidenceLimitation": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "sourceAttribution": [
+        {
+          "title": "Microsoft サポート：Windows でモニターのリフレッシュ レートを変更する",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/change-the-refresh-rate-on-your-monitor-in-windows"
+        },
+        {
+          "title": "Microsoft サポート：Windows での外部モニター接続のトラブルシューティング",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/troubleshoot-external-monitor-connections-in-windows"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    },
+    {
+      "path": "/pc/gaming-shortcut-keys",
+      "classification": "existing-sufficient",
+      "reason": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "shortAnswer": "ゲーム中に画面が黒くなったらWindowsキー＋Ctrl＋Shift＋Bで表示ドライバーのリセットを試します。画面は見えるがゲームだけ応答しないならCtrl＋Shift＋Escでタスクマネージャーを開きます。フルスクリーンの切り替えはAlt＋Enter（対応ゲームのみ）、HDRの切り替えはWindowsキー＋Alt＋B（対応環境のみ）です。",
+      "procedures": {
+        "titles": [
+          "画面が固まった・真っ黒なら、Windowsキー＋Ctrl＋Shift＋Bでドライバーをリセット",
+          "ゲームが応答しないなら、Ctrl＋Shift＋Escでタスクマネージャーを開く",
+          "フルスクリーンとウィンドウの切り替えは、Alt＋Enterを試す",
+          "HDRの見え方がおかしいなら、Windowsキー＋Alt＋Bで切り替えて比べる",
+          "エラー画面を残す・フォルダーを開くキー"
+        ],
+        "exampleAction": "Windowsキー＋Ctrl＋Shift＋Bを1回押す。Microsoftは、画面が空白または黒い時にグラフィックスドライバーをリセットする操作として案内しており、成功するとビープ音が鳴るか画面がちらつく。",
+        "expected": "画面が一瞬ちらつき、ゲームまたはデスクトップの表示が戻る。",
+        "unexpected": "何度押しても変わらない場合は連打せず、STEP 2に進む。ゲームの進行状況が戻るとは限らない。",
+        "revert": "この操作は設定を変更しないため、元に戻す作業は不要。"
+      },
+      "scopeEvidence": "電源ボタンで強制終了する前に、キー操作で戻せないかを試します。症状ごとに使うキーが違うので、下の早見表から当てはまる場面を選んでください。Windows 11の表記です。",
+      "evidenceLimitation": "既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。",
+      "sourceAttribution": [
+        {
+          "title": "Microsoft サポート：Windows のキーボード ショートカット",
+          "url": "https://support.microsoft.com/ja-jp/accessibility/windows/keyboard-shortcuts-in-windows"
+        },
+        {
+          "title": "Microsoft サポート：Windows の空白の画面のトラブルシューティング",
+          "url": "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/troubleshooting-blank-screens-in-windows"
+        },
+        {
+          "title": "Microsoft Learn：IDXGIFactory::MakeWindowAssociation（Alt＋Enterへの応答）",
+          "url": "https://learn.microsoft.com/ja-jp/windows/win32/api/dxgi/nf-dxgi-idxgifactory-makewindowassociation"
+        },
+        {
+          "title": "Steam サポート：SteamコミュニティオーバーレイとF12",
+          "url": "https://help.steampowered.com/ja/faqs/view/3978-072C-18DF-FBF9"
+        }
+      ],
+      "languages": [
+        "ja",
+        "en"
+      ],
+      "sourceRecheck": "既存公開記録と表示構造の監査。外部本文の新規再確認・実機試験は実施していない。",
+      "blocker": null
+    }
+  ]
+}

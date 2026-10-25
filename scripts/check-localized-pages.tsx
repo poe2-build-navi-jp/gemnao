@@ -318,7 +318,7 @@ for (const guide of commonGuidesEn) {
     assert.deepEqual(guide.steps.map(s => s.actions.length), original.steps.map(s => s.actions.length), `${guide.slug}: action parity`);
     assert.equal(guide.faqs.length, original.faqs?.length, `${guide.slug}: FAQ parity`);
     const sourceKey = (url: string) => url.replace('/ja-jp/', '/en-us/').replace('steampowered.com/ja/', 'steampowered.com/en/').replace('?view=msvc-170', '');
-    const supplements: Record<string, string[]> = { 'windows-11-required': ['https://enso-order.acecombat.jp/'], 'ray-tracing-gpu': ['https://www.nvidia.com/en-us/geforce/news/geforce-gtx-dxr-ray-tracing-available-now/'] };
+    const supplements: Record<string, string[]> = { 'windows-11-required': ['https://enso-order.acecombat.jp/'] };
     assert.deepEqual(guide.sources.map(s => sourceKey(s.url)), [...original.sources.map(s => sourceKey(s.url)), ...(supplements[guide.slug] || [])], `${guide.slug}: source parity`);
   }
   for (const branch of guide.branches) assert.ok([...guide.steps, ...(guide.extraSections || [])].some(step => step.id === branch.step));

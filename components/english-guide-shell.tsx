@@ -119,7 +119,7 @@ export function EnglishGuideShell({
           <p className="article-lead">{guide.lead}</p>
           <div className="article-meta">
             <span>
-              {t.checked}: {guide.checkedAt}
+              {t.sourceRecord}: {guide.checkedAt}
             </span>
             {affiliate ? (
               <span>Contains advertising / affiliate links</span>

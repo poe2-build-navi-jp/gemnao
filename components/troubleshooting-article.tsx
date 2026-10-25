@@ -154,7 +154,7 @@ export function TroubleshootingArticle({
           <p className="article-lead">{article.symptom}</p>
           <div className="article-meta">
             <EditorialByline />
-            <span>最終確認：{article.checkedAt.replaceAll('-', '.')}</span>
+            <span>資料の確認記録：{article.checkedAt.replaceAll('-', '.')}</span>
             {article.status && article.status !== 'verified' ? (
               <span>
                 情報の状態：

@@ -42,7 +42,7 @@ export const tpmSecureBootGuide: CommonGuide = {
   checkedAt: '2026-09-28',
   status: 'verified',
   causes: [
-    'TPMがUEFI（BIOS）で無効になっている（自作PC向けマザーボードは初期状態でオフのことが多い）',
+    'TPMがUEFI（BIOS）で無効になっている可能性（初期状態は機種ごとに確認）',
     'TPMのバージョンが2.0ではない',
     'セキュアブートが無効、または起動モードがレガシー（CSM）',
     'Windowsが入ったディスクがMBR形式（セキュアブートにはGPTが必要）',
@@ -95,7 +95,7 @@ export const tpmSecureBootGuide: CommonGuide = {
       question:
         'TPMやセキュアブートを有効にすると、ほかのゲームに影響しますか？',
       answer:
-        '通常のゲームの動作には影響しません。ただし、起動モードをレガシーからUEFIに切り替えると、MBR形式のディスクのWindowsは起動しなくなるため、先にディスクの形式を確認してください。',
+        'すべての環境で影響がないとは判断できません。起動方式や暗号化の構成によってWindowsの起動・回復に影響するため、ディスク形式、回復キー、機種別の手順を先に確認してください。Legacy／MBRの状態で起動モードだけをUEFIへ切り替えないでください。',
     },
     {
       question: 'どのゲームで必要ですか？',
@@ -122,7 +122,7 @@ export const windows11RequiredGuide: CommonGuide = {
     '動作環境が「Windows 11」のゲームをWindows 10で遊べる？確認方法とアップグレード前の注意',
   shortTitle: 'Windows 11が必要なゲーム',
   description:
-    '2026年10月の新作では、エースコンバット8、真・三國無双2 Remastered、FFレゾナンスなど、動作環境の最低条件がWindows 11の作品が増えています。自分のWindowsのバージョンと、Windows 11にアップグレードできるかを確認する方法をまとめました。',
+    'ゲームの最低動作環境にWindows 11と明記されている場合の確認ガイドです。自分のWindowsの版とゲーム公式の対象OSを照合し、アップグレードの適合性とセーブの保全を確認する方法をまとめました。',
   conclusion:
     'Windows + R →「winver」でWindowsのバージョンを確認します。動作環境の最低条件がWindows 11のゲームは、Windows 10では公式にサポートされません。Windows 10の通常サポートは2025年10月14日に終了しました。対象機器では登録条件付きの拡張セキュリティ更新（ESU）がありますが、ゲームの対応OSが変わるわけではありません。アップグレードできるかは「PC正常性チェック」アプリで確認できます。',
   checkedAt: '2026-09-28',
@@ -168,7 +168,7 @@ export const windows11RequiredGuide: CommonGuide = {
     {
       question: '2026年10月の新作で、Windows 11が必要なのはどれですか？',
       answer:
-        '動作環境の表記上、エースコンバット8、真・三國無双2 Remastered、ドラゴンズドグマ2（ダークアリズン）、Castlevania: Belmont’s Curse、テイルズ オブ エターニア リマスター、FFレゾナンスなどはWindows 11と記載されています。一覧は「2026年10月発売の新作PCゲーム 動作環境まとめ」を見てください。',
+        '作品・配信版ごとの公式サイトやストアの最低OSを確認してください。「2026年10月発売の新作PCゲーム 動作環境まとめ」は探すための索引で、各ゲームの現在の公式要件に代わるものではありません。発売月だけで対応OSを判断しないでください。',
     },
     {
       question: 'Windows 10のサポートはいつ終わりましたか？',
@@ -200,9 +200,9 @@ export const rayTracingGpuGuide: CommonGuide = {
     '「レイトレーシング対応GPUが必要」なゲームが起動しない｜自分のGPUが対応か確認する方法',
   shortTitle: 'レイトレーシング対応GPU',
   description:
-    'エースコンバット8やGears of War: E-Dayのように、最低環境から「ハードウェアレイトレーシング対応GPU」を必須にするPCゲームがあります。非対応のGPUでは設定を下げても起動できないため、購入前に自分のGPUを確認する方法をまとめました。',
+    '最低環境に「ハードウェアレイトレーシング対応GPU」と明記されたゲーム向けです。任意の画質設定と必須機能を分け、使用中のGPUの正確な型番とゲーム公式の最低要件を購入前に照合します。シリーズ名だけで起動や性能を保証しません。',
   conclusion:
-    'タスクマネージャーの「パフォーマンス」→「GPU」でGPU名を確認します。NVIDIAはGeForce RTXシリーズ（RTX 20シリーズ以降）、AMDはRadeon RX 6000シリーズ以降が、ハードウェアのレイトレーシング機能を備えています。GTX 10／16シリーズやRadeon RX 5000シリーズ以前は非対応で、ゲーム側の設定では解決できません。',
+    'タスクマネージャーの「パフォーマンス」→「GPU」で正確な型番を確認し、ゲーム公式の最低GPU・必須機能と比べます。専用のレイトレーシング機能と、任意のDXR効果が動くことは別です。対応シリーズでも性能やVRAMが不足する場合があるため、シリーズ名だけで適合としないでください。',
   checkedAt: '2026-09-28',
   status: 'verified',
   causes: [
@@ -221,7 +221,7 @@ export const rayTracingGpuGuide: CommonGuide = {
     {
       title: 'レイトレーシングに対応しているか判断する',
       actions: [
-        'NVIDIA：GeForce RTX（RTX 20・30・40・50シリーズ）は対応。GeForce GTX（GTX 10・16シリーズなど）は非対応',
+        'NVIDIA：ゲームが求める専用RT機能と正確なGPU型番を照合する。GeForce RTXの専用RT機能と、一部GTXでシェーダーを使って動くDXR効果を同じ要件として扱わない',
         'AMD：Radeon RX 6000シリーズ以降は対応（例：RX 6600の仕様には「レイ アクセラレータ」の数が記載されている）。RX 5000シリーズ以前は非対応',
         'ゲームの最低環境のGPUと比べ、対応していても性能が下回る場合は重くなる',
       ],
@@ -245,7 +245,7 @@ export const rayTracingGpuGuide: CommonGuide = {
     {
       question: 'GTX 1660 SuperやGTX 1080 Tiでも起動できませんか？',
       answer:
-        '最低環境で「ハードウェアレイトレーシング対応GPU」が必須のゲームは、GTXシリーズでは要件を満たしません。性能の高さに関係なく、ハードウェアのレイトレーシング機能がないためです。',
+        'そのゲームが必須とする専用RT機能・対応モデルを確認してください。一部のGTXでDXR効果が動くことは、専用RT機能を持つ掲載モデルと同じ要件を満たす証明にはなりません。古いデモや通常描画の性能だけで適合と判断しないでください。',
     },
     {
       question: 'ゲーム内でレイトレーシングをオフにすれば動きますか？',
@@ -278,5 +278,6 @@ export const rayTracingGpuGuide: CommonGuide = {
       url: 'https://store.steampowered.com/app/3010850/',
     },
     roundup,
+    { label: 'NVIDIA：専用RTコアとGTXのシェーダーによるDXR（英語・既存英語記事の出典）', url: 'https://www.nvidia.com/en-us/geforce/news/geforce-gtx-dxr-ray-tracing-available-now/' },
   ],
 };
