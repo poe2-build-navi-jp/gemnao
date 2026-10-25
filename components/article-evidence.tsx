@@ -1,3 +1,5 @@
+import { localizedEvidenceReviews } from '@/lib/article-evidence-localized';
+import { followupEvidenceReviews } from '@/lib/article-evidence-followup';
 import {
   articleEvidenceReviews,
   type ArticleEvidenceReview,
@@ -66,8 +68,9 @@ export function ArticleEvidence({
   path: string;
   locale?: string;
 }) {
-  const review = locale === 'ja' ? articleEvidenceReviews[path] : undefined;
-  if (review) return <ReviewedArticleEvidence review={review} />;
+  const review = evidenceReview(path, locale);
+  if (review)
+    return <ReviewedArticleEvidence review={review} locale={locale} />;
   if (
     path !== '/games/rocket-league/dualsense-not-working' ||
     (locale !== 'ja' && locale !== 'en')
@@ -116,30 +119,33 @@ export function ArticleEvidence({
 
 function ReviewedArticleEvidence({
   review,
+  locale,
 }: {
   review: ArticleEvidenceReview;
+  locale: string;
 }) {
+  const t = evidenceLabels[locale] || evidenceLabels.ja;
   return (
     <section
       className="sources article-evidence"
       id="article-evidence"
       aria-labelledby="article-evidence-title"
     >
-      <h2 id="article-evidence-title">確認結果・未検証の範囲と根拠</h2>
-      <h3>実際に記録されている結果</h3>
+      <h2 id="article-evidence-title">{t.title}</h2>
+      <h3>{t.result}</h3>
       <p>{review.result}</p>
       {review.reportPath ? (
         <p>
-          <a href={review.reportPath}>既存の本人報告と記録の限界を読む</a>
+          <a href={review.reportPath}>{t.report}</a>
         </p>
       ) : null}
-      <h3>分かっていないこと</h3>
+      <h3>{t.limits}</h3>
       <p>{review.limits}</p>
-      <h3>自分の環境で比較する項目</h3>
+      <h3>{t.compare}</h3>
       <p>{review.compare}</p>
-      <h3>対象の版・環境</h3>
+      <h3>{t.scope}</h3>
       <p>{review.scope}</p>
-      <h3>公式説明が裏付ける範囲</h3>
+      <h3>{t.sources}</h3>
       <ul>
         {review.official.map((source) => (
           <li key={source.url}>
@@ -155,8 +161,59 @@ function ReviewedArticleEvidence({
   );
 }
 
-export function ArticleEvidenceTocLink({ path }: { path: string }) {
-  return articleEvidenceReviews[path] ? (
-    <a href="#article-evidence">確認結果・未検証範囲</a>
+export function evidenceReview(path: string, locale = 'ja') {
+  return locale === 'ja'
+    ? articleEvidenceReviews[path] || followupEvidenceReviews[path]
+    : localizedEvidenceReviews[`${locale}:${path}`];
+}
+export function ArticleEvidenceTocLink({
+  path,
+  locale = 'ja',
+}: {
+  path: string;
+  locale?: string;
+}) {
+  return evidenceReview(path, locale) ? (
+    <a href="#article-evidence">
+      {(evidenceLabels[locale] || evidenceLabels.ja).title}
+    </a>
   ) : null;
 }
+export const evidenceLabels: Record<string, Record<string, string>> = {
+  ja: {
+    title: '確認結果・未検証の範囲と根拠',
+    result: '実際に記録されている結果',
+    report: '既存の本人報告と記録の限界を読む',
+    limits: '分かっていないこと',
+    compare: '自分の環境で比較する項目',
+    scope: '対象の版・環境',
+    sources: '公式説明が裏付ける範囲',
+  },
+  en: {
+    title: 'Results, limits and evidence',
+    result: 'Recorded results',
+    report: 'Read the existing player report and its limits',
+    limits: 'What remains unknown',
+    compare: 'What to compare on your PC',
+    scope: 'Versions and environment',
+    sources: 'What official sources support',
+  },
+  zh: {
+    title: '记录结果、未验证范围与依据',
+    result: '已有记录的结果',
+    report: '阅读已有用户报告及其局限',
+    limits: '尚不明确的事项',
+    compare: '在自己的电脑上比较什么',
+    scope: '适用版本与环境',
+    sources: '官方资料支持的范围',
+  },
+  es: {
+    title: 'Resultados, límites y fuentes',
+    result: 'Resultados registrados',
+    report: 'Leer el informe existente y sus límites',
+    limits: 'Lo que aún no se conoce',
+    compare: 'Qué comparar en tu PC',
+    scope: 'Versiones y entorno',
+    sources: 'Qué respaldan las fuentes oficiales',
+  },
+};
