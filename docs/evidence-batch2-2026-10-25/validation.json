@@ -1,0 +1,31 @@
+{
+  "scope": "Local build and browser checks only; no hardware experiment or production deployment verification",
+  "freshChecks": {
+    "build": "pass, including static search assets and 573 OG cards",
+    "typecheck": "pass",
+    "lint": "pass",
+    "localized": "pass: 355 translated pages",
+    "firstWaveRegression": "pass: robot policy, 4 inherited reviews, 191-article inventory snapshot",
+    "browser": {
+      "routes": 13,
+      "widths": [
+        375,
+        390,
+        430,
+        1440
+      ],
+      "cases": 52,
+      "controls": 5,
+      "robots": "passed",
+      "errors": [],
+      "badAssets": [],
+      "writes": [],
+      "sectionOrderCanonicalOgOverflow": "pass"
+    }
+  },
+  "previousEvidenceNotRerun": {
+    "discordRouteExpectation": "Identical failure previously reproduced at a03f37a and first-wave head; broad suite is not claimed to pass"
+  },
+  "production": "Not merged, manually deployed, or tested on production",
+  "sourceLimitation": "Microsoft CPU/GPU boundedness returned 403; not bypassed. Steam full FAQ/current UI remains unverified."
+}

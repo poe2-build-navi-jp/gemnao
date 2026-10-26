@@ -1,3 +1,8 @@
+import {
+  ArticleEvidence,
+  evidenceReview,
+  evidenceLabels,
+} from './article-evidence';
 import { EnglishResetConfigLocations } from './english-reset-config-locations';
 import { ResetConfigChecklist } from './reset-config-checklist';
 import { guideUi } from '@/lib/localized/guide-ui';
@@ -26,6 +31,9 @@ export function EnglishCommonGuide({
         { id: 'choose-check', title: t.symptom },
         ...(reset ? [{id:'config-location',title:'Configuration locations'},{id:'reset-checklist',title:'Before you begin'}] : []),
         ...guide.steps,
+        ...(evidenceReview(guide.path, locale)
+          ? [{ id: 'article-evidence', title: evidenceLabels[locale].title }]
+          : []),
         ...(guide.extraSections || []),
         { id: 'cautions', title: t.cautions },
       ]}
@@ -68,6 +76,7 @@ export function EnglishCommonGuide({
           </section>
         ))}
       </StepResultCollection>
+      <ArticleEvidence path={guide.path} locale={locale} />
       {guide.extraSections?.map((section) => (
         <section className="pc-step" id={section.id} key={section.id}>
           <h2>{section.title}</h2>

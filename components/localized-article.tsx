@@ -1,4 +1,4 @@
-import { ArticleEvidence } from '@/components/article-evidence';
+import { ArticleEvidence, ArticleEvidenceTocLink } from '@/components/article-evidence';
 import { ClockSyncFirst } from '@/components/clock-sync-first';
 import { DiscordBotComparison, DiscordBotRecommendations } from '@/components/discord-bot-recommendations';
 import { EnglishDiscordRtcMemo } from '@/components/english-discord-rtc-memo';
@@ -179,6 +179,7 @@ export function LocalizedArticle({
             </a>
           ))}
           <a href="#faq">{t.faq}</a>
+          <ArticleEvidenceTocLink path={originalPath} locale={locale} />
           <a href="#references">{t.references}</a>
         </ArticleToc>
         <article className="guide-article">
@@ -239,7 +240,6 @@ export function LocalizedArticle({
             article.slug === 'error-st-3100001' && (
               <AceCombatNoticeHistory locale="en" />
             )}
-          <ArticleEvidence path={originalPath} locale={locale} />
           <ReportedCaseLink articlePath={originalPath} locale={locale} />
           {!isDiscord && (
             <ReportEntryLink articlePath={originalPath} locale={locale} />
@@ -358,6 +358,7 @@ export function LocalizedArticle({
               ))}
             </StepResultCollection>
           </section>
+          <ArticleEvidence path={originalPath} locale={locale} />
           {isDiscord && locale === 'en' && article.slug === 'rtc-connecting' ? <EnglishDiscordRtcMemo /> : null}
           {article.avoid.length > 0 ? <section className="avoid-block">
             <h2>
