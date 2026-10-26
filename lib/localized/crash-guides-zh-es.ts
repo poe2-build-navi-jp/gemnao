@@ -90,7 +90,7 @@ const zh: CrashSection[] = [
     id: 'steam-client-case',
     title: '单条用户恢复报告：区分 Steam 扩展与游戏 MOD',
     paragraphs: [
-      '2026年10月3日（日本时间），一位用户报告 Steam 版《怪物猎人：荒野》在临时停用第三方 Steam 客户端扩展后能够游玩；此前在标题画面前退出。关闭 OBS、Steam 叠加层、验证文件、确认未强制管理员模式，以及更新 GPU 驱动并重启均未解决。之后的只读检查发现 Steam 进程从安装根目录加载了额外 DLL。这是匿名用户报告，不是官方修复或受控因果证明。',
+      '2026年10月3日的原文章记录中，一位用户反馈（确切反馈时间未记录）Steam 版《怪物猎人：荒野》在临时停用第三方 Steam 客户端扩展后能够游玩；此前在标题画面前退出。关闭 OBS、Steam 叠加层、验证文件、确认未强制管理员模式，以及更新 GPU 驱动并重启均未解决。之后的只读检查发现 Steam 进程从安装根目录加载了额外 DLL。这是匿名用户报告，不是官方修复或受控因果证明。',
       '文件存在与实际加载到进程是不同事实。该报告没有确认文件加载到游戏进程，也未证明某个 DLL 是原因。不要按文件名删除；不认识安装内容时停止。System32 中的同名 Windows DLL 不属于检查范围。',
       '改变前复制并核对设置与存档；会重定向存档的扩展还需检查外部云存储和自定义位置。重要数据无法保全时不要继续。只检查目标游戏，出现同步冲突或存档缺失警告时停止，不覆盖。保留能工作的状态，不要为复现而重新启用扩展。',
       '所链接的英文 Wilds 报告记录 DLL 名称、只读检查、可逆暂停和用户报告结果。不要推广成其他游戏的相同原因或成功率。',
@@ -224,7 +224,7 @@ const es: CrashSection[] = [
     title:
       'Un caso comunicado: distinguir extensiones de Steam y mods del juego',
     paragraphs: [
-      'El 3 de octubre de 2026, hora de Japón, un usuario comunicó que pudo jugar a Monster Hunter Wilds en Steam tras pausar extensiones de terceros del cliente. Antes se cerraba antes del título. Cerrar OBS, desactivar Steam Overlay, verificar archivos, confirmar que no se forzaba el modo administrador y actualizar el controlador gráfico y reiniciar no lo habían resuelto. Una comprobación de solo lectura encontró DLL adicionales cargadas en Steam desde su directorio raíz. Es un informe anónimo, no una solución oficial ni una demostración controlada de causalidad.',
+      'El artículo original fechado el 3 de octubre de 2026 recoge un informe de un usuario, sin fecha exacta de recepción registrada, que pudo jugar a Monster Hunter Wilds en Steam tras pausar extensiones de terceros del cliente. Antes se cerraba antes del título. Cerrar OBS, desactivar Steam Overlay, verificar archivos, confirmar que no se forzaba el modo administrador y actualizar el controlador gráfico y reiniciar no lo habían resuelto. Una comprobación de solo lectura encontró DLL adicionales cargadas en Steam desde su directorio raíz. Es un informe anónimo, no una solución oficial ni una demostración controlada de causalidad.',
       'Que un archivo exista y que esté cargado en un proceso son hechos distintos. No se verificó su carga en el proceso del juego ni se demostró que una DLL concreta fuera la causa. No borres por nombre y detente si no reconoces la instalación. Las DLL de Windows del mismo nombre en System32 quedan fuera del alcance.',
       'Antes de cambiar, copia y verifica ajustes y partidas. Si una extensión redirige guardados, comprueba también almacenamiento externo en la nube y destinos personalizados. No continúes si no puedes conservar datos importantes. Prueba solo el juego afectado y detente sin sobrescribir ante conflictos de sincronización o avisos de partidas ausentes. Conserva el estado funcional; no reactives extensiones solo para provocar otra vez el fallo.',
       'El caso de Wilds enlazado documenta nombres de DLL, comprobación de solo lectura, pausa reversible y resultado comunicado. No atribuyas la misma causa ni una supuesta tasa de éxito a otros juegos.',
@@ -293,7 +293,7 @@ export const crashGuidesZhEs: TranslatedCommonGuide[] = [
     summary:
       '记录只有游戏关闭还是电脑重启，以及发生时机。启动时比较 MOD 与叠加层；载入时先保全存档并检查文件和场景差异；长时间游玩后观察 RAM、显存与温度变化。核对 Windows 记录中的游戏和时间，每次只改一项。',
     sourcePolicy:
-      '根据日文与已核对的英文版改写官方 Windows/Steam 操作。Steam 扩展部分是2026年10月3日（日本时间）收到的一条匿名用户恢复报告，不是官方修复、受控因果证明或成功率统计。',
+      '根据日文与已核对的英文版改写官方 Windows/Steam 操作。Steam 扩展部分引用2026年10月3日原文章记录中的一条匿名用户恢复报告，确切反馈时间未记录，不是官方修复、受控因果证明或成功率统计。',
     steps: zh
       .filter((s) => s.id.startsWith('step-'))
       .map((s) => ({ id: s.id, title: s.title, actions: s.items!, next: '' })),
@@ -363,7 +363,7 @@ export const crashGuidesZhEs: TranslatedCommonGuide[] = [
     summary:
       'Anota si se cerró solo el juego o se reinició el PC y cuándo. Al iniciar, compara mods y superposiciones; durante la carga, conserva partidas y comprueba archivos y escenas; tras sesiones largas, observa RAM, VRAM y temperatura. Busca juego y hora coincidentes en Windows y cambia un elemento cada vez.',
     sourcePolicy:
-      'Adaptación de las guías japonesa e inglesa revisada sobre procedimientos oficiales de Windows y Steam. El caso de extensiones es un único informe anónimo recibido el 3 de octubre de 2026, hora de Japón; no es una solución oficial, una prueba controlada de causalidad ni una tasa de éxito.',
+      'Adaptación de las guías japonesa e inglesa revisada sobre procedimientos oficiales de Windows y Steam. El caso de extensiones es un único informe anónimo del artículo original fechado el 3 de octubre de 2026, sin fecha exacta de recepción registrada; no es una solución oficial, una prueba controlada de causalidad ni una tasa de éxito.',
     steps: es
       .filter((s) => s.id.startsWith('step-'))
       .map((s) => ({ id: s.id, title: s.title, actions: s.items!, next: '' })),

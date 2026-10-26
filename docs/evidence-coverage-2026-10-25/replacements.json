@@ -1,0 +1,425 @@
+[
+  {
+    "file": "lib/launch-week-articles.ts",
+    "old": "サービス開始直後の接続トラブルは、運営側の混雑や障害が原因のことが多くあります。まず公式のお知らせを確認し、待機列は抜けずに待ちます。Steamで9月の事前テストに参加した人は、Playtestアプリを削除してAION 2本体をダウンロードし直す必要があります（公式の案内）。",
+    "new": "まず公式のお知らせと表示されたエラーを確認し、通常の待機列なら再接続を繰り返さず待ちます。9月のSteam事前テスト参加者には、Playtestではなく本体を導入するよう発売時に案内されました。正式サービスでは、終了済みのアーリーアクセス購入条件を現在のログイン条件と取り違えないでください。",
+    "paths": [
+      "/games/aion2/login-error"
+    ],
+    "reason": "原因頻度の根拠がない断定を削除。既存英語の発売時案内と現在条件の区別へ整合。"
+  },
+  {
+    "file": "lib/fall-release-articles.ts",
+    "old": "AMD Radeon RX 7000・9000シリーズで重い場合は、Remedyが既知の問題として認めており、AMDが対策ドライバーを準備中です。レイトレーシングの設定を変えた後に急に重くなった場合は、ゲームを再起動すれば直ります（公式の回避策）。音の不具合は、Windowsの出力先と音声設定の見直しから始めます。",
+    "new": "資料確認時のRemedyの案内は、Radeon RX 7000・9000の性能問題と、レイトレーシング設定変更後の再起動による回避策を挙げています。現在の公式告知と対象GPUのドライバー情報を確認し、再起動後も同じ場面で比べます。音の不具合はWindowsの出力先と音声設定を確認します。",
+    "paths": [
+      "/games/control-resonant/crash-performance"
+    ],
+    "reason": "過去の準備中案内を現在状態や全PCでの成功保証にしない。既存英語summaryと整合。"
+  },
+  {
+    "file": "lib/fall-release-articles.ts",
+    "old": "Remedyの公式ヘルプには既知の問題の一覧があり、掲載された問題はすべて次のアップデートで修正予定とされています。まず自分の症状が一覧にあるかを確認すると、無駄な作業を避けられます。",
+    "new": "Remedyの既知問題一覧で、自分の症状と対象版を確認します。資料確認時の修正予定は配信完了や改善確認とは別です。後続の更新情報と、導入後の同じ場面での結果を照合してください。",
+    "paths": [
+      "/games/control-resonant/crash-performance"
+    ],
+    "reason": "古い修正予定を現在の保証にしない。"
+  },
+  {
+    "file": "lib/october-release-articles.ts",
+    "old": "最低環境から、ハードウェアレイトレーシング対応GPUとSSDが必須です。GTX 10／16シリーズのGPUやHDDへのインストールでは正常に動きません。次にWindowsのバージョンとGPUドライバーを確認します。オープンベータでは、古いNVIDIAドライバーだと起動しないことが公式の既知の問題として挙げられていました。",
+    "new": "公開された最低環境は、ハードウェアレイトレーシング対応GPUとSSDを要求しています。GTX 10／16シリーズやHDDはその条件を満たしません。次にWindowsとGPUドライバーを確認します。ベータ版の起動問題や推奨版は当時の案内なので、製品版の更新情報と照合してください。",
+    "paths": [
+      "/games/gears-of-war-e-day/not-launching"
+    ],
+    "reason": "要件外を実測の不動保証にせず、ベータ時代の案内と製品版を区別。既存英語と整合。"
+  },
+  {
+    "file": "lib/upcoming-release-articles.ts",
+    "old": "Windowsのリフレッシュレートを元の値に戻す。以後は通常どおり起動できる（公式）",
+    "new": "Windowsのリフレッシュレートを元の値に戻し、通常の起動で同じ黒画面が再発するか確認する。公式の回避策であり、このPCでの改善結果は実際の表示で判断する",
+    "paths": [
+      "/games/castlevania-belmonts-curse/not-launching"
+    ],
+    "reason": "公式回避策と個別PCでの実際の結果を区別。"
+  },
+  {
+    "file": "lib/elden-articles.ts",
+    "old": "Steam版のセーブは「%APPDATA%\\EldenRing」の中にある、数字だけの名前のフォルダ（SteamID）に入っています。本体のファイルは「ER0000.sl2」です。ゲームとSteamを終了してから、数字のフォルダごと別のドライブへコピーすればバックアップは完了です。",
+    "new": "Steam版の保存場所は「%APPDATA%\\EldenRing」内の数字のフォルダで、本体ファイルは「ER0000.sl2」です。ゲームとSteamを終了し、元のパスとアカウントを記録してフォルダごと別の保存先へコピーします。コピー先の存在・内容を確認し、復元できることまで確認済みとは扱わないでください。",
+    "paths": [
+      "/games/elden-ring/save-data"
+    ],
+    "reason": "コピー完了と復元確認を区別。既存英語はverify copyと対象アカウントを明記。"
+  },
+  {
+    "file": "lib/elden-articles.ts",
+    "old": "MODで置き換えたファイルも元に戻ります。MODを使っている場合は、先に導入ファイルの場所を控えてください。",
+    "new": "整合性確認はSteamの管理対象ファイルを確認する操作です。追加したMODファイルがすべて消えるとは限らないため、導入元の取り外し手順とファイルの場所を先に控え、MODなしでの起動結果を別に確認してください。",
+    "paths": [
+      "/games/elden-ring/not-launching"
+    ],
+    "reason": "先行Steam根拠限定と既存英語MOD手順に合わせる。"
+  },
+  {
+    "file": "lib/elden-articles.ts",
+    "old": "「上限で止まる」「全体的に低い」「一瞬だけ止まる」は原因が別です。早見表で症状を分けてから進めると、無駄な設定変更を減らせます。",
+    "new": "「上限で止まる」「全体的に低い」「一瞬だけ止まる」を分けて比較します。症状だけで原因は確定できません。公式FAQの確認項目と、PCGamingWikiにあるカクつきの説明を区別し、同じ場所を繰り返した結果を記録してください。",
+    "paths": [
+      "/games/elden-ring/fps"
+    ],
+    "reason": "症状分類を原因確定としない。既存英語のrepeatable comparisonと整合。"
+  },
+  {
+    "file": "lib/elden-articles.ts",
+    "old": "消えません。表示の比率は画面モードに関係なく16:9です。ただしフルスクリーンでは60Hzに固定されるため、リフレッシュレートを気にする場合はボーダーレスウィンドウの方が向いています。",
+    "new": "ボーダーレスに変えるだけでは、非対応のウルトラワイド表示を追加できません。リフレッシュレートを比べる場合は、Windowsで実際の表示Hzを確認してください。ゲーム内のFPS表示とモニターのHzを同じ値として判断しないでください。",
+    "paths": [
+      "/games/elden-ring/ultrawide"
+    ],
+    "reason": "全環境60Hz固定の断定を避け、既存英語fpsの実表示確認へ整合。"
+  },
+  {
+    "file": "lib/elden-articles.ts",
+    "old": "Steamでゲームファイルの整合性を確認し、元のファイルに戻す",
+    "new": "Steamでゲームファイルの整合性を確認し、追加したMODや依存ファイルが残っていないか、記録した導入内容と照合する",
+    "paths": [
+      "/games/elden-ring/mod"
+    ],
+    "reason": "整合性確認だけを全復元としない。既存英語restore手順と整合。"
+  },
+  {
+    "file": "lib/elden-articles.ts",
+    "old": "Steamから通常どおり起動し、オンラインに接続できるか確認する",
+    "new": "Steamから通常起動する。通常のアンチチート経路と残る改変を確認できるまでオンライン接続を試さず、警告があれば公式サポートへ確認する",
+    "paths": [
+      "/games/elden-ring/mod"
+    ],
+    "reason": "未確認の改変状態を復旧成功扱いしない。既存英語と整合。"
+  },
+  {
+    "file": "lib/upcoming-release-articles.ts",
+    "old": "購入前に、無料の体験版で自分のPCで動くか確かめるのが確実です。",
+    "new": "体験版で自分のPCの動作を比較できます。ただし、これは体験版での確認であり、発売前の製品版全体の性能や引き継ぎ成功を検証した結果ではありません。",
+    "paths": [
+      "/games/dragon-quest-monsters-4/demo-transfer"
+    ],
+    "reason": "発売前版の対象範囲を明示。全製品動作への保証にしない。"
+  },
+  {
+    "file": "lib/cod-mw4-articles.ts",
+    "old": "バックグラウンドで動いているアプリをすべて終了してから起動する",
+    "new": "自分で開いた録画・オーバーレイ・キー割り当てなど、今回不要なアプリを通常の終了操作で1つずつ閉じて起動結果を比較する。保護機能や役割が分からない常駐処理は停止しない",
+    "paths": [
+      "/games/call-of-duty-modern-warfare-4/crash"
+    ],
+    "reason": "公式例の対象を全バックグラウンド処理へ広げず、比較条件を明確化。"
+  },
+  {
+    "file": "lib/monster-hunter-articles.ts",
+    "old": "win64_saveフォルダを丸ごと別の場所へコピーすればバックアップ完了です。",
+    "new": "ゲームとSteamを終了してwin64_saveフォルダを丸ごと別の場所へコピーし、コピー先の内容を確認します。コピー完了だけでは、ゲームで読み込めることまで確認した扱いにはしません。",
+    "paths": [
+      "/games/monster-hunter-wilds/save-data"
+    ],
+    "reason": "英語のcopy then compareと整合し、コピー完了を復元検証と混同しない。"
+  },
+  {
+    "file": "lib/monster-hunter-articles.ts",
+    "old": "初期化する時は、削除せずゲームフォルダの外へ移すと、起動時に新しいファイルが作られます。",
+    "new": "初期化する時はコピーを残してゲームフォルダの外へ移し、起動後に新しいファイルが作られるか確認します。",
+    "paths": [
+      "/games/monster-hunter-wilds/config-file"
+    ],
+    "reason": "英語のcheck whetherと一致させ、再生成を各環境で保証しない。"
+  },
+  {
+    "file": "lib/monster-hunter-articles.ts",
+    "old": "先にコピーを作り、削除ではなくゲームフォルダの外へ退避してください。次の起動時に作り直されます。",
+    "new": "先にコピーを作り、削除ではなくゲームフォルダの外へ退避してください。次の起動後に再生成の有無を確認し、作られなければ元の控えを残して原因を切り分けます。",
+    "paths": [
+      "/games/monster-hunter-wilds/config-file"
+    ],
+    "reason": "FAQも同じ範囲に限定。"
+  },
+  {
+    "file": "lib/monster-hunter-articles.ts",
+    "old": "ファイルをゲームフォルダの外へ移す→起動すると作り直される",
+    "new": "コピーを残して退避→起動後に再生成の有無を確認",
+    "paths": [
+      "/games/monster-hunter-wilds/config-file"
+    ],
+    "reason": "quickFactsも保証表現を揃える。"
+  },
+  {
+    "file": "lib/game-articles.ts",
+    "old": "コピーしたファイルを貼り付ける",
+    "new": "既存のPalWorldSettings.iniがある場合は先に別の場所へコピーして保全し、初回設定や作り直しが必要な場合だけテンプレートを貼り付ける",
+    "paths": [
+      "/games/palworld/dedicated-server-settings"
+    ],
+    "reason": "初回テンプレートと既存実設定の対象範囲を区別。英語の既存設定保全と整合。"
+  },
+  {
+    "file": "lib/current-game-articles.ts",
+    "old": "カプコンの公式ガイドは、フレームレートが安定しない場合に「設定＞グラフィックス＞グラフィックプリセット」を「最低」にするよう案内しています。",
+    "new": "カプコンの公式ガイドは、フレームレートが安定しない場合に低いグラフィックプリセットを試すよう案内しています。画面の項目名は表示言語・版で確認してください。",
+    "paths": [
+      "/games/onimusha-way-of-the-sword/low-fps"
+    ],
+    "reason": "日文最低と英語LowのUI対応を断定せず、公式の低負荷比較という範囲へ限定。"
+  },
+  {
+    "file": "lib/current-game-articles.ts",
+    "old": "グラフィックプリセットを「最低」にして比べる",
+    "new": "低いグラフィックプリセットで比べる",
+    "paths": [
+      "/games/onimusha-way-of-the-sword/low-fps"
+    ],
+    "reason": "手順見出しのUI断定を限定。"
+  },
+  {
+    "file": "lib/current-game-articles.ts",
+    "old": "「設定」→「グラフィックス」→「グラフィックプリセット」を「最低」にして、同じ場所でFPSを比べる",
+    "new": "ゲーム内のグラフィックプリセットで選べる低い設定を選び、表示された項目名を記録して同じ場所でFPSを比べる",
+    "paths": [
+      "/games/onimusha-way-of-the-sword/low-fps"
+    ],
+    "reason": "操作文も同じ限定。"
+  },
+  {
+    "file": "lib/dawnwalker-articles.ts",
+    "old": "新しいBIOSがあれば、そのメーカーの手順どおりに更新する",
+    "new": "メーカーが対象とするIntelデスクトップCPUで、機種に適用できる更新と復旧手順を確認できた場合だけ、メーカーの案内に従う。対象外・不明ならBIOS変更を飛ばし、ゲームの更新とエラー記録を確認する",
+    "paths": [
+      "/games/the-blood-of-dawnwalker/shader-compilation-crash"
+    ],
+    "reason": "既存英語と結論の対象CPU限定を実際の手順にも適用。"
+  },
+  {
+    "file": "lib/verified-release-articles.ts",
+    "old": "黒い画面は原因が3つに絞られています。上から順に1つずつ確認すると、無駄な設定変更を減らせます。",
+    "new": "公式が挙げる3項目は原因の候補で、すべての黒い画面を説明するものではありません。1項目ずつ比較し、変化がなければ発生場面と結果をサポートへ伝えます。",
+    "paths": [
+      "/games/star-wars-zero-company/black-screen"
+    ],
+    "reason": "日本語の原因限定を削除。英語と同じ候補の範囲に戻す。"
+  },
+  {
+    "file": "lib/launch-week-articles.ts",
+    "old": "購入前なら、Steamで配信中の無料体験版で自分のPCで動くか確かめるのが確実です。",
+    "new": "購入前なら、配信中の無料体験版で自分のPCの動作を比較できます。ただし体験版の結果は製品版の全場面を保証しません。",
+    "paths": [
+      "/games/shin-sangoku-musou-2-remastered/not-launching"
+    ],
+    "reason": "体験版を全製品版の検証と読ませない。既存英語にある限定と整合。"
+  },
+  {
+    "file": "lib/fall-release-articles.ts",
+    "old": "まずメインメニュー右下のバージョンが「v1.4.153829」になっているか確認します。",
+    "new": "「v1.4.153829」は当時の修正版の表示です。現在の版にその修正または後続の更新が含まれるか公式告知と照合し、古い版へ戻さないでください。",
+    "paths": [
+      "/games/silent-hill-townfall/stutter"
+    ],
+    "reason": "過去パッチの記録と現在必要な完全一致を区別。"
+  },
+  {
+    "file": "lib/fall-release-articles.ts",
+    "old": "ゲームを起動し、メインメニュー右下のバージョンが「v1.4.153829」になっているか確認する",
+    "new": "メインメニュー右下のバージョンを記録する。v1.4.153829は当時の修正版であり、後続版なら公式告知で修正の包含を確認する。完全一致させるために旧版へ戻さない",
+    "paths": [
+      "/games/silent-hill-townfall/stutter"
+    ],
+    "reason": "既存英語のhistorical baselineと手順を整合。"
+  },
+  {
+    "file": "lib/fall-release-articles.ts",
+    "old": "友達と遊ぶ時は、全員がMicrosoftアカウントでサインインし、パーティーコードで参加するのが確実です。",
+    "new": "友達と遊ぶ時は、全員が自分のMicrosoftアカウントでサインインし、パーティーコードと人数を確認します。コードが正しくても接続成功を保証するものではありません。",
+    "paths": [
+      "/games/minecraft-dungeons-2/multiplayer"
+    ],
+    "reason": "仕様上の参加手順と実際の接続成功を分離。"
+  },
+  {
+    "file": "lib/upcoming-release-articles.ts",
+    "old": "要件はとても軽く、GPUはGTX 650 Ti（1GB）から動作します。",
+    "new": "Steamの要件欄にはGTX 650 Ti（1GB）が記載されていますが、これだけで起動可能とは判断できません。",
+    "paths": [
+      "/games/tales-of-eternia-remastered/not-launching"
+    ],
+    "reason": "同記事のDX12 4GB条件および英語の留保と矛盾する動作保証を除去。"
+  },
+  {
+    "file": "lib/upcoming-release-articles.ts",
+    "old": "DirectX 12のエラーが出て、専用GPUメモリが4GB未満なら、GPUの条件が原因の可能性が高い",
+    "new": "DirectX 12のエラーが出て、専用GPUメモリが4GB未満なら、その注記を満たしていないことを記録して公式サポートへ確認する。エラーだけで原因を確定しない",
+    "paths": [
+      "/games/tales-of-eternia-remastered/not-launching"
+    ],
+    "reason": "測定や原因率の根拠がない「可能性が高い」を条件未達の記録へ。"
+  },
+  {
+    "file": "lib/upcoming-release-articles.ts",
+    "old": "重い時は、アップスケーリングをONにしてレイトレーシングを切るところから始めます。",
+    "new": "発売後に起動可能となってから、実際に選べるアップスケーリングとレイトレーシング設定を1項目ずつ比較します。製品版の実測結果ではありません。",
+    "paths": [
+      "/games/phantom-blade-zero/not-launching"
+    ],
+    "reason": "既存英語のprerelease preparationと整合。発売前の修復実績を示唆しない。"
+  },
+  {
+    "file": "lib/verified-release-articles.ts",
+    "old": "該当する場合は、PCメーカーまたはマザーボードメーカーの手順に従ってBIOSを最新にする",
+    "new": "正確なCPU型番がメーカーの対象範囲に含まれる場合だけ、機種に適用できるBIOS更新・復旧方法を確認して公式手順に従う。対象外・不明なら変更せずメーカーへ確認する",
+    "paths": [
+      "/games/star-wars-zero-company/not-launching"
+    ],
+    "reason": "既存英語と同じ対象CPU限定を操作文に反映。"
+  },
+  {
+    "file": "lib/current-game-articles.ts",
+    "old": "最低プリセットでも改善しなければ、GPU名・ドライバー版・解像度・比較した場面・各変更の結果を記録し、カプコン公式のトラブルシューティングへ。",
+    "new": "低いプリセットでも改善しなければ、GPU名・ドライバー版・解像度・比較した場面・各変更の結果を記録し、カプコン公式のトラブルシューティングへ。",
+    "paths": [
+      "/games/onimusha-way-of-the-sword/low-fps"
+    ],
+    "reason": "同じ記事の補足も未確認のUI名へ固定しない。"
+  },
+  {
+    "file": "components/crash-details.tsx",
+    "old": "2026年10月3日（日本時間）、Steam版モンハンワイルズがタイトル前に落ちる環境で、",
+    "new": "2026年10月3日付の元記事には、Steam版モンハンワイルズがタイトル前に落ちる環境で、",
+    "paths": [
+      "/guide/pc-game-crash"
+    ],
+    "reason": "記録日を報告日時と混同しない。"
+  },
+  {
+    "file": "components/crash-details.tsx",
+    "old": "Steamクライアントの外部拡張を一時停止した後に「プレイできた」との報告が1件ありました。",
+    "new": "Steamクライアントの外部拡張を一時停止した後に「プレイできた」との報告が1件記録されています。正確な報告日時は未記録です。",
+    "paths": [
+      "/guide/pc-game-crash"
+    ],
+    "reason": "PR146/本人報告の既存記録へ整合。"
+  },
+  {
+    "file": "lib/localized/crash-guides-zh-es.ts",
+    "old": "2026年10月3日（日本时间），一位用户报告 Steam 版",
+    "new": "2026年10月3日的原文章记录中，一位用户反馈（确切反馈时间未记录）Steam 版",
+    "paths": [
+      "/zh/guide/pc-game-crash"
+    ],
+    "reason": "報告日時ではなく元記事日。"
+  },
+  {
+    "file": "lib/localized/crash-guides-zh-es.ts",
+    "old": "Steam 扩展部分是2026年10月3日（日本时间）收到的一条匿名用户恢复报告",
+    "new": "Steam 扩展部分引用2026年10月3日原文章记录中的一条匿名用户恢复报告，确切反馈时间未记录",
+    "paths": [
+      "/zh/guide/pc-game-crash"
+    ],
+    "reason": "sourcePolicyの受領日断定を除く。"
+  },
+  {
+    "file": "lib/localized/crash-guides-zh-es.ts",
+    "old": "El 3 de octubre de 2026, hora de Japón, un usuario comunicó que pudo jugar",
+    "new": "El artículo original fechado el 3 de octubre de 2026 recoge un informe de un usuario, sin fecha exacta de recepción registrada, que pudo jugar",
+    "paths": [
+      "/es/guide/pc-game-crash"
+    ],
+    "reason": "元記事記録日と報告受領日を分離。"
+  },
+  {
+    "file": "lib/localized/crash-guides-zh-es.ts",
+    "old": "un único informe anónimo recibido el 3 de octubre de 2026, hora de Japón",
+    "new": "un único informe anónimo del artículo original fechado el 3 de octubre de 2026, sin fecha exacta de recepción registrada",
+    "paths": [
+      "/es/guide/pc-game-crash"
+    ],
+    "reason": "sourcePolicyの受領日断定を除く。"
+  },
+  {
+    "file": "lib/requirement-guides.ts",
+    "old": "TPMがUEFI（BIOS）で無効になっている（自作PC向けマザーボードは初期状態でオフのことが多い）",
+    "new": "TPMがUEFI（BIOS）で無効になっている可能性（初期状態は機種ごとに確認）",
+    "paths": [
+      "/guide/tpm-secure-boot"
+    ],
+    "reason": "裏付けのない頻度を除く。"
+  },
+  {
+    "file": "lib/requirement-guides.ts",
+    "old": "通常のゲームの動作には影響しません。ただし、起動モードをレガシーからUEFIに切り替えると、MBR形式のディスクのWindowsは起動しなくなるため、先にディスクの形式を確認してください。",
+    "new": "すべての環境で影響がないとは判断できません。起動方式や暗号化の構成によってWindowsの起動・回復に影響するため、ディスク形式、回復キー、機種別の手順を先に確認してください。Legacy／MBRの状態で起動モードだけをUEFIへ切り替えないでください。",
+    "paths": [
+      "/guide/tpm-secure-boot"
+    ],
+    "reason": "既存英語FAQの限定へ整合。"
+  },
+  {
+    "file": "lib/requirement-guides.ts",
+    "old": "2026年10月の新作では、エースコンバット8、真・三國無双2 Remastered、FFレゾナンスなど、動作環境の最低条件がWindows 11の作品が増えています。自分のWindowsのバージョンと、Windows 11にアップグレードできるかを確認する方法をまとめました。",
+    "new": "ゲームの最低動作環境にWindows 11と明記されている場合の確認ガイドです。自分のWindowsの版とゲーム公式の対象OSを照合し、アップグレードの適合性とセーブの保全を確認する方法をまとめました。",
+    "paths": [
+      "/guide/windows-11-required"
+    ],
+    "reason": "未再確認タイトル群・増加傾向の断定を除く。"
+  },
+  {
+    "file": "lib/requirement-guides.ts",
+    "old": "動作環境の表記上、エースコンバット8、真・三國無双2 Remastered、ドラゴンズドグマ2（ダークアリズン）、Castlevania: Belmont’s Curse、テイルズ オブ エターニア リマスター、FFレゾナンスなどはWindows 11と記載されています。一覧は「2026年10月発売の新作PCゲーム 動作環境まとめ」を見てください。",
+    "new": "作品・配信版ごとの公式サイトやストアの最低OSを確認してください。「2026年10月発売の新作PCゲーム 動作環境まとめ」は探すための索引で、各ゲームの現在の公式要件に代わるものではありません。発売月だけで対応OSを判断しないでください。",
+    "paths": [
+      "/guide/windows-11-required"
+    ],
+    "reason": "既存英語も公式各要件を優先するため矛盾は増やさない。"
+  },
+  {
+    "file": "lib/requirement-guides.ts",
+    "old": "エースコンバット8やGears of War: E-Dayのように、最低環境から「ハードウェアレイトレーシング対応GPU」を必須にするPCゲームがあります。非対応のGPUでは設定を下げても起動できないため、購入前に自分のGPUを確認する方法をまとめました。",
+    "new": "最低環境に「ハードウェアレイトレーシング対応GPU」と明記されたゲーム向けです。任意の画質設定と必須機能を分け、使用中のGPUの正確な型番とゲーム公式の最低要件を購入前に照合します。シリーズ名だけで起動や性能を保証しません。",
+    "paths": [
+      "/guide/ray-tracing-gpu"
+    ],
+    "reason": "一律の起動結果を断定しない。"
+  },
+  {
+    "file": "lib/requirement-guides.ts",
+    "old": "タスクマネージャーの「パフォーマンス」→「GPU」でGPU名を確認します。NVIDIAはGeForce RTXシリーズ（RTX 20シリーズ以降）、AMDはRadeon RX 6000シリーズ以降が、ハードウェアのレイトレーシング機能を備えています。GTX 10／16シリーズやRadeon RX 5000シリーズ以前は非対応で、ゲーム側の設定では解決できません。",
+    "new": "タスクマネージャーの「パフォーマンス」→「GPU」で正確な型番を確認し、ゲーム公式の最低GPU・必須機能と比べます。専用のレイトレーシング機能と、任意のDXR効果が動くことは別です。対応シリーズでも性能やVRAMが不足する場合があるため、シリーズ名だけで適合としないでください。",
+    "paths": [
+      "/guide/ray-tracing-gpu"
+    ],
+    "reason": "英語の専用RT/基本DXR区別へ整合。"
+  },
+  {
+    "file": "lib/requirement-guides.ts",
+    "old": "NVIDIA：GeForce RTX（RTX 20・30・40・50シリーズ）は対応。GeForce GTX（GTX 10・16シリーズなど）は非対応",
+    "new": "NVIDIA：ゲームが求める専用RT機能と正確なGPU型番を照合する。GeForce RTXの専用RT機能と、一部GTXでシェーダーを使って動くDXR効果を同じ要件として扱わない",
+    "paths": [
+      "/guide/ray-tracing-gpu"
+    ],
+    "reason": "既存英語のNVIDIA公式説明に対応。親は同英語に既存のNVIDIA出典を日本語にも再利用可。"
+  },
+  {
+    "file": "lib/requirement-guides.ts",
+    "old": "最低環境で「ハードウェアレイトレーシング対応GPU」が必須のゲームは、GTXシリーズでは要件を満たしません。性能の高さに関係なく、ハードウェアのレイトレーシング機能がないためです。",
+    "new": "そのゲームが必須とする専用RT機能・対応モデルを確認してください。一部のGTXでDXR効果が動くことは、専用RT機能を持つ掲載モデルと同じ要件を満たす証明にはなりません。古いデモや通常描画の性能だけで適合と判断しないでください。",
+    "paths": [
+      "/guide/ray-tracing-gpu"
+    ],
+    "reason": "既存英語FAQとの根拠範囲整合。"
+  },
+  {
+    "file": "lib/upcoming-release-articles.ts",
+    "old": "Cygamesの新ブランド「CygamesEdge」の第1作で、Steamストアの日本語表示では2026年11月5日発売です。体験版は配信中で、公式によると最初からすべてのアクションが使える高難度の区間で、ストーリー要素はなく15〜30分ほどで遊べます。日本語に対応しています。",
+    "new": "Cygamesの新ブランド「CygamesEdge」の第1作で、Steamストアの日本語表示では2026年11月5日発売です。体験版は配信中で、公式によると最初からすべてのアクションが使える高難度の区間で、ストーリー要素はなく15〜30分ほどで遊べます。日本語に対応しています。 体験版と未発売の製品版を区別してください。製品版の修復を実機検証した記事ではなく、製品版の操作は配信開始後に公式案内と照合します。",
+    "paths": [
+      "/games/where-the-seeds-fall/not-launching"
+    ],
+    "reason": "体験版配信中と製品版未発売を説明段落で区別する。"
+  }
+]

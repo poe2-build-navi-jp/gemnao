@@ -199,7 +199,7 @@ export default async function DiscordArticlePage({
           ) : null}
           <div className="article-meta">
             <EditorialByline />
-            <span>最終確認：{item.checkedAt.replaceAll('-', '.')}</span>
+            <span>資料の確認記録：{item.checkedAt.replaceAll('-', '.')}</span>
             <span>対象：{item.target}</span>
           </div>
           <SaveArticle path={`/discord/${item.slug}`} title={item.title} />

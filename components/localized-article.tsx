@@ -162,7 +162,7 @@ export function LocalizedArticle({
               </a>
             </span>
             <span>
-              {t.lastChecked} {article.checkedAt}
+              {t.sourceRecord} {article.checkedAt}
             </span>
           </div>
           <SaveArticle path={path} title={article.title} locale={locale} />

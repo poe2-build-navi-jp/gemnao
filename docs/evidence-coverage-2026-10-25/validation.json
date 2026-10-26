@@ -1,0 +1,34 @@
+{
+  "scope": "Combined game and final-coverage changes in the same local tree; not production deployment or game hardware tests",
+  "freshChecks": {
+    "build": "pass; static assets/sitemaps and 573 OG cards; 1 OG regenerated",
+    "typecheck": "pass",
+    "lint": "pass",
+    "localized": "pass: 355 existing translated pages; ray-tracing source exception removed",
+    "coverage": "pass: all 181 pending paths accounted for; 28 changed,153 existing-sufficient,0 blocked;10 prior records retained",
+    "builtHtml": "pass: all 191 article routes, answer/references/date label/canonical; zh/es report timestamp qualification",
+    "browser": {
+      "cases": 60,
+      "widths": [
+        375,
+        1440
+      ],
+      "controls": 10,
+      "errors": [],
+      "badAssets": [],
+      "writes": []
+    },
+    "firstWaveRegression": "pass: robots and inherited evidence snapshot"
+  },
+  "notRerun": "Broad Discord route expectation baseline comparison is inherited evidence from PR145, not rerun here; full suite not claimed to pass",
+  "priorPr146Cloudflare": {
+    "sha": "ce784c0eaa4dc191fec3acf75d3a3821bd4a7dc9",
+    "name": "Cloudflare Pages",
+    "app": "cloudflare-workers-and-pages",
+    "status": "completed",
+    "conclusion": "success",
+    "deployment": "46b87a58-e1c8-4022-a00e-d5e4fb288fcc",
+    "preview": "https://46b87a58.gemnao.pages.dev",
+    "check": "https://github.com/poe2-build-navi-jp/gemnao/runs/121273568350"
+  }
+}
