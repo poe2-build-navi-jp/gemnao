@@ -289,7 +289,7 @@ try {
     const page = await context.newPage();
     await page.goto(base + '/wizard');
     await page
-      .getByText('受付状況を確認できないため', { exact: false })
+      .getByText('確認不能：診断の稼働状況を確認できません。', { exact: false })
       .waitFor();
     assert.equal(
       await page
