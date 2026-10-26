@@ -1047,7 +1047,7 @@ export const articleReviews: Record<string, Omit<ArticleReview, 'path'>> = {
     checkedOn: '2026-10-03',
     steps: [
       { id: 'step-1', title: 'GPUドライバーを公式指定以上へ更新する' },
-      { id: 'step-2', title: 'グラフィックプリセットを「最低」にして比べる' },
+      { id: 'step-2', title: '低いグラフィックプリセットで比べる' },
       { id: 'step-3', title: '電源設定と排熱を確認する' },
       { id: 'step-4', title: '描画負荷とFPS上限を別々に確認する' },
       { id: 'step-5', title: '同時アプリと、ゲームに指定したGPUを確認する' },
