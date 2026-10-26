@@ -1,0 +1,14 @@
+.image-search { max-width: 760px; margin: 0 auto; padding: 32px 20px 64px; overflow-wrap: anywhere; }
+.image-search h1 { font-size: clamp(1.5rem, 5vw, 2.2rem); margin: 24px 0; }
+.image-search p { line-height: 1.8; margin: 16px 0; }
+.image-search label { display: block; margin: 20px 0 8px; font-weight: 600; }
+.image-search textarea, .image-search select, .image-search input { max-width: 100%; }
+.image-search textarea { width: 100%; resize: vertical; padding: 12px; border: 1px solid #777; border-radius: 8px; background: var(--background); color: inherit; font: inherit; }
+.image-search select { padding: 10px; background: var(--background); color: inherit; }
+.image-search button { min-height: 44px; padding: 10px 16px; border: 1px solid #777; border-radius: 8px; font: inherit; cursor: pointer; }
+.image-search button:disabled { opacity: .5; cursor: default; }
+.image-search-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
+.image-search :focus-visible { outline: 3px solid #348eda; outline-offset: 3px; }
+.image-search progress { width: 100%; }
+.image-search li { margin: 16px 0; }
+.image-search a { text-decoration: underline; }
