@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import { build } from 'esbuild';
+const result = await build({stdin:{contents:`export {searchArticles,searchGames} from './lib/site-search';export {rankSearchDocuments,searchErrorCodes} from './lib/search-ranking';`,resolveDir:process.cwd()},bundle:true,platform:'node',format:'esm',write:false});
+const {searchArticles,searchGames,rankSearchDocuments,searchErrorCodes}=await import('data:text/javascript;base64,'+Buffer.from(result.outputFiles[0].text).toString('base64'));
+for(const q of ['もんはん 開かない','わいるず 起動しない'])assert.equal(searchArticles(q)[0]?.gameArticle?.gameSlug,'monster-hunter-wilds',q);
+assert(searchArticles('スチーム 起動しない').some(r=>r.href==='/guide/steam-game-not-launching'));
+assert(searchArticles('Disocrd マイク').some(r=>r.kind==='discord'),'transposed spelling');
+assert(searchGames('cyberpnk').some(r=>r.slug==='cyberpunk-2077'));
+for(const q of ['ST-3100001','ＳＴ－３１００００１','ST 3100001'])assert.equal(searchArticles(q)[0]?.href,'/games/ace-combat-8/error-st-3100001',q);
+for(const q of ['ST-3100009','VAN900399','未収録タイトル 起動しない','qzxvbnmzz'])assert.equal(searchArticles(q).length,0,q);
+assert.deepEqual(searchErrorCodes('DXGI_ERROR_DEVICE_REMOVED'),['dxgierrordeviceremoved']);
+const docs=[{item:'body',title:'generic help',keywords:'',body:'van9003'}, {item:'title',title:'van9003 error',keywords:'',body:''},{item:'other',title:'van9001 error',keywords:'',body:''}];
+assert.deepEqual(rankSearchDocuments(docs,['van9003'],'van9003',false,()=>0),['title','body']);
+assert.equal(searchArticles('x'.repeat(301)).length,0);
+console.log('PASS: Fuse spelling fallback, Japanese aliases, exact/full-width error codes, no neighbouring codes, weighted fields, unknown qualifiers and query bound');

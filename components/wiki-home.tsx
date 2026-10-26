@@ -222,6 +222,7 @@ export function WikiHome({
             </button>
           )}
         </div>
+        <p><a href="/diagnose/image-search">画像の文字から検索 →</a></p>
         <section
           className="search-examples home-search-examples"
           hidden={isSearching}

@@ -256,7 +256,7 @@ const worker = {
       );
       return response;
     }
-    if (pathname.startsWith('/images/') || staticFiles.has(pathname)) {
+    if (pathname.startsWith('/images/') || pathname.startsWith('/ocr/v7/') || staticFiles.has(pathname)) {
       return env.ASSETS.fetch(request);
     }
 
