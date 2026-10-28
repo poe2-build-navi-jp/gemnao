@@ -57,6 +57,15 @@ base `gemunao` / `75a1d0b` から独立ブランチ。別ブランチのsitemap/
 - `node scripts/check-report-queue-feedback.mjs`：日英中西、読込/空/模擬行、HTTP失敗/不正JSON/通信/タイムアウト/連打/ページングを成功。実報告ではない。
 - 画面証跡：`docs/validation/article-confidence-2026-10-28/`。スマホのワイルズとPCの英語ACE8を目視確認。
 
-未完了：人間の初見テスト、実報告に基づく記事改善、本番公開（今回は承認範囲外）。重要変更表示は既存の確認済み公式変更に対応。非公式の「新しい解決策追加」の新規記録は根拠となる実際の変更が未確認のため追加していない。
+未完了：人間の初見テスト、実報告に基づく記事改善、本番公開（今回は承認範囲外）。重要変更表示は既存の確認済み公式変更に対応。非公式の「新しい解決策追加」は、記録が未登録なだけでなく、イベント種別・登録と表示の仕組み自体が未実装です。現在の実装は確認済み公式変更のみを対象とし、両者を同じ完了項目として扱いません。非公式の解決策追加に対応するには、実際の根拠を確認したうえで公式修正と区別したイベント設計・表示・検査が必要です。
 
 追加：`TEST_BASE_URL=http://localhost:8796 CHROMIUM_PATH=/usr/bin/chromium node scripts/check-home-cls-browser.mjs` は本番ビルドのローカルpreviewで成功。受付状態・フォーカス・レイアウト25ケース、JavaScriptなし5幅を確認。既存gateを保ち、ラベル変更に合わせた期待文言のみ更新（検査条件の弱体化なし）。
+
+
+## 独立レビュー後の追加回帰検証
+
+`node scripts/check-saved-article-revisions-browser.mjs` を追加。実際の `SavedArticleChanges` と既存のフィルタ・初回登録・既読保存・カードUIをローカルChromiumで実行します。テストbundle内だけの合成registryを使用し、本番registryファイルは変更しません。
+
+日英それぞれで、旧revisionだけの初回表示が既読→新revisionを加えたページへの再訪で実際のカードが未読→reloadでも未読→既読ボタン操作→reload後も既読、まで成功。2つのrevisionは同じ日付にして、日付変更ではなくrevision IDによる判定を検証しました。外部リクエスト・APIアクセス・pageerrorなし。従来の「将来IDが集合にない」検査だけに依存しません。
+
+追加分は検査と文書のみ。`node scripts/run-my-game-changes-check.mjs`、`pnpm lint`、`pnpm typecheck` を再実行して成功。製品コードは前回のビルド成功時から変更していないため、本番ビルドは再実行していません。draft PR作成は承認待ちのままで実行していません。
