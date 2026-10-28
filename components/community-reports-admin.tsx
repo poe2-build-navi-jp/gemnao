@@ -668,6 +668,26 @@ export function CommunityReportsAdmin() {
         </select>
       </label>
       <h1>{a.title}</h1>
+      <details>
+        <summary>
+          {locale === 'ja'
+            ? '未解決報告を記事改善へつなげる手順'
+            : locale === 'en'
+              ? 'Use unresolved reports to improve guides'
+              : locale === 'zh'
+                ? '将未解决报告用于改进指南'
+                : 'Usar informes sin resolver para mejorar las guías'}
+        </summary>
+        <p>
+          {locale === 'ja'
+            ? '審査済みの報告を記事パス・STEP・環境・結果で照合し、重複を分けてから不足手順を公式資料で確認します。投票件数だけで原因や有効性を断定しません。個人情報・生ログ・未審査本文は記事や公開PRへ転記しないでください。現在の同意では記事転載は無効です。確認できた手順変更だけ対象と限界を添えて編集し、重要変更の記録と公開前レビューへ進めます。取得失敗は0件ではありません。'
+            : locale === 'en'
+              ? 'Match reviewed reports by article, STEP, environment and outcome; separate duplicates, then verify missing advice against official sources. Vote counts alone do not establish a cause or effectiveness. Do not copy personal data, raw logs or unreviewed text into articles or public PRs. Current consent does not permit article republication. Edit only verified advice with its scope and limits, then record important changes and request publication review. A failed fetch does not mean zero reports.'
+              : locale === 'zh'
+                ? '按文章、步骤、环境和结果核对已审核报告，区分重复项，再用官方资料验证缺少的说明。票数不能证明原因或效果。不要把个人信息、原始日志或未审核内容复制到文章或公开PR。现有同意不允许文章转载。仅修改已确认的步骤，说明适用范围和限制，再记录重要变化并进行发布前审核。读取失败不等于零条报告。'
+                : 'Compara informes revisados por artículo, paso, entorno y resultado; separa duplicados y verifica las instrucciones con fuentes oficiales. Los votos no demuestran la causa ni la eficacia. No copies datos personales, registros sin procesar ni texto sin revisar en artículos o PR públicos. El consentimiento actual no permite republicar informes en artículos. Modifica solo instrucciones verificadas, indicando alcance y límites, y registra los cambios importantes para revisión antes de publicar. Un fallo de lectura no significa cero informes.'}
+        </p>
+      </details>
       <p>
         <a href="/admin/discord-servers">{a.login}</a>
       </p>

@@ -18,9 +18,9 @@ function subscribe(callback: () => void) {
     window.removeEventListener(CHANGES_READ_EVENT, callback);
   };
 }
-function snapshot() {
+function snapshot(storageKey: string) {
   try {
-    return localStorage.getItem(CHANGES_READ_KEY);
+    return localStorage.getItem(storageKey);
   } catch {
     return 'unavailable';
   }
@@ -29,12 +29,20 @@ const serverSnapshot = () => undefined;
 export function MyGameChanges({
   changes = [],
   locale,
+  storageKey = CHANGES_READ_KEY,
+  notesHref = '#issue-notebook',
 }: {
   changes?: VisibleGameChange[];
   locale: MyGamesLocale;
+  storageKey?: string;
+  notesHref?: string;
 }) {
   const t = gameChangesCopy[locale];
-  const raw = useSyncExternalStore(subscribe, snapshot, serverSnapshot);
+  const raw = useSyncExternalStore(
+    subscribe,
+    () => snapshot(storageKey),
+    serverSnapshot,
+  );
   const [message, setMessage] = useState('');
   let read: string[] = [];
   let invalid = false;
@@ -118,7 +126,7 @@ export function MyGameChanges({
                 </a>
               </li>
               <li>
-                <a href="#issue-notebook">{t.notes}</a>
+                <a href={notesHref}>{t.notes}</a>
               </li>
             </ul>
             <button
@@ -127,7 +135,7 @@ export function MyGameChanges({
               aria-label={`${isRead ? t.markUnread : t.markRead}: ${item.copy.title}`}
               onClick={() => {
                 try {
-                  setChangeRead(localStorage, item.id, !isRead);
+                  setChangeRead(localStorage, item.id, !isRead, storageKey);
                   setMessage(t.saved);
                 } catch {
                   setMessage(t.error);

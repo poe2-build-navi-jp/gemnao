@@ -39,19 +39,19 @@ export function DiagnosisCta({ home = false }: { home?: boolean }) {
       style={showDiagnosis ? undefined : { visibility: 'hidden' }}
     >
       <div>
-        <p className="diagnosis-cta-eyebrow">PCゲーム無料診断 · β</p>
+        <p className="diagnosis-cta-eyebrow">ブラウザで症状を整理 · 無料診断 β</p>
         <h2>
           {home
             ? 'PCゲームの不具合、次はどこを確認する？'
             : 'いろいろ試したけど、まだ直らない？'}
         </h2>
-        <p>症状を選んで、次に確認する場所と対処の順番を整理します。</p>
+        <p>どの手順から試すか迷うときに。質問に答えて、次の確認を整理します。ダウンロード不要で、PCのログを自動で調べる機能ではありません。</p>
         <small>端末内の記録のみ · サーバー送信・共有なし · 無料</small>
       </div>
       {showDiagnosis ? (
-        <a href="/diagnose">無料診断をはじめる →</a>
+        <a href="/diagnose">ブラウザ診断をはじめる →</a>
       ) : (
-        <span className="diagnosis-cta-action">無料診断をはじめる →</span>
+        <span className="diagnosis-cta-action">ブラウザ診断をはじめる →</span>
       )}
     </aside>
   );

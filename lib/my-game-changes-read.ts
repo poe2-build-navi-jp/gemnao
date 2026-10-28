@@ -25,16 +25,14 @@ export function setChangeRead(
   storage: Pick<Storage, 'getItem' | 'setItem'>,
   id: string,
   read: boolean,
+  storageKey = CHANGES_READ_KEY,
 ) {
   if (!/^[a-z0-9-]{1,160}$/.test(id)) throw new Error('Invalid change ID');
   // Read latest at the time of action. Never overwrite corrupt or future schemas.
-  const current = parseReadChanges(storage.getItem(CHANGES_READ_KEY));
+  const current = parseReadChanges(storage.getItem(storageKey));
   const next = new Set(current.read);
   if (read) next.add(id);
   else next.delete(id);
   if (next.size > 1000) throw new Error('Read state full');
-  storage.setItem(
-    CHANGES_READ_KEY,
-    JSON.stringify({ version: 1, read: [...next] }),
-  );
+  storage.setItem(storageKey, JSON.stringify({ version: 1, read: [...next] }));
 }

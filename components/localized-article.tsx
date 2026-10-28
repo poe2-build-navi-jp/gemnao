@@ -1,3 +1,4 @@
+import { ArticleContext } from '@/components/article-context';
 import { ArticleEvidence, ArticleEvidenceTocLink } from '@/components/article-evidence';
 import { ClockSyncFirst } from '@/components/clock-sync-first';
 import { DiscordBotComparison, DiscordBotRecommendations } from '@/components/discord-bot-recommendations';
@@ -154,6 +155,7 @@ export function LocalizedArticle({
           <h1>{article.title}</h1>
           {clockSyncFirst && <ClockSyncFirst locale="en" />}
           <p className="article-lead">{article.lead}</p>
+          <ArticleContext path={originalPath} locale={locale} />
           <div className="article-meta">
             <span>
               <a href="/about" hrefLang="ja">

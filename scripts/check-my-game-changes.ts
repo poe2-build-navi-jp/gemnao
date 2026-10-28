@@ -161,3 +161,96 @@ for (const game of ['enshrouded', 'planet-zoo-2', 'battlefield-6']) {
 console.log(
   'PASS: three reviewed update cards, JA/EN copy and explicit JA fallback for ZH/ES; dated source conditions retained.',
 );
+
+// Saved articles reuse the reviewed registry, with independent enrollment/read state.
+const { initializeSavedChanges, savedArticleChanges, SAVED_CHANGES_KEY } =
+  await import('../lib/saved-article-changes');
+const savedMemory = new Map<string, string>([
+  ['gemnao-my-games', '["apex-legends"]'],
+  ['gemnao-diagnosis-v1', 'preserve-diagnosis'],
+]);
+const savedStorage = {
+  getItem: (k: string) => savedMemory.get(k) ?? null,
+  setItem: (k: string, v: string) => {
+    savedMemory.set(k, v);
+  },
+};
+initializeSavedChanges(savedStorage);
+assert.deepEqual(
+  parseReadChanges(savedStorage.getItem(SAVED_CHANGES_KEY)).read,
+  officialGameChanges.map((c) => c.id),
+  'initial records are not new',
+);
+const baseline = savedStorage.getItem(SAVED_CHANGES_KEY);
+initializeSavedChanges(savedStorage);
+assert.equal(
+  savedStorage.getItem(SAVED_CHANGES_KEY),
+  baseline,
+  'unchanged revisit preserves state',
+);
+const book = {
+  path: '/en/games/apex-legends/javelin-launch-error',
+  title: 'Saved guide',
+  savedAt: '2026-10-01T00:00:00.000Z',
+};
+const matched = savedArticleChanges([book], 'en');
+assert.equal(matched.length, 1);
+assert.equal(matched[0].articleHref, book.path);
+assert.equal(
+  savedArticleChanges([{ ...book, path: '/games/apex-legends/fps' }], 'ja')
+    .length,
+  0,
+  'same game is not sufficient',
+);
+setChangeRead(savedStorage, matched[0].id, false, SAVED_CHANGES_KEY);
+initializeSavedChanges(savedStorage);
+assert(
+  !parseReadChanges(savedStorage.getItem(SAVED_CHANGES_KEY)).read.includes(
+    matched[0].id,
+  ),
+  'revisit does not re-enroll',
+);
+assert.equal(
+  savedArticleChanges([], 'ja').length,
+  0,
+  'removing saves removes cards',
+);
+assert.equal(
+  savedArticleChanges([book], 'ja').length,
+  1,
+  're-add shows the record',
+);
+assert(
+  !parseReadChanges(savedStorage.getItem(SAVED_CHANGES_KEY)).read.includes(
+    matched[0].id,
+  ),
+  're-add preserves unread',
+);
+setChangeRead(savedStorage, matched[0].id, true, SAVED_CHANGES_KEY);
+assert(
+  parseReadChanges(savedStorage.getItem(SAVED_CHANGES_KEY)).read.includes(
+    matched[0].id,
+  ),
+);
+assert(
+  !parseReadChanges(savedStorage.getItem(SAVED_CHANGES_KEY)).read.includes(
+    'future-reviewed-revision',
+  ),
+  'new revision is unread',
+);
+assert.equal(savedStorage.getItem('gemnao-my-games'), '["apex-legends"]');
+assert.equal(savedStorage.getItem('gemnao-diagnosis-v1'), 'preserve-diagnosis');
+assert.equal(
+  savedStorage.getItem(CHANGES_READ_KEY),
+  null,
+  'My Games read state untouched',
+);
+savedStorage.setItem(SAVED_CHANGES_KEY, '{"version":2,"read":[]}');
+assert.throws(() => initializeSavedChanges(savedStorage));
+assert.equal(
+  savedStorage.getItem(SAVED_CHANGES_KEY),
+  '{"version":2,"read":[]}',
+);
+console.log(
+  'Saved article changes: enrollment, exact path, revisit, mark read, removal/re-add and preservation passed',
+);
