@@ -1,3 +1,4 @@
+import { ArticleContext } from '@/components/article-context';
 import { ArticleEvidence, ArticleEvidenceTocLink } from '@/components/article-evidence';
 import { ClockSyncFirst } from '@/components/clock-sync-first';
 import { AceCombatNoticeHistory } from '@/components/ace-combat-notice-history';
@@ -152,6 +153,7 @@ export function TroubleshootingArticle({
           <h1>{article.title}</h1>
           {clockSyncFirst && <ClockSyncFirst />}
           <p className="article-lead">{article.symptom}</p>
+          <ArticleContext path={`/games/${game.slug}/${article.slug}`} />
           <div className="article-meta">
             <EditorialByline />
             <span>資料の確認記録：{article.checkedAt.replaceAll('-', '.')}</span>

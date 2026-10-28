@@ -80,7 +80,7 @@ try {
         release();
         await configCompleted;
         if (outcome === 'enabled') {
-          await page.getByRole('link', { name: '無料診断をはじめる →', exact: true }).waitFor();
+          await page.getByRole('link', { name: 'ブラウザ診断をはじめる →', exact: true }).waitFor();
         } else {
           await nextPaint(page);
           assert.equal(await fallback.isVisible(), true);
@@ -95,7 +95,7 @@ try {
           await page.keyboard.press('Enter');
           assert.equal(new URL(page.url()).hash, '#symptoms');
           await page.locator('input[type="search"]').focus();
-          await page.getByRole('link', { name: '無料診断をはじめる →', exact: true }).waitFor();
+          await page.getByRole('link', { name: 'ブラウザ診断をはじめる →', exact: true }).waitFor();
           stable(before, await rects(page), width + ' after fallback blur');
         }
         checks++;
