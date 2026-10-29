@@ -423,19 +423,19 @@ export const upcomingReleaseArticles: GameArticle[] = [
     gameSlug: 'phantom-blade-zero',
     slug: 'not-launching',
     category: 'launch',
-    checkedAt: '2026-10-03',
+    checkedAt: '2026-10-29',
     seoTitle:
       'Phantom Blade Zero（影の刃零）が起動しない・重い時の対処法【PC版】',
     title:
       'Phantom Blade Zero（ファントムブレード ゼロ）が起動しない・重い時の対処法【PC版】',
     shortTitle: '起動しない・重い',
-    targetVersion: 'Steam版・2026年10月3日時点の公式情報（発売前）',
+    targetVersion: 'Steam版・2026年10月29日時点の公式情報（配信開始の直前）',
     symptom:
       'PC版が起動しない、起動直後に落ちる、読み込みが長い、フレームレートが低い・カクつく場合の確認手順です。',
     conclusion:
       '最低環境からSSDへのインストールが必須です。最低環境（GTX 1660 6GB・RX 5500 XT 8GB）の目安は、アップスケーリングを使って1080p・30fpsです。発売後に起動可能となってから、実際に選べるアップスケーリングとレイトレーシング設定を1項目ずつ比較します。製品版の実測結果ではありません。公式は、レイトレーシングなしでも見た目の迫力を保つよう調整したと説明しています。',
     description:
-      'Steamストアの日本語表示では2026年10月28日発売です（公式の発表では10月29日。9月9日から延期）。DRMにDenuvoが使われています（Steamストアの表記）。日本語はインターフェース・字幕に対応し、音声は日本語に対応していません。',
+      '公式の案内では、配信開始は日本時間2026年10月29日11時（太平洋夏時間10月28日19時）です。Steamストアの日本語表示は10月28日です（9月9日から延期）。容量は約145GBで、予約ダウンロード中は300GB以上の空きが必要と公式が案内しています。DRMにDenuvoが使われています（Steamストアの表記）。日本語はインターフェース・字幕に対応し、音声は日本語に対応していません。',
     causes: [
       'HDDにインストールしている（SSD必須）',
       'GPUが最低環境（GTX 1660 6GB・RX 5500 XT 8GB）を下回る',
@@ -447,7 +447,7 @@ export const upcomingReleaseArticles: GameArticle[] = [
       {
         label: '必須',
         value:
-          'SSDへのインストール（最低環境から）／64bitのWindows 10・11／DirectX 12',
+          'SSDへのインストール（最低環境から）／64bitのWindows 10・11／DirectX 12／容量は約145GB（予約ダウンロード中は300GB以上の空きが必要。公式）',
       },
       {
         label: '最低動作環境',
@@ -497,7 +497,7 @@ export const upcomingReleaseArticles: GameArticle[] = [
         id: 'step-1',
         title: 'SSDにインストールされているか確認する',
         summary:
-          'Steamストアの動作環境には、最低・推奨とも「SSD installation required（SSDへのインストールが必須）」と書かれています。',
+          'Steamストアの動作環境には、最低・推奨とも「SSD installation required（SSDへのインストールが必須）」と書かれています。容量は約145GBで、予約ダウンロード中は300GB以上の空きを用意するよう公式が案内しています。',
         time: '約5分',
         risk: 'low',
         actions: [
@@ -551,7 +551,7 @@ export const upcomingReleaseArticles: GameArticle[] = [
       'DRMのファイルを書き換える非公式ツールを使わない',
     ],
     cautions: [
-      '発売前の情報です。発売後に公式が案内する不具合や修正は、公式のお知らせもあわせて確認してください。',
+      '配信開始の直前（10月29日10時）の情報です。この時点で、発売後の不具合や修正についての公式のお知らせは出ていません。発売後の案内は、公式のお知らせもあわせて確認してください。',
     ],
     faqs: [
       {
@@ -566,7 +566,7 @@ export const upcomingReleaseArticles: GameArticle[] = [
       {
         question: '発売日はいつですか？',
         answer:
-          'Steamストアの日本語表示は2026年10月28日、公式の発表は10月29日です。当初の9月9日から延期されました。正確な配信開始時刻は、Steamストアと公式のお知らせで確認してください。',
+          '公式のお知らせでは、配信開始は太平洋夏時間の2026年10月28日19時、日本時間では10月29日11時です。Steamストアの日本語表示は10月28日です。当初の9月9日から延期されました。',
       },
       {
         question: 'コントローラーで遊べますか？',
@@ -582,7 +582,7 @@ export const upcomingReleaseArticles: GameArticle[] = [
       },
       {
         label:
-          'Steamニュース（公式）：A Letter From Creative Director（10月29日への延期・レイトレーシングなしでの見た目）',
+          'Steamニュース（公式）：Ready your blade!（配信開始時刻・容量・予約ダウンロード）、A Letter From Creative Director（延期・レイトレーシングなしでの見た目）',
         url: 'https://store.steampowered.com/news/app/4115450',
       },
     ],
