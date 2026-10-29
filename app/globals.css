@@ -6842,3 +6842,11 @@ a.my-games-primary {
 .my-games-notice[data-kind="info"] { color: #1e3a5f; background: #eff6ff; }
 
 .my-games-notice > output { display: block; color: inherit; }
+
+/* Pilot article context: readable before choosing troubleshooting steps. */
+.article-context { margin: 1rem 0; padding: 1rem; border: 1px solid var(--border); border-radius: .75rem; font-size: .9rem; }
+.article-context dl { margin: 0; display: grid; gap: .5rem; }
+.article-context dl > div { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: .5rem; }
+.article-context dt { font-weight: 700; }
+.article-context dd { margin: 0; overflow-wrap: anywhere; }
+@media (max-width: 600px) { .article-context dl > div { grid-template-columns: 1fr; gap: .15rem; } }

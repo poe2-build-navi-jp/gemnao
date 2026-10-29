@@ -1,0 +1,1752 @@
+{
+  "scope": "pendingゲーム43slugのalphabetical前半21slug、50記事。読み取り監査のみ",
+  "method": "記事本文と共通テンプレートを確認。短答/手順/期待結果と実績の区別/対象/出典の読者向け説明が基準。外部全文の新規照合や実機テストは行っていない。共通checkedAt表示を資料記録として明確化する方針を推奨。",
+  "summary": {
+    "articles": 50,
+    "existingSufficient": 39,
+    "needsSpecificEdit": 11,
+    "blockedEvidence": 0
+  },
+  "articles": [
+    {
+      "path": "/games/arc-raiders/matchmaking",
+      "classification": "existing-sufficient",
+      "reason": "通常/条件付きマップ、ソロ/パーティ、時計/クロスプレイ/地域を分岐。Embark英語UIと未確認日本語名を区別し、即時マッチングも現在正常も保証しない。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "PC版／公式サポートと2026年10月8日の更新情報を確認"
+      },
+      "evidenceAnchors": {
+        "conclusion": "まず通常マップと条件付きマップ、ソロとパーティで症状が違うか記録します。時計同期、パーティ全員のクロスプレイ設定、サーバー地域のAutomaticを順に確認し、変えた項目と結果を残してください。",
+        "stepIds": [
+          "record-symptom",
+          "sync-clock",
+          "crossplay",
+          "server-region",
+          "support-record"
+        ],
+        "sources": [
+          "https://id.embark.games/arc-raiders/support/faq/148-matchmaking-troubleshooting---pc-console",
+          "https://id.embark.games/arc-raiders/support/faq/223-syncing-your-device-clock",
+          "https://arcraiders.com/news/frozen-trail-2-0-update",
+          "https://id.embark.games/arc-raiders/support"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/arc-raiders/voice-chat",
+      "classification": "existing-sufficient",
+      "reason": "公式英語設定名、送受信・Party/Proximity、Windows権限の範囲を明示。入力機器/アプリ単位の比較と未確認UIを区別。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "PC版／公式サポートと2026年10月8日の更新情報を確認"
+      },
+      "evidenceAnchors": {
+        "conclusion": "ゲーム内のVC有効化とパーティ／近接の送信方式、選択中の入力マイクを先に確認します。続いてWindowsのマイク権限と、同時にマイクを使うアプリを確認。オープンマイクで比較する場合は周囲の会話が送信されることに注意してください。",
+        "stepIds": [
+          "voice-mode",
+          "input-device",
+          "microphone-permission",
+          "close-other-apps",
+          "support-record"
+        ],
+        "sources": [
+          "https://id.embark.games/arc-raiders/support/faq/156-troubleshooting-voice-chat---pc",
+          "https://id.embark.games/arc-raiders/support/faq/159-in-game-communication",
+          "https://support.microsoft.com/en-us/windows/privacy/windows-camera-microphone-and-privacy",
+          "https://arcraiders.com/news/frozen-trail-2-0-update",
+          "https://id.embark.games/arc-raiders/support"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/elden-ring-nightreign/dlc-not-working",
+      "classification": "existing-sufficient",
+      "reason": "公式DLC解禁条件とSteam所有権を分離。PC App/Regulation番号、PS更新との差、条件未達と過去の消失不具合の違いを明記。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "Windows／Steam版。公式情報確認：2026-10-08"
+      },
+      "evidenceAnchors": {
+        "conclusion": "タイトル右下のバージョン表記の上に「The Forsaken Hollows」があるかが分岐点です。なければSteam側のDLC有効化、あれば「三つ首の獣」撃破後の召使人形・小壺商人への会話を確認します。購入済みだけではキャラクター解禁まで完了したことになりません。",
+        "stepIds": [
+          "check-entitlement",
+          "enable-dlc",
+          "unlock-nightfarers",
+          "unlock-target",
+          "record-result"
+        ],
+        "sources": [
+          "https://nightreign.eldenring.jp/article/251202_1.html",
+          "https://nightreign.eldenring.jp/article/251217_1.html",
+          "https://nightreign.eldenring.jp/article/260115_1.html",
+          "https://nightreign.eldenring.jp/article/260702_1.html",
+          "https://nightreign.eldenring.jp/article/260918_1.html",
+          "https://nightreign.eldenring.jp/news.html",
+          "https://store.steampowered.com/app/2622380/ELDEN_RING_NIGHTREIGN/",
+          "https://en.bandainamcoent.eu/elden-ring/news/elden-ring-nightreign-how-unlock-the-dlc-content"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/elden-ring-nightreign/deep-of-night-not-appearing",
+      "classification": "existing-sufficient",
+      "reason": "クリア条件・オンライン・PC向け版を明示。DLC出現は1回で保証されず、過去告知は現在障害ではないと限定。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "Windows／Steam版。公式情報確認：2026-10-08"
+      },
+      "evidenceAnchors": {
+        "conclusion": "深き夜には「夜を象る者」の撃破とオンライン接続が必要です。1人出撃でもオフラインでは遊べません。条件を満たすのに使えない場合はSteamの更新完了を確認し、ログインエラーとモード表示を分けて記録します。",
+        "stepIds": [
+          "check-clear",
+          "check-online",
+          "check-update",
+          "check-dlc-content",
+          "record-result"
+        ],
+        "sources": [
+          "https://nightreign.eldenring.jp/article/250828_1.html",
+          "https://nightreign.eldenring.jp/article/251202_1.html",
+          "https://nightreign.eldenring.jp/article/251217_1.html",
+          "https://nightreign.eldenring.jp/article/260115_1.html",
+          "https://nightreign.eldenring.jp/article/260702_1.html",
+          "https://nightreign.eldenring.jp/article/260918_1.html",
+          "https://nightreign.eldenring.jp/news.html",
+          "https://es.bandainamcoent.eu/elden-ring/noticias/elden-ring-nightreign-explicacion-de-profundidades-de-la-noche"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/aniimo/not-launching",
+      "classification": "existing-sufficient",
+      "reason": "公式/Steamランチャー別に権限・修復操作を対応。エラー履歴は原因確定でないと明記し、修復後の同じ場面の比較へ進める。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "Windows PC版（公式ランチャー・Steam）／従来手順は9月27〜28日確認、10月18日は公式の10月16日掲載情報を追記"
+      },
+      "evidenceAnchors": {
+        "conclusion": "ランチャーすら開かない場合は公式FAQの権限確認、ゲームがすぐ閉じる場合は表示されたエラーとファイル修復、プレイ中だけ落ちる場合はWindowsのアプリ履歴と描画環境を確認します。修復後は同じ場面を再現して結果を比べます。",
+        "stepIds": [
+          "record-crash",
+          "launcher-no-response",
+          "read-error",
+          "repair-files",
+          "review-after-repair",
+          "crash-during-play"
+        ],
+        "sources": [
+          "https://www.aniimo.com/newslist/detail/100198",
+          "https://www.aniimo.com/newslist/detail/100208",
+          "https://aniimo.com/ja/newslist/detail/100139",
+          "https://aniimo.com/ja/newslist/detail/100091",
+          "https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB",
+          "https://store.steampowered.com/app/4126040/Aniimo/",
+          "https://support.microsoft.com/ja-jp/windows/experience/system-configuration-tools-in-windows",
+          "https://support.microsoft.com/en-us/windows/security/windows-security/protection-history-in-the-windows-security-app",
+          "https://aniimo.com/ja/newslist/detail/100102",
+          "https://aniimo.com/newslist/detail/100117"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/aniimo/black-screen",
+      "classification": "existing-sufficient",
+      "reason": "ゲームだけとOS全体の黒画面を分離。公式10月16日DX切替を対象症状へ限定し、設定項目がなければ推測しない。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "Windows PC版（公式ランチャー・Steam）／従来手順は9月27〜28日確認、10月18日は公式の10月16日掲載情報を追記"
+      },
+      "evidenceAnchors": {
+        "conclusion": "Windowsが見えるならゲーム側の表示切り替えを試し、映像が戻れば画面設定を保存。戻らなければAniimoの修復へ。PC画面全体が黒いなら、モニターの電源・入力先・接続を確かめてからWindowsの表示を復旧します。",
+        "stepIds": [
+          "split-black-screen",
+          "window-mode",
+          "desktop-blank",
+          "after-display-toggle",
+          "repair-black-screen",
+          "after-repair-black-screen"
+        ],
+        "sources": [
+          "https://www.aniimo.com/newslist/detail/100198",
+          "https://www.aniimo.com/newslist/detail/100208",
+          "https://aniimo.com/ja/newslist/detail/100139",
+          "https://aniimo.com/ja/newslist/detail/100091",
+          "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/troubleshooting-blank-screens-in-windows",
+          "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/change-your-screen-resolution-and-layout-in-windows",
+          "https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB",
+          "https://aniimo.com/newslist/detail/100117"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/aniimo/login-error",
+      "classification": "existing-sufficient",
+      "reason": "待機・通信・アカウント・設置先を公式FAQ項目へ対応。テストデータと正式版、Steam/公式ランチャーを分離し、現況の障害と発売時案内を混同しない。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "Windows PC版（公式ランチャー・Steam）／2026年9月27日確認"
+      },
+      "evidenceAnchors": {
+        "conclusion": "待機人数・時間が出るなら公式のお知らせと待機画面を確認します。ランチャーのネットワークエラーなら通信経路、アカウントの問題ならSteam版・公式ランチャー版のログイン方法とサーバーを確認。ログイン失敗が続く場合は、公式FAQが挙げるインストール先の文字種も調べます。",
+        "stepIds": [
+          "check-login-status",
+          "compare-network",
+          "check-account",
+          "check-install-path",
+          "contact-support"
+        ],
+        "sources": [
+          "https://aniimo.com/ja/newslist/detail/100139",
+          "https://aniimo.com/ja/newslist/detail/100149",
+          "https://aniimo.com/ja/newslist/detail/100113",
+          "https://aniimo.com/ja/newslist/detail/100091",
+          "https://aniimo.com/newslist/detail/100117",
+          "https://help.steampowered.com/en/faqs/view/71AB-698D-57EB-178C",
+          "https://www.aniimo.com/newslist",
+          "https://store.steampowered.com/app/4126040/Aniimo/"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/aniimo/launcher-display",
+      "classification": "existing-sufficient",
+      "reason": "公式1080p/125%条件を4Kへ拡張しない。各画面を識別し、100%比較と復元条件を明示。数値例はモニター設定の例で測定結果主張でない。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "Aniimo公式PCランチャー／Windows 11・10（2026年9月27日確認）"
+      },
+      "evidenceAnchors": {
+        "conclusion": "Aniimo公式FAQは、1080p（1920×1080）の画面では表示スケールを125％以下にするよう案内しています。Windowsの「推奨」が150％ならそのままにせず、ランチャーを表示するモニターを選んで125％にし、終了・再起動して表示を確認してください。",
+        "stepIds": [
+          "check-display",
+          "compare-monitors",
+          "test-100-scale",
+          "recover-window",
+          "after-restoring-scale"
+        ],
+        "sources": [
+          "https://aniimo.com/ja/newslist/detail/100091",
+          "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/change-your-screen-resolution-and-layout-in-windows",
+          "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/how-to-use-multiple-monitors-in-windows",
+          "https://aniimo.com/newslist/detail/100117"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/ace-combat-8/hotas-not-recognized",
+      "classification": "existing-sufficient",
+      "reason": "型番・NEOモード・PC入力テスト・AC8割当を段階分離。PS5のTFRP投稿はPC実証や解決ではないと明記。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "まず機器の正確な型番とPC対応を確認します。T.Flight HOTAS NEO／NEO Xは、メーカーによるとAC8ではNEOモードが必要で、PCでは対応ドライバーが必要です。次にメーカーの入力テストで軸とボタンを確かめ、反応しなければ接続・機器側、反応するのにAC8だけ動かなければAC8用マッピングと入力経路を調べます。",
+        "stepIds": [
+          "identify-hardware",
+          "confirm-neo-mode",
+          "test-input-path",
+          "compare-game",
+          "record-hotas"
+        ],
+        "sources": [
+          "https://enso-order.acecombat.jp/",
+          "https://support.thrustmaster.com/en/kb/1904-en/",
+          "https://support.thrustmaster.com/en/product/t-flight-hotas-neo-p-en/",
+          "https://www.reddit.com/r/acecombat/comments/1x1hxwo/tfrp_not_working_on_ace_combat_8/"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/ace-combat-8/stutter-audio-cutting-out",
+      "classification": "existing-sufficient",
+      "reason": "公式要件・利用者相談・一般Windows音声比較を明示的に区別。メモリ増加をリークとしない／告知を修正済みとしない。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "最初から重いのか、遊び続けると悪化するのか、音声だけが途切れるのかを分けます。Windows 11・SSDなどの要件と更新を確認し、同じ場面で設定を1項目ずつ比較してください。映像が滑らかで音だけ切れるなら出力機器を確認します。利用者報告はありますが、メモリリークや特定パッチが原因・修正済みとは確認できません。",
+        "stepIds": [
+          "record-session",
+          "check-requirements-updates",
+          "compare-session-load",
+          "compare-audio-path",
+          "record-performance"
+        ],
+        "sources": [
+          "https://enso-order.acecombat.jp/",
+          "https://steamcommunity.com/app/2288340/allnews/",
+          "https://steamcommunity.com/app/2288340/discussions/0/594068631729510380/",
+          "https://www.reddit.com/r/acecombat/comments/1x6sqh4/ace_combat_8_immensely_slow_laggy_and_stuttery/",
+          "https://support.microsoft.com/en-us/windows/experience/system-configuration-tools-in-windows",
+          "https://support.microsoft.com/en-us/windows/hardware/audio/fix-sound-or-audio-problems-in-windows"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/apex-legends/game-version-mismatch",
+      "classification": "existing-sufficient",
+      "reason": "EA説明の古いパッチと、実際の更新成否を分離。PCランチャー/家庭用機別の更新を示し、エラー名からホスト原因と決めない。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "EAはこの表示を古いパッチで動いている場合のエラーと説明しています。再インストールの前に、使っている機種・ランチャーでゲーム更新を確認して完了を待ち、ゲームを起動し直します。更新後も同じ表示なら、全文と更新状況を記録してEAの案内へ進みます。",
+        "stepIds": [
+          "record-version",
+          "check-platform-update",
+          "restart-compare",
+          "choose-next"
+        ],
+        "sources": [
+          "https://help.ea.com/en/articles/apex-legends/error-codes/",
+          "https://www.playstation.com/en-us/support/hardware/playstation-system-software-application-version/"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/apex-legends/javelin-launch-error",
+      "classification": "existing-sufficient",
+      "reason": "Apex固有の移行告知とEA共通エラー手順を区別。他ゲームのSecure Boot要件を流用せず、移行時期だけを原因にしない。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "2026年9月29日にPC版ApexはEACからEA Javelinへ移行しました。まず更新を完了し、ゲームを再起動してエラー全文を記録します。Apexの移行告知では現時点でSecure Bootは不要です。他ゲームの条件を流用せず、表示されたJavelinエラーに合う公式項目へ進みます。",
+        "stepIds": [
+          "update-restart",
+          "named-conflict",
+          "official-repair",
+          "report-result"
+        ],
+        "sources": [
+          "https://www.ea.com/ja/games/apex-legends/apex-legends/news/javelin-anticheat-announcement",
+          "https://help.ea.com/ja/articles/platforms/pc-ea-anticheat/"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/ace-combat-8/time-sync-failed",
+      "classification": "existing-sufficient",
+      "reason": "Microsoft時刻サービスのstatus/sourceとstripchartを区別。停止表示だけで異常とせず、実際の成功時刻を確認する。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "同期画面のエラーと最終成功時刻を先に確認します。自分で管理するPCならw32tmのstatusとsourceで状況を読み、必要な場合だけ再同期します。「サービスが停止中」や時差測定の結果だけで原因・成功を決めず、同期成功後もゲームが切れる場合は回線と公式告知の確認へ切り替えます。",
+        "stepIds": [
+          "sync-settings",
+          "read-time-status",
+          "retry-time-sync",
+          "time-next-check"
+        ],
+        "sources": [
+          "https://learn.microsoft.com/en-us/windows-server/networking/windows-time-service/windows-time-service-tools-and-settings",
+          "https://learn.microsoft.com/en-us/troubleshoot/windows-client/active-directory/w32time-not-start-on-workgroup"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/ace-combat-8/connection-after-time-sync",
+      "classification": "existing-sufficient",
+      "reason": "同期結果・場面・公式告知の日付・回線比較を別々に記録。告知なしやWeb閲覧成功はゲームサーバー正常の証明でない。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "発生場面と時刻を記録し、該当する最新の公式告知を確認します。次に同じ回線の別端末や有線接続と比べ、ゲームだけ・このPCだけ・回線全体のどこまで影響するかを整理してください。ゲームだけ失敗してもサーバー障害とは断定できず、告知がないことも正常の証明にはなりません。",
+        "stepIds": [
+          "confirm-phase",
+          "check-official-scope",
+          "compare-network",
+          "connection-record"
+        ],
+        "sources": [
+          "https://steamcommunity.com/gid/103582791475413357/announcements/detail/695400360681933547",
+          "https://steamcommunity.com/ogg/2288340/announcements/detail/695399726270382124",
+          "https://support.microsoft.com/en-us/windows/experience/connectivity-networking/fix-wi-fi-connection-issues-in-windows"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/apex-legends/r5apex-exe-launch-error",
+      "classification": "existing-sufficient",
+      "reason": "EAのインストール不整合は可能性と限定。EA app/Steam修復、実際の再取得結果と同じ操作比較を区別する。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "EAはr5apex.exeエラーにインストール不整合の可能性を挙げ、ゲーム修復とWindows更新を案内しています。まず全文と利用ランチャーを記録し、EA appなら修復、Steamなら整合性確認を行って結果を比較します。実行ファイルを別サイトから入手したり、保護機能を無効にしたりしないでください。",
+        "stepIds": [
+          "record-launch-error",
+          "repair-launcher-files",
+          "update-and-retest",
+          "report-launch-result"
+        ],
+        "sources": [
+          "https://help.ea.com/ja/articles/apex-legends/error-codes/",
+          "https://help.ea.com/ja/articles/orders-and-rewards/ea-app-game-download-installation-loading-not-working/",
+          "https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/apex-legends/apex-crash-txt",
+      "classification": "existing-sufficient",
+      "reason": "ログ名を部品故障の証明にしない。ランチャー別修復、アプリ1個ずつの比較、1回成功≠原因確定を明示。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "Apex_crash.txtはクラッシュの手掛かりで、壊れた部品や原因を特定する名前ではありません。発生時刻と場面を記録し、再起動後にランチャー別の修復を実行します。続く場合は自分で開いた不要なアプリを1つずつ閉じて比較し、結果をEAへ伝えます。",
+        "stepIds": [
+          "record-crash",
+          "repair-crash-files",
+          "compare-background-apps",
+          "report-crash"
+        ],
+        "sources": [
+          "https://help.ea.com/en/articles/apex-legends/error-codes/",
+          "https://help.ea.com/en/articles/platforms/fix-crashing-and-freezing/",
+          "https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/apex-legends/code-net-leaf",
+      "classification": "existing-sufficient",
+      "reason": "EAのコード定義、公式状況、PC/ルーター/有線比較を分離。正常表示でも個別問題は否定できず一回成功でも原因未確定。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "EAはnetをゲームへの応答停止、leafをマッチ接続時にサーバーが応答しない状態と説明しています。ただしコードだけで現在の全体障害や自宅回線の故障は断定できません。まず公式状況を確認し、障害情報がなければ再起動と有線接続を比較します。EA側の修正待ちが必要な場合もあります。",
+        "stepIds": [
+          "check-server-status",
+          "restart-connection",
+          "compare-wired",
+          "report-connection"
+        ],
+        "sources": [
+          "https://help.ea.com/en/articles/apex-legends/error-codes/",
+          "https://help.ea.com/en/articles/technical-issues/problems-connecting-online/",
+          "https://help.ea.com/en/server-status/"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/fortnite/running-not-opening",
+      "classification": "existing-sufficient",
+      "reason": "Epicの実行中/ファイル確認/EAC案内に各STEPを対応。窓なし/黒画面と別コード、現行導入画面不一致で停止する条件を示す。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "まず作業を保存してPCを再起動し、Epicのライブラリから一度起動します。変わらなければ管理→確認でゲームファイルを検証します。EACの導入が必要な場合は正規の導入画面と公式案内を確認し、保護機能の除外・停止で回避しないでください。",
+        "stepIds": [
+          "record-running-state",
+          "verify-fortnite-files",
+          "check-eac-install",
+          "report-running-state"
+        ],
+        "sources": [
+          "https://www.epicgames.com/help/c-34254770/c-38015632/fortnite-shows-running-in-epic-games-launcher-and-it-is-not-opening-a23382825",
+          "https://www.epicgames.com/help/c-34254770/a17813569",
+          "https://www.epicgames.com/help/c-34254770/a20611857"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/fortnite/dx12-black-screen",
+      "classification": "existing-sufficient",
+      "reason": "Epic描画記事の起動引数を他モードと混ぜない。同じ場面と元へ戻した結果を比較し、表示成功をGPU/DX12故障の証明にしない。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "まずWindowsの画面が表示できるか確認します。ゲーム側のDX12黒画面には、Epicの描画問題ページがPerformance Modeの「-d3d12 -es31」を案内しています。元の起動引数と設定を記録し、一組の描画指定だけで比較します。改善しなければ追加した引数を除き、変更前の状態へ戻してください。",
+        "stepIds": [
+          "record-display-state",
+          "try-performance-mode",
+          "restore-render-mode",
+          "report-graphics"
+        ],
+        "sources": [
+          "https://www.epicgames.com/help/c-34254770/c-38015632/a14140539"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/battlefield-6/javelin-error-94",
+      "classification": "existing-sufficient",
+      "reason": "EAの94は可能性説明。起動経路/管理者比較/BF6のみ再導入を区別し、BANやSecure Boot異常と断定しない。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "EAは94について、アンチチートがゲームを起動できない、またはインストールフォルダーを見つけられない可能性を案内しています。EA appを一度管理者として起動し、そこからBF6を試します。続く場合は公式インストーラーでBF6だけを再導入します。94だけでBANやSecure Boot不良とは断定しません。",
+        "stepIds": [
+          "record-javelin-94",
+          "launch-from-ea-app",
+          "reinstall-javelin-bf6",
+          "report-javelin-result"
+        ],
+        "sources": [
+          "https://help.ea.com/en/articles/battlefield/battlefield-6/error-codes/",
+          "https://help.ea.com/en/articles/platforms/pc-ea-anticheat/"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/battlefield-6/secure-boot-enabled-not-launching",
+      "classification": "existing-sufficient",
+      "reason": "EA要件と実測状態をmsinfo32/tpm.mscで分離。UEFI/OnやTPM表示だけで部品故障とせず、機種別対応範囲を保持。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "Windows＋R→msinfo32で「BIOSモード：UEFI」「セキュアブートの状態：有効」を確認します。BIOSのEnabled表示だけでは判断しません。有効化後は再起動して再確認し、On＋UEFIでも続く場合は全文を記録します。94ならJavelin記事へ、その他はEAへ相談し、万能なBIOS変更があるとは考えないでください。",
+        "stepIds": [
+          "read-windows-secure-boot",
+          "restart-and-read-tpm",
+          "prepare-manufacturer-help",
+          "report-secure-boot"
+        ],
+        "sources": [
+          "https://www.ea.com/games/battlefield/battlefield-6/news/secure-boot-information",
+          "https://help.ea.com/en/articles/technical-issues/secure-boot/",
+          "https://help.ea.com/en/articles/battlefield/battlefield-6/error-codes/",
+          "https://support.microsoft.com/en-us/windows/security/encryption/find-your-bitlocker-recovery-key"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/ace-combat-8/crashing-memory",
+      "classification": "existing-sufficient",
+      "reason": "公式社内テストの約48GBを編集部実測にしない。一部クラッシュ・暫定策・予定日と配信/インストール確認を明確に分離。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "10月16日の公式告知は一部メモリ関連クラッシュへの暫定対策です。RAMとWindows仮想メモリの合計を確認してください。1.01.002は10月23日配信予定で、現時点の修正済み扱いにはできません。",
+        "stepIds": [
+          "status",
+          "memory",
+          "compare",
+          "report"
+        ],
+        "sources": [
+          "https://steamcommunity.com/app/2288340/allnews/",
+          "https://store.steampowered.com/app/2288340/",
+          "https://learn.microsoft.com/en-us/troubleshoot/windows-client/performance/introduction-to-the-page-file"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/gears-of-war-e-day/achievements-rewards",
+      "classification": "existing-sufficient",
+      "reason": "10月14日公式修正、過去記録の非自動復旧、残る調査を区別。再プレイで全実績保証せず、保存先未確認なら停止。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "まず不足しているものが実績・収集物・ゲーム内報酬のどれかを分けます。10月14日に進捗記録の一部は修正されましたが、一部実績と関連報酬の未付与は調査中です。修正と過去の不足分の自動復旧は別です。",
+        "stepIds": [
+          "identify",
+          "status",
+          "replay",
+          "report"
+        ],
+        "sources": [
+          "https://www.gearsofwar.com/en-us/news/oct-14-patch-notes/",
+          "https://steamcommunity.com/app/3010850/allnews/",
+          "https://www.gearsofwar.com/en-us/news/"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/elden-ring/save-data",
+      "classification": "needs-specific-edit",
+      "reason": "PCGamingWikiの場所、Steam対応、アカウントと復元前の保全はある。短答のコピー完了保証だけを、コピー内容と復元確認の区別へ修正する。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "Steam版のセーブは「%APPDATA%\\EldenRing」の中にある、数字だけの名前のフォルダ（SteamID）に入っています。本体のファイルは「ER0000.sl2」です。ゲームとSteamを終了してから、数字のフォルダごと別のドライブへコピーすればバックアップは完了です。",
+        "stepIds": [
+          "open-save",
+          "backup-save",
+          "restore-save"
+        ],
+        "sources": [
+          "https://www.pcgamingwiki.com/wiki/Elden_Ring",
+          "https://store.steampowered.com/app/1245620/ELDEN_RING/"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "既存英語の限定に合わせる修正。新規翻訳不要。",
+      "proposedEdits": [
+        {
+          "file": "lib/elden-articles.ts",
+          "old": "Steam版のセーブは「%APPDATA%\\EldenRing」の中にある、数字だけの名前のフォルダ（SteamID）に入っています。本体のファイルは「ER0000.sl2」です。ゲームとSteamを終了してから、数字のフォルダごと別のドライブへコピーすればバックアップは完了です。",
+          "new": "Steam版の保存場所は「%APPDATA%\\EldenRing」内の数字のフォルダで、本体ファイルは「ER0000.sl2」です。ゲームとSteamを終了し、元のパスとアカウントを記録してフォルダごと別の保存先へコピーします。コピー先の存在・内容を確認し、復元できることまで確認済みとは扱わないでください。"
+        }
+      ]
+    },
+    {
+      "path": "/games/elden-ring/not-launching",
+      "classification": "needs-specific-edit",
+      "reason": "Windows/Steam対象と症状別STEP、公式FAQ/PCGamingWiki出典はある。整合性確認によるMOD全復元の誤読だけを限定する。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "まずSteamの整合性確認を行い、白い画面で落ちるならWindowsとGPUドライバーの更新、ロゴで落ちるならSteamオーバーレイと常駐ツールの停止を試します。MODを入れている場合は、すべて退避して本体だけで起動を確認します。",
+        "stepIds": [
+          "verify-files",
+          "update-windows",
+          "overlay",
+          "remove-mods",
+          "reset-config"
+        ],
+        "sources": [
+          "https://www.pcgamingwiki.com/wiki/Elden_Ring",
+          "https://www.fromsoftware.jp/jp/faq-games.html",
+          "https://store.steampowered.com/app/1245620/ELDEN_RING/",
+          "https://bnfaq.channel.or.jp/faq/detail/2836/7485"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "既存英語の限定に合わせる修正。新規翻訳不要。",
+      "proposedEdits": [
+        {
+          "file": "lib/elden-articles.ts",
+          "old": "MODで置き換えたファイルも元に戻ります。MODを使っている場合は、先に導入ファイルの場所を控えてください。",
+          "new": "整合性確認はSteamの管理対象ファイルを確認する操作です。追加したMODファイルがすべて消えるとは限らないため、導入元の取り外し手順とファイルの場所を先に控え、MODなしでの起動結果を別に確認してください。"
+        }
+      ]
+    },
+    {
+      "path": "/games/elden-ring/fps",
+      "classification": "needs-specific-edit",
+      "reason": "公式FAQの3対策と60FPS上限、カクつき比較がある。ただし症状分類を原因確定にしている説明を限定する。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "PC版は60FPSが上限の仕様で、60FPS前後で止まるのは不具合ではありません。FPSが低い時は、公式FAQが挙げる3点（GPUドライバーの更新、ゲームファイルの整合性確認、モニターをグラフィックボード側の端子へ接続）から試します。",
+        "stepIds": [
+          "understand-limit",
+          "official-fixes",
+          "borderless",
+          "shader",
+          "offline-only"
+        ],
+        "sources": [
+          "https://www.fromsoftware.jp/jp/faq-games.html",
+          "https://www.pcgamingwiki.com/wiki/Elden_Ring"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "既存英語の限定に合わせる修正。新規翻訳不要。",
+      "proposedEdits": [
+        {
+          "file": "lib/elden-articles.ts",
+          "old": "「上限で止まる」「全体的に低い」「一瞬だけ止まる」は原因が別です。早見表で症状を分けてから進めると、無駄な設定変更を減らせます。",
+          "new": "「上限で止まる」「全体的に低い」「一瞬だけ止まる」を分けて比較します。症状だけで原因は確定できません。公式FAQの確認項目と、PCGamingWikiにあるカクつきの説明を区別し、同じ場所を繰り返した結果を記録してください。"
+        }
+      ]
+    },
+    {
+      "path": "/games/elden-ring/ultrawide",
+      "classification": "needs-specific-edit",
+      "reason": "公式非対応と通常黒帯、GPU拡大設定、非公式ツールを分離。全環境60Hz固定の断定を削り、実HzとFPSを区別する。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "フロム・ソフトウェアの公式FAQで「PC（Steam）版はウルトラワイドモニター非対応」と案内されています。21:9・32:9のモニターでは、16:9の映像の左右に黒帯が入るのが正常な表示です。",
+        "stepIds": [
+          "confirm-spec",
+          "check-resolution",
+          "offline-only"
+        ],
+        "sources": [
+          "https://www.fromsoftware.jp/jp/faq-games.html",
+          "https://www.pcgamingwiki.com/wiki/Elden_Ring"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "既存英語の限定に合わせる修正。新規翻訳不要。",
+      "proposedEdits": [
+        {
+          "file": "lib/elden-articles.ts",
+          "old": "消えません。表示の比率は画面モードに関係なく16:9です。ただしフルスクリーンでは60Hzに固定されるため、リフレッシュレートを気にする場合はボーダーレスウィンドウの方が向いています。",
+          "new": "ボーダーレスに変えるだけでは、非対応のウルトラワイド表示を追加できません。リフレッシュレートを比べる場合は、Windowsで実際の表示Hzを確認してください。ゲーム内のFPS表示とモニターのHzを同じ値として判断しないでください。"
+        }
+      ]
+    },
+    {
+      "path": "/games/elden-ring/hdr",
+      "classification": "existing-sufficient",
+      "reason": "PCGamingWikiのHDR症状とMicrosoft Windows HDRを区別。Windows11専用アプリの除外条件、同じ暗所/明所とSDR比較がある。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "ELDEN RINGはHDRに対応しています。先にWindowsの「設定」→「システム」→「ディスプレイ」でHDRを有効にし、Windows 11用のWindows HDR 調整アプリで明るさを合わせてから、ゲームを再起動してゲーム内のHDRを設定します。",
+        "stepIds": [
+          "enable-windows-hdr",
+          "calibrate-hdr",
+          "restart-game",
+          "compare-sdr"
+        ],
+        "sources": [
+          "https://www.pcgamingwiki.com/wiki/Elden_Ring",
+          "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/hdr-settings-in-windows",
+          "https://support.microsoft.com/ja-jp/windows/hardware/display-graphics/calibrate-your-hdr-display-using-the-windows-hdr-calibration-app"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/elden-ring/mod",
+      "classification": "needs-specific-edit",
+      "reason": "追加/置換ファイルと版、オフライン対象はある。検証だけで全復元/オンライン可能と誤読される箇所を、残存ファイルと正常経路確認へ限定する。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "ELDEN RINGのMODの多くは、Easy Anti-Cheat（EAC）を無効化しないと読み込めません。EACを無効にするとオンラインプレイはできないため、セーブを別の場所へ複製し、オフライン専用として1個ずつ導入します。",
+        "stepIds": [
+          "prepare",
+          "remove-mods",
+          "check-version",
+          "restore-online"
+        ],
+        "sources": [
+          "https://www.pcgamingwiki.com/wiki/Elden_Ring"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "既存英語の限定に合わせる修正。新規翻訳不要。",
+      "proposedEdits": [
+        {
+          "file": "lib/elden-articles.ts",
+          "old": "Steamでゲームファイルの整合性を確認し、元のファイルに戻す",
+          "new": "Steamでゲームファイルの整合性を確認し、追加したMODや依存ファイルが残っていないか、記録した導入内容と照合する"
+        },
+        {
+          "file": "lib/elden-articles.ts",
+          "old": "Steamから通常どおり起動し、オンラインに接続できるか確認する",
+          "new": "Steamから通常起動する。通常のアンチチート経路と残る改変を確認できるまでオンライン接続を試さず、警告があれば公式サポートへ確認する"
+        }
+      ]
+    },
+    {
+      "path": "/games/aion2/login-error",
+      "classification": "needs-specific-edit",
+      "reason": "Steam/PURPLE・発売時のPlaytest・公式待機方針は詳しい。混雑原因の頻度根拠は示されず、正式版と終了済み先行条件の混同を短答で除く。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "Steam版・PURPLE版（正式サービス）・2026年10月11日時点の公式のお知らせ"
+      },
+      "evidenceAnchors": {
+        "conclusion": "サービス開始直後の接続トラブルは、運営側の混雑や障害が原因のことが多くあります。まず公式のお知らせを確認し、待機列は抜けずに待ちます。Steamで9月の事前テストに参加した人は、Playtestアプリを削除してAION 2本体をダウンロードし直す必要があります（公式の案内）。",
+        "stepIds": [
+          "step-1",
+          "step-2",
+          "step-3",
+          "step-4",
+          "step-5"
+        ],
+        "sources": [
+          "https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app",
+          "https://store.steampowered.com/news/app/3393110",
+          "https://store.steampowered.com/news/app/3393110",
+          "https://store.steampowered.com/news/app/3393110",
+          "https://store.steampowered.com/news/app/3393110",
+          "https://store.steampowered.com/news/app/3393110",
+          "https://about.ncsoft.com/jp/news/article/Aion2_update_2607232",
+          "https://store.steampowered.com/app/3393110/"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "既存英語の限定に合わせる修正。新規翻訳不要。",
+      "proposedEdits": [
+        {
+          "file": "lib/launch-week-articles.ts",
+          "old": "サービス開始直後の接続トラブルは、運営側の混雑や障害が原因のことが多くあります。まず公式のお知らせを確認し、待機列は抜けずに待ちます。Steamで9月の事前テストに参加した人は、Playtestアプリを削除してAION 2本体をダウンロードし直す必要があります（公式の案内）。",
+          "new": "まず公式のお知らせと表示されたエラーを確認し、通常の待機列なら再接続を繰り返さず待ちます。9月のSteam事前テスト参加者には、Playtestではなく本体を導入するよう発売時に案内されました。正式サービスでは、終了済みのアーリーアクセス購入条件を現在のログイン条件と取り違えないでください。"
+        }
+      ]
+    },
+    {
+      "path": "/games/ace-combat-8/not-launching",
+      "classification": "existing-sufficient",
+      "reason": "Steam/Windows11/RT/SSDの公式要件、10月22日資料範囲、メモリ問題と起動要件・更新予定と全修正の違いが明記される。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "Steam版・既存の要件案内と2026年10月22日確認のクラッシュ告知"
+      },
+      "evidenceAnchors": {
+        "conclusion": "最初に、GPUがハードウェアレイトレーシングに対応しているか、Windows 11か、SSDにインストールしているかを確認します。公式のシステム要件では、この3つが最低環境から必須です。起動後に落ちる場合は、10月16日のメモリ暫定対策を扱う補完記事へ。1.01.002は10月23日配信予定であり、全クラッシュの修正済みを意味しません。",
+        "stepIds": [
+          "step-1",
+          "step-2",
+          "step-3",
+          "step-4",
+          "step-5",
+          "step-6",
+          "step-7"
+        ],
+        "sources": [
+          "https://steamcommunity.com/app/2288340/allnews/",
+          "https://help.steampowered.com/en/faqs/view/0C48-FCBD-DA71-93EB",
+          "https://store.steampowered.com/news/app/2288340",
+          "https://enso-order.acecombat.jp/",
+          "https://acecombat.jp/ace8news/?p=27",
+          "https://www.famitsu.com/article/202606/76733",
+          "https://store.steampowered.com/app/2288340/"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/control-resonant/crash-performance",
+      "classification": "needs-specific-edit",
+      "reason": "対象版1.3.3と公式/PCGamingWiki資料はある。準備中・全件次回修正・再起動成功を現在の保証として読める箇所を限定する。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "Steam版・Epic版（ホットフィックス1.3.3）・2026年9月28日時点"
+      },
+      "evidenceAnchors": {
+        "conclusion": "AMD Radeon RX 7000・9000シリーズで重い場合は、Remedyが既知の問題として認めており、AMDが対策ドライバーを準備中です。レイトレーシングの設定を変えた後に急に重くなった場合は、ゲームを再起動すれば直ります（公式の回避策）。音の不具合は、Windowsの出力先と音声設定の見直しから始めます。",
+        "stepIds": [
+          "step-1",
+          "step-2",
+          "step-3",
+          "step-4",
+          "step-5",
+          "step-6"
+        ],
+        "sources": [
+          "https://remedy.helpshift.com/hc/en/5-control-resonant/faq/314-resonance-disruption-known-issues-and-updates/",
+          "https://remedy.helpshift.com/hc/en/5-control-resonant/faq/254-sound-and-audio-troubleshooting-for-control-resonant/",
+          "https://remedy.helpshift.com/hc/en/5-control-resonant/faq/304-where-to-find-control-resonant-save-files-on-pc/",
+          "https://store.steampowered.com/news/app/3669870",
+          "https://store.steampowered.com/app/3669870/",
+          "https://www.pcgamingwiki.com/wiki/Control_Resonant"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "既存英語の限定に合わせる修正。新規翻訳不要。",
+      "proposedEdits": [
+        {
+          "file": "lib/fall-release-articles.ts",
+          "old": "AMD Radeon RX 7000・9000シリーズで重い場合は、Remedyが既知の問題として認めており、AMDが対策ドライバーを準備中です。レイトレーシングの設定を変えた後に急に重くなった場合は、ゲームを再起動すれば直ります（公式の回避策）。音の不具合は、Windowsの出力先と音声設定の見直しから始めます。",
+          "new": "資料確認時のRemedyの案内は、Radeon RX 7000・9000の性能問題と、レイトレーシング設定変更後の再起動による回避策を挙げています。現在の公式告知と対象GPUのドライバー情報を確認し、再起動後も同じ場面で比べます。音の不具合はWindowsの出力先と音声設定を確認します。"
+        },
+        {
+          "file": "lib/fall-release-articles.ts",
+          "old": "Remedyの公式ヘルプには既知の問題の一覧があり、掲載された問題はすべて次のアップデートで修正予定とされています。まず自分の症状が一覧にあるかを確認すると、無駄な作業を避けられます。",
+          "new": "Remedyの既知問題一覧で、自分の症状と対象版を確認します。資料確認時の修正予定は配信完了や改善確認とは別です。後続の更新情報と、導入後の同じ場面での結果を照合してください。"
+        }
+      ]
+    },
+    {
+      "path": "/games/call-of-duty-modern-warfare-4/tpm-secure-boot",
+      "classification": "existing-sufficient",
+      "reason": "公式要件とtpm/msinfoの状態を区別。版・ストア・beta/製品仕様を分離し、モデル固有操作と復旧前提を明示する。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "Steam版・Battle.net版・XBOX on PC版。2026年10月18日確認：通常発売は10月23日、デジタル予約特典のキャンペーン早期アクセスは10月16日（PT）開始の案内"
+      },
+      "evidenceAnchors": {
+        "conclusion": "PC版のModern Warfare 4は、TPM 2.0とセキュアブートの両方が必須です。要件を満たさない場合はオンラインモードにアクセスできないと公式が案内しています。まずWindowsの「tpm.msc」と「msinfo32」で状態を確認し、無効でも直ちにBIOSを変更せず、バックアップ・暗号化の回復キー・機種別の公式手順を確認してください。Activision公式では、Activisionアカウントに携帯電話番号の登録が必要な場合があると案内しています。利用ストアとゲーム画面で対象アカウントを確認してください。",
+        "stepIds": [
+          "step-1",
+          "step-2",
+          "step-3",
+          "step-4",
+          "step-5",
+          "step-6"
+        ],
+        "sources": [
+          "https://support.activision.com/articles/trusted-platform-module-and-secure-boot",
+          "https://support.activision.com/modern-warfare-4/articles/modern-warfare-4-editions",
+          "https://support.activision.com/modern-warfare-4/articles/pc-system-requirements-for-modern-warfare-4",
+          "https://www.callofduty.com/blog/2026/08/call-of-duty-modern-warfare-4-next-early-intel-pc-specs",
+          "https://store.steampowered.com/app/4435490/",
+          "https://learn.microsoft.com/ja-jp/windows/deployment/mbr-to-gpt",
+          "https://support.microsoft.com/ja-jp/windows/security/devicesecurity/windows-11-and-secure-boot"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/call-of-duty-modern-warfare-4/crash",
+      "classification": "needs-specific-edit",
+      "reason": "10月23日資料確認と公式推奨ドライバー版、要件未達とクラッシュを区別。全バックグラウンド終了という対象拡大を、列挙されたアプリの個別比較へ狭める。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "Steam版・Battle.net版・XBOX on PC版。2026年10月23日（発売日）に公式サポートの本文を確認"
+      },
+      "evidenceAnchors": {
+        "conclusion": "Activision公式は、PCのクラッシュは起動時と公開マッチのマルチプレイ中に起きやすいと説明しています。まず公式の推奨ドライバー（NVIDIA 616.56、AMD 26.7.1、Intel 32.0.101.8974）に合わせ、録画ソフト・オーバーレイ・キー割り当てソフトを終了します。それでも落ちる場合は、公式が案内しているとおり、これらのソフトのアンインストールを試します。XBOX on PC版で起動ボタン自体がない場合は、クラッシュとは分けて専用記事の対象範囲と確認項目を見てください。",
+        "stepIds": [
+          "step-1",
+          "step-2",
+          "step-3",
+          "step-4",
+          "step-5",
+          "step-6"
+        ],
+        "sources": [
+          "https://support.activision.com/modern-warfare-4/articles/crashes-or-game-freezes-in-modern-warfare-4",
+          "https://support.activision.com/modern-warfare-4/articles/known-issues-in-modern-warfare-4",
+          "https://support.activision.com/modern-warfare-4/articles/pc-system-requirements-for-modern-warfare-4",
+          "https://www.callofduty.com/patchnotes/2026/10/call-of-duty-modern-warfare-4-launch-patch-notes",
+          "https://support.activision.com/modern-warfare-4/articles/connecting-to-modern-warfare-4"
+        ]
+      },
+      "existingLanguages": [
+        "ja"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": [
+        {
+          "file": "lib/cod-mw4-articles.ts",
+          "old": "バックグラウンドで動いているアプリをすべて終了してから起動する",
+          "new": "自分で開いた録画・オーバーレイ・キー割り当てなど、今回不要なアプリを通常の終了操作で1つずつ閉じて起動結果を比較する。保護機能や役割が分からない常駐処理は停止しない"
+        }
+      ]
+    },
+    {
+      "path": "/games/call-of-duty-modern-warfare-4/xbox-pc-launch-button",
+      "classification": "existing-sufficient",
+      "reason": "Xbox PCのみ、10月23日調査中、確認しても保証なし、実機実績でないと明示。登録数と未導入パックに限定した比較。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "Xbox PC版のみ。Steam・Battle.net版の同じ症状まで公式確認されたとは扱いません。"
+      },
+      "evidenceAnchors": {
+        "conclusion": "10月23日更新の公式一覧では、Xbox PC版の一部で起動ボタンが出ない問題を調査中です。案内されているのはMicrosoft Storeの登録デバイス上限10台と、未導入のMW4 Content Packsの確認です。確認しても直る保証はありません。",
+        "stepIds": [
+          "step-1",
+          "step-2",
+          "step-3"
+        ],
+        "sources": [
+          "https://support.activision.com/uk/en/modern-warfare-4/articles/known-issues-in-modern-warfare-4",
+          "https://support.activision.com/modern-warfare-4/articles/modern-warfare-4-editions",
+          "https://support.activision.com/feedback-and-bug-report?g=Call+of+Duty%3A+Modern+Warfare+4&r=bug"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/call-of-duty-modern-warfare-4/loadout-not-saving",
+      "classification": "existing-sufficient",
+      "reason": "全機種マルチプレイの公式調査と個別回避策なしを明示。保存操作の前後と別の解除条件を区別し、実機実績を主張しない。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "全プラットフォームのマルチプレイ。この記事のPCでの確認はSteam・Battle.net・Xbox PC版を区別して記録します。"
+      },
+      "evidenceAnchors": {
+        "conclusion": "10月23日更新の公式一覧は、マルチプレイのロードアウト保存不可を全プラットフォームの調査中項目として掲載しています。この項目に個別の回避策はありません。保存できたつもりで設定を作り直し続けず、残る内容を確認してください。",
+        "stepIds": [
+          "step-1",
+          "step-2",
+          "step-3"
+        ],
+        "sources": [
+          "https://support.activision.com/uk/en/modern-warfare-4/articles/known-issues-in-modern-warfare-4",
+          "https://support.activision.com/modern-warfare-4/articles/modern-warfare-4-editions",
+          "https://support.activision.com/feedback-and-bug-report?g=Call+of+Duty%3A+Modern+Warfare+4&r=bug"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/call-of-duty-modern-warfare-4/stats-not-showing",
+      "classification": "existing-sufficient",
+      "reason": "公式の追跡継続説明と読者が観測できる画面を区別。表示復旧日時不明、内部データは未検証、対象Combat Record/leaderboardを限定。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "全プラットフォームのCombat Record・リーダーボード表示。別の進行状況・購入品の消失まで説明する項目ではありません。"
+      },
+      "evidenceAnchors": {
+        "conclusion": "公式は全プラットフォームでの戦績表示問題を調査中とし、戦績の追跡自体は続いていると説明しています（10月23日更新）。表示の復旧日時は同項目にありません。欠けた画面を記録し、修正状況を確認します。",
+        "stepIds": [
+          "step-1",
+          "step-2",
+          "step-3"
+        ],
+        "sources": [
+          "https://support.activision.com/uk/en/modern-warfare-4/articles/known-issues-in-modern-warfare-4",
+          "https://support.activision.com/modern-warfare-4/articles/modern-warfare-4-editions",
+          "https://support.activision.com/feedback-and-bug-report?g=Call+of+Duty%3A+Modern+Warfare+4&r=bug"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/enshrouded/black-screen-save-migration",
+      "classification": "existing-sufficient",
+      "reason": "Hotfix版/公式Version番号、対象症状と移行時の問題アイテム・水の制限を明示。最新版適用と個別改善は別とする。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "まずHotfix 1.0.0.3（公式Version 1273043）以降への更新状態を確認してください。10/21告知は一部プレイヤーのマルチ読み込み時の無限黒画面と、セーブ移行中のまれなクラッシュを修正しています。移行の対象条件と制限を確認してから進め、更新済みでも続く症状は別途記録します。",
+        "stepIds": [
+          "check-update",
+          "classify-loading",
+          "review-migration",
+          "record-result"
+        ],
+        "sources": [
+          "https://enshrouded.com/en-US/news/changelog-for-hotfix-1003",
+          "https://enshrouded.com/en-US/news/enshrouded-launch-faq-early-access-reward-world",
+          "https://enshrouded.com/en-US/news",
+          "https://store.steampowered.com/app/1203620/Enshrouded/"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/battlefield-6/crash-after-update",
+      "classification": "existing-sufficient",
+      "reason": "公式10/22 Hotfixを2マップに限定、番号非公表、2.1.1.0と区別。更新完了と通常プレイ時の再発結果を分離。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "10/22の公式告知では、Vegas StripとArea 51の安定性を改善するクライアントHotfixを配信済みです。再プレイには更新のダウンロードが必要と案内されています。まず利用中の正規ランチャーで更新が完了しているか確認してください。全マップ・全クラッシュが直ったという告知ではありません。",
+        "stepIds": [
+          "check-client-update",
+          "match-crash-scope",
+          "report-crash-after-update"
+        ],
+        "sources": [
+          "https://steamcommunity.com/app/2807960/discussions/0/572678538884419660/",
+          "https://steamcommunity.com/app/2807960/discussions/0/564796840407520709/",
+          "https://www.ea.com/games/battlefield/redsec/news/battlefield-6-game-update-2-1-1-0"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/battlefield-6/cannot-revive",
+      "classification": "existing-sufficient",
+      "reason": "Battle Royaleの蘇生表示/操作に限定し、他のアニメ改善や安定性Hotfixを修正証拠にしない。確実な回避策不明を示す。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "対象は本文のランチャー・OS・機種・版/日時に記載。専用欄欠落だけでは不足と判定しない"
+      },
+      "evidenceAnchors": {
+        "conclusion": "10/16の公式告知では、Battle Royaleのダウンした分隊員に対する蘇生表示・操作が出ない、または作動しない報告を調査中としています。その後の修正完了は今回確認できていません。まずモードと症状が一致するかを記録し、公式の後続更新を確認してください。10/22のマップ安定性Hotfixで蘇生も直ったとは判断できません。",
+        "stepIds": [
+          "identify-revive-mode",
+          "check-revive-status",
+          "record-revive-result"
+        ],
+        "sources": [
+          "https://steamcommunity.com/app/2807960/discussions/0/572678538884419660/",
+          "https://steamcommunity.com/app/2807960/discussions/0/564796840407520709/",
+          "https://www.ea.com/games/battlefield/redsec/news/battlefield-6-game-update-2-1-1-0"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/gears-of-war-e-day/not-launching",
+      "classification": "needs-specific-edit",
+      "reason": "最低要件とbeta情報の出典はある。要件外を実機で正常動作しない断定へ拡大せず、beta案内を製品版情報と分離する。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "Steam版・XBOX on PC版・2026年10月1日時点の公式情報"
+      },
+      "evidenceAnchors": {
+        "conclusion": "最低環境から、ハードウェアレイトレーシング対応GPUとSSDが必須です。GTX 10／16シリーズのGPUやHDDへのインストールでは正常に動きません。次にWindowsのバージョンとGPUドライバーを確認します。オープンベータでは、古いNVIDIAドライバーだと起動しないことが公式の既知の問題として挙げられていました。",
+        "stepIds": [
+          "step-1",
+          "step-2",
+          "step-3",
+          "step-4",
+          "step-5",
+          "step-6"
+        ],
+        "sources": [
+          "https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app",
+          "https://store.steampowered.com/news/app/3010850",
+          "https://store.steampowered.com/news/app/3010850",
+          "https://store.steampowered.com/app/3010850/",
+          "https://store.steampowered.com/news/app/3010850",
+          "https://aka.ms/gearscontactsupport",
+          "https://status.gearsofwar.com/"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "既存英語の限定に合わせる修正。新規翻訳不要。",
+      "proposedEdits": [
+        {
+          "file": "lib/october-release-articles.ts",
+          "old": "最低環境から、ハードウェアレイトレーシング対応GPUとSSDが必須です。GTX 10／16シリーズのGPUやHDDへのインストールでは正常に動きません。次にWindowsのバージョンとGPUドライバーを確認します。オープンベータでは、古いNVIDIAドライバーだと起動しないことが公式の既知の問題として挙げられていました。",
+          "new": "公開された最低環境は、ハードウェアレイトレーシング対応GPUとSSDを要求しています。GTX 10／16シリーズやHDDはその条件を満たしません。次にWindowsとGPUドライバーを確認します。ベータ版の起動問題や推奨版は当時の案内なので、製品版の更新情報と照合してください。"
+        }
+      ]
+    },
+    {
+      "path": "/games/dragons-dogma-2/performance",
+      "classification": "existing-sufficient",
+      "reason": "Capcom TU3.2のCPU負荷・設定説明に帰属し、対象版と同じ場所の比較、1項目ずつ/PC依存を明示。ゲーム内表示は容量目安として用い、実測FPSを捏造しない。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "Steam版（TU3.2以降）・2026年9月28日時点"
+      },
+      "evidenceAnchors": {
+        "conclusion": "まず最新のアップデート（9月2日配信のTU3.2以降）を適用します。TU3.2ではフレームレートが改善され、Steam版には「NPCの描画人数制御」「CPU省電力モード」などの軽量化設定が追加されました。カプコンは、NPCが多い街中ではCPUの負荷が高くなり、処理負荷が下がる設定でフレームレートの改善が見込めると案内しています。",
+        "stepIds": [
+          "step-1",
+          "step-2",
+          "step-3",
+          "step-4",
+          "step-5",
+          "step-6"
+        ],
+        "sources": [
+          "https://www.dragonsdogma.com/2/ja-jp/topics/update/",
+          "https://prtimes.jp/main/html/rd/p/000006004.000013450.html",
+          "https://store.steampowered.com/app/2054970/",
+          "https://store.steampowered.com/app/2593290/"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/final-fantasy-resonance/not-launching",
+      "classification": "existing-sufficient",
+      "reason": "Steam要件/体験版引継ぎ/特典を出典ラベルで対応。製品版と体験版、引継ぎ操作の公式画面未確定を明記。実測成功の主張はない。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "Steam版（2026年10月23日発売）・体験版・2026年10月23日時点"
+      },
+      "evidenceAnchors": {
+        "conclusion": "動作環境は最低・推奨ともWindows 11です。起動しない時は、まずWindowsのバージョンとGPUドライバーを確認します。特典はすぐには届かず、ゲームを一定以上進めた後に「ミトラの町」の宿屋前にあるポストから受け取ります。体験版のセーブデータは製品版に引き継げます（公式）。",
+        "stepIds": [
+          "step-1",
+          "step-2",
+          "step-3",
+          "step-4",
+          "step-5",
+          "step-6"
+        ],
+        "sources": [
+          "https://store.steampowered.com/app/3259780/",
+          "https://store.steampowered.com/app/4474710/",
+          "https://store.steampowered.com/news/app/3259780"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/castlevania-belmonts-curse/not-launching",
+      "classification": "needs-specific-edit",
+      "reason": "KONAMIの条件付き既知問題とVer1.1.3、60Hz未満が選べない場合を示す。回避策後の起動成功を読者の結果で確認する形へ限定。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "Steam版・Ver.1.1.3と2026年10月16日時点のKONAMIの不具合のお知らせ"
+      },
+      "evidenceAnchors": {
+        "conclusion": "KONAMIは、垂直同期（V-Sync）がOFFでFPSが「無制限」のとき、高リフレッシュレートのモニターでゲームが起動せず黒い画面になる不具合を認めています。まずゲームをVer.1.1.3以降に更新し、それでも起動しない時は、Windowsでモニターのリフレッシュレートを一時的に60Hz未満に下げてゲームを起動し、映像設定でV-SyncをONにしてから元に戻します（公式の手順）。動作環境は最低・推奨ともWindows 11です。",
+        "stepIds": [
+          "step-5",
+          "step-1",
+          "step-2",
+          "step-3",
+          "step-4"
+        ],
+        "sources": [
+          "https://www.konami.com/games/castlevania/belmonts_curse/jp/ja/noti_261014",
+          "https://store.steampowered.com/news/app/4231820",
+          "https://store.steampowered.com/app/4231820/",
+          "https://store.steampowered.com/news/app/4231820"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "既存英語の限定に合わせる修正。新規翻訳不要。",
+      "proposedEdits": [
+        {
+          "file": "lib/upcoming-release-articles.ts",
+          "old": "Windowsのリフレッシュレートを元の値に戻す。以後は通常どおり起動できる（公式）",
+          "new": "Windowsのリフレッシュレートを元の値に戻し、通常の起動で同じ黒画面が再発するか確認する。公式の回避策であり、このPCでの改善結果は実際の表示で判断する"
+        }
+      ]
+    },
+    {
+      "path": "/games/dragon-quest-monsters-4/demo-transfer",
+      "classification": "needs-specific-edit",
+      "reason": "発売前/Steam/体験版の対象と公式の最大8体・LV1・対象外物品を明示。体験版動作を製品版まで確実と誤読させないよう限定。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "Steam版・体験版・2026年10月3日時点の公式情報（発売前）"
+      },
+      "evidenceAnchors": {
+        "conclusion": "体験版のパーティとスタンバイにいるモンスター（最大8体）を製品版に引き継げます。条件は、製品版を遊ぶPCに同じアカウントで作った体験版のセーブデータがあることと、製品版のタイトル画面で「はじめから」を選ぶことです。引き継いだモンスターはレベル1・初期スキルで「預かり所」に送られます。アイテムとゴールドは引き継げません。",
+        "stepIds": [
+          "step-1",
+          "step-2",
+          "step-3",
+          "step-4",
+          "step-5"
+        ],
+        "sources": [
+          "https://store.steampowered.com/app/3681610/",
+          "https://store.steampowered.com/app/4445890/",
+          "https://store.steampowered.com/news/app/3681610"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "既存英語の限定に合わせる修正。新規翻訳不要。",
+      "proposedEdits": [
+        {
+          "file": "lib/upcoming-release-articles.ts",
+          "old": "購入前に、無料の体験版で自分のPCで動くか確かめるのが確実です。",
+          "new": "体験版で自分のPCの動作を比較できます。ただし、これは体験版での確認であり、発売前の製品版全体の性能や引き継ぎ成功を検証した結果ではありません。"
+        }
+      ]
+    },
+    {
+      "path": "/games/football-manager-27/not-launching",
+      "classification": "existing-sufficient",
+      "reason": "発売前の公式情報、プレビュー期間と引継ぎ条件、認証詳細非公開を明示。実測成功や正確な認証リセット時間を主張しない。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "Steam版・2026年10月25日時点の公式情報（発売前）"
+      },
+      "evidenceAnchors": {
+        "conclusion": "まずCPUがSSE4.2・SSSE3に対応しているか、Windowsが最新の状態かを確認します。Steamストアには、DRMとして「Denuvo Anti-tamper」と「5 a day マシン認証制限」（1日に認証できるマシンは5台まで）が表記されています。複数のPCで遊ぶ人は注意してください。無料のローンチプレビューは日本時間10月30日3時〜11月4日3時で、そこで始めたセーブは製品版でも続けられると公式が案内しています。",
+        "stepIds": [
+          "step-1",
+          "step-2",
+          "step-3",
+          "step-4"
+        ],
+        "sources": [
+          "https://store.steampowered.com/app/4530370/",
+          "https://store.steampowered.com/news/app/4530370"
+        ]
+      },
+      "existingLanguages": [
+        "ja"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/godzilla-destroy-all-monsters-melee/not-launching",
+      "classification": "existing-sufficient",
+      "reason": "発売前/体験版とSteam要件、体験版オンライン1対1を明示。dxdiagは目安と表現し、実測性能を主張しない。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "Steam版・体験版・2026年10月25日時点の公式情報（発売前）"
+      },
+      "evidenceAnchors": {
+        "conclusion": "最低動作環境のGPUは「DirectX 12・シェーダーモデル6対応」のGTX 1060（6GB）・RX 580（8GB）で、メモリは16GBです（Steamストアの表記）。起動しない時は、まずGPUとドライバーを確認します。オンラインは1対1のクイックマッチで、ローカルでは最大4人で遊べます（体験版の公式案内）。",
+        "stepIds": [
+          "step-1",
+          "step-2",
+          "step-3",
+          "step-4"
+        ],
+        "sources": [
+          "https://store.steampowered.com/app/4251460/",
+          "https://store.steampowered.com/news/app/4251460",
+          "https://store.steampowered.com/remoteplay"
+        ]
+      },
+      "existingLanguages": [
+        "ja"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/cyberpunk-2077/not-launching",
+      "classification": "existing-sufficient",
+      "reason": "CDPRサポートを起動/クラッシュ/MSVCPへ分離。Steam/GOG/Epic別のファイル確認と変更後比較を示し、主張をサポート由来として帰属する。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "Steam・GOG・Epic版（PC）"
+      },
+      "evidenceAnchors": {
+        "conclusion": "CD PROJEKT REDの公式サポートの確認項目を基に、動作環境とWindows、GPUドライバー、Visual C++ 再頒布可能パッケージ、ゲームファイルを順に確認します。本記事では保護機能を有効に保ち、非必須のオーバーレイだけを1つずつ比較します。MODを入れている場合は、まずMODを外した状態で起動できるか確認します。",
+        "stepIds": [
+          "mods-off",
+          "gpu-driver",
+          "vcredist",
+          "verify-files"
+        ],
+        "sources": [
+          "https://support.cdprojektred.com/en/cyberpunk/pc/sp-technical/issue/1568/game-is-not-launching",
+          "https://support.cdprojektred.com/en/cyberpunk/pc/sp-technical/issue/1700/my-game-crashes-7",
+          "https://support.cdprojektred.com/en/cyberpunk/pc/sp-technical/issue/1915/error-the-code-execution-cannot-proceed-because-msvcp140-1-dll-was-not-found"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/baldurs-gate-3/crash-on-startup",
+      "classification": "existing-sufficient",
+      "reason": "Larian手順とDX11/Vulkan/exeを対応付け。設定再生成前の保存、Steamクラウドの再取得可能性、MODと通常起動の比較がある。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "Steam・GOG版（Windows）"
+      },
+      "evidenceAnchors": {
+        "conclusion": "Larianの公式サポートは、①常駐アプリを閉じる、②ファイルの確認、③ランチャーでDirectX 11とVulkanを切り替える、④ランチャーを通さずexeを直接起動する、⑤古いMODを完全に外す、の順で案内しています。セーブや設定を作り直す手順は最後に回し、必ずフォルダの名前を変えて残してから行います。",
+        "stepIds": [
+          "switch-api",
+          "direct-exe",
+          "remove-mods",
+          "reset-profile"
+        ],
+        "sources": [
+          "https://support.microsoft.com/en-us/windows/security/threat-malware-protection/virus-and-threat-protection-in-the-windows-security-app",
+          "https://larian.com/support/faqs/crashing-upon-startup-pc_59",
+          "https://larian.com/support/faqs/the-larian-launcher-is-crashing_63",
+          "https://baldursgate3.game/support"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en",
+        "zh",
+        "es"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    },
+    {
+      "path": "/games/ace-combat-8/error-st-3100001",
+      "classification": "existing-sufficient",
+      "reason": "公式定義/時刻案内、約2分ずれの利用者報告、Microsoftツールを分離。許容秒数は非公表、個別報告は原因や成功率でないと明示。",
+      "axes": {
+        "shortAnswer": "既存結論あり。今回の評価は文字数でなく入口と限定が分かること",
+        "procedure": "既存のSTEPと操作・比較結果あり",
+        "evidence": "公式説明/第三者資料の帰属と期待結果を本文で評価。実機検証完了の認定ではない",
+        "versionScope": "Steam版（ACE COMBAT ONLINE）・時刻同期手順は10月13日更新、公式Steam告知は2026年10月18日（日本時間）確認"
+      },
+      "evidenceAnchors": {
+        "conclusion": "公式によると「ST-3100001」は、ゲームサーバーとの通信が切れた時に汎用的に表示されるエラーです。公式は、Windowsの時刻がずれていないかを確認し、時刻を同期してから試すよう案内しています。まず「設定」→「時刻と言語」→「日付と時刻」で「今すぐ同期」を押し、Steamとゲームを再起動してください。",
+        "stepIds": [
+          "sync-time",
+          "check-offset",
+          "check-status"
+        ],
+        "sources": [
+          "https://learn.microsoft.com/en-us/troubleshoot/windows-client/active-directory/w32time-not-start-on-workgroup",
+          "https://steamcommunity.com/ogg/2288340/announcements/detail/695399726270382124",
+          "https://x.com/PROJECT_ACES/status/2104739973396373623",
+          "https://steamcommunity.com/app/2288340/discussions/0/594068631729585680/",
+          "https://learn.microsoft.com/ja-jp/windows-server/networking/windows-time-service/windows-time-service-tools-and-settings"
+        ]
+      },
+      "existingLanguages": [
+        "ja",
+        "en"
+      ],
+      "translationAssessment": "本文の新事実を追加しないため翻訳事実との新たな矛盾なし（全訳文の事実再研究ではない）",
+      "proposedEdits": []
+    }
+  ]
+}

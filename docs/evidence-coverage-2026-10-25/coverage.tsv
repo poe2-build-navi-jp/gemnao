@@ -1,0 +1,192 @@
+path	category	disposition	reason
+/games/arc-raiders/matchmaking	games	existing-sufficient	通常/条件付きマップ、ソロ/パーティ、時計/クロスプレイ/地域を分岐。Embark英語UIと未確認日本語名を区別し、即時マッチングも現在正常も保証しない。
+/games/arc-raiders/voice-chat	games	existing-sufficient	公式英語設定名、送受信・Party/Proximity、Windows権限の範囲を明示。入力機器/アプリ単位の比較と未確認UIを区別。
+/games/elden-ring-nightreign/dlc-not-working	games	existing-sufficient	公式DLC解禁条件とSteam所有権を分離。PC App/Regulation番号、PS更新との差、条件未達と過去の消失不具合の違いを明記。
+/games/elden-ring-nightreign/deep-of-night-not-appearing	games	existing-sufficient	クリア条件・オンライン・PC向け版を明示。DLC出現は1回で保証されず、過去告知は現在障害ではないと限定。
+/games/marvel-rivals/login-error	games	existing-sufficient	Network Adaptability Testの結果と実ログイン成功を区別し、約20秒を別のDelay Testだけの目安と説明。Windows正規インストール対象と公式資料ベースの限界が本文にある。
+/games/marvel-rivals/high-ping	games	existing-sufficient	PingとFPSを区別。約20秒は比較目安で回復時間でない。サーバー変更前後の記録、1回の結果で故障断定不可、対象Windowsと公式ツールが明確。
+/games/rocket-league/dualsense-not-working	games	inherited-scoped-record	PR145/146の個別説明を継承。今回の181件に含めない。
+/games/aniimo/not-launching	games	existing-sufficient	公式/Steamランチャー別に権限・修復操作を対応。エラー履歴は原因確定でないと明記し、修復後の同じ場面の比較へ進める。
+/games/aniimo/black-screen	games	existing-sufficient	ゲームだけとOS全体の黒画面を分離。公式10月16日DX切替を対象症状へ限定し、設定項目がなければ推測しない。
+/games/aniimo/login-error	games	existing-sufficient	待機・通信・アカウント・設置先を公式FAQ項目へ対応。テストデータと正式版、Steam/公式ランチャーを分離し、現況の障害と発売時案内を混同しない。
+/games/aniimo/video-memory-error	games	inherited-scoped-record	PR145/146の個別説明を継承。今回の181件に含めない。
+/games/aniimo/launcher-display	games	existing-sufficient	公式1080p/125%条件を4Kへ拡張しない。各画面を識別し、100%比較と復元条件を明示。数値例はモニター設定の例で測定結果主張でない。
+/games/monster-hunter-wilds/not-launching	games	inherited-scoped-record	PR145/146の個別説明を継承。今回の181件に含めない。
+/games/monster-hunter-wilds/save-data	games	changed	対象Steam版と保存パス・アカウント照合・退避・復元後ロード比較は十分だが、短答の「コピーすれば完了」を復元検証と区別する必要。
+/games/monster-hunter-wilds/fps	games	existing-sufficient	Steamの推奨60fpsがフレーム生成込みと明示し、同じ場所で比較。GPU問題の告知日も具体的で、公式目安と読者の比較を区別できる。
+/games/monster-hunter-wilds/controller	games	existing-sufficient	Steam Input／USBとBluetooth／表示と入力を分け、PCGamingWikiへの帰属をquickFacts・FAQで明示。対応版が歴史的参照であることは共通表示で補える。
+/games/monster-hunter-wilds/mod	games	existing-sufficient	MODは公式サポート外、導入記録・退避・1個ずつ比較を案内。ゲーム更新とMOD互換性を区別し、成功率の断定なし。
+/games/monster-hunter-wilds/config-file	games	changed	config.iniの場所を公式報告案内とPCGamingWikiで説明するが、短答・FAQ・要点が再生成を保証。実際に再生成されたかを確認する書き方へ統一する。
+/games/monster-hunter-wilds/system-requirements	games	existing-sufficient	要求スペックの出典と推奨FPSのフレーム生成条件、実際のFPS差をFAQで説明。性能実測を主張していない要件記事として十分。
+/games/monster-hunter-wilds/hdr	games	existing-sufficient	Windows 10と11専用校正アプリを区別。モニター・接続条件と同一場面での比較を提示し、CapcomとMicrosoftの役割を本文で示す。
+/games/monster-hunter-wilds/ultrawide	games	existing-sufficient	21:9と32:9、3440×1440の比率差の説明をPCGamingWikiに帰属。ゲームとムービーの観察・元設定保全があり、実測結果として提示していない。
+/games/ace-combat-8/hotas-not-recognized	games	existing-sufficient	型番・NEOモード・PC入力テスト・AC8割当を段階分離。PS5のTFRP投稿はPC実証や解決ではないと明記。
+/games/ace-combat-8/stutter-audio-cutting-out	games	existing-sufficient	公式要件・利用者相談・一般Windows音声比較を明示的に区別。メモリ増加をリークとしない／告知を修正済みとしない。
+/games/apex-legends/game-version-mismatch	games	existing-sufficient	EA説明の古いパッチと、実際の更新成否を分離。PCランチャー/家庭用機別の更新を示し、エラー名からホスト原因と決めない。
+/games/overwatch-2/rendering-device-lost	games	existing-sufficient	Blizzardの2023年回答、未取得専用記事、実機再現なしを明示。GPU故障と即断せずWindows版等を記録する具体比較がある。対象欄なしでもWindows操作で対象が読める。
+/games/pubg/anti-cheat-conflict-warning	games	existing-sufficient	2025年レター・37.1以降という歴史的範囲、未取得画像文言、実機再現なしを明示。同時起動比較と別症状分岐が具体的。
+/games/apex-legends/javelin-launch-error	games	existing-sufficient	Apex固有の移行告知とEA共通エラー手順を区別。他ゲームのSecure Boot要件を流用せず、移行時期だけを原因にしない。
+/games/valorant/van-restriction-5	games	existing-sufficient	番号5・Windows・VBS/HVCI実行状態を指定し、タスクマネージャー仮想化表示だけでは不足と説明。公式確認日と非実機検証を明記。
+/games/valorant/van9005	games	existing-sufficient	旧VBS無効化と現行資料の手順を区別。Windows 11限定とせず実際の番号・機種・版を記録し、公式確認日と非実機検証を明記。
+/games/ace-combat-8/time-sync-failed	games	existing-sufficient	Microsoft時刻サービスのstatus/sourceとstripchartを区別。停止表示だけで異常とせず、実際の成功時刻を確認する。
+/games/ace-combat-8/connection-after-time-sync	games	existing-sufficient	同期結果・場面・公式告知の日付・回線比較を別々に記録。告知なしやWeb閲覧成功はゲームサーバー正常の証明でない。
+/games/monster-hunter-wilds/crash-after-fixes	games	existing-sufficient	一度の起動成功と同じ狩猟の通過を分け、編集部の比較方法で実測・成功率でないと明示。ログ生成なしも許容し、対象はWindows/Steam操作で読める。
+/games/valorant/van9003	games	existing-sufficient	Riotによる番号定義→msinfo32の読取り→機種別手順→残る番号の確認が具体的。OS名だけで要否を決めず、結果を成功例として提示しない。
+/games/valorant/van9001	games	existing-sufficient	TPM準備状態と仕様2.0、未検出と故障を区別。現行要件と実際の番号を優先し、機種別操作に限定。対象・比較・根拠が本文で読める。
+/games/apex-legends/r5apex-exe-launch-error	games	existing-sufficient	EAのインストール不整合は可能性と限定。EA app/Steam修復、実際の再取得結果と同じ操作比較を区別する。
+/games/apex-legends/apex-crash-txt	games	existing-sufficient	ログ名を部品故障の証明にしない。ランチャー別修復、アプリ1個ずつの比較、1回成功≠原因確定を明示。
+/games/apex-legends/code-net-leaf	games	existing-sufficient	EAのコード定義、公式状況、PC/ルーター/有線比較を分離。正常表示でも個別問題は否定できず一回成功でも原因未確定。
+/games/fortnite/running-not-opening	games	existing-sufficient	Epicの実行中/ファイル確認/EAC案内に各STEPを対応。窓なし/黒画面と別コード、現行導入画面不一致で停止する条件を示す。
+/games/fortnite/dx12-black-screen	games	existing-sufficient	Epic描画記事の起動引数を他モードと混ぜない。同じ場面と元へ戻した結果を比較し、表示成功をGPU/DX12故障の証明にしない。
+/games/battlefield-6/javelin-error-94	games	existing-sufficient	EAの94は可能性説明。起動経路/管理者比較/BF6のみ再導入を区別し、BANやSecure Boot異常と断定しない。
+/games/battlefield-6/secure-boot-enabled-not-launching	games	existing-sufficient	EA要件と実測状態をmsinfo32/tpm.mscで分離。UEFI/OnやTPM表示だけで部品故障とせず、機種別対応範囲を保持。
+/games/valorant/not-launching-no-van	games	existing-sufficient	VAN番号なしに限定し修復成功と起動成功を区別。操作不能時は報告へ分岐、各変更比較と未実施の記録があり、Riot資料との対応が明確。
+/games/ace-combat-8/crashing-memory	games	existing-sufficient	公式社内テストの約48GBを編集部実測にしない。一部クラッシュ・暫定策・予定日と配信/インストール確認を明確に分離。
+/games/planet-zoo-2/crashing-autosave	games	existing-sufficient	1.0.6のクラッシュと1.0.7のResume不具合を明確に分離し、全クラッシュ修正としない。記事の短答は長めだが二つの対象の区別に必要な情報。
+/games/gears-of-war-e-day/achievements-rewards	games	existing-sufficient	10月14日公式修正、過去記録の非自動復旧、残る調査を区別。再プレイで全実績保証せず、保存先未確認なら停止。
+/games/wardogs/error-wd-l020	games	existing-sufficient	KB5124010/0.1.2の修正履歴と後続版を区別。未確認WD-L014/018も個別表示。実機検証でないと明示し、古い障害を現在状態とみなさない。
+/games/palworld/save-data	games	existing-sufficient	Windows Steamローカルワールドに限定し、コピーのサイズ一致とロード成功を別判定。公式Q&Aのゲーム内復元と手動全体コピーを区別。既存で十分。
+/games/palworld/dedicated-server-settings	games	changed	Windowsの実設定／テンプレートを区別し反映比較もあるが、既存実設定を初回テンプレートで上書きしない条件が操作文に不足。英語は保全を明示済み。
+/games/palworld/dedicated-server-backup	games	existing-sufficient	内蔵履歴と別ストレージコピー、Windows/Linux設定、WorldID特定不能時の保全を区別。公式履歴数は公式資料への帰属があり、復元実測の主張なし。
+/games/palworld/dedicated-server-port	games	existing-sufficient	実待受-portとPublicPortを区別し、LANから外部へ比較。Windows Steam/SteamCMDが本文にあり、公開できない回線条件・機種差も明示。
+/games/palworld/not-launching	games	existing-sufficient	Steam Windows1.0クライアント限定、公式MOD残存説明に基づく退避。整合性の問題なし≠MODなしを示し、段階別比較と世界データの保全が具体的。
+/games/palworld/system-requirements	games	existing-sufficient	要件記事として最低/推奨を区別し、Steamのパル数で性能差が出る注記と更新可能性を提示。ベンチマーク記事ではないため追加の未実測定型文不要。
+/games/elden-ring/save-data	games	changed	PCGamingWikiの場所、Steam対応、アカウントと復元前の保全はある。短答のコピー完了保証だけを、コピー内容と復元確認の区別へ修正する。
+/games/elden-ring/not-launching	games	changed	Windows/Steam対象と症状別STEP、公式FAQ/PCGamingWiki出典はある。整合性確認によるMOD全復元の誤読だけを限定する。
+/games/elden-ring/fps	games	changed	公式FAQの3対策と60FPS上限、カクつき比較がある。ただし症状分類を原因確定にしている説明を限定する。
+/games/elden-ring/ultrawide	games	changed	公式非対応と通常黒帯、GPU拡大設定、非公式ツールを分離。全環境60Hz固定の断定を削り、実HzとFPSを区別する。
+/games/elden-ring/hdr	games	existing-sufficient	PCGamingWikiのHDR症状とMicrosoft Windows HDRを区別。Windows11専用アプリの除外条件、同じ暗所/明所とSDR比較がある。
+/games/elden-ring/mod	games	changed	追加/置換ファイルと版、オフライン対象はある。検証だけで全復元/オンライン可能と誤読される箇所を、残存ファイルと正常経路確認へ限定する。
+/games/onimusha-way-of-the-sword/not-launching	games	existing-sufficient	公式17項目と編集による順序、公式の除外案内と保護保持の編集方針を区別。対象Steam/参照日もあり結果は比較指示として書かれている。
+/games/onimusha-way-of-the-sword/crash-report	games	existing-sufficient	Capcomが求めるレポート収集手順で、ほとんどの場合にZIPが出るという限定と未生成時の別場所確認あり。復旧成功を主張せず、資料範囲と対象が明瞭。
+/games/onimusha-way-of-the-sword/low-fps	games	changed	比較条件・フレーム生成・上限の手順は充実。日本語「最低」と既存英語「Low」の画面名対応を再確認していないため、画面名を低い設定として限定する。
+/games/onimusha-way-of-the-sword/shader-cache	games	existing-sufficient	公式の削除案内と編集の可逆退避を分離。存在する2ファイルだけ、なければ不要、再生成後の比較と復帰が明確。
+/games/onimusha-way-of-the-sword/black-screen	games	existing-sufficient	公式の画面設定項目と編集の表示回復順を区別。見えないメニューは操作しない、1項目ずつ・効果なしで復帰という手順が十分。
+/games/onimusha-way-of-the-sword/hdr	games	existing-sufficient	SteamのHDR対応とPCGamingWikiの調整項目、Windows11専用アプリを区別。同じ見た目を保証せずモニター条件を説明。
+/games/onimusha-way-of-the-sword/gpu-driver-version	games	existing-sufficient	指定版をCapcomに帰属、ドライバー変更前後の症状を記録。クリーンインストール/DDUは公式外ツールと記載。共通の資料日表示で実機日との区別を補える。
+/games/wardogs/server-connection	games	existing-sufficient	歴史的な発売時混雑・復旧告知と現在状態を明確に区別。0.2.0のping制限とBANも区別し、記事で固定閾値を断定しない。
+/games/the-blood-of-dawnwalker/shader-compilation-crash	games	changed	結論では対象IntelデスクトップCPUに限定するが、STEP 2の「新しいBIOSがあれば更新」が全機種へ読める。英語同様に適用対象判定を操作へ入れる。
+/games/the-blood-of-dawnwalker/stutter-windowed	games	existing-sufficient	開発元の歴史的既知問題と表示方式比較を区別し、1.0.4/1.0.5の対象機能を明記。同じ経路・時間での読者比較であり自前実測でない。
+/games/the-blood-of-dawnwalker/controller-sprint	games	existing-sufficient	PCパッチ調整とコンソール感度0.8を明確に区別しPC未確認と記載。日本語は9/27資料、英語は10/18再確認でSteam/GOGの記載幅に差があるが、Steam限定の成功保証ではない。対応ストアの帰属だけ任意明確化可。
+/games/star-wars-zero-company/not-launching	games	changed	公式の対象Intel第13/14世代デスクトップという結論の限定を、BIOS操作の「該当する場合」にも正確な型番判定として明示する。
+/games/star-wars-zero-company/black-screen	games	changed	説明文が黒画面の原因を3つに限定し、本文・英語のpossible causesと矛盾する。根拠の広げ過ぎを取り除く必要。
+/games/star-wars-zero-company/save-progress	games	existing-sufficient	EAの保存タイミング案内と失われた進行の復元を区別。保存確認は同アカウント/ランチャー/ミッション比較、保存パスはPCGamingWikiと出典分離。
+/games/star-wars-zero-company/gtx10-rtx20-low-fps	games	existing-sufficient	GTX10/RTX20の最低条件を満たすGPUに限定し、他GPUとArcを分ける。公式目安と同場面比較を区別し、例の60を実測とはしていない。
+/games/aion2/login-error	games	changed	Steam/PURPLE・発売時のPlaytest・公式待機方針は詳しい。混雑原因の頻度根拠は示されず、正式版と終了済み先行条件の混同を短答で除く。
+/games/ace-combat-8/not-launching	games	existing-sufficient	Steam/Windows11/RT/SSDの公式要件、10月22日資料範囲、メモリ問題と起動要件・更新予定と全修正の違いが明記される。
+/games/shin-sangoku-musou-2-remastered/not-launching	games	changed	無料体験版で「確実」とする短答を、既存英語同様に製品版全場面の保証ではない比較へ限定する。要件と具体手順の構造自体は十分。
+/games/control-resonant/crash-performance	games	changed	対象版1.3.3と公式/PCGamingWiki資料はある。準備中・全件次回修正・再起動成功を現在の保証として読める箇所を限定する。
+/games/silent-hill-townfall/stutter	games	changed	歴史的パッチの特定buildへの完全一致を現在操作に要求。後続版を許す既存英語と整合させ、当時の修正版の記録として示す。
+/games/minecraft-dungeons-2/multiplayer	games	changed	Microsoftアカウント/4人/party codeという仕様と接続成功の「確実」を区別する。英語には確実保証がなく、短答を限定する。
+/games/call-of-duty-modern-warfare-4/tpm-secure-boot	games	existing-sufficient	公式要件とtpm/msinfoの状態を区別。版・ストア・beta/製品仕様を分離し、モデル固有操作と復旧前提を明示する。
+/games/call-of-duty-modern-warfare-4/crash	games	changed	10月23日資料確認と公式推奨ドライバー版、要件未達とクラッシュを区別。全バックグラウンド終了という対象拡大を、列挙されたアプリの個別比較へ狭める。
+/games/call-of-duty-modern-warfare-4/xbox-pc-launch-button	games	existing-sufficient	Xbox PCのみ、10月23日調査中、確認しても保証なし、実機実績でないと明示。登録数と未導入パックに限定した比較。
+/games/call-of-duty-modern-warfare-4/loadout-not-saving	games	existing-sufficient	全機種マルチプレイの公式調査と個別回避策なしを明示。保存操作の前後と別の解除条件を区別し、実機実績を主張しない。
+/games/call-of-duty-modern-warfare-4/stats-not-showing	games	existing-sufficient	公式の追跡継続説明と読者が観測できる画面を区別。表示復旧日時不明、内部データは未検証、対象Combat Record/leaderboardを限定。
+/games/enshrouded/black-screen-save-migration	games	existing-sufficient	Hotfix版/公式Version番号、対象症状と移行時の問題アイテム・水の制限を明示。最新版適用と個別改善は別とする。
+/games/battlefield-6/crash-after-update	games	existing-sufficient	公式10/22 Hotfixを2マップに限定、番号非公表、2.1.1.0と区別。更新完了と通常プレイ時の再発結果を分離。
+/games/battlefield-6/cannot-revive	games	existing-sufficient	Battle Royaleの蘇生表示/操作に限定し、他のアニメ改善や安定性Hotfixを修正証拠にしない。確実な回避策不明を示す。
+/games/gears-of-war-e-day/not-launching	games	changed	最低要件とbeta情報の出典はある。要件外を実機で正常動作しない断定へ拡大せず、beta案内を製品版情報と分離する。
+/games/dragons-dogma-2/performance	games	existing-sufficient	Capcom TU3.2のCPU負荷・設定説明に帰属し、対象版と同じ場所の比較、1項目ずつ/PC依存を明示。ゲーム内表示は容量目安として用い、実測FPSを捏造しない。
+/games/final-fantasy-resonance/not-launching	games	existing-sufficient	Steam要件/体験版引継ぎ/特典を出典ラベルで対応。製品版と体験版、引継ぎ操作の公式画面未確定を明記。実測成功の主張はない。
+/games/castlevania-belmonts-curse/not-launching	games	changed	KONAMIの条件付き既知問題とVer1.1.3、60Hz未満が選べない場合を示す。回避策後の起動成功を読者の結果で確認する形へ限定。
+/games/tales-of-eternia-remastered/not-launching	games	changed	最低欄1GB GPUとDX12注記4GBの不整合を本文では留保するのに、短答は動作保証。既存英語のように記載条件と実際の起動可否を区別する。
+/games/phantom-blade-zero/not-launching	games	changed	発売前情報と対象版はあるが日本語短答の重い時の修正指示が現行製品版での結果に見える。既存英語の発売後比較・非再現という具体範囲を反映する。
+/games/dragon-quest-monsters-4/demo-transfer	games	changed	発売前/Steam/体験版の対象と公式の最大8体・LV1・対象外物品を明示。体験版動作を製品版まで確実と誤読させないよう限定。
+/games/football-manager-27/not-launching	games	existing-sufficient	発売前の公式情報、プレビュー期間と引継ぎ条件、認証詳細非公開を明示。実測成功や正確な認証リセット時間を主張しない。
+/games/where-the-seeds-fall/not-launching	games	changed	体験版配信中と未発売製品版を一つの対象にしている。要件は公表情報だが製品版の修復実績でないこと、製品版操作は配信後であることを具体的に補う。
+/games/godzilla-destroy-all-monsters-melee/not-launching	games	existing-sufficient	発売前/体験版とSteam要件、体験版オンライン1対1を明示。dxdiagは目安と表現し、実測性能を主張しない。
+/games/cyberpunk-2077/not-launching	games	existing-sufficient	CDPRサポートを起動/クラッシュ/MSVCPへ分離。Steam/GOG/Epic別のファイル確認と変更後比較を示し、主張をサポート由来として帰属する。
+/games/baldurs-gate-3/crash-on-startup	games	existing-sufficient	Larian手順とDX11/Vulkan/exeを対応付け。設定再生成前の保存、Steamクラウドの再取得可能性、MODと通常起動の比較がある。
+/games/helldivers-2/gameguard-error-114	games	existing-sufficient	Arrowhead公式の5分類と編集で保護保持にした差を示す。Steam Windows対象・GameGuardのみ再導入・内部ドライブ作業の停止条件があり、成功率を主張しない。
+/games/hogwarts-legacy/crash	games	existing-sufficient	公式案内とEngine.ini/MOD退避の順序を説明し、Steam Windowsに限定。画質の安定性は可能性として同場面比較、保護保持の編集方針と出典も読める。
+/games/gta-v-enhanced/story-save-migration	games	existing-sufficient	PC同士、同一アカウント、1回、90日の範囲を公式に帰属。upload/dowloadの不可逆点と非同期を具体的に説明する手順記事で実測主張なし。
+/games/skyrim-special-edition/skse-after-update	games	existing-sufficient	本体版とSKSEビルド、Steam/GOGと非対応ストアを区別。番号は確認日時点と明記し、未対応なら待つ・プラグイン退避比較が具体的。
+/games/stardew-valley/save-restore	games	existing-sufficient	Windows Steam/GOG対象、公式Wikiと復旧ガイドを用い、_oldペア・SMAPI・Cloudの方法を分けて保全/復帰/未判定停止を説明。実際の復元成功を主張しない。
+/games/ace-combat-8/error-st-3100001	games	existing-sufficient	公式定義/時刻案内、約2分ずれの利用者報告、Microsoftツールを分離。許容秒数は非公表、個別報告は原因や成功率でないと明示。
+/guide/low-gpu-usage	guide	inherited-scoped-record	PR145/146の個別説明を継承。今回の181件に含めない。
+/guide/pc-game-freezes	guide	existing-sufficient	Windows 11対象がfreeze-details冒頭にあり、RAM/VRAMの数値例を実測・しきい値ではないと明記。反応範囲・メモリ・温度を同場面で比較し、コード/高負荷を故障と断定しない。
+/guide/steam-game-not-launching	guide	inherited-scoped-record	PR145/146の個別説明を継承。今回の181件に含めない。
+/guide/verify-steam-files	guide	inherited-scoped-record	PR145/146の個別説明を継承。今回の181件に含めない。
+/guide/pc-game-crash	guide	changed	同時刻のログ・モジュールの限定、SampleGame架空例と本人報告を分離済み。ただしcrash-detailsの10月3日表現とzh/esの受領日断定がPR146の報告日時未記録に矛盾する。
+/guide/black-screen	guide	existing-sufficient	主にWindows11と冒頭明示。Windowsが映るかから分岐し、HDR/画面モード/設定退避の条件あり。Elden Ring保存先をMOD作者記録と出典ラベルで区別。独立テストの主張なし。
+/guide/gpu-driver-update	guide	existing-sufficient	Windows11で画面が操作できる状態を明示。対象GPU/元版/配布元/更新後版と同場面比較を記録し、版変更と症状改善を分離。記録表は実測値ではないと明記。
+/guide/stutter-fix	guide	inherited-scoped-record	PR145/146の個別説明を継承。今回の181件に含めない。
+/guide/low-fps	guide	inherited-scoped-record	PR145/146の個別説明を継承。今回の181件に含めない。
+/guide/vram-shortage	guide	inherited-scoped-record	PR145/146の個別説明を継承。今回の181件に含めない。
+/guide/save-data-backup	guide	existing-sufficient	Windows向け保存先3例に公式リンク、コピー一致とロード成功を分離。2026-09-27は資料照合、ゲーム実機復元テスト未掲載と明記。
+/guide/steam-input-controller	guide	existing-sufficient	Steam認識→ゲーム別入力→外部変換の手順。出典欄が期待結果を読者の判断目安・非実測と明記。機器別UI差/ゲーム側対応を分け、特定版成功は主張しない。
+/guide/controller-double-input	guide	existing-sufficient	joy.cplとツール終了で消える機器を比較し、名称だけで判定しない。DS4Windows資料に仕組みを帰属。1回押し/仮想パッドの例は条件文、実測成功ではない。
+/guide/directx-error	guide	inherited-scoped-record	PR145/146の個別説明を継承。今回の181件に含めない。
+/guide/visual-c-runtime-error	guide	existing-sufficient	Windows上のゲームの対象アーキテクチャとDLL系列を区別。MS年版/x86/x64の出典、導入済み/修復/不成功分岐があり、Runtime Errorだけでは必要版不明と明示。
+/guide/remove-mods-safely	guide	existing-sufficient	Vortex/MO2/手動/Workshopで根拠と導入経路を分離。元ファイル不明は削除停止、MOD依存セーブは保全。一般的な取り外し手順で、全ゲームの起動成功保証なし。
+/guide/reshade-uninstall	guide	existing-sufficient	ReShade 6.8.0公式ソース/開発者説明が根拠、ゲーム実機未検証と明記。API/導入exe/識別済みDLLに限定し、Vulkan/OpenXRは手動コピー復元対象外。
+/guide/reset-config-file	guide	existing-sufficient	Windows向けゲーム別保存先、公式とMOD作者記録を分離。資料確認日と実機未実施が明記され、対象特定/バックアップ/再生成/復元の結果分岐あり。
+/guide/shader-cache-delete	guide	existing-sufficient	Windows/NVIDIA/AMD/ゲーム内構築を分離した表と対応一次資料。初回カクつきを最終結果とせず、同場面再比較。改善を保証せず、版/項目差は公式へ誘導。
+/guide/uninstall-save-data	guide	existing-sufficient	公式に確認した保存先と削除範囲の判断で、全ストア/全版の実機アンインストール結果ではないと明記。通常操作と追加ユーザーデータ削除を区別。
+/guide/steam-cloud-sync-error	guide	existing-sufficient	Windowsのセーブ保全→競合候補→選択後の進行確認を分離。PC A/B章数は明確な例で実測主張なし。日時だけで正解としない。Steam公式とSteamworksを各判断に帰属。
+/guide/steam-disk-write-error	guide	existing-sufficient	C/D保存先と空き容量を区別し、ライブラリ修復完了と更新・起動成功を分離。容量例は実測必要量でないと明示。SteamとWindows点検の対象別一次出典あり。
+/guide/pc-shuts-down-while-gaming	guide	existing-sufficient	イベント41を電源故障と断定せず、停止コード/電源断/再起動を分離。Intel/AMDの温度条件とメーカー点検へ帰属し、固定の温度しきい値で判断しない。
+/guide/bsod-while-gaming	guide	existing-sufficient	停止コードごとのMS資料、メモリ診断/ダンプと同時刻ログを照合。コード・ファイル名を故障部品の証明にしない。実測ではなく読者が採る結果の読み方。
+/guide/no-game-audio	guide	existing-sufficient	Windows11出力設定とゲーム内音量を分離。同じ出力/場面で比較、機器固有とOS全体を切り分け。公式音声案内へ対応し、例は条件文で成功実績を装わない。
+/guide/tpm-secure-boot	guide	changed	対象・前提・公式資料は揃うが、原因の「自作PCはオフが多い」とFAQ「通常のゲームには影響しない」は根拠の及ぶ範囲を超える。英語版は既に限定されており日本語を整合可能。
+/guide/windows-11-required	guide	changed	winver/PC正常性/ESUとゲーム要件の違いは明瞭。新作複数タイトルのOS断定と増加傾向はこのページでは自サイトまとめに依存。一般ガイドとして現行各公式要件の照合に限定する。
+/guide/ray-tracing-gpu	guide	changed	専用RT機能と基本DXR、GPU能力とゲーム要件を分ける英語版が既存。日本語の一律の起動不可とNVIDIA非対応の表現を、正式な必須要件/専用RTに限定し同じ根拠へ整合する。
+/discord/upload-failed	discord	existing-sufficient	送信失敗とプレビューを分離。容量FAQの更新日と矛盾、画面上限優先、全端末実機未検証を本文に明示。既に全項目が揃う。
+/discord/not-opening	discord	existing-sufficient	再起動→同一PCのブラウザ→キャッシュ退避の条件付き手順。ブラウザ成功をキャッシュ原因確定に使わず、復元方法と専用エラー分岐がある。
+/discord/mic-not-working	discord	existing-sufficient	Windows→Discordテスト→通話の比較順と同一マイク条件が明確。テスト中の自動ミュート、感度と音量の違いを公式説明へ対応付ける。
+/discord/cant-hear-voice	discord	existing-sufficient	全員/一人、送信側/受信側、通話音/配信音を分ける。架空の出力テストボタンを前提にせず、実際の短文で判定する制限を記載。
+/discord/rtc-connecting	discord	existing-sufficient	表示だけの故障判定を否定し、通話先/同一PC/回線の比較を案内。AMD資料は2022年の古い一部機種向けと限定している。
+/discord/no-route	discord	existing-sufficient	音声接続失敗の説明と端末/回線/チャンネルの比較を対応。別回線成功からUDP遮断やルーター故障を確定せず、DNS万能説も否定。
+/discord/screen-share-not-working	discord	existing-sufficient	配信開始前/開始後、PiP/視聴画面の異なる判定対象を明示。動画権限、別アプリ、共有方式と相手人数で次手順を決める。
+/discord/stream-no-audio	discord	existing-sufficient	配信者に聞こえるか/全員か一人かの短答と手順。公式の音声対応範囲を名指しし、画面全体が必ず無音という誤断定を避けている。
+/discord/loading-stuck	discord	existing-sufficient	ブラウザでチャットまで開くことを比較条件にし、ログイン未完を判定保留。キャッシュの対象/復元と更新エラー分岐を記載。
+/discord/update-failed	discord	existing-sufficient	通信・更新プロセス・残存フォルダーの条件を分離し、別回線未確認は未確認と残す。相談用の成功/失敗例を記入例と明記。
+/discord/installation-failed	discord	existing-sufficient	初回/再導入、ログ/削除対象/アクセス拒否を分け、エラー語は必ず出るとは限らない例と明示。インストーラー終了と実際の再起動成功を区別。
+/discord/audio-input-not-found	discord	existing-sufficient	Windows一覧→入力テスト→アプリ許可→ブラウザ権限と適用範囲を分離。Chromeの操作例を明示し、録音再生無音を未認識の証明としない。
+/discord/error-1001	discord	existing-sufficient	公式1001のサウンド共有許可と、許可画面が出ないときの編集上の比較を分離。コード消失と音声共有成功を区別し、未確認設定を探させない。
+/discord/error-1002	discord	existing-sufficient	公式の再参加/完全再起動を明記。ノイズ抑制比較は公式設定を基にした切り分けで、記入例を非実測と明記し原因を確定しない。
+/discord/error-1003	discord	existing-sufficient	公式の入力レート不一致と入出力変更に基づく。A+B/C+B/A+D比較は非実測で、録音・ブラウザは別機器の検証の代用でないと限定。
+/discord/system-helper	discord	existing-sufficient	編集画面、キー競合、権限差、実験的提供条件を切り分ける。案内なしは異常とせず、導入完了と症状改善を区別する。
+/discord/overlay-not-showing	discord	existing-sufficient	Windows限定、本体/通話/通知を分けた成功条件。比較例は非実測、別ゲーム成功でも原因/対応可否を確定しない。
+/discord/notifications-not-working	discord	existing-sufficient	DM未着/画面通知、会話/サーバー/Windows設定を分離。モバイル説明をPC仕様へ流用しないと明記している。
+/discord/screen-share-black-screen	discord	existing-sufficient	配信者本体/PiP/実視聴を区別。同じメモ帳を共有方式だけ変えて比較し、公式取得方式と保護映像制限に対応。
+/discord/slow-performance	discord	existing-sufficient	入力/送受信/ゲーム負荷を分離。数値は説明用で固定閾値ではなく、GPU設定OFFを万能策にしない。ネットワーク欄の測定対象も限定。
+/discord/camera-not-working	discord	existing-sufficient	Windowsカメラ/Discordテスト/相手の受信の順で比較。ビデオテスト成功は送信成功ではないと明示し、機器・アプリ権限を分離。
+/discord/login-error	discord	existing-sufficient	認証段階ごとに対応する公式手続きへ案内。メール未着から乗っ取りを断定せず、MFAや登録メールのサポート限界を明記。
+/discord/crashing	discord	existing-sufficient	最小化/通話切断/終了を分け、発生条件別の比較と信頼性履歴の時刻照合を案内。ファイル名だけで原因確定しない。
+/discord/stream-stuttering	discord	existing-sufficient	同じ場面と複数視聴者、配信者画面の条件で比較。720p/30fpsは比較候補で、改善しても回線/PCの限界を断定しない。
+/discord/game-volume-lowers	discord	existing-sufficient	無言/発言/退出を固定BGMで比べ、Discord減衰/Windows通信/Bluetoothを分離。LE Audio例外と元へ戻す条件を記載。
+/discord/mic-volume-low	discord	existing-sufficient	一人/全員と録音/テスト/通話を比較。厳密な音量測定ではないと明示し、同じ再生音量・機器条件で誤判断を避けている。
+/discord/call-disconnects	discord	existing-sufficient	通話切断/アプリ終了/音切れを分け、普段切れる時間で維持を確認。ブラウザのマイク許可で試せなければ比較未完と明記。
+/discord/echo-double-voice	discord	existing-sufficient	返り音の経路を相手ミュートと退出で比較。ミュート成功でも拾い直し/仮想入力を確定せず、OBS起動のみの原因断定も否定。
+/discord/voice-cutting-out	discord	existing-sufficient	録音/テスト/通話を同じ文章で比較し、感度/入力モード/ノイズ抑制を分離。マイクテストは通信全体の検査ではない。
+/discord/bluetooth-audio-problem	discord	existing-sufficient	本文自体に公式の通話モード説明とWindows/LE Audio条件がある。製品紹介の非実測注記だけに依存せず、別マイクとモード変化を比較する。
+/discord/game-not-detected	discord	existing-sufficient	検出/共有範囲/相手プロフィール/招待対応を分離。比較例は非実測、ゲーム表示から招待・観戦対応を保証しない。
+/discord/user-volume-low	discord	existing-sufficient	個別/全員/ゲーム音競合の短答と操作、送信側との境界が明瞭。80→40は推奨値・実測ではない例と明記。
+/discord/phone-verification-error	discord	existing-sufficient	入力無効/登録済み/レート制限/SMS未着を分離。24〜48時間は該当する公式エラー条件に限定し、全員への復旧保証にしない。
+/discord/bot-add	discord	existing-sufficient	機能導入の手順記事として、追加権限・追加先・公式App Directory・要求権限・導入後の実確認が揃う。症状記事用の実測ブロックを足す必要はない。
+/discord/bot-not-responding	discord	existing-sufficient	候補表示/実行/期待処理を分離。同一コマンドで利用者・チャンネルを変え、比較例を実結果と差し替える指示がある。
+/discord/bot-remove	discord	existing-sufficient	サーバー追加/アカウント認証/別Webhookを区別。削除時刻以降の新規投稿で判定し、過去履歴や外部データ削除まで保証しない。
+/discord/recommended-bots	discord	existing-sufficient	用途別の選定・公式仕様・具体導入・一般メンバーでの結果確認が揃い、実サーバー比較測定ランキングでないと明示。症状記事の型を押し付けない。
+/discord/voice-client-outdated	discord	existing-sufficient	公式最低版と推奨される更新を分離。OS条件、同一欄の版記録、通話結果を求め、記録例は非実測と明記。
+/pc/repair-or-replace	pc	existing-sufficient	既存対象表示は個人向けWindows PC。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。個別evidenceSummaryの限界も明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。
+/pc/disk-usage-100	pc	existing-sufficient	既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。個別evidenceSummaryの限界も明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。
+/pc/windows-update-stuck	pc	existing-sufficient	既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。個別evidenceSummaryの限界も明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。
+/pc/bluetooth-option-missing	pc	existing-sufficient	既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。個別evidenceSummaryの限界も明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。
+/pc/pc-broken	pc	existing-sufficient	既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。個別evidenceSummaryの限界も明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。
+/pc/pc-hacked-signs	pc	existing-sufficient	既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。個別evidenceSummaryの限界も明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。
+/pc/microphone-after-update	pc	existing-sufficient	既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。
+/pc/call-starts-audio-disappears	pc	existing-sufficient	既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。
+/pc/bluetooth-connected-no-sound	pc	existing-sufficient	既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。
+/pc/usb-c-device-not-recognized	pc	existing-sufficient	既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。
+/pc/second-monitor-not-detected	pc	existing-sufficient	既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。
+/pc/audio-after-update	pc	existing-sufficient	既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。
+/pc/wifi-option-missing	pc	existing-sufficient	既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。
+/pc/windows-update-0x800f081f	pc	existing-sufficient	既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。
+/pc/sleep-wakes-up-by-itself	pc	existing-sufficient	既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。
+/pc/black-screen-after-sign-in	pc	existing-sufficient	既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。
+/pc/file-explorer-freezes-on-right-click	pc	existing-sufficient	既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。
+/pc/wifi-connected-no-internet	pc	existing-sufficient	既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。
+/pc/refresh-rate-stuck-60hz	pc	existing-sufficient	既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。
+/pc/gaming-shortcut-keys	pc	existing-sufficient	既存対象表示はWindows 11。冒頭の答え→症状別判断→具体操作→expected/unexpected/revert→対象の公式資料という順。出典テンプレートで判断例は切り分け目安・全機器の実機結果ではないと明示。正常/異常の例は読者の確認条件であり、編集部の測定結果という記述ではない。

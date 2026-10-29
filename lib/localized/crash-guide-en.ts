@@ -13,7 +13,7 @@ export const crashGuideEn: EnglishGuideInfo = {
   checkedAt: '2026-10-03',
   category: 'Common PC game troubleshooting',
   sourcePolicy:
-    'The Windows and Steam procedures summarize the linked support documentation in our own words. The Steam-extension section is a single anonymous user-reported recovery received on October 3, 2026 (Japan time), not an official fix, a controlled proof of cause or a success-rate estimate.',
+    'The Windows and Steam procedures summarize the linked support documentation in our own words. The Steam-extension section is a single anonymous user-reported recovery in the article record dated October 3, 2026 (exact report time unrecorded), not an official fix, a controlled proof of cause or a success-rate estimate.',
   faqs: [
     {
       question:
@@ -204,7 +204,7 @@ export const crashSectionsEn = [
     title:
       'One reported recovery: check Steam extensions separately from game mods',
     paragraphs: [
-      'On October 3, 2026 (Japan time), one user reported being able to play the Steam version of Monster Hunter Wilds after temporarily disabling third-party Steam-client extensions. It had closed before the title screen. Closing OBS, switching Steam Overlay off, verifying files, confirming administrator-mode overrides were off, and updating the GPU driver followed by restarting had not resolved it. A read-only check then found extra DLLs loaded into the Steam process from its installation root.',
+      'The article record dated October 3, 2026 contains one user report (exact report time unrecorded) of being able to play the Steam version of Monster Hunter Wilds after temporarily disabling third-party Steam-client extensions. It had closed before the title screen. Closing OBS, switching Steam Overlay off, verifying files, confirming administrator-mode overrides were off, and updating the GPU driver followed by restarting had not resolved it. A read-only check then found extra DLLs loaded into the Steam process from its installation root.',
       'A file being present and a file actually loaded into a process are different facts. The case did not verify loading into the game process and did not prove one particular DLL was the cause. Do not delete by filename; stop if you do not recognize the installation. Windows DLLs with the same names in System32 are outside the scope of this check.',
       'Before a change, copy and verify settings and saves. With an extension that redirects saves, also check external cloud storage and custom destinations. Do not proceed if important data cannot be preserved. Check only the target game, and stop without overwriting if a sync conflict or missing-save warning appears. Keep the working state; do not re-enable additions just to provoke a recurrence.',
       'The linked Wilds case documents the DLL names, read-only check, reversible pause and reported result. Do not apply the same cause or a supposed success rate to other games.',

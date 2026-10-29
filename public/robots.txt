@@ -1,5 +1,15 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /api
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin
+Disallow: /api
+
+User-agent: GPTBot
+Disallow: /
 
 Sitemap: https://gemnao.pages.dev/sitemap.xml
 Sitemap: https://gemnao.pages.dev/image-sitemap.xml

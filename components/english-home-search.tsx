@@ -1,5 +1,6 @@
 'use client';
 /* oxlint-disable next/no-html-link-for-pages -- Preserve native article navigation. */
+import { ocrCopy } from '@/lib/ocr-copy';
 import { guideUi } from '@/lib/localized/guide-ui';
 import type { Locale } from '@/lib/i18n';
 import { useMemo, useRef } from 'react';
@@ -24,6 +25,7 @@ export function EnglishHomeSearch({ entries, locale = 'en' }: { entries: English
         setQuery(''); input.current?.focus();
       }}>{t.clear}</button>}
     </div>
+    <p><a href={`/diagnose/image-search?lang=${locale}`}>{ocrCopy[locale].title} →</a></p>
     {searching && <>
       <output aria-live="polite">{results.length} {t.results}</output>
       {!results.length && <p>{t.empty}</p>}

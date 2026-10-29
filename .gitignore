@@ -43,3 +43,6 @@ next-env.d.ts
 /playwright-report/
 *.tsbuildinfo
 .tmp-feedback-test/
+
+# Reproducible npm OCR assets
+/public/ocr/

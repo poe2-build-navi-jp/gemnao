@@ -103,9 +103,9 @@ export const monsterHunterArticles: GameArticle[] = [
     symptom:
       'PC・Steam版モンスターハンターワイルズが起動直後、ロード中、狩猟中、シェーダー準備中に落ちる人向け。エラーなしの強制終了と、PC全体の再起動も区別します。',
     conclusion:
-      'モンハンワイルズがクラッシュしたら、まず落ちた時刻・場面・エラー全文を記録します。更新やMOD導入後ならMODを退避、起動直後や同じロードで落ちるならSteamの整合性確認、狩猟中ならGPUドライバーと画質設定を確認します。高解像度テクスチャパックはVRAM 16GB以上が条件です。対処は1つずつ行い、落ちた場面を再実行して判断してください。',
+      'まず落ちた時刻・場面・エラー全文を記録します。起動直後や同じロードなら整合性確認、狩猟中ならGPU・画質設定、MOD導入後なら導入物を復元可能な形で退避。1項目ずつ変えて同じ場面を比較し、追加DLLの本人報告を全環境に当てはめないでください。',
     description:
-      'カプコンの公式案内を基に、確認する場所と結果による次の行動をまとめました。原因を断定する診断表ではありません。2026年10月3日（日本時間）に受け取った、Steamクライアントの外部拡張を一時停止した後に遊べたという1件の報告を追加しました。単独の原因や改善率を示すものではありません。PS5・Xbox版にはSteamやWindowsの操作を適用しないでください。',
+      'カプコンの公式案内を基に、確認する場所と結果による次の行動をまとめました。原因を断定する診断表ではありません。2026年10月3日付の元記事に記録した、Steamクライアントの外部拡張を一時停止した後に遊べたという1件の報告を掲載しています（正確な報告日時は未記録）。単独の原因や改善率を示すものではありません。PS5・Xbox版にはSteamやWindowsの操作を適用しないでください。',
     quickFacts: [
       {
         label: '最初に残す記録',
@@ -360,7 +360,7 @@ export const monsterHunterArticles: GameArticle[] = [
         time: '約5〜10分',
         risk: 'low',
         actions: [
-          '2026年10月3日（日本時間）の改善報告1件：Windows PCでSteam版がタイトル前に終了し、プレイを始められなかった。MOD・ReShadeは使っていないとの申告だった',
+          '2026年10月3日付の元記事に記録した改善報告1件（正確な報告日時は未記録）：Windows PCでSteam版がタイトル前に終了し、プレイを始められなかった。MOD・ReShadeは使っていないとの申告だった',
           'この事例ではOBS終了、SteamオーバーレイOFF、ゲームファイルの整合性確認成功、管理者実行・互換モード指定なしの確認、公式NVIDIAドライバー更新と再起動だけでは改善しなかった。全員に同じ結果になるという意味ではない',
           '変更前の読み取り確認で、Steam本体のプロセスに、Steamのインストール先直下のHidden属性（隠し属性）の付いたOpenSteamTool.dll、cloud_redirect.dll、dwmapi.dllが読み込まれていた。ゲーム本体への読み込みを確認した結果ではない',
           '自分のPCでは、タスクマネージャーで実行中のSteamのファイルの場所を確認する。ゲームの「ローカルファイルを閲覧」で開く場所とは異なる。ファイル名が似ているという理由だけで操作しない',
@@ -506,7 +506,7 @@ export const monsterHunterArticles: GameArticle[] = [
     shortTitle: 'セーブデータの場所',
     symptom:
       'セーブデータの保存先を開きたい、MOD導入やPC移行の前にバックアップしたい、消えたセーブを戻したい、体験版のデータを引き継ぎたい人向けです。',
-    conclusion: String.raw`Steam版のセーブは「<Steamのインストール先>\userdata\<数字のアカウントID>\2246340\remote\win64_save」にあります（標準のSteamの場所は「C:\Program Files (x86)\Steam」）。win64_saveフォルダを丸ごと別の場所へコピーすればバックアップ完了です。`,
+    conclusion: String.raw`Steam版のセーブは「<Steamのインストール先>\userdata\<数字のアカウントID>\2246340\remote\win64_save」にあります（標準のSteamの場所は「C:\Program Files (x86)\Steam」）。ゲームとSteamを終了してwin64_saveフォルダを丸ごと別の場所へコピーし、コピー先の内容を確認します。コピー完了だけでは、ゲームで読み込めることまで確認した扱いにはしません。`,
     description:
       'セーブはゲームのインストール先ではなく、Steamのuserdataフォルダにあります。Steamクラウドにも対応していますが、手元にもコピーを残すと安心です。',
     causes: [],
@@ -1090,7 +1090,7 @@ export const monsterHunterArticles: GameArticle[] = [
     shortTitle: 'config.iniの場所・初期化',
     symptom:
       '設定ファイルの場所を知りたい、画面設定を変えてから起動しない・映らない、設定を初期化したい、サポートに設定を送りたい人向けです。',
-    conclusion: String.raw`config.iniは、ゲームのインストール先（標準は「C:\Program Files (x86)\Steam\steamapps\common\MonsterHunterWilds」）の直下にあります。初期化する時は、削除せずゲームフォルダの外へ移すと、起動時に新しいファイルが作られます。`,
+    conclusion: String.raw`config.iniは、ゲームのインストール先（標準は「C:\Program Files (x86)\Steam\steamapps\common\MonsterHunterWilds」）の直下にあります。初期化する時はコピーを残してゲームフォルダの外へ移し、起動後に新しいファイルが作られるか確認します。`,
     description:
       'カプコンの公式ガイドでも、問い合わせ時にグラフィック設定としてconfig.iniのコピーを送るよう案内されています。',
     causes: [
@@ -1109,7 +1109,7 @@ export const monsterHunterArticles: GameArticle[] = [
       },
       {
         label: '初期化の方法',
-        value: 'ファイルをゲームフォルダの外へ移す→起動すると作り直される',
+        value: 'コピーを残して退避→起動後に再生成の有無を確認',
       },
       {
         label: 'セーブへの影響',
@@ -1199,7 +1199,7 @@ export const monsterHunterArticles: GameArticle[] = [
       {
         question: 'config.iniを消しても大丈夫ですか？',
         answer:
-          '先にコピーを作り、削除ではなくゲームフォルダの外へ退避してください。次の起動時に作り直されます。',
+          '先にコピーを作り、削除ではなくゲームフォルダの外へ退避してください。次の起動後に再生成の有無を確認し、作られなければ元の控えを残して原因を切り分けます。',
       },
       {
         question: 'config.iniを初期化するとセーブデータも消えますか？',

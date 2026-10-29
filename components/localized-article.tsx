@@ -1,4 +1,5 @@
-import { ArticleEvidence } from '@/components/article-evidence';
+import { ArticleContext } from '@/components/article-context';
+import { ArticleEvidence, ArticleEvidenceTocLink } from '@/components/article-evidence';
 import { ClockSyncFirst } from '@/components/clock-sync-first';
 import { DiscordBotComparison, DiscordBotRecommendations } from '@/components/discord-bot-recommendations';
 import { EnglishDiscordRtcMemo } from '@/components/english-discord-rtc-memo';
@@ -154,6 +155,7 @@ export function LocalizedArticle({
           <h1>{article.title}</h1>
           {clockSyncFirst && <ClockSyncFirst locale="en" />}
           <p className="article-lead">{article.lead}</p>
+          <ArticleContext path={originalPath} locale={locale} />
           <div className="article-meta">
             <span>
               <a href="/about" hrefLang="ja">
@@ -162,7 +164,7 @@ export function LocalizedArticle({
               </a>
             </span>
             <span>
-              {t.lastChecked} {article.checkedAt}
+              {t.sourceRecord} {article.checkedAt}
             </span>
           </div>
           <SaveArticle path={path} title={article.title} locale={locale} />
@@ -179,6 +181,7 @@ export function LocalizedArticle({
             </a>
           ))}
           <a href="#faq">{t.faq}</a>
+          <ArticleEvidenceTocLink path={originalPath} locale={locale} />
           <a href="#references">{t.references}</a>
         </ArticleToc>
         <article className="guide-article">
@@ -239,7 +242,6 @@ export function LocalizedArticle({
             article.slug === 'error-st-3100001' && (
               <AceCombatNoticeHistory locale="en" />
             )}
-          <ArticleEvidence path={originalPath} locale={locale} />
           <ReportedCaseLink articlePath={originalPath} locale={locale} />
           {!isDiscord && (
             <ReportEntryLink articlePath={originalPath} locale={locale} />
@@ -358,6 +360,7 @@ export function LocalizedArticle({
               ))}
             </StepResultCollection>
           </section>
+          <ArticleEvidence path={originalPath} locale={locale} />
           {isDiscord && locale === 'en' && article.slug === 'rtc-connecting' ? <EnglishDiscordRtcMemo /> : null}
           {article.avoid.length > 0 ? <section className="avoid-block">
             <h2>

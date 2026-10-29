@@ -1,4 +1,5 @@
 'use client';
+import { SavedArticleChanges } from './saved-article-changes';
 import { personalCopy } from '@/lib/localized/personal-copy';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { Bookmark, ArrowRight, X } from 'lucide-react';
@@ -97,6 +98,7 @@ export function ReadingList({ locale = 'ja' }: { locale?: 'ja' | 'en' } = {}) {
       <output className="solution-message" aria-live="polite">
         {message}
       </output>
+      {ready && !error && <SavedArticleChanges items={items} locale={locale} />}
       <details className="bookmark-help">
         <summary>{t('次回すぐ開けるように、このページをブックマーク')}</summary>
         <p>

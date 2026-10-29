@@ -1,0 +1,1502 @@
+{
+  "category": "discord",
+  "base": "ce784c0eaa4dc191fec3acf75d3a3821bd4a7dc9",
+  "readOnly": true,
+  "count": 38,
+  "summary": {
+    "existing-sufficient": 38,
+    "needs-specific-edit": 0,
+    "blocked-evidence": 0
+  },
+  "templateFindings": [
+    "app/discord/[slug]/page.tsx はtargetとcheckedAtを表示し、各記事の出典リストと公式情報の要約・UI更新の範囲説明を表示する。",
+    "「最終確認」は「資料確認記録」への限定を推奨。対象版欄は既存targetを維持し、実測済みビルドと誤読させない。",
+    "手順は読者が比較する命令形、例は非実測と明示済み。全記事へ「実機未検証」定型ブロックを追加する必要はない。"
+  ],
+  "articles": [
+    {
+      "path": "/discord/upload-failed",
+      "classification": "existing-sufficient",
+      "reason": "送信失敗とプレビューを分離。容量FAQの更新日と矛盾、画面上限優先、全端末実機未検証を本文に明示。既に全項目が揃う。",
+      "axes": {
+        "shortAnswer": "まず「送信自体が失敗した」のか「送信済みの添付にプレビューがない」のかを分けます。容量エラーはそのアカウント・チャンネルで現在表示される上限、特定チャンネルだけの失敗は添付権限を確認。小さな無害なファイルも失敗する時に、同じ条件でアプリとブラウザを比較します。安全上のブロックは回避せず、表示内容に従ってください。",
+        "procedureEvidence": {
+          "steps": 6,
+          "firstAction": "エラー文、発生時刻とタイムゾーン、使用端末、ファイルの種類・容量を控える。安全上の警告ならSTEP 6へ、容量エラーならSTEP 2へ進む",
+          "resultCheck": "画像で説明する時は原本を手元に保管し、コピーを端末内で編集する。トークン・認証コード・メールアドレス・ユーザー名・非公開の会話を不透明な塗りつぶしで隠し、書き出した画像を開き直して残りがないか確認する"
+        },
+        "verificationScopeQuote": "以下は2026年10月3日に確認した公式資料を基に編集した切り分け手順です。実機で全端末・全アカウントを検証したものではありません。安全上の警告がある場合はテストよりSTEP 6を優先し、該当する行だけ進めてください。",
+        "target": "Discordのデスクトップ・ブラウザ版、Android・iOSアプリ",
+        "sources": [
+          {
+            "label": "Discord公式：File Attachments FAQ（2026年9月30日更新、容量・圧縮前判定・表示）",
+            "url": "https://support.discord.com/hc/en-us/articles/25444343291031-File-Attachments-FAQ"
+          },
+          {
+            "label": "Discord公式：画像・GIFのアップロード（2026年6月11日更新、旧上限の記載あり）",
+            "url": "https://support.discord.com/hc/en-us/articles/211866427-How-do-I-upload-images-and-GIFs"
+          },
+          {
+            "label": "Discord公式：Nitro・Nitro Basic（2026年9月29日更新、旧説明も残存）",
+            "url": "https://support.discord.com/hc/en-us/articles/115000435108-What-are-Nitro-Nitro-Basic"
+          },
+          {
+            "label": "Discord公式開発者資料：メッセージ・添付・スレッドの権限",
+            "url": "https://docs.discord.com/developers/topics/permissions"
+          },
+          {
+            "label": "Discord公式：権限の概要（添付とリンクプレビューの違い）",
+            "url": "https://discord.com/community/permissions-on-discord-discord"
+          },
+          {
+            "label": "Discord公式：File Preview（テキストのプレビュー）",
+            "url": "https://support.discord.com/hc/en-us/articles/1500005466681-File-Preview"
+          },
+          {
+            "label": "Discord公式：Safer Messaging（画像フィルター）",
+            "url": "https://support.discord.com/hc/en-us/articles/115000068672-Safer-Messaging-on-Discord"
+          },
+          {
+            "label": "Discord公式：トラブルシューティングと不具合報告",
+            "url": "https://support.discord.com/hc/en-us/articles/31623498041623-Discord-Troubleshooting-Guide"
+          },
+          {
+            "label": "Discord Status（公式障害情報）",
+            "url": "https://discordstatus.com/"
+          },
+          {
+            "label": "Discord公式：問い合わせフォーム",
+            "url": "https://support.discord.com/hc/en-us/requests/new"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/not-opening",
+      "classification": "existing-sufficient",
+      "reason": "再起動→同一PCのブラウザ→キャッシュ退避の条件付き手順。ブラウザ成功をキャッシュ原因確定に使わず、復元方法と専用エラー分岐がある。",
+      "axes": {
+        "shortAnswer": "最初にDiscordを完全終了して起動し直し、次に同じPCのブラウザ版で会話一覧まで開けるか比較します。アプリだけ開かない場合はキャッシュを退避し、改善しなければ再インストールへ。Update Failedなどの表示がある場合は、エラー別の記事へ進んでください。",
+        "procedureEvidence": {
+          "steps": 5,
+          "firstAction": "タスクバー右下の通知領域（隠れたアイコンは上向き矢印）にDiscordがあれば、右クリックして終了する。通話・配信も切れるため、利用中なら先に終了を伝える",
+          "resultCheck": "Update Failedが出たら「Update Failed・更新ループ」、Installation has failedなら「Installation has failed」の関連記事へ。起動直後に終了し続ける場合は「Discordが落ちる」で発生条件を確認する"
+        },
+        "verificationScopeQuote": "ブラウザ版の成功は、アプリ側を調べる手掛かりです。原因がキャッシュ破損と確定するわけではありません。",
+        "target": "Windows版Discordデスクトップアプリ",
+        "sources": [
+          {
+            "label": "Discord公式サポート：Discordトラブルシューティングガイド（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/31623498041623-Discord-Troubleshooting-Guide"
+          },
+          {
+            "label": "Discord公式サポート：Windowsのインストーラーエラー（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/209099387--Windows-Installer-Errors"
+          },
+          {
+            "label": "Discord Status（公式障害情報）",
+            "url": "https://discordstatus.com/"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/mic-not-working",
+      "classification": "existing-sufficient",
+      "reason": "Windows→Discordテスト→通話の比較順と同一マイク条件が明確。テスト中の自動ミュート、感度と音量の違いを公式説明へ対応付ける。",
+      "axes": {
+        "shortAnswer": "Windowsの入力テスト→Discordのマイクテスト→実際の通話の順に、同じマイクで確認します。Windowsでも反応しなければ接続・機器・権限、Discordだけ無反応なら入力デバイス、テストは成功するなら入力モード・ミュート・発言権限を確認します。マイクテストは停止してから通話へ戻ってください。",
+        "procedureEvidence": {
+          "steps": 5,
+          "firstAction": "ヘッドセット・マイク本体のミュートスイッチを解除する。USBや音声端子を挿し直し、着脱式のマイクも根元まで接続されているか確認する",
+          "resultCheck": "リセット後にマイクと出力機器を選び直し、まずテスト、その後テストを停止して実際の通話を確認する。改善しない場合は、元の設定をメモから戻し、比較結果をサポートへ伝える"
+        },
+        "verificationScopeQuote": "Windowsでも無反応という結果だけでマイク故障とは断定できません。入力先の選択、ミュート、権限、接続も確認対象です。Bluetooth機器だけで起きる場合は、有線やUSBマイクとの比較が手掛かりになります。",
+        "target": "Windows 11／10版Discordデスクトップアプリ。ブラウザ版との比較も掲載",
+        "sources": [
+          {
+            "label": "Discord公式サポート：音声とビデオのトラブルシューティングガイド（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide"
+          },
+          {
+            "label": "Discord公式サポート：マイクテスト（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/360020641332-Mic-Testing"
+          },
+          {
+            "label": "Discord公式サポート：音声入力モードと入力感度（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/211376518-Voice-Input-Modes-101-Push-to-Talk-Voice-Activated"
+          },
+          {
+            "label": "Microsoftサポート：マイクの問題を解決する",
+            "url": "https://support.microsoft.com/ja-jp/windows/hardware/drivers/fix-microphone-problems"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/cant-hear-voice",
+      "classification": "existing-sufficient",
+      "reason": "全員/一人、送信側/受信側、通話音/配信音を分ける。架空の出力テストボタンを前提にせず、実際の短文で判定する制限を記載。",
+      "axes": {
+        "shortAnswer": "まず全員の声が聞こえないのか、一人だけなのかを分けます。全員ならスピーカーミュート・WindowsとDiscordの出力先、一人だけなら個別ミュート・ユーザー音量を確認。他の参加者にも同じ人が聞こえない場合は、話す側のマイクと発言権限を調べます。",
+        "procedureEvidence": {
+          "steps": 6,
+          "firstAction": "ヘッドホンの接続、本体の音量つまみ、スピーカーの電源を確認する。音量は小さめから少しずつ上げ、いきなり最大にしない",
+          "resultCheck": "出力機器を選び直して通話を確認する。改善しない場合は控えた設定を戻し、アプリ・ブラウザ・Windowsそれぞれの結果をサポートへ伝える"
+        },
+        "verificationScopeQuote": "相手のアイコンが光ることだけでは、聞き取れる声が届いている証明にはなりません。入力された雑音に反応している可能性もあるため、実際の短い文が聞こえるかで確認します。",
+        "target": "Windows 11／10版Discordデスクトップアプリ。ブラウザ版との比較も掲載",
+        "sources": [
+          {
+            "label": "Discord公式サポート：音声とビデオのトラブルシューティングガイド（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide"
+          },
+          {
+            "label": "Discord公式サポート：マイクテスト（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/360020641332-Mic-Testing"
+          },
+          {
+            "label": "Microsoftサポート：Windowsでシステムサウンドは動作するがアプリ音声が動作しない場合",
+            "url": "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows"
+          },
+          {
+            "label": "Microsoftサポート：Windowsのサウンドまたはオーディオの問題を修正する",
+            "url": "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-sound-or-audio-problems-in-windows"
+          },
+          {
+            "label": "Discord Status（公式障害情報）",
+            "url": "https://discordstatus.com/"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/rtc-connecting",
+      "classification": "existing-sufficient",
+      "reason": "表示だけの故障判定を否定し、通話先/同一PC/回線の比較を案内。AMD資料は2022年の古い一部機種向けと限定している。",
+      "axes": {
+        "shortAnswer": "RTC接続中が続く時は、まず障害情報を確認し、別チャンネル→同じPCのブラウザ版→別端末・別回線の順に比べます。特定回線だけならVPNや通信制限、アプリだけなら更新や設定を優先します。AMD向けの対処は、対象機器を使用しブラウザでは通話できる場合の追加確認です。",
+        "procedureEvidence": {
+          "steps": 5,
+          "firstAction": "RTC接続中、No Route、音声サーバー待機中など、表示された文言と発生時刻を控える。Discord Statusで同時刻の障害を確認する",
+          "resultCheck": "AMD以外でもアプリだけ失敗する場合はある。入出力やキー割り当てを控え、「音声・ビデオ」のデバッグ項目などにある音声・ビデオ設定のリセットを候補にする。再設定後に通話を比較し、それでも続く場合だけ再インストールを検討する"
+        },
+        "verificationScopeQuote": "ブラウザ版が成功するなら、当面の通話に利用できます。AMD向けの公式案内は2022年のもので、主に古い機種の一部で起きる症状として説明されています。すべてのRTC接続中に適用しません。",
+        "target": "Windows版Discordデスクトップアプリ。PCブラウザ版・スマートフォンとの比較も掲載",
+        "sources": [
+          {
+            "label": "Discord公式サポート：音声接続エラー（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/115001310031-Voice-Connection-Errors"
+          },
+          {
+            "label": "Discord公式サポート：音声とビデオのトラブルシューティングガイド（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide"
+          },
+          {
+            "label": "Discord公式サポート：AMD GPU/CPU環境でのRTC CONNECTINGトラブルシューティング（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/4978019693463-AMD-GPU-CPU-RTC-CONNECTING-Troubleshooting"
+          },
+          {
+            "label": "Discord Status（公式障害情報）",
+            "url": "https://discordstatus.com/"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/no-route",
+      "classification": "existing-sufficient",
+      "reason": "音声接続失敗の説明と端末/回線/チャンネルの比較を対応。別回線成功からUDP遮断やルーター故障を確定せず、DNS万能説も否定。",
+      "axes": {
+        "shortAnswer": "No Routeは音声サーバーへの接続に失敗している時の表示です。まず障害情報と別チャンネルを確認し、同じWi-Fiの別端末・同じPCの別回線で比較します。回線だけ変えると直るなら回線やVPN、PCだけ失敗するならPCの通信許可、特定チャンネルだけなら通話先を優先して調べます。",
+        "procedureEvidence": {
+          "steps": 5,
+          "firstAction": "表示されたNo Routeと発生時刻を控え、Discord Statusと回線事業者の障害情報を確認する。障害中は復旧後に同じ通話を試す",
+          "resultCheck": "No Routeが消えても声が聞こえない場合は、接続ではなく音声設定を確認する。「相手の声が聞こえない」「マイクが反応しない」の関連記事へ進む"
+        },
+        "verificationScopeQuote": "記録例は「PC・自宅Wi-Fi×／スマホ・自宅Wi-Fi×／PC・テザリング○」。この例なら自宅側の経路を先に調べるが、ルーター故障やUDP遮断とまでは確定しない",
+        "target": "Windows版Discordデスクトップアプリ。ブラウザ版・スマートフォンを比較に使用",
+        "sources": [
+          {
+            "label": "Discord公式サポート：音声接続エラー（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/115001310031-Voice-Connection-Errors"
+          },
+          {
+            "label": "Discord公式サポート：音声とビデオのトラブルシューティングガイド（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide"
+          },
+          {
+            "label": "Discord Status（公式障害情報）",
+            "url": "https://discordstatus.com/"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/screen-share-not-working",
+      "classification": "existing-sufficient",
+      "reason": "配信開始前/開始後、PiP/視聴画面の異なる判定対象を明示。動画権限、別アプリ、共有方式と相手人数で次手順を決める。",
+      "axes": {
+        "shortAnswer": "まず「配信開始前に止まる」のか「Go Liveは始まるが映らない」のかを確認します。開始できなければ通話とサーバーの動画権限を、開始できたら視聴者に「配信を見る」を押してもらい、通常アプリとゲーム、アプリ単体と画面全体を比べてください。",
+        "procedureEvidence": {
+          "steps": 5,
+          "firstAction": "サーバーなら対象ボイスチャンネルに参加する。DMなら先に通話を開始し、「画面を共有」から対象を選んで「配信開始（Go Live）」まで進む",
+          "resultCheck": "全員に黒い状態が続くならWindowsとGPUメーカーのドライバー更新を確認し、エラー文・共有対象・相手の人数・試した結果を控えてDiscord公式サポートへ伝える"
+        },
+        "verificationScopeQuote": "ボタンを押せても「配信開始」直後に止まる場合は、止まった場所とエラー文を控えてください。ボタンの有無だけで権限が原因とは断定できません。",
+        "target": "Windows版 Discordデスクトップアプリ",
+        "sources": [
+          {
+            "label": "Discord公式サポート：Go Liveと画面共有・動画権限・視聴方法（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/360040816151-Go-Live-and-Screen-Share"
+          },
+          {
+            "label": "Discord公式サポート：音声・映像・画面共有のトラブルシューティング（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide"
+          },
+          {
+            "label": "Discord公式サポート：音声・ビデオ・配信ガイド（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/33030151293079-Discord-Voice-Video-Streaming-Guide"
+          },
+          {
+            "label": "Discord Status（公式障害情報）",
+            "url": "https://discordstatus.com/"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/stream-no-audio",
+      "classification": "existing-sufficient",
+      "reason": "配信者に聞こえるか/全員か一人かの短答と手順。公式の音声対応範囲を名指しし、画面全体が必ず無音という誤断定を避けている。",
+      "axes": {
+        "shortAnswer": "配信者もゲーム音が聞こえなければWindowsの音量ミキサーへ。配信者には聞こえるのに全員が無音なら、共有対象をゲームのアプリに選び直して比較。1人だけ無音なら、その視聴者が配信のミュートと音量を確認します。",
+        "procedureEvidence": {
+          "steps": 4,
+          "firstAction": "ゲームで音が出る場面を再生し、配信者自身のヘッドホンやスピーカーで聞こえるか確認する",
+          "resultCheck": "同じ視聴者に他のアプリとこのゲームを順番に見てもらい、他は聞こえてこのゲームだけ無音か記録する"
+        },
+        "verificationScopeQuote": "配信者はゲーム音を聞けるのに全員に届かない場合は、共有している対象と音声の取得を比べます。画面全体が必ず無音になるわけではありません。",
+        "target": "配信者：Windows版Discordデスクトップアプリ／視聴者：Discord",
+        "sources": [
+          {
+            "label": "Discord公式：Go Liveと画面共有（共有方法・音声対応・視聴者の音量）",
+            "url": "https://support.discord.com/hc/ja/articles/360040816151-Go-Live%E3%81%A8%E7%94%BB%E9%9D%A2%E5%85%B1%E6%9C%89"
+          },
+          {
+            "label": "Microsoft公式：Windowsでアプリの音が出ない場合の音量ミキサー・出力先",
+            "url": "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows"
+          },
+          {
+            "label": "Discord公式サポート：音声・ビデオ・配信ガイド（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/33030151293079-Discord-Voice-Video-Streaming-Guide"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/loading-stuck",
+      "classification": "existing-sufficient",
+      "reason": "ブラウザでチャットまで開くことを比較条件にし、ログイン未完を判定保留。キャッシュの対象/復元と更新エラー分岐を記載。",
+      "axes": {
+        "shortAnswer": "最初に同じPC・同じ回線でDiscordのブラウザ版を開き、同じアカウントのチャット一覧まで表示されるか比較します。ブラウザ版だけ動くならアプリを完全終了して再起動、それでも止まる場合に限ってアプリのキャッシュを退避。両方止まるなら障害情報と接続環境を先に確認します。",
+        "procedureEvidence": {
+          "steps": 5,
+          "firstAction": "止まっているPCのブラウザで https://discord.com/app を開き、可能ならデスクトップ版と同じアカウントでログインする",
+          "resultCheck": "インストール破損が明示される場合は、Discord公式の破損インストール向け手順を確認してから再インストールする。設定フォルダー全体の削除はキャッシュ退避とは別の操作なので、案内を読んでから行う"
+        },
+        "verificationScopeQuote": "ブラウザ版でチャットが開けば、その時点で同じ回線からDiscordを利用できます。ただしアプリだけが止まる理由は、この比較だけでは確定しません。",
+        "target": "Windows版 Discordデスクトップアプリ",
+        "sources": [
+          {
+            "label": "Discord公式サポート：Discordトラブルシューティングガイド（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/31623498041623-Discord-Troubleshooting-Guide"
+          },
+          {
+            "label": "Discord公式サポート：接続画面で止まる場合（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/115001130052-Stuck-on-the-Main-Connecting-Screen"
+          },
+          {
+            "label": "Discord公式サポート：破損したインストールの対処",
+            "url": "https://support.discord.com/hc/ja/articles/115004307527"
+          },
+          {
+            "label": "Discord Status（公式障害情報）",
+            "url": "https://discordstatus.com/"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/update-failed",
+      "classification": "existing-sufficient",
+      "reason": "通信・更新プロセス・残存フォルダーの条件を分離し、別回線未確認は未確認と残す。相談用の成功/失敗例を記入例と明記。",
+      "axes": {
+        "shortAnswer": "まず公式障害情報と、同じPC・同じ回線でブラウザ版が使えるかを確認します。別回線で更新できるなら通信側、回線を変えてもアプリだけ失敗するならPC側の確認を優先。完全終了後も失敗し、公式インストーラーを取得できることと再ログイン手段を確認できた場合に、残存フォルダーの整理と再インストールへ進みます。",
+        "procedureEvidence": {
+          "steps": 5,
+          "firstAction": "Discord Status（discordstatus.com）を開き、現在の障害と発生時刻を確認する。自分の症状に関係する障害が出ていれば、復旧後に再試行する。障害表示がなくても個別の通信問題は残る。",
+          "resultCheck": "エラー画面にログを開く操作がある場合は、表示内容を保存して公式サポートへ送る。公開掲示板へ貼る前にユーザー名・ファイルパスなどの個人情報を確認し、パスワードや認証コードは送らない。"
+        },
+        "verificationScopeQuote": "関連障害の復旧待ちではなく、完全終了・再起動でも改善せず、公式インストーラーを取得できる場合の手順です。別回線を試せない場合は通信原因が残ることを記録し、再インストールで必ず直るとは考えないでください。",
+        "target": "Windows 11／Windows 10のDiscordデスクトップアプリ（通常版）",
+        "sources": [
+          {
+            "label": "Discord公式サポート：Windowsのインストーラーエラー",
+            "url": "https://support.discord.com/hc/ja/articles/209099387"
+          },
+          {
+            "label": "Discord公式サポート：Windowsのインストールの破損",
+            "url": "https://support.discord.com/hc/ja/articles/115004307527"
+          },
+          {
+            "label": "Discord Status（公式障害情報）",
+            "url": "https://discordstatus.com/"
+          },
+          {
+            "label": "Discord公式：ダウンロード",
+            "url": "https://discord.com/download"
+          },
+          {
+            "label": "Discord公式：サポートへの問い合わせ",
+            "url": "https://support.discord.com/hc/en-us/requests/new"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/installation-failed",
+      "classification": "existing-sufficient",
+      "reason": "初回/再導入、ログ/削除対象/アクセス拒否を分け、エラー語は必ず出るとは限らない例と明示。インストーラー終了と実際の再起動成功を区別。",
+      "axes": {
+        "shortAnswer": "初回は公式インストーラーの取得と再起動後の再試行から、再導入はDiscordの完全終了から確認します。失敗が続く場合は先にSetup Logを保存し、残っているDiscordフォルダーだけを整理します。フォルダーがなければ削除を省略。「使用中」と「アクセス拒否」は分けて対処し、同じ失敗を繰り返す場合はログの該当箇所を添えて相談してください。",
+        "procedureEvidence": {
+          "steps": 5,
+          "firstAction": "https://discord.com/download でWindows版を取得する。保存が完了しない場合は通信・ブラウザのエラーを先に確認し、AppDataの削除へ進まない。",
+          "resultCheck": "同じエラーが残る場合は、初回／再導入、Windowsのバージョン、入手元、発生時刻、削除対象の有無、完全終了・再起動後の結果、共有用ログをまとめてDiscord公式サポートへ送る。"
+        },
+        "verificationScopeQuote": "ログは原因を絞る手がかりです。最後の1行や特定の単語だけで原因を断定せず、今回失敗した時刻のまとまりを確認します。以下の英語は探す語の例で、必ず記録されるとは限りません。",
+        "target": "Windows 11／Windows 10のDiscord通常版インストーラー",
+        "sources": [
+          {
+            "label": "Discord公式サポート：Windowsのインストーラーエラー",
+            "url": "https://support.discord.com/hc/ja/articles/209099387"
+          },
+          {
+            "label": "Discord公式サポート：Windowsのインストールの破損",
+            "url": "https://support.discord.com/hc/ja/articles/115004307527"
+          },
+          {
+            "label": "Discord公式：Windows版のダウンロード",
+            "url": "https://discord.com/download"
+          },
+          {
+            "label": "Discord公式：サポートへの問い合わせ",
+            "url": "https://support.discord.com/hc/en-us/requests/new"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/audio-input-not-found",
+      "classification": "existing-sufficient",
+      "reason": "Windows一覧→入力テスト→アプリ許可→ブラウザ権限と適用範囲を分離。Chromeの操作例を明示し、録音再生無音を未認識の証明としない。",
+      "axes": {
+        "shortAnswer": "まずWindowsの入力一覧に目的のマイクがあるか、次にWindowsのテストで声が入るかを確認します。Windowsでは成功するならDiscordの入力機器とアクセス許可へ。ブラウザ版だけ失敗するならdiscord.comのサイト権限を確認。Discordのテストも成功するなら、未認識ではなく通話中のミュートや入力モードを調べます。",
+        "procedureEvidence": {
+          "steps": 5,
+          "firstAction": "Windowsの「設定」→「システム」→「サウンド」を開き、「入力」に目的のマイクがあるか見る。出力側のスピーカー一覧と混同しない。表示された機器名を控える。",
+          "resultCheck": "最後にDiscordを起動し直し、同じマイクが選択され、相手に声が届くか再確認する。再接続時だけ戻るなら、そのタイミングと機器名を記録する。"
+        },
+        "verificationScopeQuote": "3.5mm接続ではマイク対応の端子・ヘッドセットかを製品の説明で確認する。アナログマイクは製品名ではなくPCのオーディオ機器名で表示される場合があるため、名前だけで未認識と判断しない。",
+        "target": "Windows 11／Windows 10のDiscordデスクトップアプリ・ブラウザ版（Chromeの操作例）",
+        "sources": [
+          {
+            "label": "Discord公式サポート：音声・ビデオのトラブルシューティング",
+            "url": "https://support.discord.com/hc/ja/articles/360045138471"
+          },
+          {
+            "label": "Microsoft公式：マイクの設定とテスト",
+            "url": "https://support.microsoft.com/ja-jp/windows/hardware/drivers/how-to-set-up-and-test-microphones-in-windows"
+          },
+          {
+            "label": "Microsoft公式：マイクのアクセス許可",
+            "url": "https://support.microsoft.com/ja-jp/windows/privacy/turn-on-app-permissions-for-your-microphone-in-windows"
+          },
+          {
+            "label": "Microsoft公式：マイクの問題を解決する",
+            "url": "https://support.microsoft.com/en-us/windows/hardware/drivers/fix-microphone-problems"
+          },
+          {
+            "label": "Google公式：Chromeでカメラとマイクを使用する",
+            "url": "https://support.google.com/chrome/answer/2693767?hl=ja"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/error-1001",
+      "classification": "existing-sufficient",
+      "reason": "公式1001のサウンド共有許可と、許可画面が出ないときの編集上の比較を分離。コード消失と音声共有成功を区別し、未確認設定を探させない。",
+      "axes": {
+        "shortAnswer": "Discord公式は1001を「サウンド共有の問題」として、許可画面が出たら「アクセスを許可」を選ぶよう案内しています。出ない場合は、権限が未許可と決めつけず、音を鳴らしているアプリを選んで配信し直し、視聴者に結果を聞いてください。コードが消えたのに無音なら、ゲーム音が入らない記事で配信者・視聴者を切り分けます。",
+        "procedureEvidence": {
+          "steps": 4,
+          "firstAction": "配信開始時のDiscordのサウンド共有に関する要求を確認し、表示された場合は「アクセスを許可」を選ぶ。マイクの許可や音量設定とは区別する。",
+          "resultCheck": "具体的な画面操作は、この下の「Discord配信でゲーム音が入らない」のリンク先へ。映像も配信できない場合は関連記事「画面共有できない」、マイクだけ無音ならマイクの記事を確認する。"
+        },
+        "verificationScopeQuote": "許可画面が出ない理由はこの表示だけでは分かりません。画面を強制的に出すための未確認のWindows設定を探す前に、音を出すアプリで配信を比べます。",
+        "target": "Windows版 DiscordデスクトップアプリのGo Live・画面共有",
+        "sources": [
+          {
+            "label": "Discord公式サポート：音声・動画のエラーコード",
+            "url": "https://support.discord.com/hc/ja/articles/30952914470807"
+          },
+          {
+            "label": "Discord公式サポート：Go Liveと画面共有・視聴者の配信音量",
+            "url": "https://support.discord.com/hc/ja/articles/360040816151"
+          },
+          {
+            "label": "Discord公式サポート：音声・ビデオのトラブルシューティング",
+            "url": "https://support.discord.com/hc/ja/articles/360045138471"
+          },
+          {
+            "label": "Discord Status（公式障害情報）",
+            "url": "https://discordstatus.com/"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/error-1002",
+      "classification": "existing-sufficient",
+      "reason": "公式の再参加/完全再起動を明記。ノイズ抑制比較は公式設定を基にした切り分けで、記入例を非実測と明記し原因を確定しない。",
+      "axes": {
+        "shortAnswer": "1002はDiscord公式が案内するノイズキャンセラーの内部エラーです。最初に通話へ再参加し、続くならDiscordを完全再起動します。直らなければ同じマイク・相手・通話でノイズ抑制だけを変更し、エラーと声を別々に確認。オンへ戻すと再発する場合は、オフで通話を確保して更新・負荷の確認へ進みます。",
+        "procedureEvidence": {
+          "steps": 4,
+          "firstAction": "エラー番号・発生時刻・通話開始直後かゲーム中かを控える。現在の通話から退出し、同じ通話へ再参加する。",
+          "resultCheck": "自分の声は届くが相手の声が聞こえない場合は、スピーカーミュート・出力デバイス・相手の個別音量を確認する。関連記事「相手の声が聞こえない」へ進む。"
+        },
+        "verificationScopeQuote": "「元の設定：1002あり／声の語尾が欠ける」「オフ：1002なし／声は届くが打鍵音が増える」のように、エラー・声・雑音を3項目で記録する。この例は記入例であり、実測結果ではない。",
+        "target": "Windows版Discordデスクトップアプリの音声通話",
+        "sources": [
+          {
+            "label": "Discord公式サポート：音声・動画のエラーコード",
+            "url": "https://support.discord.com/hc/ja/articles/30952914470807"
+          },
+          {
+            "label": "Discord公式サポート：音声・ビデオのトラブルシューティング",
+            "url": "https://support.discord.com/hc/ja/articles/360045138471"
+          },
+          {
+            "label": "Discord公式：Krisp FAQ（設定場所・音質・高負荷時の動作）",
+            "url": "https://support.discord.com/hc/en-us/articles/360040843952-Krisp-FAQ"
+          },
+          {
+            "label": "Discordサポート：問い合わせ",
+            "url": "https://support.discord.com/hc/en-us/requests/new"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/error-1003",
+      "classification": "existing-sufficient",
+      "reason": "公式の入力レート不一致と入出力変更に基づく。A+B/C+B/A+D比較は非実測で、録音・ブラウザは別機器の検証の代用でないと限定。",
+      "axes": {
+        "shortAnswer": "1003はDiscordがマイク入力レートの大きな不一致を検出した時のエラーです。通話へ入り直しても続くなら、元の入出力を控え、入力だけ変更→元へ戻す→出力だけ変更の順で比較します。予備機器がなければ内蔵機器の有無を調べ、録音・ブラウザ版との比較結果を残してください。",
+        "procedureEvidence": {
+          "steps": 4,
+          "firstAction": "エラー画面の数字と文言、発生時刻を控える。相手が1003を見ているのか、自分の画面に出ているのかも分ける。",
+          "resultCheck": "改善しなければ「1003が出る端末／WindowsとDiscordの版／入力・出力機器名／A＋B、C＋B、A＋Dの結果／録音・ブラウザの結果」を添えて公式サポートへ相談する。未実施は未確認と書く。"
+        },
+        "verificationScopeQuote": "出力切り替え前は音量を下げてください。スピーカーで比較する場合はマイクへの回り込みに注意し、エコーが出たら止めます。比較例は実測結果ではありません。",
+        "target": "Windows版Discordデスクトップアプリの音声通話",
+        "sources": [
+          {
+            "label": "Discord公式サポート：音声・動画のエラーコード",
+            "url": "https://support.discord.com/hc/ja/articles/30952914470807"
+          },
+          {
+            "label": "Discord公式サポート：音声・ビデオのトラブルシューティング",
+            "url": "https://support.discord.com/hc/ja/articles/360045138471"
+          },
+          {
+            "label": "Microsoft公式：マイクの設定とテスト",
+            "url": "https://support.microsoft.com/ja-jp/windows/hardware/drivers/how-to-set-up-and-test-microphones-in-windows"
+          },
+          {
+            "label": "Discord公式サポート：問い合わせ",
+            "url": "https://support.discord.com/hc/en-us/requests/new"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/system-helper",
+      "classification": "existing-sufficient",
+      "reason": "編集画面、キー競合、権限差、実験的提供条件を切り分ける。案内なしは異常とせず、導入完了と症状改善を区別する。",
+      "axes": {
+        "shortAnswer": "最初にキー割り当ての編集画面を閉じ、ゲーム外とゲーム中で同じ操作を比べます。両方で失敗するなら設定・キー競合を先に確認。ゲーム中だけ失敗する場合は公式ヘルパーの案内を確認し、案内があれば導入後に同じ条件で再テストします。案内がない場合も、キー変更やゲーム別の比較は進められます。",
+        "procedureEvidence": {
+          "steps": 5,
+          "firstAction": "Discord左下の歯車→「キー割り当て」で、対象の操作名とキーを控える。Push-to-Talkは「音声・ビデオ」の入力モードとショートカットも確認する。",
+          "resultCheck": "改善後はDiscordとゲームを起動し直しても再現しないか確認する。不要になったヘルパーはDiscordの「ユーザー設定」→「Windows設定」にあるアンインストールから削除できる。"
+        },
+        "verificationScopeQuote": "導入操作が終わったことと症状が直ったことは別です。導入前と同じゲーム・キー・操作で比較してください。",
+        "target": "Windows版Discordデスクトップアプリ。システムヘルパーは公式案内上、一部ユーザー向けの実験機能",
+        "sources": [
+          {
+            "label": "Discord公式サポート：Discordシステムヘルパー",
+            "url": "https://support.discord.com/hc/ja/articles/34853435033367"
+          },
+          {
+            "label": "Discord公式サポート：ゲームオーバーレイ101",
+            "url": "https://support.discord.com/hc/ja/articles/217659737"
+          },
+          {
+            "label": "Discord公式サポート：キー割り当ての追加と編集中の注意",
+            "url": "https://support.discord.com/hc/ja/articles/217083547-How-do-I-add-different-Keybinds"
+          },
+          {
+            "label": "Discord公式サポート：問い合わせ",
+            "url": "https://support.discord.com/hc/en-us/requests/new"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/overlay-not-showing",
+      "classification": "existing-sufficient",
+      "reason": "Windows限定、本体/通話/通知を分けた成功条件。比較例は非実測、別ゲーム成功でも原因/対応可否を確定しない。",
+      "axes": {
+        "shortAnswer": "まずゲームを起動した状態で、設定画面に表示されているオーバーレイのキーを押します。本体が開かないなら有効化・キー割り当て・ゲームの表示モード、本体は開くなら通話ウィンドウやメッセージの表示設定を確認します。特定のゲームだけで起きる場合は、別ゲームとの比較で確認範囲を絞ります。",
+        "procedureEvidence": {
+          "steps": 5,
+          "firstAction": "Windows版Discordを開き、左下のユーザー名付近にある歯車→「ゲームオーバーレイ」（Overlay）を開く",
+          "resultCheck": "導入後はゲームとDiscordを起動し直し、同じゲーム・同じ表示モード・同じキーで本体が開くか確認する。改善しなければ関連記事「システムヘルパー」とサポート案内を確認する"
+        },
+        "verificationScopeQuote": "問い合わせには「ゲーム名／Windows・Discordのバージョン／本体・通話・通知のどれが出ないか／設定したキー／表示モード／別ゲームの結果／管理者起動の有無」をまとめます。記入例：本体は開く、通話は見える、DMは受信するがゲーム内通知なし。比較結果の例であり、特定ゲームでの実測結果ではありません。画面を添える場合はDM本文・ユーザー名を隠してください。",
+        "target": "Windows版Discordデスクトップアプリのゲームオーバーレイ",
+        "sources": [
+          {
+            "label": "Discord公式サポート：ゲームオーバーレイ101",
+            "url": "https://support.discord.com/hc/ja/articles/217659737"
+          },
+          {
+            "label": "Discord公式サポート：Discordシステムヘルパー",
+            "url": "https://support.discord.com/hc/ja/articles/34853435033367"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/notifications-not-working",
+      "classification": "existing-sufficient",
+      "reason": "DM未着/画面通知、会話/サーバー/Windows設定を分離。モバイル説明をPC仕様へ流用しないと明記している。",
+      "axes": {
+        "shortAnswer": "最初に「メッセージが届かない」のか「届くが画面に通知が出ない」のかを分けます。DMだけなら会話のミュート・無視・メッセージリクエスト、メンションだけならサーバーとチャンネルの設定を確認。開いている間だけ出ないなら、同じ会話を表示中と別の画面を表示中で比較し、取り込み中・配信モード・Windows通知を確認します。",
+        "procedureEvidence": {
+          "steps": 5,
+          "firstAction": "ホームのDM一覧から、通知されない会話を開く。新しいメッセージが実際に届いているか確認する",
+          "resultCheck": "Discord自体が起動していない場合は起動した状態でテストする。通知音・未読も消えるならDiscord内の設定に戻り、音や未読はあるのに右下だけ出ないならWindows側の表示条件を調べる"
+        },
+        "verificationScopeQuote": "ここで比較しているのはWindowsデスクトップ版です。モバイル版の「画面を開いている間は通知しない」という公式説明を、そのままPC版の仕様として扱いません。",
+        "target": "Windows 11／10版 Discordデスクトップアプリの画面右下の通知",
+        "sources": [
+          {
+            "label": "Discord公式サポート：サーバー・チャンネルの通知設定101",
+            "url": "https://support.discord.com/hc/ja/articles/215253258"
+          },
+          {
+            "label": "Discord公式サポート：グループDMの通知をミュートする方法",
+            "url": "https://support.discord.com/hc/ja/articles/223657667"
+          },
+          {
+            "label": "Discord公式サポート：取り込み中のステータスと通知",
+            "url": "https://support.discord.com/hc/ja/articles/227779547"
+          },
+          {
+            "label": "Discord公式サポート：配信モードによる通知の抑制",
+            "url": "https://support.discord.com/hc/ja/articles/218485407"
+          },
+          {
+            "label": "Discord公式サポート：無視したユーザーのDM通知",
+            "url": "https://support.discord.com/hc/ja/articles/28084948873623"
+          },
+          {
+            "label": "Discord公式：メッセージリクエストとスパムの確認（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/7924992471191-Message-Requests"
+          },
+          {
+            "label": "Microsoft公式：Windowsの通知バナーと応答不可",
+            "url": "https://support.microsoft.com/ja-jp/windows/experience/notifications-and-do-not-disturb-in-windows"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/screen-share-black-screen",
+      "classification": "existing-sufficient",
+      "reason": "配信者本体/PiP/実視聴を区別。同じメモ帳を共有方式だけ変えて比較し、公式取得方式と保護映像制限に対応。",
+      "axes": {
+        "shortAnswer": "配信者のゲーム本体・Discordの小窓・視聴者が「配信を見る」で開いた映像を別々に確認します。視聴者も黒ければ、同じメモ帳の文字入力を「アプリ共有」と「画面全体共有」で比べ、特定アプリの取得か視聴者側かを絞ります。",
+        "procedureEvidence": {
+          "steps": 5,
+          "firstAction": "配信者はゲーム／アプリ本体が自分の画面で正常に見えるか確認する。共有をやめても本体が黒いなら、ゲームやWindowsの画面表示を調べる。",
+          "resultCheck": "続く場合はWindowsとGPUドライバーを公式の方法で更新し、Discord公式の画面共有トラブルシューティングを確認する。映像が黒いのではなく頻繁に止まるなら、配信画質とフレームレートを下げて比較する。"
+        },
+        "verificationScopeQuote": "Discord公式は、一覧の配信プレビューを隠せることと、ゲームを前面にすると配信者側のPiPが一時停止することを案内しています。",
+        "target": "Windows版 Discordデスクトップアプリの画面共有・Go Live",
+        "sources": [
+          {
+            "label": "Discord公式サポート：Go Live・画面共有と視聴・プレビュー",
+            "url": "https://support.discord.com/hc/ja/articles/360040816151"
+          },
+          {
+            "label": "Discord公式：Windowsでのアプリウィンドウの取得方式（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/9410427556375--Windows-Capturing-Application-Window-for-Screen-Share-and-Go-Live"
+          },
+          {
+            "label": "Discord公式サポート：音声・ビデオのトラブルシューティング",
+            "url": "https://support.discord.com/hc/ja/articles/360045138471"
+          },
+          {
+            "label": "Discord公式サポート：音声・ビデオ・配信ガイド",
+            "url": "https://support.discord.com/hc/ja/articles/33030151293079"
+          },
+          {
+            "label": "Microsoft公式：保護された動画の画面取得制限（英語）",
+            "url": "https://learn.microsoft.com/en-us/windows-hardware/drivers/display/desktop-duplication-api"
+          },
+          {
+            "label": "Discord Status（公式障害情報）",
+            "url": "https://discordstatus.com/"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/slow-performance",
+      "classification": "existing-sufficient",
+      "reason": "入力/送受信/ゲーム負荷を分離。数値は説明用で固定閾値ではなく、GPU設定OFFを万能策にしない。ネットワーク欄の測定対象も限定。",
+      "axes": {
+        "shortAnswer": "まず「入力・スクロールが重い」「送受信が遅い」「ゲームや配信中だけ重い」を分けます。操作が重いならPC負荷と描画設定、送受信だけ遅いなら接続と障害情報、ゲーム中だけなら録画・配信などの併用を確認します。設定は1つずつ変え、同じ操作と使用率を変更前後で比べてください。",
+        "procedureEvidence": {
+          "steps": 6,
+          "firstAction": "同じテキストチャンネルで短い文を入力し、送信せず下書きの表示が遅れるか確認する。次に同じ範囲をスクロールし、引っかかりの有無を記録する",
+          "resultCheck": "アプリだけ重い状態が続くなら、関連記事「Discordが起動しない」のキャッシュ退避手順を使って比較する。再インストールはその後にし、メール・パスワード・二要素認証を確認してから行う"
+        },
+        "verificationScopeQuote": "変更後も同じチャンネル・操作・併用アプリで確認する。記録例は「入力が遅れる／CPU全体90％前後／録画停止後60％前後・入力改善」。数値は説明用の例で、正常・異常の固定基準ではない",
+        "target": "Windows 11／10版Discordデスクトップアプリ。ブラウザ版との比較も掲載",
+        "sources": [
+          {
+            "label": "Discord公式サポート：動作要件・Discordの遅延への対処（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/213491697-What-are-the-OS-system-requirements-for-Discord"
+          },
+          {
+            "label": "Discord公式サポート：一般的なトラブルシューティング（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/31623498041623-Discord-Troubleshooting-Guide"
+          },
+          {
+            "label": "Discord公式サポート：Discordの複数プロセスについて（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/225733808-Why-does-Discord-have-multiple-processes"
+          },
+          {
+            "label": "Microsoftサポート：WindowsでPCのパフォーマンスを向上させるためのヒント",
+            "url": "https://support.microsoft.com/ja-jp/windows/experience/performance-optimization/tips-to-improve-pc-performance-in-windows"
+          },
+          {
+            "label": "Discord Status（公式障害情報）",
+            "url": "https://discordstatus.com/"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/camera-not-working",
+      "classification": "existing-sufficient",
+      "reason": "Windowsカメラ/Discordテスト/相手の受信の順で比較。ビデオテスト成功は送信成功ではないと明示し、機器・アプリ権限を分離。",
+      "axes": {
+        "shortAnswer": "最初にWindowsのカメラアプリで映るか確認し、アプリを閉じてからDiscordのビデオテストを試します。両方映らないなら機器・Windows側、Windowsだけ映るならDiscordの選択機器やデスクトップアプリの権限を確認。プレビューは映るのに相手に届かない場合は通話のカメラ開始と受信側を比較します。",
+        "procedureEvidence": {
+          "steps": 5,
+          "firstAction": "Discordのビデオをオフにし、Zoom・Teamsなどカメラを使うアプリを終了する。スタートで「カメラ」を検索して開く",
+          "resultCheck": "必要な権限を変更したら入り直してカメラをオンにし、相手に映像が届くか再確認する。エラーや人数制限の表示がある場合は、その文言も管理者へ伝える"
+        },
+        "verificationScopeQuote": "ビデオテストの成功は相手への送信成功とは別です。通話でカメラをオンにする操作と、相手の受信確認まで行ってください。",
+        "target": "Windows 11／Windows 10のDiscordデスクトップアプリ",
+        "sources": [
+          {
+            "label": "Discord公式サポート：音声・ビデオのトラブルシューティング（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide"
+          },
+          {
+            "label": "Discord公式：ビデオ通話・カメラテスト・ビデオ権限",
+            "url": "https://support.discord.com/hc/ja/articles/360041721052"
+          },
+          {
+            "label": "Microsoft公式：Windowsでカメラが機能しない場合",
+            "url": "https://support.microsoft.com/ja-jp/windows/hardware/camera/camera-doesn-t-work-in-windows"
+          },
+          {
+            "label": "Microsoft公式：カメラへのアプリのアクセス許可",
+            "url": "https://support.microsoft.com/ja-jp/windows/privacy/manage-app-permissions-for-a-camera-in-windows"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/login-error",
+      "classification": "existing-sufficient",
+      "reason": "認証段階ごとに対応する公式手続きへ案内。メール未着から乗っ取りを断定せず、MFAや登録メールのサポート限界を明記。",
+      "axes": {
+        "shortAnswer": "まず別端末にログイン済みなら、その端末をログアウトせず登録メールと利用できる認証方法を確認します。メール不一致は登録情報、パスワード不明は公式の再設定、認証コードで停止する場合は登録済みの認証手段を確認。アプリだけ失敗する場合はブラウザ版と比較します。",
+        "procedureEvidence": {
+          "steps": 6,
+          "firstAction": "スマートフォン・PC・ブラウザのどこかでDiscordを使えるなら、その端末はログアウトせずに残す。比較のためにアプリ削除やCookie削除を先に行わない",
+          "resultCheck": "問い合わせにはエラー全文・発生時刻・操作した画面・ログイン済み端末の有無を添える。パスワード、認証コード、バックアップコード、再設定URLは添付しない"
+        },
+        "verificationScopeQuote": "Discord公式は、バックアップコードへアクセスできない場合にサポートがMFAを解除したり、新しいバックアップコードを発行したりできないと案内しています。パスワード再設定だけでこの制約は解消しません。",
+        "target": "DiscordのPCアプリ・ブラウザ版。ログイン済みスマートフォンも確認に利用",
+        "sources": [
+          {
+            "label": "Discord公式サポート：ログインとメールのトラブルシューティング（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/32557375603479-Discord-Login-Email-Troubleshooting-Guide"
+          },
+          {
+            "label": "Discord公式サポート：パスワードの変更・再設定（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/218410947-How-to-Reset-or-Change-Your-Forgotten-Password-on-Discord"
+          },
+          {
+            "label": "Discord公式サポート：多要素認証でログインできない場合の復旧（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/115001221072-How-to-Recover-Your-Discord-Account-When-Locked-Out-of-Multi-Factor-Authentication-MFA"
+          },
+          {
+            "label": "Discord公式サポート：多要素認証の設定（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/219576828-Setting-up-Multi-Factor-Authentication"
+          },
+          {
+            "label": "Discord公式サポート：メール変更を元に戻す（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/27299669812375-My-Discord-Email-was-Changed-and-I-Want-to-Undo-It"
+          },
+          {
+            "label": "Discord Status（公式障害情報）",
+            "url": "https://discordstatus.com/"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/crashing",
+      "classification": "existing-sufficient",
+      "reason": "最小化/通話切断/終了を分け、発生条件別の比較と信頼性履歴の時刻照合を案内。ファイル名だけで原因確定しない。",
+      "axes": {
+        "shortAnswer": "まず通話が続いているか・通知領域から画面を戻せるかを確認し、最小化と終了を分けます。実際に落ちる場合は、起動直後ならブラウザ比較とローカルデータ、通話開始なら音声機器、配信開始なら描画設定、ゲーム中なら負荷とオーバーレイを順に確認します。エラーが出ない場合も、発生時刻をWindowsの信頼性履歴と照合できます。",
+        "procedureEvidence": {
+          "steps": 7,
+          "firstAction": "相手の声が聞こえ続けるか、相手から自分の退出が見えたかを確認する。タスクバー右下の隠れたアイコンを開き、Discordのアイコンから画面を戻せるか試す",
+          "resultCheck": "Windowsを再起動し、discord.com/downloadから最新版をインストールする。ログイン後、まず通常起動、次に問題が出た通話や共有操作を試す。退避した古いフォルダー全体は戻さない"
+        },
+        "verificationScopeQuote": "信頼性履歴は、アプリの停止やWindowsの問題を時刻と照合するために使います。表示されたファイル名だけで原因を確定するための画面ではありません。",
+        "target": "Windows 11／10版Discordデスクトップアプリ",
+        "sources": [
+          {
+            "label": "Discord公式サポート：一般的なトラブルシューティング（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/31623498041623-Discord-Troubleshooting-Guide"
+          },
+          {
+            "label": "Discord公式サポート：音声・ビデオのトラブルシューティング（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide"
+          },
+          {
+            "label": "Discord公式サポート：不具合を報告する前の確認事項（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/360046057772-Discord-Bugs"
+          },
+          {
+            "label": "Discord公式サポート：Windowsのインストーラーエラー（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/209099387--Windows-Installer-Errors"
+          },
+          {
+            "label": "Discord公式サポート：Discordの複数プロセスについて（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/225733808-Why-does-Discord-have-multiple-processes"
+          },
+          {
+            "label": "Discord公式サポート：ゲームオーバーレイ（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/217659737-Game-Overlay-101"
+          },
+          {
+            "label": "Microsoft Learn：perfmon（信頼性モニターの起動）",
+            "url": "https://learn.microsoft.com/ja-jp/windows-server/administration/windows-commands/perfmon"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/stream-stuttering",
+      "classification": "existing-sufficient",
+      "reason": "同じ場面と複数視聴者、配信者画面の条件で比較。720p/30fpsは比較候補で、改善しても回線/PCの限界を断定しない。",
+      "axes": {
+        "shortAnswer": "配信者はゲーム画面が滑らかなままか確認し、視聴者2人（難しければ1人）は受信映像が止まる瞬間を伝えます。複数人で止まるなら配信中の画質設定から720p・30fpsに変更し、同じ場面で再比較。配信者のゲームも重いならPC負荷、1人だけ止まるならその視聴者の回線や再生環境を先に確認します。",
+        "procedureEvidence": {
+          "steps": 4,
+          "firstAction": "配信者はゲーム内の同じ場所でカメラを左右に動かし、画面が止まるか確認する。視聴者は同じ動きがDiscordの配信画面で途切れるかを伝える",
+          "resultCheck": "変化がなければその設定を元に戻す。DiscordとWindowsの更新を確認し、必要ならGPUメーカーまたはPCメーカーの公式手順でドライバーを更新する"
+        },
+        "verificationScopeQuote": "配信者のゲームは滑らかなのに複数の視聴者で映像が止まる場合は、配信画質を下げて同じ場面で比べます。画質変更で直っても回線とPCのどちらが限界かは、この結果だけで断定できません。",
+        "target": "Windows 11 / Windows 10版 Discordデスクトップアプリ",
+        "sources": [
+          {
+            "label": "Discord公式サポート：Go Liveと画面共有（配信中の画質設定）",
+            "url": "https://support.discord.com/hc/ja/articles/360040816151"
+          },
+          {
+            "label": "Discord公式サポート：音声・ビデオ・配信ガイド（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/33030151293079-Discord-Voice-Video-Streaming-Guide"
+          },
+          {
+            "label": "Discord公式サポート：音声・ビデオのトラブルシューティング（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide"
+          },
+          {
+            "label": "Discord Status（公式障害情報）",
+            "url": "https://discordstatus.com/"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/game-volume-lowers",
+      "classification": "existing-sufficient",
+      "reason": "無言/発言/退出を固定BGMで比べ、Discord減衰/Windows通信/Bluetoothを分離。LE Audio例外と元へ戻す条件を記載。",
+      "axes": {
+        "shortAnswer": "発言中だけ下がるならDiscordの減衰を0％で比較。通話参加直後から下がり続けるならWindowsの通信設定を確認します。Bluetoothで音質まで変わるなら通話用の音声モードを切り分けてください。同じ場面で1項目ずつ変更し、通話前・無言・発言中・退出後の違いを確認します。",
+        "procedureEvidence": {
+          "steps": 5,
+          "firstAction": "ゲーム・Windows・ヘッドセット本体の音量を控える。試験中はそれらを固定し、出力機器も同じものを使う。",
+          "resultCheck": "改善後は通話へ再参加して発言・無言・退出を再確認する。直らなければ発生タイミング、入出力機器、減衰・通信設定の変更前後をまとめて相談する。"
+        },
+        "verificationScopeQuote": "LE Audioなどでは挙動が異なるため、すべてのBluetooth機器に同じ制約があるとは限りません。比較だけを目的に新しい機器を買う必要はありません。",
+        "target": "Windows 11／Windows 10のDiscordデスクトップアプリ",
+        "sources": [
+          {
+            "label": "Discord公式サポート：通話中にほかのアプリの音量が下がる場合（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/206342888-How-do-I-stop-Discord-from-lowering-my-app-volume-when-someone-else-is-talking"
+          },
+          {
+            "label": "Discord公式：通話に参加するとBluetooth音質が低下する理由（日本語）",
+            "url": "https://support.discord.com/hc/ja/articles/19850083499159--既知の問題-通話に参加すると音質が低下する"
+          },
+          {
+            "label": "Microsoft公式：アプリごとの音量と出力デバイスを確認する",
+            "url": "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows"
+          },
+          {
+            "label": "Microsoft公式：通信時の音量減衰と通信タブ",
+            "url": "https://learn.microsoft.com/en-us/windows/win32/coreaudio/stream-attenuation"
+          },
+          {
+            "label": "Microsoft公式：通信デバイスとサウンド設定",
+            "url": "https://learn.microsoft.com/en-us/windows/win32/coreaudio/using-the-communication-device"
+          },
+          {
+            "label": "Microsoft公式：Windows 11でのLE Audioと対応機器の条件（英語）",
+            "url": "https://support.microsoft.com/en-us/windows/hardware/bluetooth/configuring-bluetooth-le-audio-quality-settings-on-windows-11"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/mic-volume-low",
+      "classification": "existing-sufficient",
+      "reason": "一人/全員と録音/テスト/通話を比較。厳密な音量測定ではないと明示し、同じ再生音量・機器条件で誤判断を避けている。",
+      "axes": {
+        "shortAnswer": "自分の声が小さいと言われる場合は、別の参加者にも聞こえ方を確認します。1人にだけ小さく聞こえるなら、その人が自分に設定した個別音量を確認。全員に小さいなら同じマイクで録音とDiscordテストを比べ、録音も小さければWindows・機器側、Discordだけなら入力設定へ進みます。自分が聞く相手の声が小さい場合は、上の案内から出力側の記事へ進んでください。",
+        "procedureEvidence": {
+          "steps": 5,
+          "firstAction": "Aさんは同じ文章を話し、可能ならBさん以外の参加者にも聞こえ方を尋ねる",
+          "resultCheck": "別マイクでは正常なら元の機器・ケーブル・専用ソフトの設定を確認する。複数のマイクで同じならWindowsの入力選択と設定を再確認する"
+        },
+        "verificationScopeQuote": "録音アプリとDiscordは処理が異なり、厳密な音量測定ではありません。テスト結果だけで確定せず、最後は同じ相手との通話で確かめます。",
+        "target": "Windows 11／Windows 10のDiscordデスクトップアプリ",
+        "sources": [
+          {
+            "label": "Discord公式サポート：マイクテスト（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/360020641332-Mic-Testing"
+          },
+          {
+            "label": "Discord公式サポート：音声とビデオのトラブルシューティング（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide"
+          },
+          {
+            "label": "Microsoft公式：Windowsでマイクを設定・テストする（英語）",
+            "url": "https://support.microsoft.com/en-us/windows/hardware/drivers/how-to-set-up-and-test-microphones-in-windows"
+          },
+          {
+            "label": "Microsoft公式：マイクの音量・ブーストなどの問題を修正する（英語）",
+            "url": "https://support.microsoft.com/en-us/windows/hardware/drivers/fix-microphone-problems"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/call-disconnects",
+      "classification": "existing-sufficient",
+      "reason": "通話切断/アプリ終了/音切れを分け、普段切れる時間で維持を確認。ブラウザのマイク許可で試せなければ比較未完と明記。",
+      "axes": {
+        "shortAnswer": "切れた時にDiscordが開いたままか、通話の接続表示や参加状態が変わったかを確認します。通話だけ切れるなら、障害情報を見てから同じ相手と別チャンネル・DMで比較。どの通話でも切れるなら同じPCでブラウザ版や別回線を試し、アプリ・回線・チャンネルのどこに条件が偏るかを調べます。",
+        "procedureEvidence": {
+          "steps": 5,
+          "firstAction": "切れた直後の時刻と「RTC接続中」「No Route」などの表示を控え、相手にも自分が通話から消えたか確認してもらう",
+          "resultCheck": "接続は残り、プッシュトゥトークだけ反応しないならキー割り当てやゲームとの権限差を調べる。アプリが終了するならクラッシュの記事、声だけ切れるなら音切れの記事へ進む"
+        },
+        "verificationScopeQuote": "両方で切れるなら手順4へ。ブラウザ版だけ切れる場合はブラウザの更新・別ブラウザでの通話を比べる。マイク許可がなく通話自体を試せない場合は比較未完了とする",
+        "target": "WindowsのDiscordデスクトップアプリ／ブラウザ版",
+        "sources": [
+          {
+            "label": "Discord公式サポート：音声とビデオのトラブルシューティング（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide"
+          },
+          {
+            "label": "Discord Status（公式障害情報）",
+            "url": "https://discordstatus.com/"
+          },
+          {
+            "label": "Discord公式：音声接続エラー・VPNとネットワークの確認（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/115001310031-Voice-Connection-Errors"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/echo-double-voice",
+      "classification": "existing-sufficient",
+      "reason": "返り音の経路を相手ミュートと退出で比較。ミュート成功でも拾い直し/仮想入力を確定せず、OBS起動のみの原因断定も否定。",
+      "axes": {
+        "shortAnswer": "自分の声が返るなら、相手にマイクだけをミュートしてもらい、自分が同じ言葉を話して比べます。特定の相手をミュートすると止まる場合はその人側の音声経路を確認。通話から退出しても自分の声が聞こえる場合は、自分のPCやヘッドセットのモニター機能を確認します。",
+        "procedureEvidence": {
+          "steps": 4,
+          "firstAction": "Discord左下の歯車 →「音声・ビデオ」→マイクテストを確認し、実行中なら「テストを中止」を押す。テスト中の自分の声の再生は確認用の機能",
+          "resultCheck": "物理マイクでは直るなら、外したソフトを1つずつ戻す。再発した段階の入力・モニター・ループバック経路を見直す。変化がなければ設定を戻し、別のマイクでも同じか比べる"
+        },
+        "verificationScopeQuote": "ミュートで止まっても、スピーカーからの拾い直しか仮想音声の混入かまでは確定しません。大きなハウリングが出たら先に音量を下げてください。",
+        "target": "Windows 11／Windows 10のDiscordデスクトップアプリ",
+        "sources": [
+          {
+            "label": "Discord公式サポート：音声とビデオのトラブルシューティング（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide"
+          },
+          {
+            "label": "Discord公式サポート：マイクテスト（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/360020641332-Mic-Testing"
+          },
+          {
+            "label": "Focusrite公式：Direct Monitorとソフトウェア再生の重複・Windowsの「聴く」設定（英語）",
+            "url": "https://support.focusrite.com/hc/de/articles/206849219-Latency-while-using-Direct-Monitor"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/voice-cutting-out",
+      "classification": "existing-sufficient",
+      "reason": "録音/テスト/通話を同じ文章で比較し、感度/入力モード/ノイズ抑制を分離。マイクテストは通信全体の検査ではない。",
+      "axes": {
+        "shortAnswer": "Windowsの録音でも途切れるならマイクやWindows側、録音は正常でDiscordのテストから切れるなら入力設定を先に確認します。テストは正常なのに通話だけ切れる場合は、誰に途切れて聞こえるかと回線・ゲーム負荷を比較。語尾だけ切れる場合も、音声検出とプッシュトゥトークでは調整する項目が違います。",
+        "procedureEvidence": {
+          "steps": 5,
+          "firstAction": "Windowsの「設定 → システム → サウンド → 入力」で使うマイク名を確認する。Discord左下の歯車 →「音声・ビデオ」でも同じ入力デバイスを選ぶ",
+          "resultCheck": "プッシュトゥトークがゲーム中だけ反応しない場合は、キー重複や権限差を確認し、関連記事「システムヘルパー」へ。ボイスチャンネルから退出してしまう場合は「通話が切れる・落ちる」へ進む"
+        },
+        "verificationScopeQuote": "マイクテストはインターネット通話全体の検査ではありません。通話で聞く人の環境や、ゲーム中の条件も含めて比較します。",
+        "target": "Windows 11／Windows 10のDiscordデスクトップアプリ",
+        "sources": [
+          {
+            "label": "Discord公式サポート：音声とビデオのトラブルシューティング（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide"
+          },
+          {
+            "label": "Discord公式サポート：マイクテスト（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/360020641332-Mic-Testing"
+          },
+          {
+            "label": "Discord公式：音声検出・入力感度・プッシュトゥトーク（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/211376518-Voice-Input-Modes-101-Push-to-Talk-Voice-Activated"
+          },
+          {
+            "label": "Microsoft公式：Windowsのサウンドレコーダー",
+            "url": "https://support.microsoft.com/ja-jp/windows/apps/sound-recorder-app-for-windows-faq"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/bluetooth-audio-problem",
+      "classification": "existing-sufficient",
+      "reason": "本文自体に公式の通話モード説明とWindows/LE Audio条件がある。製品紹介の非実測注記だけに依存せず、別マイクとモード変化を比較する。",
+      "axes": {
+        "shortAnswer": "ゲーム音が消えたなら、まずWindowsの出力先と音量ミキサーでゲーム・Discordがどこへ音を出しているか確認します。音は出るが通話開始と同時に音質だけ落ちるなら、Discord公式が説明するBluetoothの通話用音声モードへの切り替えを疑い、Bluetoothのマイクを別のマイクに変更して比較してください。",
+        "procedureEvidence": {
+          "steps": 4,
+          "firstAction": "Bluetoothイヤホンを接続し、ゲームのBGMや効果音を鳴らしたままDiscord通話に入る。Discordの声とゲーム音のどちらが聞こえないかを控える",
+          "resultCheck": "再接続後もほかのアプリで途切れるならPC・イヤホンメーカーのドライバーやサポートを確認する。通話時だけ低音質なら原因2へ戻る"
+        },
+        "verificationScopeQuote": "LE Audio対応でも、Windows・PCの無線機能とドライバー・イヤホン側の対応が必要です。「Bluetooth 5.x」だけで高音質の双方向通話を保証しません。",
+        "target": "Windows 11／Windows 10のDiscordデスクトップアプリとBluetoothヘッドセット",
+        "sources": [
+          {
+            "label": "Discord公式：通話に参加するとBluetooth音質が低下する理由（日本語）",
+            "url": "https://support.discord.com/hc/ja/articles/19850083499159--既知の問題-通話に参加すると音質が低下する"
+          },
+          {
+            "label": "Microsoft公式：アプリごとの音量と出力デバイスを確認する",
+            "url": "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows"
+          },
+          {
+            "label": "Microsoft公式：Bluetooth接続中に音が出ないときの確認",
+            "url": "https://support.microsoft.com/ja-jp/windows/hardware/bluetooth/fix-bluetooth-connected-but-no-sound-issue-on-windows"
+          },
+          {
+            "label": "Microsoft公式：Windows 11でのLE Audioと対応機器の条件（英語）",
+            "url": "https://support.microsoft.com/en-us/windows/hardware/bluetooth/configuring-bluetooth-le-audio-quality-settings-on-windows-11"
+          },
+          {
+            "label": "Discord公式サポート：音声とビデオのトラブルシューティング（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide"
+          },
+          {
+            "label": "Microsoft公式：WindowsのBluetooth問題を解決する",
+            "url": "https://support.microsoft.com/windows/fix-bluetooth-problems-in-windows-723e092f-03fa-858b-5c80-131ec3fba75c"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/game-not-detected",
+      "classification": "existing-sufficient",
+      "reason": "検出/共有範囲/相手プロフィール/招待対応を分離。比較例は非実測、ゲーム表示から招待・観戦対応を保証しない。",
+      "axes": {
+        "shortAnswer": "まずゲームを起動したまま「登録済みゲーム」で現在の検出状態を確認します。未検出ならゲーム本体の起動と手動追加、検出済みならアクティビティの共有設定を確認。自分の登録画面だけで判断せず、同じゲームを起動した状態で相手のプロフィール表示と照合してください。招待だけ使えない場合はゲーム側の対応も確認します。",
+        "procedureEvidence": {
+          "steps": 5,
+          "firstAction": "ゲームをタイトル画面まで起動し、終了せずAlt＋TabでDiscordのデスクトップアプリへ戻る。ブラウザのDiscordを見ている場合は、PCにインストールしたアプリで確認する。",
+          "resultCheck": "相手にゲーム名は見えるのに、ゲーム画面内の通話表示だけ出ない場合は関連記事「オーバーレイが表示されない」へ進む。ゲームを再登録する作業はいったん止める。"
+        },
+        "verificationScopeQuote": "これは比較方法の例で、実機検証の結果ではありません。メンバー一覧のカード表示だけで判断せず、相手から見たプロフィールも確認してください。",
+        "target": "Windows 11／Windows 10のDiscordデスクトップアプリ。PCゲームの検出とアクティビティ表示が対象",
+        "sources": [
+          {
+            "label": "Discord公式サポート：アクティビティステータス（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/7931156448919-Activity-Sharing-on-Discord-FAQ"
+          },
+          {
+            "label": "Discord公式サポート：ゲーム招待とゲーム検出（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/115001557452-Game-Invites"
+          },
+          {
+            "label": "Discord公式サポート：問い合わせフォーム",
+            "url": "https://support.discord.com/hc/en-us/requests/new"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/user-volume-low",
+      "classification": "existing-sufficient",
+      "reason": "個別/全員/ゲーム音競合の短答と操作、送信側との境界が明瞭。80→40は推奨値・実測ではない例と明記。",
+      "axes": {
+        "shortAnswer": "1人だけ小さいなら、その人のユーザー音量を確認します。全員小さいなら自分のDiscord出力音量とWindowsのアプリ別音量へ。ゲーム中だけならゲーム音を下げて比較。他の参加者にも同じ人の声が小さく聞こえる場合は、相手側のマイクを確認します。",
+        "procedureEvidence": {
+          "steps": 5,
+          "firstAction": "通話中のボイスチャンネルで相手の名前・アイコンを右クリックし、「ユーザー音量」のスライダーを探す。",
+          "resultCheck": "相手の調整後は、自分のユーザー音量をいったん下げて再確認する。通常の声が聞き取れ、大きめの声でも割れなければ完了。"
+        },
+        "verificationScopeQuote": "例としてゲーム音量を80から40に変更し、同じ場面・同じ相手の文章で比較する。この数値は比較例であり、推奨値や実測結果ではない。",
+        "target": "Windows 11／Windows 10のDiscordデスクトップアプリ",
+        "sources": [
+          {
+            "label": "Discord公式サポート：ユーザーごとの音量調整（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/205287897-How-do-I-adjust-the-volume-level-of-individual-users-in-my-server"
+          },
+          {
+            "label": "Discord公式サポート：音声とビデオのトラブルシューティング（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/360045138471-Discord-Voice-and-Video-Troubleshooting-Guide"
+          },
+          {
+            "label": "Microsoft公式：アプリごとの音量と出力デバイスを確認する",
+            "url": "https://support.microsoft.com/ja-jp/windows/hardware/audio/fix-app-audio-not-working-while-system-sounds-work-in-windows"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/phone-verification-error",
+      "classification": "existing-sufficient",
+      "reason": "入力無効/登録済み/レート制限/SMS未着を分離。24〜48時間は該当する公式エラー条件に限定し、全員への復旧保証にしない。",
+      "axes": {
+        "shortAnswer": "「無効」なら入力形式と携帯番号かを確認。「すでに登録済み」なら登録元のアカウントで番号を外します。番号が受け付けられた後にSMSだけ届かない場合は端末の受信と別のSMSを比べ、レート制限の表示が出た場合だけ公式案内の24〜48時間待機を適用します。",
+        "procedureEvidence": {
+          "steps": 4,
+          "firstAction": "電話番号入力画面で、住んでいる国・地域が正しいかを確認する。日本の携帯番号なら、日本が選ばれているか見る",
+          "resultCheck": "同じ状態が続く場合は、使用端末と携帯会社、エラー表示の有無、最後に送信を試した日時をまとめてDiscord公式サポートへ相談する"
+        },
+        "verificationScopeQuote": "SMS未着だけで、この待機エラーが出ていない人に「必ず48時間待てば解決する」とは案内していません。",
+        "target": "Discordのアカウント電話番号認証／PC・スマートフォン",
+        "sources": [
+          {
+            "label": "Discord公式：電話番号エラー別の対処法（日本語）",
+            "url": "https://support.discord.com/hc/ja/articles/26680694104215-Discordの電話番号エラーを修正する方法"
+          },
+          {
+            "label": "Discord公式：アカウント認証と24〜48時間の待機条件（日本語）",
+            "url": "https://support.discord.com/hc/ja/articles/6181726888215-Discordアカウントを認証する方法"
+          },
+          {
+            "label": "Discord公式：電話番号を削除する方法",
+            "url": "https://support.discord.com/hc/ja/articles/4413460214807-How-to-Remove-a-Phone-Number-From-a-Discord-Account"
+          },
+          {
+            "label": "Discord公式サポート：問い合わせフォーム",
+            "url": "https://support.discord.com/hc/en-us/requests/new"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/bot-add",
+      "classification": "existing-sufficient",
+      "reason": "機能導入の手順記事として、追加権限・追加先・公式App Directory・要求権限・導入後の実確認が揃う。症状記事用の実測ブロックを足す必要はない。",
+      "axes": {
+        "shortAnswer": "サーバー名から「サーバー設定」→「App Directory」を開き、追加するアプリと追加先を確認します。要求される権限を読んでから承認し、導入後はメンバー一覧と「連携サービス」で追加結果を確認してください。",
+        "procedureEvidence": {
+          "steps": 3,
+          "firstAction": "Botを追加したいDiscordサーバーを開く",
+          "resultCheck": "表示されない場合は、Botが反応しない記事で権限とチャンネル設定を確認する"
+        },
+        "verificationScopeQuote": "管理権限がない場合は、サーバー所有者または管理者へ追加を依頼してください。権限を回避して導入する方法はありません。",
+        "target": "Discordデスクトップ版・ブラウザ版／サーバー所有者・管理者",
+        "sources": [
+          {
+            "label": "Discord公式サポート：Using Apps on Discord（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/21334461140375-Using-Apps-on-Discord"
+          },
+          {
+            "label": "Discord公式開発者ドキュメント：Permissions（英語）",
+            "url": "https://docs.discord.com/developers/topics/permissions"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/bot-not-responding",
+      "classification": "existing-sufficient",
+      "reason": "候補表示/実行/期待処理を分離。同一コマンドで利用者・チャンネルを変え、比較例を実結果と差し替える指示がある。",
+      "axes": {
+        "shortAnswer": "候補が出ないなら追加先とコマンド利用権限、実行エラーなら表示された文言、無応答なら使い方とBot提供者の障害情報を確認します。同じコマンドで「同じ人・別チャンネル」「同じチャンネル・別の人」を順に比較すると、チャンネル・利用者・Bot側のどこを優先して調べるか絞れます。",
+        "procedureEvidence": {
+          "steps": 5,
+          "firstAction": "対象チャンネルで半角の「/」を入力し、Bot名とコマンド候補を確認する。同名コマンドが複数ある場合は提供元のBotも照合する。",
+          "resultCheck": "改善しなければBot名、コマンドと必要なオプション、発生日時、エラー全文、別チャンネル・別利用者の結果を提供者へ送る。画像の個人情報は隠し、Botトークン・パスワード・認証コードは送らない。"
+        },
+        "verificationScopeQuote": "次の比較は原因の断定ではなく、確認範囲を絞る方法です。コマンドと入力内容は同じにし、実行が許可された場所だけで試します。",
+        "target": "Discordデスクトップ版・ブラウザ版／既存Bot・アプリの利用者とサーバー管理者",
+        "sources": [
+          {
+            "label": "Discord公式サポート：Using Apps on Discord（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/21334461140375-Using-Apps-on-Discord"
+          },
+          {
+            "label": "Discord公式開発者ドキュメント：Permissions（英語）",
+            "url": "https://docs.discord.com/developers/topics/permissions"
+          },
+          {
+            "label": "Discord公式：チャンネル権限の設定",
+            "url": "https://support.discord.com/hc/en-us/articles/10543994968087-Channel-Permissions-Settings-101"
+          },
+          {
+            "label": "Discord公式：コマンド権限と管理者の扱い",
+            "url": "https://support.discord.com/hc/en-us/articles/10952702911639-Command-Permissions-Lockout"
+          },
+          {
+            "label": "Discord公式開発者資料：コマンドなどへの応答",
+            "url": "https://docs.discord.com/developers/interactions/receiving-and-responding"
+          },
+          {
+            "label": "Discord Status（公式障害情報）",
+            "url": "https://discordstatus.com/"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/bot-remove",
+      "classification": "existing-sufficient",
+      "reason": "サーバー追加/アカウント認証/別Webhookを区別。削除時刻以降の新規投稿で判定し、過去履歴や外部データ削除まで保証しない。",
+      "axes": {
+        "shortAnswer": "最初にBotの担当機能と必要な設定を保存し、追加先を確認します。サーバーのBotはキックまたは連携サービスから削除、自分のアプリはユーザー設定の認証済みアプリから解除します。削除後の新しい投稿は、Webhook・チャンネルフォロー・他の利用者のアプリも確認してください。",
+        "procedureEvidence": {
+          "steps": 5,
+          "firstAction": "対象サーバー名、Bot名、プロフィールの提供元を照合する。「サーバー設定」→「連携サービス／Integrations」で登録状態も確認する。",
+          "resultCheck": "ロールや専用チャンネルが残る場合：利用者・閲覧権限・他の機能の利用を確認し、不要なものだけ整理する。Botと同じ名前という理由だけで消さない。"
+        },
+        "verificationScopeQuote": "候補表示を消すこと、今後の投稿を止めること、過去の履歴を整理することは別の作業です。",
+        "target": "Discordデスクトップ版・ブラウザ版／サーバー管理者と自分のアカウントの利用者",
+        "sources": [
+          {
+            "label": "Discord公式サポート：Using Apps on Discord（英語）",
+            "url": "https://support.discord.com/hc/en-us/articles/21334461140375-Using-Apps-on-Discord"
+          },
+          {
+            "label": "Discord公式開発者ドキュメント：Permissions（英語）",
+            "url": "https://docs.discord.com/developers/topics/permissions"
+          },
+          {
+            "label": "Discord公式：Moderating Apps on Discord（外部アプリの制限）",
+            "url": "https://support-apps.discord.com/hc/en-us/articles/26501864012951-Moderating-Apps-on-Discord"
+          },
+          {
+            "label": "Discord公式：Server Integrations Page（Webhook・チャンネルフォロー）",
+            "url": "https://support.discord.com/hc/en-us/articles/360045093012-Server-Integrations-Page"
+          },
+          {
+            "label": "Discord公式：Intro to Webhooks",
+            "url": "https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks"
+          },
+          {
+            "label": "Discord公式：Discord Roles and Permissions（キックとロールの順序）",
+            "url": "https://support.discord.com/hc/en-us/articles/214836687-Discord-Roles-and-Permissions"
+          },
+          {
+            "label": "Discord公式：アカウントの保護と認証済みアプリの解除",
+            "url": "https://support.discord.com/hc/en-us/articles/24160905919511-My-Discord-Account-was-Hacked-or-Compromised"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/recommended-bots",
+      "classification": "existing-sufficient",
+      "reason": "用途別の選定・公式仕様・具体導入・一般メンバーでの結果確認が揃い、実サーバー比較測定ランキングでないと明示。症状記事の型を押し付けない。",
+      "axes": {
+        "shortAnswer": "DiscordでゲームサーバーにおすすめのBotは、日程調整ならsesh、ゲーム別ロールならCarl-bot、管理・荒らし対策ならDyno、個別相談窓口ならTicket Toolです。まず不足している用途の1つだけを追加し、一般メンバーで使えるか確認しましょう。単発の投票・イベント・基本的な投稿制限ならDiscord標準機能で足りる場合もあります。",
+        "procedureEvidence": {
+          "steps": 3,
+          "firstAction": "集合日の告知だけならサーバー名のメニューからイベント作成、候補日の投票だけならチャット入力欄の「＋」から投票作成を確認する。日時・候補・参加条件を入力し、標準機能で足りるか試す。日程調整や参加表明をまとめたい時にseshを選ぶ。",
+          "resultCheck": "テスト後はテストイベント・テスト語・相談チケットを整理する。追加日時、担当者、用途、有効な機能を運営メモに残し、不要になったBotは関連記事の解除手順で見直す。"
+        },
+        "verificationScopeQuote": "料金・機能上限・画面表記は変わります。本記事は公式情報に基づく導入案内で、4つのBotを実サーバーで比較測定したランキングではありません。テスト用チャンネルで1機能だけ設定し、保存前の画面を記録してから変更してください。",
+        "target": "DiscordのPC・ブラウザ版／ゲームサーバーの所有者・管理者",
+        "sources": [
+          {
+            "label": "Discord公式：標準の投票の作成方法",
+            "url": "https://support.discord.com/hc/en-us/articles/22163184112407-Polls-FAQ"
+          },
+          {
+            "label": "Discord公式：標準のイベントの作成方法",
+            "url": "https://support.discord.com/hc/en-us/articles/4409494125719-Scheduled-Events"
+          },
+          {
+            "label": "Discord公式：アプリの追加・利用場所・管理権限",
+            "url": "https://support.discord.com/hc/en-us/articles/21334461140375-Using-Apps-on-Discord"
+          },
+          {
+            "label": "Discord公式：AutoMod FAQ・設定場所",
+            "url": "https://support.discord.com/hc/en-us/articles/4421269296535-AutoMod-FAQ"
+          },
+          {
+            "label": "sesh公式：機能とPremium対象",
+            "url": "https://sesh.fyi/"
+          },
+          {
+            "label": "sesh公式Manual：/create・/poll・日時・参加表明",
+            "url": "https://sesh.fyi/manual/"
+          },
+          {
+            "label": "Carl-bot公式：機能・Dashboard",
+            "url": "https://carl.gg/about"
+          },
+          {
+            "label": "Carl-bot公式ドキュメント：ロール設定",
+            "url": "https://github.com/botlabs-gg/carlbot-docs/blob/master/docs/roles.md"
+          },
+          {
+            "label": "Dyno公式：Automodの設定と権限",
+            "url": "https://docs.dyno.gg/en/modules/automod"
+          },
+          {
+            "label": "Dyno公式：無料・Premiumの比較",
+            "url": "https://docs.dyno.gg/en/premium"
+          },
+          {
+            "label": "Ticket Tool公式：導入・担当者ロール・パネル投稿",
+            "url": "https://docs.tickettool.xyz/general/setup"
+          },
+          {
+            "label": "Ticket Tool公式：パネルの管理・設定項目",
+            "url": "https://docs.tickettool.xyz/dashboard/panel-configs"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    },
+    {
+      "path": "/discord/voice-client-outdated",
+      "classification": "existing-sufficient",
+      "reason": "公式最低版と推奨される更新を分離。OS条件、同一欄の版記録、通話結果を求め、記録例は非実測と明記。",
+      "axes": {
+        "shortAnswer": "Discordは2026年3月2日以降の通話に暗号化対応を必須としています。まず更新前のバージョンを控え、完全終了・更新後に同じ画面で再確認します。更新できなければ現行ブラウザで同じ通話を試し、アプリだけ失敗するのか、両方で接続できないのかで次の手順を選びます。",
+        "procedureEvidence": {
+          "steps": 4,
+          "firstAction": "Discordの歯車アイコン→ユーザー設定を開き、設定パネルの最下部にあるバージョン表示全体を控える。複数の番号がある場合は一部分だけを書き写さず、画面も記録する。",
+          "resultCheck": "人同士は話せて音楽Botだけ失敗するなら、Bot提供者のDAVE対応・障害情報を確認する。利用者のアプリ再インストールを繰り返しても、Bot側の未対応は修正できない。"
+        },
+        "verificationScopeQuote": "記録例：「アプリは古い版の警告、Chromeは相互通話OK」ならアプリ側を優先。「両方RTC接続中」なら接続経路の確認へ進みます。これは判断例であり、実機検証結果ではありません。",
+        "target": "Windows版Discord・PCブラウザ版／バージョン非対応が疑われる場合",
+        "sources": [
+          {
+            "label": "Discord公式：通話に必要な最低バージョン",
+            "url": "https://support.discord.com/hc/en-us/articles/38025123604631-Minimum-Client-Version-Requirements-for-Voice-Chat"
+          },
+          {
+            "label": "Discord公式：トラブルシューティングガイド",
+            "url": "https://support.discord.com/hc/en-us/articles/31623498041623-Discord-Troubleshooting-Guide"
+          },
+          {
+            "label": "Discord公式：ダウンロード",
+            "url": "https://discord.com/download"
+          },
+          {
+            "label": "Google公式：Google Chromeを更新する",
+            "url": "https://support.google.com/chrome/answer/95414?hl=ja"
+          },
+          {
+            "label": "Mozilla公式：Firefoxを最新リリースに更新する",
+            "url": "https://support.mozilla.org/ja/kb/update-firefox-latest-release"
+          },
+          {
+            "label": "Microsoft公式：Microsoft Edgeの更新設定",
+            "url": "https://support.microsoft.com/en-us/topic/microsoft-edge-update-settings-af8aaca2-1b69-4870-94fe-18822dbb7ef1"
+          },
+          {
+            "label": "Discord Status（公式障害情報）",
+            "url": "https://discordstatus.com/"
+          }
+        ]
+      },
+      "recommendedEdit": null,
+      "translationAction": "本文の事実変更を提案していないため新しい矛盾修正なし。共通の日付ラベル変更時は既存翻訳テンプレートも対応。",
+      "limits": "構造・表現・既存公開根拠との対応の監査。全リンクの再取得、全外部仕様の最新性、ゲーム実機検証の認定ではない。"
+    }
+  ]
+}

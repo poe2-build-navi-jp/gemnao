@@ -1,3 +1,4 @@
+import { ArticleEvidence, ArticleEvidenceTocLink } from '@/components/article-evidence';
 import { ArticleToc } from '@/components/article-toc';
 import { ArticleDiagnosisEntry } from '@/components/article-diagnosis-entry';
 import { EditorialByline } from '@/components/editorial-byline';
@@ -260,7 +261,7 @@ export default async function Page({
           <p className="article-lead">{item.description}</p>
           <div className="article-meta">
             <EditorialByline />
-            <span>最終確認：{item.checkedAt.replaceAll('-', '.')}</span>
+            <span>資料の確認記録：{item.checkedAt.replaceAll('-', '.')}</span>
             <span>公式資料を優先して確認</span>
           </div>
           <SaveArticle path={`/guide/${item.slug}`} title={item.title} />
@@ -535,6 +536,7 @@ export default async function Page({
               <a href="#stutter-next">改善しない時</a>
             </>
           ) : null}
+          <ArticleEvidenceTocLink path={`/guide/${slug}`} />
           <a href="#faq">よくある質問</a>
         </ArticleToc>
         <article className="guide-article">
@@ -652,6 +654,7 @@ export default async function Page({
               { href: '/guide', label: 'PC共通ガイド一覧へ戻る' },
             ]}
           />
+          <ArticleEvidence path={`/guide/${slug}`} />
           {slug === 'reset-config-file' ? <ResetConfigAfterSteps /> : null}
           {slug === 'reshade-uninstall' ? <ReShadeAfterSteps /> : null}
           {slug === 'remove-mods-safely' ? <RemoveModsAfterSteps /> : null}
