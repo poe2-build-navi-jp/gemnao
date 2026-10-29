@@ -25,6 +25,9 @@ const staticFiles = new Set([
   '/gemnao-logo.png',
   '/robots.txt',
   '/sitemap.xml',
+  // Temporary GSC controls: static fallback matches the canonical sitemap.
+  '/sitemap-diagnostic-copy.xml',
+  '/sitemap-diagnostic-minimal.xml',
   '/image-sitemap.xml',
   // IndexNow key (scripts/ping-index.mjs)
   '/8a431ad6b1d387ce80049b38cc6a027a.txt',
