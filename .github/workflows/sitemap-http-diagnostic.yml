@@ -1,0 +1,42 @@
+name: Public sitemap HTTP diagnostic
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [gemunao]
+    paths:
+      - '.github/workflows/sitemap-http-diagnostic.yml'
+      - 'ops/sitemap-http/**'
+permissions:
+  contents: read
+concurrency:
+  group: gemnao-public-sitemap-diagnostic
+  cancel-in-progress: false
+jobs:
+  test:
+    if: github.repository == 'poe2-build-navi-jp/gemnao'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - run: python3 -m unittest discover -s ops/sitemap-http -p 'test_*.py' -v
+  observe:
+    needs: test
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/gemunao' && github.run_attempt == 1
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Fixed unauthenticated public requests (no retry)
+        run: python3 ops/sitemap-http/diagnose.py
+      - name: Retain public observations
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: sitemap-http-${{ github.run_id }}
+          path: sitemap-http-result.json
+          retention-days: 7
+          if-no-files-found: warn
