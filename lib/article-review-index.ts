@@ -1552,7 +1552,7 @@ export const articleReviews: Record<string, Omit<ArticleReview, 'path'>> = {
     title:
       'Phantom Blade Zero（ファントムブレード ゼロ）が起動しない・重い時の対処法【PC版】',
     gameSlug: 'phantom-blade-zero',
-    checkedOn: '2026-10-29',
+    checkedOn: '2026-10-30',
     steps: [
       { id: 'step-1', title: 'SSDにインストールされているか確認する' },
       { id: 'step-2', title: 'GPUが最低環境を満たすか確認する' },
@@ -1562,7 +1562,8 @@ export const articleReviews: Record<string, Omit<ArticleReview, 'path'>> = {
       },
       {
         id: 'step-4',
-        title: 'GPUドライバーを更新し、ゲームファイルを確認する',
+        title:
+          'GPUドライバーとデイワンパッチを確認し、ゲームファイルを確認する',
       },
     ],
   },

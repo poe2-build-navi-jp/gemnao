@@ -423,19 +423,19 @@ export const upcomingReleaseArticles: GameArticle[] = [
     gameSlug: 'phantom-blade-zero',
     slug: 'not-launching',
     category: 'launch',
-    checkedAt: '2026-10-29',
+    checkedAt: '2026-10-30',
     seoTitle:
       'Phantom Blade Zero（影の刃零）が起動しない・重い時の対処法【PC版】',
     title:
       'Phantom Blade Zero（ファントムブレード ゼロ）が起動しない・重い時の対処法【PC版】',
     shortTitle: '起動しない・重い',
-    targetVersion: 'Steam版・2026年10月29日時点の公式情報（配信開始の直前）',
+    targetVersion: 'Steam版・2026年10月30日時点の公式情報（発売後）',
     symptom:
       'PC版が起動しない、起動直後に落ちる、読み込みが長い、フレームレートが低い・カクつく場合の確認手順です。',
     conclusion:
       '最低環境からSSDへのインストールが必須です。最低環境（GTX 1660 6GB・RX 5500 XT 8GB）の目安は、アップスケーリングを使って1080p・30fpsです。発売後に起動可能となってから、実際に選べるアップスケーリングとレイトレーシング設定を1項目ずつ比較します。製品版の実測結果ではありません。公式は、レイトレーシングなしでも見た目の迫力を保つよう調整したと説明しています。',
     description:
-      '公式の案内では、配信開始は日本時間2026年10月29日11時（太平洋夏時間10月28日19時）です。Steamストアの日本語表示は10月28日です（9月9日から延期）。容量は約145GBで、予約ダウンロード中は300GB以上の空きが必要と公式が案内しています。DRMにDenuvoが使われています（Steamストアの表記）。日本語はインターフェース・字幕に対応し、音声は日本語に対応していません。',
+      '公式の案内では、配信開始は日本時間2026年10月29日11時（太平洋夏時間10月28日19時）です。Steamストアの日本語表示は10月28日です（9月9日から延期）。容量は約145GBで、予約ダウンロード中は300GB以上の空きが必要と公式が案内しています。発売時には約5GBのデイワンパッチが配信され、予約ダウンロードした人は起動前に適用するよう案内されています。DRMにDenuvoが使われています（Steamストアの表記）。日本語はインターフェース・字幕に対応し、音声は日本語に対応していません。',
     causes: [
       'HDDにインストールしている（SSD必須）',
       'GPUが最低環境（GTX 1660 6GB・RX 5500 XT 8GB）を下回る',
@@ -535,13 +535,16 @@ export const upcomingReleaseArticles: GameArticle[] = [
       },
       {
         id: 'step-4',
-        title: 'GPUドライバーを更新し、ゲームファイルを確認する',
-        summary: '起動直後に落ちる・黒い画面のまま進まない場合に確認します。',
+        title:
+          'GPUドライバーとデイワンパッチを確認し、ゲームファイルを確認する',
+        summary:
+          '起動直後に落ちる・動作が不安定な場合に確認します。公式は、NVIDIAの最新ドライバー621.01で動作が不安定になる場合があるとして、617.42を推奨しています（NVIDIAの次のドライバーが出るまで）。',
         time: '約15分',
         risk: 'low',
         actions: [
-          driverUpdate,
-          steamVerify,
+          'NVIDIAのGPUで621.01など617.42より新しいドライバーを入れている場合は、公式の推奨どおり617.42に戻し、インストール時に「クリーンインストール」を選ぶ。AMD・IntelはAMD Software: Adrenalin Edition・Intelの公式サイトで最新のドライバーにする',
+          '予約ダウンロードした場合は、起動前に約5GBのデイワンパッチがダウンロード・適用されたか、Steamのダウンロード画面で確認する。そのうえで' +
+            steamVerify.replace('Steam：', ''),
           'Discord・Steamのオーバーレイ、録画・FPS表示ツールをオフにして起動を比べる',
         ],
       },
@@ -551,7 +554,7 @@ export const upcomingReleaseArticles: GameArticle[] = [
       'DRMのファイルを書き換える非公式ツールを使わない',
     ],
     cautions: [
-      '配信開始の直前（10月29日10時）の情報です。この時点で、発売後の不具合や修正についての公式のお知らせは出ていません。発売後の案内は、公式のお知らせもあわせて確認してください。',
+      'NVIDIAのドライバー617.42の推奨は、NVIDIAの次のドライバーが出るまでの公式の案内です（10月30日確認）。新しいドライバーが出たら、公式のお知らせで推奨が変わっていないか確認してください。',
     ],
     faqs: [
       {
@@ -582,7 +585,7 @@ export const upcomingReleaseArticles: GameArticle[] = [
       },
       {
         label:
-          'Steamニュース（公式）：Ready your blade!（配信開始時刻・容量・予約ダウンロード）、A Letter From Creative Director（延期・レイトレーシングなしでの見た目）',
+          'Steamニュース（公式）：Reason and Madness（デイワンパッチ・NVIDIAドライバー617.42の推奨）、Ready your blade!（配信開始時刻・容量）、A Letter From Creative Director（延期）',
         url: 'https://store.steampowered.com/news/app/4115450',
       },
     ],
