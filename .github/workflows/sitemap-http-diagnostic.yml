@@ -1,6 +1,13 @@
 name: Public sitemap HTTP diagnostic
 on:
   workflow_dispatch:
+    inputs:
+      diagnostic:
+        description: Fixed public comparison (transport is at most six GETs)
+        type: choice
+        options: [transport, matrix]
+        default: transport
+        required: true
   pull_request:
     branches: [gemunao]
     paths:
@@ -30,7 +37,11 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
+      - name: Fixed transport comparison (six GETs maximum)
+        if: inputs.diagnostic == 'transport'
+        run: python3 ops/sitemap-http/transport.py
       - name: Fixed unauthenticated public requests (no retry)
+        if: inputs.diagnostic == 'matrix'
         run: python3 ops/sitemap-http/diagnose.py
       - name: Retain public observations
         if: always()
