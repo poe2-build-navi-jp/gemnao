@@ -4,7 +4,8 @@ import { readFile, stat } from 'node:fs/promises';
 // These public files need no application code, D1, cookies, or authentication.
 // Keep every other path on the existing Worker, including internal snapshots.
 const paths = ['/sitemap.xml', '/image-sitemap.xml', '/robots.txt'];
-const expectedRoutes = { version: 1, include: ['/*'], exclude: paths };
+const controls = ['/sitemap-diagnostic-copy.xml', '/sitemap-diagnostic-minimal.xml'];
+const expectedRoutes = { version: 1, include: ['/*'], exclude: [...paths, ...controls] };
 const expectedRedirects = paths.map((path) => `${path}/ ${path} 308`);
 
 for (const directory of ['public', 'dist/client']) {
@@ -27,7 +28,7 @@ for (const directory of ['public', 'dist/client']) {
   );
 }
 
-for (const path of paths) {
+for (const path of [...paths, ...controls]) {
   const asset = await stat(`dist/client${path}`);
   assert.ok(
     asset.isFile() && asset.size > 0,
@@ -36,5 +37,5 @@ for (const path of paths) {
 }
 
 console.log(
-  'Static search assets: routes, redirects, and three output files verified',
+  'Static search assets: routes, redirects, and five output files verified',
 );
