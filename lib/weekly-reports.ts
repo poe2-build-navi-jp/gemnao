@@ -44,6 +44,168 @@ const steamNews = (appId: string) =>
 
 export const weeklyReports: WeeklyReport[] = [
   {
+    slug: '2026-10-26',
+    title:
+      '今週のPCゲーム不具合まとめ（10月26日〜11月1日）｜Phantom Blade Zero発売・モンハンワイルズの修正・FM27の無料プレビューほか',
+    shortTitle: '10月26日〜11月1日',
+    period: '2026年10月26日〜11月1日',
+    publishedAt: '2026-11-02',
+    description:
+      '10月26日〜11月1日に出たPCゲームの公式パッチ・障害・お知らせをまとめました。Phantom Blade Zeroの発売とNVIDIAドライバーの推奨、モンハンワイルズのVer.1.042.00.03（AMDのクラッシュ対策）、SILENT HILL: Townfallのパッチ1.6.0、AION2のサーバー移動の再開とメンテナンスなど。',
+    lead: '今週出た公式のパッチ・障害・エラー情報を、ゲームごとに1行で確認できます。詳しい直し方は各記事へ。',
+    highlights: [
+      'Phantom Blade Zero：10/29 11時に配信開始。約5GBのデイワンパッチあり。公式はNVIDIAの最新ドライバー621.01で不安定になる場合があるとして、617.42を推奨',
+      'モンハンワイルズ：Ver.1.042.00.03で、一部のAMDのGPUで落ちる問題と、特定の回線で通信エラーが起きやすい問題に対策',
+      'Football Manager 27：無料のローンチプレビューを11/4 3時（日本時間）まで実施中。セーブは製品版に引き継げる',
+    ],
+    items: [
+      {
+        date: '10/29',
+        game: 'Phantom Blade Zero',
+        gameSlug: 'phantom-blade-zero',
+        kind: 'release',
+        title: '配信開始（11時）。デイワンパッチとNVIDIAドライバー617.42を推奨',
+        summary:
+          '配信開始は日本時間10/29 11時。容量は約145GBで、予約ダウンロード中は300GB以上の空きが必要。約5GBのデイワンパッチがあり、予約ダウンロードした人は起動前に適用する。NVIDIAの最新ドライバー621.01で動作が不安定になる場合があるとして、NVIDIAの次のドライバーが出るまで617.42（クリーンインストール）を推奨している。',
+        article: {
+          href: '/games/phantom-blade-zero/not-launching',
+          label: '起動しない・重い時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('4115450') },
+      },
+      {
+        date: '10/27',
+        game: 'モンハンワイルズ',
+        gameSlug: 'monster-hunter-wilds',
+        kind: 'patch',
+        title:
+          'Ver.1.042.00.03：一部のAMDのGPUでのクラッシュと通信エラーに対策',
+        summary:
+          '一部のAMDのグラフィックカードで落ちる問題と、特定のネットワーク環境で通信エラーが起きやすい問題に対策。オンラインのマルチプレイと追加コンテンツには最新版が必要。推奨ドライバーはNVIDIA 581.57以降、AMD 25.9.1以降。',
+        article: {
+          href: '/games/monster-hunter-wilds/crash-after-fixes',
+          label: '落ちる時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('2246340') },
+      },
+      {
+        date: '10/29',
+        game: 'SILENT HILL: Townfall',
+        gameSlug: 'silent-hill-townfall',
+        kind: 'patch',
+        title:
+          'パッチ1.6.0：新しい難易度「Hard」とDLSS Ray Reconstructionを追加',
+        summary:
+          '10/28配信。全難易度のバランスを調整し、すべての難易度でマップに自分の位置が出るようになった。The Weightの攻撃を弱める調整はストーリーモードだけに変更。PC版にDLSS Ray Reconstructionの設定を追加。適用後はメインメニュー右下が「v.1.6.155963」になっているか確認する。',
+        article: {
+          href: '/games/silent-hill-townfall/stutter',
+          label: '重い・カクつく時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('1636440') },
+      },
+      {
+        date: '10/29',
+        game: 'HELLDIVERS 2',
+        gameSlug: 'helldivers-2',
+        kind: 'patch',
+        title: '7.2.2：PCの描画まわりと起動時のまれなクラッシュを修正',
+        summary:
+          'PC・Xboxの描画処理で起きるまれなクラッシュと、起動時のまれなクラッシュを修正。一部の武器の性能や表示も調整した。',
+        source: { label: 'Steamニュース（公式）', url: steamNews('553850') },
+      },
+      {
+        date: '10/27',
+        game: 'AION2',
+        gameSlug: 'aion2',
+        kind: 'notice',
+        title: 'サーバー移動を一時停止したのち再開。移動の条件はレベル45以上に',
+        summary:
+          '不具合の調査のためサーバー移動をいったん止め、ヨーロッパから再開。ほかの地域も通常の受付期間で続ける。移動できるレベルの条件は45になった。',
+        article: {
+          href: '/games/aion2/login-error',
+          label: 'ログイン・接続できない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('3393110') },
+      },
+      {
+        date: '10/28',
+        game: 'AION2',
+        gameSlug: 'aion2',
+        kind: 'outage',
+        title:
+          '定期メンテナンス（15:30から約4時間30分）。北米は11/1に臨時メンテナンス',
+        summary:
+          '10/28は定期メンテナンス。北米東部（11/1 14:30から）・西部（11/1 17:30から）は、サマータイム終了に合わせてそれぞれ約2時間30分の臨時メンテナンスがあった（いずれも完了）。',
+        article: {
+          href: '/games/aion2/login-error',
+          label: 'ログイン・接続できない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('3393110') },
+      },
+      {
+        date: '10/31',
+        game: 'アニモ（Aniimo）',
+        gameSlug: 'aniimo',
+        kind: 'patch',
+        title:
+          '10月30日の修正：メインストーリーの進行不能やフレンド一覧の表示などを修正',
+        summary:
+          'メインストーリー「The Challenge of Fighting Upstream!」で滝登りのクエストを完了できない場合がある問題、フレンド一覧が表示されないことがある問題、敵を倒すとクエストが進まなくなる問題などを修正。',
+        article: {
+          href: '/games/aniimo/not-launching',
+          label: '起動しない・落ちる時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('4126040') },
+      },
+      {
+        date: '10/30',
+        game: 'Football Manager 27',
+        gameSlug: 'football-manager-27',
+        kind: 'notice',
+        title: '無料のローンチプレビューを開始（11/4 3時まで）',
+        summary:
+          'PC・Macで無料で遊べる（英国時間11/3 18時まで）。プラットフォームによって開始時刻が異なる場合がある。キャリアは有料のローンチプレビューと製品版に引き継げる。不具合はSIフォーラムの専用の場所で報告できる。',
+        article: {
+          href: '/games/football-manager-27/not-launching',
+          label: '起動しない・ローンチプレビュー・Denuvo',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('4530370') },
+      },
+    ],
+    upcoming: [
+      {
+        date: '11/3',
+        game: 'Godzilla: Destroy All Monsters Melee Remastered',
+        note: '発売（Steamストアの表記）',
+        href: '/games/godzilla-destroy-all-monsters-melee/not-launching',
+      },
+      {
+        date: '11/4',
+        game: 'Football Manager 27',
+        note: '3時に無料期間が終了（予約購入した人は製品版の発売まで続けられる）',
+        href: '/games/football-manager-27/not-launching',
+      },
+      {
+        date: '11/4',
+        game: 'AION2',
+        note: 'アップデート「Ludra Awakens」（公式の告知。時刻は公式のお知らせで確認）',
+        href: '/games/aion2/login-error',
+      },
+      {
+        date: '11/5',
+        game: '崩落の国',
+        note: '発売（Steamストアの表記）',
+        href: '/games/where-the-seeds-fall/not-launching',
+      },
+      {
+        date: '11/10',
+        game: 'Football Manager 27',
+        note: '発売（Steamストアの表記）',
+        href: '/games/football-manager-27/not-launching',
+      },
+    ],
+  },
+  {
     slug: '2026-10-19',
     title:
       '今週のPCゲーム不具合まとめ（10月19日〜10月25日）｜HELLDIVERS 2のアンチチート変更・エースコンバット8の更新・Dawnwalker 1.1ほか',

@@ -5,6 +5,7 @@ const names: Record<string, string> = {
   'ドラゴンズドグマ2 ダークアリズン': 'Dragon’s Dogma 2: Dark Arisen',
   'テイルズ オブ エターニア リマスター': 'Tales of Eternia Remastered',
   'アニモ（Aniimo）': 'Aniimo',
+  モンハンワイルズ: 'Monster Hunter Wilds',
   サイバーパンク2077: 'Cyberpunk 2077',
   'ファイナルファンタジー レゾナンス': 'FINAL FANTASY RESONANCE',
   'Call of Duty: Modern Warfare 4・ファイナルファンタジー レゾナンス':
@@ -20,6 +21,58 @@ const text: Record<
     upcoming: string[];
   }
 > = {
+  '2026-10-26': {
+    title:
+      'PC Gaming Weekly, October 26–November 1: Phantom Blade Zero, Monster Hunter Wilds and FM27',
+    description:
+      'An archive of official patches and announcements from October 26–November 1, 2026: Phantom Blade Zero’s launch and NVIDIA driver advice, Monster Hunter Wilds Ver. 1.042.00.03 (AMD crash measures), SILENT HILL: Townfall Patch 1.6.0, and AION2 transfers and maintenance.',
+    highlights: [
+      'Phantom Blade Zero launched at 11:00 JST on October 29 with a roughly 5 GB day-one patch. The developer reported instability with NVIDIA’s latest 621.01 driver and recommends 617.42.',
+      'Monster Hunter Wilds Ver. 1.042.00.03 added measures against crashes on some AMD GPUs and communication errors in certain networks.',
+      'Football Manager 27’s free Launch Preview runs until 03:00 JST on November 4; careers carry over to the full game.',
+    ],
+    items: [
+      [
+        'Released at 11:00 JST; day-one patch and NVIDIA 617.42 recommended',
+        'The release unlocked at 11:00 JST on October 29. The game is about 145 GB, with at least 300 GB free needed during pre-load. A roughly 5 GB day-one patch must be installed before launching a pre-load. Citing instability with NVIDIA’s latest 621.01 driver, the developer recommends 617.42 (clean installation) until NVIDIA’s next driver.',
+      ],
+      [
+        'Ver. 1.042.00.03 addressed AMD GPU crashes and communication errors',
+        'Measures were added for crashes on some AMD graphics cards and for communication errors that occurred more often in certain network environments. The latest version is required for online multiplayer and DLC. Recommended drivers: NVIDIA 581.57 or newer, AMD 25.9.1 or newer.',
+      ],
+      [
+        'Patch 1.6.0 added a Hard difficulty and DLSS Ray Reconstruction',
+        'Released October 28. Balance was adjusted across difficulties, the player’s position now shows on the map in every mode, and The Weight’s attack-severity reduction now applies to Story Mode only. A DLSS Ray Reconstruction option was added on PC. After updating, check for v.1.6.155963 at the lower right of the main menu.',
+      ],
+      [
+        '7.2.2 fixed rare renderer and boot crashes',
+        'A rare renderer crash on PC and Xbox and a rare crash on boot were fixed, along with weapon balance and display corrections.',
+      ],
+      [
+        'Server transfers paused, then resumed; level requirement is now 45',
+        'Transfers were put on hold while an issue was investigated, then resumed with Europe, with other regions continuing their normal windows. The level requirement to transfer is now 45.',
+      ],
+      [
+        'Scheduled maintenance from 15:30 for about 4.5 hours; North America had temporary maintenance on November 1',
+        'Scheduled maintenance ran on October 28. NA East (from 14:30) and NA West (from 17:30) each had about 2.5 hours of temporary maintenance on November 1 for the end of daylight saving time (both completed).',
+      ],
+      [
+        'October 30 fixes for main-story blockers and the friends list',
+        'Fixes covered the Waterfall Climb quest in “The Challenge of Fighting Upstream!” that could fail to complete, a friends list that sometimes failed to appear, and a boss that could be defeated in a way that blocked quest progression, among others.',
+      ],
+      [
+        'Free Launch Preview started (until 03:00 JST on November 4)',
+        'Free on PC and Mac until 18:00 GMT on November 3; start times can differ by platform. Careers carry over to the paid Launch Preview and the full game. Bugs can be reported in a dedicated area of the SI Forums.',
+      ],
+    ],
+    upcoming: [
+      'Release date shown on Steam.',
+      'The free period ends at 03:00 JST; pre-purchasers can continue until the full release.',
+      'Ludra Awakens update announced; check the official notice for timing.',
+      'Release date shown on Steam.',
+      'Release date shown on Steam.',
+    ],
+  },
   '2026-10-19': {
     title:
       'PC Gaming Weekly, October 19–25: HELLDIVERS 2 Anti-Cheat, ACE COMBAT 8 and Dawnwalker 1.1',
@@ -334,6 +387,7 @@ const text: Record<
   },
 };
 const periods: Record<string, string> = {
+  '2026-10-26': 'October 26–November 1',
   '2026-10-19': 'October 19–25',
   '2026-10-12': 'October 12–18',
   '2026-10-05': 'October 5–11',
