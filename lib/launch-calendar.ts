@@ -32,7 +32,7 @@ export const launches: Launch[] = [
   { gameSlug: 'tales-of-eternia-remastered', release: '2026-10-16' },
   { gameSlug: 'call-of-duty-modern-warfare-4', release: '2026-10-23' },
   { gameSlug: 'final-fantasy-resonance', release: '2026-10-23' },
-  { gameSlug: 'phantom-blade-zero', release: '2026-10-28' },
+  { gameSlug: 'phantom-blade-zero', release: '2026-10-29' },
   { gameSlug: 'godzilla-destroy-all-monsters-melee', release: '2026-11-03' },
   { gameSlug: 'where-the-seeds-fall', release: '2026-11-05' },
   {

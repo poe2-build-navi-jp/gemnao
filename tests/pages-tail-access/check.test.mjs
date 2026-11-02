@@ -32,30 +32,30 @@ function mock({ status=200, failDelete=false, timeout=false, changed=false }={})
   };
   return {fetcher,calls};
 }
-test('fixed GET/create/delete, no returned capability leakage',async()=>{
+void test('fixed GET/create/delete, no returned capability leakage',async()=>{
   const m=mock(); const r=await probe(env,m.fetcher);
   assert.equal(r.status,'session-access-confirmed');
   assert.deepEqual(m.calls.map(x=>x.method),['GET','GET','GET','POST','DELETE']);
   assert.equal(r.websocketAttempted,false);
   assert.doesNotMatch(JSON.stringify(r),/synthetic|PRIVATE|bbbb/);
 });
-for(const status of [401,403,429]) test(`HTTP ${status} stops without retry`,async()=>{
+for(const status of [401,403,429]) void test(`HTTP ${status} stops without retry`,async()=>{
   const m=mock({status}); const r=await probe(env,m.fetcher);
   assert.equal(r.failure,`POST_HTTP_${status}`); assert.equal(m.calls.length,4);
 });
-test('uncertain creation is not retried',async()=>{
+void test('uncertain creation is not retried',async()=>{
   const m=mock({timeout:true}); const r=await probe(env,m.fetcher);
   assert.equal(r.failure,'CREATE_OUTCOME_UNKNOWN_NO_RETRY'); assert.equal(m.calls.length,4);
 });
-test('delete failure is explicitly unconfirmed',async()=>{
+void test('delete failure is explicitly unconfirmed',async()=>{
   const m=mock({failDelete:true}); const r=await probe(env,m.fetcher);
   assert.equal(r.cleanup,'DELETE_UNCONFIRMED_NO_RETRY'); assert.equal(r.sessionDeleted,false);
 });
-test('changed production prevents session creation',async()=>{
+void test('changed production prevents session creation',async()=>{
   const m=mock({changed:true}); const r=await probe(env,m.fetcher);
   assert.equal(r.failure,'PROJECT_OR_PRODUCTION_CHANGED'); assert.equal(m.calls.length,3);
 });
-test('wrong workflow, branch, attempt, environment blocked before CF',async()=>{
+void test('wrong workflow, branch, attempt, environment blocked before CF',async()=>{
   for(const override of [{GITHUB_WORKFLOW:'other'},{GITHUB_REF:'refs/heads/other'},{GITHUB_RUN_ATTEMPT:'2'},{TAIL_PROTECTED_ENVIRONMENT:'other'}]) {
     const m=mock(); await assert.rejects(probe({...env,...override},m.fetcher)); assert.equal(m.calls.length,0);
   }

@@ -685,9 +685,9 @@ export const games: GameGuide[] = [
     shortTitle: 'Phantom Blade Zero',
     lead: '最低環境からSSD必須。起動しない・重い時に、アップスケーリングとレイトレーシングの設定から確認する手順を公式情報から整理。',
     accent: '#5a1d1d',
-    demand: '2026年10月28日発売（Steamストアの表記。公式発表は10月29日）',
+    demand: '日本時間2026年10月29日11時に配信開始（公式。Steamストアの表記は10月28日）',
     issueScale: '高い',
-    updated: '2026-10-03',
+    updated: '2026-10-29',
     tags: ['起動しない', '重い', 'SSD', 'アップスケーリング', 'Denuvo'],
     focused: true,
     savePath: '',
@@ -710,7 +710,8 @@ export const games: GameGuide[] = [
         'Windows 10/11（64bit）／Core i7-8700K・Ryzen 5 3600／GTX 1660（6GB）・RX 5500 XT（8GB）／メモリ16GB（1080p・30fps、アップスケーリング使用）',
       recommended:
         'Windows 10/11（64bit）／Core i5-10600K・Ryzen 5 5600X／RTX 3060 Ti（8GB）・RX 6700 XT（12GB）／メモリ16GB（1440p・60fps、アップスケーリング使用）',
-      storage: 'SSD必須（容量はSteamストアに記載なし）',
+      storage:
+        'SSD必須・約145GB（予約ダウンロード中は300GB以上の空きが必要。公式）',
     },
     sources: [
       { label: 'Steamストア', url: steam('4115450') },

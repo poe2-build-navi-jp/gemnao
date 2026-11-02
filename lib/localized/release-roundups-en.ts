@@ -131,10 +131,10 @@ const rows: Record<
     },
     {
       name: 'Phantom Blade Zero',
-      date: 'October 28',
+      date: 'October 28, 19:00 PDT (October 29, 11:00 JST), per the official notice',
       os: 'Windows 10/11 (64-bit)',
       minGpu: 'GTX 1660 (6 GB) / RX 5500 XT (8 GB)',
-      storage: 'Not listed (SSD required)',
+      storage: 'About 145 GB (SSD required; official notice)',
       must: ['SSD'],
       gtx1660Note:
         'Listed in the minimum requirements, targeting 1080p at 30 fps with upscaling.',

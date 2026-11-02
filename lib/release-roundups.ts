@@ -256,11 +256,11 @@ export const releaseRoundups: ReleaseRoundup[] = [
       },
       {
         name: 'Phantom Blade Zero（影の刃零）',
-        date: '10月28日',
+        date: '10月29日11時（日本時間。公式。Steamストアの表記は10月28日）',
         os: 'Windows 10/11（64bit）',
         minGpu: 'GTX 1660（6GB）・RX 5500 XT（8GB）',
         memory: '16GB',
-        storage: '記載なし（SSD必須）',
+        storage: '約145GB（SSD必須。公式）',
         must: ['SSD'],
         spec: { gpu: ['gtx-1660'], ramGb: 16 },
         gtx1660: 'yes',
