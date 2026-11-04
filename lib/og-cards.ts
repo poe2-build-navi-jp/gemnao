@@ -1,3 +1,4 @@
+import { novemberIssueTranslations } from '@/lib/november-issue-articles';
 import { enshroudedArticlesEn } from '@/lib/enshrouded-articles';
 import { bf6UpdateIssuesEn } from '@/lib/bf6-update-issues';
 import { mw4LaunchIssuesEn } from '@/lib/mw4-launch-issues';
@@ -322,6 +323,7 @@ export function ogCardSpecs(): OgCardSpec[] {
       ...discordListeningSpeechEn,
       ...discordRecommendedBotsEn,
       ...followupLocalizedArticles,
+      ...novemberIssueTranslations,
   ...octoberStabilityArticlesEn,
   ...gearsWardogsArticlesEn,
     ].map((article) => ({
