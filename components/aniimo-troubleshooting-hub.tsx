@@ -167,6 +167,12 @@ export function AniimoTroubleshootingHub() {
           も参照できます。
           修復完了の表示だけで解決とせず、以前止まった地点まで進めるか確認してください。
         </p>
+        <p>
+          ゲームの音は聞こえるのに映像が出ない場合は、
+          <a href="/games/aniimo/black-screen">アニモの黒画面を切り分ける手順</a>へ。
+          アニモ以外のPCゲームも起動できない場合は、
+          <a href="/tools/windows-diagnosis">Windows診断で共通する症状から確認先を探す</a>ことができます。
+        </p>
       </section>
       <section className="guide-section" id="aniimo-report">
         <h2>直らない場合：公式サポートへ渡す情報</h2>

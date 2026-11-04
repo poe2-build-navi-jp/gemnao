@@ -231,7 +231,7 @@ export const timeSyncGuide: FollowupGuide = {
           risk: 'low',
           actions: [
             'On a PC you manage, open Command Prompt as administrator. Run w32tm /query /status and w32tm /query /source separately.',
-            'Record Last Successful Sync Time, Source and any actual error. Mark failed queries as unverified; an old timestamp is not proof that this attempt succeeded.',
+            'Record Last Successful Sync Time, Source and any actual error. If the timestamp is from before your latest attempt, treat that attempt as unconfirmed. If the query fails or provides no usable source, keep the full output for your administrator. If the timestamp matches the latest attempt but ACE COMBAT 8 still disconnects, go straight to the connection checks below.',
             'Manual/Stopped for W32Time alone does not mean it is broken. If a domain source appears, consult its administrator rather than switching to a public server.',
           ],
           note: 'Read-only queries need no rollback. Remove computer and organization names before posting output publicly.',
@@ -258,7 +258,7 @@ export const timeSyncGuide: FollowupGuide = {
           risk: 'low',
           actions: [
             'If sync still fails, give the PC maker or administrator your Windows version, error, available status/source information and last successful sync time.',
-            'If sync succeeds but the game disconnects, record whether it happens in the lobby, at match start, during play or on the results screen, then continue to connection checks.',
+            'If sync succeeds but the game disconnects, retry the same action once and record where it fails: lobby, match start, gameplay or results screen. Take that detail and the exact error to the connection checks linked below.',
             'Do not force a new time source or copy Windows Server registry procedures onto a home PC. Ask the administrator whether any network change is necessary.',
           ],
           guideLink: {
