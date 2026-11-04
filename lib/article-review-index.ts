@@ -1419,6 +1419,40 @@ export const articleReviews: Record<string, Omit<ArticleReview, 'path'>> = {
       { id: 'record-result', title: '更新後も続く場合は状況を報告' },
     ],
   },
+  '/games/planet-zoo-2/franchise-save-not-loading': {
+    title:
+      'Planet Zoo 2のフランチャイズのセーブが開けない時｜再開エラーと読み込み失敗',
+    gameSlug: 'planet-zoo-2',
+    checkedOn: '2026-11-04',
+    steps: [
+      { id: 'check-version', title: 'ゲームの版とエラーが出る画面を確認' },
+      { id: 'open-franchise', title: 'フランチャイズのモードボタンから入る' },
+      {
+        id: 'report-load-failure',
+        title: '最新版でも開けない場合は再現情報を添える',
+      },
+    ],
+  },
+  '/games/enshrouded/crash-multiplayer-performance': {
+    title: 'Enshrouded 1.0で落ちる・マルチだけ重い時｜水辺と大規模拠点の確認',
+    gameSlug: 'enshrouded',
+    checkedOn: '2026-11-04',
+    steps: [
+      { id: 'verify-patch', title: 'PC版の更新と版番号を確認' },
+      { id: 'compare-scene', title: '水辺・拠点・接続直後で症状を比べる' },
+      { id: 'collect-details', title: '再現情報を公式サポートへ渡す' },
+    ],
+  },
+  '/games/call-of-duty-modern-warfare-4/dmz-prestige-trait-missing': {
+    title: 'CoD MW4のDMZでプレステージ特性が付かない｜アイテムだけ消えた時',
+    gameSlug: 'call-of-duty-modern-warfare-4',
+    checkedOn: '2026-11-04',
+    steps: [
+      { id: 'match-symptom', title: 'アイテムの消費と特性の付与を別々に確認' },
+      { id: 'record-items', title: '再試行の前に記録を残す' },
+      { id: 'report-prestige', title: '公式窓口へ報告する' },
+    ],
+  },
   '/games/battlefield-6/crash-after-update': {
     title: 'BF6がアップデート後にクラッシュする｜10/22修正の対象と確認手順',
     gameSlug: 'battlefield-6',
@@ -3092,6 +3126,12 @@ export const gameArticleContexts: Record<string, string> = {
     '/games/call-of-duty-modern-warfare-4/stats-not-showing',
   'game-enshrouded-black-screen-save-migration':
     '/games/enshrouded/black-screen-save-migration',
+  'game-planet-zoo-2-franchise-save-not-loading':
+    '/games/planet-zoo-2/franchise-save-not-loading',
+  'game-enshrouded-crash-multiplayer-performance':
+    '/games/enshrouded/crash-multiplayer-performance',
+  'game-call-of-duty-modern-warfare-4-dmz-prestige-trait-missing':
+    '/games/call-of-duty-modern-warfare-4/dmz-prestige-trait-missing',
   'game-battlefield-6-crash-after-update':
     '/games/battlefield-6/crash-after-update',
   'game-battlefield-6-cannot-revive': '/games/battlefield-6/cannot-revive',
@@ -3214,6 +3254,9 @@ export const gameArticleCategories: Record<string, string> = {
   '/games/call-of-duty-modern-warfare-4/loadout-not-saving': 'settings',
   '/games/call-of-duty-modern-warfare-4/stats-not-showing': 'settings',
   '/games/enshrouded/black-screen-save-migration': 'save',
+  '/games/planet-zoo-2/franchise-save-not-loading': 'save',
+  '/games/enshrouded/crash-multiplayer-performance': 'launch',
+  '/games/call-of-duty-modern-warfare-4/dmz-prestige-trait-missing': 'server',
   '/games/battlefield-6/crash-after-update': 'launch',
   '/games/battlefield-6/cannot-revive': 'launch',
   '/games/gears-of-war-e-day/not-launching': 'launch',

@@ -1,3 +1,4 @@
+import { novemberIssueTranslations } from '@/lib/november-issue-articles';
 import { enshroudedArticlesEn } from '@/lib/enshrouded-articles';
 import { bf6UpdateIssuesEn } from '@/lib/bf6-update-issues';
 import { mw4LaunchIssuesEn } from '@/lib/mw4-launch-issues';
@@ -70,6 +71,7 @@ export const localizedArticles: LocalizedArticle[] = [
   ...codMw4En,
   ...mw4LaunchIssuesEn,
   ...enshroudedArticlesEn,
+  ...novemberIssueTranslations,
   ...bf6UpdateIssuesEn,
   ...dqmDemoEn,
   ...upcomingLaunchEn,

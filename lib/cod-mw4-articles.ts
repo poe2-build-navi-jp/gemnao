@@ -486,7 +486,7 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
       sources.launchPatch,
       sources.connecting,
     ],
-    related: ['tpm-secure-boot', 'xbox-pc-launch-button', 'loadout-not-saving', 'stats-not-showing'],
+    related: ['dmz-prestige-trait-missing', 'tpm-secure-boot', 'xbox-pc-launch-button', 'loadout-not-saving', 'stats-not-showing'],
     nextChecks: {
       heading: '症状別の確認へ',
       links: [
