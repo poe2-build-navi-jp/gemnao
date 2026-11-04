@@ -26,11 +26,13 @@
   [role="status"] { min-height: 1.6em; }
   .copy-url { display: block; font-size: 14px; }
   .copy-status { display: block; font-size: 14px; }
+  .metric-change { display: block; font-weight: 600; }
 </style>
 </head>
 <body>
 <main>
   <h1>Search Console リライト候補</h1>
+  <p><a href="#compare-form">改稿前後の比較へ</a></p>
   <p>「検索パフォーマンス」の期間を選び、CSVでエクスポートしたZIPを解凍します。中の「ページ.csv」または「Pages.csv」を選んでください。比較を始めるなら直近28日がおすすめです。</p>
   <p>CSVはこのブラウザ内で処理します。平均掲載順位とCTRはページ単位の指標です。候補に挙がった理由は、改稿前にクエリ別のデータと記事本文を見て確認してください。</p>
   <form id="form">
@@ -52,6 +54,19 @@
     <a href="https://search.google.com/search-console/performance/search-analytics?resource_id=https%3A%2F%2Fgemnao.pages.dev%2F" target="_blank" rel="noopener noreferrer">ゲムなおの検索パフォーマンスを開く</a>
   </div>
   <div id="results"></div>
+  <form id="compare-form">
+    <h2>改稿前後の比較</h2>
+    <p>同じSearch Consoleプロパティで、改稿前と改稿後の同じ日数（例：各28日）のページ別CSVを別々に書き出してください。検索タイプ、国、端末などの絞り込み条件も揃えます。</p>
+    <div class="fields">
+      <label>改稿前のページ別CSV <input id="before-file" type="file" accept=".csv,text/csv" required></label>
+      <label>改稿後のページ別CSV <input id="after-file" type="file" accept=".csv,text/csv" required></label>
+    </div>
+    <label><input id="compare-articles-only" type="checkbox" checked>ゲムなおの記事だけを対象にする</label>
+    <button type="submit">改稿前後を比較</button>
+    <button type="button" id="download-comparison" disabled>比較CSVを保存</button>
+    <p id="compare-status" role="status"></p>
+  </form>
+  <div id="compare-results"></div>
 </main>
 <script>
 'use strict';
@@ -122,6 +137,7 @@ function readPages(text) {
     const path = address.pathname;
     pages.push({
       url, path, clicks, impressions, position, ctr: clicks / impressions * 100,
+      key: address.href,
       origin: address.origin,
       locale: path.match(/^\/(en|zh|es)(?:\/|$)/)?.[1] ?? 'ja',
       isArticle: address.hostname === gemnaoHost && articlePath.test(path),
@@ -267,7 +283,114 @@ function exportCsv(candidates) {
         page.ctr.toFixed(4), page.targetCtr?.toFixed(4) ?? '', page.baseline ?? '', page.gap?.toFixed(2) ?? '', group.action]);
     }
   }
-  return '\uFEFF' + rows.map(row => row.map(value => '"' + String(value).replaceAll('"', '""') + '"').join(',')).join('\r\n');
+  return csvText(rows);
+}
+
+function csvText(rows) {
+  return '\uFEFF' + rows.map(row => row.map(value => '"' + String(value ?? '').replaceAll('"', '""') + '"').join(',')).join('\r\n');
+}
+
+const comparisonMetrics = [
+  { key: 'clicks', title: 'クリック数', unit: '', deltaUnit: '' },
+  { key: 'impressions', title: '表示回数', unit: '', deltaUnit: '' },
+  { key: 'ctr', title: 'CTR', unit: '%', deltaUnit: 'ポイント' },
+  { key: 'position', title: '平均掲載順位', unit: '', deltaUnit: '' },
+];
+
+function comparePeriods(before, after, articlesOnly) {
+  const rows = new Map();
+  for (const page of before) {
+    if (!articlesOnly || page.isArticle) rows.set(page.key, { url: page.url, before: page });
+  }
+  for (const page of after) {
+    if (articlesOnly && !page.isArticle) continue;
+    const row = rows.get(page.key) ?? { url: page.url };
+    row.after = page;
+    rows.set(page.key, row);
+  }
+  return [...rows.values()].sort((a, b) => {
+    const impact = row => row.before && row.after ? Math.abs(row.after.clicks - row.before.clicks) : -1;
+    return impact(b) - impact(a) || a.url.localeCompare(b.url);
+  });
+}
+
+function metricDelta(row, key) {
+  return row.before && row.after ? row.after[key] - row.before[key] : null;
+}
+
+function coverageLabel(row) {
+  if (!row.before) return '改稿後のCSVのみ';
+  if (!row.after) return '改稿前のCSVのみ';
+  return '両期間';
+}
+
+const signedFormat = new Intl.NumberFormat('ja-JP', { maximumFractionDigits: 2, signDisplay: 'exceptZero' });
+
+function renderComparison(rows) {
+  const section = document.createElement('section');
+  const heading = document.createElement('h2');
+  heading.textContent = 'ページ別の変化（' + rows.length + '件）';
+  const hint = document.createElement('p');
+  hint.textContent = rows.length
+    ? '両期間にあるURLをクリック数の変化が大きい順に表示します。差は「改稿後 − 改稿前」で、平均掲載順位のマイナスは上昇です。片方のCSVにしかないURLは、欠けている期間の値と差を「—」で表示します。'
+    : '比較対象のページが見つかりませんでした。CSVと記事フィルタを確認してください。';
+  section.append(heading, hint);
+  if (!rows.length) return section;
+
+  const scroll = document.createElement('div');
+  scroll.className = 'scroll';
+  const table = document.createElement('table');
+  const head = table.createTHead().insertRow();
+  for (const label of ['ページ', ...comparisonMetrics.map(metric => metric.title)]) {
+    const cell = document.createElement('th');
+    cell.scope = 'col';
+    cell.textContent = label;
+    head.append(cell);
+  }
+  const body = table.createTBody();
+  for (const comparison of rows) {
+    const row = body.insertRow();
+    const link = document.createElement('a');
+    link.href = comparison.url;
+    link.textContent = comparison.url;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    const pageCell = row.insertCell();
+    pageCell.append(link);
+    if (!comparison.before || !comparison.after) {
+      const coverage = document.createElement('div');
+      coverage.textContent = coverageLabel(comparison);
+      pageCell.append(coverage);
+    }
+    for (const { key, unit, deltaUnit } of comparisonMetrics) {
+      const display = page => page ? format.format(page[key]) + unit : '—';
+      const cell = row.insertCell();
+      cell.textContent = display(comparison.before) + ' → ' + display(comparison.after);
+      const difference = document.createElement('span');
+      difference.className = 'metric-change';
+      const delta = metricDelta(comparison, key);
+      difference.textContent = '差 ' + (delta === null ? '—' : signedFormat.format(delta) + deltaUnit);
+      cell.append(difference);
+    }
+  }
+  scroll.append(table);
+  section.append(scroll);
+  return section;
+}
+
+function exportComparison(rows) {
+  const header = ['ページ', '収録期間'];
+  for (const { title, unit, deltaUnit } of comparisonMetrics) {
+    header.push(title + '（改稿前' + unit + '）', title + '（改稿後' + unit + '）', title + 'の差' + (deltaUnit ? '（' + deltaUnit + '）' : ''));
+  }
+  return csvText([header, ...rows.map(row => {
+    const values = [row.url, coverageLabel(row)];
+    for (const { key } of comparisonMetrics) {
+      const delta = metricDelta(row, key);
+      values.push(row.before?.[key], row.after?.[key], delta === null ? '' : Number(delta.toFixed(6)));
+    }
+    return values;
+  })]);
 }
 
 const get = id => document.getElementById(id);
@@ -311,17 +434,60 @@ get('form').addEventListener('submit', async event => {
   }
 });
 
-get('download').addEventListener('click', () => {
-  if (!current) return;
-  const file = new Blob([exportCsv(current)], { type: 'text/csv;charset=utf-8' });
+function downloadCsv(csv, filename) {
+  const file = new Blob([csv], { type: 'text/csv;charset=utf-8' });
   const url = URL.createObjectURL(file);
   const link = document.createElement('a');
   link.href = url;
-  link.download = 'gsc-rewrite-candidates.csv';
+  link.download = filename;
   document.body.append(link);
   link.click();
   link.remove();
   setTimeout(() => URL.revokeObjectURL(url), 30000);
+}
+
+get('download').addEventListener('click', () => {
+  if (current) downloadCsv(exportCsv(current), 'gsc-rewrite-candidates.csv');
+});
+
+let comparisonRows = [];
+let compareRun = 0;
+function clearComparison() {
+  compareRun++;
+  comparisonRows = [];
+  get('compare-results').replaceChildren();
+  get('compare-status').textContent = '';
+  get('download-comparison').disabled = true;
+}
+
+get('compare-form').addEventListener('input', clearComparison);
+get('compare-form').addEventListener('submit', async event => {
+  event.preventDefault();
+  clearComparison();
+  const job = compareRun;
+  const beforeFile = get('before-file').files[0];
+  const afterFile = get('after-file').files[0];
+  try {
+    const [beforeText, afterText] = await Promise.all([beforeFile.text(), afterFile.text()]);
+    if (job !== compareRun) return;
+    const before = readPages(beforeText);
+    const after = readPages(afterText);
+    comparisonRows = comparePeriods(before.pages, after.pages, get('compare-articles-only').checked);
+    get('compare-results').replaceChildren(renderComparison(comparisonRows));
+    const matched = comparisonRows.filter(row => row.before && row.after).length;
+    const skipped = before.skipped + after.skipped;
+    get('compare-status').textContent = '両期間にあるURL ' + matched + '件、片方のCSVだけにあるURL ' +
+      (comparisonRows.length - matched) + '件。' +
+      (skipped ? ' 重複・不正・表示0回の行を' + skipped + '件除外しました。' : '') +
+      (beforeText === afterText ? ' 両方のCSVの内容が同じです。選んだ期間をご確認ください。' : '');
+    get('download-comparison').disabled = comparisonRows.length === 0;
+  } catch (error) {
+    if (job === compareRun) get('compare-status').textContent = error.message;
+  }
+});
+
+get('download-comparison').addEventListener('click', () => {
+  if (comparisonRows.length) downloadCsv(exportComparison(comparisonRows), 'gsc-rewrite-comparison.csv');
 });
 </script>
 </body>
