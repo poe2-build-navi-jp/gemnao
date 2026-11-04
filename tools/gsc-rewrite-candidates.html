@@ -14,6 +14,8 @@
   .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 16px 0; }
   label { display: block; font-weight: 600; }
   input { display: block; width: 100%; padding: 8px; border: 1px solid #8a9eb5; border-radius: 6px; font: inherit; }
+  input[type="checkbox"] { display: inline-block; width: auto; margin-right: 6px; }
+  input[hidden] { display: none; }
   button { margin: 4px 8px 4px 0; padding: 8px 14px; border: 0; border-radius: 6px; background: #164b9b; color: white; font: inherit; cursor: pointer; }
   button:disabled { opacity: .55; cursor: default; }
   a { color: #164b9b; }
@@ -22,6 +24,8 @@
   th, td { border-bottom: 1px solid #d4deeb; padding: 8px; text-align: right; white-space: nowrap; }
   th:first-child, td:first-child { text-align: left; white-space: normal; overflow-wrap: anywhere; min-width: 220px; }
   [role="status"] { min-height: 1.6em; }
+  .copy-url { display: block; font-size: 14px; }
+  .copy-status { display: block; font-size: 14px; }
 </style>
 </head>
 <body>
@@ -33,13 +37,20 @@
     <label>ページ別CSV <input id="file" type="file" accept=".csv,text/csv" required></label>
     <div class="fields">
       <label>最低表示回数 <input id="min" type="number" min="1" step="1" value="100" required></label>
-      <label>上位ページのCTR基準（%未満） <input id="ctr" type="number" min="0.01" max="100" step="0.01" value="2" required></label>
+      <label>手動CTR基準（%未満） <input id="ctr" type="number" min="0.01" max="100" step="0.01" value="2" required></label>
       <label>記事のパスで絞る（任意） <input id="prefix" placeholder="/guide/, /games/"></label>
     </div>
+    <label><input id="rank-benchmark" type="checkbox" checked>同じ順位帯の実績をCTR基準に使う</label>
+    <p>1〜3位、3位超〜6位、6位超〜10位で比較します。絞り込み後の同じサイト・言語に、判定対象を除いて5ページ・合計500表示以上あるとき、そのクリック数合計÷表示回数合計を基準にします。条件に満たない場合は手動CTR基準を使います。</p>
+    <label><input id="articles-only" type="checkbox" checked>ゲムなおの記事だけを対象にする（URLパターンで判定）</label>
     <button type="submit">候補を抽出</button>
     <button type="button" id="download" disabled>候補CSVを保存</button>
     <p id="status" role="status"></p>
   </form>
+  <div id="query-help" hidden>
+    <p>検索語句を見るには、候補の「URLをコピー」を押します。Search Consoleの「検索パフォーマンス」で期間や検索タイプをCSVと揃え、「＋新規」→「ページ」→「完全一致URL」に貼り付けて、「クエリ」を開きます。</p>
+    <a href="https://search.google.com/search-console/performance/search-analytics?resource_id=https%3A%2F%2Fgemnao.pages.dev%2F" target="_blank" rel="noopener noreferrer">ゲムなおの検索パフォーマンスを開く</a>
+  </div>
   <div id="results"></div>
 </main>
 <script>
@@ -51,6 +62,10 @@ const columns = {
   impressions: ['表示回数', 'impressions'],
   position: ['掲載順位', '平均掲載順位', 'position', 'average position'],
 };
+const gemnaoHost = 'gemnao.pages.dev';
+const articlePath = /^\/(?:(?:en|zh|es)\/)?(?:(?:guide|discord|pc|gear|weekly|new-releases|examples)\/[^/]+|games\/[^/]+\/[^/]+)\/?$/;
+const minimumPeers = 5;
+const minimumPeerImpressions = 500;
 
 function parseCsv(text) {
   text = text.replace(/^\uFEFF/, '');
@@ -88,6 +103,7 @@ function readPages(text) {
 
   let skipped = 0;
   const pages = [];
+  const seen = new Set();
   for (const row of rows) {
     const url = (row[index.url] ?? '').trim();
     const clicks = parseNumber(row[index.clicks]);
@@ -97,31 +113,109 @@ function readPages(text) {
     try { address = new URL(url); } catch {}
     if (!address || !['https:', 'http:'].includes(address.protocol) ||
         !Number.isSafeInteger(clicks) || !Number.isSafeInteger(impressions) ||
-        impressions < 1 || clicks > impressions || !Number.isFinite(position) || position < 1) {
+        impressions < 1 || clicks > impressions || !Number.isFinite(position) || position < 1 ||
+        seen.has(address.href)) {
       skipped++;
       continue;
     }
-    pages.push({ url, path: address.pathname, clicks, impressions, position, ctr: clicks / impressions * 100 });
+    seen.add(address.href);
+    const path = address.pathname;
+    pages.push({
+      url, path, clicks, impressions, position, ctr: clicks / impressions * 100,
+      origin: address.origin,
+      locale: path.match(/^\/(en|zh|es)(?:\/|$)/)?.[1] ?? 'ja',
+      isArticle: address.hostname === gemnaoHost && articlePath.test(path),
+    });
   }
   return { pages, skipped };
 }
 
-function selectCandidates(pages, min, targetCtr, prefixes) {
+function rankBand(position) {
+  if (position <= 3) return '1〜3位';
+  if (position <= 6) return '3位超〜6位';
+  if (position <= 10) return '6位超〜10位';
+  return null;
+}
+
+function benchmarkKey(page) {
+  return JSON.stringify([page.origin, page.locale, rankBand(page.position)]);
+}
+
+function benchmarkTotals(pages) {
+  const totals = new Map();
+  for (const page of pages) {
+    const key = benchmarkKey(page);
+    const bucket = totals.get(key) ?? { count: 0, clicks: 0, impressions: 0 };
+    bucket.count++;
+    bucket.clicks += page.clicks;
+    bucket.impressions += page.impressions;
+    totals.set(key, bucket);
+  }
+  return totals;
+}
+
+function selectCandidates(pages, { min, manualCtr, prefixes, articlesOnly, useBenchmark }) {
   const eligible = pages.filter(page => page.impressions >= min &&
+    (!articlesOnly || page.isArticle) &&
     (!prefixes.length || prefixes.some(prefix => page.path.startsWith(prefix))));
-  const ctr = eligible.filter(page => page.position <= 10 && page.ctr < targetCtr)
-    .map(page => ({ ...page, gap: page.impressions * targetCtr / 100 - page.clicks }))
+  const upperRanks = eligible.filter(page => page.position <= 10);
+  const totals = useBenchmark ? benchmarkTotals(upperRanks) : new Map();
+  const ctr = upperRanks.map(page => {
+    const bucket = totals.get(benchmarkKey(page));
+    const peerImpressions = bucket ? bucket.impressions - page.impressions : 0;
+    const enoughPeers = bucket && bucket.count - 1 >= minimumPeers && peerImpressions >= minimumPeerImpressions;
+    const peerClicks = bucket ? bucket.clicks - page.clicks : 0;
+    const targetCtr = enoughPeers ? peerClicks / peerImpressions * 100 : manualCtr;
+    // Compare click rates before formatting to avoid rounding at the threshold.
+    const belowTarget = enoughPeers
+      ? page.clicks * peerImpressions < peerClicks * page.impressions
+      : page.clicks * 10000 < page.impressions * Math.round(manualCtr * 100);
+    return {
+      ...page, targetCtr, belowTarget,
+      baseline: enoughPeers ? rankBand(page.position) + 'の実績（他' + (bucket.count - 1) + 'ページ）' : '手動',
+      gap: page.impressions * targetCtr / 100 - page.clicks,
+    };
+  }).filter(page => page.belowTarget)
     .sort((a, b) => b.gap - a.gap || b.impressions - a.impressions || a.position - b.position);
-  const content = eligible.filter(page => page.position >= 11 && page.position <= 30)
+  const content = eligible.filter(page => page.position > 10 && page.position <= 30)
     .sort((a, b) => b.impressions - a.impressions || a.position - b.position);
-  return { ctr, content };
+  return { ctr, content, eligibleCount: eligible.length };
 }
 
 const format = new Intl.NumberFormat('ja-JP', { maximumFractionDigits: 2 });
 const groups = [
-  { key: 'ctr', title: '上位でCTRが低い', hint: '平均10位以内。設定したCTRとの差をクリック数に換算し、差が大きい順。タイトル・説明文と検索意図を見直す候補です。', action: 'タイトル・説明文と検索意図を確認' },
-  { key: 'content', title: '平均11〜30位で内容を補強', hint: '表示回数が多い順。同数なら平均掲載順位が高い順。検索意図に合う情報や関連ページからのリンクを見直す候補です。', action: '情報の不足と内部リンクを確認' },
+  { key: 'ctr', title: '上位でCTRが低い', hint: '平均10位以内。基準CTRとの差をクリック数に換算し、差が大きい順。タイトル・説明文と検索意図を見直す候補です。', action: 'タイトル・説明文と検索意図を確認' },
+  { key: 'content', title: '平均10位超〜30位で内容を補強', hint: '表示回数が多い順。同数なら平均掲載順位が高い順。検索意図に合う情報や関連ページからのリンクを見直す候補です。', action: '情報の不足と内部リンクを確認' },
 ];
+
+function addCopyControl(cell, url) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'copy-url';
+  button.textContent = 'URLをコピー';
+  const status = document.createElement('span');
+  status.className = 'copy-status';
+  status.setAttribute('role', 'status');
+  const input = document.createElement('input');
+  input.readOnly = true;
+  input.hidden = true;
+  input.value = url;
+  input.setAttribute('aria-label', 'Search Consoleに貼り付けるURL');
+
+  button.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(url);
+      input.hidden = true;
+      status.textContent = 'コピーしました。';
+    } catch {
+      input.hidden = false;
+      input.focus();
+      input.select();
+      status.textContent = '選択されたURLをコピーしてください。';
+    }
+  });
+  cell.append(button, status, input);
+}
 
 function renderGroup(group, pages) {
   const section = document.createElement('section');
@@ -137,7 +231,7 @@ function renderGroup(group, pages) {
   const table = document.createElement('table');
   const head = table.createTHead().insertRow();
   const headings = ['ページ', '平均順位', '表示回数', 'クリック数', 'CTR'];
-  if (group.key === 'ctr') headings.push('基準CTRとの差（クリック換算）');
+  if (group.key === 'ctr') headings.push('基準CTR', '基準CTRとの差（クリック換算）');
   for (const label of headings) {
     const cell = document.createElement('th');
     cell.scope = 'col';
@@ -152,10 +246,12 @@ function renderGroup(group, pages) {
     link.textContent = page.url;
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
-    row.insertCell().append(link);
+    const pageCell = row.insertCell();
+    pageCell.append(link);
+    addCopyControl(pageCell, page.url);
     const values = [page.position, page.impressions, page.clicks].map(value => format.format(value));
     values.push(format.format(page.ctr) + '%');
-    if (group.key === 'ctr') values.push(format.format(page.gap));
+    if (group.key === 'ctr') values.push(format.format(page.targetCtr) + '%（' + page.baseline + '）', format.format(page.gap));
     for (const value of values) row.insertCell().textContent = value;
   }
   scroll.append(table);
@@ -164,11 +260,11 @@ function renderGroup(group, pages) {
 }
 
 function exportCsv(candidates) {
-  const rows = [['分類', 'ページ', '平均掲載順位', '表示回数', 'クリック数', 'CTR (%)', '基準CTRとの差（クリック換算）', '確認すること']];
+  const rows = [['分類', 'ページ', '平均掲載順位', '表示回数', 'クリック数', 'CTR (%)', '基準CTR (%)', '基準の種類', '基準CTRとの差（クリック換算）', '確認すること']];
   for (const group of groups) {
     for (const page of candidates[group.key]) {
       rows.push([group.title, page.url, page.position, page.impressions, page.clicks,
-        page.ctr.toFixed(4), page.gap?.toFixed(2) ?? '', group.action]);
+        page.ctr.toFixed(4), page.targetCtr?.toFixed(4) ?? '', page.baseline ?? '', page.gap?.toFixed(2) ?? '', group.action]);
     }
   }
   return '\uFEFF' + rows.map(row => row.map(value => '"' + String(value).replaceAll('"', '""') + '"').join(',')).join('\r\n');
@@ -182,6 +278,7 @@ function clearResults() {
   run++;
   current = undefined;
   get('results').replaceChildren();
+  get('query-help').hidden = true;
   get('download').disabled = true;
   get('status').textContent = '';
 }
@@ -196,11 +293,19 @@ get('form').addEventListener('submit', async event => {
   try {
     const { pages, skipped } = readPages(await file.text());
     if (job !== run) return;
-    current = selectCandidates(pages, Number(get('min').value), Number(get('ctr').value), prefixes);
+    current = selectCandidates(pages, {
+      min: Number(get('min').value),
+      manualCtr: Number(get('ctr').value),
+      prefixes,
+      articlesOnly: get('articles-only').checked,
+      useBenchmark: get('rank-benchmark').checked,
+    });
     get('results').replaceChildren(...groups.map(group => renderGroup(group, current[group.key])));
-    get('status').textContent = pages.length + '行を読み込みました。' +
-      (skipped ? ' 不正または表示0回の行を' + skipped + '件除外しました。' : '');
-    get('download').disabled = current.ctr.length + current.content.length === 0;
+    get('status').textContent = pages.length + 'ページを読み込み、' + current.eligibleCount + 'ページが絞り込み条件に一致しました。' +
+      (skipped ? ' 重複・不正・表示0回の行を' + skipped + '件除外しました。' : '');
+    const hasCandidates = current.ctr.length + current.content.length > 0;
+    get('download').disabled = !hasCandidates;
+    get('query-help').hidden = !hasCandidates;
   } catch (error) {
     if (job === run) get('status').textContent = error.message;
   }
