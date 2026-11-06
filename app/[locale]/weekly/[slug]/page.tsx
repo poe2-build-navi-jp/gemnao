@@ -1,3 +1,4 @@
+import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
 import { hasTranslation, languageAlternates } from '@/lib/localized';
 import { ArticleToc } from '@/components/article-toc';
 import type { Metadata } from 'next';
@@ -92,7 +93,8 @@ export default async function Page({
       description: report.description,
       datePublished: report.publishedAt,
       dateModified: report.publishedAt,
-      author: { '@type': 'Organization', name: 'Gemnao editorial team' },
+      author: editorialAuthor,
+      publisher: editorialPublisher,
       inLanguage: 'en',
       mainEntityOfPage: canonical,
       image: `${SITE}${ogImageFor(path)}`,

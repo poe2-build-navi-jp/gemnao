@@ -1,3 +1,4 @@
+import { editorialAuthor } from '@/lib/editorial-identity';
 import type { Metadata } from 'next';
 import './globals.css';
 import { siteConfig } from '@/lib/site-config';
@@ -74,6 +75,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@graph': [
+                editorialAuthor,
                 {
                   '@type': 'WebSite',
                   '@id': `${siteUrl}/#website`,

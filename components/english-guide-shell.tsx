@@ -1,3 +1,5 @@
+import { EditorialByline } from '@/components/editorial-byline';
+import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
 import { guideUi } from '@/lib/localized/guide-ui';
 import { languageTag } from '@/lib/localized/index';
 import type { Locale } from '@/lib/i18n';
@@ -50,7 +52,8 @@ export function EnglishGuideShell({
       description: guide.description,
       dateModified: guide.checkedAt,
       inLanguage: languageTag[locale],
-      author: { '@type': 'Organization', name: 'Gemnao' },
+      author: editorialAuthor,
+      publisher: editorialPublisher,
       mainEntityOfPage: canonical,
       image: `https://gemnao.pages.dev${ogImageFor(path).split('?')[0]}`,
       citation: guide.sources.map((source) => source.url),
@@ -118,6 +121,7 @@ export function EnglishGuideShell({
           <h1>{guide.title}</h1>
           <p className="article-lead">{guide.lead}</p>
           <div className="article-meta">
+            <EditorialByline locale={locale} />
             <span>
               {t.sourceRecord}: {guide.checkedAt}
             </span>

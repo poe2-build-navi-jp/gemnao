@@ -1,3 +1,5 @@
+import { EditorialByline } from '@/components/editorial-byline';
+import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
 import { GamePathHelp, WildsSaveGuideLink } from '@/components/game-path-help';
 import { gamesListPath } from '@/lib/i18n';
 import { ReportEntryLink } from '@/components/report-entry-link';
@@ -154,13 +156,6 @@ export default async function GamePage({
       ...(game.slug === 'aniimo'
         ? {
             description: aniimoHubDescription,
-            publisher: {
-              '@type': 'Organization',
-              name: siteConfig.operatorName,
-              url: `${siteConfig.url}/about`,
-            },
-            citation: game.sources.map((source) => source.url),
-            image: `${siteConfig.url}${ogImageFor('/games/aniimo')}`,
             keywords: [
               'アニモ 不具合',
               'Aniimo 不具合',
@@ -169,8 +164,12 @@ export default async function GamePage({
             ],
           }
         : {}),
+      description: game.hubDescription || (game.slug === 'aniimo' ? aniimoHubDescription : game.lead),
+      citation: game.sources.map((source) => source.url),
+      image: `${siteConfig.url}${ogImageFor(`/games/${game.slug}`)}`,
       dateModified: game.updated,
-      author: { '@type': 'Organization', name: 'ゲムなお編集部' },
+      author: editorialAuthor,
+      publisher: editorialPublisher,
       inLanguage: 'ja-JP',
       about: game.title,
       mainEntityOfPage: `https://gemnao.pages.dev/games/${game.slug}`,
@@ -235,6 +234,7 @@ export default async function GamePage({
           <h1>{game.hubTitle || game.title}</h1>
           <p className="article-lead">{game.lead}</p>
           <div className="article-meta">
+            <EditorialByline />
             <span>最終確認 {game.updated.replaceAll('-', '.')}</span>
           </div>
           <SaveGame slug={game.slug} />

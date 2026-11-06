@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "node scripts/prepare-ocr-assets.mjs && vinext dev",
-    "build": "node scripts/prepare-ocr-assets.mjs && node scripts/generate-article-review-index.mjs && NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=false NEXT_PUBLIC_DIAGNOSIS_ENABLED=true vinext build --prerender-all --prerender-concurrency 1 && NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=false NEXT_PUBLIC_DIAGNOSIS_ENABLED=true node scripts/prepare-pages.mjs && node scripts/check-static-search-assets.mjs && NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=false NEXT_PUBLIC_DIAGNOSIS_ENABLED=true node scripts/generate-og-cards.mjs --check",
+    "build": "node scripts/prepare-ocr-assets.mjs && node scripts/generate-article-review-index.mjs && NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=false NEXT_PUBLIC_DIAGNOSIS_ENABLED=true vinext build --prerender-all --prerender-concurrency 1 && NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=false NEXT_PUBLIC_DIAGNOSIS_ENABLED=true node scripts/prepare-pages.mjs && node scripts/check-static-search-assets.mjs && NEXT_PUBLIC_DIAGNOSIS_LOCAL_BETA=false NEXT_PUBLIC_DIAGNOSIS_ENABLED=true node scripts/generate-og-cards.mjs --check && node scripts/check-seo-aio.mjs",
     "build:pages": "pnpm build",
     "start": "wrangler dev --config dist/server/wrangler.json",
     "content:freshness": "node scripts/run-freshness-report.mjs",
@@ -26,7 +26,8 @@
     "typecheck": "tsc --noEmit",
     "test:diagnosis:browser": "bash scripts/test-diagnosis-browser.sh",
     "test:diagnosis:availability:browser": "node tests/diagnosis/availability-browser.mjs",
-    "test:diagnosis:admission": "node tests/diagnosis/admission.test.mjs"
+    "test:diagnosis:admission": "node tests/diagnosis/admission.test.mjs",
+    "check:seo": "node scripts/check-seo-aio.mjs"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",

@@ -3,7 +3,7 @@ import { readFile, writeFile, unlink } from 'node:fs/promises';
 import { build } from 'esbuild';
 const result = await build({
   stdin: {
-    contents: `export {gameArticlesForGuide, guideGamePaths} from './lib/guide-game-links'; export {commonGuides} from './lib/common-guides'; export {gameArticles} from './lib/game-articles';`,
+    contents: `export {gameArticlesForGuide, guideGamePaths} from './lib/guide-game-links'; export {commonGuides} from './lib/common-guides'; export {pcLinksForGameArticle, gameLinksForPcArticle} from './lib/cross-links'; export {pcArticles} from './lib/pc-articles'; export {gameArticles} from './lib/game-articles';`,
     resolveDir: process.cwd(),
   },
   bundle: true,
@@ -63,6 +63,23 @@ for (const guide of commonGuides) {
   assert.equal(new Set(chosen.map(pathOf)).size, chosen.length);
   for (const a of chosen) assert.match(a.title, /[ぁ-んァ-ヶ一-龯]/u);
 }
+// Guard search intent: broad OS/game keywords must not suggest another fault.
+const mw4 = gameArticles.find(a => a.gameSlug === 'call-of-duty-modern-warfare-4' && a.slug === 'tpm-secure-boot');
+assert.ok(mw4);
+assert.deepEqual(data.pcLinksForGameArticle(mw4).map(link => link.href), ['/guide/tpm-secure-boot']);
+assert.ok(select('tpm-secure-boot').includes(mw4), 'Reciprocal reviewed guide link');
+for (const article of gameArticles) {
+  for (const link of data.pcLinksForGameArticle(article)) {
+    assert.ok([...commonGuides.map(g => `/guide/${g.slug}`), ...data.pcArticles.map(p => `/pc/${p.slug}`)].includes(link.href), link.href);
+  }
+}
+for (const symptom of ['Windows 11で起動しない', 'ゲームのFPSが低い', 'ゲームが黒画面になる']) {
+  const candidate = { ...mw4, gameSlug: 'synthetic', slug: 'example', title: symptom, shortTitle: symptom, symptom, category: 'launch' };
+  assert.deepEqual(data.pcLinksForGameArticle(candidate), [], symptom);
+}
+const windowsFault = { ...mw4, gameSlug: 'synthetic', slug: 'example', title: 'Windows Updateが0x800f081fで失敗する', shortTitle: '', symptom: '' };
+assert.deepEqual(data.pcLinksForGameArticle(windowsFault).map(link => link.href), ['/pc/windows-update-0x800f081f']);
+for (const slug of ['windows-update-0x800f081f', 'sleep-wakes-up-by-itself', 'file-explorer-freezes-on-right-click']) assert.deepEqual(data.gameLinksForPcArticle(slug), []);
 if (process.argv.includes('--built')) {
   const manifest = JSON.parse(
     await readFile('dist/editorial-snapshots.json', 'utf8'),

@@ -63,7 +63,9 @@ export function pcLinksForGameArticle(article: GameArticle): CrossLink[] {
     (article.gameSlug === 'valorant' &&
       ['van9003', 'van9001'].includes(article.slug)) ||
     (article.gameSlug === 'battlefield-6' &&
-      article.slug === 'secure-boot-enabled-not-launching')
+      article.slug === 'secure-boot-enabled-not-launching') ||
+    (article.gameSlug === 'call-of-duty-modern-warfare-4' &&
+      article.slug === 'tpm-secure-boot')
   ) {
     return [
       {
@@ -74,19 +76,19 @@ export function pcLinksForGameArticle(article: GameArticle): CrossLink[] {
   }
   const t = text(article);
   const links: CrossLink[] = [];
-  if (article.category === 'server' || /接続|ログイン|切断|オンライン/.test(t))
-    links.push(pc.wifi);
-  if (/音|サウンド|ボイス/.test(t)) links.push(pc.audio, pc.bluetoothAudio);
-  if (/マイク|通話|ボイスチャット/.test(t)) links.push(pc.mic, pc.callAudio);
-  if (article.category === 'controller' || /コントローラー/.test(t))
-    links.push(pc.usbC);
-  if (
-    article.category === 'display' ||
-    /fps|FPS|重い|カクつ|ウルトラワイド|モニター/.test(t)
-  )
-    links.push(pc.refresh);
-  if (/黒画面|真っ黒/.test(t)) links.push(pc.monitor);
-  if (/Windows 11|TPM|セキュアブート/.test(t)) links.push(pc.update);
+  const windowsUpdate = /Windows.*(?:更新|アップデート)|(?:更新|アップデート).*Windows/i.test(t);
+  // Match the actual Windows symptom; a game-only error is not evidence of a
+  // missing monitor, Windows Update failure, or Bluetooth problem.
+  if (/Wi-Fi|インターネット|ほかの通信|他の通信/.test(t)) links.push(pc.wifi);
+  if (windowsUpdate && /音|サウンド/.test(t)) links.push(pc.audio);
+  if (/Bluetooth|ブルートゥース/.test(t) && /音|サウンド/.test(t)) links.push(pc.bluetoothAudio);
+  if (windowsUpdate && /マイク/.test(t)) links.push(pc.mic);
+  if (/通話.*(?:音|小さ)|ボイスチャット.*(?:音|小さ)/.test(t)) links.push(pc.callAudio);
+  if (/USB|USB-C/.test(t) && /認識|接続/.test(t)) links.push(pc.usbC);
+  if (/144Hz|60Hz|リフレッシュレート/.test(t)) links.push(pc.refresh);
+  if (/モニター|ディスプレイ/.test(t) && /2台|二台|2枚|二枚|セカンド|認識され/.test(t)) links.push(pc.monitor);
+  if (/サインイン後/.test(t) && /黒|真っ暗/.test(t)) links.push(pc.signInBlack);
+  if (/0x800f081f/i.test(t)) links.push(pc.update);
   const seen = new Set<string>();
   return links.filter((l) => !seen.has(l.href) && seen.add(l.href)).slice(0, 3);
 }
@@ -141,25 +143,9 @@ const gameLinksByPcSlug: Record<string, CrossLink[]> = {
     { href: '/guide/black-screen', label: 'ゲームが黒画面になる時の直し方' },
     { href: '/guide/gpu-driver-update', label: 'GPUドライバーの更新方法' },
   ],
-  'windows-update-0x800f081f': [
-    {
-      href: '/guide/windows-11-required',
-      label: 'Windows 11が必要なゲームの確認方法',
-    },
-    {
-      href: '/guide/tpm-secure-boot',
-      label: 'TPM 2.0・セキュアブートの有効化',
-    },
-  ],
-  'sleep-wakes-up-by-itself': [
-    {
-      href: '/guide/pc-shuts-down-while-gaming',
-      label: 'ゲーム中にPCの電源が落ちる',
-    },
-  ],
-  'file-explorer-freezes-on-right-click': [
-    { href: '/guide/pc-game-freezes', label: 'ゲーム中にPCが固まる' },
-  ],
+  'windows-update-0x800f081f': [],
+  'sleep-wakes-up-by-itself': [],
+  'file-explorer-freezes-on-right-click': [],
   'refresh-rate-stuck-60hz': [
     { href: '/guide/stutter-fix', label: 'ゲームがカクつく・一瞬止まる' },
     { href: '/guide/low-fps', label: 'ゲームのFPSが低い' },
