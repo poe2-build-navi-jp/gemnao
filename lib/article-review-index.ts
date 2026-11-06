@@ -1812,6 +1812,28 @@ export const articleReviews: Record<string, Omit<ArticleReview, 'path'>> = {
       { id: 'check-status', title: '公式の障害情報を確認し、回線を見直す' },
     ],
   },
+  '/guide/steam-cloud-basics': {
+    title: 'Steamクラウドとは？設定・対応確認・保存先とPC移行前の確認',
+    gameSlug: '',
+    checkedOn: '2026-11-06',
+    steps: [
+      { id: 'step-1', title: 'ゲームが何をCloudに保存するか確認する' },
+      { id: 'step-2', title: 'Steam全体とゲーム別の設定を確認する' },
+      { id: 'step-3', title: 'クラウドとローカルのファイルを区別する' },
+      { id: 'step-4', title: 'PC移行前は同期完了と手元のコピーを確認する' },
+    ],
+  },
+  '/guide/steam-client-not-opening': {
+    title: 'Steamが起動しない・開かない時の対処法｜WindowsのSteam本体を確認',
+    gameSlug: '',
+    checkedOn: '2026-11-06',
+    steps: [
+      { id: 'step-1', title: 'Steam本体とゲームの起動失敗を分ける' },
+      { id: 'step-2', title: '保存・更新の状態を確認して通常再起動する' },
+      { id: 'step-3', title: '追加機器とソフトを一つずつ比較する' },
+      { id: 'step-4', title: '再インストール前に場所と保存を保全する' },
+    ],
+  },
   '/guide/low-gpu-usage': {
     title: 'ゲーム中にGPU使用率が低い時の見方｜正常なFPS上限と性能不足を判別',
     gameSlug: '',

@@ -26,6 +26,7 @@ export const troubleHubs: TroubleHub[] = [
       '自分で追加したMOD・オーバーレイがある場合だけ、導入元の手順で一時停止・退避する。DLLを名前だけで削除しない',
     ],
     guideSlugs: [
+      'steam-client-not-opening',
       'steam-game-not-launching',
       'verify-steam-files',
       'steam-disk-write-error',
@@ -85,6 +86,7 @@ export const troubleHubs: TroubleHub[] = [
       '復元する時も、現在のデータを先に別の場所へ退避する',
     ],
     guideSlugs: [
+      'steam-cloud-basics',
       'save-data-backup',
       'steam-cloud-sync-error',
       'uninstall-save-data',

@@ -109,6 +109,7 @@ export const steamLaunchGuide: CommonGuide = {
     },
   ],
   related: [
+    'steam-client-not-opening',
     'pc-game-crash',
     'black-screen',
     'verify-steam-files',

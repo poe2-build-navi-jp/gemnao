@@ -1,3 +1,4 @@
+import { steamEntryGuidesZhEs } from '../steam-entry-guides';
 import { verifyFpsGuidesZhEs } from './verify-fps-guides-zh-es';
 import { launchGuidesZhEs } from './launch-guides-zh-es';
 import { crashGuidesZhEs, type CrashSection } from './crash-guides-zh-es';
@@ -17,6 +18,7 @@ const base = {
   checkedAt: '2026-10-18',
 };
 export const translatedCommonGuides: TranslatedCommonGuide[] = [
+  ...steamEntryGuidesZhEs,
   ...cloudGuidesZhEs,
   ...launchGuidesZhEs,
   ...verifyFpsGuidesZhEs,

@@ -6914,3 +6914,38 @@ a.my-games-primary {
 .official-update-notice dt {
   font-weight: 700;
 }
+
+.backup-readiness {
+  padding: 20px;
+  margin: 24px 0;
+  border: 1px solid var(--blue);
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+}
+.backup-readiness select {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 8px 0 16px;
+  padding: 10px;
+  white-space: normal;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+.backup-readiness fieldset {
+  min-width: 0;
+}
+.backup-readiness fieldset label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+}
+.backup-readiness input {
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+.backup-readiness output {
+  display: block;
+  margin: 12px 0;
+}

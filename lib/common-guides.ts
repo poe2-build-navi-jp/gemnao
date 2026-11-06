@@ -1,3 +1,4 @@
+import { steamEntryGuides } from './steam-entry-guides';
 import type { AdvanceCheck } from './step-navigation';
 import { blackScreenGuide } from './black-screen-guide';
 import { crashGuide } from './crash-guide';
@@ -37,6 +38,7 @@ export type CommonGuide = {
   faqs?: { question: string; answer: string }[];
 };
 export const commonGuides: CommonGuide[] = [
+  ...steamEntryGuides,
   lowGpuUsageGuide,
   freezeGuide,
   steamLaunchGuide,

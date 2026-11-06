@@ -1,3 +1,5 @@
+import { SteamIntentLinks } from './steam-intent-links';
+import { BackupReadinessChecklist } from './backup-readiness-checklist';
 import {
   ArticleEvidence,
   evidenceReview,
@@ -38,6 +40,7 @@ export function EnglishCommonGuide({
         { id: 'cautions', title: t.cautions },
       ]}
     >
+      <SteamIntentLinks slug={guide.slug} locale={locale} />
       <section className="pc-step" id="choose-check">
         <h2>{t.symptom}</h2>
         <ul>
@@ -52,6 +55,7 @@ export function EnglishCommonGuide({
         </ul>
       </section>
       {reset && <><EnglishResetConfigLocations /><ResetConfigChecklist english /></>}
+      {guide.slug === 'save-data-backup' && <BackupReadinessChecklist locale={locale} />}
       <StepResultCollection
         contextSlug={`guide-${guide.slug}`}
         topic={guide.topic}
