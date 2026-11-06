@@ -47,7 +47,7 @@ try {
     await page.goto('http://127.0.0.1/');
     await page.addStyleTag({ content: css });
     await page.addScriptTag({ content: result.outputFiles[0].text });
-    const href = locale === 'ja' ? '/?view=games#games' : `/${locale}/#games`;
+    const href = locale === 'ja' ? '/?view=games#games' : `/${locale}#games`;
     for (const width of [390, 1165, 1600]) {
       await page.setViewportSize({ width, height: 1000 });
       const trigger = page.locator('.mobile-menu');
