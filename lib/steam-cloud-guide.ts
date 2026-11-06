@@ -71,6 +71,7 @@ export const steamCloudGuide: CommonGuide = {
     },
   ],
   related: [
+    'steam-cloud-basics',
     'save-data-backup',
     'uninstall-save-data',
     'steam-disk-write-error',

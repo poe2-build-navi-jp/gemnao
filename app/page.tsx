@@ -9,6 +9,8 @@ import { commonGuides } from '@/lib/common-guides';
 import { pcArticles } from '@/lib/pc-articles';
 
 const featuredGuideSlugs = [
+  'steam-cloud-basics',
+  'steam-client-not-opening',
   'steam-game-not-launching',
   'pc-game-crash',
   'stutter-fix',

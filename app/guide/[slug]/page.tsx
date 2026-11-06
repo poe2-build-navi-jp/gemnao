@@ -1,3 +1,5 @@
+import { SteamIntentLinks } from '@/components/steam-intent-links';
+import { BackupReadinessChecklist } from '@/components/backup-readiness-checklist';
 import { ReportedCaseLink } from '@/components/reported-case';
 import { ArticleEvidence, ArticleEvidenceTocLink } from '@/components/article-evidence';
 import { ArticleToc } from '@/components/article-toc';
@@ -573,6 +575,7 @@ export default async function Page({
               をご覧ください。
             </p>
           ) : null}
+          <SteamIntentLinks slug={slug} />
           <section className="cause-block" aria-labelledby="cause-title">
             <h2 id="cause-title">原因候補</h2>
             <ul>
@@ -595,7 +598,7 @@ export default async function Page({
           {slug === 'visual-c-runtime-error' ? <VisualCBeforeSteps /> : null}
           {slug === 'verify-steam-files' ? <VerifySteamBeforeSteps /> : null}
           {slug === 'shader-cache-delete' ? <ShaderCacheBeforeSteps /> : null}
-          {slug === 'save-data-backup' ? <SaveBackupBeforeSteps /> : null}
+          {slug === 'save-data-backup' ? <><BackupReadinessChecklist /><SaveBackupBeforeSteps /></> : null}
           {slug === 'uninstall-save-data' ? <UninstallSaveBeforeSteps /> : null}
           {slug === 'black-screen' ? <BlackScreenBeforeSteps /> : null}
           {slug === 'gpu-driver-update' ? <GpuDriverBeforeSteps /> : null}
