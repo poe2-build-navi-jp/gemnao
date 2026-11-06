@@ -240,6 +240,13 @@ export function WikiFooter({ locale = 'ja' }: { locale?: 'ja' | Locale }) {
             link('/pc', t.pcWindows)
           )}
           {link('/contact', t.contact)}
+          <a href="/all-pages" hrefLang="ja">
+            {
+              { en: 'All pages', zh: '全部页面', es: 'Todas las páginas' }[
+                locale
+              ]
+            }
+          </a>
         </nav>
         <small>© 2026 Gemnao. {t.trademarks}</small>
       </footer>
@@ -271,6 +278,7 @@ export function WikiFooter({ locale = 'ja' }: { locale?: 'ja' | Locale }) {
         <a href="/pc">PC・Windowsの不具合</a>
         <a href="/gear">ゲーマー向けデバイス</a>
         <a href="/contact">お問い合わせ</a>
+        <a href="/all-pages">全ページ一覧</a>
       </nav>
       <small>
         © 2026 ゲムなお。各ゲーム名・商標は各権利者に帰属します。

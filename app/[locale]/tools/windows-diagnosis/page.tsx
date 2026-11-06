@@ -247,7 +247,7 @@ export default async function EnglishWindowsDiagnosis({
           <p>
             Prefer a browser guide? Start with{' '}
             <a href="/en/guide/pc-game-crash">PC game crash troubleshooting</a>{' '}
-            or <a href="/en/#games">choose a game</a>. Some other{' '}
+            or <a href="/en#games">choose a game</a>. Some other{' '}
             <a href="/#symptoms">symptom guides are currently in Japanese</a>.
           </p>
         </section>
