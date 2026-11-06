@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Search Console リライト候補</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f3f6fa; color: #172a43; font: 16px/1.6 system-ui, sans-serif; }
+  main { max-width: 1100px; margin: auto; padding: 24px 16px 48px; }
+  h1 { font-size: clamp(24px, 5vw, 36px); line-height: 1.2; }
+  h2 { margin-top: 0; font-size: 21px; }
+  section, form { background: white; border: 1px solid #d4deeb; border-radius: 12px; padding: 18px; margin-top: 18px; }
+  .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 16px 0; }
+  label { display: block; font-weight: 600; }
+  input { display: block; width: 100%; padding: 8px; border: 1px solid #8a9eb5; border-radius: 6px; font: inherit; }
+  input[type="checkbox"] { display: inline-block; width: auto; margin-right: 6px; }
+  input[hidden] { display: none; }
+  button { margin: 4px 8px 4px 0; padding: 8px 14px; border: 0; border-radius: 6px; background: #164b9b; color: white; font: inherit; cursor: pointer; }
+  button:disabled { opacity: .55; cursor: default; }
+  a { color: #164b9b; }
+  .scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { border-bottom: 1px solid #d4deeb; padding: 8px; text-align: right; white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; white-space: normal; overflow-wrap: anywhere; min-width: 220px; }
+  [role="status"] { min-height: 1.6em; }
+  .copy-url { display: block; font-size: 14px; }
+  .copy-status { display: block; font-size: 14px; }
+  .metric-change { display: block; font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Search Console リライト候補</h1>
+  <p><a href="#compare-form">改稿前後の比較へ</a></p>
+  <p>「検索パフォーマンス」の期間を選び、CSVでエクスポートしたZIPを解凍します。中の「ページ.csv」または「Pages.csv」を選んでください。比較を始めるなら直近28日がおすすめです。</p>
+  <p>CSVはこのブラウザ内で処理します。平均掲載順位とCTRはページ単位の指標です。候補に挙がった理由は、改稿前にクエリ別のデータと記事本文を見て確認してください。</p>
+  <form id="form">
+    <label>ページ別CSV <input id="file" type="file" accept=".csv,text/csv" required></label>
+    <div class="fields">
+      <label>最低表示回数 <input id="min" type="number" min="1" step="1" value="100" required></label>
+      <label>手動CTR基準（%未満） <input id="ctr" type="number" min="0.01" max="100" step="0.01" value="2" required></label>
+      <label>記事のパスで絞る（任意） <input id="prefix" placeholder="/guide/, /games/"></label>
+    </div>
+    <label><input id="rank-benchmark" type="checkbox" checked>同じ順位帯の実績をCTR基準に使う</label>
+    <p>1〜3位、3位超〜6位、6位超〜10位で比較します。絞り込み後の同じサイト・言語に、判定対象を除いて5ページ・合計500表示以上あるとき、そのクリック数合計÷表示回数合計を基準にします。条件に満たない場合は手動CTR基準を使います。</p>
+    <label><input id="articles-only" type="checkbox" checked>ゲムなおの記事だけを対象にする（URLパターンで判定）</label>
+    <button type="submit">候補を抽出</button>
+    <button type="button" id="download" disabled>候補CSVを保存</button>
+    <p id="status" role="status"></p>
+  </form>
+  <div id="query-help" hidden>
+    <p>検索語句を見るには、候補の「URLをコピー」を押します。Search Consoleの「検索パフォーマンス」で期間や検索タイプをCSVと揃え、「＋新規」→「ページ」→「完全一致URL」に貼り付けて、「クエリ」を開きます。</p>
+    <a href="https://search.google.com/search-console/performance/search-analytics?resource_id=https%3A%2F%2Fgemnao.pages.dev%2F" target="_blank" rel="noopener noreferrer">ゲムなおの検索パフォーマンスを開く</a>
+  </div>
+  <div id="results"></div>
+  <form id="compare-form">
+    <h2>改稿前後の比較</h2>
+    <p>同じSearch Consoleプロパティで、改稿前と改稿後の同じ日数（例：各28日）のページ別CSVを別々に書き出してください。検索タイプ、国、端末などの絞り込み条件も揃えます。</p>
+    <div class="fields">
+      <label>改稿前のページ別CSV <input id="before-file" type="file" accept=".csv,text/csv" required></label>
+      <label>改稿後のページ別CSV <input id="after-file" type="file" accept=".csv,text/csv" required></label>
+    </div>
+    <label><input id="compare-articles-only" type="checkbox" checked>ゲムなおの記事だけを対象にする</label>
+    <button type="submit">改稿前後を比較</button>
+    <button type="button" id="download-comparison" disabled>比較CSVを保存</button>
+    <p id="compare-status" role="status"></p>
+  </form>
+  <div id="compare-results"></div>
+</main>
+<script>
+'use strict';
+
+const columns = {
+  url: ['ページ', '上位のページ', '上位ページ', 'page', 'pages', 'top pages', 'url'],
+  clicks: ['クリック数', 'clicks'],
+  impressions: ['表示回数', 'impressions'],
+  position: ['掲載順位', '平均掲載順位', 'position', 'average position'],
+};
+const gemnaoHost = 'gemnao.pages.dev';
+const articlePath = /^\/(?:(?:en|zh|es)\/)?(?:(?:guide|discord|pc|gear|weekly|new-releases|examples)\/[^/]+|games\/[^/]+\/[^/]+)\/?$/;
+const minimumPeers = 5;
+const minimumPeerImpressions = 500;
+
+function parseCsv(text) {
+  text = text.replace(/^\uFEFF/, '');
+  const rows = [];
+  let row = [];
+  // Quoted fields can include commas, newlines and escaped double quotes.
+  const field = /(?:"((?:[^"]|"")*)"|([^",\r\n]*))(,|\r\n|\n|\r|$)/y;
+  while (field.lastIndex < text.length) {
+    const match = field.exec(text);
+    if (!match) throw new Error('CSVの引用符や区切りが不正です。Search Consoleから再エクスポートしてください。');
+    row.push(match[1] === undefined ? match[2] : match[1].replaceAll('""', '"'));
+    if (match[3] !== ',') {
+      if (row.some(value => value.trim() !== '')) rows.push(row);
+      row = [];
+    }
+  }
+  if (row.length) rows.push([...row, '']);
+  return rows;
+}
+
+function parseNumber(value) {
+  const normalized = (value ?? '').trim();
+  if (!/^(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(normalized)) return NaN;
+  return Number(normalized.replaceAll(',', ''));
+}
+
+function readPages(text) {
+  const [header = [], ...rows] = parseCsv(text);
+  const names = header.map(value => value.trim().toLowerCase());
+  const index = Object.fromEntries(Object.entries(columns).map(([key, aliases]) =>
+    [key, names.findIndex(name => aliases.includes(name))]));
+  if (Object.values(index).some(value => value < 0)) {
+    throw new Error('ページ、クリック数、表示回数、掲載順位の列が必要です。「ページ.csv」または「Pages.csv」を選んでください。');
+  }
+
+  let skipped = 0;
+  const pages = [];
+  const seen = new Set();
+  for (const row of rows) {
+    const url = (row[index.url] ?? '').trim();
+    const clicks = parseNumber(row[index.clicks]);
+    const impressions = parseNumber(row[index.impressions]);
+    const position = parseNumber(row[index.position]);
+    let address;
+    try { address = new URL(url); } catch {}
+    if (!address || !['https:', 'http:'].includes(address.protocol) ||
+        !Number.isSafeInteger(clicks) || !Number.isSafeInteger(impressions) ||
+        impressions < 1 || clicks > impressions || !Number.isFinite(position) || position < 1 ||
+        seen.has(address.href)) {
+      skipped++;
+      continue;
+    }
+    seen.add(address.href);
+    const path = address.pathname;
+    pages.push({
+      url, path, clicks, impressions, position, ctr: clicks / impressions * 100,
+      key: address.href,
+      origin: address.origin,
+      locale: path.match(/^\/(en|zh|es)(?:\/|$)/)?.[1] ?? 'ja',
+      isArticle: address.hostname === gemnaoHost && articlePath.test(path),
+    });
+  }
+  return { pages, skipped };
+}
+
+function rankBand(position) {
+  if (position <= 3) return '1〜3位';
+  if (position <= 6) return '3位超〜6位';
+  if (position <= 10) return '6位超〜10位';
+  return null;
+}
+
+function benchmarkKey(page) {
+  return JSON.stringify([page.origin, page.locale, rankBand(page.position)]);
+}
+
+function benchmarkTotals(pages) {
+  const totals = new Map();
+  for (const page of pages) {
+    const key = benchmarkKey(page);
+    const bucket = totals.get(key) ?? { count: 0, clicks: 0, impressions: 0 };
+    bucket.count++;
+    bucket.clicks += page.clicks;
+    bucket.impressions += page.impressions;
+    totals.set(key, bucket);
+  }
+  return totals;
+}
+
+function selectCandidates(pages, { min, manualCtr, prefixes, articlesOnly, useBenchmark }) {
+  const eligible = pages.filter(page => page.impressions >= min &&
+    (!articlesOnly || page.isArticle) &&
+    (!prefixes.length || prefixes.some(prefix => page.path.startsWith(prefix))));
+  const upperRanks = eligible.filter(page => page.position <= 10);
+  const totals = useBenchmark ? benchmarkTotals(upperRanks) : new Map();
+  const ctr = upperRanks.map(page => {
+    const bucket = totals.get(benchmarkKey(page));
+    const peerImpressions = bucket ? bucket.impressions - page.impressions : 0;
+    const enoughPeers = bucket && bucket.count - 1 >= minimumPeers && peerImpressions >= minimumPeerImpressions;
+    const peerClicks = bucket ? bucket.clicks - page.clicks : 0;
+    const targetCtr = enoughPeers ? peerClicks / peerImpressions * 100 : manualCtr;
+    // Compare click rates before formatting to avoid rounding at the threshold.
+    const belowTarget = enoughPeers
+      ? page.clicks * peerImpressions < peerClicks * page.impressions
+      : page.clicks * 10000 < page.impressions * Math.round(manualCtr * 100);
+    return {
+      ...page, targetCtr, belowTarget,
+      baseline: enoughPeers ? rankBand(page.position) + 'の実績（他' + (bucket.count - 1) + 'ページ）' : '手動',
+      gap: page.impressions * targetCtr / 100 - page.clicks,
+    };
+  }).filter(page => page.belowTarget)
+    .sort((a, b) => b.gap - a.gap || b.impressions - a.impressions || a.position - b.position);
+  const content = eligible.filter(page => page.position > 10 && page.position <= 30)
+    .sort((a, b) => b.impressions - a.impressions || a.position - b.position);
+  return { ctr, content, eligibleCount: eligible.length };
+}
+
+const format = new Intl.NumberFormat('ja-JP', { maximumFractionDigits: 2 });
+const groups = [
+  { key: 'ctr', title: '上位でCTRが低い', hint: '平均10位以内。基準CTRとの差をクリック数に換算し、差が大きい順。タイトル・説明文と検索意図を見直す候補です。', action: 'タイトル・説明文と検索意図を確認' },
+  { key: 'content', title: '平均10位超〜30位で内容を補強', hint: '表示回数が多い順。同数なら平均掲載順位が高い順。検索意図に合う情報や関連ページからのリンクを見直す候補です。', action: '情報の不足と内部リンクを確認' },
+];
+
+function addCopyControl(cell, url) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'copy-url';
+  button.textContent = 'URLをコピー';
+  const status = document.createElement('span');
+  status.className = 'copy-status';
+  status.setAttribute('role', 'status');
+  const input = document.createElement('input');
+  input.readOnly = true;
+  input.hidden = true;
+  input.value = url;
+  input.setAttribute('aria-label', 'Search Consoleに貼り付けるURL');
+
+  button.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(url);
+      input.hidden = true;
+      status.textContent = 'コピーしました。';
+    } catch {
+      input.hidden = false;
+      input.focus();
+      input.select();
+      status.textContent = '選択されたURLをコピーしてください。';
+    }
+  });
+  cell.append(button, status, input);
+}
+
+function renderGroup(group, pages) {
+  const section = document.createElement('section');
+  const heading = document.createElement('h2');
+  heading.textContent = group.title + '（' + pages.length + '件）';
+  const hint = document.createElement('p');
+  hint.textContent = pages.length ? group.hint : 'この条件に該当するページはありません。';
+  section.append(heading, hint);
+  if (!pages.length) return section;
+
+  const scroll = document.createElement('div');
+  scroll.className = 'scroll';
+  const table = document.createElement('table');
+  const head = table.createTHead().insertRow();
+  const headings = ['ページ', '平均順位', '表示回数', 'クリック数', 'CTR'];
+  if (group.key === 'ctr') headings.push('基準CTR', '基準CTRとの差（クリック換算）');
+  for (const label of headings) {
+    const cell = document.createElement('th');
+    cell.scope = 'col';
+    cell.textContent = label;
+    head.append(cell);
+  }
+  const body = table.createTBody();
+  for (const page of pages) {
+    const row = body.insertRow();
+    const link = document.createElement('a');
+    link.href = page.url;
+    link.textContent = page.url;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    const pageCell = row.insertCell();
+    pageCell.append(link);
+    addCopyControl(pageCell, page.url);
+    const values = [page.position, page.impressions, page.clicks].map(value => format.format(value));
+    values.push(format.format(page.ctr) + '%');
+    if (group.key === 'ctr') values.push(format.format(page.targetCtr) + '%（' + page.baseline + '）', format.format(page.gap));
+    for (const value of values) row.insertCell().textContent = value;
+  }
+  scroll.append(table);
+  section.append(scroll);
+  return section;
+}
+
+function exportCsv(candidates) {
+  const rows = [['分類', 'ページ', '平均掲載順位', '表示回数', 'クリック数', 'CTR (%)', '基準CTR (%)', '基準の種類', '基準CTRとの差（クリック換算）', '確認すること']];
+  for (const group of groups) {
+    for (const page of candidates[group.key]) {
+      rows.push([group.title, page.url, page.position, page.impressions, page.clicks,
+        page.ctr.toFixed(4), page.targetCtr?.toFixed(4) ?? '', page.baseline ?? '', page.gap?.toFixed(2) ?? '', group.action]);
+    }
+  }
+  return csvText(rows);
+}
+
+function csvText(rows) {
+  return '\uFEFF' + rows.map(row => row.map(value => '"' + String(value ?? '').replaceAll('"', '""') + '"').join(',')).join('\r\n');
+}
+
+const comparisonMetrics = [
+  { key: 'clicks', title: 'クリック数', unit: '', deltaUnit: '' },
+  { key: 'impressions', title: '表示回数', unit: '', deltaUnit: '' },
+  { key: 'ctr', title: 'CTR', unit: '%', deltaUnit: 'ポイント' },
+  { key: 'position', title: '平均掲載順位', unit: '', deltaUnit: '' },
+];
+
+function comparePeriods(before, after, articlesOnly) {
+  const rows = new Map();
+  for (const page of before) {
+    if (!articlesOnly || page.isArticle) rows.set(page.key, { url: page.url, before: page });
+  }
+  for (const page of after) {
+    if (articlesOnly && !page.isArticle) continue;
+    const row = rows.get(page.key) ?? { url: page.url };
+    row.after = page;
+    rows.set(page.key, row);
+  }
+  return [...rows.values()].sort((a, b) => {
+    const impact = row => row.before && row.after ? Math.abs(row.after.clicks - row.before.clicks) : -1;
+    return impact(b) - impact(a) || a.url.localeCompare(b.url);
+  });
+}
+
+function metricDelta(row, key) {
+  return row.before && row.after ? row.after[key] - row.before[key] : null;
+}
+
+function coverageLabel(row) {
+  if (!row.before) return '改稿後のCSVのみ';
+  if (!row.after) return '改稿前のCSVのみ';
+  return '両期間';
+}
+
+const signedFormat = new Intl.NumberFormat('ja-JP', { maximumFractionDigits: 2, signDisplay: 'exceptZero' });
+
+function renderComparison(rows) {
+  const section = document.createElement('section');
+  const heading = document.createElement('h2');
+  heading.textContent = 'ページ別の変化（' + rows.length + '件）';
+  const hint = document.createElement('p');
+  hint.textContent = rows.length
+    ? '両期間にあるURLをクリック数の変化が大きい順に表示します。差は「改稿後 − 改稿前」で、平均掲載順位のマイナスは上昇です。片方のCSVにしかないURLは、欠けている期間の値と差を「—」で表示します。'
+    : '比較対象のページが見つかりませんでした。CSVと記事フィルタを確認してください。';
+  section.append(heading, hint);
+  if (!rows.length) return section;
+
+  const scroll = document.createElement('div');
+  scroll.className = 'scroll';
+  const table = document.createElement('table');
+  const head = table.createTHead().insertRow();
+  for (const label of ['ページ', ...comparisonMetrics.map(metric => metric.title)]) {
+    const cell = document.createElement('th');
+    cell.scope = 'col';
+    cell.textContent = label;
+    head.append(cell);
+  }
+  const body = table.createTBody();
+  for (const comparison of rows) {
+    const row = body.insertRow();
+    const link = document.createElement('a');
+    link.href = comparison.url;
+    link.textContent = comparison.url;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    const pageCell = row.insertCell();
+    pageCell.append(link);
+    if (!comparison.before || !comparison.after) {
+      const coverage = document.createElement('div');
+      coverage.textContent = coverageLabel(comparison);
+      pageCell.append(coverage);
+    }
+    for (const { key, unit, deltaUnit } of comparisonMetrics) {
+      const display = page => page ? format.format(page[key]) + unit : '—';
+      const cell = row.insertCell();
+      cell.textContent = display(comparison.before) + ' → ' + display(comparison.after);
+      const difference = document.createElement('span');
+      difference.className = 'metric-change';
+      const delta = metricDelta(comparison, key);
+      difference.textContent = '差 ' + (delta === null ? '—' : signedFormat.format(delta) + deltaUnit);
+      cell.append(difference);
+    }
+  }
+  scroll.append(table);
+  section.append(scroll);
+  return section;
+}
+
+function exportComparison(rows) {
+  const header = ['ページ', '収録期間'];
+  for (const { title, unit, deltaUnit } of comparisonMetrics) {
+    header.push(title + '（改稿前' + unit + '）', title + '（改稿後' + unit + '）', title + 'の差' + (deltaUnit ? '（' + deltaUnit + '）' : ''));
+  }
+  return csvText([header, ...rows.map(row => {
+    const values = [row.url, coverageLabel(row)];
+    for (const { key } of comparisonMetrics) {
+      const delta = metricDelta(row, key);
+      values.push(row.before?.[key], row.after?.[key], delta === null ? '' : Number(delta.toFixed(6)));
+    }
+    return values;
+  })]);
+}
+
+const get = id => document.getElementById(id);
+let current;
+let run = 0;
+
+function clearResults() {
+  run++;
+  current = undefined;
+  get('results').replaceChildren();
+  get('query-help').hidden = true;
+  get('download').disabled = true;
+  get('status').textContent = '';
+}
+
+get('form').addEventListener('input', clearResults);
+get('form').addEventListener('submit', async event => {
+  event.preventDefault();
+  clearResults();
+  const job = run;
+  const file = get('file').files[0];
+  const prefixes = get('prefix').value.split(',').map(value => value.trim()).filter(Boolean);
+  try {
+    const { pages, skipped } = readPages(await file.text());
+    if (job !== run) return;
+    current = selectCandidates(pages, {
+      min: Number(get('min').value),
+      manualCtr: Number(get('ctr').value),
+      prefixes,
+      articlesOnly: get('articles-only').checked,
+      useBenchmark: get('rank-benchmark').checked,
+    });
+    get('results').replaceChildren(...groups.map(group => renderGroup(group, current[group.key])));
+    get('status').textContent = pages.length + 'ページを読み込み、' + current.eligibleCount + 'ページが絞り込み条件に一致しました。' +
+      (skipped ? ' 重複・不正・表示0回の行を' + skipped + '件除外しました。' : '');
+    const hasCandidates = current.ctr.length + current.content.length > 0;
+    get('download').disabled = !hasCandidates;
+    get('query-help').hidden = !hasCandidates;
+  } catch (error) {
+    if (job === run) get('status').textContent = error.message;
+  }
+});
+
+function downloadCsv(csv, filename) {
+  const file = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(file);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 30000);
+}
+
+get('download').addEventListener('click', () => {
+  if (current) downloadCsv(exportCsv(current), 'gsc-rewrite-candidates.csv');
+});
+
+let comparisonRows = [];
+let compareRun = 0;
+function clearComparison() {
+  compareRun++;
+  comparisonRows = [];
+  get('compare-results').replaceChildren();
+  get('compare-status').textContent = '';
+  get('download-comparison').disabled = true;
+}
+
+get('compare-form').addEventListener('input', clearComparison);
+get('compare-form').addEventListener('submit', async event => {
+  event.preventDefault();
+  clearComparison();
+  const job = compareRun;
+  const beforeFile = get('before-file').files[0];
+  const afterFile = get('after-file').files[0];
+  try {
+    const [beforeText, afterText] = await Promise.all([beforeFile.text(), afterFile.text()]);
+    if (job !== compareRun) return;
+    const before = readPages(beforeText);
+    const after = readPages(afterText);
+    comparisonRows = comparePeriods(before.pages, after.pages, get('compare-articles-only').checked);
+    get('compare-results').replaceChildren(renderComparison(comparisonRows));
+    const matched = comparisonRows.filter(row => row.before && row.after).length;
+    const skipped = before.skipped + after.skipped;
+    get('compare-status').textContent = '両期間にあるURL ' + matched + '件、片方のCSVだけにあるURL ' +
+      (comparisonRows.length - matched) + '件。' +
+      (skipped ? ' 重複・不正・表示0回の行を' + skipped + '件除外しました。' : '') +
+      (beforeText === afterText ? ' 両方のCSVの内容が同じです。選んだ期間をご確認ください。' : '');
+    get('download-comparison').disabled = comparisonRows.length === 0;
+  } catch (error) {
+    if (job === compareRun) get('compare-status').textContent = error.message;
+  }
+});
+
+get('download-comparison').addEventListener('click', () => {
+  if (comparisonRows.length) downloadCsv(exportComparison(comparisonRows), 'gsc-rewrite-comparison.csv');
+});
+</script>
+</body>
+</html>
