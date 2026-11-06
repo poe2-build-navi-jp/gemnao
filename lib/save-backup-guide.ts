@@ -8,6 +8,7 @@ export const saveBackupGuide: CommonGuide = {
   conclusion:
     'ゲームを終了し、セーブを含むフォルダーを日付付きの別フォルダーへコピーします。コピー元とコピー先のファイル数・サイズを照合し、必要ならハッシュで内容の一致も確認してください。ただし「正しくコピーできた」と「ゲームで読み込める」は別です。復元時は現在のセーブを退避し、同期を止めてバックアップを元の保存先へ戻します。',
   checkedAt: '2026-09-27',
+  updatedAt: '2026-11-06',
   status: 'verified',
   causes: [
     'ゲーム本体・設定ファイルとセーブ保存先の取り違え',
@@ -68,6 +69,7 @@ export const saveBackupGuide: CommonGuide = {
     },
   ],
   related: [
+    'steam-cloud-basics',
     'steam-cloud-sync-error',
     'uninstall-save-data',
     'remove-mods-safely',

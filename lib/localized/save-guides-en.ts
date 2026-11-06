@@ -12,6 +12,7 @@ export const saveGuidesEn: EnglishCommonGuide[] = [
   {
     ...base,
     slug: 'save-data-backup',
+    updatedAt: '2026-11-06',
     path: '/guide/save-data-backup',
     title:
       'Back Up PC Game Saves: Find Files, Verify Copies and Restore Safely',
@@ -134,6 +135,10 @@ export const saveGuidesEn: EnglishCommonGuide[] = [
       { label: 'Steamworks: per-game Cloud settings', url: cloudDev },
     ],
     related: [
+      {
+        href: '/en/guide/steam-cloud-basics',
+        label: 'Steam Cloud settings, files and moving to a new PC',
+      },
       {
         href: '/en/guide/steam-cloud-sync-error',
         label: 'Cloud error or conflict: preserve candidates before choosing',

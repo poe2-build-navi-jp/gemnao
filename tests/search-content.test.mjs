@@ -7,7 +7,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 await mkdir('.wrangler/search-content', { recursive: true });
 await build({
   stdin: {
-    contents: `export * from './lib/backup-readiness'; export * from './lib/steam-entry-guides'; export * from './components/backup-readiness-checklist'; export * from './components/steam-intent-links'; export { hasTranslation } from './lib/localized/index';`,
+    contents: `export * from './lib/backup-readiness'; export * from './lib/steam-entry-guides'; export * from './components/backup-readiness-checklist'; export * from './components/steam-intent-links'; export { hasTranslation } from './lib/localized/index'; export { commonGuides } from './lib/common-guides'; export { groupedCommonGuides } from './lib/common-guide-categories'; export { default as sitemap } from './app/sitemap'; export { GET as feed } from './app/feed.xml/route';`,
     resolveDir: process.cwd(),
   },
   outfile: '.wrangler/search-content/code.mjs',
@@ -26,6 +26,10 @@ const {
   BackupReadinessChecklist,
   SteamIntentLinks,
   hasTranslation,
+  commonGuides,
+  groupedCommonGuides,
+  sitemap,
+  feed,
 } = await import('../.wrangler/search-content/code.mjs');
 await test('a condition must be selected even if all checklist IDs are supplied', () => {
   assert.equal(backupReadiness('', [...backupCheckIds]).state, 'choose');
@@ -94,3 +98,53 @@ for (const locale of ['ja', 'en', 'zh', 'es']) {
     );
   });
 }
+
+await test('three priority articles are discoverable in the rendered guide categories', () => {
+  const categories = groupedCommonGuides(commonGuides);
+  for (const slug of [
+    'steam-cloud-basics',
+    'steam-client-not-opening',
+    'save-data-backup',
+  ]) {
+    assert.equal(
+      categories
+        .flatMap((group) => group.guides)
+        .filter((guide) => guide.slug === slug).length,
+      1,
+    );
+  }
+});
+await test('backup content updates do not falsify source review dates; sitemap carries actual edits', () => {
+  const backup = commonGuides.find(
+    (guide) => guide.slug === 'save-data-backup',
+  );
+  assert.equal(backup.checkedAt, '2026-09-27');
+  assert.equal(backup.updatedAt, '2026-11-06');
+  const map = sitemap();
+  for (const locale of ['', 'en/'])
+    for (const slug of [
+      'steam-cloud-basics',
+      'steam-client-not-opening',
+      'save-data-backup',
+    ]) {
+      const entry = map.find(
+        (item) =>
+          item.url === `https://gemnao.pages.dev/${locale}guide/${slug}`,
+      );
+      assert.ok(entry, locale + slug);
+      assert.equal(entry.lastModified.toISOString().slice(0, 10), '2026-11-06');
+    }
+});
+await test('recent update feed exposes all three canonical article URLs', async () => {
+  const xml = await feed().text();
+  for (const slug of [
+    'steam-cloud-basics',
+    'steam-client-not-opening',
+    'save-data-backup',
+  ]) {
+    assert.ok(
+      xml.includes(`<id>https://gemnao.pages.dev/guide/${slug}</id>`),
+      slug,
+    );
+  }
+});

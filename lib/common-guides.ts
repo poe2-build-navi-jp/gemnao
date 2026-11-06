@@ -30,6 +30,8 @@ export type CommonGuide = {
   description: string;
   conclusion: string;
   checkedAt: string;
+  /** Last substantial content edit; source review remains checkedAt. */
+  updatedAt?: string;
   steps: { title: string; actions: string[]; advanceCheck?: AdvanceCheck }[];
   sources: { label: string; url: string }[];
   related: string[];

@@ -5,7 +5,12 @@ import { ogImageFor } from '@/lib/og-images';
 
 export function englishEditorialMetadata(
   path: string,
-  article: { title: string; description: string; checkedAt: string },
+  article: {
+    title: string;
+    description: string;
+    checkedAt: string;
+    updatedAt?: string;
+  },
   locale: Locale = 'en',
 ): Metadata {
   const englishPath = `/${locale}${path}`;
@@ -20,7 +25,7 @@ export function englishEditorialMetadata(
       title: article.title,
       description: article.description,
       url: englishPath,
-      modifiedTime: article.checkedAt,
+      modifiedTime: article.updatedAt ?? article.checkedAt,
       images: [image],
     },
     twitter: {

@@ -55,7 +55,7 @@ export function GET() {
         title: item.title,
         summary: item.description,
         path: `/guide/${item.slug}`,
-        updated: item.checkedAt,
+        updated: item.updatedAt ?? item.checkedAt,
         category: 'PCゲーム共通',
       })),
     ...discordArticles

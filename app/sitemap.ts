@@ -34,7 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 function entries(base: string): MetadataRoute.Sitemap {
   const fixed = [
     { path: '', updated: '2026-09-30' },
-    { path: '/guide', updated: '2026-09-12' },
+    { path: '/guide', updated: '2026-11-06' },
     // Diagnosis remains noindex during public beta, including when sharing is enabled.
     { path: '/discord', updated: '2026-09-30' },
     { path: '/status', updated: '2026-10-01' },
@@ -64,7 +64,7 @@ function entries(base: string): MetadataRoute.Sitemap {
     .filter((item) => item.status === 'verified')
     .map((item) => ({
       url: `${base}/guide/${item.slug}`,
-      lastModified: new Date(item.checkedAt),
+      lastModified: new Date(item.updatedAt ?? item.checkedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.82,
     }));
@@ -160,12 +160,12 @@ function entries(base: string): MetadataRoute.Sitemap {
       })),
       ...translatedCommonGuides.map((g) => ({
         path: `/${g.locale}${g.path}`,
-        updated: g.checkedAt,
+        updated: g.updatedAt ?? g.checkedAt,
       })),
       { path: '/en/guide/pc-game-crash', updated: '2026-10-03' },
       ...commonGuidesEn.map((guide) => ({
         path: `/en${guide.path}`,
-        updated: guide.checkedAt,
+        updated: guide.updatedAt ?? guide.checkedAt,
       })),
       ...gearGuidesEn.map((guide) => ({
         path: `/en/gear/${guide.slug}`,

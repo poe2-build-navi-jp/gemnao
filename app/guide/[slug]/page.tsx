@@ -1,7 +1,10 @@
 import { SteamIntentLinks } from '@/components/steam-intent-links';
 import { BackupReadinessChecklist } from '@/components/backup-readiness-checklist';
 import { ReportedCaseLink } from '@/components/reported-case';
-import { ArticleEvidence, ArticleEvidenceTocLink } from '@/components/article-evidence';
+import {
+  ArticleEvidence,
+  ArticleEvidenceTocLink,
+} from '@/components/article-evidence';
 import { ArticleToc } from '@/components/article-toc';
 import { ArticleDiagnosisEntry } from '@/components/article-diagnosis-entry';
 import { EditorialByline } from '@/components/editorial-byline';
@@ -146,7 +149,7 @@ export async function generateMetadata({
           description: item.description,
           url: `/guide/${slug}`,
           locale: 'ja_JP',
-          modifiedTime: item.checkedAt,
+          modifiedTime: item.updatedAt ?? item.checkedAt,
           images: [visual?.ogImage || ogImageFor(`/guide/${slug}`)],
         },
         twitter: {
@@ -201,7 +204,7 @@ export default async function Page({
       '@type': 'TechArticle',
       headline: item.title,
       description: item.description,
-      dateModified: item.checkedAt,
+      dateModified: item.updatedAt ?? item.checkedAt,
       author: editorialAuthor,
       publisher: editorialPublisher,
       citation: item.sources.map((source) => source.url),
@@ -265,6 +268,9 @@ export default async function Page({
           <div className="article-meta">
             <EditorialByline />
             <span>資料の確認記録：{item.checkedAt.replaceAll('-', '.')}</span>
+            {item.updatedAt ? (
+              <span>本文更新：{item.updatedAt.replaceAll('-', '.')}</span>
+            ) : null}
             <span>公式資料を優先して確認</span>
           </div>
           <SaveArticle path={`/guide/${item.slug}`} title={item.title} />
@@ -598,7 +604,12 @@ export default async function Page({
           {slug === 'visual-c-runtime-error' ? <VisualCBeforeSteps /> : null}
           {slug === 'verify-steam-files' ? <VerifySteamBeforeSteps /> : null}
           {slug === 'shader-cache-delete' ? <ShaderCacheBeforeSteps /> : null}
-          {slug === 'save-data-backup' ? <><BackupReadinessChecklist /><SaveBackupBeforeSteps /></> : null}
+          {slug === 'save-data-backup' ? (
+            <>
+              <BackupReadinessChecklist />
+              <SaveBackupBeforeSteps />
+            </>
+          ) : null}
           {slug === 'uninstall-save-data' ? <UninstallSaveBeforeSteps /> : null}
           {slug === 'black-screen' ? <BlackScreenBeforeSteps /> : null}
           {slug === 'gpu-driver-update' ? <GpuDriverBeforeSteps /> : null}

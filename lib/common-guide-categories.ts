@@ -15,6 +15,7 @@ export const commonGuideCategories: CommonGuideCategory[] = [
     heading: 'PCゲームの起動・クラッシュ対策',
     description: '起動しない、黒画面、強制終了、PC再起動などを切り分けます。',
     slugs: [
+      'steam-client-not-opening',
       'steam-game-not-launching',
       'pc-game-freezes',
       'pc-game-crash',
@@ -50,6 +51,7 @@ export const commonGuideCategories: CommonGuideCategory[] = [
     description:
       '整合性確認、Cloud同期、書き込みエラー、バックアップを確認します。',
     slugs: [
+      'steam-cloud-basics',
       'verify-steam-files',
       'steam-cloud-sync-error',
       'steam-disk-write-error',

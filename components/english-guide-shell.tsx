@@ -22,6 +22,7 @@ export type EnglishGuideInfo = {
   lead: string;
   summary: string;
   checkedAt: string;
+  updatedAt?: string;
   category: string;
   sourcePolicy: string;
   sources: { label: string; url: string }[];
@@ -51,7 +52,7 @@ export function EnglishGuideShell({
       '@type': 'TechArticle',
       headline: guide.title,
       description: guide.description,
-      dateModified: guide.checkedAt,
+      dateModified: guide.updatedAt ?? guide.checkedAt,
       inLanguage: languageTag[locale],
       author: editorialAuthor,
       publisher: editorialPublisher,
@@ -126,6 +127,11 @@ export function EnglishGuideShell({
             <span>
               {t.sourceRecord}: {guide.checkedAt}
             </span>
+            {guide.updatedAt ? (
+              <span>
+                {t.updated}: {guide.updatedAt}
+              </span>
+            ) : null}
             {affiliate ? (
               <span>Contains advertising / affiliate links</span>
             ) : null}

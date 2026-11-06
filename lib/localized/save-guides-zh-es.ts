@@ -13,6 +13,7 @@ const original = saveGuidesEn.find((g) => g.slug === 'save-data-backup')!;
 const urls = original.sources.map((s) => s.url);
 const base = {
   slug: 'save-data-backup',
+  updatedAt: '2026-11-06',
   path: '/guide/save-data-backup',
   topic: 'save' as const,
   checkedAt: '2026-10-18',
@@ -139,6 +140,10 @@ export const translatedCommonGuides: TranslatedCommonGuide[] = [
       ][i],
     })),
     related: [
+      {
+        href: '/zh/guide/steam-cloud-basics',
+        label: 'Steam 云存档设置、文件与换电脑前的检查',
+      },
       {
         href: '/zh/guide/steam-cloud-sync-error',
         label: 'Steam 云冲突：选择版本前保全文件',
@@ -273,6 +278,10 @@ export const translatedCommonGuides: TranslatedCommonGuide[] = [
       ][i],
     })),
     related: [
+      {
+        href: '/es/guide/steam-cloud-basics',
+        label: 'Ajustes, archivos y cambio de PC con Steam Cloud',
+      },
       {
         href: '/es/guide/steam-cloud-sync-error',
         label:
