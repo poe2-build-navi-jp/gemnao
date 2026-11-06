@@ -632,10 +632,10 @@ export function InteractiveSteps({
         <div className="solution-data-panel">
           <h2>記事全体の匿名回答（過去の回答を含む）</h2>
           <div className="solution-data-summary">
-            <strong>解決 {row.resolved}件 ／ 未解決 {row.struggling}件</strong>
-            <span>
-              累計 {total}件（人数ではなく回答件数）
-            </span>
+            <strong>
+              解決 {row.resolved}件 ／ 未解決 {row.struggling}件
+            </strong>
+            <span>累計 {total}件（人数ではなく回答件数）</span>
           </div>
           {row.resolved >= threshold && rankedMethods.length ? (
             <div className="method-ranking">
@@ -724,21 +724,32 @@ export function InteractiveSteps({
           <ListChecks size={26} />
           {heading}
         </h2>
-        <SaveSolution
-          steps={steps}
-          draft={{
-            title: articleTitle,
-            gameSlug: articlePath.match(/^\/games\/([a-z0-9-]+)\//)?.[1] || '',
-            // Article-wide progress does not identify which problem it belongs to.
-            status: 'investigating',
-            diagnosis: '',
-            settings: '',
-            notes: '',
-            articlePath,
-            stepId: '',
-            completedSteps: [],
-          }}
-        />
+        <div id="step-notebook">
+          <SaveSolution
+            steps={steps}
+            draft={{
+              title: articleTitle,
+              gameSlug:
+                articlePath.match(/^\/games\/([a-z0-9-]+)\//)?.[1] || '',
+              // Article-wide progress does not identify which problem it belongs to.
+              status: 'investigating',
+              diagnosis: '',
+              settings: '',
+              notes: '',
+              articlePath,
+              stepId: '',
+              completedSteps: [],
+            }}
+          />
+        </div>
+        {!solvedStep && (
+          <p className="procedure-note">
+            対象外の手順は飛ばせます。回答の送信は任意です。{' '}
+            <a href="#step-next-actions">
+              直らない・どこから試すか迷う場合の次の行動 →
+            </a>
+          </p>
+        )}
         <p className="procedure-note">
           {canCollectResults
             ? '実際に試した結果を教えてください。「これで直った」「試したが直らない」を押すと、この記事の症状・STEP・結果を匿名の回答数として集計します。ノートの内容は送信しません。'
@@ -832,9 +843,11 @@ export function InteractiveSteps({
                     {step.summary ? <p>{step.summary}</p> : null}
                     {counts ? (
                       <p className="step-outcome-counts">
-                        このSTEPの累積回答：直った {counts.resolved}件 ／ 直らなかった{' '}
-                        {counts.notResolved}件
-                        <small>記事全体とは別集計です。直った回答は過去分を含み、直らなかった回答はSTEP別受付開始後の分です。</small>
+                        このSTEPの累積回答：直った {counts.resolved}件 ／
+                        直らなかった {counts.notResolved}件
+                        <small>
+                          記事全体とは別集計です。直った回答は過去分を含み、直らなかった回答はSTEP別受付開始後の分です。
+                        </small>
                         {counts.total < 10 && (
                           <small>報告が少ないため参考情報です。</small>
                         )}
@@ -893,6 +906,18 @@ export function InteractiveSteps({
                         対象外なら「{steps[nextIndex(step, index)].title}
                         」へスキップ
                       </a>
+                    </p>
+                  )}
+                {!solvedStepId &&
+                  (step.endpoint || index === steps.length - 1) && (
+                    <p className="step-skip">
+                      <a href={step.endpoint?.href || '#step-next-actions'}>
+                        {step.endpoint
+                          ? `「${step.endpoint.symptom}」の確認を終えたら、次の相談先・対処法へ`
+                          : 'まだ直らない・これ以上試せない場合の次の行動へ'}{' '}
+                        →
+                      </a>{' '}
+                      匿名回答を送らずに進めます。
                     </p>
                   )}
                 {prerequisite ? (
@@ -1031,8 +1056,8 @@ export function InteractiveSteps({
                             →
                           </a>
                         ) : (
-                          <a href="#references">
-                            試した結果を整理して、公式情報・サポート案内を確認 →
+                          <a href="#step-next-actions">
+                            試した結果を整理して、次の対処法・相談先を確認 →
                           </a>
                         )}
                       </p>
@@ -1094,15 +1119,32 @@ export function InteractiveSteps({
         </div>
       </div>
 
-      {!solvedStep &&
-      completedIds.length >= steps.length &&
-      nextLinks.length ? (
+      {!solvedStep ? (
         <section
           className="related-section step-next-actions"
+          id="step-next-actions"
+          tabIndex={-1}
           aria-labelledby="step-next-actions-title"
         >
           <h2 id="step-next-actions-title">まだ直りませんか？</h2>
-          <p>現在の症状に近いものから、次の対処法を確認してください。</p>
+          <p>
+            全STEPを試す必要はありません。現在の症状に合う行き先を選んでください。
+          </p>
+          <ol>
+            <li>
+              <a href="#step-notebook">試した手順・結果をノートに残す</a>
+              。エラー全文、発生した場面、ゲームの版・PC構成も控えます。
+            </li>
+            {nextLinks.length > 0 && (
+              <li>
+                下の関連記事で、まだ確認していない症状・条件の手順を選びます。変更は一度に一つずつ行い、効果がなければ元に戻します。
+              </li>
+            )}
+            <li>
+              <a href="#references">この記事の公式情報・サポート案内を確認</a>
+              。同じ手順を繰り返しても改善しない場合は、控えた情報から必要なものだけを添えて公式窓口へ相談します。
+            </li>
+          </ol>
           <div>
             {nextLinks.slice(0, 5).map((link) => (
               <a data-related="true" href={link.href} key={link.href}>
