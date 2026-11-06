@@ -54,6 +54,15 @@ export function MyGamesPanel({
       .catch(() => undefined);
     return () => controller.abort();
   }, [newsKey]);
+  // Saved cards appear only after browser storage has hydrated. Resolve the
+  // incoming article link at that point, when its fragment target exists.
+  useEffect(() => {
+    if (!ready) return;
+    const hash = window.location.hash;
+    if (hash.startsWith('#my-game-')) {
+      document.getElementById(hash.slice(1))?.scrollIntoView({ block: 'start' });
+    }
+  }, [ready]);
   function change(slug: string, operation: 'add' | 'remove') {
     const result = changeMyGames(() => localStorage, save, slug, operation);
     setMessage(result);
