@@ -175,7 +175,7 @@ export function GameAlertSubscription({ choices }: { choices: Choice[] }) {
             >
               RSS購読URLをコピー
             </button>
-            <a href={href}>フィードを開く</a>
+            <a href={'/api/game-updates-feed?games=' + key}>フィードを開く</a>
           </div>
         </>
       )}

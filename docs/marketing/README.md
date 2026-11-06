@@ -19,3 +19,13 @@ Browser notifications are separately opt-in, require browser permission, establi
 Aggregate events: `gemnao_card_exported`, `gemnao_card_saved`, `game_alert_feed_copied`, `steam_guide_copied`. Fixed page metadata excludes card input, game selection, account data, notes or custom IDs. Events are disabled outside the production origin through the existing analytics guard. Source UTM values identify Steam-origin visits. These are counts of actions, not evidence of a successful subscription, unique people, repairs or growth.
 
 Test: `node --test tests/gemnao-growth.test.mjs`. Run typecheck, lint and production build. Test browser PNG download, local collection persistence, invalid storage retention, unsupported notification state, URL copy, draft language switching and small-width layout before claiming browser verification. New tools are noindex and link through `/tools`, My Games, and article sharing controls; user-generated card records must not be indexed as public pages.
+
+## Browser QA — 2026-11-06
+
+Preview `8973e326d8697e0ad535f89db81e748759b0ee07` deployed successfully. Created a clearly labelled sample card, saved it locally, reloaded and observed the one-card collection, exported a 720×1000 PNG and inspected the actual browser output for clipping. Card and Steam-tool layouts at 340px CSS viewport had 337px document width; browser zoom was restored. Selected Palworld and verified the preview RSS contains actual official announcement items with stable GUIDs; Japanese and English Steam draft switching works. The preview feed-open link now remains on the current origin, while the copied subscription URL always uses the canonical production host.
+
+Browser notification permission and delivery were not exercised against production; permission is requested only after an explicit button click, and no background delivery is claimed. Steam sign-in was stopped by automatic approval review before credentials were submitted. The stated reason was that third-party Steam sign-in and guide publication need explicit authorization; no guide is published to Steam yet.
+
+Example only, not a repair success claim:
+
+![Gemnao Card sample](gemnao-card-example.png)

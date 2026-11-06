@@ -24,7 +24,7 @@ const {
   steamGuideDraft,
   steamGuideTargets,
 } = await import('../.wrangler/growth/code.mjs');
-test('card escapes injected markup and does not silently accept a broken collection', () => {
+await test('card escapes injected markup and does not silently accept a broken collection', () => {
   const c = cleanCard({
     game: '<script>alert(1)</script>',
     symptom: 'A & B',
@@ -45,7 +45,7 @@ test('card escapes injected markup and does not silently accept a broken collect
   assert.throws(() => readCardCollection('[{}]'));
   assert.equal(readCardCollection(JSON.stringify([c])).length, 1);
 });
-test('maximum card copy is bounded, with no external image or embedded script', async () => {
+await test('maximum card copy is bounded, with no external image or embedded script', async () => {
   const c = cleanCard({
     game: 'あ'.repeat(500),
     symptom: '症'.repeat(500),
@@ -63,7 +63,7 @@ test('maximum card copy is bounded, with no external image or embedded script', 
   assert.ok(!svg.includes('href='));
   await writeFile('.wrangler/growth/card-long.svg', svg);
 });
-test('feed selection is capped, canonical and rejects unexpected games', () => {
+await test('feed selection is capped, canonical and rejects unexpected games', () => {
   assert.deepEqual(feedSelection('b,a,b', ['a', 'b']), ['a', 'b']);
   assert.equal(feedSelection('', []), null);
   assert.equal(feedSelection('a,../secret', ['a']), null);
@@ -75,7 +75,7 @@ test('feed selection is capped, canonical and rejects unexpected games', () => {
     null,
   );
 });
-test('RSS escapes announcement strings and stable GUIDs preserve identity', () => {
+await test('RSS escapes announcement strings and stable GUIDs preserve identity', () => {
   const rss = updatesRss(
     [
       {
@@ -99,7 +99,7 @@ test('RSS escapes announcement strings and stable GUIDs preserve identity', () =
 });
 for (const target of steamGuideTargets)
   for (const locale of ['ja', 'en'])
-    test(`${locale}: ${target.game} has a standalone sourced Steam guide`, async () => {
+    await test(`${locale}: ${target.game} has a standalone sourced Steam guide`, async () => {
       const d = steamGuideDraft(target.game, locale);
       assert.ok(d, 'Missing verified draft');
       assert.ok(d.body.length > 800);
