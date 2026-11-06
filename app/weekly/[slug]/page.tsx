@@ -1,3 +1,4 @@
+import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
 import { languageAlternates } from '@/lib/localized';
 import { ArticleToc } from '@/components/article-toc';
 import type { Metadata } from 'next';
@@ -77,7 +78,8 @@ export default async function Page({
       description: report.description,
       datePublished: report.publishedAt,
       dateModified: report.publishedAt,
-      author: { '@type': 'Organization', name: 'ゲムなお編集部' },
+      author: editorialAuthor,
+      publisher: editorialPublisher,
       inLanguage: 'ja-JP',
       mainEntityOfPage: canonical,
       image: `${SITE}${ogImageFor(path)}`,

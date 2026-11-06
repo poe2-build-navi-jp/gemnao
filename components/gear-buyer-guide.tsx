@@ -1,3 +1,4 @@
+import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
 import { ArticleToc } from '@/components/article-toc';
 import { SaveArticle } from '@/components/save-article';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
@@ -43,7 +44,8 @@ export function GearBuyerGuide({ guide }: { guide: GearGuide }) {
       description: guide.description,
       dateModified: guide.checkedAt,
       inLanguage: 'ja-JP',
-      author: { '@type': 'Organization', name: 'ゲムなお編集部' },
+      author: editorialAuthor,
+      publisher: editorialPublisher,
       about: guide.shortTitle,
       mainEntityOfPage: canonical,
       image: [`https://gemnao.pages.dev${ogImageFor(path).split('?')[0]}`],

@@ -63,7 +63,8 @@ export default async function Page({
           </a>
         </dd>
       </dl>
-      <h2>Editing and sources</h2>
+      <h2 id="editorial-team">Editing and sources</h2>
+      <p>Gemnao Editorial Team is the editorial name used for these guides. The site is operated by Okapi Research Institute.</p>
       <p>
         We prioritize official support, developers and official stores. When
         additional evidence is needed, we compare reliable technical

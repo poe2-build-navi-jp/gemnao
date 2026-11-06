@@ -1,3 +1,4 @@
+import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
 import { ArticleToc } from '@/components/article-toc';
 import { hasTranslation, languageAlternates } from '@/lib/localized/index';
 import type { Metadata } from 'next';
@@ -127,7 +128,8 @@ export default async function GearArticlePage({
       description: article.description,
       dateModified: article.checkedAt,
       inLanguage: 'ja-JP',
-      author: { '@type': 'Organization', name: 'ゲムなお編集部' },
+      author: editorialAuthor,
+      publisher: editorialPublisher,
       about: article.product.name,
       mainEntityOfPage: canonical,
       image: [

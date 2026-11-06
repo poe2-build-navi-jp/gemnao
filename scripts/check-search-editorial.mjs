@@ -103,7 +103,7 @@ if (!process.argv.includes('--source-only')) {
       assert.ok(manifest[record.path], record.path);
       html = await readFile(`dist/client${manifest[record.path]}`, 'utf8');
     }
-    assert.match(html, /編集：<a href="\/about">ゲムなお編集部<\/a>/, record.path);
+    assert.match(html, /編集：<a href="\/about#editorial-team" hrefLang="ja">ゲムなお編集部<\/a>/, record.path);
     const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].flatMap((match) => {
       const parsed = JSON.parse(match[1]);
       return Array.isArray(parsed) ? parsed : [parsed];

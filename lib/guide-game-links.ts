@@ -4,6 +4,7 @@ import { gameBySlug } from './games';
 // Reviewed symptom matches for the Japanese guide template. Never pad with category matches.
 export const guideGamePaths: Readonly<Record<string, readonly string[]>> = {
   'tpm-secure-boot': [
+    'call-of-duty-modern-warfare-4/tpm-secure-boot',
     'valorant/van9003',
     'valorant/van9001',
     'battlefield-6/secure-boot-enabled-not-launching',

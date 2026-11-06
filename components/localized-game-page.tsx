@@ -1,3 +1,6 @@
+import { EditorialByline } from '@/components/editorial-byline';
+import { ogImageFor } from '@/lib/og-images';
+import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
 import { GamePathHelp, WildsSaveGuideLink } from '@/components/game-path-help';
 import { ReportEntryLink } from '@/components/report-entry-link';
 import { OnimushaSaveAnswer } from '@/components/onimusha-save-answer';
@@ -73,7 +76,10 @@ export function LocalizedGamePage({
       description: hub.lead[locale],
       dateModified: checkedAt,
       inLanguage: languageTag[locale],
-      author: { '@type': 'Organization', name: 'Gemnao' },
+      author: editorialAuthor,
+      publisher: editorialPublisher,
+      citation: hub.sources.map((source) => source.url),
+      image: `${SITE}${ogImageFor(path).split('?')[0]}`,
       mainEntityOfPage: `${SITE}${path}`,
       about: { '@type': 'VideoGame', name: hub.names?.en || facts.names.en },
     },
@@ -112,6 +118,7 @@ export function LocalizedGamePage({
           <h1>{title}</h1>
           <p className="article-lead">{hub.lead[locale]}</p>
           <div className="article-meta">
+            <EditorialByline locale={locale} />
             <span>
               {t.lastChecked} {checkedAt}
             </span>
