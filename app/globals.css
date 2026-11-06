@@ -5592,6 +5592,7 @@ a.my-games-primary {
   flex-shrink: 0;
 }
 .step-next-actions ol {
+  list-style: decimal;
   padding-left: 1.5em;
   line-height: 1.8;
 }
