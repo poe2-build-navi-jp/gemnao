@@ -21,6 +21,32 @@ export function MyGamesPage({ locale = 'ja' }: { locale?: MyGamesLocale }) {
         <p className="page-lead">{t.lead}</p>
         <p className="my-games-privacy">{t.privacy}</p>
         <MyGamesPanel games={myGamesData(locale)} locale={locale} />
+        <p>
+          <a href="/tools/game-alerts">
+            {
+              {
+                ja: 'マイゲームの更新通知・RSS購読',
+                en: 'Game update alerts and RSS (Japanese)',
+                zh: '游戏更新通知与 RSS（日文）',
+                es: 'Avisos y RSS de juegos (japonés)',
+              }[locale]
+            }{' '}
+            →
+          </a>
+        </p>
+        <p>
+          <a href="/tools/gemnao-cards">
+            {
+              {
+                ja: 'ゲムなおカードで対処を記録・共有',
+                en: 'Record and share a Gemnao Card (Japanese)',
+                zh: '用 Gemnao 卡片记录与分享（日文）',
+                es: 'Registrar y compartir una tarjeta Gemnao (japonés)',
+              }[locale]
+            }{' '}
+            →
+          </a>
+        </p>
         <MyGamesBackup locale={locale} />
         <SupportWorkspace locale={locale} />
         <SupportUpdates locale={locale} createHref="#issue-notebook" />

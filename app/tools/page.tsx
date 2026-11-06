@@ -13,6 +13,21 @@ export const metadata: Metadata = {
 
 const tools = [
   {
+    href: '/tools/gemnao-cards',
+    title: 'ゲムなおカード',
+    body: '症状・試した対処・結果を、箔調のカードに。画像保存・端末内コレクション・共有文の作成に対応。',
+  },
+  {
+    href: '/tools/game-alerts',
+    title: 'マイゲームの更新通知',
+    body: '選んだゲームのSteam公式ニュースをRSS購読。ページを開いている間のブラウザー通知にも対応。',
+  },
+  {
+    href: '/tools/steam-guides',
+    title: 'Steam向けガイド原稿',
+    body: '3作品の出典付きガイドを日本語・英語のSteam用原稿として確認・保存。',
+  },
+  {
     href: '/pc/repair-or-replace',
     title: '修理・部品交換・買い替えの判断と費用比較',
     body: '端末内の無料問診で確認順と修理相談メモを整理。公式料金例と、保証・用途・移行を含む総額を比較します。',
