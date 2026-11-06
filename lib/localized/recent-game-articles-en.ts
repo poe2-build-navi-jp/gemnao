@@ -636,6 +636,16 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
     ],
     faqs: [
       {
+        question: 'What should I verify after synchronizing the clock?',
+        answer:
+          'Check the result of Sync now and record when you ran it. Compare the last successful sync in w32tm /query /status with this attempt, and record the source from w32tm /query /source. An old successful timestamp or a small stripchart offset alone does not confirm that this synchronization succeeded. After a successful sync, restart Steam and the game and check the same point where the error occurred. If it still disconnects, continue with the connection-after-time-sync guide.',
+      },
+      {
+        question: 'What should I record before asking support for help?',
+        answer:
+          'Keep a screenshot of ST-3100001, the date and time zone, whether it occurs at deployment, during play or after a mission, the sync result and source, and whether you use Wi-Fi or Ethernet. Note whether other devices on the same connection also lose connectivity. Record each change and its result separately, and hide account names and personal details before sharing screenshots publicly. This is a troubleshooting record checklist, not a claim that our editors reproduced the issue on every configuration.',
+      },
+      {
         question: 'What does ST-3100001 mean?',
         answer:
           'The official notice describes a general error when communication with the game server is lost. Causes can differ; the publisher recommends checking Windows time synchronization first.',

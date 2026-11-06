@@ -28,6 +28,7 @@ export function SaveGame({
   const saved = myGames.includes(slug);
   return (
     <div className="save-game my-pc-actions">
+      <p className="save-game-benefit">{saved ? t.savedNext : t.saveBenefit}</p>
       <button
         type="button"
         aria-pressed={saved}
@@ -48,18 +49,11 @@ export function SaveGame({
         ) : (
           <Gamepad2 size={18} aria-hidden="true" />
         )}
-        {saved ? t.selected : `${t.name} · ${t.add}`}
+        {saved ? `${t.name} · ${t.selected}` : t.saveAction}
       </button>
-      <a href={`${myGamesPath(locale)}#my-feed`}>{t.return} →</a>
-      <small className="save-game-benefit">
-        {locale === 'ja'
-          ? 'このゲームの対処法を、次回もすぐ開く。アカウント不要・このブラウザのみ。'
-          : locale === 'en'
-            ? 'Keep this game’s fixes handy. No account. This browser only.'
-            : locale === 'zh'
-              ? '下次直接打开这款游戏的解决方法。无需账号，仅保存在当前浏览器。'
-              : 'Ten a mano las soluciones de este juego. Sin cuenta. Solo en este navegador.'}
-      </small>
+      <a href={`${myGamesPath(locale)}${saved ? `#my-game-${slug}` : '#my-games'}`}>
+        {saved ? t.return : t.previewLink} →
+      </a>
       <MyGamesNotice notice={message} locale={locale} />
     </div>
   );

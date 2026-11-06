@@ -16,6 +16,10 @@ export const myGamesCopy = {
     requestGame: '見つからないゲームの追加をリクエストする',
     title: '遊ぶゲームの対処法を、自分の一覧に。',
     name: 'マイゲーム',
+    saveAction: 'このゲームをマイゲームに保存',
+    saveBenefit: '起動しない・落ちるときの対処法を、次回すぐ開けます。無料・アカウント不要。このブラウザだけに保存します。',
+    savedNext: '次回は下の一覧から対処法を開けます。一覧をブックマークすると、再検索する手間を省けます。',
+    previewLink: '保存前に一覧を見てみる',
     lead: 'ゲームを1本選ぶだけ。起動しない・落ちる・重いときの解決記事を、次回もここからすぐ開けます。',
     privacy:
       '無料・アカウント不要。このブラウザだけに保存され、別の端末には同期しません。サイトデータを消すと選択も消えます。',
@@ -64,6 +68,10 @@ export const myGamesCopy = {
     requestGame: 'Request a game that is missing',
     title: 'Your games. Their fixes. One place.',
     name: 'My Games',
+    saveAction: 'Save this game to My Games',
+    saveBenefit: 'Find this game’s launch and crash fixes again without searching. Free, no account needed. Saved only in this browser.',
+    savedNext: 'Open your game’s guides below. Bookmark the list to find it again next time.',
+    previewLink: 'Preview My Games',
     lead: 'Pick a game to keep its troubleshooting guides together. Come back here when it won’t launch, crashes, or runs poorly.',
     privacy:
       'Free. No account needed. Saved only in this browser, with no cross-device sync. Clearing site data removes your choices.',
@@ -113,6 +121,10 @@ export const myGamesCopy = {
     requestGame: '申请添加未找到的游戏',
     title: '把常玩的游戏和解决方法，放在一起。',
     name: '我的游戏',
+    saveAction: '将这款游戏保存到我的游戏',
+    saveBenefit: '下次无需重新搜索，即可打开这款游戏的启动和崩溃排查指南。免费、无需账号，仅保存在当前浏览器。',
+    savedNext: '从下方打开这款游戏的指南。可将列表加入书签，方便下次查看。',
+    previewLink: '先看看我的游戏列表',
     lead: '选一个游戏，就能集中查看它的故障排查指南。下次遇到无法启动、崩溃或卡顿时，直接从这里打开。',
     privacy:
       '免费，无需账号。仅保存在当前浏览器，不会跨设备同步。清除网站数据会删除所选游戏。',
@@ -160,6 +172,10 @@ export const myGamesCopy = {
     requestGame: 'Solicitar un juego que falta',
     title: 'Tus juegos y sus soluciones, en un solo lugar.',
     name: 'Mis juegos',
+    saveAction: 'Guardar este juego en Mis juegos',
+    saveBenefit: 'Vuelve a las guías de arranque y cierres de este juego sin buscar de nuevo. Gratis, sin cuenta y solo en este navegador.',
+    savedNext: 'Abre las guías de tu juego a continuación. Guarda la lista en tus marcadores para volver la próxima vez.',
+    previewLink: 'Ver cómo funciona Mis juegos',
     lead: 'Elige un juego para reunir sus guías de solución de problemas. Vuelve aquí cuando no arranque, se cierre o vaya lento.',
     privacy:
       'Gratis y sin cuenta. Se guarda solo en este navegador, sin sincronización entre dispositivos. Al borrar los datos del sitio, se eliminan tus selecciones.',
