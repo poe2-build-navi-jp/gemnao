@@ -11,6 +11,12 @@ export function AniimoTroubleshootingHub() {
     <>
       <section className="guide-section" id="aniimo-first">
         <h2>アニモが開けない時は、更新・起動・ログインを分ける</h2>
+        <nav className="symptom-jump-links" aria-label="アニモが止まる場面から選ぶ">
+          <a href="#aniimo-patch">パッチエラー・更新が止まる</a>
+          <a href="/games/aniimo/not-launching">開始しても開かない・落ちる</a>
+          <a href="/games/aniimo/black-screen">音は出るのに黒い画面</a>
+          <a href="/games/aniimo/login-error">ログイン・接続で止まる</a>
+        </nav>
         <p>{aniimoHubAnswer}</p>
         <p>
           このページの操作手順はWindows

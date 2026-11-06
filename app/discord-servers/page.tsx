@@ -280,6 +280,18 @@ export default async function DiscordServersPage() {
           </div>
         </section>
 
+        <section className="server-intro" aria-labelledby="server-join-next-title">
+          <div>
+            <h2 id="server-join-next-title">募集を見つけた後、参加して遊ぶまで</h2>
+            <ol>
+              <li>募集文でゲームの版・活動時間・VC条件を照合し、運営者が公開した招待を開きます。</li>
+              <li>参加できたらルールと自己紹介・募集チャンネルを確認し、遊ぶゲームと参加できる時間を伝えます。</li>
+              <li>招待は開けても通話で困る場合は、下の症状別ガイドへ。募集条件の不一致と端末の音声トラブルを分けて確認できます。</li>
+            </ol>
+            <p><a href="/discord/mic-not-working">マイクが認識されない・声が届かない</a> ／ <a href="/discord/cant-hear-voice">相手の声が聞こえない</a> ／ <a href="/discord/mic-volume-low">自分・相手の声が小さい</a></p>
+          </div>
+        </section>
+
         <section className="server-match" aria-labelledby="server-match-title">
           <p className="page-kicker">FIND YOUR GROUP</p>
           <h2 id="server-match-title">募集文はここを比較して選ぶ</h2>

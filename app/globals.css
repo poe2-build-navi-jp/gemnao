@@ -6868,3 +6868,49 @@ a.my-games-primary {
 .article-context dt { font-weight: 700; }
 .article-context dd { margin: 0; overflow-wrap: anywhere; }
 @media (max-width: 600px) { .article-context dl > div { grid-template-columns: 1fr; gap: .15rem; } }
+
+/* Reader entry points and saved-game official updates. */
+.symptom-jump-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+.symptom-jump-links a {
+  display: inline-block;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--blue);
+  overflow-wrap: anywhere;
+}
+.saved-update-summary {
+  padding: 16px;
+  margin: 16px 0;
+  border: 1px solid var(--blue);
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+}
+.saved-update-summary ul {
+  padding-left: 1.3em;
+  list-style: disc;
+}
+.saved-update-summary li + li {
+  margin-top: 8px;
+}
+.saved-update-summary time {
+  display: inline-block;
+  color: var(--muted);
+  font-size: 0.875em;
+}
+.official-update-notice article {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+.official-update-notice dd {
+  margin: 0 0 12px;
+}
+.official-update-notice dt {
+  font-weight: 700;
+}

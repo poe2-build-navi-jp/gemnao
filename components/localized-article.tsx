@@ -1,3 +1,5 @@
+import { changesForArticle } from '@/lib/my-game-changes';
+import { OfficialUpdateNotice } from '@/components/official-update-notice';
 import { ArticleContext } from '@/components/article-context';
 import { ArticleEvidence, ArticleEvidenceTocLink } from '@/components/article-evidence';
 import { ClockSyncFirst } from '@/components/clock-sync-first';
@@ -79,13 +81,14 @@ export function LocalizedArticle({
     zh: { low: '低', medium: '中', high: '高' },
     es: { low: 'bajo', medium: 'medio', high: 'alto' },
   }[locale];
+  const officialUpdates = changesForArticle(originalPath, locale);
   const schema = [
     {
       '@context': 'https://schema.org',
       '@type': 'TechArticle',
       headline: article.title,
       description: article.description,
-      dateModified: article.checkedAt,
+      dateModified: [article.checkedAt, ...officialUpdates.map((update) => update.checkedOn)].sort().at(-1),
       inLanguage: languageTag[locale],
       author: editorialAuthor,
       publisher: editorialPublisher,
@@ -96,7 +99,7 @@ export function LocalizedArticle({
           ? 'Discord'
           : article.gameName || gameFacts[game!.slug].names.en,
       },
-      citation: article.sources.map((source) => source.url),
+      citation: [...new Set([...article.sources.map((source) => source.url), ...officialUpdates.map((update) => update.sourceUrl)])],
       image: `${SITE}${ogImageFor(path).split('?')[0]}`,
     },
     {
@@ -242,6 +245,7 @@ export function LocalizedArticle({
             article.slug === 'error-st-3100001' && (
               <AceCombatNoticeHistory locale="en" />
             )}
+          <OfficialUpdateNotice path={originalPath} locale={locale} />
           <ReportedCaseLink articlePath={originalPath} locale={locale} />
           {!isDiscord && (
             <ReportEntryLink articlePath={originalPath} locale={locale} />

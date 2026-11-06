@@ -1,3 +1,5 @@
+import { changesForArticle } from '@/lib/my-game-changes';
+import { OfficialUpdateNotice } from '@/components/official-update-notice';
 import { ArticleContext } from '@/components/article-context';
 import { ArticleEvidence, ArticleEvidenceTocLink } from '@/components/article-evidence';
 import { ClockSyncFirst } from '@/components/clock-sync-first';
@@ -55,7 +57,8 @@ export function TroubleshootingArticle({
         : article.category === 'specs'
           ? 'specs'
           : article.category;
-  const sources = [...(article.sources || []), ...game.sources].filter(
+  const officialUpdates = changesForArticle(`/games/${game.slug}/${article.slug}`, 'ja');
+  const sources = [...(article.sources || []), ...game.sources, ...officialUpdates.map((update) => ({url: update.sourceUrl, label: update.copy.title}))].filter(
     (source, index, all) =>
       all.findIndex((item) => item.url === source.url) === index,
   );
@@ -100,7 +103,7 @@ export function TroubleshootingArticle({
     '@type': 'TechArticle',
     headline: article.title,
     description: article.metaDescription,
-    dateModified: article.checkedAt,
+    dateModified: [article.checkedAt, ...officialUpdates.map((update) => update.checkedOn)].sort().at(-1),
     author: editorialAuthor,
     publisher: editorialPublisher,
     citation: sources.map((source) => source.url),
@@ -324,6 +327,7 @@ export function TroubleshootingArticle({
           <ReportEntryLink
             articlePath={`/games/${game.slug}/${article.slug}`}
           />
+          <OfficialUpdateNotice path={`/games/${game.slug}/${article.slug}`} />
           <InteractiveSteps
             contextSlug={`game-${game.slug}-${article.slug}`}
             topic={feedbackTopic}

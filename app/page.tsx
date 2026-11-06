@@ -1,3 +1,4 @@
+import { gameUpdateSummaries } from '@/lib/my-game-changes';
 import type { Metadata } from 'next';
 import { WikiHome, type LaunchItem } from '@/components/wiki-home';
 import { latestWeeklyReport } from '@/lib/weekly-reports';
@@ -90,6 +91,7 @@ export default async function Home({
   const { view } = await searchParams;
   return (
     <WikiHome
+      updateSummaries={gameUpdateSummaries('ja')}
       view={view === 'games' || view === 'articles' ? view : undefined}
       launches={launchItems(new Date().getTime())}
       weekly={{

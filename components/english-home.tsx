@@ -1,3 +1,4 @@
+import { gameUpdateSummaries } from '@/lib/my-game-changes';
 /* oxlint-disable next/no-html-link-for-pages -- Native navigation preserves existing search history. */
 import { WindowsDiagnosisEntry } from '@/components/windows-diagnosis-entry';
 import { ArrowRight, Wrench } from 'lucide-react';
@@ -261,7 +262,7 @@ export function EnglishHome() {
       </section>
       <ContinueNotes locale="en" />
       <div className="content home-my-shortcut">
-        <MyGamesHomeEntry locale="en" />
+        <MyGamesHomeEntry locale="en" updates={gameUpdateSummaries('en')} />
       </div>
       <div className="content home-bookmark-slot">
         <HomeBookmarkHelp locale="en" />
