@@ -1,0 +1,143 @@
+[h1]Palworld Steam Save Location: Verify a Backup and Restore a World[/h1]
+
+Independent troubleshooting notes by Gemnao. Not an official developer guide; no universal fix or hardware test result is claimed.
+
+[h2]Start here[/h2]
+
+Open %LOCALAPPDATA%\Pal\Saved\SaveGames and identify the user and world folders. With the game and Steam closed, copy the entire world folder elsewhere and compare its contents. Before restoration, preserve the current world; return the complete backup under the same user ID and world ID, then check progress with Cloud still paused.
+
+[h2]1. Open the Steam SaveGames folder[/h2]
+
+Use the environment variable without entering a Windows user name.
+
+[list]
+
+[*]Close the game, let Steam finish synchronizing, then exit Steam.
+
+[*]Press Windows+R, enter %LOCALAPPDATA%\Pal\Saved\SaveGames and press Enter.
+
+[*]Open the user-ID folder and locate its world-ID folders.
+
+[/list]
+
+If the path is absent, confirm that this is Windows Steam. Other stores and dedicated servers use different locations.
+
+[h2]2. Narrow the world using your last session[/h2]
+
+A timestamp is a clue, not proof.
+
+[list]
+
+[*]Record the intended world name and last-played time on the world selection screen, then close the game.
+
+[*]In File Explorer Details view, compare the world folders under the user ID.
+
+[*]Look for the source’s files such as Level.sav, LevelMeta.sav and Players; layouts can change, so names alone do not identify the world.
+
+[*]If still uncertain, preserve all of SaveGames and record the user/world mapping before attempting any restoration.
+
+[/list]
+
+[h2]3. Copy the whole world folder[/h2]
+
+Date the outer backup directory; keep the world ID unchanged.
+
+[list]
+
+[*]With the game and Steam closed, copy the intended WorldID folder, or all SaveGames if identification is uncertain.
+
+[*]Create a dated backup directory in Documents or on another drive and paste the copy inside it.
+
+[*]Record the original user ID and world ID; do not rename the inner WorldID folder.
+
+[*]Open the copied directory and compare it with the source in the next step.
+
+[/list]
+
+A copy on the same drive can be lost with that drive. Keep important worlds on independent storage too.
+
+[h2]4. Compare file counts and sizes[/h2]
+
+A completed paste animation does not prove that everything is present.
+
+[list]
+
+[*]Open the original and copied WorldID folders separately and confirm that all original items, including Players and the world files, are present.
+
+[*]In each folder’s Properties, compare file counts and Size. Do not compare Size on disk, which can differ by filesystem.
+
+[*]Compare the Size of Level.sav and, if originally present, LocalData.sav. If you have since played the original, compare against the recorded backup-time state.
+
+[*]If the copy is empty, incomplete or differs unexpectedly, close the game and Steam and make a fresh copy from the source.
+
+[/list]
+
+Matching sizes checks completeness, not whether the game can load the data. Verify the restored progress separately.
+
+[h2]5. Preserve the current world before restoring[/h2]
+
+Restore a coherent folder under the original IDs; do not mix individual files.
+
+[list]
+
+[*]In Steam, open Palworld Properties → General and temporarily disable this game’s Steam Cloud synchronization.
+
+[*]Close the game and Steam. Copy the current WorldID folder outside SaveGames as the pre-restoration state, and inspect that copy.
+
+[*]Create a separate holding folder such as %LOCALAPPDATA%\Pal\Saved\RestoreHold and move the original WorldID folder there. Leave the user-ID directory and unrelated worlds alone.
+
+[*]Copy the preserved backup’s WorldID folder under its original SaveGames user ID, retaining the world ID and avoiding an extra nested directory.
+
+[*]Start Steam and the game with Cloud still disabled, then check the restored world.
+
+[/list]
+
+This restores your complete manually preserved world. Do not substitute the internal backup/local or backup/world directories. For the game’s built-in restoration, consult official Q&A 5-1 and preserve the current data before its overwrite. If you backed up all SaveGames, select the matching user and world first.
+
+[h2]6. Verify actual progress before restoring synchronization[/h2]
+
+A world appearing in the menu is not enough.
+
+[list]
+
+[*]Load the intended world and compare character, base and Pals with the backup-time progress.
+
+[*]If the world is absent or asks for character creation, close without creating a new save. Recheck user/world nesting, Players and the chosen backup time.
+
+[*]If the result is wrong, close the game and Steam, move the restored folder outside SaveGames and return the held pre-restoration WorldID folder under its original user ID.
+
+[*]After verifying the intended progress, exit normally. When re-enabling Cloud, resolve any conflict using the verified progress and preserved copies, not the newest timestamp alone.
+
+[/list]
+
+Check synchronization before opening another PC’s older save. If the Cloud choice is unclear, keep synchronization off and retain all preserved folders.
+
+[h2]Avoid[/h2]
+
+Do not rename the inner WorldID folder; date its outer storage folder.
+
+Do not delete the current world before pasting a backup. Preserve it separately.
+
+Do not mix user/world IDs or combine save files from different times.
+
+This procedure covers locally saved Windows Steam worlds only.
+
+Never replace saves during play or Cloud synchronization.
+
+[h2]Sources and review record[/h2]
+
+Source review record: 2026-10-18
+
+[url=https://docs.google.com/document/d/e/2PACX-1vTm43IoZ--_EGVCd2_tZGJNf7HzjgJmYTRkfNk8rpKWxDQgMY5Cq8_w5x6xJBpx-c7_7TIqDYSw6WRp/pub]Pocketpair: official Q&A, in-game and older manual restoration[/url]
+
+[url=https://www.pcgamingwiki.com/wiki/Palworld]PCGamingWiki: save location retained from the Japanese review[/url]
+
+[url=https://store.steampowered.com/app/1623730/Palworld/]Steam: Palworld features and PC requirements[/url]
+
+[url=https://help.steampowered.com/ja/faqs/view/68D2-35AB-09A9-7678]Steam Support: per-game Cloud settings (Japanese)[/url]
+
+[h2]Detailed guide and related symptoms[/h2]
+
+[url=https://gemnao.pages.dev/en/games/palworld/save-data?utm_source=steam&utm_medium=community_guide&utm_campaign=help_guides]Palworld Steam Save Location: Verify a Backup and Restore a World — Gemnao[/url]
+
+Record your exact error, game version and each result. Keep saves before changing files; compare one change at a time.

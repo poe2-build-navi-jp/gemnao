@@ -6949,3 +6949,30 @@ a.my-games-primary {
   display: block;
   margin: 12px 0;
 }
+
+/* Gemnao Cards: brand surface and companion distribution tools. */
+.gemnao-studio { display:grid; grid-template-columns:minmax(0,1fr) minmax(260px,.8fr); gap:32px; margin:30px 0; align-items:start; }
+.gemnao-form { min-width:0; padding:24px; border:1px solid var(--border,#b8c9ce); border-radius:18px; background:var(--card,#fff); }
+.gemnao-form h2 { font-size:1.5rem; line-height:1.5; margin-bottom:12px; }
+.gemnao-form h3 { margin-top:24px; font-size:1.15rem; }
+.gemnao-form p { margin:12px 0; }
+.gemnao-form label { display:block; margin:16px 0; font-weight:600; }
+.gemnao-form input:not([type=checkbox]),.gemnao-form textarea,.gemnao-form select { display:block; width:100%; max-width:100%; min-width:0; padding:12px; border:1px solid #9badb8; border-radius:8px; background:#fff; color:#152d3a; font:inherit; margin-top:6px; }
+.gemnao-form textarea { min-height:90px; resize:vertical; }
+.gemnao-form fieldset { min-width:0; margin-top:20px; padding:14px; border:1px solid #9badb8; border-radius:10px; }
+.gemnao-form button,.gemnao-actions a { padding:10px 14px; border-radius:8px; border:1px solid #386d7c; background:#edf7f7; color:#184e60; font-weight:700; min-height:44px; cursor:pointer; }
+.gemnao-form button:disabled { opacity:.5; cursor:default; }
+.gemnao-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }
+.gemnao-actions a { text-decoration:none; }
+.gemnao-card-preview { margin:0; position:sticky; top:24px; padding:18px; background:radial-gradient(ellipse at top,#31545c,#0d202e); border-radius:24px; box-shadow:0 20px 46px #09243130; }
+.gemnao-card-preview img { display:block; width:100%; height:auto; filter:drop-shadow(0 12px 15px #0005); }
+.gemnao-card-preview figcaption { color:#d2e5e8; font-size:.85rem; line-height:1.7; margin:14px 6px 0; }
+.gemnao-collection { display:flex; flex-wrap:wrap; gap:14px; margin-top:18px; }
+.gemnao-collection button { border:0; padding:0; background:none; cursor:pointer; }
+.gemnao-collection img { max-width:100%; height:auto; border-radius:10px; }
+.gemnao-game-choices { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr)); max-height:340px; overflow:auto; gap:8px; }
+.gemnao-game-choices label { display:flex; gap:10px; align-items:start; margin:0; font-weight:400; padding:5px; }
+.gemnao-game-choices input { margin-top:6px; flex:none; }
+.gemnao-form .gemnao-steam-draft { min-height:440px; font: .9rem/1.65 ui-monospace,monospace; }
+@media(max-width:760px) { .gemnao-studio { grid-template-columns:minmax(0,1fr); gap:22px; } .gemnao-card-preview { position:static; grid-row:1; max-width:360px; justify-self:center; } .gemnao-form { padding:18px; } }
+.gemnao-message { display:block; margin:16px 0; font-weight:600; }

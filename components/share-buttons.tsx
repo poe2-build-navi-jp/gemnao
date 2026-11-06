@@ -84,6 +84,16 @@ export function ShareButtons({
             {link.label}
           </a>
         ))}
+        <a href={`/tools/gemnao-cards?article=${encodeURIComponent(path)}`}>
+          {
+            {
+              ja: 'ゲムなおカードを作る',
+              en: 'Create a Gemnao Card (Japanese)',
+              zh: '制作 Gemnao 卡片（日文）',
+              es: 'Crear tarjeta Gemnao (japonés)',
+            }[locale]
+          }
+        </a>
         <CopyShareLink path={path} locale={locale} />
       </div>
     </nav>

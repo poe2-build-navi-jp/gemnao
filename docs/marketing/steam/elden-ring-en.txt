@@ -1,0 +1,81 @@
+[h1]ELDEN RING Save Location, Backup and Restore on Steam[/h1]
+
+Independent troubleshooting notes by Gemnao. Not an official developer guide; no universal fix or hardware test result is claimed.
+
+[h2]Start here[/h2]
+
+The existing Windows Steam guide places saves under %APPDATA%\EldenRing, in a numbered account folder containing ER0000.sl2. Close the game and Steam, then copy the whole numbered folder to separate storage. Record its original path and account; a timestamp alone is not enough to identify the correct folder.
+
+[h2]1. Open the save folder[/h2]
+
+The Windows environment variable avoids having to type your Windows username.
+
+[list]
+
+[*]Exit the game normally, then exit Steam from its tray menu.
+
+[*]Press Windows + R, enter %APPDATA%\EldenRing and press Enter.
+
+[*]Inspect the numbered folder and the modification time of ER0000.sl2 against your last session.
+
+[/list]
+
+Record the full original path, numbered folder and corresponding Steam account. Modification time alone does not identify the account. Preserve all candidate folders if uncertain; do not guess which one to overwrite.
+
+[h2]2. Copy the entire numbered folder to separate storage[/h2]
+
+Keep companion files together, rather than selecting only ER0000.sl2.
+
+[list]
+
+[*]Right-click the numbered folder and choose Copy.
+
+[*]Create a dated parent folder on another drive, USB device or independent cloud-storage destination, for example EldenRing_2026-10-18.
+
+[*]Paste the numbered folder into that parent without changing its name. Compare the copied files, counts and sizes before relying on the backup.
+
+[/list]
+
+A copy on the same physical drive can be lost with that drive or a reset. For a cloud-storage destination, confirm upload completion and that you can retrieve the copy.
+
+[h2]3. Restore a known copy for the same account[/h2]
+
+Temporarily pause this game’s Cloud synchronization so it does not race the local replacement.
+
+[list]
+
+[*]Steam Library → ELDEN RING → Properties → General: temporarily turn off Steam Cloud for this game. Record its original setting.
+
+[*]Close the game and Steam. Confirm the original path and the same Steam account. Copy the current numbered folder to a separate location first; stop if account/path identity is uncertain.
+
+[*]Copy the backed-up numbered folder into its original location under %APPDATA%\EldenRing. Launch the game and check the loaded character and progress.
+
+[*]After verifying the intended save, restore the Steam Cloud setting. Inspect any conflict before allowing synchronization.
+
+[/list]
+
+This is a same-account restoration. If Cloud presents conflicting versions, preserve both available copies and do not choose by timestamp alone. A manual restore can overwrite newer progress.
+
+[h2]Avoid[/h2]
+
+Do not copy or replace saves while the game or Steam is still writing them.
+
+Do not delete the current save before preserving it separately.
+
+Do not replace local files during Cloud synchronization.
+
+Keep a separate copy before moving or modifying any save data.
+
+[h2]Sources and review record[/h2]
+
+Source review record: 2026-10-18
+
+[url=https://www.pcgamingwiki.com/wiki/Elden_Ring]PCGamingWiki: ELDEN RING reference retained from the Japanese guide[/url]
+
+[url=https://store.steampowered.com/app/1245620/ELDEN_RING/]Steam: ELDEN RING requirements and features[/url]
+
+[h2]Detailed guide and related symptoms[/h2]
+
+[url=https://gemnao.pages.dev/en/games/elden-ring/save-data?utm_source=steam&utm_medium=community_guide&utm_campaign=help_guides]ELDEN RING Save Location, Backup and Restore on Steam — Gemnao[/url]
+
+Record your exact error, game version and each result. Keep saves before changing files; compare one change at a time.
