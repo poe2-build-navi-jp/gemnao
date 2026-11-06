@@ -1,6 +1,8 @@
 'use client';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { Gamepad2 } from 'lucide-react';
+import { MyGameUpdatesSummary } from './my-game-updates-summary';
+import type { GameUpdateSummary } from '@/lib/game-update-summary';
 import { NextGameAction } from './next-game-action';
 import { useMyGames } from '@/components/use-my-pc';
 import {
@@ -8,7 +10,7 @@ import {
   myGamesPath,
   type MyGamesLocale,
 } from '@/lib/my-games-copy';
-export function MyGamesHomeEntry({ locale }: { locale: MyGamesLocale }) {
+export function MyGamesHomeEntry({ locale, updates = [] }: { locale: MyGamesLocale; updates?: GameUpdateSummary[] }) {
   const t = myGamesCopy[locale];
   const [saved, , ready] = useMyGames();
   return (
@@ -18,6 +20,7 @@ export function MyGamesHomeEntry({ locale }: { locale: MyGamesLocale }) {
         {t.title}
       </h2>
       <p>{t.lead}</p>
+      <MyGameUpdatesSummary updates={updates} locale={locale} />
       <NextGameAction locale={locale} />
       <a className="my-games-primary" href={myGamesPath(locale)}>
         {ready && saved.length ? `${t.return} (${saved.length})` : t.open} →

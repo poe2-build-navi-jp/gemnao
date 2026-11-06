@@ -188,13 +188,14 @@ export function ReportedCaseLink({
   locale?: MyGamesLocale;
 }) {
   const item = reportedCaseBySlug('wilds-steam-added-dll');
-  if (!item || item.articlePath !== articlePath) return null;
+  if (!item || ![item.articlePath, '/guide/steam-game-not-launching', '/guide/pc-game-crash', '/games/monster-hunter-wilds'].includes(articlePath)) return null;
   return (
     <aside className="procedure-note">
       <a data-related="true" href={casePath(item, locale)}>
         {item.copy[locale].title} →
       </a>
       <p>{item.copy[locale].badge}</p>
+      <p>{item.copy[locale].summary}</p>
     </aside>
   );
 }

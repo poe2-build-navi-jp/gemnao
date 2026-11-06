@@ -6,6 +6,7 @@ import { SavedGameFixes } from './saved-game-fixes';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { useEffect, useState } from 'react';
 import { PlayPlanCard, TodayGames } from '@/components/play-plan';
+import { MyGameUpdatesSummary } from '@/components/my-game-updates-summary';
 import { MyGameChanges } from '@/components/my-game-changes';
 import { GameSettingsSnapshots } from '@/components/game-settings-snapshots';
 import { gameChangesCopy } from '@/lib/my-game-changes-copy';
@@ -163,6 +164,7 @@ export function MyGamesPanel({
     <section id="my-feed" aria-labelledby="saved-games-title">
       <h2 id="saved-games-title">{t.savedTitle}</h2>
       <a href="#my-games">{t.choose} ↓</a>
+      <MyGameUpdatesSummary locale={locale} updates={games.flatMap((game) => (game.officialChanges || []).map((change) => ({ id: change.id, gameSlug: game.slug, gameTitle: game.name, title: change.copy.title, language: change.copyLocale, publishedOn: change.publishedOn, checkedOn: change.checkedOn, href: `#my-game-${game.slug}` })))} />
       <TodayGames games={mine} locale={locale} ready={ready} />
       <p>{gameChangesCopy[locale].scope}</p>
       <p className="my-game-changes-rules">{gameChangesCopy[locale].rules}</p>

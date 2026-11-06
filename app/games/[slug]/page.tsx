@@ -1,3 +1,4 @@
+import { ReportedCaseLink } from '@/components/reported-case';
 import { EditorialByline } from '@/components/editorial-byline';
 import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
 import { GamePathHelp, WildsSaveGuideLink } from '@/components/game-path-help';
@@ -469,6 +470,7 @@ export default async function GamePage({
           </section>
         </article>
       </div>
+      <div className="content"><ReportedCaseLink articlePath={`/games/${slug}`} /></div>
       <WikiFooter />
     </main>
   );

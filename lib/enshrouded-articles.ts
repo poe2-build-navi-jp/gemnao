@@ -2,19 +2,20 @@ import type { GameArticle } from '@/lib/game-articles';
 import type { LocalizedArticle } from '@/lib/localized/types';
 export const enshroudedArticles: GameArticle[] = [
   {
-    title: 'Enshroudedの黒画面・マルチに入れない・セーブ移行｜1.0.0.3の確認',
+    title: 'Enshroudedの黒画面・マルチに入れない・セーブ移行｜1.0.1.2の確認',
     shortTitle: '黒画面・マルチ・セーブ移行',
     description:
-      'Enshrouded正式版移行の黒画面とセーブ移行問題を整理。10/21のHotfix 1.0.0.3（1273043）更新確認、修正対象と移行時の制限、安全な記録手順。',
+      'Enshroudedの黒画面・マルチ読み込み・セーブ移行エラーの確認手順。11/4の1.0.1.2と11/2の移行修正を追加。対象条件と未解決時の記録、旧セーブを守る注意点を案内。',
     gameSlug: 'enshrouded',
     slug: 'black-screen-save-migration',
-    checkedAt: '2026-10-24',
+    checkedAt: '2026-11-06',
     steps: [
       {
         id: 'check-update',
         title: '版とダウンロード完了を確認',
         summary: '公式の版番号と、自分の導入状況を分けます。',
         actions: [
+          '11/4の1.0.1.2（Version 1287369）と、11/2の1.0.1.0（移行修正）の公式履歴を確認する。',
           'Steamで更新待ちやダウンロード中の表示を確認し、進行中なら完了を待つ。ゲーム内などで確認できる版表示を記録し、不明な場合は導入済みと決めない。',
           '1.0.0.3の告知日は2026/10/21、公式Versionは1273043です。後続版を使っている場合は、その正式な更新履歴も照合する。最新版へ更新したことと個別症状が直ったことは別。',
         ],
@@ -82,7 +83,7 @@ export const enshroudedArticles: GameArticle[] = [
     quickFacts: [
       {
         label: '対象／修正',
-        value: 'Windows PC・Steam／1.0.0.3・1273043（10/21）',
+        value: 'Windows PC・Steam／1.0.1.2・1287369（11/4）',
       },
     ],
     diagnosis: [
@@ -105,6 +106,8 @@ export const enshroudedArticles: GameArticle[] = [
       '実機での再現・修正効果は未確認です。後続更新は公式ニュースで確認してください。',
     ],
     sources: [
+      { url: 'https://enshrouded.com/en-US/news/changelog-for-hotfix-5-v1012', label: '公式：Hotfix 1.0.1.2（11月4日・英語）' },
+      { url: 'https://enshrouded.com/en-US/news/changelog-for-patch-1', label: '公式：Patch 1.0.1.0（11月2日・英語）' },
       {
         url: 'https://enshrouded.com/en-US/news/changelog-for-hotfix-1003',
         label: '公式：1.0.0.3変更履歴（英語）',
@@ -127,10 +130,10 @@ export const enshroudedArticles: GameArticle[] = [
     symptom:
       'Windows PC・Steam版でマルチプレイ読み込みが黒画面のまま、または旧セーブの変換中に止まる人向けです。一般的な接続エラーや全データ消失と同じ原因だとは判断しません。',
     conclusion:
-      'まずHotfix 1.0.0.3（公式Version 1273043）以降への更新状態を確認してください。10/21告知は一部プレイヤーのマルチ読み込み時の無限黒画面と、セーブ移行中のまれなクラッシュを修正しています。移行の対象条件と制限を確認してから進め、更新済みでも続く症状は別途記録します。',
-    seoTitle: 'Enshroudedの黒画面・マルチに入れない・セーブ移行｜1.0.0.3の確認',
+      'まず導入版を11/4の1.0.1.2（Version 1287369）と照合してください。特定ワールドの無限黒画面などは1.0.1.2、移行エラーの追加修正は11/2の1.0.1.0で告知されています。10月の履歴だけで判断せず、下の公式更新と症状を比べ、元のセーブを残して確認します。',
+    seoTitle: 'Enshroudedの黒画面・マルチに入れない・セーブ移行｜1.0.1.2の確認',
     metaDescription:
-      'Enshrouded正式版移行の黒画面とセーブ移行問題を整理。10/21のHotfix 1.0.0.3（1273043）更新確認、修正対象と移行時の制限、安全な記録手順。',
+      'Enshroudedの黒画面・マルチ読み込み・セーブ移行エラーの確認手順。11/4の1.0.1.2と11/2の移行修正を追加。対象条件と未解決時の記録、旧セーブを守る注意点を案内。',
     symptoms: [
       {
         label: '版とダウンロード完了を確認',
@@ -168,22 +171,23 @@ export const enshroudedArticles: GameArticle[] = [
 export const enshroudedArticlesEn: LocalizedArticle[] = [
   {
     title:
-      'Enshrouded black screen, multiplayer loading and save migration: check 1.0.0.3',
+      'Enshrouded black screen, multiplayer loading and save migration: check 1.0.1.2',
     shortTitle: 'Black screen and save migration',
     description:
-      'Check Enshrouded Hotfix 1.0.0.3 (1273043) before troubleshooting multiplayer black screens or save migration. Understand the October 21 fixes, limits and safe next steps.',
+      'Check the November 4 Enshrouded 1.0.1.2 black-screen fixes and November 2 migration fixes. Compare your build and symptoms while preserving the original save.',
     lead: 'For Windows PC/Steam players stuck at multiplayer loading or during conversion of an older save. These symptoms do not establish a general connection failure or loss of all saved data.',
     summary:
-      'First check update status for Hotfix 1.0.0.3 (official Version 1273043) or later. The October 21 notice fixes an endless multiplayer-loading black screen for some players and a rare crash during save migration. Check the migration conditions and limits before proceeding; record symptoms that remain after updating separately.',
+      'Compare your installed build with November 4 Hotfix 1.0.1.2 (Version 1287369) for certain-world black screens and November 2 Patch 1.0.1.0 for additional migration fixes. Review the newer official notices below rather than relying only on October’s notes, and preserve your original save.',
     gameSlug: 'enshrouded',
     slug: 'black-screen-save-migration',
-    checkedAt: '2026-10-24',
+    checkedAt: '2026-11-06',
     steps: [
       {
         id: 'check-update',
         title: 'Confirm the version and download completion',
         summary: 'Separate the published version from what is installed.',
         actions: [
+          'Review November 4 Hotfix 1.0.1.2 (Version 1287369) and the November 2 Patch 1.0.1.0 migration fixes.',
           'Check Steam for a pending or active update and let the download finish. Record any available game-version display; if it is unclear, do not assume the fix is installed.',
           'The notice is dated October 21, 2026 and gives Version 1273043 for 1.0.0.3. If you use a later build, compare its official release notes too. Updating does not by itself prove your symptom is resolved.',
         ],
@@ -252,7 +256,7 @@ export const enshroudedArticlesEn: LocalizedArticle[] = [
     quickFacts: [
       {
         label: 'Scope / fix',
-        value: 'Windows PC / Steam; 1.0.0.3, Version 1273043 (October 21)',
+        value: 'Windows PC / Steam; 1.0.1.2, Version 1287369 (November 4)',
       },
     ],
     diagnosis: [
@@ -275,6 +279,8 @@ export const enshroudedArticlesEn: LocalizedArticle[] = [
       'No hands-on reproduction or fix effectiveness is claimed. Check official news for later updates.',
     ],
     sources: [
+      { url: 'https://enshrouded.com/en-US/news/changelog-for-hotfix-5-v1012', label: 'Official: Hotfix 1.0.1.2 (2026-11-04, English)' },
+      { url: 'https://enshrouded.com/en-US/news/changelog-for-patch-1', label: 'Official: Patch 1.0.1.0 (2026-11-02, English)' },
       {
         url: 'https://enshrouded.com/en-US/news/changelog-for-hotfix-1003',
         label: 'Official: Hotfix 1.0.0.3 changelog',

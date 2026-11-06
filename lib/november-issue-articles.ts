@@ -1,3 +1,4 @@
+import { recentOfficialChanges } from './recent-official-changes';
 import type { GameArticle } from '@/lib/game-articles';
 import type { LocalizedArticle } from '@/lib/localized/types';
 
@@ -592,8 +593,14 @@ const sourceLanguage: Record<Language, string> = {
 };
 
 function content(guide: Guide, locale: Language) {
-  const copy = guide.copy[locale];
-  const sources = guide.sources.map((source) => ({
+  const path = `/games/${guide.gameSlug}/${guide.slug}`;
+  const updates = recentOfficialChanges.filter((change) => change.articlePath === path || change.additionalArticlePaths?.includes(path));
+  const latest = updates[0]?.copy[locale];
+  const original = guide.copy[locale];
+  const copy = latest ? { ...original, answer: `${latest.condition} ${latest.change} ${original.answer}` } : original;
+  const reviewedOn = [checkedAt, ...updates.map((change) => change.checkedOn)].sort().at(-1)!;
+  const sourceEntries = [...guide.sources, ...updates.map((change) => ({url: change.sourceUrl, label: change.copy[locale]?.title || change.copy.en!.title}))];
+  const sources = sourceEntries.filter((source, index, all) => all.findIndex((item) => item.url === source.url) === index).map((source) => ({
     ...source,
     label: sourceLanguage[locale] + ' · ' + source.label,
   }));
@@ -605,6 +612,7 @@ function content(guide: Guide, locale: Language) {
   }));
   return {
     copy,
+    reviewedOn,
     sources,
     steps,
     faqs: [{ question: copy.faq[0], answer: copy.faq[1] }],
@@ -612,12 +620,12 @@ function content(guide: Guide, locale: Language) {
 }
 
 export const novemberIssueArticles: GameArticle[] = guides.map((guide) => {
-  const { copy, sources, steps, faqs } = content(guide, 'ja');
+  const { copy, reviewedOn, sources, steps, faqs } = content(guide, 'ja');
   return {
     gameSlug: guide.gameSlug,
     slug: guide.slug,
     category: guide.category,
-    checkedAt,
+    checkedAt: reviewedOn,
     status: 'verified',
     title: copy.title,
     seoTitle: copy.title,
@@ -641,7 +649,7 @@ const translatedLanguages = ['en', 'zh', 'es'] as const;
 export const novemberIssueTranslations: LocalizedArticle[] = guides.flatMap(
   (guide) =>
     translatedLanguages.map((locale): LocalizedArticle => {
-      const { copy, sources, steps, faqs } = content(guide, locale);
+      const { copy, reviewedOn, sources, steps, faqs } = content(guide, locale);
       const relatedLanguage = guide.relatedEn.startsWith('/en/')
         ? { en: 'English', zh: '英语', es: 'inglés' }[locale]
         : { en: 'Japanese', zh: '日语', es: 'japonés' }[locale];
@@ -650,7 +658,7 @@ export const novemberIssueTranslations: LocalizedArticle[] = guides.flatMap(
         gameSlug: guide.gameSlug,
         gameName: guide.gameName,
         slug: guide.slug,
-        checkedAt,
+        checkedAt: reviewedOn,
         title: copy.title,
         shortTitle: copy.short,
         description: copy.answer,

@@ -1409,9 +1409,9 @@ export const articleReviews: Record<string, Omit<ArticleReview, 'path'>> = {
     ],
   },
   '/games/enshrouded/black-screen-save-migration': {
-    title: 'Enshroudedの黒画面・マルチに入れない・セーブ移行｜1.0.0.3の確認',
+    title: 'Enshroudedの黒画面・マルチに入れない・セーブ移行｜1.0.1.2の確認',
     gameSlug: 'enshrouded',
-    checkedOn: '2026-10-24',
+    checkedOn: '2026-11-06',
     steps: [
       { id: 'check-update', title: '版とダウンロード完了を確認' },
       { id: 'classify-loading', title: '黒画面と別の通信エラーを分ける' },
@@ -1423,7 +1423,7 @@ export const articleReviews: Record<string, Omit<ArticleReview, 'path'>> = {
     title:
       'Planet Zoo 2のフランチャイズのセーブが開けない時｜再開エラーと読み込み失敗',
     gameSlug: 'planet-zoo-2',
-    checkedOn: '2026-11-04',
+    checkedOn: '2026-11-06',
     steps: [
       { id: 'check-version', title: 'ゲームの版とエラーが出る画面を確認' },
       { id: 'open-franchise', title: 'フランチャイズのモードボタンから入る' },
@@ -1436,7 +1436,7 @@ export const articleReviews: Record<string, Omit<ArticleReview, 'path'>> = {
   '/games/enshrouded/crash-multiplayer-performance': {
     title: 'Enshrouded 1.0で落ちる・マルチだけ重い時｜水辺と大規模拠点の確認',
     gameSlug: 'enshrouded',
-    checkedOn: '2026-11-04',
+    checkedOn: '2026-11-06',
     steps: [
       { id: 'verify-patch', title: 'PC版の更新と版番号を確認' },
       { id: 'compare-scene', title: '水辺・拠点・接続直後で症状を比べる' },

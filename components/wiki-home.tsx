@@ -30,6 +30,7 @@ import {
 import { ContinueNotes } from './continue-notes';
 import { DiagnosisCta } from './diagnosis-cta';
 import { RecentTroubles } from './recent-troubles';
+import type { GameUpdateSummary } from '@/lib/game-update-summary';
 import { MyShortcut } from './my-shortcut';
 import { HomeBookmarkHelp } from './home-bookmark-help';
 import { StatusTicker } from './status-board';
@@ -67,6 +68,7 @@ const md = (iso: string) => {
 };
 
 export function WikiHome({
+  updateSummaries = [],
   view,
   launches = [],
   weekly,
@@ -78,6 +80,7 @@ export function WikiHome({
   pcHighlights = [],
   searchIndex,
 }: {
+  updateSummaries?: GameUpdateSummary[];
   /** A preloaded index (tests); otherwise /search-index.json is fetched. */
   searchIndex?: SearchDocument<SearchArticle>[];
   /** Header and footer are rendered on the server (they read large registries). */
@@ -395,7 +398,7 @@ export function WikiHome({
       {!isSearching ? <ContinueNotes /> : null}
       {!isSearching ? (
         <div className="content home-my-shortcut">
-          <MyShortcut />
+          <MyShortcut updates={updateSummaries} />
           <HomeBookmarkHelp />
         </div>
       ) : null}

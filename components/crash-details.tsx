@@ -23,6 +23,12 @@ export function CrashBeforeSteps() {
       </section>
       <section className="diagnosis-table" id="crash-timing">
         <h2>起動直後／ロード中／長時間後：最初の確認先</h2>
+        <nav className="symptom-jump-links" aria-label="落ちるタイミングから選ぶ">
+          <a href="#crash-startup">起動直後・ロゴで落ちる</a>
+          <a href="#crash-loading">セーブ・ロード中に落ちる</a>
+          <a href="#crash-long-session">長時間プレイ後に落ちる</a>
+          <a href="#crash-history">エラーなしでデスクトップに戻る</a>
+        </nav>
         <table className="reset-examples">
           <thead>
             <tr>
@@ -32,7 +38,7 @@ export function CrashBeforeSteps() {
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr id="crash-startup">
               <td data-label="タイミング">ロゴの前後・起動直後</td>
               <td data-label="確認">
                 MODやReShadeなど導入後からか。更新前は起動したか
@@ -42,7 +48,7 @@ export function CrashBeforeSteps() {
                 <a href="/guide/reset-config-file">設定ファイルの退避</a>も確認
               </td>
             </tr>
-            <tr>
+            <tr id="crash-loading">
               <td data-label="タイミング">セーブ・エリアのロード中</td>
               <td data-label="確認">
                 特定のセーブ・場面だけか、別スロットや新規ゲームでも起きるか
@@ -54,7 +60,7 @@ export function CrashBeforeSteps() {
                 。特定データだけなら消さずにゲームのサポートへ
               </td>
             </tr>
-            <tr>
+            <tr id="crash-long-session">
               <td data-label="タイミング">数十分～数時間後</td>
               <td data-label="確認">
                 長く遊ぶほどメモリ・専用GPUメモリの余裕が減るか、温度が上がるか

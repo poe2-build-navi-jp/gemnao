@@ -1,8 +1,8 @@
 // Hub answers and the visible FAQ share this data; no hidden FAQ claims.
 export const aniimoHubTitle =
-  'アニモが開かない・パッチエラーの確認先｜不具合・症状別ガイド';
+  'アニモが開かない・起動しない時の対処法｜パッチエラー・黒画面';
 export const aniimoHubDescription =
-  'アニモ（Aniimo）が開けない・起動しない時のPC版ガイド。開始ボタンが無反応、パッチエラーで更新が止まる、黒画面になる場合に、最初に試す手順と修復後の確認先が分かります。';
+  'アニモ（Aniimo）が開けない時は、起動前・パッチ更新中・ログイン後のどこで止まるかで対処を選びます。公式ランチャーの修復、Steamの整合性確認、黒画面・エラーの確認先を症状別に案内。';
 export const aniimoHubAnswer =
   'アニモ（Aniimo）が開けない時は、最後に表示された画面を確認します。パッチエラーなら全文と配布元を控えて更新手順へ。開始ボタンを押しても無反応なら起動手順、ゲームの音は出るのに画面が黒いなら表示の確認から始めてください。';
 

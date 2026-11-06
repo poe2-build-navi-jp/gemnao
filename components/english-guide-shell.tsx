@@ -1,3 +1,4 @@
+import { ReportedCaseLink } from '@/components/reported-case';
 import { EditorialByline } from '@/components/editorial-byline';
 import { editorialAuthor, editorialPublisher } from '@/lib/editorial-identity';
 import { guideUi } from '@/lib/localized/guide-ui';
@@ -167,6 +168,7 @@ export function EnglishGuideShell({
               ))}
             </div>
           </section>
+          <ReportedCaseLink articlePath={guide.path} locale={locale} />
           <ArticleDiagnosisEntry path={guide.path} locale={locale} />
           <section className="related-section" id="related-guides">
             <h2>{t.related}</h2>

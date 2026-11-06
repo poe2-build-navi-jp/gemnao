@@ -1,3 +1,4 @@
+import { gameUpdateSummaries } from '@/lib/my-game-changes';
 import { WindowsDiagnosisEntry } from '@/components/windows-diagnosis-entry';
 import { EnglishHome } from './english-home';
 import { translatedCommonGuides } from '@/lib/localized/save-guides-zh-es';
@@ -124,7 +125,7 @@ function ExistingLocalizedHome({ locale }: { locale: Locale }) {
       />
       <ContinueNotes locale={locale} />
       <div className="content home-my-shortcut">
-        <MyGamesHomeEntry locale={locale} />
+        <MyGamesHomeEntry locale={locale} updates={gameUpdateSummaries(locale)} />
       </div>
       <div className="content home-bookmark-slot">
         <HomeBookmarkHelp locale={locale} />

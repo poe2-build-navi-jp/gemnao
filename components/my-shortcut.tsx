@@ -1,6 +1,8 @@
 'use client';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 import { Bookmark, ArrowRight } from 'lucide-react';
+import { MyGameUpdatesSummary } from './my-game-updates-summary';
+import type { GameUpdateSummary } from '@/lib/game-update-summary';
 import { NextGameAction } from './next-game-action';
 import { useMyGames } from '@/components/use-my-pc';
 import { useReadingList } from '@/components/use-reading-list';
@@ -8,7 +10,7 @@ import { games } from '@/lib/games';
 import { trackReadingAction } from '@/lib/analytics';
 
 /** One returning-reader entry; all counts are this browser's saved items. */
-export function MyShortcut() {
+export function MyShortcut({ updates = [] }: { updates?: GameUpdateSummary[] }) {
   const [myGames, , gamesReady] = useMyGames();
   const { items, ready } = useReadingList();
   const mine = games.filter((game) => myGames.includes(game.slug));
@@ -37,6 +39,7 @@ export function MyShortcut() {
           <ArrowRight size={18} aria-hidden="true" />
         </a>
       ) : null}
+      <MyGameUpdatesSummary updates={updates} />
       <NextGameAction locale="ja" />
       <div className="my-shortcut-actions">
         <a className="my-games-primary" href="/my-games">

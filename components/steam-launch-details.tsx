@@ -10,6 +10,12 @@ export function SteamLaunchBeforeSteps() {
           <strong>続く詳細文・Steamの表示・ゲームのウィンドウ</strong>
           を下の表と照らし合わせます。更新や初回セットアップが進んでいれば完了を待ち、ボタンを連打しないでください。
         </p>
+        <nav className="symptom-jump-links" aria-label="表示されたエラーから選ぶ">
+          <a href="#steam-launch-missing-executable">実行ファイルが見つかりません</a>
+          <a href="#steam-launch-already-running">アプリはすでに実行されています</a>
+          <a href="#steam-launch-history">プレイを押すとすぐ戻る</a>
+          <a href="#steam-launch-publisher">別ランチャーの認証エラー</a>
+        </nav>
         <table className="reset-examples">
           <thead>
             <tr>
@@ -93,6 +99,20 @@ export function SteamLaunchBeforeSteps() {
           <a href="/guide/visual-c-runtime-error">Visual C++</a>
           など該当する記事の手順を優先してください。
         </p>
+      </section>
+      <section className="guide-section" id="steam-launch-missing-executable">
+        <h2>「実行ファイルが見つかりません」：再取得と再消失を分ける</h2>
+        <ol>
+          <li>対象ゲームを終了し、Steamのプロパティから「インストール済みファイル」→「ゲームファイルの整合性を確認」を実行します。</li>
+          <li>再取得が終わったら一度起動し、同じエラーが出るかを確認します。ファイルを再取得できたことと、ゲームが動くことは別の結果として記録します。</li>
+          <li>再び消える場合は、同時刻の保護履歴と対象パスを照合します。出所が分からないまま復元・除外設定をせず、検出名とゲーム名を公式窓口へ伝えてください。</li>
+        </ol>
+        <p><a href="/guide/verify-steam-files">整合性確認の画面と結果の見方 →</a> ／ <a href="#references">Steam公式の該当エラー案内 →</a></p>
+      </section>
+      <section className="guide-section" id="steam-launch-already-running">
+        <h2>「アプリはすでに実行されています」：残った画面と終了後を確認</h2>
+        <p>別画面やタスクバーにゲーム・ランチャーが残っていないかを先に確認します。保存・更新・同期の途中でなければ通常終了を試し、終了できなければSteamとPCを再起動して比較します。</p>
+        <p>再起動後も繰り返す場合は、起動途中にゲームが落ちている可能性もあります。<a href="#steam-launch-history">起動時刻とWindowsの停止履歴</a>を照合し、ゲームの公式サポートへ。別のアプリまで一括終了する手順には進みません。</p>
       </section>
       <section className="diagnosis-table" id="steam-launch-publisher">
         <h2>別ランチャーが開いた後にログイン・認証で止まる場合</h2>

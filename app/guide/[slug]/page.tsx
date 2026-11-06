@@ -1,3 +1,4 @@
+import { ReportedCaseLink } from '@/components/reported-case';
 import { ArticleEvidence, ArticleEvidenceTocLink } from '@/components/article-evidence';
 import { ArticleToc } from '@/components/article-toc';
 import { ArticleDiagnosisEntry } from '@/components/article-diagnosis-entry';
@@ -621,6 +622,7 @@ export default async function Page({
           ) : null}
           {slug === 'pc-game-freezes' ? <FreezeBeforeSteps /> : null}
           {slug === 'stutter-fix' ? <StutterBeforeSteps /> : null}
+          <ReportedCaseLink articlePath={`/guide/${slug}`} />
           <InteractiveSteps
             contextSlug={`guide-${item.slug}`}
             topic={topic}

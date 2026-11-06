@@ -1,3 +1,6 @@
+import { gameBySlug } from './games';
+import { gameDisplayName } from './game-display-name';
+import { recentOfficialChanges } from './recent-official-changes';
 import type { MyGamesLocale } from './my-games-copy';
 import { hasTranslation } from './localized/index';
 
@@ -16,11 +19,13 @@ export type OfficialGameChange = {
   sourceUrl: string;
   sourceLanguage?: 'ja' | 'en';
   articlePath: string;
+  additionalArticlePaths?: string[];
   copy: Partial<Record<MyGamesLocale, ChangeCopy>>;
 };
 // A small, manually verified registry, not a feed or proof that other games have no changes.
 // Source language is declared for new entries (legacy entries use Japanese). Dates are publication and editorial check dates, not article updatedAt.
 export const officialGameChanges: OfficialGameChange[] = [
+  ...recentOfficialChanges,
   {
     id: 'enshrouded-1003-20261021-v1',
     gameSlug: 'enshrouded',
@@ -253,3 +258,30 @@ export function changesForGame(
     .sort((a, b) => b.publishedOn.localeCompare(a.publishedOn));
 }
 export type VisibleGameChange = ReturnType<typeof changesForGame>[number];
+
+// Keep related article notices and My Games on the same verified registry.
+export function changesForArticle(path: string, locale: MyGamesLocale) {
+  const gameSlug = path.match(/^\/games\/([a-z0-9-]+)\//)?.[1];
+  if (!gameSlug) return [];
+  return changesForGame(gameSlug, locale).filter(
+    (change) =>
+      change.articlePath === path ||
+      change.additionalArticlePaths?.includes(path),
+  );
+}
+export function gameUpdateSummaries(locale: MyGamesLocale) {
+  return [
+    ...new Set(officialGameChanges.map((change) => change.gameSlug)),
+  ].flatMap((slug) =>
+    changesForGame(slug, locale).map((change) => ({
+      id: change.id,
+      gameSlug: slug,
+      gameTitle: gameDisplayName(gameBySlug(slug)!, locale),
+      publishedOn: change.publishedOn,
+      checkedOn: change.checkedOn,
+      title: change.copy.title,
+      language: change.copyLocale,
+      href: `${locale === 'ja' ? '' : `/${locale}`}/my-games#my-game-${slug}`,
+    })),
+  );
+}
