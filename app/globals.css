@@ -5591,6 +5591,23 @@ a.my-games-primary {
 .step-actions button svg {
   flex-shrink: 0;
 }
+.step-next-actions ol {
+  padding-left: 1.5em;
+  line-height: 1.8;
+}
+.step-next-actions li + li {
+  margin-top: 0.5em;
+}
+.step-next-actions li a {
+  display: inline;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--blue);
+  text-decoration: underline;
+  overflow-wrap: anywhere;
+}
 .step-skip {
   margin: 0 20px 12px;
   overflow-wrap: anywhere;

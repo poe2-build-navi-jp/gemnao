@@ -381,14 +381,11 @@ export function StepResultButtons({ method }: { method: string }) {
           </button>
         ))}
       </StepResultImpression>
-      {context.lastChosen[`${context.contextSlug}:${method}`] ===
-        'not-resolved' && (
-        <p className="procedure-note">
-          <a href={next ? `#${next.id}` : '#references'}>
-            {next ? `${t.next}: ${next.title}` : t.support} →
-          </a>
-        </p>
-      )}
+      <nav className="procedure-note" aria-label={t.next}>
+        <a href={next ? `#${next.id}` : '#references'}>
+          {next ? `${t.next}: ${next.title}` : t.support} →
+        </a>
+      </nav>
       {counts && (
         <p className="step-outcome-counts">
           {t.counts}: {t.fixedCount} {counts.resolved} · {t.failedCount}{' '}
