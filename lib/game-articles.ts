@@ -64,6 +64,8 @@ export type GameArticle = {
   conclusion: string;
   description: string;
   checkedAt: string;
+  /** Last substantial content edit; source review remains checkedAt. */
+  updatedAt?: string;
   status?: ContentStatus;
   targetVersion?: string;
   causes?: string[];

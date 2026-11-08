@@ -39,7 +39,7 @@ export async function generateMetadata({
       locale: ogLocale[locale],
       images: [ogImageFor(path)],
       url: path,
-      modifiedTime: article.checkedAt,
+      modifiedTime: article.updatedAt ?? article.checkedAt,
     },
     twitter: {
       card: 'summary_large_image',

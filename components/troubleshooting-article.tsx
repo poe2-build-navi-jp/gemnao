@@ -103,7 +103,7 @@ export function TroubleshootingArticle({
     '@type': 'TechArticle',
     headline: article.title,
     description: article.metaDescription,
-    dateModified: [article.checkedAt, ...officialUpdates.map((update) => update.checkedOn)].sort().at(-1),
+    dateModified: [article.updatedAt ?? article.checkedAt, ...officialUpdates.map((update) => update.checkedOn)].sort().at(-1),
     author: editorialAuthor,
     publisher: editorialPublisher,
     citation: sources.map((source) => source.url),
@@ -159,6 +159,9 @@ export function TroubleshootingArticle({
           <ArticleContext path={`/games/${game.slug}/${article.slug}`} />
           <div className="article-meta">
             <EditorialByline />
+            {article.updatedAt && (
+              <span>本文更新：<time dateTime={article.updatedAt}>{article.updatedAt.replaceAll('-', '.')}</time></span>
+            )}
             <span>資料の確認記録：{article.checkedAt.replaceAll('-', '.')}</span>
             {article.status && article.status !== 'verified' ? (
               <span>

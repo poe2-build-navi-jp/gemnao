@@ -164,6 +164,7 @@ export const timeSyncGuide: FollowupGuide = {
       ],
     },
     en: {
+      updatedAt: '2026-11-04',
       title: 'Windows Time Sync Fails: Checks Before Retrying ST-3100001',
       shortTitle: 'Windows time sync fails',
       description:

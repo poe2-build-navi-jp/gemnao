@@ -88,7 +88,7 @@ export function LocalizedArticle({
       '@type': 'TechArticle',
       headline: article.title,
       description: article.description,
-      dateModified: [article.checkedAt, ...officialUpdates.map((update) => update.checkedOn)].sort().at(-1),
+      dateModified: [article.updatedAt ?? article.checkedAt, ...officialUpdates.map((update) => update.checkedOn)].sort().at(-1),
       inLanguage: languageTag[locale],
       author: editorialAuthor,
       publisher: editorialPublisher,
@@ -166,6 +166,12 @@ export function LocalizedArticle({
                 {t.inJapanese}
               </a>
             </span>
+            {article.updatedAt && (
+              <span>
+                {{ en: 'Content updated:', zh: '正文更新：', es: 'Contenido actualizado:' }[locale]}{' '}
+                <time dateTime={article.updatedAt}>{article.updatedAt}</time>
+              </span>
+            )}
             <span>
               {t.sourceRecord} {article.checkedAt}
             </span>

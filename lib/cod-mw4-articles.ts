@@ -288,6 +288,7 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
       'CoD MW4（Modern Warfare 4）がPCで落ちる・クラッシュする・キャンペーンやDMZを起動できない時の対処法【PC版】',
     shortTitle: '落ちる・クラッシュ',
     checkedAt: '2026-10-23',
+    updatedAt: '2026-11-04',
     status: 'verified',
     targetVersion:
       'Steam版・Battle.net版・XBOX on PC版。2026年10月23日（発売日）に公式サポートの本文を確認',

@@ -36,7 +36,7 @@ export async function generateMetadata({
       description: article.metaDescription,
       url: canonical,
       locale: 'ja_JP',
-      modifiedTime: article.checkedAt,
+      modifiedTime: article.updatedAt ?? article.checkedAt,
       images: [ogImageFor(canonical)],
     },
     twitter: {

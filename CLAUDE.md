@@ -45,6 +45,7 @@
 6. `NEXT_PUBLIC_ADSENSE_CLIENT`、Googleサイト確認タグ、`public/ads.txt`を削除しない。
 7. `.env*`、認証情報、CloudflareトークンをGitへ追加しない。
 8. D1の既存テーブルと回答データを壊さない。
+9. ゲーム個別記事の本文・手順を実質的に改稿したら、その言語の記事に実際の編集日を`updatedAt`として記録する。`checkedAt`は資料確認日なので、改稿だけでは変更しない。翻訳の`updatedAt`は言語別に管理し、未変更の翻訳へコピーしない。公開前にsitemapのlastmod・OGのmodifiedTime・JSON-LDのdateModified・画面の本文更新日を照合する。ビルド日や現在日を全ページへ一括設定しない。
 
 ## 記事の品質基準
 
