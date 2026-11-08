@@ -44,6 +44,189 @@ const steamNews = (appId: string) =>
 
 export const weeklyReports: WeeklyReport[] = [
   {
+    slug: '2026-11-02',
+    title:
+      '今週のPCゲーム不具合まとめ（11月2日〜11月8日）｜Phantom Blade Zeroのパッチ・Castlevania Ver.1.1.4・ゴジラと崩落の国の発売ほか',
+    shortTitle: '11月2日〜11月8日',
+    period: '2026年11月2日〜11月8日',
+    publishedAt: '2026-11-09',
+    description:
+      '11月2日〜11月8日に出たPCゲームの公式パッチ・障害・お知らせをまとめました。Phantom Blade Zeroのシェーダーのコンパイル短縮とBluetoothコントローラーのカクつき軽減、Castlevania: Belmont’s CurseのVer.1.1.4、エースコンバット8のクラッシュの暫定対策、ゴジラと崩落の国の発売、FM27のアップデートなど。',
+    lead: '今週出た公式のパッチ・障害・エラー情報を、ゲームごとに1行で確認できます。詳しい直し方は各記事へ。',
+    highlights: [
+      'Phantom Blade Zero：パッチで起動時のシェーダーのコンパイルを大きく短縮。レイトレーシングを切っていた人は、適用後の初回だけ再コンパイルが必要',
+      'Castlevania: Belmont’s Curse：Ver.1.1.4で、読み込み後に黒い画面のままになる問題と、V-Syncをオフにすると起動しない問題にさらに対策',
+      'エースコンバット8：プレイ中に落ちる場合は、SYSTEMの「非同期コンピュート」をOFFにすると改善することがあると公式が案内',
+    ],
+    items: [
+      {
+        date: '11/4',
+        game: 'Phantom Blade Zero',
+        gameSlug: 'phantom-blade-zero',
+        kind: 'patch',
+        title:
+          'パッチ（Version 1.0302256）：シェーダーのコンパイルを短縮し、Bluetoothコントローラーのカクつきを軽減',
+        summary:
+          'レイトレーシング用のシェーダーは起動時に既定でコンパイルしなくなった。レイトレーシングをOFFにしていた人は、適用後の初回の起動で一度だけ再コンパイルが必要。Bluetooth接続のコントローラーで起きるカクつきを軽減し、V-SyncをONにしたままNVIDIA Reflexを「自動」にしても動くようになった。一部の場面の動作改善や、進行できなくなる問題の修正も含む。',
+        article: {
+          href: '/games/phantom-blade-zero/not-launching',
+          label: '起動しない・重い時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('4115450') },
+      },
+      {
+        date: '11/6',
+        game: 'Castlevania: Belmont’s Curse',
+        gameSlug: 'castlevania-belmonts-curse',
+        kind: 'patch',
+        title:
+          'Ver.1.1.4：読み込み後の黒い画面と、V-Syncオフで起動しない問題に追加の対策',
+        summary:
+          '条件によって読み込み後に画面が黒いままになる問題を修正し、V-Syncをオフにすると起動しない場合がある問題にも追加で対策した。タイトル画面の下にバージョン番号が表示されるようになった。',
+        article: {
+          href: '/games/castlevania-belmonts-curse/not-launching',
+          label: '起動しない・黒い画面の時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('4231820') },
+      },
+      {
+        date: '11/2',
+        game: 'エースコンバット8',
+        gameSlug: 'ace-combat-8',
+        kind: 'notice',
+        title:
+          '落ちる場合は「非同期コンピュート」をOFFにすると改善することがある',
+        summary:
+          '一部のGPU構成では、非同期コンピュートがゲームの安定性に影響する場合があると公式が説明。Ver.1.01.002で追加された「SYSTEM」の設定をOFFにすると改善することがある（対応しないGPUでは選べない）。ほかの原因も引き続き調査中。',
+        article: {
+          href: '/games/ace-combat-8/crashing-memory',
+          label: '落ちる・クラッシュする時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('2288340') },
+      },
+      {
+        date: '11/4',
+        game: 'Godzilla: Destroy All Monsters Melee Remastered',
+        gameSlug: 'godzilla-destroy-all-monsters-melee',
+        kind: 'patch',
+        title:
+          '発売後のホットフィックス：V-Syncを既定でONに、音声の出力先などを修正',
+        summary:
+          '11/3（米国時間）の更新でV-Syncが既定でONになった。11/4（米国時間）の更新では、セーブデータが壊れた時にキャラクターがすべて使えなくなる問題と、Steamで違う音声の出力先が使われる問題を修正。',
+        article: {
+          href: '/games/godzilla-destroy-all-monsters-melee/not-launching',
+          label: '起動しない・オンライン対戦の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('4251460') },
+      },
+      {
+        date: '11/5',
+        game: '崩落の国',
+        gameSlug: 'where-the-seeds-fall',
+        kind: 'release',
+        title: '発売（14時）。Steamストアの「11月6日」の表示は誤り',
+        summary:
+          '公式は、Steamストアのページに一時11月6日と表示されていたが、正しい配信開始は日本時間11月5日14時だと案内。メインストーリーは約3時間で、クリア後は高難度のマップやタイムアタックに挑戦できる。',
+        article: {
+          href: '/games/where-the-seeds-fall/not-launching',
+          label: '起動しない・体験版の確認',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('4139580') },
+      },
+      {
+        date: '11/3',
+        game: 'Football Manager 27',
+        gameSlug: 'football-manager-27',
+        kind: 'patch',
+        title: 'Minor Update 1：UEFA大会の選手登録とセーブの不具合を修正',
+        summary:
+          'UEFAのクラブ大会で選手登録のメッセージが出ないことがある問題と、それが起きた時にセーブを選べない問題を修正。11/10の発売に合わせてさらに更新があり、その後の最初のアップデートでは3D試合エンジンへの報告も対応すると案内。',
+        article: {
+          href: '/games/football-manager-27/not-launching',
+          label: '起動しない・ローンチプレビュー・Denuvo',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('4530370') },
+      },
+      {
+        date: '11/6',
+        game: 'ホグワーツ・レガシー',
+        gameSlug: 'hogwarts-legacy',
+        kind: 'patch',
+        title: 'PCパッチ（11月5日）：DLSS 5とXeSSのマルチフレーム生成に対応',
+        summary:
+          'NVIDIAのDLSS 5とニューラルレンダリング（既定はOFF。RTX 50シリーズとドライバー616.64以降が必要）、IntelのXeSSマルチフレーム生成に対応。一部のグラフィック設定が正しく保存されない問題を修正し、フレーム生成の設定変更で再起動が必要になる場面を減らした。',
+        article: {
+          href: '/games/hogwarts-legacy/crash',
+          label: '落ちる時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('990080') },
+      },
+      {
+        date: '11/4',
+        game: 'AION2',
+        gameSlug: 'aion2',
+        kind: 'outage',
+        title: '定期メンテナンス（15:30から約3時間）とホットフィックス',
+        summary:
+          'アップデート「Ludra Awakens」に合わせた定期メンテナンス。メンテナンス後のホットフィックスは、ゲームを終了してSteamまたはPURPLEのランチャーで更新してから起動し直すよう案内。',
+        article: {
+          href: '/games/aion2/login-error',
+          label: 'ログイン・接続できない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('3393110') },
+      },
+      {
+        date: '11/6',
+        game: 'アニモ（Aniimo）',
+        gameSlug: 'aniimo',
+        kind: 'patch',
+        title:
+          '11月6日の修正：DLSSフレーム生成が効かない問題とノートPCのカクつきを修正',
+        summary:
+          '11/5の更新（v1.1.3880756.0）に続き、11/6の更新（v1.1.3887621.0）で、DLSSフレーム生成が動かない問題、一部のノートPCでのカクつき、公園のコントローラー用ラジアルメニューが正しく動かない問題などを修正。',
+        article: {
+          href: '/games/aniimo/not-launching',
+          label: '起動しない・落ちる時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('4126040') },
+      },
+      {
+        date: '11/7',
+        game: 'WARDOGS',
+        gameSlug: 'wardogs',
+        kind: 'notice',
+        title: 'シーズン3を11/12に開始。新マップと不正対策を予告',
+        summary:
+          '新マップ「Sabatulo」を追加し、シーズンを長くすると案内。不正行為への対応についても説明し、詳しいパッチノートの予告は翌週に公開予定。',
+        article: {
+          href: '/games/wardogs/server-connection',
+          label: 'サーバーに接続できない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('1867240') },
+      },
+    ],
+    upcoming: [
+      {
+        date: '11/10',
+        game: 'Football Manager 27',
+        note: '発売（Steamストアの表記）',
+        href: '/games/football-manager-27/not-launching',
+      },
+      {
+        date: '11/12',
+        game: 'WARDOGS',
+        note: 'シーズン3の開始（公式の告知）',
+        href: '/games/wardogs/server-connection',
+      },
+      {
+        date: '12/3',
+        game: 'ドラゴンクエストモンスターズ4・Edge of Memories',
+        note: '発売（Steamストアの表記）',
+        href: '/games/dragon-quest-monsters-4/demo-transfer',
+      },
+    ],
+  },
+  {
     slug: '2026-10-26',
     title:
       '今週のPCゲーム不具合まとめ（10月26日〜11月1日）｜Phantom Blade Zero発売・モンハンワイルズの修正・FM27の無料プレビューほか',

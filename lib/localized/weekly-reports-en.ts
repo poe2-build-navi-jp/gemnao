@@ -5,6 +5,10 @@ const names: Record<string, string> = {
   'ドラゴンズドグマ2 ダークアリズン': 'Dragon’s Dogma 2: Dark Arisen',
   'テイルズ オブ エターニア リマスター': 'Tales of Eternia Remastered',
   'アニモ（Aniimo）': 'Aniimo',
+  'ホグワーツ・レガシー': 'Hogwarts Legacy',
+  崩落の国: 'Where the Seeds Fall',
+  'ドラゴンクエストモンスターズ4・Edge of Memories':
+    'Dragon Quest Monsters 4 / Edge of Memories',
   モンハンワイルズ: 'Monster Hunter Wilds',
   サイバーパンク2077: 'Cyberpunk 2077',
   'ファイナルファンタジー レゾナンス': 'FINAL FANTASY RESONANCE',
@@ -21,6 +25,64 @@ const text: Record<
     upcoming: string[];
   }
 > = {
+  '2026-11-02': {
+    title:
+      'PC Gaming Weekly, November 2–8: Phantom Blade Zero Patch, Castlevania 1.1.4, Godzilla and Where the Seeds Fall',
+    description:
+      'An archive of official patches and announcements from November 2–8, 2026: Phantom Blade Zero’s shorter shader compilation and Bluetooth controller stutter fix, Castlevania: Belmont’s Curse Ver. 1.1.4, ACE COMBAT 8’s crash workaround, the Godzilla and Where the Seeds Fall launches, and FM27 updates.',
+    highlights: [
+      'Phantom Blade Zero: a patch greatly shortened shader compilation at startup. Players who had ray tracing off recompile once on the first launch after the patch.',
+      'Castlevania: Belmont’s Curse: Ver. 1.1.4 added further fixes for a black screen after loading and a launch failure with V-Sync off.',
+      'ACE COMBAT 8: the developer says turning Async Compute OFF under SYSTEM may reduce crashes during play.',
+    ],
+    items: [
+      [
+        'Patch (Version 1.0302256) shortened shader compilation and reduced Bluetooth controller stutter',
+        'Ray-tracing shaders are no longer compiled at startup by default. Players who had ray tracing off recompile once on their first launch after the patch. Stutter with Bluetooth controllers was reduced, and NVIDIA Reflex now works on “Auto” with V-Sync enabled. The patch also improved performance in some areas and fixed progression blockers.',
+      ],
+      [
+        'Ver. 1.1.4 added further fixes for black screens and launches with V-Sync off',
+        'A black screen that could remain after loading under certain conditions was fixed, and further fixes were made for launch failures with V-Sync disabled. The version number now appears at the bottom of the title screen.',
+      ],
+      [
+        'Turning Async Compute OFF may help if the game crashes',
+        'The developer said Async Compute can affect stability on some GPU configurations. Turning OFF the SYSTEM option added in Ver. 1.01.002 may help (it is greyed out on unsupported GPUs). Other causes remain under investigation.',
+      ],
+      [
+        'Post-launch hotfixes: V-Sync on by default and audio-device fix',
+        'The November 3 (US) hotfix set V-Sync on by default. The November 4 (US) hotfix fixed the roster becoming fully locked when save data is corrupted and Steam using the wrong audio output device.',
+      ],
+      [
+        'Released at 14:00 JST; the Steam page’s “November 6” was an error',
+        'The developer said the Steam store briefly showed November 6, but the correct release was November 5 at 14:00 JST (05:00 UTC). The main story takes about three hours, with harder maps and time trials after clearing it.',
+      ],
+      [
+        'Minor Update 1 fixed UEFA squad registration and saving issues',
+        'Squad registration messages that sometimes did not appear for UEFA club competitions, and the Save Game option becoming unavailable when that happened, were fixed. Another update is planned for the November 10 launch, followed by a first post-launch update addressing 3D match engine reports.',
+      ],
+      [
+        'PC patch (November 5) added DLSS 5 and XeSS multi-frame generation',
+        'The patch added NVIDIA DLSS 5 with Neural Rendering (off by default; requires an RTX 50 Series GPU and driver 616.64 or newer) and Intel XeSS Multi-Frame Generation, fixed some graphics options saving incorrectly, and reduced restarts needed after changing Frame Gen options.',
+      ],
+      [
+        'Scheduled maintenance from 15:30 for about three hours, then a hotfix',
+        'Maintenance accompanied the Ludra Awakens update. For the following hotfix, players were told to exit, update through the Steam or PURPLE launcher and restart.',
+      ],
+      [
+        'November 6 fixes for DLSS Frame Generation and laptop stutter',
+        'After the November 5 update (v1.1.3880756.0), the November 6 update (v1.1.3887621.0) fixed DLSS Frame Generation not working, stutter on some laptops and the controller radial menu in the Park, among other issues.',
+      ],
+      [
+        'Season 3 starts November 12 with a new map and anti-cheat plans',
+        'A new map, Sabatulo, and longer seasons were announced, along with how cheating and exploits will be handled. A Season 3 patch notes preview was due the following week.',
+      ],
+    ],
+    upcoming: [
+      'Release date shown on Steam.',
+      'Season 3 start (official announcement).',
+      'Release date shown on Steam.',
+    ],
+  },
   '2026-10-26': {
     title:
       'PC Gaming Weekly, October 26–November 1: Phantom Blade Zero, Monster Hunter Wilds and FM27',
@@ -387,6 +449,7 @@ const text: Record<
   },
 };
 const periods: Record<string, string> = {
+  '2026-11-02': 'November 2–8',
   '2026-10-26': 'October 26–November 1',
   '2026-10-19': 'October 19–25',
   '2026-10-12': 'October 12–18',
