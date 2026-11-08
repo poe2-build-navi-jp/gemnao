@@ -17,6 +17,7 @@ export type FollowupCopy = Pick<
   | 'cautions'
   | 'faqs'
   | 'related'
+  | 'updatedAt'
 >;
 export type FollowupGuide = {
   gameSlug: string;
@@ -37,6 +38,7 @@ export function japaneseFollowup(guide: FollowupGuide): GameArticle {
     category: guide.category,
     status: 'verified',
     checkedAt: guide.checkedAt,
+    updatedAt: copy.updatedAt,
     title: copy.title,
     seoTitle: copy.title,
     shortTitle: copy.shortTitle,

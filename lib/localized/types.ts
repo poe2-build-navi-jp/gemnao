@@ -45,4 +45,6 @@ export type LocalizedArticle = {
   faqs: { question: string; answer: string }[];
   sources: { label: string; url: string }[];
   checkedAt: string;
+  /** Last substantial edit of this language's content, independent of source review. */
+  updatedAt?: string;
 };

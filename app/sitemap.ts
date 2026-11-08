@@ -33,7 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 }
 function entries(base: string): MetadataRoute.Sitemap {
   const fixed = [
-    { path: '', updated: '2026-09-30' },
+    { path: '', updated: '2026-11-06' },
     { path: '/guide', updated: '2026-11-06' },
     // Diagnosis remains noindex during public beta, including when sharing is enabled.
     { path: '/discord', updated: '2026-09-30' },
@@ -56,7 +56,7 @@ function entries(base: string): MetadataRoute.Sitemap {
     )
     .map((article) => ({
       url: `${base}/games/${article.gameSlug}/${article.slug}`,
-      lastModified: new Date(article.checkedAt),
+      lastModified: new Date(article.updatedAt ?? article.checkedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.85,
     }));
@@ -203,7 +203,7 @@ function entries(base: string): MetadataRoute.Sitemap {
     ),
     ...localizedArticles.map((article) => ({
       url: `${base}/${article.locale}/games/${article.gameSlug}/${article.slug}`,
-      lastModified: new Date(article.checkedAt),
+      lastModified: new Date(article.updatedAt ?? article.checkedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.75,
     })),

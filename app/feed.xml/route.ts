@@ -32,7 +32,7 @@ export function GET() {
         title: item.seoTitle,
         summary: item.metaDescription,
         path: `/games/${item.gameSlug}/${item.slug}`,
-        updated: item.checkedAt,
+        updated: item.updatedAt ?? item.checkedAt,
         category: gameName(item.gameSlug),
       })),
     ...weeklyReports.map((item) => ({
