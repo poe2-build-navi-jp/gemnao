@@ -74,6 +74,7 @@ export function WikiHome({
   weekly,
   defaultArticles = [],
   reportEntry,
+  startHere,
   header,
   footer,
   featuredGuides = [],
@@ -93,6 +94,8 @@ export function WikiHome({
   defaultArticles?: SearchArticle[];
   /** Server-rendered report link (keeps article data out of this bundle). */
   reportEntry?: ReactNode;
+  /** Editorial starting points rendered on the server, without adding registries to the client bundle. */
+  startHere?: ReactNode;
   launches?: LaunchItem[];
   /** Latest weekly roundup, passed from the server to keep it out of the bundle. */
   weekly?: { slug: string; period: string };
@@ -315,6 +318,8 @@ export function WikiHome({
           </div>
         </section>
       )}
+
+      {!isSearching && !view ? startHere : null}
 
       {!isSearching && launches.length ? (
         <section

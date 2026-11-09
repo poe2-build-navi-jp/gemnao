@@ -7,6 +7,8 @@ import { searchArticles } from '@/lib/site-search';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { commonGuides } from '@/lib/common-guides';
 import { pcArticles } from '@/lib/pc-articles';
+import { HomeStart } from '@/components/home-start';
+import { homeDescription } from '@/lib/home-start';
 
 const featuredGuideSlugs = [
   'steam-cloud-basics',
@@ -23,10 +25,10 @@ import { siteConfig } from '@/lib/site-config';
 import { languageAlternates } from '@/lib/localized/index';
 
 export const metadata: Metadata = {
-  description: siteConfig.description,
+  description: homeDescription,
   openGraph: {
     title: 'ゲムなお｜PCゲームのお直しWiki',
-    description: siteConfig.description,
+    description: homeDescription,
     siteName: siteConfig.name,
     url: '/',
     images: ['/og-default.png'],
@@ -34,7 +36,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'ゲムなお｜PCゲームのお直しWiki',
-    description: siteConfig.description,
+    description: homeDescription,
     images: ['/og-default.png'],
   },
   alternates: {
@@ -105,6 +107,7 @@ export default async function Home({
         .slice(0, 6)
         .map(({ gameArticle: _omit, ...article }) => article)}
       reportEntry={<ReportEntryLink prominent />}
+      startHere={<HomeStart />}
       header={<WikiHeader />}
       footer={<WikiFooter />}
       featuredGuides={featuredGuideSlugs.flatMap((slug) => {
