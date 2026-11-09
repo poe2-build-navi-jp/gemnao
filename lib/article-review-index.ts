@@ -1551,7 +1551,7 @@ export const articleReviews: Record<string, Omit<ArticleReview, 'path'>> = {
     title:
       'Castlevania: Belmont’s Curse（キャッスルヴァニア ベルモンドの呪い）が起動しない・黒い画面のまま進まない時の対処法【PC版】',
     gameSlug: 'castlevania-belmonts-curse',
-    checkedOn: '2026-10-17',
+    checkedOn: '2026-11-09',
     steps: [
       {
         id: 'step-5',
@@ -1586,7 +1586,7 @@ export const articleReviews: Record<string, Omit<ArticleReview, 'path'>> = {
     title:
       'Phantom Blade Zero（ファントムブレード ゼロ）が起動しない・重い時の対処法【PC版】',
     gameSlug: 'phantom-blade-zero',
-    checkedOn: '2026-10-30',
+    checkedOn: '2026-11-09',
     steps: [
       { id: 'step-1', title: 'SSDにインストールされているか確認する' },
       { id: 'step-2', title: 'GPUが最低環境を満たすか確認する' },
@@ -1712,9 +1712,9 @@ export const articleReviews: Record<string, Omit<ArticleReview, 'path'>> = {
   },
   '/games/helldivers-2/gameguard-error-114': {
     title:
-      'ヘルダイバー2（HELLDIVERS 2）のGameGuardエラー114で起動しない時の直し方【PC版】',
+      'ヘルダイバー2（HELLDIVERS 2）のGameGuardエラー114で起動しない時の直し方｜Easy Anti-Cheatへの切り替え後の対処【PC版】',
     gameSlug: 'helldivers-2',
-    checkedOn: '2026-09-29',
+    checkedOn: '2026-11-09',
     steps: [
       {
         id: 'run-as-admin',

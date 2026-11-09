@@ -11,6 +11,8 @@ type Draft = Omit<
   'checkedAt' | 'symptoms' | 'seoTitle' | 'status'
 > & {
   seoTitle?: string;
+  /** Overrides the shared check date when an article is rechecked. */
+  checkedAt?: string;
 };
 
 const make = (draft: Draft): GameArticle => ({
@@ -353,19 +355,23 @@ export const classicGameArticles: GameArticle[] = [
     gameSlug: 'helldivers-2',
     slug: 'gameguard-error-114',
     category: 'launch',
-    seoTitle: 'ヘルダイバー2のGameGuardエラー114の直し方【PC版】',
+    seoTitle:
+      'ヘルダイバー2のGameGuardエラー114｜Easy Anti-Cheatへの切り替え後の対処【PC版】',
     title:
-      'ヘルダイバー2（HELLDIVERS 2）のGameGuardエラー114で起動しない時の直し方【PC版】',
+      'ヘルダイバー2（HELLDIVERS 2）のGameGuardエラー114で起動しない時の直し方｜Easy Anti-Cheatへの切り替え後の対処【PC版】',
     shortTitle: 'GameGuardエラー114',
-    targetVersion: 'Steam版（Windows）',
+    checkedAt: '2026-11-09',
+    targetVersion:
+      'Steam版（Windows）。2026年10月20日の7.2.0でGameGuardからEasy Anti-Cheatに切り替え（公式）',
     symptom:
-      '起動時にnProtect GameGuardのエラー114が出てゲームが始まらない場合の、Arrowhead公式サポートの手順です。',
+      '起動時にnProtect GameGuardのエラー114が出てゲームが始まらない場合の確認手順です。2026年10月20日の7.2.0で、HELLDIVERS 2のアンチチートはGameGuardからEasy Anti-Cheatに切り替わりました。',
     conclusion:
-      'Arrowheadの公式サポートは、①exeを管理者として（Windows 11では互換モードWindows 8も）実行、②GameGuardのアンインストールと再インストール、③常駐ツールの停止、④セキュリティソフト、⑤古いHDD、を案内しています。ただし本記事では、保護機能を止めず検出内容を提供元に相談し、内部機器の変更は安全を確認してから判断する手順にしています。',
+      'Arrowheadは、2026年10月20日の7.2.0でアンチチートをGameGuardからEasy Anti-Cheat（EAC）に切り替えたと発表しています。GameGuardのエラー114が出る場合は、まずSteamでゲームを最新版に更新してください。以下の手順（管理者として実行、GameGuardの入れ直し、常駐ツールの確認）は、7.2.0より前のGameGuardを使っていた版でのArrowhead公式サポートの案内です。EACへの切り替えで動作環境の変更はなく、Steam Deck・Linuxでも引き続き遊べると公式は説明しています。',
     description:
-      'Arrowheadの案内には除外設定も含まれますが、除外したファイルはリアルタイムの検査対象外になります。本記事では保護を有効に保ち、検出内容を提供元に確認してから判断する手順にしています。',
+      'EACへの切り替えに合わせて不正なMODへの対策が強化され、ほかのプレイヤーに影響するMODは動かなくなり、見た目だけのMODも作者の更新が必要になる場合があると公式は案内しています。MODを入れている場合は、外してから起動を比べてください。7.2.0より前の手順では除外設定にも触れていますが、本記事では保護を有効に保ち、検出内容を提供元に確認してから判断する手順にしています。',
     causes: [
-      'GameGuardのインストール状態の破損',
+      'ゲームが7.2.0より前の版のまま（10月20日にGameGuardからEasy Anti-Cheatへ切り替え）',
+      'GameGuardのインストール状態の破損（7.2.0より前の版）',
       '常駐しているユーティリティ（不正ツールでなくても反応する場合がある）',
       'セキュリティソフト・ファイアウォール',
       '管理者権限がない状態での起動',
@@ -373,13 +379,19 @@ export const classicGameArticles: GameArticle[] = [
     ],
     quickFacts: [
       {
+        label: 'アンチチート',
+        value:
+          '2026年10月20日の7.2.0からEasy Anti-Cheat（それまではGameGuard）',
+      },
+      {
         label: 'ゲームのフォルダを開く',
         value: 'Steamで右クリック→「管理」→「ローカルファイルを閲覧」',
       },
       { label: '実行ファイル', value: 'binフォルダの「helldivers2」' },
       {
         label: 'GameGuardの再インストール',
-        value: 'toolsフォルダの「gguninst」→「GGSetup」を管理者として実行',
+        value:
+          'toolsフォルダの「gguninst」→「GGSetup」を管理者として実行（7.2.0より前の版）',
       },
       {
         label: 'Windows 11の場合',
@@ -407,7 +419,8 @@ export const classicGameArticles: GameArticle[] = [
       {
         id: 'run-as-admin',
         title: 'helldivers2を管理者として（Windows 11は互換モードも）実行する',
-        summary: '公式サポートが最初に挙げている手順です。',
+        summary:
+          'GameGuardを使っていた7.2.0より前の版で、公式サポートが最初に挙げていた手順です。先にSteamでゲームを最新版に更新し、それでもエラー114が出る場合に試します。',
         time: '約3分',
         risk: 'low',
         actions: [
@@ -422,7 +435,8 @@ export const classicGameArticles: GameArticle[] = [
       {
         id: 'reinstall-gameguard',
         title: 'GameGuardをアンインストールして入れ直す',
-        summary: 'ゲームのフォルダにあるGameGuardのツールを使います。',
+        summary:
+          '7.2.0より前の版で、ゲームのフォルダにあるGameGuardのツールを使う手順です。最新版のフォルダにツールが見当たらない場合は、この手順は対象外です。',
         time: '約5分',
         risk: 'low',
         actions: [
@@ -452,7 +466,8 @@ export const classicGameArticles: GameArticle[] = [
       '改変ツール・チートツールを使わない（アンチチートが反応する）',
     ],
     cautions: [
-      '上の手順で直らない場合は、Arrowheadのサポートに問い合わせてください。',
+      '2026年10月20日の7.2.0でアンチチートがEasy Anti-Cheatに切り替わりました（11月9日確認）。手順の一部は切り替え前の版の情報です。',
+      'EACなどが不正ではないMODやソフトを止めていると感じる場合や、上の手順で直らない場合は、Arrowheadの公式サポート（Zendesk）に問い合わせるよう案内されています。',
     ],
     faqs: [
       {
@@ -460,6 +475,11 @@ export const classicGameArticles: GameArticle[] = [
           'Windows Defenderしか使っていませんが、例外設定は必要ですか？',
         answer:
           '自動的に追加する必要はありません。Arrowheadは除外設定にも言及していますが、リアルタイムの検査対象外になるリスクがあります。公式ファイルへの検出かを確認し、保護を有効にしたまま提供元かArrowheadに相談してください。',
+      },
+      {
+        question: 'Easy Anti-Cheatに変わって、動作環境は変わりましたか？',
+        answer:
+          '公式によると、動作環境の変更はありません。Steam Deck・Linuxでも引き続き遊べます。',
       },
       {
         question: 'GameGuardを入れ直すとセーブは消えますか？',
@@ -479,13 +499,18 @@ export const classicGameArticles: GameArticle[] = [
         url: 'https://arrowhead.zendesk.com/hc/en-us/articles/14732747845020-I-receive-Error-114-when-attempting-to-launch-HELLDIVERS-2',
       },
       {
+        label:
+          'Steamニュース（公式）：Changing anti-cheat in HELLDIVERS 2（GameGuardからEasy Anti-Cheatへの切り替え・MOD・動作環境）',
+        url: 'https://store.steampowered.com/news/app/553850',
+      },
+      {
         label: 'Steamストア：HELLDIVERS 2',
         url: 'https://store.steampowered.com/app/553850/',
       },
     ],
     related: [],
     metaDescription:
-      'ヘルダイバー2（HELLDIVERS 2）でGameGuardのエラー114が出て起動しない時の直し方。Arrowheadの案内を基に、管理者・互換モード、GameGuardの再インストール、常駐ツールと保護履歴の確認を解説。',
+      'ヘルダイバー2（HELLDIVERS 2）でGameGuardのエラー114が出て起動しない時の直し方。2026年10月20日にアンチチートがEasy Anti-Cheatに切り替わったことと、まず最新版に更新する手順、切り替え前の管理者・互換モードやGameGuardの再インストール、MOD・常駐ツールの確認を解説。',
   }),
   make({
     gameSlug: 'hogwarts-legacy',

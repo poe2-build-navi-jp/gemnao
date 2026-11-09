@@ -28,23 +28,23 @@ export const upcomingReleaseArticles: GameArticle[] = [
     gameSlug: 'castlevania-belmonts-curse',
     slug: 'not-launching',
     category: 'launch',
-    checkedAt: '2026-10-17',
+    checkedAt: '2026-11-09',
     seoTitle:
       'Castlevania: Belmont’s Curse（悪魔城）が起動しない・黒い画面の対処法【PC版】',
     title:
       'Castlevania: Belmont’s Curse（キャッスルヴァニア ベルモンドの呪い）が起動しない・黒い画面のまま進まない時の対処法【PC版】',
     shortTitle: '起動しない・黒い画面',
     targetVersion:
-      'Steam版・Ver.1.1.3と2026年10月16日時点のKONAMIの不具合のお知らせ',
+      'Steam版・Ver.1.1.4（11月6日）とKONAMIの不具合のお知らせ（2026年11月9日確認）',
     symptom:
       'PC版が起動しない、黒い画面のまま進まない、起動直後に落ちる、コントローラーが反応しない、Midnight Editionのアートギャラリーや特典が見当たらない場合の確認手順です。',
     conclusion:
-      'KONAMIは、垂直同期（V-Sync）がOFFでFPSが「無制限」のとき、高リフレッシュレートのモニターでゲームが起動せず黒い画面になる不具合を認めています。まずゲームをVer.1.1.3以降に更新し、それでも起動しない時は、Windowsでモニターのリフレッシュレートを一時的に60Hz未満に下げてゲームを起動し、映像設定でV-SyncをONにしてから元に戻します（公式の手順）。動作環境は最低・推奨ともWindows 11です。',
+      'KONAMIは、垂直同期（V-Sync）がOFFでFPSが「無制限」のとき、高リフレッシュレートのモニターでゲームが起動せず黒い画面になる不具合を認めています。まずゲームをVer.1.1.4以降に更新し、それでも起動しない時は、Windowsでモニターのリフレッシュレートを一時的に60Hz未満に下げてゲームを起動し、映像設定でV-SyncをONにしてから元に戻します（公式の手順）。動作環境は最低・推奨ともWindows 11です。',
     description:
-      '2026年10月15日に発売されました。10月16日のVer.1.1.3で黒い画面の不具合への対策が配信されましたが、環境によってはまだ起きる場合があるとKONAMIは案内しています。日本語は字幕と音声の両方に対応しています。',
+      '2026年10月15日に発売されました。10月16日のVer.1.1.3で黒い画面の不具合への対策が配信され、11月6日のVer.1.1.4では、条件によって読み込み後に画面が黒いままになる問題の修正と、V-Syncをオフにすると起動しない問題への追加の対策が入りました。Ver.1.1.4からは、タイトル画面の下にバージョン番号が表示されます。日本語は字幕と音声の両方に対応しています。',
     causes: [
       'V-SyncがOFF・FPSが「無制限」で、高リフレッシュレートのモニターを使っている（KONAMIが確認している不具合）',
-      'ゲームがVer.1.1.3より古い',
+      'ゲームがVer.1.1.4より古い',
       'Windows 11ではない（最低環境からWindows 11）',
       'GPUドライバーが古い・ゲームファイルの破損',
       'オーバーレイや録画ツールの干渉',
@@ -60,7 +60,7 @@ export const upcomingReleaseArticles: GameArticle[] = [
       {
         label: '修正アップデート',
         value:
-          'Ver.1.1.3（10月16日）。環境によってはまだ起きる場合あり（KONAMI）',
+          'Ver.1.1.3（10月16日）・Ver.1.1.4（11月6日。読み込み後の黒い画面の修正と、V-Syncオフで起動しない問題への追加の対策）',
       },
       {
         label: '最低動作環境',
@@ -122,7 +122,7 @@ export const upcomingReleaseArticles: GameArticle[] = [
         time: '約10分',
         risk: 'low',
         actions: [
-          'Steamでゲームを最新版（Ver.1.1.3以降）に更新する。ライブラリでゲームを選び、更新が残っていないか確認する',
+          'Steamでゲームを最新版（Ver.1.1.4以降）に更新する。起動できたら、タイトル画面の下に表示されるバージョン番号で確認できる',
           'それでも起動しない時：Windowsの「設定」→「システム」→「ディスプレイ」→「ディスプレイの詳細設定」で、リフレッシュレートを60Hz未満にする',
           'ゲームを起動し、タイトル画面の「設定（Settings）」→「映像（Video）」で「V-Sync」をONにして、ゲームを一度終了する',
           'Windowsのリフレッシュレートを元の値に戻し、通常の起動で同じ黒画面が再発するか確認する。公式の回避策であり、このPCでの改善結果は実際の表示で判断する',
@@ -188,14 +188,14 @@ export const upcomingReleaseArticles: GameArticle[] = [
       'Midnight Editionと単品の特典を重複して買わないよう、購入前に内容を確認する',
     ],
     cautions: [
-      'KONAMIは、黒い画面の不具合を完全に直すアップデートを準備中です（2026年10月16日時点）。最新のお知らせもあわせて確認してください。',
+      'Ver.1.1.4（11月6日）で黒い画面の問題に追加の対策が入りました。それでも起動しない場合は、上の回避策を試し、KONAMIの最新のお知らせもあわせて確認してください。',
       'Steam Deckでは一部の画面表示が画面外にはみ出す不具合を、KONAMIが確認しています（修正を検討中）。',
     ],
     faqs: [
       {
         question: '144Hzや240Hzのモニターで、起動すると黒い画面のままです。',
         answer:
-          'KONAMIが確認している不具合です。V-SyncがOFFでFPSが「無制限」だと起動できないことがあります。Ver.1.1.3に更新し、それでも直らなければ、Windowsでリフレッシュレートを一時的に60Hz未満にして起動し、映像設定でV-SyncをONにしてから元の値に戻してください（公式の手順）。',
+          'KONAMIが確認している不具合です。V-SyncがOFFでFPSが「無制限」だと起動できないことがあります。Ver.1.1.4以降に更新し、それでも直らなければ、Windowsでリフレッシュレートを一時的に60Hz未満にして起動し、映像設定でV-SyncをONにしてから元の値に戻してください（公式の手順）。',
       },
       {
         question: 'Windows 10で遊べますか？',
@@ -221,7 +221,7 @@ export const upcomingReleaseArticles: GameArticle[] = [
       },
       {
         label:
-          'Steamニュース（公式）：Notice regarding Black Screen for High Refresh Rate Monitors（Ver.1.1.3）',
+          'Steamニュース（公式）：Ver.1.1.3（高リフレッシュレートの黒い画面）・Ver.1.1.4（読み込み後の黒い画面・V-Syncオフで起動しない問題）',
         url: 'https://store.steampowered.com/news/app/4231820',
       },
       {
@@ -423,17 +423,18 @@ export const upcomingReleaseArticles: GameArticle[] = [
     gameSlug: 'phantom-blade-zero',
     slug: 'not-launching',
     category: 'launch',
-    checkedAt: '2026-10-30',
+    checkedAt: '2026-11-09',
     seoTitle:
       'Phantom Blade Zero（影の刃零）が起動しない・重い時の対処法【PC版】',
     title:
       'Phantom Blade Zero（ファントムブレード ゼロ）が起動しない・重い時の対処法【PC版】',
     shortTitle: '起動しない・重い',
-    targetVersion: 'Steam版・2026年10月30日時点の公式情報（発売後）',
+    targetVersion:
+      'Steam版・Version 1.0302256（11月4日のパッチ）・2026年11月9日時点の公式情報',
     symptom:
       'PC版が起動しない、起動直後に落ちる、読み込みが長い、フレームレートが低い・カクつく場合の確認手順です。',
     conclusion:
-      '最低環境からSSDへのインストールが必須です。最低環境（GTX 1660 6GB・RX 5500 XT 8GB）の目安は、アップスケーリングを使って1080p・30fpsです。発売後に起動可能となってから、実際に選べるアップスケーリングとレイトレーシング設定を1項目ずつ比較します。製品版の実測結果ではありません。公式は、レイトレーシングなしでも見た目の迫力を保つよう調整したと説明しています。',
+      '最低環境からSSDへのインストールが必須です。最低環境（GTX 1660 6GB・RX 5500 XT 8GB）の目安は、アップスケーリングを使って1080p・30fpsです。重い時は、アップスケーリングとレイトレーシングの設定を1項目ずつ比べます。アップデートの後に落ちる・カクつく場合は、公式の案内どおりシェーダーキャッシュを削除して起動し直します。公式は、レイトレーシングなしでも見た目の迫力を保つよう調整したと説明しています。',
     description:
       '公式の案内では、配信開始は日本時間2026年10月29日11時（太平洋夏時間10月28日19時）です。Steamストアの日本語表示は10月28日です（9月9日から延期）。容量は約145GBで、予約ダウンロード中は300GB以上の空きが必要と公式が案内しています。発売時には約5GBのデイワンパッチが配信され、予約ダウンロードした人は起動前に適用するよう案内されています。DRMにDenuvoが使われています（Steamストアの表記）。日本語はインターフェース・字幕に対応し、音声は日本語に対応していません。',
     causes: [
@@ -523,15 +524,15 @@ export const upcomingReleaseArticles: GameArticle[] = [
         id: 'step-3',
         title: 'アップスケーリングをONにし、レイトレーシングを切る',
         summary:
-          '最低・推奨の目安はどちらもアップスケーリングを使った場合の数値です。レイトレーシングは見た目を上げる機能で、なくても遊べるよう調整されていると公式は説明しています。',
+          '最低・推奨の目安はどちらもアップスケーリングを使った場合の数値です。レイトレーシングは見た目を上げる機能で、なくても遊べるよう調整されていると公式は説明しています。11月4日のパッチ（Version 1.0302256）から、レイトレーシング用のシェーダーは起動時に既定でコンパイルされなくなり、起動が大きく短くなりました。',
         time: '約5分',
         risk: 'low',
         actions: [
           'ゲームのグラフィック設定でアップスケーリング（DLSS・FSRなど、表示される項目）をONにする',
-          'レイトレーシングの項目があればOFFにして、フレームレートを比べる',
+          'レイトレーシングをOFFにして、フレームレートを比べる。あとでONにした場合は、次に起動し直した時にレイトレーシング用のシェーダーが別にコンパイルされる（公式）',
           '解像度を1080pにして、最低環境の目安（30fps）が出るか確かめる',
         ],
-        note: '設定項目の名前は発売時の製品版で変わる場合があります。',
+        note: 'レイトレーシングをOFFにしていた人は、11月4日のパッチを適用した後の最初の起動で、シェーダーの再コンパイルが一度だけ行われます（公式。短時間で終わると案内）。',
       },
       {
         id: 'step-4',
@@ -545,7 +546,7 @@ export const upcomingReleaseArticles: GameArticle[] = [
           'NVIDIAのGPUで621.01など617.42より新しいドライバーを入れている場合は、公式の推奨どおり617.42に戻し、インストール時に「クリーンインストール」を選ぶ。AMD・IntelはAMD Software: Adrenalin Edition・Intelの公式サイトで最新のドライバーにする',
           '予約ダウンロードした場合は、起動前に約5GBのデイワンパッチがダウンロード・適用されたか、Steamのダウンロード画面で確認する。そのうえで' +
             steamVerify.replace('Steam：', ''),
-          'Discord・Steamのオーバーレイ、録画・FPS表示ツールをオフにして起動を比べる',
+          'アップデートの後に落ちる・カクつく場合は、Steamのライブラリで右クリック→「管理」→「ローカルファイルを閲覧」→「PBZ\\ProjectPBZ\\Saved\\Cache」フォルダの中のファイルを削除して起動し直す（公式の案内。シェーダーはすぐ再コンパイルされる）。MODを入れている場合は外す。オーバーレイや録画・FPS表示ツールもオフにして比べる',
         ],
       },
     ],
@@ -574,7 +575,7 @@ export const upcomingReleaseArticles: GameArticle[] = [
       {
         question: 'コントローラーで遊べますか？',
         answer:
-          'フルコントローラーサポートで、ゲームパッドが推奨されています。DUALSHOCK・DualSenseにも対応しています（Steamストアの表記）。',
+          'フルコントローラーサポートで、ゲームパッドが推奨されています。DUALSHOCK・DualSenseにも対応しています（Steamストアの表記）。Bluetoothで接続したコントローラーで起きていたカクつきは、11月4日のパッチで軽減されました。',
       },
     ],
     sources: [
@@ -585,7 +586,7 @@ export const upcomingReleaseArticles: GameArticle[] = [
       },
       {
         label:
-          'Steamニュース（公式）：Reason and Madness（デイワンパッチ・NVIDIAドライバー617.42の推奨）、Ready your blade!（配信開始時刻・容量）、A Letter From Creative Director（延期）',
+          'Steamニュース（公式）：Patch Notes (Version 1.0302256)（シェーダー・Bluetooth・シェーダーキャッシュの削除）、Reason and Madness（デイワンパッチ・NVIDIAドライバー617.42の推奨）、Ready your blade!（配信開始時刻・容量）',
         url: 'https://store.steampowered.com/news/app/4115450',
       },
     ],
