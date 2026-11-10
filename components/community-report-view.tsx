@@ -4,6 +4,7 @@ import { localizedArticle } from '@/lib/localized/index';
 import type { MyGamesLocale } from '@/lib/my-games-copy';
 import { reportCopy } from '@/lib/community-reports/copy';
 import type { Content, Evidence } from '@/lib/community-reports/model';
+import { environmentCopy, environmentKeys } from '@/lib/community-reports/environment';
 export function reportGuide(content: Content, locale: MyGamesLocale) {
   const review = articleReview(content.articlePath);
   const translated =
@@ -64,6 +65,12 @@ export function CommunityReportView({
         <dd>{content.os === 'unknown' ? t.unknown : content.os}</dd>
         <dt>{t.gpu}</dt>
         <dd>{content.gpu === 'unknown' ? t.unknown : content.gpu}</dd>
+        {environmentKeys.filter((key) => content.environment?.[key]).map((key) => (
+          <div key={key}>
+            <dt>{environmentCopy[locale][key]}</dt>
+            <dd>{content.environment?.[key]}</dd>
+          </div>
+        ))}
       </dl>
       <p>{t.steps}</p>
       <ul>

@@ -1,0 +1,140 @@
+[
+  {
+    "id": "st3100001-ja",
+    "lang": "ja",
+    "title": "ST-3100001\n次はどこを確認？",
+    "subtitle": "エースコンバット8 / PC・Steam",
+    "steps": [
+      {
+        "title": "01 まずWindowsの時刻",
+        "body": "同期の結果と確認時刻を記録。Steamとゲームを再起動して比較。"
+      },
+      {
+        "title": "02 同期そのものが失敗",
+        "body": "同期エラー・同期元を確認。管理PCは管理者へ相談。"
+      },
+      {
+        "title": "03 同期できたが切断する",
+        "body": "発生場面と公式告知を照合し、接続の確認へ。"
+      }
+    ],
+    "caution": "時刻同期で必ず直るとは限りません。",
+    "path": "/games/ace-combat-8/error-st-3100001",
+    "draft": "エスコン8のST-3100001。「時刻同期が失敗」と「同期できたが切断する」では次の確認が違います。確認する場所と、結果別の進み先をまとめました。"
+  },
+  {
+    "id": "st3100001-en",
+    "lang": "en",
+    "title": "ST-3100001\nWhat to check next",
+    "subtitle": "ACE COMBAT 8 / PC · Steam",
+    "steps": [
+      {
+        "title": "01 Check Windows time",
+        "body": "Record the sync result. Restart Steam and the game; compare the same transition."
+      },
+      {
+        "title": "02 Time sync failed",
+        "body": "Check the error and time source. On a managed PC, ask your administrator."
+      },
+      {
+        "title": "03 Synced, still disconnected",
+        "body": "Match the failing scene with dated official notices, then check the connection."
+      }
+    ],
+    "caution": "Clock sync is a check, not a guaranteed fix.",
+    "path": "/en/games/ace-combat-8/error-st-3100001",
+    "draft": "ST-3100001 in ACE COMBAT 8? A failed Windows time sync and a disconnect after successful sync need different next checks. Start here:"
+  },
+  {
+    "id": "wilds-crash-ja",
+    "lang": "ja",
+    "title": "ワイルズが落ちる\nまず症状を分ける",
+    "subtitle": "MONSTER HUNTER WILDS / PC・Steam",
+    "steps": [
+      {
+        "title": "01 ゲームだけ終了？",
+        "body": "Windowsも再起動する場合は、ゲーム単体のクラッシュと分けて記録。"
+      },
+      {
+        "title": "02 同じ場面で比較",
+        "body": "起動・読み込み・狩猟・シェーダー準備のどこで落ちるか確認。"
+      },
+      {
+        "title": "03 一度に一つだけ変更",
+        "body": "ゲームの版・PC構成・ドライバーと、試した結果を残す。"
+      }
+    ],
+    "caution": "一度成功しても、恒久的な解決とは限りません。",
+    "path": "/games/monster-hunter-wilds/not-launching",
+    "draft": "ワイルズが落ちるときは、起動直後・読み込み中・狩猟中を分けて確認。ゲームの版と試した結果を残すと、次に何を確認するか選びやすくなります。"
+  },
+  {
+    "id": "wilds-crash-en",
+    "lang": "en",
+    "title": "Wilds keeps crashing?\nSeparate the symptoms",
+    "subtitle": "MONSTER HUNTER WILDS / PC · Steam",
+    "steps": [
+      {
+        "title": "01 Game or whole PC?",
+        "body": "Record whether only the game closes or Windows also restarts."
+      },
+      {
+        "title": "02 Compare the same scene",
+        "body": "Distinguish launch, loading, hunts and shader preparation."
+      },
+      {
+        "title": "03 Change one thing",
+        "body": "Keep the game build, PC setup, driver version and observed result together."
+      }
+    ],
+    "caution": "One successful run does not prove a permanent fix.",
+    "path": "/en/games/monster-hunter-wilds/not-launching",
+    "draft": "Wilds crashing on PC? Separate launch, loading, hunting and shader-preparation failures. Compare one change at a time and keep the result with your game build and PC setup. Guide:"
+  },
+  {
+    "id": "steam-launch-ja",
+    "lang": "ja",
+    "title": "Steam？ゲーム？\n開かない場所を分ける",
+    "subtitle": "PCゲームの起動トラブル",
+    "steps": [
+      {
+        "title": "01 Steam自体が開かない",
+        "body": "クライアントの確認手順へ。ゲームの再インストールから始めない。"
+      },
+      {
+        "title": "02 Steamは開くが起動しない",
+        "body": "エラー全文と、開始後にどこまで進むかを確認。"
+      },
+      {
+        "title": "03 修復後にもう一度比較",
+        "body": "同じ起動操作で結果を確認。セーブは削除せず保全。"
+      }
+    ],
+    "caution": "手順は自分の症状と対象に合わせて選びます。",
+    "path": "/guide/steam-game-not-launching",
+    "draft": "Steam自体が開かないのか、Steamは開くのにゲームが起動しないのか。まず止まる場所を分けて、症状に合った確認へ進めるガイドです。"
+  },
+  {
+    "id": "steam-launch-en",
+    "lang": "en",
+    "title": "Steam or the game?\nFind where it stops",
+    "subtitle": "PC game launch checks",
+    "steps": [
+      {
+        "title": "01 Steam will not open",
+        "body": "Use the client checks before reinstalling an individual game."
+      },
+      {
+        "title": "02 Steam opens; game fails",
+        "body": "Record the full error and how far launch progresses."
+      },
+      {
+        "title": "03 Compare after one repair",
+        "body": "Retry the same launch. Preserve saves before changing files."
+      }
+    ],
+    "caution": "Choose checks that match your symptom and platform.",
+    "path": "/en/guide/steam-game-not-launching",
+    "draft": "Steam will not open, or Steam opens but a game will not launch? Find where it stops first, then choose the matching checks. Keep saves safe before changing files. Guide:"
+  }
+]

@@ -1,4 +1,5 @@
 'use client';
+import { environmentCopy, environmentKeys, validEnvironment } from '@/lib/community-reports/environment';
 import {
   reportFieldErrors,
   type ReportField,
@@ -362,6 +363,12 @@ export function CommunityReports({
     );
   }
   function validateDraft() {
+    if (!validEnvironment(draft.environment || {})) {
+      setPreview(false);
+      setConsent(false);
+      setError(environmentCopy[locale].error);
+      return false;
+    }
     const fields = reportFieldErrors(draft, game, now);
     setFieldErrors(fields);
     if (!fields.length) return true;
@@ -770,6 +777,26 @@ export function CommunityReports({
             ))}
           </select>
         </label>
+        <fieldset className="report-environment">
+          <legend>{environmentCopy[locale].title}</legend>
+          <p id="report-environment-hint">{environmentCopy[locale].hint}</p>
+          {environmentKeys.map((key) => (
+            <label key={key}>
+              {environmentCopy[locale][key]}
+              <input
+                value={draft.environment?.[key] || ''}
+                maxLength={key === 'ramGb' ? 4 : 60}
+                inputMode={key === 'ramGb' ? 'numeric' : 'text'}
+                aria-describedby="report-environment-hint report-environment-error"
+                aria-invalid={!validEnvironment(draft.environment || {})}
+                onChange={(e) => change('environment', { ...draft.environment, [key]: e.target.value })}
+              />
+            </label>
+          ))}
+          <p id="report-environment-error" role="alert">
+            {!validEnvironment(draft.environment || {}) ? environmentCopy[locale].error : ''}
+          </p>
+        </fieldset>
         <label>
           {t.source}
           <input

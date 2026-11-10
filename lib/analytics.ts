@@ -6,6 +6,10 @@ import { siteConfig } from '@/lib/site-config';
 // are marked as key events.
 
 export type AnalyticsEvent =
+  | 'game_guide_update_opened'
+  | 'step_next_opened'
+  | 'social_guide_asset_downloaded'
+  | 'social_guide_draft_copied'
   | 'step_result_saved'
   | 'step_result_controls_viewed'
   | 'step_result_failed'

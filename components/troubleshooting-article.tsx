@@ -1,6 +1,7 @@
 import { changesForArticle } from '@/lib/my-game-changes';
 import { OfficialUpdateNotice } from '@/components/official-update-notice';
 import { ArticleContext } from '@/components/article-context';
+import { ArticleReturn } from '@/components/article-return';
 import { ArticleEvidence, ArticleEvidenceTocLink } from '@/components/article-evidence';
 import { ClockSyncFirst } from '@/components/clock-sync-first';
 import { AceCombatNoticeHistory } from '@/components/ace-combat-notice-history';
@@ -367,6 +368,7 @@ export function TroubleshootingArticle({
             ]}
           />
           <ArticleEvidence path={`/games/${game.slug}/${article.slug}`} />
+          <ArticleReturn gameSlug={game.slug} />
           {article.avoid?.length ? (
             <section className="avoid-block" aria-labelledby="avoid-title">
               <h2 id="avoid-title">

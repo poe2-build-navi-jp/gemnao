@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 const tools = [
+  { href: '/tools/share-guides', title: '症状別の共有画像・投稿文', body: 'ST-3100001・ワイルズ・Steamの確認を紹介する画像と投稿文。日本語・英語のPNGを保存できます。' },
   {
     href: '/tools/gemnao-cards',
     title: 'ゲムなおカード',

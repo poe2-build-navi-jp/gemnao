@@ -55,6 +55,9 @@ export function SaveGame({
         {saved ? t.return : t.previewLink} →
       </a>
       <MyGamesNotice notice={message} locale={locale} />
+      {saved && <a href={`${myGamesPath(locale)}#my-guide-updates`}>
+        {{ ja: 'このゲームの記事の更新を見る', en: 'See guide updates for saved games', zh: '查看已保存游戏的文章更新', es: 'Ver guías actualizadas de tus juegos' }[locale]} →
+      </a>}
     </div>
   );
 }

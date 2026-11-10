@@ -17,8 +17,8 @@ export const myGamesCopy = {
     title: '遊ぶゲームの対処法を、自分の一覧に。',
     name: 'マイゲーム',
     saveAction: 'このゲームをマイゲームに保存',
-    saveBenefit: '起動しない・落ちるときの対処法を、次回すぐ開けます。無料・アカウント不要。このブラウザだけに保存します。',
-    savedNext: '次回は下の一覧から対処法を開けます。一覧をブックマークすると、再検索する手間を省けます。',
+    saveBenefit: 'このゲームの対処法と記事の更新を、次回すぐ確認できます。無料・アカウント不要。このブラウザだけに保存します。',
+    savedNext: 'マイゲームで対処法と記事の更新日を確認できます。一覧をブックマークすると次回すぐ開けます。自動通知はありません。',
     previewLink: '保存前に一覧を見てみる',
     lead: 'ゲームを1本選ぶだけ。起動しない・落ちる・重いときの解決記事を、次回もここからすぐ開けます。',
     privacy:
@@ -69,8 +69,8 @@ export const myGamesCopy = {
     title: 'Your games. Their fixes. One place.',
     name: 'My Games',
     saveAction: 'Save this game to My Games',
-    saveBenefit: 'Find this game’s launch and crash fixes again without searching. Free, no account needed. Saved only in this browser.',
-    savedNext: 'Open your game’s guides below. Bookmark the list to find it again next time.',
+    saveBenefit: 'Keep this game’s fixes and guide updates together for your next visit. Free, no account needed. Saved only in this browser.',
+    savedNext: 'Bookmark My Games to return to this game’s fixes and dated guide updates. No automatic notifications.',
     previewLink: 'Preview My Games',
     lead: 'Pick a game to keep its troubleshooting guides together. Come back here when it won’t launch, crashes, or runs poorly.',
     privacy:

@@ -8,6 +8,8 @@ import { MyGamesBackup } from '@/components/my-games-backup';
 import { MyGamesPanel } from '@/components/my-games-panel';
 import { myGamesCopy, type MyGamesLocale } from '@/lib/my-games-copy';
 import { myGamesData } from '@/lib/my-games-data';
+import { guideUpdates } from '@/lib/guide-updates';
+import { MyGameGuideUpdates } from './my-game-guide-updates';
 import { languageTag } from '@/lib/localized/index';
 /* oxlint-disable next/no-html-link-for-pages -- Native links avoid a vinext client-link runtime issue. */
 export function MyGamesPage({ locale = 'ja' }: { locale?: MyGamesLocale }) {
@@ -20,6 +22,7 @@ export function MyGamesPage({ locale = 'ja' }: { locale?: MyGamesLocale }) {
         <h1>{t.title}</h1>
         <p className="page-lead">{t.lead}</p>
         <p className="my-games-privacy">{t.privacy}</p>
+        <MyGameGuideUpdates updates={guideUpdates(locale)} locale={locale} />
         <MyGamesPanel games={myGamesData(locale)} locale={locale} />
         <p>
           <a href="/tools/game-alerts">

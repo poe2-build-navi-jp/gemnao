@@ -1,5 +1,6 @@
 import { CopyShareLink } from '@/components/copy-share-link';
 import { siteConfig } from '@/lib/site-config';
+import { socialGuideAssets } from '@/lib/social-guide-assets';
 
 // Social links still work without JavaScript; only copy needs a small client component.
 export function ShareButtons({
@@ -95,6 +96,9 @@ export function ShareButtons({
           }
         </a>
         <CopyShareLink path={path} locale={locale} />
+        {socialGuideAssets.some((item) => item.path === path) && <a href={`/tools/share-guides#${socialGuideAssets.find((item) => item.path === path)!.id}`}>
+          {locale === 'ja' ? '確認画像・投稿文を保存' : 'Share images and drafts (Japanese / English)'} →
+        </a>}
       </div>
     </nav>
   );

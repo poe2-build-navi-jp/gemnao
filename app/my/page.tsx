@@ -2,6 +2,8 @@
 import { languageAlternates } from '@/lib/localized';
 import type { Metadata } from 'next';
 import { MyDashboard, type DashboardGame } from '@/components/my-dashboard';
+import { guideUpdates } from '@/lib/guide-updates';
+import { MyGameGuideUpdates } from '@/components/my-game-guide-updates';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { articlesForGame } from '@/lib/game-articles';
 import { games } from '@/lib/games';
@@ -111,6 +113,7 @@ export default function MyPage() {
           <a href="#my-solutions">診断結果・解決ノート</a>
           <a href="#my-pc">PCの登録</a>
         </nav>
+        <MyGameGuideUpdates updates={guideUpdates('ja')} />
         <MyDashboard games={data} />
       </article>
       <WikiFooter />
