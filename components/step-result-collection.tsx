@@ -130,6 +130,7 @@ type Step = {
   stopAfter?: boolean;
   nextStepId?: string;
   guideLink?: { href: string; label: string; description?: string };
+  resultChecks?: { href: string; label: string }[];
 };
 type Outcome = 'resolved' | 'not-resolved';
 type Report = {
@@ -331,6 +332,7 @@ export function StepResultButtons({ method }: { method: string }) {
   const counts = stepOutcomeCounts(methods, method, ready);
   const index = context.steps.findIndex((step) => step.id === method);
   const guideLink = context.steps[index]?.guideLink;
+  const resultChecks = context.steps[index]?.resultChecks;
   const chosen = context.lastChosen[`${context.contextSlug}:${method}`];
   const routeCopy = {
     en: { fixed: 'It improved? Keep the result in your private notebook below. If it returns, record when and where.', failed: 'Still not fixed? Choose the check that matches the result.', deeper: 'Check this condition in detail' },
@@ -397,10 +399,10 @@ export function StepResultButtons({ method }: { method: string }) {
       <nav className="procedure-note" aria-label={t.next}>
         {chosen === 'resolved' ? <p>{routeCopy.fixed}</p> : <>
           <p><strong>{routeCopy.failed}</strong></p>
-          {guideLink && <p><a data-related="true" href={guideLink.href} onClick={trackNext}>{routeCopy.deeper}: {guideLink.label} →</a></p>}
-          <a href={next ? `#${next.id}` : '#references'} onClick={trackNext}>
+          {resultChecks?.length ? <ul>{resultChecks.map((check) => <li key={check.href}><a data-related="true" href={check.href} onClick={trackNext}>{check.label} →</a></li>)}</ul> : guideLink && <p><a data-related="true" href={guideLink.href} onClick={trackNext}>{routeCopy.deeper}: {guideLink.label} →</a></p>}
+          {!resultChecks?.length && <a href={next ? `#${next.id}` : '#references'} onClick={trackNext}>
             {next ? `${t.next}: ${next.title}` : t.support} →
-          </a>
+          </a>}
         </>}
       </nav>
       {counts && (

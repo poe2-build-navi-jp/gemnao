@@ -39,6 +39,8 @@ export type LocalizedArticle = {
     note?: string;
     risk?: 'low' | 'medium' | 'high';
     guideLink?: { href: string; label: string; description?: string };
+    /** Distinct observed results that lead to different follow-up guides. */
+    resultChecks?: { href: string; label: string }[];
   }[];
   avoid: string[];
   cautions: string[];

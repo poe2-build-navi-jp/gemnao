@@ -147,6 +147,13 @@ await test('next-check routes remain readable when reporting is unavailable', ()
     ),
   );
   assert.match(html, /href="#check-status"/);
+  const article = api.localizedArticle('en', 'ace-combat-8', 'error-st-3100001');
+  const branched = renderToStaticMarkup(h(api.StepResultCollection, {
+    contextSlug: 'game-ace-combat-8-error-st-3100001', topic: 'launch', locale: 'en', steps: article.steps,
+  }, h(api.StepResultButtons, { method: 'sync-time' })));
+  assert.match(branched, /href="\/en\/games\/ace-combat-8\/time-sync-failed"/);
+  assert.match(branched, /href="\/en\/games\/ace-combat-8\/connection-after-time-sync"/);
+  assert.doesNotMatch(branched, /href="#check-offset"/);
   assert.match(
     html,
     /data-related="true" href="\/en\/games\/ace-combat-8\/time-sync-failed"/,

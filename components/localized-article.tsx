@@ -323,7 +323,7 @@ export function LocalizedArticle({
               contextSlug={contextSlug}
               topic={feedbackTopic || ''}
               locale={locale}
-              steps={article.steps.map(({ id, title, guideLink }) => {
+              steps={article.steps.map(({ id, title, guideLink, resultChecks }) => {
                 const original = articleSteps(contextSlug)?.find(
                   (step) => step.id === id,
                 );
@@ -331,6 +331,7 @@ export function LocalizedArticle({
                   id,
                   title,
                   guideLink,
+                  resultChecks,
                   nextStepId:
                     original &&
                     'nextStepId' in original &&

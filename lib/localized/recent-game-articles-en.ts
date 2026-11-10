@@ -575,6 +575,10 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
     steps: [
       {
         id: 'sync-time',
+        resultChecks: [
+          { href: '/en/games/ace-combat-8/time-sync-failed', label: 'Windows sync failed or the clock drifted again' },
+          { href: '/en/games/ace-combat-8/connection-after-time-sync', label: 'Windows synced successfully, but ST-3100001 still appears' },
+        ],
         guideLink: { href: '/en/games/ace-combat-8/time-sync-failed', label: 'Sync now failed or the clock drifted again', description: 'Use this only if Windows synchronization itself failed; if it succeeded, continue to the connection check.' },
         title: 'Synchronize Windows time: the official first check',
         summary:
@@ -585,9 +589,9 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
           'Press Windows + I → Settings → Time & language → Date & time.',
           'Make sure Set time automatically is on, then choose the correct time zone for your location. The Japanese edition uses Osaka/Sapporo/Tokyo (UTC+09:00) as its local example; readers elsewhere should use their own correct zone.',
           'Under Additional settings, choose Sync now. Record the displayed result and the last successful synchronization time. Take your own screenshot of the error and this result for support, hiding account names before sharing. No game screenshot or hardware test is supplied by this guide.',
-          'Fully close Steam and ACE COMBAT 8, reopen them and compare the same deployment, match or results-screen transition that failed. Record the game build, Windows version and connection type so a later retry can be compared fairly. If the same transition works, record that this attempt improved; do not infer a permanent fix. If Windows reports sync failure, open the dedicated sync guide. If synchronization succeeded but the game still disconnects, continue to the connection checks instead of repeatedly resynchronizing.',
+          'Fully close Steam and ACE COMBAT 8, reopen them and compare the same deployment, match or results-screen transition that failed. Record the game build, Windows version and connection type so a later retry can be compared fairly.',
         ],
-        note: 'You can also right-click the taskbar clock and choose Adjust date and time.',
+        note: 'You can also right-click the taskbar clock and choose Adjust date and time. A successful retry records improvement for this attempt, not a permanent fix. Choose one of the two follow-up routes below if synchronization fails or the connection still drops.',
       },
       {
         id: 'check-offset',
