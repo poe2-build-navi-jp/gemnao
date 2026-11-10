@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { WikiHeader, WikiFooter } from '@/components/wiki-header';
 import { SocialGuideAssets } from '@/components/social-guide-assets';
 export const metadata: Metadata = {
-  title: '症状別の共有画像・投稿文｜ゲムなお',
+  title: '症状別の共有画像・投稿文',
   description:
     'ST-3100001・ワイルズのクラッシュ・Steamの起動不良の確認画像と投稿文を、日本語・英語で保存できます。',
   alternates: { canonical: '/tools/share-guides' },

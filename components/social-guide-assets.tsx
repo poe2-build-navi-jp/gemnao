@@ -6,6 +6,7 @@ import { trackEvent } from '@/lib/analytics';
 export function SocialGuideAssets() {
   const [lang, setLang] = useState('ja');
   const [message, setMessage] = useState('');
+  const [messageAsset, setMessageAsset] = useState('');
   useEffect(() => {
     function selectLinkedAsset() {
       const item = socialGuideAssets.find(
@@ -80,6 +81,7 @@ export function SocialGuideAssets() {
                   <button
                     type="button"
                     onClick={async () => {
+                      setMessageAsset(item.id);
                       try {
                         await navigator.clipboard.writeText(text);
                         setMessage(
@@ -110,11 +112,11 @@ export function SocialGuideAssets() {
                     {en ? 'Read the full guide' : '記事で条件・手順を読む'} →
                   </a>
                 </div>
+                <output aria-live="polite">{messageAsset === item.id ? message : ''}</output>
               </section>
             );
           })}
       </div>
-      <output aria-live="polite">{message}</output>
     </>
   );
 }
