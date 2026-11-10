@@ -39,7 +39,7 @@ function entries(base: string): MetadataRoute.Sitemap {
     // Diagnosis remains noindex during public beta, including when sharing is enabled.
     { path: '/discord', updated: '2026-09-30' },
     { path: '/status', updated: '2026-10-01' },
-    { path: '/tools', updated: '2026-10-03' },
+    { path: '/tools', updated: '2026-11-10' },
     { path: '/tools/windows-diagnosis', updated: '2026-10-03' },
     { path: '/tools/save-locations', updated: '2026-10-01' },
     { path: '/tools/refresh-rate', updated: '2026-10-04' },
@@ -172,7 +172,7 @@ function entries(base: string): MetadataRoute.Sitemap {
         path: `/en/gear/${guide.slug}`,
         updated: guide.checkedAt,
       })),
-      { path: '/en/tools', updated: '2026-10-03' },
+      { path: '/en/tools', updated: '2026-11-10' },
       ...['en', 'zh', 'es'].map((locale) => ({
         path: `/${locale}/tools/windows-diagnosis`,
         updated: '2026-10-22',

@@ -1,6 +1,7 @@
 import { changesForArticle } from '@/lib/my-game-changes';
 import { OfficialUpdateNotice } from '@/components/official-update-notice';
 import { ArticleContext } from '@/components/article-context';
+import { ArticleReturn } from '@/components/article-return';
 import { ArticleEvidence, ArticleEvidenceTocLink } from '@/components/article-evidence';
 import { ClockSyncFirst } from '@/components/clock-sync-first';
 import { DiscordBotComparison, DiscordBotRecommendations } from '@/components/discord-bot-recommendations';
@@ -322,13 +323,15 @@ export function LocalizedArticle({
               contextSlug={contextSlug}
               topic={feedbackTopic || ''}
               locale={locale}
-              steps={article.steps.map(({ id, title }) => {
+              steps={article.steps.map(({ id, title, guideLink, resultChecks }) => {
                 const original = articleSteps(contextSlug)?.find(
                   (step) => step.id === id,
                 );
                 return {
                   id,
                   title,
+                  guideLink,
+                  resultChecks,
                   nextStepId:
                     original &&
                     'nextStepId' in original &&
@@ -359,7 +362,7 @@ export function LocalizedArticle({
                   {step.note ? <p className="tip">{step.note}</p> : null}
                   {step.guideLink ? (
                     <p>
-                      <a href={step.guideLink.href}>{step.guideLink.label}</a>
+                      <a data-related="true" href={step.guideLink.href}>{step.guideLink.label}</a>
                       {step.guideLink.description
                         ? ` — ${step.guideLink.description}`
                         : ''}
@@ -371,6 +374,7 @@ export function LocalizedArticle({
             </StepResultCollection>
           </section>
           <ArticleEvidence path={originalPath} locale={locale} />
+          {!isDiscord && <ArticleReturn gameSlug={game!.slug} locale={locale} />}
           {isDiscord && locale === 'en' && article.slug === 'rtc-connecting' ? <EnglishDiscordRtcMemo /> : null}
           {article.avoid.length > 0 ? <section className="avoid-block">
             <h2>

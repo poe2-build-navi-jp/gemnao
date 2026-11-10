@@ -6,6 +6,8 @@ import { localizedArticles } from '@/lib/localized';
 import { gameDisplayName } from '@/lib/game-display-name';
 import type { Metadata } from 'next';
 import { MyDashboard, type DashboardGame } from '@/components/my-dashboard';
+import { guideUpdates } from '@/lib/guide-updates';
+import { MyGameGuideUpdates } from '@/components/my-game-guide-updates';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 const articlesForGame = (slug: string) =>
   localizedArticles.filter((a) => a.locale === 'en' && a.gameSlug === slug);
@@ -120,6 +122,7 @@ export default async function MyPage({
           <a href="#my-solutions">Diagnosis and solution notes</a>
           <a href="#my-pc">PC details</a>
         </nav>
+        <MyGameGuideUpdates updates={guideUpdates('en')} locale="en" />
         <MyDashboard games={data} locale="en" />
       </article>
       <WikiFooter locale="en" />

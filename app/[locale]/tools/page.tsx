@@ -58,6 +58,7 @@ const tools = [
   },
 ];
 const moreTools = [
+  { href: '/tools/share-guides', title: 'Quick-check images and post drafts', body: 'Download English or Japanese images for ST-3100001, Wilds crashes and Steam launch checks, with matching drafts and guide links.' },
   {
     href: '/status',
     title: 'Service status and maintenance',

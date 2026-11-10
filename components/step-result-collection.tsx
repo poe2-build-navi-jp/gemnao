@@ -1,6 +1,7 @@
 'use client';
 import { withFeedbackDeadline } from '@/lib/feedback-deadline';
 import { StepResultImpression } from './step-result-impression';
+import { trackEvent, editorialAnalyticsPath, analyticsOrigin } from '@/lib/analytics';
 import { ReportEntryLink } from './report-entry-link';
 
 import { ResolvedFixSave } from './resolved-fix-save';
@@ -128,6 +129,8 @@ type Step = {
   title: string;
   stopAfter?: boolean;
   nextStepId?: string;
+  guideLink?: { href: string; label: string; description?: string };
+  resultChecks?: { href: string; label: string }[];
 };
 type Outcome = 'resolved' | 'not-resolved';
 type Report = {
@@ -328,6 +331,18 @@ export function StepResultButtons({ method }: { method: string }) {
   const { ready, t, methods, reports, send } = context;
   const counts = stepOutcomeCounts(methods, method, ready);
   const index = context.steps.findIndex((step) => step.id === method);
+  const guideLink = context.steps[index]?.guideLink;
+  const resultChecks = context.steps[index]?.resultChecks;
+  const chosen = context.lastChosen[`${context.contextSlug}:${method}`];
+  const routeCopy = {
+    en: { fixed: 'It improved? Keep the result in your private notebook below. If it returns, record when and where.', failed: 'Still not fixed? Choose the check that matches the result.', deeper: 'Check this condition in detail' },
+    zh: { fixed: '有改善？可在下方私人笔记中保存结果。若再次发生，请记录时间与场景。', failed: '仍未解决？按实际结果选择下一步。', deeper: '详细检查这一情况' },
+    es: { fixed: '¿Mejoró? Guarda el resultado en tu cuaderno privado. Si vuelve a ocurrir, anota cuándo y dónde.', failed: '¿Sigue sin resolverse? Elige según el resultado observado.', deeper: 'Revisar esta situación en detalle' },
+  }[context.locale];
+  function trackNext() {
+    const path = editorialAnalyticsPath(location.pathname);
+    if (path) trackEvent('step_next_opened', { page_location: `${analyticsOrigin}${path}`, page_title: 'Next troubleshooting check', page_referrer: '', step_id: method });
+  }
   const next =
     index >= 0 && !context.steps[index].stopAfter
       ? context.steps.find(
@@ -382,9 +397,13 @@ export function StepResultButtons({ method }: { method: string }) {
         ))}
       </StepResultImpression>
       <nav className="procedure-note" aria-label={t.next}>
-        <a href={next ? `#${next.id}` : '#references'}>
-          {next ? `${t.next}: ${next.title}` : t.support} →
-        </a>
+        {chosen === 'resolved' ? <p>{routeCopy.fixed}</p> : <>
+          <p><strong>{routeCopy.failed}</strong></p>
+          {resultChecks?.length ? <ul>{resultChecks.map((check) => <li key={check.href}><a data-related="true" href={check.href} onClick={trackNext}>{check.label} →</a></li>)}</ul> : guideLink && <p><a data-related="true" href={guideLink.href} onClick={trackNext}>{routeCopy.deeper}: {guideLink.label} →</a></p>}
+          {!resultChecks?.length && <a href={next ? `#${next.id}` : '#references'} onClick={trackNext}>
+            {next ? `${t.next}: ${next.title}` : t.support} →
+          </a>}
+        </>}
       </nav>
       {counts && (
         <p className="step-outcome-counts">

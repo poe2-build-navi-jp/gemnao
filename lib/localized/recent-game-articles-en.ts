@@ -27,6 +27,7 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
       ],
     },
     checkedAt: '2026-10-13',
+    updatedAt: '2026-11-10',
     title:
       'Monster Hunter Wilds Crashing on PC: Launch, Hunting and Shader-Preparation Checks',
     shortTitle: 'Crashing or not launching',
@@ -247,7 +248,7 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
         actions: [
           'Example record: “same quest; game closes after about 20 minutes; no mods; High preset.” This illustrates a comparison, not an editorial measurement.',
           'Set Options → GRAPHICS to the Low preset and compare the same quest. If unchanged, restore it and next lower only the frame cap. A 60 fps cap is an example, not a guaranteed stable setting.',
-          'If you pass the previous crash point for a similar duration, record “no recurrence this time.” A single successful run does not prove a complete fix; check the same conditions in normal play again.',
+          'If you pass the previous crash point for a similar duration, record “no recurrence this time.” Keep the game build, CPU/GPU model, RAM capacity, GPU driver version and time played with that result. A single successful run does not prove a complete fix; check the same conditions in normal play again.',
           'A PC restart, power loss or blue screen is different from the game alone closing. Use the related whole-PC shutdown or blue-screen guides (Japanese).',
         ],
       },
@@ -485,6 +486,7 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
     gameName: 'ACE COMBAT 8',
     slug: 'error-st-3100001',
     checkedAt: '2026-10-18',
+    updatedAt: '2026-11-10',
     title:
       'ACE COMBAT 8 Error ST-3100001 on PC: Check Windows Time Synchronization',
     shortTitle: 'Error ST-3100001',
@@ -516,6 +518,10 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
     sourcePolicy:
       'The code meaning and first clock-sync check come from the publisher’s notice. Clock-offset examples are player reports, not official measurements or a guaranteed fix. The September 29 X post and September 30 Steam notice are separate. This review of 37 official Steam announcements found no confirmation of a completed ST fix or penalty clearance; that absence does not prove either remains unresolved.',
     quickFacts: [
+      {
+        label: 'Keep a comparison record',
+        value: 'Game build; Windows version; CPU/GPU; driver version; deployment, match or results screen; time zone and sync result. Unknown values should stay unknown.',
+      },
       {
         label: 'Meaning (publisher)',
         value:
@@ -569,6 +575,11 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
     steps: [
       {
         id: 'sync-time',
+        resultChecks: [
+          { href: '/en/games/ace-combat-8/time-sync-failed', label: 'Windows sync failed or the clock drifted again' },
+          { href: '/en/games/ace-combat-8/connection-after-time-sync', label: 'Windows synced successfully, but ST-3100001 still appears' },
+        ],
+        guideLink: { href: '/en/games/ace-combat-8/time-sync-failed', label: 'Sync now failed or the clock drifted again', description: 'Use this only if Windows synchronization itself failed; if it succeeded, continue to the connection check.' },
         title: 'Synchronize Windows time: the official first check',
         summary:
           'Players have reported deployment failures when their PC clocks were off by only a few minutes. These reports do not establish the cause of every occurrence.',
@@ -577,10 +588,10 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
         actions: [
           'Press Windows + I → Settings → Time & language → Date & time.',
           'Make sure Set time automatically is on, then choose the correct time zone for your location. The Japanese edition uses Osaka/Sapporo/Tokyo (UTC+09:00) as its local example; readers elsewhere should use their own correct zone.',
-          'Under Additional settings, choose Sync now.',
-          'Fully close Steam and ACE COMBAT 8, reopen them and try deploying again.',
+          'Under Additional settings, choose Sync now. Record the displayed result and the last successful synchronization time. Take your own screenshot of the error and this result for support, hiding account names before sharing. No game screenshot or hardware test is supplied by this guide.',
+          'Fully close Steam and ACE COMBAT 8, reopen them and compare the same deployment, match or results-screen transition that failed. Record the game build, Windows version and connection type so a later retry can be compared fairly.',
         ],
-        note: 'You can also right-click the taskbar clock and choose Adjust date and time.',
+        note: 'You can also right-click the taskbar clock and choose Adjust date and time. A successful retry records improvement for this attempt, not a permanent fix. Choose one of the two follow-up routes below if synchronization fails or the connection still drops.',
       },
       {
         id: 'check-offset',
@@ -643,7 +654,7 @@ export const recentGameArticlesEn: LocalizedArticle[] = [
       {
         question: 'What should I record before asking support for help?',
         answer:
-          'Keep a screenshot of ST-3100001, the date and time zone, whether it occurs at deployment, during play or after a mission, the sync result and source, and whether you use Wi-Fi or Ethernet. Note whether other devices on the same connection also lose connectivity. Record each change and its result separately, and hide account names and personal details before sharing screenshots publicly. This is a troubleshooting record checklist, not a claim that our editors reproduced the issue on every configuration.',
+          'Keep a screenshot of ST-3100001, the date and time zone, whether it occurs at deployment, during play or after a mission, the sync result and source, and whether you use Wi-Fi or Ethernet. Note whether other devices on the same connection also lose connectivity. Record each change and its result separately, and hide account names and personal details before sharing screenshots publicly. This is a troubleshooting record checklist. No independent ST-3100001 reproduction or successful hardware test is recorded here. Keep the game build, CPU/GPU, RAM and driver version with each observed result. Unknown values should stay unknown; one successful retry is not proof of a permanent cure.',
       },
       {
         question: 'What does ST-3100001 mean?',

@@ -1,4 +1,5 @@
 import { articleReview } from '../fix-save';
+import { validEnvironment, type ReportEnvironment } from './environment';
 export const symptoms = [
   'launch',
   'crash',
@@ -34,6 +35,7 @@ export const recentChanges = [
   'unknown',
 ] as const;
 export type Content = {
+  environment?: ReportEnvironment;
   previouslyWorked?: (typeof previousStates)[number];
   recentChange?: (typeof recentChanges)[number];
   articlePath: string;
@@ -111,6 +113,7 @@ export function validReportVersion(value: unknown): value is string {
 export function parseContent(value: unknown, now: number): Content {
   if (
     !exact(value, [
+      'environment',
       'articlePath',
       'symptom',
       'stepIds',
@@ -129,6 +132,7 @@ export function parseContent(value: unknown, now: number): Content {
     throw Error('content');
   const review = articleReview(value.articlePath);
   if (
+    (value.environment !== undefined && !validEnvironment(value.environment)) ||
     (value.previouslyWorked !== undefined &&
       !previousStates.includes(
         value.previouslyWorked as Content['previouslyWorked'] & string,
@@ -162,6 +166,7 @@ export function parseContent(value: unknown, now: number): Content {
   });
   return {
     articlePath: value.articlePath,
+    ...(value.environment === undefined ? {} : { environment: value.environment as ReportEnvironment }),
     symptom: value.symptom as Symptom,
     stepIds: value.stepIds as string[],
     outcome: value.outcome as Outcome,
@@ -192,6 +197,7 @@ export function redactReportContent(content: Content): Content {
   };
   delete publicContent.previouslyWorked;
   delete publicContent.recentChange;
+  delete publicContent.environment;
   return publicContent;
 }
 function text(value: unknown, max: number) {

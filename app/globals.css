@@ -7034,3 +7034,19 @@ a.my-games-primary {
 .gemnao-form .gemnao-steam-draft { min-height:440px; font: .9rem/1.65 ui-monospace,monospace; }
 @media(max-width:760px) { .gemnao-studio { grid-template-columns:minmax(0,1fr); gap:22px; } .gemnao-card-preview { position:static; grid-row:1; max-width:360px; justify-self:center; } .gemnao-form { padding:18px; } }
 .gemnao-message { display:block; margin:16px 0; font-weight:600; }
+.social-guide-assets { display: grid; gap: 2rem; margin-top: 2rem; }
+.social-guide-assets > section { padding: clamp(1rem, 3vw, 2rem); border: 1px solid var(--border, #d4e1e5); border-radius: 1rem; min-width: 0; scroll-margin-top: 6rem; }
+.social-guide-assets img { display: block; width: min(100%, 580px); height: auto; border-radius: .75rem; }
+.social-guide-assets textarea { width: 100%; box-sizing: border-box; margin-top: .5rem; padding: .75rem; font: inherit; line-height: 1.7; resize: vertical; }
+.social-guide-assets .my-pc-actions { flex-wrap: wrap; gap: 1rem; }
+.saved-guide-updates { margin: 2rem 0; padding: clamp(1rem, 3vw, 2rem); background: #edf6f7; border-left: 4px solid #26798c; border-radius: .75rem; scroll-margin-top: 6rem; }
+.saved-guide-updates ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); list-style: none; padding: 0; gap: 1rem; }
+.saved-guide-updates li { background: white; padding: 1rem; border-radius: .5rem; overflow-wrap: anywhere; }
+.saved-guide-updates button { padding: .5rem .8rem; border: 1px solid #26798c; border-radius: .4rem; background: white; color: #1c5969; cursor: pointer; }
+.saved-guide-updates button:disabled { opacity: .6; cursor: default; }
+.saved-guide-updates a:focus-visible, .saved-guide-updates button:focus-visible, .social-guide-assets a:focus-visible, .social-guide-assets button:focus-visible { outline: 3px solid #ef874e; outline-offset: 4px; }
+.report-environment { margin: 1.5rem 0; padding: 1rem; border: 1px solid #b6d0d7; border-radius: .5rem; min-width: 0; }
+.report-environment label { display: grid; gap: .35rem; margin: .75rem 0; }
+.report-environment input { max-width: 100%; box-sizing: border-box; }
+.article-return { margin: 2rem 0; padding: 1.25rem; background: #edf6f7; border: 1px solid #cbdfe4; border-radius: .75rem; }
+@media (max-width: 680px) { .saved-guide-updates ul { grid-template-columns: 1fr; } }
