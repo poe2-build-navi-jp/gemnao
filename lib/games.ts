@@ -679,7 +679,7 @@ export const games: GameGuide[] = [
       },
       {
         label: 'SEGA公式サポート：Steam private_beta',
-        url: 'https://support.sega.com/hc/ja/articles/40670358368273-Football-Manager-27-Steam%E3%83%97%E3%83%A9%E3%82%A4%E3%83%99%E3%83%BC%E3%83%BC%E3%82%BF%E3%83%88%E3%83%A9%E3%83%83%E3%82%AF%E3%81%AE%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95',
+        url: 'https://support.sega.com/hc/ja/articles/40670358368273-Football-Manager-27-Steam%E3%83%97%E3%83%A9%E3%82%A4%E3%83%99%E3%83%BC%E3%83%88%E3%83%99%E3%83%BC%E3%82%BF%E3%83%88%E3%83%A9%E3%83%83%E3%82%AF%E3%81%AE%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95',
       },
       { label: 'Steamストア', url: steam('4530370') },
     ],
