@@ -792,174 +792,195 @@ export const upcomingReleaseArticles: GameArticle[] = [
     gameSlug: 'football-manager-27',
     slug: 'not-launching',
     category: 'launch',
-    checkedAt: '2026-10-25',
+    checkedAt: '2026-11-11',
+    updatedAt: '2026-11-11',
     seoTitle:
       'FM27が起動しない時の対処法｜無料ローンチプレビューとDenuvoの認証制限【PC版】',
     title:
       'Football Manager 27（FM27）が起動しない時の対処法｜無料ローンチプレビューの期間・引き継ぎとDenuvoの認証制限【PC版】',
-    shortTitle: '起動しない・ローンチプレビュー・Denuvo',
-    targetVersion: 'Steam版・2026年10月25日時点の公式情報（発売前）',
+    shortTitle: '起動しない・起動時クラッシュ',
+    targetVersion:
+      'PC版・2026年11月11日時点のSEGA公式サポート（Steam / Epic / Microsoft Store）',
     symptom:
-      'PC版のFM27（ローンチプレビューを含む）が起動しない、起動直後に落ちる、複数のPCで遊ぶと起動できなくなった、ローンチプレビューのセーブを製品版で続けたい場合の確認手順です。',
+      'FM27の正式発売後に、起動直後でクラッシュする、黒画面やフリーズで進まない、Steam版で通常ビルドだけ起動できない場合の確認手順です。発売前のローンチプレビュー情報より、現在のSEGA公式サポートを優先して確認します。',
     conclusion:
-      'まずCPUがSSE4.2・SSSE3に対応しているか、Windowsが最新の状態かを確認します。Steamストアには、DRMとして「Denuvo Anti-tamper」と「5 a day マシン認証制限」（1日に認証できるマシンは5台まで）が表記されています。複数のPCで遊ぶ人は注意してください。無料のローンチプレビューは日本時間10月30日3時〜11月4日3時で、そこで始めたセーブは製品版でも続けられると公式が案内しています。',
+      '起動時クラッシュでは、まずSEGA公式が案内する「--purge_settings」でゲーム設定を初期化して起動を比較します。Steam版で改善しない場合は、起動時クラッシュ向けに用意された公式のprivate_betaを一時的に試せます。private_betaはSteam限定で、製品版へ戻す手順も公式に案内されています。',
     description:
-      'Steamストアの日本語表示では2026年11月10日発売です。ローンチプレビューは、これまでの「ベータ／先行アクセス」に代わる発売前の版で、無料期間の後は予約購入した人が発売日まで続けて遊べます（SEGA公認の販売店で購入した場合）。日本語に対応しています。',
+      '2026年11月10日の正式発売後に確認できるSEGA公式の起動時クラッシュ対策を中心に整理します。Steam・Epic・Microsoft Storeでは「--purge_settings」で設定をリセットできます。Steam版には、起動時クラッシュ向けの一時的なprivate_betaも用意されています。',
     causes: [
-      'CPUがSSE4.2・SSSE3に対応していない',
-      'Windowsの更新が適用されていない（動作環境に「最新の更新を適用」と記載）',
-      'Denuvoのマシン認証の上限（1日5台）に達した',
-      'GPUドライバーが古い・ゲームファイルの破損',
-      'オーバーレイや録画ツールの干渉',
+      'ゲーム設定・キャッシュが起動時に問題を起こしている',
+      'Steam製品版で起動時クラッシュが発生し、private_beta側の修正が必要',
+      'カスタムグラフィックやエディターファイル、常駐ツールの干渉',
+      'ゲームファイルの破損・GPUドライバーが古い',
+      'PCが最低動作環境を満たしていない',
+      '同日に多数のPCで認証し、Denuvoのマシン認証制限に達している',
     ],
     quickFacts: [
       {
-        label: '発売日',
-        value: '2026年11月10日（Steamストアの表記）',
+        label: '正式発売',
+        value: '2026年11月10日（Steamストア・公式案内）',
       },
       {
-        label: '無料のローンチプレビュー',
-        value:
-          '日本時間10月30日3時〜11月4日3時（英国時間10月29日18時〜11月3日18時）。登録不要',
+        label: '起動時クラッシュの最初の確認',
+        value: '--purge_settings でゲーム設定をリセットして再起動',
+        copy: true,
       },
       {
-        label: 'セーブの引き継ぎ',
+        label: 'Steam限定の暫定対策',
         value:
-          '無料期間に始めたセーブは、有料のローンチプレビュー・製品版でも続けられる（公式）',
+          '「ゲームのバージョンとベータ」でコード gYN3Rk34n4P72myv を入力し private_beta を選択',
+        copy: true,
       },
       {
-        label: 'DRM',
+        label: 'private_betaの対象',
         value:
-          'Denuvo Anti-tamper・5 a day マシン認証制限（Steamストアの表記）',
+          '起動時クラッシュの一時的な修正。Epic / Microsoft Storeでは利用不可',
       },
       {
         label: '最低動作環境',
         value:
-          'Windows 10/11（最新の更新）／Core i3-530・FX-4100（SSE4.2・SSSE3必須）／GTX 960・R9 380・Intel HD 530／メモリ6GB／20GB',
+          'Windows 10/11（最新更新）／Core i3-530・FX-4100（SSE4.2・SSSE3必須）／GTX 960・R9 380・Intel HD 530／メモリ6GB／20GB',
       },
     ],
     diagnosis: [
       {
-        symptom: '古いPCで起動しない・すぐ落ちる',
-        cause: 'CPU・GPU・Windowsの条件',
+        symptom: '起動直後にクラッシュする',
+        cause: '設定・キャッシュの問題',
         stepId: 'step-1',
       },
       {
-        symptom: '別のPCでも遊んだら起動できなくなった',
-        cause: 'Denuvoのマシン認証の上限',
+        symptom: 'Steam版だけ起動時クラッシュが続く',
+        cause: '公式private_betaで修正対象か確認',
         stepId: 'step-2',
       },
       {
-        symptom: 'ローンチプレビューの期間・続きが分からない',
-        cause: '無料期間と引き継ぎの条件',
+        symptom: '黒画面・フリーズ・別の場面でも落ちる',
+        cause: 'ファイル・ドライバー・追加データの干渉',
         stepId: 'step-3',
       },
       {
-        symptom: '起動直後に落ちる・画面が出ない',
-        cause: 'ドライバー・ファイル・常駐ツール',
+        symptom: '古いPC・複数PC利用で起動できない',
+        cause: '動作環境または認証制限',
         stepId: 'step-4',
       },
     ],
     steps: [
       {
         id: 'step-1',
-        title: 'CPU・GPU・Windowsが動作環境を満たすか確認する',
+        title: '「--purge_settings」でFM27の設定をリセットして起動する',
         summary:
-          '最低動作環境では、CPUがSSE4.2とSSSE3に対応していること、GPUがシェーダーモデル5.0に対応していること、Windows 10/11に最新の更新を適用していることが条件です。',
-        time: '約5分',
+          'SEGA公式が、起動時クラッシュで最初に案内している設定リセットです。',
+        time: '約3分',
         risk: 'low',
         actions: [
-          'タスクマネージャー（Ctrl + Shift + Esc）の「パフォーマンス」で、CPU・GPUの名前とメモリ（6GB以上）を確認する',
-          'CPUの名前で、メーカーの公式サイトの仕様（命令セット）にSSE4.2・SSSE3があるか確認する',
-          '「設定」→「Windows Update」で更新を確認し、すべて適用してから再起動する',
-          winver,
+          'Steam版はライブラリでFootball Manager 27を右クリック→「プロパティ」→「一般」→「起動オプション」を開く',
+          '起動オプションに「--purge_settings」と入力し、プロパティを閉じてFM27を起動する',
+          'Epic版はランチャーの設定でFootball Manager 27の「追加のコマンドライン引数」を有効にし、「--purge_settings」を入力する',
+          'Microsoft Store版はSEGA公式サポートの手順を確認し、ショートカットの起動引数として「--purge_settings」を付けて比較する。WindowsAppsの権限をむやみに変更しない',
         ],
+        note:
+          '改善したかを確認したら、同じ起動引数を何度も追加しないでください。ストアごとの正式手順は下のSEGA公式「Crashes」を参照してください。',
       },
       {
         id: 'step-2',
-        title: '複数のPCで遊ぶ時は、Denuvoの1日5台の認証制限に注意する',
+        title: 'Steam版は公式のprivate_betaで起動時クラッシュを比較する',
         summary:
-          'Steamストアには「Denuvo Anti-tamper」「5 a day マシン認証制限」と表記されています。1日に認証できるマシンの数に上限があるという意味の表記です。',
-        time: '約3分',
+          'SEGAが起動時クラッシュの一時的な修正として用意したSteam限定のベータトラックです。',
+        time: '約5〜15分（ダウンロード時間を除く）',
         risk: 'low',
         actions: [
-          '同じ日に多くのPCで起動していないか確認する（自宅・ノートPC・ネットカフェなど）',
-          '上限は1日あたりなので、上限に達したと思われる場合は時間をおいてから、遊ぶPCで起動し直す',
-          '表示されたエラーの文言を控え、解決しない場合はSEGA・Sports Interactiveの公式サポートに伝える',
+          'SteamライブラリでFootball Manager 27を右クリック→「プロパティ」→「ゲームのバージョンとベータ」を開く',
+          'ベータ用コード「gYN3Rk34n4P72myv」を入力する',
+          '「ベータへの参加」で「private_beta」を選び、ダウンロード完了後にライブラリ上のFM27がBeta表示になっていることを確認して起動する',
+          '製品版へ戻す時は同じ画面の「ベータへの参加」を「なし」に戻し、自動更新を完了させる',
         ],
-        note: '認証の細かな仕組みは公開されていません。DRMを回避する非公式ツールは使わないでください。',
+        note:
+          'private_betaはSteam限定です。SEGAは、製品版がベータと同じゲームバージョンへ更新された後なら、ベータ側で進めたセーブを製品版でも使えると案内しています。',
       },
       {
         id: 'step-3',
-        title: 'ローンチプレビューの期間と、セーブの引き継ぎ条件を確認する',
+        title: '追加データを外し、ゲームファイルとGPUドライバーを確認する',
         summary:
-          '無料のローンチプレビューは、Steam・Epic・Microsoft Store・Xbox Game Pass・PC Game Passで遊べます。無料期間に始めたセーブは、有料のローンチプレビューと製品版でも始め直さずに続けられると公式が案内しています。',
-        time: '約3分',
+          '設定リセットやprivate_betaで直らない場合は、一般的なクラッシュ要因を一つずつ切り分けます。',
+        time: '約15〜30分',
         risk: 'low',
         actions: [
-          '無料期間は日本時間10月30日3時〜11月4日3時。期間が終わると、予約購入していない場合は製品版の発売まで遊べない',
-          '予約購入すると、無料期間の後も有料のローンチプレビューとして11月10日の発売まで続けられる（SEGA公認の販売店で購入した場合）',
-          'Game Passで遊ぶ場合は、サブスクリプションでセーブを続けられる（ローンチプレビューはGame Pass UltimateとPC Game Passのみ）',
+          'カスタムグラフィックやエディターファイルを追加している場合は、削除ではなく別フォルダへ退避して起動を比較する',
+          steamVerify,
+          driverUpdate,
+          'Discord・Steamなどのオーバーレイ、録画・FPS表示ツールを一時停止し、FM27だけを起動して比較する',
         ],
-        note: 'ローンチプレビューは権利者の承認前のデータを含み、一部のクラブや選手の素材がない場合があると公式が注意しています。',
+        note:
+          'セーブや唯一のカスタムデータを削除して試さず、戻せる形で退避してください。',
       },
       {
         id: 'step-4',
-        title: 'GPUドライバーを更新し、ゲームファイルを確認する',
-        summary: '起動直後に落ちる・画面が出ない場合に確認します。',
-        time: '約15分',
+        title: '動作環境とDenuvoのマシン認証制限を確認する',
+        summary:
+          '古いPCや同日に複数のPCで起動したケースを切り分けます。',
+        time: '約5分',
         risk: 'low',
         actions: [
-          driverUpdate,
-          steamVerify,
-          'Discord・Steamのオーバーレイ、録画・FPS表示ツールをオフにして起動を比べる',
+          'タスクマネージャー（Ctrl + Shift + Esc）の「パフォーマンス」でCPU・GPU・メモリを確認し、Steamストアの最低環境と比較する',
+          'CPUのメーカー公式仕様でSSE4.2・SSSE3対応を確認し、「設定」→「Windows Update」で保留中の更新を適用する',
+          '同じ日に多数のPCで起動していないか確認する。SteamストアにはDenuvo Anti-tamperと「5 a day マシン認証制限」が表記されている',
+          'まだ落ちる場合は、発生時刻・操作・エラー全文を控え、クラッシュダンプやセーブをSEGA / Sports Interactiveのサポートへ案内に沿って提出する',
         ],
       },
     ],
     avoid: [
-      'Denuvoを回避するとうたう非公式ツールやファイルを使わない',
-      '起動しないからといって、ローンチプレビューのセーブフォルダを消さない（製品版で続けられる）',
+      'Denuvoを回避する非公式ツールや改変ファイルを使わない',
+      'クラッシュ調査のためにセーブや唯一のカスタムデータを削除しない',
+      'private_betaのコードや手順を非公式サイトの別コードへ置き換えない',
+      'Microsoft Store版でWindowsAppsの所有権変更を安易に行わない',
     ],
     cautions: [
-      '発売前の情報です。発売後に公式が案内する不具合や修正は、公式のお知らせもあわせて確認してください。',
-      '時刻は公式の英国時間（GMT）を日本時間に換算した目安です。正確な時刻はSteamストアと公式のお知らせで確認してください。',
+      'private_betaはSteam版の起動時クラッシュ向けの一時的な修正です。すべてのクラッシュや黒画面が同じ原因だとは断定できません。',
+      '公式サポートの内容は更新される場合があります。private_betaを使う時は、SEGA公式ページの最新手順も確認してください。',
     ],
     faqs: [
       {
-        question: 'ローンチプレビューは無料ですか？',
+        question: 'FM27が起動直後に落ちる時、最初に何をすればいいですか？',
         answer:
-          '日本時間10月30日3時〜11月4日3時の5日間は、登録不要で無料で遊べます（PC・Mac）。その後は予約購入した人が、11月10日の発売まで続けて遊べます。',
+          'SEGA公式は、まず「--purge_settings」を付けてゲーム設定をリセットして起動する手順を案内しています。Steam版で続く場合は、起動時クラッシュ向けのprivate_betaも確認できます。',
       },
       {
-        question: '無料期間のセーブは製品版で使えますか？',
+        question: 'private_betaはEpicやMicrosoft Storeでも使えますか？',
         answer:
-          '公式は、無料期間に始めたゲームは有料のローンチプレビューと製品版でも始め直さずに続けられると案内しています。',
+          'いいえ。SEGA公式はprivate_betaをSteam限定と案内しています。Epic・Microsoft Storeでは「--purge_settings」など各ストア向けのクラッシュ手順を先に確認してください。',
       },
       {
-        question: '日本語で遊べますか？',
-        answer: 'Steamストアの対応言語に日本語が含まれています。',
+        question: 'private_betaで進めたセーブは製品版へ戻せますか？',
+        answer:
+          'SEGA公式は、製品版がprivate_betaと同じゲームバージョンへ更新された後なら、ベータ側で進めたセーブを製品版でも使えると案内しています。',
       },
       {
-        question: 'Windows 10で遊べますか？',
+        question: 'FM23〜FM26のセーブはprivate_betaでも読み込めますか？',
         answer:
-          '最低動作環境はWindows 10/11（最新の更新を適用）、推奨はWindows 11（64bit）です（Steamストアの表記）。',
+          'はい。SEGA公式のprivate_beta FAQでは、FM23〜FM26のセーブをベータ版で読み込めると案内しています。',
       },
     ],
     sources: [
       {
-        label:
-          'Steamストア：Football Manager 27（動作環境・対応言語・DRMの表記）',
+        label: 'SEGA公式サポート：FM27のクラッシュ（--purge_settings）',
+        url: 'https://support.sega.com/hc/en-gb/articles/52324927829777-Crashes',
+      },
+      {
+        label: 'SEGA公式サポート：FM27 Steam private_betaの使い方',
+        url: 'https://support.sega.com/hc/ja/articles/40670358368273-Football-Manager-27-Steam%E3%83%97%E3%83%A9%E3%82%A4%E3%83%99%E3%83%BC%E3%83%88%E3%83%99%E3%83%BC%E3%82%BF%E3%83%88%E3%83%A9%E3%83%83%E3%82%AF%E3%81%AE%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95',
+      },
+      {
+        label: 'Steamストア：Football Manager 27（動作環境・DRM）',
         url: 'https://store.steampowered.com/app/4530370/',
       },
       {
-        label:
-          'Steamニュース（公式）：Play Free: Football Manager 27 Launch Preview（無料期間・引き継ぎ）',
-        url: 'https://store.steampowered.com/news/app/4530370',
+        label: 'SEGA公式サポート：Football Managerのクラッシュ全般',
+        url: 'https://support.sega.com/hc/en-us/articles/29677936724369-What-should-I-do-if-I-encounter-a-crash-when-launching-or-playing-Football-Manager',
       },
     ],
     related: [],
     metaDescription:
-      'Football Manager 27（FM27）PC版が起動しない時の対処法。SSE4.2・SSSE3が必要なCPUの条件、Denuvoの「1日5台」のマシン認証制限、無料ローンチプレビューの期間（10月30日3時〜11月4日3時）と製品版へのセーブ引き継ぎまで公式情報をもとに解説。',
+      'FM27が起動時にクラッシュする時の確認手順。SEGA公式の--purge_settingsによる設定リセット、Steam限定private_beta、ゲームファイル確認、GPUドライバー、Denuvo認証制限を順番に解説します。',
   }),
   make({
     gameSlug: 'where-the-seeds-fall',

@@ -642,13 +642,13 @@ export const games: GameGuide[] = [
     slug: 'football-manager-27',
     title: 'Football Manager 27（FM27）',
     shortTitle: 'FM27',
-    lead: 'Denuvoの「1日5台」のマシン認証制限と、無料のローンチプレビューの期間・引き継ぎを、起動しない時の手順とあわせて公式情報から整理。',
+    lead: '正式発売後の起動時クラッシュは、SEGA公式の「--purge_settings」とSteam限定private_betaから確認。一般的なファイル破損やGPUドライバーの切り分けも案内します。',
     accent: '#3c2a5e',
     demand:
-      '2026年11月10日発売（Steamストアの表記。無料のローンチプレビューは10月30日3時〜11月4日3時）',
-    issueScale: '中程度',
-    updated: '2026-10-25',
-    tags: ['起動しない', 'Denuvo', 'ローンチプレビュー', 'セーブ引き継ぎ'],
+      '2026年11月10日発売。SEGA公式が起動時クラッシュ向けの設定リセットとSteam private_betaを案内',
+    issueScale: '高い',
+    updated: '2026-11-11',
+    tags: ['起動時クラッシュ', '--purge_settings', 'private_beta', 'Denuvo'],
     focused: true,
     savePath: '',
     configPath: '',
@@ -658,9 +658,10 @@ export const games: GameGuide[] = [
     controller:
       'フルコントローラーサポート。DUALSHOCK・DualSense対応（Steamストアの表記）。',
     launchFixes: [
-      'CPUがSSE4.2・SSSE3に対応しているか確認',
-      'Windowsを最新の状態に更新',
-      '複数のPCで遊ぶ時はDenuvoの1日5台の認証制限に注意',
+      '起動時クラッシュは「--purge_settings」でゲーム設定をリセット',
+      'Steam版で続く場合はSEGA公式のprivate_betaを一時的に比較',
+      'ゲームファイル確認・GPUドライバー更新・追加データの切り分け',
+      '複数PC利用時はDenuvoの1日5台の認証制限にも注意',
     ],
     mod: '',
     japanese: '日本語に対応（Steamストアの表記）。',
@@ -672,11 +673,15 @@ export const games: GameGuide[] = [
       storage: '20GB',
     },
     sources: [
-      { label: 'Steamストア', url: steam('4530370') },
       {
-        label: '公式のお知らせ（Steamニュース）',
-        url: 'https://store.steampowered.com/news/app/4530370',
+        label: 'SEGA公式サポート：FM27のクラッシュ',
+        url: 'https://support.sega.com/hc/en-gb/articles/52324927829777-Crashes',
       },
+      {
+        label: 'SEGA公式サポート：Steam private_beta',
+        url: 'https://support.sega.com/hc/ja/articles/40670358368273-Football-Manager-27-Steam%E3%83%97%E3%83%A9%E3%82%A4%E3%83%99%E3%83%BC%E3%83%88%E3%83%99%E3%83%BC%E3%82%BF%E3%83%88%E3%83%A9%E3%83%83%E3%82%AF%E3%81%AE%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95',
+      },
+      { label: 'Steamストア', url: steam('4530370') },
     ],
   },
   {
