@@ -371,7 +371,7 @@ export const ogImageManifest: Record<string, string> = {
   "/games/battlefield-6/javelin-error-94": "c1a575c1",
   "/games/battlefield-6/secure-boot-enabled-not-launching": "bea4437a",
   "/games/call-of-duty-modern-warfare-4": "0c62791b",
-  "/games/call-of-duty-modern-warfare-4/crash": "c5ece198",
+  "/games/call-of-duty-modern-warfare-4/crash": "ccc9a202",
   "/games/call-of-duty-modern-warfare-4/dmz-prestige-trait-missing": "9102a927",
   "/games/call-of-duty-modern-warfare-4/loadout-not-saving": "1aec9b2c",
   "/games/call-of-duty-modern-warfare-4/stats-not-showing": "3dc52395",

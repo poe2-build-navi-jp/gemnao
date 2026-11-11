@@ -213,10 +213,16 @@ export function validChangeDate(value: string) {
     new Date(value).toISOString().slice(0, 10) === value
   );
 }
+// Publication and editorial dates are recorded in Japan time.
+export function changeDayInJapan(now = new Date()) {
+  return new Date(now.getTime() + 9 * 60 * 60 * 1000)
+    .toISOString()
+    .slice(0, 10);
+}
 export function changesForGame(
   gameSlug: string,
   locale: MyGamesLocale,
-  today = new Date().toISOString().slice(0, 10),
+  today = changeDayInJapan(),
   registry = officialGameChanges,
 ) {
   return registry

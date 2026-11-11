@@ -274,7 +274,11 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
         url: 'https://support.microsoft.com/ja-jp/windows/security/devicesecurity/windows-11-and-secure-boot',
       },
     ],
-    related: ['xbox-pc-launch-button', 'loadout-not-saving', 'stats-not-showing'],
+    related: [
+      'xbox-pc-launch-button',
+      'loadout-not-saving',
+      'stats-not-showing',
+    ],
     metaDescription:
       'CoD MW4（Modern Warfare 4）がPCで起動しない・遊べない時の対処法。必須のTPM 2.0とセキュアブートの確認（tpm.msc・msinfo32）とBIOSでの有効化、MBR形式の場合、UACの確認、Activisionなど対象アカウントの電話番号認証まで公式の案内をもとに解説。',
   },
@@ -282,20 +286,19 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
     gameSlug: 'call-of-duty-modern-warfare-4',
     slug: 'crash',
     category: 'launch',
-    seoTitle:
-      'CoD MW4がPCで落ちる・クラッシュする時の対処法｜推奨ドライバーと既知の不具合',
+    seoTitle: 'CoD MW4がPCで落ちる時の対処法｜Season 1更新後のSteamクラッシュ',
     title:
       'CoD MW4（Modern Warfare 4）がPCで落ちる・クラッシュする・キャンペーンやDMZを起動できない時の対処法【PC版】',
     shortTitle: '落ちる・クラッシュ',
-    checkedAt: '2026-10-23',
-    updatedAt: '2026-11-04',
+    checkedAt: '2026-11-12',
+    updatedAt: '2026-11-12',
     status: 'verified',
     targetVersion:
-      'Steam版・Battle.net版・XBOX on PC版。2026年10月23日（発売日）に公式サポートの本文を確認',
+      'Steam版・Battle.net版・XBOX on PC版。Season 1のSteam起動クラッシュはSteam版が対象。2026年11月12日に既知問題・PC要件・Season 1パッチを照合',
     symptom:
       'PC版で起動直後やマルチプレイ中に落ちる、フリーズする、XBOX on PC版でキャンペーンやDMZを起動するボタンが出ない場合の確認手順です。',
     conclusion:
-      'Activision公式は、PCのクラッシュは起動時と公開マッチのマルチプレイ中に起きやすいと説明しています。まず公式の推奨ドライバー（NVIDIA 616.56、AMD 26.7.1、Intel 32.0.101.8974）に合わせ、録画ソフト・オーバーレイ・キー割り当てソフトを終了します。それでも落ちる場合は、公式が案内しているとおり、これらのソフトのアンインストールを試します。XBOX on PC版で起動ボタン自体がない場合は、クラッシュとは分けて専用記事の対象範囲と確認項目を見てください。',
+      'Season 1更新後にSteam版が起動時に落ちる場合は、まずゲームの更新完了を確認し、Steamでファイルの整合性を確認してください。11月7日の公式告知にこの症状が掲載され、11月10日にも安定性改善が案内されていますが、Steamの起動クラッシュが解消したとは断定できません。更新前から落ちる場合や他の配布元では、ドライバー・競合アプリ・動作環境を順に確認します。',
     description:
       'TPM 2.0やセキュアブートの要件を満たしていない場合は、落ちるのではなくオンラインモードに入れません。その場合は「TPM 2.0とセキュアブート」の記事を先に確認してください。この記事は、要件を満たしたうえで落ちる・止まる場合が対象です。',
     causes: [
@@ -307,16 +310,28 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
     ],
     quickFacts: [
       {
+        label: '更新後のSteam起動クラッシュ',
+        value:
+          '11月7日の公式告知に掲載。更新完了→整合性確認→同じ起動操作で比較。11月10日の安定性改善だけでは、この問題の解決を確認できません。',
+      },
+      {
+        label: '確認の範囲',
+        value:
+          '公式資料の確認です。ゲムなおによる実機の起動試験・FPS測定は未実施です。',
+      },
+      {
         label: '再現条件を揃える',
-        value: '配布元・ゲームのバージョン・落ちる画面・エラー全文を控える。変更は一度に一つにして、起動直後なら同じ起動操作、対戦中なら同じモードで比較する。',
+        value:
+          '配布元・ゲームのバージョン・落ちる画面・エラー全文を控える。変更は一度に一つにして、起動直後なら同じ起動操作、対戦中なら同じモードで比較する。',
       },
       {
         label: '修復後も同じ場面で落ちる時',
-        value: '変更前後のドライバー版、停止したオーバーレイ名、再現した日時を控えてPC Crash Reportへ。ゲームが終了せず接続だけ切れる場合は、サーバーと回線の確認へ進む。',
+        value:
+          '変更前後のドライバー版、停止したオーバーレイ名、再現した日時を控えてPC Crash Reportへ。ゲームが終了せず接続だけ切れる場合は、サーバーと回線の確認へ進む。',
       },
       {
         label: '推奨GPUドライバー（公式）',
-        value: 'NVIDIA 616.56・AMD 26.7.1・Intel 32.0.101.8974',
+        value: 'NVIDIA 616.56・AMD 26.7.1・Intel 32.0.101.9150',
       },
       {
         label: '落ちやすい場面（公式）',
@@ -336,6 +351,16 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
       },
     ],
     diagnosis: [
+      {
+        symptom: 'Season 1更新後からSteam版が起動時に落ちる',
+        cause: '公式告知にあるSteam版の症状と照合',
+        stepId: 'season-1-steam',
+      },
+      {
+        symptom: '設定を変えた前後を比較したい',
+        cause: '同じ条件で起動結果・再発を記録',
+        stepId: 'compare-results',
+      },
       {
         symptom: '起動直後やマッチ中に落ちる・固まる',
         cause: 'GPUドライバーのバージョン',
@@ -363,11 +388,55 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
       },
       {
         symptom: 'ロードアウトが保存できない・戦績が表示されない',
-        cause: '公式が調査中の既知の不具合',
+        cause: '公式の解決済み項目と現在の症状を照合',
         stepId: 'step-6',
       },
     ],
     steps: [
+      {
+        id: 'season-1-steam',
+        title: 'Season 1更新後のSteam版は、まず更新と整合性を確認する',
+        summary:
+          '11月7日のSeason 1パッチノートはSteam版の起動クラッシュを調査中とし、整合性確認を先に案内しています。',
+        time: '約5〜15分（ダウンロードを除く）',
+        risk: 'low',
+        actions: [
+          'Steam版かを確認し、Season 1更新の前後どちらから症状が出たか、ゲームの版・発生画面・エラーを控える。Xbox PCで起動ボタンがない場合はSTEP 4へ',
+          'ゲームの更新・ダウンロードを完了させ、Steamライブラリで対象のゲームを右クリック→「プロパティ」→「インストール済みファイル」→整合性を確認する',
+          '再取得があれば完了を待ち、同じ起動操作でタイトル画面まで進むか比較する。再取得の有無と、起動できたかは別々に記録する',
+          'まだ落ちる場合は、先に比較記録を残して公式のPC Crash Reportへ。11月10日の安定性改善を、この症状の修正完了とは扱わない',
+        ],
+        note: '公式には再インストールの最終回避策もありますが、削除対象を取り違えないでください。steamapps/common全体や他ゲームのフォルダは削除しません。バックアップ・対象のCall of Dutyフォルダ・復元方法を特定できなければ、削除へ進まず公式へ相談してください。',
+        guideLink: {
+          href: '/guide/verify-steam-files',
+          label: 'Steamの整合性確認の詳しい手順',
+          description: '再取得の有無と起動結果を分けて確認します。',
+        },
+      },
+      {
+        id: 'compare-results',
+        title: '変更前後の起動結果とFPSを、同じ条件で記録する',
+        summary:
+          '以下は比較のための編集手順です。測定済みの結果ではありません。まず非破壊の整合性確認か、不要なアプリ1つの終了で比較します。',
+        time: '約10〜20分',
+        risk: 'low',
+        actions: [
+          '変更前にCPU・GPU・メモリ・Windows版・ドライバー版・配布元・ゲーム版を控える。設定画面を撮る場合は、アカウント名やチャットなどが写らないようにする',
+          '解像度・画質・アップスケール・フレーム生成・FPS上限、同じモード・地点・視点・経路を揃える。更新で旧版に戻せない場合は「同一版での比較不可」と明記する',
+          '変更は一度に1項目だけ。比較前後でタイトル到達の可否、何分後にどの画面で落ちたか、再試行回数と各回の結果を記録する。起動できない場合のFPSは0ではなく「未測定」にする',
+          '起動できる場合だけ、同じ計測手段・同じ60秒の経路を前後それぞれ3回測る。FPSは測定方法と3回分の値を併記し、初回シェーダー処理中の値とは混ぜない。録画を使うなら前後とも同じ条件にする',
+          '元の状態に戻せる変更なら戻して症状が再発するか確認する。未再発でも観察時間・試行回数を添え、「必ず直る」「原因確定」とは書かない。セキュリティやアンチチートは停止しない',
+          'マイゲームでCoD MW4を追加し、「設定スナップショット」に前後の設定、「実験ログ」に実施日・変更項目・FPS・測定条件を残す。未測定欄は空欄にする。端末内保存で、自動公開や他端末同期はされない',
+        ],
+        guideLink: {
+          href: '/my-games#my-game-call-of-duty-modern-warfare-4',
+          label: 'マイゲームで比較を記録する',
+          description:
+            'ゲームを追加すると設定スナップショットと実験ログを使えます。',
+        },
+        note: '現在、掲載できるCoD MW4の実機比較データ・前後の実画面はありません。この記録手順を実機テストの成功実績として紹介しません。',
+      },
+
       {
         id: 'step-1',
         title: 'GPUドライバーを公式の推奨バージョンにする',
@@ -376,9 +445,9 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
         time: '約10分',
         risk: 'low',
         actions: [
-          'NVIDIA：616.56（公式ページには、10月21日に対応ドライバーが公開されると記載）',
+          'NVIDIA：616.56（11月5日更新の公式PC要件に掲載。自分のGPUの対応状況も確認）',
           'AMD：26.7.1',
-          'Intel：32.0.101.8974',
+          'Intel：32.0.101.9150',
           'ドライバーはNVIDIA・AMD・Intelの公式サイトか、各社の公式アプリから入手する',
           'Windowsも最新の状態にする（Windows Update）。試用版・ベータ版・Insider版のWindowsは対象外の場合がある',
         ],
@@ -413,9 +482,12 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
       },
       {
         id: 'step-4',
-        guideLink: { href: '/games/call-of-duty-modern-warfare-4/xbox-pc-launch-button', label: 'Xbox PC版の起動ボタンがない時の確認', description: '対象範囲と公式の確認項目を分けて確認します。' },
-        title:
-          'XBOX on PC版で起動ボタンが出ない時は、専用記事の確認項目を使う',
+        guideLink: {
+          href: '/games/call-of-duty-modern-warfare-4/xbox-pc-launch-button',
+          label: 'Xbox PC版の起動ボタンがない時の確認',
+          description: '対象範囲と公式の確認項目を分けて確認します。',
+        },
+        title: 'XBOX on PC版で起動ボタンが出ない時は、専用記事の確認項目を使う',
         summary:
           'COD Homeの起動ボタンがない症状は、起動後のクラッシュとは分けて扱います。対象と確認項目は専用記事へ進んでください。',
         time: '約10分',
@@ -442,16 +514,15 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
       },
       {
         id: 'step-6',
-        title: '公式が調査中の不具合を確認する',
+        title: '調査中と修正済みの項目を分けて確認する',
         summary:
-          '以下の項目は10月23日更新の既知問題に掲載されています。一般的なPC設定変更で解消すると断定せず、各項目の案内と更新を確認します。',
+          '11月6日更新の既知問題と、11月7日・10日のSeason 1パッチを11月12日に照合しました。',
         time: '約3分',
         risk: 'low',
         actions: [
-          'マルチプレイでロードアウトを保存できない（全機種）',
-          '戦績（Combat Record・リーダーボード）が表示されない（全機種）。表示だけの問題で、記録は続いている',
-          'DMZでオペレーターのプレステージができない（全機種）。公式の回避策：アタッチメントのスロットが3つまでのレア武器（これまで4つ以上付けたことがないもの）を装備する',
-          '載っていない不具合は、公式のバグ報告フォームから報告できる。PCのクラッシュは「Call of Duty PC Crash Report」で報告できる',
+          'Steam版のSeason 1更新後の起動クラッシュは、上の専用STEPへ。XBOX on PC版の起動ボタンがない症状はSTEP 4へ',
+          'ロードアウトの保存、DMZオペレーターのプレステージ、Combat Recordの表示問題は、既知問題ページでは解決済みに移っています。以前の調査中情報だけで設定を変更しない',
+          '同じ症状が残る場合は、現在の版・モード・発生画面を添えて改めて公式へ報告する。別の原因や再発の有無をこの記事だけで確定しない',
         ],
       },
     ],
@@ -460,10 +531,20 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
       'チートと誤解されるおそれのある、ゲームの動作を書き換えるツールを使わない',
     ],
     cautions: [
-      '推奨ドライバーと既知の不具合は、2026年10月23日に公式サポートで確認した内容です。今後のアップデートで変わるため、最新の情報は公式ページで確認してください。',
+      '推奨ドライバーは11月5日更新のPC要件、既知問題は11月6日更新、Season 1パッチは11月10日更新の本文を、2026年11月12日に照合しました。資料確認と実機検証は別です。案内は今後変わる場合があります。',
       '発売前のパッチノートでは、マルチプレイのサーバーのクラッシュや、DMZのクラッシュ（10月20日・21日）の修正が案内されています。ゲームは最新の状態にしてから試してください。',
     ],
     faqs: [
+      {
+        question: '11月10日の安定性改善でSteamの起動クラッシュは直りましたか？',
+        answer:
+          '公式は安定性改善を告知していますが、SteamのSeason 1起動クラッシュを修正完了とは明示していません。現在の版で起動結果を確認し、未再発なら観察時間と試行回数も残してください。',
+      },
+      {
+        question: 'この記事のFPS改善値は実測ですか？',
+        answer:
+          'CoD MW4の実測値はまだ掲載していません。60秒・3回は比較の測定条件案で、改善率や成功率ではありません。起動できない状態はFPS未測定として記録します。',
+      },
       {
         question: 'セキュリティ要件を満たしていないと表示されます。',
         answer:
@@ -482,12 +563,29 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
     ],
     sources: [
       sources.crashes,
-      sources.knownIssues,
-      sources.retailSpecs,
+      {
+        ...sources.knownIssues,
+        label: 'Activision：既知の問題（11月6日更新・11月12日確認／英語）',
+      },
+      {
+        ...sources.retailSpecs,
+        label: 'Activision：製品版PC要件（11月5日更新・11月12日確認／英語）',
+      },
+      {
+        label:
+          'Call of Duty：Season 1パッチノート（11月10日更新・11月12日確認／英語）',
+        url: 'https://www.callofduty.com/patchnotes/2026/11/call-of-duty-modern-warfare-4-season-1-patch-notes',
+      },
       sources.launchPatch,
       sources.connecting,
     ],
-    related: ['dmz-prestige-trait-missing', 'tpm-secure-boot', 'xbox-pc-launch-button', 'loadout-not-saving', 'stats-not-showing'],
+    related: [
+      'dmz-prestige-trait-missing',
+      'tpm-secure-boot',
+      'xbox-pc-launch-button',
+      'loadout-not-saving',
+      'stats-not-showing',
+    ],
     nextChecks: {
       heading: '症状別の確認へ',
       links: [
@@ -498,12 +596,12 @@ const drafts: Omit<GameArticle, 'symptoms'>[] = [
       ],
     },
     metaDescription:
-      'CoD MW4（Modern Warfare 4）がPCで落ちる・クラッシュする・フリーズする時の対処法。公式の推奨GPUドライバー（NVIDIA 616.56・AMD 26.7.1・Intel 32.0.101.8974）、録画ソフト・オーバーレイの停止、XBOX on PC版で起動ボタンが出ない時の確認、公式が調査中の既知の不具合まで解説。',
+      'CoD MW4がPCで落ちる時の確認手順。Season 1更新後のSteam起動クラッシュ、整合性確認、公式推奨ドライバー、修正済みの問題を整理。変更前後の起動結果・FPSを同じ条件で記録する方法も解説します。',
     ogTitle: 'CoD MW4がPCで落ちる時の対処法',
     ogSteps: [
-      '推奨ドライバーにする',
-      '録画ソフト・オーバーレイを止める',
-      '既知の不具合を確認',
+      'Season 1のSteam症状を確認',
+      '更新完了・整合性を確認',
+      '変更前後の結果を記録',
     ],
   },
 ];

@@ -1,8 +1,51 @@
 import type { OfficialGameChange } from './my-game-changes';
 
-// Editorial summaries of primary sources, checked on 2026-11-06 (Japan time).
+// Editorial summaries of primary sources. Each entry records its own check date (Japan time).
 // Release notes describe fixes; they are not independently reproduced results.
 export const recentOfficialChanges: OfficialGameChange[] = [
+  {
+    id: 'mw4-season1-steam-20261107-v1',
+    gameSlug: 'call-of-duty-modern-warfare-4',
+    publishedOn: '2026-11-07',
+    checkedOn: '2026-11-12',
+    sourceUrl:
+      'https://www.callofduty.com/patchnotes/2026/11/call-of-duty-modern-warfare-4-season-1-patch-notes',
+    sourceLanguage: 'en',
+    articlePath: '/games/call-of-duty-modern-warfare-4/crash',
+    copy: {
+      ja: {
+        title: 'Season 1：Steam版の起動クラッシュを照合',
+        condition: 'Season 1更新後、Steam版が起動時に落ちる場合。',
+        change:
+          '11/7に調査と整合性確認を案内。11/10にも安定性改善がありますが、この問題の修正完了は明示されていません。',
+        check:
+          '更新・整合性確認後、同じ操作で起動結果を比較。実機の改善確認ではありません。',
+      },
+      en: {
+        title: 'Season 1: Steam launch-crash check',
+        condition: 'Steam launch crashes after Season 1.',
+        change:
+          'November 7 advised file verification. November 10 stability work does not explicitly confirm this issue is resolved.',
+        check:
+          'Update, verify files and compare launches. No hardware result is claimed.',
+      },
+      zh: {
+        title: '第1赛季：Steam启动崩溃核对',
+        condition: '第1赛季更新后，Steam版启动崩溃。',
+        change:
+          '11月7日公告建议验证文件。11月10日的稳定性改善未明确确认该问题已修复。',
+        check: '完成更新及文件验证后比较启动结果。此处没有实机改善结论。',
+      },
+      es: {
+        title: 'Temporada 1: cierres al iniciar en Steam',
+        condition: 'Cierres en Steam tras la actualización de la temporada 1.',
+        change:
+          'El 7 de noviembre se aconsejó verificar archivos. Las mejoras del día 10 no confirman expresamente su resolución.',
+        check:
+          'Actualiza, verifica y compara el inicio. No es un resultado probado en hardware.',
+      },
+    },
+  },
   {
     id: 'planet-zoo-2-109-20261105-v1',
     gameSlug: 'planet-zoo-2',
