@@ -1365,10 +1365,6 @@ export const articleReviews: Record<string, Omit<ArticleReview, 'path'>> = {
         id: 'season-1-steam',
         title: 'Season 1更新後のSteam版は、まず更新と整合性を確認する',
       },
-      {
-        id: 'compare-results',
-        title: '変更前後の起動結果とFPSを、同じ条件で記録する',
-      },
       { id: 'step-1', title: 'GPUドライバーを公式の推奨バージョンにする' },
       {
         id: 'step-2',
