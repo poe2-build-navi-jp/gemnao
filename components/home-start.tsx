@@ -1,6 +1,7 @@
 /* oxlint-disable next/no-html-link-for-pages -- Match the existing home page's native navigation. */
 import { commonGuides } from '@/lib/common-guides';
-import { homeContentUpdatedAt, homeDescription, homeStartChecks } from '@/lib/home-start';
+import { homeDescription, homeStartChecks } from '@/lib/home-start';
+import { homePageUpdatedAt } from '@/lib/home-content';
 import { casePath, reportedCases } from '@/lib/reported-cases';
 import { siteConfig } from '@/lib/site-config';
 
@@ -24,7 +25,7 @@ export function HomeStart() {
             name: 'ゲムなお｜PCゲームのお直しWiki',
             description: homeDescription,
             inLanguage: 'ja-JP',
-            dateModified: homeContentUpdatedAt,
+            dateModified: homePageUpdatedAt,
             isPartOf: { '@id': `${siteConfig.url}/#website` },
             publisher: { '@id': `${siteConfig.url}/#operator` },
             mainEntity: {
