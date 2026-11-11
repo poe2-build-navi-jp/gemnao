@@ -2,6 +2,7 @@ import { freshLocal, saveLocal, readLocal } from '../lib/diagnosis/local';
 import assert from 'node:assert/strict';
 import {
   changesForGame,
+  changeDayInJapan,
   officialGameChanges,
   validChangeDate,
 } from '../lib/my-game-changes';
@@ -11,6 +12,8 @@ import {
   setChangeRead,
 } from '../lib/my-game-changes-read';
 import { myGamesData } from '../lib/my-games-data';
+assert.equal(changeDayInJapan(new Date('2026-11-11T14:59:59Z')), '2026-11-11');
+assert.equal(changeDayInJapan(new Date('2026-11-11T15:00:00Z')), '2026-11-12');
 for (const locale of ['ja', 'en', 'zh', 'es'] as const) {
   const games = myGamesData(locale);
   for (const slug of ['apex-legends', 'pubg']) {

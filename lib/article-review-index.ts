@@ -1359,8 +1359,16 @@ export const articleReviews: Record<string, Omit<ArticleReview, 'path'>> = {
     title:
       'CoD MW4（Modern Warfare 4）がPCで落ちる・クラッシュする・キャンペーンやDMZを起動できない時の対処法【PC版】',
     gameSlug: 'call-of-duty-modern-warfare-4',
-    checkedOn: '2026-10-23',
+    checkedOn: '2026-11-12',
     steps: [
+      {
+        id: 'season-1-steam',
+        title: 'Season 1更新後のSteam版は、まず更新と整合性を確認する',
+      },
+      {
+        id: 'compare-results',
+        title: '変更前後の起動結果とFPSを、同じ条件で記録する',
+      },
       { id: 'step-1', title: 'GPUドライバーを公式の推奨バージョンにする' },
       {
         id: 'step-2',
@@ -1375,7 +1383,7 @@ export const articleReviews: Record<string, Omit<ArticleReview, 'path'>> = {
         id: 'step-5',
         title: 'オンラインにつながらない時は、サーバーの状況と回線を確認する',
       },
-      { id: 'step-6', title: '公式が調査中の不具合を確認する' },
+      { id: 'step-6', title: '調査中と修正済みの項目を分けて確認する' },
     ],
   },
   '/games/call-of-duty-modern-warfare-4/xbox-pc-launch-button': {

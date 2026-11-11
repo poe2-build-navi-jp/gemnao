@@ -4,6 +4,25 @@ const gpuSource = {
   url: 'https://devblogs.microsoft.com/directx/gpus-in-the-task-manager/',
 };
 export const followupEvidenceReviews: Record<string, ArticleEvidenceReview> = {
+  '/games/call-of-duty-modern-warfare-4/crash': {
+    scope:
+      'PC版。Season 1更新後の起動クラッシュの告知はSteam版に限定します。PC構成・ゲーム版ごとの独立した比較記録は未取得です。',
+    result:
+      '公式資料の照合まで完了。ゲムなおで実機の起動失敗を再現・修復した結果、FPSの前後測定値、実画面の比較画像はまだありません。',
+    limits:
+      '安定性改善の告知だけではSteam起動クラッシュの修正完了を確認できません。比較用の60秒・3回という条件は編集上の提案で、公式の測定基準や実測結果ではありません。',
+    compare:
+      'CPU・GPU・メモリ・OS・ドライバー・配布元・ゲーム版と前後の設定画面を保存し、変更を1項目に絞って同じ場面で比べます。起動可否・落ちるまでの時間・試行回数を先に記録。FPSが測れなければ未測定とし、公開前に実施日・画像内の個人情報・測定条件を照合します。',
+    sourceReview:
+      '2026-11-12にSeason 1パッチ（11/10更新）、既知問題（11/6更新）、PC要件（11/5更新）の本文を照合。過去の資料確認日を実機試験日には転用していません。',
+    official: [
+      {
+        label: 'Call of Duty：Season 1パッチノート（英語）',
+        url: 'https://www.callofduty.com/patchnotes/2026/11/call-of-duty-modern-warfare-4-season-1-patch-notes',
+        text: '11/7のSteam起動クラッシュと整合性確認、11/10の安定性改善の告知を確認。個別環境の改善はこの資料だけで証明しません。',
+      },
+    ],
+  },
   '/guide/low-gpu-usage': {
     result:
       '本文の60／120fpsなどは判定方法の仮例です。特定PCでGPU使用率を上げて性能が改善したという実機記録は、このガイドにはありません。',
