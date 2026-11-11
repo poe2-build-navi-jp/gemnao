@@ -599,6 +599,87 @@ export const games: GameGuide[] = [
     ],
   },
   {
+    slug: 'path-of-exile-2',
+    title: 'Path of Exile 2（PoE2）',
+    shortTitle: 'Path of Exile 2',
+    lead: '12月11日（太平洋時間）の正式リリース（1.0）で基本プレイ無料に。必須のVRAM 3GBと空き容量100GB、起動しない・接続できない時の手順を公式情報から整理。',
+    accent: '#5a2a1e',
+    demand: '2026年12月11日（太平洋時間）正式リリース・基本プレイ無料（公式のお知らせ）',
+    issueScale: '高い',
+    updated: '2026-11-11',
+    tags: ['起動しない', 'VRAM', '正式リリース', '基本プレイ無料', 'オンライン'],
+    focused: true,
+    savePath: '',
+    configPath: '',
+    fps: '',
+    ultrawide: '',
+    hdr: 'HDR使用可能（Steamストアの表記）。',
+    controller:
+      'フルコントローラーサポート。DUALSHOCK・DualSense対応（Steamストアの表記）。',
+    launchFixes: [
+      'GPUのVRAMが3GB以上か確認（最低環境の必須条件）',
+      '空き容量100GBとSSDを確認',
+      'GPUドライバーを更新し、ゲームファイルを確認',
+    ],
+    mod: '',
+    japanese:
+      '日本語のインターフェース・字幕に対応。フル音声は英語のみ（Steamストアの表記）。',
+    specs: {
+      minimum:
+        'Windows 10／4コア2.8GHz／GTX 960・RX 470（VRAM 3GB以上が必須）／メモリ8GB／DirectX 12',
+      recommended:
+        'Windows 10／Core i5-10500・Ryzen 5 3700X／RTX 2060・Arc A770・RX 5600 XT／メモリ16GB／SSD推奨',
+      storage: '100GB',
+    },
+    sources: [
+      { label: 'Steamストア', url: steam('2694490') },
+      {
+        label: '公式のお知らせ（Steamニュース）',
+        url: 'https://store.steampowered.com/news/app/2694490',
+      },
+    ],
+  },
+  {
+    slug: 'edge-of-memories',
+    title: 'Edge of Memories（エッジ・オブ・メモリーズ）',
+    shortTitle: 'Edge of Memories',
+    lead: '12月3日に延期されたMidgar Studioの新作RPG。最低環境のGTX 1060・メモリ12GBと、起動しない時の確認手順を公式情報から整理。',
+    accent: '#2f4f6b',
+    demand: '2026年12月3日発売（11月5日から延期。公式のお知らせ）',
+    issueScale: '中程度',
+    updated: '2026-11-11',
+    tags: ['起動しない', '動作環境', '発売日', '体験版'],
+    focused: true,
+    savePath: '',
+    configPath: '',
+    fps: '',
+    ultrawide: '',
+    hdr: '',
+    controller:
+      'フルコントローラーサポート・ゲームパッド推奨。DUALSHOCK・DualSense対応（Steamストアの表記）。',
+    launchFixes: [
+      'GPUとメモリが最低環境（GTX 1060・12GB）を満たすか確認',
+      'GPUドライバーを更新し、ゲームファイルを確認',
+    ],
+    mod: '',
+    japanese:
+      '日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。',
+    specs: {
+      minimum:
+        'Windows 10〜11／Core i7-8700K・Ryzen 5 1600X／GTX 1060（6GB）・RX 590（8GB）・Arc A580（8GB）／メモリ12GB／DirectX 12（最終版ではない）',
+      recommended:
+        'Windows 11／Core i5-12600K・Ryzen 5 7600／RTX 3070（8GB）・RX 6750 XT（12GB）・Arc B580（12GB）／メモリ16GB',
+      storage: '22GB',
+    },
+    sources: [
+      { label: 'Steamストア', url: steam('2738170') },
+      {
+        label: '公式のお知らせ（Steamニュース）',
+        url: 'https://store.steampowered.com/news/app/2738170',
+      },
+    ],
+  },
+  {
     slug: 'where-the-seeds-fall',
     title: '崩落の国（Where the Seeds Fall）',
     shortTitle: '崩落の国',

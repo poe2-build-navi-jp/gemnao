@@ -45,6 +45,8 @@ export const launches: Launch[] = [
     release: '2026-12-03',
     earlyAccess: '2026-12-02',
   },
+  { gameSlug: 'edge-of-memories', release: '2026-12-03' },
+  { gameSlug: 'path-of-exile-2', release: '2026-12-11' },
 ];
 
 const DAY = 86_400_000;

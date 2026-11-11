@@ -16,6 +16,8 @@ export const steamAppIds: Record<string, string> = {
   'godzilla-destroy-all-monsters-melee': '4251460',
   'where-the-seeds-fall': '4139580',
   'football-manager-27': '4530370',
+  'path-of-exile-2': '2694490',
+  'edge-of-memories': '2738170',
   'phantom-blade-zero': '4115450',
   'dragon-quest-monsters-4': '3681610',
   'call-of-duty-modern-warfare-4': '4435490',

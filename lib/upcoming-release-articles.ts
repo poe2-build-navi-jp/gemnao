@@ -1314,4 +1314,324 @@ export const upcomingReleaseArticles: GameArticle[] = [
     metaDescription:
       'Godzilla: Destroy All Monsters Melee Remastered（ゴジラ）PC版・体験版が起動しない・オンライン対戦できない時の対処法。DirectX 12・シェーダーモデル6対応のGTX 1060・RX 580の最低環境、ドライバーとファイルの確認、オンライン1対1とRemote Play Togetherまで公式情報をもとに解説。',
   }),
+  make({
+    gameSlug: 'path-of-exile-2',
+    slug: 'not-launching',
+    category: 'launch',
+    checkedAt: '2026-11-11',
+    seoTitle:
+      'Path of Exile 2（PoE2）正式リリースで起動しない・落ちる時の対処法｜VRAM 3GBと100GB【PC版】',
+    title:
+      'Path of Exile 2（PoE2）正式リリース（1.0）で起動しない・落ちる・接続できない時の対処法【PC版】',
+    shortTitle: '起動しない・落ちる・接続',
+    targetVersion:
+      'Steam版・正式リリース（1.0）前・2026年11月11日時点の公式情報（発売前）',
+    symptom:
+      '正式リリース（1.0）で起動しない、起動直後に落ちる、読み込みが長い、サーバーに接続できない場合の確認手順です。',
+    conclusion:
+      '最低動作環境では「VRAM 3GB以上のGPUが必須」と書かれています（Steamストアの表記）。起動しない・落ちる時は、まずGPUのVRAMと空き容量（100GB）を確認し、次にドライバーとゲームファイルを確認します。オンライン専用のため、接続できない時は回線と公式のお知らせを確認します。',
+    description:
+      'Grinding Gear Gamesは、Path of Exile 2を太平洋時間2026年12月11日に正式リリース（1.0）すると発表しました。1.0では基本プレイ無料になり、Act 5・6を加えた全6章のキャンペーン、新クラスのシャドウとデュエリスト、新チャレンジリーグ「Conquerors of Wraeclast」が追加されます（11月6日の公式のお知らせ）。日本語のテキストに対応し、フル音声は英語のみです。日本時間での開始時刻は、公式のお知らせで確認してください。',
+    causes: [
+      'GPUのVRAMが3GB未満、または最低環境（GTX 960・RX 470）を下回る',
+      'ストレージの空きが100GBに足りない・HDDで読み込みが長い（SSD推奨）',
+      'GPUドライバーが古い・ゲームファイルの破損',
+      'オーバーレイや録画ツールの干渉',
+      '回線の問題、または公式のメンテナンス・障害（オンライン専用）',
+    ],
+    quickFacts: [
+      {
+        label: '正式リリース（1.0）',
+        value:
+          '太平洋時間2026年12月11日。基本プレイ無料になる（公式のお知らせ）',
+      },
+      {
+        label: '最低動作環境',
+        value:
+          'Windows 10／4コア2.8GHz／GTX 960・RX 470（VRAM 3GB以上が必須）／メモリ8GB／DirectX 12／100GB',
+      },
+      {
+        label: '推奨動作環境',
+        value:
+          'Core i5-10500・Ryzen 5 3700X／RTX 2060・Arc A770・RX 5600 XT／メモリ16GB／SSD推奨',
+      },
+      {
+        label: '1.0の主な追加',
+        value:
+          'Act 5・6（全6章）、新クラスのシャドウ・デュエリスト、新チャレンジリーグ「Conquerors of Wraeclast」',
+      },
+      {
+        label: '日本語',
+        value:
+          'インターフェース・字幕は対応。フル音声は英語のみ（Steamストアの表記）',
+      },
+    ],
+    diagnosis: [
+      {
+        symptom: '起動しない・すぐ落ちる',
+        cause: 'VRAM 3GB未満・GPUが最低環境を下回る',
+        stepId: 'step-1',
+      },
+      {
+        symptom: 'インストールできない・読み込みが長い',
+        cause: '空き容量不足・HDD',
+        stepId: 'step-2',
+      },
+      {
+        symptom: '起動直後に落ちる・黒い画面のまま',
+        cause: 'ドライバー・ファイル・常駐ツール',
+        stepId: 'step-3',
+      },
+      {
+        symptom: 'サーバーに接続できない・ログインできない',
+        cause: '回線・公式のメンテナンスや障害',
+        stepId: 'step-4',
+      },
+    ],
+    steps: [
+      {
+        id: 'step-1',
+        title: 'GPUのVRAMが3GB以上あるか確認する',
+        summary:
+          '最低環境はGTX 960・RX 470で、追記事項に「VRAM 3GB以上のGPUが必須」と書かれています。DirectX 12にも対応している必要があります。',
+        time: '約5分',
+        risk: 'low',
+        actions: [
+          'タスクマネージャー（Ctrl + Shift + Esc）の「パフォーマンス」→「GPU」で、GPUの名前と「専用GPUメモリ」を確認する（共有GPUメモリは含めない）',
+          'Windows + R →「dxdiag」と入力し、「ディスプレイ」タブの「機能レベル」に12_0以上が含まれているか見る（DirectX 12対応の目安）',
+          'メモリ（RAM）は最低8GB・推奨16GB。CPUは最低で4コア2.8GHz',
+        ],
+      },
+      {
+        id: 'step-2',
+        title: '空き容量100GBとインストール先を確認する',
+        summary:
+          '最低・推奨とも100GBの空き容量が必要で、推奨環境ではSSDが勧められています。',
+        time: '約5分',
+        risk: 'low',
+        actions: [
+          'エクスプローラーで、インストール先のドライブに100GB以上の空きがあるか確認する',
+          'Steamの「設定」→「ストレージ」で、ゲームが入っているドライブを確認する',
+          'タスクマネージャーの「パフォーマンス」で、そのドライブの種類（SSD／HDD）を確認する。HDDの場合は、ストレージ画面でゲームを選び「移動」からSSDのドライブへ移す',
+        ],
+      },
+      {
+        id: 'step-3',
+        title: 'GPUドライバーを更新し、ゲームファイルを確認する',
+        summary: '起動直後に落ちる・黒い画面のまま進まない場合に確認します。',
+        time: '約15分',
+        risk: 'low',
+        actions: [
+          driverUpdate,
+          steamVerify,
+          'Discord・Steamのオーバーレイ、録画・FPS表示ツールをオフにして起動を比べる',
+        ],
+      },
+      {
+        id: 'step-4',
+        title: '接続できない時は、回線と公式のお知らせを確認する',
+        summary:
+          '動作環境にはブロードバンドのインターネット接続が必要と書かれており、オフラインでは遊べません。',
+        time: '約10分',
+        risk: 'low',
+        actions: [
+          'ブラウザーでほかのサイトが開けるか、ほかのオンラインゲームにつながるかを確認する',
+          'Steamのゲームページの「お知らせ」（公式のSteamニュース）で、メンテナンスや障害の告知が出ていないか確認する',
+          'ルーターとPCを再起動してから、もう一度ログインする',
+        ],
+      },
+    ],
+    avoid: [
+      'VRAM 3GB未満のGPUで、設定ファイルの書き換えなどで動かそうとしない（動作環境の必須条件）',
+      '非公式のツールやファイルで起動を早めようとしない',
+    ],
+    cautions: [
+      '正式リリース前の情報です。リリース後に公式が案内する不具合や修正は、公式のお知らせもあわせて確認してください。',
+    ],
+    faqs: [
+      {
+        question: '正式リリースで無料になりますか？',
+        answer:
+          'はい。公式のお知らせは「12月11日（太平洋時間）からPath of Exile 2を無料で遊べる」と案内しています。',
+      },
+      {
+        question: '日本語で遊べますか？',
+        answer:
+          'Steamストアでは、日本語のインターフェース・字幕に対応しています。フル音声は英語のみです。',
+      },
+      {
+        question: 'コントローラーで遊べますか？',
+        answer:
+          'Steamストアの表記では、フルコントローラーサポートで、DUALSHOCK・DualSenseに対応しています。',
+      },
+      {
+        question: 'アーリーアクセスのサポーターパックはまだ買えますか？',
+        answer:
+          '公式は10月22日のお知らせで、アーリーアクセスのサポーターパックが数週間後にストアから外れ、新しいパックに置き換わると案内しています。',
+      },
+    ],
+    sources: [
+      {
+        label: 'Steamストア：Path of Exile 2（動作環境・VRAM 3GB・対応言語）',
+        url: 'https://store.steampowered.com/app/2694490/',
+      },
+      {
+        label:
+          'Steamニュース（公式）：正式リリース（12月11日・無料・1.0の追加内容）',
+        url: 'https://store.steampowered.com/news/app/2694490',
+      },
+    ],
+    related: [],
+    metaDescription:
+      'Path of Exile 2（PoE2）正式リリース（1.0）で起動しない・落ちる・接続できない時の対処法。必須のVRAM 3GB、空き容量100GBとSSD、ドライバーとファイルの確認、オンライン接続、12月11日の無料化まで公式情報をもとに解説。',
+  }),
+  make({
+    gameSlug: 'edge-of-memories',
+    slug: 'not-launching',
+    category: 'launch',
+    checkedAt: '2026-11-11',
+    seoTitle:
+      'Edge of Memories（エッジ・オブ・メモリーズ）が起動しない時の対処法｜動作環境と発売日【PC版】',
+    title:
+      'Edge of Memories（エッジ・オブ・メモリーズ）が起動しない・落ちる時の対処法と動作環境【PC版】',
+    shortTitle: '起動しない・動作環境',
+    targetVersion: 'Steam版・2026年11月11日時点の公式情報（発売前）',
+    symptom:
+      'PC版が起動しない、起動直後に落ちる、重い場合の確認手順と、発売日・動作環境・購入特典のまとめです。',
+    conclusion:
+      '最低動作環境はWindows 10〜11、GTX 1060（6GB）・RX 590（8GB）・Arc A580（8GB）、メモリ12GBです（Steamストアの表記）。起動しない時は、まずGPUとドライバー、次にゲームファイルを確認します。動作環境は「最終版ではなく、発売までに変わる可能性がある」と書かれているため、発売前にもう一度確認してください。',
+    description:
+      'Edge of Eternityを手がけたMidgar Studioの新作RPGです。11月5日発売の予定でしたが、公式は10月23日に12月3日へ延期すると発表しました。体験版は11月上旬にSteamで再び配信すると案内されています。日本語の字幕と音声に対応しています。',
+    causes: [
+      'GPUが最低環境（GTX 1060 6GB・RX 590・Arc A580）を下回る',
+      'メモリが12GB未満',
+      'GPUドライバーが古い・ゲームファイルの破損',
+      'オーバーレイや録画ツールの干渉',
+    ],
+    quickFacts: [
+      {
+        label: '発売日',
+        value: '2026年12月3日（11月5日から延期。公式のお知らせ）',
+      },
+      {
+        label: '最低動作環境',
+        value:
+          'Windows 10〜11／Core i7-8700K・Ryzen 5 1600X／GTX 1060（6GB）・RX 590（8GB）・Arc A580（8GB）／メモリ12GB／DirectX 12／22GB',
+      },
+      {
+        label: '推奨動作環境',
+        value:
+          'Windows 11／Core i5-12600K・Ryzen 5 7600／RTX 3070（8GB）・RX 6750 XT（12GB）・Arc B580（12GB）／メモリ16GB',
+      },
+      {
+        label: 'PC版の購入特典',
+        value:
+          'PCの予約購入はなし。発売後の一定期間に購入するとLegacy Costume Packが付く（公式）',
+      },
+      {
+        label: '日本語',
+        value: 'インターフェース・字幕・音声に対応（Steamストアの表記）',
+      },
+    ],
+    diagnosis: [
+      {
+        symptom: '起動しない・すぐ落ちる',
+        cause: 'GPU・メモリが最低環境を下回る',
+        stepId: 'step-1',
+      },
+      {
+        symptom: '起動直後に落ちる・黒い画面のまま',
+        cause: 'ドライバー・ファイル・常駐ツール',
+        stepId: 'step-2',
+      },
+      {
+        symptom: '重い・カクつく',
+        cause: '推奨環境との差',
+        stepId: 'step-3',
+      },
+    ],
+    steps: [
+      {
+        id: 'step-1',
+        title: 'GPUとメモリが最低環境を満たすか確認する',
+        summary:
+          '最低環境はGTX 1060（6GB）・RX 590（8GB）・Arc A580（8GB）、メモリ12GB、DirectX 12です。',
+        time: '約5分',
+        risk: 'low',
+        actions: [
+          'タスクマネージャー（Ctrl + Shift + Esc）の「パフォーマンス」→「GPU」で、GPUの名前と「専用GPUメモリ」を確認する',
+          'Windows + R →「dxdiag」と入力し、「ディスプレイ」タブの「機能レベル」に12_0以上が含まれているか見る（DirectX 12対応の目安）',
+          'メモリ（RAM）が12GB以上、空き容量が22GB以上あるか確認する',
+        ],
+      },
+      {
+        id: 'step-2',
+        title: 'GPUドライバーを更新し、ゲームファイルを確認する',
+        summary: '起動直後に落ちる・黒い画面のまま進まない場合に確認します。',
+        time: '約15分',
+        risk: 'low',
+        actions: [
+          driverUpdate,
+          steamVerify,
+          'Discord・Steamのオーバーレイ、録画・FPS表示ツールをオフにして起動を比べる',
+        ],
+      },
+      {
+        id: 'step-3',
+        title: '重い時は、推奨環境と比べる',
+        summary:
+          '推奨環境はWindows 11、RTX 3070（8GB）・RX 6750 XT（12GB）・Arc B580（12GB）、メモリ16GBです。',
+        time: '約5分',
+        risk: 'low',
+        actions: [
+          winver,
+          'GPU・CPU・メモリを推奨環境と比べ、下回る部分があればゲーム内のグラフィック設定を下げて比べる',
+          '公式は、モーションブラーのオン・オフなどの設定を製品版に追加したと案内しています。変えた設定は1つずつ比べ、効果がなければ元に戻す',
+        ],
+      },
+    ],
+    avoid: [
+      '発売前の動作環境だけで判断して、パーツの買い替えを急がない（公式は変更の可能性があると記載）',
+    ],
+    cautions: [
+      '発売前の情報です。動作環境は「最終版ではない」と書かれています。発売後に公式が案内する不具合や修正は、公式のお知らせもあわせて確認してください。',
+    ],
+    faqs: [
+      {
+        question: '発売日はいつですか？',
+        answer:
+          '2026年12月3日です。当初は11月5日の予定でしたが、公式は10月23日のお知らせで、年末の大型タイトルが多いことと、使い勝手の改善を加えるために延期すると説明しています。',
+      },
+      {
+        question: '体験版はありますか？',
+        answer:
+          '公式は10月23日のお知らせで、Steam Next Fest以降の改善を入れた体験版を11月上旬にSteamで再び配信すると案内しています。',
+      },
+      {
+        question: '予約特典はありますか？',
+        answer:
+          'PC版の予約購入はありません。公式によると、発売後の一定期間にPCで購入すると、Legacy Costume Pack（Edge of EternityのYsorisとNekarooの衣装）が付きます。',
+      },
+      {
+        question: 'コントローラーで遊べますか？',
+        answer:
+          'フルコントローラーサポートで、ゲームパッドが推奨されています。DUALSHOCK・DualSenseにも対応しています（Steamストアの表記）。',
+      },
+    ],
+    sources: [
+      {
+        label:
+          'Steamストア：Edge of Memories（動作環境・対応言語・コントローラー）',
+        url: 'https://store.steampowered.com/app/2738170/',
+      },
+      {
+        label:
+          'Steamニュース（公式）：発売日の延期（12月3日）・体験版・購入特典',
+        url: 'https://store.steampowered.com/news/app/2738170',
+      },
+    ],
+    related: [],
+    metaDescription:
+      'Edge of Memories（エッジ・オブ・メモリーズ）PC版が起動しない・落ちる時の対処法。GTX 1060・RX 590・メモリ12GBの最低環境、ドライバーとファイルの確認、12月3日への延期、体験版、購入特典まで公式情報をもとに解説。',
+  }),
 ];
