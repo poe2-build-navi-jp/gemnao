@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { WikiHome, type LaunchItem } from '@/components/wiki-home';
 import { latestWeeklyReport } from '@/lib/weekly-reports';
 import { ReportEntryLink } from '@/components/report-entry-link';
-import { searchArticles } from '@/lib/site-search';
+import { homeArticles } from '@/lib/home-content';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
 import { commonGuides } from '@/lib/common-guides';
 import { pcArticles } from '@/lib/pc-articles';
@@ -102,10 +102,7 @@ export default async function Home({
         slug: latestWeeklyReport.slug,
         period: latestWeeklyReport.period,
       }}
-      defaultArticles={searchArticles('')
-        .filter((article) => article.kind === 'game')
-        .slice(0, 6)
-        .map(({ gameArticle: _omit, ...article }) => article)}
+      defaultArticles={homeArticles}
       reportEntry={<ReportEntryLink prominent />}
       startHere={<HomeStart />}
       header={<WikiHeader />}

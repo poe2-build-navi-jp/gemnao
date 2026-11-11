@@ -23,7 +23,7 @@ import {
 } from '@/lib/localized/index';
 import { gearArticles } from '@/lib/gear-articles';
 import { gearGuides } from '@/lib/gear-guides';
-import { homeContentUpdatedAt } from '@/lib/home-start';
+import { homePageUpdatedAt } from '@/lib/home-content';
 export default function sitemap(): MetadataRoute.Sitemap {
   if (process.env.NEXT_PUBLIC_SITE_PUBLIC === 'false') return [];
   const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://gemnao.pages.dev';
@@ -34,7 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 }
 function entries(base: string): MetadataRoute.Sitemap {
   const fixed = [
-    { path: '', updated: homeContentUpdatedAt },
+    { path: '', updated: homePageUpdatedAt },
     { path: '/guide', updated: '2026-11-06' },
     // Diagnosis remains noindex during public beta, including when sharing is enabled.
     { path: '/discord', updated: '2026-09-30' },
