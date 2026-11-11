@@ -71,6 +71,8 @@ export type GameArticle = {
   causes?: string[];
   symptoms: { label: string; target: string }[];
   steps: ArticleStep[];
+  /** Measurement instructions, outside fix voting and progress tracking. */
+  comparisonGuide?: ArticleStep;
   cautions: string[];
   faqs?: { question: string; answer: string }[];
   /** "30秒でわかる" facts shown under the conclusion; `copy` adds a copy button. */
@@ -1034,8 +1036,11 @@ export function articleBySlug(gameSlug: string, articleSlug: string) {
   );
 }
 
-export function articleCategoryLabel(article: Pick<GameArticle, 'category' | 'slug'>) {
-  return article.category === 'server' && article.slug.startsWith('dedicated-server-')
+export function articleCategoryLabel(
+  article: Pick<GameArticle, 'category' | 'slug'>,
+) {
+  return article.category === 'server' &&
+    article.slug.startsWith('dedicated-server-')
     ? '専用サーバー'
     : categoryLabels[article.category];
 }

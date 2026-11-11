@@ -2,7 +2,10 @@ import { changesForArticle } from '@/lib/my-game-changes';
 import { OfficialUpdateNotice } from '@/components/official-update-notice';
 import { ArticleContext } from '@/components/article-context';
 import { ArticleReturn } from '@/components/article-return';
-import { ArticleEvidence, ArticleEvidenceTocLink } from '@/components/article-evidence';
+import {
+  ArticleEvidence,
+  ArticleEvidenceTocLink,
+} from '@/components/article-evidence';
 import { ClockSyncFirst } from '@/components/clock-sync-first';
 import { AceCombatNoticeHistory } from '@/components/ace-combat-notice-history';
 import { ReportedCaseLink } from '@/components/reported-case';
@@ -48,7 +51,8 @@ export function TroubleshootingArticle({
   game: GameGuide;
   article: GameArticle;
 }) {
-  const clockSyncFirst = article.gameSlug === 'ace-combat-8' && article.slug === 'error-st-3100001';
+  const clockSyncFirst =
+    article.gameSlug === 'ace-combat-8' && article.slug === 'error-st-3100001';
   const canonical = `https://gemnao.pages.dev/games/${game.slug}/${article.slug}`;
   const feedbackTopic =
     article.category === 'settings'
@@ -58,8 +62,18 @@ export function TroubleshootingArticle({
         : article.category === 'specs'
           ? 'specs'
           : article.category;
-  const officialUpdates = changesForArticle(`/games/${game.slug}/${article.slug}`, 'ja');
-  const sources = [...(article.sources || []), ...game.sources, ...officialUpdates.map((update) => ({url: update.sourceUrl, label: update.copy.title}))].filter(
+  const officialUpdates = changesForArticle(
+    `/games/${game.slug}/${article.slug}`,
+    'ja',
+  );
+  const sources = [
+    ...(article.sources || []),
+    ...game.sources,
+    ...officialUpdates.map((update) => ({
+      url: update.sourceUrl,
+      label: update.copy.title,
+    })),
+  ].filter(
     (source, index, all) =>
       all.findIndex((item) => item.url === source.url) === index,
   );
@@ -104,7 +118,12 @@ export function TroubleshootingArticle({
     '@type': 'TechArticle',
     headline: article.title,
     description: article.metaDescription,
-    dateModified: [article.updatedAt ?? article.checkedAt, ...officialUpdates.map((update) => update.checkedOn)].sort().at(-1),
+    dateModified: [
+      article.updatedAt ?? article.checkedAt,
+      ...officialUpdates.map((update) => update.checkedOn),
+    ]
+      .sort()
+      .at(-1),
     author: editorialAuthor,
     publisher: editorialPublisher,
     citation: sources.map((source) => source.url),
@@ -161,9 +180,16 @@ export function TroubleshootingArticle({
           <div className="article-meta">
             <EditorialByline />
             {article.updatedAt && (
-              <span>本文更新：<time dateTime={article.updatedAt}>{article.updatedAt.replaceAll('-', '.')}</time></span>
+              <span>
+                本文更新：
+                <time dateTime={article.updatedAt}>
+                  {article.updatedAt.replaceAll('-', '.')}
+                </time>
+              </span>
             )}
-            <span>資料の確認記録：{article.checkedAt.replaceAll('-', '.')}</span>
+            <span>
+              資料の確認記録：{article.checkedAt.replaceAll('-', '.')}
+            </span>
             {article.status && article.status !== 'verified' ? (
               <span>
                 情報の状態：
@@ -192,8 +218,15 @@ export function TroubleshootingArticle({
               {symptom.label}
             </a>
           ))}
+          {article.comparisonGuide && (
+            <a href={`#${article.comparisonGuide.id}`}>
+              変更前後を同じ条件で記録する
+            </a>
+          )}
           {faqs.length ? <a href="#faq">よくある質問</a> : null}
-          <ArticleEvidenceTocLink path={`/games/${game.slug}/${article.slug}`} />
+          <ArticleEvidenceTocLink
+            path={`/games/${game.slug}/${article.slug}`}
+          />
           <a href="#references">参考情報</a>
         </ArticleToc>
         <article className="guide-article">
@@ -263,7 +296,8 @@ export function TroubleshootingArticle({
               </dl>
             </section>
           ) : null}
-          {article.gameSlug === 'ace-combat-8' && article.slug === 'error-st-3100001' && <AceCombatNoticeHistory />}
+          {article.gameSlug === 'ace-combat-8' &&
+            article.slug === 'error-st-3100001' && <AceCombatNoticeHistory />}
           {article.diagnosis?.length ? (
             <section
               className="diagnosis-table"
@@ -367,6 +401,34 @@ export function TroubleshootingArticle({
               },
             ]}
           />
+          {article.comparisonGuide && (
+            <section
+              className="guide-section"
+              id={article.comparisonGuide.id}
+              aria-labelledby="comparison-guide-title"
+            >
+              <h2 id="comparison-guide-title">
+                {article.comparisonGuide.title}
+              </h2>
+              <p>{article.comparisonGuide.summary}</p>
+              <ol>
+                {article.comparisonGuide.actions.map((action) => (
+                  <li key={action}>{action}</li>
+                ))}
+              </ol>
+              {article.comparisonGuide.note && (
+                <p className="step-note">{article.comparisonGuide.note}</p>
+              )}
+              {article.comparisonGuide.guideLink && (
+                <p>
+                  {article.comparisonGuide.guideLink.description}{' '}
+                  <a href={article.comparisonGuide.guideLink.href}>
+                    {article.comparisonGuide.guideLink.label} →
+                  </a>
+                </p>
+              )}
+            </section>
+          )}
           <ArticleEvidence path={`/games/${game.slug}/${article.slug}`} />
           <ArticleReturn gameSlug={game.slug} />
           {article.avoid?.length ? (
