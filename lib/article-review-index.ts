@@ -1621,21 +1621,21 @@ export const articleReviews: Record<string, Omit<ArticleReview, 'path'>> = {
     title:
       'Football Manager 27（FM27）が起動しない時の対処法｜無料ローンチプレビューの期間・引き継ぎとDenuvoの認証制限【PC版】',
     gameSlug: 'football-manager-27',
-    checkedOn: '2026-10-25',
+    checkedOn: '2026-11-11',
     steps: [
-      { id: 'step-1', title: 'CPU・GPU・Windowsが動作環境を満たすか確認する' },
+      {
+        id: 'step-1',
+        title: '「--purge_settings」でFM27の設定をリセットして起動する',
+      },
       {
         id: 'step-2',
-        title: '複数のPCで遊ぶ時は、Denuvoの1日5台の認証制限に注意する',
+        title: 'Steam版は公式のprivate_betaで起動時クラッシュを比較する',
       },
       {
         id: 'step-3',
-        title: 'ローンチプレビューの期間と、セーブの引き継ぎ条件を確認する',
+        title: '追加データを外し、ゲームファイルとGPUドライバーを確認する',
       },
-      {
-        id: 'step-4',
-        title: 'GPUドライバーを更新し、ゲームファイルを確認する',
-      },
+      { id: 'step-4', title: '動作環境とDenuvoのマシン認証制限を確認する' },
     ],
   },
   '/games/where-the-seeds-fall/not-launching': {
@@ -1669,6 +1669,38 @@ export const articleReviews: Record<string, Omit<ArticleReview, 'path'>> = {
         title: 'オンライン対戦につながらない時は、回線とSteamの状態を確認する',
       },
       { id: 'step-4', title: '離れた友達とはRemote Play Togetherで遊ぶ' },
+    ],
+  },
+  '/games/path-of-exile-2/not-launching': {
+    title:
+      'Path of Exile 2（PoE2）正式リリース（1.0）で起動しない・落ちる・接続できない時の対処法【PC版】',
+    gameSlug: 'path-of-exile-2',
+    checkedOn: '2026-11-11',
+    steps: [
+      { id: 'step-1', title: 'GPUのVRAMが3GB以上あるか確認する' },
+      { id: 'step-2', title: '空き容量100GBとインストール先を確認する' },
+      {
+        id: 'step-3',
+        title: 'GPUドライバーを更新し、ゲームファイルを確認する',
+      },
+      {
+        id: 'step-4',
+        title: '接続できない時は、回線と公式のお知らせを確認する',
+      },
+    ],
+  },
+  '/games/edge-of-memories/not-launching': {
+    title:
+      'Edge of Memories（エッジ・オブ・メモリーズ）が起動しない・落ちる時の対処法と動作環境【PC版】',
+    gameSlug: 'edge-of-memories',
+    checkedOn: '2026-11-11',
+    steps: [
+      { id: 'step-1', title: 'GPUとメモリが最低環境を満たすか確認する' },
+      {
+        id: 'step-2',
+        title: 'GPUドライバーを更新し、ゲームファイルを確認する',
+      },
+      { id: 'step-3', title: '重い時は、推奨環境と比べる' },
     ],
   },
   '/games/cyberpunk-2077/not-launching': {
@@ -3176,6 +3208,9 @@ export const gameArticleContexts: Record<string, string> = {
     '/games/where-the-seeds-fall/not-launching',
   'game-godzilla-destroy-all-monsters-melee-not-launching':
     '/games/godzilla-destroy-all-monsters-melee/not-launching',
+  'game-path-of-exile-2-not-launching': '/games/path-of-exile-2/not-launching',
+  'game-edge-of-memories-not-launching':
+    '/games/edge-of-memories/not-launching',
   'game-cyberpunk-2077-not-launching': '/games/cyberpunk-2077/not-launching',
   'game-baldurs-gate-3-crash-on-startup':
     '/games/baldurs-gate-3/crash-on-startup',
@@ -3291,6 +3326,8 @@ export const gameArticleCategories: Record<string, string> = {
   '/games/football-manager-27/not-launching': 'launch',
   '/games/where-the-seeds-fall/not-launching': 'launch',
   '/games/godzilla-destroy-all-monsters-melee/not-launching': 'launch',
+  '/games/path-of-exile-2/not-launching': 'launch',
+  '/games/edge-of-memories/not-launching': 'launch',
   '/games/cyberpunk-2077/not-launching': 'launch',
   '/games/baldurs-gate-3/crash-on-startup': 'launch',
   '/games/helldivers-2/gameguard-error-114': 'launch',
@@ -3339,6 +3376,8 @@ export const reportableGames: readonly string[] = [
   'football-manager-27',
   'where-the-seeds-fall',
   'godzilla-destroy-all-monsters-melee',
+  'path-of-exile-2',
+  'edge-of-memories',
   'cyberpunk-2077',
   'baldurs-gate-3',
   'helldivers-2',
