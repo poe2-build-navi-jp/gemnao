@@ -12,7 +12,7 @@ export const generateMetadata = () =>
   englishEditorialMetadata('/gear', {
     title,
     description,
-    checkedAt: '2026-10-18',
+    checkedAt: '2026-11-15',
   });
 export default async function Page({
   params,

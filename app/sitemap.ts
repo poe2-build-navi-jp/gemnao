@@ -149,9 +149,9 @@ function entries(base: string): MetadataRoute.Sitemap {
     ...[
       ...remainingPagesEn.map((p) => ({
         path: `/en${p.path}`,
-        updated: '2026-10-18',
+        updated: p.path === '/gear' ? '2026-11-15' : '2026-10-18',
       })),
-      { path: '/en/articles', updated: '2026-10-19' },
+      { path: '/en/articles', updated: '2026-11-15' },
       { path: '/en/pc', updated: '2026-10-18' },
       { path: '/en/discord', updated: '2026-10-18' },
       { path: '/en/guide', updated: '2026-10-18' },

@@ -13,6 +13,8 @@ import type { AffiliatePosition } from '@/lib/affiliate-analytics';
 import { gearArticleBySlug, gearArticles } from '@/lib/gear-articles';
 import { gearGuideBySlug, gearGuides } from '@/lib/gear-guides';
 import { GearBuyerGuide } from '@/components/gear-buyer-guide';
+import { PcUpgradeBuyerGuide } from '@/components/pc-upgrade-buyer-guide';
+import { pcUpgradeGuideBySlug } from '@/lib/pc-upgrade-guides';
 
 export function generateStaticParams() {
   return [...gearArticles, ...gearGuides].map(({ slug }) => ({ slug }));
@@ -91,6 +93,8 @@ export default async function GearArticlePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const upgrade = pcUpgradeGuideBySlug(slug);
+  if (upgrade) return <PcUpgradeBuyerGuide guide={upgrade} />;
   const guide = gearGuideBySlug(slug);
   if (guide) return <GearBuyerGuide guide={guide} />;
   const article = gearArticleBySlug(slug);

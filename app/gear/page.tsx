@@ -10,7 +10,7 @@ import { ogImageFor } from '@/lib/og-images';
 export const metadata: Metadata = {
   title: 'ゲーマー向けデバイス｜できること・買う前の確認点',
   description:
-    'Discord用マイクや左手デバイスなどゲーマー向けデバイスを、メーカー公式の仕様から整理。できること、向いている人、買う前に確認したい端子・対応OS・サイズをまとめています。',
+    'メモリ16GBと32GB、Steamの容量不足とSSD、PCの増設・買い替え、Discord用マイクなどを公式資料から比較。無料の確認から、規格・容量・互換性・総費用の判断まで案内します。',
   alternates: { canonical: '/gear', languages: languageAlternates('/gear') },
   openGraph: {
     title: 'ゲーマー向けデバイス｜できること・買う前の確認点',
