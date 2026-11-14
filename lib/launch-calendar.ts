@@ -46,6 +46,12 @@ export const launches: Launch[] = [
     earlyAccess: '2026-12-02',
   },
   { gameSlug: 'edge-of-memories', release: '2026-12-03' },
+  {
+    gameSlug: 'attack-on-titan-3',
+    release: '2026-12-10',
+    earlyAccess: '2026-12-07',
+  },
+  { gameSlug: 'layton-new-world-of-steam', release: '2026-12-10' },
   { gameSlug: 'path-of-exile-2', release: '2026-12-11' },
 ];
 

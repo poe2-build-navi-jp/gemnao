@@ -1707,6 +1707,31 @@ export const articleReviews: Record<string, Omit<ArticleReview, 'path'>> = {
       { id: 'step-3', title: '重い時は、推奨環境と比べる' },
     ],
   },
+  '/games/attack-on-titan-3/save-data-bonus': {
+    title:
+      '進撃の巨人3 Steam版のセーブデータ連動特典が出ない・アーリーアクセスと特典の確認【PC版】',
+    gameSlug: 'attack-on-titan-3',
+    checkedOn: '2026-11-14',
+    steps: [
+      { id: 'step-1', title: '前作のセーブデータを最新の状態で保存し直す' },
+      { id: 'step-2', title: 'アーリーアクセスの対象か確認する' },
+      { id: 'step-3', title: 'Digital Deluxe Editionの特典の場所を確認する' },
+    ],
+  },
+  '/games/layton-new-world-of-steam/not-launching': {
+    title:
+      'レイトン教授と蒸気の新世界 Steam版が起動しない・予約特典が受け取れない時の確認【PC版】',
+    gameSlug: 'layton-new-world-of-steam',
+    checkedOn: '2026-11-14',
+    steps: [
+      { id: 'step-1', title: 'Windows 11か確認する' },
+      {
+        id: 'step-2',
+        title: 'GPUドライバーを更新し、ゲームファイルを確認する',
+      },
+      { id: 'step-3', title: '予約特典の条件を確認する' },
+    ],
+  },
   '/games/cyberpunk-2077/not-launching': {
     title:
       'サイバーパンク2077が起動しない・クラッシュする時の対処法｜公式サポートの手順【PC版】',
@@ -3215,6 +3240,10 @@ export const gameArticleContexts: Record<string, string> = {
   'game-path-of-exile-2-not-launching': '/games/path-of-exile-2/not-launching',
   'game-edge-of-memories-not-launching':
     '/games/edge-of-memories/not-launching',
+  'game-attack-on-titan-3-save-data-bonus':
+    '/games/attack-on-titan-3/save-data-bonus',
+  'game-layton-new-world-of-steam-not-launching':
+    '/games/layton-new-world-of-steam/not-launching',
   'game-cyberpunk-2077-not-launching': '/games/cyberpunk-2077/not-launching',
   'game-baldurs-gate-3-crash-on-startup':
     '/games/baldurs-gate-3/crash-on-startup',
@@ -3332,6 +3361,8 @@ export const gameArticleCategories: Record<string, string> = {
   '/games/godzilla-destroy-all-monsters-melee/not-launching': 'launch',
   '/games/path-of-exile-2/not-launching': 'launch',
   '/games/edge-of-memories/not-launching': 'launch',
+  '/games/attack-on-titan-3/save-data-bonus': 'save',
+  '/games/layton-new-world-of-steam/not-launching': 'launch',
   '/games/cyberpunk-2077/not-launching': 'launch',
   '/games/baldurs-gate-3/crash-on-startup': 'launch',
   '/games/helldivers-2/gameguard-error-114': 'launch',
@@ -3382,6 +3413,8 @@ export const reportableGames: readonly string[] = [
   'godzilla-destroy-all-monsters-melee',
   'path-of-exile-2',
   'edge-of-memories',
+  'attack-on-titan-3',
+  'layton-new-world-of-steam',
   'cyberpunk-2077',
   'baldurs-gate-3',
   'helldivers-2',

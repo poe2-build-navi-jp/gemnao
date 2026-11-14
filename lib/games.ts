@@ -680,6 +680,83 @@ export const games: GameGuide[] = [
     ],
   },
   {
+    slug: 'attack-on-titan-3',
+    title: '進撃の巨人3',
+    shortTitle: '進撃の巨人3',
+    lead: 'Steam版で『進撃の巨人2』のセーブデータ連動特典を受け取る公式の条件と、Digital Deluxe Editionの72時間アーリーアクセス、特典の受け取り場所を公式情報から整理。',
+    accent: '#4a3b2a',
+    demand: '2026年12月10日発売（公式サイト）・Digital Deluxe Editionは72時間前から先行プレイ',
+    issueScale: '高い',
+    updated: '2026-11-14',
+    tags: ['セーブデータ連動', '特典', 'アーリーアクセス', '動作環境'],
+    focused: true,
+    savePath: '',
+    configPath: '',
+    fps: '',
+    ultrawide: '',
+    hdr: 'HDR使用可能（Steamストアの表記）。',
+    controller:
+      'フルコントローラーサポート。DualSense対応、キーボードのみのオプションあり（Steamストアの表記）。',
+    launchFixes: [
+      '前作のセーブデータを最新パッチの状態で保存し直す（連動特典の条件）',
+      'アーリーアクセスはDigital Deluxe Editionの事前購入だけ',
+    ],
+    mod: '',
+    japanese:
+      '日本語のテキスト・音声に対応。音声は日本語のみ（公式サイト・Steamストア）。',
+    specs: {
+      minimum: '未定（Steamストアの表記はTBD。2026年11月14日時点）',
+      recommended: '未定（Steamストアの表記はTBD）',
+      storage: '未定',
+    },
+    sources: [
+      { label: 'Steamストア', url: steam('2916700') },
+      {
+        label: 'コーエーテクモゲームス公式サイト',
+        url: 'https://www.gamecity.ne.jp/shingeki3/jp/',
+      },
+    ],
+  },
+  {
+    slug: 'layton-new-world-of-steam',
+    title: 'レイトン教授と蒸気の新世界',
+    shortTitle: 'レイトン教授と蒸気の新世界',
+    lead: 'Steam版は最低環境からWindows 11が必須。起動しない時の確認と、12月9日23時59分までのダウンロード版予約特典の条件を公式情報から整理。',
+    accent: '#6b4a2a',
+    demand: '2026年12月10日発売予定（公式サイト）・Steam版の予約受付中',
+    issueScale: '高い',
+    updated: '2026-11-14',
+    tags: ['起動しない', 'Windows 11', '予約特典'],
+    focused: true,
+    savePath: '',
+    configPath: '',
+    fps: '',
+    ultrawide: '',
+    hdr: 'HDR使用可能（Steamストアの表記）。',
+    controller:
+      'フルコントローラーサポート。DUALSHOCK・DualSense対応（Steamストアの表記）。',
+    launchFixes: [
+      'Windows 11か確認（最低環境からWindows 11）',
+      'GPUドライバーを更新し、ゲームファイルを確認',
+    ],
+    mod: '',
+    japanese:
+      '日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。',
+    specs: {
+      minimum:
+        'Windows 11（64bit）。CPU・GPU・メモリは未定（TBD。2026年11月14日時点）',
+      recommended: 'Windows 11（64bit）。そのほかは未定（TBD）',
+      storage: '未定',
+    },
+    sources: [
+      { label: 'Steamストア', url: steam('3384600') },
+      {
+        label: '公式サイト：商品情報',
+        url: 'https://www.layton.jp/jouki/product/',
+      },
+    ],
+  },
+  {
     slug: 'where-the-seeds-fall',
     title: '崩落の国（Where the Seeds Fall）',
     shortTitle: '崩落の国',
