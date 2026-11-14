@@ -36,6 +36,9 @@ import { EnglishGearGuide } from '../components/english-gear-guide';
 import { EnglishCrashGuide } from '../components/english-crash-guide';
 import { gearGuidesEn } from '../lib/localized/gear-guides-en';
 import { gearGuideBySlug } from '../lib/gear-guides';
+import { PcUpgradeBuyerGuide } from '../components/pc-upgrade-buyer-guide';
+import { pcUpgradeGuideBySlug, pcUpgradeGuidesZhEs, pcUpgradeGuides } from '../lib/pc-upgrade-guides';
+import { searchArticles } from '../lib/site-search';
 import { eldenBacklogEn } from '../lib/localized/elden-backlog-en';
 import { recentGameArticlesEn } from '../lib/localized/recent-game-articles-en';
 import { articlesEn } from '../lib/localized/articles-en';
@@ -293,12 +296,46 @@ for (const guide of gearGuidesEn) {
   check(
     `/en${path}`,
     'en',
-    renderToStaticMarkup(<EnglishGearGuide guide={guide} />),
+    renderToStaticMarkup(pcUpgradeGuideBySlug(guide.slug) ? <PcUpgradeBuyerGuide guide={guide} locale="en" /> : <EnglishGearGuide guide={guide} />),
   );
   assert.equal(languageAlternates(path).en, `/en${path}`);
-  assert.equal(hasTranslation('zh', path), false);
-  assert.equal(hasTranslation('es', path), false);
+  assert.equal(hasTranslation('zh', path), Boolean(pcUpgradeGuideBySlug(guide.slug)));
+  assert.equal(hasTranslation('es', path), Boolean(pcUpgradeGuideBySlug(guide.slug)));
   pages++;
+}
+for (const { locale, guide } of pcUpgradeGuidesZhEs) {
+  const original = pcUpgradeGuideBySlug(guide.slug)!;
+  const path = `/gear/${guide.slug}`;
+  const html = renderToStaticMarkup(<PcUpgradeBuyerGuide guide={guide} locale={locale} />);
+  check(`/${locale}${path}`, locale, html);
+  assert.deepEqual(guide.sections.map((s) => s.id), original.sections.map((s) => s.id));
+  assert.deepEqual(guide.sources.map((s) => s.url), original.sources.map((s) => s.url));
+  assert.equal(guide.beforeBuying.length, original.beforeBuying.length);
+  assert.equal(guide.faqs.length, original.faqs.length);
+  assert(hasTranslation(locale, path));
+  assert(isEditorialSnapshotPath(`/${locale}${path}`));
+  assert(!html.includes('amazon.co.jp'), 'Japanese shopping links must not leak into translated pages');
+  assert(!sitemap().some((entry) => entry.url.endsWith(`/${locale}${path}`)), 'Preserve the existing zh/es noindex policy');
+  pages++;
+}
+for (const guide of pcUpgradeGuides) {
+  const path = `/gear/${guide.slug}`;
+  const html = renderToStaticMarkup(<PcUpgradeBuyerGuide guide={guide} />);
+  assert(html.indexOf('id="before-buying"') < html.indexOf('affiliate-box'));
+  assert(html.includes('rel="sponsored nofollow noopener"'));
+  assert(html.includes('tag=aquaponyo06-22'));
+  assert(!html.includes('data-step-result'), 'A buying decision must not be recorded as a repair result');
+  assert(sitemap().some((entry) => entry.url.endsWith(path) && entry.lastModified?.toString().includes('2026')));
+  assert(searchArticles(guide.shortTitle).some((item) => item.href === path));
+  const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]);
+  assert.equal(new Set(ids).size, ids.length, 'Table-of-contents anchors must be unique');
+  for (const locale of ['en', 'zh', 'es'] as const) {
+    const translation = pcUpgradeGuideBySlug(guide.slug, locale)!;
+    assert.deepEqual(translation.sections.map((s) => s.paragraphs.length), guide.sections.map((s) => s.paragraphs.length));
+    for (const link of translation.related.filter((item) => item.href.includes('/gear/'))) {
+      assert(pcUpgradeGuideBySlug(link.href.split('/').at(-1)!, locale), 'Translated related article must exist');
+    }
+  }
 }
 check(
   '/en/guide/pc-game-crash',

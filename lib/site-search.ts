@@ -18,10 +18,15 @@ import { articleCategoryLabel, gameArticles } from './game-articles';
 import { commonGuides } from './common-guides';
 import { discordArticles } from './discord-articles';
 import { pcArticles } from './pc-articles';
+import { pcUpgradeGuides } from './pc-upgrade-guides';
 import { articleMatchesTrouble, troubleHubForGuide } from './trouble-hubs';
 
 const gameBySlug = new Map(games.map((game) => [game.slug, game]));
 const articleIndex: SearchDocument<SearchArticle>[] = [
+  ...pcUpgradeGuides.map((guide) => document<SearchArticle>(
+    { key: `gear-${guide.slug}`, href: `/gear/${guide.slug}`, label: 'PC・パーツの選び方', title: guide.shortTitle, checkedAt: guide.checkedAt, kind: 'guide' },
+    [guide.title, guide.shortTitle], [], [guide.description, guide.answer],
+  )),
   ...gameArticles.map((article) => {
     const game = gameBySlug.get(article.gameSlug);
     return document<SearchArticle>(

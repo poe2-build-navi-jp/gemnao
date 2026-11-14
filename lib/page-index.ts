@@ -20,6 +20,7 @@ import {
 } from '@/lib/localized/index';
 import { commonGuidesEn } from '@/lib/localized/common-guides-en';
 import { gearGuidesEn } from '@/lib/localized/gear-guides-en';
+import { pcUpgradeGuidesZhEs } from '@/lib/pc-upgrade-guides';
 import { remainingPagesEn } from '@/lib/localized/remaining-pages-en';
 
 const fixedTitles: Record<string, string> = {
@@ -71,6 +72,7 @@ function titles() {
     add(`/${a.locale}/discord/${a.slug}`, a.title);
   for (const g of commonGuidesEn) add(`/en${g.path}`, g.title);
   for (const g of gearGuidesEn) add(`/en/gear/${g.slug}`, g.title);
+  for (const { locale, guide } of pcUpgradeGuidesZhEs) add(`/${locale}/gear/${guide.slug}`, guide.title);
   for (const p of remainingPagesEn) add(`/en${p.path}`, p.title);
   return map;
 }
