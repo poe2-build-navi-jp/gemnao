@@ -1,8 +1,10 @@
 import type { GearGuide } from '@/lib/gear-guides';
+import { pcUpgradeGuidesEn } from '@/lib/pc-upgrade-guides';
 
 // Complete English editions of the recent Japanese decision guides.
 // Keep section IDs and source URLs aligned with their originals.
 export const gearGuidesEn: GearGuide[] = [
+  ...pcUpgradeGuidesEn,
   {
     slug: 'save-backup-storage-guide',
     title:

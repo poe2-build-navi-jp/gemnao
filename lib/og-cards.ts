@@ -74,6 +74,7 @@ import { troubleHubs } from '@/lib/trouble-hubs';
 import { pcArticles } from '@/lib/pc-articles';
 import { gearArticles } from '@/lib/gear-articles';
 import { gearGuides } from '@/lib/gear-guides';
+import { pcUpgradeGuidesZhEs } from '@/lib/pc-upgrade-guides';
 import {
   discordArticleVisualBySlug,
   guideVisualBySlug,
@@ -209,6 +210,14 @@ export function ogCardSpecs(): OgCardSpec[] {
       title: guide.title,
       itemsLabel: '買う前の判断',
       items: guide.sections.slice(0, 4).map((section) => section.title),
+    })),
+    ...pcUpgradeGuidesZhEs.map(({ locale, guide }) => ({
+      path: `/${locale}/gear/${guide.slug}`,
+      locale,
+      eyebrow: locale === 'zh' ? '购买前判断' : 'Antes de comprar',
+      title: guide.title,
+      itemsLabel: locale === 'zh' ? '先确认这些条件' : 'Qué comprobar',
+      items: guide.sections.map((section) => section.title),
     })),
     ...gearArticles.map((article) => ({
       path: `/gear/${article.slug}`,

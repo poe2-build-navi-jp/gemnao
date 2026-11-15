@@ -77,10 +77,10 @@ export const remainingPagesEn = [
     path: '/gear',
     title: 'Gaming Equipment: Checks Before Buying',
     items: [
-      'Start with the problem',
-      'Check existing equipment',
-      'Compare compatibility',
-      'Review official specifications',
+      '16GB or 32GB RAM',
+      'Steam space and SSD compatibility',
+      'PC upgrade or replacement',
+      'Microphones and existing equipment',
     ],
   },
   {

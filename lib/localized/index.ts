@@ -54,6 +54,7 @@ import { recentGameArticlesEn } from '@/lib/localized/recent-game-articles-en';
 import { rocketLeagueLocalizedArticles } from '@/lib/localized/rocket-league-articles';
 import { localizedDiscordUploadArticles } from '@/lib/localized/discord-upload-articles';
 import { gearGuidesEn } from '@/lib/localized/gear-guides-en';
+import { pcUpgradeSlugs } from '@/lib/pc-upgrade-guides';
 import { indexedLocales, type Locale } from '@/lib/i18n';
 import { articlesEn } from '@/lib/localized/articles-en';
 import { articlesEs } from '@/lib/localized/articles-es';
@@ -192,6 +193,7 @@ export const englishEditorialPaths = [
  * points to a missing translation.
  */
 export function hasTranslation(locale: Locale, path: string) {
+  if (pcUpgradeSlugs.some((slug) => path === `/gear/${slug}`)) return true;
   if (
     path === '' ||
     path === '/' ||

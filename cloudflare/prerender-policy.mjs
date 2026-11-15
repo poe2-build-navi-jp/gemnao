@@ -10,6 +10,15 @@ export function isEditorialSnapshotPath(pathname) {
     ) ||
     /^\/(?:en|zh|es)\/(?:discord|examples)\/[a-z0-9-]+$/.test(pathname) ||
     [
+      '/en/gear/gaming-memory-16gb-32gb',
+      '/zh/gear/gaming-memory-16gb-32gb',
+      '/es/gear/gaming-memory-16gb-32gb',
+      '/en/gear/steam-storage-ssd-guide',
+      '/zh/gear/steam-storage-ssd-guide',
+      '/es/gear/steam-storage-ssd-guide',
+      '/en/gear/gaming-pc-upgrade-or-replace',
+      '/zh/gear/gaming-pc-upgrade-or-replace',
+      '/es/gear/gaming-pc-upgrade-or-replace',
       '/zh/tools/windows-diagnosis',
       '/es/tools/windows-diagnosis',
       '/en/pc/microphone-after-update',

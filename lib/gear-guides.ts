@@ -1,4 +1,5 @@
 import { saveBackupStorageGuide } from './save-backup-storage-guide';
+import { pcUpgradeGuides } from './pc-upgrade-guides';
 // Buyer guides describe a decision, not a single-product review.
 export type GearGuide = {
   slug: string;
@@ -34,6 +35,7 @@ export type GearGuide = {
 };
 
 export const gearGuides: GearGuide[] = [
+  ...pcUpgradeGuides,
   saveBackupStorageGuide,
   {
     slug: 'discord-microphone-guide',
