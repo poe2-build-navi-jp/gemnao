@@ -1697,7 +1697,7 @@ export const articleReviews: Record<string, Omit<ArticleReview, 'path'>> = {
     title:
       'Edge of Memories（エッジ・オブ・メモリーズ）が起動しない・落ちる時の対処法と動作環境【PC版】',
     gameSlug: 'edge-of-memories',
-    checkedOn: '2026-11-11',
+    checkedOn: '2026-11-15',
     steps: [
       { id: 'step-1', title: 'GPUとメモリが最低環境を満たすか確認する' },
       {

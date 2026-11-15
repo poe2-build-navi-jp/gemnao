@@ -44,6 +44,165 @@ const steamNews = (appId: string) =>
 
 export const weeklyReports: WeeklyReport[] = [
   {
+    slug: '2026-11-09',
+    title:
+      '今週のPCゲーム不具合まとめ（11月9日〜11月15日）｜HELLDIVERS 2のクラッシュ修正・AION2のログイン障害・WARDOGSシーズン3・FM27発売ほか',
+    shortTitle: '11月9日〜11月15日',
+    period: '2026年11月9日〜11月15日',
+    publishedAt: '2026-11-16',
+    description:
+      '11月9日〜11月15日に出たPCゲームの公式パッチ・障害・お知らせをまとめました。HELLDIVERS 2の7.2.3（起動時・終了時のクラッシュ修正）とMODの扱い、AION2のSteamでのログイン障害とメンテナンス、WARDOGSのシーズン3（Update 0.3.0）、FM27の発売、アニモのメンテナンス、Edge of Memoriesの体験版の再配信など。',
+    lead: '今週出た公式のパッチ・障害・エラー情報を、ゲームごとに1行で確認できます。詳しい直し方は各記事へ。',
+    highlights: [
+      'HELLDIVERS 2：7.2.3で、Windowsの書き込み権限に問題があると起動時に落ちる不具合などを修正。見た目だけのMODを試す時は、再インストールとファイルの整合性確認をしてから1つずつ追加するよう公式が案内',
+      'AION2：11/11にSteamのユーザーがアカウント連携のエラーでログインできない障害（解決済み）。Throne and Libertyの規約への同意を求める画面が出る問題も解消',
+      'WARDOGS：シーズン3（Update 0.3.0）を開始。サーバーのクラッシュや、初回起動時にベンチマークが2回動く問題を修正',
+    ],
+    items: [
+      {
+        date: '11/11',
+        game: 'HELLDIVERS 2',
+        gameSlug: 'helldivers-2',
+        kind: 'patch',
+        title:
+          '7.2.3：書き込み権限の問題で起動時に落ちる不具合、終了時のクラッシュなどを修正',
+        summary:
+          'Windowsの書き込み権限に問題がある時に起動で落ちる不具合、ゲーム終了時のクラッシュ、ハイヴワールドの洞窟で毒やガスを受けた時のクラッシュを修正。一部の見た目だけのMODが動かない問題にも対応した。',
+        article: {
+          href: '/games/helldivers-2/gameguard-error-114',
+          label: 'アンチチートのエラー・起動しない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('553850') },
+      },
+      {
+        date: '11/11',
+        game: 'HELLDIVERS 2',
+        gameSlug: 'helldivers-2',
+        kind: 'notice',
+        title: '開発ブログ：Easy Anti-CheatとMODの扱い、見た目MODの確認手順',
+        summary:
+          'ゲームのコードやメモリを変えるMODは引き続き禁止で、使うとBANの対象になりうると説明。見た目だけのMODを試す場合は、以前MODを入れていたなら再インストールし、Steamでファイルの整合性を確認して正常に動くのを確かめてから、MODを1つずつ追加して再確認するよう案内。仮想マシンから遊べなくなった報告も確認中。',
+        article: {
+          href: '/games/helldivers-2/gameguard-error-114',
+          label: 'アンチチートのエラー・起動しない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('553850') },
+      },
+      {
+        date: '11/11',
+        game: 'AION2',
+        gameSlug: 'aion2',
+        kind: 'outage',
+        title:
+          'Steamでログインできない障害（解決済み）。Throne and Libertyの規約画面も解消',
+        summary:
+          'アカウント連携のエラーでログインできない障害が発生し、Steamのユーザーに影響した。途中の案内ではSteamの再起動で入れるとされ、Throne and Libertyの利用規約への同意を求める画面が出る場合があった。その後解決し、規約の画面も出なくなったと公式が案内。',
+        article: {
+          href: '/games/aion2/login-error',
+          label: 'ログイン・接続できない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('3393110') },
+      },
+      {
+        date: '11/11',
+        game: 'AION2',
+        gameSlug: 'aion2',
+        kind: 'patch',
+        title: '定期メンテナンス（15:30から約4時間30分）とアップデート',
+        summary:
+          'メンテナンス後のアップデートで、遠征にハードモードを追加し、5分間効果の消耗品を10分に延長するなどの調整。11/10には、アカウント作成・管理のサービスのメンテナンスもあった。11/11付で、ボットやRMTなどの規約違反のアカウントを制限したと発表し、安全のための一時的なロックは処罰ではなくサポートへの連絡で解除できると案内。',
+        article: {
+          href: '/games/aion2/login-error',
+          label: 'ログイン・接続できない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('3393110') },
+      },
+      {
+        date: '11/13',
+        game: 'WARDOGS',
+        gameSlug: 'wardogs',
+        kind: 'patch',
+        title:
+          'シーズン3（Update 0.3.0）開始：サーバーのクラッシュやベンチマークの重複を修正',
+        summary:
+          '新マップ「Sabatulo」と新モードを追加。ロックオンの対象が無効になった時や車両が損傷した時のサーバーのクラッシュ、初回起動時にグラフィックのベンチマークが2回動く問題を修正し、地面の小物や雨の描画の負荷を軽くした。NVIDIA Inspectorなどで煙や草を消す行為は禁止と明記。',
+        article: {
+          href: '/games/wardogs/server-connection',
+          label: 'サーバーに接続できない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('1867240') },
+      },
+      {
+        date: '11/11',
+        game: 'Football Manager 27',
+        gameSlug: 'football-manager-27',
+        kind: 'release',
+        title: '発売。ローンチプレビューのセーブはそのまま続けられる',
+        summary:
+          'Steam・Epic Games・Microsoft Store・PC Game Passで配信。ローンチプレビューで始めたセーブは製品版で続けられると公式が案内。権利者の承認待ちのため、一部のクラブや選手のデータが入っていない場合があると説明。',
+        article: {
+          href: '/games/football-manager-27/not-launching',
+          label: '起動しない・ローンチプレビュー・Denuvo',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('4530370') },
+      },
+      {
+        date: '11/12',
+        game: 'アニモ（Aniimo）',
+        gameSlug: 'aniimo',
+        kind: 'outage',
+        title: 'アップデートのメンテナンス（アジア太平洋サーバーは15時〜20時）',
+        summary:
+          'メンテナンス中はログインできない。アジア太平洋サーバーはUTC+8で14時〜19時（日本時間15時〜20時）。メンテナンス後はゲームを再起動して最新のバージョンにするよう案内。',
+        article: {
+          href: '/games/aniimo/not-launching',
+          label: '起動しない・落ちる時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('4126040') },
+      },
+      {
+        date: '11/12',
+        game: 'Edge of Memories',
+        gameSlug: 'edge-of-memories',
+        kind: 'notice',
+        title: '体験版をSteamで再配信。発売後2週間の購入で衣装パック',
+        summary:
+          '内容はSteam Next Festの体験版と同じ第1幕で、敵の強さの調整、コントローラーのボタン割り当ての変更、セーブ完了の通知、アジアの言語の文字サイズの統一などを入れた。発売から2週間のうちに購入すると、Legacy Costume Packが付く。',
+        article: {
+          href: '/games/edge-of-memories/not-launching',
+          label: '起動しない時の対処法と動作環境',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('2738170') },
+      },
+    ],
+    upcoming: [
+      {
+        date: '12/3',
+        game: 'ドラゴンクエストモンスターズ4・Edge of Memories',
+        note: '発売（Steamストアの表記）',
+        href: '/games/dragon-quest-monsters-4/demo-transfer',
+      },
+      {
+        date: '12/7',
+        game: '進撃の巨人3',
+        note: 'Digital Deluxe Editionの先行プレイ開始（発売の72時間前・公式）',
+        href: '/games/attack-on-titan-3/save-data-bonus',
+      },
+      {
+        date: '12/10',
+        game: '進撃の巨人3・レイトン教授と蒸気の新世界',
+        note: '発売（公式サイトの表記）',
+        href: '/games/layton-new-world-of-steam/not-launching',
+      },
+      {
+        date: '12/11',
+        game: 'Path of Exile 2',
+        note: '正式リリース（太平洋時間）・基本プレイ無料（公式）',
+        href: '/games/path-of-exile-2/not-launching',
+      },
+    ],
+  },
+  {
     slug: '2026-11-02',
     title:
       '今週のPCゲーム不具合まとめ（11月2日〜11月8日）｜Phantom Blade Zeroのパッチ・Castlevania Ver.1.1.4・ゴジラと崩落の国の発売ほか',

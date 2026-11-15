@@ -645,7 +645,7 @@ export const games: GameGuide[] = [
     shortTitle: 'Edge of Memories',
     lead: '12月3日に延期されたMidgar Studioの新作RPG。最低環境のGTX 1060・メモリ12GBと、起動しない時の確認手順を公式情報から整理。',
     accent: '#2f4f6b',
-    demand: '2026年12月3日発売（11月5日から延期。公式のお知らせ）',
+    demand: '2026年12月3日発売（11月5日から延期）・体験版を11月12日に再配信（公式のお知らせ）',
     issueScale: '中程度',
     updated: '2026-11-11',
     tags: ['起動しない', '動作環境', '発売日', '体験版'],

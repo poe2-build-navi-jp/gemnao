@@ -1489,7 +1489,7 @@ export const upcomingReleaseArticles: GameArticle[] = [
     gameSlug: 'edge-of-memories',
     slug: 'not-launching',
     category: 'launch',
-    checkedAt: '2026-11-11',
+    checkedAt: '2026-11-15',
     seoTitle:
       'Edge of Memories（エッジ・オブ・メモリーズ）が起動しない時の対処法｜動作環境と発売日【PC版】',
     title:
@@ -1501,7 +1501,7 @@ export const upcomingReleaseArticles: GameArticle[] = [
     conclusion:
       '最低動作環境はWindows 10〜11、GTX 1060（6GB）・RX 590（8GB）・Arc A580（8GB）、メモリ12GBです（Steamストアの表記）。起動しない時は、まずGPUとドライバー、次にゲームファイルを確認します。動作環境は「最終版ではなく、発売までに変わる可能性がある」と書かれているため、発売前にもう一度確認してください。',
     description:
-      'Edge of Eternityを手がけたMidgar Studioの新作RPGです。11月5日発売の予定でしたが、公式は10月23日に12月3日へ延期すると発表しました。体験版は11月上旬にSteamで再び配信すると案内されています。日本語の字幕と音声に対応しています。',
+      'Edge of Eternityを手がけたMidgar Studioの新作RPGです。11月5日発売の予定でしたが、公式は10月23日に12月3日へ延期すると発表しました。体験版は11月12日にSteamで再配信されました（第1幕を遊べます）。日本語の字幕と音声に対応しています。',
     causes: [
       'GPUが最低環境（GTX 1060 6GB・RX 590・Arc A580）を下回る',
       'メモリが12GB未満',
@@ -1526,7 +1526,7 @@ export const upcomingReleaseArticles: GameArticle[] = [
       {
         label: 'PC版の購入特典',
         value:
-          'PCの予約購入はなし。発売後の一定期間に購入するとLegacy Costume Packが付く（公式）',
+          'PCの予約購入はなし。発売から2週間のうちに購入するとLegacy Costume Packが付く（公式）',
       },
       {
         label: '日本語',
@@ -1605,12 +1605,12 @@ export const upcomingReleaseArticles: GameArticle[] = [
       {
         question: '体験版はありますか？',
         answer:
-          '公式は10月23日のお知らせで、Steam Next Fest以降の改善を入れた体験版を11月上旬にSteamで再び配信すると案内しています。',
+          'あります。11月12日にSteamで再配信されました。内容はSteam Next Festの体験版と同じ第1幕で、敵の強さの調整、コントローラーのボタン割り当ての変更、セーブ完了の通知などが入っています（公式）。製品版を買う前に、自分のPCで動くかを体験版で確かめられます。',
       },
       {
         question: '予約特典はありますか？',
         answer:
-          'PC版の予約購入はありません。公式によると、発売後の一定期間にPCで購入すると、Legacy Costume Pack（Edge of EternityのYsorisとNekarooの衣装）が付きます。',
+          'PC版の予約購入はありません。公式によると、発売から2週間のうちにPCで購入すると、Legacy Costume Pack（Edge of EternityのYsorisとNekarooの衣装）が付きます。',
       },
       {
         question: 'コントローラーで遊べますか？',
@@ -1626,7 +1626,7 @@ export const upcomingReleaseArticles: GameArticle[] = [
       },
       {
         label:
-          'Steamニュース（公式）：発売日の延期（12月3日）・体験版・購入特典',
+          'Steamニュース（公式）：発売日の延期（12月3日）・体験版の再配信（11月12日）・購入特典',
         url: 'https://store.steampowered.com/news/app/2738170',
       },
     ],

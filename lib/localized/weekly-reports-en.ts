@@ -14,6 +14,9 @@ const names: Record<string, string> = {
   'ファイナルファンタジー レゾナンス': 'FINAL FANTASY RESONANCE',
   'Call of Duty: Modern Warfare 4・ファイナルファンタジー レゾナンス':
     'Call of Duty: Modern Warfare 4 / Final Fantasy Resonance',
+  進撃の巨人3: 'Attack on Titan 3',
+  '進撃の巨人3・レイトン教授と蒸気の新世界':
+    'Attack on Titan 3 / Professor Layton and the New World of Steam',
 };
 const text: Record<
   string,
@@ -25,6 +28,57 @@ const text: Record<
     upcoming: string[];
   }
 > = {
+  '2026-11-09': {
+    title:
+      'PC Gaming Weekly, November 9–15: HELLDIVERS 2 Crash Fixes, AION2 Login Outage, WARDOGS Season 3 and FM27 Launch',
+    description:
+      'An archive of official patches and announcements from November 9–15, 2026: HELLDIVERS 2 7.2.3 (startup and exit crash fixes) and its mod guidance, AION2’s Steam login outage and maintenance, WARDOGS Season 3 (Update 0.3.0), the FM27 launch, Aniimo maintenance and the returning Edge of Memories demo.',
+    highlights: [
+      'HELLDIVERS 2: 7.2.3 fixed a startup crash when Windows write permissions were problematic. For cosmetic mods, the developer advises reinstalling and verifying files first, then adding mods one at a time.',
+      'AION2: on November 11, an account-linking error stopped Steam users from logging in (resolved). A prompt asking players to accept Throne and Liberty terms was also removed.',
+      'WARDOGS: Season 3 (Update 0.3.0) launched, fixing server crashes and the graphics benchmark running twice on first launch.',
+    ],
+    items: [
+      [
+        '7.2.3 fixed a startup crash caused by write-permission issues, an exit crash and more',
+        'Fixed a crash on boot when the game had issues writing with Windows permissions, a crash when exiting, and a crash from poison or gas status effects in Hive World caves. Some cosmetic mods that had stopped working were unblocked.',
+      ],
+      [
+        'Developer blog: Easy Anti-Cheat, mods and checking cosmetic mods',
+        'Mods that alter game code or memory remain prohibited and may lead to bans. To try cosmetic mods, reinstall if mods were previously installed, verify files in Steam, confirm the game runs, then add mods one at a time and reverify. Reports of virtual machines losing access are being reviewed.',
+      ],
+      [
+        'Steam login outage (resolved); the Throne and Liberty terms prompt was removed',
+        'An account-linking error prevented logins for Steam users. An interim notice said restarting Steam allowed entry and that a Throne and Liberty terms/data prompt might appear. The developer later said the issue was resolved and the prompt no longer appears.',
+      ],
+      [
+        'Scheduled maintenance from 15:30 for about 4.5 hours, then an update',
+        'The update added Hard mode to Expeditions and extended 5-minute consumables to 10 minutes, among other changes. Account creation and management services also had maintenance on November 10. Accounts violating policy (bots, RMT) were restricted as of November 11; temporary security locks are not penalties and are lifted through Customer Support.',
+      ],
+      [
+        'Season 3 (Update 0.3.0) launched with server-crash and duplicate-benchmark fixes',
+        'Added the Sabatulo map and a new mode. Fixed server crashes when a locked-on target became invalid or vehicles were damaged, and the graphics benchmark running twice on first launch; improved ground-clutter and rain performance. Using NVIDIA Inspector or similar tools to remove smoke or grass is prohibited.',
+      ],
+      [
+        'Released; Launch Preview saves can be continued',
+        'Available on Steam, Epic Games, the Microsoft Store and PC Game Pass. Saves started in the Launch Preview can be continued. Some club and player assets may be missing while rights-holder approval is pending.',
+      ],
+      [
+        'Update maintenance (Asia-Pacific servers 15:00–20:00 JST)',
+        'Login is unavailable during maintenance. Asia-Pacific servers were down 14:00–19:00 UTC+8 (15:00–20:00 JST). Restart the client afterward to run the latest version.',
+      ],
+      [
+        'Demo returns on Steam; buying in the first two weeks adds a costume pack',
+        'The demo covers the same Act 1 as the Steam Next Fest version, with enemy balancing, full controller button remapping, a save-completed notification and standardized text size for Asian languages. Purchases in the first two weeks after launch include the Legacy Costume Pack.',
+      ],
+    ],
+    upcoming: [
+      'Release date shown on Steam.',
+      'Digital Deluxe Edition early access begins 72 hours before release (official).',
+      'Release date on the official sites.',
+      'Full release (Pacific Time); free to play (official).',
+    ],
+  },
   '2026-11-02': {
     title:
       'PC Gaming Weekly, November 2–8: Phantom Blade Zero Patch, Castlevania 1.1.4, Godzilla and Where the Seeds Fall',
@@ -449,6 +503,7 @@ const text: Record<
   },
 };
 const periods: Record<string, string> = {
+  '2026-11-09': 'November 9–15',
   '2026-11-02': 'November 2–8',
   '2026-10-26': 'October 26–November 1',
   '2026-10-19': 'October 19–25',
