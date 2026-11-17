@@ -33,7 +33,11 @@ import { SaveGame } from '@/components/save-game';
 import { GameArticleLinks } from '@/components/game-article-links';
 import { PathCopy } from '@/components/path-copy';
 import { WikiFooter, WikiHeader } from '@/components/wiki-header';
-import { articlesForGame, hubIndexable } from '@/lib/game-articles';
+import {
+  articlesForGame,
+  hubIndexable,
+  hubLastChecked,
+} from '@/lib/game-articles';
 import { gameBySlug, games } from '@/lib/games';
 import { ogImageFor } from '@/lib/og-images';
 import { languageAlternates } from '@/lib/localized/index';
@@ -123,6 +127,7 @@ export default async function GamePage({
   const gameArticles = articlesForGame(game.slug).filter(
     (article) => !['draft', 'thin'].includes(article.status || 'verified'),
   );
+  const lastChecked = hubLastChecked(game);
   const feedbackTopics = gameArticles.map((article) => ({
     id: article.slug,
     label: article.shortTitle,
@@ -136,6 +141,22 @@ export default async function GamePage({
               q: `${game.shortTitle}では何を確認できますか？`,
               a: `${game.launchFixes.join('。')}。確認済みの問題だけを個別記事で案内しています。`,
             },
+            ...(game.japanese
+              ? [
+                  {
+                    q: `${game.shortTitle}は日本語に対応していますか？`,
+                    a: game.japanese,
+                  },
+                ]
+              : []),
+            ...(game.specs.minimum
+              ? [
+                  {
+                    q: `${game.shortTitle}の最低動作環境は？`,
+                    a: `${game.specs.minimum}${game.specs.storage ? `。ストレージ：${game.specs.storage}` : ''}`,
+                  },
+                ]
+              : []),
           ]
         : [
             { q: `${game.shortTitle}のセーブデータはどこ？`, a: game.savePath },
@@ -165,10 +186,12 @@ export default async function GamePage({
             ],
           }
         : {}),
-      description: game.hubDescription || (game.slug === 'aniimo' ? aniimoHubDescription : game.lead),
+      description:
+        game.hubDescription ||
+        (game.slug === 'aniimo' ? aniimoHubDescription : game.lead),
       citation: game.sources.map((source) => source.url),
       image: `${siteConfig.url}${ogImageFor(`/games/${game.slug}`)}`,
-      dateModified: game.updated,
+      dateModified: lastChecked,
       author: editorialAuthor,
       publisher: editorialPublisher,
       inLanguage: 'ja-JP',
@@ -236,7 +259,7 @@ export default async function GamePage({
           <p className="article-lead">{game.lead}</p>
           <div className="article-meta">
             <EditorialByline />
-            <span>最終確認 {game.updated.replaceAll('-', '.')}</span>
+            <span>最終確認 {lastChecked.replaceAll('-', '.')}</span>
           </div>
           <SaveGame slug={game.slug} />
         </div>
@@ -263,6 +286,8 @@ export default async function GamePage({
                 </>
               ) : null}
               <a href="#article-links-title">症状から探す</a>
+              <a href="#game-facts">動作環境・日本語・まず確認すること</a>
+              {game.slug !== 'aniimo' ? <a href="#faq">よくある質問</a> : null}
               <a href="#references">参考情報</a>
             </>
           ) : (
@@ -278,7 +303,9 @@ export default async function GamePage({
           )}
         </ArticleToc>
         <article className="guide-article">
-          {gameArticles.length > 0 && <ReportEntryLink prominent gameSlug={game.slug} />}
+          {gameArticles.length > 0 && (
+            <ReportEntryLink prominent gameSlug={game.slug} />
+          )}
           {game.slug !== 'aniimo' && game.slug !== 'rocket-league' ? (
             <div className="safety-note">
               <AlertTriangle size={20} />
@@ -305,6 +332,104 @@ export default async function GamePage({
               topicOptions={feedbackTopics}
               heading={`${game.shortTitle}で困っていること`}
             />
+          ) : null}
+
+          {game.focused ? (
+            <>
+              <InfoSection
+                id="game-facts"
+                icon={<CheckCircle2 />}
+                title={`${game.shortTitle}の動作環境・日本語対応・まず確認すること`}
+              >
+                {game.demand ? <p>{game.demand}</p> : null}
+                {game.launchFixes.length ? (
+                  <>
+                    <h3>まず確認すること</h3>
+                    <p>
+                      上から1つずつ試し、毎回結果を確認します。詳しい手順は上の症状別の記事にあります。
+                    </p>
+                    <ol className="fix-list">
+                      {game.launchFixes.map((fix, index) => (
+                        <li key={fix}>
+                          <span>{index + 1}</span>
+                          <div>
+                            <b>{fix}</b>
+                          </div>
+                        </li>
+                      ))}
+                    </ol>
+                  </>
+                ) : null}
+                {game.specs.minimum ? (
+                  <>
+                    <h3>動作環境</h3>
+                    <div className="spec-table">
+                      <div>
+                        <b>最低</b>
+                        <span>{game.specs.minimum}</span>
+                      </div>
+                      {game.specs.recommended ? (
+                        <div>
+                          <b>推奨</b>
+                          <span>{game.specs.recommended}</span>
+                        </div>
+                      ) : null}
+                      {game.specs.storage ? (
+                        <div>
+                          <b>ストレージ</b>
+                          <span>{game.specs.storage}</span>
+                        </div>
+                      ) : null}
+                    </div>
+                    <p className="source-note">
+                      公式の動作環境はアップデートで変わることがあります。購入前はストアの最新の表示も確認してください。
+                    </p>
+                  </>
+                ) : null}
+                {game.japanese || game.controller || game.hdr ? (
+                  <div className="fact-grid">
+                    {game.japanese ? (
+                      <div>
+                        <span>
+                          <Languages size={17} /> 日本語
+                        </span>
+                        <p>{game.japanese}</p>
+                      </div>
+                    ) : null}
+                    {game.controller ? (
+                      <div>
+                        <span>
+                          <Gamepad2 size={17} /> コントローラー
+                        </span>
+                        <p>{game.controller}</p>
+                      </div>
+                    ) : null}
+                    {game.hdr ? (
+                      <div>
+                        <span>
+                          <Sparkles size={17} /> HDR
+                        </span>
+                        <p>{game.hdr}</p>
+                      </div>
+                    ) : null}
+                  </div>
+                ) : null}
+              </InfoSection>
+              {game.slug !== 'aniimo' &&
+              game.slug !== 'onimusha-way-of-the-sword' ? (
+                <section className="faq-section" id="faq">
+                  <h2>よくある質問</h2>
+                  <div>
+                    {faq.map((item) => (
+                      <details key={item.q}>
+                        <summary>{item.q}</summary>
+                        <p>{item.a}</p>
+                      </details>
+                    ))}
+                  </div>
+                </section>
+              ) : null}
+            </>
           ) : null}
 
           {!game.focused && (
@@ -470,7 +595,9 @@ export default async function GamePage({
           </section>
         </article>
       </div>
-      <div className="content"><ReportedCaseLink articlePath={`/games/${slug}`} /></div>
+      <div className="content">
+        <ReportedCaseLink articlePath={`/games/${slug}`} />
+      </div>
       <WikiFooter />
     </main>
   );
