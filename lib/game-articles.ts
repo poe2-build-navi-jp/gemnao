@@ -1021,6 +1021,19 @@ export function articlesForGame(gameSlug: string) {
  * hubs) its own save-path / settings reference. A focused hub with a single
  * article would just repeat that article, so it stays noindex, follow.
  */
+/** A game hub is as fresh as its newest checked article. */
+export function hubLastChecked(game: { slug: string; updated: string }) {
+  return [
+    game.updated,
+    ...articlesForGame(game.slug)
+      .filter((article) => !['draft', 'thin'].includes(article.status || 'verified'))
+      .map((article) => article.checkedAt || ''),
+  ]
+    .filter(Boolean)
+    .sort()
+    .at(-1) as string;
+}
+
 export function hubIndexable(game: { slug: string; focused?: boolean }) {
   if (!game.focused) return true;
   return (

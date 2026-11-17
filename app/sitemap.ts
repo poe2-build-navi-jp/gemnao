@@ -5,7 +5,11 @@ import { reportedCases, casePath } from '@/lib/reported-cases';
 import type { MetadataRoute } from 'next';
 import { gearGuidesEn } from '@/lib/localized/gear-guides-en';
 import { games } from '@/lib/games';
-import { gameArticles, hubIndexable } from '@/lib/game-articles';
+import {
+  gameArticles,
+  hubIndexable,
+  hubLastChecked,
+} from '@/lib/game-articles';
 import { commonGuides } from '@/lib/common-guides';
 import { discordArticles } from '@/lib/discord-articles-all';
 import { troubleHubs } from '@/lib/trouble-hubs';
@@ -84,7 +88,7 @@ function entries(base: string): MetadataRoute.Sitemap {
     })),
     ...games.filter(hubIndexable).map((game) => ({
       url: `${base}/games/${game.slug}`,
-      lastModified: new Date(game.updated),
+      lastModified: new Date(hubLastChecked(game)),
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     })),
