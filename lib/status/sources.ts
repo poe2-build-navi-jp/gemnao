@@ -18,6 +18,8 @@ export const steamAppIds: Record<string, string> = {
   'football-manager-27': '4530370',
   'path-of-exile-2': '2694490',
   'edge-of-memories': '2738170',
+  'attack-on-titan-3': '2916700',
+  'layton-new-world-of-steam': '3384600',
   'phantom-blade-zero': '4115450',
   'dragon-quest-monsters-4': '3681610',
   'call-of-duty-modern-warfare-4': '4435490',
