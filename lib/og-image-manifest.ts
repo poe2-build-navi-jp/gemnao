@@ -473,6 +473,8 @@ export const ogImageManifest: Record<string, string> = {
   "/games/planet-zoo-2/franchise-save-not-loading": "4aff995d",
   "/games/pubg": "a1061084",
   "/games/pubg/anti-cheat-conflict-warning": "80833743",
+  "/games/rob-run": "222d5d72",
+  "/games/rob-run/server-connection": "0e55327e",
   "/games/rocket-league": "50feb128",
   "/games/rocket-league/dualsense-not-working": "06b53071",
   "/games/shin-sangoku-musou-2-remastered": "71d4a2b1",
