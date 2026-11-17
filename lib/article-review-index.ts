@@ -1732,6 +1732,18 @@ export const articleReviews: Record<string, Omit<ArticleReview, 'path'>> = {
       { id: 'step-3', title: '予約特典の条件を確認する' },
     ],
   },
+  '/games/rob-run/server-connection': {
+    title:
+      'ROB RUN（ロブラン）に接続できない・ログインできない・ラグい時の対処法｜サーバー地域・進行状況・日本語対応【PC版】',
+    gameSlug: 'rob-run',
+    checkedOn: '2026-11-18',
+    steps: [
+      { id: 'step-1', title: '公式のお知らせで障害が出ていないか確認する' },
+      { id: 'step-2', title: 'サーバー地域を確認し、必要なら変える' },
+      { id: 'step-3', title: '進行状況が消えた時は、ワイプの時期を確認する' },
+      { id: 'step-4', title: '回線・ゲームファイル・PCの性能を確認する' },
+    ],
+  },
   '/games/cyberpunk-2077/not-launching': {
     title:
       'サイバーパンク2077が起動しない・クラッシュする時の対処法｜公式サポートの手順【PC版】',
@@ -3244,6 +3256,7 @@ export const gameArticleContexts: Record<string, string> = {
     '/games/attack-on-titan-3/save-data-bonus',
   'game-layton-new-world-of-steam-not-launching':
     '/games/layton-new-world-of-steam/not-launching',
+  'game-rob-run-server-connection': '/games/rob-run/server-connection',
   'game-cyberpunk-2077-not-launching': '/games/cyberpunk-2077/not-launching',
   'game-baldurs-gate-3-crash-on-startup':
     '/games/baldurs-gate-3/crash-on-startup',
@@ -3363,6 +3376,7 @@ export const gameArticleCategories: Record<string, string> = {
   '/games/edge-of-memories/not-launching': 'launch',
   '/games/attack-on-titan-3/save-data-bonus': 'save',
   '/games/layton-new-world-of-steam/not-launching': 'launch',
+  '/games/rob-run/server-connection': 'server',
   '/games/cyberpunk-2077/not-launching': 'launch',
   '/games/baldurs-gate-3/crash-on-startup': 'launch',
   '/games/helldivers-2/gameguard-error-114': 'launch',
@@ -3415,6 +3429,7 @@ export const reportableGames: readonly string[] = [
   'edge-of-memories',
   'attack-on-titan-3',
   'layton-new-world-of-steam',
+  'rob-run',
   'cyberpunk-2077',
   'baldurs-gate-3',
   'helldivers-2',

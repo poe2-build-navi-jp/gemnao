@@ -34,6 +34,7 @@ export const launches: Launch[] = [
   { gameSlug: 'final-fantasy-resonance', release: '2026-10-23' },
   { gameSlug: 'phantom-blade-zero', release: '2026-10-29' },
   { gameSlug: 'godzilla-destroy-all-monsters-melee', release: '2026-11-03' },
+  { gameSlug: 'rob-run', release: '2026-11-04' },
   { gameSlug: 'where-the-seeds-fall', release: '2026-11-05' },
   {
     gameSlug: 'football-manager-27',

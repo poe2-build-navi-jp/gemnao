@@ -757,6 +757,46 @@ export const games: GameGuide[] = [
     ],
   },
   {
+    slug: 'rob-run',
+    title: 'ROB RUN（ロブラン）',
+    shortTitle: 'ROB RUN',
+    lead: '基本プレイ無料のクライムサンドボックス。サーバーはEUと米国東部だけ。接続できない・ラグい・進行状況が消えた時の確認を公式情報から整理。',
+    accent: '#7a2f2f',
+    demand: '2026年11月4日に早期アクセス開始・基本プレイ無料（同時接続のピークは約55万人）',
+    issueScale: '非常に高い',
+    updated: '2026-11-18',
+    tags: ['接続できない', 'ラグ', 'サーバー地域', 'ワイプ', '基本プレイ無料'],
+    focused: true,
+    savePath: '',
+    configPath: '',
+    fps: '',
+    ultrawide: '',
+    hdr: '',
+    controller: '',
+    launchFixes: [
+      '公式のお知らせで障害が出ていないか確認',
+      'サーバー地域（EU・米国東部）を確認',
+      'ゲームファイルの整合性を確認し、GPUドライバーを更新',
+    ],
+    mod: '',
+    japanese:
+      '日本語には未対応（英語・ロシア語・フランス語・ドイツ語・スペイン語・ポルトガル語。Steamストアの表記）。',
+    specs: {
+      minimum:
+        'Windows 10以降／Core i5-6600K・Ryzen 5 1600／GTX 1050 Ti・RX 580・Arc A380／メモリ12GB／DirectX 11',
+      recommended:
+        'Windows 10以降／Core i5-9600K・Ryzen 5 3600／RTX 2070・RX 5700 XT・Arc B570／メモリ16GB',
+      storage: '20GB',
+    },
+    sources: [
+      { label: 'Steamストア', url: steam('4262460') },
+      {
+        label: '公式のお知らせ（Steamニュース）',
+        url: 'https://store.steampowered.com/news/app/4262460',
+      },
+    ],
+  },
+  {
     slug: 'where-the-seeds-fall',
     title: '崩落の国（Where the Seeds Fall）',
     shortTitle: '崩落の国',
