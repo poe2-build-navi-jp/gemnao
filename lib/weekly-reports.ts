@@ -44,6 +44,172 @@ const steamNews = (appId: string) =>
 
 export const weeklyReports: WeeklyReport[] = [
   {
+    slug: '2026-11-16',
+    title:
+      '今週のPCゲーム不具合まとめ（11月16日〜11月22日）｜FM27 Update 27.1.0のクラッシュ修正・ROB RUNのパッチ・AION2のEUサーバー接続障害ほか',
+    shortTitle: '11月16日〜11月22日',
+    period: '2026年11月16日〜11月22日',
+    publishedAt: '2026-11-23',
+    description:
+      '11月16日〜11月22日に出たPCゲームの公式パッチ・障害・お知らせをまとめました。FM27のUpdate 27.1.0（クラッシュ修正・低スペックPCでの読み込み改善）、ROB RUNの接続の安定性改善と不正対策、AION2のEUサーバー接続障害とメンテナンス、The Blood of DawnwalkerのUpdate 1.2、アニモのコントローラーの右スティックの修正など。',
+    lead: '今週出た公式のパッチ・障害・エラー情報を、ゲームごとに1行で確認できます。詳しい直し方は各記事へ。',
+    highlights: [
+      'FM27：Update 27.1.0で多数のクラッシュを修正し、低スペックのPCで大きなデータベースを読み込む時間を短縮。オンライン関連のクラッシュも修正',
+      'ROB RUN：11/17のパッチで接続の安定性を改善し、地域を変えても進行状況を引き継ぐように。11/20のパッチで不正の検出方法を追加し、サーバー一覧にオンラインのフレンドを表示',
+      'AION2：11/19にEUサーバーの接続障害を公式が告知。インフラ事業者間の通信経路の問題と説明',
+    ],
+    items: [
+      {
+        date: '11/17',
+        game: 'Football Manager 27',
+        gameSlug: 'football-manager-27',
+        kind: 'patch',
+        title:
+          'Update 27.1.0：多数のクラッシュを修正し、低スペックPCでの読み込みを改善',
+        summary:
+          'Steam・Epic Games Store・Microsoft Storeで配信。多数のクラッシュとオンライン関連のクラッシュを修正し、UIの動作を軽くした。低スペックのPCで大きなデータベースを読み込む時間を短縮し、1080p以上の画面でInformation Displayの設定を使えるようにした。試合エンジンやAIの移籍の調整も含む。不具合は公式のBug Tracker、技術的な問題はSEGAサポートへ報告するよう案内。',
+        article: {
+          href: '/games/football-manager-27/not-launching',
+          label: '起動しない・起動時クラッシュの対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('4530370') },
+      },
+      {
+        date: '11/17',
+        game: 'ROB RUN',
+        gameSlug: 'rob-run',
+        kind: 'patch',
+        title:
+          'パッチ：接続の安定性を改善。地域を変えても進行状況とバトルパスを引き継ぎ',
+        summary:
+          '接続の問題をいくつか修正し、接続の安定性を改善。地域を変えても進行状況とバトルパスのポイントが引き継がれるようになった。マウスのY軸反転の設定や、キャラクター名の不適切な語句のフィルターを追加。',
+        article: {
+          href: '/games/rob-run/server-connection',
+          label: '接続できない・ラグい時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('4262460') },
+      },
+      {
+        date: '11/20',
+        game: 'ROB RUN',
+        gameSlug: 'rob-run',
+        kind: 'patch',
+        title: 'パッチ：不正の検出方法を追加し、ネットワークの性能を改善',
+        summary:
+          '不正行為の検出方法を追加し、ネットワークの性能を改善。サーバー一覧に、オンラインのフレンドが遊んでいるサーバーが表示されるようになった。警官の枠が空いているかを、装備の選択画面を開く前に確認するようにした。',
+        article: {
+          href: '/games/rob-run/server-connection',
+          label: '接続できない・ラグい時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('4262460') },
+      },
+      {
+        date: '11/19',
+        game: 'AION2',
+        gameSlug: 'aion2',
+        kind: 'outage',
+        title: 'EUサーバーの接続障害。インフラ事業者間の通信経路の問題',
+        summary:
+          'EUサーバーに接続しにくい問題について、サービスを支えるインフラ事業者の間の通信経路の1つに問題があると公式が説明。パートナーと解決を進めており、復旧の見込みが分かり次第知らせると案内。',
+        article: {
+          href: '/games/aion2/login-error',
+          label: 'ログイン・接続できない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('3393110') },
+      },
+      {
+        date: '11/18',
+        game: 'AION2',
+        gameSlug: 'aion2',
+        kind: 'outage',
+        title:
+          '定期メンテナンス（15:30から約3時間）。11/25からワールドマーケット',
+        summary:
+          'メンテナンス中はログインできず、開始時に切断される。11/25のメンテナンス後から、同じ陣営・地域のほかのサーバーと取引できるワールドマーケット・ワールド取引所が始まる（メンバーシップ利用者のみ、販売手数料20%）と告知。',
+        article: {
+          href: '/games/aion2/login-error',
+          label: 'ログイン・接続できない時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('3393110') },
+      },
+      {
+        date: '11/17',
+        game: 'The Blood of Dawnwalker',
+        gameSlug: 'the-blood-of-dawnwalker',
+        kind: 'patch',
+        title: 'Update 1.2：New Game+を追加し、地形の引っかかりを修正',
+        summary:
+          'エピローグをクリアすると、レベル・スキル・持ち物を引き継いでNew Game+を始められる（レベル上限100）。戦闘や探索中に動きが引っかかる地形の問題を多数修正し、敵の体力や技を使う頻度を調整。',
+        article: {
+          href: '/games/the-blood-of-dawnwalker/shader-compilation-crash',
+          label: 'シェーダーのコンパイル・クラッシュの対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('3751260') },
+      },
+      {
+        date: '11/18',
+        game: 'アニモ（Aniimo）',
+        gameSlug: 'aniimo',
+        kind: 'patch',
+        title:
+          '11月18日の修正（v1.1.3973445.0）：コントローラーの右スティックなど',
+        summary:
+          'コントローラーの右スティックの問題、チャットのタブの表示、一部のスキルのエフェクトが表示されない問題などを修正。',
+        article: {
+          href: '/games/aniimo/not-launching',
+          label: '起動しない・落ちる時の対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('4126040') },
+      },
+      {
+        date: '11/16',
+        game: 'Minecraft Dungeons 2',
+        gameSlug: 'minecraft-dungeons-2',
+        kind: 'patch',
+        title: 'バランス調整：ゲームの更新は不要、次のログインで反映',
+        summary:
+          'Echo ShardとEmeraldの上限の引き上げ、アーティファクトの強化、ボスの体力の調整など。ゲームの更新は不要で、次にログインした時に反映される。不具合はaka.ms/Dungeons2Bugsへ報告するよう案内。',
+        article: {
+          href: '/games/minecraft-dungeons-2/multiplayer',
+          label: 'マルチプレイ・クロスプレイの対処法',
+        },
+        source: { label: 'Steamニュース（公式）', url: steamNews('1912410') },
+      },
+    ],
+    upcoming: [
+      {
+        date: '11/25',
+        game: 'AION2',
+        note: 'メンテナンス後にワールドマーケット・ワールド取引所が開始（公式）',
+        href: '/games/aion2/login-error',
+      },
+      {
+        date: '12/3',
+        game: 'ドラゴンクエストモンスターズ4・Edge of Memories',
+        note: '発売（Steamストアの表記）',
+        href: '/games/dragon-quest-monsters-4/demo-transfer',
+      },
+      {
+        date: '12/7',
+        game: '進撃の巨人3',
+        note: 'Digital Deluxe Editionの先行プレイ開始（発売の72時間前・公式）',
+        href: '/games/attack-on-titan-3/save-data-bonus',
+      },
+      {
+        date: '12/10',
+        game: '進撃の巨人3・レイトン教授と蒸気の新世界',
+        note: '発売（公式サイトの表記）',
+        href: '/games/layton-new-world-of-steam/not-launching',
+      },
+      {
+        date: '12/11',
+        game: 'Path of Exile 2',
+        note: '正式リリース（太平洋時間）・基本プレイ無料（公式）',
+        href: '/games/path-of-exile-2/not-launching',
+      },
+    ],
+  },
+  {
     slug: '2026-11-09',
     title:
       '今週のPCゲーム不具合まとめ（11月9日〜11月15日）｜HELLDIVERS 2のクラッシュ修正・AION2のログイン障害・WARDOGSシーズン3・FM27発売ほか',

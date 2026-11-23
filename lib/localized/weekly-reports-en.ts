@@ -28,6 +28,58 @@ const text: Record<
     upcoming: string[];
   }
 > = {
+  '2026-11-16': {
+    title:
+      'PC Gaming Weekly, November 16–22: FM27 Update 27.1.0 Crash Fixes, ROB RUN Patches and AION2 EU Connection Issues',
+    description:
+      'An archive of official patches and announcements from November 16–22, 2026: FM27 Update 27.1.0 (crash fixes and faster loading on lower-end PCs), ROB RUN connection-stability and anti-cheat patches, AION2 EU connection issues and maintenance, The Blood of Dawnwalker Update 1.2 and Aniimo’s right-stick fix.',
+    highlights: [
+      'FM27: Update 27.1.0 fixed numerous crashes, including online-related ones, and improved loading times for large databases on lower-end PCs.',
+      'ROB RUN: the November 17 patch improved connection stability and keeps progress when changing regions; the November 20 patch added cheat-detection methods and shows online friends in the server list.',
+      'AION2: on November 19 the developer reported EU connection issues caused by a routing problem between infrastructure providers.',
+    ],
+    items: [
+      [
+        'Update 27.1.0 fixed numerous crashes and improved loading on lower-end PCs',
+        'Released on Steam, Epic Games Store and Microsoft Store. Fixed numerous crashes and online-related crashes, improved UI performance and shortened loading of larger databases on lower-end PCs; Information Display is now available at 1080p or higher. Match engine and AI transfer tweaks are included. Report gameplay issues via the official Bug Tracker and technical issues to SEGA Support.',
+      ],
+      [
+        'Patch improved connection stability; progress and Battle Pass carry over between regions',
+        'Fixed some connection issues and improved stability. Progress and Battle Pass points now carry over when changing regions. Added mouse Y-axis inversion and a profanity filter for character names.',
+      ],
+      [
+        'Patch added cheat-detection methods and improved network performance',
+        'Added more cheat-detection methods and improved network performance. The server list now shows which servers online friends are playing on, and the game checks for a vacant cop slot before opening equipment selection.',
+      ],
+      [
+        'EU connection issues caused by a routing problem between infrastructure providers',
+        'The developer identified a network routing issue on one connection path between infrastructure providers supporting the service, is working with partners on a fix and will share an expected resolution time.',
+      ],
+      [
+        'Scheduled maintenance from 15:30 for about three hours; World Market from November 25',
+        'Login is unavailable during maintenance and players are disconnected when it starts. From November 25 (after maintenance), the World Market and World Exchange allow trading with other servers in the same faction and region (Membership only, 20% sales tax).',
+      ],
+      [
+        'Update 1.2 added New Game+ and fixed terrain snagging',
+        'After the Epilogue, New Game+ keeps level, skills and inventory (level cap 100). Multiple terrain geometry fixes smooth movement in combat and exploration; enemy health and ability frequency were adjusted.',
+      ],
+      [
+        'November 18 fixes (v1.1.3973445.0) including the controller right stick',
+        'Fixed an issue with the controller right stick, the chat tab display and missing skill effects, among others.',
+      ],
+      [
+        'Balance update applied at next login, no game update needed',
+        'Raised Echo Shard and Emerald caps, buffed an artifact and adjusted boss health. No game update is required; changes apply at next login. Bugs can be reported at aka.ms/Dungeons2Bugs.',
+      ],
+    ],
+    upcoming: [
+      'World Market and World Exchange open after maintenance (official).',
+      'Release date shown on Steam.',
+      'Digital Deluxe Edition early access begins 72 hours before release (official).',
+      'Release date on the official sites.',
+      'Full release (Pacific Time); free to play (official).',
+    ],
+  },
   '2026-11-09': {
     title:
       'PC Gaming Weekly, November 9–15: HELLDIVERS 2 Crash Fixes, AION2 Login Outage, WARDOGS Season 3 and FM27 Launch',
@@ -503,6 +555,7 @@ const text: Record<
   },
 };
 const periods: Record<string, string> = {
+  '2026-11-16': 'November 16–22',
   '2026-11-09': 'November 9–15',
   '2026-11-02': 'November 2–8',
   '2026-10-26': 'October 26–November 1',
