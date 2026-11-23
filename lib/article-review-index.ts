@@ -1744,6 +1744,34 @@ export const articleReviews: Record<string, Omit<ArticleReview, 'path'>> = {
       { id: 'step-4', title: '回線・ゲームファイル・PCの性能を確認する' },
     ],
   },
+  '/games/dawn-of-war-4/system-requirements': {
+    title:
+      'Warhammer 40,000: Dawn of War IV の推奨スペックと起動しない時の確認｜Windows 10・容量125GB・メモリ16GB【PC版】',
+    gameSlug: 'dawn-of-war-4',
+    checkedOn: '2026-11-23',
+    steps: [
+      { id: 'step-1', title: 'Windowsのバージョンを確認する' },
+      { id: 'step-2', title: 'ストレージの空きを確認する' },
+      { id: 'step-3', title: 'メモリとGPUを確認する' },
+      {
+        id: 'step-4',
+        title: 'GPUドライバーを更新し、ゲームファイルを確認する',
+      },
+    ],
+  },
+  '/games/rayman-legends-retold/not-launching': {
+    title:
+      'Rayman Legends Retold（レイマン レジェンド リトールド）が起動しない時の対処法｜Ubisoftアカウント・SSD・Intel GPUのReBar【PC版】',
+    gameSlug: 'rayman-legends-retold',
+    checkedOn: '2026-11-23',
+    steps: [
+      { id: 'step-1', title: 'Ubisoftアカウントにログインし、Steamと連携する' },
+      { id: 'step-2', title: 'PC認証の制限（1日5台まで）を確認する' },
+      { id: 'step-3', title: 'SSDにインストールされているか確認する' },
+      { id: 'step-4', title: 'Intel GPUではResizable BARを有効にする' },
+      { id: 'step-5', title: 'GPUとドライバー、ゲームファイルを確認する' },
+    ],
+  },
   '/games/cyberpunk-2077/not-launching': {
     title:
       'サイバーパンク2077が起動しない・クラッシュする時の対処法｜公式サポートの手順【PC版】',
@@ -3257,6 +3285,10 @@ export const gameArticleContexts: Record<string, string> = {
   'game-layton-new-world-of-steam-not-launching':
     '/games/layton-new-world-of-steam/not-launching',
   'game-rob-run-server-connection': '/games/rob-run/server-connection',
+  'game-dawn-of-war-4-system-requirements':
+    '/games/dawn-of-war-4/system-requirements',
+  'game-rayman-legends-retold-not-launching':
+    '/games/rayman-legends-retold/not-launching',
   'game-cyberpunk-2077-not-launching': '/games/cyberpunk-2077/not-launching',
   'game-baldurs-gate-3-crash-on-startup':
     '/games/baldurs-gate-3/crash-on-startup',
@@ -3377,6 +3409,8 @@ export const gameArticleCategories: Record<string, string> = {
   '/games/attack-on-titan-3/save-data-bonus': 'save',
   '/games/layton-new-world-of-steam/not-launching': 'launch',
   '/games/rob-run/server-connection': 'server',
+  '/games/dawn-of-war-4/system-requirements': 'specs',
+  '/games/rayman-legends-retold/not-launching': 'launch',
   '/games/cyberpunk-2077/not-launching': 'launch',
   '/games/baldurs-gate-3/crash-on-startup': 'launch',
   '/games/helldivers-2/gameguard-error-114': 'launch',
@@ -3430,6 +3464,8 @@ export const reportableGames: readonly string[] = [
   'attack-on-titan-3',
   'layton-new-world-of-steam',
   'rob-run',
+  'dawn-of-war-4',
+  'rayman-legends-retold',
   'cyberpunk-2077',
   'baldurs-gate-3',
   'helldivers-2',
