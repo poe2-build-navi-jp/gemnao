@@ -48,6 +48,12 @@ export const launches: Launch[] = [
   },
   { gameSlug: 'edge-of-memories', release: '2026-12-03' },
   {
+    gameSlug: 'dawn-of-war-4',
+    release: '2026-12-03',
+    earlyAccess: '2026-11-30',
+  },
+  { gameSlug: 'rayman-legends-retold', release: '2026-12-03' },
+  {
     gameSlug: 'attack-on-titan-3',
     release: '2026-12-10',
     earlyAccess: '2026-12-07',

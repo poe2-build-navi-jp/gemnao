@@ -797,6 +797,87 @@ export const games: GameGuide[] = [
     ],
   },
   {
+    slug: 'dawn-of-war-4',
+    title: 'Warhammer 40,000: Dawn of War IV（ドーン・オブ・ウォー4）',
+    shortTitle: 'Dawn of War IV',
+    lead: '動作環境はWindows 11・125GB・メモリ16GB。Windows 10で動くか、容量とメモリの実際を公式の回答から整理。',
+    accent: '#3b3b55',
+    demand: '2026年12月3日発売・Commander Editionは11月30日から先行プレイ（公式）',
+    issueScale: '中程度',
+    updated: '2026-11-23',
+    tags: ['推奨スペック', 'Windows 10', '容量', 'メモリ', '先行プレイ'],
+    focused: true,
+    savePath: '',
+    configPath: '',
+    fps: '',
+    ultrawide: '',
+    hdr: '',
+    controller: '',
+    launchFixes: [
+      'Windowsのバージョンを確認（Windows 10は動くが公式の対応外）',
+      'ストレージに125GBの空きがあるか確認',
+      'GPUドライバーを更新し、ゲームファイルを確認',
+    ],
+    mod: '',
+    japanese:
+      '日本語のインターフェース・字幕に対応。フル音声は英語のみ（Steamストアの表記）。',
+    specs: {
+      minimum:
+        'Windows 11（Windows 10でも動くが公式の対応外）／Core i5-10600K・Ryzen 5 2600X／GTX 1660・RX 5700／メモリ16GB',
+      recommended:
+        'Windows 11／Core i7-12700・Ryzen 5 7600X／RTX 3060 Ti・RX 9060（8GB）／メモリ32GB（必須ではない）',
+      storage: '125GB（今のインストールは約100GB）',
+    },
+    sources: [
+      { label: 'Steamストア', url: steam('2272360') },
+      {
+        label: '公式のお知らせ（Steamニュース）',
+        url: 'https://store.steampowered.com/news/app/2272360',
+      },
+    ],
+  },
+  {
+    slug: 'rayman-legends-retold',
+    title: 'Rayman Legends Retold（レイマン レジェンド リトールド）',
+    shortTitle: 'Rayman Legends Retold',
+    lead: 'Steam版でもUbisoftアカウントが必要。Denuvoの1日5台までの認証、SSD必須、Intel GPUのReBarなど、起動しない時の確認を公式情報から整理。',
+    accent: '#2f5f8a',
+    demand: '2026年12月3日発売（Steamストアの表記）・Steam Deck認証済み',
+    issueScale: '中程度',
+    updated: '2026-11-23',
+    tags: ['起動しない', 'Ubisoftアカウント', 'Denuvo', 'SSD', 'Steam Deck'],
+    focused: true,
+    savePath: '',
+    configPath: '',
+    fps: '',
+    ultrawide: '',
+    hdr: '',
+    controller:
+      'フルコントローラーサポート・ゲームパッド推奨。DualSense対応、画面分割の協力プレイ・Remote Play Together対応（Steamストアの表記）。',
+    launchFixes: [
+      'Ubisoftアカウントにログインし、Steamと連携',
+      'SSDにインストール（SSD必須）',
+      'Intel GPUではResizable BARを有効にする',
+    ],
+    mod: '',
+    japanese:
+      '日本語のインターフェース・字幕・音声に対応（Steamストアの表記）。',
+    specs: {
+      minimum:
+        'Windows 10（64bit）／Core i3-8100・Ryzen 3 3100／GTX 1660・RX 5500 XT・Arc A580／メモリ8GB／DirectX 12',
+      recommended:
+        'Windows 11（64bit）／Core i5-8400・Ryzen 5 3600／RTX 2060 SUPER・RX 5700・Arc A750／メモリ16GB',
+      storage: '33GB（SSD必須）',
+    },
+    sources: [
+      { label: 'Steamストア', url: steam('4084710') },
+      {
+        label: '公式のお知らせ（Steamニュース）',
+        url: 'https://store.steampowered.com/news/app/4084710',
+      },
+    ],
+  },
+  {
     slug: 'where-the-seeds-fall',
     title: '崩落の国（Where the Seeds Fall）',
     shortTitle: '崩落の国',

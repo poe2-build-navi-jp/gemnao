@@ -2117,4 +2117,367 @@ export const upcomingReleaseArticles: GameArticle[] = [
     metaDescription:
       'ROB RUN（ロブラン）PC版に接続できない・ログインできない・ラグい時の対処法。EUと米国東部だけのサーバー地域、11月15日のEUサーバー障害、11月17日のパッチ、7日ごとのワイプ、日本語非対応まで公式情報をもとに解説。',
   }),
+  make({
+    gameSlug: 'dawn-of-war-4',
+    slug: 'system-requirements',
+    category: 'specs',
+    checkedAt: '2026-11-23',
+    seoTitle:
+      'Dawn of War IV（ドーン・オブ・ウォー4）の推奨スペック｜Windows 10で動く？125GBとメモリ16GB【PC版】',
+    title:
+      'Warhammer 40,000: Dawn of War IV の推奨スペックと起動しない時の確認｜Windows 10・容量125GB・メモリ16GB【PC版】',
+    shortTitle: '推奨スペック・Windows 10',
+    targetVersion: 'Steam版・2026年11月23日時点の公式情報（発売前）',
+    symptom:
+      'Windows 10で遊べるか、125GBの容量やメモリ32GBが本当に必要か知りたい、起動しない・重い場合の確認手順です。',
+    conclusion:
+      'Steamストアの動作環境はWindows 11ですが、公式は「Windows 10でも動く。ただしMicrosoftのサポートが終わったため公式の対応はWindows 11」と説明しています。容量は今は約100GBで、125GBは今後の更新やDLCの分を含めた数字です。メモリは16GBが最低で、32GBは推奨ですが必須ではありません（11月12日の公式のお知らせ）。',
+    description:
+      'KING Artが開発し、Deep Silverが発売するRTSで、2026年12月3日発売です。Commander Editionを予約購入すると、11月30日から3日早く遊べます。日本語のインターフェース・字幕に対応し、フル音声は英語のみです（Steamストアの表記）。NVIDIA GeForce NOWにも対応すると公式が発表しています。',
+    causes: [
+      'Windows 10・Linuxで動かしている（動くが公式の対応外）',
+      'ストレージの空きが足りない（今は約100GB。動作環境は125GB）',
+      'メモリが16GB未満',
+      'GPUが最低環境（GTX 1660・RX 5700）を下回る',
+      'GPUドライバーが古い・ゲームファイルの破損',
+    ],
+    quickFacts: [
+      {
+        label: '発売日',
+        value:
+          '2026年12月3日。Commander Editionは11月30日から先行プレイ（公式）',
+      },
+      {
+        label: '最低動作環境',
+        value:
+          'Windows 11／Core i5-10600K・Ryzen 5 2600X／GTX 1660・RX 5700／メモリ16GB／125GB',
+      },
+      {
+        label: '推奨動作環境',
+        value:
+          'Windows 11／Core i7-12700・Ryzen 5 7600X／RTX 3060 Ti・RX 9060（8GB）／メモリ32GB',
+      },
+      {
+        label: 'Windows 10',
+        value:
+          '動く。ただし公式の対応はWindows 11だけで、今後の更新での動作は保証されない（公式）',
+      },
+      {
+        label: '容量とメモリ',
+        value:
+          '今は約100GB（うちムービー約25GB）。メモリは16GBで動き、32GBは推奨だが必須ではない（公式）',
+      },
+      {
+        label: '日本語',
+        value:
+          'インターフェース・字幕は対応。フル音声は英語のみ（Steamストアの表記）',
+      },
+    ],
+    diagnosis: [
+      {
+        symptom: 'Windows 10で遊べるか不安',
+        cause: '動作環境の表記はWindows 11',
+        stepId: 'step-1',
+      },
+      {
+        symptom: 'インストールできない・容量が足りない',
+        cause: '125GBの空きがない',
+        stepId: 'step-2',
+      },
+      {
+        symptom: '重い・カクつく',
+        cause: 'メモリ・GPUが足りない',
+        stepId: 'step-3',
+      },
+      {
+        symptom: '起動しない・すぐ落ちる',
+        cause: 'ドライバー・ファイル・常駐ツール',
+        stepId: 'step-4',
+      },
+    ],
+    steps: [
+      {
+        id: 'step-1',
+        title: 'Windowsのバージョンを確認する',
+        summary:
+          '公式は、Windows 10でも動くと説明しています。ただしMicrosoftがWindows 10のサポートを終えたため、公式の動作環境にはWindows 11だけを載せています。',
+        time: '約2分',
+        risk: 'low',
+        actions: [
+          winver,
+          'Windows 10の場合：公式によると動くが、公式の対応外のため、今後の更新で動かなくなっても保証されない',
+          'クローズドベータで動いたPCなら、製品版も動くはずだと公式が案内している',
+        ],
+        note: 'Linuxで動いたという報告もあると公式は触れていますが、Windows 10と同じく公式の対応外です。',
+      },
+      {
+        id: 'step-2',
+        title: 'ストレージの空きを確認する',
+        summary:
+          '今のインストールは約100GB（うちムービーが約25GB）です。動作環境の125GBは、今後の更新やDLCのための余裕を含めた数字です（公式）。',
+        time: '約3分',
+        risk: 'low',
+        actions: [
+          'エクスプローラーで、インストール先のドライブに125GB以上の空きがあるか確認する',
+          '足りない場合は、Steamの「設定」→「ストレージ」で、空きの多いドライブを選ぶ',
+        ],
+      },
+      {
+        id: 'step-3',
+        title: 'メモリとGPUを確認する',
+        summary:
+          'メモリは16GBで動きます。32GBは推奨ですが必須ではなく、24GBでも動くと公式は説明しています。',
+        time: '約5分',
+        risk: 'low',
+        actions: [
+          'タスクマネージャー（Ctrl + Shift + Esc）の「パフォーマンス」で、メモリの容量とGPUの名前を確認する',
+          'メモリが16〜24GBの場合は、ブラウザーや録画ツールなど裏で動くアプリを閉じてから遊ぶ（公式は、使えるメモリは裏で動くアプリによって変わると説明）',
+          'GPUが最低環境（GTX 1660・RX 5700）以上か確認する',
+        ],
+      },
+      {
+        id: 'step-4',
+        title: 'GPUドライバーを更新し、ゲームファイルを確認する',
+        summary: '起動しない・起動直後に落ちる場合に確認します。',
+        time: '約15分',
+        risk: 'low',
+        actions: [
+          driverUpdate,
+          steamVerify,
+          'Discord・Steamのオーバーレイ、録画・FPS表示ツールをオフにして起動を比べる',
+        ],
+      },
+    ],
+    avoid: [
+      '発売前の動作環境だけで、メモリを32GBに増やす買い物を急がない（公式は32GBは必須ではないと説明）',
+    ],
+    cautions: [
+      '発売前の情報です。発売後に公式が案内する不具合や修正は、公式のお知らせもあわせて確認してください。',
+    ],
+    faqs: [
+      {
+        question: 'Windows 10で遊べますか？',
+        answer:
+          '公式は「Windows 10でも動く」と説明しています。ただし公式に対応しているのはWindows 11だけで、今後のアップデートでWindows 10での動作が続くかは保証されていません。',
+      },
+      {
+        question: 'メモリ16GBで足りますか？',
+        answer:
+          '16GBが最低動作環境で、遊ぶことはできます。公式は32GBを推奨していますが、裏で動くアプリのための余裕で、必須ではないと説明しています。',
+      },
+      {
+        question: '早く遊ぶ方法はありますか？',
+        answer:
+          'Commander Editionを予約購入すると、11月30日から3日早く遊べます。サウンドトラックと、2027年に配信予定の2つの拡張（春のBlood Ravens Story Prologue、夏のAftermath）も含まれます（公式）。',
+      },
+      {
+        question: 'スペックが足りない時は？',
+        answer:
+          '公式は、NVIDIA GeForce NOWでSteamのライブラリから遊べるようになると発表しています。',
+      },
+    ],
+    sources: [
+      {
+        label:
+          'Steamストア：Warhammer 40,000: Dawn of War IV（動作環境・対応言語）',
+        url: 'https://store.steampowered.com/app/2272360/',
+      },
+      {
+        label:
+          'Steamニュース（公式）：PCの動作環境のよくある質問（Windows 10・容量・メモリ）・Commander Edition',
+        url: 'https://store.steampowered.com/news/app/2272360',
+      },
+    ],
+    related: [],
+    metaDescription:
+      'Warhammer 40,000: Dawn of War IV（ドーン・オブ・ウォー4）PC版の推奨スペック。Windows 10で動くかの公式回答、125GBのうち今の容量は約100GB、メモリ16GBと32GBの違い、11月30日からの先行プレイまで公式情報をもとに解説。',
+  }),
+  make({
+    gameSlug: 'rayman-legends-retold',
+    slug: 'not-launching',
+    category: 'launch',
+    checkedAt: '2026-11-23',
+    seoTitle:
+      'Rayman Legends Retold（レイマン レジェンド リトールド）が起動しない時の対処法｜Ubisoftアカウント・SSD必須【PC版】',
+    title:
+      'Rayman Legends Retold（レイマン レジェンド リトールド）が起動しない時の対処法｜Ubisoftアカウント・SSD・Intel GPUのReBar【PC版】',
+    shortTitle: '起動しない・Ubisoftアカウント',
+    targetVersion: 'Steam版・2026年11月23日時点の公式情報（発売前）',
+    symptom:
+      'PC版が起動しない、Ubisoftアカウントの連携で止まる、別のPCで起動できない、Intel GPUで重い・動かない場合の確認手順です。',
+    conclusion:
+      'Steam版でもUbisoftアカウントが必要で、Steamアカウントと連携できます。DRMはDenuvoで、1日に5台までのPC認証の制限があります（Steamストアの表記）。インストール先はSSDが必須で、Intel GPUではResizable BAR（ReBar）を有効にする必要があります（公式）。',
+    description:
+      'Ubisoftが2026年12月3日に発売するRayman Legendsのリメイクです。Steam Deck認証済みで、60fpsを目標にしていると公式が案内しています。日本語の字幕と音声に対応しています。',
+    causes: [
+      'Ubisoftアカウントの連携が終わっていない',
+      '1日に5台までのPC認証の制限（Denuvo）にかかった',
+      'HDDにインストールしている（SSD必須）',
+      'Intel GPUでResizable BAR（ReBar）が無効',
+      'GPUが最低環境を下回る・ドライバーが古い・ファイルの破損',
+    ],
+    quickFacts: [
+      { label: '発売日', value: '2026年12月3日（Steamストアの表記）' },
+      {
+        label: '最低動作環境',
+        value:
+          'Windows 10（64bit）／Core i3-8100・Ryzen 3 3100／GTX 1660（6GB）・RX 5500 XT（4GB）・Arc A580（8GB）／メモリ8GB（デュアルチャネル）／DirectX 12／SSD 33GB。1080p・60fps・低設定・アップスケーリング「品質」',
+      },
+      {
+        label: '推奨動作環境',
+        value:
+          'Windows 11（64bit）／Core i5-8400・Ryzen 5 3600／RTX 2060 SUPER・RX 5700・Arc A750（8GB）／メモリ16GB。1080p・60fps・高設定',
+      },
+      {
+        label: 'アカウント・DRM',
+        value:
+          'Ubisoftアカウントが必要（Steamと連携可）。Denuvo、1日に5台までのPC認証（Steamストアの表記）',
+      },
+      {
+        label: 'Intel GPU',
+        value: 'Resizable BAR（ReBar）の有効化が必須（公式）',
+      },
+      {
+        label: '日本語',
+        value: 'インターフェース・字幕・音声に対応（Steamストアの表記）',
+      },
+    ],
+    diagnosis: [
+      {
+        symptom: '起動するとUbisoftのログインで止まる',
+        cause: 'Ubisoftアカウントの連携',
+        stepId: 'step-1',
+      },
+      {
+        symptom: '別のPCで起動できない',
+        cause: '1日5台までのPC認証の制限',
+        stepId: 'step-2',
+      },
+      {
+        symptom: '読み込みが長い・カクつく',
+        cause: 'HDDにインストールしている',
+        stepId: 'step-3',
+      },
+      {
+        symptom: 'Intel GPUで重い・動かない',
+        cause: 'Resizable BARが無効',
+        stepId: 'step-4',
+      },
+      {
+        symptom: '起動直後に落ちる・黒い画面のまま',
+        cause: 'GPU・ドライバー・ファイル',
+        stepId: 'step-5',
+      },
+    ],
+    steps: [
+      {
+        id: 'step-1',
+        title: 'Ubisoftアカウントにログインし、Steamと連携する',
+        summary:
+          'Steamストアには「Ubisoftアカウントが必要（Steamアカウントとのリンクに対応）」と書かれています。公式は、Steam版でUbisoft Connect Liteのサービスを使えると案内しています。',
+        time: '約5分',
+        risk: 'low',
+        actions: [
+          '初めて起動した時に表示されるUbisoftのログイン画面で、Ubisoftアカウントにログインする（持っていない場合は作る）',
+          'Steamアカウントとの連携を求められたら連携する',
+          'ログインで止まる場合は、インターネットに接続できているかを確認してから、ゲームとSteamを再起動する',
+        ],
+      },
+      {
+        id: 'step-2',
+        title: 'PC認証の制限（1日5台まで）を確認する',
+        summary:
+          'Steamストアには、DRMがDenuvoで「1日に5台まで」のPC認証の制限があると書かれています。',
+        time: '約3分',
+        risk: 'low',
+        actions: [
+          '同じ日に何台のPCで起動したかを確認する',
+          '制限にかかった場合は、日を改めて起動する',
+        ],
+      },
+      {
+        id: 'step-3',
+        title: 'SSDにインストールされているか確認する',
+        summary:
+          '公式の動作環境は、最低・推奨とも「SSD必須」で、空き容量は33GBです。',
+        time: '約5分',
+        risk: 'low',
+        actions: [
+          'Steamの「設定」→「ストレージ」で、ゲームが入っているドライブを確認する',
+          'タスクマネージャー（Ctrl + Shift + Esc）の「パフォーマンス」で、そのドライブの種類（SSD／HDD）を確認する',
+          'HDDの場合は、ストレージ画面でゲームを選び「移動」からSSDのドライブへ移す',
+        ],
+      },
+      {
+        id: 'step-4',
+        title: 'Intel GPUではResizable BARを有効にする',
+        summary:
+          '公式の動作環境には「Intel GPUを使う場合はReBarを有効にする必要がある」と書かれています。',
+        time: '約15分',
+        risk: 'medium',
+        actions: [
+          'PCやマザーボードのメーカーの説明書・サポートページで、Resizable BAR（ReBar）が有効になっているかの確認方法を調べて確認する',
+          '無効の場合は、メーカーの説明に従ってUEFI（BIOS）の設定で有効にする',
+        ],
+        note: 'UEFI（BIOS）の設定を変える前に、今の設定を写真などで控えておいてください。分からない項目は変えないでください。',
+      },
+      {
+        id: 'step-5',
+        title: 'GPUとドライバー、ゲームファイルを確認する',
+        summary:
+          '最低環境はGTX 1660（6GB）・RX 5500 XT（4GB）・Arc A580（8GB）、DirectX 12です。',
+        time: '約15分',
+        risk: 'low',
+        actions: [
+          'タスクマネージャーの「パフォーマンス」→「GPU」で、GPUの名前と「専用GPUメモリ」を確認する',
+          driverUpdate,
+          steamVerify,
+        ],
+      },
+    ],
+    avoid: [
+      '起動できないからといって、PCを何台も切り替えて試さない（1日5台までの認証の制限があります）',
+      '非公式のツールでDRMを外そうとしない',
+    ],
+    cautions: [
+      '発売前の情報です。発売後に公式が案内する不具合や修正は、公式のお知らせもあわせて確認してください。',
+    ],
+    faqs: [
+      {
+        question: 'Ubisoftアカウントは必要ですか？',
+        answer:
+          'はい。Steamストアには「Ubisoftアカウントが必要（Steamアカウントとのリンクに対応）」と書かれています。',
+      },
+      {
+        question: 'Steam Deckで遊べますか？',
+        answer:
+          '公式によると、Rayman Legends RetoldとRayman Origins: Enhanced EditionはどちらもSteam Deck認証済みで、60fpsを目標にしています。',
+      },
+      {
+        question: '日本語で遊べますか？',
+        answer:
+          'Steamストアの表記では、日本語のインターフェース・字幕・音声に対応しています。',
+      },
+      {
+        question: '友達と一緒に遊べますか？',
+        answer:
+          'Steamストアの表記では、画面分割での協力プレイ・対戦とRemote Play Togetherに対応しています。',
+      },
+    ],
+    sources: [
+      {
+        label:
+          'Steamストア：Rayman Legends Retold（動作環境・Ubisoftアカウント・DRM・対応言語）',
+        url: 'https://store.steampowered.com/app/4084710/',
+      },
+      {
+        label:
+          'Steamニュース（公式）：PCの動作環境（SSD必須・Intel GPUのReBar）・Steam Deck認証',
+        url: 'https://store.steampowered.com/news/app/4084710',
+      },
+    ],
+    related: [],
+    metaDescription:
+      'Rayman Legends Retold（レイマン レジェンド リトールド）PC版が起動しない時の対処法。必要なUbisoftアカウントとSteamの連携、Denuvoの1日5台までの認証、SSD必須、Intel GPUのResizable BAR、動作環境を公式情報をもとに解説。',
+  }),
 ];

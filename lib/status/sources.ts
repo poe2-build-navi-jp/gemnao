@@ -21,6 +21,8 @@ export const steamAppIds: Record<string, string> = {
   'attack-on-titan-3': '2916700',
   'layton-new-world-of-steam': '3384600',
   'rob-run': '4262460',
+  'dawn-of-war-4': '2272360',
+  'rayman-legends-retold': '4084710',
   'phantom-blade-zero': '4115450',
   'dragon-quest-monsters-4': '3681610',
   'call-of-duty-modern-warfare-4': '4435490',
