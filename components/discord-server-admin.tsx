@@ -324,7 +324,7 @@ export function DiscordServerAdmin() {
                   期限切れ
                 </button>
               </div>
-            ) : null}
+            ) : item.status === 'closed' || item.status === 'expired' ? (               <div className="admin-server-actions">                 <button                   type="button"                   disabled={busyId !== null}                   onClick={() => void update(item.id, 'approved')}                 >                   再公開する                 </button>               </div>             ) : null}
           </article>
         ))
       ) : (
