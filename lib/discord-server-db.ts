@@ -244,9 +244,10 @@ export async function updateDiscordServerStatus(
            last_verified_at = CASE WHEN ? = 'approved' THEN ? ELSE last_verified_at END
        WHERE id = ?
          AND ((status = 'pending' AND ? IN ('approved', 'rejected'))
-           OR (status = 'approved' AND ? IN ('expired', 'closed')))`,
+           OR (status = 'approved' AND ? IN ('expired', 'closed'))
+           OR (status IN ('closed', 'expired') AND ? = 'approved'))`,
     )
-    .bind(status, status, now, now, status, now, id, status, status)
+    .bind(status, status, now, now, status, now, id, status, status, status)
     .run();
   return result.meta.changes > 0;
 }
